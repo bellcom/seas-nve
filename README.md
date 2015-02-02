@@ -1,2 +1,0 @@
-# aaplus
-Aa+ Symfony Application
