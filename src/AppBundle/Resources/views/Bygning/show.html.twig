@@ -1,0 +1,219 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Bygning #{{ entity.bygId }}</h1>
+
+    <div class="row">
+        <div class="col-md-10">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Bygid</th>
+                    <td>{{ entity.bygId }}</td>
+                </tr>
+                <tr>
+                    <th>Ident</th>
+                    <td>{{ entity.ident }}</td>
+                </tr>
+                <tr>
+                    <th>Enhedsys</th>
+                    <td>{{ entity.enhedsys }}</td>
+                </tr>
+                <tr>
+                    <th>Enhedskode</th>
+                    <td>{{ entity.enhedskode }}</td>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <td>{{ entity.type }}</td>
+                </tr>
+                <tr>
+                    <th>Kommentarer</th>
+                    <td>{{ entity.kommentarer }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse</th>
+                    <td>{{ entity.adresse }}</td>
+                </tr>
+                <tr>
+                    <th>Postnummer</th>
+                    <td>{{ entity.postnummer }}</td>
+                </tr>
+                <tr>
+                    <th>Postby</th>
+                    <td>{{ entity.postBy }}</td>
+                </tr>
+                <tr>
+                    <th>Navn</th>
+                    <td>{{ entity.navn }}</td>
+                </tr>
+                <tr>
+                    <th>Ejer</th>
+                    <td>{{ entity.ejer }}</td>
+                </tr>
+                <tr>
+                    <th>Afdelingsnavn</th>
+                    <td>{{ entity.afdelingsnavn }}</td>
+                </tr>
+                <tr>
+                    <th>Ejera</th>
+                    <td>{{ entity.ejerA }}</td>
+                </tr>
+                <tr>
+                    <th>Anvendelse</th>
+                    <td>{{ entity.anvendelse }}</td>
+                </tr>
+                <tr>
+                    <th>Bruttoetageareal</th>
+                    <td>{{ entity.bruttoetageareal }}</td>
+                </tr>
+                <tr>
+                    <th>Maalertype</th>
+                    <td>{{ entity.maalertype }}</td>
+                </tr>
+                <tr>
+                    <th>Vand</th>
+                    <td>{{ entity.vand }}</td>
+                </tr>
+                <tr>
+                    <th>Kundenummer</th>
+                    <td>{{ entity.kundenummer }}</td>
+                </tr>
+                <tr>
+                    <th>Kode</th>
+                    <td>{{ entity.kode }}</td>
+                </tr>
+                <tr>
+                    <th>Varme</th>
+                    <td>{{ entity.varme }}</td>
+                </tr>
+                <tr>
+                    <th>Kundenr1</th>
+                    <td>{{ entity.kundenr1 }}</td>
+                </tr>
+                <tr>
+                    <th>Kode1</th>
+                    <td>{{ entity.kode1 }}</td>
+                </tr>
+                <tr>
+                    <th>Maalerskifteafv</th>
+                    <td>{{ entity.maalerskifteAFV }}</td>
+                </tr>
+                <tr>
+                    <th>Afvinstnr1</th>
+                    <td>{{ entity.aFVInstnr1 }}</td>
+                </tr>
+                <tr>
+                    <th>El</th>
+                    <td>{{ entity.el }}</td>
+                </tr>
+                <tr>
+                    <th>Instnr</th>
+                    <td>{{ entity.instnr }}</td>
+                </tr>
+                <tr>
+                    <th>Kundenrnrgi</th>
+                    <td>{{ entity.kundenrNRGI }}</td>
+                </tr>
+                <tr>
+                    <th>Internetkode</th>
+                    <td>{{ entity.internetkode }}</td>
+                </tr>
+                <tr>
+                    <th>Aftagenr</th>
+                    <td>{{ entity.aftagenr }}</td>
+                </tr>
+                <tr>
+                    <th>Telefon</th>
+                    <td>{{ entity.telefon }}</td>
+                </tr>
+                <tr>
+                    <th>Divisionnavn</th>
+                    <td>{{ entity.divisionnavn }}</td>
+                </tr>
+                <tr>
+                    <th>Områdenavn</th>
+                    <td>{{ entity.omraadenavn }}</td>
+                </tr>
+                <tr>
+                    <th>Kommune</th>
+                    <td>{{ entity.kommune }}</td>
+                </tr>
+                <tr>
+                    <th>Ejerforhold</th>
+                    <td>{{ entity.ejerforhold }}</td>
+                </tr>
+                <tr>
+                    <th>Ansvarlig</th>
+                    <td>{{ entity.ansvarlig }}</td>
+                </tr>
+                <tr>
+                    <th>Magistrat</th>
+                    <td>{{ entity.magistrat }}</td>
+                </tr>
+                <tr>
+                    <th>Lokation</th>
+                    <td>{{ entity.lokation }}</td>
+                </tr>
+                <tr>
+                    <th>Lokationsnavn</th>
+                    <td>{{ entity.lokationsnavn }}</td>
+                </tr>
+                <tr>
+                    <th>Lederbetegnelse</th>
+                    <td>{{ entity.lederbetegnelse }}</td>
+                </tr>
+                <tr>
+                    <th>Ledersnavn</th>
+                    <td>{{ entity.ledersnavn }}</td>
+                </tr>
+                <tr>
+                    <th>Ledersmail</th>
+                    <td>{{ entity.ledersmail }}</td>
+                </tr>
+                <tr>
+                    <th>Kontaktnotat</th>
+                    <td>{{ entity.kontaktNotat }}</td>
+                </tr>
+                <tr>
+                    <th>Stamdatanotat</th>
+                    <td>{{ entity.stamdataNotat }}</td>
+                </tr>
+                <tr>
+                    <th>Vandnotat</th>
+                    <td>{{ entity.vandNotat }}</td>
+                </tr>
+                <tr>
+                    <th>Elnotat</th>
+                    <td>{{ entity.elNotat }}</td>
+                </tr>
+                <tr>
+                    <th>Varmenotat</th>
+                    <td>{{ entity.varmeNotat }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-2">
+            <p>
+                <a href="{{ path('bygning') }}" class="btn btn-default">
+                    Back to the list
+                </a>
+            </p>
+            <p>
+                <a href="{{ path('bygning_edit', { 'id': entity.id }) }}" class="btn btn-success">
+                    Edit
+                </a>
+            </p>
+            {{ form_start(delete_form) }}
+            <p>
+                {{ form_widget(delete_form.submit,{ 'label': 'Slet', 'attr': {'class': 'btn-danger', 'type': 'button'} }) }}
+            </p>
+            {{ form_end(delete_form) }}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+

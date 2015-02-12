@@ -1,0 +1,31 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+
+    <h1>Tiltagsliste</h1>
+    <table class="table table-hover">
+        <tr>
+            <th>Titel</th>
+            <th>Primær Entreprise</th>
+            <th>Tiltagskategori</th>
+        </tr>
+        {% for t in tiltag %}
+            <tr>
+                <td>{{ t.title }}</td>
+                <td>{{ t.primaerEnterprise }}</td>
+                <td>{{ t.tilbudskategori }}</td>
+            </tr>
+        {% else %}
+            Ingen tiltag fundet
+        {% endfor %}
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('tiltag_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+
+{% endblock %}

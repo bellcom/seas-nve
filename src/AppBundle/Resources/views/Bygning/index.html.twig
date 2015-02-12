@@ -1,0 +1,35 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+
+    <h1>Bygninger</h1>
+    <table class="table table-hover">
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Adresse', 'b.adresse') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Postnr.', 'b.postnummer') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'By.', 'b.postBy') }}</th>
+        </tr>
+        {% for bygning in pagination %}
+            <tr>
+                <td><a href="/bygning/{{ bygning.id }}">{{ bygning.bygId }}</a></td>
+                <td><a href="/bygning/{{ bygning.id }}">{{ bygning.adresse }}</a></td>
+                <td>{{ bygning.postnummer }}</td>
+                <td>{{ bygning.postBy }}</td>
+            </tr>
+        {% else %}
+            Ingen bygninger fundet
+        {% endfor %}
+    </table>
+
+    {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('bygning_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+
+{% endblock %}

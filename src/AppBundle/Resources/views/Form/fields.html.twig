@@ -1,0 +1,6 @@
+{% extends "form_div_layout.html.twig" %}
+
+{% block button_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' btn')|trim}) %}
+    {{- parent() -}}
+{%- endblock %}
