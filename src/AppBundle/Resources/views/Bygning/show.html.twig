@@ -1,10 +1,36 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Bygning #{{ entity.bygId }}</h1>
+    <h1><i class="fa fa-home"></i> {{ entity.adresse }}, {{ entity.postnummer }} {{ entity.postBy }}</h1>
 
     <div class="row">
         <div class="col-md-10">
+        {% for rapport in entity.rapporter %}
+            <p><a href="{{ path('rapport_show', { 'id': rapport.id }) }}" class="btn btn-default"><i class="fa fa-file"></i> Ver. {{ rapport.version }} - {{ rapport.datering|date("d/m/Y") }}</a></p>
+        {% endfor %}
+        </div>
+        <div class="col-md-2">
+            <p>
+                <a href="{{ path('bygning') }}" class="btn btn-default">
+                    Back to the list
+                </a>
+            </p>
+            <p>
+                <a href="{{ path('bygning_edit', { 'id': entity.id }) }}" class="btn btn-success">
+                    Edit
+                </a>
+            </p>
+            {{ form_start(delete_form) }}
+            <p>
+                {{ form_widget(delete_form.submit,{ 'label': 'Slet', 'attr': {'class': 'btn-danger', 'type': 'button'} }) }}
+            </p>
+            {{ form_end(delete_form) }}
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
             <table class="table">
                 <tbody>
                 <tr>
@@ -194,24 +220,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-2">
-            <p>
-                <a href="{{ path('bygning') }}" class="btn btn-default">
-                    Back to the list
-                </a>
-            </p>
-            <p>
-                <a href="{{ path('bygning_edit', { 'id': entity.id }) }}" class="btn btn-success">
-                    Edit
-                </a>
-            </p>
-            {{ form_start(delete_form) }}
-            <p>
-                {{ form_widget(delete_form.submit,{ 'label': 'Slet', 'attr': {'class': 'btn-danger', 'type': 'button'} }) }}
-            </p>
-            {{ form_end(delete_form) }}
 
-        </div>
     </div>
 
 {% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1><i class="fa fa-file"></i> Rapport</h1>
+
+    <h2>Tiltag:</h2>
+
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Version</th>
+                <td>{{ entity.version }}</td>
+            </tr>
+            <tr>
+                <th>Bygning</th>
+                <td>{{ entity.bygning }}</td>
+            </tr>
+            <tr>
+                <th>Datering</th>
+                <td>{{ entity.datering | date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <a href="{{ path('pumpetiltag_new') }}" class="btn btn-default">
+            Pumpeudskiftninger
+        </a>
+    </p>
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('rapport') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('rapport_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
