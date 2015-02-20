@@ -357,8 +357,6 @@ class Bygning
         $this->rapporter = new ArrayCollection();
     }
 
-
-
     /**
      * Get Name
      *

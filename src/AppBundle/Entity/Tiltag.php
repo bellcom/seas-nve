@@ -32,119 +32,161 @@ class Tiltag
   /**
    * @var string
    *
-   * @ORM\Column(name="Title", type="string", length=255)
+   * @ORM\Column(name="Title", type="string", length=255, nullable=true)
    */
   private $title;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="Vandbesparelse", type="float")
+   * @ORM\Column(name="VarmebesparelseGUF", type="float", nullable=true)
+   */
+  private $varmebsparelseGUF;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="VarmebesparelseGAF", type="float", nullable=true)
+   */
+  private $varmebesparelseGAF;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="Elbesparelse", type="float", nullable=true)
+   */
+  private $elbesparelse;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="Vandbesparelse", type="float", nullable=true)
    */
   private $vandbesparelse;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="EnergibesparelseAarEt", type="float", nullable=true)
+   */
+  private $energibesparelseAarEt;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="CO2besparelseAarEt", type="float", nullable=true)
+   */
+  private $co2besparelseAarEt;
+
+  /**
    * @var integer
    *
-   * @ORM\Column(name="Faktor", type="integer")
+   * @ORM\Column(name="AntalReinvesteringer", type="integer", nullable=true)
+   */
+  private $antalReinvesteringer;
+
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="Faktor", type="integer", nullable=true)
    */
   private $faktor;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="PrimaerEnterprise", type="string", length=50)
+   * @ORM\Column(name="PrimaerEnterprise", type="string", length=50, nullable=true)
    */
   private $primaerEnterprise;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="Tilbudskategori", type="string", length=50)
+   * @ORM\Column(name="Tilbudskategori", type="string", length=50, nullable=true)
    */
   private $tilbudskategori;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="AnlaegsInvestering", type="decimal")
+   * @ORM\Column(name="AnlaegsInvestering", type="decimal", nullable=true)
    */
   private $anlaegsInvestering;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="DVBesparelse", type="decimal")
+   * @ORM\Column(name="DVBesparelse", type="decimal", nullable=true)
    */
   private $dVBesparelse;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="Levetid", type="decimal")
+   * @ORM\Column(name="Levetid", type="decimal", nullable=true)
    */
   private $levetid;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="ForsyningVarme", type="string", length=50)
+   * @ORM\Column(name="ForsyningVarme", type="string", length=50, nullable=true)
    */
   private $forsyningVarme;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="El", type="string", length=50)
+   * @ORM\Column(name="El", type="string", length=50, nullable=true)
    */
   private $el;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="BeskrivelseNevaerende", type="text")
+   * @ORM\Column(name="BeskrivelseNevaerende", type="text", nullable=true)
    */
   private $beskrivelseNevaerende;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="BeskrivelseForslag", type="text")
+   * @ORM\Column(name="BeskrivelseForslag", type="text", nullable=true)
    */
   private $beskrivelseForslag;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="BeskrivelseOevrige", type="text")
+   * @ORM\Column(name="BeskrivelseOevrige", type="text", nullable=true)
    */
   private $beskrivelseOevrige;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="Risikovurdering", type="string", length=10)
+   * @ORM\Column(name="Risikovurdering", type="string", length=10, nullable=true)
    */
   private $risikovurdering;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="Placering", type="string", length=255)
+   * @ORM\Column(name="Placering", type="string", length=255, nullable=true)
    */
   private $placering;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="BeskrivelseBV", type="text")
+   * @ORM\Column(name="BeskrivelseBV", type="text", nullable=true)
    */
   private $beskrivelseBV;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="Indeklima", type="text")
+   * @ORM\Column(name="Indeklima", type="text", nullable=true)
    */
   private $indeklima;
 
@@ -154,6 +196,17 @@ class Tiltag
    **/
   private $rapport;
 
+
+
+  /**
+   * Get Name
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->title;
+  }
 
   /**
    * Get id
@@ -577,5 +630,143 @@ class Tiltag
     public function getRapport()
     {
         return $this->rapport;
+    }
+
+    /**
+     * Set varmebsparelseGUF
+     *
+     * @param float $varmebsparelseGUF
+     * @return Tiltag
+     */
+    public function setVarmebsparelseGUF($varmebsparelseGUF)
+    {
+        $this->varmebsparelseGUF = $varmebsparelseGUF;
+
+        return $this;
+    }
+
+    /**
+     * Get varmebsparelseGUF
+     *
+     * @return float 
+     */
+    public function getVarmebsparelseGUF()
+    {
+        return $this->varmebsparelseGUF;
+    }
+
+    /**
+     * Set varmebesparelseGAF
+     *
+     * @param float $varmebesparelseGAF
+     * @return Tiltag
+     */
+    public function setVarmebesparelseGAF($varmebesparelseGAF)
+    {
+        $this->varmebesparelseGAF = $varmebesparelseGAF;
+
+        return $this;
+    }
+
+    /**
+     * Get varmebesparelseGAF
+     *
+     * @return float 
+     */
+    public function getVarmebesparelseGAF()
+    {
+        return $this->varmebesparelseGAF;
+    }
+
+    /**
+     * Set elbesparelse
+     *
+     * @param float $elbesparelse
+     * @return Tiltag
+     */
+    public function setElbesparelse($elbesparelse)
+    {
+        $this->elbesparelse = $elbesparelse;
+
+        return $this;
+    }
+
+    /**
+     * Get elbesparelse
+     *
+     * @return float 
+     */
+    public function getElbesparelse()
+    {
+        return $this->elbesparelse;
+    }
+
+    /**
+     * Set energibesparelseAarEt
+     *
+     * @param float $energibesparelseAarEt
+     * @return Tiltag
+     */
+    public function setEnergibesparelseAarEt($energibesparelseAarEt)
+    {
+        $this->energibesparelseAarEt = $energibesparelseAarEt;
+
+        return $this;
+    }
+
+    /**
+     * Get energibesparelseAarEt
+     *
+     * @return float 
+     */
+    public function getEnergibesparelseAarEt()
+    {
+        return $this->energibesparelseAarEt;
+    }
+
+    /**
+     * Set co2besparelseAarEt
+     *
+     * @param float $co2besparelseAarEt
+     * @return Tiltag
+     */
+    public function setCo2besparelseAarEt($co2besparelseAarEt)
+    {
+        $this->co2besparelseAarEt = $co2besparelseAarEt;
+
+        return $this;
+    }
+
+    /**
+     * Get co2besparelseAarEt
+     *
+     * @return float 
+     */
+    public function getCo2besparelseAarEt()
+    {
+        return $this->co2besparelseAarEt;
+    }
+
+    /**
+     * Set antalReinvesteringer
+     *
+     * @param integer $antalReinvesteringer
+     * @return Tiltag
+     */
+    public function setAntalReinvesteringer($antalReinvesteringer)
+    {
+        $this->antalReinvesteringer = $antalReinvesteringer;
+
+        return $this;
+    }
+
+    /**
+     * Get antalReinvesteringer
+     *
+     * @return integer 
+     */
+    public function getAntalReinvesteringer()
+    {
+        return $this->antalReinvesteringer;
     }
 }

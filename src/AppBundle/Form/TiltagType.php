@@ -16,7 +16,13 @@ class TiltagType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('varmebsparelseGUF')
+            ->add('varmebesparelseGAF')
+            ->add('elbesparelse')
             ->add('vandbesparelse')
+            ->add('energibesparelseAarEt')
+            ->add('co2besparelseAarEt')
+            ->add('antalReinvesteringer')
             ->add('faktor')
             ->add('primaerEnterprise')
             ->add('tilbudskategori')
@@ -32,6 +38,7 @@ class TiltagType extends AbstractType
             ->add('placering')
             ->add('beskrivelseBV')
             ->add('indeklima')
+            ->add('rapport')
         ;
     }
     

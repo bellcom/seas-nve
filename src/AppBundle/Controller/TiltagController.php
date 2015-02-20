@@ -31,18 +31,10 @@ class TiltagController extends Controller
 
         $entities = $em->getRepository('AppBundle:Tiltag')->findAll();
 
-        /*
         return array(
             'entities' => $entities,
         );
-        */
-
-        return $this->render('AppBundle:Tiltag:index.html.twig', array(
-          'tiltag' => $entities
-        ));
     }
-
-
     /**
      * Creates a new Tiltag entity.
      *
@@ -70,7 +62,6 @@ class TiltagController extends Controller
         );
     }
 
-
     /**
      * Creates a form to create a Tiltag entity.
      *
@@ -90,7 +81,6 @@ class TiltagController extends Controller
         return $form;
     }
 
-
     /**
      * Displays a form to create a new Tiltag entity.
      *
@@ -108,7 +98,6 @@ class TiltagController extends Controller
             'form'   => $form->createView(),
         );
     }
-
 
     /**
      * Finds and displays a Tiltag entity.
@@ -134,7 +123,6 @@ class TiltagController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-
 
     /**
      * Displays a form to edit an existing Tiltag entity.
@@ -163,7 +151,6 @@ class TiltagController extends Controller
         );
     }
 
-
     /**
     * Creates a form to edit a Tiltag entity.
     *
@@ -182,8 +169,6 @@ class TiltagController extends Controller
 
         return $form;
     }
-
-
     /**
      * Edits an existing Tiltag entity.
      *
@@ -217,8 +202,6 @@ class TiltagController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-
-
     /**
      * Deletes a Tiltag entity.
      *
@@ -244,7 +227,6 @@ class TiltagController extends Controller
 
         return $this->redirect($this->generateUrl('tiltag'));
     }
-
 
     /**
      * Creates a form to delete a Tiltag entity by id.
