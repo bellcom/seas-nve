@@ -54,7 +54,7 @@ class LoadTiltagsData implements FixtureInterface, ContainerAwareInterface
 			$workflow = new Workflow($csvReader);
 
 			// Create a writer: you need Doctrine’s EntityManager.
-			$doctrineWriter = new DoctrineWriter($em, 'AppBundle:Tiltag');
+			$doctrineWriter = new DoctrineWriter($em, 'AppBundle:PumpeTiltag');
 
 			$workflow->addWriter($doctrineWriter);
 
