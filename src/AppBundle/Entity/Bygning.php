@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -347,12 +348,23 @@ class Bygning
 
     /**
      * @OneToMany(targetEntity="Rapport", mappedBy="bygning")
+     * @OrderBy({"datering" = "ASC"})
      **/
     private $rapporter;
 
 
     public function __construct() {
         $this->rapporter = new ArrayCollection();
+    }
+
+    /**
+     * Get Name
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->adresse.", ".$this->postnummer." ".$this->postBy;
     }
 
 
@@ -1422,5 +1434,38 @@ class Bygning
     public function getVarmeNotat()
     {
         return $this->varmeNotat;
+    }
+
+    /**
+     * Add rapporter
+     *
+     * @param \AppBundle\Entity\Rapport $rapporter
+     * @return Bygning
+     */
+    public function addRapporter(\AppBundle\Entity\Rapport $rapporter)
+    {
+        $this->rapporter[] = $rapporter;
+
+        return $this;
+    }
+
+    /**
+     * Remove rapporter
+     *
+     * @param \AppBundle\Entity\Rapport $rapporter
+     */
+    public function removeRapporter(\AppBundle\Entity\Rapport $rapporter)
+    {
+        $this->rapporter->removeElement($rapporter);
+    }
+
+    /**
+     * Get rapporter
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRapporter()
+    {
+        return $this->rapporter;
     }
 }

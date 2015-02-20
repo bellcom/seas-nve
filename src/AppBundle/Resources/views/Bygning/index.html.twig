@@ -2,7 +2,21 @@
 
 {% block body %}
 
-    <h1>Bygninger</h1>
+
+
+
+    <div class="row">
+        <div class="col-md-10">
+            <h1>Bygninger</h1>
+        </div>
+        <div class="col-md-2">
+            <a href="{{ path('bygning_new') }}" class="btn btn-default">
+                <i class="fa fa-plus"></i> Tilføj Bygning
+            </a>
+        </div>
+
+    </div>
+
     <table class="table table-hover">
         <tr>
             <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
@@ -22,14 +36,10 @@
         {% endfor %}
     </table>
 
-    {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('bygning_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col-md-12">
+            {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
+        </div>
+    </div>
 
 {% endblock %}

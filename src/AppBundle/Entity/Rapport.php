@@ -3,8 +3,10 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\OrderBy;
 
 /**
  * Rapport
@@ -14,90 +16,173 @@ use Doctrine\ORM\Mapping\JoinColumn;
  */
 class Rapport
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  private $id;
 
-    /**
-     * @ManyToOne(targetEntity="Bygning", inversedBy="rapporter")
-     * @JoinColumn(name="rapport_id", referencedColumnName="id")
-     **/
-    private $bygning;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="version", type="string", length=255)
-     */
-    private $version;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="Datering", type="date")
-     */
-    private $datering;
+  /**
+   * @ManyToOne(targetEntity="Bygning", inversedBy="rapporter")
+   * @JoinColumn(name="bygning_id", referencedColumnName="id")
+   **/
+  private $bygning;
 
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+  /**
+   * @OneToMany(targetEntity="Tiltag", mappedBy="rapport", cascade={"persist", "remove"})
+   * @OrderBy({"title" = "ASC"})
+   */
+  private $tiltag;
 
-    /**
-     * Set version
-     *
-     * @param string $version
-     * @return Rapport
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="version", type="string", length=255)
+   */
+  private $version;
 
-        return $this;
-    }
+  /**
+   * @var \DateTime
+   *
+   * @ORM\Column(name="Datering", type="date")
+   */
+  private $datering;
 
-    /**
-     * Get version
-     *
-     * @return string 
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
 
-    /**
-     * Set datering
-     *
-     * @param \DateTime $datering
-     * @return Rapport
-     */
-    public function setDatering($datering)
-    {
-        $this->datering = $datering;
+  /**
+   * Get Name
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->getBygning()->getAdresse().", ".$this->version;
+  }
 
-        return $this;
-    }
+  /**
+   * Get id
+   *
+   * @return integer
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
 
-    /**
-     * Get datering
-     *
-     * @return \DateTime 
-     */
-    public function getDatering()
-    {
-        return $this->datering;
-    }
+  /**
+   * Set version
+   *
+   * @param string $version
+   * @return Rapport
+   */
+  public function setVersion($version)
+  {
+    $this->version = $version;
+
+    return $this;
+  }
+
+  /**
+   * Get version
+   *
+   * @return string
+   */
+  public function getVersion()
+  {
+    return $this->version;
+  }
+
+  /**
+   * Set datering
+   *
+   * @param \DateTime $datering
+   * @return Rapport
+   */
+  public function setDatering($datering)
+  {
+    $this->datering = $datering;
+
+    return $this;
+  }
+
+  /**
+   * Get datering
+   *
+   * @return \DateTime
+   */
+  public function getDatering()
+  {
+    return $this->datering;
+  }
+
+
+  /**
+   * Set bygning
+   *
+   * @param \AppBundle\Entity\Bygning $bygning
+   * @return Rapport
+   */
+  public function setBygning(\AppBundle\Entity\Bygning $bygning = null)
+  {
+    $this->bygning = $bygning;
+
+    return $this;
+  }
+
+  /**
+   * Get bygning
+   *
+   * @return \AppBundle\Entity\Bygning
+   */
+  public function getBygning()
+  {
+    return $this->bygning;
+  }
+  /**
+   * Constructor
+   */
+  public function __construct()
+  {
+    $this->tiltag = new \Doctrine\Common\Collections\ArrayCollection();
+  }
+
+  /**
+   * Add tiltag
+   *
+   * @param \AppBundle\Entity\Tiltag $tiltag
+   * @return Rapport
+   */
+  public function addTiltag(\AppBundle\Entity\Tiltag $tiltag)
+  {
+    $this->tiltag[] = $tiltag;
+
+    $tiltag->setRapport($this);
+
+    return $this;
+  }
+
+  /**
+   * Remove tiltag
+   *
+   * @param \AppBundle\Entity\Tiltag $tiltag
+   */
+  public function removeTiltag(\AppBundle\Entity\Tiltag $tiltag)
+  {
+    $this->tiltag->removeElement($tiltag);
+  }
+
+  /**
+   * Get tiltag
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getTiltag()
+  {
+    return $this->tiltag;
+  }
 
 }
