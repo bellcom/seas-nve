@@ -52,6 +52,13 @@ class Rapport
    */
   private $datering;
 
+  /**
+   * Constructor
+   */
+  public function __construct()
+  {
+    $this->tiltag = new \Doctrine\Common\Collections\ArrayCollection();
+  }
 
   /**
    * Get Name
@@ -141,13 +148,6 @@ class Rapport
   public function getBygning()
   {
     return $this->bygning;
-  }
-  /**
-   * Constructor
-   */
-  public function __construct()
-  {
-    $this->tiltag = new \Doctrine\Common\Collections\ArrayCollection();
   }
 
   /**
