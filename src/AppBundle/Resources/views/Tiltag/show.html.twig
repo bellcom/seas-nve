@@ -1,14 +1,10 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Tiltag</h1>
+    <h1>{{ entity.title }}</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Title</th>
-                <td>{{ entity.title }}</td>
-            </tr>
             <tr>
                 <th>Varmebsparelseguf</th>
                 <td>{{ entity.varmebsparelseGUF }}</td>
