@@ -12,6 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class RapportRepository extends EntityRepository {
 
+  /**
+   * Get the Pumpetiltag for the rapport
+   *
+   * @param $rapport
+   * @return \AppBundle\Entity\PumpeTiltag
+   * @throws \Doctrine\ORM\NonUniqueResultException
+   */
   public function getPumpeTiltag($rapport)
   {
     $qb = $this->_em->createQueryBuilder();

@@ -26,7 +26,7 @@ class PumpeDetail
   /**
    * @var boolean
    *
-   * @ORM\Column(name="tilvalgt", type="boolean")
+   * @ORM\Column(name="tilvalgt", type="boolean", nullable=true)
    */
   private $tilvalgt;
 
@@ -61,7 +61,7 @@ class PumpeDetail
   /**
    * @var boolean
    *
-   * @ORM\Column(name="Isoleringskappe", type="boolean")
+   * @ORM\Column(name="Isoleringskappe", type="boolean", nullable=true)
    */
   private $isoleringskappe;
 
@@ -105,6 +105,12 @@ class PumpeDetail
    * @JoinColumn(name="pumpetiltag_id", referencedColumnName="id")
    **/
   private $pumpetiltag;
+
+  /**
+   * @ManyToOne(targetEntity="Pumpe")
+   * @JoinColumn(name="pumpe_id", referencedColumnName="id")
+   **/
+  private $pumpe;
 
 
   /**
@@ -392,4 +398,27 @@ class PumpeDetail
   {
     return $this->pumpetiltag;
   }
+
+    /**
+     * Set pumpe
+     *
+     * @param \AppBundle\Entity\Pumpe $pumpe
+     * @return PumpeDetail
+     */
+    public function setPumpe(\AppBundle\Entity\Pumpe $pumpe = null)
+    {
+        $this->pumpe = $pumpe;
+
+        return $this;
+    }
+
+    /**
+     * Get pumpe
+     *
+     * @return \AppBundle\Entity\Pumpe 
+     */
+    public function getPumpe()
+    {
+        return $this->pumpe;
+    }
 }

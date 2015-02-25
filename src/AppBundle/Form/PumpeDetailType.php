@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RapportType extends AbstractType
+class PumpeDetailType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,8 +15,19 @@ class RapportType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('version')
-            ->add('datering')
+            ->add('tilvalgt')
+            ->add('pumpeID')
+            ->add('forsyningsomraade')
+            ->add('placering')
+            ->add('applikation')
+            ->add('isoleringskappe')
+            ->add('b_faktor')
+            ->add('noter')
+            ->add('eksisterendeDrifttid')
+            ->add('nyDrifttid')
+            ->add('prisfaktor')
+            ->add('pumpetiltag')
+            ->add('pumpe')
         ;
     }
     
@@ -26,7 +37,7 @@ class RapportType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Rapport'
+            'data_class' => 'AppBundle\Entity\PumpeDetail'
         ));
     }
 
@@ -35,6 +46,6 @@ class RapportType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_rapport';
+        return 'appbundle_pumpedetail';
     }
 }

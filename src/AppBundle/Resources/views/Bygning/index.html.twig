@@ -23,13 +23,18 @@
             <th>{{ knp_pagination_sortable(pagination, 'Adresse', 'b.adresse') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'Postnr.', 'b.postnummer') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'By.', 'b.postBy') }}</th>
+            <th>Actions</th>
         </tr>
         {% for bygning in pagination %}
             <tr>
-                <td><a href="/bygning/{{ bygning.id }}">{{ bygning.bygId }}</a></td>
-                <td><a href="/bygning/{{ bygning.id }}">{{ bygning.adresse }}</a></td>
+                <td>{{ bygning.bygId }}</td>
+                <td>{{ bygning.adresse }}</td>
                 <td>{{ bygning.postnummer }}</td>
                 <td>{{ bygning.postBy }}</td>
+                <td>
+                    <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-primary btn-xs">show</a>
+                    <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">edit</a>
+                </td>
             </tr>
         {% else %}
             Ingen bygninger fundet

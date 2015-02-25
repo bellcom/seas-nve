@@ -35,10 +35,10 @@
         <div class="tab-content">
             {% for key, t in entity.tiltag %}
             <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
-                <p>{{ key }} - {{ t.title }}</p>
+                {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
                 <p>
                     <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
-                        Show
+                        Detailark
                     </a>
                 </p>
             </div>
@@ -48,15 +48,20 @@
     </div>
 
     <hr>
+    <p>
+        {% if is_missing_tiltag_type(entity.tiltag, 'pumpetiltag') %}
+            <a href="{{ path('tiltag_create', { 'id': entity.id, 'type': 'pumpe' }) }}" class="btn btn-default">{{ icon('plus') }} Tilføj Pumpeudskiftninger</a>
+        {% endif %}
+        {% if is_missing_tiltag_type(entity.tiltag, 'isoleringtiltag') %}
+            <a href="#" class="btn btn-default">{{ icon('plus') }} Tilføj Teknisk isolering</a>
+        {% endif %}
+        <a href="#" class="btn btn-default">{{ icon('plus') }} Tilføj Special tiltag</a>
+    </p>
+    <hr>
 
-
-        <a href="{{ path('rapport') }}" class="btn btn-default">
-            <i class="fa fa-arrow-left"></i> Back to the list
-        </a>
-
-        <a href="{{ path('rapport_edit', { 'id': entity.id }) }}"  class="btn btn-default">
-            Edit
-        </a>
+    <a href="{{ path('rapport_edit', { 'id': entity.id }) }}"  class="btn btn-default">
+        Edit
+    </a>
 
     {{ form(delete_form) }}
 

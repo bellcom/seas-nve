@@ -12,7 +12,8 @@ class TiltagTypeExtension extends \Twig_Extension
   public function getFunctions()
   {
     return array(
-      'tiltag_type' => new \Twig_Function_Method($this, 'getTiltagType', array('is_safe' => array('html')))
+      'tiltag_type' => new \Twig_Function_Method($this, 'getTiltagType', array('is_safe' => array('html'))),
+      'is_missing_tiltag_type' => new \Twig_Function_Method($this, 'isMissingTiltagType', array('is_safe' => array('html')))
     );
   }
 
@@ -26,6 +27,20 @@ class TiltagTypeExtension extends \Twig_Extension
       return "tiltag";
     }
     throw new \InvalidArgumentException('Cannot get type of non-Tiltag objects');
+  }
+
+  public function isMissingTiltagType($tiltag, $type) {
+
+    foreach($tiltag as $t) {
+      if($this->getTiltagType($t) === $type) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    //Default / empty array
+    return true;
   }
 
   public function getName()

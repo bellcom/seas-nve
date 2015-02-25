@@ -6,8 +6,9 @@
     <div class="row">
         <div class="col-md-10">
         {% for rapport in entity.rapporter %}
-            <p><a href="{{ path('rapport_show', { 'id': rapport.id }) }}" class="btn btn-default"><i class="fa fa-file"></i> Ver. {{ rapport.version }} - {{ rapport.datering|date("d/m/Y") }}</a></p>
+            <p><a href="{{ path('rapport_show', { 'id': rapport.id }) }}" class="btn btn-default">{{ icon('file') }}  Ver. {{ rapport.version }} - {{ rapport.datering|date("d/m/Y") }}</a></p>
         {% endfor %}
+            <p><a href="{{ path('bygning_rapport_new', { 'id': entity.id }) }}" class="btn btn-default">{{ icon('plus') }} Ny Rapport</a></p>
         </div>
         <div class="col-md-2">
             <p>

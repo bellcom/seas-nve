@@ -609,164 +609,164 @@ class Tiltag
     return $this->indeklima;
   }
 
-    /**
-     * Set rapport
-     *
-     * @param \AppBundle\Entity\Rapport $rapport
-     * @return Tiltag
-     */
-    public function setRapport(\AppBundle\Entity\Rapport $rapport = null)
-    {
-        $this->rapport = $rapport;
+  /**
+   * Set rapport
+   *
+   * @param \AppBundle\Entity\Rapport $rapport
+   * @return Tiltag
+   */
+  public function setRapport(\AppBundle\Entity\Rapport $rapport = null)
+  {
+    $this->rapport = $rapport;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get rapport
-     *
-     * @return \AppBundle\Entity\Rapport 
-     */
-    public function getRapport()
-    {
-        return $this->rapport;
-    }
+  /**
+   * Get rapport
+   *
+   * @return \AppBundle\Entity\Rapport
+   */
+  public function getRapport()
+  {
+    return $this->rapport;
+  }
 
-    /**
-     * Set varmebsparelseGUF
-     *
-     * @param float $varmebsparelseGUF
-     * @return Tiltag
-     */
-    public function setVarmebsparelseGUF($varmebsparelseGUF)
-    {
-        $this->varmebsparelseGUF = $varmebsparelseGUF;
+  /**
+   * Set varmebsparelseGUF
+   *
+   * @param float $varmebsparelseGUF
+   * @return Tiltag
+   */
+  public function setVarmebsparelseGUF($varmebsparelseGUF)
+  {
+    $this->varmebsparelseGUF = $varmebsparelseGUF;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get varmebsparelseGUF
-     *
-     * @return float 
-     */
-    public function getVarmebsparelseGUF()
-    {
-        return $this->varmebsparelseGUF;
-    }
+  /**
+   * Get varmebsparelseGUF
+   *
+   * @return float
+   */
+  public function getVarmebsparelseGUF()
+  {
+    return $this->varmebsparelseGUF;
+  }
 
-    /**
-     * Set varmebesparelseGAF
-     *
-     * @param float $varmebesparelseGAF
-     * @return Tiltag
-     */
-    public function setVarmebesparelseGAF($varmebesparelseGAF)
-    {
-        $this->varmebesparelseGAF = $varmebesparelseGAF;
+  /**
+   * Set varmebesparelseGAF
+   *
+   * @param float $varmebesparelseGAF
+   * @return Tiltag
+   */
+  public function setVarmebesparelseGAF($varmebesparelseGAF)
+  {
+    $this->varmebesparelseGAF = $varmebesparelseGAF;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get varmebesparelseGAF
-     *
-     * @return float 
-     */
-    public function getVarmebesparelseGAF()
-    {
-        return $this->varmebesparelseGAF;
-    }
+  /**
+   * Get varmebesparelseGAF
+   *
+   * @return float
+   */
+  public function getVarmebesparelseGAF()
+  {
+    return $this->varmebesparelseGAF;
+  }
 
-    /**
-     * Set elbesparelse
-     *
-     * @param float $elbesparelse
-     * @return Tiltag
-     */
-    public function setElbesparelse($elbesparelse)
-    {
-        $this->elbesparelse = $elbesparelse;
+  /**
+   * Set elbesparelse
+   *
+   * @param float $elbesparelse
+   * @return Tiltag
+   */
+  public function setElbesparelse($elbesparelse)
+  {
+    $this->elbesparelse = $elbesparelse;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get elbesparelse
-     *
-     * @return float 
-     */
-    public function getElbesparelse()
-    {
-        return $this->elbesparelse;
-    }
+  /**
+   * Get elbesparelse
+   *
+   * @return float
+   */
+  public function getElbesparelse()
+  {
+    return $this->elbesparelse;
+  }
 
-    /**
-     * Set energibesparelseAarEt
-     *
-     * @param float $energibesparelseAarEt
-     * @return Tiltag
-     */
-    public function setEnergibesparelseAarEt($energibesparelseAarEt)
-    {
-        $this->energibesparelseAarEt = $energibesparelseAarEt;
+  /**
+   * Set energibesparelseAarEt
+   *
+   * @param float $energibesparelseAarEt
+   * @return Tiltag
+   */
+  public function setEnergibesparelseAarEt($energibesparelseAarEt)
+  {
+    $this->energibesparelseAarEt = $energibesparelseAarEt;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get energibesparelseAarEt
-     *
-     * @return float 
-     */
-    public function getEnergibesparelseAarEt()
-    {
-        return $this->energibesparelseAarEt;
-    }
+  /**
+   * Get energibesparelseAarEt
+   *
+   * @return float
+   */
+  public function getEnergibesparelseAarEt()
+  {
+    return $this->energibesparelseAarEt;
+  }
 
-    /**
-     * Set co2besparelseAarEt
-     *
-     * @param float $co2besparelseAarEt
-     * @return Tiltag
-     */
-    public function setCo2besparelseAarEt($co2besparelseAarEt)
-    {
-        $this->co2besparelseAarEt = $co2besparelseAarEt;
+  /**
+   * Set co2besparelseAarEt
+   *
+   * @param float $co2besparelseAarEt
+   * @return Tiltag
+   */
+  public function setCo2besparelseAarEt($co2besparelseAarEt)
+  {
+    $this->co2besparelseAarEt = $co2besparelseAarEt;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get co2besparelseAarEt
-     *
-     * @return float 
-     */
-    public function getCo2besparelseAarEt()
-    {
-        return $this->co2besparelseAarEt;
-    }
+  /**
+   * Get co2besparelseAarEt
+   *
+   * @return float
+   */
+  public function getCo2besparelseAarEt()
+  {
+    return $this->co2besparelseAarEt;
+  }
 
-    /**
-     * Set antalReinvesteringer
-     *
-     * @param integer $antalReinvesteringer
-     * @return Tiltag
-     */
-    public function setAntalReinvesteringer($antalReinvesteringer)
-    {
-        $this->antalReinvesteringer = $antalReinvesteringer;
+  /**
+   * Set antalReinvesteringer
+   *
+   * @param integer $antalReinvesteringer
+   * @return Tiltag
+   */
+  public function setAntalReinvesteringer($antalReinvesteringer)
+  {
+    $this->antalReinvesteringer = $antalReinvesteringer;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get antalReinvesteringer
-     *
-     * @return integer 
-     */
-    public function getAntalReinvesteringer()
-    {
-        return $this->antalReinvesteringer;
-    }
+  /**
+   * Get antalReinvesteringer
+   *
+   * @return integer
+   */
+  public function getAntalReinvesteringer()
+  {
+    return $this->antalReinvesteringer;
+  }
 }
