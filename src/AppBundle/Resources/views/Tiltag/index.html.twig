@@ -1,85 +1,85 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Tiltag list</h1>
+  <h1>Tiltag list</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Varmebsparelseguf</th>
-                <th>Varmebesparelsegaf</th>
-                <th>Elbesparelse</th>
-                <th>Vandbesparelse</th>
-                <th>Energibesparelseaaret</th>
-                <th>Co2besparelseaaret</th>
-                <th>Antalreinvesteringer</th>
-                <th>Faktor</th>
-                <th>Primaerenterprise</th>
-                <th>Tilbudskategori</th>
-                <th>Anlaegsinvestering</th>
-                <th>Dvbesparelse</th>
-                <th>Levetid</th>
-                <th>Forsyningvarme</th>
-                <th>El</th>
-                <th>Beskrivelsenevaerende</th>
-                <th>Beskrivelseforslag</th>
-                <th>Beskrivelseoevrige</th>
-                <th>Risikovurdering</th>
-                <th>Placering</th>
-                <th>Beskrivelsebv</th>
-                <th>Indeklima</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('tiltag_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.title }}</td>
-                <td>{{ entity.varmebsparelseGUF }}</td>
-                <td>{{ entity.varmebesparelseGAF }}</td>
-                <td>{{ entity.elbesparelse }}</td>
-                <td>{{ entity.vandbesparelse }}</td>
-                <td>{{ entity.energibesparelseAarEt }}</td>
-                <td>{{ entity.co2besparelseAarEt }}</td>
-                <td>{{ entity.antalReinvesteringer }}</td>
-                <td>{{ entity.faktor }}</td>
-                <td>{{ entity.primaerEnterprise }}</td>
-                <td>{{ entity.tilbudskategori }}</td>
-                <td>{{ entity.anlaegsInvestering }}</td>
-                <td>{{ entity.dVBesparelse }}</td>
-                <td>{{ entity.levetid }}</td>
-                <td>{{ entity.forsyningVarme }}</td>
-                <td>{{ entity.el }}</td>
-                <td>{{ entity.beskrivelseNevaerende }}</td>
-                <td>{{ entity.beskrivelseForslag }}</td>
-                <td>{{ entity.beskrivelseOevrige }}</td>
-                <td>{{ entity.risikovurdering }}</td>
-                <td>{{ entity.placering }}</td>
-                <td>{{ entity.beskrivelseBV }}</td>
-                <td>{{ entity.indeklima }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('tiltag_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('tiltag_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Varmebsparelseguf</th>
+      <th>Varmebesparelsegaf</th>
+      <th>Elbesparelse</th>
+      <th>Vandbesparelse</th>
+      <th>Energibesparelseaaret</th>
+      <th>Co2besparelseaaret</th>
+      <th>Antalreinvesteringer</th>
+      <th>Faktor</th>
+      <th>Primaerenterprise</th>
+      <th>Tilbudskategori</th>
+      <th>Anlaegsinvestering</th>
+      <th>Dvbesparelse</th>
+      <th>Levetid</th>
+      <th>Forsyningvarme</th>
+      <th>El</th>
+      <th>Beskrivelsenevaerende</th>
+      <th>Beskrivelseforslag</th>
+      <th>Beskrivelseoevrige</th>
+      <th>Risikovurdering</th>
+      <th>Placering</th>
+      <th>Beskrivelsebv</th>
+      <th>Indeklima</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+      <tr>
+        <td><a href="{{ path('tiltag_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+        <td>{{ entity.title }}</td>
+        <td>{{ entity.varmebsparelseGUF }}</td>
+        <td>{{ entity.varmebesparelseGAF }}</td>
+        <td>{{ entity.elbesparelse }}</td>
+        <td>{{ entity.vandbesparelse }}</td>
+        <td>{{ entity.energibesparelseAarEt }}</td>
+        <td>{{ entity.co2besparelseAarEt }}</td>
+        <td>{{ entity.antalReinvesteringer }}</td>
+        <td>{{ entity.faktor }}</td>
+        <td>{{ entity.primaerEnterprise }}</td>
+        <td>{{ entity.tilbudskategori }}</td>
+        <td>{{ entity.anlaegsInvestering }}</td>
+        <td>{{ entity.dVBesparelse }}</td>
+        <td>{{ entity.levetid }}</td>
+        <td>{{ entity.forsyningVarme }}</td>
+        <td>{{ entity.el }}</td>
+        <td>{{ entity.beskrivelseNevaerende }}</td>
+        <td>{{ entity.beskrivelseForslag }}</td>
+        <td>{{ entity.beskrivelseOevrige }}</td>
+        <td>{{ entity.risikovurdering }}</td>
+        <td>{{ entity.placering }}</td>
+        <td>{{ entity.beskrivelseBV }}</td>
+        <td>{{ entity.indeklima }}</td>
+        <td>
+          <ul>
+            <li>
+              <a href="{{ path('tiltag_show', { 'id': entity.id }) }}">show</a>
+            </li>
+            <li>
+              <a href="{{ path('tiltag_edit', { 'id': entity.id }) }}">edit</a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('tiltag_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+  <ul>
+    <li>
+      <a href="{{ path('tiltag_new') }}">
+        Create a new entry
+      </a>
+    </li>
+  </ul>
+{% endblock %}

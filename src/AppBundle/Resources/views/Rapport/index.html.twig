@@ -1,30 +1,30 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Rapport list</h1>
+  <h1>Rapport list</h1>
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Bygning</th>
-            <th>Version</th>
-            <th>Datering</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td>{{ entity.bygning }}</td>
-                <td>{{ entity.version }}</td>
-                <td>{% if entity.datering %}{{ entity.datering|date('Y-m-d') }}{% endif %}</td>
-                <td>
-                    <a href="{{ path('rapport_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">show</a>
-                    <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">edit</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Bygning</th>
+      <th>Version</th>
+      <th>Datering</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+      <tr>
+        <td>{{ entity.bygning }}</td>
+        <td>{{ entity.version }}</td>
+        <td>{% if entity.datering %}{{ entity.datering|date('Y-m-d') }}{% endif %}</td>
+        <td>
+          <a href="{{ path('rapport_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">show</a>
+          <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">edit</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 
 {% endblock %}

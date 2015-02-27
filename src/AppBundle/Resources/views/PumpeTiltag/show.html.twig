@@ -1,60 +1,60 @@
 {% extends 'AppBundle:Tiltag:show-parent.html.twig' %}
 
 {% block body -%}
-    {{ parent() }}
+  {{ parent() }}
 {% endblock %}
 
 {% block detailark -%}
 
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Tilvalgt</th>
-                    <th>Pumpeid</th>
-                    <th>Forsyningsomraade</th>
-                    <th>Placering</th>
-                    <th>Applikation</th>
-                    <th>Isoleringskappe</th>
-                    <th>B_faktor</th>
-                    <th>Noter</th>
-                    <th>Eksisterendedrifttid</th>
-                    <th>Nydrifttid</th>
-                    <th>Prisfaktor</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for detail in entity.pumpedetails %}
-                    <tr>
-                        <td>{{ detail.tilvalgt }}</td>
-                        <td>{{ detail.pumpeID }}</td>
-                        <td>{{ detail.forsyningsomraade }}</td>
-                        <td>{{ detail.placering }}</td>
-                        <td>{{ detail.applikation }}</td>
-                        <td>{{ detail.isoleringskappe }}</td>
-                        <td>{{ detail.bfaktor }}</td>
-                        <td>{{ detail.noter }}</td>
-                        <td>{{ detail.eksisterendeDrifttid }}</td>
-                        <td>{{ detail.nyDrifttid }}</td>
-                        <td>{{ detail.prisfaktor }}</td>
-                        <td>
-                            <a href="{{ path('pumpedetail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">show</a>
-                            <a href="{{ path('pumpedetail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">edit</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Tilvalgt</th>
+          <th>Pumpeid</th>
+          <th>Forsyningsomraade</th>
+          <th>Placering</th>
+          <th>Applikation</th>
+          <th>Isoleringskappe</th>
+          <th>B_faktor</th>
+          <th>Noter</th>
+          <th>Eksisterendedrifttid</th>
+          <th>Nydrifttid</th>
+          <th>Prisfaktor</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for detail in entity.pumpedetails %}
+          <tr>
+            <td>{{ detail.tilvalgt }}</td>
+            <td>{{ detail.pumpeID }}</td>
+            <td>{{ detail.forsyningsomraade }}</td>
+            <td>{{ detail.placering }}</td>
+            <td>{{ detail.applikation }}</td>
+            <td>{{ detail.isoleringskappe }}</td>
+            <td>{{ detail.bfaktor }}</td>
+            <td>{{ detail.noter }}</td>
+            <td>{{ detail.eksisterendeDrifttid }}</td>
+            <td>{{ detail.nyDrifttid }}</td>
+            <td>{{ detail.prisfaktor }}</td>
+            <td>
+              <a href="{{ path('pumpedetail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">show</a>
+              <a href="{{ path('pumpedetail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">edit</a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
     </div>
+  </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <a class="btn btn-success" href="#"><i class="fa fa-plus"></i> Tilføj Pumpe</a>
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <a class="btn btn-success" href="#"><i class="fa fa-plus"></i> Tilføj Pumpe</a>
     </div>
+  </div>
 
 
 {% endblock %}
