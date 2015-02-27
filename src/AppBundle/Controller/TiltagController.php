@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\Controller;
 
@@ -15,170 +19,162 @@ use AppBundle\Form\TiltagType;
  *
  * @Route("/tiltag")
  */
-class TiltagController extends Controller
-{
+class TiltagController extends Controller {
+  /**
+   * Lists all Tiltag entities.
+   *
+   * @Route("/", name="tiltag")
+   * @Method("GET")
+   * @Template()
+   */
+  public function indexAction() {
+    $em = $this->getDoctrine()->getManager();
 
-    /**
-     * Lists all Tiltag entities.
-     *
-     * @Route("/", name="tiltag")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
+    $entities = $em->getRepository('AppBundle:Tiltag')->findAll();
 
-        $entities = $em->getRepository('AppBundle:Tiltag')->findAll();
+    return array(
+      'entities' => $entities,
+    );
+  }
 
-        return array(
-            'entities' => $entities,
-        );
+  /**
+   * Finds and displays a Tiltag entity.
+   *
+   * @Route("/{id}", name="tiltag_show")
+   * @Method("GET")
+   * @Template()
+   */
+  public function showAction($id) {
+    $em = $this->getDoctrine()->getManager();
+
+    $entity = $em->getRepository('AppBundle:Tiltag')->find($id);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Tiltag entity.');
     }
 
-    /**
-     * Finds and displays a Tiltag entity.
-     *
-     * @Route("/{id}", name="tiltag_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
+    $deleteForm = $this->createDeleteForm($id);
 
-        $entity = $em->getRepository('AppBundle:Tiltag')->find($id);
+    return array(
+      'entity' => $entity,
+      'delete_form' => $deleteForm->createView(),
+    );
+  }
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tiltag entity.');
-        }
+  /**
+   * Displays a form to edit an existing Tiltag entity.
+   *
+   * @Route("/{id}/edit", name="tiltag_edit")
+   * @Method("GET")
+   * @Template()
+   */
+  public function editAction($id) {
+    $em = $this->getDoctrine()->getManager();
 
-        $deleteForm = $this->createDeleteForm($id);
+    $entity = $em->getRepository('AppBundle:Tiltag')->find($id);
 
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Tiltag entity.');
     }
 
-    /**
-     * Displays a form to edit an existing Tiltag entity.
-     *
-     * @Route("/{id}/edit", name="tiltag_edit")
-     * @Method("GET")
-     * @Template()
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
+    $editForm = $this->createEditForm($entity);
+    $deleteForm = $this->createDeleteForm($id);
 
-        $entity = $em->getRepository('AppBundle:Tiltag')->find($id);
+    return array(
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
+      'delete_form' => $deleteForm->createView(),
+    );
+  }
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tiltag entity.');
-        }
+  /**
+   * Creates a form to edit a Tiltag entity.
+   *
+   * @param Tiltag $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditForm(Tiltag $entity) {
+    $form = $this->createForm(new TiltagType(), $entity, array(
+      'action' => $this->generateUrl('tiltag_update', array('id' => $entity->getId())),
+      'method' => 'PUT',
+    ));
 
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+    $form->add('submit', 'submit', array('label' => 'Update'));
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+    return $form;
+  }
+
+  /**
+   * Edits an existing Tiltag entity.
+   *
+   * @Route("/{id}", name="tiltag_update")
+   * @Method("PUT")
+   * @Template("AppBundle:Tiltag:edit.html.twig")
+   */
+  public function updateAction(Request $request, $id) {
+    $em = $this->getDoctrine()->getManager();
+
+    $entity = $em->getRepository('AppBundle:Tiltag')->find($id);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Tiltag entity.');
     }
 
-    /**
-    * Creates a form to edit a Tiltag entity.
-    *
-    * @param Tiltag $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Tiltag $entity)
-    {
-        $form = $this->createForm(new TiltagType(), $entity, array(
-            'action' => $this->generateUrl('tiltag_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+    $deleteForm = $this->createDeleteForm($id);
+    $editForm = $this->createEditForm($entity);
+    $editForm->handleRequest($request);
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+    if ($editForm->isValid()) {
+      $em->flush();
 
-        return $form;
-    }
-    /**
-     * Edits an existing Tiltag entity.
-     *
-     * @Route("/{id}", name="tiltag_update")
-     * @Method("PUT")
-     * @Template("AppBundle:Tiltag:edit.html.twig")
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Tiltag')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tiltag entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('tiltag_edit', array('id' => $id)));
-        }
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-    /**
-     * Deletes a Tiltag entity.
-     *
-     * @Route("/{id}", name="tiltag_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Tiltag')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Tiltag entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('tiltag'));
+      return $this->redirect($this->generateUrl('tiltag_edit', array('id' => $id)));
     }
 
-    /**
-     * Creates a form to delete a Tiltag entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('tiltag_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+    return array(
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
+      'delete_form' => $deleteForm->createView(),
+    );
+  }
+
+  /**
+   * Deletes a Tiltag entity.
+   *
+   * @Route("/{id}", name="tiltag_delete")
+   * @Method("DELETE")
+   */
+  public function deleteAction(Request $request, $id) {
+    $form = $this->createDeleteForm($id);
+    $form->handleRequest($request);
+
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $entity = $em->getRepository('AppBundle:Tiltag')->find($id);
+
+      if (!$entity) {
+        throw $this->createNotFoundException('Unable to find Tiltag entity.');
+      }
+
+      $em->remove($entity);
+      $em->flush();
     }
+
+    return $this->redirect($this->generateUrl('tiltag'));
+  }
+
+  /**
+   * Creates a form to delete a Tiltag entity by id.
+   *
+   * @param mixed $id The entity id
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createDeleteForm($id) {
+    return $this->createFormBuilder()
+      ->setAction($this->generateUrl('tiltag_delete', array('id' => $id)))
+      ->setMethod('DELETE')
+      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->getForm();
+  }
 }

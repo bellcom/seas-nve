@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\Entity;
 
@@ -15,9 +19,7 @@ use Doctrine\ORM\Mapping\OrderBy;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\PumpeTiltagRepository")
  */
-class PumpeTiltag extends Tiltag
-{
-
+class PumpeTiltag extends Tiltag {
   /**
    * @OneToMany(targetEntity="PumpeDetail", mappedBy="pumpetiltag", cascade={"persist", "remove"})
    */
@@ -26,11 +28,9 @@ class PumpeTiltag extends Tiltag
   /**
    * Constructor
    */
-  public function __construct()
-  {
+  public function __construct() {
     $this->pumpedetails = new \Doctrine\Common\Collections\ArrayCollection();
   }
-
 
   /**
    * Add pumpedetails
@@ -38,8 +38,7 @@ class PumpeTiltag extends Tiltag
    * @param \AppBundle\Entity\PumpeDetail $pumpedetails
    * @return PumpeTiltag
    */
-  public function addPumpedetail(\AppBundle\Entity\PumpeDetail $pumpedetails)
-  {
+  public function addPumpedetail(\AppBundle\Entity\PumpeDetail $pumpedetails) {
     $this->pumpedetails[] = $pumpedetails;
 
     return $this;
@@ -50,8 +49,7 @@ class PumpeTiltag extends Tiltag
    *
    * @param \AppBundle\Entity\PumpeDetail $pumpedetails
    */
-  public function removePumpedetail(\AppBundle\Entity\PumpeDetail $pumpedetails)
-  {
+  public function removePumpedetail(\AppBundle\Entity\PumpeDetail $pumpedetails) {
     $this->pumpedetails->removeElement($pumpedetails);
   }
 
@@ -60,8 +58,7 @@ class PumpeTiltag extends Tiltag
    *
    * @return \Doctrine\Common\Collections\Collection
    */
-  public function getPumpedetails()
-  {
+  public function getPumpedetails() {
     return $this->pumpedetails;
   }
 }

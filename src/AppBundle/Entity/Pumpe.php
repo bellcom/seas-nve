@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\Entity;
 
@@ -10,8 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\PumpeRepository")
  */
-class Pumpe
-{
+class Pumpe {
   /**
    * @var integer
    *
@@ -166,9 +169,8 @@ class Pumpe
    *
    * @return string
    */
-  public function __toString()
-  {
-    return $this->nuvaerendeType." / ".$this->nyPumpe;
+  public function __toString() {
+    return $this->nuvaerendeType . " / " . $this->nyPumpe;
   }
 
 
@@ -177,8 +179,7 @@ class Pumpe
    *
    * @return integer
    */
-  public function getId()
-  {
+  public function getId() {
     return $this->id;
   }
 
@@ -188,8 +189,7 @@ class Pumpe
    * @param string $nuvaerendeType
    * @return Pumpe
    */
-  public function setNuvaerendeType($nuvaerendeType)
-  {
+  public function setNuvaerendeType($nuvaerendeType) {
     $this->nuvaerendeType = $nuvaerendeType;
 
     return $this;
@@ -200,8 +200,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getNuvaerendeType()
-  {
+  public function getNuvaerendeType() {
     return $this->nuvaerendeType;
   }
 
@@ -211,8 +210,7 @@ class Pumpe
    * @param integer $byggemaal
    * @return Pumpe
    */
-  public function setByggemaal($byggemaal)
-  {
+  public function setByggemaal($byggemaal) {
     $this->byggemaal = $byggemaal;
 
     return $this;
@@ -223,8 +221,7 @@ class Pumpe
    *
    * @return integer
    */
-  public function getByggemaal()
-  {
+  public function getByggemaal() {
     return $this->byggemaal;
   }
 
@@ -234,8 +231,7 @@ class Pumpe
    * @param string $tilslutning
    * @return Pumpe
    */
-  public function setTilslutning($tilslutning)
-  {
+  public function setTilslutning($tilslutning) {
     $this->tilslutning = $tilslutning;
 
     return $this;
@@ -246,8 +242,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getTilslutning()
-  {
+  public function getTilslutning() {
     return $this->tilslutning;
   }
 
@@ -257,8 +252,7 @@ class Pumpe
    * @param integer $indst
    * @return Pumpe
    */
-  public function setIndst($indst)
-  {
+  public function setIndst($indst) {
     $this->indst = $indst;
 
     return $this;
@@ -269,8 +263,7 @@ class Pumpe
    *
    * @return integer
    */
-  public function getIndst()
-  {
+  public function getIndst() {
     return $this->indst;
   }
 
@@ -280,8 +273,7 @@ class Pumpe
    * @param string $forbrug
    * @return Pumpe
    */
-  public function setForbrug($forbrug)
-  {
+  public function setForbrug($forbrug) {
     $this->forbrug = $forbrug;
 
     return $this;
@@ -292,8 +284,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getForbrug()
-  {
+  public function getForbrug() {
     return $this->forbrug;
   }
 
@@ -303,8 +294,7 @@ class Pumpe
    * @param string $q
    * @return Pumpe
    */
-  public function setQ($q)
-  {
+  public function setQ($q) {
     $this->q = $q;
 
     return $this;
@@ -315,8 +305,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getQ()
-  {
+  public function getQ() {
     return $this->q;
   }
 
@@ -326,8 +315,7 @@ class Pumpe
    * @param string $h
    * @return Pumpe
    */
-  public function setH($h)
-  {
+  public function setH($h) {
     $this->h = $h;
 
     return $this;
@@ -338,8 +326,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getH()
-  {
+  public function getH() {
     return $this->h;
   }
 
@@ -349,8 +336,7 @@ class Pumpe
    * @param integer $aarsforbrug
    * @return Pumpe
    */
-  public function setAarsforbrug($aarsforbrug)
-  {
+  public function setAarsforbrug($aarsforbrug) {
     $this->aarsforbrug = $aarsforbrug;
 
     return $this;
@@ -361,8 +347,7 @@ class Pumpe
    *
    * @return integer
    */
-  public function getAarsforbrug()
-  {
+  public function getAarsforbrug() {
     return $this->aarsforbrug;
   }
 
@@ -372,8 +357,7 @@ class Pumpe
    * @param string $nyPumpe
    * @return Pumpe
    */
-  public function setNyPumpe($nyPumpe)
-  {
+  public function setNyPumpe($nyPumpe) {
     $this->nyPumpe = $nyPumpe;
 
     return $this;
@@ -384,8 +368,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getNyPumpe()
-  {
+  public function getNyPumpe() {
     return $this->nyPumpe;
   }
 
@@ -395,8 +378,7 @@ class Pumpe
    * @param integer $nyByggemaal
    * @return Pumpe
    */
-  public function setNyByggemaal($nyByggemaal)
-  {
+  public function setNyByggemaal($nyByggemaal) {
     $this->nyByggemaal = $nyByggemaal;
 
     return $this;
@@ -407,8 +389,7 @@ class Pumpe
    *
    * @return integer
    */
-  public function getNyByggemaal()
-  {
+  public function getNyByggemaal() {
     return $this->nyByggemaal;
   }
 
@@ -418,8 +399,7 @@ class Pumpe
    * @param string $nyTilslutning
    * @return Pumpe
    */
-  public function setNyTilslutning($nyTilslutning)
-  {
+  public function setNyTilslutning($nyTilslutning) {
     $this->nyTilslutning = $nyTilslutning;
 
     return $this;
@@ -430,8 +410,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getNyTilslutning()
-  {
+  public function getNyTilslutning() {
     return $this->nyTilslutning;
   }
 
@@ -441,8 +420,7 @@ class Pumpe
    * @param string $vvsNr
    * @return Pumpe
    */
-  public function setVvsNr($vvsNr)
-  {
+  public function setVvsNr($vvsNr) {
     $this->vvsnr = $vvsNr;
 
     return $this;
@@ -453,8 +431,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getVvsNr()
-  {
+  public function getVvsNr() {
     return $this->vvsnr;
   }
 
@@ -464,8 +441,7 @@ class Pumpe
    * @param integer $nytAarsforbrug
    * @return Pumpe
    */
-  public function setNytAarsforbrug($nytAarsforbrug)
-  {
+  public function setNytAarsforbrug($nytAarsforbrug) {
     $this->nytAarsforbrug = $nytAarsforbrug;
 
     return $this;
@@ -476,8 +452,7 @@ class Pumpe
    *
    * @return integer
    */
-  public function getNytAarsforbrug()
-  {
+  public function getNytAarsforbrug() {
     return $this->nytAarsforbrug;
   }
 
@@ -487,8 +462,7 @@ class Pumpe
    * @param integer $elbesparelse
    * @return Pumpe
    */
-  public function setElbesparelse($elbesparelse)
-  {
+  public function setElbesparelse($elbesparelse) {
     $this->elbesparelse = $elbesparelse;
 
     return $this;
@@ -499,8 +473,7 @@ class Pumpe
    *
    * @return integer
    */
-  public function getElbesparelse()
-  {
+  public function getElbesparelse() {
     return $this->elbesparelse;
   }
 
@@ -510,8 +483,7 @@ class Pumpe
    * @param string $udligningssaet
    * @return Pumpe
    */
-  public function setUdligningssaet($udligningssaet)
-  {
+  public function setUdligningssaet($udligningssaet) {
     $this->udligningssaet = $udligningssaet;
 
     return $this;
@@ -522,8 +494,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getUdligningssaet()
-  {
+  public function getUdligningssaet() {
     return $this->udligningssaet;
   }
 
@@ -533,8 +504,7 @@ class Pumpe
    * @param string $kommentarer
    * @return Pumpe
    */
-  public function setKommentarer($kommentarer)
-  {
+  public function setKommentarer($kommentarer) {
     $this->kommentarer = $kommentarer;
 
     return $this;
@@ -545,8 +515,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getKommentarer()
-  {
+  public function getKommentarer() {
     return $this->kommentarer;
   }
 
@@ -556,8 +525,7 @@ class Pumpe
    * @param integer $standInvestering
    * @return Pumpe
    */
-  public function setStandInvestering($standInvestering)
-  {
+  public function setStandInvestering($standInvestering) {
     $this->standInvestering = $standInvestering;
 
     return $this;
@@ -568,8 +536,7 @@ class Pumpe
    *
    * @return integer
    */
-  public function getStandInvestering()
-  {
+  public function getStandInvestering() {
     return $this->standInvestering;
   }
 
@@ -579,8 +546,7 @@ class Pumpe
    * @param string $fabrikant
    * @return Pumpe
    */
-  public function setFabrikant($fabrikant)
-  {
+  public function setFabrikant($fabrikant) {
     $this->fabrikant = $fabrikant;
 
     return $this;
@@ -591,8 +557,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getFabrikant()
-  {
+  public function getFabrikant() {
     return $this->fabrikant;
   }
 
@@ -602,8 +567,7 @@ class Pumpe
    * @param integer $roerlaengde
    * @return Pumpe
    */
-  public function setRoerlaengde($roerlaengde)
-  {
+  public function setRoerlaengde($roerlaengde) {
     $this->roerlaengde = $roerlaengde;
 
     return $this;
@@ -614,8 +578,7 @@ class Pumpe
    *
    * @return integer
    */
-  public function getRoerlaengde()
-  {
+  public function getRoerlaengde() {
     return $this->roerlaengde;
   }
 
@@ -625,8 +588,7 @@ class Pumpe
    * @param string $roerstoerrelse
    * @return Pumpe
    */
-  public function setRoerstoerrelse($roerstoerrelse)
-  {
+  public function setRoerstoerrelse($roerstoerrelse) {
     $this->roerstoerrelse = $roerstoerrelse;
 
     return $this;
@@ -637,8 +599,7 @@ class Pumpe
    *
    * @return string
    */
-  public function getRoerstoerrelse()
-  {
+  public function getRoerstoerrelse() {
     return $this->roerstoerrelse;
   }
 

@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\Entity;
 
@@ -11,7 +15,6 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class RapportRepository extends EntityRepository {
-
   /**
    * Get the Pumpetiltag for the rapport
    *
@@ -19,14 +22,16 @@ class RapportRepository extends EntityRepository {
    * @return \AppBundle\Entity\PumpeTiltag
    * @throws \Doctrine\ORM\NonUniqueResultException
    */
-  public function getPumpeTiltag($rapport)
-  {
+  public function getPumpeTiltag($rapport) {
     $qb = $this->_em->createQueryBuilder();
-    $qb->select('t')->from('AppBundle\Entity\Tiltag', 't')->where('t INSTANCE OF AppBundle\Entity\PumpeTiltag')->andWhere('t.rapport IN (:rapport)' )->setParameter( 'rapport', $rapport );
+    $qb->select('t')
+      ->from('AppBundle\Entity\Tiltag', 't')
+      ->where('t INSTANCE OF AppBundle\Entity\PumpeTiltag')
+      ->andWhere('t.rapport IN (:rapport)')
+      ->setParameter('rapport', $rapport);
 
     $query = $qb->getQuery();
 
     return $query->getOneOrNullResult();
   }
-
 }

@@ -1,16 +1,22 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\DBAL;
 
 use Doctrine\DBAL\Driver\PDOMySql\Driver as BaseDriver;
 
-class Driver extends BaseDriver
-{
+/**
+ * Class Driver
+ * @package AppBundle\DBAL
+ */
+class Driver extends BaseDriver {
   /**
    * {@inheritdoc}
    */
-  public function getDatabasePlatform()
-  {
+  public function getDatabasePlatform() {
     return new Platform();
   }
 }

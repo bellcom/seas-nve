@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\Controller;
 
@@ -17,9 +21,7 @@ use AppBundle\Form\RapportType;
  *
  * @Route("/bygning")
  */
-class BygningController extends Controller
-{
-
+class BygningController extends Controller {
   /**
    * Lists all Bygning entities.
    *
@@ -27,17 +29,17 @@ class BygningController extends Controller
    * @Method("GET")
    * @Template()
    */
-  public function indexAction(Request $request)
-  {
+  public function indexAction(Request $request) {
     $em = $this->getDoctrine()->getManager();
 
+    // @TODO: unused $entities?
     $entities = $em->getRepository('AppBundle:Bygning')->findAll();
 
-    $em    = $this->get('doctrine.orm.entity_manager');
-    $dql   = "SELECT b FROM AppBundle:Bygning b";
+    $em = $this->get('doctrine.orm.entity_manager');
+    $dql = "SELECT b FROM AppBundle:Bygning b";
     $query = $em->createQuery($dql);
 
-    $paginator  = $this->get('knp_paginator');
+    $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
       $query,
       $request->query->get('page', 1),
@@ -47,7 +49,6 @@ class BygningController extends Controller
     return $this->render('AppBundle:Bygning:index.html.twig', array('pagination' => $pagination));
   }
 
-
   /**
    * Creates a new Bygning entity.
    *
@@ -55,8 +56,7 @@ class BygningController extends Controller
    * @Method("POST")
    * @Template("AppBundle:Bygning:new.html.twig")
    */
-  public function createAction(Request $request)
-  {
+  public function createAction(Request $request) {
     $entity = new Bygning();
     $form = $this->createCreateForm($entity);
     $form->handleRequest($request);
@@ -71,10 +71,9 @@ class BygningController extends Controller
 
     return array(
       'entity' => $entity,
-      'form'   => $form->createView(),
+      'form' => $form->createView(),
     );
   }
-
 
   /**
    * Creates a form to create a Bygning entity.
@@ -83,8 +82,7 @@ class BygningController extends Controller
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createCreateForm(Bygning $entity)
-  {
+  private function createCreateForm(Bygning $entity) {
     $form = $this->createForm(new BygningType(), $entity, array(
       'action' => $this->generateUrl('bygning_create'),
       'method' => 'POST',
@@ -102,14 +100,13 @@ class BygningController extends Controller
    * @Method("GET")
    * @Template()
    */
-  public function newAction()
-  {
+  public function newAction() {
     $entity = new Bygning();
-    $form   = $this->createCreateForm($entity);
+    $form = $this->createCreateForm($entity);
 
     return array(
       'entity' => $entity,
-      'form'   => $form->createView(),
+      'form' => $form->createView(),
     );
   }
 
@@ -120,8 +117,7 @@ class BygningController extends Controller
    * @Method("GET")
    * @Template()
    */
-  public function showAction($id)
-  {
+  public function showAction($id) {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:Bygning')->find($id);
@@ -133,11 +129,10 @@ class BygningController extends Controller
     $deleteForm = $this->createDeleteForm($id);
 
     return array(
-      'entity'      => $entity,
+      'entity' => $entity,
       'delete_form' => $deleteForm->createView(),
     );
   }
-
 
   /**
    * Displays a form to edit an existing Bygning entity.
@@ -146,8 +141,7 @@ class BygningController extends Controller
    * @Method("GET")
    * @Template()
    */
-  public function editAction($id)
-  {
+  public function editAction($id) {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:Bygning')->find($id);
@@ -160,12 +154,11 @@ class BygningController extends Controller
     $deleteForm = $this->createDeleteForm($id);
 
     return array(
-      'entity'      => $entity,
-      'edit_form'   => $editForm->createView(),
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
   }
-
 
   /**
    * Creates a form to edit a Bygning entity.
@@ -174,8 +167,7 @@ class BygningController extends Controller
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createEditForm(Bygning $entity)
-  {
+  private function createEditForm(Bygning $entity) {
     $form = $this->createForm(new BygningType(), $entity, array(
       'action' => $this->generateUrl('bygning_update', array('id' => $entity->getId())),
       'method' => 'PUT',
@@ -185,6 +177,7 @@ class BygningController extends Controller
 
     return $form;
   }
+
   /**
    * Edits an existing Bygning entity.
    *
@@ -192,8 +185,7 @@ class BygningController extends Controller
    * @Method("PUT")
    * @Template("AppBundle:Bygning:edit.html.twig")
    */
-  public function updateAction(Request $request, $id)
-  {
+  public function updateAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:Bygning')->find($id);
@@ -213,12 +205,11 @@ class BygningController extends Controller
     }
 
     return array(
-      'entity'      => $entity,
-      'edit_form'   => $editForm->createView(),
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
   }
-
 
   /**
    * Deletes a Bygning entity.
@@ -226,8 +217,7 @@ class BygningController extends Controller
    * @Route("/{id}", name="bygning_delete")
    * @Method("DELETE")
    */
-  public function deleteAction(Request $request, $id)
-  {
+  public function deleteAction(Request $request, $id) {
     $form = $this->createDeleteForm($id);
     $form->handleRequest($request);
 
@@ -246,7 +236,6 @@ class BygningController extends Controller
     return $this->redirect($this->generateUrl('bygning'));
   }
 
-
   /**
    * Creates a form to delete a Bygning entity by id.
    *
@@ -254,14 +243,12 @@ class BygningController extends Controller
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createDeleteForm($id)
-  {
+  private function createDeleteForm($id) {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('bygning_delete', array('id' => $id)))
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
-      ->getForm()
-      ;
+      ->getForm();
   }
 
   //--------- Rapport ---------------//
@@ -273,8 +260,7 @@ class BygningController extends Controller
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createRapportCreateForm(Rapport $entity, $id)
-  {
+  private function createRapportCreateForm(Rapport $entity, $id) {
     $form = $this->createForm(new RapportType(), $entity, array(
       'action' => $this->generateUrl(
         'bygning_rapport_create',
@@ -295,10 +281,9 @@ class BygningController extends Controller
    * @Method("GET")
    * @Template()
    */
-  public function newRapportAction($id)
-  {
+  public function newRapportAction($id) {
     $entity = new Rapport();
-    $form   = $this->createRapportCreateForm($entity, $id);
+    $form = $this->createRapportCreateForm($entity, $id);
 
     return $this->render('AppBundle:Rapport:new.html.twig', array(
       'entity' => $entity,
@@ -313,8 +298,7 @@ class BygningController extends Controller
    * @Method("POST")
    * @Template("AppBundle:Rapport:new.html.twig")
    */
-  public function createRapportAction(Request $request, $id)
-  {
+  public function createRapportAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();
 
     $bygning = $em->getRepository('AppBundle:Bygning')->find($id);
@@ -338,8 +322,7 @@ class BygningController extends Controller
 
     return array(
       'entity' => $entity,
-      'form'   => $form->createView(),
+      'form' => $form->createView(),
     );
   }
-
 }

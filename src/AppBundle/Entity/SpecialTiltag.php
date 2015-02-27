@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\Entity;
 
@@ -13,7 +17,6 @@ use Doctrine\ORM\Mapping\InheritanceType;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\SpecialTiltagRepository")
  */
-class SpecialTiltag extends Tiltag
-{
+class SpecialTiltag extends Tiltag {
 
 }

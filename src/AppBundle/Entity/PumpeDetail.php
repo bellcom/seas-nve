@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\Entity;
 
@@ -12,8 +16,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\PumpeDetailRepository")
  */
-class PumpeDetail
-{
+class PumpeDetail {
   /**
    * @var integer
    *
@@ -118,8 +121,7 @@ class PumpeDetail
    *
    * @return integer
    */
-  public function getId()
-  {
+  public function getId() {
     return $this->id;
   }
 
@@ -129,8 +131,7 @@ class PumpeDetail
    * @param boolean $tilvalgt
    * @return PumpeDetail
    */
-  public function setTilvalgt($tilvalgt)
-  {
+  public function setTilvalgt($tilvalgt) {
     $this->tilvalgt = $tilvalgt;
 
     return $this;
@@ -141,8 +142,7 @@ class PumpeDetail
    *
    * @return boolean
    */
-  public function getTilvalgt()
-  {
+  public function getTilvalgt() {
     return $this->tilvalgt;
   }
 
@@ -152,8 +152,7 @@ class PumpeDetail
    * @param string $pumpeID
    * @return PumpeDetail
    */
-  public function setPumpeID($pumpeID)
-  {
+  public function setPumpeID($pumpeID) {
     $this->pumpeID = $pumpeID;
 
     return $this;
@@ -164,8 +163,7 @@ class PumpeDetail
    *
    * @return string
    */
-  public function getPumpeID()
-  {
+  public function getPumpeID() {
     return $this->pumpeID;
   }
 
@@ -175,8 +173,7 @@ class PumpeDetail
    * @param string $forsyningsomraade
    * @return PumpeDetail
    */
-  public function setForsyningsomraade($forsyningsomraade)
-  {
+  public function setForsyningsomraade($forsyningsomraade) {
     $this->forsyningsomraade = $forsyningsomraade;
 
     return $this;
@@ -187,8 +184,7 @@ class PumpeDetail
    *
    * @return string
    */
-  public function getForsyningsomraade()
-  {
+  public function getForsyningsomraade() {
     return $this->forsyningsomraade;
   }
 
@@ -198,8 +194,7 @@ class PumpeDetail
    * @param string $placering
    * @return PumpeDetail
    */
-  public function setPlacering($placering)
-  {
+  public function setPlacering($placering) {
     $this->placering = $placering;
 
     return $this;
@@ -210,8 +205,7 @@ class PumpeDetail
    *
    * @return string
    */
-  public function getPlacering()
-  {
+  public function getPlacering() {
     return $this->placering;
   }
 
@@ -221,8 +215,7 @@ class PumpeDetail
    * @param string $applikation
    * @return PumpeDetail
    */
-  public function setApplikation($applikation)
-  {
+  public function setApplikation($applikation) {
     $this->applikation = $applikation;
 
     return $this;
@@ -233,8 +226,7 @@ class PumpeDetail
    *
    * @return string
    */
-  public function getApplikation()
-  {
+  public function getApplikation() {
     return $this->applikation;
   }
 
@@ -244,8 +236,7 @@ class PumpeDetail
    * @param boolean $isoleringskappe
    * @return PumpeDetail
    */
-  public function setIsoleringskappe($isoleringskappe)
-  {
+  public function setIsoleringskappe($isoleringskappe) {
     $this->isoleringskappe = $isoleringskappe;
 
     return $this;
@@ -256,8 +247,7 @@ class PumpeDetail
    *
    * @return boolean
    */
-  public function getIsoleringskappe()
-  {
+  public function getIsoleringskappe() {
     return $this->isoleringskappe;
   }
 
@@ -267,8 +257,7 @@ class PumpeDetail
    * @param string $bFaktor
    * @return PumpeDetail
    */
-  public function setBFaktor($bFaktor)
-  {
+  public function setBFaktor($bFaktor) {
     $this->b_faktor = $bFaktor;
 
     return $this;
@@ -279,8 +268,7 @@ class PumpeDetail
    *
    * @return string
    */
-  public function getBFaktor()
-  {
+  public function getBFaktor() {
     return $this->b_faktor;
   }
 
@@ -290,8 +278,7 @@ class PumpeDetail
    * @param string $noter
    * @return PumpeDetail
    */
-  public function setNoter($noter)
-  {
+  public function setNoter($noter) {
     $this->noter = $noter;
 
     return $this;
@@ -302,8 +289,7 @@ class PumpeDetail
    *
    * @return string
    */
-  public function getNoter()
-  {
+  public function getNoter() {
     return $this->noter;
   }
 
@@ -313,8 +299,7 @@ class PumpeDetail
    * @param integer $eksisterendeDrifttid
    * @return PumpeDetail
    */
-  public function setEksisterendeDrifttid($eksisterendeDrifttid)
-  {
+  public function setEksisterendeDrifttid($eksisterendeDrifttid) {
     $this->eksisterendeDrifttid = $eksisterendeDrifttid;
 
     return $this;
@@ -325,8 +310,7 @@ class PumpeDetail
    *
    * @return integer
    */
-  public function getEksisterendeDrifttid()
-  {
+  public function getEksisterendeDrifttid() {
     return $this->eksisterendeDrifttid;
   }
 
@@ -336,8 +320,7 @@ class PumpeDetail
    * @param integer $nyDrifttid
    * @return PumpeDetail
    */
-  public function setNyDrifttid($nyDrifttid)
-  {
+  public function setNyDrifttid($nyDrifttid) {
     $this->nyDrifttid = $nyDrifttid;
 
     return $this;
@@ -348,8 +331,7 @@ class PumpeDetail
    *
    * @return integer
    */
-  public function getNyDrifttid()
-  {
+  public function getNyDrifttid() {
     return $this->nyDrifttid;
   }
 
@@ -359,8 +341,7 @@ class PumpeDetail
    * @param string $prisfaktor
    * @return PumpeDetail
    */
-  public function setPrisfaktor($prisfaktor)
-  {
+  public function setPrisfaktor($prisfaktor) {
     $this->prisfaktor = $prisfaktor;
 
     return $this;
@@ -371,8 +352,7 @@ class PumpeDetail
    *
    * @return string
    */
-  public function getPrisfaktor()
-  {
+  public function getPrisfaktor() {
     return $this->prisfaktor;
   }
 
@@ -382,8 +362,7 @@ class PumpeDetail
    * @param \AppBundle\Entity\PumpeTiltag $pumpetiltag
    * @return PumpeDetail
    */
-  public function setPumpetiltag(\AppBundle\Entity\PumpeTiltag $pumpetiltag = null)
-  {
+  public function setPumpetiltag(\AppBundle\Entity\PumpeTiltag $pumpetiltag = NULL) {
     $this->pumpetiltag = $pumpetiltag;
 
     return $this;
@@ -394,31 +373,28 @@ class PumpeDetail
    *
    * @return \AppBundle\Entity\PumpeTiltag
    */
-  public function getPumpetiltag()
-  {
+  public function getPumpetiltag() {
     return $this->pumpetiltag;
   }
 
-    /**
-     * Set pumpe
-     *
-     * @param \AppBundle\Entity\Pumpe $pumpe
-     * @return PumpeDetail
-     */
-    public function setPumpe(\AppBundle\Entity\Pumpe $pumpe = null)
-    {
-        $this->pumpe = $pumpe;
+  /**
+   * Set pumpe
+   *
+   * @param \AppBundle\Entity\Pumpe $pumpe
+   * @return PumpeDetail
+   */
+  public function setPumpe(\AppBundle\Entity\Pumpe $pumpe = NULL) {
+    $this->pumpe = $pumpe;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get pumpe
-     *
-     * @return \AppBundle\Entity\Pumpe 
-     */
-    public function getPumpe()
-    {
-        return $this->pumpe;
-    }
+  /**
+   * Get pumpe
+   *
+   * @return \AppBundle\Entity\Pumpe
+   */
+  public function getPumpe() {
+    return $this->pumpe;
+  }
 }

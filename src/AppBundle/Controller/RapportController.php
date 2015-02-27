@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\Controller;
 
@@ -19,9 +23,7 @@ use AppBundle\Form\TiltagType;
  *
  * @Route("/rapport")
  */
-class RapportController extends Controller
-{
-
+class RapportController extends Controller {
   /**
    * Lists all Rapport entities.
    *
@@ -29,8 +31,7 @@ class RapportController extends Controller
    * @Method("GET")
    * @Template()
    */
-  public function indexAction()
-  {
+  public function indexAction() {
     $em = $this->getDoctrine()->getManager();
 
     $entities = $em->getRepository('AppBundle:Rapport')->findAll();
@@ -47,8 +48,7 @@ class RapportController extends Controller
    * @Method("GET")
    * @Template()
    */
-  public function showAction($id)
-  {
+  public function showAction($id) {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:Rapport')->find($id);
@@ -60,7 +60,7 @@ class RapportController extends Controller
     $deleteForm = $this->createDeleteForm($id);
 
     return array(
-      'entity'      => $entity,
+      'entity' => $entity,
       'delete_form' => $deleteForm->createView(),
     );
   }
@@ -72,8 +72,7 @@ class RapportController extends Controller
    * @Method("GET")
    * @Template()
    */
-  public function editAction($id)
-  {
+  public function editAction($id) {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:Rapport')->find($id);
@@ -86,8 +85,8 @@ class RapportController extends Controller
     $deleteForm = $this->createDeleteForm($id);
 
     return array(
-      'entity'      => $entity,
-      'edit_form'   => $editForm->createView(),
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
   }
@@ -99,8 +98,7 @@ class RapportController extends Controller
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createEditForm(Rapport $entity)
-  {
+  private function createEditForm(Rapport $entity) {
     $form = $this->createForm(new RapportType(), $entity, array(
       'action' => $this->generateUrl('rapport_update', array('id' => $entity->getId())),
       'method' => 'PUT',
@@ -118,8 +116,7 @@ class RapportController extends Controller
    * @Method("PUT")
    * @Template("AppBundle:Rapport:edit.html.twig")
    */
-  public function updateAction(Request $request, $id)
-  {
+  public function updateAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:Rapport')->find($id);
@@ -139,8 +136,8 @@ class RapportController extends Controller
     }
 
     return array(
-      'entity'      => $entity,
-      'edit_form'   => $editForm->createView(),
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
   }
@@ -151,8 +148,7 @@ class RapportController extends Controller
    * @Route("/{id}", name="rapport_delete")
    * @Method("DELETE")
    */
-  public function deleteAction(Request $request, $id)
-  {
+  public function deleteAction(Request $request, $id) {
     $form = $this->createDeleteForm($id);
     $form->handleRequest($request);
 
@@ -178,14 +174,12 @@ class RapportController extends Controller
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createDeleteForm($id)
-  {
+  private function createDeleteForm($id) {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('rapport_delete', array('id' => $id)))
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
-      ->getForm()
-      ;
+      ->getForm();
   }
 
   //---------------- Tiltag -------------------//
@@ -197,8 +191,7 @@ class RapportController extends Controller
    * @Method("GET")
    * @Template("AppBundle:Tiltag:new.html.twig")
    */
-  public function createAction(Request $request, $id, $type)
-  {
+  public function createAction(Request $request, $id, $type) {
     $em = $this->getDoctrine()->getManager();
 
     $rapport = $em->getRepository('AppBundle:Rapport')->find($id);
@@ -225,6 +218,5 @@ class RapportController extends Controller
     $em->flush();
 
     return $this->redirect($this->generateUrl('tiltag_show', array('id' => $entity->getId())));
-
   }
 }
