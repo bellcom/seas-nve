@@ -98,8 +98,7 @@ class LoadPumpeData implements FixtureInterface, ContainerAwareInterface {
       $workflow->addWriter($progressWriter);
 
       // Process the workflow
-      // @TODO: unused $result
-      $result = $workflow->process();
+      $workflow->process();
 
       $output->writeln('');
       $output->writeln('  <comment>></comment> <info>' . $filename . ' imported succesfully</info>');

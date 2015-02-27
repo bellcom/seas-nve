@@ -63,8 +63,7 @@ class LoadTiltagsData implements FixtureInterface, ContainerAwareInterface {
       $workflow->addWriter($doctrineWriter);
 
       // Process the workflow
-      // @TODO: unused $result
-      $result = $workflow->process();
+      $workflow->process();
 
       $output->writeln('  <comment>></comment> <info> - ' . $filename . ' imported succesfully</info>');
     }

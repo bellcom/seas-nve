@@ -32,10 +32,6 @@ class BygningController extends Controller {
   public function indexAction(Request $request) {
     $em = $this->getDoctrine()->getManager();
 
-    // @TODO: unused $entities?
-    $entities = $em->getRepository('AppBundle:Bygning')->findAll();
-
-    $em = $this->get('doctrine.orm.entity_manager');
     $dql = "SELECT b FROM AppBundle:Bygning b";
     $query = $em->createQuery($dql);
 

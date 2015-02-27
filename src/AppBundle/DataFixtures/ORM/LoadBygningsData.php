@@ -80,8 +80,8 @@ class LoadBygningsData implements FixtureInterface, ContainerAwareInterface {
       $workflow->addWriter($progressWriter);
 
       // Process the workflow
-      // @TODO: Unused result?
-      $result = $workflow->process();
+
+      $workflow->process();
 
       $output->writeln('');
       $output->writeln('  <comment>></comment> <info>' . $filename . ' imported succesfully</info>');
