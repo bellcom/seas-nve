@@ -1,7 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  <h1><i class="fa fa-home"></i> {{ entity.adresse }}, {{ entity.postnummer }} {{ entity.postBy }}</h1>
+  <h1>{{ icon('home') }} {{ entity.adresse }}, {{ entity.postnummer }} {{ entity.postBy }}</h1>
 
   <div class="row">
     <div class="col-md-10">
