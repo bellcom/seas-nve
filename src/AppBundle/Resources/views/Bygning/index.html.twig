@@ -3,11 +3,11 @@
 {% block body %}
   <div class="row">
     <div class="col-md-10">
-      <h1>Bygninger</h1>
+      <h1>{{ 'bygninger.labels.plural' | trans }}</h1>
     </div>
     <div class="col-md-2">
       <a href="{{ path('bygning_new') }}" class="btn btn-default">
-        {{ icon('plus') }} Tilføj Bygning
+        {{ icon('plus') }} {{ 'bygninger.actions.tilfoej' | trans }}
       </a>
     </div>
 
@@ -16,10 +16,10 @@
   <table class="table table-hover">
     <tr>
       <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'Adresse', 'b.adresse') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'Postnr.', 'b.postnummer') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'By.', 'b.postBy') }}</th>
-      <th>Actions</th>
+      <th>{{ knp_pagination_sortable(pagination, 'bygninger.labels.adresse'|trans, 'b.adresse') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'bygninger.labels.postnr'|trans, 'b.postnummer') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'bygninger.labels.by'|trans, 'b.postBy') }}</th>
+      <th></th>
     </tr>
     {% for bygning in pagination %}
       <tr>
@@ -33,7 +33,7 @@
         </td>
       </tr>
     {% else %}
-      Ingen bygninger fundet
+      {{ 'bygninger.strings.ingen' | trans }}
     {% endfor %}
   </table>
 

@@ -1,0 +1,11 @@
+bygninger:
+  labels:
+    singular: Bygning
+    plural: Bygninger
+    adresse: Adresse
+    postnr: Postnr.
+    by: By
+  actions:
+    tilfoej: Tilføj Bygning
+  strings:
+    ingen: Ingen bygninger fundet
