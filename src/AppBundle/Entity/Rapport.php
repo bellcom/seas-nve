@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\Entity;
 
@@ -14,8 +18,7 @@ use Doctrine\ORM\Mapping\OrderBy;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\RapportRepository")
  */
-class Rapport
-{
+class Rapport {
   /**
    * @var integer
    *
@@ -52,15 +55,20 @@ class Rapport
    */
   private $datering;
 
+  /**
+   * Constructor
+   */
+  public function __construct() {
+    $this->tiltag = new \Doctrine\Common\Collections\ArrayCollection();
+  }
 
   /**
    * Get Name
    *
    * @return string
    */
-  public function __toString()
-  {
-    return $this->getBygning()->getAdresse().", ".$this->version;
+  public function __toString() {
+    return $this->getBygning()->getAdresse() . ", " . $this->version;
   }
 
   /**
@@ -68,8 +76,7 @@ class Rapport
    *
    * @return integer
    */
-  public function getId()
-  {
+  public function getId() {
     return $this->id;
   }
 
@@ -79,8 +86,7 @@ class Rapport
    * @param string $version
    * @return Rapport
    */
-  public function setVersion($version)
-  {
+  public function setVersion($version) {
     $this->version = $version;
 
     return $this;
@@ -91,8 +97,7 @@ class Rapport
    *
    * @return string
    */
-  public function getVersion()
-  {
+  public function getVersion() {
     return $this->version;
   }
 
@@ -102,8 +107,7 @@ class Rapport
    * @param \DateTime $datering
    * @return Rapport
    */
-  public function setDatering($datering)
-  {
+  public function setDatering($datering) {
     $this->datering = $datering;
 
     return $this;
@@ -114,8 +118,7 @@ class Rapport
    *
    * @return \DateTime
    */
-  public function getDatering()
-  {
+  public function getDatering() {
     return $this->datering;
   }
 
@@ -126,8 +129,7 @@ class Rapport
    * @param \AppBundle\Entity\Bygning $bygning
    * @return Rapport
    */
-  public function setBygning(\AppBundle\Entity\Bygning $bygning = null)
-  {
+  public function setBygning(\AppBundle\Entity\Bygning $bygning = NULL) {
     $this->bygning = $bygning;
 
     return $this;
@@ -138,16 +140,8 @@ class Rapport
    *
    * @return \AppBundle\Entity\Bygning
    */
-  public function getBygning()
-  {
+  public function getBygning() {
     return $this->bygning;
-  }
-  /**
-   * Constructor
-   */
-  public function __construct()
-  {
-    $this->tiltag = new \Doctrine\Common\Collections\ArrayCollection();
   }
 
   /**
@@ -156,8 +150,7 @@ class Rapport
    * @param \AppBundle\Entity\Tiltag $tiltag
    * @return Rapport
    */
-  public function addTiltag(\AppBundle\Entity\Tiltag $tiltag)
-  {
+  public function addTiltag(\AppBundle\Entity\Tiltag $tiltag) {
     $this->tiltag[] = $tiltag;
 
     $tiltag->setRapport($this);
@@ -170,8 +163,7 @@ class Rapport
    *
    * @param \AppBundle\Entity\Tiltag $tiltag
    */
-  public function removeTiltag(\AppBundle\Entity\Tiltag $tiltag)
-  {
+  public function removeTiltag(\AppBundle\Entity\Tiltag $tiltag) {
     $this->tiltag->removeElement($tiltag);
   }
 
@@ -180,8 +172,7 @@ class Rapport
    *
    * @return \Doctrine\Common\Collections\Collection
    */
-  public function getTiltag()
-  {
+  public function getTiltag() {
     return $this->tiltag;
   }
 

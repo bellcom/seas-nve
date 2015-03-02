@@ -1,0 +1,72 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>PumpeDetail</h1>
+
+  <table class="table">
+    <tbody>
+    <tr>
+      <th>Id</th>
+      <td>{{ entity.id }}</td>
+    </tr>
+    <tr>
+      <th>Tilvalgt</th>
+      <td>{{ entity.tilvalgt }}</td>
+    </tr>
+    <tr>
+      <th>Pumpeid</th>
+      <td>{{ entity.pumpeID }}</td>
+    </tr>
+    <tr>
+      <th>Forsyningsomraade</th>
+      <td>{{ entity.forsyningsomraade }}</td>
+    </tr>
+    <tr>
+      <th>Placering</th>
+      <td>{{ entity.placering }}</td>
+    </tr>
+    <tr>
+      <th>Applikation</th>
+      <td>{{ entity.applikation }}</td>
+    </tr>
+    <tr>
+      <th>Isoleringskappe</th>
+      <td>{{ entity.isoleringskappe }}</td>
+    </tr>
+    <tr>
+      <th>B_faktor</th>
+      <td>{{ entity.bfaktor }}</td>
+    </tr>
+    <tr>
+      <th>Noter</th>
+      <td>{{ entity.noter }}</td>
+    </tr>
+    <tr>
+      <th>Eksisterendedrifttid</th>
+      <td>{{ entity.eksisterendeDrifttid }}</td>
+    </tr>
+    <tr>
+      <th>Nydrifttid</th>
+      <td>{{ entity.nyDrifttid }}</td>
+    </tr>
+    <tr>
+      <th>Prisfaktor</th>
+      <td>{{ entity.prisfaktor }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ul class="record_actions">
+    <li>
+      <a href="{{ path('pumpedetail') }}">
+        Back to the list
+      </a>
+    </li>
+    <li>
+      <a href="{{ path('pumpedetail_edit', { 'id': entity.id }) }}">
+        Edit
+      </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+  </ul>
+{% endblock %}

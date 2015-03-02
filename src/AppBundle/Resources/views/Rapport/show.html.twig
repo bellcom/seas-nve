@@ -1,63 +1,68 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1><i class="fa fa-file"></i> Rapport</h1>
+  <h1>{{ icon('file') }} Rapport</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Version</th>
-                <td>{{ entity.version }}</td>
-            </tr>
-            <tr>
-                <th>Bygning</th>
-                <td>{{ entity.bygning }}</td>
-            </tr>
-            <tr>
-                <th>Datering</th>
-                <td>{{ entity.datering | date('Y-m-d H:i:s') }}</td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="table">
+    <tbody>
+    <tr>
+      <th>Version</th>
+      <td>{{ entity.version }}</td>
+    </tr>
+    <tr>
+      <th>Bygning</th>
+      <td>{{ entity.bygning }}</td>
+    </tr>
+    <tr>
+      <th>Datering</th>
+      <td>{{ entity.datering | date('Y-m-d H:i:s') }}</td>
+    </tr>
+    </tbody>
+  </table>
 
-    <h2>Tiltag:</h2>
+  <h2>Tiltag:</h2>
 
-    <div role="tabpanel">
+  <div role="tabpanel">
 
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            {% for key, t in entity.tiltag %}
-            <li role="presentation" {% if key == 0 %} class="active" {% endif %}><a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">{{ key + 1 }}. {{ t.title }}</a></li>
-            {% endfor %}
-        </ul>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      {% for key, t in entity.tiltag %}
+        <li role="presentation" {% if key == 0 %} class="active" {% endif %}><a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">{{ key + 1 }}. {{ t.title }}</a></li>
+      {% endfor %}
+    </ul>
 
-        <!-- Tab panes -->
-        <div class="tab-content">
-            {% for key, t in entity.tiltag %}
-            <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
-                <p>{{ key }} - {{ t.title }}</p>
-                <p>
-                    <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
-                        Show
-                    </a>
-                </p>
-            </div>
-            {% endfor %}
+    <!-- Tab panes -->
+    <div class="tab-content">
+      {% for key, t in entity.tiltag %}
+        <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
+          {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
+          <p>
+            <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
+              Detailark
+            </a>
+          </p>
         </div>
-
+      {% endfor %}
     </div>
 
-    <hr>
+  </div>
 
+  <hr>
+  <p>
+    {% if is_missing_tiltag_type(entity.tiltag, 'pumpetiltag') %}
+      <a href="{{ path('tiltag_create', { 'id': entity.id, 'type': 'pumpe' }) }}" class="btn btn-default">{{ icon('plus') }} Tilføj Pumpeudskiftninger</a>
+    {% endif %}
+    {% if is_missing_tiltag_type(entity.tiltag, 'isoleringtiltag') %}
+      <a href="#" class="btn btn-default">{{ icon('plus') }} Tilføj Teknisk isolering</a>
+    {% endif %}
+    <a href="#" class="btn btn-default">{{ icon('plus') }} Tilføj Special tiltag</a>
+  </p>
+  <hr>
 
-        <a href="{{ path('rapport') }}" class="btn btn-default">
-            <i class="fa fa-arrow-left"></i> Back to the list
-        </a>
+  <a href="{{ path('rapport_edit', { 'id': entity.id }) }}"  class="btn btn-default">
+    Edit
+  </a>
 
-        <a href="{{ path('rapport_edit', { 'id': entity.id }) }}"  class="btn btn-default">
-            Edit
-        </a>
-
-    {{ form(delete_form) }}
+  {{ form(delete_form) }}
 
 {% endblock %}

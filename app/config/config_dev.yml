@@ -11,6 +11,10 @@ web_profiler:
     toolbar: true
     intercept_redirects: false
 
+doctrine:
+    dbal:
+        driver_class: AppBundle\DBAL\Driver
+
 monolog:
     handlers:
         main:

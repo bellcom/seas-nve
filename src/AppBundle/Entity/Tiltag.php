@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\Entity;
 
@@ -18,8 +22,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
  * @DiscriminatorMap({"special" = "SpecialTiltag", "pumpe" = "PumpeTiltag"})
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TiltagRepository")
  */
-class Tiltag
-{
+class Tiltag {
   /**
    * @var integer
    *
@@ -197,14 +200,12 @@ class Tiltag
   private $rapport;
 
 
-
   /**
    * Get Name
    *
    * @return string
    */
-  public function __toString()
-  {
+  public function __toString() {
     return $this->title;
   }
 
@@ -213,8 +214,7 @@ class Tiltag
    *
    * @return integer
    */
-  public function getId()
-  {
+  public function getId() {
     return $this->id;
   }
 
@@ -224,8 +224,7 @@ class Tiltag
    * @param string $title
    * @return Tiltag
    */
-  public function setTitle($title)
-  {
+  public function setTitle($title) {
     $this->title = $title;
 
     return $this;
@@ -236,8 +235,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getTitle()
-  {
+  public function getTitle() {
     return $this->title;
   }
 
@@ -247,8 +245,7 @@ class Tiltag
    * @param float $vandbesparelse
    * @return Tiltag
    */
-  public function setVandbesparelse($vandbesparelse)
-  {
+  public function setVandbesparelse($vandbesparelse) {
     $this->vandbesparelse = $vandbesparelse;
 
     return $this;
@@ -259,8 +256,7 @@ class Tiltag
    *
    * @return float
    */
-  public function getVandbesparelse()
-  {
+  public function getVandbesparelse() {
     return $this->vandbesparelse;
   }
 
@@ -270,8 +266,7 @@ class Tiltag
    * @param integer $faktor
    * @return Tiltag
    */
-  public function setFaktor($faktor)
-  {
+  public function setFaktor($faktor) {
     $this->faktor = $faktor;
 
     return $this;
@@ -282,8 +277,7 @@ class Tiltag
    *
    * @return integer
    */
-  public function getFaktor()
-  {
+  public function getFaktor() {
     return $this->faktor;
   }
 
@@ -293,8 +287,7 @@ class Tiltag
    * @param string $primaerEnterprise
    * @return Tiltag
    */
-  public function setPrimaerEnterprise($primaerEnterprise)
-  {
+  public function setPrimaerEnterprise($primaerEnterprise) {
     $this->primaerEnterprise = $primaerEnterprise;
 
     return $this;
@@ -305,8 +298,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getPrimaerEnterprise()
-  {
+  public function getPrimaerEnterprise() {
     return $this->primaerEnterprise;
   }
 
@@ -316,8 +308,7 @@ class Tiltag
    * @param string $tilbudskategori
    * @return Tiltag
    */
-  public function setTilbudskategori($tilbudskategori)
-  {
+  public function setTilbudskategori($tilbudskategori) {
     $this->tilbudskategori = $tilbudskategori;
 
     return $this;
@@ -328,8 +319,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getTilbudskategori()
-  {
+  public function getTilbudskategori() {
     return $this->tilbudskategori;
   }
 
@@ -339,8 +329,7 @@ class Tiltag
    * @param string $anlaegsInvestering
    * @return Tiltag
    */
-  public function setAnlaegsInvestering($anlaegsInvestering)
-  {
+  public function setAnlaegsInvestering($anlaegsInvestering) {
     $this->anlaegsInvestering = $anlaegsInvestering;
 
     return $this;
@@ -351,8 +340,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getAnlaegsInvestering()
-  {
+  public function getAnlaegsInvestering() {
     return $this->anlaegsInvestering;
   }
 
@@ -362,8 +350,7 @@ class Tiltag
    * @param string $dVBesparelse
    * @return Tiltag
    */
-  public function setDVBesparelse($dVBesparelse)
-  {
+  public function setDVBesparelse($dVBesparelse) {
     $this->dVBesparelse = $dVBesparelse;
 
     return $this;
@@ -374,8 +361,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getDVBesparelse()
-  {
+  public function getDVBesparelse() {
     return $this->dVBesparelse;
   }
 
@@ -385,8 +371,7 @@ class Tiltag
    * @param string $levetid
    * @return Tiltag
    */
-  public function setLevetid($levetid)
-  {
+  public function setLevetid($levetid) {
     $this->levetid = $levetid;
 
     return $this;
@@ -397,8 +382,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getLevetid()
-  {
+  public function getLevetid() {
     return $this->levetid;
   }
 
@@ -408,8 +392,7 @@ class Tiltag
    * @param string $forsyningVarme
    * @return Tiltag
    */
-  public function setForsyningVarme($forsyningVarme)
-  {
+  public function setForsyningVarme($forsyningVarme) {
     $this->forsyningVarme = $forsyningVarme;
 
     return $this;
@@ -420,8 +403,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getForsyningVarme()
-  {
+  public function getForsyningVarme() {
     return $this->forsyningVarme;
   }
 
@@ -431,8 +413,7 @@ class Tiltag
    * @param string $el
    * @return Tiltag
    */
-  public function setEl($el)
-  {
+  public function setEl($el) {
     $this->el = $el;
 
     return $this;
@@ -443,8 +424,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getEl()
-  {
+  public function getEl() {
     return $this->el;
   }
 
@@ -454,8 +434,7 @@ class Tiltag
    * @param string $beskrivelseNevaerende
    * @return Tiltag
    */
-  public function setBeskrivelseNevaerende($beskrivelseNevaerende)
-  {
+  public function setBeskrivelseNevaerende($beskrivelseNevaerende) {
     $this->beskrivelseNevaerende = $beskrivelseNevaerende;
 
     return $this;
@@ -466,8 +445,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getBeskrivelseNevaerende()
-  {
+  public function getBeskrivelseNevaerende() {
     return $this->beskrivelseNevaerende;
   }
 
@@ -477,8 +455,7 @@ class Tiltag
    * @param string $beskrivelseForslag
    * @return Tiltag
    */
-  public function setBeskrivelseForslag($beskrivelseForslag)
-  {
+  public function setBeskrivelseForslag($beskrivelseForslag) {
     $this->beskrivelseForslag = $beskrivelseForslag;
 
     return $this;
@@ -489,8 +466,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getBeskrivelseForslag()
-  {
+  public function getBeskrivelseForslag() {
     return $this->beskrivelseForslag;
   }
 
@@ -500,8 +476,7 @@ class Tiltag
    * @param string $beskrivelseOevrige
    * @return Tiltag
    */
-  public function setBeskrivelseOevrige($beskrivelseOevrige)
-  {
+  public function setBeskrivelseOevrige($beskrivelseOevrige) {
     $this->beskrivelseOevrige = $beskrivelseOevrige;
 
     return $this;
@@ -512,8 +487,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getBeskrivelseOevrige()
-  {
+  public function getBeskrivelseOevrige() {
     return $this->beskrivelseOevrige;
   }
 
@@ -523,8 +497,7 @@ class Tiltag
    * @param string $risikovurdering
    * @return Tiltag
    */
-  public function setRisikovurdering($risikovurdering)
-  {
+  public function setRisikovurdering($risikovurdering) {
     $this->risikovurdering = $risikovurdering;
 
     return $this;
@@ -535,8 +508,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getRisikovurdering()
-  {
+  public function getRisikovurdering() {
     return $this->risikovurdering;
   }
 
@@ -546,8 +518,7 @@ class Tiltag
    * @param string $placering
    * @return Tiltag
    */
-  public function setPlacering($placering)
-  {
+  public function setPlacering($placering) {
     $this->placering = $placering;
 
     return $this;
@@ -558,8 +529,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getPlacering()
-  {
+  public function getPlacering() {
     return $this->placering;
   }
 
@@ -569,8 +539,7 @@ class Tiltag
    * @param string $beskrivelseBV
    * @return Tiltag
    */
-  public function setBeskrivelseBV($beskrivelseBV)
-  {
+  public function setBeskrivelseBV($beskrivelseBV) {
     $this->beskrivelseBV = $beskrivelseBV;
 
     return $this;
@@ -581,8 +550,7 @@ class Tiltag
    *
    * @return string
    */
-  public function getBeskrivelseBV()
-  {
+  public function getBeskrivelseBV() {
     return $this->beskrivelseBV;
   }
 
@@ -592,8 +560,7 @@ class Tiltag
    * @param string $indeklima
    * @return Tiltag
    */
-  public function setIndeklima($indeklima)
-  {
+  public function setIndeklima($indeklima) {
     $this->indeklima = $indeklima;
 
     return $this;
@@ -604,169 +571,154 @@ class Tiltag
    *
    * @return string
    */
-  public function getIndeklima()
-  {
+  public function getIndeklima() {
     return $this->indeklima;
   }
 
-    /**
-     * Set rapport
-     *
-     * @param \AppBundle\Entity\Rapport $rapport
-     * @return Tiltag
-     */
-    public function setRapport(\AppBundle\Entity\Rapport $rapport = null)
-    {
-        $this->rapport = $rapport;
+  /**
+   * Set rapport
+   *
+   * @param \AppBundle\Entity\Rapport $rapport
+   * @return Tiltag
+   */
+  public function setRapport(\AppBundle\Entity\Rapport $rapport = NULL) {
+    $this->rapport = $rapport;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get rapport
-     *
-     * @return \AppBundle\Entity\Rapport 
-     */
-    public function getRapport()
-    {
-        return $this->rapport;
-    }
+  /**
+   * Get rapport
+   *
+   * @return \AppBundle\Entity\Rapport
+   */
+  public function getRapport() {
+    return $this->rapport;
+  }
 
-    /**
-     * Set varmebsparelseGUF
-     *
-     * @param float $varmebsparelseGUF
-     * @return Tiltag
-     */
-    public function setVarmebsparelseGUF($varmebsparelseGUF)
-    {
-        $this->varmebsparelseGUF = $varmebsparelseGUF;
+  /**
+   * Set varmebsparelseGUF
+   *
+   * @param float $varmebsparelseGUF
+   * @return Tiltag
+   */
+  public function setVarmebsparelseGUF($varmebsparelseGUF) {
+    $this->varmebsparelseGUF = $varmebsparelseGUF;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get varmebsparelseGUF
-     *
-     * @return float 
-     */
-    public function getVarmebsparelseGUF()
-    {
-        return $this->varmebsparelseGUF;
-    }
+  /**
+   * Get varmebsparelseGUF
+   *
+   * @return float
+   */
+  public function getVarmebsparelseGUF() {
+    return $this->varmebsparelseGUF;
+  }
 
-    /**
-     * Set varmebesparelseGAF
-     *
-     * @param float $varmebesparelseGAF
-     * @return Tiltag
-     */
-    public function setVarmebesparelseGAF($varmebesparelseGAF)
-    {
-        $this->varmebesparelseGAF = $varmebesparelseGAF;
+  /**
+   * Set varmebesparelseGAF
+   *
+   * @param float $varmebesparelseGAF
+   * @return Tiltag
+   */
+  public function setVarmebesparelseGAF($varmebesparelseGAF) {
+    $this->varmebesparelseGAF = $varmebesparelseGAF;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get varmebesparelseGAF
-     *
-     * @return float 
-     */
-    public function getVarmebesparelseGAF()
-    {
-        return $this->varmebesparelseGAF;
-    }
+  /**
+   * Get varmebesparelseGAF
+   *
+   * @return float
+   */
+  public function getVarmebesparelseGAF() {
+    return $this->varmebesparelseGAF;
+  }
 
-    /**
-     * Set elbesparelse
-     *
-     * @param float $elbesparelse
-     * @return Tiltag
-     */
-    public function setElbesparelse($elbesparelse)
-    {
-        $this->elbesparelse = $elbesparelse;
+  /**
+   * Set elbesparelse
+   *
+   * @param float $elbesparelse
+   * @return Tiltag
+   */
+  public function setElbesparelse($elbesparelse) {
+    $this->elbesparelse = $elbesparelse;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get elbesparelse
-     *
-     * @return float 
-     */
-    public function getElbesparelse()
-    {
-        return $this->elbesparelse;
-    }
+  /**
+   * Get elbesparelse
+   *
+   * @return float
+   */
+  public function getElbesparelse() {
+    return $this->elbesparelse;
+  }
 
-    /**
-     * Set energibesparelseAarEt
-     *
-     * @param float $energibesparelseAarEt
-     * @return Tiltag
-     */
-    public function setEnergibesparelseAarEt($energibesparelseAarEt)
-    {
-        $this->energibesparelseAarEt = $energibesparelseAarEt;
+  /**
+   * Set energibesparelseAarEt
+   *
+   * @param float $energibesparelseAarEt
+   * @return Tiltag
+   */
+  public function setEnergibesparelseAarEt($energibesparelseAarEt) {
+    $this->energibesparelseAarEt = $energibesparelseAarEt;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get energibesparelseAarEt
-     *
-     * @return float 
-     */
-    public function getEnergibesparelseAarEt()
-    {
-        return $this->energibesparelseAarEt;
-    }
+  /**
+   * Get energibesparelseAarEt
+   *
+   * @return float
+   */
+  public function getEnergibesparelseAarEt() {
+    return $this->energibesparelseAarEt;
+  }
 
-    /**
-     * Set co2besparelseAarEt
-     *
-     * @param float $co2besparelseAarEt
-     * @return Tiltag
-     */
-    public function setCo2besparelseAarEt($co2besparelseAarEt)
-    {
-        $this->co2besparelseAarEt = $co2besparelseAarEt;
+  /**
+   * Set co2besparelseAarEt
+   *
+   * @param float $co2besparelseAarEt
+   * @return Tiltag
+   */
+  public function setCo2besparelseAarEt($co2besparelseAarEt) {
+    $this->co2besparelseAarEt = $co2besparelseAarEt;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get co2besparelseAarEt
-     *
-     * @return float 
-     */
-    public function getCo2besparelseAarEt()
-    {
-        return $this->co2besparelseAarEt;
-    }
+  /**
+   * Get co2besparelseAarEt
+   *
+   * @return float
+   */
+  public function getCo2besparelseAarEt() {
+    return $this->co2besparelseAarEt;
+  }
 
-    /**
-     * Set antalReinvesteringer
-     *
-     * @param integer $antalReinvesteringer
-     * @return Tiltag
-     */
-    public function setAntalReinvesteringer($antalReinvesteringer)
-    {
-        $this->antalReinvesteringer = $antalReinvesteringer;
+  /**
+   * Set antalReinvesteringer
+   *
+   * @param integer $antalReinvesteringer
+   * @return Tiltag
+   */
+  public function setAntalReinvesteringer($antalReinvesteringer) {
+    $this->antalReinvesteringer = $antalReinvesteringer;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get antalReinvesteringer
-     *
-     * @return integer 
-     */
-    public function getAntalReinvesteringer()
-    {
-        return $this->antalReinvesteringer;
-    }
+  /**
+   * Get antalReinvesteringer
+   *
+   * @return integer
+   */
+  public function getAntalReinvesteringer() {
+    return $this->antalReinvesteringer;
+  }
 }

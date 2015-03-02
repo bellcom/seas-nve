@@ -1,43 +1,30 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Rapport list</h1>
+  <h1>Rapport list</h1>
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Version</th>
-            <th>Bygning</th>
-            <th>Datering</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('rapport_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.version }}</td>
-                <td>{{ entity.bygning }}</td>
-                <td>{% if entity.datering %}{{ entity.datering|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('rapport_show', { 'id': entity.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('rapport_edit', { 'id': entity.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-
-    <a href="{{ path('rapport_new') }}" class="btn btn-default">
-        Create a new entry
-    </a>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Bygning</th>
+      <th>Version</th>
+      <th>Datering</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+      <tr>
+        <td>{{ entity.bygning }}</td>
+        <td>{{ entity.version }}</td>
+        <td>{% if entity.datering %}{{ entity.datering|date('Y-m-d') }}{% endif %}</td>
+        <td>
+          <a href="{{ path('rapport_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">show</a>
+          <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">edit</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 
 {% endblock %}

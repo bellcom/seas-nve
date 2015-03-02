@@ -1,0 +1,102 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>Pumpe</h1>
+
+  <table class="table">
+    <tbody>
+    <tr>
+      <th>Id</th>
+      <td>{{ entity.id }}</td>
+    </tr>
+    <tr>
+      <th>Nuvaerendetype</th>
+      <td>{{ entity.nuvaerendeType }}</td>
+    </tr>
+    <tr>
+      <th>Byggemaal</th>
+      <td>{{ entity.byggemaal }}</td>
+    </tr>
+    <tr>
+      <th>Tilslutning</th>
+      <td>{{ entity.tilslutning }}</td>
+    </tr>
+    <tr>
+      <th>Indst</th>
+      <td>{{ entity.indst }}</td>
+    </tr>
+    <tr>
+      <th>Forbrug</th>
+      <td>{{ entity.forbrug }}</td>
+    </tr>
+    <tr>
+      <th>Q</th>
+      <td>{{ entity.q }}</td>
+    </tr>
+    <tr>
+      <th>H</th>
+      <td>{{ entity.h }}</td>
+    </tr>
+    <tr>
+      <th>Aarsforbrug</th>
+      <td>{{ entity.aarsforbrug }}</td>
+    </tr>
+    <tr>
+      <th>Nypumpe</th>
+      <td>{{ entity.nyPumpe }}</td>
+    </tr>
+    <tr>
+      <th>Nybyggemaal</th>
+      <td>{{ entity.nyByggemaal }}</td>
+    </tr>
+    <tr>
+      <th>Nytilslutning</th>
+      <td>{{ entity.nyTilslutning }}</td>
+    </tr>
+    <tr>
+      <th>Vvsnr</th>
+      <td>{{ entity.vvsnr }}</td>
+    </tr>
+    <tr>
+      <th>Nytaarsforbrug</th>
+      <td>{{ entity.nytAarsforbrug }}</td>
+    </tr>
+    <tr>
+      <th>Elbesparelse</th>
+      <td>{{ entity.elbesparelse }}</td>
+    </tr>
+    <tr>
+      <th>Udligningssaet</th>
+      <td>{{ entity.udligningssaet }}</td>
+    </tr>
+    <tr>
+      <th>Kommentarer</th>
+      <td>{{ entity.kommentarer }}</td>
+    </tr>
+    <tr>
+      <th>Standinvestering</th>
+      <td>{{ entity.standInvestering }}</td>
+    </tr>
+    <tr>
+      <th>Fabrikant</th>
+      <td>{{ entity.fabrikant }}</td>
+    </tr>
+    <tr>
+      <th>Roerlaengde</th>
+      <td>{{ entity.roerlaengde }}</td>
+    </tr>
+    <tr>
+      <th>Roerstoerrelse</th>
+      <td>{{ entity.roerstoerrelse }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ul class="record_actions">
+    <li>
+      <a href="{{ path('pumpe') }}">
+        Back to the list
+      </a>
+    </li>
+  </ul>
+{% endblock %}

@@ -1,9 +1,16 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AppBundle extends Bundle
-{
+/**
+ * Class AppBundle
+ * @package AppBundle
+ */
+class AppBundle extends Bundle {
 }

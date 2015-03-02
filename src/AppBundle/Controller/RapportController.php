@@ -1,8 +1,13 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\PumpeTiltag;
+use AppBundle\Entity\SpecialTiltag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -10,15 +15,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\RapportType;
+use AppBundle\Entity\Tiltag;
+use AppBundle\Form\TiltagType;
 
 /**
  * Rapport controller.
  *
  * @Route("/rapport")
  */
-class RapportController extends Controller
-{
-
+class RapportController extends Controller {
   /**
    * Lists all Rapport entities.
    *
@@ -26,77 +31,13 @@ class RapportController extends Controller
    * @Method("GET")
    * @Template()
    */
-  public function indexAction()
-  {
+  public function indexAction() {
     $em = $this->getDoctrine()->getManager();
 
     $entities = $em->getRepository('AppBundle:Rapport')->findAll();
 
     return array(
       'entities' => $entities,
-    );
-  }
-  /**
-   * Creates a new Rapport entity.
-   *
-   * @Route("/", name="rapport_create")
-   * @Method("POST")
-   * @Template("AppBundle:Rapport:new.html.twig")
-   */
-  public function createAction(Request $request)
-  {
-    $entity = new Rapport();
-    $form = $this->createCreateForm($entity);
-    $form->handleRequest($request);
-
-    if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($entity);
-      $em->flush();
-
-      return $this->redirect($this->generateUrl('rapport_show', array('id' => $entity->getId())));
-    }
-
-    return array(
-      'entity' => $entity,
-      'form'   => $form->createView(),
-    );
-  }
-
-  /**
-   * Creates a form to create a Rapport entity.
-   *
-   * @param Rapport $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createCreateForm(Rapport $entity)
-  {
-    $form = $this->createForm(new RapportType(), $entity, array(
-      'action' => $this->generateUrl('rapport_create'),
-      'method' => 'POST',
-    ));
-
-    $form->add('submit', 'submit', array('label' => 'Create'));
-
-    return $form;
-  }
-
-  /**
-   * Displays a form to create a new Rapport entity.
-   *
-   * @Route("/new", name="rapport_new")
-   * @Method("GET")
-   * @Template()
-   */
-  public function newAction()
-  {
-    $entity = new Rapport();
-    $form   = $this->createCreateForm($entity);
-
-    return array(
-      'entity' => $entity,
-      'form'   => $form->createView(),
     );
   }
 
@@ -107,8 +48,7 @@ class RapportController extends Controller
    * @Method("GET")
    * @Template()
    */
-  public function showAction($id)
-  {
+  public function showAction($id) {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:Rapport')->find($id);
@@ -120,7 +60,7 @@ class RapportController extends Controller
     $deleteForm = $this->createDeleteForm($id);
 
     return array(
-      'entity'      => $entity,
+      'entity' => $entity,
       'delete_form' => $deleteForm->createView(),
     );
   }
@@ -132,8 +72,7 @@ class RapportController extends Controller
    * @Method("GET")
    * @Template()
    */
-  public function editAction($id)
-  {
+  public function editAction($id) {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:Rapport')->find($id);
@@ -146,8 +85,8 @@ class RapportController extends Controller
     $deleteForm = $this->createDeleteForm($id);
 
     return array(
-      'entity'      => $entity,
-      'edit_form'   => $editForm->createView(),
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
   }
@@ -159,8 +98,7 @@ class RapportController extends Controller
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createEditForm(Rapport $entity)
-  {
+  private function createEditForm(Rapport $entity) {
     $form = $this->createForm(new RapportType(), $entity, array(
       'action' => $this->generateUrl('rapport_update', array('id' => $entity->getId())),
       'method' => 'PUT',
@@ -178,8 +116,7 @@ class RapportController extends Controller
    * @Method("PUT")
    * @Template("AppBundle:Rapport:edit.html.twig")
    */
-  public function updateAction(Request $request, $id)
-  {
+  public function updateAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:Rapport')->find($id);
@@ -199,19 +136,19 @@ class RapportController extends Controller
     }
 
     return array(
-      'entity'      => $entity,
-      'edit_form'   => $editForm->createView(),
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
   }
+
   /**
    * Deletes a Rapport entity.
    *
    * @Route("/{id}", name="rapport_delete")
    * @Method("DELETE")
    */
-  public function deleteAction(Request $request, $id)
-  {
+  public function deleteAction(Request $request, $id) {
     $form = $this->createDeleteForm($id);
     $form->handleRequest($request);
 
@@ -237,35 +174,49 @@ class RapportController extends Controller
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createDeleteForm($id)
-  {
+  private function createDeleteForm($id) {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('rapport_delete', array('id' => $id)))
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
-      ->getForm()
-      ;
+      ->getForm();
   }
 
+  //---------------- Tiltag -------------------//
+
   /**
-   * Creates and adds a Pumpetiltag to the rapport
+   * Creates a new Tiltag entity.
    *
-   * @Route("/{id}/addpumpetiltag", name="rapport_add_pumpe")
+   * @Route("/{id}/tiltag/{type}", name="tiltag_create")
    * @Method("GET")
+   * @Template("AppBundle:Tiltag:new.html.twig")
    */
-  public function addNewPumpeTiltag($id) {
+  public function createAction(Request $request, $id, $type) {
     $em = $this->getDoctrine()->getManager();
 
-    $entity = $em->getRepository('AppBundle:Rapport')->find($id);
+    $rapport = $em->getRepository('AppBundle:Rapport')->find($id);
 
-    if (!$entity) {
+    if (!$rapport) {
       throw $this->createNotFoundException('Unable to find Rapport entity.');
     }
 
-    $tiltag = new PumpeTiltag();
-    $entity->addTiltag($tiltag);
+    switch ($type) {
+      case 'pumpe':
+        $entity = new PumpeTiltag();
+        $entity->setTitle('Pumpeudskiftninger');
+        break;
+      case 'special':
+        $entity = new SpecialTiltag();
+        break;
+      default:
+        throw new \InvalidArgumentException('Unknown tiltag type');
+    }
+
+    $entity->setRapport($rapport);
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($entity);
     $em->flush();
 
-    return $this->redirect($this->generateUrl('rapport_show', array('id' => $id)));
+    return $this->redirect($this->generateUrl('tiltag_show', array('id' => $entity->getId())));
   }
 }

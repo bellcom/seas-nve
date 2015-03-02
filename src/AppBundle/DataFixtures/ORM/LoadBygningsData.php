@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
 namespace AppBundle\DataFixtures\ORM;
 
@@ -16,73 +20,74 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Class LoadBygningsData
+ * @package AppBundle\DataFixtures\ORM
+ */
+class LoadBygningsData implements FixtureInterface, ContainerAwareInterface {
+  /**
+   * @var ContainerInterface
+   */
+  private $container;
 
-class LoadBygningsData implements FixtureInterface, ContainerAwareInterface
-{
+  /**
+   * {@inheritDoc}
+   */
+  public function setContainer(ContainerInterface $container = NULL) {
+    $this->container = $container;
+  }
 
-	/**
-	 * @var ContainerInterface
-	 */
-	private $container;
+  /**
+   * {@inheritDoc}
+   */
+  public function load(ObjectManager $manager) {
+    $basepath = $this->container->get('kernel')
+      ->locateResource('@AppBundle/DataFixtures/Data/');
+    $filename = 'BygningsData.csv';
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function setContainer(ContainerInterface $container = null)
-	{
-		$this->container = $container;
-	}
+    $output = new ConsoleOutput();
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function load(ObjectManager $manager)
-	{
-		$basepath = $this->container->get('kernel')->locateResource('@AppBundle/DataFixtures/Data/');
-		$filename = 'BygningsData.csv';
+    if (file_exists($basepath . $filename)) {
+      // Create and configure the reader
+      $file = new \SplFileObject($basepath . $filename);
+      $csvReader = new CsvReader($file, ';');
+      $progressWriter = new ConsoleProgressWriter($output, $csvReader, 'normal', 100);
 
-		$output = new ConsoleOutput();
+      // Tell the reader that the first row in the CSV file contains column headers
+      $csvReader->setHeaderRowNumber(0);
 
-		if(file_exists($basepath.$filename)) {
+      // Create the workflow from the reader
+      $workflow = new Workflow($csvReader);
+      $workflow->addMapping('Id', 'bygId');
+      $workflow->addMapping('Ident', 'ident');
+      $workflow->addMapping('Enhedsys', 'enhedsys');
+      $workflow->addMapping('Enhedskode', 'enhedskode');
+      $workflow->addMapping('Type', 'type');
+      $workflow->addMapping('Kommentarer', 'kommentarer');
+      $workflow->addMapping('Adresse', 'adresse');
+      $workflow->addMapping('Postnr', 'postnummer');
+      $workflow->addMapping('POSTBY', 'postBy');
 
-			// Create and configure the reader
-			$file = new \SplFileObject($basepath.$filename);
-			$csvReader = new CsvReader($file, ';');
-			$progressWriter = new ConsoleProgressWriter($output, $csvReader, 'normal', 100);
+      $workflow->addValueConverter('type', new CharsetValueConverter('utf8', 'latin1'));
+      $workflow->addValueConverter('kommentarer', new CharsetValueConverter('utf8', 'latin1'));
+      $workflow->addValueConverter('adresse', new CharsetValueConverter('utf8', 'latin1'));
+      $workflow->addValueConverter('postBy', new CharsetValueConverter('utf8', 'latin1'));
 
-			// Tell the reader that the first row in the CSV file contains column headers
-			$csvReader->setHeaderRowNumber(0);
+      // Create a writer: you need Doctrine’s EntityManager.
+      $doctrineWriter = new DoctrineWriter($manager, 'AppBundle:Bygning');
+      $workflow->addWriter($doctrineWriter);
 
-			// Create the workflow from the reader
-			$workflow = new Workflow($csvReader);
-			$workflow->addMapping('Id', 'bygId');
-			$workflow->addMapping('Ident', 'ident');
-			$workflow->addMapping('Enhedsys', 'enhedsys');
-			$workflow->addMapping('Enhedskode', 'enhedskode');
-			$workflow->addMapping('Type', 'type');
-			$workflow->addMapping('Kommentarer', 'kommentarer');
-			$workflow->addMapping('Adresse', 'adresse');
-			$workflow->addMapping('Postnr', 'postnummer');
-			$workflow->addMapping('POSTBY', 'postBy');
+      $workflow->addWriter($progressWriter);
 
-			$workflow->addValueConverter('type', new CharsetValueConverter('utf8', 'latin1'));
-			$workflow->addValueConverter('kommentarer', new CharsetValueConverter('utf8', 'latin1'));
-			$workflow->addValueConverter('adresse', new CharsetValueConverter('utf8', 'latin1'));
-			$workflow->addValueConverter('postBy', new CharsetValueConverter('utf8', 'latin1'));
+      // Process the workflow
 
-			// Create a writer: you need Doctrine’s EntityManager.
-			$doctrineWriter = new DoctrineWriter($manager, 'AppBundle:Bygning');
-			$workflow->addWriter($doctrineWriter);
+      $workflow->process();
 
-			$workflow->addWriter($progressWriter);
-
-			// Process the workflow
-			$result = $workflow->process();
-
-			$output->writeln('');
-			$output->writeln('  <comment>></comment> <info>'.$filename.' imported succesfully</info>');
-		} else {
-			$output->writeln('  <comment>></comment> <error>'.$filename.' not found. Did you forget to add it to AppBundle/DataFixtures/Data?</error>');
-		}
-	}
+      $output->writeln('');
+      $output->writeln('  <comment>></comment> <info>' . $filename . ' imported succesfully</info>');
+    }
+    else {
+      $output->writeln('  <comment>></comment> <error>' . $filename . ' not found. Did you forget to add it to AppBundle/DataFixtures/Data?</error>');
+    }
+  }
 }
