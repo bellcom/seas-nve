@@ -11,18 +11,18 @@
       <table class="table">
         <thead>
         <tr>
-          <th>Tilvalgt</th>
-          <th>Pumpeid</th>
-          <th>Forsyningsomraade</th>
-          <th>Placering</th>
-          <th>Applikation</th>
-          <th>Isoleringskappe</th>
-          <th>B_faktor</th>
-          <th>Noter</th>
-          <th>Eksisterendedrifttid</th>
-          <th>Nydrifttid</th>
-          <th>Prisfaktor</th>
-          <th>Actions</th>
+          <th>{{ 'appbundle.pumpetiltag.tilvalgt' | trans }}</th>
+          <th>{{ 'appbundle.pumpetiltag.pumpeID' | trans }}</th>
+          <th>{{ 'appbundle.pumpetiltag.forsyningsomraade' | trans }}</th>
+          <th>{{ 'appbundle.pumpetiltag.placering' | trans }}</th>
+          <th>{{ 'appbundle.pumpetiltag.applikation' | trans }}</th>
+          <th>{{ 'appbundle.pumpetiltag.isoleringskappe' | trans }}</th>
+          <th>{{ 'appbundle.pumpetiltag.bfaktor' | trans }}</th>
+          <th>{{ 'appbundle.pumpetiltag.noter' | trans }}</th>
+          <th>{{ 'appbundle.pumpetiltag.eksisterendeDrifttid' | trans }}</th>
+          <th>{{ 'appbundle.pumpetiltag.nyDrifttid' | trans }}</th>
+          <th>{{ 'appbundle.pumpetiltag.prisfaktor' | trans }}</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -40,8 +40,8 @@
             <td>{{ detail.nyDrifttid }}</td>
             <td>{{ detail.prisfaktor }}</td>
             <td>
-              <a href="{{ path('pumpedetail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">show</a>
-              <a href="{{ path('pumpedetail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">edit</a>
+              <a href="{{ path('pumpedetail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+              <a href="{{ path('pumpedetail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
             </td>
           </tr>
         {% endfor %}
@@ -52,7 +52,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <a class="btn btn-success" href="#">{{ icon('plus') }} Tilføj Pumpe</a>
+      <a class="btn btn-success" href="#">{{ icon('plus') }} {{ 'pumper.strings.pluspumpe' | trans }}</a>
     </div>
   </div>
 

@@ -3,11 +3,11 @@
 {% block body %}
   <div class="row">
     <div class="col-md-10">
-      <h1>Bygninger</h1>
+      <h1>{{ 'bygninger.labels.plural' | trans }}</h1>
     </div>
     <div class="col-md-2">
       <a href="{{ path('bygning_new') }}" class="btn btn-default">
-        {{ icon('plus') }} Tilføj Bygning
+        {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
       </a>
     </div>
 
@@ -16,10 +16,10 @@
   <table class="table table-hover">
     <tr>
       <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'Adresse', 'b.adresse') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'Postnr.', 'b.postnummer') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'By.', 'b.postBy') }}</th>
-      <th>Actions</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
+      <th></th>
     </tr>
     {% for bygning in pagination %}
       <tr>
@@ -28,12 +28,12 @@
         <td>{{ bygning.postnummer }}</td>
         <td>{{ bygning.postBy }}</td>
         <td>
-          <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-primary btn-xs">show</a>
-          <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">edit</a>
+          <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+          <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
         </td>
       </tr>
     {% else %}
-      Ingen bygninger fundet
+      {{ 'bygninger.strings.ingen' | trans }}
     {% endfor %}
   </table>
 

@@ -1,0 +1,192 @@
+common:
+  edit: Rediger
+  show: Vis
+
+footer:
+  navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
+  adresse: Grøndalsvej 2, 8260 Viby J
+  email: aarhusplus@mtm.aarhus.dk
+
+# Entities
+rapporter:
+  labels:
+    singular: Rapport
+    plural: Rapporter
+    detailark: Detailark
+  actions:
+    add: Tilføj Rapport
+    edit: Rediger Rapport
+    create: Opret Rapport
+  strings:
+    teknisk_isolering: Teknsik isolering
+    tiltag: Tiltag
+
+bygninger:
+  labels:
+    singular: Bygning
+    plural: Bygninger
+  actions:
+    add: Tilføj Bygning
+    edit: Rediger Bygning
+    create: Opret Bygning
+  strings:
+    ingen: Ingen bygninger fundet
+
+pumper:
+  labels:
+    singular: Pumpe
+    plural: Pumper
+  strings:
+    pluspumpe: Tilføj pumpe
+
+tiltag:
+  labels:
+    singular: Tiltag
+    plural: Tiltag
+  strings:
+    oversigt: Oversigt
+    detailark: Detailark
+  actions:
+    add: Tilføj Tiltag
+    edit: Rediger Tiltag
+    create: Opret Tiltag
+
+pumpetiltag:
+  labels:
+    singular: Pumpetiltag
+    plural: Pumpetiltag
+  actions:
+    add: Tilføj Pumpetiltag
+    edit: Rediger Pumpetiltag
+    create: Opret Pumpetiltag
+
+
+# Forms - We follow the formbuilders form id format
+
+appbundle:
+  rapport:
+    bygning: Bygning
+    version: Version
+    datering: Dato
+  bygning:
+    singular: Bygning
+    plural: Bygninger
+    adresse: Adresse
+    postnr: Postnr.
+    by: By
+    bygId: Bygnings ID
+    ident: Ident
+    enhedsys: Enhedsys
+    enhedskode: Enhedskode
+    type: Type
+    kommentarer: Kommentarer
+    adresse: Adresse
+    postnummer: Postnummer
+    postBy: By
+    navn: Navn
+    ejer: Ejer
+    afdelingsnavn: Afdelingsnavn
+    ejerA: Ejer A
+    anvendelse: Anvendelse
+    bruttoetageareal: Bruttoetageareal
+    maalertype: Målertype
+    vand: Vand
+    kundenummer: Kundenummer
+    kode: Kode
+    varme: Varme
+    kundenr1: Kundenr 1
+    kode1: Kode 1
+    maalerskifteAFV: ﻿Målerskifte AFV
+    aFVInstnr1: AFV inst. nr. 1
+    el: El
+    instnr: Instnr.
+    kundenrNRGI: Kundenr. NRGI
+    internetkode: Internetkode
+    aftagenr: Aftagenr.
+    telefon: Telefon
+    divisionnavn: Divisionnavn
+    omraadenavn: Områdenavn
+    kommune: Kommune
+    ejerforhold: Ejerforhold
+    ansvarlig: Ansvarlig
+    magistrat: Magistrat
+    lokation: Lokation
+    lokationsnavn: Lokationsnavn
+    lederbetegnelse: Lederbetegnelse
+    ledersnavn: Leders navn
+    ledersmail: Leders mail
+    kontaktNotat: Kontakt Notat
+    stamdataNotat: Stamdata notat
+    vandNotat: Vand notat
+    elNotat: El notat
+    varmeNotat: Varme notat
+  pumpe:
+    nuvaerendeType: Nuværende Type
+    byggemaal: Byggemål
+    tilslutning: Tilslutning
+    indst: Indst.
+    forbrug: Forbrug
+    q: Q
+    h: H
+    aarsforbrug: Årsforbrug
+    nyPumpe: Ny pumpe
+    nyByggemaal: Nye byggemål
+    nyTilslutning: Ny tilslutning
+    vvsnr: VVS Nr.
+    nytAarsforbrug: Nyt Årsforbrug
+    elbesparelse: Elbsparelse
+    udligningssaet: Udligningssæt
+    kommentarer: Kommentarer
+    standInvestering: Standard investering
+    fabrikant: Fabrikant
+    roerlaengde: Rørlængde
+    roerstoerrelse: Rørstørrelse
+  pumpedetail:
+    pumpeID: Pumpe ID
+    forsyningsomraade: Forsyningsområde
+    placering: Placering
+    applikation: Applikation
+    b.faktor: B-Faktor
+    noter: Noter
+    eksisterendeDrifttid: Eksisterende drifttid
+    nyDrifttid: Ny drifttid
+    prisfaktor: Prisfaktor
+    pumpetiltag: Pumpetiltag
+    pumpe: Pumpe
+  pumpetiltag:
+    tilvalgt: Tilvalgt
+    pumpeID: Pumpe ID
+    forsyningsomraade: Forsyningsomåde
+    placering: Placering
+    applikation: Applikation
+    isoleringskappe: Isoleringskappe
+    bfaktor: B-Faktor
+    noter: Noter
+    eksisterendeDrifttid: Eksisterende drifttid
+    nyDrifttid: Ny drifttid
+    prisfaktor: Prisfaktor
+  tiltag:
+    title: Titel
+    varmebsparelseGUF: ﻿Varmebesparelse, GUF (kWh/år)
+    varmebesparelseGAF: ﻿Varmebesparelse, GAF (kWh/år)
+    elbesparelse: Elbesparelse (kWh/år)
+    vandbesparelse: Vandbesparelse (m³/år)
+    energibesparelseAarEt: Energi- og vandbesparelser i år 1 (kr/år)
+    co2besparelseAarEt: Samlet co2-besparelse i år 1  (t/år)
+    antalReinvesteringer: Antal reinvesteringer (stk.)
+    faktor: Faktor for reinvesteringer
+    primaerEnterprise: Primær entreprise
+    tilbudskategori: Tilbudskategori
+    anlaegsInvestering: ﻿Anlægsinvestering (kr)
+    dVBesparelse: Besparelse på D&V (kr/år)
+    levetid: Funktionsdygtig levetid (år)
+    forsyningVarme: Forsyningvarme
+    el: El
+    beskrivelseNevaerende: Nuværende forhold
+    beskrivelseForslag: Forslag
+    beskrivelseOevrige: Øvrige bemærkninger
+    risikovurdering: Risikovurdering
+    placering: Placering
+    beskrivelseBV: ﻿Beskrivelse af ændringer til D&V udgifter samt fremtidigt timeforbrug for driftspersonale
+    indeklima: Indeklima
+    rapport: Rapport

@@ -1,102 +1,95 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  <h1>Pumpe</h1>
+  <h1>{{ 'pumper.labels.singular' | trans }}</h1>
 
   <table class="table">
     <tbody>
     <tr>
-      <th>Id</th>
+      <th>#</th>
       <td>{{ entity.id }}</td>
     </tr>
     <tr>
-      <th>Nuvaerendetype</th>
+      <th>{{ 'appbundle.pumpe.nuvaerendeType' | trans }}</th>
       <td>{{ entity.nuvaerendeType }}</td>
     </tr>
     <tr>
-      <th>Byggemaal</th>
+      <th>{{ 'appbundle.pumpe.byggemaal' | trans }}</th>
       <td>{{ entity.byggemaal }}</td>
     </tr>
     <tr>
-      <th>Tilslutning</th>
+      <th>{{ 'appbundle.pumpe.tilslutning' | trans }}</th>
       <td>{{ entity.tilslutning }}</td>
     </tr>
     <tr>
-      <th>Indst</th>
+      <th>{{ 'appbundle.pumpe.indst' | trans }}</th>
       <td>{{ entity.indst }}</td>
     </tr>
     <tr>
-      <th>Forbrug</th>
+      <th>{{ 'appbundle.pumpe.forbrug' | trans }}</th>
       <td>{{ entity.forbrug }}</td>
     </tr>
     <tr>
-      <th>Q</th>
+      <th>{{ 'appbundle.pumpe.q' | trans }}</th>
       <td>{{ entity.q }}</td>
     </tr>
     <tr>
-      <th>H</th>
+      <th>{{ 'appbundle.pumpe.h' | trans }}</th>
       <td>{{ entity.h }}</td>
     </tr>
     <tr>
-      <th>Aarsforbrug</th>
+      <th>{{ 'appbundle.pumpe.aarsforbrug' | trans }}</th>
       <td>{{ entity.aarsforbrug }}</td>
     </tr>
     <tr>
-      <th>Nypumpe</th>
+      <th>{{ 'appbundle.pumpe.nyPumpe' | trans }}</th>
       <td>{{ entity.nyPumpe }}</td>
     </tr>
     <tr>
-      <th>Nybyggemaal</th>
+      <th>{{ 'appbundle.pumpe.nyByggemaal' | trans }}</th>
       <td>{{ entity.nyByggemaal }}</td>
     </tr>
     <tr>
-      <th>Nytilslutning</th>
+      <th>{{ 'appbundle.pumpe.nyTilslutning' | trans }}</th>
       <td>{{ entity.nyTilslutning }}</td>
     </tr>
     <tr>
-      <th>Vvsnr</th>
+      <th>{{ 'appbundle.pumpe.vvsnr' | trans }}</th>
       <td>{{ entity.vvsnr }}</td>
     </tr>
     <tr>
-      <th>Nytaarsforbrug</th>
+      <th>{{ 'appbundle.pumpe.nytAarsforbrug' | trans }}</th>
       <td>{{ entity.nytAarsforbrug }}</td>
     </tr>
     <tr>
-      <th>Elbesparelse</th>
+      <th>{{ 'appbundle.pumpe.elbesparelse' | trans }}</th>
       <td>{{ entity.elbesparelse }}</td>
     </tr>
     <tr>
-      <th>Udligningssaet</th>
+      <th>{{ 'appbundle.pumpe.udligningssaet' | trans }}</th>
       <td>{{ entity.udligningssaet }}</td>
     </tr>
     <tr>
-      <th>Kommentarer</th>
+      <th>{{ 'appbundle.pumpe.kommentarer' | trans }}</th>
       <td>{{ entity.kommentarer }}</td>
     </tr>
     <tr>
-      <th>Standinvestering</th>
+      <th>{{ 'appbundle.pumpe.standInvestering' | trans }}</th>
       <td>{{ entity.standInvestering }}</td>
     </tr>
     <tr>
-      <th>Fabrikant</th>
+      <th>{{ 'appbundle.pumpe.fabrikant' | trans }}</th>
       <td>{{ entity.fabrikant }}</td>
     </tr>
     <tr>
-      <th>Roerlaengde</th>
+      <th>{{ 'appbundle.pumpe.roerlaengde' | trans }}</th>
       <td>{{ entity.roerlaengde }}</td>
     </tr>
     <tr>
-      <th>Roerstoerrelse</th>
+      <th>{{ 'appbundle.pumpe.roerstoerrelse' | trans }}</th>
       <td>{{ entity.roerstoerrelse }}</td>
     </tr>
     </tbody>
   </table>
 
-  <ul class="record_actions">
-    <li>
-      <a href="{{ path('pumpe') }}">
-        Back to the list
-      </a>
-    </li>
-  </ul>
 {% endblock %}

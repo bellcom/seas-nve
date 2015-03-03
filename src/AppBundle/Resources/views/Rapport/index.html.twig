@@ -6,10 +6,10 @@
   <table class="table table-hover">
     <thead>
     <tr>
-      <th>Bygning</th>
-      <th>Version</th>
-      <th>Datering</th>
-      <th>Actions</th>
+      <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
+      <th>{{ 'appbundle.rapport.version' | trans }}</th>
+      <th>{{ 'appbundle.rapport.datering' | trans }}</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -19,8 +19,8 @@
         <td>{{ entity.version }}</td>
         <td>{% if entity.datering %}{{ entity.datering|date('Y-m-d') }}{% endif %}</td>
         <td>
-          <a href="{{ path('rapport_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">show</a>
-          <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">edit</a>
+          <a href="{{ path('rapport_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+          <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
         </td>
       </tr>
     {% endfor %}

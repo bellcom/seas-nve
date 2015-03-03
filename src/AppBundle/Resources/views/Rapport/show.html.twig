@@ -1,20 +1,20 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  <h1>{{ icon('file') }} Rapport</h1>
+  <h1>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h1>
 
   <table class="table">
     <tbody>
     <tr>
-      <th>Version</th>
+      <th>{{ 'appbundle.rapport.version' | trans }}</th>
       <td>{{ entity.version }}</td>
     </tr>
     <tr>
-      <th>Bygning</th>
+      <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
       <td>{{ entity.bygning }}</td>
     </tr>
     <tr>
-      <th>Datering</th>
+      <th>{{ 'appbundle.rapport.datering' | trans }}</th>
       <td>{{ entity.datering | date('Y-m-d H:i:s') }}</td>
     </tr>
     </tbody>
@@ -38,7 +38,7 @@
           {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
           <p>
             <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
-              Detailark
+              {{ 'rapporter.labels.detailark' | trans }}
             </a>
           </p>
         </div>
@@ -53,16 +53,14 @@
       <a href="{{ path('tiltag_create', { 'id': entity.id, 'type': 'pumpe' }) }}" class="btn btn-default">{{ icon('plus') }} Tilføj Pumpeudskiftninger</a>
     {% endif %}
     {% if is_missing_tiltag_type(entity.tiltag, 'isoleringtiltag') %}
-      <a href="#" class="btn btn-default">{{ icon('plus') }} Tilføj Teknisk isolering</a>
+      <a href="#" class="btn btn-default">{{ icon('plus') }} {{ 'rapporter.strings.teknisk_isolering' | trans }}</a>
     {% endif %}
-    <a href="#" class="btn btn-default">{{ icon('plus') }} Tilføj Special tiltag</a>
+    <a href="#" class="btn btn-default">{{ icon('plus') }} {{ 'rapporter.strings.tiltag' | trans }}</a>
   </p>
   <hr>
 
   <a href="{{ path('rapport_edit', { 'id': entity.id }) }}"  class="btn btn-default">
-    Edit
+    {{ 'common.edit' | trans }}
   </a>
-
-  {{ form(delete_form) }}
 
 {% endblock %}
