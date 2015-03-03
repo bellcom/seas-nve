@@ -1,11 +1,97 @@
+footer:
+  navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
+  adresse: Grøndalsvej 2, 8260 Viby J
+  email: aarhusplus@mtm.aarhus.dk
+
 bygninger:
   labels:
+    singular: Bygning
+    plural: Bygninger
+  actions:
+    add: Tilføj Bygning
+    edit: Rediger Bygning
+    create: Opret Bygning
+  strings:
+    ingen: Ingen bygninger fundet
+pumper:
+  labels:
+    singular: Pumpe
+    plural: Pumper
+
+
+# Forms - We follow the formbuilders form id format
+
+appbundle:
+  bygning:
     singular: Bygning
     plural: Bygninger
     adresse: Adresse
     postnr: Postnr.
     by: By
-  actions:
-    tilfoej: Tilføj Bygning
-  strings:
-    ingen: Ingen bygninger fundet
+    bygId: Bygnings ID
+    ident: Ident
+    enhedsys: Enhedsys
+    enhedskode: Enhedskode
+    type: Type
+    kommentarer: Kommentarer
+    adresse: Adresse
+    postnummer: Postnummer
+    postBy: By
+    navn: Navn
+    ejer: Ejer
+    afdelingsnavn: Afdelingsnavn
+    ejerA: Ejer A
+    anvendelse: Anvendelse
+    bruttoetageareal: Bruttoetageareal
+    maalertype: Målertype
+    vand: Vand
+    kundenummer: Kundenummer
+    kode: Kode
+    varme: Varme
+    kundenr1: Kundenr 1
+    kode1: Kode 1
+    maalerskifteAFV: ﻿Målerskifte AFV
+    aFVInstnr1: AFV inst. nr. 1
+    el: El
+    instnr: Instnr.
+    kundenrNRGI: Kundenr. NRGI
+    internetkode: Internetkode
+    aftagenr: Aftagenr.
+    telefon: Telefon
+    divisionnavn: Divisionnavn
+    omraadenavn: Områdenavn
+    kommune: Kommune
+    ejerforhold: Ejerforhold
+    ansvarlig: Ansvarlig
+    magistrat: Magistrat
+    lokation: Lokation
+    lokationsnavn: Lokationsnavn
+    lederbetegnelse: Lederbetegnelse
+    ledersnavn: Leders navn
+    ledersmail: Leders mail
+    kontaktNotat: Kontakt Notat
+    stamdataNotat: Stamdata notat
+    vandNotat: Vand notat
+    elNotat: El notat
+    varmeNotat: Varme notat
+  pumpe:
+    nuvaerendeType: Nuværende Type
+    byggemaal: Byggemål
+    tilslutning: Tilslutning
+    indst: Indst.
+    forbrug: Forbrug
+    q: Q
+    h: H
+    aarsforbrug: Årsforbrug
+    nyPumpe: Ny pumpe
+    nyByggemaal: Nye byggemål
+    nyTilslutning: Ny tilslutning
+    vvsnr: VVS Nr.
+    nytAarsforbrug: Nyt Årsforbrug
+    elbesparelse: Elbsparelse
+    udligningssaet: Udligningssæt
+    kommentarer: Kommentarer
+    standInvestering: Standard investering
+    fabrikant: Fabrikant
+    roerlaengde: Rørlængde
+    roerstoerrelse: Rørstørrelse

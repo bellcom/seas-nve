@@ -30,8 +30,8 @@ twig:
     #debug:            "%kernel.debug%"
     debug: true
     strict_variables: "%kernel.debug%"
-    form:
-        resources: ['bootstrap_3_layout.html.twig']
+    form_themes:
+        - AppBundle:Form:fields.html.twig
 
 
 # Assetic Configuration
@@ -86,7 +86,7 @@ braincrafted_bootstrap:
     fonts_dir: %kernel.root_dir%/../web/fonts
     auto_configure:
         assetic: false
-        twig: true
+        twig: false
         knp_menu: true
         knp_paginator: true
     customize:

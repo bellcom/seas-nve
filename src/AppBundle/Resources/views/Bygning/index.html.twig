@@ -7,7 +7,7 @@
     </div>
     <div class="col-md-2">
       <a href="{{ path('bygning_new') }}" class="btn btn-default">
-        {{ icon('plus') }} {{ 'bygninger.actions.tilfoej' | trans }}
+        {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
       </a>
     </div>
 
@@ -16,9 +16,9 @@
   <table class="table table-hover">
     <tr>
       <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'bygninger.labels.adresse'|trans, 'b.adresse') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'bygninger.labels.postnr'|trans, 'b.postnummer') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'bygninger.labels.by'|trans, 'b.postBy') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
       <th></th>
     </tr>
     {% for bygning in pagination %}

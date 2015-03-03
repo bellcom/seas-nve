@@ -1,33 +1,33 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  <h1>Pumpe list</h1>
+  <h1>{{ 'pumper.labels.plural' | trans }}</h1>
 
   <table class="table">
     <thead>
     <tr>
-      <th>Id</th>
-      <th>Nuvaerendetype</th>
-      <th>Byggemaal</th>
-      <th>Tilslutning</th>
-      <th>Indst</th>
-      <th>Forbrug</th>
-      <th>Q</th>
-      <th>H</th>
-      <th>Aarsforbrug</th>
-      <th>Nypumpe</th>
-      <th>Nybyggemaal</th>
-      <th>Nytilslutning</th>
-      <th>Vvsnr</th>
-      <th>Nytaarsforbrug</th>
-      <th>Elbesparelse</th>
-      <th>Udligningssaet</th>
-      <th>Kommentarer</th>
-      <th>Standinvestering</th>
-      <th>Fabrikant</th>
-      <th>Roerlaengde</th>
-      <th>Roerstoerrelse</th>
-      <th>Actions</th>
+      <th>#</th>
+      <th>{{ 'appbundle.pumpe.nuvaerendeType' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.byggemaal' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.tilslutning' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.indst' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.forbrug' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.q' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.h' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.aarsforbrug' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.nyPumpe' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.nyByggemaal' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.nyTilslutning' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.vvsnr' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.nytAarsforbrug' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.elbesparelse' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.udligningssaet' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.kommentarer' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.standInvestering' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.fabrikant' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.roerlaengde' | trans }}</th>
+      <th>{{ 'appbundle.pumpe.roerstoerrelse' | trans }}</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -55,11 +55,7 @@
         <td>{{ entity.roerlaengde }}</td>
         <td>{{ entity.roerstoerrelse }}</td>
         <td>
-          <ul>
-            <li>
-              <a href="{{ path('pumpe_show', { 'id': entity.id }) }}">show</a>
-            </li>
-          </ul>
+          <a href="{{ path('pumpe_show', { 'id': entity.id }) }}" class="btn btn-xs btn-primary">show</a>
         </td>
       </tr>
     {% endfor %}
