@@ -37,7 +37,7 @@ pumper:
     singular: Pumpe
     plural: Pumper
   strings:
-    pluspumpe: Tilføj pumpe
+    add.pumpe: Tilføj pumpe
 
 tiltag:
   labels:

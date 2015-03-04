@@ -37,7 +37,7 @@
         <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
           {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
           <p>
-            <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
+            <a href="{{ path( tiltag_route(t, 'show') , { 'id': t.id }) }}" class="btn btn-default">
               {{ 'rapporter.labels.detailark' | trans }}
             </a>
           </p>
