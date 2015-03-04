@@ -32,6 +32,10 @@ class PumpeTiltag extends Tiltag {
     $this->pumpedetails = new \Doctrine\Common\Collections\ArrayCollection();
   }
 
+  public function __toString() {
+    return "Pumpetiltag";
+  }
+
   /**
    * Add pumpedetails
    *

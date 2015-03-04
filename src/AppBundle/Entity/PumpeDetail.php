@@ -29,9 +29,9 @@ class PumpeDetail {
   /**
    * @var boolean
    *
-   * @ORM\Column(name="tilvalgt", type="boolean", nullable=true)
+   * @ORM\Column(name="tilvalgt", type="boolean")
    */
-  private $tilvalgt;
+  private $tilvalgt = false;
 
   /**
    * @var string
@@ -64,9 +64,9 @@ class PumpeDetail {
   /**
    * @var boolean
    *
-   * @ORM\Column(name="Isoleringskappe", type="boolean", nullable=true)
+   * @ORM\Column(name="Isoleringskappe", type="boolean")
    */
-  private $isoleringskappe;
+  private $isoleringskappe = false;
 
   /**
    * @var string

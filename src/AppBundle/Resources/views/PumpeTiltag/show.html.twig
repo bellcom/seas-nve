@@ -28,12 +28,12 @@
         <tbody>
         {% for detail in entity.pumpedetails %}
           <tr>
-            <td>{{ detail.tilvalgt }}</td>
+            <td>{{ detail.tilvalgt | b2icon }}</td>
             <td>{{ detail.pumpeID }}</td>
             <td>{{ detail.forsyningsomraade }}</td>
             <td>{{ detail.placering }}</td>
             <td>{{ detail.applikation }}</td>
-            <td>{{ detail.isoleringskappe }}</td>
+            <td>{{ detail.isoleringskappe | b2icon }}</td>
             <td>{{ detail.bfaktor }}</td>
             <td>{{ detail.noter }}</td>
             <td>{{ detail.eksisterendeDrifttid }}</td>
@@ -52,9 +52,33 @@
 
   <div class="row">
     <div class="col-md-12">
-      <a class="btn btn-success" href="#">{{ icon('plus') }} {{ 'pumper.strings.pluspumpe' | trans }}</a>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">{{ icon('plus') }} {{ 'pumper.strings.add.pumpe' | trans }}</button>
     </div>
   </div>
+
+  <!-- Modal start -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">{{ 'pumper.strings.add.pumpe' | trans }}</h4>
+        </div>
+        <div class="modal-body">
+          {{ form(form) }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal end -->
+
 
 
 {% endblock %}
