@@ -11,3 +11,7 @@ services:
         class: AppBundle\Twig\Extension\TiltagTypeExtension
         tags:
             - {name: "twig.extension"}
+    filter_extension:
+        class: AppBundle\Twig\Extension\FilterExtension
+        tags:
+            - {name: "twig.extension"}

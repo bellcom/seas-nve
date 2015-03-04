@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * @TODO: Missing description.
- */
 
 namespace AppBundle\Twig\Extension;
 
@@ -19,12 +15,13 @@ use AppBundle\Entity\SpecialTiltag;
  * @package AppBundle\Twig\Extension
  */
 class TiltagTypeExtension extends \Twig_Extension {
+
   /**
    * {@inheritdoc}
    */
   public function getFunctions() {
     return array(
-      'tiltag_type' => new \Twig_Function_Method($this, 'getTiltagType', array('is_safe' => array('html'))),
+      'tiltag_type' => new \Twig_Function_Method($this, 'getTiltagType', ['is_safe'=>['html']]),
       'tiltag_route' => new \Twig_Function_Method($this, 'getTiltagRouteName', array('is_safe' => array('html'))),
       'is_missing_tiltag_type' => new \Twig_Function_Method($this, 'isMissingTiltagType', array('is_safe' => array('html')))
     );

@@ -21,8 +21,8 @@ class PumpeDetailType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('tilvalgt')
       ->add('pumpeID')
+      ->add('pumpe')
       ->add('forsyningsomraade')
       ->add('placering')
       ->add('applikation')
@@ -31,9 +31,7 @@ class PumpeDetailType extends AbstractType {
       ->add('noter')
       ->add('eksisterendeDrifttid')
       ->add('nyDrifttid')
-      ->add('prisfaktor')
-      ->add('pumpetiltag')
-      ->add('pumpe');
+      ->add('prisfaktor');
   }
 
   /**

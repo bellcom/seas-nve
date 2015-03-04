@@ -13,6 +13,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Form\PumpeTiltagType;
+use AppBundle\Entity\PumpeDetail;
+use AppBundle\Form\PumpeDetailType;
 
 /**
  * PumpeTiltag controller.
@@ -116,9 +118,13 @@ class PumpeTiltagController extends Controller {
 
     $deleteForm = $this->createDeleteForm($id);
 
+    $detail = new PumpeDetail();
+    $form = $this->createDetailCreateForm($detail, $id);
+
     return array(
       'entity' => $entity,
       'delete_form' => $deleteForm->createView(),
+      'form' => $form->createView(),
     );
   }
 
@@ -238,4 +244,81 @@ class PumpeTiltagController extends Controller {
       ->add('submit', 'submit', array('label' => 'Delete'))
       ->getForm();
   }
+
+
+  // ----- PumpeDetail ------ //
+
+  /**
+   * Creates a form to create a PumpeDetail entity.
+   *
+   * @param PumpeDetail $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createDetailCreateForm(PumpeDetail $entity, $id) {
+    $form = $this->createForm(new PumpeDetailType(), $entity, array(
+      'action' => $this->generateUrl(
+        'pumpetiltag_detail_create',
+        array('id' => $id)
+      ),
+      'method' => 'POST',
+    ));
+
+    $form->add('submit', 'submit', array('label' => 'Create'));
+
+    return $form;
+  }
+
+  /**
+   * Displays a form to create a new PumpeDetail entity.
+   *
+   * @Route("/{id}/detail/new", name="pumpetiltag_detail_new")
+   * @Method("GET")
+   * @Template()
+   */
+  public function newDetailAction($id) {
+    $entity = new PumpeDetail();
+    $form = $this->createCreateForm($entity, $id);
+
+    return array(
+      'entity' => $entity,
+      'form' => $form->createView(),
+    );
+  }
+
+  /**
+   * Creates a new PumpeDetail entity.
+   *
+   * @Route("/{id}/detail", name="pumpetiltag_detail_create")
+   * @Method("POST")
+   * @Template("AppBundle:PumpeDetail:new.html.twig")
+   */
+  public function createDetailAction(Request $request, $id) {
+    $em = $this->getDoctrine()->getManager();
+
+    $pumpetiltag = $em->getRepository('AppBundle:PumpeTiltag')->find($id);
+
+    if (!$pumpetiltag) {
+      throw $this->createNotFoundException('Unable to find Pumpetiltag entity.');
+    }
+
+    $entity = new PumpeDetail();
+    $entity->setPumpetiltag($pumpetiltag);
+    $form = $this->createDetailCreateForm($entity, $id);
+    $form->handleRequest($request);
+
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($entity);
+      $em->flush();
+
+      return $this->redirect($this->generateUrl('pumpetiltag_show', array('id' => $id)));
+    }
+
+    return array(
+      'entity' => $entity,
+      'form' => $form->createView(),
+    );
+  }
+
 }
