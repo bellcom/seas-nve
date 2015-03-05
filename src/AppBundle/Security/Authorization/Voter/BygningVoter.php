@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use AppBundle\Entity\BygningRepository;
 
 class BygningVoter implements VoterInterface {
   /** @var BygningRepository $bygningRepository */
