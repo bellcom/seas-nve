@@ -11,7 +11,7 @@ use AppBundle\Entity\BygningRepository;
 
 class BygningVoter implements VoterInterface {
   /** @var BygningRepository $bygningRepository */
-  var $bygningRepository;
+  private $bygningRepository;
 
   /** @var RoleHierarchyInterface $roleHierarchy */
   private $roleHierarchy;
