@@ -11,3 +11,10 @@ services:
         class: AppBundle\Twig\Extension\TiltagTypeExtension
         tags:
             - {name: "twig.extension"}
+
+    security.access.bygning_voter:
+        class:      AppBundle\Security\Authorization\Voter\BygningVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }

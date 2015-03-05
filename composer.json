@@ -25,7 +25,8 @@
         "braincrafted/bootstrap-bundle": "~2.0",
         "knplabs/knp-paginator-bundle": "2.4.1",
         "twbs/bootstrap": "3.3.2",
-        "fortawesome/font-awesome": "~4.3"
+        "fortawesome/font-awesome": "~4.3",
+        "friendsofsymfony/user-bundle": "~2.0@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
