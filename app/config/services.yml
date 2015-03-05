@@ -15,3 +15,7 @@ services:
         class: AppBundle\Twig\Extension\FilterExtension
         tags:
             - {name: "twig.extension"}
+    symfony.controller.subscriber.init:
+        class: Yavin\Symfony\Controller\InitControllerSubscriber
+        tags:
+            - { name: kernel.event_subscriber }

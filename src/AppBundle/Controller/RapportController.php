@@ -17,13 +17,25 @@ use AppBundle\Entity\Rapport;
 use AppBundle\Form\RapportType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Form\TiltagType;
+use Yavin\Symfony\Controller\InitControllerInterface;
 
 /**
  * Rapport controller.
  *
  * @Route("/rapport")
  */
-class RapportController extends Controller {
+class RapportController extends Controller implements InitControllerInterface {
+
+  protected $breadcrumbs;
+
+  public function init(Request $request)
+  {
+    $this->breadcrumbs = $this->get("white_october_breadcrumbs");
+    $this->breadcrumbs->addItem("Dashboard", $this->get("router")->generate("dashboard"));
+    $this->breadcrumbs->addItem("Bygninger", $this->get("router")->generate("bygning"));
+    $this->breadcrumbs->addItem("Rapport");
+  }
+
   /**
    * Lists all Rapport entities.
    *

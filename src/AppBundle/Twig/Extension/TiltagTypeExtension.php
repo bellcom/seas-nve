@@ -7,6 +7,7 @@ use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\SpecialTiltag;
 
+
 /**
  * Class TiltagTypeExtension
  *
@@ -75,7 +76,7 @@ class TiltagTypeExtension extends \Twig_Extension {
    * @return bool
    *   @TODO: Missing description.
    */
-  public function isMissingTiltagType(array $tiltag, $type) {
+  public function isMissingTiltagType($tiltag, $type) {
     foreach ($tiltag as $t) {
       if ($this->getTiltagType($t) === $type) {
         return FALSE;
