@@ -15,4 +15,47 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class BygningRepository extends EntityRepository {
+  /**
+   * Check if a User has access to a Bygning
+   *
+   * @param User $user
+   * @param Bygning $bygning
+   * @return bool
+   */
+  public function hasAccess(User $user, Bygning $bygning) {
+    if ($this->hasFullAccess($user)) {
+      return true;
+    }
+
+    $bygninger = $this->findByUser($user);
+    return $bygninger && in_array($bygning, $bygninger);
+  }
+
+  /**
+   * Find all Bygning that a User has access to
+   *
+   * @param User $user
+   * @param bool $returnQuery
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function findByUser(User $user, $returnQuery = false) {
+    if ($this->hasFullAccess($user)) {
+      $query = $this->_em->createQuery("SELECT b FROM AppBundle:Bygning b");
+    } else {
+      $query = $this->_em->createQuery("SELECT b FROM AppBundle:Bygning b WHERE :user MEMBER OF b.users");
+      $query->setParameter('user', $user);
+    }
+
+    return $returnQuery ? $query : $query->getResult();
+  }
+
+  /**
+   * The ugly function to check if a user is allowed to do everything …
+   *
+   * @param $user
+   * @return bool
+   */
+  private function hasFullAccess($user) {
+    return $user && $user->hasRole('ROLE_ADMIN');
+  }
 }

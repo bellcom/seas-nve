@@ -70,7 +70,8 @@ class BygningType extends AbstractType {
       ->add('stamdataNotat')
       ->add('vandNotat')
       ->add('elNotat')
-      ->add('varmeNotat');
+      ->add('varmeNotat')
+      ->add('users');
   }
 
   /**

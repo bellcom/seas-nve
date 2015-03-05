@@ -8,6 +8,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -355,9 +357,15 @@ class Bygning {
    **/
   private $rapporter;
 
+  /**
+   * @ManyToMany(targetEntity="User", inversedBy="bygninger")
+   * @JoinTable(name="bygning_user")
+   **/
+  private $users;
 
   public function __construct() {
     $this->rapporter = new ArrayCollection();
+    $this->users = new ArrayCollection();
   }
 
   /**
@@ -1373,5 +1381,14 @@ class Bygning {
    */
   public function getRapporter() {
     return $this->rapporter;
+  }
+
+  /**
+   * Get users
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getUsers() {
+    return $this->users;
   }
 }

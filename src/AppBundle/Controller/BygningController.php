@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\BygningType;
 use AppBundle\Entity\Rapport;
@@ -32,8 +33,8 @@ class BygningController extends Controller {
   public function indexAction(Request $request) {
     $em = $this->getDoctrine()->getManager();
 
-    $dql = "SELECT b FROM AppBundle:Bygning b";
-    $query = $em->createQuery($dql);
+    $user = $this->get('security.context')->getToken()->getUser();
+    $query = $em->getRepository('AppBundle:Bygning')->findByUser($user);
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
@@ -51,6 +52,8 @@ class BygningController extends Controller {
    * @Route("/", name="bygning_create")
    * @Method("POST")
    * @Template("AppBundle:Bygning:new.html.twig")
+   *
+   * @Security("is_granted('BYGNING_CREATE')")
    */
   public function createAction(Request $request) {
     $entity = new Bygning();
@@ -95,6 +98,7 @@ class BygningController extends Controller {
    * @Route("/new", name="bygning_new")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('BYGNING_CREATE')")
    */
   public function newAction() {
     $entity = new Bygning();
@@ -122,6 +126,10 @@ class BygningController extends Controller {
       throw $this->createNotFoundException('Unable to find Bygning entity.');
     }
 
+    if (!$this->get('security.context')->isGranted('BYGNING_VIEW', $entity)) {
+      throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('View not allowed');
+    }
+
     $deleteForm = $this->createDeleteForm($id);
 
     return array(
@@ -144,6 +152,10 @@ class BygningController extends Controller {
 
     if (!$entity) {
       throw $this->createNotFoundException('Unable to find Bygning entity.');
+    }
+
+    if (!$this->get('security.context')->isGranted('BYGNING_EDIT', $entity)) {
+      throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Edit not allowed');
     }
 
     $editForm = $this->createEditForm($entity);
