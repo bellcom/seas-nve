@@ -19,6 +19,7 @@ class AppKernel extends Kernel
       new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
       new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
       new FOS\UserBundle\FOSUserBundle(),
+      new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
       new AppBundle\AppBundle(),
     );
 

@@ -108,3 +108,7 @@ fos_user:
     user_class: AppBundle\Entity\User
     group:
         group_class: AppBundle\Entity\Group
+
+white_october_breadcrumbs:
+  separator:
+

@@ -35,6 +35,7 @@
     <div class="tab-content">
       {% for key, t in entity.tiltag %}
         <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
+          <h3>{{ t.title }}</h3>
           {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
           <p>
             <a href="{{ path( tiltag_route(t, 'show') , { 'id': t.id }) }}" class="btn btn-default">

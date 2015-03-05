@@ -16,13 +16,24 @@ use AppBundle\Entity\Bygning;
 use AppBundle\Form\BygningType;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\RapportType;
+use Yavin\Symfony\Controller\InitControllerInterface;
 
 /**
  * Bygning controller.
  *
  * @Route("/bygning")
  */
-class BygningController extends Controller {
+class BygningController extends Controller implements InitControllerInterface {
+
+  protected $breadcrumbs;
+
+  public function init(Request $request)
+  {
+    $this->breadcrumbs = $this->get("white_october_breadcrumbs");
+    $this->breadcrumbs->addItem("Dashboard", $this->get("router")->generate("dashboard"));
+    $this->breadcrumbs->addItem("Bygninger", $this->get("router")->generate("bygning"));
+  }
+
   /**
    * Lists all Bygning entities.
    *
@@ -131,6 +142,8 @@ class BygningController extends Controller {
     }
 
     $deleteForm = $this->createDeleteForm($id);
+
+    $this->breadcrumbs->addItem($entity);
 
     return array(
       'entity' => $entity,
