@@ -21,6 +21,7 @@ class AppKernel extends Kernel
       new FOS\UserBundle\FOSUserBundle(),
       new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
       new AppBundle\AppBundle(),
+      new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {

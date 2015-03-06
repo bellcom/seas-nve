@@ -28,7 +28,8 @@
     "fortawesome/font-awesome": "~4.3",
     "yavin/symfony-init-controller": "dev-master",
     "whiteoctober/breadcrumbs-bundle": "dev-master",
-    "friendsofsymfony/user-bundle": "~2.0@dev"
+    "friendsofsymfony/user-bundle": "~2.0@dev",
+    "simplethings/entity-audit-bundle": "0.7.*"
   },
   "require-dev": {
     "sensio/generator-bundle": "~2.3"
