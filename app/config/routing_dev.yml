@@ -16,3 +16,7 @@ _errors:
 
 _main:
     resource: routing.yml
+
+simple_things_entity_audit:
+    resource: "@SimpleThingsEntityAuditBundle/Resources/config/routing.yml"
+    prefix: /audit
