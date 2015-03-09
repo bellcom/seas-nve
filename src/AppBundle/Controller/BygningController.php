@@ -268,10 +268,11 @@ class BygningController extends Controller implements InitControllerInterface {
    * @Route("/{id}/rapport/new", name="bygning_rapport_new")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('RAPPORT_CREATE') and is_granted('BYGNING_VIEW', bygning)")
    */
-  public function newRapportAction($id) {
+  public function newRapportAction(Bygning $bygning) {
     $entity = new Rapport();
-    $form = $this->createRapportCreateForm($entity, $id);
+    $form = $this->createRapportCreateForm($entity, $bygning->getId());
 
     return $this->render('AppBundle:Rapport:new.html.twig', array(
       'entity' => $entity,
@@ -285,19 +286,12 @@ class BygningController extends Controller implements InitControllerInterface {
    * @Route("/{id}/rapport", name="bygning_rapport_create")
    * @Method("POST")
    * @Template("AppBundle:Rapport:new.html.twig")
+   * @Security("is_granted('RAPPORT_CREATE') and is_granted('BYGNING_VIEW', bygning)")
    */
-  public function createRapportAction(Request $request, $id) {
-    $em = $this->getDoctrine()->getManager();
-
-    $bygning = $em->getRepository('AppBundle:Bygning')->find($id);
-
-    if (!$bygning) {
-      throw $this->createNotFoundException('Unable to find Bygning entity.');
-    }
-
+  public function createRapportAction(Request $request, Bygning $bygning) {
     $entity = new Rapport();
     $entity->setBygning($bygning);
-    $form = $this->createRapportCreateForm($entity, $id);
+    $form = $this->createRapportCreateForm($entity, $bygning->getId());
     $form->handleRequest($request);
 
     if ($form->isValid()) {

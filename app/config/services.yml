@@ -23,8 +23,14 @@ services:
         tags:
             - { name: security.voter }
 
+    security.access.rapport_voter:
+        class:      AppBundle\Security\Authorization\Voter\RapportVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
     symfony.controller.subscriber.init:
         class: Yavin\Symfony\Controller\InitControllerSubscriber
         tags:
             - { name: kernel.event_subscriber }
-

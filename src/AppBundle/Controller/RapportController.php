@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\RapportType;
 use AppBundle\Entity\Tiltag;
@@ -59,20 +60,13 @@ class RapportController extends Controller implements InitControllerInterface {
    * @Route("/{id}", name="rapport_show")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
    */
-  public function showAction($id) {
-    $em = $this->getDoctrine()->getManager();
-
-    $entity = $em->getRepository('AppBundle:Rapport')->find($id);
-
-    if (!$entity) {
-      throw $this->createNotFoundException('Unable to find Rapport entity.');
-    }
-
-    $deleteForm = $this->createDeleteForm($id);
+  public function showAction(Rapport $rapport) {
+    $deleteForm = $this->createDeleteForm($rapport->getId());
 
     return array(
-      'entity' => $entity,
+      'entity' => $rapport,
       'delete_form' => $deleteForm->createView(),
     );
   }
@@ -83,21 +77,14 @@ class RapportController extends Controller implements InitControllerInterface {
    * @Route("/{id}/edit", name="rapport_edit")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
-  public function editAction($id) {
-    $em = $this->getDoctrine()->getManager();
-
-    $entity = $em->getRepository('AppBundle:Rapport')->find($id);
-
-    if (!$entity) {
-      throw $this->createNotFoundException('Unable to find Rapport entity.');
-    }
-
-    $editForm = $this->createEditForm($entity);
-    $deleteForm = $this->createDeleteForm($id);
+  public function editAction(Rapport $rapport) {
+    $editForm = $this->createEditForm($rapport);
+    $deleteForm = $this->createDeleteForm($rapport->getId());
 
     return array(
-      'entity' => $entity,
+      'entity' => $rapport,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
