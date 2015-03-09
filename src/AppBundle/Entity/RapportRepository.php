@@ -34,4 +34,29 @@ class RapportRepository extends EntityRepository {
 
     return $query->getOneOrNullResult();
   }
+
+  /**
+   * Check if a User has access to a Rapport
+   *
+   * @param User $user
+   * @param Rapport $rapport
+   * @return bool
+   */
+  public function hasAccess(User $user, Rapport $rapport) {
+    if ($this->hasFullAccess($user)) {
+      return true;
+    }
+
+    return $rapport->getBygning()->getUsers()->contains($user);
+  }
+
+  /**
+   * The ugly function to check if a user is allowed to do everything …
+   *
+   * @param $user
+   * @return bool
+   */
+  private function hasFullAccess($user) {
+    return $user && $user->hasRole('ROLE_SUPER_ADMIN');
+  }
 }
