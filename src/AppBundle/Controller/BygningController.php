@@ -127,26 +127,15 @@ class BygningController extends Controller implements InitControllerInterface {
    * @Route("/{id}", name="bygning_show")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('BYGNING_VIEW', bygning)")
    */
-  public function showAction($id) {
-    $em = $this->getDoctrine()->getManager();
+  public function showAction(Bygning $bygning) {
+    $deleteForm = $this->createDeleteForm($bygning->getId());
 
-    $entity = $em->getRepository('AppBundle:Bygning')->find($id);
-
-    if (!$entity) {
-      throw $this->createNotFoundException('Unable to find Bygning entity.');
-    }
-
-    if (!$this->get('security.context')->isGranted('BYGNING_VIEW', $entity)) {
-      throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('View not allowed');
-    }
-
-    $deleteForm = $this->createDeleteForm($id);
-
-    $this->breadcrumbs->addItem($entity);
+    $this->breadcrumbs->addItem($bygning);
 
     return array(
-      'entity' => $entity,
+      'entity' => $bygning,
       'delete_form' => $deleteForm->createView(),
     );
   }
@@ -157,25 +146,14 @@ class BygningController extends Controller implements InitControllerInterface {
    * @Route("/{id}/edit", name="bygning_edit")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('BYGNING_EDIT', bygning)")
    */
-  public function editAction($id) {
-    $em = $this->getDoctrine()->getManager();
-
-    $entity = $em->getRepository('AppBundle:Bygning')->find($id);
-
-    if (!$entity) {
-      throw $this->createNotFoundException('Unable to find Bygning entity.');
-    }
-
-    if (!$this->get('security.context')->isGranted('BYGNING_EDIT', $entity)) {
-      throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Edit not allowed');
-    }
-
-    $editForm = $this->createEditForm($entity);
-    $deleteForm = $this->createDeleteForm($id);
+  public function editAction(Bygning $bygning) {
+    $editForm = $this->createEditForm($bygning);
+    $deleteForm = $this->createDeleteForm($bygning->getId());
 
     return array(
-      'entity' => $entity,
+      'entity' => $bygning,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
@@ -205,28 +183,22 @@ class BygningController extends Controller implements InitControllerInterface {
    * @Route("/{id}", name="bygning_update")
    * @Method("PUT")
    * @Template("AppBundle:Bygning:edit.html.twig")
+   * @Security("is_granted('BYGNING_EDIT', bygning)")
    */
-  public function updateAction(Request $request, $id) {
-    $em = $this->getDoctrine()->getManager();
-
-    $entity = $em->getRepository('AppBundle:Bygning')->find($id);
-
-    if (!$entity) {
-      throw $this->createNotFoundException('Unable to find Bygning entity.');
-    }
-
-    $deleteForm = $this->createDeleteForm($id);
-    $editForm = $this->createEditForm($entity);
+  public function updateAction(Request $request, Bygning $bygning) {
+    $deleteForm = $this->createDeleteForm($bygning->getId());
+    $editForm = $this->createEditForm($bygning);
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
+      $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('bygning_edit', array('id' => $id)));
+      return $this->redirect($this->generateUrl('bygning_edit', array('id' => $bygning->getId())));
     }
 
     return array(
-      'entity' => $entity,
+      'entity' => $bygning,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
@@ -237,20 +209,15 @@ class BygningController extends Controller implements InitControllerInterface {
    *
    * @Route("/{id}", name="bygning_delete")
    * @Method("DELETE")
+   * @Security("is_granted('BYGNING_EDIT', bygning)")
    */
-  public function deleteAction(Request $request, $id) {
-    $form = $this->createDeleteForm($id);
+  public function deleteAction(Request $request, Bygning $bygning) {
+    $form = $this->createDeleteForm($bygning->getId());
     $form->handleRequest($request);
 
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
-      $entity = $em->getRepository('AppBundle:Bygning')->find($id);
-
-      if (!$entity) {
-        throw $this->createNotFoundException('Unable to find Bygning entity.');
-      }
-
-      $em->remove($entity);
+      $em->remove($bygning);
       $em->flush();
     }
 
