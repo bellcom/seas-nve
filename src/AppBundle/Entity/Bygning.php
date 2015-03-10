@@ -1384,6 +1384,15 @@ class Bygning {
   }
 
   /**
+   * Set users
+   */
+  public function setUsers(\Doctrine\Common\Collections\Collection $users) {
+    $this->users = $users;
+
+    return $this;
+  }
+
+  /**
    * Get users
    *
    * @return \Doctrine\Common\Collections\Collection

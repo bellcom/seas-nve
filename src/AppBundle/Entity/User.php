@@ -27,6 +27,12 @@ class User extends BaseUser {
    */
   protected $groups;
 
+  public function setGroups(ArrayCollection $groups) {
+    $this->groups = $groups;
+
+    return $this;
+  }
+
   /**
    * @ORM\ManyToMany(targetEntity="Bygning", mappedBy="users")
    */
