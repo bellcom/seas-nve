@@ -10,6 +10,7 @@ security:
         ROLE_EDIT: 	          [ ROLE_VIEW, ROLE_BYGNING_EDIT, ROLE_RAPPORT_EDIT ]
         ROLE_CREATE: 	        [ ROLE_EDIT, ROLE_BYGNING_CREATE, ROLE_RAPPORT_CREATE ]
         ROLE_ADMIN:           [ ROLE_CREATE ]
+        ROLE_SUPER_ADMIN:     [ ROLE_ADMIN ]
 
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
