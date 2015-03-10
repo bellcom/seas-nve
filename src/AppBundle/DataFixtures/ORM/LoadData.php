@@ -80,6 +80,9 @@ abstract class LoadData implements FixtureInterface, ContainerAwareInterface, Or
     }
   }
 
+  /** @var ConsoleOutput $output */
+  private $output = null;
+
   protected final function writeInfo($message) {
     $this->output->writeln('');
     $this->output->writeln('  <comment>></comment> <info>' . $message . '</info>');
