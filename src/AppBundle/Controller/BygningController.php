@@ -45,7 +45,7 @@ class BygningController extends Controller implements InitControllerInterface {
     $em = $this->getDoctrine()->getManager();
 
     $user = $this->get('security.context')->getToken()->getUser();
-    $query = $em->getRepository('AppBundle:Bygning')->findByUser($user);
+    $query = $em->getRepository('AppBundle:Bygning')->findByUser($user, true);
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
