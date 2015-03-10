@@ -6,26 +6,16 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
-use Ddeboer\DataImport\ValueConverter\CharsetValueConverter;
-use Ddeboer\DataImport\ValueConverter\CallbackValueConverter;
+use Ddeboer\DataImport\Reader\CsvReader;
+use Ddeboer\DataImport\Workflow;
+use Ddeboer\DataImport\Writer\ConsoleProgressWriter;
+use Ddeboer\DataImport\Writer\WriterInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Collections\ArrayCollection;
-
-use Ddeboer\DataImport\Workflow;
-use Ddeboer\DataImport\Reader\CsvReader;
-use Ddeboer\DataImport\Writer\DoctrineWriter;
-use Ddeboer\DataImport\ValueConverter\MappingValueConverter;
-use Ddeboer\DataImport\Writer\ConsoleProgressWriter;
-use Ddeboer\DataImport\Writer\CallbackWriter;
-
 use Symfony\Component\Console\Output\ConsoleOutput;
-
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use AppBundle\Entity\User;
 
 /**
  * Class LoadUserData
@@ -83,12 +73,12 @@ abstract class LoadData implements FixtureInterface, ContainerAwareInterface, Or
   /** @var ConsoleOutput $output */
   private $output = null;
 
-  protected final function writeInfo($message) {
+  final protected function writeInfo($message) {
     $this->output->writeln('');
     $this->output->writeln('  <comment>></comment> <info>' . $message . '</info>');
   }
 
-  protected final function writeError($message) {
+  final protected function writeError($message) {
     $this->output->writeln('');
     $this->output->writeln('  <comment>></comment> <error>' . $message . '</error>');
   }
@@ -103,6 +93,10 @@ abstract class LoadData implements FixtureInterface, ContainerAwareInterface, Or
   protected $order = 1;
   protected $flush = false;
 
+  /**
+   * @param ObjectManager $manager
+   * @return WriterInterface
+   */
   abstract protected function createWriter(ObjectManager $manager);
 
   protected function done(ObjectManager $manager) {
