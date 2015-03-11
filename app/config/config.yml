@@ -112,12 +112,14 @@ fos_user:
 simple_things_entity_audit:
     audited_entities:
         - AppBundle\Entity\Bygning
-        - AppBundle\Entity\Pumpe
-        - AppBundle\Entity\PumpeDetail
-        - AppBundle\Entity\PumpeTiltag
         - AppBundle\Entity\Rapport
-        - AppBundle\Entity\SpecialTiltag
+        - AppBundle\Entity\Pumpe
         - AppBundle\Entity\Tiltag
+        - AppBundle\Entity\PumpeTiltag
+        - AppBundle\Entity\SpecialTiltag
+        - AppBundle\Entity\TiltagDetail
+        - AppBundle\Entity\PumpeTiltagDetail
+        - AppBundle\Entity\SpecialTiltagDetail
 
 white_october_breadcrumbs:
   separator:
