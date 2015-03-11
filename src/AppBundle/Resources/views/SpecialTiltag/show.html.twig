@@ -10,17 +10,8 @@
       <table class="table">
         <thead>
         <tr>
-          <th>{{ 'appbundle.pumpetiltag.tilvalgt' | trans }}</th>
-          <th>{{ 'appbundle.pumpetiltag.pumpeID' | trans }}</th>
-          <th>{{ 'appbundle.pumpetiltag.forsyningsomraade' | trans }}</th>
-          <th>{{ 'appbundle.pumpetiltag.placering' | trans }}</th>
-          <th>{{ 'appbundle.pumpetiltag.applikation' | trans }}</th>
-          <th>{{ 'appbundle.pumpetiltag.isoleringskappe' | trans }}</th>
-          <th>{{ 'appbundle.pumpetiltag.bfaktor' | trans }}</th>
-          <th>{{ 'appbundle.pumpetiltag.noter' | trans }}</th>
-          <th>{{ 'appbundle.pumpetiltag.eksisterendeDrifttid' | trans }}</th>
-          <th>{{ 'appbundle.pumpetiltag.nyDrifttid' | trans }}</th>
-          <th>{{ 'appbundle.pumpetiltag.prisfaktor' | trans }}</th>
+          <th>{{ 'appbundle.tiltag.tilvalgt' | trans }}</th>
+          <th>{{ 'appbundle.specialtiltag.kommentar' | trans }}</th>
           <th></th>
         </tr>
         </thead>
@@ -28,16 +19,7 @@
         {% for detail in entity.details %}
           <tr>
             <td>{{ detail.tilvalgt | b2icon }}</td>
-            <td>{{ detail.pumpeID }}</td>
-            <td>{{ detail.forsyningsomraade }}</td>
-            <td>{{ detail.placering }}</td>
-            <td>{{ detail.applikation }}</td>
-            <td>{{ detail.isoleringskappe | b2icon }}</td>
-            <td>{{ detail.bfaktor }}</td>
-            <td>{{ detail.noter }}</td>
-            <td>{{ detail.eksisterendeDrifttid }}</td>
-            <td>{{ detail.nyDrifttid }}</td>
-            <td>{{ detail.prisfaktor }}</td>
+            <td>{{ detail.kommentar }}</td>
             <td>
               <a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
               <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
@@ -51,7 +33,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">{{ icon('plus') }} {{ 'pumper.strings.add.pumpe' | trans }}</button>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">{{ icon('plus') }} {{ 'special.strings.add.special' | trans }}</button>
     </div>
   </div>
 
@@ -63,7 +45,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">{{ 'pumper.strings.add.pumpe' | trans }}</h4>
+          <h4 class="modal-title" id="myModalLabel">{{ 'special.strings.add.special' | trans }}</h4>
         </div>
         <div class="modal-body">
           {{ form(create_detail_form) }}

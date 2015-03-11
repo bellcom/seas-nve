@@ -1,12 +1,19 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  <h1>{{ entity.title }}</h1>
-  {% if tiltag_type(entity) == 'pumpetiltag' %}
-    <p>DEBUG: Type of the group: {{ tiltag_type(entity) }}</p>
-  {% endif %}
+  <h1>{% if entity.title is empty %}{{ 'tiltag.title.missing' | trans }}{% else %}{{ entity.title }}{% endif %}</h1>
 
-  <div role="tabpanel">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>{{ 'appbundle.tiltag.rapport' | trans }}</th>
+        <td><a href="{{ path('rapport_show', { id: entity.rapport.id }) }}">{{ entity.rapport }}</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+	<div role="tabpanel">
+		{{ form(delete_form) }}
 
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation"><a href="#oversigt" aria-controls="Oversigt" role="tab" data-toggle="tab">{{ 'tiltag.strings.oversigt' | trans }}</a></li>
@@ -15,10 +22,9 @@
 
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane" id="oversigt">
-
         {% include 'AppBundle:Tiltag:show-include.html.twig' %}
-
       </div>
+
       <div role="tabpanel" class="tab-pane active" id="detailark">
         {% block detailark -%}...{% endblock %}
       </div>
