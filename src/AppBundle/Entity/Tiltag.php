@@ -6,8 +6,11 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
@@ -19,10 +22,11 @@ use Doctrine\ORM\Mapping\InheritanceType;
  * @ORM\Table()
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="discr", type="string")
- * @DiscriminatorMap({"special" = "SpecialTiltag", "pumpe" = "PumpeTiltag"})
+ * @DiscriminatorMap({ "pumpe" = "PumpeTiltag", "special" = "SpecialTiltag" })
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TiltagRepository")
+ * @ORM\HasLifecycleCallbacks
  */
-class Tiltag {
+abstract class Tiltag {
   /**
    * @var integer
    *
@@ -31,6 +35,20 @@ class Tiltag {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   private $id;
+
+  /**
+   * @var \DateTime
+   *
+   * @ORM\Column(name="created_at", type="datetime")
+   */
+  private $createdAt;
+
+  /**
+   * @var \DateTime
+   *
+   * @ORM\Column(name="updated_at", type="datetime")
+   */
+  private $updatedAt;
 
   /**
    * @var string
@@ -581,7 +599,7 @@ class Tiltag {
    * @param \AppBundle\Entity\Rapport $rapport
    * @return Tiltag
    */
-  public function setRapport(\AppBundle\Entity\Rapport $rapport = NULL) {
+  public function setRapport(Rapport $rapport = NULL) {
     $this->rapport = $rapport;
 
     return $this;
@@ -720,5 +738,50 @@ class Tiltag {
    */
   public function getAntalReinvesteringer() {
     return $this->antalReinvesteringer;
+  }
+
+  /**
+   * @OneToMany(targetEntity="TiltagDetail", mappedBy="tiltag", cascade={"persist", "remove"})
+   * @OrderBy({"createdAt" = "ASC"})
+   */
+  private $details;
+
+  public function setDetails(ArrayCollection $details) {
+    $this->details = $details;
+    return $this;
+  }
+
+  public function getDetails() {
+    return $this->details;
+  }
+
+  private function setUpdatedAt(\DateTime $updatedAt) {
+    $this->updatedAt = $updatedAt;
+
+    return $this;
+  }
+
+  public function getUpdatedAt() {
+    return $this->updatedAt;
+  }
+
+  private function setCreatedAt(\DateTime $createdAt) {
+    $this->createdAt = $createdAt;
+  }
+
+  public function getCreatedAt() {
+    return $this->createdAt;
+  }
+
+  /**
+   * @ORM\PrePersist
+   * @ORM\PreUpdate
+   */
+  public function updateTimestamps() {
+    $this->setUpdatedAt(new \DateTime('now'));
+
+    if ($this->getCreatedAt() == null) {
+      $this->setCreatedAt(new \DateTime('now'));
+    }
   }
 }

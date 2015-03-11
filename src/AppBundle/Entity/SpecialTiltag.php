@@ -7,9 +7,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Tiltag
@@ -17,6 +15,4 @@ use Doctrine\ORM\Mapping\InheritanceType;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\SpecialTiltagRepository")
  */
-class SpecialTiltag extends Tiltag {
-
-}
+class SpecialTiltag extends Tiltag {}

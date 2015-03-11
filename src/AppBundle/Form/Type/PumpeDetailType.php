@@ -1,20 +1,16 @@
 <?php
-/**
- * @file
- * @TODO: Missing description.
- */
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class TiltagType
+ * Class PumpeDetailType
  * @package AppBundle\Form
  */
-class TiltagType extends AbstractType {
+class PumpeDetailType extends AbstractType {
   /**
    * @TODO: Missing description.
    *
@@ -25,30 +21,17 @@ class TiltagType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('title')
-      ->add('varmebsparelseGUF')
-      ->add('varmebesparelseGAF')
-      ->add('elbesparelse')
-      ->add('vandbesparelse')
-      ->add('energibesparelseAarEt')
-      ->add('co2besparelseAarEt')
-      ->add('antalReinvesteringer')
-      ->add('faktor')
-      ->add('primaerEnterprise')
-      ->add('tilbudskategori')
-      ->add('anlaegsInvestering')
-      ->add('dVBesparelse')
-      ->add('levetid')
-      ->add('forsyningVarme')
-      ->add('el')
-      ->add('beskrivelseNevaerende')
-      ->add('beskrivelseForslag')
-      ->add('beskrivelseOevrige')
-      ->add('risikovurdering')
+      ->add('pumpeID')
+      ->add('pumpe')
+      ->add('forsyningsomraade')
       ->add('placering')
-      ->add('beskrivelseBV')
-      ->add('indeklima')
-      ->add('rapport');
+      ->add('applikation')
+      ->add('isoleringskappe')
+      ->add('b_faktor')
+      ->add('noter')
+      ->add('eksisterendeDrifttid')
+      ->add('nyDrifttid')
+      ->add('prisfaktor');
   }
 
   /**
@@ -59,7 +42,7 @@ class TiltagType extends AbstractType {
    */
   public function setDefaultOptions(OptionsResolverInterface $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Tiltag'
+      'data_class' => 'AppBundle\Entity\PumpeDetail'
     ));
   }
 
@@ -70,6 +53,6 @@ class TiltagType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'appbundle_tiltag';
+    return 'appbundle_pumpedetail';
   }
 }

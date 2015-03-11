@@ -4,42 +4,26 @@
  * @TODO: Missing description.
  */
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class RapportType
+ * Class PumpeTiltagType
  * @package AppBundle\Form
  */
-class RapportType extends AbstractType {
-  /**
-   * @TODO: Missing description.
-   *
-   * @param FormBuilderInterface $builder
-   *   @TODO: Missing description.
-   * @param array $options
-   *   @TODO: Missing description.
-   */
-  public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder
-      ->add('version')
-      ->add('datering');
-  }
-
+class PumpeTiltagType extends TiltagType /*AbstractType*/ {
   /**
    * @TODO: Missing description.
    *
    * @param OptionsResolverInterface $resolver
    *   @TODO: Missing description.
-   *
-   * @TODO: OptionsResolverInterface er deprecated?
    */
   public function setDefaultOptions(OptionsResolverInterface $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Rapport'
+      'data_class' => 'AppBundle\Entity\PumpeTiltag'
     ));
   }
 
@@ -50,6 +34,11 @@ class RapportType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'appbundle_rapport';
+    return 'appbundle_pumpetiltag';
+  }
+
+  public function buildForm(FormBuilderInterface $builder, array $options) {
+    parent::buildForm($builder, $options);
+    $builder->add('pumpedetails');
   }
 }

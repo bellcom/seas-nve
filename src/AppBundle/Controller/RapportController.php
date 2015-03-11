@@ -6,8 +6,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\PumpeTiltag;
-use AppBundle\Entity\SpecialTiltag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -15,9 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Rapport;
-use AppBundle\Form\RapportType;
-use AppBundle\Entity\Tiltag;
-use AppBundle\Form\TiltagType;
+use AppBundle\Form\Type\RapportType;
 use Yavin\Symfony\Controller\InitControllerInterface;
 
 /**
@@ -186,36 +182,19 @@ class RapportController extends Controller implements InitControllerInterface {
   /**
    * Creates a new Tiltag entity.
    *
-   * @Route("/{id}/tiltag/{type}", name="tiltag_create")
-   * @Method("GET")
+   * @Route("/{id}/tiltag/new/{type}", name="tiltag_create")
+   * @Method("POST")
    * @Template("AppBundle:Tiltag:new.html.twig")
    */
-  public function createAction(Request $request, $id, $type) {
+  public function newTiltagAction(Request $request, Rapport $rapport, $type) {
     $em = $this->getDoctrine()->getManager();
+    $tiltag = $em->getRepository('AppBundle:Tiltag')->create($type);
 
-    $rapport = $em->getRepository('AppBundle:Rapport')->find($id);
+    $tiltag->setRapport($rapport);
 
-    if (!$rapport) {
-      throw $this->createNotFoundException('Unable to find Rapport entity.');
-    }
-
-    switch ($type) {
-      case 'pumpe':
-        $entity = new PumpeTiltag();
-        $entity->setTitle('Pumpeudskiftninger');
-        break;
-      case 'special':
-        $entity = new SpecialTiltag();
-        break;
-      default:
-        throw new \InvalidArgumentException('Unknown tiltag type');
-    }
-
-    $entity->setRapport($rapport);
-    $em = $this->getDoctrine()->getManager();
-    $em->persist($entity);
+    $em->persist($tiltag);
     $em->flush();
 
-    return $this->redirect($this->generateUrl('tiltag_show', array('id' => $entity->getId())));
+    return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
   }
 }

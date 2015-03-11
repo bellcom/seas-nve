@@ -15,4 +15,19 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class TiltagRepository extends EntityRepository {
+  /**
+   * Create a new Tiltag based on type
+   *
+   * @param string $type
+   * @return Tiltag
+   */
+  public function create($type) {
+    $className = '\\AppBundle\\Entity\\'.ucwords($type).'Tiltag';
+
+    if (!class_exists($className)) {
+        throw new \InvalidArgumentException('Unknown tiltag type: '.$type);
+    }
+
+    return new $className();
+  }
 }

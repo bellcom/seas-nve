@@ -4,17 +4,17 @@
  * @TODO: Missing description.
  */
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class PumpeTiltagType
+ * Class SpecialTiltagType
  * @package AppBundle\Form
  */
-class PumpeTiltagType extends AbstractType {
+class SpecialTiltagType extends TiltagType /*AbstractType*/ {
   /**
    * @TODO: Missing description.
    *
@@ -23,7 +23,7 @@ class PumpeTiltagType extends AbstractType {
    */
   public function setDefaultOptions(OptionsResolverInterface $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\PumpeTiltag'
+      'data_class' => 'AppBundle\Entity\SpecialTiltag'
     ));
   }
 
@@ -34,6 +34,11 @@ class PumpeTiltagType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'appbundle_pumpetiltag';
+    return 'appbundle_specialtiltag';
+  }
+
+  public function buildForm(FormBuilderInterface $builder, array $options) {
+    parent::buildForm($builder, $options);
+    $builder->add('kommentar');
   }
 }

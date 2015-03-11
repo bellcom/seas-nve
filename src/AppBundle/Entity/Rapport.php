@@ -175,5 +175,4 @@ class Rapport {
   public function getTiltag() {
     return $this->tiltag;
   }
-
 }

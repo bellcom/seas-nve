@@ -1,28 +1,23 @@
 <?php
+/**
+ * @file
+ * @TODO: Missing description.
+ */
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class PumpeDetailType
+ * Class PumpeTiltagDetailType
  * @package AppBundle\Form
  */
-class PumpeDetailType extends AbstractType {
-  /**
-   * @TODO: Missing description.
-   *
-   * @param FormBuilderInterface $builder
-   *   @TODO: Missing description.
-   * @param array $options
-   *   @TODO: Missing description.
-   */
+class PumpeTiltagDetailType extends TiltagDetailType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
+    parent::buildForm($builder, $options);
     $builder
       ->add('pumpeID')
-      ->add('pumpe')
       ->add('forsyningsomraade')
       ->add('placering')
       ->add('applikation')
@@ -34,25 +29,13 @@ class PumpeDetailType extends AbstractType {
       ->add('prisfaktor');
   }
 
-  /**
-   * @TODO: Missing description.
-   *
-   * @param OptionsResolverInterface $resolver
-   *   @TODO: Missing description.
-   */
   public function setDefaultOptions(OptionsResolverInterface $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\PumpeDetail'
+      'data_class' => 'AppBundle\Entity\PumpeTiltagDetail'
     ));
   }
 
-  /**
-   * @TODO: Missing description.
-   *
-   * @return string
-   *   @TODO: Missing description.
-   */
   public function getName() {
-    return 'appbundle_pumpedetail';
+    return 'appbundle_pumpetiltagdetail';
   }
 }
