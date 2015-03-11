@@ -137,10 +137,9 @@ class TiltagDetailController extends Controller {
   }
 
   /**
-   * Creates a form to delete a TiltagDetail entity by id.
+   * Creates a form to delete a TiltagDetail entity
    *
-   * @param mixed $id The entity id
-   *
+   * @param TiltagDetail $entity
    * @return \Symfony\Component\Form\Form The form
    */
   private function createDeleteForm(TiltagDetail $entity) {

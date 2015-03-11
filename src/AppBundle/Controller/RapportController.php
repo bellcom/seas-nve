@@ -57,6 +57,8 @@ class RapportController extends Controller implements InitControllerInterface {
    * @Method("GET")
    * @Template()
    * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Rapport $rapport
+   * @return array
    */
   public function showAction(Rapport $rapport) {
     $deleteForm = $this->createDeleteForm($rapport->getId());
