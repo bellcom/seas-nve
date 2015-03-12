@@ -12,6 +12,7 @@
         <tr>
           <th>{{ 'appbundle.tiltag.tilvalgt' | trans }}</th>
           <th>{{ 'appbundle.specialtiltag.kommentar' | trans }}</th>
+          <th>{{ 'appbundle.specialtiltag.filepath' | trans }}</th>
           <th></th>
         </tr>
         </thead>
@@ -20,6 +21,7 @@
           <tr>
             <td>{{ detail.tilvalgt | b2icon }}</td>
             <td>{{ detail.kommentar }}</td>
+            <td>{% if not detail.filepath is empty %}<a target="_blank" href="{{ asset(detail.filepath) }}">{{ detail.filepath }}</a>{% endif %}</td>
             <td>
               <a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
               <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>

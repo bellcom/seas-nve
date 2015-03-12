@@ -156,4 +156,6 @@ abstract class TiltagDetail {
       $this->setCreatedAt(new \DateTime('now'));
     }
   }
+
+  public function handleUploads($manager) {}
 }

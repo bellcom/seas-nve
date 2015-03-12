@@ -246,6 +246,7 @@ class TiltagController extends Controller {
 
     if ($form->isValid()) {
       $detail->setTiltag($tiltag);
+      $detail->handleUploads($this->get('stof_doctrine_extensions.uploadable.manager'));
       $em = $this->getDoctrine()->getManager();
       $em->persist($detail);
       $em->flush();

@@ -29,7 +29,8 @@
     "yavin/symfony-init-controller": "dev-master",
     "whiteoctober/breadcrumbs-bundle": "dev-master",
     "friendsofsymfony/user-bundle": "~2.0@dev",
-    "simplethings/entity-audit-bundle": "0.7.*"
+    "simplethings/entity-audit-bundle": "0.7.*",
+    "stof/doctrine-extensions-bundle": "~1.1"
   },
   "require-dev": {
     "sensio/generator-bundle": "~2.3"

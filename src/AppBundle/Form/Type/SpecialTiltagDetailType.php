@@ -17,7 +17,15 @@ class SpecialTiltagDetailType extends TiltagDetailType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     parent::buildForm($builder, $options);
     $builder
-      ->add('kommentar');
+      ->add('kommentar')
+      ->add('filepath_display', 'url', array(
+        'property_path' => 'filepath',
+        'read_only' => true,
+      ))
+      ->add('filepath', 'file', array(
+        'data_class' => null,
+        // 'required' => false,
+      ));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver) {
