@@ -13,9 +13,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Bygning;
-use AppBundle\Form\BygningType;
+use AppBundle\Form\Type\BygningType;
 use AppBundle\Entity\Rapport;
-use AppBundle\Form\RapportType;
+use AppBundle\Form\Type\RapportType;
 use Yavin\Symfony\Controller\InitControllerInterface;
 
 /**

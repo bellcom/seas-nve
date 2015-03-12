@@ -12,9 +12,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\PumpeTiltag;
-use AppBundle\Form\PumpeTiltagType;
+use AppBundle\Form\Type\PumpeTiltagType;
 use AppBundle\Entity\PumpeDetail;
-use AppBundle\Form\PumpeDetailType;
+use AppBundle\Form\Type\PumpeDetailType;
 
 /**
  * PumpeTiltag controller.
