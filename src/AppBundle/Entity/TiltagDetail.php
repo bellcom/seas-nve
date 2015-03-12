@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\InheritanceType;
 
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+
 /**
  * TiltagDetail
  *
@@ -21,9 +23,10 @@ use Doctrine\ORM\Mapping\InheritanceType;
  * @DiscriminatorColumn(name="discr", type="string")
  * @DiscriminatorMap({ "pumpe" = "PumpeTiltagDetail", "special" = "SpecialTiltagDetail" })
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TiltagDetailRepository")
- * @ORM\HasLifecycleCallbacks
  */
 abstract class TiltagDetail {
+  use TimestampableEntity;
+
   /**
    * @var integer
    *
@@ -32,20 +35,6 @@ abstract class TiltagDetail {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   private $id;
-
-  /**
-   * @var \DateTime
-   *
-   * @ORM\Column(name="created_at", type="datetime")
-   */
-  private $createdAt;
-
-  /**
-   * @var \DateTime
-   *
-   * @ORM\Column(name="updated_at", type="datetime")
-   */
-  private $updatedAt;
 
   /**
    * Get id
@@ -125,36 +114,6 @@ abstract class TiltagDetail {
    */
   public function getTilvalgt() {
     return $this->tilvalgt;
-  }
-
-  private function setUpdatedAt(\DateTime $updatedAt) {
-    $this->updatedAt = $updatedAt;
-
-    return $this;
-  }
-
-  public function getUpdatedAt() {
-    return $this->updatedAt;
-  }
-
-  private function setCreatedAt(\DateTime $createdAt) {
-    $this->createdAt = $createdAt;
-  }
-
-  public function getCreatedAt() {
-    return $this->createdAt;
-  }
-
-  /**
-   * @ORM\PrePersist
-   * @ORM\PreUpdate
-   */
-  public function updateTimestamps() {
-    $this->setUpdatedAt(new \DateTime('now'));
-
-    if ($this->getCreatedAt() == null) {
-      $this->setCreatedAt(new \DateTime('now'));
-    }
   }
 
   public function handleUploads($manager) {}
