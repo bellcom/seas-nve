@@ -34,3 +34,8 @@ services:
         class: Yavin\Symfony\Controller\InitControllerSubscriber
         tags:
             - { name: kernel.event_subscriber }
+
+    aaplus.attachment_type_extension:
+        class: AppBundle\Form\Extension\AttachmentTypeExtension
+        tags:
+            - { name: form.type_extension, alias: file }

@@ -7,6 +7,8 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -18,14 +20,22 @@ class SpecialTiltagDetailType extends TiltagDetailType {
     parent::buildForm($builder, $options);
     $builder
       ->add('kommentar')
-      ->add('filepath_display', 'url', array(
-        'property_path' => 'filepath',
-        'read_only' => true,
-      ))
       ->add('filepath', 'file', array(
         'data_class' => null,
-        // 'required' => false,
+        'attachment_path' => 'filepath',
       ));
+
+    $builder->addEventListener(
+      FormEvents::PRE_SUBMIT,
+      function(FormEvent $event) {
+        $data = $event->getData();
+        $form = $event->getForm();
+
+        // Remove filepath field if not submitted
+        if (!isset($data['filepath']) || $data['filepath'] === null) {
+          $form->remove('filepath');
+        }
+      });
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver) {

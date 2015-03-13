@@ -9,6 +9,7 @@ namespace AppBundle\Entity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Uploadable\Mapping\Validator;
 use Gedmo\Uploadable\Uploadable;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -47,19 +48,28 @@ class SpecialTiltagDetail extends TiltagDetail {
    */
   private $filepath;
 
-  public function setFilepath($filepath) {
+  /**
+   * Sets filepath.
+   *
+   * @param UploadedFile $filepath
+   */
+  public function setFilepath(UploadedFile $filepath = null) {
     $this->filepath = $filepath;
-
-    return $this;
   }
 
+  /**
+   * Get filepath.
+   *
+   * @return UploadedFile
+   */
   public function getFilepath() {
     return $this->filepath;
   }
 
   public function handleUploads($manager) {
-    if ($this->getFilepath()) {
-      $manager->markEntityToUpload($this, $this->getFilepath());
+    $fileInfo = $this->getFilepath();
+    if (is_object($fileInfo) && $fileInfo instanceof UploadedFile) {
+      $manager->markEntityToUpload($this, $fileInfo);
     }
   }
 
