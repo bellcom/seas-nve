@@ -53,6 +53,7 @@ tiltag:
 
 pumpetiltag:
   labels:
+    title: Pumpeudskiftninger
     singular: Pumpetiltag
     plural: Pumpetiltag
   actions:
@@ -141,7 +142,7 @@ appbundle:
     fabrikant: Fabrikant
     roerlaengde: Rørlængde
     roerstoerrelse: Rørstørrelse
-  pumpedetail:
+  pumpetiltagdetail:
     pumpeID: Pumpe ID
     forsyningsomraade: Forsyningsområde
     placering: Placering

@@ -16,8 +16,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class TiltagDetailType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder
-      ->add('title');
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver) {

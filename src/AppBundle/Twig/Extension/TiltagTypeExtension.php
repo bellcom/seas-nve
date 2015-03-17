@@ -43,9 +43,6 @@ class TiltagTypeExtension extends \Twig_Extension {
     else if ($object instanceof PumpeTiltag) {
       return "pumpetiltag";
     }
-    else if ($object instanceof Tiltag) {
-      return "tiltag";
-    }
     else {
       throw new \InvalidArgumentException('Cannot get type of non-Tiltag objects');
     }
@@ -80,9 +77,6 @@ class TiltagTypeExtension extends \Twig_Extension {
     foreach ($tiltag as $t) {
       if ($this->getTiltagType($t) === $type) {
         return FALSE;
-      }
-      else {
-        return TRUE;
       }
     }
 

@@ -31,7 +31,7 @@ twig:
     debug: true
     strict_variables: "%kernel.debug%"
     form_themes:
-        - AppBundle:Form:fields.html.twig
+        - AppBundle:Form:aaplus-bootstrap.html.twig
 
 
 # Assetic Configuration
