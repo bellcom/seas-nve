@@ -39,3 +39,8 @@ services:
         class: AppBundle\Form\Extension\AttachmentTypeExtension
         tags:
             - { name: form.type_extension, alias: file }
+
+    aaplus.tiltag_listener:
+        class: AppBundle\Listener\TiltagListener
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }

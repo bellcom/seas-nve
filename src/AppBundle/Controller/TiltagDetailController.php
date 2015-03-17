@@ -42,6 +42,8 @@ class TiltagDetailController extends Controller {
    * @Route("/{id}", name="tiltag_detail_show")
    * @Method("GET")
    * @Template()
+   * @param TiltagDetail $entity
+   * @return \Symfony\Component\HttpFoundation\Response
    */
   public function showAction(TiltagDetail $entity) {
     $deleteForm = $this->createDeleteForm($entity);
@@ -59,6 +61,8 @@ class TiltagDetailController extends Controller {
    * @Route("/{id}/edit", name="tiltag_detail_edit")
    * @Method("GET")
    * @Template()
+   * @param TiltagDetail $entity
+   * @return \Symfony\Component\HttpFoundation\Response
    */
   public function editAction(TiltagDetail $entity) {
     $editForm = $this->createEditForm($entity);
@@ -97,6 +101,9 @@ class TiltagDetailController extends Controller {
    * @Route("/{id}", name="tiltag_detail_update")
    * @Method("PUT")
    * @Template("AppBundle:TiltagDetail:edit.html.twig")
+   * @param Request $request
+   * @param TiltagDetail $entity
+   * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
    */
   public function updateAction(Request $request, TiltagDetail $entity) {
     $deleteForm = $this->createDeleteForm($entity);
@@ -123,18 +130,23 @@ class TiltagDetailController extends Controller {
    *
    * @Route("/{id}", name="tiltag_detail_delete")
    * @Method("DELETE")
+   * @param Request $request
+   * @param TiltagDetail $detail
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
    */
-  public function deleteAction(Request $request, TiltagDetail $entity) {
-    $form = $this->createDeleteForm($entity);
+  public function deleteAction(Request $request, TiltagDetail $detail) {
+    $form = $this->createDeleteForm($detail);
     $form->handleRequest($request);
+    $tiltag = $detail->getTiltag();
 
     if ($form->isValid()) {
+      $detail->setTiltag(null);
       $em = $this->getDoctrine()->getManager();
-      $em->remove($entity);
+      $em->remove($detail);
       $em->flush();
     }
 
-    return $this->redirect($this->generateUrl('tiltag_detail'));
+    return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
   }
 
   /**
@@ -157,6 +169,10 @@ class TiltagDetailController extends Controller {
    * @Route("/{type}", name="tiltag_detail_create")
    * @Method("POST")
    * @Template("AppBundle:TiltagDetail:new.html.twig")
+   * @param Request $request
+   * @param string $type
+   * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+   * @throws \Exception
    */
   public function createAction(Request $request, $type) {
     $entity = $this->createTiltagDetail($type);
@@ -181,7 +197,7 @@ class TiltagDetailController extends Controller {
    * Creates a form to create a TiltagDetail entity.
    *
    * @param TiltagDetail $entity The entity
-   *
+   * @param string $type
    * @return \Symfony\Component\Form\Form The form
    */
   private function createCreateForm(TiltagDetail $entity, $type) {
@@ -196,6 +212,13 @@ class TiltagDetailController extends Controller {
     return $form;
   }
 
+  /**
+   * Create a new TiltagDetail
+   *
+   * @param $type
+   * @return TiltagDetail
+   * @throws \Exception
+   */
   private function createTiltagDetail($type) {
     $className = 'AppBundle\\Entity\\'.ucwords($type).'TiltagDetail';
     if (!class_exists($className) || !is_subclass_of($className, 'AppBundle\\Entity\\TiltagDetail')) {
@@ -204,6 +227,10 @@ class TiltagDetailController extends Controller {
     return new $className();
   }
 
+  /**
+   * @param \AppBundle\Entity\TiltagDetail $entity
+   * @return string
+   */
   private function getEntityName(TiltagDetail $entity) {
     $className = get_class($entity);
     if (preg_match('@\\\\([^\\\\]+)$@', $className, $matches)) {
@@ -212,6 +239,11 @@ class TiltagDetailController extends Controller {
     return $className;
   }
 
+  /**
+   * @param \AppBundle\Entity\TiltagDetail $entity
+   * @param $action
+   * @return string
+   */
   private function getTemplate(TiltagDetail $entity, $action) {
     $className = $this->getEntityName($entity);
     $template = 'AppBundle:'.$className.':'.$action.'.html.twig';
@@ -221,6 +253,10 @@ class TiltagDetailController extends Controller {
     return $template;
   }
 
+  /**
+   * @param \AppBundle\Entity\TiltagDetail $entity
+   * @return string
+   */
   private function getFormTypeClassName(TiltagDetail $entity) {
     $className = '\\AppBundle\\Form\\Type\\'.$this->getEntityName($entity).'Type';
     if (!class_exists($className)) {

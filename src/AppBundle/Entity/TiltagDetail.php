@@ -62,6 +62,8 @@ abstract class TiltagDetail {
   }
 
   /**
+   * @var Tiltag $tiltag
+   *
    * @ManyToOne(targetEntity="Tiltag", inversedBy="details")
    * @JoinColumn(name="tiltag_id", referencedColumnName="id")
    **/
@@ -74,6 +76,12 @@ abstract class TiltagDetail {
    * @return Rapport
    */
   public function setTiltag(Tiltag $tiltag = NULL) {
+    if ($this->tiltag && $this->tiltag != $tiltag) {
+      $this->tiltag->removeDetail($this);
+    }
+    if ($tiltag) {
+      $tiltag->addDetail($this);
+    }
     $this->tiltag = $tiltag;
 
     return $this;

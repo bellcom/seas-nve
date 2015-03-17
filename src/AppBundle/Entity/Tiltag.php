@@ -201,11 +201,12 @@ abstract class Tiltag {
   private $indeklima;
 
   /**
+   * @var Rapport
+   *
    * @ManyToOne(targetEntity="Rapport", inversedBy="tiltag")
    * @JoinColumn(name="rapport_id", referencedColumnName="id")
    **/
   private $rapport;
-
 
   /**
    * Get Name
@@ -730,17 +731,66 @@ abstract class Tiltag {
   }
 
   /**
+   * @var ArrayCollection
+   *
    * @OneToMany(targetEntity="TiltagDetail", mappedBy="tiltag", cascade={"persist", "remove"})
    * @OrderBy({"createdAt" = "ASC"})
    */
   private $details;
 
-  public function setDetails(ArrayCollection $details) {
-    $this->details = $details;
+  /**
+   * Add a TiltagDetail to this Tiltag
+   *
+   * @param TiltagDetail $detail
+   * @return Tiltag
+   */
+  public function addDetail(TiltagDetail $detail) {
+    if (!$this->details->contains($detail)) {
+      $this->details->add($detail);
+      $this->compute();
+    }
+
     return $this;
   }
 
+  /**
+   * Remove a TiltagDetail from this Tiltag
+   *
+   * @param TiltagDetail $detail
+   * @return Tiltag
+   */
+  public function removeDetail(TiltagDetail $detail) {
+    if ($this->details->contains($detail)) {
+      $this->details->removeElement($detail);
+      $this->compute();
+    }
+
+    return $this;
+  }
+
+  /**
+   * @param \Doctrine\Common\Collections\ArrayCollection $details
+   * @return Tiltag
+   */
+  public function setDetails(ArrayCollection $details) {
+    $this->details = $details;
+
+    return $this;
+  }
+
+  /**
+   * @return \Doctrine\Common\Collections\ArrayCollection
+   */
   public function getDetails() {
     return $this->details;
+  }
+
+  /**
+   * Compute values in this Tiltag
+   *
+   * @return bool
+   */
+  public function compute() {
+    return false;
   }
 }
