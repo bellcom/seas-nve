@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Bygning
@@ -354,12 +355,14 @@ class Bygning {
   /**
    * @OneToMany(targetEntity="Rapport", mappedBy="bygning")
    * @OrderBy({"datering" = "ASC"})
+   * @JMS\Exclude
    **/
   private $rapporter;
 
   /**
    * @ManyToMany(targetEntity="User", inversedBy="bygninger")
    * @JoinTable(name="bygning_user")
+   * @JMS\Exclude
    **/
   private $users;
 

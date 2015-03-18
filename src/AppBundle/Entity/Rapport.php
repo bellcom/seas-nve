@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OrderBy;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Rapport
@@ -38,6 +39,7 @@ class Rapport {
   /**
    * @OneToMany(targetEntity="Tiltag", mappedBy="rapport", cascade={"persist", "remove"})
    * @OrderBy({"title" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Tiltag>")
    */
   private $tiltag;
 

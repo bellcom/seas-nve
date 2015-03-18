@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\InheritanceType;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Tiltag
@@ -26,6 +27,10 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @DiscriminatorColumn(name="discr", type="string")
  * @DiscriminatorMap({ "pumpe" = "PumpeTiltag", "special" = "SpecialTiltag" })
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TiltagRepository")
+ * @JMS\Discriminator(field = "_discr", map = {
+ *    "pumpe": "AppBundle\Entity\PumpeTiltag",
+ *    "special": "AppBundle\Entity\SpecialTiltag"
+ * })
  */
 abstract class Tiltag {
   use TimestampableEntity;
@@ -735,6 +740,7 @@ abstract class Tiltag {
    *
    * @OneToMany(targetEntity="TiltagDetail", mappedBy="tiltag", cascade={"persist", "remove"})
    * @OrderBy({"createdAt" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\TiltagDetail>")
    */
   private $details;
 
