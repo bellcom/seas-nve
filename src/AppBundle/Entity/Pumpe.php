@@ -7,6 +7,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * Pumpe
@@ -15,6 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\PumpeRepository")
  */
 class Pumpe {
+  use TimestampableEntity;
+
   /**
    * @var integer
    *

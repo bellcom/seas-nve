@@ -56,6 +56,7 @@
         <td>{{ entity.roerstoerrelse }}</td>
         <td>
           <a href="{{ path('pumpe_show', { 'id': entity.id }) }}" class="btn btn-xs btn-primary">show</a>
+          <a href="{{ path('pumpe_edit', { 'id': entity.id }) }}" class="btn btn-xs btn-default">edit</a>
         </td>
       </tr>
     {% endfor %}
