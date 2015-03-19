@@ -51,6 +51,40 @@ abstract class TiltagDetail {
   }
 
   /**
+   * @var object
+   *
+   * @ORM\Column(name="data", type="object")
+   */
+  private $data;
+
+  /**
+   * Get data.
+   *
+   * @return object
+   */
+  public function getData($key = null) {
+    if ($key === null) {
+      return $this->data;
+    }
+    return isset($this->data->{$key}) ? $this->data->{$key} : null;
+  }
+
+  /**
+   * Add data
+   */
+  protected function addData($key, $value) {
+    $data = $this->data;
+    if ($data === null) {
+      $data = new \StdClass();
+    }
+    $data->{$key} = $value;
+    // Mark $this->data as dirty (Hack!)
+    $this->data = clone $data;
+
+    return $this;
+  }
+
+  /**
    * @var string
    *
    * @ORM\Column(name="Title", type="string", length=255, nullable=true)

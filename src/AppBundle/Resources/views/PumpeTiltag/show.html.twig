@@ -11,7 +11,7 @@
         <thead>
         <tr>
           <th>{{ 'appbundle.pumpetiltag.tilvalgt' | trans }}</th>
-          <th>{{ 'appbundle.pumpetiltag.pumpeID' | trans }}</th>
+          <th>{{ 'appbundle.pumpetiltag.pumpe' | trans }}</th>
           <th>{{ 'appbundle.pumpetiltag.forsyningsomraade' | trans }}</th>
           <th>{{ 'appbundle.pumpetiltag.placering' | trans }}</th>
           <th>{{ 'appbundle.pumpetiltag.applikation' | trans }}</th>
@@ -28,7 +28,7 @@
         {% for detail in entity.details %}
           <tr>
             <td>{{ detail.tilvalgt | b2icon }}</td>
-            <td>{{ detail.pumpeID }}</td>
+            <td>{{ detail.data and detail.data.pumpe ? detail.data.pumpe : '' }}</td>
             <td>{{ detail.forsyningsomraade }}</td>
             <td>{{ detail.placering }}</td>
             <td>{{ detail.applikation }}</td>
