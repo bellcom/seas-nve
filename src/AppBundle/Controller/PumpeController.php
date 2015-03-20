@@ -43,6 +43,8 @@ class PumpeController extends Controller {
    * @Route("/{id}", name="pumpe_show")
    * @Method("GET")
    * @Template()
+   * @param Pumpe $pumpe
+   * @return array
    */
   public function showAction(Pumpe $pumpe) {
     return array(
@@ -57,6 +59,8 @@ class PumpeController extends Controller {
    * @Route("/{id}/edit", name="pumpe_edit")
    * @Method("GET")
    * @Template()
+   * @param Pumpe $pumpe
+   * @return array
    */
   public function editAction(Pumpe $pumpe) {
     $editForm = $this->createEditForm($pumpe);
@@ -72,7 +76,10 @@ class PumpeController extends Controller {
    *
    * @Route("/{id}", name="pumpe_update")
    * @Method("PUT")
-   * @Template()
+   * @Template("AppBundle:Pumpe:edit.html.twig")
+   * @param Pumpe $pumpe
+   * @param Request $request
+   * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
    */
   public function updateAction(Pumpe $pumpe, Request $request) {
     $editForm = $this->createEditForm($pumpe);
@@ -85,12 +92,14 @@ class PumpeController extends Controller {
 
       return $this->redirect($this->generateUrl('pumpe_edit', array('id' => $pumpe->getId())));
     }
+
+    return $this->editAction($pumpe);
   }
 
   /**
-   * Creates a form to edit a Bygning entity.
+   * Creates a form to edit a Pumpe entity.
    *
-   * @param Bygning $entity The entity
+   * @param Pumpe $pumpe The Pumpe
    *
    * @return \Symfony\Component\Form\Form The form
    */
@@ -111,20 +120,17 @@ class PumpeController extends Controller {
    * @Route("/{id}", name="pumpe_delete")
    * @Method("DELETE")
    * @Template()
+   * @param Pumpe $pumpe
+   * @param Request $request
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
    */
-  public function deleteAction(Request $request, $id) {
-    $entity = $this->getRepository()->find($id);
-
-    if (!$entity) {
-      throw $this->createNotFoundException('Unable to find Pumpe entity.');
-    }
-
-    $form = $this->createDeleteForm($entity);
+  public function deleteAction(Pumpe $pumpe, Request $request) {
+    $form = $this->createDeleteForm($pumpe);
     $form->handleRequest($request);
 
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
-      $em->remove($entity);
+      $em->remove($pumpe);
       $em->flush();
     }
 
@@ -134,7 +140,7 @@ class PumpeController extends Controller {
   /**
    * Creates a form to delete a Pumpe entity by id.
    *
-   * @param mixed $id The entity id
+   * @param Pumpe $pumpe The Pumpe
    *
    * @return \Symfony\Component\Form\Form The form
    */
@@ -144,16 +150,6 @@ class PumpeController extends Controller {
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
       ->getForm();
-  }
-
-  private function getRepository() {
-    $repo = $this->getDoctrine()->getManager()
-          ->getRepository('AppBundle:Pumpe');
-    // if ($this->get('request')->query->get('show') == 'all') {
-    //   $repo->disableFilter();
-    // }
-
-    return $repo;
   }
 
 }
