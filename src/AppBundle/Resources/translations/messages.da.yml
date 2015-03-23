@@ -45,6 +45,7 @@ tiltag:
     plural: Tiltag
   strings:
     oversigt: Oversigt
+    forhold: Forhold
     detailark: Detailark
   actions:
     add: Tilføj Tiltag
@@ -154,18 +155,6 @@ appbundle:
     prisfaktor: Prisfaktor
     pumpetiltag: Pumpetiltag
     pumpe: Pumpe
-  pumpetiltag:
-    tilvalgt: Tilvalgt
-    pumpeID: Pumpe ID
-    forsyningsomraade: Forsyningsomåde
-    placering: Placering
-    applikation: Applikation
-    isoleringskappe: Isoleringskappe
-    bfaktor: B-Faktor
-    noter: Noter
-    eksisterendeDrifttid: Eksisterende drifttid
-    nyDrifttid: Ny drifttid
-    prisfaktor: Prisfaktor
   tiltag:
     title: Titel
     varmebsparelseGUF: ﻿Varmebesparelse, GUF (kWh/år)
@@ -191,3 +180,15 @@ appbundle:
     beskrivelseBV: ﻿Beskrivelse af ændringer til D&V udgifter samt fremtidigt timeforbrug for driftspersonale
     indeklima: Indeklima
     rapport: Rapport
+  pumpetiltag:
+    tilvalgt: Tilvalgt
+    pumpeID: Pumpe ID
+    forsyningsomraade: Forsyningsomåde
+    placering: Placering
+    applikation: Applikation
+    isoleringskappe: Isoleringskappe
+    bfaktor: B-Faktor
+    noter: Noter
+    eksisterendeDrifttid: Eksisterende drifttid
+    nyDrifttid: Ny drifttid
+    prisfaktor: Prisfaktor

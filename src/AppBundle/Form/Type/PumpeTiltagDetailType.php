@@ -17,6 +17,7 @@ class PumpeTiltagDetailType extends TiltagDetailType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     parent::buildForm($builder, $options);
     $builder
+      ->add('pumpe')
       ->add('pumpeID')
       ->add('forsyningsomraade')
       ->add('placering')
