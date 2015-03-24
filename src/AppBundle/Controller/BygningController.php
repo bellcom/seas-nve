@@ -37,7 +37,7 @@ class BygningController extends Controller implements InitControllerInterface {
   /**
    * Lists all Bygning entities.
    *
-   * @Route('/", name="bygning")
+   * @Route("/", name="bygning")
    * @Method("GET")
    * @Template()
    */
