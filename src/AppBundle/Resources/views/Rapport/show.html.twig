@@ -56,13 +56,17 @@
         </form>
       {% endif %}
 
+
+      {% if is_missing_tiltag_type(entity.tiltag, 'pumpetiltag') %}
+        <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'isolering' }) }}">
+          <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ 'rapporter.strings.teknisk_isolering' | trans }}</button>
+        </form>
+      {% endif %}
+
       <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'special' }) }}">
         <button type="submit" class="btn btn-default">{{ icon('plus') }} Tilføj specialtiltag</button>
       </form>
 
-      <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'isolering' }) }}">
-        <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ 'rapporter.strings.teknisk_isolering' | trans }}</button>
-      </form>
     </p>
   <hr>
 

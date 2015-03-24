@@ -25,20 +25,32 @@ class TiltagType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('title')
-      ->add('varmebsparelseGUF')
-      ->add('varmebesparelseGAF')
-      ->add('elbesparelse')
-      ->add('vandbesparelse')
-      ->add('energibesparelseAarEt')
-      ->add('co2besparelseAarEt')
-      ->add('antalReinvesteringer')
       ->add('faktor')
-      ->add('primaerEnterprise')
-      ->add('tilbudskategori')
-      ->add('anlaegsInvestering')
-      ->add('dVBesparelse')
-      ->add('levetid')
+      ->add('primaerEnterprise', 'choice',
+        array(
+          'choices'   => array(
+            'el'   => 'El',
+            't/i'  => 'Tømrer/Isolatør',
+            've'   =>  'VE',
+            'vvs'  => 'VVS',
+            'hh'   => 'Hårde hvidevarer',
+            'a'    =>  'Automatik',
+            'ia'   => 'Interne i AAK'
+          )
+      ))
+      ->add('tilbudskategori', 'choice',
+        array(
+          'choices'   => array(
+            'el'   => 'El',
+            't/i'  => 'Tømrer/Isolatør',
+            've'   =>  'VE',
+            'vvs'  => 'VVS',
+            'hh'   => 'Hårde hvidevarer',
+            'a'    =>  'Automatik',
+            'ia'   => 'Interne i AAK'
+          )
+        )
+      )
       ->add('forsyningVarme')
       ->add('el')
       ->add('beskrivelseNevaerende')
@@ -47,8 +59,7 @@ class TiltagType extends AbstractType {
       ->add('risikovurdering')
       ->add('placering')
       ->add('beskrivelseBV')
-      ->add('indeklima')
-      ->add('rapport');
+      ->add('indeklima');
   }
 
   /**

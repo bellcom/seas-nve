@@ -377,7 +377,7 @@ class Bygning {
    * @return string
    */
   public function __toString() {
-    return $this->adresse . ", " . $this->postnummer . " " . $this->postBy;
+    return $this->adresse;
   }
 
 

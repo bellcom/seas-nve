@@ -30,7 +30,7 @@ class Rapport {
   private $id;
 
   /**
-   * @ManyToOne(targetEntity="Bygning", inversedBy="rapporter")
+   * @ManyToOne(targetEntity="Bygning", inversedBy="rapporter", fetch="EAGER")
    * @JoinColumn(name="bygning_id", referencedColumnName="id")
    **/
   private $bygning;

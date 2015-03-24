@@ -17,12 +17,17 @@
 
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation"><a href="#oversigt" aria-controls="Oversigt" role="tab" data-toggle="tab">{{ 'tiltag.strings.oversigt' | trans }}</a></li>
+      <li role="presentation"><a href="#forhold" aria-controls="Forhold" role="tab" data-toggle="tab">{{ 'tiltag.strings.forhold' | trans }}</a></li>
       <li role="presentation" class="active"><a href="#detailark" aria-controls="Detailark" role="tab" data-toggle="tab">{{ 'tiltag.strings.detailark' | trans }}</a></li>
     </ul>
 
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane" id="oversigt">
         {% include 'AppBundle:Tiltag:show-include.html.twig' %}
+      </div>
+
+      <div role="tabpanel" class="tab-pane" id="forhold">
+        {{ form(edit_form) }}
       </div>
 
       <div role="tabpanel" class="tab-pane active" id="detailark">
