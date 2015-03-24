@@ -29,15 +29,15 @@ class BygningController extends Controller implements InitControllerInterface {
 
   public function init(Request $request)
   {
-    $this->breadcrumbs = $this->get("white_october_breadcrumbs");
-    $this->breadcrumbs->addItem("Dashboard", $this->get("router")->generate("dashboard"));
-    $this->breadcrumbs->addItem("Bygninger", $this->get("router")->generate("bygning"));
+    $this->breadcrumbs = $this->get('white_october_breadcrumbs');
+    $this->breadcrumbs->addItem('Dashboard', $this->get('router')->generate('dashboard'));
+    $this->breadcrumbs->addItem('Bygninger', $this->get('router')->generate('bygning'));
   }
 
   /**
    * Lists all Bygning entities.
    *
-   * @Route("/", name="bygning")
+   * @Route('/", name="bygning")
    * @Method("GET")
    * @Template()
    */

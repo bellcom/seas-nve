@@ -28,9 +28,9 @@ class TiltagController extends Controller implements InitControllerInterface {
 
   public function init(Request $request)
   {
-    $this->breadcrumbs = $this->get("white_october_breadcrumbs");
-    $this->breadcrumbs->addItem("Dashboard", $this->get("router")->generate("dashboard"));
-    $this->breadcrumbs->addItem("Bygninger", $this->get("router")->generate("bygning"));
+    $this->breadcrumbs = $this->get('white_october_breadcrumbs');
+    $this->breadcrumbs->addItem('Dashboard', $this->get('router')->generate('dashboard'));
+    $this->breadcrumbs->addItem('Bygninger', $this->get('router')->generate('bygning'));
   }
 
   /**
@@ -58,9 +58,9 @@ class TiltagController extends Controller implements InitControllerInterface {
    * @Template()
    */
   public function showAction(Tiltag $entity) {
-    $this->breadcrumbs->addItem($entity->getRapport()->getBygning(), $this->get("router")->generate("bygning_show", array('id' => $entity->getRapport()->getBygning()->getId())));
-    $this->breadcrumbs->addItem($entity->getRapport()->getVersion(), $this->get("router")->generate("rapport_show", array('id' => $entity->getRapport()->getId())));
-    $this->breadcrumbs->addItem($entity->getTitle(), $this->get("router")->generate("rapport_show", array('id' => $entity->getRapport()->getId())));
+    $this->breadcrumbs->addItem($entity->getRapport()->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $entity->getRapport()->getBygning()->getId())));
+    $this->breadcrumbs->addItem($entity->getRapport()->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
+    $this->breadcrumbs->addItem($entity->getTitle(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
 
     $deleteForm = $this->createDeleteForm($entity);
     $form = $this->createDetailCreateForm($entity);
