@@ -145,12 +145,20 @@ appbundle:
     roerstoerrelse: Rørstørrelse
   pumpetiltagdetail:
     pumpeID: Pumpe ID
+    pumpeID.help: ﻿Et ID der kan genfindes på vedlagt skitse angives, fx. "P1", "P2" osv.
     forsyningsomraade: Forsyningsområde
+    forsyningsomraade.help: ﻿Beskriv pumpens forsyningsområde, fx "Blandesløjfe til gulvvarme i rum 20-30"
     placering: Placering
+    placering.help: ﻿Rum nr. og eventuel note for placering  fx. "rum 20, under isoleringskappe til varmtvandsbeholder"
     applikation: Applikation
+    isoleringskappe: Isoleringskappe
+    isoleringskappe.help: Sæt x hvis der er isoleringskappe på eksisterende pumpe.
     b.faktor: B-Faktor
+    b.faktor.help: ﻿B-faktor for pumpens placering indtastes, undlades såfremt eksisterende pumpe har isoleringskappe. B-faktor jf. håndbog for energikonsulenter.
     noter: Noter
+    noter.help: ﻿Rådgivers noter til pumpeudskiftning indtastes her. Krav til de punkter rådgiver skal tage stilling til er angivet i kolonnens overskrift
     eksisterendeDrifttid: Eksisterende drifttid
+    eksisterendeDrifttid.help: ﻿Eksisterende driftstid indtastes i timer/år
     nyDrifttid: Ny drifttid
     prisfaktor: Prisfaktor
     pumpetiltag: Pumpetiltag

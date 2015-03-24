@@ -27,6 +27,7 @@ class TransKeyExtension extends \Twig_Extension {
   {
     return array(
       new Twig_SimpleFilter('get_trans', [$this, 'getTranslation'], ['is_safe' => ['all']]),
+      new Twig_SimpleFilter('get_help', [$this, 'getHelpText'], ['is_safe' => ['all']]),
     );
   }
 
@@ -40,6 +41,19 @@ class TransKeyExtension extends \Twig_Extension {
     }
 
     return $trans;
+  }
+
+  public function getHelpText($key) {
+    $key = str_replace('_', '.', $key);
+    $key .= '.help';
+    $trans = $this->translator->trans($key);
+
+    if($key === $trans) {
+      $key = preg_replace('/\.[^.]*?tiltag\./', '.tiltag.', $key);
+      $trans = $this->translator->trans($key);
+    }
+
+    return ($key === $trans) ? '' : $trans;
   }
 
   /**
