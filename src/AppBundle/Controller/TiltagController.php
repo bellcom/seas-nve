@@ -56,6 +56,8 @@ class TiltagController extends Controller implements InitControllerInterface {
    * @Route("/{id}", name="tiltag_show")
    * @Method("GET")
    * @Template()
+   * @param Tiltag $entity
+   * @return \Symfony\Component\HttpFoundation\Response
    */
   public function showAction(Tiltag $entity) {
     $this->breadcrumbs->addItem($entity->getRapport()->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $entity->getRapport()->getBygning()->getId())));
@@ -273,7 +275,7 @@ class TiltagController extends Controller implements InitControllerInterface {
 
     // @FIXME: How do we handle form errors in modal?
 
-    $template = $this->getTemplate($detail, 'new');
+    $template = $this->getTemplate($tiltag, 'new');
     return $this->render($template, array(
       'entity' => $detail,
       'form' => $form->createView(),
@@ -334,7 +336,7 @@ class TiltagController extends Controller implements InitControllerInterface {
   private function getFormTypeClassName($entity, $isDetail = false) {
     $className = '\\AppBundle\\Form\\Type\\'.$this->getEntityName($entity).'Type';
     if (!class_exists($className)) {
-      $className = '\\AppBundle\\Form\\Tiltag'.($isDetail ? 'Detail' : '').'Type';
+      $className = '\\AppBundle\\Form\\Type\\Tiltag'.($isDetail ? 'Detail' : '').'Type';
     }
     return $className;
   }
@@ -342,6 +344,7 @@ class TiltagController extends Controller implements InitControllerInterface {
   /**
    * @param Tiltag $entity
    * @return string
+   * @throws \Exception
    */
   private function getDetailClassName(Tiltag $entity) {
     $entityName = $this->getEntityName($entity);
@@ -352,6 +355,11 @@ class TiltagController extends Controller implements InitControllerInterface {
     return $className;
   }
 
+  /**
+   * @param Tiltag $tiltag
+   * @return TiltagDetail
+   * @throws \Exception
+   */
   private function createDetailEntity(Tiltag $tiltag) {
     $detailClass = $this->getDetailClassName($tiltag);
     $detail = new $detailClass();

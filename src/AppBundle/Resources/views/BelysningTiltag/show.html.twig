@@ -1,0 +1,142 @@
+{% extends 'AppBundle:Tiltag:show-parent.html.twig' %}
+
+{% block body -%}
+  {{ parent() }}
+{% endblock %}
+
+{% block detailark -%}
+  <div class="row">
+    <div class="col-md-12">
+			<div class="table-responsive">
+				<table class="table ">
+					<thead>
+						<tr>
+							<th>{{ 'appbundle.tiltagdetail.tilvalgt' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.lokale.navn' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.lokale.type' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.armaturhoejde.m' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.rumstoerrelse.m2' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.lokale.antal' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.drifttid.t.aar' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.lyskilde' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.lyskilde.stk.armatur' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.lyskilde.w.lyskilde' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.forkobling.stk.armatur' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.armaturer.stk.lokale' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.elforbrug.w.m2' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.placering.id' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.styring' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.noter' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.belysningstiltag' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.nye.sensorer.stk.lokale' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.standardinvest.sensor.kr.stk' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.reduktion.af.drifttid' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.ny.driftstid' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.standardinvest.armatur.el.lyskilde.kr.stk' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.ny.lyskilde' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.ny.lyskilde.stk.armatur' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.ny.lyskilde.w.lyskilde' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.ny.forkobling.stk.armatur' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.ny.armatureffekt.w.stk' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.nye.armaturer.stk.lokale' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.nyttiggjort.varme.af.el.besparelse' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.prisfaktor' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.prisfaktor.tillaeg.kr.lokale' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.investering.alle.lokaler.kr' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.nyt.elforbrug.w.m2' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.driftsbesparelse.til.lyskilder.kr.aar' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.simpel.tilbagebetalingstid.aar' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.vaegtet.levetid.aar' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.nutidsvaerdi.set.over15.aar.kr' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.kwh.besparelse.el' | trans }}</th>
+							<th>{{ 'appbundle.belysningtiltagdetail.kwh.besparelse.varme.fra.varmevaerket' | trans }}</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for detail in entity.details %}
+							<tr>
+								<td>{{ detail.tilvalgt | b2icon }}</td>
+								<td>{{ detail.lokaleNavn }}</td>
+								<td>{{ detail.lokaleType }}</td>
+								<td>{{ detail.armaturhoejdeM | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.rumstoerrelseM2 | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.lokaleAntal }}</td>
+								<td>{{ detail.drifttidTAar }}</td>
+								<td>{{ detail.lyskilde }}</td>
+								<td>{{ detail.lyskildeStkArmatur }}</td>
+								<td>{{ detail.lyskildeWLyskilde }}</td>
+								<td>{{ detail.forkoblingStkArmatur }}</td>
+								<td>{{ detail.armaturerStkLokale }}</td>
+								<td>{{ detail.elforbrugWM2 }}</td>
+								<td>{{ detail.placeringId }}</td>
+								<td>{{ detail.styring }}</td>
+								<td>{{ detail.noter }}</td>
+								<td>{{ detail.belysningstiltag }}</td>
+								<td>{{ detail.nyeSensorerStkLokale }}</td>
+								<td>{{ detail.standardinvestSensorKrStk }}</td>
+								<td>{{ detail.reduktionAfDrifttid }}</td>
+								<td>{{ detail.nyDriftstid }}</td>
+								<td>{{ detail.standardinvestArmaturElLyskildeKrStk }}</td>
+								<td>{{ detail.nyLyskilde }}</td>
+								<td>{{ detail.nyLyskildeStkArmatur }}</td>
+								<td>{{ detail.nyLyskildeWLyskilde }}</td>
+								<td>{{ detail.nyForkoblingStkArmatur }}</td>
+								<td>{{ detail.nyArmatureffektWStk }}</td>
+								<td>{{ detail.nyeArmaturerStkLokale }}</td>
+								<td>{{ detail.nyttiggjortVarmeAfElBesparelse | localizednumber('percent') }}</td>
+								<td>{{ detail.prisfaktor }}</td>
+								<td>{{ detail.prisfaktorTillaegKrLokale }}</td>
+								<td>{{ detail.investeringAlleLokalerKr | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.nytElforbrugWM2 }}</td>
+								<td>{{ detail.driftsbesparelseTilLyskilderKrAar | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.simpelTilbagebetalingstidAar }}</td>
+								<td>{{ detail.vaegtetLevetidAar }}</td>
+								<td>{{ detail.nutidsvaerdiSetOver15AarKr | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.kwhBesparelseEl }}</td>
+								<td>{{ detail.kwhBesparelseVarmeFraVarmevaerket }}</td>
+
+								<td>
+									<a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+									<a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">{{ icon('plus') }} {{ 'belysningtiltagdetail.actions.add' | trans }}</button>
+    </div>
+  </div>
+
+  <!-- Modal start -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">{{ 'belysning.strings.add.special' | trans }}</h4>
+        </div>
+        <div class="modal-body">
+          {{ form(create_detail_form) }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal end -->
+
+
+
+{% endblock %}

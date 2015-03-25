@@ -25,11 +25,16 @@ use JMS\Serializer\Annotation as JMS;
  * @ORM\Table()
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="discr", type="string")
- * @DiscriminatorMap({ "pumpe" = "PumpeTiltag", "special" = "SpecialTiltag" })
+ * @DiscriminatorMap({
+ *    "pumpe" = "PumpeTiltag",
+ *    "special" = "SpecialTiltag",
+ *    "belysning" = "BelysningTiltag"
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TiltagRepository")
  * @JMS\Discriminator(field = "_discr", map = {
  *    "pumpe": "AppBundle\Entity\PumpeTiltag",
- *    "special": "AppBundle\Entity\SpecialTiltag"
+ *    "special": "AppBundle\Entity\SpecialTiltag",
+ *    "belysning": "AppBundle\Entity\BelysningTiltag"
  * })
  */
 abstract class Tiltag {
