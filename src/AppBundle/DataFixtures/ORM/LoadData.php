@@ -84,10 +84,21 @@ abstract class LoadData implements FixtureInterface, ContainerAwareInterface, Or
   }
 
   protected function getFilename() {
-    $className = get_class($this);
-    $index = strrpos($className, '\\');
-    $filename = $index === false ? $className : substr($className, $index+5). '.csv';
-    return $filename;
+    $ancestor = get_parent_class($this);
+    while ($ancestor && $ancestor instanceof LoadData) {
+      $ancestor = get_parent_class($ancestor);
+    }
+
+    if (!$ancestor) {
+      $ancestor = get_class($this);
+    }
+
+    $ancestorNamespace = substr($ancestor, 0, strrpos($ancestor, '\\'));
+    if (strpos(get_class($this), $ancestorNamespace) === 0) {
+      $path = substr(get_class($this), strlen($ancestorNamespace)+1);
+    }
+
+    return preg_replace(array('@\\\\Load@', '@^Load@', '@\\\\@'), array('\\', '', '/'), $path).'.csv';
   }
 
   protected $order = 1;
