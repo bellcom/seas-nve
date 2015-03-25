@@ -3,6 +3,6 @@
 {% block body -%}
   <h1>{{ 'bygninger.actions.edit' | trans }}</h1>
 
-  {{ form(edit_form) }}
+  {{ form(edit_form, { 'style': 'horizontal' }) }}
 
 {% endblock %}

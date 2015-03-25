@@ -26,7 +26,50 @@ class RapportType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('version')
-      ->add('datering');
+      ->add('datering')
+      ->add('BaselineEl', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => '﻿kwh/år'
+          )
+        )
+      ))
+      ->add('BaselineVarmeGUF', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => '﻿kwh/år'
+          )
+        )
+      ))
+      ->add('BaselineVarmeGAF', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => '﻿kwh/år'
+          )
+        )
+      ))
+      ->add('BaselineVand', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'm3/år'
+          )
+        )
+      ))
+      ->add('BaselineStrafAfkoeling', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'kr/år'
+          )
+        )
+      ))
+      ->add('SamtidighedsFaktor')
+      ->add('Energiscreening', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'Kr.'
+          )
+        )
+      ));
   }
 
   /**
