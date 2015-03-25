@@ -3,22 +3,44 @@
 {% block body -%}
   <h1>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h1>
 
-  <table class="table">
-    <tbody>
-    <tr>
-      <th>{{ 'appbundle.rapport.version' | trans }}</th>
-      <td>{{ entity.version }}</td>
-    </tr>
-    <tr>
-      <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
-      <td>{{ entity.bygning }}</td>
-    </tr>
-    <tr>
-      <th>{{ 'appbundle.rapport.datering' | trans }}</th>
-      <td>{{ entity.datering | date('Y-m-d H:i:s') }}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table">
+        <tbody>
+        <tr>
+          <th>{{ 'appbundle.rapport.version' | trans }}</th>
+          <td>{{ entity.version }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
+          <td>{{ entity.bygning }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.rapport.datering' | trans }}</th>
+          <td>{{ entity.datering | date('Y-m-d H:i:s') }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <table class="table">
+        <tbody>
+        <tr>
+          <th>{{ 'appbundle.rapport.BaselineVarmeGUF' | trans }}</th>
+          <td>{{ entity.BaselineVarmeGUF }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.rapport.BaselineVarmeGAF' | trans }}</th>
+          <td>{{ entity.BaselineVarmeGAF }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.rapport.varmetotal' | trans }}</th>
+          <td>{{ entity.totalvarme }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
   <h2>Tiltag:</h2>
 
@@ -49,25 +71,24 @@
   </div>
 
   <hr>
-    <p>
-      {% if is_missing_tiltag_type(entity.tiltag, 'pumpetiltag') %}
-        <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'pumpe' }) }}">
-          <button type="submit" class="btn btn-default">{{ icon('plus') }} Tilføj Pumpeudskiftninger</button>
-        </form>
-      {% endif %}
+
+  {% if is_missing_tiltag_type(entity.tiltag, 'pumpetiltag') %}
+    <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'pumpe' }) }}" class="inline-block">
+      <button type="submit" class="btn btn-default">{{ icon('plus') }} Tilføj Pumpeudskiftninger</button>
+    </form>
+  {% endif %}
 
 
-      {% if is_missing_tiltag_type(entity.tiltag, 'pumpetiltag') %}
-        <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'isolering' }) }}">
-          <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ 'rapporter.strings.teknisk_isolering' | trans }}</button>
-        </form>
-      {% endif %}
+  {% if is_missing_tiltag_type(entity.tiltag, 'pumpetiltag') %}
+    <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'isolering' }) }}" class="inline-block">
+      <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ 'rapporter.strings.teknisk_isolering' | trans }}</button>
+    </form>
+  {% endif %}
 
-      <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'special' }) }}">
-        <button type="submit" class="btn btn-default">{{ icon('plus') }} Tilføj specialtiltag</button>
-      </form>
+  <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'special' }) }}" class="inline-block">
+    <button type="submit" class="btn btn-default">{{ icon('plus') }} Tilføj specialtiltag</button>
+  </form>
 
-    </p>
   <hr>
 
   <a href="{{ path('rapport_edit', { 'id': entity.id }) }}"  class="btn btn-default">

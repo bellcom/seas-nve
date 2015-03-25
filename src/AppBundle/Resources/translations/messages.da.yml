@@ -70,6 +70,14 @@ appbundle:
     bygning: Bygning
     version: Version
     datering: Dato
+    BaselineEl: El
+    BaselineVarmeGUF: Varme GUF
+    BaselineVarmeGAF: Varme GAF
+    varmetotal: ﻿I alt varme
+    BaselineVand: Vand
+    BaselineStrafAfkoeling: Strafafkøling
+    SamtidighedsFaktor: ﻿Faktor på varmebespar. (kWh GAF + GUF)
+    Energiscreening: Energiscreening
   bygning:
     singular: Bygning
     plural: Bygninger
