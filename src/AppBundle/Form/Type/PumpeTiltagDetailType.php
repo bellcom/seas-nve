@@ -18,15 +18,34 @@ class PumpeTiltagDetailType extends TiltagDetailType {
     parent::buildForm($builder, $options);
     $builder
       ->add('pumpe')
+      ->add('pumpeID')
       ->add('forsyningsomraade')
       ->add('placering')
       ->add('applikation')
       ->add('isoleringskappe')
       ->add('b_faktor')
       ->add('noter')
-      ->add('eksisterendeDrifttid')
-      ->add('nyDrifttid')
-      ->add('prisfaktor');
+      ->add('eksisterendeDrifttid', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'Timer/år'
+          )
+        )
+      ))
+      ->add('nyDrifttid', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'Timer/år'
+          )
+        )
+      ))
+      ->add('prisfaktor', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => '%'
+          )
+        )
+      ));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver) {

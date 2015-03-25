@@ -20,6 +20,13 @@ class PumpeTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
+   * @ORM\Column(name="PumpeID", type="string", length=50)
+   */
+  private $pumpeID;
+
+  /**
+   * @var string
+   *
    * @ORM\Column(name="Forsyningsomraade", type="string", length=255)
    */
   private $forsyningsomraade;
@@ -85,6 +92,27 @@ class PumpeTiltagDetail extends TiltagDetail {
    * @JoinColumn(name="pumpe_id", referencedColumnName="id")
    **/
   private $pumpe;
+
+  /**
+   * Set pumpeID
+   *
+   * @param string $pumpeID
+   * @return PumpeDetail
+   */
+  public function setPumpeID($pumpeID) {
+    $this->pumpeID = $pumpeID;
+
+    return $this;
+  }
+
+  /**
+   * Get pumpeID
+   *
+   * @return string
+   */
+  public function getPumpeID() {
+    return $this->pumpeID;
+  }
 
   /**
    * Set forsyningsomraade

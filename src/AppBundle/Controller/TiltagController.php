@@ -15,13 +15,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\TiltagDetail;
+use Yavin\Symfony\Controller\InitControllerInterface;
 
 /**
  * Tiltag controller.
  *
  * @Route("/tiltag")
  */
-class TiltagController extends Controller {
+class TiltagController extends Controller implements InitControllerInterface {
+
+  protected $breadcrumbs;
+
+  public function init(Request $request)
+  {
+    $this->breadcrumbs = $this->get('white_october_breadcrumbs');
+    $this->breadcrumbs->addItem('Dashboard', $this->get('router')->generate('dashboard'));
+    $this->breadcrumbs->addItem('Bygninger', $this->get('router')->generate('bygning'));
+  }
+
   /**
    * Lists all Tiltag entities.
    *
@@ -47,14 +58,20 @@ class TiltagController extends Controller {
    * @Template()
    */
   public function showAction(Tiltag $entity) {
+    $this->breadcrumbs->addItem($entity->getRapport()->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $entity->getRapport()->getBygning()->getId())));
+    $this->breadcrumbs->addItem($entity->getRapport()->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
+    $this->breadcrumbs->addItem($entity->getTitle(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
+
     $deleteForm = $this->createDeleteForm($entity);
     $form = $this->createDetailCreateForm($entity);
+    $editForm = $this->createEditForm($entity);
 
     $template = $this->getTemplate($entity, 'show');
     return $this->render($template, array(
       'entity' => $entity,
       'delete_form' => $deleteForm->createView(),
       'create_detail_form' => $form->createView(),
+      'edit_form' => $editForm->createView(),
     ));
   }
 

@@ -22,8 +22,8 @@ class DashboardController extends Controller implements InitControllerInterface 
 
   public function init(Request $request)
   {
-    $this->breadcrumbs = $this->get("white_october_breadcrumbs");
-    $this->breadcrumbs->addItem("Dashboard");
+    $this->breadcrumbs = $this->get('white_october_breadcrumbs');
+    $this->breadcrumbs->addItem('Dashboard');
   }
 
   /**

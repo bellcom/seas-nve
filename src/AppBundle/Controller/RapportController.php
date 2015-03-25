@@ -27,10 +27,9 @@ class RapportController extends Controller implements InitControllerInterface {
 
   public function init(Request $request)
   {
-    $this->breadcrumbs = $this->get("white_october_breadcrumbs");
-    $this->breadcrumbs->addItem("Dashboard", $this->get("router")->generate("dashboard"));
-    $this->breadcrumbs->addItem("Bygninger", $this->get("router")->generate("bygning"));
-    $this->breadcrumbs->addItem("Rapport");
+    $this->breadcrumbs = $this->get('white_october_breadcrumbs');
+    $this->breadcrumbs->addItem('Dashboard', $this->get('router')->generate('dashboard'));
+    $this->breadcrumbs->addItem('Bygninger', $this->get('router')->generate('bygning'));
   }
 
   /**
@@ -61,6 +60,9 @@ class RapportController extends Controller implements InitControllerInterface {
    * @return array
    */
   public function showAction(Rapport $rapport) {
+    $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $rapport->getId())));
+
     $deleteForm = $this->createDeleteForm($rapport->getId());
 
     return array(

@@ -1,7 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  {{ form(edit_form) }}
+  {{ form(edit_form, { 'style': 'horizontal' }) }}
 
   <div>
     <a class="btn btn-default" href="{{ path('tiltag_show', { id: entity.tiltag.id }) }}">{{ 'cancel' | trans }}</a>
