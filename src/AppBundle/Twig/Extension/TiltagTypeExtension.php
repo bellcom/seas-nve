@@ -5,6 +5,7 @@ namespace AppBundle\Twig\Extension;
 use Twig_Extension;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
+use AppBundle\Entity\BelysningTiltag;
 use AppBundle\Entity\SpecialTiltag;
 
 
@@ -39,6 +40,9 @@ class TiltagTypeExtension extends \Twig_Extension {
   public function getTiltagType(Tiltag $object) {
     if ($object instanceof SpecialTiltag) {
       return "specialtiltag";
+    }
+    else if ($object instanceof BelysningTiltag) {
+      return "belysningstiltag";
     }
     else if ($object instanceof PumpeTiltag) {
       return "pumpetiltag";
