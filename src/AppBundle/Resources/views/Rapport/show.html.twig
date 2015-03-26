@@ -85,12 +85,14 @@
     </form>
   {% endif %}
 
+  {% if is_missing_tiltag_type(entity.tiltag, 'belysningstiltag') %}
+    <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'belysning' }) }}" class="inline-block">
+      <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ 'rapporter.strings.belysningstiltag' | trans }}</button>
+    </form>
+  {% endif %}
+
   <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'special' }) }}" class="inline-block">
     <button type="submit" class="btn btn-default">{{ icon('plus') }} Tilføj specialtiltag</button>
-  </form>
-
-  <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'belysning' }) }}">
-    <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ 'rapporter.strings.belysningstiltag' | trans }}</button>
   </form>
 
   <hr>
