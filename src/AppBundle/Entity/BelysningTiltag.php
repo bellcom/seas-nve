@@ -20,8 +20,6 @@ class BelysningTiltag extends Tiltag {
    * Constructor
    */
   public function __construct() {
-    $this->pumpedetails = new \Doctrine\Common\Collections\ArrayCollection();
-
     // @Todo: Find af way to use the translations system or move this to some place else....
     $this->setTitle('Belysningstiltag');
   }
