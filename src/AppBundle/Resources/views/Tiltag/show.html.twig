@@ -1,7 +1,38 @@
-{% set parent = 'AppBundle:Tiltag:show-parent.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
 
-{% if tiltag_type(entity) == 'pumpetiltag' %}
-  {% set parent = 'AppBundle:PumpeTiltag:show.html.twig' %}
-{% endif %}
+{% block body -%}
+  <h1>{% if entity.title is empty %}{{ 'tiltag.title.missing' | trans }}{% else %}{{ entity.title }}{% endif %}</h1>
 
-{% extends parent %}
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>{{ 'appbundle.tiltag.rapport' | trans }}</th>
+        <td><a href="{{ path('rapport_show', { id: entity.rapport.id }) }}">{{ entity.rapport }}</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+	<div role="tabpanel">
+		{{ form(delete_form) }}
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation"><a href="#oversigt" aria-controls="Oversigt" role="tab" data-toggle="tab">{{ 'tiltag.strings.oversigt' | trans }}</a></li>
+      <li role="presentation"><a href="#forhold" aria-controls="Forhold" role="tab" data-toggle="tab">{{ 'tiltag.strings.forhold' | trans }}</a></li>
+      <li role="presentation" class="active"><a href="#detailark" aria-controls="Detailark" role="tab" data-toggle="tab">{{ 'tiltag.strings.detailark' | trans }}</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane" id="oversigt">
+        {% include 'AppBundle:Tiltag:show-include.html.twig' %}
+      </div>
+
+      <div role="tabpanel" class="tab-pane" id="forhold">
+        {{ form(edit_form) }}
+      </div>
+
+      <div role="tabpanel" class="tab-pane active" id="detailark">
+        {% block detailark -%}...{% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
