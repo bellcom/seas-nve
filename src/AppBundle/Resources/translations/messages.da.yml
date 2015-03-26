@@ -36,8 +36,6 @@ pumper:
   labels:
     singular: Pumpe
     plural: Pumper
-  strings:
-    add.pumpe: Tilføj pumpe
 
 tiltag:
   labels:
@@ -71,18 +69,6 @@ belysningtiltagdetail:
 # Forms - We follow the formbuilders form id format
 
 appbundle:
-  rapport:
-    bygning: Bygning
-    version: Version
-    datering: Dato
-    BaselineEl: El
-    BaselineVarmeGUF: Varme GUF
-    BaselineVarmeGAF: Varme GAF
-    varmetotal: ﻿I alt varme
-    BaselineVand: Vand
-    BaselineStrafAfkoeling: Strafafkøling
-    SamtidighedsFaktor: ﻿Faktor på varmebespar. (kWh GAF + GUF)
-    Energiscreening: Energiscreening
   bygning:
     singular: Bygning
     plural: Bygninger
@@ -157,6 +143,7 @@ appbundle:
     roerlaengde: Rørlængde
     roerstoerrelse: Rørstørrelse
   pumpetiltagdetail:
+    add: Tilføj pumpe
     pumpeID: Pumpe ID
     pumpeID.help: ﻿Et ID der kan genfindes på vedlagt skitse angives, fx. "P1", "P2" osv.
     forsyningsomraade: Forsyningsområde
@@ -176,6 +163,18 @@ appbundle:
     prisfaktor: Prisfaktor
     pumpetiltag: Pumpetiltag
     pumpe: Pumpe
+  rapport:
+    bygning: Bygning
+    version: Version
+    datering: Dato
+    BaselineEl: El
+    BaselineVarmeGUF: Varme GUF
+    BaselineVarmeGAF: Varme GAF
+    varmetotal: ﻿I alt varme
+    BaselineVand: Vand
+    BaselineStrafAfkoeling: Strafafkøling
+    SamtidighedsFaktor: ﻿Faktor på varmebespar. (kWh GAF + GUF)
+    Energiscreening: Energiscreening
   tiltag:
     title: Titel
     varmebsparelseGUF: ﻿Varmebesparelse, GUF (kWh/år)
