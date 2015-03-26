@@ -61,40 +61,40 @@
 								<td>{{ detail.lokaleType }}</td>
 								<td>{{ detail.armaturhoejdeM | localizednumber('decimal', 'double') }}</td>
 								<td>{{ detail.rumstoerrelseM2 | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.lokaleAntal }}</td>
-								<td>{{ detail.drifttidTAar }}</td>
+								<td>{{ detail.lokaleAntal | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.drifttidTAar | localizednumber('decimal', 'double') }}</td>
 								<td>{{ detail.lyskilde }}</td>
-								<td>{{ detail.lyskildeStkArmatur }}</td>
-								<td>{{ detail.lyskildeWLyskilde }}</td>
-								<td>{{ detail.forkoblingStkArmatur }}</td>
-								<td>{{ detail.armaturerStkLokale }}</td>
-								<td>{{ detail.elforbrugWM2 }}</td>
+								<td>{{ detail.lyskildeStkArmatur | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.lyskildeWLyskilde | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.forkoblingStkArmatur | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.armaturerStkLokale | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.elforbrugWM2 | localizednumber('decimal', 'double') }}</td>
 								<td>{{ detail.placeringId }}</td>
 								<td>{{ detail.styring }}</td>
 								<td>{{ detail.noter }}</td>
 								<td>{{ detail.belysningstiltag }}</td>
-								<td>{{ detail.nyeSensorerStkLokale }}</td>
-								<td>{{ detail.standardinvestSensorKrStk }}</td>
-								<td>{{ detail.reduktionAfDrifttid }}</td>
-								<td>{{ detail.nyDriftstid }}</td>
-								<td>{{ detail.standardinvestArmaturElLyskildeKrStk }}</td>
+								<td>{{ detail.nyeSensorerStkLokale | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.standardinvestSensorKrStk | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.reduktionAfDrifttid | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.nyDriftstid | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.standardinvestArmaturElLyskildeKrStk | localizednumber('decimal', 'double') }}</td>
 								<td>{{ detail.nyLyskilde }}</td>
-								<td>{{ detail.nyLyskildeStkArmatur }}</td>
-								<td>{{ detail.nyLyskildeWLyskilde }}</td>
-								<td>{{ detail.nyForkoblingStkArmatur }}</td>
-								<td>{{ detail.nyArmatureffektWStk }}</td>
-								<td>{{ detail.nyeArmaturerStkLokale }}</td>
+								<td>{{ detail.nyLyskildeStkArmatur | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.nyLyskildeWLyskilde | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.nyForkoblingStkArmatur | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.nyArmatureffektWStk | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.nyeArmaturerStkLokale | localizednumber('decimal', 'double') }}</td>
 								<td>{{ detail.nyttiggjortVarmeAfElBesparelse | localizednumber('percent') }}</td>
-								<td>{{ detail.prisfaktor }}</td>
-								<td>{{ detail.prisfaktorTillaegKrLokale }}</td>
+								<td>{{ detail.prisfaktor | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.prisfaktorTillaegKrLokale | localizednumber('decimal', 'double') }}</td>
 								<td>{{ detail.investeringAlleLokalerKr | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.nytElforbrugWM2 }}</td>
+								<td>{{ detail.nytElforbrugWM2 | localizednumber('decimal', 'double') }}</td>
 								<td>{{ detail.driftsbesparelseTilLyskilderKrAar | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.simpelTilbagebetalingstidAar }}</td>
-								<td>{{ detail.vaegtetLevetidAar }}</td>
+								<td>{{ detail.simpelTilbagebetalingstidAar | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.vaegtetLevetidAar | localizednumber('decimal', 'double') }}</td>
 								<td>{{ detail.nutidsvaerdiSetOver15AarKr | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.kwhBesparelseEl }}</td>
-								<td>{{ detail.kwhBesparelseVarmeFraVarmevaerket }}</td>
+								<td>{{ detail.kwhBesparelseEl | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.kwhBesparelseVarmeFraVarmevaerket | localizednumber('decimal', 'double') }}</td>
 
 								<td>
 									<a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>

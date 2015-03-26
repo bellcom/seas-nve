@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
@@ -33,6 +34,7 @@ use JMS\Serializer\Annotation as JMS;
  *    "special": "AppBundle\Entity\SpecialTiltagDetail",
  *    "belysning" = "AppBundle\Entity\BelysningTiltagDetail"
  * })
+ * @ORM\HasLifecycleCallbacks
  */
 abstract class TiltagDetail {
   use TimestampableEntity;
@@ -65,6 +67,7 @@ abstract class TiltagDetail {
   /**
    * Get data.
    *
+   * @param string $key
    * @return object
    */
   public function getData($key = null) {
@@ -76,6 +79,9 @@ abstract class TiltagDetail {
 
   /**
    * Add data
+   * @param string $key
+   * @param object $value
+   * @return $this
    */
   protected function addData($key, $value) {
     $data = $this->data;
@@ -87,6 +93,10 @@ abstract class TiltagDetail {
     $this->data = clone $data;
 
     return $this;
+  }
+
+  public function setData($key, $value) {
+    return $this->addData($key, $value);
   }
 
   /**
@@ -141,7 +151,7 @@ abstract class TiltagDetail {
     return $this->tiltag;
   }
 
-    /**
+  /**
    * @var boolean
    *
    * @ORM\Column(name="tilvalgt", type="boolean")
@@ -169,5 +179,25 @@ abstract class TiltagDetail {
     return $this->tilvalgt;
   }
 
+  /**
+   * Handle uploads.
+   * @param $manager
+   */
   public function handleUploads($manager) {}
+
+  /**
+   * Post load handler.
+   *
+   * @ORM\PostLoad
+   * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+   */
+  public function postLoad(LifecycleEventArgs $event) {
+    $this->compute();
+  }
+
+  /**
+   * Compute stuff.
+   */
+  protected function compute() {}
+
 }

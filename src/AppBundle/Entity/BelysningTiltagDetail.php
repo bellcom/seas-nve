@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\Entity\BelysningTiltagDetail\Placering as BelysningTiltagDetailPlacering;
 use AppBundle\Entity\BelysningTiltagDetail\Styring as BelysningTiltagDetailStyring;
@@ -14,7 +13,6 @@ use AppBundle\Entity\BelysningTiltagDetail\Tiltag as BelysningTiltagDetailTiltag
  *
  * @ORM\Table()
  * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
  */
 class BelysningTiltagDetail extends TiltagDetail {
   /**
@@ -401,9 +399,12 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Get lyskilde
+   * Get lyskilde.
    *
-   * @return integer
+   * @param bool $useCached
+   *   If set, then that cached value is returned. Otherwise the current value is returned.
+   *
+   * @return BelysningTiltagDetailLyskilde
    */
   public function getLyskilde($useCached = false) {
     return $useCached ? $this->getData('lyskilde') : $this->lyskilde;
@@ -523,13 +524,13 @@ class BelysningTiltagDetail extends TiltagDetail {
     return $this->placeringId;
   }
 
-  /**
-   * Get placering
-   *
-   * @return BelysningTiltagDetailPlacering
-   */
-  public function getPlacering() {
-  }
+  // /**
+  //  * Get placering
+  //  *
+  //  * @return BelysningTiltagDetailPlacering
+  //  */
+  // public function getPlacering() {
+  // }
 
   /**
    * Set styring
@@ -706,7 +707,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Set ny_lyskilde
    *
-   * @param integer $nyLyskilde
+   * @param BelysningTiltagDetailLyskilde $nyLyskilde
    * @return BelysningTiltagDetail
    */
   public function setNyLyskilde($nyLyskilde) {
@@ -717,9 +718,12 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Get ny_lyskilde
+   * Get ny_lyskilde.
    *
-   * @return integer
+   * @see getLyskilde()
+   *
+   * @param bool $useCached
+   * @return BelysningTiltagDetailLyskilde
    */
   public function getNyLyskilde($useCached = false) {
     return $useCached ? $this->getData('ny_lyskilde') : $this->ny_lyskilde;
@@ -861,36 +865,12 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set prisfaktor_tillaeg_kr_lokale
-   *
-   * @param string $prisfaktorTillaegKrLokale
-   * @return BelysningTiltagDetail
-   */
-  public function setPrisfaktorTillaegKrLokale($prisfaktorTillaegKrLokale) {
-    $this->prisfaktor_tillaeg_kr_lokale = $prisfaktorTillaegKrLokale;
-
-    return $this;
-  }
-
-  /**
    * Get prisfaktor_tillaeg_kr_lokale
    *
    * @return string
    */
   public function getPrisfaktorTillaegKrLokale() {
     return $this->prisfaktor_tillaeg_kr_lokale;
-  }
-
-  /**
-   * Set investering_alle_lokaler_kr
-   *
-   * @param string $investeringAlleLokalerKr
-   * @return BelysningTiltagDetail
-   */
-  public function setInvesteringAlleLokalerKr($investeringAlleLokalerKr) {
-    $this->investering_alle_lokaler_kr = $investeringAlleLokalerKr;
-
-    return $this;
   }
 
   /**
@@ -903,36 +883,12 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set nyt_elforbrug_w_m2
-   *
-   * @param string $nytElforbrugWM2
-   * @return BelysningTiltagDetail
-   */
-  public function setNytElforbrugWM2($nytElforbrugWM2) {
-    $this->nyt_elforbrug_w_m2 = $nytElforbrugWM2;
-
-    return $this;
-  }
-
-  /**
    * Get nyt_elforbrug_w_m2
    *
    * @return string
    */
   public function getNytElforbrugWM2() {
     return $this->nyt_elforbrug_w_m2;
-  }
-
-  /**
-   * Set driftsbesparelse_til_lyskilder_kr_aar
-   *
-   * @param string $driftsbesparelseTilLyskilderKrAar
-   * @return BelysningTiltagDetail
-   */
-  public function setDriftsbesparelseTilLyskilderKrAar($driftsbesparelseTilLyskilderKrAar) {
-    $this->driftsbesparelse_til_lyskilder_kr_aar = $driftsbesparelseTilLyskilderKrAar;
-
-    return $this;
   }
 
   /**
@@ -945,36 +901,12 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set simpel_tilbagebetalingstid_aar
-   *
-   * @param string $simpelTilbagebetalingstidAar
-   * @return BelysningTiltagDetail
-   */
-  public function setSimpelTilbagebetalingstidAar($simpelTilbagebetalingstidAar) {
-    $this->simpel_tilbagebetalingstid_aar = $simpelTilbagebetalingstidAar;
-
-    return $this;
-  }
-
-  /**
    * Get simpel_tilbagebetalingstid_aar
    *
    * @return string
    */
   public function getSimpelTilbagebetalingstidAar() {
     return $this->simpel_tilbagebetalingstid_aar;
-  }
-
-  /**
-   * Set vaegtet_levetid_aar
-   *
-   * @param string $vaegtetLevetidAar
-   * @return BelysningTiltagDetail
-   */
-  public function setVaegtetLevetidAar($vaegtetLevetidAar) {
-    $this->vaegtet_levetid_aar = $vaegtetLevetidAar;
-
-    return $this;
   }
 
   /**
@@ -987,36 +919,12 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set nutidsvaerdi_set_over_15_aar_kr
-   *
-   * @param string $nutidsvaerdiSetOver15AarKr
-   * @return BelysningTiltagDetail
-   */
-  public function setNutidsvaerdiSetOver15AarKr($nutidsvaerdiSetOver15AarKr) {
-    $this->nutidsvaerdi_set_over_15_aar_kr = $nutidsvaerdiSetOver15AarKr;
-
-    return $this;
-  }
-
-  /**
    * Get nutidsvaerdi_set_over_15_aar_kr
    *
    * @return string
    */
   public function getNutidsvaerdiSetOver15AarKr() {
     return $this->nutidsvaerdi_set_over_15_aar_kr;
-  }
-
-  /**
-   * Set kwh_besparelse_el
-   *
-   * @param string $kwhBesparelseEl
-   * @return BelysningTiltagDetail
-   */
-  public function setKwhBesparelseEl($kwhBesparelseEl) {
-    $this->kwh_besparelse_el = $kwhBesparelseEl;
-
-    return $this;
   }
 
   /**
@@ -1029,18 +937,6 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set kwh_besparelse_varme_fra_varmevaerket
-   *
-   * @param string $kwhBesparelseVarmeFraVarmevaerket
-   * @return BelysningTiltagDetail
-   */
-  public function setKwhBesparelseVarmeFraVarmevaerket($kwhBesparelseVarmeFraVarmevaerket) {
-    $this->kwh_besparelse_varme_fra_varmevaerket = $kwhBesparelseVarmeFraVarmevaerket;
-
-    return $this;
-  }
-
-  /**
    * Get kwh_besparelse_varme_fra_varmevaerket
    *
    * @return string
@@ -1049,8 +945,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     return $this->kwh_besparelse_varme_fra_varmevaerket;
   }
 
-  /** @ORM\PostLoad */
-  public function postLoad(LifecycleEventArgs $event) {
+  protected function compute() {
     $this->elforbrug_w_m2 = $this->__get('AB');
     $this->ny_driftstid = $this->__get('AM');
     $this->ny_armatureffekt_w_stk = $this->__get('AU');
@@ -1110,6 +1005,17 @@ class BelysningTiltagDetail extends TiltagDetail {
       case 'Ny forkobling (stk/armatur)':
         return $this->ny_forkobling_stk_armatur;
 
+      case 'varmepris_aar_1_kr_kwh':
+        return 1;
+      case 'el_pris_i_aar_1_kr_kwh':
+        return 1;
+      case 'lyssensors_levetid_i_aar':
+        return 1;
+      case 'INDIRECT("\'2.Forsyning\'!$H$3")':
+        return 0;
+      case '$C$13':
+        return 0;
+
       case 'J':
         return $this->lokale_navn;
       case 'L':
@@ -1124,9 +1030,6 @@ class BelysningTiltagDetail extends TiltagDetail {
         return $this->drifttid_t_aar;
       case 'S':
         return $this->lyskilde;
-      case 'U': // Forkobling SKJULES
-        // return (!$this->S ? null : (($this->S == 1 || $this->S == 4 || $this->S == 8) ? 'konv.' : (($this->S == 2 || $this->S == 3 || $this->S == 5) ? 'hf' : (($this->S == 6 || $this->S == 7 || $this->S == 9 || $this->S == 10 || $this->S == 11) ? "Ingen" : ($this->S == 12 ? "LED-driver" : null)))));
-        throw new \Exception($key . '=IF(S="";"";IF(OR(S=1;S=4;S=8);"konv.";IF(OR(S=2;S=3;S=5);"hf";IF(OR(S=6;S=7;S=9;S=10;S=11);"Ingen";IF(S=12;"LED-driver";"")))))');
       case 'V':
         return $this->lyskilde_stk_armatur;
       case 'W':
@@ -1174,80 +1077,16 @@ class BelysningTiltagDetail extends TiltagDetail {
                 )
                 )
         );
-
-        throw new \Exception($key . '=
-IF(
-  OR(
-    Table10[[#This Row],[Lyskilde, type]]="",
-    Table10[[#This Row],[Lyskilde,  (stk/armatur)]]="",
-    Table10[[#This Row],[Lyskilde, (W/lyskilde)]]=""
-  ),
-  "",
-  IF(
-    OR(
-      Table10[[#This Row],[Lyskilde, type]]=$R$34,
-      Table10[[#This Row],[Lyskilde, type]]=$R$35
-    ),
-    (Table10[[#This Row],[Lyskilde, (W/lyskilde)]]+1)*Table10[[#This Row],[Lyskilde,  (stk/armatur)]],
-    IF(
-      OR(
-        Table10[[#This Row],[Lyskilde, type]]=$R$32,
-        Table10[[#This Row],[Lyskilde, type]]=$R$36,
-        Table10[[#This Row],[Lyskilde, type]]=$R$31,
-        Table10[[#This Row],[Lyskilde, type]]=$R$37
-      ),
-      Table10[[#This Row],[Lyskilde, (W/lyskilde)]]*Table10[[#This Row],[Lyskilde,  (stk/armatur)]],
-      IF(
-        Table10[[#This Row],[Lyskilde, type]]=$R$29,
-        (Table10[[#This Row],[Lyskilde,  (stk/armatur)]]*Table10[[#This Row],[Lyskilde, (W/lyskilde)]]*1.1817+2.44275+(1.2794*(Table10[[#This Row],[Lyskilde,  (stk/armatur)]]-1)*0.9432)),
-        IF(
-          Table10[[#This Row],[Lyskilde, type]]=$R$33,
-          1.0832*Table10[[#This Row],[Lyskilde, (W/lyskilde)]] + 0.192,
-          IF(
-            AND(
-              Table10[[#This Row],[Forkobling SKJULES]]="konv.",
-              Table10[[#This Row],[Lyskilde, (W/lyskilde)]]<14.99
-            ),
-            8.5*Table10[[#This Row],[Forkobling (stk/armatur)]]+Table10[[#This Row],[Lyskilde,  (stk/armatur)]]*Table10[[#This Row],[Lyskilde, (W/lyskilde)]],
-            IF(
-              AND(
-                Table10[[#This Row],[Forkobling SKJULES]]="konv.",
-                Table10[[#This Row],[Lyskilde, (W/lyskilde)]]>14.99,
-                Table10[[#This Row],[Lyskilde, (W/lyskilde)]]<35.99
-              ),
-              10*Table10[[#This Row],[Forkobling (stk/armatur)]]+Table10[[#This Row],[Lyskilde,  (stk/armatur)]]*Table10[[#This Row],[Lyskilde, (W/lyskilde)]],
-              IF(
-                AND(
-                  Table10[[#This Row],[Forkobling SKJULES]]="konv.",
-                  Table10[[#This Row],[Lyskilde, (W/lyskilde)]]>35.99
-                ),
-                12*Table10[[#This Row],[Forkobling (stk/armatur)]]+Table10[[#This Row],[Lyskilde,  (stk/armatur)]]*Table10[[#This Row],[Lyskilde, (W/lyskilde)]],
-                IF(
-                  Table10[[#This Row],[Forkobling SKJULES]]="hf",
-                  Table10[[#This Row],[Forkobling (stk/armatur)]]*2+Table10[[#This Row],[Lyskilde, (W/lyskilde)]]*Table10[[#This Row],[Lyskilde,  (stk/armatur)]]
-                )
-              )
-            )
-          )
-        )
-      )
-    )
-  )
-)
-');
       case 'Z':
         return $this->armaturer_stk_lokale;
       case 'AA': // Elforbrug(kWh pr. lokale/år)
         return (!$this->Y || !$this->Z) ? null : $this->Y*$this->Q*$this->Z/1000;
-        throw new \Exception($key . '=IF(OR(Y="";Z="");"";Y*Q*Z/1000)');
       case 'AB': // Elforbrug(W/m2)
-        // list($n, $y, $z) = $this->_getValues('N', 'Y', 'Z');
-        return (empty($this->N) || empty($this->Y) || empty($this->Z)) ? null : $this->N * $this->Y / $this->Z;
-        // throw new \Exception($key . '=IF(OR(N="";Y="";Z="");"";Y*Z/N)');
+        return (!$this->N || !$this->Y || !$this->Z) ? null : $this->N * $this->Y / $this->Z;
       case 'AC':
-        return $this->placering;
+        return $this->placeringId;
       case 'AE':
-        return $this->styring;
+        return $this->styringId;
       case 'AG':
         return $this->noter;
       case 'AH':
@@ -1259,15 +1098,11 @@ IF(
       case 'AL':
         return $this->reduktion_af_drifttid;
       case 'AM': // Ny driftstid
-        // list($q, $ah, $al) = $this->_getValues('Q', 'AH', 'AL');
-        return (empty($q) || empty($ah)) ? null : $q-$al*$q;
-        throw new \Exception($key . '=IF(OR(Q="";AH="");"";Q−AL*Q)');
+        return (!$this->Q || !$this->AH) ? null : $this->Q - $this->AL * $this->Q;
       case 'AN':
         return $this->standardinvest_armatur_el_lyskilde_kr_stk;
       case 'AO':
-        return $this->ny_lyskilde;
-      case 'AQ': // Ny Forkobling SKJULES
-        throw new \Exception($key . '=IF(AO="";"";IF(OR(AO=1;AO=4;AO=8);"konv.";IF(OR(AO=2;AO=3;AO=5);"hf";IF(OR(AO=6;AO=7;AO=9;AO=10;AO=11);"Ingen";IF(AO=12;"LED-driver";"")))))');
+        return $this->getNyLyskilde(true);
       case 'AR':
         return $this->ny_lyskilde_stk_armatur;
       case 'AS':
@@ -1275,8 +1110,7 @@ IF(
       case 'AT':
         return $this->ny_forkobling_stk_armatur;
       case 'AU': // Ny armatureffekt (W/stk)
-
-                return ((!$this->__get('Ny lyskilde, type')
+        return ((!$this->__get('Ny lyskilde, type')
                  || !$this->__get('Ny Lyskilde,  (stk/armatur)')
                  || !$this->__get('Ny lyskilde, (W/lyskilde)'))
                 ? null
@@ -1316,67 +1150,6 @@ IF(
                 )
                 )
         );
-
-        throw new \Exception($key . '=
-IF(
-  OR(
-    Table10[[#This Row],[Ny lyskilde, type]]="",
-    Table10[[#This Row],[Ny Lyskilde,  (stk/armatur)]]="",
-    Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]]=""
-  ),
-  "",
-  IF(
-    OR(
-      Table10[[#This Row],[Ny lyskilde, type]]=$R$34,
-      Table10[[#This Row],[Ny lyskilde, type]]=$R$35
-    ),
-    (Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]]+1)*Table10[[#This Row],[Ny Lyskilde,  (stk/armatur)]],
-    IF(
-      OR(
-        Table10[[#This Row],[Ny lyskilde, type]]=$R$32,
-        Table10[[#This Row],[Ny lyskilde, type]]=$R$36,
-        Table10[[#This Row],[Ny lyskilde, type]]=$R$31,
-        Table10[[#This Row],[Ny lyskilde, type]]=$R$37
-      ),
-      Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]]*Table10[[#This Row],[Ny Lyskilde,  (stk/armatur)]],
-      IF(
-        Table10[[#This Row],[Ny lyskilde, type]]=$R$29,
-        (Table10[[#This Row],[Ny Lyskilde,  (stk/armatur)]]*Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]]*1.1817+2.44275+(1.2794*(Table10[[#This Row],[Ny Lyskilde,  (stk/armatur)]]-1)*0.9432)),
-        IF(
-          Table10[[#This Row],[Ny lyskilde, type]]=$R$33,
-          1.0832*Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]] + 0.192,
-          IF(
-            AND(
-              Table10[[#This Row],[Ny Forkobling SKJULES]]="konv.",
-              Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]]<14.99
-            ),
-            8.5*Table10[[#This Row],[Ny forkobling (stk/armatur)]]+Table10[[#This Row],[Ny Lyskilde,  (stk/armatur)]]*Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]],
-            IF(
-              AND(
-                Table10[[#This Row],[Ny Forkobling SKJULES]]="konv.",
-                Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]]>14.99,
-                Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]]<35.99
-              ),
-              10*Table10[[#This Row],[Ny forkobling (stk/armatur)]]+Table10[[#This Row],[Ny Lyskilde,  (stk/armatur)]]*Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]],
-              IF(
-                AND(
-                  Table10[[#This Row],[Ny Forkobling SKJULES]]="konv.",
-                  Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]]>35.99
-                ),
-                12*Table10[[#This Row],[Ny forkobling (stk/armatur)]]+Table10[[#This Row],[Ny Lyskilde,  (stk/armatur)]]*Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]],
-                IF(
-                  Table10[[#This Row],[Ny Forkobling SKJULES]]="hf",
-                  Table10[[#This Row],[Ny forkobling (stk/armatur)]]*2+Table10[[#This Row],[Ny lyskilde, (W/lyskilde)]]*Table10[[#This Row],[Ny Lyskilde,  (stk/armatur)]]
-                )
-              )
-            )
-          )
-        )
-      )
-    )
-  )
-)
-');
       case 'AV':
         return $this->nye_armaturer_stk_lokale;
       case 'AW':
@@ -1384,115 +1157,67 @@ IF(
       case 'AX':
         return $this->prisfaktor;
       case 'AY': // Prisfaktor-tillæg  (kr/lokale)
-        return empty($this->AX) ? null : ($this->AJ*$this->AK+$this->AN*$this->AV)*($this->AX−1);
-        throw new \Exception($key . '=IF(AX="";"";(AJ*AK+AN*AV)*(AX−1))');
+        return !$this->AX ? null : (($this->AJ*$this->AK+$this->AN*$this->AV)*($this->AX - 1));
       case 'AZ': // Investering, alle lokaler (kr)
-        return (empty($this->AK) && empty($this->AN)) ? null : ($this->AO == 12 ? (($this->AJ*$this->AK+$this->AN*$this->AV*$this->AR)+$this->AY)*$this->P:(($this->AJ*$this->AK+$this->AN*$this->AV)+$this->AY)*$this->P);
-        throw new \Exception($key . '=IF(AND(AK="";AN="");"";IF(AO=12;((AJ*AK+AN*AV*AR)+AY)*P;((AJ*AK+AN*AV)+AY)*P))');
+        return (!$this->AK && !$this->AN)
+          ? null
+          : ($this->AO->getId() == 12
+             ? (($this->AJ*$this->AK+$this->AN*$this->AV*$this->AR)+$this->AY)*$this->P
+             : (($this->AJ*$this->AK+$this->AN*$this->AV)+$this->AY)*$this->P
+          );
       case 'BA': // Nyt Elforbrug(kWh pr. lokale/år)
         return !$this->AM ? null : (!$this->AU ? $this->AM*$this->Y*$this->Z/1000 : $this->AM*$this->AU*$this->AV/1000);
-        throw new \Exception($key . '=IF(AM="";"";IF(AU="";AM*Y*Z/1000;AM*AU*AV/1000))');
       case 'BB': // Nyt Elforbrug(W/m2)
-        return empty($this->N) ? null : (empty($this->AU) ? $this->AB : $this->AU*$this->AV/$this->N);
-        throw new \Exception($key . '=IF(N="";"";IF(AU="";AB;AU*AV/N))');
+        return !$this->N ? null : (!$this->AU ? $this->AB : $this->AU*$this->AV/$this->N);
       case 'BC': // Elbesparelse, Alle lokaler (kWh/år)
         return (!$this->AA || !$this->P || !$this->BA) ? null : ($this->AA - $this->BA) * $this->P;
-        throw new \Exception($key . '=IF(OR(AA="";P="";BA="");"";(AA−BA)*P)');
       case 'BD': // Varmebespar., Alle lokaler (kWh/år)
         return !$this->BC ? null : $this->BC * (-$this->AW);
-        throw new \Exception($key . '=IF(BC="";"";BC*−AW)');
       case 'BE': // Eksist. lyskildes levetid (t)
         return (!$this->getLyskilde(true) || !$this->getLyskilde(true)->getUdgift()) ? null : $this->getLyskilde(true)->getLevetid();
-        throw new \Exception($key . '=IF(S="";"";VLOOKUP(S;$M$26:$Y$37;12;FALSE))'); //
       case 'BF': // Ny lyskildes levetid (t)
         return (!$this->AO && !$this->AJ) ? null : ((!$this->AO && $this->AJ) ? $this->BE : $this->getNyLyskilde(true)->getLevetid());
-        throw new \Exception($key . '=IF(AND(AO="";AJ="");"";IF(AND(AO="";AJ≠"");BE;VLOOKUP(AO;$M$26:$Y$37;12;FALSE)))'); //
       case 'BG': // Udgift til lyskilder (kr/stk)
         return (!$this->getLyskilde(true) || !$this->getLyskilde(true)->getUdgift()) ? null : $this->getLyskilde(true)->getUdgift();
-        throw new \Exception($key . '=IF(S="";"";VLOOKUP(S;$M$26:$Y$37;8;FALSE))');
       case 'BH': // Ny Udgift til lyskilder (kr/stk)
         return (!$this->AO && !$this->AJ) ? null : ((!$this->AO && $this->AJ) ? $this->BG : $this->getNyLyskilde(true)->getUdgift());
-        throw new \Exception($key . '=IF(AND(AO="";AJ="");"";IF(AND(AO="";AJ≠0);BG;VLOOKUP(AO;$M$26:$Y$37;8;FALSE)))');
       case 'BI': // "Driftsbesparelse til lyskilder Alle lokaler (kr/år)"
         return (!$this->getLyskilde(true) || !$this->getLyskilde(true)->getLevetid()
                 || !$this->getNyLyskilde(true) || !$this->getNyLyskilde(true)->getLevetid()) ? null
           : ($this->__get('Lyskilde,  (stk/armatur)')*$this->__get('Armaturer (stk/lokale)')*$this->__get('Udgift til lyskilder (kr/stk)')*$this->__get('Drifttid (t/år)')/$this->__get('Eksist. lyskildes levetid (t)')
             -$this->__get('Ny Lyskilde,  (stk/armatur)')*$this->__get('Nye armaturer (stk/lokale)')*$this->__get('Ny Udgift til lyskilder (kr/stk)')*$this->__get('Ny driftstid')/$this->__get('Ny lyskildes levetid (t)'))
                                   *$this->__get('Lokale, antal');
-
-        throw new \Exception($key . '=
-IF(
-	OR(
-		Table10[[#This Row],[Eksist. lyskildes levetid (t)]]="",
-		Table10[[#This Row],[Ny lyskildes levetid (t)]]=""
-	),
-  "",
-  (Table10[[#This Row],[Lyskilde,  (stk/armatur)]]*Table10[[#This Row],[Armaturer (stk/lokale)]]*Table10[[#This Row],[Udgift til lyskilder (kr/stk)]]*Table10[[#This Row],[Drifttid (t/år)]]/Table10[[#This Row],[Eksist. lyskildes levetid (t)]]
--Table10[[#This Row],[Ny Lyskilde,  (stk/armatur)]]*Table10[[#This Row],[Nye armaturer (stk/lokale)]]*Table10[[#This Row],[Ny Udgift til lyskilder (kr/stk)]]*Table10[[#This Row],[Ny driftstid]]/Table10[[#This Row],[Ny lyskildes levetid (t)]])
-*Table10[[#This Row],[Lokale, antal]]
-)
-');
       case 'BJ': // Simpel tilbagebetalingstid (år)
-        return empty($this->AZ) ? null : $this->AZ/($this->BR*Tiltag::el_pris_i_aar_1_kr_kwh+$this->BS*Tiltag::varmepris_aar_1_kr_kwh+$this->BI);
-        throw new \Exception($key . '=IF(AZ="";"";AZ/(BR*$L$27+BS*$L$28+BI))');
+        return !$this->AZ ? null : $this->AZ/($this->BR*$this->__get('el_pris_i_aar_1_kr_kwh')+$this->BS*$this->__get('varmepris_aar_1_kr_kwh')+$this->BI);
       case 'BK': // Vægtet Levetid (år)
-        return ($this->BL == 0 && $this->BM == 0) ? null : (empty($this->AO) ? 10 : ($this->BL*self::lyssensors_levetid_i_aar+$this->BM*$this->BF/$this->AM)/($this->BL+$this->BM));
-        throw new \Exception($key . '=IF(AND(BL=0;BM=0);"";IF(AO="";10;(BL*$X$38+BM*BF/AM)/(BL+BM)))');
+        return ($this->BL == 0 && $this->BM == 0) ? null : (!$this->AO ? 10 : ($this->BL*$this->__get('lyssensors_levetid_i_aar')+$this->BM*$this->BF/$this->AM)/($this->BL+$this->BM));
       case 'BL': // udgift sensorer
-        return empty($this->AJ) ? null : $this->AJ*$this->AK*$this->AX*$this->P;
-        throw new \Exception($key . '=IF(AJ="";0;AJ*AK*AX*P)');
+        return !$this->AJ ? null : $this->AJ*$this->AK*$this->AX*$this->P;
       case 'BM': // udgift armaturer
-        return empty($this->AN) ? null : $this->AN*$this->AV*$this->P*$this->AX;
-        throw new \Exception($key . '=IF(AN="";0;AN*AV*P*AX)');
+        return !$this->AN ? null : $this->AN*$this->AV*$this->P*$this->AX;
       case 'BN': // Levetid, armaturer
-        throw new \Exception($key . '=IF(BF="";"";BF/AM)');
+        return !$this->BF ? null : $this->BF/$this->AM;
       case 'BO': // Armatur vægtning
-        throw new \Exception($key . '=IF(AND(BM=0;BN="");"";BN*BM)');
+        return (!$this->BM && !$this->BN) ? null : $this->BN*$this->BM;
       case 'BP': // Faktor for reinvestering (ALTID 1 INDTIL VIDERE)
-        throw new \Exception($key . '=1');
+        return 1;
       case 'BQ': // Nutidsværdi set over 15 år (kr)
         return 0;
-        // throw new \Exception($key . '=0');
       case 'BR': // kWh-besparelse El
         return (!$this->__get('Elbesparelse, Alle lokaler (kWh/år)') && !$this->__get('Varmebespar., Alle lokaler (kWh/år)')) ? null
           : ($this->__get('INDIRECT("\'2.Forsyning\'!$H$3")') == 1
              ? $this->__get('Elbesparelse, Alle lokaler (kWh/år)')
              : $this->fordelbesparelse($this->__get('Varmebespar., Alle lokaler (kWh/år)'), $this->__get('$C$13'), 'EL')+$this->__get('Elbesparelse, Alle lokaler (kWh/år)'));
-        throw new \Exception($key . '=
-IF(
-  AND(
-	  Table10[[#This Row],[Elbesparelse, Alle lokaler (kWh/år)]]="",
-		Table10[[#This Row],[Varmebespar., Alle lokaler (kWh/år)]]=""
-	),"",
-	IF(
-		INDIRECT("\'2.Forsyning\'!$H$3")=1,
-		Table10[[#This Row],[Elbesparelse, Alle lokaler (kWh/år)]],
-		fordelbesparelse(Table10[[#This Row],[Varmebespar., Alle lokaler (kWh/år)]],$C$13,"EL")+Table10[[#This Row],[Elbesparelse, Alle lokaler (kWh/år)]]
-	)
-)
-');
       case 'BS': // kWh-besparelse Varme fra varmeværket
         return !$this->__get('Varmebespar., Alle lokaler (kWh/år)') ? null
           : ($this->__get('INDIRECT("\'2.Forsyning\'!$H$3")') == 1 ? $this->__get('Varmebespar., Alle lokaler (kWh/år)') : $this->fordelbesparelse($this->__get('Varmebespar., Alle lokaler (kWh/år)'), $this->__get('$C$13'), 'VARME'));
-        throw new \Exception($key . '=
-IF(
-  Table10[[#This Row],[Varmebespar., Alle lokaler (kWh/år)]]="",
-	"",
-	IF(
-	  INDIRECT("\'2.Forsyning\'!$H$3")=1,
-		Table10[[#This Row],[Varmebespar., Alle lokaler (kWh/år)]],
-		fordelbesparelse(Table10[[#This Row],[Varmebespar., Alle lokaler (kWh/år)]],$C$13,"VARME")
-	)
-)
-');
     }
 
     throw new \Exception('Invalid key: '.$key);
   }
 
-  const lyssensors_levetid_i_aar = 10;
-
-  // INDIRECT("\'2.Forsyning\'!$H$3"): =IF(AND(A15="Hovedforsyning El",J15="El",I15=1,H15=1,A16="Fjernvarme",J16="Varme",I16=1,H16=1),1,"ikke standardforsyning")
-  const forsyning = 1;
+  private function fordelbesparelse($a, $b, $c) {
+    return 0;
+  }
 
 }
