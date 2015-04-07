@@ -27,21 +27,27 @@ form.inline-block {
 }
 .table-header-rotated th.rotate {
     height: 140px;
+    min-width: 30px;
     white-space: nowrap;
 }
 .table-header-rotated th.rotate > div {
     transform: translate(-15px, 15px) rotate(-45deg);
-    transform-origin: 0% 0%;
     position: relative;
+    transform-origin: 0% 0%;
     left: 50%;
     top: 0;
     margin-right: -999px;
 }
-.table-header-rotated th > div > span {
+.table-header-rotated th.rotate > div > span {
     padding: 5px 10px;
 }
 .table-header-rotated th.row-header {
     padding: 0 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.table-header-rotated td:nth-child(even) {
+    background-color: #f1f1f1;
 }
 
 

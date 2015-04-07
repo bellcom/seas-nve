@@ -106,8 +106,10 @@ appbundle:
     simpel.tilbagebetalingstid.aar: Simpel tilbagebetalingstid (år)
     vaegtet.levetid.aar: Vægtet Levetid (år)
     nutidsvaerdi.set.over15.aar.kr: Nutidsværdi set over 15 år (kr)
+    styring: Styring, input
     kwh.besparelse.el: kWh-besparelse El
     kwh.besparelse.varme.fra.varmevaerket: kWh-besparelse Varme fra varmeværket
+    add: Tilføj
   bygning:
     singular: Bygning
     plural: Bygninger
@@ -251,3 +253,5 @@ appbundle:
     beskrivelseBV: ﻿Beskrivelse af ændringer til D&V udgifter samt fremtidigt timeforbrug for driftspersonale
     indeklima: Indeklima
     rapport: Rapport
+  tiltagdetail:
+    tilvalgt: Tilvalgt
