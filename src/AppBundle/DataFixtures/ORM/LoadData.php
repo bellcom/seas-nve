@@ -10,6 +10,7 @@ use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Writer\ConsoleProgressWriter;
 use Ddeboer\DataImport\Writer\WriterInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -21,7 +22,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Class LoadUserData
  * @package AppBundle\DataFixtures\ORM
  */
-abstract class LoadData implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
+abstract class LoadData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
+  public function __construct() {
+    $this->output = new ConsoleOutput();
+  }
+
   /**
    * @var ContainerInterface
    */
@@ -40,8 +45,6 @@ abstract class LoadData implements FixtureInterface, ContainerAwareInterface, Or
   public function load(ObjectManager $manager) {
     $basepath = $this->container->get('kernel')->locateResource('@AppBundle/DataFixtures/Data/');
     $filename = $this->getFilename();
-
-    $this->output = new ConsoleOutput();
 
     if (file_exists($basepath . $filename)) {
       // Create and configure the reader
@@ -74,11 +77,17 @@ abstract class LoadData implements FixtureInterface, ContainerAwareInterface, Or
   private $output = null;
 
   final protected function writeInfo($message) {
+    if (func_num_args() > 1) {
+      $message = call_user_func_array('sprintf', func_get_args());
+    }
     $this->output->writeln('');
     $this->output->writeln('  <comment>></comment> <info>' . $message . '</info>');
   }
 
   final protected function writeError($message) {
+    if (func_num_args() > 1) {
+      $message = call_user_func_array('sprintf', func_get_args());
+    }
     $this->output->writeln('');
     $this->output->writeln('  <comment>></comment> <error>' . $message . '</error>');
   }
@@ -102,7 +111,7 @@ abstract class LoadData implements FixtureInterface, ContainerAwareInterface, Or
   }
 
   protected $order = 1;
-  protected $flush = false;
+  protected $flush = true;
 
   /**
    * @param ObjectManager $manager

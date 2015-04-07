@@ -28,13 +28,17 @@ use JMS\Serializer\Annotation as JMS;
  * @DiscriminatorMap({
  *    "pumpe" = "PumpeTiltag",
  *    "special" = "SpecialTiltag",
- *    "belysning" = "BelysningTiltag"
+ *    "belysning" = "BelysningTiltag",
+ *    "klimaskærm" = "KlimaskaermTiltag",
+ *    "tekniskisolering" = "TekniskIsoleringTiltag",
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TiltagRepository")
  * @JMS\Discriminator(field = "_discr", map = {
  *    "pumpe": "AppBundle\Entity\PumpeTiltag",
  *    "special": "AppBundle\Entity\SpecialTiltag",
- *    "belysning": "AppBundle\Entity\BelysningTiltag"
+ *    "belysning": "AppBundle\Entity\BelysningTiltag",
+ *    "klimaskærm" = "AppBundle\Entity\KlimaskaermTiltag",
+ *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltag",
  * })
  */
 abstract class Tiltag {
@@ -804,4 +808,9 @@ abstract class Tiltag {
   public function compute() {
     return false;
   }
+
+  public function __construct() {
+    $this->details = new \Doctrine\Common\Collections\ArrayCollection();
+  }
+
 }

@@ -946,18 +946,21 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   protected function compute() {
-    $this->elforbrug_w_m2 = $this->__get('AB');
-    $this->ny_driftstid = $this->__get('AM');
-    $this->ny_armatureffekt_w_stk = $this->__get('AU');
-    $this->prisfaktor_tillaeg_kr_lokale = $this->__get('AY');
-    $this->investering_alle_lokaler_kr = $this->__get('AZ');
-    $this->nyt_elforbrug_w_m2 = $this->__get('BB');
-    $this->driftsbesparelse_til_lyskilder_kr_aar = $this->__get('BI');
-    $this->simpel_tilbagebetalingstid_aar = $this->__get('BJ');
-    $this->vaegtet_levetid_aar = $this->__get('BK');
-    $this->nutidsvaerdi_set_over_15_aar_kr = $this->__get('BQ');
-    $this->kwh_besparelse_el = $this->__get('BR');
-    $this->kwh_besparelse_varme_fra_varmevaerket = $this->__get('BS');
+    // @FIXME
+    try {
+      $this->elforbrug_w_m2 = $this->__get('AB');
+      $this->ny_driftstid = $this->__get('AM');
+      $this->ny_armatureffekt_w_stk = $this->__get('AU');
+      $this->prisfaktor_tillaeg_kr_lokale = $this->__get('AY');
+      $this->investering_alle_lokaler_kr = $this->__get('AZ');
+      $this->nyt_elforbrug_w_m2 = $this->__get('BB');
+      $this->driftsbesparelse_til_lyskilder_kr_aar = $this->__get('BI');
+      $this->simpel_tilbagebetalingstid_aar = $this->__get('BJ');
+      $this->vaegtet_levetid_aar = $this->__get('BK');
+      $this->nutidsvaerdi_set_over_15_aar_kr = $this->__get('BQ');
+      $this->kwh_besparelse_el = $this->__get('BR');
+      $this->kwh_besparelse_varme_fra_varmevaerket = $this->__get('BS');
+    } catch (\Exception $ex) {}
   }
 
   public function __get($key) {
@@ -1161,9 +1164,9 @@ class BelysningTiltagDetail extends TiltagDetail {
       case 'AZ': // Investering, alle lokaler (kr)
         return (!$this->AK && !$this->AN)
           ? null
-          : ($this->AO->getId() == 12
+          : ($this->AO && $this->AO->getId() == 12
              ? (($this->AJ*$this->AK+$this->AN*$this->AV*$this->AR)+$this->AY)*$this->P
-             : (($this->AJ*$this->AK+$this->AN*$this->AV)+$this->AY)*$this->P
+             : (($this->AJ*$this->AK+$this->AN*$this->AV          )+$this->AY)*$this->P
           );
       case 'BA': // Nyt Elforbrug(kWh pr. lokale/år)
         return !$this->AM ? null : (!$this->AU ? $this->AM*$this->Y*$this->Z/1000 : $this->AM*$this->AU*$this->AV/1000);
