@@ -7,6 +7,7 @@ use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\BelysningTiltag;
 use AppBundle\Entity\SpecialTiltag;
+use AppBundle\Entity\KlimaskaermTiltag;
 
 
 /**
@@ -38,18 +39,11 @@ class TiltagTypeExtension extends \Twig_Extension {
    *   String representation of the type
    */
   public function getTiltagType(Tiltag $object) {
-    if ($object instanceof SpecialTiltag) {
-      return "specialtiltag";
+    if (preg_match('/\\\\(?<type>[^\\\\]+)Tiltag$/', get_class($object), $matches)) {
+      return strtolower($matches['type']);
     }
-    else if ($object instanceof BelysningTiltag) {
-      return "belysningstiltag";
-    }
-    else if ($object instanceof PumpeTiltag) {
-      return "pumpetiltag";
-    }
-    else {
-      throw new \InvalidArgumentException('Cannot get type of non-Tiltag objects');
-    }
+
+    throw new \InvalidArgumentException('Cannot get type of non-Tiltag object (' . get_class($object) . ')');
   }
 
 
