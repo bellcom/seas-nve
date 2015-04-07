@@ -25,6 +25,7 @@ class PumpeTiltag extends Tiltag {
    * Constructor
    */
   public function __construct() {
+    parent::__construct();
 
     // @Todo: Find af way to use the translations system or move this to some place else....
     $this->setTitle('Pumpeudskiftninger');
