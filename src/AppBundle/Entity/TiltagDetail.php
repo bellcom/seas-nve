@@ -26,13 +26,17 @@ use JMS\Serializer\Annotation as JMS;
  * @DiscriminatorMap({
  *    "pumpe" = "PumpeTiltagDetail",
  *    "special" = "SpecialTiltagDetail",
- *    "belysning" = "BelysningTiltagDetail"
+ *    "belysning" = "BelysningTiltagDetail",
+ *    "klimaskærm" = "KlimaskaermTiltagDetail",
+ *    "tekniskisolering" = "TekniskIsoleringTiltagDetail",
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TiltagDetailRepository")
  * @JMS\Discriminator(field = "_discr", map = {
  *    "pumpe": "AppBundle\Entity\PumpeTiltagDetail",
  *    "special": "AppBundle\Entity\SpecialTiltagDetail",
- *    "belysning" = "AppBundle\Entity\BelysningTiltagDetail"
+ *    "belysning" = "AppBundle\Entity\BelysningTiltagDetail",
+ *    "klimaskærm" = "AppBundle\Entity\KlimaskaermTiltagDetail",
+ *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltagDetail",
  * })
  * @ORM\HasLifecycleCallbacks
  */
