@@ -341,30 +341,10 @@ class LoadRapport extends LoadData {
       return $value;
     }, array_shift($data));
 
-    echo '--------------------------------------------------------------------------------', "\n";
-    echo '--------------------------------------------------------------------------------', "\n";
-    echo '--------------------------------------------------------------------------------', "\n";
-    echo json_encode(array('sheet' => $sheet->getTitle(), 'headers' => $headers, 'data' => $data, 'comments' => $sheet->getComments()));
-    echo '--------------------------------------------------------------------------------', "\n";
-    echo '--------------------------------------------------------------------------------', "\n";
-    echo '--------------------------------------------------------------------------------', "\n";
-
     $rows = array();
     foreach ($data as $rowId => $row) {
       $rows[] = array_combine($headers, $row);
     }
-
-    // $dumpData = function(array $headers, array $data) {
-    //   foreach ($data as $rowId => $row) {
-    //     $this->writeInfo('--- DATA START ' . $rowId);
-    //     foreach ($row as $colId => $value) {
-    //       $this->writeInfo($headers[$colId] . ';' . $colId . ':' . $rowId . ';'. $value);
-    //     }
-    //     $this->writeInfo('--- DATA END ' . $rowId);
-    //   }
-    // };
-
-    // $dumpData($headers, $data);
 
     return $rows;
   }
