@@ -15,4 +15,12 @@ use Doctrine\ORM\Mapping\OneToMany;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\SpecialTiltagRepository")
  */
-class SpecialTiltag extends Tiltag {}
+class SpecialTiltag extends Tiltag {
+  /**
+   * Constructor
+   */
+  public function __construct() {
+    // @Todo: Find af way to use the translations system or move this to some place else....
+    $this->setTitle('Specialtiltag');
+  }
+}

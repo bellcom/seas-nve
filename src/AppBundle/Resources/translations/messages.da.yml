@@ -69,6 +69,45 @@ belysningtiltagdetail:
 # Forms - We follow the formbuilders form id format
 
 appbundle:
+  belysningtiltagdetail:
+    lokale.navn: Lokalenavn
+    lokale.type: Lokaletype
+    armaturhoejde.m: Armaturhøjde (m)
+    rumstoerrelse.m2: Rumstørrelse (m²)
+    lokale.antal: Lokaleantal
+    drifttid.t.aar: Drifttid (t/år)
+    lyskilde: Lyskilde
+    lyskilde.stk.armatur: Lyskilde (stk/armatur)
+    lyskilde.w.lyskilde: Lyskilde (W/lyskilde)
+    forkobling.stk.armatur: Forkobling (stk/armatur)
+    armaturer.stk.lokale: Armaturer (stk/lokale)
+    elforbrug.w.m2: Elforbrug (W/m²)
+    placering.id: Placering
+    styring.id: Styring
+    noter: Noter
+    belysningstiltag: Tiltag
+    nye.sensorer.stk.lokale: Nye sensorer (stk/lokale)
+    standardinvest.sensor.kr.stk: Standardinvest. sensor (kr/stk)
+    reduktion.af.drifttid: Reduktion af drifttid (%)
+    ny.driftstid: Ny driftstid
+    standardinvest.armatur.el.lyskilde.kr.stk: Standardinvest. armatur el. lyskilde (kr/stk)
+    ny.lyskilde: Ny lyskilde
+    ny.lyskilde.stk.armatur: Ny lyskilde (stk/armatur)
+    ny.lyskilde.w.lyskilde: Ny lyskilde (W/lyskilde)
+    ny.forkobling.stk.armatur: Ny forkobling (stk/armatur)
+    ny.armatureffekt.w.stk: Ny armatureffekt (W/stk)
+    nye.armaturer.stk.lokale: Nye armaturer (stk/lokale)
+    nyttiggjort.varme.af.el.besparelse: Nyttiggjort varme (% af el-besparelse)
+    prisfaktor: Prisfaktor
+    prisfaktor.tillaeg.kr.lokale: Prisfaktor-tillæg (kr/lokale)
+    investering.alle.lokaler.kr: Investering, alle lokaler (kr)
+    nyt.elforbrug.w.m2: Nyt elforbrug (W/m²)
+    driftsbesparelse.til.lyskilder.kr.aar: Driftsbesparelse til lyskilder Alle lokaler (kr/år)
+    simpel.tilbagebetalingstid.aar: Simpel tilbagebetalingstid (år)
+    vaegtet.levetid.aar: Vægtet Levetid (år)
+    nutidsvaerdi.set.over15.aar.kr: Nutidsværdi set over 15 år (kr)
+    kwh.besparelse.el: kWh-besparelse El
+    kwh.besparelse.varme.fra.varmevaerket: kWh-besparelse Varme fra varmeværket
   bygning:
     singular: Bygning
     plural: Bygninger
@@ -142,6 +181,10 @@ appbundle:
     fabrikant: Fabrikant
     roerlaengde: Rørlængde
     roerstoerrelse: Rørstørrelse
+  pumpetiltag:
+    pumpeID: ID
+    forsyningsomraade: Forsyningsomraade
+    placering: Placering
   pumpetiltagdetail:
     add: Tilføj pumpe
     pumpeID: Pumpe ID
@@ -175,7 +218,15 @@ appbundle:
     BaselineStrafAfkoeling: Strafafkøling
     SamtidighedsFaktor: ﻿Faktor på varmebespar. (kWh GAF + GUF)
     Energiscreening: Energiscreening
+  specialtiltag:
+    kommentar: Kommentar
+    filepath: Uploadet fil
+  specialtiltagdetail:
+    add: Upload fil
+    kommentar: Kommentar
+    title: Title
   tiltag:
+    tilvalgt: Tilvalgt
     title: Titel
     varmebsparelseGUF: ﻿Varmebesparelse, GUF (kWh/år)
     varmebesparelseGAF: ﻿Varmebesparelse, GAF (kWh/år)
@@ -200,45 +251,3 @@ appbundle:
     beskrivelseBV: ﻿Beskrivelse af ændringer til D&V udgifter samt fremtidigt timeforbrug for driftspersonale
     indeklima: Indeklima
     rapport: Rapport
-  pumpetiltag:
-    tilvalgt: Tilvalgt
-
-  belysningtiltagdetail:
-    lokale.navn: Lokalenavn
-    lokale.type: Lokaletype
-    armaturhoejde.m: Armaturhøjde (m)
-    rumstoerrelse.m2: Rumstørrelse (m²)
-    lokale.antal: Lokaleantal
-    drifttid.t.aar: Drifttid (t/år)
-    lyskilde: Lyskilde
-    lyskilde.stk.armatur: Lyskilde (stk/armatur)
-    lyskilde.w.lyskilde: Lyskilde (W/lyskilde)
-    forkobling.stk.armatur: Forkobling (stk/armatur)
-    armaturer.stk.lokale: Armaturer (stk/lokale)
-    elforbrug.w.m2: Elforbrug (W/m²)
-    placering.id: Placering
-    styring.id: Styring
-    noter: Noter
-    belysningstiltag: Tiltag
-    nye.sensorer.stk.lokale: Nye sensorer (stk/lokale)
-    standardinvest.sensor.kr.stk: Standardinvest. sensor (kr/stk)
-    reduktion.af.drifttid: Reduktion af drifttid (%)
-    ny.driftstid: Ny driftstid
-    standardinvest.armatur.el.lyskilde.kr.stk: Standardinvest. armatur el. lyskilde (kr/stk)
-    ny.lyskilde: Ny lyskilde
-    ny.lyskilde.stk.armatur: Ny lyskilde (stk/armatur)
-    ny.lyskilde.w.lyskilde: Ny lyskilde (W/lyskilde)
-    ny.forkobling.stk.armatur: Ny forkobling (stk/armatur)
-    ny.armatureffekt.w.stk: Ny armatureffekt (W/stk)
-    nye.armaturer.stk.lokale: Nye armaturer (stk/lokale)
-    nyttiggjort.varme.af.el.besparelse: Nyttiggjort varme (% af el-besparelse)
-    prisfaktor: Prisfaktor
-    prisfaktor.tillaeg.kr.lokale: Prisfaktor-tillæg (kr/lokale)
-    investering.alle.lokaler.kr: Investering, alle lokaler (kr)
-    nyt.elforbrug.w.m2: Nyt elforbrug (W/m²)
-    driftsbesparelse.til.lyskilder.kr.aar: Driftsbesparelse til lyskilder Alle lokaler (kr/år)
-    simpel.tilbagebetalingstid.aar: Simpel tilbagebetalingstid (år)
-    vaegtet.levetid.aar: Vægtet Levetid (år)
-    nutidsvaerdi.set.over15.aar.kr: Nutidsværdi set over 15 år (kr)
-    kwh.besparelse.el: kWh-besparelse El
-    kwh.besparelse.varme.fra.varmevaerket: kWh-besparelse Varme fra varmeværket

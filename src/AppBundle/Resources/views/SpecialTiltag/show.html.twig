@@ -1,4 +1,4 @@
-{% extends 'AppBundle:Tiltag:show-parent.html.twig' %}
+{% extends 'AppBundle:Tiltag:show.html.twig' %}
 
 {% block body -%}
   {{ parent() }}
@@ -7,7 +7,7 @@
 {% block detailark -%}
   <div class="row">
     <div class="col-md-12">
-      <table class="table">
+      <table class="table table-header-rotated">
         <thead>
         <tr>
           <th>{{ 'appbundle.tiltag.tilvalgt' | trans }}</th>

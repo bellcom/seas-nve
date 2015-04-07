@@ -173,7 +173,7 @@ class Pumpe {
    * @return string
    */
   public function __toString() {
-    return $this->nuvaerendeType . " / " . $this->nyPumpe;
+    return $this->id.'. '.$this->nuvaerendeType . ' / ' . $this->nyPumpe;
   }
 
 
