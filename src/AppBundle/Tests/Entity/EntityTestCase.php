@@ -28,6 +28,15 @@ abstract class EntityTestCase extends KernelTestCase {
           $entity->{'set'.$propertyName}($value);
         }
       }
+
+      // Call the protected compute method (!) (cf. https://sebastian-bergmann.de/archives/881-Testing-Your-Privates.html)
+      try {
+        $compute = new \ReflectionMethod($entity, 'compute');
+        if ($compute) {
+          $compute->setAccessible(true);
+          $compute->invoke($entity);
+        }
+      } catch (\ReflectionException $ex) {}
     }
 
     return $entity;
