@@ -120,6 +120,8 @@ simple_things_entity_audit:
         - AppBundle\Entity\TiltagDetail
         - AppBundle\Entity\PumpeTiltagDetail
         - AppBundle\Entity\SpecialTiltagDetail
+        - AppBundle\Entity\TekniskIsoleringTiltag
+        - AppBundle\Entity\TekniskIsoleringTiltagDetail
 
 white_october_breadcrumbs:
   separator:
