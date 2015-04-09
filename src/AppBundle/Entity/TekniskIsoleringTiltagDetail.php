@@ -21,7 +21,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="beskrivelseType", type="string", length=255)
+   * @ORM\Column(name="beskrivelseType", type="text")
    */
   private $beskrivelseType;
 
