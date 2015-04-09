@@ -25,7 +25,7 @@ use AppBundle\Entity\TekniskIsoleringTiltagDetail;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadRapport extends LoadData {
-  // Must run after LoadBygningsData and LoadLyskildeData
+  // Must run after LoadBygningsData
   protected $order = 1001;
 
   private $manager;
@@ -53,6 +53,9 @@ class LoadRapport extends LoadData {
     $this->done($manager);
   }
 
+  /**
+   * Load a complete Rapport from an Excel workbook
+   */
   private function loadRapport() {
     $sheet = $this->workbook->getSheetByName('1.TiltagslisteRådgiver');
     $enhedsys = $sheet->getCell('C4')->getValue();
@@ -69,7 +72,7 @@ class LoadRapport extends LoadData {
     $rapport
       ->setBygning($bygning)
       ->setVersion($sheet->getCell('C24')->getOldCalculatedValue())
-      ->setDatering(\PHPExcel_Shared_Date::ExcelToPHPObject($sheet->getCell('F23')->getValue()));
+      ->setDatering($this->getDateTime($sheet->getCell('F23')));
 
     $this->loadTekniskIsoleringTiltag($rapport);
     $this->loadBelysningTiltag($rapport);
@@ -86,6 +89,11 @@ class LoadRapport extends LoadData {
    * Teknisk isolering
    * -------------------------------------------------------------------------------- */
 
+  /**
+   * Load all TekniskIsoleringTiltag for a Rapport
+   *
+   * @param Rapport $rapport
+   */
   private function loadTekniskIsoleringTiltag(Rapport $rapport) {
     $sheet = $this->workbook->getSheetByName('Detailark (3)');
 
@@ -102,18 +110,38 @@ class LoadRapport extends LoadData {
     $this->writeInfo(get_class($tiltag) . ' ' . $tiltag->getId() . ' loaded');
   }
 
+  /**
+   * Load details for a tiltag
+   *
+   * @param TekniskIsoleringTiltag $tiltag
+   * @param \PHPExcel_Worksheet $sheet
+   */
   private function loadTekniskIsoleringTiltagDetail(TekniskIsoleringTiltag $tiltag, \PHPExcel_Worksheet $sheet) {
-    $data = $this->getData('I48:AI99', $sheet);
+    $data = $this->getData('I48:AL99', $sheet);
 
     foreach ($data as $values) {
-      if (!($values['Beskrivelse (type)'])) {
+      if (!($values["Beskrivelse (type)"])) {
         break;
       }
 
       $detail = new TekniskIsoleringTiltagDetail();
       $detail
         ->setTiltag($tiltag)
-        ->setTilvalgt(!!$values['Tilvalgt'])
+        ->setLåstAfEnergirådgiver(!!$values["Låst af energirådgiver"])
+        ->setTilvalgt(!!$values["Tilvalgt"])
+        ->setBeskrivelseType($values["Beskrivelse (type)"])
+        ->setType($values["Type"])
+        ->setDriftstidTÅr($values["Driftstid (t/år)"])
+        ->setUdvDiameterMm($values["Udv. diameter [mm]"])
+         ->setEksistIsolMm($values["Eksist. \nisol. \n[mm]"])
+        ->setTankVolL($values["Tank-\nvol. (L)"])
+         ->setTempOmgivel°C($values["Temp. omgivel. \n[°C]"])
+         ->setTempMedie°C($values["Temp. \nMedie \n[°C]"])
+         ->setRørlængdeEllerHøjdeAfVvbM($values["Rør-længde  eller højde af VVB\n[m]"])
+         ->setNyttiggjortVarme($values["Nyttiggjort varme [-]"])
+         ->setNyIsolMm($values["Ny \nisol. \n[mm]"])
+         ->setStandardinvestKrM²EllerKrM($values["Standard- \nInvest. \n[kr/m2 eller kr/m]"])
+         ->setPrisfaktor($values["Pris-\nfaktor"])
         ;
 
       $this->persist($detail);
@@ -127,10 +155,15 @@ class LoadRapport extends LoadData {
    * Belysning/El
    * -------------------------------------------------------------------------------- */
 
+  /**
+   * Load all BelysningTiltag for a Rapport
+   *
+   * @param Rapport $rapport
+   */
   private function loadBelysningTiltag(Rapport $rapport) {
     $sheet = $this->workbook->getSheetByName('Detailark (4)');
 
-    $this->loadLyskilde($sheet);
+    $this->loadBelysningTiltagDetailLyskilde($sheet);
 
     $tiltag = new BelysningTiltag();
     $tiltag
@@ -144,44 +177,50 @@ class LoadRapport extends LoadData {
     $this->writeInfo(get_class($tiltag) . ' ' . $tiltag->getId() . ' loaded');
   }
 
+  /**
+   * Load details for a tiltag
+   *
+   * @param BelysningTiltag $tiltag
+   * @param \PHPExcel_Worksheet $sheet
+   */
   private function loadBelysningTiltagDetail(BelysningTiltag $tiltag, \PHPExcel_Worksheet $sheet) {
-    $data = $this->getData('I41:BS99', $sheet);
+    $data = $this->getData('I41:BU99', $sheet);
 
     foreach ($data as $values) {
-      if (!($values['Lokale, navn'])) {
+      if (!($values["Lokale, navn"])) {
         break;
       }
 
       $detail = new BelysningTiltagDetail();
       $detail
         ->setTiltag($tiltag)
-        ->setTilvalgt(!!$values['Tilvalgt'])
-        ->setLokaleNavn($values['Lokale, navn'])
-        ->setLokaleType($values['Lokale, type'])
-        ->setArmaturhoejdeM($values['Armaturhøjde [m]'])
-        ->setRumstoerrelseM2($values['Rumstørrelse [m2]'])
-        ->setLokaleAntal($values['Lokale, antal'])
-        ->setDrifttidTAar($values['Drifttid (t/år)'])
-        ->setLyskilde($this->getLyskilde($values['Lyskilde, input']))
-        ->setLyskildeStkArmatur($values['Lyskilde,  (stk/armatur)'])
-        ->setLyskildeWLyskilde($values['Lyskilde, (W/lyskilde)'])
-        ->setForkoblingStkArmatur($values['Forkobling (stk/armatur)'])
-        ->setArmaturerStkLokale($values['Armaturer (stk/lokale)'])
-        ->setPlaceringId($values['Placering, input'])
-        ->setStyringId($values['Styring, input'])
+        ->setTilvalgt(!!$values["Tilvalgt"])
+        ->setLokaleNavn($values["Lokale, navn"])
+        ->setLokaleType($values["Lokale, type"])
+        ->setArmaturhoejdeM($values["Armaturhøjde [m]"])
+        ->setRumstoerrelseM2($values["Rumstørrelse [m2]"])
+        ->setLokaleAntal($values["Lokale, antal"])
+        ->setDrifttidTAar($values["Drifttid (t/år)"])
+        ->setLyskilde($this->getLyskilde($values["Lyskilde, input"]))
+        ->setLyskildeStkArmatur($values["Lyskilde,  (stk/armatur)"])
+        ->setLyskildeWLyskilde($values["Lyskilde, (W/lyskilde)"])
+        ->setForkoblingStkArmatur($values["Forkobling (stk/armatur)"])
+        ->setArmaturerStkLokale($values["Armaturer (stk/lokale)"])
+        ->setPlaceringId($values["Placering, input"])
+        ->setStyringId($values["Styring, input"])
         ->setNoter($values["Noter \n(se huskeliste over tabel)"])
-        ->setBelysningstiltagId($values['Tiltag, input'])
-        ->setNyeSensorerStkLokale($values['Nye Sensorer (stk/lokale)'])
-        ->setStandardinvestSensorKrStk($values['Standardinvest. Sensor(kr/stk)'])
-        ->setReduktionAfDrifttid($values['Reduktion af drifttid (%)'])
-        ->setStandardinvestArmaturElLyskildeKrStk($values['Standardinvest. armatur el. lyskilde (kr/stk)'])
-        ->setNyLyskilde($this->getLyskilde($values['Ny lyskilde, input']))
-        ->setNyLyskildeStkArmatur($values['Ny Lyskilde,  (stk/armatur)'])
-        ->setNyLyskildeWLyskilde($values['Ny lyskilde, (W/lyskilde)'])
-        ->setNyForkoblingStkArmatur($values['Ny forkobling (stk/armatur)'])
-        ->setNyeArmaturerStkLokale($values['Nye armaturer (stk/lokale)'])
-        ->setNyttiggjortVarmeAfElBesparelse($values['Nyttiggjort varme(% af el-besparelse)'])
-        ->setPrisfaktor($values['Prisfaktor (1 er neutral)']);
+        ->setBelysningstiltagId($values["Tiltag, input"])
+        ->setNyeSensorerStkLokale($values["Nye Sensorer (stk/lokale)"])
+        ->setStandardinvestSensorKrStk($values["Standardinvest. Sensor(kr/stk)"])
+        ->setReduktionAfDrifttid($values["Reduktion af drifttid (%)"])
+        ->setStandardinvestArmaturElLyskildeKrStk($values["Standardinvest. armatur el. lyskilde (kr/stk)"])
+        ->setNyLyskilde($this->getLyskilde($values["Ny lyskilde, input"]))
+        ->setNyLyskildeStkArmatur($values["Ny Lyskilde,  (stk/armatur)"])
+        ->setNyLyskildeWLyskilde($values["Ny lyskilde, (W/lyskilde)"])
+        ->setNyForkoblingStkArmatur($values["Ny forkobling (stk/armatur)"])
+        ->setNyeArmaturerStkLokale($values["Nye armaturer (stk/lokale)"])
+        ->setNyttiggjortVarmeAfElBesparelse($values["Nyttiggjort varme(% af el-besparelse)"])
+        ->setPrisfaktor($values["Prisfaktor (1 er neutral)"]);
 
       $this->persist($detail);
 
@@ -189,7 +228,11 @@ class LoadRapport extends LoadData {
     }
   }
 
-  private function loadLyskilde(\PHPExcel_Worksheet $sheet) {
+  /**
+   * Load all BelysningTiltagDetailLyskilde for use when loading BelysningTiltagDetail
+   * @param \PHPExcel_Worksheet $sheet
+   */
+  private function loadBelysningTiltagDetailLyskilde(\PHPExcel_Worksheet $sheet) {
     $data = $sheet->rangeToArray('M26:X37', null, false, false, false);
 
     $getForkobling = function($id) {
@@ -246,6 +289,11 @@ class LoadRapport extends LoadData {
    * Pumpe
    * -------------------------------------------------------------------------------- */
 
+  /**
+   * Load all PumpeTiltag for a Rapport
+   *
+   * @param Rapport $rapport
+   */
   private function loadPumpeTiltag(Rapport $rapport) {
     $sheet = $this->workbook->getSheetByName('Detailark (5)');
 
@@ -262,18 +310,24 @@ class LoadRapport extends LoadData {
     $this->writeInfo(get_class($tiltag) . ' ' . $tiltag->getId() . ' loaded');
   }
 
+  /**
+   * Load details for a tiltag
+   *
+   * @param PumpeTiltag $tiltag
+   * @param \PHPExcel_Worksheet $sheet
+   */
   private function loadPumpeTiltagDetail(PumpeTiltag $tiltag, \PHPExcel_Worksheet $sheet) {
     $data = $this->getData('I36:AV99', $sheet);
 
     foreach ($data as $values) {
-      if (!($values['Pumpe ID'])) {
+      if (!($values["Pumpe ID"])) {
         break;
       }
 
       $detail = new PumpeTiltagDetail();
       $detail
         ->setTiltag($tiltag)
-        ->setTilvalgt(!!$values['Tilvalgt'])
+        ->setTilvalgt(!!$values["Tilvalgt"])
         ;
 
       $this->persist($detail);
@@ -307,14 +361,14 @@ class LoadRapport extends LoadData {
     $data = $this->getData('I38:AU99', $sheet);
 
     foreach ($data as $values) {
-      if (!($values['Tiltagsnr.'] || $values['Tiltagsnr. Delpriser'])) {
+      if (!($values["Tiltagsnr."] || $values["Tiltagsnr. Delpriser"])) {
         break;
       }
 
       $detail = new KlimaskaermTiltagDetail();
       $detail
         ->setTiltag($tiltag)
-        ->setTilvalgt(!!$values['Tilvalgt'])
+        ->setTilvalgt(!!$values["Tilvalgt"])
         ;
 
       $this->persist($detail);
@@ -333,20 +387,186 @@ class LoadRapport extends LoadData {
 
   /**
    * Get data from spread sheet. First row used as header.
+   * @param $range
+   * @param \PHPExcel_Worksheet $sheet
+   * @return array
    */
   private function getData($range, \PHPExcel_Worksheet $sheet) {
-    $data = $sheet->rangeToArray($range, null, false, false, true);
+    $cells = $sheet->rangeToArray($range, null, false, false, true);
+
+    $values = $cells;
     $headers = array_map(function($value) {
       // return preg_replace('/\s{2,}/', ' ', trim($value));
       return $value;
-    }, array_shift($data));
+    }, array_shift($values));
 
-    $rows = array();
-    foreach ($data as $rowId => $row) {
-      $rows[] = array_combine($headers, $row);
+    $data = array();
+    foreach ($values as $rowId => $row) {
+      $data[] = array_combine($headers, $row);
     }
 
-    return $rows;
+    if (getenv('DUMP_UNITTEST_DATA')) {
+      $this->dumpUnittestData($sheet, $headers, $cells, getenv('DUMP_UNITTEST_DATA'));
+    }
+
+    return $data;
+  }
+
+  /**
+   * @param \PHPExcel_Cell $cell
+   * @return \DateTime
+   */
+  private function getDateTime(\PHPExcel_Cell $cell) {
+    return \PHPExcel_Shared_Date::ExcelToPHPObject($cell->getValue());
+  }
+
+  private function dumpUnittestData(\PHPExcel_Worksheet $sheet, array $headers, array $cells, $formats) {
+    array_walk($cells, function(&$array, $rowId) use ($sheet) {
+        array_walk($array, function(&$value, $colId, $rowId) use ($sheet) {
+            $cell = $sheet->getCell($colId . $rowId);
+            if ($cell && $cell->getDataType() == \PHPExcel_Cell_DataType::TYPE_FORMULA) {
+              try {
+                $value = $cell->getOldCalculatedValue();
+              } catch (\Exception $ex) {}
+            }
+          }, $rowId);
+      });
+
+    $values = array();
+    foreach ($cells as $rowId => $row) {
+      $values[] = array_combine($headers, $row);
+    }
+
+    $getValues = function($fields) use ($values) {
+      return array_map(function($row) use ($fields) {
+          $result = array();
+          foreach ($fields as $key => $spec) {
+            $index = is_array($spec) ? $spec[0] : $spec;
+            $value = $row[$key];
+            if (is_array($spec) && count($spec) > 1) {
+              if (is_array($spec) && count($spec) > 1) {
+                settype($value, $spec[1]);
+              }
+            }
+            $result[$index] = $value;
+          }
+          return $result;
+        }, $values);
+    };
+
+    $type = null;
+    $properties = array();
+    $expected = array();
+
+    switch ($sheet->getTitle()) {
+      case 'Detailark (3)':
+        $type = 'TekniskIsoleringTiltagDetail';
+        $properties = $getValues(array(
+          "Låst af energirådgiver" => array('LåstAfEnergirådgiver', 'boolean'),
+          "Tilvalgt" => array('Tilvalgt', 'boolean'),
+          "Beskrivelse (type)" => 'BeskrivelseType',
+          "Type" => 'Type',
+          "Driftstid (t/år)" => 'DriftstidTÅr',
+          "Udv. diameter [mm]" => 'UdvDiameterMm',
+          "Eksist. \nisol. \n[mm]" => 'EksistIsolMm',
+          "Tank-\nvol. (L)" => 'TankVolL',
+          "Temp. omgivel. \n[°C]" => 'TempOmgivel°C',
+          "Temp. \nMedie \n[°C]" => 'TempMedie°C',
+          "Rør-længde  eller højde af VVB\n[m]" => 'RørlængdeEllerHøjdeAfVvbM',
+          "Nyttiggjort varme [-]" => 'NyttiggjortVarme',
+          "Ny \nisol. \n[mm]" => 'NyIsolMm',
+          "Standard- \nInvest. \n[kr/m2 eller kr/m]" => 'StandardinvestKrM²EllerKrM',
+          "Pris-\nfaktor" => 'Prisfaktor',
+        ));
+        $expected = $getValues(array(
+          "Rørstørrelse [mm] ækvivalent" => 'rørstørrelseMmÆkvivalent',
+          "Varmeledningsevne på eksist isolering [W/m·K]" => 'varmeledningsevnePåEksistIsoleringWMK',
+          "Varmeledningsevne på ny isolering [W/m·K]" => 'varmeledningsevnePåNyIsoleringWMK',
+          "Areal af beholder [m2]" => 'arealAfBeholderM²',
+          "Investering  \n[kr]" => 'investeringKr',
+          "Eksist. Varme-\ntab [kwh]" => 'eksistVarmetabKwh',
+          "Nyt Varme-\ntab [kwh]" => 'nytVarmetabKwh',
+          "Varme-\nbesp. \n[kWh/år]" => 'varmebespKwhÅr',
+          "Simpel tilbagebetalingstid (år)" => 'simpelTilbagebetalingstidÅr',
+          "Nutidsværdi set over 15 år (kr)" => 'nutidsværdiSetOver15ÅrKr',
+          "kWh-besparelse El fra værket" => 'kwhBesparelseElFraVærket',
+          "kWh-besparelse Varme fra værket" => 'kwhBesparelseVarmeFraVærket',
+          // "Driftparameter  [°Cs/år]",
+          // "Eksisterende U-værdi ",
+          // "Ukorrigeret ",
+        ));
+        break;
+
+      case 'Detailark (4)':
+        $type = 'BelysningTiltagDetail';
+        $properties = $getValues(array(
+          "Tilvalgt" => array('Tilvalgt', 'boolean'),
+          "Lokale, navn" => 'LokaleNavn',
+          "Lokale, type" => 'LokaleType',
+          "Armaturhøjde [m]" => 'ArmaturhoejdeM',
+          "Rumstørrelse [m2]" => 'RumstoerrelseM2',
+          "Lokale, antal" => 'LokaleAntal',
+          "Drifttid (t/år)" => 'DrifttidTAar',
+          // Lyskilde($this->getLyskilde($values["Lyskilde, input"]))
+          "Lyskilde, input" => 'Lyskilde',
+          "Lyskilde,  (stk/armatur)" => 'LyskildeStkArmatur',
+          "Lyskilde, (W/lyskilde)" => 'LyskildeWLyskilde',
+          "Forkobling (stk/armatur)" => 'ForkoblingStkArmatur',
+          "Armaturer (stk/lokale)" => 'ArmaturerStkLokale',
+          "Placering, input" => 'PlaceringId',
+          "Styring, input" => 'StyringId',
+          "Noter \n(se huskeliste over tabel)" => 'Noter',
+          "Tiltag, input" => 'BelysningstiltagId',
+          "Nye Sensorer (stk/lokale)" => 'NyeSensorerStkLokale',
+          "Standardinvest. Sensor(kr/stk)" => 'StandardinvestSensorKrStk',
+          "Reduktion af drifttid (%)" => 'ReduktionAfDrifttid',
+          "Standardinvest. armatur el. lyskilde (kr/stk)" => 'StandardinvestArmaturElLyskildeKrStk',
+          // NyLyskilde($this->getLyskilde($values["Ny lyskilde, input"]))
+          "Ny lyskilde, input" => 'NyLyskilde',
+          "Ny Lyskilde,  (stk/armatur)" => 'NyLyskildeStkArmatur',
+          "Ny lyskilde, (W/lyskilde)" => 'NyLyskildeWLyskilde',
+          "Ny forkobling (stk/armatur)" => 'NyForkoblingStkArmatur',
+          "Nye armaturer (stk/lokale)" => 'NyeArmaturerStkLokale',
+          "Nyttiggjort varme(% af el-besparelse)" => 'NyttiggjortVarmeAfElBesparelse',
+          "Prisfaktor (1 er neutral)" => 'Prisfaktor',
+        ));
+        break;
+
+      case 'Detailark (5)':
+        $type = 'PumpeTiltagDetail';
+        break;
+
+      case 'Detailark (7)':
+        $type = 'KlimaskaermTiltagDetail';
+        break;
+
+    }
+
+    if (stripos($formats, 'json') !== false) {
+      echo PHP_EOL, '=== JSON ' . $type .' start =============================================================================', PHP_EOL;
+      echo json_encode(array(
+        'type' => $type,
+        'properties' => $properties,
+        'expected' => $expected,
+        'headers' => $headers,
+        'cells' => $cells,
+        'values' => $values,
+      ), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+      echo PHP_EOL, '=== JSON ' . $type .' end ===============================================================================', PHP_EOL;
+    }
+
+    if (stripos($formats, 'php') !== false) {
+      echo PHP_EOL, '=== PHP ' . $type .' start =============================================================================', PHP_EOL;
+      if (count($properties) == count($expected) && count($properties) > 1) {
+        $tests = array();
+        for ($i = 1; $i < count($properties); $i++) {
+          $tests[] = array($properties[$i], $expected[$i]);
+        }
+        echo '// properties, expected', PHP_EOL;
+        echo '$tests = ' . var_export($tests, true) . ';', PHP_EOL;
+      }
+      echo PHP_EOL, '=== PHP ' . $type .' end ===============================================================================', PHP_EOL;
+    }
   }
 
 }
