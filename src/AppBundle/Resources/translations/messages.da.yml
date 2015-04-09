@@ -257,29 +257,29 @@ appbundle:
     tilvalgt: Tilvalgt
 
   tekniskisoleringtiltagdetail:
-    låstAfEnergirådgiver: Låst af energirådgiver
+    laastAfEnergiraadgiver: Låst af energirådgiver
     beskrivelseType: Beskrivelse (type)
     type: Type
-    driftstidTÅr: Driftstid (t/år)
+    driftstidTAar: Driftstid (t/år)
     udvDiameterMm: Udv. diameter [mm]
     eksistIsolMm: Eksist. isol. [mm]
-    rørstørrelseMmÆkvivalent: Rørstørrelse [mm] ækvivalent
+    roerstoerrelseMmAekvivalent: Rørstørrelse [mm] ækvivalent
     tankVolL: Tankvol. (L)
-    tempOmgivel°C: Temp. omgivel. [°C]
-    tempMedie°C: Temp. Medie [°C]
-    rørlængdeEllerHøjdeAfVvbM: Rørlængde eller højde af VVB [m]
+    tempOmgivelC: Temp. omgivel. [°C]
+    tempMedieC: Temp. Medie [°C]
+    roerlaengdeEllerHoejdeAfVvbM: Rørlængde eller højde af VVB [m]
     nyttiggjortVarme: Nyttiggjort varme [-]
     nyIsolMm: Ny isol. [mm]
-    varmeledningsevnePåEksistIsoleringWMK: Varmeledningsevne på eksist isolering [W/m·K]
-    varmeledningsevnePåNyIsoleringWMK: Varmeledningsevne på ny isolering [W/m·K]
-    arealAfBeholderM²: Areal af beholder [m²]
-    standardinvestKrM²EllerKrM: Standardinvest. [kr/m² eller kr/m]
+    varmeledningsevnePaaEksistIsoleringWMK: Varmeledningsevne på eksist isolering [W/m·K]
+    varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering [W/m·K]
+    arealAfBeholderM2: Areal af beholder [m²]
+    standardinvestKrM2EllerKrM: Standardinvest. [kr/m² eller kr/m]
     prisfaktor: Prisfaktor
     investeringKr: Investering  [kr]
     eksistVarmetabKwh: Eksist. varmetab [kwh]
     nytVarmetabKwh: Nyt varmetab [kwh]
-    varmebespKwhÅr: Varmebesp. [kWh/år]
-    simpelTilbagebetalingstidÅr: Simpel tilbagebetalingstid (år)
-    nutidsværdiSetOver15ÅrKr: Nutidsværdi set over 15 år (kr)
-    kwhBesparelseElFraVærket: kWh-besparelse El fra værket
-    kwhBesparelseVarmeFraVærket: kWh-besparelse Varme fra værket
+    varmebespKwhAar: Varmebesp. [kWh/år]
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    kwhBesparelseElFraVaerket: kWh-besparelse El fra værket
+    kwhBesparelseVarmeFraVaerket: kWh-besparelse Varme fra værket
