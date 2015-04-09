@@ -14,9 +14,9 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var boolean
    *
-   * @ORM\Column(name="låstAfEnergirådgiver", type="boolean")
+   * @ORM\Column(name="laastAfEnergiraadgiver", type="boolean")
    */
-  private $låstAfEnergirådgiver;
+  private $laastAfEnergiraadgiver;
 
   /**
    * @var string
@@ -35,9 +35,9 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var double
    *
-   * @ORM\Column(name="driftstidTÅr", type="float")
+   * @ORM\Column(name="driftstidTAar", type="float")
    */
-  private $driftstidTÅr;
+  private $driftstidTAar;
 
   /**
    * @var double
@@ -56,9 +56,9 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var double
    *
-   * @ORM\Column(name="rørstørrelseMmÆkvivalent", type="float")
+   * @ORM\Column(name="roerstoerrelseMmAekvivalent", type="float")
    */
-  private $rørstørrelseMmÆkvivalent;
+  private $roerstoerrelseMmAekvivalent;
 
   /**
    * @var double
@@ -70,23 +70,23 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var double
    *
-   * @ORM\Column(name="tempOmgivel°C", type="float")
+   * @ORM\Column(name="tempOmgivelC", type="float")
    */
-  private $tempOmgivel°C;
+  private $tempOmgivelC;
 
   /**
    * @var double
    *
-   * @ORM\Column(name="tempMedie°C", type="float")
+   * @ORM\Column(name="tempMedieC", type="float")
    */
-  private $tempMedie°C;
+  private $tempMedieC;
 
   /**
    * @var double
    *
-   * @ORM\Column(name="rørlængdeEllerHøjdeAfVvbM", type="float")
+   * @ORM\Column(name="roerlaengdeEllerHoejdeAfVvbM", type="float")
    */
-  private $rørlængdeEllerHøjdeAfVvbM;
+  private $roerlaengdeEllerHoejdeAfVvbM;
 
   /**
    * @var double
@@ -102,18 +102,18 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    */
   private $nyIsolMm;
 
-  private $varmeledningsevnePåEksistIsoleringWMK;
+  private $varmeledningsevnePaaEksistIsoleringWMK;
 
-  private $varmeledningsevnePåNyIsoleringWMK;
+  private $varmeledningsevnePaaNyIsoleringWMK;
 
-  private $arealAfBeholderM²;
+  private $arealAfBeholderM2;
 
   /**
    * @var double
    *
-   * @ORM\Column(name="standardinvestKrM²EllerKrM", type="float")
+   * @ORM\Column(name="standardinvestKrM2EllerKrM", type="float")
    */
-  private $standardinvestKrM²EllerKrM;
+  private $standardinvestKrM2EllerKrM;
 
   /**
    * @var double
@@ -128,24 +128,24 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
 
   private $nytVarmetabKwh;
 
-  private $varmebespKwhÅr;
+  private $varmebespKwhAar;
 
-  private $simpelTilbagebetalingstidÅr;
+  private $simpelTilbagebetalingstidAar;
 
-  private $nutidsværdiSetOver15ÅrKr;
+  private $nutidsvaerdiSetOver15AarKr;
 
-  private $kwhBesparelseElFraVærket;
+  private $kwhBesparelseElFraVaerket;
 
-  private $kwhBesparelseVarmeFraVærket;
+  private $kwhBesparelseVarmeFraVaerket;
 
-  public function setLåstAfEnergirådgiver($låstAfEnergirådgiver) {
-    $this->låstAfEnergirådgiver = $låstAfEnergirådgiver;
+  public function setLaastAfEnergiraadgiver($laastAfEnergiraadgiver) {
+    $this->laastAfEnergiraadgiver = $laastAfEnergiraadgiver;
 
     return $this;
   }
 
-  public function getLåstAfEnergirådgiver() {
-    return $this->låstAfEnergirådgiver;
+  public function getLaastAfEnergiraadgiver() {
+    return $this->laastAfEnergiraadgiver;
   }
 
   public function setBeskrivelseType($beskrivelseType) {
@@ -168,14 +168,14 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     return $this->type;
   }
 
-  public function setDriftstidTÅr($driftstidTÅr) {
-    $this->driftstidTÅr = $driftstidTÅr;
+  public function setDriftstidTAar($driftstidTAar) {
+    $this->driftstidTAar = $driftstidTAar;
 
     return $this;
   }
 
-  public function getDriftstidTÅr() {
-    return $this->driftstidTÅr;
+  public function getDriftstidTAar() {
+    return $this->driftstidTAar;
   }
 
   public function setUdvDiameterMm($udvDiameterMm) {
@@ -198,8 +198,8 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     return $this->eksistIsolMm;
   }
 
-  public function getRørstørrelseMmÆkvivalent() {
-    return $this->rørstørrelseMmÆkvivalent;
+  public function getRoerstoerrelseMmAekvivalent() {
+    return $this->roerstoerrelseMmAekvivalent;
   }
 
   public function setTankVolL($tankVolL) {
@@ -212,34 +212,34 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     return $this->tankVolL;
   }
 
-  public function setTempOmgivel°C($tempOmgivel°C) {
-    $this->tempOmgivel°C = $tempOmgivel°C;
+  public function setTempOmgivelC($tempOmgivelC) {
+    $this->tempOmgivelC = $tempOmgivelC;
 
     return $this;
   }
 
-  public function getTempOmgivel°C() {
-    return $this->tempOmgivel°C;
+  public function getTempOmgivelC() {
+    return $this->tempOmgivelC;
   }
 
-  public function setTempMedie°C($tempMedie°C) {
-    $this->tempMedie°C = $tempMedie°C;
+  public function setTempMedieC($tempMedieC) {
+    $this->tempMedieC = $tempMedieC;
 
     return $this;
   }
 
-  public function getTempMedie°C() {
-    return $this->tempMedie°C;
+  public function getTempMedieC() {
+    return $this->tempMedieC;
   }
 
-  public function setRørlængdeEllerHøjdeAfVvbM($rørlængdeEllerHøjdeAfVvbM) {
-    $this->rørlængdeEllerHøjdeAfVvbM = $rørlængdeEllerHøjdeAfVvbM;
+  public function setRoerlaengdeEllerHoejdeAfVvbM($roerlaengdeEllerHoejdeAfVvbM) {
+    $this->roerlaengdeEllerHoejdeAfVvbM = $roerlaengdeEllerHoejdeAfVvbM;
 
     return $this;
   }
 
-  public function getRørlængdeEllerHøjdeAfVvbM() {
-    return $this->rørlængdeEllerHøjdeAfVvbM;
+  public function getRoerlaengdeEllerHoejdeAfVvbM() {
+    return $this->roerlaengdeEllerHoejdeAfVvbM;
   }
 
   public function setNyttiggjortVarme($nyttiggjortVarme) {
@@ -262,26 +262,26 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     return $this->nyIsolMm;
   }
 
-  public function getVarmeledningsevnePåEksistIsoleringWMK() {
-    return $this->varmeledningsevnePåEksistIsoleringWMK;
+  public function getVarmeledningsevnePaaEksistIsoleringWMK() {
+    return $this->varmeledningsevnePaaEksistIsoleringWMK;
   }
 
-  public function getVarmeledningsevnePåNyIsoleringWMK() {
-    return $this->varmeledningsevnePåNyIsoleringWMK;
+  public function getVarmeledningsevnePaaNyIsoleringWMK() {
+    return $this->varmeledningsevnePaaNyIsoleringWMK;
   }
 
-  public function getArealAfBeholderM²() {
-    return $this->arealAfBeholderM²;
+  public function getArealAfBeholderM2() {
+    return $this->arealAfBeholderM2;
   }
 
-  public function setStandardinvestKrM²EllerKrM($standardinvestKrM²EllerKrM) {
-    $this->standardinvestKrM²EllerKrM = $standardinvestKrM²EllerKrM;
+  public function setStandardinvestKrM2EllerKrM($standardinvestKrM2EllerKrM) {
+    $this->standardinvestKrM2EllerKrM = $standardinvestKrM2EllerKrM;
 
     return $this;
   }
 
-  public function getStandardinvestKrM²EllerKrM() {
-    return $this->standardinvestKrM²EllerKrM;
+  public function getStandardinvestKrM2EllerKrM() {
+    return $this->standardinvestKrM2EllerKrM;
   }
 
   public function setPrisfaktor($prisfaktor) {
@@ -306,43 +306,43 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     return $this->nytVarmetabKwh;
   }
 
-  public function getVarmebespKwhÅr() {
-    return $this->varmebespKwhÅr;
+  public function getVarmebespKwhAar() {
+    return $this->varmebespKwhAar;
   }
 
-  public function getSimpelTilbagebetalingstidÅr() {
-    return $this->simpelTilbagebetalingstidÅr;
+  public function getSimpelTilbagebetalingstidAar() {
+    return $this->simpelTilbagebetalingstidAar;
   }
 
-  public function getNutidsværdiSetOver15ÅrKr() {
-    return $this->nutidsværdiSetOver15ÅrKr;
+  public function getNutidsvaerdiSetOver15AarKr() {
+    return $this->nutidsvaerdiSetOver15AarKr;
   }
 
-  public function getKwhBesparelseElFraVærket() {
-    return $this->kwhBesparelseElFraVærket;
+  public function getKwhBesparelseElFraVaerket() {
+    return $this->kwhBesparelseElFraVaerket;
   }
 
-  public function getKwhBesparelseVarmeFraVærket() {
-    return $this->kwhBesparelseVarmeFraVærket;
+  public function getKwhBesparelseVarmeFraVaerket() {
+    return $this->kwhBesparelseVarmeFraVaerket;
   }
 
   protected function compute() {
     try {
-      $this->rørstørrelseMmÆkvivalent = $this->__get('P');
-      $this->varmeledningsevnePåEksistIsoleringWMK = $this->__get('W');
-      $this->varmeledningsevnePåNyIsoleringWMK = $this->__get('X');
-      $this->arealAfBeholderM² = $this->__get('Y');
+      $this->roerstoerrelseMmAekvivalent = $this->__get('P');
+      $this->varmeledningsevnePaaEksistIsoleringWMK = $this->__get('W');
+      $this->varmeledningsevnePaaNyIsoleringWMK = $this->__get('X');
+      $this->arealAfBeholderM2 = $this->__get('Y');
       $this->investeringKr = $this->__get('AB');
       // @FIXME (Division by zero)
       // $this->eksistVarmetabKwh = $this->__get('AC');
       // @FIXME (Division by zero)
       // $this->nytVarmetabKwh = $this->__get('AD');
-      $this->varmebespKwhÅr = $this->__get('AE');
+      $this->varmebespKwhAar = $this->__get('AE');
       // @FIXME (Division by zero)
-      // $this->simpelTilbagebetalingstidÅr = $this->__get('AF');
-      $this->nutidsværdiSetOver15ÅrKr = $this->__get('AG');
-      $this->kwhBesparelseElFraVærket = $this->__get('AH');
-      $this->kwhBesparelseVarmeFraVærket = $this->__get('AI');
+      // $this->simpelTilbagebetalingstidAar = $this->__get('AF');
+      $this->nutidsvaerdiSetOver15AarKr = $this->__get('AG');
+      $this->kwhBesparelseElFraVaerket = $this->__get('AH');
+      $this->kwhBesparelseVarmeFraVaerket = $this->__get('AI');
     } catch (\Exception $ex) {}
   }
 
@@ -350,15 +350,15 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     switch ($key) {
 
       case 'TekniskIsol20[[#This Row],[Eksisterende U-værdi ]]':
-        // "AK": "=IF(OR(TekniskIsol20[[#This Row],[Eksist. \nisol. \n'[mm']]]=\"\",TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]=0),\"\",\n2*((2*TekniskIsol20[[#This Row],[Eksist. \nisol. \n'[mm']]]/1000)+TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]/1000)*TekniskIsol20[[#This Row],[Varmeledningsevne på eksist isolering '[W/m·K']]]*$AC$25*PI()/(((2*TekniskIsol20[[#This Row],[Eksist. \nisol. \n'[mm']]]/1000)+TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]/1000)*LN(((2*TekniskIsol20[[#This Row],[Eksist. \nisol. \n'[mm']]]/1000)+TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]/1000)/(TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]/1000))*$AC$25+2*TekniskIsol20[[#This Row],[Varmeledningsevne på eksist isolering '[W/m·K']]]))",
-        return ($this->eksistIsolMm === null || ($this->rørstørrelseMmÆkvivalent === 0))
+        // "AK": "=IF(OR(TekniskIsol20[[#This Row],[Eksist. \nisol. \n'[mm']]]=\"\",TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]=0),\"\",\n2*((2*TekniskIsol20[[#This Row],[Eksist. \nisol. \n'[mm']]]/1000)+TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]/1000)*TekniskIsol20[[#This Row],[Varmeledningsevne paa eksist isolering '[W/m·K']]]*$AC$25*PI()/(((2*TekniskIsol20[[#This Row],[Eksist. \nisol. \n'[mm']]]/1000)+TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]/1000)*LN(((2*TekniskIsol20[[#This Row],[Eksist. \nisol. \n'[mm']]]/1000)+TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]/1000)/(TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]/1000))*$AC$25+2*TekniskIsol20[[#This Row],[Varmeledningsevne paa eksist isolering '[W/m·K']]]))",
+        return ($this->eksistIsolMm === null || ($this->roerstoerrelseMmAekvivalent === 0))
           ? null
-          : 2*((2*$this->eksistIsolMm/1000)+$this->rørstørrelseMmÆkvivalent/1000)*$this->varmeledningsevnePåEksistIsoleringWMK*$this->__get('$AC$25')*PI()/(((2*$this->eksistIsolMm/1000)+$this->rørstørrelseMmÆkvivalent/1000)*log(((2*$this->eksistIsolMm/1000)+$this->rørstørrelseMmÆkvivalent/1000)/($this->rørstørrelseMmÆkvivalent/1000))*$this->__get('$AC$25')+2*$this->varmeledningsevnePåEksistIsoleringWMK);
+          : 2*((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*$this->varmeledningsevnePaaEksistIsoleringWMK*$this->__get('$AC$25')*PI()/(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*log(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)/($this->roerstoerrelseMmAekvivalent/1000))*$this->__get('$AC$25')+2*$this->varmeledningsevnePaaEksistIsoleringWMK);
 
       case 'TekniskIsol20[[#This Row],[Ukorrigeret ]]':
-        return ($this->rørstørrelseMmÆkvivalent === null || $this->nyIsolMm === null || $this->varmeledningsevnePåNyIsoleringWMK === null)
+        return ($this->roerstoerrelseMmAekvivalent === null || $this->nyIsolMm === null || $this->varmeledningsevnePaaNyIsoleringWMK === null)
           ? null
-          : 2*((2*$this->nyIsolMm/1000)+$this->rørstørrelseMmÆkvivalent/1000)*$this->varmeledningsevnePåNyIsoleringWMK*$this->__get('$AC$25')*PI()/(((2*$this->nyIsolMm/1000)+$this->rørstørrelseMmÆkvivalent/1000)*log(((2*$this->nyIsolMm/1000)+$this->rørstørrelseMmÆkvivalent/1000)/($this->rørstørrelseMmÆkvivalent/1000))*$this->__get('$AC$25')+2*$this->varmeledningsevnePåNyIsoleringWMK);
+          : 2*((2*$this->nyIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*$this->varmeledningsevnePaaNyIsoleringWMK*$this->__get('$AC$25')*PI()/(((2*$this->nyIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*log(((2*$this->nyIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)/($this->roerstoerrelseMmAekvivalent/1000))*$this->__get('$AC$25')+2*$this->varmeledningsevnePaaNyIsoleringWMK);
 
       case 'INDIRECT(\"\'2.Forsyning\'!$H$3\")':
         // @FIXME
@@ -380,7 +380,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
         return 0.491;
 
       case 'P':
-        return $this->tankVolL === 0 ? $this->udvDiameterMm : sqrt(($this->tankVolL/1000)/($this->rørlængdeEllerHøjdeAfVvbM*M_PI))*1000;
+        return $this->tankVolL === 0 ? $this->udvDiameterMm : sqrt(($this->tankVolL/1000)/($this->roerlaengdeEllerHoejdeAfVvbM*M_PI))*1000;
 
       case 'W':
         // =$N$38
@@ -393,27 +393,27 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
       case 'Y':
         return $this->tankVolL === 0
           ? null
-          : (sqrt(($this->tankVolL/1000)/(M_PI*$this->rørlængdeEllerHøjdeAfVvbM))+$this->rørlængdeEllerHøjdeAfVvbM)
-                * (2*M_PI*sqrt(($this->tankVolL/1000)/(M_PI*$this->rørlængdeEllerHøjdeAfVvbM)));
+          : (sqrt(($this->tankVolL/1000)/(M_PI*$this->roerlaengdeEllerHoejdeAfVvbM))+$this->roerlaengdeEllerHoejdeAfVvbM)
+                * (2*M_PI*sqrt(($this->tankVolL/1000)/(M_PI*$this->roerlaengdeEllerHoejdeAfVvbM)));
 
       case 'AB':
         return $this->tankVolL === 0
-          ? $this->standardinvestKrM²EllerKrM*$this->rørlængdeEllerHøjdeAfVvbM*$this->prisfaktor
-          : $this->arealAfBeholderM²*$this->standardinvestKrM²EllerKrM*$this->prisfaktor;
+          ? $this->standardinvestKrM2EllerKrM*$this->roerlaengdeEllerHoejdeAfVvbM*$this->prisfaktor
+          : $this->arealAfBeholderM2*$this->standardinvestKrM2EllerKrM*$this->prisfaktor;
 
       case 'AC':
         // "AC": "=IF(TekniskIsol20[[#This Row],[Type]]=\"rør\",\nTekniskIsol20[[#This Row],[Eksisterende U-værdi ]]*TekniskIsol20[[#This Row],[Rør-længde  eller højde af VVB\n'[m']]]*(ABS(TekniskIsol20[[#This Row],[Temp. \nMedie \n'[°C']]]-TekniskIsol20[[#This Row],[Temp. omgivel. \n'[°C']]]))*TekniskIsol20[[#This Row],[Driftstid (t/år)]]/1000*TekniskIsol20[[#This Row],[Nyttiggjort varme '[-']]],\nIF(TekniskIsol20[[#This Row],[Type]]=\"beholder\",\n(TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]/1000*PI()*TekniskIsol20[[#This Row],[Rør-længde  eller højde af VVB\n'[m']]]+(TekniskIsol20[[#This Row],[Rørstørrelse '[mm'] ækvivalent]]/1000)^2*PI())*ABS(TekniskIsol20[[#This Row],[Temp. \nMedie \n'[°C']]]-TekniskIsol20[[#This Row],[Temp. omgivel. \n'[°C']]])*TekniskIsol20[[#This Row],[Eksisterende U-værdi ]]*TekniskIsol20[[#This Row],[Driftstid (t/år)]]/1000,\"\"))",
         return strcasecmp($this->type, 'rør') === 0
-          ? $this->__get('TekniskIsol20[[#This Row],[Eksisterende U-værdi ]]')*$this->rørlængdeEllerHøjdeAfVvbM*(ABS($this->tempMedie°C-$this->tempOmgivel°C))*$this->driftstidTÅr/1000*$this->nyttiggjortVarme
+          ? $this->__get('TekniskIsol20[[#This Row],[Eksisterende U-værdi ]]')*$this->roerlaengdeEllerHoejdeAfVvbM*(ABS($this->tempMedieC-$this->tempOmgivelC))*$this->driftstidTAar/1000*$this->nyttiggjortVarme
           : (strcasecmp($this->type, 'beholder') === 0
-             ? ($this->rørstørrelseMmÆkvivalent/1000*PI()*$this->rørlængdeEllerHøjdeAfVvbM+($this->rørstørrelseMmÆkvivalent/1000)^2*PI())*ABS($this->tempMedie°C-$this->tempOmgivel°C)*$this->__get('TekniskIsol20[[#This Row],[Eksisterende U-værdi ]]')*$this->driftstidTÅr/1000
+             ? ($this->roerstoerrelseMmAekvivalent/1000*PI()*$this->roerlaengdeEllerHoejdeAfVvbM+($this->roerstoerrelseMmAekvivalent/1000)^2*PI())*ABS($this->tempMedieC-$this->tempOmgivelC)*$this->__get('TekniskIsol20[[#This Row],[Eksisterende U-værdi ]]')*$this->driftstidTAar/1000
           : null);
 
       case 'AD':
         return strcasecmp($this->type, 'rør') === 0
-          ? $this->__get('TekniskIsol20[[#This Row],[Ukorrigeret ]]')*$this->rørlængdeEllerHøjdeAfVvbM*(ABS($this->tempMedie°C-$this->tempOmgivel°C))*$this->driftstidTÅr/1000*$this->nyttiggjortVarme
+          ? $this->__get('TekniskIsol20[[#This Row],[Ukorrigeret ]]')*$this->roerlaengdeEllerHoejdeAfVvbM*(ABS($this->tempMedieC-$this->tempOmgivelC))*$this->driftstidTAar/1000*$this->nyttiggjortVarme
           : (strcasecmp($this->type, 'beholder') === 0
-             ? ($this->rørstørrelseMmÆkvivalent/1000*PI()*$this->rørlængdeEllerHøjdeAfVvbM+($this->rørstørrelseMmÆkvivalent/1000)^2*PI())*ABS($this->tempMedie°C-$this->tempOmgivel°C)*$this->__get('TekniskIsol20[[#This Row],[Ukorrigeret ]]')*$this->driftstidTÅr/1000
+             ? ($this->roerstoerrelseMmAekvivalent/1000*PI()*$this->roerlaengdeEllerHoejdeAfVvbM+($this->roerstoerrelseMmAekvivalent/1000)^2*PI())*ABS($this->tempMedieC-$this->tempOmgivelC)*$this->__get('TekniskIsol20[[#This Row],[Ukorrigeret ]]')*$this->driftstidTAar/1000
              : null);
 
       case 'AE':
@@ -425,29 +425,29 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
 				}
 
       case 'AF':
-        return $this->standardinvestKrM²EllerKrM > 0
-          ? $this->standardinvestKrM²EllerKrM * $this->rørlængdeEllerHøjdeAfVvbM / ($this->__get('$K$27') * $this->kwhBesparelseElFraVærket + $this->kwhBesparelseVarmeFraVærket * $this->__get('$K$28'))
+        return $this->standardinvestKrM2EllerKrM > 0
+          ? $this->standardinvestKrM2EllerKrM * $this->roerlaengdeEllerHoejdeAfVvbM / ($this->__get('$K$27') * $this->kwhBesparelseElFraVaerket + $this->kwhBesparelseVarmeFraVaerket * $this->__get('$K$28'))
           : null;
 
 
       case 'AG':
-        return $this->varmebespKwhÅr === 0
+        return $this->varmebespKwhAar === 0
           ? null
-          : $this->nvPTO2($this->investeringKr, $this->kwhBesparelseVarmeFraVærket, $this->kwhBesparelseElFraVærket, 0, 0, 0, $this->__get('$G$7'), 1, 0);
+          : $this->nvPTO2($this->investeringKr, $this->kwhBesparelseVarmeFraVaerket, $this->kwhBesparelseElFraVaerket, 0, 0, 0, $this->__get('$G$7'), 1, 0);
 
       case 'AH':
-        return $this->varmebespKwhÅr === 0
+        return $this->varmebespKwhAar === 0
           ? null
           : ($this->__get('INDIRECT(\"\'2.Forsyning\'!$H$3\")') == 1
              ? 0
-             : $this->fordelbesparelse($this->varmebespKwhÅr, $this->__get('$C$13'), 'EL'));
+             : $this->fordelbesparelse($this->varmebespKwhAar, $this->__get('$C$13'), 'EL'));
 
       case 'AI':
-        return $this->varmebespKwhÅr === 0
+        return $this->varmebespKwhAar === 0
           ? null
           : ($this->__get('INDIRECT(\"\'2.Forsyning\'!$H$3\")') == 1
-             ? $this->varmebespKwhÅr
-             : $this->fordelbesparelse($this->varmebespKwhÅr, $this->__get('$C$13'), 'VARME'));
+             ? $this->varmebespKwhAar
+             : $this->fordelbesparelse($this->varmebespKwhAar, $this->__get('$C$13'), 'VARME'));
 
     }
 
