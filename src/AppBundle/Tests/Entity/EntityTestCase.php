@@ -16,27 +16,27 @@ abstract class EntityTestCase extends KernelTestCase {
    *   The entity
    */
   protected function loadEntity($entity, array $properties) {
-    if ($properties) {
-      foreach ($properties as $name => $value) {
-        if ($name == 'id') {
-          $reflectionClass = new \ReflectionClass($entity);
-          $reflectionProperty = $reflectionClass->getProperty('id');
-          $reflectionProperty->setAccessible(true);
-          $reflectionProperty->setValue($entity, $value);
-        } else {
-          $propertyName = $this->getPropertyName($name);
-          $entity->{'set'.$propertyName}($value);
-        }
+    foreach ($properties as $name => $value) {
+      if ($name == 'id') {
+        $reflectionClass = new \ReflectionClass($entity);
+        $reflectionProperty = $reflectionClass->getProperty('id');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue($entity, $value);
+      } else {
+        $propertyName = $this->getPropertyName($name);
+        $entity->{'set'.$propertyName}($value);
       }
+    }
 
-      // Call the protected compute method (!) (cf. https://sebastian-bergmann.de/archives/881-Testing-Your-Privates.html)
-      try {
-        $compute = new \ReflectionMethod($entity, 'compute');
-        if ($compute) {
-          $compute->setAccessible(true);
-          $compute->invoke($entity);
-        }
-      } catch (\ReflectionException $ex) {}
+    // Call the protected compute method (!) (cf. https://sebastian-bergmann.de/archives/881-Testing-Your-Privates.html)
+    try {
+      $compute = new \ReflectionMethod($entity, 'compute');
+      if ($compute) {
+        $compute->setAccessible(true);
+        $compute->invoke($entity);
+      }
+    } catch (\ReflectionException $ex) {
+      // Ignore missing compute method
     }
 
     return $entity;
