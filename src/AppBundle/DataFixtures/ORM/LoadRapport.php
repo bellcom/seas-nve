@@ -127,22 +127,21 @@ class LoadRapport extends LoadData {
       $detail = new TekniskIsoleringTiltagDetail();
       $detail
         ->setTiltag($tiltag)
-        ->setLåstAfEnergirådgiver(!!$values["Låst af energirådgiver"])
+        ->setLaastAfEnergiraadgiver(!!$values["Låst af energirådgiver"])
         ->setTilvalgt(!!$values["Tilvalgt"])
         ->setBeskrivelseType($values["Beskrivelse (type)"])
         ->setType($values["Type"])
-        ->setDriftstidTÅr($values["Driftstid (t/år)"])
+        ->setDriftstidTAar($values["Driftstid (t/år)"])
         ->setUdvDiameterMm($values["Udv. diameter [mm]"])
-         ->setEksistIsolMm($values["Eksist. \nisol. \n[mm]"])
+        ->setEksistIsolMm($values["Eksist. \nisol. \n[mm]"])
         ->setTankVolL($values["Tank-\nvol. (L)"])
-         ->setTempOmgivel°C($values["Temp. omgivel. \n[°C]"])
-         ->setTempMedie°C($values["Temp. \nMedie \n[°C]"])
-         ->setRørlængdeEllerHøjdeAfVvbM($values["Rør-længde  eller højde af VVB\n[m]"])
-         ->setNyttiggjortVarme($values["Nyttiggjort varme [-]"])
-         ->setNyIsolMm($values["Ny \nisol. \n[mm]"])
-         ->setStandardinvestKrM²EllerKrM($values["Standard- \nInvest. \n[kr/m2 eller kr/m]"])
-         ->setPrisfaktor($values["Pris-\nfaktor"])
-        ;
+        ->setTempOmgivelC($values["Temp. omgivel. \n[°C]"])
+        ->setTempMedieC($values["Temp. \nMedie \n[°C]"])
+        ->setRoerlaengdeEllerHoejdeAfVvbM($values["Rør-længde  eller højde af VVB\n[m]"])
+        ->setNyttiggjortVarme($values["Nyttiggjort varme [-]"])
+        ->setNyIsolMm($values["Ny \nisol. \n[mm]"])
+        ->setStandardinvestKrM2EllerKrM($values["Standard- \nInvest. \n[kr/m2 eller kr/m]"])
+        ->setPrisfaktor($values["Pris-\nfaktor"]);
 
       $this->persist($detail);
 
@@ -462,35 +461,35 @@ class LoadRapport extends LoadData {
       case 'Detailark (3)':
         $type = 'TekniskIsoleringTiltagDetail';
         $properties = $getValues(array(
-          "Låst af energirådgiver" => array('LåstAfEnergirådgiver', 'boolean'),
+          "Låst af energirådgiver" => array('LaastAfEnergiraadgiver', 'boolean'),
           "Tilvalgt" => array('Tilvalgt', 'boolean'),
           "Beskrivelse (type)" => 'BeskrivelseType',
           "Type" => 'Type',
-          "Driftstid (t/år)" => 'DriftstidTÅr',
+          "Driftstid (t/år)" => 'DriftstidTAar',
           "Udv. diameter [mm]" => 'UdvDiameterMm',
           "Eksist. \nisol. \n[mm]" => 'EksistIsolMm',
           "Tank-\nvol. (L)" => 'TankVolL',
-          "Temp. omgivel. \n[°C]" => 'TempOmgivel°C',
-          "Temp. \nMedie \n[°C]" => 'TempMedie°C',
-          "Rør-længde  eller højde af VVB\n[m]" => 'RørlængdeEllerHøjdeAfVvbM',
+          "Temp. omgivel. \n[°C]" => 'TempOmgivelC',
+          "Temp. \nMedie \n[°C]" => 'TempMedieC',
+          "Rør-længde  eller højde af VVB\n[m]" => 'RoerlaengdeEllerHoejdeAfVvbM',
           "Nyttiggjort varme [-]" => 'NyttiggjortVarme',
           "Ny \nisol. \n[mm]" => 'NyIsolMm',
-          "Standard- \nInvest. \n[kr/m2 eller kr/m]" => 'StandardinvestKrM²EllerKrM',
+          "Standard- \nInvest. \n[kr/m2 eller kr/m]" => 'StandardinvestKrM2EllerKrM',
           "Pris-\nfaktor" => 'Prisfaktor',
         ));
         $expected = $getValues(array(
-          "Rørstørrelse [mm] ækvivalent" => 'rørstørrelseMmÆkvivalent',
-          "Varmeledningsevne på eksist isolering [W/m·K]" => 'varmeledningsevnePåEksistIsoleringWMK',
-          "Varmeledningsevne på ny isolering [W/m·K]" => 'varmeledningsevnePåNyIsoleringWMK',
-          "Areal af beholder [m2]" => 'arealAfBeholderM²',
+          "Rørstørrelse [mm] ækvivalent" => 'roerstoerrelseMmAekvivalent',
+          "Varmeledningsevne på eksist isolering [W/m·K]" => 'varmeledningsevnePaaEksistIsoleringWMK',
+          "Varmeledningsevne på ny isolering [W/m·K]" => 'varmeledningsevnePaaNyIsoleringWMK',
+          "Areal af beholder [m2]" => 'arealAfBeholderM2',
           "Investering  \n[kr]" => 'investeringKr',
           "Eksist. Varme-\ntab [kwh]" => 'eksistVarmetabKwh',
           "Nyt Varme-\ntab [kwh]" => 'nytVarmetabKwh',
-          "Varme-\nbesp. \n[kWh/år]" => 'varmebespKwhÅr',
-          "Simpel tilbagebetalingstid (år)" => 'simpelTilbagebetalingstidÅr',
-          "Nutidsværdi set over 15 år (kr)" => 'nutidsværdiSetOver15ÅrKr',
-          "kWh-besparelse El fra værket" => 'kwhBesparelseElFraVærket',
-          "kWh-besparelse Varme fra værket" => 'kwhBesparelseVarmeFraVærket',
+          "Varme-\nbesp. \n[kWh/år]" => 'varmebespKwhAar',
+          "Simpel tilbagebetalingstid (år)" => 'simpelTilbagebetalingstidAar',
+          "Nutidsværdi set over 15 år (kr)" => 'nutidsvaerdiSetOver15AarKr',
+          "kWh-besparelse El fra værket" => 'kwhBesparelseElFraVaerket',
+          "kWh-besparelse Varme fra værket" => 'kwhBesparelseVarmeFraVaerket',
           // "Driftparameter  [°Cs/år]",
           // "Eksisterende U-værdi ",
           // "Ukorrigeret ",
@@ -556,16 +555,33 @@ class LoadRapport extends LoadData {
     }
 
     if (stripos($formats, 'php') !== false) {
-      echo PHP_EOL, '=== PHP ' . $type .' start =============================================================================', PHP_EOL;
-      if (count($properties) == count($expected) && count($properties) > 1) {
-        $tests = array();
-        for ($i = 1; $i < count($properties); $i++) {
-          $tests[] = array($properties[$i], $expected[$i]);
+      if ($type) {
+        if (count($properties) == count($expected) && count($properties) > 1) {
+          $tests = array();
+          for ($i = 1; $i < count($properties); $i++) {
+            $tests[] = array($properties[$i], $expected[$i]);
+          }
+
+          $testFixturesPath = null;
+          try {
+            $testFixturesPath = $this->container->get('kernel')
+                              ->locateResource('@AppBundle/DataFixtures/Data/').'fixtures/';
+
+            if (!is_dir($testFixturesPath) && !@mkdir($testFixturesPath, 0777, true)) {
+              $testFixturesPath = null;
+              throw new UploadableInvalidPathException(sprintf('Unable to create "%s" directory.', $testFixturesPath));
+            }
+          } catch (\Exception $ex) {}
+
+          if ($testFixturesPath) {
+            $filepath = $testFixturesPath.$type;
+            $content = json_encode($tests, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            if (@file_put_contents($filepath, $content) !== false) {
+              $this->writeInfo('Unittest data fixtures written to file ' . $filepath);
+            }
+          }
         }
-        echo '// properties, expected', PHP_EOL;
-        echo '$tests = ' . var_export($tests, true) . ';', PHP_EOL;
       }
-      echo PHP_EOL, '=== PHP ' . $type .' end ===============================================================================', PHP_EOL;
     }
   }
 
