@@ -21,17 +21,60 @@ class BelysningTiltagDetailType extends TiltagDetailType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     parent::buildForm($builder, $options);
     $builder
+      //->add('tilvalgt')
       ->add('lokale_navn')
       ->add('lokale_type')
-      ->add('armaturhoejde_m')
-      ->add('rumstoerrelse_m2')
+      ->add('armaturhoejde_m', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'm'
+          )
+        )
+      ))
+      ->add('rumstoerrelse_m2', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'm²'
+          )
+        )
+      ))
       ->add('lokale_antal')
-      ->add('drifttid_t_aar')
+      ->add('drifttid_t_aar', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 't/år'
+          )
+        )
+      ))
       ->add('lyskilde')
-      ->add('lyskilde_stk_armatur')
-      ->add('lyskilde_w_lyskilde')
-      ->add('forkobling_stk_armatur')
-      ->add('armaturer_stk_lokale')
+      ->add('lyskilde_stk_armatur', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'stk/armatur'
+          )
+        )
+      ))
+      ->add('lyskilde_w_lyskilde', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'W/lyskilde'
+          )
+        )
+      ))
+      ->add('forkobling_stk_armatur', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'stk/armatur'
+          )
+        )
+      ))
+      ->add('armaturer_stk_lokale', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'stk/lokale'
+          )
+        )
+      ))
       // ->add('elforbrug_w_m2', null, array( 'disabled' => true, ))
       ->add('placering_id', 'choice', array(
         'choice_list' => new PlaceringRepository(),
@@ -43,17 +86,59 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       ->add('belysningstiltag_id', 'choice', array(
         'choice_list' => new TiltagRepository(),
       ))
-      ->add('nye_sensorer_stk_lokale')
-      ->add('standardinvest_sensor_kr_stk')
+      ->add('nye_sensorer_stk_lokale', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'stk/lokale'
+          )
+        )
+      ))
+      ->add('standardinvest_sensor_kr_stk', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'kr/stk'
+          )
+        )
+      ))
       ->add('reduktion_af_drifttid', 'percent')
       // ->add('ny_driftstid', null, array( 'disabled' => true ))
-      ->add('standardinvest_armatur_el_lyskilde_kr_stk')
+      ->add('standardinvest_armatur_el_lyskilde_kr_stk', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'kr/stk'
+          )
+        )
+      ))
       ->add('ny_lyskilde')
-      ->add('ny_lyskilde_stk_armatur')
-      ->add('ny_lyskilde_w_lyskilde')
-      ->add('ny_forkobling_stk_armatur')
+      ->add('ny_lyskilde_stk_armatur', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'stk/armatur'
+          )
+        )
+      ))
+      ->add('ny_lyskilde_w_lyskilde', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'w/lyskilde'
+          )
+        )
+      ))
+      ->add('ny_forkobling_stk_armatur', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'stk/armatur'
+          )
+        )
+      ))
       // ->add('ny_armatureffekt_w_stk', null, array( 'disabled' => true, ))
-      ->add('nye_armaturer_stk_lokale')
+      ->add('nye_armaturer_stk_lokale', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'stk/lokale'
+          )
+        )
+      ))
       ->add('nyttiggjort_varme_af_el_besparelse', 'percent')
       // ->add('prisfaktor', null, array( 'disabled' => true, ))
       // ->add('prisfaktor_tillaeg_kr_lokale', null, array( 'disabled' => true, ))
