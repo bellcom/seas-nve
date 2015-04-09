@@ -166,7 +166,7 @@ abstract class TiltagDetail {
    * Set tilvalgt
    *
    * @param boolean $tilvalgt
-   * @return PumpeDetail
+   * @return TiltagDetail
    */
   public function setTilvalgt($tilvalgt) {
     $this->tilvalgt = $tilvalgt;
