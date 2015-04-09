@@ -255,3 +255,31 @@ appbundle:
     rapport: Rapport
   tiltagdetail:
     tilvalgt: Tilvalgt
+
+  tekniskisoleringtiltagdetail:
+    laastAfEnergiraadgiver: Låst af energirådgiver
+    beskrivelseType: Beskrivelse (type)
+    type: Type
+    driftstidTAar: Driftstid (t/år)
+    udvDiameterMm: Udv. diameter [mm]
+    eksistIsolMm: Eksist. isol. [mm]
+    roerstoerrelseMmAekvivalent: Rørstørrelse [mm] ækvivalent
+    tankVolL: Tankvol. (L)
+    tempOmgivelC: Temp. omgivel. [°C]
+    tempMedieC: Temp. Medie [°C]
+    roerlaengdeEllerHoejdeAfVvbM: Rørlængde eller højde af VVB [m]
+    nyttiggjortVarme: Nyttiggjort varme [-]
+    nyIsolMm: Ny isol. [mm]
+    varmeledningsevnePaaEksistIsoleringWMK: Varmeledningsevne på eksist isolering [W/m·K]
+    varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering [W/m·K]
+    arealAfBeholderM2: Areal af beholder [m²]
+    standardinvestKrM2EllerKrM: Standardinvest. [kr/m² eller kr/m]
+    prisfaktor: Prisfaktor
+    investeringKr: Investering  [kr]
+    eksistVarmetabKwh: Eksist. varmetab [kwh]
+    nytVarmetabKwh: Nyt varmetab [kwh]
+    varmebespKwhAar: Varmebesp. [kWh/år]
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    kwhBesparelseElFraVaerket: kWh-besparelse El fra værket
+    kwhBesparelseVarmeFraVaerket: kWh-besparelse Varme fra værket
