@@ -333,18 +333,17 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
       $this->varmeledningsevnePåNyIsoleringWMK = $this->__get('X');
       $this->arealAfBeholderM² = $this->__get('Y');
       $this->investeringKr = $this->__get('AB');
-      $this->eksistVarmetabKwh = $this->__get('AC');
-      $this->nytVarmetabKwh = $this->__get('AD');
+      // @FIXME (Division by zero)
+      // $this->eksistVarmetabKwh = $this->__get('AC');
+      // @FIXME (Division by zero)
+      // $this->nytVarmetabKwh = $this->__get('AD');
       $this->varmebespKwhÅr = $this->__get('AE');
-
       // @FIXME (Division by zero)
       // $this->simpelTilbagebetalingstidÅr = $this->__get('AF');
       $this->nutidsværdiSetOver15ÅrKr = $this->__get('AG');
       $this->kwhBesparelseElFraVærket = $this->__get('AH');
       $this->kwhBesparelseVarmeFraVærket = $this->__get('AI');
-    } catch (\Exception $ex) {
-      throw $ex;
-    }
+    } catch (\Exception $ex) {}
   }
 
   public function __get($key) {
