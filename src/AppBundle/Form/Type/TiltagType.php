@@ -52,7 +52,7 @@ class TiltagType extends AbstractType {
         )
       )
       ->add('forsyningVarme')
-      ->add('el')
+      ->add('forsyningEl')
       ->add('beskrivelseNevaerende')
       ->add('beskrivelseForslag')
       ->add('beskrivelseOevrige')

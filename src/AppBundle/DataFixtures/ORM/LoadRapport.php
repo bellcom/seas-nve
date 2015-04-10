@@ -10,6 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Rapport;
+use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\BelysningTiltag;
 use AppBundle\Entity\BelysningTiltagDetail;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
@@ -84,6 +85,19 @@ class LoadRapport extends LoadData {
     $this->writeInfo(get_class($rapport) . ' ' . $rapport->getId() . ' loaded');
   }
 
+  /**
+   * Load a Tiltag with properties shared by all Tiltag
+   */
+  private function loadTiltag(Tiltag $tiltag, Rapport $rapport, \PHPExcel_Worksheet $sheet) {
+    $tiltag
+      ->setRapport($rapport)
+      ->setBeskrivelseForslag($sheet->getCell('A15')->getValue())
+      ->setForsyningVarme($sheet->getCell('C13')->getValue())
+      ->setForsyningEl($sheet->getCell('F13')->getValue());
+
+
+    return $tiltag;
+  }
 
   /* -------------------------------------------------------------------------------- *
    * Teknisk isolering
@@ -96,17 +110,9 @@ class LoadRapport extends LoadData {
    */
   private function loadTekniskIsoleringTiltag(Rapport $rapport) {
     $sheet = $this->workbook->getSheetByName('Detailark (3)');
-
-    $tiltag = new TekniskIsoleringTiltag();
-    $tiltag
-      ->setRapport($rapport)
-      // ->setBeskrivelseForslag($sheet->getCell('A15')->getValue())
-      ;
-
+    $tiltag = $this->loadTiltag(new TekniskIsoleringTiltag(), $rapport, $sheet);
     $this->loadTekniskIsoleringTiltagDetail($tiltag, $sheet);
-
     $this->persist($tiltag);
-
     $this->writeInfo(get_class($tiltag) . ' ' . $tiltag->getId() . ' loaded');
   }
 
@@ -161,18 +167,10 @@ class LoadRapport extends LoadData {
    */
   private function loadBelysningTiltag(Rapport $rapport) {
     $sheet = $this->workbook->getSheetByName('Detailark (4)');
-
+    $tiltag = $this->loadTiltag(new BelysningTiltag(), $rapport, $sheet);
     $this->loadBelysningTiltagDetailLyskilde($sheet);
-
-    $tiltag = new BelysningTiltag();
-    $tiltag
-      ->setRapport($rapport)
-      ->setBeskrivelseForslag($sheet->getCell('A15')->getValue());
-
     $this->loadBelysningTiltagDetail($tiltag, $sheet);
-
     $this->persist($tiltag);
-
     $this->writeInfo(get_class($tiltag) . ' ' . $tiltag->getId() . ' loaded');
   }
 
@@ -295,17 +293,9 @@ class LoadRapport extends LoadData {
    */
   private function loadPumpeTiltag(Rapport $rapport) {
     $sheet = $this->workbook->getSheetByName('Detailark (5)');
-
-    $tiltag = new PumpeTiltag();
-    $tiltag
-      ->setRapport($rapport)
-      // ->setBeskrivelseForslag($sheet->getCell('A15')->getValue())
-      ;
-
+    $tiltag = $this->loadTiltag(new PumpeTiltag(), $rapport, $sheet);
     $this->loadPumpeTiltagDetail($tiltag, $sheet);
-
     $this->persist($tiltag);
-
     $this->writeInfo(get_class($tiltag) . ' ' . $tiltag->getId() . ' loaded');
   }
 
@@ -342,12 +332,7 @@ class LoadRapport extends LoadData {
 
   private function loadKlimaskaermTiltag(Rapport $rapport) {
     $sheet = $this->workbook->getSheetByName('Detailark (7)');
-
-    $tiltag = new KlimaskaermTiltag();
-    $tiltag
-      ->setRapport($rapport)
-      // ->setBeskrivelseForslag($sheet->getCell('A15')->getValue())
-      ;
+    $tiltag = $this->loadTiltag(new KlimaskaermTiltag(), $rapport, $sheet);
 
     $this->loadKlimaskaermTiltagDetail($tiltag, $sheet);
 
@@ -367,7 +352,23 @@ class LoadRapport extends LoadData {
       $detail = new KlimaskaermTiltagDetail();
       $detail
         ->setTiltag($tiltag)
+        ->setLaastAfEnergiraadgiver(!!$values["Låst af energirådgiver"])
         ->setTilvalgt(!!$values["Tilvalgt"])
+        ->setTiltagsnr($values["Tiltagsnr."])
+        ->setTiltagsnrDelpriser($values["Tiltagsnr. Delpriser"])
+        ->setTypePlaceringJfPlantegning($values["Type / \nPlacering jf. \nplantegning"])
+        ->setHoejdeElLaengdeM($values["Højde el. Længde\n(m)"])
+        ->setBreddeM($values["Bredde\n(m)"])
+        ->setAntalStk($values["Antal (stk)"])
+        ->setAndelAfArealDerEfterisoleres($values["Andel af areal der  efterisoleres"])
+        ->setUEksWM2K($values["Ueks (W/m²K)"])
+        ->setUNyWM2K($values["Uny (W/m²K)"])
+        ->setTIndeC($values["Tinde (°C)"])
+        ->setTUdeC($values["Tude (°C)"])
+        ->setTOpvarmningTimerAar($values["topvarmning (timer/år)"])
+        ->setYderligereBesparelserPct($values["Yderligere besparelser (%)"])
+        ->setNoterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet($values["Noter til \nPrisfaktor \nValgte løsning/tiltag\nspecielle forhold \npå stedet"])
+        ->setLevetidAar($values["Levetid [år]"])
         ;
 
       $this->persist($detail);
@@ -420,7 +421,8 @@ class LoadRapport extends LoadData {
   }
 
   private function dumpUnittestData(\PHPExcel_Worksheet $sheet, array $headers, array $cells, $formats) {
-    array_walk($cells, function(&$array, $rowId) use ($sheet) {
+    $calculated = $cells;
+    array_walk($calculated, function(&$array, $rowId) use ($sheet) {
         array_walk($array, function(&$value, $colId, $rowId) use ($sheet) {
             $cell = $sheet->getCell($colId . $rowId);
             if ($cell && $cell->getDataType() == \PHPExcel_Cell_DataType::TYPE_FORMULA) {
@@ -432,7 +434,7 @@ class LoadRapport extends LoadData {
       });
 
     $values = array();
-    foreach ($cells as $rowId => $row) {
+    foreach ($calculated as $rowId => $row) {
       $values[] = array_combine($headers, $row);
     }
 
@@ -537,6 +539,44 @@ class LoadRapport extends LoadData {
 
       case 'Detailark (7)':
         $type = 'KlimaskaermTiltagDetail';
+        $properties = $getValues(array(
+          "Låst af energirådgiver" => 'LaastAfEnergiraadgiver',
+          "Tilvalgt" => 'Tilvalgt',
+          "Tiltagsnr." => 'Tiltagsnr',
+          "Tiltagsnr. Delpriser" => 'TiltagsnrDelpriser',
+          "Type / \nPlacering jf. \nplantegning" => 'TypePlaceringJfPlantegning',
+          "Højde el. Længde\n(m)" => 'HoejdeElLaengdeM',
+          "Bredde\n(m)" => 'BreddeM',
+          "Antal (stk)" => 'AntalStk',
+          "Andel af areal der  efterisoleres" => 'AndelAfArealDerEfterisoleres',
+          "Ueks (W/m²K)" => 'UEksWM2K',
+          "Uny (W/m²K)" => 'UNyWM2K',
+          "Tinde (°C)" => 'TIndeC',
+          "Tude (°C)" => 'TUdeC',
+          "topvarmning (timer/år)" => 'TOpvarmningTimerAar',
+          "Yderligere besparelser (%)" => 'YderligereBesparelserPct',
+          "Noter til \nPrisfaktor \nValgte løsning/tiltag\nspecielle forhold \npå stedet" => 'NoterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet',
+          "Levetid [år]" => 'LevetidAar',
+        ));
+        $expected = $getValues(array(
+          "Areal\n(m²)" => 'arealM2',
+          "Besparelse\n(kWh/år)" => 'besparelseKWhAar',
+          "Samlet Besparelse (kWh/år) \ninkl. delbesparelser" => 'samletBesparelseKWhAarInklDelbesparelser',
+          "Priskategori" => 'priskategori',
+          "Delpris (kr/m2)" => 'delprisKrM2',
+          "Samlet investering (kr)" => 'samletInvesteringKr',
+          "Simpel tilbagebetalingstid (år)" => 'simpelTilbagebetalingstidAar',
+          "Til sortering" => 'tilSortering',
+          "Til summering af delpriser" => 'tilSummeringAfDelpriser',
+          "VaegtetGnm" => 'vaegtetGnm',
+          "Vægtet levetid for tiltaget (afrundet)" => 'vaegtetLevetidForTiltagetAfrundet',
+          "Faktor for reinvestering" => 'faktorForReinvestering',
+          "Nutidsværdi set over 15 år (kr)" => 'nutidsvaerdiSetOver15AarKr',
+          "kWh-bespar. Elværk (Ekstern energikilde)" => 'KWhBesparElvaerkEksternEnergikilde',
+          "kWh-bespar. Varmeværk (ekstern energikilde)" => 'KWhBesparVarmevaerkEksternEnergikilde',
+          "Tilvalgte (deltiltag)" => 'tilvalgteDeltiltag',
+        ));
+
         break;
 
     }
@@ -549,6 +589,7 @@ class LoadRapport extends LoadData {
         'expected' => $expected,
         'headers' => $headers,
         'cells' => $cells,
+        'calculated' => $calculated,
         'values' => $values,
       ), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
       echo PHP_EOL, '=== JSON ' . $type .' end ===============================================================================', PHP_EOL;
