@@ -1219,8 +1219,4 @@ class BelysningTiltagDetail extends TiltagDetail {
     throw new \Exception('Invalid key: '.$key);
   }
 
-  private function fordelbesparelse($a, $b, $c) {
-    return 0;
-  }
-
 }

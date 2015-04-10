@@ -454,47 +454,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     throw new \Exception('Invalid key: '.$key);
   }
 
-  private function nvPTO2($Invest, $BesparKwhVarme, $BesparKwhEl, $Besparm3Vand, $DogV, $Straf, $Levetid, $FaktorReInvest, $SalgAfEnergibesparelse) {
-    $Kalkulationsrente = 0.0292; // Worksheets("1.Tiltagslisterådgiver").Range("ai23").Value;
-    $Inflationsfaktor = 13.8639998427607; // Worksheets("1.Tiltagslisterådgiver").Range("ai26");
-    $Inflation = 0.019; // Worksheets("1.Tiltagslisterådgiver").Range("ak23");
-    $Lobetid = 15; // Worksheets("1.Tiltagslisterådgiver").Range("an23");
-    $Elfaktor = 23.5852836416293; // Worksheets("1.TiltagslisteRådgiver").Range("ah25"); // 'tilbagediskonterede faktorer for energi-priser over 15 år
-    $Varmefaktor = 5.66155209590081; // Worksheets("1.TiltagslisteRådgiver").Range("ah24");
-    $Vandfaktor = 566.621673573629; // Worksheets("1.TiltagslisteRådgiver").Range("ai27");
-
-    $Reinvest = 0;
-    $AntalReinvest = 0;
-    $Scrapvaerdi = 0;
-
-    if ($Levetid > 0) {
-      if ($Levetid < $Lobetid) { // 'reinvestering foretages
-          $AntalReinvest = floor($Lobetid / $Levetid);
-
-          if ($AntalReinvest == 1) {
-            $Reinvest = ($Invest * $FaktorReInvest * (1 + $Inflation) ^ ($Levetid + 1)) / ((1 + $Kalkulationsrente) ^ ($Levetid + 1));
-          }
-          elseif ($AntalReinvest > 1) { // 'kan evt. forbedres til mere statisk formel aht. beregningshastigheden
-            for ($x = 1; $x <= $AntalReinvest; $x++) {
-              $Reinvest = $Reinvest + ($Invest * $FaktorReInvest * (1 + $Inflation) ^ (($Levetid * $x) + 1)) / ((1 + $Kalkulationsrente) ^ (($Levetid * $x) + 1));
-            }
-          }
-        }
-
-
-      if ($Levetid > $Lobetid) { // 'ingen reinvesteringer
-        $Scrapvaerdi = (1 - ($Lobetid / $Levetid)) * $Invest * (1 + $Inflation) ^ $Lobetid;
-      }
-      elseif ($Lobetid - $AntalReinvest * $Levetid == 0) {
-        $Scrapvaerdi = 0;
-      } else {
-        $Scrapvaerdi = (1 - ($Lobetid - $AntalReinvest * $Levetid) / $Levetid) * $Invest * $FaktorReInvest * (1 + $Inflation) ^ $Lobetid;
-      }
-    }
-
-    return ((-$Invest + $SalgAfEnergibesparelse) / (1 + $Kalkulationsrente) ^ 1) + $BesparKwhVarme * $Varmefaktor + $BesparKwhEl * $Elfaktor + $Besparm3Vand * $Vandfaktor + ($Scrapvaerdi / (1 + $Kalkulationsrente) ^ $Lobetid) + ($DogV + $Straf) * $Inflationsfaktor - $Reinvest;
-  }
-
 }
 
 /**
