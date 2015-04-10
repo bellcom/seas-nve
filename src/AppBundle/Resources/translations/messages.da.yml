@@ -243,8 +243,8 @@ appbundle:
     anlaegsInvestering: ﻿Anlægsinvestering (kr)
     dVBesparelse: Besparelse på D&V (kr/år)
     levetid: Funktionsdygtig levetid (år)
-    forsyningVarme: Forsyningvarme
-    el: El
+    forsyningVarme: Forsyning, varme
+    forsyningEl: Forsyning, el
     beskrivelseNevaerende: Nuværende forhold
     beskrivelseForslag: Forslag
     beskrivelseOevrige: Øvrige bemærkninger

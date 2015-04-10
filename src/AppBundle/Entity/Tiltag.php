@@ -161,9 +161,9 @@ abstract class Tiltag {
   /**
    * @var string
    *
-   * @ORM\Column(name="El", type="string", length=50, nullable=true)
+   * @ORM\Column(name="ForsyningEl", type="string", length=50, nullable=true)
    */
-  private $el;
+  private $forsyningEl;
 
   /**
    * @var string
@@ -430,24 +430,24 @@ abstract class Tiltag {
   }
 
   /**
-   * Set el
+   * Set forsyningEl
    *
-   * @param string $el
+   * @param string $forsyningEl
    * @return Tiltag
    */
-  public function setEl($el) {
-    $this->el = $el;
+  public function setForsyningEl($forsyningEl) {
+    $this->forsyningEl = $forsyningEl;
 
     return $this;
   }
 
   /**
-   * Get el
+   * Get forsyningEl
    *
    * @return string
    */
-  public function getEl() {
-    return $this->el;
+  public function getForsyningEl() {
+    return $this->forsyningEl;
   }
 
   /**
