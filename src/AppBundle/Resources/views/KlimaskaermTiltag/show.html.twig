@@ -1,0 +1,102 @@
+{% extends 'AppBundle:Tiltag:show.html.twig' %}
+
+{% block body -%}
+  {{ parent() }}
+{% endblock %}
+
+{% block detailark -%}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-header-rotated table-hover">
+          <thead>
+            <tr>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.tiltagdetail.tilvalgt' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.tiltagsnr' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.tiltagsnrDelpriser' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.typePlaceringJfPlantegning' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.hoejdeElLaengdeM' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.breddeM' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.antalStk' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.arealM2' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.andelAfArealDerEfterisoleres' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.uEksWM2K' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.uNyWM2K' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.tIndeC' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.tUdeC' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.tOpvarmningTimerAar' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.yderligereBesparelserPct' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.besparelseKWhAar' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.samletBesparelseKWhAarInklDelbesparelser' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.priskategori' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.prisfaktor' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.delprisKrM2' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.samletInvesteringKr' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.tilSortering' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.tilSummeringAfDelpriser' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.levetidAar' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.vaegtetGnm' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.vaegtetLevetidForTiltagetAfrundet' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.faktorForReinvestering' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.kWhBesparElvaerkEksternEnergikilde' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.kWhBesparVarmevaerkEksternEnergikilde' | trans }}</span></div></th>
+              <th class="rotate"><div><span>{{ 'appbundle.klimaskaermtiltagdetail.tilvalgteDeltiltag' | trans }}</span></div></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for detail in entity.details %}
+              <tr>
+                <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
+                <td>{{ detail.tilvalgt | b2icon }}</td>
+                <td>{{ detail.tiltagsnr | localizednumber }}</td>
+                <td>{{ detail.tiltagsnrDelpriser | localizednumber }}</td>
+                <td>{{ detail.typePlaceringJfPlantegning }}</td>
+                <td>{{ detail.hoejdeElLaengdeM | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.breddeM | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.antalStk | localizednumber }}</td>
+                <td>{{ detail.arealM2 | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.andelAfArealDerEfterisoleres | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.uEksWM2K | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.uNyWM2K | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.tIndeC | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.tUdeC | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.tOpvarmningTimerAar | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.yderligereBesparelserPct | localizednumber('percent') }}</td>
+                <td>{{ detail.besparelseKWhAar | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.samletBesparelseKWhAarInklDelbesparelser | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.priskategori }}</td>
+                <td>{{ detail.prisfaktor }}</td>
+                <td>{{ detail.delprisKrM2 | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.samletInvesteringKr | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.simpelTilbagebetalingstidAar | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
+                <td>{{ detail.tilSortering }}</td>
+                <td>{{ detail.tilSummeringAfDelpriser }}</td>
+                <td>{{ detail.levetidAar | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.vaegtetGnm | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.vaegtetLevetidForTiltagetAfrundet | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.faktorForReinvestering | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.nutidsvaerdiSetOver15AarKr | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.kWhBesparElvaerkEksternEnergikilde | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.kWhBesparVarmevaerkEksternEnergikilde | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.tilvalgteDeltiltag | localizednumber('decimal', 'double') }}</td>
+                <td>
+                  <a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+                  <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {% form_theme create_detail_form 'AppBundle:Form:modal-form.html.twig' %}
+    {{ form(create_detail_form) }}
+
+{% endblock %}
