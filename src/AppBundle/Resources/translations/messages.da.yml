@@ -256,8 +256,8 @@ appbundle:
     anlaegsInvestering: ﻿Anlægsinvestering (kr)
     dVBesparelse: Besparelse på D&V (kr/år)
     levetid: Funktionsdygtig levetid (år)
-    forsyningVarme: Forsyningvarme
-    el: El
+    forsyningVarme: Forsyning, varme
+    forsyningEl: Forsyning, el
     beskrivelseNevaerende: Nuværende forhold
     beskrivelseForslag: Forslag
     beskrivelseOevrige: Øvrige bemærkninger
@@ -268,3 +268,66 @@ appbundle:
     rapport: Rapport
   tiltagdetail:
     tilvalgt: Tilvalgt
+
+  tekniskisoleringtiltagdetail:
+    laastAfEnergiraadgiver: Låst af energirådgiver
+    beskrivelseType: Beskrivelse (type)
+    type: Type
+    driftstidTAar: Driftstid (t/år)
+    udvDiameterMm: Udv. diameter [mm]
+    eksistIsolMm: Eksist. isol. [mm]
+    roerstoerrelseMmAekvivalent: Rørstørrelse [mm] ækvivalent
+    tankVolL: Tankvol. (L)
+    tempOmgivelC: Temp. omgivel. [°C]
+    tempMedieC: Temp. Medie [°C]
+    roerlaengdeEllerHoejdeAfVvbM: Rørlængde eller højde af VVB [m]
+    nyttiggjortVarme: Nyttiggjort varme [-]
+    nyIsolMm: Ny isol. [mm]
+    varmeledningsevnePaaEksistIsoleringWMK: Varmeledningsevne på eksist isolering [W/m·K]
+    varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering [W/m·K]
+    arealAfBeholderM2: Areal af beholder [m²]
+    standardinvestKrM2EllerKrM: Standardinvest. [kr/m² eller kr/m]
+    prisfaktor: Prisfaktor
+    investeringKr: Investering  [kr]
+    eksistVarmetabKwh: Eksist. varmetab [kwh]
+    nytVarmetabKwh: Nyt varmetab [kwh]
+    varmebespKwhAar: Varmebesp. [kWh/år]
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    kwhBesparelseElFraVaerket: kWh-besparelse El fra værket
+    kwhBesparelseVarmeFraVaerket: kWh-besparelse Varme fra værket
+
+  klimaskaermtiltagdetail:
+    laastAfEnergiraadgiver: Låst af energirådgiver
+    tiltagsnr: Tiltagsnr.
+    tiltagsnrDelpriser: Tiltagsnr. Delpriser
+    typePlaceringJfPlantegning: Type/placering jf. plantegning
+    hoejdeElLaengdeM: Højde el. Længde (m)
+    breddeM: Bredde (m)
+    antalStk: Antal (stk)
+    arealM2: Areal (m²)
+    andelAfArealDerEfterisoleres: Andel af areal der efterisoleres
+    uEksWM2K: U_eks (W/m²K)
+    uNyWM2K: U_ny (W/m²K)
+    tIndeC: T_inde (°C)
+    tUdeC: T_ude (°C)
+    tOpvarmningTimerAar: t_opvarmning (timer/år)
+    yderligereBesparelserPct: Yderligere besparelser (%)
+    besparelseKWhAar: Besparelse (kWh/år)
+    samletBesparelseKWhAarInklDelbesparelser: Samlet Besparelse (kWh/år) inkl. delbesparelser
+    priskategori: Priskategori
+    prisfaktor: Prisfaktor
+    delprisKrM2: Delpris (kr/m2)
+    samletInvesteringKr: Samlet investering (kr)
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
+    tilSortering: Til sortering
+    tilSummeringAfDelpriser: Til summering af delpriser
+    levetidAar: Levetid (år)
+    vaegtetGnm: VaegtetGnm
+    vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
+    faktorForReinvestering: Faktor for reinvestering
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
+    kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
+    tilvalgteDeltiltag: Tilvalgte (deltiltag)
