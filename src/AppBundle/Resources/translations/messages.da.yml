@@ -18,6 +18,10 @@ rapporter:
     edit: Rediger Rapport
     create: Opret Rapport
   strings:
+    belysningtiltag: Belysning
+    klimaskaermtiltag: Klimaskærm
+    pumpetiltag: Pumper
+    specialtiltag: Special
     teknisk_isolering: Teknsik isolering
     tiltag: Tiltag
 
@@ -170,6 +174,7 @@ appbundle:
     vandNotat: Vand notat
     elNotat: El notat
     varmeNotat: Varme notat
+    users: Brugere
   pumpe:
     nuvaerendeType: Nuværende Type
     byggemaal: Byggemål
