@@ -55,9 +55,9 @@ class PumpeTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="b_faktor", type="decimal")
+   * @ORM\Column(name="bFaktor", type="float")
    */
-  private $b_faktor;
+  private $bFaktor;
 
   /**
    * @var string
@@ -199,24 +199,24 @@ class PumpeTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set b_faktor
+   * Set bFaktor
    *
    * @param string $bFaktor
    * @return PumpeDetail
    */
   public function setBFaktor($bFaktor) {
-    $this->b_faktor = $bFaktor;
+    $this->bFaktor = $bFaktor;
 
     return $this;
   }
 
   /**
-   * Get b_faktor
+   * Get bFaktor
    *
    * @return string
    */
   public function getBFaktor() {
-    return $this->b_faktor;
+    return $this->bFaktor;
   }
 
   /**
