@@ -48,8 +48,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
 
   /**
    * @var double
-   *
-   * @ORM\Column(name="roerstoerrelseMmAekvivalent", type="float")
    */
   private $roerstoerrelseMmAekvivalent;
 
