@@ -139,7 +139,8 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   private $samletBesparelseKWhAarInklDelbesparelser;
 
   /**
-   * @var float
+   * @var string
+   * @ORM\Column(name="priskategori", type="string")
    */
   private $priskategori;
 
@@ -567,9 +568,20 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   /**
+   * Set priskategori
+   *
+   * @return KlimaskaermTiltagDetail
+   */
+  public function setPriskategori($priskategori) {
+    $this->priskategori = $priskategori;
+
+    return $this;
+  }
+
+  /**
    * Get priskategori
    *
-   * @return float
+   * @return string
    */
   public function getPriskategori() {
     return $this->priskategori;
