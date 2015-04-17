@@ -12,13 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
-   * @var boolean
-   *
-   * @ORM\Column(name="laastAfEnergiraadgiver", type="boolean")
-   */
-  private $laastAfEnergiraadgiver;
-
-  /**
    * @var integer
    *
    * @ORM\Column(name="tiltagsnr", type="integer")
@@ -209,28 +202,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @var float
    */
   private $tilvalgteDeltiltag;
-
-
-  /**
-   * Set laastAfEnergiraadgiver
-   *
-   * @param boolean $laastAfEnergiraadgiver
-   * @return KlimaskaermTiltagDetail
-   */
-  public function setLaastAfEnergiraadgiver($laastAfEnergiraadgiver) {
-    $this->laastAfEnergiraadgiver = $laastAfEnergiraadgiver;
-
-    return $this;
-  }
-
-  /**
-   * Get laastAfEnergiraadgiver
-   *
-   * @return boolean
-   */
-  public function getLaastAfEnergiraadgiver() {
-    return $this->laastAfEnergiraadgiver;
-  }
 
   /**
    * Set tiltagsnr

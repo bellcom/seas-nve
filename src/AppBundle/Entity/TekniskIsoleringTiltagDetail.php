@@ -12,13 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
-   * @var boolean
-   *
-   * @ORM\Column(name="laastAfEnergiraadgiver", type="boolean")
-   */
-  private $laastAfEnergiraadgiver;
-
-  /**
    * @var string
    *
    * @ORM\Column(name="beskrivelseType", type="text")
@@ -137,16 +130,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   private $kwhBesparelseElFraVaerket;
 
   private $kwhBesparelseVarmeFraVaerket;
-
-  public function setLaastAfEnergiraadgiver($laastAfEnergiraadgiver) {
-    $this->laastAfEnergiraadgiver = $laastAfEnergiraadgiver;
-
-    return $this;
-  }
-
-  public function getLaastAfEnergiraadgiver() {
-    return $this->laastAfEnergiraadgiver;
-  }
 
   public function setBeskrivelseType($beskrivelseType) {
     $this->beskrivelseType = $beskrivelseType;

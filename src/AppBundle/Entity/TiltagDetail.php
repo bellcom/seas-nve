@@ -184,6 +184,34 @@ abstract class TiltagDetail {
   }
 
   /**
+   * @var boolean
+   *
+   * @ORM\Column(name="laastAfEnergiraadgiver", type="boolean")
+   */
+  private $laastAfEnergiraadgiver;
+
+    /**
+   * Set laastAfEnergiraadgiver
+   *
+   * @param boolean $laastAfEnergiraadgiver
+   * @return KlimaskaermTiltagDetail
+   */
+  public function setLaastAfEnergiraadgiver($laastAfEnergiraadgiver) {
+    $this->laastAfEnergiraadgiver = $laastAfEnergiraadgiver;
+
+    return $this;
+  }
+
+  /**
+   * Get laastAfEnergiraadgiver
+   *
+   * @return boolean
+   */
+  public function getLaastAfEnergiraadgiver() {
+    return $this->laastAfEnergiraadgiver;
+  }
+
+  /**
    * Handle uploads.
    * @param $manager
    */
