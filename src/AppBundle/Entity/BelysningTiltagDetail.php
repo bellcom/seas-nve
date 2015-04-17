@@ -945,7 +945,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     return $this->kwh_besparelse_varme_fra_varmevaerket;
   }
 
-  protected function compute() {
+  public function compute() {
     // @FIXME
     try {
       $this->elforbrug_w_m2 = $this->__get('AB');

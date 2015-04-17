@@ -695,7 +695,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     return $this->tilvalgteDeltiltag;
   }
 
-  protected function compute() {
+  public function compute() {
     $this->arealM2 = $this->__get('Q');
     $this->besparelseKWhAar = $this->__get('Y');
     $this->samletBesparelseKWhAarInklDelbesparelser = $this->__get('Z');

@@ -230,7 +230,7 @@ abstract class TiltagDetail {
   /**
    * Compute stuff.
    */
-  protected function compute() {}
+  public function compute() {}
 
   protected function fordelbesparelse($a, $b, $c) {
     return 0;

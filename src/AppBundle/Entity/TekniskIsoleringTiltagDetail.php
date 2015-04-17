@@ -307,7 +307,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     return $this->kwhBesparelseVarmeFraVaerket;
   }
 
-  protected function compute() {
+  public function compute() {
     try {
       $this->roerstoerrelseMmAekvivalent = $this->__get('P');
       $this->varmeledningsevnePaaEksistIsoleringWMK = $this->__get('W');
