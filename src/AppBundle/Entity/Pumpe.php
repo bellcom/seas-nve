@@ -168,6 +168,11 @@ class Pumpe {
   private $roerstoerrelse;
 
   /**
+   * @var float
+   */
+  private $besparelseVedIsoleringskappe = null;
+
+  /**
    * Get Name
    *
    * @return string
@@ -605,5 +610,37 @@ class Pumpe {
   public function getRoerstoerrelse() {
     return $this->roerstoerrelse;
   }
+
+  /**
+   *
+   */
+  public function getBesparelseVedIsoleringskappe() {
+    if ($this->besparelseVedIsoleringskappe === null) {
+      $this->besparelseVedIsoleringskappe = $this->computeBesparelseVedIsoleringskappe();
+    }
+    return $this->besparelseVedIsoleringskappe;
+  }
+
+  private function computeBesparelseVedIsoleringskappe() {
+    $standardtemperatur = (45 - 12);
+    $varmetab = self::$varmetabstabel[$this->roerstoerrelse];
+    return ($varmetab[1] - $varmetab[2]) * 2 * $standardtemperatur * 5448 / 1000;
+  }
+
+  private static $varmetabstabel = array(
+    // 'Isol. (mm' => [ 'Isolering/Diameter mm', '0 mm', '30 mm' ]
+    '3/8"' => array( 17.2, 0.83, 0.16 ),
+    '1/2"' => array( 21.3, 1.01, 0.17 ),
+    '3/4"' => array( 26.9, 1.23, 0.2 ),
+    '1"' => array( 33.7, 1.49, 0.23 ),
+    '1-1/4"' => array( 42.4, 1.82, 0.26 ),
+    '1-1/2"' => array( 48.3, 2.04, 0.28 ),
+    '2"' => array( 60.3, 2.47, 0.33 ),
+    '2-1/2"' => array( 76.1, 3.03, 0.39 ),
+    '3"' => array( 88.9, 3.46, 0.44 ),
+    '4"' => array( 114.3, 4.31, 0.54 ),
+    '5"' => array( 139.7, 5.15, 0.63 ),
+    '6"' => array( 168.2, 6.03, 0.74 ),
+  );
 
 }
