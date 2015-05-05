@@ -402,7 +402,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     } else if ($this->__get('INDIRECT(\"\'2.Forsyning\'!$H$3\")') == 1) {
       return 0;
     } else {
-      return $this->fordelbesparelse($this->varmebespKwhAar, $this->__get('$C$13'), 'EL');
+      return $this->fordelbesparelse($this->varmebespKwhAar, $this->tiltag->getForsyningVarme(), 'EL');
     }
   }
 
@@ -413,7 +413,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     } else if ($this->__get('INDIRECT(\"\'2.Forsyning\'!$H$3\")') == 1) {
       return $this->varmebespKwhAar;
     } else {
-      return $this->fordelbesparelse($this->varmebespKwhAar, $this->__get('$C$13'), 'VARME');
+      return $this->fordelbesparelse($this->varmebespKwhAar, $this->tiltag->getForsyningVarme(), 'VARME');
     }
   }
 
@@ -422,7 +422,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     if ($this->standardinvestKrM2EllerKrM > 0) {
       // @FIXME: Division by zero
       return ($this->standardinvestKrM2EllerKrM * $this->roerlaengdeEllerHoejdeAfVvbM)
-        / ($this->__get('$K$27') * $this->kwhBesparelseElFraVaerket + $this->kwhBesparelseVarmeFraVaerket * $this->__get('$K$28'));
+        / ($this->getRapport()->getElKrKWh() * $this->kwhBesparelseElFraVaerket + $this->getRapport()->getVarmeKrKWh() * $this->kwhBesparelseVarmeFraVaerket);
     } else {
       return 0;
     }
@@ -432,7 +432,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     if ($this->varmebespKwhAar == 0) {
       return 0;
     } else {
-      return $this->nvPTO2($this->investeringKr, $this->kwhBesparelseVarmeFraVaerket, $this->kwhBesparelseElFraVaerket, 0, 0, 0, $this->getTiltag()->getLevetid(), 1, 0);
+      return $this->nvPTO2($this->investeringKr, $this->kwhBesparelseVarmeFraVaerket, $this->kwhBesparelseElFraVaerket, 0, 0, 0, $this->tiltag->getLevetid(), 1, 0);
     }
   }
 
@@ -480,18 +480,8 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
         // =IF(AND(A15="Hovedforsyning El",J15="El",I15=1,H15=1,A16="Fjernvarme",J16="Varme",I16=1,H16=1),1,"ikke standardforsyning")
         return 1;
 
-      case '$K$27':
-        // @FIXME: Elpris
-        // =INDIRECT("'1.TiltagslisteRådgiver'!$ai$7")
-        return 1.609478;
-
       case '$AC$25':
         return 9;
-
-      case '$K$28':
-        // @FIXME: Varmepris
-        // =INDIRECT("'1.TiltagslisteRådgiver'!$ai$6")
-        return 0.491;
     }
 
     throw new \Exception('Invalid key: '.$key);
@@ -500,57 +490,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
 }
 
 /**
-    Public Function NvPTO2(Invest As Single, BesparKwhVarme As Single, BesparKwhEl As Single, Besparm3Vand As Single, DogV As Single, Straf As Single, Levetid As Single, FaktorReInvest As Single, SalgAfEnergibesparelse)
-Dim Kalkulationsrente As Single
-Dim Inflationsfaktor As Single
-Dim Inflation As Single
-Dim Lobetid As Integer
-Dim AntalReinvest As Integer
-Dim Elfaktor As Single
-Dim Varmefaktor As Single
-Dim Vandfaktor As Single
-Dim Scrapvaerdi As Long
-Dim Reinvest As Single
-Dim x As Integer
-
-Kalkulationsrente = Worksheets("1.Tiltagslisterådgiver").Range("ai23").Value
-Inflationsfaktor = Worksheets("1.Tiltagslisterådgiver").Range("ai26")
-Inflation = Worksheets("1.Tiltagslisterådgiver").Range("ak23")
-Lobetid = Worksheets("1.Tiltagslisterådgiver").Range("an23")
-Elfaktor = Worksheets("1.TiltagslisteRådgiver").Range("ah25") 'tilbagediskonterede faktorer for energi-priser over 15 år
-Varmefaktor = Worksheets("1.TiltagslisteRådgiver").Range("ah24")
-Vandfaktor = Worksheets("1.TiltagslisteRådgiver").Range("ai27")
-
-Reinvest = 0
-AntalReinvest = 0
-
-If Levetid > 0 Then
-If Levetid < Lobetid Then 'reinvestering foretages
-    AntalReinvest = Application.RoundDown(Lobetid / Levetid, 0)
-
-    If AntalReinvest = 1 Then
-        Reinvest = (Invest * FaktorReInvest * (1 + Inflation) ^ (Levetid + 1)) / ((1 + Kalkulationsrente) ^ (Levetid + 1))
-    ElseIf AntalReinvest > 1 Then 'kan evt. forbedres til mere statisk formel aht. beregningshastigheden
-        For x = 1 To AntalReinvest
-            Reinvest = Reinvest + (Invest * FaktorReInvest * (1 + Inflation) ^ ((Levetid * x) + 1)) / ((1 + Kalkulationsrente) ^ ((Levetid * x) + 1))
-        Next
-    End If
-
-End If
-
-
-If Levetid > Lobetid Then 'ingen reinvesteringer
-    Scrapvaerdi = (1 - (Lobetid / Levetid)) * Invest * (1 + Inflation) ^ Lobetid
-ElseIf (Lobetid - AntalReinvest * Levetid) = 0 Then
-   Scrapvaerdi = 0
-Else
-    Scrapvaerdi = (1 - (Lobetid - AntalReinvest * Levetid) / Levetid) * Invest * FaktorReInvest * (1 + Inflation) ^ Lobetid
-End If
-End If
-
-    NvPTO2 = ((-Invest + SalgAfEnergibesparelse) / (1 + Kalkulationsrente) ^ 1) + BesparKwhVarme * Varmefaktor + BesparKwhEl * Elfaktor + Besparm3Vand * Vandfaktor + (Scrapvaerdi / (1 + Kalkulationsrente) ^ Lobetid) + (DogV + Straf) * Inflationsfaktor - Reinvest
-End Function
-
 Public Function FordelBesparelse(BesparKwh As Single, Kilde As String, typen As String)
 
 Dim lastRow As Integer
@@ -626,11 +565,11 @@ ActiveSheet.unprotect Password:="ptodem"
 With ActiveSheet
         If .Range("h8") = "TekniskIsol" Then
             omraade = "af49"
-            formel = "=IF(TekniskIsol20[[#This Row],[Varme-" & Chr(10) & "besp. " & Chr(10) & "'[kWh/år']]]="""",""""," & Chr(10) & "nvPTO2(TekniskIsol20[[#This Row],[Investering  " & Chr(10) & "'[kr']]],TekniskIsol20[[#This Row],[kWh-besparelse Varme fra værket]],TekniskIsol20[[#This Row],[kWh-besparelse El fra værket]],0,0,0,R7C7,1,0))"
+            formel = "=IF(TekniskIsol20[[#This Row],[Varme-" & Chr(10) & "besp. " & Chr(10) & "'[kWh/år']]]="""",""""," & Chr(10) & "nvPTO2(TekniskIsol20[[#This Row],[Investering  " & Chr(10) & "'[kr']]],TekniskIsol20[[#This Row],[kWh-besparelse Varme fra værket]],TekniskIsol20[[#This Row],[kWh-besparelse El fra værket]],0,0,0,$G$7,1,0))"
 
         ElseIf .Range("h8") = "VandbesparWC" Then
             omraade = "aa43"
-            formel = "=IF(Table14[[#This Row],[Simpel tilbagebetalingstid (år)]]="""","""",nvPTO2(Table14[[#This Row],[Samlet investering (kr)]],0,0,Table14[[#This Row],[Vandbespar. (m³/år)]],0,0,R7C7,R11C3,0))"
+            formel = "=IF(Table14[[#This Row],[Simpel tilbagebetalingstid (år)]]="""","""",nvPTO2(Table14[[#This Row],[Samlet investering (kr)]],0,0,Table14[[#This Row],[Vandbespar. (m³/år)]],0,0,$G$7,R11C3,0))"
 
         ElseIf .Range("h8") = "Belysning" Then
             omraade = "bq42"
@@ -638,7 +577,7 @@ With ActiveSheet
 
         ElseIf .Range("h8") = "Pumper" Then
             omraade = "as37"
-            formel = "=IF(AND(Table12[[#This Row],[kWh-besparelse El fra værket]]=0,Table12[[#This Row],[kWh-besparelse Varme fra værket]]=0),0," & Chr(10) & "nvPTO2(Table12[[#This Row],[Samlet investering inkl. pristillæg]],Table12[[#This Row],[kWh-besparelse Varme fra værket]],Table12[[#This Row],[kWh-besparelse El fra værket]],0,0,0,R7C7,1,0))"
+            formel = "=IF(AND(Table12[[#This Row],[kWh-besparelse El fra værket]]=0,Table12[[#This Row],[kWh-besparelse Varme fra værket]]=0),0," & Chr(10) & "nvPTO2(Table12[[#This Row],[Samlet investering inkl. pristillæg]],Table12[[#This Row],[kWh-besparelse Varme fra værket]],Table12[[#This Row],[kWh-besparelse El fra værket]],0,0,0,$G$7,1,0))"
 
         ElseIf .Range("h8") = "Klimaskaerm" Then
             omraade = "am39"
@@ -646,7 +585,7 @@ With ActiveSheet
 
         ElseIf .Range("h8") = "Vandbespar" Then
             omraade = "ai53"
-            formel = "=IF(AND(Table1419[[#This Row],[kWh-besparelse El fra værket]]=0,Table1419[[#This Row],[kWh-besparelse Varme fra værket]]=0,Table1419[[#This Row],[Vandbesparelse (m³/år)]]=""""),""""," & Chr(10) & "nvPTO2(Table1419[[#This Row],[Samlet investering (kr)]],Table1419[[#This Row],[kWh-besparelse Varme fra værket]],Table1419[[#This Row],[kWh-besparelse El fra værket]],Table1419[[#This Row],[Vandbesparelse (m³/år)]],0,0,R7C7,1,0))"
+            formel = "=IF(AND(Table1419[[#This Row],[kWh-besparelse El fra værket]]=0,Table1419[[#This Row],[kWh-besparelse Varme fra værket]]=0,Table1419[[#This Row],[Vandbesparelse (m³/år)]]=""""),""""," & Chr(10) & "nvPTO2(Table1419[[#This Row],[Samlet investering (kr)]],Table1419[[#This Row],[kWh-besparelse Varme fra værket]],Table1419[[#This Row],[kWh-besparelse El fra værket]],Table1419[[#This Row],[Vandbesparelse (m³/år)]],0,0,$G$7,1,0))"
 
         Else
             Exit Sub 'ingen standardark fundet

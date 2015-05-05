@@ -948,7 +948,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   public function compute() {
     // @FIXME
     try {
-      $this->elforbrug_w_m2 = $this->__get('AB');
+      $this->elforbrug_w_m2 = $this->computeElforbrugWM2();
       $this->ny_driftstid = $this->__get('AM');
       $this->ny_armatureffekt_w_stk = $this->__get('AU');
       $this->prisfaktor_tillaeg_kr_lokale = $this->__get('AY');
@@ -961,6 +961,67 @@ class BelysningTiltagDetail extends TiltagDetail {
       $this->kwh_besparelse_el = $this->__get('BR');
       $this->kwh_besparelse_varme_fra_varmevaerket = $this->__get('BS');
     } catch (\Exception $ex) {}
+  }
+
+  private function computeElforbrugWM2() {
+    // "AC": {
+    //     "calculated": "=IF(OR(Table10[[#This Row],[Rumstørrelse '[m2']]]=\"\",Table10[[#This Row],[Armatureffekt (W/stk)]]=\"\",Table10[[#This Row],[Armaturer (stk/lokale)]]=\"\"),\"\",Table10[[#This Row],[Armatureffekt (W/stk)]]*Table10[[#This Row],[Armaturer (stk/lokale)]]/Table10[[#This Row],[Rumstørrelse '[m2']]])",
+    //     "name": "Elforbrug(W/m2)"
+    // },
+    $armaturEffekt = $this->computeArmaturEffekt();
+
+    if ($this->rumstoerrelse_m2 == 0 || $armaturEffekt == 0 || $this->armaturer_stk_lokale == 0) {
+      return 0;
+    }
+    else {
+      return $armaturEffekt * $this->armaturer_stk_lokale / $this->rumstoerrelse_m2;
+    }
+  }
+
+  private function computeArmaturEffekt() {
+    // 'Z'
+    // return 1;
+
+    return ((!$this->__get('Lyskilde, type')
+             || !$this->__get('Lyskilde,  (stk/armatur)')
+             || !$this->__get('Lyskilde, (W/lyskilde)'))
+            ? null
+            : (($this->__get('Lyskilde, type') == 'LED-rør'
+                || $this->__get('Lyskilde, type') == 'LEDpære'
+                ? ($this->__get('Lyskilde, (W/lyskilde)')+1)*$this->__get('Lyskilde,  (stk/armatur)')
+                : (($this->__get('Lyskilde, type') == 'Hal.'
+                    || $this->__get('Lyskilde, type') == 'Gl'
+                    || $this->__get('Lyskilde, type') == 'Sp.'
+                    || $this->__get('Lyskilde, type') == 'LED-arm.'
+                    ? $this->__get('Lyskilde, (W/lyskilde)')*$this->__get('Lyskilde,  (stk/armatur)')
+                    : ($this->__get('Lyskilde, type') == 'Kom. K'
+                       ? ($this->__get('Lyskilde,  (stk/armatur)')*$this->__get('Lyskilde, (W/lyskilde)')*1.1817+2.44275+(1.2794*($this->__get('Lyskilde,  (stk/armatur)')-1)*0.9432))
+                       : ($this->__get('Lyskilde, type') == 'Hal.'
+                          ? 1.0832*$this->__get('Lyskilde, (W/lyskilde)') + 0.192
+                          : (($this->__get('Forkobling SKJULES') == 'konv.'
+                              && $this->__get('Lyskilde, (W/lyskilde)') < 14.99)
+                             ? 8.5*$this->__get('Forkobling (stk/armatur)')+$this->__get('Lyskilde,  (stk/armatur)')*$this->__get('Lyskilde, (W/lyskilde)')
+                             : (($this->__get('Forkobling SKJULES') == 'konv.'
+                                 && $this->__get('Lyskilde, (W/lyskilde)') > 14.99
+                                 && $this->__get('Lyskilde, (W/lyskilde)') < 35.99)
+                                ? 10*$this->__get('Forkobling (stk/armatur)')+$this->__get('Lyskilde,  (stk/armatur)')*$this->__get('Lyskilde, (W/lyskilde)')
+                                : (($this->__get('Forkobling SKJULES') == 'konv.'
+                                    && $this->__get('Lyskilde, (W/lyskilde)') > 35.99)
+                                   ? 12*$this->__get('Forkobling (stk/armatur)')+$this->__get('Lyskilde,  (stk/armatur)')*$this->__get('Lyskilde, (W/lyskilde)')
+                                   : ($this->__get('Forkobling SKJULES') == 'hf'
+                                      ? $this->__get('Forkobling (stk/armatur)')*2+$this->__get('Lyskilde, (W/lyskilde)')*$this->__get('Lyskilde,  (stk/armatur)')
+                                      : null
+                                   )
+                                )
+                             )
+                          )
+                       )
+                    )
+                )
+                )
+            )
+            )
+    );
   }
 
   public function __get($key) {
@@ -1210,10 +1271,10 @@ class BelysningTiltagDetail extends TiltagDetail {
         return (!$this->__get('Elbesparelse, Alle lokaler (kWh/år)') && !$this->__get('Varmebespar., Alle lokaler (kWh/år)')) ? null
           : ($this->__get('INDIRECT("\'2.Forsyning\'!$H$3")') == 1
              ? $this->__get('Elbesparelse, Alle lokaler (kWh/år)')
-             : $this->fordelbesparelse($this->__get('Varmebespar., Alle lokaler (kWh/år)'), $this->__get('$C$13'), 'EL')+$this->__get('Elbesparelse, Alle lokaler (kWh/år)'));
+             : $this->fordelbesparelse($this->__get('Varmebespar., Alle lokaler (kWh/år)'), $this->tiltag->getForsyningVarme(), 'EL')+$this->__get('Elbesparelse, Alle lokaler (kWh/år)'));
       case 'BS': // kWh-besparelse Varme fra varmeværket
         return !$this->__get('Varmebespar., Alle lokaler (kWh/år)') ? null
-          : ($this->__get('INDIRECT("\'2.Forsyning\'!$H$3")') == 1 ? $this->__get('Varmebespar., Alle lokaler (kWh/år)') : $this->fordelbesparelse($this->__get('Varmebespar., Alle lokaler (kWh/år)'), $this->__get('$C$13'), 'VARME'));
+          : ($this->__get('INDIRECT("\'2.Forsyning\'!$H$3")') == 1 ? $this->__get('Varmebespar., Alle lokaler (kWh/år)') : $this->fordelbesparelse($this->__get('Varmebespar., Alle lokaler (kWh/år)'), $this->tiltag->getForsyningVarme(), 'VARME'));
     }
 
     throw new \Exception('Invalid key: '.$key);
