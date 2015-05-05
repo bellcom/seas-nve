@@ -16,6 +16,7 @@ use AppBundle\Entity\BelysningTiltagDetail;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\Entity\KlimaskaermTiltag;
 use AppBundle\Entity\KlimaskaermTiltagDetail;
+use AppBundle\Entity\Pumpe;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\PumpeTiltagDetail;
 use AppBundle\Entity\TekniskIsoleringTiltag;
@@ -31,6 +32,7 @@ class LoadRapport extends LoadData {
 
   private $manager;
   private $workbook;
+  private $filename;
 
   /**
    * {@inheritDoc}
@@ -40,17 +42,21 @@ class LoadRapport extends LoadData {
 
     $basepath = $this->container->get('kernel')
               ->locateResource('@AppBundle/DataFixtures/Data/Excel/');
-    $filename = '10200083, 19-03-2015, Arbejdsmarkedscenter Aarhus Syd_Version 2.1.08.xlsm';
-    $filepath = $basepath . $filename;
+    foreach (array(
+      '10200083, 19-03-2015, Arbejdsmarkedscenter Aarhus Syd_Version 2.1.08.xlsm',
+      '10202735, 30-04-2015, Rådgiverværktøj_Version 2.1.11.xlsm',
+    ) as $filename) {
+      $this->filename = $filename;
+      $filepath = $basepath . $this->filename;
 
-    $reader = \PHPExcel_IOFactory::createReaderForFile($filepath);
-    $reader->setReadDataOnly(true);
-    $this->writeInfo('Loading Excel workbook %s ... %s', $filename, (new \DateTime())->format('c'));
-    $this->workbook = $reader->load($filepath);
-    $this->writeInfo('Done. %s', (new \DateTime())->format('c'));
+      $reader = \PHPExcel_IOFactory::createReaderForFile($filepath);
+      $reader->setReadDataOnly(true);
+      $this->writeInfo('Loading Excel workbook %s ... %s', $this->filename, (new \DateTime())->format('c'));
+      $this->workbook = $reader->load($filepath);
+      $this->writeInfo('Done. %s', (new \DateTime())->format('c'));
 
-    $this->loadRapport();
-
+      $this->loadRapport();
+    }
     $this->done($manager);
   }
 
@@ -93,7 +99,8 @@ class LoadRapport extends LoadData {
       ->setRapport($rapport)
       ->setBeskrivelseForslag($sheet->getCell('A15')->getValue())
       ->setForsyningVarme($sheet->getCell('C13')->getValue())
-      ->setForsyningEl($sheet->getCell('F13')->getValue());
+      ->setForsyningEl($sheet->getCell('F13')->getValue())
+      ->setLevetid($sheet->getCell('G7')->getValue());
 
     return $tiltag;
   }
@@ -151,7 +158,7 @@ class LoadRapport extends LoadData {
       'AE' => 'varmebespKwhAar',
       'AH' => 'kwhBesparelseElFraVaerket',
       'AI' => 'kwhBesparelseVarmeFraVaerket',
-      'AJ' => 'driftstidTAar',
+      // 'AJ' => 'driftparameterCsAar',
       'AF' => 'simpelTilbagebetalingstidAar',
       'AG' => 'nutidsvaerdiSetOver15AarKr',
     );
@@ -191,68 +198,72 @@ class LoadRapport extends LoadData {
       'I' => array('laastAfEnergiraadgiver', 'boolean'),
       'J' => array('tilvalgt', 'boolean'),
       'K' => 'lokale_navn',
-      'L' => '',
+      // 'L' => '',
       'M' => 'lokale_type',
       'N' => 'armaturhoejde_m',
       'O' => 'rumstoerrelse_m2',
-      'P' => '',
-      'Q' => '',
-      'R' => '',
-      'S' => '',
+      // 'P' => '',
+      'Q' => 'lokale_antal',
+      'R' => 'drifttid_t_aar',
+      // 'S' => '',
       'T' => array('lyskilde', function($value) { return $this->getLyskilde($value); }),
-      'U' => '',
-      'V' => '',
-      'W' => '',
-      'X' => '',
-      'Y' => '',
-      'Z' => '',
-      'AA' => '',
-      'AB' => '',
-      'AC' => '',
-      'AD' => '',
-      'AE' => '',
-      'AF' => '',
-      'AG' => '',
-      'AH' => '',
-      'AI' => '',
-      'AJ' => '',
-      'AK' => '',
-      'AL' => '',
-      'AM' => '',
-      'AN' => '',
-      'AO' => '',
+      // 'U' => '',
+      // 'V' => '',
+      'W' => 'lyskilde_stk_armatur',
+      'X' => 'lyskilde_w_lyskilde',
+      'Y' => 'forkobling_stk_armatur',
+      'AA' => 'armaturer_stk_lokale',
+
+      'AD' => 'placeringId',
+      // 'AE' => '',
+      'AF' => 'styringId',
+      // 'AG' => '',
+      'AH' => 'noter',
+      'AI' => 'belysningstiltagId',
+      // 'AJ' => '',
+      'AK' => 'nye_sensorer_stk_lokale',
+      'AL' => 'standardinvest_sensor_kr_stk',
+      'AM' => 'reduktion_af_drifttid',
+      'AO' => 'standardinvest_armatur_el_lyskilde_kr_stk',
       'AP' => array('ny_lyskilde', function($value) { return $this->getLyskilde($value); }),
-      'AQ' => '',
-      'AR' => '',
-      'AS' => '',
-      'AT' => '',
-      'AU' => '',
-      'AV' => '',
-      'AW' => '',
-      'AX' => '',
-      'AY' => '',
-      'AZ' => '',
-      'BA' => '',
-      'BB' => '',
-      'BC' => '',
-      'BD' => '',
-      'BE' => '',
-      'BF' => '',
-      'BG' => '',
-      'BH' => '',
-      'BI' => '',
-      'BJ' => '',
-      'BK' => '',
-      'BL' => '',
-      'BM' => '',
-      'BN' => '',
-      'BO' => '',
-      'BP' => '',
-      'BQ' => '',
-      'BR' => '',
-      'BS' => '',
-      'BT' => '',
-      'BU' => '',
+
+      // 'AQ' => '',
+      // 'AR' => '',
+      'AS' => 'ny_lyskilde_stk_armatur',
+      'AT' => 'ny_lyskilde_w_lyskilde',
+      'AU' => 'ny_forkobling_stk_armatur',
+      'AW' => 'nye_armaturer_stk_lokale',
+      'AX' => 'nyttiggjort_varme_af_el_besparelse',
+      'AY' => 'prisfaktor',
+
+      // Calculated
+      // 'Z' => 'armatureffekt',
+      // 'AB' => 'elforbrug_kwh_pr_lokale_aar',
+      'AC' => 'elforbrug_w_m2',
+      'AN' => 'ny_driftstid',
+      'AV' => 'ny_armatureffekt_w_stk',
+      'AZ' => 'prisfaktor_tillaeg_kr_lokale',
+      'BA' => 'investering_alle_lokaler_kr',
+      // 'BB' => 'nyt_elforbrug_kwh_pr_lokale_aar',
+      'BC' => 'nyt_elforbrug_w_m2',
+      // 'BD' => 'elbesparelse_alle_lokaler_kwh_aar',
+      // 'BE' => 'varmebesparelse_alle_lokaler_kwh_aar',
+      // 'BF' => 'eksist_lyskildes_levetid_t',
+      // 'BG' => 'ny_lyskildes_levetid_t',
+      // 'BH' => 'udgift_til_lyskilder_kr_stk',
+      // 'BI' => 'ny_udgift_til_lyskilder_kr_stk',
+      'BJ' => 'driftsbesparelse_til_lyskilder_kr_aar',
+      'BK' => 'simpel_tilbagebetalingstid_aar',
+      'BL' => 'vaegtet_levetid_aar',
+      // 'BM' => 'udgift_sensor',
+      // 'BN' => 'udgift_armaturer',
+      // 'BO' => 'levetid_armaturer',
+      // 'BP' => 'armatur_vaegtning',
+      // 'BQ' => 'faktorForReinvestering',
+      'BR' => 'nutidsvaerdi_set_over_15_aar_kr',
+      'BS' => 'kwh_besparelse_el',
+      'BT' => 'kwh_besparelse_varme_fra_varmevaerket',
+
     );
 
     $this->loadTiltagDetail($tiltag, new BelysningTiltagDetail(), $sheet, 'I41:BU99', $columnMapping, function($row) {
@@ -312,10 +323,83 @@ class LoadRapport extends LoadData {
   }
 
   private function getLyskilde($id) {
+    if (!$id) {
+      return null;
+    }
     $key = 'lyskilde:' . $id;
-    return $this->hasReference($key) ? $this->getReference($key) : null;
+    if (!$this->hasReference($key)) {
+      $this->writeError('No such Lyskilde ' . $id);
+      return null;
+    }
+    return $this->getReference($key);
   }
 
+  private function loadPumpe() {
+    $sheet = $this->workbook->getSheetByName('Pumpelisten');
+    $data = $sheet->rangeToArray('A3:V1000', null, false, false, true);
+
+    foreach ($data as $rowId => $row) {
+      $values = $row;
+
+      if (!$values['A']) {
+        break;
+      }
+
+      $pumpe = $this->loadEntity(new Pumpe(), array(
+        'B' => 'NuvaerendeType',
+        'C' => 'Byggemaal',
+        'D' => 'Tilslutning',
+        'E' => 'Indst',
+        'F' => 'Forbrug',
+        'G' => array('Q', 'integer'),
+        'H' => array('H', 'integer'),
+        'I' => 'Aarsforbrug',
+        'J' => 'NyPumpe',
+        'K' => 'NyByggemaal',
+        'L' => 'NyTilslutning',
+        'M' => 'VvsNr',
+        'N' => 'NytAarsforbrug',
+        'O' => 'Elbesparelse',
+        'P' => 'Udligningssaet',
+        'Q' => 'Kommentarer',
+        'R' => 'StandInvestering',
+        // 'S' => 'Besparelse ved isoleringskappe',
+        'T' => 'Roerlaengde',
+        'U' => 'Roerstoerrelse',
+        'V' => 'Fabrikant',
+      ), $values);
+
+      echo '-- Pumpe -----------------------------------------------------------------------', print_r($values, true), '--------------------------------------------------------------------------------', "\n";
+
+      $this->addReference('pumpe:' . $values['A'], $pumpe);
+
+      $this->persist($pumpe);
+    }
+  }
+
+  private function loadEntity($entity, $mapping, $values) {
+    foreach ($mapping as $index => $property) {
+      $value = $values[$index];
+      if (is_array($property)) {
+        $value = $this->getValue($value, array('type' => $property[1]), $values);
+        $property = $property[0];
+      }
+      $entity->{'set'.$property}($value);
+    }
+    return $entity;
+  }
+
+  private function getPumpe($id, $row) {
+    if (!$id) {
+      return null;
+    }
+    $key = 'pumpe:' . $id;
+    if (!$this->hasReference($key)) {
+      $this->writeError('No such Pumpe ' . $id);
+      return null;
+    }
+    return $this->getReference($key);
+  }
 
   /* -------------------------------------------------------------------------------- *
    * Pumpe
@@ -329,6 +413,7 @@ class LoadRapport extends LoadData {
   private function loadPumpeTiltag(Rapport $rapport) {
     $sheet = $this->workbook->getSheetByName('Detailark (5)');
     $tiltag = $this->loadTiltag(new PumpeTiltag(), $rapport, $sheet);
+    $this->loadPumpe();
     $this->loadPumpeTiltagDetail($tiltag, $sheet);
     $this->persist($tiltag);
     $this->writeInfo(get_class($tiltag) . ' ' . $tiltag->getId() . ' loaded');
@@ -355,7 +440,7 @@ class LoadRapport extends LoadData {
       'R' => 'eksisterendeDrifttid',
       'S' => 'nyDrifttid',
       'T' => 'prisfaktor',
-      // 'U' => '',
+      'U' => array('pumpe', function($value, $row) { return $this->getPumpe($value, $row); }),
       // 'V' => '',
       // 'W' => '',
       // 'X' => '',
@@ -376,14 +461,15 @@ class LoadRapport extends LoadData {
       // 'AM' => '',
 
       // Calculated
-      // 'AN' => '',
-      // 'AO' => '',
-      // 'AP' => '',
-      // 'AR' => '',
-      // 'AS' => '',
-      // 'AT' => '',
-      // 'AU' => '',
-      // 'AV' => '',
+      'AN' => 'pristillaeg',
+      'AO' => 'samletInvesteringInklPristillaeg',
+      'AP' => 'elforbrugVedNyeDriftstidKWhAar',
+      'AQ' => 'elbespKWhAar',
+      'AU' => 'kwhBesparelseElFraVaerket',
+      'AV' => 'kwhBesparelseVarmeFraVaerket',
+      'AR' => 'varmebespIsokappeKWh',
+      'AS' => 'simpelTilbagebetalingstidAar',
+      'AT' => 'nutidsvaerdiSetOver15AarKr',
     );
 
     $this->loadTiltagDetail($tiltag, new PumpeTiltagDetail(), $sheet, 'I36:AV99', $columnMapping, function($row) {
@@ -454,7 +540,7 @@ class LoadRapport extends LoadData {
   }
 
   private function loadTiltagDetail(Tiltag $tiltag, $detail, \PHPExcel_Worksheet $sheet, $range, array $columnMapping, callable $includeRow) {
-    list($data, $columns) = $this->getData($range, $sheet, $columnMapping, $includeRow);
+    list($data, $columns) = $this->getData($range, $sheet, $columnMapping, $includeRow, $tiltag);
 
     foreach ($data as $row) {
       $clone = clone $detail;
@@ -486,7 +572,7 @@ class LoadRapport extends LoadData {
    * @param \PHPExcel_Worksheet $sheet
    * @return array
    */
-  private function getData($range, \PHPExcel_Worksheet $sheet, array $columnMapping, callable $includeRow) {
+  private function getData($range, \PHPExcel_Worksheet $sheet, array $columnMapping, callable $includeRow, Tiltag $tiltag) {
     $cells = array_filter($sheet->rangeToArray($range, null, false, false, true), $includeRow);
     $columns = $this->getColumns($cells, $columnMapping);
     $inputColumns = array_filter($columns, function($column) { return !$column['calculated']; });
@@ -511,7 +597,7 @@ class LoadRapport extends LoadData {
     }
 
     if (getenv('DUMP_UNITTEST_DATA')) {
-      $this->dumpUnittestData($sheet, $columns, $data, getenv('DUMP_UNITTEST_DATA'));
+      $this->dumpUnittestData($sheet, $columns, $data, $tiltag, getenv('DUMP_UNITTEST_DATA'));
     }
 
     return array($inputData, $inputColumns);
@@ -536,7 +622,7 @@ class LoadRapport extends LoadData {
     return \PHPExcel_Shared_Date::ExcelToPHPObject($cell->getValue());
   }
 
-  private function dumpUnittestData(\PHPExcel_Worksheet $sheet, array $columns, array $cells, $formats) {
+  private function dumpUnittestData(\PHPExcel_Worksheet $sheet, array $columns, array $cells, Tiltag $tiltag, $formats) {
     $calculatedCells = $this->getCalculatedCells($cells, $sheet);
     $inputColumns = array_filter($columns, function($column) { return !$column['calculated']; });
     $calculatedColumns = array_filter($columns, function($column) { return $column['calculated']; });
@@ -600,8 +686,14 @@ class LoadRapport extends LoadData {
       if ($type) {
         $tests = array();
         foreach ($inputData as $rowId => $inputRow) {
-          $tests[] = array($this->mapRow($inputRow, $columns),
-                           $this->mapRow($calculatedData[$rowId], $columns));
+          $properties = $this->mapRow($inputRow, $columns);
+          foreach ($properties as $key => $value) {
+            if (is_object($value)) {
+              $properties[$key] = $this->getProperties($value);
+            }
+          }
+          $expected = $this->mapRow($calculatedData[$rowId], $columns);
+          $tests[] = array($properties, $expected);
         }
 
         $testFixturesPath = null;
@@ -616,14 +708,45 @@ class LoadRapport extends LoadData {
         } catch (\Exception $ex) {}
 
         if ($testFixturesPath) {
-          $filepath = $testFixturesPath.$type;
-          $content = json_encode($tests, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+          $filepath = $testFixturesPath . $type . '.data.' . $this->filename;
+          $content = json_encode(array(
+            'tests' => $tests,
+            'tiltag' => $this->getProperties($tiltag),
+            'rapport' => $this->getProperties($tiltag->getRapport()),
+          ), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
           if (@file_put_contents($filepath, $content) !== false) {
             $this->writeInfo('Unittest data fixtures written to file ' . $filepath);
           }
         }
       }
     }
+  }
+
+  /**
+   * Get all properties exposed through set/get methods
+   */
+  private function getProperties($object) {
+    $properties = array();
+    $methods = get_class_methods($object);
+    if ($methods) {
+      foreach ($methods as $method) {
+        if (strpos($method, 'set') === 0) {
+          $property = substr($method, 3);
+          try {
+            $value = $object->{'get'.$property}();
+            if ($value !== null) {
+              if (!is_array($value) && !is_object($value)) {
+                if (!preg_match('/CreatedAt|UpdatedAt/', $property)) {
+                  $properties[$property] = $value;
+                }
+              }
+            }
+          } catch (\Exception $ex) {}
+        }
+      }
+    }
+
+    return $properties;
   }
 
   private function getCalculatedCells(array $cells, \PHPExcel_Worksheet $sheet) {

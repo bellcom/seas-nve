@@ -40,7 +40,7 @@ class LoadPumpeData implements FixtureInterface, ContainerAwareInterface {
   /**
    * {@inheritDoc}
    */
-  public function load(ObjectManager $manager) {
+  public function load(ObjectManager $manager) { return;
     $basepath = $this->container->get('kernel')
       ->locateResource('@AppBundle/DataFixtures/Data/');
     $filename = 'PumpelistenData.csv';
