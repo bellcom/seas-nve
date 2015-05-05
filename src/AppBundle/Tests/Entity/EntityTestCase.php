@@ -5,6 +5,13 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 abstract class EntityTestCase extends KernelTestCase {
   /**
+   * Delta to use when comparing floats.
+   *
+   * @var float
+   */
+  protected $delta = 0.0;
+
+  /**
    * Set properties on an entity.
    *
    * @param object $entity
@@ -17,17 +24,21 @@ abstract class EntityTestCase extends KernelTestCase {
    */
   protected function loadEntity($entity, array $properties) {
     foreach ($properties as $name => $value) {
-      if ($name == 'id') {
-        $reflectionClass = new \ReflectionClass($entity);
-        $reflectionProperty = $reflectionClass->getProperty('id');
-        $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue($entity, $value);
-      } else {
-        $propertyName = $this->getPropertyName($name);
-        $entity->{'set'.$propertyName}($value);
+      if ($value !== null) {
+        if ($name == 'id') {
+          $reflectionClass = new \ReflectionClass($entity);
+          $reflectionProperty = $reflectionClass->getProperty('id');
+          $reflectionProperty->setAccessible(true);
+          $reflectionProperty->setValue($entity, $value);
+        } else {
+          $propertyName = $this->getPropertyName($name);
+          $entity->{'set'.$propertyName}($value);
+        }
       }
     }
-    $entity->compute();
+    if (method_exists($entity, 'compute')) {
+      $entity->compute();
+    }
 
     return $entity;
   }
@@ -44,7 +55,7 @@ abstract class EntityTestCase extends KernelTestCase {
     if ($properties) {
       foreach ($properties as $name => $value) {
         $propertyName = $this->getPropertyName($name);
-        $this->assertEquals($value, $entity->{'get'.$propertyName}(), __METHOD__ . ' '. $propertyName);
+        $this->assertEquals($value, $entity->{'get'.$propertyName}(), __METHOD__ . ' '. $propertyName, $this->delta);
       }
     }
   }
@@ -74,12 +85,19 @@ abstract class EntityTestCase extends KernelTestCase {
    *   array(properties, expected)
    */
   protected function loadTestFixtures($type) {
+    $fixtures = array();
+
     $testFixturesPath = $this->getAppBundlePath().'/DataFixtures/Data/fixtures/';
-    $filepath = $testFixturesPath.$type;
-    if (($content = @file_get_contents($filepath)) === false) {
-      throw new \Exception('Cannot load test fixtures from file ' . $filepath);
+    $filepaths = glob($testFixturesPath.$type . '*');
+    foreach ($filepaths as $filepath) {
+      if (($content = @file_get_contents($filepath))) {
+        try {
+          $key = trim(substr($filepath, strlen($testFixturesPath.$type)), '.');
+          $fixtures[$key] = json_decode($content, true);
+        } catch (\Exception $ex) {}
+      }
     }
-    return json_decode($content, true);
+    return $fixtures;
   }
 
   private function getAppBundlePath() {

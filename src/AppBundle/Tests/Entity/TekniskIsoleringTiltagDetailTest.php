@@ -1,29 +1,32 @@
 <?php
 namespace AppBundle\Tests\Entity;
 
-use AppBundle\Entity\TekniskIsoleringTiltagDetail;
+use AppBundle\Entity\Rapport;
 use AppBundle\Entity\TekniskIsoleringTiltag;
+use AppBundle\Entity\TekniskIsoleringTiltagDetail;
 
 class TekniskIsoleringTiltagDetailTest extends EntityTestCase {
+  protected $delta = 0.25;
+
   public function testCompute() {
-    $tests = $this->loadTestFixtures('TekniskIsoleringTiltagDetail');
-    foreach ($tests as $test) {
-      $properties = $test[0];
-      $expected = $test[1];
+    $fixtures = $this->loadTestFixtures('TekniskIsoleringTiltagDetail');
 
-      $detail = $this->getTekniskIsoleringTiltagDetail($properties);
-      $this->assertProperties($expected, $detail);
+    foreach ($fixtures as $fixture) {
+      $rapport = $this->loadEntity(new Rapport(), $fixture['rapport']);
+      $tiltag = $this->loadEntity(new TekniskIsoleringTiltag(), $fixture['tiltag']);
+      $tiltag->setRapport($rapport);
+
+      foreach ($fixture['tests'] as $test) {
+        $properties = $test[0];
+        $expected = $test[1];
+
+        $detail = new TekniskIsoleringTiltagDetail();
+        $detail->setTiltag($tiltag);
+        $this->loadEntity($detail, $properties);
+
+        $this->assertProperties($expected, $detail);
+      }
     }
-  }
-
-  private function getTekniskIsoleringTiltagDetail(array $values) {
-    $tiltag = new TekniskIsoleringTiltag();
-    $tiltag->setLevetid(10);
-    $detail = new TekniskIsoleringTiltagDetail();
-    $detail->setTiltag($tiltag);
-    $this->loadEntity($detail, $values);
-
-    return $detail;
   }
 
 }

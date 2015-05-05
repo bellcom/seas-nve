@@ -1,29 +1,30 @@
 <?php
 namespace AppBundle\Tests\Entity;
 
-use AppBundle\Entity\KlimaskaermTiltagDetail;
+use AppBundle\Entity\Rapport;
 use AppBundle\Entity\KlimaskaermTiltag;
+use AppBundle\Entity\KlimaskaermTiltagDetail;
 
 class KlimaskaermTiltagDetailTest extends EntityTestCase {
   public function testCompute() {
-    $tests = $this->loadTestFixtures('KlimaskaermTiltagDetail');
-    foreach ($tests as $test) {
-      $properties = $test[0];
-      $expected = $test[1];
+    $fixtures = $this->loadTestFixtures('KlimaskaermTiltagDetail');
 
-      $detail = $this->getKlimaskaermTiltagDetail($properties);
-      $this->assertProperties($expected, $detail);
+    foreach ($fixtures as $fixture) {
+      $rapport = $this->loadEntity(new Rapport(), $fixture['rapport']);
+      $tiltag = $this->loadEntity(new KlimaskaermTiltag(), $fixture['tiltag']);
+      $tiltag->setRapport($rapport);
+
+      foreach ($fixture['tests'] as $test) {
+        $properties = $test[0];
+        $expected = $test[1];
+
+        $detail = new KlimaskaermTiltagDetail();
+        $detail->setTiltag($tiltag);
+        $this->loadEntity($detail, $properties);
+
+        $this->assertProperties($expected, $detail);
+      }
     }
-  }
-
-  private function getKlimaskaermTiltagDetail(array $values) {
-    $tiltag = new KlimaskaermTiltag();
-    $tiltag->setLevetid(10);
-    $detail = new KlimaskaermTiltagDetail();
-    $detail->setTiltag($tiltag);
-    $this->loadEntity($detail, $values);
-
-    return $detail;
   }
 
 }
