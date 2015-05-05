@@ -399,4 +399,73 @@ class Rapport {
   {
     return $this->getBaselineVarmeGAF() + $this->getBaselineVarmeGUF();
   }
+
+  public function getKalkulationsrente()
+  {
+    // Worksheets("1.Tiltagslisterådgiver").Range("ai23").Value;
+    // @FIXME
+    return 0.0292;
+  }
+
+  public function getInflationsfaktor()
+  {
+    // Worksheets("1.Tiltagslisterådgiver").Range("ai26");
+    // @FIXME
+    return 13.8639998427607;
+  }
+
+  public function getInflation()
+  {
+    // Worksheets("1.Tiltagslisterådgiver").Range("ak23");
+    // @FIXME
+    return 0.019;
+  }
+
+  public function getLobetid()
+  {
+    // Worksheets("1.Tiltagslisterådgiver").Range("an23");
+    // @FIXME
+    return 15;
+  }
+
+  public function getElfaktor()
+  {
+    // Worksheets("1.TiltagslisteRådgiver").Range("ah25");
+    // @FIXME
+    return 23.5852836416293;
+  }
+
+  public function getVarmefaktor()
+  {
+    // Worksheets("1.TiltagslisteRådgiver").Range("ah24");
+    // @FIXME
+    return 5.66155209590081;
+  }
+
+  public function getVandfaktor()
+  {
+    // Worksheets("1.TiltagslisteRådgiver").Range("ai27");
+    // @FIXME
+    return 566.621673573629;
+  }
+
+  public function getVarmeKrKWh()
+  {
+    // Worksheets("1.TiltagslisteRådgiver").Range("ai6");
+    // @FIXME
+    return 0.491;
+  }
+
+  public function getElKrKWh()
+  {
+    // Worksheets("1.TiltagslisteRådgiver").Range("ai7");
+    // @FIXME
+    return 1.609478;
+  }
+
+  public function isStandardforsyning() {
+    // INDIRECT(\"'2.Forsyning'!$H$3\")=1
+    return true;
+  }
+
 }
