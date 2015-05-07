@@ -5,6 +5,8 @@ use AppBundle\Entity\BelysningTiltagDetail;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde;
 
 class BelysningTiltagDetailTest extends TiltagDetailTestCase {
+  protected $delta = 0.2;
+
   protected function loadProperties(array $properties) {
     $properties['lyskilde'] = $this->getLyskilde($properties['lyskilde']);
     $properties['nylyskilde'] = $this->getLyskilde($properties['nylyskilde']);
