@@ -19,7 +19,7 @@ use AppBundle\Entity\User;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadBygningUsersData extends LoadData {
-  protected $order = 3;
+  protected $order = 2000;
   protected $flush = true;
 
   protected function createWriter(ObjectManager $manager) {
