@@ -43,8 +43,7 @@ class LoadRapport extends LoadData {
     $basepath = $this->container->get('kernel')
               ->locateResource('@AppBundle/DataFixtures/Data/Excel/');
     foreach (array(
-      '10200083, 19-03-2015, Arbejdsmarkedscenter Aarhus Syd_Version 2.1.08.xlsm',
-      '10202735, 30-04-2015, Rådgiverværktøj_Version 2.1.11.xlsm',
+      '10202735, 30-04-2015, Rådgiverværktøj_Version 2.1.11 Til databasen.xlsm',
     ) as $filename) {
       $this->filename = $filename;
       $filepath = $basepath . $this->filename;
@@ -55,9 +54,95 @@ class LoadRapport extends LoadData {
       $this->workbook = $reader->load($filepath);
       $this->writeInfo('Done. %s', (new \DateTime())->format('c'));
 
+      $this->loadBygning();
       $this->loadRapport();
     }
     $this->done($manager);
+  }
+
+  private function loadBygning() {
+    $sheet = $this->workbook->getSheetByName('Eksport_Bygningsliste_Med_Notat');
+
+    $data = $sheet->rangeToArray('A2:BL3000', null, false, false, true);
+
+    foreach ($data as $rowId => $row) {
+      $values = $row;
+
+      if (!$values['A']) {
+        break;
+      }
+
+      $bygning = $this->loadEntity(new Bygning(), array(
+        'A' => 'bygId',
+        'B' => 'Ident',
+        'C' => 'Enhedsys',
+        'D' => 'Enhedskode',
+        'E' => 'Type',
+        'F' => 'Kommentarer',
+        'G' => 'Adresse',
+        'H' => 'postnummer',
+        'I' => 'POSTBY',
+        'J' => 'Navn',
+        'K' => 'Ejer',
+        // 'L' => 'Bruger',
+        // 'M' => 'Afdelingnavn',
+        'N' => 'Ejer_A',
+        'O' => 'Anvendelse',
+        'P' => 'Bruttoetageareal',
+        'Q' => 'Maalertype',
+        'R' => 'Vand',
+        // 'S' => 'Vand_InstNr',
+        // 'T' => 'Vand_MaalerNr',
+        // 'U' => 'Vand_Qn',
+        'V' => 'kundenummer',
+        'W' => 'kode',
+        'X' => 'varme',
+        'Y' => 'kundenr_1',
+        'Z' => 'kode_1',
+        'AA' => 'MaalerskifteAFV',
+        'AB' => 'AFVInstnr_1',
+        // 'AC' => 'Varme_MaalerNr',
+        // 'AD' => 'Varme_Qn',
+        'AE' => 'El',
+        'AF' => 'Instnr',
+        // 'AG' => 'El_MaalerNr',
+        'AH' => 'kundenr_NRGI',
+        'AI' => 'internetkode',
+        'AJ' => 'Aftagenr',
+        'AK' => 'Divisionnavn',
+        'AL' => 'Omraadenavn',
+        'AM' => 'Kommune',
+        'AN' => 'Ejerforhold',
+        // 'AO' => 'AnsvarligAnsvarlig',
+        'AP' => 'Magistrat',
+        'AQ' => 'Lokation',
+        'AR' => 'Lokationsnavn',
+        'AS' => 'Lederbetegnelse',
+        'AT' => 'Kontakt_Notat',
+        'AU' => 'Stamdata_Notat',
+        'AV' => 'Vand_Notat',
+        'AW' => 'El_Notat',
+        'AX' => 'Varme_Notat',
+        // 'AY' => 'Energimaerke',
+        // 'AZ' => 'EnergimaerkeDato',
+        // 'BA' => 'Net_Lokation',
+        // 'BB' => 'Net_AarhusNet',
+        // 'BC' => 'Net_Leverandoer',
+        // 'BD' => 'Kontakt1_Kontakt',
+        // 'BE' => 'Kontakt1_Mail',
+        // 'BF' => 'Kontakt1_Telefon',
+        // 'BG' => 'Kontakt2_Kontakt',
+        // 'BH' => 'Kontakt2_Mail',
+        // 'BI' => 'Kontakt2_Telefon',
+        // 'BJ' => 'Kontakt3_Kontakt',
+        // 'BK' => 'Kontakt3_Mail',
+        // 'BL' => 'Kontakt3_Telefon',
+      ), $values);
+
+      $this->addReference('bygning:' . $values['A'], $bygning);
+
+      $this->persist($bygning);
+    }
   }
 
   /**
@@ -67,15 +152,8 @@ class LoadRapport extends LoadData {
     $sheet = $this->workbook->getSheetByName('1.TiltagslisteRådgiver');
     $enhedsys = $sheet->getCell('C4')->getValue();
 
-    $bygning = $this->manager->getRepository('AppBundle:Bygning')->findOneByEnhedsys($enhedsys);
-
-    if ($bygning == null) {
-      $this->writeError('No such Bygning ' . $enhedsys);
-      return null;
-    }
-
+    $bygning = $this->getBygning($enhedsys);
     $rapport = new Rapport();
-
     $rapport
       ->setBygning($bygning)
       ->setVersion($sheet->getCell('C24')->getOldCalculatedValue())
@@ -129,7 +207,7 @@ class LoadRapport extends LoadData {
    * @param \PHPExcel_Worksheet $sheet
    */
   private function loadTekniskIsoleringTiltagDetail(TekniskIsoleringTiltag $tiltag, \PHPExcel_Worksheet $sheet) {
-        // Column name => class property (, type)
+    // Column name => class property (, type)
     $columnMapping = array(
       'I' => array('laastAfEnergiraadgiver', 'boolean'),
       'J' => array('tilvalgt', 'boolean'),
@@ -213,7 +291,8 @@ class LoadRapport extends LoadData {
       'X' => 'lyskilde_w_lyskilde',
       'Y' => 'forkobling_stk_armatur',
       'AA' => 'armaturer_stk_lokale',
-
+      // 'AB' => ''
+      // 'AC' => ''
       'AD' => 'placeringId',
       // 'AE' => '',
       'AF' => 'styringId',
@@ -225,44 +304,45 @@ class LoadRapport extends LoadData {
       'AL' => 'standardinvest_sensor_kr_stk',
       'AM' => 'reduktion_af_drifttid',
       'AO' => 'standardinvest_armatur_el_lyskilde_kr_stk',
-      'AP' => array('ny_lyskilde', function($value) { return $this->getLyskilde($value); }),
-
-      // 'AQ' => '',
-      // 'AR' => '',
-      'AS' => 'ny_lyskilde_stk_armatur',
-      'AT' => 'ny_lyskilde_w_lyskilde',
-      'AU' => 'ny_forkobling_stk_armatur',
-      'AW' => 'nye_armaturer_stk_lokale',
-      'AX' => 'nyttiggjort_varme_af_el_besparelse',
-      'AY' => 'prisfaktor',
+      'AP' => 'standardinvest_lyskilde_kr_stk',
+      'AQ' => array('ny_lyskilde', function($value) { return $this->getLyskilde($value); }),
+      // 'AR' => ''
+      // 'AS' => ''
+      'AT' => 'ny_lyskilde_stk_armatur',
+      'AU' => 'ny_lyskilde_w_lyskilde',
+      'AV' => 'ny_forkobling_stk_armatur',
+      // 'AW' => '',
+      'AX' => 'nye_armaturer_stk_lokale',
+      'AY' => 'nyttiggjort_varme_af_el_besparelse',
+      'AZ' => 'prisfaktor',
 
       // Calculated
       // 'Z' => 'armatureffekt',
       // 'AB' => 'elforbrug_kwh_pr_lokale_aar',
       'AC' => 'elforbrug_w_m2',
       'AN' => 'ny_driftstid',
-      'AV' => 'ny_armatureffekt_w_stk',
-      'AZ' => 'prisfaktor_tillaeg_kr_lokale',
-      'BA' => 'investering_alle_lokaler_kr',
-      // 'BB' => 'nyt_elforbrug_kwh_pr_lokale_aar',
-      'BC' => 'nyt_elforbrug_w_m2',
-      // 'BD' => 'elbesparelse_alle_lokaler_kwh_aar',
-      // 'BE' => 'varmebesparelse_alle_lokaler_kwh_aar',
-      // 'BF' => 'eksist_lyskildes_levetid_t',
-      // 'BG' => 'ny_lyskildes_levetid_t',
-      // 'BH' => 'udgift_til_lyskilder_kr_stk',
-      // 'BI' => 'ny_udgift_til_lyskilder_kr_stk',
-      'BJ' => 'driftsbesparelse_til_lyskilder_kr_aar',
-      'BK' => 'simpel_tilbagebetalingstid_aar',
-      'BL' => 'vaegtet_levetid_aar',
-      // 'BM' => 'udgift_sensor',
-      // 'BN' => 'udgift_armaturer',
-      // 'BO' => 'levetid_armaturer',
-      // 'BP' => 'armatur_vaegtning',
-      // 'BQ' => 'faktorForReinvestering',
-      'BR' => 'nutidsvaerdi_set_over_15_aar_kr',
-      'BS' => 'kwh_besparelse_el',
-      'BT' => 'kwh_besparelse_varme_fra_varmevaerket',
+      'AW' => 'ny_armatureffekt_w_stk',
+      'BA' => 'prisfaktor_tillaeg_kr_lokale',
+      'BB' => 'investering_alle_lokaler_kr',
+      // 'BC' => 'nyt_elforbrug_kwh_pr_lokale_aar',
+      'BD' => 'nyt_elforbrug_w_m2',
+      // 'BE' => 'elbesparelse_alle_lokaler_kwh_aar',
+      // 'BF' => 'varmebesparelse_alle_lokaler_kwh_aar',
+      // 'BG' => 'eksist_lyskildes_levetid_t',
+      // 'BH' => 'ny_lyskildes_levetid_t',
+      // 'BI' => 'udgift_til_lyskilder_kr_stk',
+      // 'BJ' => 'ny_udgift_til_lyskilder_kr_stk',
+      'BK' => 'driftsbesparelse_til_lyskilder_kr_aar',
+      'BL' => 'simpel_tilbagebetalingstid_aar',
+      'BM' => 'vaegtet_levetid_aar',
+      // 'BN' => 'udgift_sensor',
+      // 'BO' => 'udgift_armaturer',
+      // 'BP' => 'levetid_armaturer',
+      // 'BQ' => 'armatur_vaegtning',
+      // 'BR' => 'faktorForReinvestering',
+      'BS' => 'nutidsvaerdi_set_over_15_aar_kr',
+      'BT' => 'kwh_besparelse_el',
+      'BU' => 'kwh_besparelse_varme_fra_varmevaerket',
 
     );
 
@@ -288,7 +368,7 @@ class LoadRapport extends LoadData {
         case 3:
         case 5:
           return 'hf';
-      case 6:
+        case 6:
         case 7:
         case 9:
         case 10:
@@ -349,7 +429,7 @@ class LoadRapport extends LoadData {
         'B' => 'NuvaerendeType',
         'C' => 'Byggemaal',
         'D' => 'Tilslutning',
-        'E' => 'Indst',
+        'E' => array('Indst', 'integer'),
         'F' => 'Forbrug',
         'G' => array('Q', 'integer'),
         'H' => array('H', 'integer'),
@@ -360,16 +440,14 @@ class LoadRapport extends LoadData {
         'M' => 'VvsNr',
         'N' => 'NytAarsforbrug',
         'O' => 'Elbesparelse',
-        'P' => 'Udligningssaet',
-        'Q' => 'Kommentarer',
+        'P' => array('Udligningssaet', 'string'),
+        'Q' => array('Kommentarer', 'string'),
         'R' => 'StandInvestering',
         // 'S' => 'Besparelse ved isoleringskappe',
         'T' => 'Roerlaengde',
         'U' => 'Roerstoerrelse',
         'V' => 'Fabrikant',
       ), $values);
-
-      echo '-- Pumpe -----------------------------------------------------------------------', print_r($values, true), '--------------------------------------------------------------------------------', "\n";
 
       $this->addReference('pumpe:' . $values['A'], $pumpe);
 
@@ -384,18 +462,31 @@ class LoadRapport extends LoadData {
         $value = $this->getValue($value, array('type' => $property[1]), $values);
         $property = $property[0];
       }
+      $property = self::getPropertyName($property);
       $entity->{'set'.$property}($value);
     }
     return $entity;
   }
 
-  private function getPumpe($id, $row) {
+  private function getPumpe($id) {
     if (!$id) {
       return null;
     }
     $key = 'pumpe:' . $id;
     if (!$this->hasReference($key)) {
       $this->writeError('No such Pumpe ' . $id);
+      return null;
+    }
+    return $this->getReference($key);
+  }
+
+  private function getBygning($id) {
+    if (!$id) {
+      return null;
+    }
+    $key = 'bygning:' . $id;
+    if (!$this->hasReference($key)) {
+      $this->writeError('No such Bygning ' . $id);
       return null;
     }
     return $this->getReference($key);
@@ -817,7 +908,7 @@ class LoadRapport extends LoadData {
     return $mappedRow;
   }
 
-	private function getValue($value, $column, array $row) {
+  private function getValue($value, $column, array $row) {
     if (isset($column['type'])) {
       $type = $column['type'];
       if (is_callable($type)) {
@@ -829,8 +920,8 @@ class LoadRapport extends LoadData {
     return $value;
   }
 
-  private function getPropertyName($name) {
-    return preg_replace('/_/', '', $name);
+  private static function getPropertyName($name) {
+    return str_replace('_', '', $name);
   }
 
 }
