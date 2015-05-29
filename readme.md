@@ -14,7 +14,7 @@
 To import data for the reference tables please add csv files from Dropbox (Aaplus/Dokumentation/Export) 
 to AppBundle/DataFixtures/Data and run the import
  
-`php app/console doctrine:fixtures:load`
+`php app/console doctrine:fixtures:load --purge-with-truncate`
 
 
 
