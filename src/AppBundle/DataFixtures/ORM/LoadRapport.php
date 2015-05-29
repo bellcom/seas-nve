@@ -139,7 +139,10 @@ class LoadRapport extends LoadData {
         // 'BL' => 'Kontakt3_Telefon',
       ), $values);
 
-      $this->addReference('bygning:' . $values['A'], $bygning);
+      $key = 'bygning:' . $bygning->getEnhedsys();
+      if (!$this->hasReference($key)) {
+        $this->addReference($key, $bygning);
+      }
 
       $this->persist($bygning);
     }
