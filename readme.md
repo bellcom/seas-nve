@@ -11,10 +11,30 @@
 
 # Import data
 
-To import data for the reference tables please add csv files from Dropbox (Aaplus/Dokumentation/Export) 
-to AppBundle/DataFixtures/Data and run the import
- 
-`php app/console doctrine:fixtures:load --purge-with-truncate`
+1. Copy Excel files from Dropbox into the fixtures folder:
 
+    ```
+    cp -v ~/Dropbox*/Dokumentation/Websites/Aa+/Dokumenter/fixtures/*.xlsm src/AppBundle/DataFixtures/Data/Excel
+	```
 
+2. Load the fixtures (inside Vagrant box):
 
+    ```
+    php app/console doctrine:fixtures:load --purge-with-truncate
+    ```
+
+# Run unit tests
+
+1. [Install PHPUnit](https://phpunit.de/manual/current/en/installation.html) if not already done
+
+2. Import fixtures and generate unit test data (see above)
+
+    ```
+    DUMP_UNITTEST_DATA=php php app/console doctrine:fixtures:load --purge-with-truncate --no-interaction
+    ```
+
+3. Run unit tests
+
+    ```
+    phpunit -c app src/AppBundle/Tests/Entity
+    ```
