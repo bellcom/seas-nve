@@ -48,29 +48,29 @@
 								<td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
 								<td>{{ detail.beskrivelseType }}</td>
 								<td>{{ detail.type }}</td>
-								<td>{{ detail.driftstidTAar | localizednumber }}</td>
-								<td>{{ detail.udvDiameterMm | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.eksistIsolMm | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.roerstoerrelseMmAekvivalent | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.tankVolL | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.tempOmgivelC | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.tempMedieC | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.roerlaengdeEllerHoejdeAfVvbM | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.nyttiggjortVarme | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.nyIsolMm | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.varmeledningsevnePaaEksistIsoleringWMK | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.varmeledningsevnePaaNyIsoleringWMK | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.arealAfBeholderM2 | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.standardinvestKrM2EllerKrM | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.prisfaktor | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.investeringKr | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.eksistVarmetabKwh | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.nytVarmetabKwh | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.varmebespKwhAar | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.simpelTilbagebetalingstidAar | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.nutidsvaerdiSetOver15AarKr | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.kwhBesparelseElFraVaerket | localizednumber('decimal', 'double') }}</td>
-								<td>{{ detail.kwhBesparelseVarmeFraVaerket | localizednumber('decimal', 'double') }}</td>
+								<td>{{ detail.driftstidTAar | format_decimal(0) }}</td>
+								<td>{{ detail.udvDiameterMm | format_decimal }}</td>
+								<td>{{ detail.eksistIsolMm | format_decimal }}</td>
+								<td>{{ detail.roerstoerrelseMmAekvivalent | format_decimal }}</td>
+								<td>{{ detail.tankVolL | format_decimal }}</td>
+								<td>{{ detail.tempOmgivelC | format_decimal }}</td>
+								<td>{{ detail.tempMedieC | format_decimal }}</td>
+								<td>{{ detail.roerlaengdeEllerHoejdeAfVvbM | format_decimal }}</td>
+								<td>{{ detail.nyttiggjortVarme | format_decimal }}</td>
+								<td>{{ detail.nyIsolMm | format_decimal }}</td>
+								<td>{{ detail.varmeledningsevnePaaEksistIsoleringWMK | format_decimal }}</td>
+								<td>{{ detail.varmeledningsevnePaaNyIsoleringWMK | format_decimal }}</td>
+								<td>{{ detail.arealAfBeholderM2 | format_decimal }}</td>
+								<td>{{ detail.standardinvestKrM2EllerKrM | format_decimal }}</td>
+								<td>{{ detail.prisfaktor | format_decimal }}</td>
+								<td>{{ detail.investeringKr | format_decimal }}</td>
+								<td>{{ detail.eksistVarmetabKwh | format_decimal }}</td>
+								<td>{{ detail.nytVarmetabKwh | format_decimal }}</td>
+								<td>{{ detail.varmebespKwhAar | format_decimal }}</td>
+								<td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
+								<td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+								<td>{{ detail.kwhBesparelseElFraVaerket | format_decimal }}</td>
+								<td>{{ detail.kwhBesparelseVarmeFraVaerket | format_decimal }}</td>
 								<td>
 									<a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
 									<a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>

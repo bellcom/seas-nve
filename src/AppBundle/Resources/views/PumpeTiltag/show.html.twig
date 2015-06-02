@@ -33,11 +33,11 @@
             <td>{{ detail.placering }}</td>
             <td>{{ detail.applikation }}</td>
             <td>{{ detail.isoleringskappe | b2icon }}</td>
-            <td>{{ detail.bfaktor }}</td>
+            <td>{{ detail.bfaktor | format_decimal }}</td>
             <td>{{ detail.noter }}</td>
-            <td>{{ detail.eksisterendeDrifttid }}</td>
-            <td>{{ detail.nyDrifttid }}</td>
-            <td>{{ detail.prisfaktor }}</td>
+            <td>{{ detail.eksisterendeDrifttid | format_decimal }}</td>
+            <td>{{ detail.nyDrifttid | format_decimal }}</td>
+            <td>{{ detail.prisfaktor | format_decimal }}</td>
             <td>
               <a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
               <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>

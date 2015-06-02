@@ -52,38 +52,38 @@
               <tr>
                 <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
                 <td>{{ detail.tilvalgt | b2icon }}</td>
-                <td>{{ detail.tiltagsnr | localizednumber }}</td>
-                <td>{{ detail.tiltagsnrDelpriser | localizednumber }}</td>
+                <td>{{ detail.tiltagsnr }}</td>
+                <td>{{ detail.tiltagsnrDelpriser }}</td>
                 <td>{{ detail.typePlaceringJfPlantegning }}</td>
-                <td>{{ detail.hoejdeElLaengdeM | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.breddeM | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.antalStk | localizednumber }}</td>
-                <td>{{ detail.arealM2 | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.andelAfArealDerEfterisoleres | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.uEksWM2K | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.uNyWM2K | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.tIndeC | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.tUdeC | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.tOpvarmningTimerAar | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.yderligereBesparelserPct | localizednumber('percent') }}</td>
-                <td>{{ detail.besparelseKWhAar | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.samletBesparelseKWhAarInklDelbesparelser | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
+                <td>{{ detail.breddeM | format_decimal }}</td>
+                <td>{{ detail.antalStk | format_integer }}</td>
+                <td>{{ detail.arealM2 | format_decimal }}</td>
+                <td>{{ detail.andelAfArealDerEfterisoleres | format_decimal }}</td>
+                <td>{{ detail.uEksWM2K | format_decimal }}</td>
+                <td>{{ detail.uNyWM2K | format_decimal }}</td>
+                <td>{{ detail.tIndeC | format_decimal }}</td>
+                <td>{{ detail.tUdeC | format_decimal }}</td>
+                <td>{{ detail.tOpvarmningTimerAar | format_decimal }}</td>
+                <td>{{ detail.yderligereBesparelserPct | format_percent }}</td>
+                <td>{{ detail.besparelseKWhAar | format_decimal }}</td>
+                <td>{{ detail.samletBesparelseKWhAarInklDelbesparelser | format_decimal }}</td>
                 <td>{{ detail.priskategori }}</td>
-                <td>{{ detail.prisfaktor }}</td>
-                <td>{{ detail.delprisKrM2 | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.samletInvesteringKr | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.simpelTilbagebetalingstidAar | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.prisfaktor | format_decimal }}</td>
+                <td>{{ detail.delprisKrM2 | format_decimal }}</td>
+                <td>{{ detail.samletInvesteringKr | format_decimal }}</td>
+                <td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
                 <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
                 <td>{{ detail.tilSortering }}</td>
                 <td>{{ detail.tilSummeringAfDelpriser }}</td>
-                <td>{{ detail.levetidAar | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.vaegtetGnm | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.vaegtetLevetidForTiltagetAfrundet | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.faktorForReinvestering | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.nutidsvaerdiSetOver15AarKr | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.kWhBesparElvaerkEksternEnergikilde | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.kWhBesparVarmevaerkEksternEnergikilde | localizednumber('decimal', 'double') }}</td>
-                <td>{{ detail.tilvalgteDeltiltag | localizednumber('decimal', 'double') }}</td>
+                <td>{{ detail.levetidAar | format_decimal }}</td>
+                <td>{{ detail.vaegtetGnm | format_decimal }}</td>
+                <td>{{ detail.vaegtetLevetidForTiltagetAfrundet | format_decimal }}</td>
+                <td>{{ detail.faktorForReinvestering | format_decimal }}</td>
+                <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+                <td>{{ detail.kWhBesparElvaerkEksternEnergikilde | format_decimal }}</td>
+                <td>{{ detail.kWhBesparVarmevaerkEksternEnergikilde | format_decimal }}</td>
+                <td>{{ detail.tilvalgteDeltiltag | format_decimal }}</td>
                 <td>
                   <a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
                   <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
