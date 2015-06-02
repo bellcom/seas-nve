@@ -469,19 +469,6 @@ class PumpeTiltagDetail extends TiltagDetail {
       return 0;
     }
     else {
-
-    // print_r(array(
-    //   $this->samletInvesteringInklPristillaeg,
-    //   $this->kwhBesparelseVarmeFraVaerket,
-    //   $this->kwhBesparelseElFraVaerket,
-    //   0,
-    //   0,
-    //   0,
-    //   $this->tiltag->getLevetid(),
-    //   1,
-    //   0,
-    // )); die(__METHOD__);
-
       return $this->nvPTO2($this->samletInvesteringInklPristillaeg, $this->kwhBesparelseVarmeFraVaerket, $this->kwhBesparelseElFraVaerket, 0, 0, 0, $this->tiltag->getLevetid(), 1, 0);
     }
   }
