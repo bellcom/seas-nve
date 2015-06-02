@@ -11,46 +11,46 @@
 				<table class="table table-header-rotated table-hover">
 					<thead>
 						<tr>
-							<th class="rotate"><div><span>{{ 'appbundle.tiltagdetail.tilvalgt' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.lokale.navn' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.lokale.type' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.armaturhoejde.m' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.rumstoerrelse.m2' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.lokale.antal' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.drifttid.t.aar' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.lyskilde' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.lyskilde.stk.armatur' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.lyskilde.w.lyskilde' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.forkobling.stk.armatur' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.armaturer.stk.lokale' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.elforbrug.w.m2' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.placering.id' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.styring' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.noter' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.belysningstiltag' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.nye.sensorer.stk.lokale' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.standardinvest.sensor.kr.stk' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.reduktion.af.drifttid' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.ny.driftstid' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.standardinvest.armatur.el.lyskilde.kr.stk' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.ny.lyskilde' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.ny.lyskilde.stk.armatur' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.ny.lyskilde.w.lyskilde' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.ny.forkobling.stk.armatur' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.ny.armatureffekt.w.stk' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.nye.armaturer.stk.lokale' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.nyttiggjort.varme.af.el.besparelse' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.prisfaktor' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.prisfaktor.tillaeg.kr.lokale' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.investering.alle.lokaler.kr' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.nyt.elforbrug.w.m2' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.driftsbesparelse.til.lyskilder.kr.aar' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.simpel.tilbagebetalingstid.aar' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.vaegtet.levetid.aar' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.nutidsvaerdi.set.over15.aar.kr' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.kwh.besparelse.el' | trans }}</span></div></th>
-							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.kwh.besparelse.varme.fra.varmevaerket' | trans }}</span></div></th>
-							<th class="rotate"><div><span></span></div></th>
+							{{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lokale.navn') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lokale.type') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.armaturhoejde.m') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.rumstoerrelse.m2') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lokale.antal') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.drifttid.t.aar') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lyskilde') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lyskilde.stk.armatur') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lyskilde.w.lyskilde') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.forkobling.stk.armatur') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.armaturer.stk.lokale') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.elforbrug.w.m2') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.placering.id') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.styring') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.noter') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.belysningstiltag') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nye.sensorer.stk.lokale') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.standardinvest.sensor.kr.stk') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.reduktion.af.drifttid') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.ny.driftstid') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.standardinvest.armatur.el.lyskilde.kr.stk') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.ny.lyskilde') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.ny.lyskilde.stk.armatur') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.ny.lyskilde.w.lyskilde') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.ny.forkobling.stk.armatur') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.ny.armatureffekt.w.stk') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nye.armaturer.stk.lokale') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nyttiggjort.varme.af.el.besparelse') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.prisfaktor') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.prisfaktor.tillaeg.kr.lokale') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.investering.alle.lokaler.kr') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nyt.elforbrug.w.m2') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.driftsbesparelse.til.lyskilder.kr.aar') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.simpel.tilbagebetalingstid.aar') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.vaegtet.levetid.aar') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nutidsvaerdi.set.over15.aar.kr') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.kwh.besparelse.el') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.kwh.besparelse.varme.fra.varmevaerket') }}
+						  {{ helper.header() }}
 						</tr>
 					</thead>
 					<tbody>
