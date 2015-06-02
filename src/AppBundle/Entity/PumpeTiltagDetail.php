@@ -411,11 +411,11 @@ class PumpeTiltagDetail extends TiltagDetail {
     $this->samletInvesteringInklPristillaeg = $this->computeSamletInvesteringInklPristillaeg();
     $this->elforbrugVedNyeDriftstidKWhAar = $this->computeElforbrugVedNyeDriftstidKWhAar();
     $this->elbespKWhAar = $this->computeElbespKWhAar();
+    $this->varmebespIsokappeKWh = $this->computeVarmebespIsokappeKWh();
     $this->kwhBesparelseElFraVaerket = $this->computeKwhBesparelseElFraVaerket();
     $this->kwhBesparelseVarmeFraVaerket = $this->computeKwhBesparelseVarmeFraVaerket();
     $this->simpelTilbagebetalingstidAar = $this->computeSimpelTilbagebetalingstidAar();
     $this->nutidsvaerdiSetOver15AarKr = $this->computeNutidsvaerdiSetOver15AarKr();
-    $this->varmebespIsokappeKWh = $this->computeVarmebespIsokappeKWh();
   }
 
   public function computePristillaeg() {
