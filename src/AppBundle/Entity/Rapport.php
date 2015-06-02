@@ -465,6 +465,7 @@ class Rapport {
 
   public function isStandardforsyning() {
     // INDIRECT(\"'2.Forsyning'!$H$3\")=1
+    // @FIXME
     return true;
   }
 

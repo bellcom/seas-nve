@@ -28,6 +28,7 @@ class TransKeyExtension extends \Twig_Extension {
     return array(
       new Twig_SimpleFilter('get_trans', [$this, 'getTranslation'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('get_help', [$this, 'getHelpText'], ['is_safe' => ['all']]),
+      new Twig_SimpleFilter('get_calculation', [$this, 'getCalculation'], ['is_safe' => ['all']]),
     );
   }
 
@@ -54,6 +55,13 @@ class TransKeyExtension extends \Twig_Extension {
     }
 
     return ($key === $trans) ? '' : $trans;
+  }
+
+  public function getCalculation($key) {
+    $key = str_replace('_', '.', $key);
+    $key .= '.calculation';
+    $trans = $this->translator->trans($key);
+    return $trans !== $key ? $trans : null;
   }
 
   /**

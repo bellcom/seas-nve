@@ -10,18 +10,18 @@
       <table class="table table-header-rotated">
         <thead>
         <tr>
-          <th class="rotate"><div><span>{{ 'appbundle.tiltag.tilvalgt' | trans }}</span></div></th>
-          <th class="rotate"><div><span>{{ 'appbundle.pumpetiltag.pumpeID' | trans }}</span></div></th>
-          <th class="rotate"><div><span>{{ 'appbundle.pumpetiltag.forsyningsomraade' | trans }}</span></div></th>
-          <th class="rotate"><div><span>{{ 'appbundle.pumpetiltag.placering' | trans }}</span></div></th>
-          <th class="rotate"><div><span>{{ 'appbundle.pumpetiltag.applikation' | trans }}</span></div></th>
-          <th class="rotate"><div><span>{{ 'appbundle.pumpetiltag.isoleringskappe' | trans }}</span></div></th>
-          <th class="rotate"><div><span>{{ 'appbundle.pumpetiltag.bfaktor' | trans }}</span></div></th>
-          <th class="rotate"><div><span>{{ 'appbundle.pumpetiltag.noter' | trans }}</span></div></th>
-          <th class="rotate"><div><span>{{ 'appbundle.pumpetiltag.eksisterendeDrifttid' | trans }}</span></div></th>
-          <th class="rotate"><div><span>{{ 'appbundle.pumpetiltag.nyDrifttid' | trans }}</span></div></th>
-          <th class="rotate"><div><span>{{ 'appbundle.pumpetiltag.prisfaktor' | trans }}</span></div></th>
-          <th></th>
+          {{ helper.header('appbundle.tiltag.tilvalgt') }}
+          {{ helper.header('appbundle.pumpetiltag.pumpeID') }}
+          {{ helper.header('appbundle.pumpetiltag.forsyningsomraade') }}
+          {{ helper.header('appbundle.pumpetiltag.placering') }}
+          {{ helper.header('appbundle.pumpetiltag.applikation') }}
+          {{ helper.header('appbundle.pumpetiltag.isoleringskappe') }}
+          {{ helper.header('appbundle.pumpetiltag.bfaktor') }}
+          {{ helper.header('appbundle.pumpetiltag.noter') }}
+          {{ helper.header('appbundle.pumpetiltag.eksisterendeDrifttid') }}
+          {{ helper.header('appbundle.pumpetiltag.nyDrifttid') }}
+          {{ helper.header('appbundle.pumpetiltag.prisfaktor') }}
+          {{ helper.header() }}
         </tr>
         </thead>
         <tbody>
@@ -33,11 +33,11 @@
             <td>{{ detail.placering }}</td>
             <td>{{ detail.applikation }}</td>
             <td>{{ detail.isoleringskappe | b2icon }}</td>
-            <td>{{ detail.bfaktor }}</td>
+            <td>{{ detail.bfaktor | format_decimal }}</td>
             <td>{{ detail.noter }}</td>
-            <td>{{ detail.eksisterendeDrifttid }}</td>
-            <td>{{ detail.nyDrifttid }}</td>
-            <td>{{ detail.prisfaktor }}</td>
+            <td>{{ detail.eksisterendeDrifttid | format_decimal }}</td>
+            <td>{{ detail.nyDrifttid | format_decimal }}</td>
+            <td>{{ detail.prisfaktor | format_decimal }}</td>
             <td>
               <a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
               <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>

@@ -20,6 +20,10 @@ services:
         arguments: [@translator]
         tags:
             - {name: "twig.extension"}
+    format_extension:
+        class: AppBundle\Twig\Extension\FormatExtension
+        tags:
+            - {name: "twig.extension"}
 
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
