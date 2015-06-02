@@ -706,11 +706,10 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     $this->vaegtetGnm = $this->computeVaegtetGnm();
     $this->vaegtetLevetidForTiltagetAfrundet = $this->computeVaegtetLevetidForTiltagetAfrundet();
     $this->faktorForReinvestering = $this->computeFaktorForReinvestering();
-    $this->nutidsvaerdiSetOver15AarKr = $this->computeNutidsvaerdiSetOver15AarKr();
     $this->kWhBesparElvaerkEksternEnergikilde = $this->computeKWhBesparElvaerkEksternEnergikilde();
     $this->kWhBesparVarmevaerkEksternEnergikilde = $this->computeKWhBesparVarmevaerkEksternEnergikilde();
     $this->tilvalgteDeltiltag = $this->computeTilvalgteDeltiltag();
-
+    $this->nutidsvaerdiSetOver15AarKr = $this->computeNutidsvaerdiSetOver15AarKr();
     $this->simpelTilbagebetalingstidAar = $this->computeSimpelTilbagebetalingstidAar();
   }
 
@@ -735,7 +734,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   private function computeSamletBesparelseKWhAarInklDelbesparelser() {
-    // $this->samletBesparelseKWhAarInklDelbesparelser = $this->__get('Z');
     // "Z": "Samlet Besparelse (kWh/år) \ninkl. delbesparelser"
     // @FIXME
     // return IFERROR(IF($this->tiltagsnrDelpriser === null,$this->besparelseKWhAar+SUMIFS([Besparelse\n(kWh/år)],[Tiltagsnr. Delpriser],$this->tiltagsnr), null), null);
@@ -743,7 +741,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   private function computeDelprisKrM2() {
-    // $this->delprisKrM2 = $this->__get('AD');
     // "AD": "Delpris (kr/m2)"
     // @FIXME
     // return \nIF($this->prisfaktor === null, null,\nIFERROR(IF($this->priskategori === null,$this->prisfaktor,\nINDEX(INDIRECT(\"Table21\"),MATCH($this->priskategori,INDIRECT(\"Table21[[Post]]\"),0),4)*$this->prisfaktor), null));
@@ -751,7 +748,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   private function computeSamletInvesteringKr() {
-    // $this->samletInvesteringKr = $this->__get('AE');
     // "AE": "Samlet investering (kr)"
     // @FIXME
     // return IFERROR(IF($this->tiltagsnrDelpriser === null,$this->delprisKrM2*$this->arealM2+SUMIFS([Til summering af delpriser],[Tiltagsnr. Delpriser],$this->tiltagsnr), null), null);
@@ -759,7 +755,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   private function computeSimpelTilbagebetalingstidAar() {
-    // $this->simpelTilbagebetalingstidAar = $this->__get('AF');
     // "AF": "Simpel tilbagebetalingstid (år)"
     if ($this->tiltagsnr == null) {
       return null;
@@ -770,7 +765,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   private function computeTilSortering() {
-    // $this->tilSortering = $this->__get('AH');
     // "AH": "Til sortering"
     if ($this->tiltagsnr > 0) {
       return $this->tiltagsnr;
@@ -784,13 +778,11 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   private function computeTilSummeringAfDelpriser() {
-    // $this->tilSummeringAfDelpriser = $this->__get('AI');
     // "AI": "Til summering af delpriser"
     return $this->arealM2 * $this->delprisKrM2;
   }
 
   private function computeVaegtetGnm() {
-    // $this->vaegtetGnm = $this->__get('AK');
     // "AK": "VaegtetGnm"
     if ($this->levetidAar > 0) {
       return $this->levetidAar*$this->tilSummeringAfDelpriser;
@@ -801,7 +793,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   private function computeVaegtetLevetidForTiltagetAfrundet() {
-    // $this->vaegtetLevetidForTiltagetAfrundet = $this->__get('AL');
     // "AL": "Vægtet levetid for tiltaget (afrundet)"
     // @FIXME
     // return IF($this->tiltagsnr>0,(SUMIFS([VaegtetGnm],[Tiltagsnr. Delpriser],$this->tiltagsnr)+$this->vaegtetGnm)/$this->samletInvesteringKr, null);
@@ -809,13 +800,11 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   private function computeFaktorForReinvestering() {
-    // $this->faktorForReinvestering = $this->__get('AM');
     // "AM": "Faktor for reinvestering"
     return 1;
   }
 
   private function computeNutidsvaerdiSetOver15AarKr() {
-    // $this->nutidsvaerdiSetOver15AarKr = $this->__get('AN');
     // "AN": "Nutidsværdi set over 15 år (kr)"
 
     if ($this->tiltagsnr == null) {
@@ -830,9 +819,8 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   private function computeKWhBesparElvaerkEksternEnergikilde() {
-    // $this->kWhBesparElvaerkEksternEnergikilde = $this->__get('AO');
     // "AO": "kWh-bespar. Elværk (Ekstern energikilde)"
-    if ($this->besparelseKWhAar == 0 && $this->samletBesparelseKWhAarInklDelbesparelser == null) {
+    if ($this->besparelseKWhAar == 0 && $this->samletBesparelseKWhAarInklDelbesparelser == 0) {
       return 0;
     }
     elseif ($this->besparelseKWhAar > 0) {
@@ -857,9 +845,8 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   private function computeKWhBesparVarmevaerkEksternEnergikilde() {
-    // $this->kWhBesparVarmevaerkEksternEnergikilde = $this->__get('AP');
     // "AP": "kWh-bespar. Varmeværk (ekstern energikilde)"
-    if ($this->besparelseKWhAar == 0 ||$this->samletBesparelseKWhAarInklDelbesparelser == null) {
+    if ($this->besparelseKWhAar == 0 || $this->samletBesparelseKWhAarInklDelbesparelser == 0) {
       return 0;
     }
     else {
@@ -868,7 +855,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
           return $this->samletBesparelseKWhAarInklDelbesparelser;
         }
         else {
-          $this->fordelbesparelse($this->samletBesparelseKWhAarInklDelbesparelser,$this->tiltag->getForsyningVarme(), 'VARME');
+          return $this->fordelbesparelse($this->samletBesparelseKWhAarInklDelbesparelser,$this->tiltag->getForsyningVarme(), 'VARME');
         }
       }
       else {
@@ -878,7 +865,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   private function computeTilvalgteDeltiltag() {
-    // $this->tilvalgteDeltiltag = $this->__get('AQ');
     // "AQ": "Tilvalgte (deltiltag)"
     // @FIXME
     // return IF($this->tilvalgt="x","x",\nIF($this->tiltagsnrDelpriser<>"",INDEX(Table821[[Tilvalgt]:[Tiltagsnr.]],MATCH($this->tiltagsnrDelpriser,[Tiltagsnr.],0),1),0));
