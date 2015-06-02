@@ -399,7 +399,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     // 'AH'
     if ($this->varmebespKwhAar == 0) {
       return 0;
-    } else if ($this->__get('INDIRECT(\"\'2.Forsyning\'!$H$3\")') == 1) {
+    } else if ($this->getRapport()->isStandardforsyning()) {
       return 0;
     } else {
       return $this->fordelbesparelse($this->varmebespKwhAar, $this->tiltag->getForsyningVarme(), 'EL');
@@ -410,7 +410,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     // 'AI'
     if ($this->varmebespKwhAar == 0) {
       return 0;
-    } else if ($this->__get('INDIRECT(\"\'2.Forsyning\'!$H$3\")') == 1) {
+    } else if ($this->getRapport()->isStandardforsyning()) {
       return $this->varmebespKwhAar;
     } else {
       return $this->fordelbesparelse($this->varmebespKwhAar, $this->tiltag->getForsyningVarme(), 'VARME');
@@ -455,7 +455,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     if ($this->eksistIsolMm === null || $this->roerstoerrelseMmAekvivalent == 0) {
       return 0;
     } else {
-      return 2*((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*$this->varmeledningsevnePaaEksistIsoleringWMK*$this->__get('$AC$25')*PI()/(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*log(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)/($this->roerstoerrelseMmAekvivalent/1000))*$this->__get('$AC$25')+2*$this->varmeledningsevnePaaEksistIsoleringWMK);
+      return 2*((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*$this->varmeledningsevnePaaEksistIsoleringWMK*$this->getKonvektivVarmeovergangskoefficient()*PI()/(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*log(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)/($this->roerstoerrelseMmAekvivalent/1000))*$this->getKonvektivVarmeovergangskoefficient()+2*$this->varmeledningsevnePaaEksistIsoleringWMK);
     }
   }
 

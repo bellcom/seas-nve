@@ -836,7 +836,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
       return 0;
     }
     elseif ($this->besparelseKWhAar > 0) {
-      if ($this->{'INDIRECT("\'2.Forsyning\'!$H$3")'} == 1) {
+      if ($this->getRapport()->isStandardforsyning()) {
         return 0;
       }
       else {
@@ -844,7 +844,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
       }
     }
     elseif ($this->samletBesparelseKWhAarInklDelbesparelser > 0) {
-      if ($this->{'INDIRECT("\'2.Forsyning\'!$H$3")'} == 1) {
+      if ($this->getRapport()->isStandardforsyning()) {
         return 0;
       }
       else {
@@ -864,7 +864,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     }
     else {
       if ($this->besparelseKWhAar > 0) {
-        if ($this->{'INDIRECT("\'2.Forsyning\'!$H$3")'} == 1) {
+        if ($this->getRapport()->isStandardforsyning()) {
           return $this->samletBesparelseKWhAarInklDelbesparelser;
         }
         else {
@@ -883,17 +883,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     // @FIXME
     // return IF($this->tilvalgt="x","x",\nIF($this->tiltagsnrDelpriser<>"",INDEX(Table821[[Tilvalgt]:[Tiltagsnr.]],MATCH($this->tiltagsnrDelpriser,[Tiltagsnr.],0),1),0));
     return 0;
-  }
-
-  public function __get($key) {
-    switch ($key) {
-      case 'INDIRECT("\'2.Forsyning\'!$H$3")':
-        // @FIXME
-        return null;
-
-    }
-
-    throw new \Exception('Invalid key: '.$key);
   }
 
 }
