@@ -178,10 +178,24 @@ class LoadRapport extends LoadData {
   private function loadTiltag(Tiltag $tiltag, Rapport $rapport, \PHPExcel_Worksheet $sheet) {
     $tiltag
       ->setRapport($rapport)
-      ->setBeskrivelseForslag($sheet->getCell('A15')->getValue())
       ->setForsyningVarme($sheet->getCell('C13')->getValue())
       ->setForsyningEl($sheet->getCell('F13')->getValue())
-      ->setLevetid($sheet->getCell('G7')->getValue());
+      ->setLevetid($sheet->getCell('G7')->getValue())
+      ->setFaktorForReinvesteringer($sheet->getCell('C11')->getValue())
+      ->setTiltagskategori($sheet->getCell('D12')->getValue())
+      ->setPrimaerEnterprise($sheet->getCell('B12')->getValue())
+      ->setRisikovurdering($sheet->getCell('C17')->getValue())
+      ->setPlacering($sheet->getCell('C19')->getValue())
+      ->setBeskrivelseBV($sheet->getCell('A21')->getValue())
+      ->setIndeklima($sheet->getCell('A23')->getValue());
+
+    $beskrivelse = $sheet->getCell('A15')->getValue();
+    $tokens = array_map('trim', preg_split('/(Nuværende forhold|Forslag|Øvrige bemærkninger):/i', $beskrivelse));
+    if (count($tokens) == 4) {
+      $tiltag->setBeskrivelseNuvaerende($tokens[1]);
+      $tiltag->setBeskrivelseForslag($tokens[2]);
+      $tiltag->setBeskrivelseOevrige($tokens[3]);
+    }
 
     return $tiltag;
   }

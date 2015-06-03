@@ -322,6 +322,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     // Must come after both kwhBesparelseElFraVaerket and kwhBesparelseVarmeFraVaerket
     $this->simpelTilbagebetalingstidAar = $this->computeSimpelTilbagebetalingstidAar();
     $this->nutidsvaerdiSetOver15AarKr = $this->computeNutidsvaerdiSetOver15AarKr();
+    parent::compute();
   }
 
   private function computeRoerstoerrelseMmAekvivalent() {
@@ -334,14 +335,14 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   }
 
   private function computeVarmeledningsevnePaaEksistIsoleringWMK() {
-    // 'W'
-    // @FIXME
+    // 'W', '$N$38'
+    // @FIXME: Where should we get/store this value?
     return 0.05;
   }
 
   private function computeVarmeledningsevnePaaNyIsoleringWMK() {
-    // 'X'
-    // @FIXME
+    // 'X', '$N$39'
+    // @FIXME: Where should we get/store this value?
     return 0.044;
   }
 
@@ -420,7 +421,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   private function computeSimpelTilbagebetalingstidAar() {
     // 'AF'
     if ($this->standardinvestKrM2EllerKrM > 0) {
-      // @FIXME: Division by zero
       return ($this->standardinvestKrM2EllerKrM * $this->roerlaengdeEllerHoejdeAfVvbM)
         / ($this->getRapport()->getElKrKWh() * $this->kwhBesparelseElFraVaerket + $this->getRapport()->getVarmeKrKWh() * $this->kwhBesparelseVarmeFraVaerket);
     } else {

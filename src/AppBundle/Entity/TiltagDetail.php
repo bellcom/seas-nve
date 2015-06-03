@@ -239,7 +239,9 @@ abstract class TiltagDetail {
   /**
    * Compute stuff.
    */
-  public function compute() {}
+  public function compute() {
+    $this->tiltag->compute();
+  }
 
   protected function fordelbesparelse($BesparKwh, $Kilde, $typen) {
     return 0;
@@ -313,13 +315,13 @@ End Function
 
   protected function nvPTO2($Invest, $BesparKwhVarme, $BesparKwhEl, $Besparm3Vand, $DogV, $Straf, $Levetid, $FaktorReInvest, $SalgAfEnergibesparelse) {
     $rapport = $this->tiltag->getRapport();
-    $Kalkulationsrente = $rapport->getKalkulationsrente(); // Worksheets("1.Tiltagslisterådgiver").Range("ai23").Value;
-    $Inflationsfaktor = $rapport->getInflationsfaktor(); // Worksheets("1.Tiltagslisterådgiver").Range("ai26");
-    $Inflation = $rapport->getInflation(); // Worksheets("1.Tiltagslisterådgiver").Range("ak23");
-    $Lobetid  = $rapport->getLobetid(); // Worksheets("1.Tiltagslisterådgiver").Range("an23");
-    $Elfaktor = $rapport->getElfaktor(); // Worksheets("1.TiltagslisteRådgiver").Range("ah25"); // 'tilbagediskonterede faktorer for energi-priser over 15 år
-    $Varmefaktor = $rapport->getVarmefaktor(); // Worksheets("1.TiltagslisteRådgiver").Range("ah24");
-    $Vandfaktor = $rapport->getVandfaktor(); // Worksheets("1.TiltagslisteRådgiver").Range("ai27");
+    $Kalkulationsrente = $rapport->getKalkulationsrente();
+    $Inflationsfaktor = $rapport->getInflationsfaktor();
+    $Inflation = $rapport->getInflation();
+    $Lobetid  = $rapport->getLobetid();
+    $Elfaktor = $rapport->getElfaktor();
+    $Varmefaktor = $rapport->getVarmefaktor();
+    $Vandfaktor = $rapport->getVandfaktor();
 
     $Reinvest = 0;
     $AntalReinvest = 0;
