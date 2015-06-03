@@ -11,6 +11,7 @@
 				<table class="table table-header-rotated table-hover">
 					<thead>
 						<tr>
+              <th class="rotate"><div><span></span></div></th>
 							<th class="rotate"><div><span>{{ 'appbundle.tiltagdetail.tilvalgt' | trans }}</span></div></th>
 							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.lokale.navn' | trans }}</span></div></th>
 							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.lokale.type' | trans }}</span></div></th>
@@ -50,12 +51,14 @@
 							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.nutidsvaerdi.set.over15.aar.kr' | trans }}</span></div></th>
 							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.kwh.besparelse.el' | trans }}</span></div></th>
 							<th class="rotate"><div><span>{{ 'appbundle.belysningtiltagdetail.kwh.besparelse.varme.fra.varmevaerket' | trans }}</span></div></th>
-							<th class="rotate"><div><span></span></div></th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for detail in entity.details %}
 							<tr>
+                <td>
+                  <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+                </td>
 								<td>{{ detail.tilvalgt | b2icon }}</td>
 								<td>{{ detail.lokaleNavn }}</td>
 								<td>{{ detail.lokaleType }}</td>
@@ -95,9 +98,6 @@
 								<td>{{ detail.nutidsvaerdiSetOver15AarKr | localizednumber('decimal', 'double') }}</td>
 								<td>{{ detail.kwhBesparelseEl | localizednumber('decimal', 'double') }}</td>
 								<td>{{ detail.kwhBesparelseVarmeFraVarmevaerket | localizednumber('decimal', 'double') }}</td>
-								<td>
-									<a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-								</td>
 							</tr>
 						{% endfor %}
 					</tbody>

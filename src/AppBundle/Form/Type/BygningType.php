@@ -27,6 +27,7 @@ class BygningType extends AbstractType {
     $builder
       ->add('bygId')
       ->add('ident')
+      ->add('navn')
       ->add('enhedsys')
       ->add('enhedskode')
       ->add('type')
@@ -34,7 +35,6 @@ class BygningType extends AbstractType {
       ->add('adresse')
       ->add('postnummer')
       ->add('postBy')
-      ->add('navn')
       ->add('ejer')
       ->add('afdelingsnavn')
       ->add('ejerA')

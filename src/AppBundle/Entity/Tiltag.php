@@ -65,7 +65,7 @@ abstract class Tiltag {
    *
    * @ORM\Column(name="VarmebesparelseGUF", type="float", nullable=true)
    */
-  private $varmebsparelseGUF;
+  private $varmebesparelseGUF;
 
   /**
    * @var float
@@ -619,24 +619,24 @@ abstract class Tiltag {
   }
 
   /**
-   * Set varmebsparelseGUF
+   * Set varmebesparelseGUF;
    *
-   * @param float $varmebsparelseGUF
+   * @param float $varmebesparelseGUF;
    * @return Tiltag
    */
-  public function setVarmebsparelseGUF($varmebsparelseGUF) {
-    $this->varmebsparelseGUF = $varmebsparelseGUF;
+  public function setVarmebesparelseGUF($varmebesparelseGUF) {
+    $this->varmebesparelseGUF = $varmebesparelseGUF;
 
     return $this;
   }
 
   /**
-   * Get varmebsparelseGUF
+   * Get varmebesparelseGUF;
    *
    * @return float
    */
-  public function getVarmebsparelseGUF() {
-    return $this->varmebsparelseGUF;
+  public function getVarmebesparelseGUF() {
+    return $this->varmebesparelseGUF;
   }
 
   /**

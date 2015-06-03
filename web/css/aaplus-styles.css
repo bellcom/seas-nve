@@ -27,6 +27,7 @@ form.inline-block {
 
 .table-header-rotated {
     border-collapse: collapse;
+    overflow: hidden;
 }
 .table-header-rotated td {
     width: 30px;

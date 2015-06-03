@@ -1,7 +1,11 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
+  {% if entity.navn %}
+  <h1>{{ icon('home') }} {{ entity.navn }} <small>{{ entity.adresse }}, {{ entity.postnummer }} {{ entity.postBy }}</small></h1>
+  {% else %}
   <h1>{{ icon('home') }} {{ entity.adresse }}, {{ entity.postnummer }} {{ entity.postBy }}</h1>
+  {% endif %}
 
   <div class="row">
     <div class="col-md-11">

@@ -42,6 +42,27 @@
     </div>
   </div>
 
+  <h2>Tiltag - liste:</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ 'appbundle.tiltag.title' | trans }}</th>
+        <th>{{ 'appbundle.tiltag.varmebesparelseGUF' | trans }}</th>
+        <th>{{ 'appbundle.tiltag.varmebesparelseGAF' | trans }}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for t in entity.tiltag %}
+      <tr>
+        <td>{{ t.title }}</td>
+        <td>{{ t.varmebesparelseGUF }}</td>
+        <td>{{ t.varmebesparelseGAF }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
   <h2>Tiltag:</h2>
 
   <div role="tabpanel">

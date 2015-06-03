@@ -24,6 +24,7 @@ rapporter:
     specialtiltag: Special
     teknisk_isolering: Teknsik isolering
     tiltag: Tiltag
+    tilvalgt: Tilvalgt
 
 bygninger:
   labels:
@@ -243,7 +244,7 @@ appbundle:
   tiltag:
     tilvalgt: Tilvalgt
     title: Titel
-    varmebsparelseGUF: ﻿Varmebesparelse, GUF (kWh/år)
+    varmebesparelseGUF: ﻿Varmebesparelse, GUF (kWh/år)
     varmebesparelseGAF: ﻿Varmebesparelse, GAF (kWh/år)
     elbesparelse: Elbesparelse (kWh/år)
     vandbesparelse: Vandbesparelse (m³/år)
