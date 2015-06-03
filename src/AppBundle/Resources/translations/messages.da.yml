@@ -332,3 +332,23 @@ appbundle:
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
+
+
+# Calculations
+appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |
+    if ($this->rumstoerrelse_m2 == 0 || $armaturEffekt == 0 || $this->armaturer_stk_lokale == 0) {
+      return 0;
+    }
+    else {
+      return $armaturEffekt * $this->armaturer_stk_lokale / $this->rumstoerrelse_m2;
+    }
+appbundle.belysningtiltagdetail.ny.driftstid.calculation: |
+    if ($this->drifttid_t_aar == 0 || $this->belysningstiltagId == null) {
+      return 0;
+    }
+    else {
+      return $this->drifttid_t_aar - $this->reduktion_af_drifttid * $this->drifttid_t_aar;
+    }
+
+appbundle.tekniskisoleringtiltagdetail.roerstoerrelseMmAekvivalent.calculation: …
+appbundle.klimaskaermtiltagdetail.arealM2.calculation: …

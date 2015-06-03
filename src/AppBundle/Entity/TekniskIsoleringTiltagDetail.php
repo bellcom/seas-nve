@@ -399,7 +399,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     // 'AH'
     if ($this->varmebespKwhAar == 0) {
       return 0;
-    } else if ($this->__get('INDIRECT(\"\'2.Forsyning\'!$H$3\")') == 1) {
+    } else if ($this->getRapport()->isStandardforsyning()) {
       return 0;
     } else {
       return $this->fordelbesparelse($this->varmebespKwhAar, $this->tiltag->getForsyningVarme(), 'EL');
@@ -410,7 +410,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     // 'AI'
     if ($this->varmebespKwhAar == 0) {
       return 0;
-    } else if ($this->__get('INDIRECT(\"\'2.Forsyning\'!$H$3\")') == 1) {
+    } else if ($this->getRapport()->isStandardforsyning()) {
       return $this->varmebespKwhAar;
     } else {
       return $this->fordelbesparelse($this->varmebespKwhAar, $this->tiltag->getForsyningVarme(), 'VARME');
@@ -455,7 +455,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     if ($this->eksistIsolMm === null || $this->roerstoerrelseMmAekvivalent == 0) {
       return 0;
     } else {
-      return 2*((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*$this->varmeledningsevnePaaEksistIsoleringWMK*$this->__get('$AC$25')*PI()/(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*log(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)/($this->roerstoerrelseMmAekvivalent/1000))*$this->__get('$AC$25')+2*$this->varmeledningsevnePaaEksistIsoleringWMK);
+      return 2*((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*$this->varmeledningsevnePaaEksistIsoleringWMK*$this->getKonvektivVarmeovergangskoefficient()*PI()/(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*log(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)/($this->roerstoerrelseMmAekvivalent/1000))*$this->getKonvektivVarmeovergangskoefficient()+2*$this->varmeledningsevnePaaEksistIsoleringWMK);
     }
   }
 
@@ -469,142 +469,13 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     if ($this->roerstoerrelseMmAekvivalent == 0 || $this->nyIsolMm == 0 || $this->varmeledningsevnePaaNyIsoleringWMK == 0) {
       return 0;
     } else {
-      return 2*((2*$this->nyIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*$this->varmeledningsevnePaaNyIsoleringWMK*$this->__get('$AC$25')*PI()/(((2*$this->nyIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*log(((2*$this->nyIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)/($this->roerstoerrelseMmAekvivalent/1000))*$this->__get('$AC$25')+2*$this->varmeledningsevnePaaNyIsoleringWMK);
+      return 2*((2*$this->nyIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*$this->varmeledningsevnePaaNyIsoleringWMK*$this->getKonvektivVarmeovergangskoefficient()*PI()/(((2*$this->nyIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*log(((2*$this->nyIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)/($this->roerstoerrelseMmAekvivalent/1000))*$this->getKonvektivVarmeovergangskoefficient()+2*$this->varmeledningsevnePaaNyIsoleringWMK);
     }
   }
 
-  public function __get($key) {
-    switch ($key) {
-      case 'INDIRECT(\"\'2.Forsyning\'!$H$3\")':
-        // @FIXME
-        // =IF(AND(A15="Hovedforsyning El",J15="El",I15=1,H15=1,A16="Fjernvarme",J16="Varme",I16=1,H16=1),1,"ikke standardforsyning")
-        return 1;
-
-      case '$AC$25':
-        return 9;
-    }
-
-    throw new \Exception('Invalid key: '.$key);
+  private function getKonvektivVarmeovergangskoefficient() {
+    // '$AC$25':
+    return 9;
   }
 
 }
-
-/**
-Public Function FordelBesparelse(BesparKwh As Single, Kilde As String, typen As String)
-
-Dim lastRow As Integer
-Dim y As Integer
-Dim t As Integer
-
-With Worksheets("2.Forsyning")
-lastRow = Worksheets("2.Forsyning").Range("a3").Value 'sidste række i øverste tabel
-End With
-
-For y = 14 To lastRow
-
-If Worksheets("2.Forsyning").Range("a" & y) = Kilde Then
-    If typen = "EL" Or typen = "VARME" Or typen = "PRIORITEREL" Or typen = "PRIORITERVARME" Then 'tjekker at der er tale om alm. el og varme og ikke "konverteringvarme" hvor det gamle forsyningsværks værdier skal bruges
-        If Worksheets("2.Forsyning").Range("ai" & y) <> "" Then 'der er beregnet konvertering
-            t = Worksheets("2.Forsyning").Range("ai" & y).Value 'række for konvertering indtastes
-
-            If Worksheets("2.Forsyning").Range("a" & t) <> "" Then 'konverteringen er tilvalgt
-                If typen = "EL" Or typen = "VARME" Then
-                    If Worksheets("2.Forsyning").Range("aj" & t) = 1 Then 'konvertering prioriteres forud for øvrige tiltag
-                        y = t 'denne funktion bypasses hvis de er er tale om KONVERTERINGVARME eller KONVERTERINGEL, hvor det eksisterende værks værdier skal anvendes.
-                        'MsgBox ("y er " & y)
-                    End If
-
-                ElseIf typen = "PRIORITEREL" Then
-                y = t 'prioriterel og varme er altid efter nye forsyningskildes effektivitet, uanset om prioritering er 1 eller 2
-                typen = "EL"
-                ElseIf typen = "PRIORITERVARME" Then
-                y = t
-                typen = "VARME"
-                'MsgBox ("prioritering virker")
-                End If
-            End If
-        End If
-
-    ElseIf typen = "KONVERTERINGVARME" Then 'dvs. regner altid med gamle værks effektivitet
-    typen = "VARME"
-    ElseIf typen = "KONVERTERINGEL" Then 'dvs. regner altid med gamle værks effektivitet
-    typen = "EL"
-    End If
-
-            If typen = "EL" Then
-                BesparKwh = BesparKwh * Worksheets("2.Forsyning").Range("ah" & y)
-            End If
-
-            If typen = "VARME" Then
-                BesparKwh = BesparKwh * Worksheets("2.Forsyning").Range("ag" & y)
-            End If
-
-y = lastRow 'såfremt der forsyningskilden er fundet, skal efterfølgende rækker ikke kontrolleres
-End If
-
-Next y
-
-If typen = "VARME" Then
-FordelBesparelse = BesparKwh
-End If
-
-If typen = "EL" Then
-FordelBesparelse = BesparKwh
-End If
-
-End Function
-
-
-
-Sub NVTilFra()
-Dim omraade As String
-Dim formel As String
-
-ActiveSheet.unprotect Password:="ptodem"
-
-With ActiveSheet
-        If .Range("h8") = "TekniskIsol" Then
-            omraade = "af49"
-            formel = "=IF(TekniskIsol20[[#This Row],[Varme-" & Chr(10) & "besp. " & Chr(10) & "'[kWh/år']]]="""",""""," & Chr(10) & "nvPTO2(TekniskIsol20[[#This Row],[Investering  " & Chr(10) & "'[kr']]],TekniskIsol20[[#This Row],[kWh-besparelse Varme fra værket]],TekniskIsol20[[#This Row],[kWh-besparelse El fra værket]],0,0,0,$G$7,1,0))"
-
-        ElseIf .Range("h8") = "VandbesparWC" Then
-            omraade = "aa43"
-            formel = "=IF(Table14[[#This Row],[Simpel tilbagebetalingstid (år)]]="""","""",nvPTO2(Table14[[#This Row],[Samlet investering (kr)]],0,0,Table14[[#This Row],[Vandbespar. (m³/år)]],0,0,$G$7,R11C3,0))"
-
-        ElseIf .Range("h8") = "Belysning" Then
-            omraade = "bq42"
-            formel = "=IF(Table10[[#This Row],[Vægtet Levetid (år)]]="""",""""," & Chr(10) & "IF(Table10[[#This Row],[Faktor for reinvestering (ALTID 1 INDTIL VIDERE)]]="""",""""," & Chr(10) & "IF(Table10[[#This Row],[Ny lyskilde, input]]=""""," & Chr(10) & "nvPTO2(Table10[[#This Row],[Investering, alle lokaler (kr)]],Table10[[#This Row],[kWh-besparelse Varme fra varmeværket]],Table10[[#This Row],[kWh-besparelse El]],0,0,0,ROUND(Table10[[#This Row],[Vægtet Levetid (år)]],0),Table10[[#This Row],[Faktor for reinvestering (ALTID 1 INDTIL VIDERE)]],0), " & Chr(10) & "nvPTO2(Table10[[#This Row],[Investering, alle lokaler (kr)]],Table10[[#This Row],[kWh-besparelse Varme fra varmeværket]],Table10[[#This Row],[kWh-besparelse El]],0,Table10[[#This Row],[Driftsbesparelse til lyskilder" & Chr(10) & "Alle lokaler (kr/år)]],0,ROUND(Table10[[#This Row],[Vægtet Levetid (år)]],0),Table10[[#This Row],[Faktor for reinvestering (ALTID 1 INDTIL VIDERE)]],0))))"
-
-        ElseIf .Range("h8") = "Pumper" Then
-            omraade = "as37"
-            formel = "=IF(AND(Table12[[#This Row],[kWh-besparelse El fra værket]]=0,Table12[[#This Row],[kWh-besparelse Varme fra værket]]=0),0," & Chr(10) & "nvPTO2(Table12[[#This Row],[Samlet investering inkl. pristillæg]],Table12[[#This Row],[kWh-besparelse Varme fra værket]],Table12[[#This Row],[kWh-besparelse El fra værket]],0,0,0,$G$7,1,0))"
-
-        ElseIf .Range("h8") = "Klimaskaerm" Then
-            omraade = "am39"
-            formel = "=IF(Table821[[#This Row],[Tiltagsnr.]]="""",""""," & Chr(10) & "IF(AND(Table821[[#This Row],[kWh-bespar. Elværk (Ekstern energikilde)]]=0,Table821[[#This Row],[kWh-bespar. Varmeværk (ekstern energikilde)]]=0),0," & Chr(10) & "nvPTO2(Table821[[#This Row],[Samlet investering (kr)]],Table821[[#This Row],[kWh-bespar. Varmeværk (ekstern energikilde)]],Table821[[#This Row],[kWh-bespar. Elværk (Ekstern energikilde)]],0,0,0,Table821[[#This Row],[Vægtet levetid for tiltaget (afrundet)]],Table821[[#This Row],[Faktor for reinvestering]],0)))"
-
-        ElseIf .Range("h8") = "Vandbespar" Then
-            omraade = "ai53"
-            formel = "=IF(AND(Table1419[[#This Row],[kWh-besparelse El fra værket]]=0,Table1419[[#This Row],[kWh-besparelse Varme fra værket]]=0,Table1419[[#This Row],[Vandbesparelse (m³/år)]]=""""),""""," & Chr(10) & "nvPTO2(Table1419[[#This Row],[Samlet investering (kr)]],Table1419[[#This Row],[kWh-besparelse Varme fra værket]],Table1419[[#This Row],[kWh-besparelse El fra værket]],Table1419[[#This Row],[Vandbesparelse (m³/år)]],0,0,$G$7,1,0))"
-
-        Else
-            Exit Sub 'ingen standardark fundet
-        End If
-
-
-        If MsgBox("Slå nutidsværdi på deltiltagsniveau til?", vbYesNo, "") = vbNo Then
-            formel = "=0"
-        End If
-
-.Range(omraade).FormulaR1C1 = _
-formel
-
-ActiveSheet.Protect Password:="ptodem", AllowFiltering:=True, AllowFormattingColumns:=True
-
-End With
-
-End Sub
-
-
-
-*/
