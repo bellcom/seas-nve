@@ -25,7 +25,7 @@ class TiltagType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('faktor')
+      ->add('faktorForReinvesteringer')
       ->add('primaerEnterprise', 'choice',
         array(
           'choices'   => array(
@@ -38,7 +38,7 @@ class TiltagType extends AbstractType {
             'ia'   => 'Interne i AAK'
           )
       ))
-      ->add('tilbudskategori', 'choice',
+      ->add('tiltagskategori', 'choice',
         array(
           'choices'   => array(
             'el'   => 'El',
@@ -53,7 +53,7 @@ class TiltagType extends AbstractType {
       )
       ->add('forsyningVarme')
       ->add('forsyningEl')
-      ->add('beskrivelseNevaerende')
+      ->add('beskrivelseNuvaerende')
       ->add('beskrivelseForslag')
       ->add('beskrivelseOevrige')
       ->add('risikovurdering')

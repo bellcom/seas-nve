@@ -251,15 +251,15 @@ appbundle:
     energibesparelseAarEt: Energi- og vandbesparelser i år 1 (kr/år)
     co2besparelseAarEt: Samlet co2-besparelse i år 1  (t/år)
     antalReinvesteringer: Antal reinvesteringer (stk.)
-    faktor: Faktor for reinvesteringer
+    faktorForReinvesteringer: Faktor for reinvesteringer
     primaerEnterprise: Primær entreprise
-    tilbudskategori: Tilbudskategori
+    tiltagskategori: Tiltagskategori
     anlaegsInvestering: ﻿Anlægsinvestering (kr)
     dVBesparelse: Besparelse på D&V (kr/år)
     levetid: Funktionsdygtig levetid (år)
     forsyningVarme: Forsyning, varme
     forsyningEl: Forsyning, el
-    beskrivelseNevaerende: Nuværende forhold
+    beskrivelseNuvaerende: Nuværende forhold
     beskrivelseForslag: Forslag
     beskrivelseOevrige: Øvrige bemærkninger
     risikovurdering: Risikovurdering

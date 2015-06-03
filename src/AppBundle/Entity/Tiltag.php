@@ -112,9 +112,9 @@ abstract class Tiltag {
   /**
    * @var integer
    *
-   * @ORM\Column(name="Faktor", type="integer", nullable=true)
+   * @ORM\Column(name="FaktorForReinvesteringer", type="integer", nullable=true)
    */
-  private $faktor;
+  private $faktorForReinvesteringer;
 
   /**
    * @var string
@@ -126,9 +126,9 @@ abstract class Tiltag {
   /**
    * @var string
    *
-   * @ORM\Column(name="Tilbudskategori", type="string", length=50, nullable=true)
+   * @ORM\Column(name="Tiltagskategori", type="string", length=50, nullable=true)
    */
-  private $tilbudskategori;
+  private $tiltagskategori;
 
   /**
    * @var string
@@ -168,9 +168,9 @@ abstract class Tiltag {
   /**
    * @var string
    *
-   * @ORM\Column(name="BeskrivelseNevaerende", type="text", nullable=true)
+   * @ORM\Column(name="BeskrivelseNuvaerende", type="text", nullable=true)
    */
-  private $beskrivelseNevaerende;
+  private $beskrivelseNuvaerende;
 
   /**
    * @var string
@@ -283,24 +283,24 @@ abstract class Tiltag {
   }
 
   /**
-   * Set faktor
+   * Set faktorForReinvesteringer
    *
-   * @param integer $faktor
+   * @param integer $faktorForReinvesteringer
    * @return Tiltag
    */
-  public function setFaktor($faktor) {
-    $this->faktor = $faktor;
+  public function setFaktorForReinvesteringer($faktorForReinvesteringer) {
+    $this->faktorForReinvesteringer = $faktorForReinvesteringer;
 
     return $this;
   }
 
   /**
-   * Get faktor
+   * Get faktorForReinvesteringer
    *
    * @return integer
    */
-  public function getFaktor() {
-    return $this->faktor;
+  public function getFaktorForReinvesteringer() {
+    return $this->faktorForReinvesteringer;
   }
 
   /**
@@ -325,24 +325,24 @@ abstract class Tiltag {
   }
 
   /**
-   * Set tilbudskategori
+   * Set tiltagskategori
    *
-   * @param string $tilbudskategori
+   * @param string $tiltagskategori
    * @return Tiltag
    */
-  public function setTilbudskategori($tilbudskategori) {
-    $this->tilbudskategori = $tilbudskategori;
+  public function setTiltagskategori($tiltagskategori) {
+    $this->tiltagskategori = $tiltagskategori;
 
     return $this;
   }
 
   /**
-   * Get tilbudskategori
+   * Get tiltagskategori
    *
    * @return string
    */
-  public function getTilbudskategori() {
-    return $this->tilbudskategori;
+  public function getTiltagskategori() {
+    return $this->tiltagskategori;
   }
 
   /**
@@ -451,24 +451,24 @@ abstract class Tiltag {
   }
 
   /**
-   * Set beskrivelseNevaerende
+   * Set beskrivelseNuvaerende
    *
-   * @param string $beskrivelseNevaerende
+   * @param string $beskrivelseNuvaerende
    * @return Tiltag
    */
-  public function setBeskrivelseNevaerende($beskrivelseNevaerende) {
-    $this->beskrivelseNevaerende = $beskrivelseNevaerende;
+  public function setBeskrivelseNuvaerende($beskrivelseNuvaerende) {
+    $this->beskrivelseNuvaerende = $beskrivelseNuvaerende;
 
     return $this;
   }
 
   /**
-   * Get beskrivelseNevaerende
+   * Get beskrivelseNuvaerende
    *
    * @return string
    */
-  public function getBeskrivelseNevaerende() {
-    return $this->beskrivelseNevaerende;
+  public function getBeskrivelseNuvaerende() {
+    return $this->beskrivelseNuvaerende;
   }
 
   /**
