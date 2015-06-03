@@ -24,7 +24,7 @@ class PumpeTiltagDetailType extends TiltagDetailType {
       ->add('applikation')
       ->add('isoleringskappe', null, array('required' => false))
       ->add('b_faktor')
-      ->add('noter')
+      ->add('noter', null, array('required' => false))
       ->add('eksisterendeDrifttid', null, array(
         'attr' => array(
           'input_group' => array(
