@@ -711,6 +711,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     $this->tilvalgteDeltiltag = $this->computeTilvalgteDeltiltag();
     $this->nutidsvaerdiSetOver15AarKr = $this->computeNutidsvaerdiSetOver15AarKr();
     $this->simpelTilbagebetalingstidAar = $this->computeSimpelTilbagebetalingstidAar();
+    parent::compute();
   }
 
   private function computeArealM2() {

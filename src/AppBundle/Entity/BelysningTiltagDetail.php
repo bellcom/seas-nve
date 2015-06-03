@@ -986,6 +986,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     $this->simpel_tilbagebetalingstid_aar = $this->computeSimpelTilbagebetalingstidAar();
     $this->vaegtet_levetid_aar = $this->computeVaegtetLevetidAar();
     $this->nutidsvaerdi_set_over_15_aar_kr = $this->computeNutidsvaerdiSetOver15AarKr();
+    parent::compute();
   }
 
   private function computeElforbrugWM2() {

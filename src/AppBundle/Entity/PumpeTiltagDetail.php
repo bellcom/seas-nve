@@ -416,6 +416,7 @@ class PumpeTiltagDetail extends TiltagDetail {
     $this->kwhBesparelseVarmeFraVaerket = $this->computeKwhBesparelseVarmeFraVaerket();
     $this->simpelTilbagebetalingstidAar = $this->computeSimpelTilbagebetalingstidAar();
     $this->nutidsvaerdiSetOver15AarKr = $this->computeNutidsvaerdiSetOver15AarKr();
+    parent::compute();
   }
 
   public function computePristillaeg() {

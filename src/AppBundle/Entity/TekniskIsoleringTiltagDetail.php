@@ -322,6 +322,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     // Must come after both kwhBesparelseElFraVaerket and kwhBesparelseVarmeFraVaerket
     $this->simpelTilbagebetalingstidAar = $this->computeSimpelTilbagebetalingstidAar();
     $this->nutidsvaerdiSetOver15AarKr = $this->computeNutidsvaerdiSetOver15AarKr();
+    parent::compute();
   }
 
   private function computeRoerstoerrelseMmAekvivalent() {
