@@ -736,21 +736,21 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   private function computeSamletBesparelseKWhAarInklDelbesparelser() {
     // "Z": "Samlet Besparelse (kWh/år) \ninkl. delbesparelser"
-    // @FIXME
+    // @FIXME: Deltiltag?!
     // return IFERROR(IF($this->tiltagsnrDelpriser === null,$this->besparelseKWhAar+SUMIFS([Besparelse\n(kWh/år)],[Tiltagsnr. Delpriser],$this->tiltagsnr), null), null);
     return 0;
   }
 
   private function computeDelprisKrM2() {
     // "AD": "Delpris (kr/m2)"
-    // @FIXME
+    // @FIXME: Deltiltag?!
     // return \nIF($this->prisfaktor === null, null,\nIFERROR(IF($this->priskategori === null,$this->prisfaktor,\nINDEX(INDIRECT(\"Table21\"),MATCH($this->priskategori,INDIRECT(\"Table21[[Post]]\"),0),4)*$this->prisfaktor), null));
     return 0;
   }
 
   private function computeSamletInvesteringKr() {
     // "AE": "Samlet investering (kr)"
-    // @FIXME
+    // @FIXME: Deltiltag?!
     // return IFERROR(IF($this->tiltagsnrDelpriser === null,$this->delprisKrM2*$this->arealM2+SUMIFS([Til summering af delpriser],[Tiltagsnr. Delpriser],$this->tiltagsnr), null), null);
     return 0;
   }
@@ -795,7 +795,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   private function computeVaegtetLevetidForTiltagetAfrundet() {
     // "AL": "Vægtet levetid for tiltaget (afrundet)"
-    // @FIXME
+    // @FIXME: Deltiltag?!
     // return IF($this->tiltagsnr>0,(SUMIFS([VaegtetGnm],[Tiltagsnr. Delpriser],$this->tiltagsnr)+$this->vaegtetGnm)/$this->samletInvesteringKr, null);
     return 0;
   }
@@ -867,7 +867,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   private function computeTilvalgteDeltiltag() {
     // "AQ": "Tilvalgte (deltiltag)"
-    // @FIXME
+    // @FIXME: Deltiltag?!
     // return IF($this->tilvalgt="x","x",\nIF($this->tiltagsnrDelpriser<>"",INDEX(Table821[[Tilvalgt]:[Tiltagsnr.]],MATCH($this->tiltagsnrDelpriser,[Tiltagsnr.],0),1),0));
     return 0;
   }

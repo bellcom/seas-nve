@@ -403,69 +403,93 @@ class Rapport {
   public function getKalkulationsrente()
   {
     // Worksheets("1.Tiltagslisterådgiver").Range("ai23").Value;
-    // @FIXME
+    // @FIXME: Where should we get/store this value?
     return 0.0292;
   }
 
   public function getInflationsfaktor()
   {
     // Worksheets("1.Tiltagslisterådgiver").Range("ai26");
-    // @FIXME
+    // @FIXME: Where should we get/store this value?
     return 13.8639998427607;
   }
 
   public function getInflation()
   {
     // Worksheets("1.Tiltagslisterådgiver").Range("ak23");
-    // @FIXME
+    // @FIXME: Where should we get/store this value?
     return 0.019;
   }
 
   public function getLobetid()
   {
     // Worksheets("1.Tiltagslisterådgiver").Range("an23");
-    // @FIXME
+    // @FIXME: Where should we get/store this value?
     return 15;
   }
 
   public function getElfaktor()
   {
     // Worksheets("1.TiltagslisteRådgiver").Range("ah25");
-    // @FIXME
+    // @FIXME: Where should we get/store this value?
     return 23.5852836416293;
   }
 
   public function getVarmefaktor()
   {
     // Worksheets("1.TiltagslisteRådgiver").Range("ah24");
-    // @FIXME
+    // @FIXME: Where should we get/store this value?
     return 5.66155209590081;
   }
 
   public function getVandfaktor()
   {
     // Worksheets("1.TiltagslisteRådgiver").Range("ai27");
-    // @FIXME
+    // @FIXME: Where should we get/store this value?
     return 566.621673573629;
   }
 
   public function getVarmeKrKWh()
   {
     // Worksheets("1.TiltagslisteRådgiver").Range("ai6");
-    // @FIXME
+    // @FIXME: Where should we get/store this value?
     return 0.491;
   }
 
   public function getElKrKWh()
   {
     // Worksheets("1.TiltagslisteRådgiver").Range("ai7");
-    // @FIXME
+    // @FIXME: Where should we get/store this value?
     return 1.609478;
   }
 
   public function isStandardforsyning() {
     // INDIRECT(\"'2.Forsyning'!$H$3\")=1
-    // @FIXME
+    // =HVIS(
+		// 	OG(
+		// 		A15="Hovedforsyning El";
+		// 		J15="El";
+		// 		I15=1;
+		// 		H15=1;
+		// 		A16="Fjernvarme";
+		// 		J16="Varme";
+		// 		I16=1;
+		// 		H16=1
+		// 	);
+		// 	1;
+		// 	"ikke standardforsyning"
+		// )
+
+    // A15: text, fx "Hovedforsyning El"
+    // J15: 1. Interne Produktion, PRISGRUNDLAG 1
+    // I15: 1. Interne Produktion, Effektivitet enhed/kWh 1
+    // H15: 1. Interne Produktion, %-Fordeling 1
+    // A16: text, fx "Fjernvarme"
+    // J16: 1. Interne Produktion, PRISGRUNDLAG 1
+    // I16: 1. Interne Produktion, Effektivitet enhed/kWh 1
+    // H16: 1. Interne Produktion, %-Fordeling 1
+
+    // @FIXME: Where should we get/store this value?
     return true;
   }
 
