@@ -27,12 +27,11 @@ use AppBundle\Entity\TekniskIsoleringTiltagDetail;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadRapport extends LoadData {
-  // Must run after LoadBygningsData
-  protected $order = 1001;
+  protected $order = 1;
 
   private $manager;
   private $workbook;
-  private $filename;
+  private $name;
 
   /**
    * {@inheritDoc}
@@ -42,15 +41,12 @@ class LoadRapport extends LoadData {
 
     $basepath = $this->container->get('kernel')
               ->locateResource('@AppBundle/DataFixtures/Data/Excel/');
-    foreach (array(
-      '10202735, 30-04-2015, Rådgiverværktøj_Version 2.1.11 Til databasen.xlsm',
-    ) as $filename) {
-      $this->filename = $filename;
-      $filepath = $basepath . $this->filename;
+    foreach (glob($basepath . '*.xlsm') as $filepath) {
+      $this->name = basename($filepath, '.xlsm');
 
       $reader = \PHPExcel_IOFactory::createReaderForFile($filepath);
       $reader->setReadDataOnly(true);
-      $this->writeInfo('Loading Excel workbook %s ... %s', $this->filename, (new \DateTime())->format('c'));
+      $this->writeInfo('Loading Excel workbook %s ... %s', $filepath, (new \DateTime())->format('c'));
       $this->workbook = $reader->load($filepath);
       $this->writeInfo('Done. %s', (new \DateTime())->format('c'));
 
@@ -140,9 +136,7 @@ class LoadRapport extends LoadData {
       ), $values);
 
       $key = 'bygning:' . $bygning->getEnhedsys();
-      if (!$this->hasReference($key)) {
-        $this->addReference($key, $bygning);
-      }
+      $this->setReference($key, $bygning);
 
       $this->persist($bygning);
     }
@@ -413,7 +407,8 @@ class LoadRapport extends LoadData {
         ->setUdgift($values[7])
         ->setLevetid($values[11]);
 
-      $this->addReference('lyskilde:' . $values[0], $lyskilde);
+      $key = 'lyskilde:' . $values[0];
+      $this->setReference($key, $lyskilde);
 
       $this->persist($lyskilde);
     }
@@ -466,7 +461,8 @@ class LoadRapport extends LoadData {
         'V' => 'Fabrikant',
       ), $values);
 
-      $this->addReference('pumpe:' . $values['A'], $pumpe);
+      $key = 'pumpe:' . $values['A'];
+      $this->setReference($key, $pumpe);
 
       $this->persist($pumpe);
     }
@@ -816,7 +812,7 @@ class LoadRapport extends LoadData {
         } catch (\Exception $ex) {}
 
         if ($testFixturesPath) {
-          $filepath = $testFixturesPath . $type . '.data.' . $this->filename;
+          $filepath = $testFixturesPath . $type . '.data.' . $this->name;
           $content = json_encode(array(
             'tests' => $tests,
             'tiltag' => $this->getProperties($tiltag),

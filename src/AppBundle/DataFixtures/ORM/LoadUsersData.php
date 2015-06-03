@@ -17,7 +17,7 @@ use AppBundle\Entity\User;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadUsersData extends LoadData {
-  protected $order = 2;
+  protected $order = 12;
   protected $flush = true;
 
   protected function createWriter(ObjectManager $manager) {

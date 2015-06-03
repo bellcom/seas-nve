@@ -89,6 +89,7 @@ abstract class EntityTestCase extends KernelTestCase {
 
     $testFixturesPath = $this->getAppBundlePath().'/DataFixtures/Data/fixtures/';
     $filepaths = glob($testFixturesPath.$type . '*');
+
     foreach ($filepaths as $filepath) {
       if (($content = @file_get_contents($filepath))) {
         try {

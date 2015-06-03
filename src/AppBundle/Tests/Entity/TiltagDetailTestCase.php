@@ -3,7 +3,7 @@ namespace AppBundle\Tests\Entity;
 
 use AppBundle\Entity\Rapport;
 
-class TiltagDetailTestCase extends EntityTestCase {
+abstract class TiltagDetailTestCase extends EntityTestCase {
   /**
    * Delta to use when comparing floats.
    *

@@ -80,7 +80,7 @@ abstract class LoadData extends AbstractFixture implements FixtureInterface, Con
     if (func_num_args() > 1) {
       $message = call_user_func_array('sprintf', func_get_args());
     }
-    $this->output->writeln('');
+    // $this->output->writeln('');
     $this->output->writeln('  <comment>></comment> <info>' . $message . '</info>');
   }
 

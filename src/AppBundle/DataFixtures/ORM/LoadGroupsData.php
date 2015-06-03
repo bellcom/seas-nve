@@ -16,7 +16,7 @@ use AppBundle\Entity\Group;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadGroupsData extends LoadData {
-  protected $order = 1;
+  protected $order = 11;
   protected $flush = true;
 
   protected function createWriter(ObjectManager $manager) {

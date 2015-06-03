@@ -19,14 +19,14 @@ use AppBundle\Entity\User;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadBygningUsersData extends LoadData {
-  protected $order = 2000;
+  protected $order = 21;
   protected $flush = true;
 
   protected function createWriter(ObjectManager $manager) {
     return new CallbackWriter(function ($item) use ($manager) {
-      $bygning = $manager->getRepository('AppBundle:Bygning')->find($item['bygning_id']);
+      $bygning = $manager->getRepository('AppBundle:Bygning')->findOneByEnhedsys($item['bygning_enhedsys']);
       if (!$bygning) {
-        $this->writeError('No such Bygning: '.$item['bygning_id']);
+        $this->writeError('No such Bygning: '.$item['bygning_enhedsys']);
       } else {
         $users = $manager->getRepository('AppBundle:User')->findBy(array('id' => explode(',', $item['user_ids'])));
         $bygning->setUsers(new ArrayCollection($users));
