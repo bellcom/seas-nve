@@ -1,0 +1,56 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>{{ icon('gears') }} {{ 'configuration.labels.singular' | trans }}</h1>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>{{ 'appbundle.configuration.kalkulationsrente' | trans }}</th>
+            <td>{{ entity.kalkulationsrente }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.configuration.inflationsfaktor' | trans }}</th>
+            <td>{{ entity.inflationsfaktor }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.configuration.inflation' | trans }}</th>
+            <td>{{ entity.inflation }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.configuration.lobetid' | trans }}</th>
+            <td>{{ entity.lobetid }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.configuration.elfaktor' | trans }}</th>
+            <td>{{ entity.elfaktor }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.configuration.varmefaktor' | trans }}</th>
+            <td>{{ entity.varmefaktor }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.configuration.vandfaktor' | trans }}</th>
+            <td>{{ entity.vandfaktor }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.configuration.varmeKrKWh' | trans }}</th>
+            <td>{{ entity.varmeKrKWh }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.configuration.elKrKWh' | trans }}</th>
+            <td>{{ entity.elKrKWh }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr/>
+
+  <a href="{{ path('configuration_edit') }}"  class="btn btn-default">
+    {{ 'common.edit' | trans }}
+  </a>
+{% endblock %}

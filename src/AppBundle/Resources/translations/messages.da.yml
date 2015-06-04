@@ -70,6 +70,13 @@ belysningtiltagdetail:
     add: Tilføj belysningstiltag
     edit: Rediger belysningstiltag
 
+configuration:
+  labels:
+    singular: Indstillinger
+    plural: Indstillinger
+  actions:
+    edit: Rediger indstillinger
+  strings:
 
 # Forms - We follow the formbuilders form id format
 
@@ -333,6 +340,18 @@ appbundle:
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
 
+  configuration:
+    kalkulationsrente: Kalkulationsrente
+    inflationsfaktor: Inflationsfaktor
+    inflation: Inflation
+    lobetid: Løbetid
+    elfaktor: El-faktor
+    varmefaktor: Varmefaktor
+    vandfaktor: Vandfaktor
+    varmeKrKWh: Varme (kr/kWh)
+    elKrKWh: El (kr/kWh)
+    varmeledningsevneEksistLamelmaatter: Varmeledningsevne (W/m*K), eksist. lamelmåtter
+    varmeledningsevneNyIsolering: Varmeledningsevne (W/m*K), ny isolering
 
 # Calculations
 appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |
