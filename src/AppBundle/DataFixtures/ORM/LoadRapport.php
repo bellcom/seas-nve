@@ -142,12 +142,16 @@ class LoadRapport extends LoadData {
     }
   }
 
+  private $configuration;
+
   /**
    * Load a complete Rapport from an Excel workbook
    */
   private function loadRapport() {
     $sheet = $this->workbook->getSheetByName('1.TiltagslisteRådgiver');
     $enhedsys = $sheet->getCell('C4')->getValue();
+
+    $this->loadConfiguration($sheet);
 
     $bygning = $this->getBygning($enhedsys);
     $rapport = new Rapport();
@@ -164,6 +168,24 @@ class LoadRapport extends LoadData {
     $this->persist($rapport);
 
     $this->writeInfo(get_class($rapport) . ' ' . $rapport->getId() . ' loaded');
+
+    $this->persist($this->configuration);
+    $this->writeInfo(get_class($this->configuration) . ' loaded');
+  }
+
+  private function loadConfiguration(\PHPExcel_Worksheet $sheet) {
+    $repository = $this->manager->getRepository('AppBundle:Configuration');
+    $this->configuration = $repository->getConfiguration();
+    $this->configuration
+      ->setKalkulationsrente($sheet->getCell('AI23')->getValue())
+      ->setInflationsfaktor($sheet->getCell('AI26')->getValue())
+      ->setInflation($sheet->getCell('AK23')->getValue())
+      ->setLobetid($sheet->getCell('AN23')->getValue())
+      ->setElfaktor($sheet->getCell('AH25')->getValue())
+      ->setVarmefaktor($sheet->getCell('AH24')->getValue())
+      ->setVandfaktor($sheet->getCell('AI27')->getValue())
+      ->setVarmeKrKWh($sheet->getCell('AI6')->getValue())
+      ->setElKrKWh($sheet->getCell('AI7')->getValue());
   }
 
   /**
@@ -205,6 +227,11 @@ class LoadRapport extends LoadData {
    */
   private function loadTekniskIsoleringTiltag(Rapport $rapport) {
     $sheet = $this->workbook->getSheetByName('Detailark (3)');
+
+    $this->configuration
+      ->setVarmeledningsevneEksistLamelmaatter($sheet->getCell('N38')->getValue())
+      ->setVarmeledningsevneNyIsolering($sheet->getCell('N39')->getValue());
+
     $tiltag = $this->loadTiltag(new TekniskIsoleringTiltag(), $rapport, $sheet);
     $this->loadTekniskIsoleringTiltagDetail($tiltag, $sheet);
     $this->persist($tiltag);
