@@ -223,6 +223,24 @@ abstract class Tiltag {
   private $rapport;
 
   /**
+   * @var ArrayCollection
+   *
+   * @OneToMany(targetEntity="TiltagDetail", mappedBy="tiltag", cascade={"persist", "remove"})
+   * @OrderBy({"createdAt" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\TiltagDetail>")
+   */
+  private $details;
+
+  /**
+   * @var ArrayCollection
+   *
+   * @OneToMany(targetEntity="Regning", mappedBy="tiltag", cascade={"persist", "remove"})
+   * @OrderBy({"createdAt" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Regning>")
+   */
+  private $regning;
+
+  /**
    * Get Name
    *
    * @return string
@@ -744,14 +762,6 @@ abstract class Tiltag {
     return $this->antalReinvesteringer;
   }
 
-  /**
-   * @var ArrayCollection
-   *
-   * @OneToMany(targetEntity="TiltagDetail", mappedBy="tiltag", cascade={"persist", "remove"})
-   * @OrderBy({"createdAt" = "ASC"})
-   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\TiltagDetail>")
-   */
-  private $details;
 
   /**
    * Add a TiltagDetail to this Tiltag
@@ -813,4 +823,38 @@ abstract class Tiltag {
     $this->details = new \Doctrine\Common\Collections\ArrayCollection();
   }
 
+
+    /**
+     * Add regning
+     *
+     * @param \AppBundle\Entity\Regning $regning
+     *
+     * @return Tiltag
+     */
+    public function addRegning(\AppBundle\Entity\Regning $regning)
+    {
+        $this->regning[] = $regning;
+
+        return $this;
+    }
+
+    /**
+     * Remove regning
+     *
+     * @param \AppBundle\Entity\Regning $regning
+     */
+    public function removeRegning(\AppBundle\Entity\Regning $regning)
+    {
+        $this->regning->removeElement($regning);
+    }
+
+    /**
+     * Get regning
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRegning()
+    {
+        return $this->regning;
+    }
 }

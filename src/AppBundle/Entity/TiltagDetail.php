@@ -53,6 +53,16 @@ abstract class TiltagDetail {
   private $id;
 
   /**
+   * @var Tiltag $tiltag
+   *
+   * @ManyToOne(targetEntity="Tiltag", inversedBy="details")
+   * @JoinColumn(name="tiltag_id", referencedColumnName="id")
+   * @JMS\Type("AppBundle\Entity\Tiltag")
+   **/
+  protected $tiltag;
+
+
+  /**
    * Get id
    *
    * @return integer
@@ -119,14 +129,6 @@ abstract class TiltagDetail {
     return $this->title;
   }
 
-  /**
-   * @var Tiltag $tiltag
-   *
-   * @ManyToOne(targetEntity="Tiltag", inversedBy="details")
-   * @JoinColumn(name="tiltag_id", referencedColumnName="id")
-   * @JMS\Type("AppBundle\Entity\Tiltag")
-   **/
-  protected $tiltag;
 
   /**
    * Set tiltag

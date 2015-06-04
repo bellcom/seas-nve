@@ -53,4 +53,28 @@ class User extends BaseUser {
     $this->groups = new ArrayCollection();
     $this->bygninger = new ArrayCollection();
   }
+
+    /**
+     * Add bygninger
+     *
+     * @param \AppBundle\Entity\Bygning $bygninger
+     *
+     * @return User
+     */
+    public function addBygninger(\AppBundle\Entity\Bygning $bygninger)
+    {
+        $this->bygninger[] = $bygninger;
+
+        return $this;
+    }
+
+    /**
+     * Remove bygninger
+     *
+     * @param \AppBundle\Entity\Bygning $bygninger
+     */
+    public function removeBygninger(\AppBundle\Entity\Bygning $bygninger)
+    {
+        $this->bygninger->removeElement($bygninger);
+    }
 }
