@@ -335,15 +335,11 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   }
 
   private function computeVarmeledningsevnePaaEksistIsoleringWMK() {
-    // 'W', '$N$38'
-    // @FIXME: Where should we get/store this value?
-    return 0.05;
+    return $this->configuration->getVarmeledningsevneEksistLamelmaatter();
   }
 
   private function computeVarmeledningsevnePaaNyIsoleringWMK() {
-    // 'X', '$N$39'
-    // @FIXME: Where should we get/store this value?
-    return 0.044;
+    return $this->configuration->getVarmeledningsevneNyIsolering();
   }
 
   private function computeArealAfBeholderM2() {

@@ -227,12 +227,19 @@ abstract class TiltagDetail {
   public function handleUploads($manager) {}
 
   /**
+   * @var Configuration
+   */
+  protected $configuration;
+
+  /**
    * Post load handler.
    *
    * @ORM\PostLoad
    * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
    */
   public function postLoad(LifecycleEventArgs $event) {
+    $repository = $event->getEntityManager()->getRepository('AppBundle:Configuration');
+    $this->configuration = $repository->getConfiguration();
     $this->compute();
   }
 

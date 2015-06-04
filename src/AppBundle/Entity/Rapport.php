@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OrderBy;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -18,6 +19,7 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\RapportRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Rapport {
   /**
@@ -105,7 +107,6 @@ class Rapport {
    * @ORM\Column(name="Energiscreening", type="integer", nullable=true)
    */
   private $Energiscreening;
-
 
   /**
    * Constructor
@@ -402,65 +403,47 @@ class Rapport {
 
   public function getKalkulationsrente()
   {
-    // Worksheets("1.Tiltagslisterådgiver").Range("ai23").Value;
-    // @FIXME: Where should we get/store this value?
-    return 0.0292;
+    return $this->configuration->getKalkulationsrente();
   }
 
   public function getInflationsfaktor()
   {
-    // Worksheets("1.Tiltagslisterådgiver").Range("ai26");
-    // @FIXME: Where should we get/store this value?
-    return 13.8639998427607;
+    return $this->configuration->getInflationsfaktor();
   }
 
   public function getInflation()
   {
-    // Worksheets("1.Tiltagslisterådgiver").Range("ak23");
-    // @FIXME: Where should we get/store this value?
-    return 0.019;
+    return $this->configuration->getInflation();
   }
 
   public function getLobetid()
   {
-    // Worksheets("1.Tiltagslisterådgiver").Range("an23");
-    // @FIXME: Where should we get/store this value?
-    return 15;
+    return $this->configuration->getLobetid();
   }
 
   public function getElfaktor()
   {
-    // Worksheets("1.TiltagslisteRådgiver").Range("ah25");
-    // @FIXME: Where should we get/store this value?
-    return 23.5852836416293;
+    return $this->configuration->getElfaktor();
   }
 
   public function getVarmefaktor()
   {
-    // Worksheets("1.TiltagslisteRådgiver").Range("ah24");
-    // @FIXME: Where should we get/store this value?
-    return 5.66155209590081;
+    return $this->configuration->getVarmefaktor();
   }
 
   public function getVandfaktor()
   {
-    // Worksheets("1.TiltagslisteRådgiver").Range("ai27");
-    // @FIXME: Where should we get/store this value?
-    return 566.621673573629;
+    return $this->configuration->getVandfaktor();
   }
 
   public function getVarmeKrKWh()
   {
-    // Worksheets("1.TiltagslisteRådgiver").Range("ai6");
-    // @FIXME: Where should we get/store this value?
-    return 0.491;
+    return $this->configuration->getVarmeKrKWh();
   }
 
   public function getElKrKWh()
   {
-    // Worksheets("1.TiltagslisteRådgiver").Range("ai7");
-    // @FIXME: Where should we get/store this value?
-    return 1.609478;
+    return $this->configuration->getElKrKWh();
   }
 
   public function isStandardforsyning() {
@@ -489,8 +472,24 @@ class Rapport {
     // I16: 1. Interne Produktion, Effektivitet enhed/kWh 1
     // H16: 1. Interne Produktion, %-Fordeling 1
 
-    // @FIXME: Where should we get/store this value?
+    // @FIXME:
     return true;
+  }
+
+  /**
+   * @var Configuration
+   */
+  protected $configuration;
+
+  /**
+   * Post load handler.
+   *
+   * @ORM\PostLoad
+   * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+   */
+  public function postLoad(LifecycleEventArgs $event) {
+    $repository = $event->getEntityManager()->getRepository('AppBundle:Configuration');
+    $this->configuration = $repository->getConfiguration();
   }
 
 }
