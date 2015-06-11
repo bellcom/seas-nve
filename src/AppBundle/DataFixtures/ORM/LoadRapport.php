@@ -8,6 +8,7 @@ namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
+use AppBundle\Entity\Forsyningsvaerk;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\Tiltag;
@@ -50,10 +51,134 @@ class LoadRapport extends LoadData {
       $this->workbook = $reader->load($filepath);
       $this->writeInfo('Done. %s', (new \DateTime())->format('c'));
 
+      $this->loadForsyningsvaerker();
       $this->loadBygning();
       $this->loadRapport();
     }
     $this->done($manager);
+  }
+
+  private function loadForsyningsvaerker() {
+    $sheet = $this->workbook->getSheetByName('Energipriser');
+    $data = $sheet->rangeToArray('A2:AL100', null, false, false, true);
+    $data = $this->getCalculatedCells($data, $sheet);
+
+    foreach ($data as $rowId => $row) {
+      $values = $row;
+
+      if (!$values['A']) {
+        break;
+      }
+
+      $forsyningsvaerk = $this->loadEntity(new Forsyningsvaerk(), array(
+        'A' => 'navn',
+        'B' => 'energiform',
+        'C' => 'noter',
+        'D' => 'noterTBeregningAfRabat', // @FIXME: How is this actually used?
+        'E' => 'vedForbrugOverKWh',
+        'F' => 'pris2009',
+        'G' => 'pris2014',
+        'H' => 'pris2015',
+        'I' => 'pris2016',
+        'J' => 'pris2017',
+        'K' => 'pris2018',
+        'L' => 'pris2019',
+        'M' => 'pris2020',
+        'N' => 'pris2021',
+        'O' => 'pris2022',
+        'P' => 'pris2023',
+        'Q' => 'pris2024',
+        'R' => 'pris2025',
+        'S' => 'pris2026',
+        'T' => 'pris2027',
+        'U' => 'pris2028',
+        'V' => 'pris2029',
+        'W' => 'pris2030',
+        'X' => 'pris2031',
+        'Y' => 'pris2032',
+        'Z' => 'pris2033',
+        'AA' => 'pris2034',
+        'AB' => 'pris2035',
+        'AC' => 'pris2036',
+        'AD' => 'pris2037',
+        'AE' => 'pris2038',
+        'AF' => 'pris2039',
+        'AG' => 'pris2040',
+        'AH' => 'pris2041',
+        'AI' => 'pris2042',
+        'AJ' => 'pris2043',
+        'AK' => 'pris2044',
+        'AL' => 'pris2045',
+      ), $values);
+
+      $key = 'forsyningsvaerk:' . $values['A'];
+      $this->setReference($key, $forsyningsvaerk);
+
+      $this->persist($forsyningsvaerk);
+    }
+
+    $sheet = $this->workbook->getSheetByName('co2database');
+    $data = $sheet->rangeToArray('A2:AF100', null, false, false, true);
+    $data = $this->getCalculatedCells($data, $sheet);
+
+    foreach ($data as $rowId => $row) {
+      $values = $row;
+
+      if (!$values['A']) {
+        break;
+      }
+
+      $key = 'forsyningsvaerk:' . $values['A'];
+      $forsyningsvaerk = $this->hasReference($key) ? $this->getReference($key) : new Forsyningsvaerk();
+      $forsyningsvaerk = $this->loadEntity($forsyningsvaerk, array(
+        'A' => 'navn',
+        // 'B' => 'energiform',
+        'C' => 'co2noter',
+        'F' => 'co2y2009',
+        'G' => 'co2y2014',
+        'H' => 'co2y2015',
+        'I' => 'co2y2016',
+        'J' => 'co2y2017',
+        'K' => 'co2y2018',
+        'L' => 'co2y2019',
+        'M' => 'co2y2020',
+        'N' => 'co2y2021',
+        'O' => 'co2y2022',
+        'P' => 'co2y2023',
+        'Q' => 'co2y2024',
+        'R' => 'co2y2025',
+        'S' => 'co2y2026',
+        'T' => 'co2y2027',
+        'U' => 'co2y2028',
+        'V' => 'co2y2029',
+        'W' => 'co2y2030',
+        'X' => 'co2y2031',
+        'Y' => 'co2y2032',
+        'Z' => 'co2y2033',
+        'AA' => 'co2y2034',
+        'AB' => 'co2y2035',
+        'AC' => 'co2y2036',
+        'AD' => 'co2y2037',
+        'AE' => 'co2y2038',
+        'AF' => 'co2y2039',
+      ), $values);
+
+      $this->setReference($key, $forsyningsvaerk);
+
+      $this->persist($forsyningsvaerk);
+    }
+  }
+
+  private function getForsyningsvaerk($id) {
+    if (!$id) {
+      return null;
+    }
+    $key = 'forsyningsvaerk:' . $id;
+    if (!$this->hasReference($key)) {
+      $this->writeError('No such Forsyningsvaerk ' . $id);
+      return null;
+    }
+    return $this->getReference($key);
   }
 
   private function loadBygning() {
