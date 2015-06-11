@@ -217,14 +217,14 @@ class LoadRapport extends LoadData {
         // 'U' => 'Vand_Qn',
         'V' => 'kundenummer',
         'W' => 'kode',
-        'X' => 'varme',
+        'X' => array('forsyningsvaerkVarme', function($value) { return $this->getForsyningsvaerk($value); }), // @TODO: Foreign key
         'Y' => 'kundenr_1',
         'Z' => 'kode_1',
         'AA' => 'MaalerskifteAFV',
         'AB' => 'AFVInstnr_1',
         // 'AC' => 'Varme_MaalerNr',
         // 'AD' => 'Varme_Qn',
-        'AE' => 'El',
+        'AE' => array('forsyningsvaerkEl', function($value) { return $this->getForsyningsvaerk($value); }), // @TODO: Foreign key
         'AF' => 'Instnr',
         // 'AG' => 'El_MaalerNr',
         'AH' => 'kundenr_NRGI',
@@ -283,7 +283,8 @@ class LoadRapport extends LoadData {
     $rapport
       ->setBygning($bygning)
       ->setVersion($sheet->getCell('C24')->getOldCalculatedValue())
-      ->setDatering($this->getDateTime($sheet->getCell('F23')));
+      ->setDatering($this->getDateTime($sheet->getCell('F23')))
+      ->setConfiguration($this->configuration);
 
     $this->loadTekniskIsoleringTiltag($rapport);
     $this->loadBelysningTiltag($rapport);
@@ -500,16 +501,17 @@ class LoadRapport extends LoadData {
       'BM' => 'vaegtet_levetid_aar',
       // 'BN' => 'udgift_sensor',
       // 'BO' => 'udgift_armaturer',
-      // 'BP' => 'levetid_armaturer',
-      // 'BQ' => 'armatur_vaegtning',
-      // 'BR' => 'faktorForReinvestering',
-      'BS' => 'nutidsvaerdi_set_over_15_aar_kr',
-      'BT' => 'kwh_besparelse_el',
-      'BU' => 'kwh_besparelse_varme_fra_varmevaerket',
-
+      // 'BP' => 'udgift_lyskilde',
+      // 'BQ' => 'levetid_armaturer',
+      // 'BR' => 'levetid_lyskilde',
+      // 'BS' => 'armatur_vaegtning',
+      // 'BT' => 'faktorForReinvestering',
+      'BU' => 'nutidsvaerdi_set_over_15_aar_kr',
+      'BV' => 'kwh_besparelse_el',
+      'BW' => 'kwh_besparelse_varme_fra_varmevaerket',
     );
 
-    $this->loadTiltagDetail($tiltag, new BelysningTiltagDetail(), $sheet, 'I41:BU99', $columnMapping, function($row) {
+    $this->loadTiltagDetail($tiltag, new BelysningTiltagDetail(), $sheet, 'I41:BW99', $columnMapping, function($row) {
       return $row['K'];
     });
   }
@@ -627,8 +629,8 @@ class LoadRapport extends LoadData {
         $value = $this->getValue($value, array('type' => $property[1]), $values);
         $property = $property[0];
       }
-      $property = self::getPropertyName($property);
-      $entity->{'set'.$property}($value);
+      $setter = self::getSetterName($property, $entity);
+      $entity->{$setter}($value);
     }
     return $entity;
   }
@@ -989,7 +991,7 @@ class LoadRapport extends LoadData {
       foreach ($methods as $method) {
         if (strpos($method, 'set') === 0) {
           $property = substr($method, 3);
-          try {
+          if (method_exists($object, 'get'.$property)) {
             $value = $object->{'get'.$property}();
             if ($value !== null) {
               if (!is_array($value) && !is_object($value)) {
@@ -998,7 +1000,7 @@ class LoadRapport extends LoadData {
                 }
               }
             }
-          } catch (\Exception $ex) {}
+          }
         }
       }
     }
@@ -1088,6 +1090,16 @@ class LoadRapport extends LoadData {
 
   private static function getPropertyName($name) {
     return str_replace('_', '', $name);
+  }
+
+  private static function getSetterName($property, $entity) {
+    foreach (array('set' . $property, 'set' . str_replace('_', '', $property)) as $setter) {
+      if (method_exists($entity, $setter)) {
+        return $setter;
+      }
+    }
+
+    throw new \Exception('Cannot find setter for property ' . $property);
   }
 
 }
