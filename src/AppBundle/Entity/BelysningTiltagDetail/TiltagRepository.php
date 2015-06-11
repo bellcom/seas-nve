@@ -5,38 +5,27 @@
 
 namespace AppBundle\Entity\BelysningTiltagDetail;
 
-use Symfony\Component\Form\Extension\Core\ChoiceList\LazyChoiceList;
-use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
+use AppBundle\Entity\BelysningTiltagDetail\Tiltag;
 
 /**
- * The Tiltag class.
+ * The Tiltag repository.
  */
-class TiltagRepository extends LazyChoiceList {
-  /**
-   * Convert to string.
-   *
-   * @return string
-   *   The string.
-   */
-  public function __toString() {
-    return $this->name;
-  }
-
-  protected function loadChoiceList() {
+class TiltagRepository  {
+  public function loadChoiceList() {
     $items = array(
-      new \AppBundle\Entity\BelysningTiltagDetail\Tiltag('', ''),
-      new \AppBundle\Entity\BelysningTiltagDetail\Tiltag('1', 'PIR i afbryder'),
-      new \AppBundle\Entity\BelysningTiltagDetail\Tiltag('2', 'PIR on/off, central'),
-      new \AppBundle\Entity\BelysningTiltagDetail\Tiltag('3', 'PIR/DGS, cent.'),
-      new \AppBundle\Entity\BelysningTiltagDetail\Tiltag('4', 'Arm. + evt. PIR/DGS'),
-      new \AppBundle\Entity\BelysningTiltagDetail\Tiltag('5', 'LED i eksist. arm. '),
-      new \AppBundle\Entity\BelysningTiltagDetail\Tiltag('6', 'Ny indsats i arm. '),
-      new \AppBundle\Entity\BelysningTiltagDetail\Tiltag('7', 'Andet, se Noter'),
+      new Tiltag('', ''),
+      new Tiltag('1', 'PIR i afbryder'),
+      new Tiltag('2', 'PIR on/off, central'),
+      new Tiltag('3', 'PIR/DGS, cent.'),
+      new Tiltag('4', 'Arm. + evt. PIR/DGS'),
+      new Tiltag('5', 'LED i eksist. arm. '),
+      new Tiltag('6', 'Ny indsats i arm. '),
+      new Tiltag('7', 'Andet, se Noter'),
     );
 
-    return new ChoiceList(array_map(function($item) {
+    return array_combine($items, array_map(function($item) {
       return $item->getId();
-    }, $items), $items);
+    }, $items));
   }
 
 }

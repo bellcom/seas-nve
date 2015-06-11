@@ -5,39 +5,28 @@
 
 namespace AppBundle\Entity\BelysningTiltagDetail;
 
-use Symfony\Component\Form\Extension\Core\ChoiceList\LazyChoiceList;
-use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
+use AppBundle\Entity\BelysningTiltagDetail\Styring;
 
 /**
- * The Styring class.
+ * The Styring repository.
  */
-class StyringRepository extends LazyChoiceList {
-  /**
-   * Convert to string.
-   *
-   * @return string
-   *   The string.
-   */
-  public function __toString() {
-    return $this->name;
-  }
-
-  protected function loadChoiceList() {
+class StyringRepository {
+  public function loadChoiceList() {
     $items = array(
-      new \AppBundle\Entity\BelysningTiltagDetail\Styring('', ''),
-      new \AppBundle\Entity\BelysningTiltagDetail\Styring('1', 'Afbryder i rum'),
-      new \AppBundle\Entity\BelysningTiltagDetail\Styring('2', 'PIR on/off'),
-      new \AppBundle\Entity\BelysningTiltagDetail\Styring('3', 'PIR-/DGS'),
-      new \AppBundle\Entity\BelysningTiltagDetail\Styring('4', 'Skumringsrelæ'),
-      new \AppBundle\Entity\BelysningTiltagDetail\Styring('5', 'PIR i afbryder'),
-      new \AppBundle\Entity\BelysningTiltagDetail\Styring('6', 'Central afbryder'),
-      new \AppBundle\Entity\BelysningTiltagDetail\Styring('7', 'Urstyret'),
-      new \AppBundle\Entity\BelysningTiltagDetail\Styring('8', 'Andet, se Noter')
+      new Styring('', ''),
+      new Styring('1', 'Afbryder i rum'),
+      new Styring('2', 'PIR on/off'),
+      new Styring('3', 'PIR-/DGS'),
+      new Styring('4', 'Skumringsrelæ'),
+      new Styring('5', 'PIR i afbryder'),
+      new Styring('6', 'Central afbryder'),
+      new Styring('7', 'Urstyret'),
+      new Styring('8', 'Andet, se Noter')
     );
 
-    return new ChoiceList(array_map(function($item) {
+    return array_combine($items, array_map(function($item) {
       return $item->getId();
-    }, $items), $items);
+    }, $items));
   }
 
 }
