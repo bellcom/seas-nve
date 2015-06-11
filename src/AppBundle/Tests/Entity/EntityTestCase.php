@@ -5,11 +5,11 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 abstract class EntityTestCase extends KernelTestCase {
   /**
-   * Delta to use when comparing floats.
+   * Allowed deviance when comparing numbers.
    *
-   * @var float
+   * @var double
    */
-  protected $delta = 0.0;
+  protected $allowedDeviance = 0.0;
 
   /**
    * Set properties on an entity.
@@ -36,9 +36,6 @@ abstract class EntityTestCase extends KernelTestCase {
         }
       }
     }
-    if (method_exists($entity, 'compute')) {
-      $entity->compute();
-    }
 
     return $entity;
   }
@@ -55,7 +52,8 @@ abstract class EntityTestCase extends KernelTestCase {
     if ($properties) {
       foreach ($properties as $name => $value) {
         $propertyName = $this->getPropertyName($name);
-        $this->assertEquals($value, $entity->{'get'.$propertyName}(), __METHOD__ . ' '. $propertyName, $this->delta);
+        $delta = $value * $this->allowedDeviance;
+        $this->assertEquals($value, $entity->{'get'.$propertyName}(), __METHOD__ . ' '. $propertyName, $delta);
       }
     }
   }

@@ -3,11 +3,12 @@ namespace AppBundle\Tests\Entity;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+use AppBundle\Entity\Configuration;
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\SpecialTiltag;
 use AppBundle\Entity\SpecialTiltagDetail;
 
-class TiltagDetailTest extends KernelTestCase {
+class TiltagDetailTest extends EntityTestCase {
   public function testSetGetData() {
     $detail = new SpecialTiltagDetail();
 
@@ -35,11 +36,26 @@ class TiltagDetailTest extends KernelTestCase {
 
     $expected = 65910.54549;
 
-    $rapport = new Rapport();
-    $tiltag = new SpecialTiltag();
-    $tiltag->setRapport($rapport);
-    $detail = new SpecialTiltagDetail();
-    $detail->setTiltag($tiltag);
+    $configuration = $this->loadEntity(new Configuration(), array(
+      'kalkulationsrente' => 0.0292,
+      'inflationsfaktor' => 13.86399984276068,
+      'inflation' => 0.019,
+      'lobetid' => 15,
+      'elfaktor' => 23.58528364162932,
+      'varmefaktor' => 5.661552095900807,
+      'vandfaktor' => 566.6216735736286,
+      'varmeKrKWh' => 0.491,
+      'elKrKWh' => 1.609478,
+      'varmeledningsevneEksistLamelmaatter' => 0.05,
+      'varmeledningsevneNyIsolering' => 0.044
+    ));
+
+    $rapport = $this->loadEntity(new Rapport(), array())
+             ->setConfiguration($configuration);
+    $tiltag = $this->loadEntity(new SpecialTiltag(), array())
+            ->setRapport($rapport);
+    $detail = (new SpecialTiltagDetail())->setTiltag($tiltag);
+    $this->loadEntity($detail, array());
 
     $nvPTO2 = new \ReflectionMethod($detail, 'nvPTO2');
     $nvPTO2->setAccessible(true);

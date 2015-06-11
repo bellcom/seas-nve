@@ -1,16 +1,10 @@
 <?php
 namespace AppBundle\Tests\Entity;
 
+use AppBundle\Entity\Configuration;
 use AppBundle\Entity\Rapport;
 
 abstract class TiltagDetailTestCase extends EntityTestCase {
-  /**
-   * Delta to use when comparing floats.
-   *
-   * @var float
-   */
-  protected $delta = 0.0;
-
   public function testCompute() {
     $detailClassName = str_replace('\\Tests\\', '\\', preg_replace('/Test$/', '', get_class($this)));
     $tiltagClassName = preg_replace('/Detail$/', '', $detailClassName);
@@ -31,7 +25,9 @@ abstract class TiltagDetailTestCase extends EntityTestCase {
 
         $detail = new $detailClassName();
         $detail->setTiltag($tiltag);
-        $this->loadEntity($detail, $properties);
+
+        $this->loadEntity($detail, $properties)
+          ->compute();
 
         $this->assertProperties($expected, $detail);
       }
