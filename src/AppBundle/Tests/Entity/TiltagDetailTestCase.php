@@ -20,8 +20,10 @@ abstract class TiltagDetailTestCase extends EntityTestCase {
 
     foreach ($fixtures as $fixture) {
       $rapport = $this->loadEntity(new Rapport(), $fixture['rapport']);
-      $tiltag = $this->loadEntity(new $tiltagClassName(), $fixture['tiltag']);
+      $rapport->setConfiguration($this->loadEntity(new Configuration(), $fixture['configuration']));
+      $tiltag = new $tiltagClassName();
       $tiltag->setRapport($rapport);
+      $this->loadEntity($tiltag, $fixture['tiltag']);
 
       foreach ($fixture['tests'] as $test) {
         $properties = $this->loadProperties($test[0]);

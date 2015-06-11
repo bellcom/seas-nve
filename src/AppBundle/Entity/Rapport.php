@@ -479,7 +479,17 @@ class Rapport {
   /**
    * @var Configuration
    */
-  protected $configuration;
+  private $configuration;
+
+  public function setConfiguration(Configuration $configuration) {
+    $this->configuration = $configuration;
+
+    return $this;
+  }
+
+  public function getConfiguration() {
+    return $this->configuration;
+  }
 
   /**
    * Post load handler.
@@ -489,7 +499,7 @@ class Rapport {
    */
   public function postLoad(LifecycleEventArgs $event) {
     $repository = $event->getEntityManager()->getRepository('AppBundle:Configuration');
-    $this->configuration = $repository->getConfiguration();
+    $this->setConfiguration($repository->getConfiguration());
   }
 
 }
