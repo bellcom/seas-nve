@@ -1,0 +1,9 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>{{ 'forsyningsvaerker.actions.edit' | trans }}</h1>
+
+  {% form_theme edit_form 'AppBundle:Form:twocol-form.html.twig' %}
+  {{ form(edit_form, { 'style': 'horizontal' }) }}
+
+{% endblock %}

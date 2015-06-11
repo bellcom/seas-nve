@@ -1,0 +1,169 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-md-10">
+      <h1>{{ 'forsyningsvaerker.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-2 right">
+      <a href="{{ path('forsyningsvaerk_new') }}" class="btn btn-default">
+        {{ icon('plus') }} {{ 'forsyningsvaerker.actions.add' | trans }}
+      </a>
+    </div>
+
+  </div>
+
+  <table class="table table-hover">
+	<thead>
+	  <tr>
+		<th colspan="3"></th>
+		<th colspan="33">{{ 'appbundle.forsyningsvaerk.priser' | trans }}</th>
+		<th colspan="28">{{ 'appbundle.forsyningsvaerk.co2' | trans }}</th>
+	  </tr>
+      <tr>
+        <th>{{ 'appbundle.forsyningsvaerk.navn' | trans }}</th>
+        <th>{{ 'appbundle.forsyningsvaerk.energiform' | trans }}</th>
+        <th>{{ 'appbundle.forsyningsvaerk.noter' | trans }}</th>
+        <th>{{ 2009 }}</th>
+        <th>{{ 2014 }}</th>
+        <th>{{ 2015 }}</th>
+        <th>{{ 2016 }}</th>
+        <th>{{ 2017 }}</th>
+        <th>{{ 2018 }}</th>
+        <th>{{ 2019 }}</th>
+        <th>{{ 2020 }}</th>
+        <th>{{ 2021 }}</th>
+        <th>{{ 2022 }}</th>
+        <th>{{ 2023 }}</th>
+        <th>{{ 2024 }}</th>
+        <th>{{ 2025 }}</th>
+        <th>{{ 2026 }}</th>
+        <th>{{ 2027 }}</th>
+        <th>{{ 2028 }}</th>
+        <th>{{ 2029 }}</th>
+        <th>{{ 2030 }}</th>
+        <th>{{ 2031 }}</th>
+        <th>{{ 2032 }}</th>
+        <th>{{ 2033 }}</th>
+        <th>{{ 2034 }}</th>
+        <th>{{ 2035 }}</th>
+        <th>{{ 2036 }}</th>
+        <th>{{ 2037 }}</th>
+        <th>{{ 2038 }}</th>
+        <th>{{ 2039 }}</th>
+        <th>{{ 2040 }}</th>
+        <th>{{ 2041 }}</th>
+        <th>{{ 2042 }}</th>
+        <th>{{ 2043 }}</th>
+        <th>{{ 2044 }}</th>
+        <th>{{ 2045 }}</th>
+        <th>{{ 'appbundle.forsyningsvaerk.noter' | trans }}</th>
+        <th>{{ 2009 }}</th>
+        <th>{{ 2014 }}</th>
+        <th>{{ 2015 }}</th>
+        <th>{{ 2016 }}</th>
+        <th>{{ 2017 }}</th>
+        <th>{{ 2018 }}</th>
+        <th>{{ 2019 }}</th>
+        <th>{{ 2020 }}</th>
+        <th>{{ 2021 }}</th>
+        <th>{{ 2022 }}</th>
+        <th>{{ 2023 }}</th>
+        <th>{{ 2024 }}</th>
+        <th>{{ 2025 }}</th>
+        <th>{{ 2026 }}</th>
+        <th>{{ 2027 }}</th>
+        <th>{{ 2028 }}</th>
+        <th>{{ 2029 }}</th>
+        <th>{{ 2030 }}</th>
+        <th>{{ 2031 }}</th>
+        <th>{{ 2032 }}</th>
+        <th>{{ 2033 }}</th>
+        <th>{{ 2034 }}</th>
+        <th>{{ 2035 }}</th>
+        <th>{{ 2036 }}</th>
+        <th>{{ 2037 }}</th>
+        <th>{{ 2038 }}</th>
+        <th>{{ 2039 }}</th>
+        <th></th>
+      </tr>
+	</thead>
+	<tbody>
+      {% for forsyningsvaerk in entities %}
+        <tr>
+          <td>{{ forsyningsvaerk.navn }}</td>
+          <td>{{ forsyningsvaerk.energiform }}</td>
+          <td>{{ forsyningsvaerk.noter }}</td>
+          <td>{{ forsyningsvaerk.pris2009 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2014 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2015 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2016 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2017 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2018 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2019 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2020 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2021 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2022 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2023 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2024 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2025 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2026 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2027 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2028 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2029 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2030 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2031 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2032 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2033 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2034 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2035 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2036 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2037 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2038 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2039 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2040 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2041 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2042 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2043 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2044 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.pris2045 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2noter }}</td>
+          <td>{{ forsyningsvaerk.co2y2009 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2014 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2015 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2016 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2017 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2018 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2019 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2020 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2021 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2022 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2023 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2024 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2025 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2026 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2027 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2028 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2029 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2030 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2031 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2032 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2033 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2034 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2035 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2036 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2037 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2038 | format_decimal }}</td>
+          <td>{{ forsyningsvaerk.co2y2039 | format_decimal }}</td>
+          <td>
+            <a href="{{ path('forsyningsvaerk_show', { 'id': forsyningsvaerk.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+            <a href="{{ path('forsyningsvaerk_edit', { 'id': forsyningsvaerk.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+          </td>
+        </tr>
+	</tbody>
+  {% else %}
+    {{ 'forsyningsvaerker.strings.ingen' | trans }}
+  {% endfor %}
+  </table>
+
+{% endblock %}

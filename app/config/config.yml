@@ -113,6 +113,7 @@ simple_things_entity_audit:
     audited_entities:
         - AppBundle\Entity\Bygning
         - AppBundle\Entity\Configuration
+        - AppBundle\Entity\Forsyningsvaerk
         - AppBundle\Entity\Rapport
         - AppBundle\Entity\Pumpe
         - AppBundle\Entity\Tiltag

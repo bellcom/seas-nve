@@ -164,11 +164,10 @@ class Bygning {
   private $kode;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="Varme", type="string", length=255, nullable=true)
-   */
-  private $varme;
+   * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
+   * @ORM\JoinColumn(name="varme_forsyningsvaerk_id", referencedColumnName="id")
+   **/
+  private $forsyningsvaerkVarme;
 
   /**
    * @var integer
@@ -199,11 +198,10 @@ class Bygning {
   private $aFVInstnr1;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="El", type="string", length=255, nullable=true)
-   */
-  private $el;
+   * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
+   * @ORM\JoinColumn(name="el_forsyningsvaerk_id", referencedColumnName="id")
+   **/
+  private $forsyningsvaerkEl;
 
   /**
    * @var string
@@ -790,24 +788,24 @@ class Bygning {
   }
 
   /**
-   * Set varme
+   * Set forsyningsvaerkVarme
    *
-   * @param string $varme
+   * @param Forsyningsvaerk $forsyningsvaerkVarme
    * @return Bygning
    */
-  public function setVarme($varme) {
-    $this->varme = $varme;
+  public function setForsyningsvaerkVarme($forsyningsvaerkVarme) {
+    $this->forsyningsvaerkVarme = $forsyningsvaerkVarme;
 
     return $this;
   }
 
   /**
-   * Get varme
+   * Get forsyningsvaerkVarme
    *
-   * @return string
+   * @return Forsyningsvaerk
    */
-  public function getVarme() {
-    return $this->varme;
+  public function getForsyningsvaerkVarme() {
+    return $this->forsyningsvaerkVarme;
   }
 
   /**
@@ -895,24 +893,24 @@ class Bygning {
   }
 
   /**
-   * Set el
+   * Set forsyningsvaerkEl
    *
-   * @param string $el
+   * @param Forsyningsvaerk $forsyningsvaerkEl
    * @return Bygning
    */
-  public function setEl($el) {
-    $this->el = $el;
+  public function setForsyningsvaerkEl($forsyningsvaerkEl) {
+    $this->forsyningsvaerkEl = $forsyningsvaerkEl;
 
     return $this;
   }
 
   /**
-   * Get el
+   * Get forsyningsvaerkEl
    *
-   * @return string
+   * @return Forsyningsvaerk
    */
-  public function getEl() {
-    return $this->el;
+  public function getForsyningsvaerkEl() {
+    return $this->forsyningsvaerkEl;
   }
 
   /**
