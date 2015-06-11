@@ -844,6 +844,7 @@ class LoadRapport extends LoadData {
             'tests' => $tests,
             'tiltag' => $this->getProperties($tiltag),
             'rapport' => $this->getProperties($tiltag->getRapport()),
+            'configuration' => $this->getProperties($tiltag->getRapport()->getConfiguration()),
           ), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
           if (@file_put_contents($filepath, $content) !== false) {
             $this->writeInfo('Unittest data fixtures written to file ' . $filepath);

@@ -53,7 +53,7 @@ class ConfigurationController extends Controller {
    * @Route("/edit", name="configuration_edit")
    * @Method("GET")
    * @Template()
-   * @ Security("is_granted('CONFIGURATION_EDIT')")
+   * @Security("is_granted('CONFIGURATION_EDIT')")
    */
   public function editAction() {
     $entity = $this->getConfiguration();
@@ -71,6 +71,7 @@ class ConfigurationController extends Controller {
    * @Route("/", name="configuration_update")
    * @Method("PUT")
    * @Template("AppBundle:Configuration:edit.html.twig")
+   * @Security("is_granted('CONFIGURATION_EDIT')")
    */
   public function updateAction(Request $request) {
     $entity = $this->getConfiguration();
