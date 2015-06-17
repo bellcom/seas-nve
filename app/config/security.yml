@@ -1,10 +1,10 @@
 security:
     role_hierarchy:
         ROLE_BYGNING_VIEW:           [ ROLE_USER ]
-        ROLE_BYGNING_EDIT: 	         [ ROLE_BYGNING_VIEW ]
-        ROLE_BYGNING_CREATE: 	       [ ROLE_BYGNING_EDIT ]
+        ROLE_BYGNING_EDIT:           [ ROLE_BYGNING_VIEW ]
+        ROLE_BYGNING_CREATE:         [ ROLE_BYGNING_EDIT ]
         ROLE_RAPPORT_VIEW:           [ ROLE_USER ]
-        ROLE_RAPPORT_EDIT: 	         [ ROLE_RAPPORT_VIEW ]
+        ROLE_RAPPORT_EDIT:           [ ROLE_RAPPORT_VIEW ]
         ROLE_RAPPORT_CREATE:         [ ROLE_RAPPORT_EDIT ]
         ROLE_CONFIGURATION_VIEW:     [ ROLE_USER ]
         ROLE_CONFIGURATION_EDIT:     [ ROLE_CONFIGURATION_VIEW ]
