@@ -16,6 +16,7 @@ use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\BelysningTiltag;
 use AppBundle\Entity\BelysningTiltagDetail;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
+use AppBundle\Entity\Klimaskaerm;
 use AppBundle\Entity\KlimaskaermTiltag;
 use AppBundle\Entity\KlimaskaermTiltagDetail;
 use AppBundle\Entity\Pumpe;
@@ -57,6 +58,7 @@ class LoadRapport extends LoadData {
       $this->loadForsyningsvaerker();
       $this->loadSolceller();
       $this->loadBygning();
+      $this->loadKlimaskaerm();
       $this->loadRapport();
     }
     $this->done($manager);
@@ -294,6 +296,46 @@ class LoadRapport extends LoadData {
 
       $this->persist($bygning);
     }
+  }
+
+  private function loadKlimaskaerm() {
+    $sheet = $this->workbook->getSheetByName('Klimaskærmspriser');
+
+    $data = $sheet->rangeToArray('A2:F100', null, false, false, true);
+
+    foreach ($data as $rowId => $row) {
+      $values = $row;
+
+      if (!$values['A']) {
+        break;
+      }
+
+      $klimaskaerm = $this->loadEntity(new Klimaskaerm(), array(
+        'A' => 'post',
+        'B' => 'klimaskaerm',
+        'C' => 'arbejdeOmfang',
+        'D' => 'enhedsprisEksklMoms',
+        'E' => 'enhed',
+        'F' => 'noter',
+      ), $values);
+
+      $key = 'klimaskaerm:' . $values['A'];
+      $this->setReference($key, $klimaskaerm);
+
+      $this->persist($klimaskaerm);
+    }
+  }
+
+  private function getKlimaskaerm($id) {
+    if (!$id) {
+      return null;
+    }
+    $key = 'klimaskaerm:' . $id;
+    if (!$this->hasReference($key)) {
+      $this->writeError('No such Klimaskaerm ' . $id);
+      return null;
+    }
+    return $this->getReference($key);
   }
 
   private $configuration;
