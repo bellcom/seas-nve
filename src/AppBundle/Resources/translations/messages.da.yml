@@ -417,6 +417,13 @@ appbundle:
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
+  klimaskaerm:
+    post: Post
+    klimaskaerm: Klimaskærm
+    arbejdeOmfang: Arbejde/omfang
+    enhedsprisEksklMoms: Estimat for enhedspris excl moms
+    enhed: Enhed
+    noter: Noter
 
   configuration:
     kalkulationsrente: Kalkulationsrente

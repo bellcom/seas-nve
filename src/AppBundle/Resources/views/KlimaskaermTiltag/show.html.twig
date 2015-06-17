@@ -13,8 +13,9 @@
             <tr>
               {{ helper.header('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
               {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
-              {{ helper.header('appbundle.klimaskaermtiltagdetail.tiltagsnr') }}
-              {{ helper.header('appbundle.klimaskaermtiltagdetail.tiltagsnrDelpriser') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.type') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.orientering') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.klimaskaerm') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.typePlaceringJfPlantegning') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.hoejdeElLaengdeM') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.breddeM') }}
@@ -28,15 +29,11 @@
               {{ helper.header('appbundle.klimaskaermtiltagdetail.tOpvarmningTimerAar') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.yderligereBesparelserPct') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.besparelseKWhAar') }}
-              {{ helper.header('appbundle.klimaskaermtiltagdetail.samletBesparelseKWhAarInklDelbesparelser') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.priskategori') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.prisfaktor') }}
-              {{ helper.header('appbundle.klimaskaermtiltagdetail.delprisKrM2') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.samletInvesteringKr') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
-              {{ helper.header('appbundle.klimaskaermtiltagdetail.tilSortering') }}
-              {{ helper.header('appbundle.klimaskaermtiltagdetail.tilSummeringAfDelpriser') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.levetidAar') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.vaegtetGnm') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.vaegtetLevetidForTiltagetAfrundet') }}
@@ -44,7 +41,6 @@
               {{ helper.header('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
-              {{ helper.header('appbundle.klimaskaermtiltagdetail.tilvalgteDeltiltag') }}
               {{ helper.header() }}
             </tr>
           </thead>
@@ -53,8 +49,9 @@
               <tr>
                 <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
                 <td>{{ detail.tilvalgt | b2icon }}</td>
-                <td>{{ detail.tiltagsnr }}</td>
-                <td>{{ detail.tiltagsnrDelpriser }}</td>
+                <td>{{ detail.type }}</td>
+                <td>{{ detail.type == 'vindue' ? detail.orientering : '–' }}</td>
+                <td>{{ detail.klimaskaerm }}</td>
                 <td>{{ detail.typePlaceringJfPlantegning }}</td>
                 <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
                 <td>{{ detail.breddeM | format_decimal }}</td>
@@ -68,15 +65,11 @@
                 <td>{{ detail.tOpvarmningTimerAar | format_decimal }}</td>
                 <td>{{ detail.yderligereBesparelserPct | format_percent }}</td>
                 <td>{{ detail.besparelseKWhAar | format_decimal }}</td>
-                <td>{{ detail.samletBesparelseKWhAarInklDelbesparelser | format_decimal }}</td>
                 <td>{{ detail.priskategori }}</td>
                 <td>{{ detail.prisfaktor | format_decimal }}</td>
-                <td>{{ detail.delprisKrM2 | format_decimal }}</td>
                 <td>{{ detail.samletInvesteringKr | format_decimal }}</td>
                 <td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
                 <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
-                <td>{{ detail.tilSortering }}</td>
-                <td>{{ detail.tilSummeringAfDelpriser }}</td>
                 <td>{{ detail.levetidAar | format_decimal }}</td>
                 <td>{{ detail.vaegtetGnm | format_decimal }}</td>
                 <td>{{ detail.vaegtetLevetidForTiltagetAfrundet | format_decimal }}</td>
@@ -84,7 +77,6 @@
                 <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
                 <td>{{ detail.kWhBesparElvaerkEksternEnergikilde | format_decimal }}</td>
                 <td>{{ detail.kWhBesparVarmevaerkEksternEnergikilde | format_decimal }}</td>
-                <td>{{ detail.tilvalgteDeltiltag | format_decimal }}</td>
                 <td>
                   <a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
                   <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
