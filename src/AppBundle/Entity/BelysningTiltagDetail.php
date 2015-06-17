@@ -15,7 +15,7 @@ use AppBundle\Entity\BelysningTiltagDetail\Tiltag as BelysningTiltagDetailTiltag
  * @ORM\Entity
  */
 class BelysningTiltagDetail extends TiltagDetail {
-/**
+  /**
    * @var string
    *
    * @ORM\Column(name="lokale_navn", type="string", length=255)
