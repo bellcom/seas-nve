@@ -111,6 +111,7 @@ fos_user:
 
 simple_things_entity_audit:
     audited_entities:
+        - AppBundle\Entity\Forsyningsvaerk
         - AppBundle\Entity\Bygning
         - AppBundle\Entity\Configuration
         - AppBundle\Entity\Forsyningsvaerk

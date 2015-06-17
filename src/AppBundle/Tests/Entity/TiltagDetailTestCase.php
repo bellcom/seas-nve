@@ -2,6 +2,8 @@
 namespace AppBundle\Tests\Entity;
 
 use AppBundle\Entity\Configuration;
+use AppBundle\Entity\Bygning;
+use AppBundle\Entity\Forsyningsvaerk;
 use AppBundle\Entity\Rapport;
 
 abstract class TiltagDetailTestCase extends EntityTestCase {
@@ -13,7 +15,12 @@ abstract class TiltagDetailTestCase extends EntityTestCase {
     $this->assertNotEmpty($fixtures, 'Cannot load fixtures for class ' . $detailClassName);
 
     foreach ($fixtures as $fixture) {
-      $rapport = $this->loadEntity(new Rapport(), $fixture['rapport']);
+      $bygning = $this->loadEntity(new Bygning(), $fixture['bygning'])
+               ->setForsyningsvaerkVarme($this->loadEntity(new Forsyningsvaerk(), $fixture['bygning.forsyningsvaerkVarme']))
+               ->setForsyningsvaerkEl($this->loadEntity(new Forsyningsvaerk(), $fixture['bygning.forsyningsvaerkEl']))
+               ->setForsyningsvaerkVand($this->loadEntity(new Forsyningsvaerk(), $fixture['bygning.forsyningsvaerkVand']));
+      $rapport = $this->loadEntity(new Rapport(), $fixture['rapport'])
+               ->setBygning($bygning);
       $rapport->setConfiguration($this->loadEntity(new Configuration(), $fixture['configuration']));
       $tiltag = new $tiltagClassName();
       $tiltag->setRapport($rapport);

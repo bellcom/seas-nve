@@ -242,20 +242,20 @@ class LoadRapport extends LoadData {
         'O' => 'Anvendelse',
         'P' => 'Bruttoetageareal',
         'Q' => 'Maalertype',
-        'R' => 'Vand',
+        'R' => array('forsyningsvaerkVand', function($value) { return $this->getForsyningsvaerk($value); }),
         // 'S' => 'Vand_InstNr',
         // 'T' => 'Vand_MaalerNr',
         // 'U' => 'Vand_Qn',
         'V' => 'kundenummer',
         'W' => 'kode',
-        'X' => array('forsyningsvaerkVarme', function($value) { return $this->getForsyningsvaerk($value); }), // @TODO: Foreign key
+        'X' => array('forsyningsvaerkVarme', function($value) { return $this->getForsyningsvaerk($value); }),
         'Y' => 'kundenr_1',
         'Z' => 'kode_1',
         'AA' => 'MaalerskifteAFV',
         'AB' => 'AFVInstnr_1',
         // 'AC' => 'Varme_MaalerNr',
         // 'AD' => 'Varme_Qn',
-        'AE' => array('forsyningsvaerkEl', function($value) { return $this->getForsyningsvaerk($value); }), // @TODO: Foreign key
+        'AE' => array('forsyningsvaerkEl', function($value) { return $this->getForsyningsvaerk($value); }),
         'AF' => 'Instnr',
         // 'AG' => 'El_MaalerNr',
         'AH' => 'kundenr_NRGI',
@@ -376,14 +376,8 @@ class LoadRapport extends LoadData {
     $this->configuration = $repository->getConfiguration();
     $this->configuration
       ->setKalkulationsrente($sheet->getCell('AI23')->getValue())
-      ->setInflationsfaktor($sheet->getCell('AI26')->getValue())
       ->setInflation($sheet->getCell('AK23')->getValue())
-      ->setLobetid($sheet->getCell('AN23')->getValue())
-      ->setElfaktor($sheet->getCell('AH25')->getValue())
-      ->setVarmefaktor($sheet->getCell('AH24')->getValue())
-      ->setVandfaktor($sheet->getCell('AI27')->getValue())
-      ->setVarmeKrKWh($sheet->getCell('AI6')->getValue())
-      ->setElKrKWh($sheet->getCell('AI7')->getValue());
+      ->setLobetid($sheet->getCell('AN23')->getValue());
   }
 
   /**
@@ -839,7 +833,7 @@ class LoadRapport extends LoadData {
       'V' => 'tUdeC',
       'W' => 'tOpvarmningTimerAar',
       'X' => 'yderligereBesparelserPct',
-      'AA' => 'priskategori',
+      'AA' => array('klimaskaerm', function($value) { return $this->getKlimaskaerm($value); }),
       'AG' => 'noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet',
       'AJ' => 'levetidAar',
 
@@ -1068,7 +1062,11 @@ class LoadRapport extends LoadData {
           $content = json_encode(array(
             'tests' => $tests,
             'tiltag' => $this->getProperties($tiltag),
-            'rapport' => $this->getProperties($tiltag->getRapport()),
+            'rapport' => $this->getProperties($tiltag->getRapport(), array('bygning')),
+            'bygning' => $this->getProperties($tiltag->getRapport()->getBygning()),
+            'bygning.forsyningsvaerkVarme' => $this->getProperties($tiltag->getRapport()->getBygning()->getForsyningsvaerkVarme()),
+            'bygning.forsyningsvaerkEl' => $this->getProperties($tiltag->getRapport()->getBygning()->getForsyningsvaerkEl()),
+            'bygning.forsyningsvaerkVand' => $this->getProperties($tiltag->getRapport()->getBygning()->getForsyningsvaerkVand()),
             'configuration' => $this->getProperties($tiltag->getRapport()->getConfiguration()),
           ), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
           if (@file_put_contents($filepath, $content) !== false) {

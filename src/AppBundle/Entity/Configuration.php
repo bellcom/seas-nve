@@ -25,70 +25,46 @@ class Configuration {
   private $id;
 
   /**
-   * @var double
+   * @var float
    * @ORM\Column(name="rapport_kalkulationsrente", type="decimal", scale=4, nullable=true)
    */
   private $rapport_kalkulationsrente;
 
   /**
-   * @var double
-   * @ORM\Column(name="rapport_inflationsfaktor", type="decimal", scale=4, nullable=true)
-   */
-  private $rapport_inflationsfaktor;
-
-  /**
-   * @var double
+   * @var float
    * @ORM\Column(name="rapport_inflation", type="decimal", scale=4, nullable=true)
    */
   private $rapport_inflation;
 
   /**
-   * @var double
+   * @var float
    * @ORM\Column(name="rapport_lobetid", type="decimal", scale=4, nullable=true)
    */
   private $rapport_lobetid;
 
   /**
-   * @var double
-   * @ORM\Column(name="rapport_elfaktor", type="decimal", scale=4, nullable=true)
+   * @var float
+   * @ORM\Column(name="rapport_nominel_energiprisstigning", type="decimal", scale=4, nullable=true)
    */
-  private $rapport_elfaktor;
+  private $rapport_nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt;
 
   /**
-   * @var double
-   * @ORM\Column(name="rapport_varmefaktor", type="decimal", scale=4, nullable=true)
-   */
-  private $rapport_varmefaktor;
-
-  /**
-   * @var double
-   * @ORM\Column(name="rapport_vandfaktor", type="decimal", scale=4, nullable=true)
-   */
-  private $rapport_vandfaktor;
-
-  /**
-   * @var double
-   * @ORM\Column(name="rapport_varmeKrKWh", type="decimal", scale=4, nullable=true)
-   */
-  private $rapport_varmeKrKWh;
-
-  /**
-   * @var double
-   * @ORM\Column(name="rapport_elKrKWh", type="decimal", scale=4, nullable=true)
-   */
-  private $rapport_elKrKWh;
-
-  /**
-   * @var double
+   * @var float
    * @ORM\Column(name="tekniskisolering_varmeledningsevneEksistLamelmaatter", type="decimal", scale=4, nullable=true)
    */
   private $tekniskisolering_varmeledningsevneEksistLamelmaatter;
 
   /**
-   * @var double
+   * @var float
    * @ORM\Column(name="tekniskisolering_varmeledningsevneNyIsolering", type="decimal", scale=4, nullable=true)
    */
   private $tekniskisolering_varmeledningsevneNyIsolering;
+
+  /**
+   * @var float
+   * @ORM\Column(name="solcelle_forringet_ydeevne_pr_aar", type="decimal", scale=4, nullable=true)
+   */
+  private $solcelle_forringet_ydeevne_pr_aar;
 
   public function setId($id) {
     $this->id = $id;
@@ -102,16 +78,6 @@ class Configuration {
 
   public function getKalkulationsrente() {
     return $this->rapport_kalkulationsrente;
-  }
-
-  public function setInflationsfaktor($inflationsfaktor) {
-    $this->rapport_inflationsfaktor = $inflationsfaktor;
-
-    return $this;
-  }
-
-  public function getInflationsfaktor() {
-    return $this->rapport_inflationsfaktor;
   }
 
   public function setInflation($inflation) {
@@ -134,55 +100,16 @@ class Configuration {
     return $this->rapport_lobetid;
   }
 
-  public function setElfaktor($elfaktor) {
-    $this->rapport_elfaktor = $elfaktor;
+  public function setNominelEnergiprisstigningForVarmevaerkerHvorEnergiprisudviklingenErUkendt($rapport_nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt) {
+    $this->rapport_nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt = $rapport_nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt;
 
     return $this;
   }
 
-  public function getElfaktor() {
-    return $this->rapport_elfaktor;
+  public function getNominelEnergiprisstigningForVarmevaerkerHvorEnergiprisudviklingenErUkendt() {
+    return $this->rapport_nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt;
   }
 
-  public function setVarmefaktor($varmefaktor) {
-    $this->rapport_varmefaktor = $varmefaktor;
-
-    return $this;
-  }
-
-  public function getVarmefaktor() {
-    return $this->rapport_varmefaktor;
-  }
-
-  public function setVandfaktor($vandfaktor) {
-    $this->rapport_vandfaktor = $vandfaktor;
-
-    return $this;
-  }
-
-  public function getVandfaktor() {
-    return $this->rapport_vandfaktor;
-  }
-
-  public function setVarmeKrKWh($varmeKrKWh) {
-    $this->rapport_varmeKrKWh = $varmeKrKWh;
-
-    return $this;
-  }
-
-  public function getVarmeKrKWh() {
-    return $this->rapport_varmeKrKWh;
-  }
-
-  public function setElKrKWh($elKrKWh) {
-    $this->rapport_elKrKWh = $elKrKWh;
-
-    return $this;
-  }
-
-  public function getElKrKWh() {
-    return $this->rapport_elKrKWh;
-  }
 
   public function setVarmeledningsevneEksistLamelmaatter($varmeledningsevneEksistLamelmaatter) {
     $this->tekniskisolering_varmeledningsevneEksistLamelmaatter = $varmeledningsevneEksistLamelmaatter;
@@ -203,5 +130,6 @@ class Configuration {
   public function getVarmeledningsevneNyIsolering() {
     return $this->tekniskisolering_varmeledningsevneNyIsolering;
   }
+
 
 }
