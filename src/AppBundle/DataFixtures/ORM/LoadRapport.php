@@ -9,6 +9,7 @@ namespace AppBundle\DataFixtures\ORM;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use AppBundle\Entity\Forsyningsvaerk;
+use AppBundle\Entity\Solcelle;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\Tiltag;
@@ -22,6 +23,8 @@ use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\PumpeTiltagDetail;
 use AppBundle\Entity\TekniskIsoleringTiltag;
 use AppBundle\Entity\TekniskIsoleringTiltagDetail;
+use AppBundle\Entity\SolcelleTiltag;
+use AppBundle\Entity\SolcelleTiltagDetail;
 
 /**
  * Class LoadRapport
@@ -52,6 +55,7 @@ class LoadRapport extends LoadData {
       $this->writeInfo('Done. %s', (new \DateTime())->format('c'));
 
       $this->loadForsyningsvaerker();
+      $this->loadSolceller();
       $this->loadBygning();
       $this->loadRapport();
     }
@@ -179,6 +183,31 @@ class LoadRapport extends LoadData {
       return null;
     }
     return $this->getReference($key);
+  }
+
+  private function loadSolceller() {
+    $sheet = $this->workbook->getSheetByName('Detailark (1)');
+    $data = $sheet->rangeToArray('J65:M100', null, false, false, true);
+    $data = $this->getCalculatedCells($data, $sheet);
+
+    foreach ($data as $rowId => $row) {
+      $values = $row;
+
+      if (!$values['J']) {
+        break;
+      }
+
+      $solcelle = $this->loadEntity(new Solcelle(), array(
+        'K' => 'KWp',
+        'L' => 'inverterpris',
+        'M' => 'drift',
+      ), $values);
+
+      $key = 'solcelle:' . $values['J'];
+      $this->setReference($key, $solcelle);
+
+      $this->persist($solcelle);
+    }
   }
 
   private function loadBygning() {
