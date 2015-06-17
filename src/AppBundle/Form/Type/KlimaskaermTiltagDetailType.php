@@ -20,8 +20,23 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ->add('laastAfEnergiraadgiver', null, array(
         'required' => false,
       ))
+      ->add('type', 'choice', array(
+        'choices' => array(
+          'Klimaskærm' => 'klimaskaerm',
+          'Vindue' => 'vindue',
+        ),
+        'choices_as_values' => true,
       ))
+      ->add('orientering', 'choice', array(
+        'choices' => array(
+          'Nord' => 'nord',
+          'Syd' => 'syd',
+          'Øst' => 'oest',
+          'Vest' => 'vest',
+        ),
+        'choices_as_values' => true,
       ))
+      ->add('klimaskaerm')
       ->add('typePlaceringJfPlantegning')
       ->add('hoejdeElLaengdeM')
       ->add('breddeM')

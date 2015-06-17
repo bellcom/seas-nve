@@ -12,12 +12,26 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
+   * @var string
    *
+   * @ORM\Column(name="type", type="string")
    */
+  private $type; // "klimaskaerm" / "vindue"
 
   /**
+   * @var string
    *
+   * @ORM\Column(name="vindue_orientering", type="string", nullable=true)
    */
+  private $vindue_orientering; // "nord", "syd", "øst", "vest"
+
+  /**
+   * @var Klimaskaerm
+   *
+   * @ORM\ManyToOne(targetEntity="Klimaskaerm")
+   * @ORM\JoinColumn(name="klimaskaerm_id", referencedColumnName="id")
+   **/
+  private $klimaskaerm;
 
   /**
    * @var string
