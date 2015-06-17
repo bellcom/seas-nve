@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotations\Calculated;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\Entity\BelysningTiltagDetail\Placering as BelysningTiltagDetailPlacering;
@@ -15,7 +16,7 @@ use AppBundle\Entity\BelysningTiltagDetail\Tiltag as BelysningTiltagDetailTiltag
  * @ORM\Entity
  */
 class BelysningTiltagDetail extends TiltagDetail {
-/**
+  /**
    * @var string
    *
    * @ORM\Column(name="lokale_navn", type="string", length=255)
@@ -94,7 +95,10 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $armaturer_stk_lokale;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="elforbrug_w_m2", type="float")
    */
   private $elforbrug_w_m2;
 
@@ -148,7 +152,10 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $reduktion_af_drifttid;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="ny_driftstid", type="float")
    */
   private $ny_driftstid;
 
@@ -196,7 +203,10 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $ny_forkobling_stk_armatur;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="ny_armatureffekt_w_stk", type="float")
    */
   private $ny_armatureffekt_w_stk;
 
@@ -222,47 +232,74 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $prisfaktor;
 
   /**
-   * @var string
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="prisfaktor_tillaeg_kr_lokale", type="float")
    */
   private $prisfaktor_tillaeg_kr_lokale;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="investering_alle_lokaler_kr", type="float")
    */
   private $investering_alle_lokaler_kr;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="nyt_elforbrug_w_m2", type="float")
    */
   private $nyt_elforbrug_w_m2;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="driftsbesparelse_til_lyskilder_kr_aar", type="float")
    */
   private $driftsbesparelse_til_lyskilder_kr_aar;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="simpel_tilbagebetalingstid_aar", type="float")
    */
   private $simpel_tilbagebetalingstid_aar;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="vaegtet_levetid_aar", type="float")
    */
   private $vaegtet_levetid_aar;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdi_set_over_15_aar_kr", type="float")
    */
   private $nutidsvaerdi_set_over_15_aar_kr;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="kwh_besparelse_el", type="float")
    */
   private $kwh_besparelse_el;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="kwh_besparelse_varme_fra_varmevaerket", type="float")
    */
   private $kwh_besparelse_varme_fra_varmevaerket;
 
@@ -990,7 +1027,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function computeElforbrugWM2() {
-    // 'AC'
+    // AC
     $armaturEffekt = $this->_computeArmaturEffekt($this->getLyskilde(true));
 
     if ($this->rumstoerrelse_m2 == 0 || $armaturEffekt == 0 || $this->armaturer_stk_lokale == 0) {
@@ -1002,7 +1039,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function computeNyDriftstid() {
-    // 'AN'
+    // AN
     if ($this->drifttid_t_aar == 0 || $this->belysningstiltagId == null) {
       return 0;
     }
@@ -1012,11 +1049,12 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function computeNyArmatureffektWStk() {
+    // AW
     return $this->__computeArmaturEffekt($this->getNyLyskilde(true), $this->ny_lyskilde_stk_armatur, $this->ny_lyskilde_w_lyskilde, $this->ny_forkobling_stk_armatur);
   }
 
   private function computePrisfaktorTillaegKrLokale() {
-    // 'BA'
+    // BA
     if ($this->prisfaktor == 0) {
       return 0;
     }
@@ -1029,28 +1067,26 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function computeInvesteringAlleLokalerKr() {
-    // 'BB'
-    if ($this->standardinvest_sensor_kr_stk == 0 && $this->standardinvest_armatur_el_lyskilde_kr_stk == 0 && $this->standardinvest_lyskilde_kr_stk) {
+    // BB
+    $nyLyskilde = $this->getNyLyskilde(true);
+    if (!$nyLyskilde) {
       return 0;
     }
+    elseif ($nyLyskilde->getId() == 12) { // !!!
+      return (($this->nye_sensorer_stk_lokale * $this->standardinvest_sensor_kr_stk
+               + $this->standardinvest_armatur_el_lyskilde_kr_stk * $this->nye_armaturer_stk_lokale * $this->ny_lyskilde_stk_armatur) + $this->prisfaktor_tillaeg_kr_lokale) * $this->lokale_antal;
+    }
     else {
-      $nyLyskilde = $this->getNyLyskilde(true);
-      if ($nyLyskilde && $nyLyskilde->getId() == 12) { // !!!
-        return (($this->nye_sensorer_stk_lokale * $this->standardinvest_sensor_kr_stk
-                 + $this->standardinvest_armatur_el_lyskilde_kr_stk * $this->nye_armaturer_stk_lokale * $this->ny_lyskilde_stk_armatur) + $this->prisfaktor_tillaeg_kr_lokale) * $this->lokale_antal;
-      }
-      else {
-        return (($this->nye_sensorer_stk_lokale * $this->standardinvest_sensor_kr_stk
-                 + $this->nye_armaturer_stk_lokale * $this->standardinvest_armatur_el_lyskilde_kr_stk
-                 + $this->ny_lyskilde_stk_armatur * $this->standardinvest_lyskilde_kr_stk)
-                + $this->prisfaktor_tillaeg_kr_lokale)
-          * $this->lokale_antal;
-      }
+      return (($this->nye_sensorer_stk_lokale * $this->standardinvest_sensor_kr_stk
+               + $this->nye_armaturer_stk_lokale * $this->standardinvest_armatur_el_lyskilde_kr_stk
+               + $this->ny_lyskilde_stk_armatur * $this->standardinvest_lyskilde_kr_stk)
+              + $this->prisfaktor_tillaeg_kr_lokale)
+        * $this->lokale_antal;
     }
   }
 
   private function computeNytElforbrugWM2() {
-    // 'BD'
+    // BD
     if ($this->rumstoerrelse_m2 == 0) {
       return 0;
     }
@@ -1065,7 +1101,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function computeDriftsbesparelseTilLyskilderKrAar() {
-    // 'BK'
+    // BK
     $lyskilde = $this->getLyskilde(true);
     $nyLyskilde = $this->getNyLyskilde(true);
 
@@ -1080,7 +1116,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function computeKwhBesparelseEl() {
-    // 'BT'
+    // BT
     $elbesparelse = $this->_computeElbesparelseAlleLokaler();
     $varmebesparelse = $this->_computeVarmebesparelseAlleLokaler();
 
@@ -1096,9 +1132,9 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function _computeElbesparelseAlleLokaler() {
-    // 'BE'
+    // BE
     $computeElforbrugPrLokale = function() {
-      // 'AB'
+      // AB
       $armaturEffekt = $this->_computeArmaturEffekt($this->getLyskilde(true));
       if ($armaturEffekt == 0 || $this->armaturer_stk_lokale == 0) {
         return 0;
@@ -1109,7 +1145,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     };
 
     $computeNytElforbrugPrLokale = function() {
-      // 'BC'
+      // BC
       if ($this->ny_driftstid == 0) {
         return 0;
       }
@@ -1134,7 +1170,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function _computeVarmebesparelseAlleLokaler() {
-    // 'BF'
+    // BF
     $elbesparelse = $this->_computeElbesparelseAlleLokaler();
     if ($elbesparelse == 0) {
       return 0;
@@ -1145,7 +1181,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function computeKwhBesparelseVarmeFraVarmevaerket() {
-    // 'BU'
+    // BU
     $varmebesparelse = $this->_computeVarmebesparelseAlleLokaler();
     if ($varmebesparelse == 0) {
       return 0;
@@ -1159,7 +1195,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function computeSimpelTilbagebetalingstidAar() {
-    // 'BL'
+    // BL
     if ($this->investering_alle_lokaler_kr == 0) {
       return 0;
     }
@@ -1169,19 +1205,23 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function computeVaegtetLevetidAar() {
-    // 'BM'
-    $udgiftSensorer = $this->_computeUdgiftSensorer();
-    $udgiftArmatur = $this->_computeUdgiftArmatur();
-    if ($udgiftSensorer == 0 && $udgiftArmatur == 0) {
+    // BM
+    if ($this->investering_alle_lokaler_kr == 0) {
       return 0;
     }
     elseif ($this->ny_lyskilde == null) {
       return 10;
     }
     else {
+      $udgiftSensorer = $this->_computeUdgiftSensorer();
       $levetidSensor = $this->_computeLevetidSensor();
+      $udgiftArmatur = $this->_computeUdgiftArmatur();
       $levetidArmatur = $this->_computeLevetidArmatur();
-      return ($udgiftSensorer * $levetidSensor + $udgiftArmatur * $levetidArmatur) / ($udgiftSensorer + $udgiftArmatur);
+      $udgiftLyskilde = $this->_computeUdgiftLyskilde();
+      $levetidLyskilde = $this->_computeLevetidLyskilde();
+
+      return ($udgiftSensorer * $levetidSensor + $udgiftArmatur * $levetidArmatur + $udgiftLyskilde * $levetidLyskilde)
+        / ($udgiftSensorer + $udgiftArmatur + $udgiftLyskilde);
     }
   }
 
@@ -1195,6 +1235,10 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
+  private function _computeLevetidSensor() {
+    return 10;
+  }
+
   private function _computeUdgiftArmatur() {
     // BO
     if ($this->standardinvest_armatur_el_lyskilde_kr_stk == 0) {
@@ -1205,12 +1249,18 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function _computeLevetidSensor() {
-    return 10;
+  private function _computeUdgiftLyskilde() {
+    // BP
+    if ($this->standardinvest_lyskilde_kr_stk == 0) {
+      return 0;
+    }
+    else {
+      return $this->standardinvest_lyskilde_kr_stk * $this->ny_lyskilde_stk_armatur * $this->prisfaktor;
+    }
   }
 
   private function _computeLevetidArmatur() {
-    // 'BP'
+    // BQ
     $nyLyskilde = $this->getNyLyskilde(true);
     $levetid = $nyLyskilde ? $nyLyskilde->getLevetid() : 0;
 
@@ -1222,8 +1272,13 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
+  private function _computeLevetidLyskilde() {
+    // BR
+    return $this->_computeLevetidArmatur();
+  }
+
   private function computeNutidsvaerdiSetOver15AarKr() {
-    // 'BS'
+    // BU
     $faktorForReinvestering = $this->_computeFaktorForReinvestering();
     if ($this->vaegtet_levetid_aar == 0 || $faktorForReinvestering == 0) {
       return 0;
@@ -1245,8 +1300,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function __computeArmaturEffekt(BelysningTiltagDetailLyskilde $lyskilde, $lyskilde_stk_armatur, $lyskilde_w_lyskilde, $forkobling_stk_armatur) {
-    // 'Z', 'AV'
-
+    // Z, AW
     if (!$lyskilde || $lyskilde_stk_armatur == 0 || $lyskilde_w_lyskilde == 0) {
       return 0;
     }
@@ -1254,7 +1308,7 @@ class BelysningTiltagDetail extends TiltagDetail {
       switch ($lyskilde->getType()) {
         case 'LED-rør':
         case 'LEDpære':
-          return ($lyskilde_w_lyskilde + 1) * $lyskilde_stk_armatur;
+          return ($lyskilde_w_lyskilde) * $lyskilde_stk_armatur;
 
         case 'Hal.':
         case 'Gl':

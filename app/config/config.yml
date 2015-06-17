@@ -111,7 +111,10 @@ fos_user:
 
 simple_things_entity_audit:
     audited_entities:
+        - AppBundle\Entity\Forsyningsvaerk
         - AppBundle\Entity\Bygning
+        - AppBundle\Entity\Configuration
+        - AppBundle\Entity\Forsyningsvaerk
         - AppBundle\Entity\Rapport
         - AppBundle\Entity\Pumpe
         - AppBundle\Entity\Tiltag
@@ -122,8 +125,12 @@ simple_things_entity_audit:
         - AppBundle\Entity\SpecialTiltagDetail
         - AppBundle\Entity\TekniskIsoleringTiltag
         - AppBundle\Entity\TekniskIsoleringTiltagDetail
+        - AppBundle\Entity\Klimaskaerm
         - AppBundle\Entity\KlimaskaermTiltag
         - AppBundle\Entity\KlimaskaermTiltagDetail
+        - AppBundle\Entity\Solcelle
+        - AppBundle\Entity\SolcelleTiltag
+        - AppBundle\Entity\SolcelleTiltagDetail
 
 white_october_breadcrumbs:
   separator:

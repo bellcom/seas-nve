@@ -29,6 +29,7 @@ use JMS\Serializer\Annotation as JMS;
  *    "belysning" = "BelysningTiltagDetail",
  *    "klimaskærm" = "KlimaskaermTiltagDetail",
  *    "tekniskisolering" = "TekniskIsoleringTiltagDetail",
+ *    "solcelle" = "SolcelleTiltagDetail",
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TiltagDetailRepository")
  * @JMS\Discriminator(field = "_discr", map = {
@@ -37,6 +38,7 @@ use JMS\Serializer\Annotation as JMS;
  *    "belysning" = "AppBundle\Entity\BelysningTiltagDetail",
  *    "klimaskærm" = "AppBundle\Entity\KlimaskaermTiltagDetail",
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltagDetail",
+ *    "solcelle" = "AppBundle\Entity\SolcelleTiltagDetail",
  * })
  * @ORM\HasLifecycleCallbacks
  */
@@ -229,12 +231,19 @@ abstract class TiltagDetail {
   public function handleUploads($manager) {}
 
   /**
+   * @var Configuration
+   */
+  protected $configuration;
+
+  /**
    * Post load handler.
    *
    * @ORM\PostLoad
    * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
    */
   public function postLoad(LifecycleEventArgs $event) {
+    $repository = $event->getEntityManager()->getRepository('AppBundle:Configuration');
+    $this->configuration = $repository->getConfiguration();
     $this->compute();
   }
 

@@ -77,14 +77,17 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       ))
       // ->add('elforbrug_w_m2', null, array( 'disabled' => true, ))
       ->add('placering_id', 'choice', array(
-        'choice_list' => new PlaceringRepository(),
+        'choices' => (new PlaceringRepository())->loadChoiceList(),
+        'choices_as_values' => true,
       ))
       ->add('styring_id', 'choice', array(
-        'choice_list' => new StyringRepository(),
+        'choices' => (new StyringRepository())->loadChoiceList(),
+        'choices_as_values' => true,
       ))
       ->add('noter')
       ->add('belysningstiltag_id', 'choice', array(
-        'choice_list' => new TiltagRepository(),
+        'choices' => (new TiltagRepository())->loadChoiceList(),
+        'choices_as_values' => true,
       ))
       ->add('nye_sensorer_stk_lokale', null, array(
         'attr' => array(

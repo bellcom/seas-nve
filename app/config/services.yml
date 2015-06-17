@@ -44,6 +44,20 @@ services:
         tags:
             - { name: security.voter }
 
+    security.access.configuration_voter:
+        class:      AppBundle\Security\Authorization\Voter\ConfigurationVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
+    security.access.forsyningsvaerk_voter:
+        class:      AppBundle\Security\Authorization\Voter\ForsyningsvaerkVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
     symfony.controller.subscriber.init:
         class: Yavin\Symfony\Controller\InitControllerSubscriber
         tags:

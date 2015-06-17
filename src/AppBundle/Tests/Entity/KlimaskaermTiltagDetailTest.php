@@ -1,30 +1,20 @@
 <?php
 namespace AppBundle\Tests\Entity;
 
-use AppBundle\Entity\Rapport;
+use AppBundle\Entity\Klimaskaerm;
 use AppBundle\Entity\KlimaskaermTiltag;
 use AppBundle\Entity\KlimaskaermTiltagDetail;
 
-class KlimaskaermTiltagDetailTest extends EntityTestCase {
-  public function testCompute() {
-    $fixtures = $this->loadTestFixtures('KlimaskaermTiltagDetail');
+class KlimaskaermTiltagDetailTest extends TiltagDetailTestCase {
+  // protected $allowedDeviance = 0.001;
 
-    foreach ($fixtures as $fixture) {
-      $rapport = $this->loadEntity(new Rapport(), $fixture['rapport']);
-      $tiltag = $this->loadEntity(new KlimaskaermTiltag(), $fixture['tiltag']);
-      $tiltag->setRapport($rapport);
+  public function loadProperties(array $properties) {
+    $properties['klimaskaerm'] = $this->getKlimaskaerm($properties['klimaskaerm']);
+    return $properties;
+  }
 
-      foreach ($fixture['tests'] as $test) {
-        $properties = $test[0];
-        $expected = $test[1];
-
-        $detail = new KlimaskaermTiltagDetail();
-        $detail->setTiltag($tiltag);
-        $this->loadEntity($detail, $properties);
-
-        $this->assertProperties($expected, $detail);
-      }
-    }
+  private function getKlimaskaerm(array $properties = null) {
+    return $properties ? $this->loadEntity(new Klimaskaerm(), $properties) : null;
   }
 
 }

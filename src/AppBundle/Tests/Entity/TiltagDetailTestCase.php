@@ -1,16 +1,12 @@
 <?php
 namespace AppBundle\Tests\Entity;
 
+use AppBundle\Entity\Configuration;
+use AppBundle\Entity\Bygning;
+use AppBundle\Entity\Forsyningsvaerk;
 use AppBundle\Entity\Rapport;
 
 abstract class TiltagDetailTestCase extends EntityTestCase {
-  /**
-   * Delta to use when comparing floats.
-   *
-   * @var float
-   */
-  protected $delta = 0.0;
-
   public function testCompute() {
     $detailClassName = str_replace('\\Tests\\', '\\', preg_replace('/Test$/', '', get_class($this)));
     $tiltagClassName = preg_replace('/Detail$/', '', $detailClassName);
@@ -19,9 +15,16 @@ abstract class TiltagDetailTestCase extends EntityTestCase {
     $this->assertNotEmpty($fixtures, 'Cannot load fixtures for class ' . $detailClassName);
 
     foreach ($fixtures as $fixture) {
-      $rapport = $this->loadEntity(new Rapport(), $fixture['rapport']);
-      $tiltag = $this->loadEntity(new $tiltagClassName(), $fixture['tiltag']);
+      $bygning = $this->loadEntity(new Bygning(), $fixture['bygning'])
+               ->setForsyningsvaerkVarme($this->loadEntity(new Forsyningsvaerk(), $fixture['bygning.forsyningsvaerkVarme']))
+               ->setForsyningsvaerkEl($this->loadEntity(new Forsyningsvaerk(), $fixture['bygning.forsyningsvaerkEl']))
+               ->setForsyningsvaerkVand($this->loadEntity(new Forsyningsvaerk(), $fixture['bygning.forsyningsvaerkVand']));
+      $rapport = $this->loadEntity(new Rapport(), $fixture['rapport'])
+               ->setBygning($bygning);
+      $rapport->setConfiguration($this->loadEntity(new Configuration(), $fixture['configuration']));
+      $tiltag = new $tiltagClassName();
       $tiltag->setRapport($rapport);
+      $this->loadEntity($tiltag, $fixture['tiltag']);
 
       foreach ($fixture['tests'] as $test) {
         $properties = $this->loadProperties($test[0]);
@@ -29,7 +32,9 @@ abstract class TiltagDetailTestCase extends EntityTestCase {
 
         $detail = new $detailClassName();
         $detail->setTiltag($tiltag);
-        $this->loadEntity($detail, $properties);
+
+        $this->loadEntity($detail, $properties)
+          ->compute();
 
         $this->assertProperties($expected, $detail);
       }

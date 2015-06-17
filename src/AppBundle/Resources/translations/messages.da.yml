@@ -23,6 +23,7 @@ rapporter:
     pumpetiltag: Pumper
     specialtiltag: Special
     teknisk_isolering: Teknsik isolering
+    solcelletiltag: Solcelle
     tiltag: Tiltag
     tilvalgt: Tilvalgt
 
@@ -36,6 +37,15 @@ bygninger:
     create: Opret Bygning
   strings:
     ingen: Ingen bygninger fundet
+
+forsyningsvaerker:
+  labels:
+    singular: Forsyningsværk
+    plural: Forsyningsværker
+  actions:
+    add: Tilføj forsyningsværk
+    edit: Rediger forsyningsværk
+    create: Opret forsyningsværk
 
 pumper:
   labels:
@@ -70,6 +80,32 @@ belysningtiltagdetail:
     add: Tilføj belysningstiltag
     edit: Rediger belysningstiltag
 
+solcelle:
+  labels:
+    singular: Solcelle
+    plural: Solceller
+  actions:
+  actions:
+    add: Tilføj solcelle
+    edit: Rediger solcelle
+    create: Opret solcelle
+
+klimaskaerm:
+  labels:
+    singular: Klimaskærm
+    plural: Klimaskærme
+  actions:
+    add: Tilføj klimaskærm
+    edit: Rediger klimaskærm
+    create: Opret klimaskærm
+
+configuration:
+  labels:
+    singular: Indstillinger
+    plural: Indstillinger
+  actions:
+    edit: Rediger indstillinger
+  strings:
 
 # Forms - We follow the formbuilders form id format
 
@@ -123,6 +159,75 @@ appbundle:
     kwh.besparelse.varme.fra.varmevaerket: kWh-besparelse Varme fra varmeværket
     add: Tilføj
     tiltag.id: Tiltag, input
+
+  forsyningsvaerk:
+    navn: Navn
+    energiform: Energiform
+    noter: Noter
+    priser: Priser
+    pris2009: Pris, 2009
+    pris2014: Pris, 2014
+    pris2015: Pris, 2015
+    pris2016: Pris, 2016
+    pris2017: Pris, 2017
+    pris2018: Pris, 2018
+    pris2019: Pris, 2019
+    pris2020: Pris, 2020
+    pris2021: Pris, 2021
+    pris2022: Pris, 2022
+    pris2023: Pris, 2023
+    pris2024: Pris, 2024
+    pris2025: Pris, 2025
+    pris2026: Pris, 2026
+    pris2027: Pris, 2027
+    pris2028: Pris, 2028
+    pris2029: Pris, 2029
+    pris2030: Pris, 2030
+    pris2031: Pris, 2031
+    pris2032: Pris, 2032
+    pris2033: Pris, 2033
+    pris2034: Pris, 2034
+    pris2035: Pris, 2035
+    pris2036: Pris, 2036
+    pris2037: Pris, 2037
+    pris2038: Pris, 2038
+    pris2039: Pris, 2039
+    pris2040: Pris, 2040
+    pris2041: Pris, 2041
+    pris2042: Pris, 2042
+    pris2043: Pris, 2043
+    pris2044: Pris, 2044
+    pris2045: Pris, 2045
+    co2: CO2
+    co2noter: Noter (CO2)
+    co2y2009: CO2, 2009
+    co2y2014: CO2, 2014
+    co2y2015: CO2, 2015
+    co2y2016: CO2, 2016
+    co2y2017: CO2, 2017
+    co2y2018: CO2, 2018
+    co2y2019: CO2, 2019
+    co2y2020: CO2, 2020
+    co2y2021: CO2, 2021
+    co2y2022: CO2, 2022
+    co2y2023: CO2, 2023
+    co2y2024: CO2, 2024
+    co2y2025: CO2, 2025
+    co2y2026: CO2, 2026
+    co2y2027: CO2, 2027
+    co2y2028: CO2, 2028
+    co2y2029: CO2, 2029
+    co2y2030: CO2, 2030
+    co2y2031: CO2, 2031
+    co2y2032: CO2, 2032
+    co2y2033: CO2, 2033
+    co2y2034: CO2, 2034
+    co2y2035: CO2, 2035
+    co2y2036: CO2, 2036
+    co2y2037: CO2, 2037
+    co2y2038: CO2, 2038
+    co2y2039: CO2, 2039
+
   bygning:
     singular: Bygning
     plural: Bygninger
@@ -148,12 +253,12 @@ appbundle:
     vand: Vand
     kundenummer: Kundenummer
     kode: Kode
-    varme: Varme
+    forsyningsvaerkVarme: Varme
     kundenr1: Kundenr 1
     kode1: Kode 1
     maalerskifteAFV: ﻿Målerskifte AFV
     aFVInstnr1: AFV inst. nr. 1
-    el: El
+    forsyningsvaerkEl: El
     instnr: Instnr.
     kundenrNRGI: Kundenr. NRGI
     internetkode: Internetkode
@@ -332,7 +437,57 @@ appbundle:
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
+    type: Type
+    klimaskaerm: Klimaskærm
+    orientering: Orientering
 
+  solcelletiltagdetail:
+    anlaegsstoerrelseKWp: Anlægsstørrelse
+    produktionKWh: Produktion
+    tilNettetPct: Til nettet
+    tilEgetForbrugPct: Til eget forbrug
+    egetForbrugAfProduktionenKWh: Eget forbrug af produktionen
+    produktionTilNettetKWh: Produktion til nettet
+    forringetYdeevnePrAar: Forringet ydeevne pr. år
+    inverterskift1Aar: Inverterskift 1
+    inverterskift2Aar: Inverterskift 2
+    prisForNyInverterKr: Pris for ny inverter
+    salgsprisFoerste10AarKrKWh: Salgspris (Første 10 år)
+    salgsprisEfter10AarKrKWh: Salgspris (Efter 10 år)
+    energiprisstigningPctPrAar: Energiprisstigning
+    investeringKr: Investering (Anlæg + opsætning)
+    screeningOgProjekteringKr: Screening og projektering
+    driftPrAarKr: Drift pr. år
+    omkostningTilMaalerKr: Omkostning til måler
+    raadighedstarifKr: Rådighedstarif
+    totalDriftomkostningerPrAar: Total driftomkostninger pr. år
+
+  solcelle:
+    kwp: KWp
+    KWp: KWp
+    inverterpris: Inverterpris
+    drift: Drift
+
+  klimaskaerm:
+    post: Post
+    klimaskaerm: Klimaskærm
+    arbejdeOmfang: Arbejde/omfang
+    enhedsprisEksklMoms: Estimat for enhedspris excl moms
+    enhed: Enhed
+    noter: Noter
+
+  configuration:
+    kalkulationsrente: Kalkulationsrente
+    inflationsfaktor: Inflationsfaktor
+    inflation: Inflation
+    lobetid: Løbetid
+    elfaktor: El-faktor
+    varmefaktor: Varmefaktor
+    vandfaktor: Vandfaktor
+    varmeKrKWh: Varme (kr/kWh)
+    elKrKWh: El (kr/kWh)
+    varmeledningsevneEksistLamelmaatter: Varmeledningsevne (W/m*K), eksist. lamelmåtter
+    varmeledningsevneNyIsolering: Varmeledningsevne (W/m*K), ny isolering
 
 # Calculations
 appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |

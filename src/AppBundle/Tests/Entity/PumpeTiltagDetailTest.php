@@ -7,7 +7,7 @@ use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\PumpeTiltagDetail;
 
 class PumpeTiltagDetailTest extends TiltagDetailTestCase {
-  protected $delta = 0.25;
+  protected $allowedDeviance = 0.0000001;
 
   public function loadProperties(array $properties) {
     $properties['pumpe'] = $this->getPumpe($properties['pumpe']);

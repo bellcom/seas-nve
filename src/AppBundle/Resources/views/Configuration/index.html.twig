@@ -1,0 +1,46 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>{{ icon('gears') }} {{ 'configuration.labels.singular' | trans }}</h1>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <tr>
+          <th>{{ 'appbundle.configuration.kalkulationsrente' | trans }}</th>
+          <td>{{ entity.kalkulationsrente | format_decimal }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.configuration.inflation' | trans }}</th>
+          <td>{{ entity.inflation | format_decimal }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.configuration.lobetid' | trans }}</th>
+          <td>{{ entity.lobetid | format_integer }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.configuration.nominelEnergiprisstigningForVarmevaerkerHvorEnergiprisudviklingenErUkendt' | trans }}</th>
+          <td>{{ entity.nominelEnergiprisstigningForVarmevaerkerHvorEnergiprisudviklingenErUkendt | format_decimal }}</td>
+        </tr>
+      </table>
+
+      <h2>Teknisk isolering</h2>
+          <table class="table">
+        <tr>
+          <th>{{ 'appbundle.configuration.varmeledningsevneEksistLamelmaatter' | trans }}</th>
+          <td>{{ entity.varmeledningsevneEksistLamelmaatter | format_decimal }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.configuration.varmeledningsevneNyIsolering' | trans }}</th>
+          <td>{{ entity.varmeledningsevneNyIsolering | format_decimal }}</td>
+        </tr>
+      </table>
+</div>
+  </div>
+
+  <hr/>
+
+  <a href="{{ path('configuration_edit') }}"  class="btn btn-default">
+    {{ 'common.edit' | trans }}
+  </a>
+{% endblock %}

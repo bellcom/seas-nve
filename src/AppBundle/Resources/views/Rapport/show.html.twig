@@ -93,7 +93,7 @@
 
   <hr/>
 
-  {% for type in [ 'pumpe', 'belysning', 'klimaskaerm' ] %}
+  {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'solcelle' ] %}
     {% if is_missing_tiltag_type(entity.tiltag, type) %}
       <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': type }) }}" class="inline-block">
         <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('rapporter.strings.' ~ type ~ 'tiltag') | trans }}</button>
