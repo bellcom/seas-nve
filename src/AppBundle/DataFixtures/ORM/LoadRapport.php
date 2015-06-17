@@ -376,14 +376,8 @@ class LoadRapport extends LoadData {
     $this->configuration = $repository->getConfiguration();
     $this->configuration
       ->setKalkulationsrente($sheet->getCell('AI23')->getValue())
-      ->setInflationsfaktor($sheet->getCell('AI26')->getValue())
       ->setInflation($sheet->getCell('AK23')->getValue())
-      ->setLobetid($sheet->getCell('AN23')->getValue())
-      ->setElfaktor($sheet->getCell('AH25')->getValue())
-      ->setVarmefaktor($sheet->getCell('AH24')->getValue())
-      ->setVandfaktor($sheet->getCell('AI27')->getValue())
-      ->setVarmeKrKWh($sheet->getCell('AI6')->getValue())
-      ->setElKrKWh($sheet->getCell('AI7')->getValue());
+      ->setLobetid($sheet->getCell('AN23')->getValue());
   }
 
   /**

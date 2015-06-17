@@ -26,14 +26,10 @@ class ConfigurationType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('kalkulationsrente')
-      ->add('inflationsfaktor')
       ->add('inflation')
       ->add('lobetid')
-      ->add('elfaktor')
-      ->add('varmefaktor')
-      ->add('vandfaktor')
-      ->add('varmeKrKWh')
-      ->add('elKrKWh')
+
+      ->add('nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt')
 
       ->add('varmeledningsevneEksistLamelmaatter')
       ->add('varmeledningsevneNyIsolering');
