@@ -6,6 +6,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Regning;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -365,4 +366,27 @@ class TiltagController extends Controller implements InitControllerInterface {
     $detail = new $detailClass();
     return $detail;
   }
+
+
+  //---------------- Regning -------------------//
+
+  /**
+   * Creates a new Regning entity.
+   *
+   * @Route("/{id}/regning/new", name="regning_create")
+   * @Method("POST")
+   * @Template("AppBundle:Regning:new.html.twig")
+   */
+  public function newRegningAction(Request $request, Tiltag $tiltag) {
+    $em = $this->getDoctrine()->getManager();
+    $regning = new Regning();
+
+    $regning->setTiltag($tiltag);
+
+    $em->persist($regning);
+    $em->flush();
+
+    return $this->redirect($this->generateUrl('regning_show', array('id' => $regning->getId())));
+  }
+
 }

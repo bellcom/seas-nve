@@ -29,28 +29,28 @@ class Regning {
   /**
    * @var integer
    *
-   * @ORM\Column(name="nummer", type="integer")
+   * @ORM\Column(name="nummer", type="integer", nullable=true)
    */
   private $nummer;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="faktureret", type="float")
+   * @ORM\Column(name="faktureret", type="float", nullable=true)
    */
   private $faktureret;
 
   /**
    * @var \DateTime
    *
-   * @ORM\Column(name="startdato", type="date")
+   * @ORM\Column(name="startdato", type="date", nullable=true)
    */
   private $startdato;
 
   /**
    * @var \DateTime
    *
-   * @ORM\Column(name="slutdato", type="date")
+   * @ORM\Column(name="slutdato", type="date", nullable=true)
    */
   private $slutdato;
 
