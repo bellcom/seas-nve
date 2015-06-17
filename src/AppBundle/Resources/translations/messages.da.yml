@@ -23,6 +23,7 @@ rapporter:
     pumpetiltag: Pumper
     specialtiltag: Special
     teknisk_isolering: Teknsik isolering
+    solcelletiltag: Solcelle
     tiltag: Tiltag
     tilvalgt: Tilvalgt
 
@@ -78,6 +79,16 @@ belysningtiltagdetail:
   actions:
     add: Tilføj belysningstiltag
     edit: Rediger belysningstiltag
+
+solcelle:
+  labels:
+    singular: Solcelle
+    plural: Solceller
+  actions:
+  actions:
+    add: Tilføj solcelle
+    edit: Rediger solcelle
+    create: Opret solcelle
 
 configuration:
   labels:
@@ -417,6 +428,33 @@ appbundle:
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
+  solcelletiltagdetail:
+    anlaegsstoerrelseKWp: Anlægsstørrelse
+    produktionKWh: Produktion
+    tilNettetPct: Til nettet
+    tilEgetForbrugPct: Til eget forbrug
+    egetForbrugAfProduktionenKWh: Eget forbrug af produktionen
+    produktionTilNettetKWh: Produktion til nettet
+    forringetYdeevnePrAar: Forringet ydeevne pr. år
+    inverterskift1Aar: Inverterskift 1
+    inverterskift2Aar: Inverterskift 2
+    prisForNyInverterKr: Pris for ny inverter
+    salgsprisFoerste10AarKrKWh: Salgspris (Første 10 år)
+    salgsprisEfter10AarKrKWh: Salgspris (Efter 10 år)
+    energiprisstigningPctPrAar: Energiprisstigning
+    investeringKr: Investering (Anlæg + opsætning)
+    screeningOgProjekteringKr: Screening og projektering
+    driftPrAarKr: Drift pr. år
+    omkostningTilMaalerKr: Omkostning til måler
+    raadighedstarifKr: Rådighedstarif
+    totalDriftomkostningerPrAar: Total driftomkostninger pr. år
+
+  solcelle:
+    kwp: KWp
+    KWp: KWp
+    inverterpris: Inverterpris
+    drift: Drift
+
   klimaskaerm:
     post: Post
     klimaskaerm: Klimaskærm
