@@ -31,6 +31,7 @@ use JMS\Serializer\Annotation as JMS;
  *    "belysning" = "BelysningTiltag",
  *    "klimaskærm" = "KlimaskaermTiltag",
  *    "tekniskisolering" = "TekniskIsoleringTiltag",
+ *    "solcelle" = "SolcelleTiltag",
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TiltagRepository")
  * @JMS\Discriminator(field = "_discr", map = {
@@ -39,6 +40,7 @@ use JMS\Serializer\Annotation as JMS;
  *    "belysning": "AppBundle\Entity\BelysningTiltag",
  *    "klimaskærm" = "AppBundle\Entity\KlimaskaermTiltag",
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltag",
+ *    "solcelle" = "AppBundle\Entity\SolcelleTiltag",
  * })
  */
 abstract class Tiltag {
