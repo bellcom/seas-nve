@@ -1,0 +1,48 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-md-10">
+      <h1>{{ 'klimaskaerm.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-2 right">
+      <a href="{{ path('klimaskaerm_new') }}" class="btn btn-default">
+        {{ icon('plus') }} {{ 'klimaskaerm.actions.add' | trans }}
+      </a>
+    </div>
+
+  </div>
+
+  <table class="table table-hover">
+	<thead>
+      <tr>
+        <th>{{ 'appbundle.klimaskaerm.post' | trans }}</th>
+        <th>{{ 'appbundle.klimaskaerm.klimaskaerm' | trans }}</th>
+        <th>{{ 'appbundle.klimaskaerm.arbejdeOmfang' | trans }}</th>
+        <th>{{ 'appbundle.klimaskaerm.enhedsprisEksklMoms' | trans }}</th>
+        <th>{{ 'appbundle.klimaskaerm.enhed' | trans }}</th>
+        <th>{{ 'appbundle.klimaskaerm.noter' | trans }}</th>
+        <th></th>
+      </tr>
+	</thead>
+	<tbody>
+      {% for klimaskaerm in entities %}
+        <tr>
+          <td>{{ klimaskaerm.post }}</td>
+          <td>{{ klimaskaerm.klimaskaerm }}</td>
+          <td>{{ klimaskaerm.arbejdeOmfang }}</td>
+          <td>{{ klimaskaerm.enhedsprisEksklMoms | format_decimal }}</td>
+          <td>{{ klimaskaerm.enhed }}</td>
+          <td>{{ klimaskaerm.noter }}</td>
+          <td>
+            <a href="{{ path('klimaskaerm_show', { 'id': klimaskaerm.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+            <a href="{{ path('klimaskaerm_edit', { 'id': klimaskaerm.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+          </td>
+        </tr>
+	</tbody>
+  {% else %}
+    {{ 'klimaskaerm.strings.ingen' | trans }}
+  {% endfor %}
+  </table>
+
+{% endblock %}
