@@ -1,0 +1,35 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-md-10">
+      <h1>{{ 'solcelle.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-2 right">
+      <a href="{{ path('solcelle_new') }}" class="btn btn-default">
+        {{ icon('plus') }} {{ 'solcelle.actions.add' | trans }}
+      </a>
+    </div>
+  </div>
+
+  <table class="table table-hover">
+    <tr>
+      <th>{{ 'appbundle.solcelle.kwp' | trans }}</th>
+      <th>{{ 'appbundle.solcelle.inverterpris' | trans }}</th>
+      <th>{{ 'appbundle.solcelle.drift' | trans }}</th>
+      <th></th>
+    </tr>
+    {% for solcelle in entities %}
+      <tr>
+        <td>{{ solcelle.kwp | format_decimal }}</td>
+        <td>{{ solcelle.inverterpris | format_decimal }}</td>
+        <td>{{ solcelle.drift | format_decimal }}</td>
+        <td>
+          <a href="{{ path('solcelle_show', { 'id': solcelle.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+          <a href="{{ path('solcelle_edit', { 'id': solcelle.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+
+{% endblock %}

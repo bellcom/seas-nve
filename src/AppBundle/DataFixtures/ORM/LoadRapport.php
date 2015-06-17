@@ -9,6 +9,7 @@ namespace AppBundle\DataFixtures\ORM;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use AppBundle\Entity\Forsyningsvaerk;
+use AppBundle\Entity\Solcelle;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\Tiltag;
@@ -22,6 +23,8 @@ use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\PumpeTiltagDetail;
 use AppBundle\Entity\TekniskIsoleringTiltag;
 use AppBundle\Entity\TekniskIsoleringTiltagDetail;
+use AppBundle\Entity\SolcelleTiltag;
+use AppBundle\Entity\SolcelleTiltagDetail;
 
 /**
  * Class LoadRapport
@@ -52,6 +55,7 @@ class LoadRapport extends LoadData {
       $this->writeInfo('Done. %s', (new \DateTime())->format('c'));
 
       $this->loadForsyningsvaerker();
+      $this->loadSolceller();
       $this->loadBygning();
       $this->loadRapport();
     }
@@ -181,6 +185,31 @@ class LoadRapport extends LoadData {
     return $this->getReference($key);
   }
 
+  private function loadSolceller() {
+    $sheet = $this->workbook->getSheetByName('Detailark (1)');
+    $data = $sheet->rangeToArray('J65:M100', null, false, false, true);
+    $data = $this->getCalculatedCells($data, $sheet);
+
+    foreach ($data as $rowId => $row) {
+      $values = $row;
+
+      if (!$values['J']) {
+        break;
+      }
+
+      $solcelle = $this->loadEntity(new Solcelle(), array(
+        'K' => 'KWp',
+        'L' => 'inverterpris',
+        'M' => 'drift',
+      ), $values);
+
+      $key = 'solcelle:' . $values['J'];
+      $this->setReference($key, $solcelle);
+
+      $this->persist($solcelle);
+    }
+  }
+
   private function loadBygning() {
     $sheet = $this->workbook->getSheetByName('Eksport_Bygningsliste_Med_Notat');
 
@@ -290,6 +319,7 @@ class LoadRapport extends LoadData {
     $this->loadBelysningTiltag($rapport);
     $this->loadPumpeTiltag($rapport);
     $this->loadKlimaskaermTiltag($rapport);
+    $this->loadSolcelleTiltag($rapport);
 
     $this->persist($rapport);
 
@@ -795,6 +825,41 @@ class LoadRapport extends LoadData {
       return $row['K'] || $row['L'];
     });
 
+  }
+
+  private function loadSolcelleTiltag(Rapport $rapport) {
+    $sheet = $this->workbook->getSheetByName('Detailark (1)');
+    $tiltag = $this->loadTiltag(new SolcelleTiltag(), $rapport, $sheet);
+
+    $this->loadSolcelleTiltagDetail($tiltag, $sheet);
+
+    $this->persist($tiltag);
+
+    $this->writeInfo(get_class($tiltag) . ' ' . $tiltag->getId() . ' loaded');
+  }
+
+  private function loadSolcelleTiltagDetail(SolcelleTiltag $tiltag, \PHPExcel_Worksheet $sheet) {
+    $data = $sheet->rangeToArray('J37:P54', null, false, false, true);
+    $data = $this->getCalculatedCells($data, $sheet);
+
+    $detail = (new SolcelleTiltagDetail())
+            ->setTiltag($tiltag)
+            ->setLaastAfEnergiraadgiver(false)
+            ->setTilvalgt(false)
+            ->setAnlaegsstoerrelseKWp($data[37]['J'])
+            ->setProduktionKWh($data[40]['J'])
+            ->setTilNettetPct($data[41]['J'])
+            ->setForringetYdeevnePrAar($data[46]['J'])
+            ->setInverterskift1Aar($data[51]['J'])
+            ->setInverterskift2Aar($data[52]['J'])
+            ->setSalgsprisFoerste10AarKrKWh($data[37]['P'])
+            ->setSalgsprisEfter10AarKrKWh($data[38]['P'])
+            ->setEnergiprisstigningPctPrAar($data[40]['P'])
+            ->setInvesteringKr($data[42]['P'])
+            ->setScreeningOgProjekteringKr($data[43]['P'])
+            ->setOmkostningTilMaalerKr($data[46]['P']);
+
+    $this->persist($detail);
   }
 
   private function loadTiltagDetail(Tiltag $tiltag, $detail, \PHPExcel_Worksheet $sheet, $range, array $columnMapping, callable $includeRow) {
