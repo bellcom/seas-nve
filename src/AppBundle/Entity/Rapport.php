@@ -423,27 +423,27 @@ class Rapport {
 
   public function getElfaktor()
   {
-    return $this->configuration->getElfaktor();
+    return $this->bygning->getForsyningsvaerkEl()->getFaktor();
   }
 
   public function getVarmefaktor()
   {
-    return $this->configuration->getVarmefaktor();
+    return $this->bygning->getForsyningsvaerkVarme()->getFaktor();
   }
 
   public function getVandfaktor()
   {
-    return $this->configuration->getVandfaktor();
+    return $this->bygning->getForsyningsvaerkVand()->getFaktor();
   }
 
   public function getVarmeKrKWh()
   {
-    return $this->configuration->getVarmeKrKWh();
+    return $this->bygning->getForsyningsvaerkVarme()->getKrKWh();
   }
 
   public function getElKrKWh()
   {
-    return $this->configuration->getElKrKWh();
+    return $this->bygning->getForsyningsvaerkEl()->getKrKWh();
   }
 
   public function isStandardforsyning() {

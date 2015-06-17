@@ -143,11 +143,10 @@ class Bygning {
   private $maalertype;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="Vand", type="string", length=255, nullable=true)
-   */
-  private $vand;
+   * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
+   * @ORM\JoinColumn(name="vand_forsyningsvaerk_id", referencedColumnName="id")
+   **/
+  private $forsyningsvaerkVand;
 
   /**
    * @var integer
@@ -725,24 +724,24 @@ class Bygning {
   }
 
   /**
-   * Set vand
+   * Set forsyningsvaerkVand
    *
-   * @param string $vand
+   * @param Forsyningsvaerk $forsyningsvaerkVand
    * @return Bygning
    */
-  public function setVand($vand) {
-    $this->vand = $vand;
+  public function setForsyningsvaerkVand($forsyningsvaerkVand) {
+    $this->forsyningsvaerkVand = $forsyningsvaerkVand;
 
     return $this;
   }
 
   /**
-   * Get vand
+   * Get forsyningsvaerkVand
    *
-   * @return string
+   * @return Forsyningsvaerk
    */
-  public function getVand() {
-    return $this->vand;
+  public function getForsyningsvaerkVand() {
+    return $this->forsyningsvaerkVand;
   }
 
   /**
