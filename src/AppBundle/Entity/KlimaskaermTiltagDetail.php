@@ -210,13 +210,13 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   public function setOrientering($orientering) {
-    $this->orientering = $orientering;
+    $this->vindue_orientering = $orientering;
 
     return $this;
   }
 
   public function getOrientering() {
-    return $this->orientering;
+    return $this->vindue_orientering;
   }
 
   public function setKlimaskaerm($klimaskaerm) {
@@ -526,7 +526,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * Get arealM2
    *
-   * @return float
+   * @return double
    */
   public function getArealM2() {
     return $this->arealM2;
