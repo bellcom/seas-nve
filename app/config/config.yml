@@ -126,6 +126,9 @@ simple_things_entity_audit:
         - AppBundle\Entity\TekniskIsoleringTiltagDetail
         - AppBundle\Entity\KlimaskaermTiltag
         - AppBundle\Entity\KlimaskaermTiltagDetail
+        - AppBundle\Entity\Solcelle
+        - AppBundle\Entity\SolcelleTiltag
+        - AppBundle\Entity\SolcelleTiltagDetail
 
 white_october_breadcrumbs:
   separator:
