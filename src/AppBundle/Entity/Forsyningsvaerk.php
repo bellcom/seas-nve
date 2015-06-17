@@ -66,427 +66,427 @@ class Forsyningsvaerk {
   private $vedForbrugOverKWh;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2009", type="decimal", scale=2, nullable=true)
    */
   private $pris2009;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2014", type="decimal", scale=2, nullable=true)
    */
   private $pris2014;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2015", type="decimal", scale=2, nullable=true)
    */
   private $pris2015;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2016", type="decimal", scale=2, nullable=true)
    */
   private $pris2016;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2017", type="decimal", scale=2, nullable=true)
    */
   private $pris2017;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2018", type="decimal", scale=2, nullable=true)
    */
   private $pris2018;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2019", type="decimal", scale=2, nullable=true)
    */
   private $pris2019;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2020", type="decimal", scale=2, nullable=true)
    */
   private $pris2020;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2021", type="decimal", scale=2, nullable=true)
    */
   private $pris2021;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2022", type="decimal", scale=2, nullable=true)
    */
   private $pris2022;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2023", type="decimal", scale=2, nullable=true)
    */
   private $pris2023;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2024", type="decimal", scale=2, nullable=true)
    */
   private $pris2024;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2025", type="decimal", scale=2, nullable=true)
    */
   private $pris2025;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2026", type="decimal", scale=2, nullable=true)
    */
   private $pris2026;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2027", type="decimal", scale=2, nullable=true)
    */
   private $pris2027;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2028", type="decimal", scale=2, nullable=true)
    */
   private $pris2028;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2029", type="decimal", scale=2, nullable=true)
    */
   private $pris2029;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2030", type="decimal", scale=2, nullable=true)
    */
   private $pris2030;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2031", type="decimal", scale=2, nullable=true)
    */
   private $pris2031;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2032", type="decimal", scale=2, nullable=true)
    */
   private $pris2032;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2033", type="decimal", scale=2, nullable=true)
    */
   private $pris2033;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2034", type="decimal", scale=2, nullable=true)
    */
   private $pris2034;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2035", type="decimal", scale=2, nullable=true)
    */
   private $pris2035;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2036", type="decimal", scale=2, nullable=true)
    */
   private $pris2036;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2037", type="decimal", scale=2, nullable=true)
    */
   private $pris2037;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2038", type="decimal", scale=2, nullable=true)
    */
   private $pris2038;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2039", type="decimal", scale=2, nullable=true)
    */
   private $pris2039;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2040", type="decimal", scale=2, nullable=true)
    */
   private $pris2040;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2041", type="decimal", scale=2, nullable=true)
    */
   private $pris2041;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2042", type="decimal", scale=2, nullable=true)
    */
   private $pris2042;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2043", type="decimal", scale=2, nullable=true)
    */
   private $pris2043;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2044", type="decimal", scale=2, nullable=true)
    */
   private $pris2044;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="pris2045", type="decimal", scale=2, nullable=true)
    */
   private $pris2045;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2noter", type="text", nullable=true)
    */
   private $co2Noter;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2009", type="decimal", scale=2, nullable=true)
    */
   private $co2y2009;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2014", type="decimal", scale=2, nullable=true)
    */
   private $co2y2014;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2015", type="decimal", scale=2, nullable=true)
    */
   private $co2y2015;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2016", type="decimal", scale=2, nullable=true)
    */
   private $co2y2016;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2017", type="decimal", scale=2, nullable=true)
    */
   private $co2y2017;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2018", type="decimal", scale=2, nullable=true)
    */
   private $co2y2018;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2019", type="decimal", scale=2, nullable=true)
    */
   private $co2y2019;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2020", type="decimal", scale=2, nullable=true)
    */
   private $co2y2020;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2021", type="decimal", scale=2, nullable=true)
    */
   private $co2y2021;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2022", type="decimal", scale=2, nullable=true)
    */
   private $co2y2022;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2023", type="decimal", scale=2, nullable=true)
    */
   private $co2y2023;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2024", type="decimal", scale=2, nullable=true)
    */
   private $co2y2024;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2025", type="decimal", scale=2, nullable=true)
    */
   private $co2y2025;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2026", type="decimal", scale=2, nullable=true)
    */
   private $co2y2026;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2027", type="decimal", scale=2, nullable=true)
    */
   private $co2y2027;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2028", type="decimal", scale=2, nullable=true)
    */
   private $co2y2028;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2029", type="decimal", scale=2, nullable=true)
    */
   private $co2y2029;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2030", type="decimal", scale=2, nullable=true)
    */
   private $co2y2030;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2031", type="decimal", scale=2, nullable=true)
    */
   private $co2y2031;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2032", type="decimal", scale=2, nullable=true)
    */
   private $co2y2032;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2033", type="decimal", scale=2, nullable=true)
    */
   private $co2y2033;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2034", type="decimal", scale=2, nullable=true)
    */
   private $co2y2034;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2035", type="decimal", scale=2, nullable=true)
    */
   private $co2y2035;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2036", type="decimal", scale=2, nullable=true)
    */
   private $co2y2036;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2037", type="decimal", scale=2, nullable=true)
    */
   private $co2y2037;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2038", type="decimal", scale=2, nullable=true)
    */
   private $co2y2038;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="co2y2039", type="decimal", scale=2, nullable=true)
    */
@@ -2158,6 +2158,31 @@ class Forsyningsvaerk {
    */
   public function getCo2y2039() {
     return $this->co2y2039;
+  }
+
+  /**
+   * Return price in a given year. Defaults to the current year.
+   *
+   * @param int $year
+   *   The year. Leave empty to use current year.
+   *
+   * @return float
+   *   The rpice in the given year.
+   */
+  public function getKrKWh($year = NULL) {
+    $property = 'pris' . ($year !== NULL ? $year : date('Y'));
+    return isset($this->{$property}) ? $this->{$property} : 0;
+  }
+
+  public function getFaktor($startYear = NULL) {
+    if ($startYear === NULL) {
+      $startYear = date('Y');
+    }
+    $faktor = 0;
+    for ($year = 0; $year < 15; $year++) {
+      $faktor += $this->getKrKWh($startYear + $year);
+    }
+    return $faktor;
   }
 
 }
