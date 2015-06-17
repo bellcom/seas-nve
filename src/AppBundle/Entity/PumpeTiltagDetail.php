@@ -9,6 +9,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
+use AppBundle\Annotations\Calculated;
 
 /**
  * PumpeTiltagDetail
@@ -95,46 +96,73 @@ class PumpeTiltagDetail extends TiltagDetail {
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="pristillaeg", type="float")
    */
   private $pristillaeg;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="samletInvesteringInklPristillaeg", type="float")
    */
   private $samletInvesteringInklPristillaeg;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="elforbrugVedNyeDriftstidKWhAar", type="float")
    */
   private $elforbrugVedNyeDriftstidKWhAar;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="elbespKWhAar", type="float")
    */
   private $elbespKWhAar;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmebespIsokappeKWh", type="float")
    */
   private $varmebespIsokappeKWh;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="simpelTilbagebetalingstidAar", type="float")
    */
   private $simpelTilbagebetalingstidAar;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float")
    */
   private $nutidsvaerdiSetOver15AarKr;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="kwhBesparelseElFraVaerket", type="float")
    */
   private $kwhBesparelseElFraVaerket;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="kwhBesparelseVarmeFraVaerket", type="float")
    */
   private $kwhBesparelseVarmeFraVaerket;
 

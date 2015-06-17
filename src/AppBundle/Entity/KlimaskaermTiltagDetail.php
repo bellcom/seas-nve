@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Annotations\Calculated;
 
 /**
  * KlimaskaermTiltagDetail
@@ -133,11 +134,17 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="arealM2", type="float")
    */
   private $arealM2;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="besparelseKWhAar", type="float")
    */
   private $besparelseKWhAar;
 
@@ -149,6 +156,9 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="samletInvesteringKr", type="float")
    */
   private $samletInvesteringKr;
 
@@ -159,21 +169,33 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="faktorForReinvestering", type="float")
    */
   private $faktorForReinvestering;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float")
    */
   private $nutidsvaerdiSetOver15AarKr;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="kWhBesparElvaerkEksternEnergikilde", type="float")
    */
   private $kWhBesparElvaerkEksternEnergikilde;
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="kWhBesparVarmevaerkEksternEnergikilde", type="float")
    */
   private $kWhBesparVarmevaerkEksternEnergikilde;
 
