@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Annotations\Calculated;
 
 /**
  * TekniskIsoleringTiltagDetail
@@ -47,7 +48,10 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   private $eksistIsolMm;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="roerstoerrelseMmAekvivalent", type="float")
    */
   private $roerstoerrelseMmAekvivalent;
 
@@ -93,10 +97,28 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    */
   private $nyIsolMm;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeledningsevnePaaEksistIsoleringWMK", type="float")
+   */
   private $varmeledningsevnePaaEksistIsoleringWMK;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeledningsevnePaaNyIsoleringWMK", type="float")
+   */
   private $varmeledningsevnePaaNyIsoleringWMK;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="arealAfBeholderM2", type="float")
+   */
   private $arealAfBeholderM2;
 
   /**
@@ -113,20 +135,68 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    */
   private $prisfaktor;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="investeringKr", type="float")
+   */
   private $investeringKr;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="eksistVarmetabKwh", type="float")
+   */
   private $eksistVarmetabKwh;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="nytVarmetabKwh", type="float")
+   */
   private $nytVarmetabKwh;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmebespKwhAar", type="float")
+   */
   private $varmebespKwhAar;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="simpelTilbagebetalingstidAar", type="float")
+   */
   private $simpelTilbagebetalingstidAar;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float")
+   */
   private $nutidsvaerdiSetOver15AarKr;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="kwhBesparelseElFraVaerket", type="float")
+   */
   private $kwhBesparelseElFraVaerket;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="kwhBesparelseVarmeFraVaerket", type="float")
+   */
   private $kwhBesparelseVarmeFraVaerket;
 
   public function setBeskrivelseType($beskrivelseType) {

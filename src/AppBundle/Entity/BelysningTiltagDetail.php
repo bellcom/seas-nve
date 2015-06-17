@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotations\Calculated;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\Entity\BelysningTiltagDetail\Placering as BelysningTiltagDetailPlacering;
@@ -94,7 +95,10 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $armaturer_stk_lokale;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="elforbrug_w_m2", type="float")
    */
   private $elforbrug_w_m2;
 
@@ -148,7 +152,10 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $reduktion_af_drifttid;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="ny_driftstid", type="float")
    */
   private $ny_driftstid;
 
@@ -196,7 +203,10 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $ny_forkobling_stk_armatur;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="ny_armatureffekt_w_stk", type="float")
    */
   private $ny_armatureffekt_w_stk;
 
@@ -222,47 +232,74 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $prisfaktor;
 
   /**
-   * @var string
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="prisfaktor_tillaeg_kr_lokale", type="float")
    */
   private $prisfaktor_tillaeg_kr_lokale;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="investering_alle_lokaler_kr", type="float")
    */
   private $investering_alle_lokaler_kr;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="nyt_elforbrug_w_m2", type="float")
    */
   private $nyt_elforbrug_w_m2;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="driftsbesparelse_til_lyskilder_kr_aar", type="float")
    */
   private $driftsbesparelse_til_lyskilder_kr_aar;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="simpel_tilbagebetalingstid_aar", type="float")
    */
   private $simpel_tilbagebetalingstid_aar;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="vaegtet_levetid_aar", type="float")
    */
   private $vaegtet_levetid_aar;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdi_set_over_15_aar_kr", type="float")
    */
   private $nutidsvaerdi_set_over_15_aar_kr;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="kwh_besparelse_el", type="float")
    */
   private $kwh_besparelse_el;
 
   /**
-   * @var double
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="kwh_besparelse_varme_fra_varmevaerket", type="float")
    */
   private $kwh_besparelse_varme_fra_varmevaerket;
 
