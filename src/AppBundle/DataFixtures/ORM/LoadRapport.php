@@ -786,8 +786,6 @@ class LoadRapport extends LoadData {
     $columnMapping = array(
       'I' => array('laastAfEnergiraadgiver', 'boolean'),
       'J' => array('tilvalgt', 'boolean'),
-      'K' => 'tiltagsnr',
-      'L' => 'tiltagsnrDelpriser',
       'M' => 'typePlaceringJfPlantegning',
       'N' => 'hoejdeElLaengdeM',
       'O' => 'breddeM',
@@ -806,19 +804,12 @@ class LoadRapport extends LoadData {
       // Calculated
       'Q' => 'arealM2',
       'Y' => 'besparelseKWhAar',
-      'Z' => 'samletBesparelseKWhAarInklDelbesparelser',
-      'AD' => 'delprisKrM2',
       'AE' => 'samletInvesteringKr',
       'AF' => 'simpelTilbagebetalingstidAar',
-      'AH' => 'tilSortering',
-      'AI' => 'tilSummeringAfDelpriser',
-      'AK' => 'vaegtetGnm',
-      'AL' => 'vaegtetLevetidForTiltagetAfrundet',
       'AM' => 'faktorForReinvestering',
       'AN' => 'nutidsvaerdiSetOver15AarKr',
       'AO' => 'KWhBesparElvaerkEksternEnergikilde',
       'AP' => 'KWhBesparVarmevaerkEksternEnergikilde',
-      'AQ' => 'tilvalgteDeltiltag',
     );
 
     $this->loadTiltagDetail($tiltag, new KlimaskaermTiltagDetail(), $sheet, 'I38:AU99', $columnMapping, function($row) {

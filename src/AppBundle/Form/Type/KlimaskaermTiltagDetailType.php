@@ -20,11 +20,7 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ->add('laastAfEnergiraadgiver', null, array(
         'required' => false,
       ))
-      ->add('tiltagsnr', null, array(
-        'required' => false,
       ))
-      ->add('tiltagsnrDelpriser', null, array(
-        'required' => false,
       ))
       ->add('typePlaceringJfPlantegning')
       ->add('hoejdeElLaengdeM')
