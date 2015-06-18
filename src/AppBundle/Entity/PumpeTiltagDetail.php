@@ -434,20 +434,20 @@ class PumpeTiltagDetail extends TiltagDetail {
     return $this->kwhBesparelseVarmeFraVaerket;
   }
 
-  public function compute() {
-    $this->pristillaeg = $this->computePristillaeg();
-    $this->samletInvesteringInklPristillaeg = $this->computeSamletInvesteringInklPristillaeg();
-    $this->elforbrugVedNyeDriftstidKWhAar = $this->computeElforbrugVedNyeDriftstidKWhAar();
-    $this->elbespKWhAar = $this->computeElbespKWhAar();
-    $this->varmebespIsokappeKWh = $this->computeVarmebespIsokappeKWh();
-    $this->kwhBesparelseElFraVaerket = $this->computeKwhBesparelseElFraVaerket();
-    $this->kwhBesparelseVarmeFraVaerket = $this->computeKwhBesparelseVarmeFraVaerket();
-    $this->simpelTilbagebetalingstidAar = $this->computeSimpelTilbagebetalingstidAar();
-    $this->nutidsvaerdiSetOver15AarKr = $this->computeNutidsvaerdiSetOver15AarKr();
-    parent::compute();
+  public function calculate() {
+    $this->pristillaeg = $this->calculatePristillaeg();
+    $this->samletInvesteringInklPristillaeg = $this->calculateSamletInvesteringInklPristillaeg();
+    $this->elforbrugVedNyeDriftstidKWhAar = $this->calculateElforbrugVedNyeDriftstidKWhAar();
+    $this->elbespKWhAar = $this->calculateElbespKWhAar();
+    $this->varmebespIsokappeKWh = $this->calculateVarmebespIsokappeKWh();
+    $this->kwhBesparelseElFraVaerket = $this->calculateKwhBesparelseElFraVaerket();
+    $this->kwhBesparelseVarmeFraVaerket = $this->calculateKwhBesparelseVarmeFraVaerket();
+    $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
+    $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
+    parent::calculate();
   }
 
-  public function computePristillaeg() {
+  public function calculatePristillaeg() {
     // 'AN'
     if ($this->prisfaktor == 0) {
       return 0;
@@ -457,22 +457,22 @@ class PumpeTiltagDetail extends TiltagDetail {
     }
   }
 
-  public function computeSamletInvesteringInklPristillaeg() {
+  public function calculateSamletInvesteringInklPristillaeg() {
     // 'AO'
     return $this->pristillaeg + $this->pumpe->getStandInvestering();
   }
 
-  public function computeElforbrugVedNyeDriftstidKWhAar() {
+  public function calculateElforbrugVedNyeDriftstidKWhAar() {
     // 'AP'
     return ($this->nyDrifttid * $this->pumpe->getNytAarsforbrug()) / $this->eksisterendeDrifttid;
   }
 
-  public function computeElbespKWhAar() {
+  public function calculateElbespKWhAar() {
     // 'AQ'
     return ($this->pumpe->getAarsforbrug() * $this->eksisterendeDrifttid - $this->pumpe->getNytAarsforbrug() * $this->nyDrifttid) / 8760;
   }
 
-  public function computeVarmebespIsokappeKWh() {
+  public function calculateVarmebespIsokappeKWh() {
     // 'AR'
     if ($this->isoleringskappe) {
       return 0;
@@ -482,7 +482,7 @@ class PumpeTiltagDetail extends TiltagDetail {
     }
   }
 
-  public function computeSimpelTilbagebetalingstidAar() {
+  public function calculateSimpelTilbagebetalingstidAar() {
     // 'AS'
     if ($this->kwhBesparelseElFraVaerket == 0 && $this->kwhBesparelseVarmeFraVaerket == 0) {
       return 0;
@@ -492,7 +492,7 @@ class PumpeTiltagDetail extends TiltagDetail {
     }
   }
 
-  public function computeNutidsvaerdiSetOver15AarKr() {
+  public function calculateNutidsvaerdiSetOver15AarKr() {
     // 'AT'
     if ($this->kwhBesparelseElFraVaerket == 0 && $this->kwhBesparelseVarmeFraVaerket == 0) {
       return 0;
@@ -502,7 +502,7 @@ class PumpeTiltagDetail extends TiltagDetail {
     }
   }
 
-  public function computeKwhBesparelseElFraVaerket() {
+  public function calculateKwhBesparelseElFraVaerket() {
     // 'AU'
     if ($this->elbespKWhAar == 0 && $this->varmebespIsokappeKWh == 0) {
       return 0;
@@ -517,7 +517,7 @@ class PumpeTiltagDetail extends TiltagDetail {
     }
   }
 
-  public function computeKwhBesparelseVarmeFraVaerket() {
+  public function calculateKwhBesparelseVarmeFraVaerket() {
     // 'AV'
     if ($this->varmebespIsokappeKWh == 0) {
       return 0;

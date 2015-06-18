@@ -764,7 +764,7 @@ abstract class Tiltag {
   public function addDetail(TiltagDetail $detail) {
     if (!$this->details->contains($detail)) {
       $this->details->add($detail);
-      $this->compute();
+      $this->calculate();
     }
 
     return $this;
@@ -779,7 +779,7 @@ abstract class Tiltag {
   public function removeDetail(TiltagDetail $detail) {
     if ($this->details->contains($detail)) {
       $this->details->removeElement($detail);
-      $this->compute();
+      $this->calculate();
     }
 
     return $this;
@@ -803,11 +803,11 @@ abstract class Tiltag {
   }
 
   /**
-   * Compute values in this Tiltag
+   * Calculate values in this Tiltag
    *
    * @return bool
    */
-  public function compute() {
+  public function calculate() {
     return false;
   }
 

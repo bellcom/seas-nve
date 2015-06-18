@@ -7,7 +7,7 @@ use AppBundle\Entity\Forsyningsvaerk;
 use AppBundle\Entity\Rapport;
 
 abstract class TiltagDetailTestCase extends EntityTestCase {
-  public function testCompute() {
+  public function testCalculate() {
     $detailClassName = str_replace('\\Tests\\', '\\', preg_replace('/Test$/', '', get_class($this)));
     $tiltagClassName = preg_replace('/Detail$/', '', $detailClassName);
     $fixtures = $this->loadTestFixtures(preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', $detailClassName));
@@ -34,7 +34,7 @@ abstract class TiltagDetailTestCase extends EntityTestCase {
         $detail->setTiltag($tiltag);
 
         $this->loadEntity($detail, $properties)
-          ->compute();
+          ->calculate();
 
         $this->assertProperties($expected, $detail);
       }

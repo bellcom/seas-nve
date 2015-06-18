@@ -245,11 +245,10 @@ abstract class TiltagDetail {
     $this->compute();
   }
 
-  /**
-   * Compute stuff.
+   * Calculate stuff.
    */
-  public function compute() {
-    $this->tiltag->compute();
+  public function calculate() {
+    $this->tiltag->calculate();
   }
 
   protected function fordelbesparelse($BesparKwh, $Kilde, $typen) {
