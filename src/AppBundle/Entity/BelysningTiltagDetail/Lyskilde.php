@@ -50,7 +50,7 @@ class Lyskilde {
   private $forkobling;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="udgift", type="decimal", scale=2)
    */

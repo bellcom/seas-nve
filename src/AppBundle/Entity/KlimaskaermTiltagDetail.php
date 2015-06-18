@@ -526,7 +526,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * Get arealM2
    *
-   * @return double
+   * @return float
    */
   public function getArealM2() {
     return $this->arealM2;

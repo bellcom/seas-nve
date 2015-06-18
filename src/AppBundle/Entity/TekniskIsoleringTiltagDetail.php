@@ -27,21 +27,21 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   private $type;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="driftstidTAar", type="float")
    */
   private $driftstidTAar;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="udvDiameterMm", type="float")
    */
   private $udvDiameterMm;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="eksistIsolMm", type="float")
    */
@@ -56,42 +56,42 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   private $roerstoerrelseMmAekvivalent;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="tankVolL", type="float")
    */
   private $tankVolL;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="tempOmgivelC", type="float")
    */
   private $tempOmgivelC;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="tempMedieC", type="float")
    */
   private $tempMedieC;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="roerlaengdeEllerHoejdeAfVvbM", type="float")
    */
   private $roerlaengdeEllerHoejdeAfVvbM;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="nyttiggjortVarme", type="float")
    */
   private $nyttiggjortVarme;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="nyIsolMm", type="float")
    */
@@ -122,14 +122,14 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   private $arealAfBeholderM2;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="standardinvestKrM2EllerKrM", type="float")
    */
   private $standardinvestKrM2EllerKrM;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="prisfaktor", type="float")
    */

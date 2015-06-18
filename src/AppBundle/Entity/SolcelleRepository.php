@@ -25,7 +25,7 @@ class SolcelleRepository extends EntityRepository {
    *
    * Return Solcelle with greatest KWp less than or equal to the specified KWp.
    *
-   * @param double $KWp
+   * @param float $KWp
    *   The KWp.
    *
    * @return Solcelle|NULL
