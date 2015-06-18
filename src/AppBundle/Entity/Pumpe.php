@@ -616,12 +616,12 @@ class Pumpe {
    */
   public function getBesparelseVedIsoleringskappe() {
     if ($this->besparelseVedIsoleringskappe === null) {
-      $this->besparelseVedIsoleringskappe = $this->computeBesparelseVedIsoleringskappe();
+      $this->besparelseVedIsoleringskappe = $this->calculateBesparelseVedIsoleringskappe();
     }
     return $this->besparelseVedIsoleringskappe;
   }
 
-  private function computeBesparelseVedIsoleringskappe() {
+  private function calculateBesparelseVedIsoleringskappe() {
     $standardtemperatur = (45 - 12);
     $varmetab = self::$varmetabstabel[$this->roerstoerrelse];
     return ($varmetab[1] - $varmetab[2]) * 2 * $standardtemperatur * 5448 / 1000;

@@ -408,7 +408,8 @@ class Rapport {
 
   public function getInflationsfaktor()
   {
-    return $this->configuration->getInflationsfaktor();
+    // @FIXME: How do we get the real value for this?
+    return 0.02;
   }
 
   public function getInflation()

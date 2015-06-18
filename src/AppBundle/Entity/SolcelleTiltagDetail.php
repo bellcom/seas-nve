@@ -26,6 +26,14 @@ class SolcelleTiltagDetail extends TiltagDetail {
   protected $anlaegsstoerrelseKWp;
 
   /**
+   * @var BelysningTiltagDetailLyskilde
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Solcelle")
+   * ORM\JoinColumn(name="solcelle_id", referencedColumnName="id")
+   */
+  protected $solcelle;
+
+  /**
    * @var float
    *
    * @ORM\Column(name="produktionKWh", type="decimal", scale=2)
@@ -169,6 +177,31 @@ class SolcelleTiltagDetail extends TiltagDetail {
     return $this->anlaegsstoerrelseKWp;
   }
 
+  /**
+   * Set solcelle
+   *
+   * @param Solcelle $solcelle
+   * @return SolcelleTiltagDetail
+   */
+  public function setSolcelle(Solcelle $solcelle) {
+    $this->solcelle = $solcelle;
+    $this->addData('solcelle', $solcelle);
+
+    return $this;
+  }
+
+  /**
+   * Get solcelle.
+   *
+   * @param bool $useCached
+   *   If set, then that cached value is returned. Otherwise the current value is returned.
+   *
+   * @return Solcelle
+   */
+  public function getSolcelle($useCached = false) {
+    return $useCached ? $this->getData('solcelle') : $this->solcelle;
+  }
+
   public function setProduktionKWh($produktionKWh) {
     $this->produktionKWh = $produktionKWh;
 
@@ -307,48 +340,44 @@ class SolcelleTiltagDetail extends TiltagDetail {
     return $this->totalDriftomkostningerPrAar;
   }
 
-  public function compute(\Symfony\Component\DependencyInjection\Container $container = NULL) {
-    $solcelle = NULL;
-    if ($container) {
-      $repository = $container->get('doctrine')->getRepository('AppBundle:Solcelle');
-      $solcelle = $repository->findByKWp($this->anlaegsstoerrelseKWp);
-    }
-
-    $this->tilEgetForbrugPct = $this->computeTilEgetForbrugPct();
-    $this->egetForbrugAfProduktionenKWh = $this->computeEgetForbrugAfProduktionenKWh();
-    $this->produktionTilNettetKWh = $this->computeProduktionTilNettetKWh();
-    $this->prisForNyInverterKr = $this->computePrisForNyInverterKr($solcelle);
-    $this->driftPrAarKr = $this->computeDriftPrAarKr($solcelle);
-    $this->raadighedstarifKr = $this->computeRaadighedstarifKr();
-    $this->totalDriftomkostningerPrAar = $this->computeTotalDriftomkostningerPrAar();
-    parent::compute();
+  public function calculate() {
+    $this->tilEgetForbrugPct = $this->calculateTilEgetForbrugPct();
+    $this->egetForbrugAfProduktionenKWh = $this->calculateEgetForbrugAfProduktionenKWh();
+    $this->produktionTilNettetKWh = $this->calculateProduktionTilNettetKWh();
+    $this->prisForNyInverterKr = $this->calculatePrisForNyInverterKr();
+    $this->driftPrAarKr = $this->calculateDriftPrAarKr();
+    $this->raadighedstarifKr = $this->calculateRaadighedstarifKr();
+    $this->totalDriftomkostningerPrAar = $this->calculateTotalDriftomkostningerPrAar();
+    parent::calculate();
   }
 
-  private function computeTilEgetForbrugPct() {
+  private function calculateTilEgetForbrugPct() {
     return 1 - $this->tilNettetPct;
   }
 
-  private function computeEgetForbrugAfProduktionenKWh() {
+  private function calculateEgetForbrugAfProduktionenKWh() {
     return $this->produktionKWh - ($this->produktionKWh * $this->tilNettetPct);
   }
 
-  private function computeProduktionTilNettetKWh() {
+  private function calculateProduktionTilNettetKWh() {
     return $this->produktionKWh - $this->egetForbrugAfProduktionenKWh;
   }
 
-  private function computePrisForNyInverterKr($solcelle) {
+  private function calculatePrisForNyInverterKr() {
+    $solcelle = $this->getSolcelle(true);
     return $solcelle ? $solcelle->getInverterpris() : 0;
   }
 
-  private function computeDriftPrAarKr($solcelle) {
+  private function calculateDriftPrAarKr() {
+    $solcelle = $this->getSolcelle(true);
     return $solcelle ? $solcelle->getDrift() : 0;
   }
 
-  private function computeRaadighedstarifKr() {
+  private function calculateRaadighedstarifKr() {
     return $this->produktionKWh * 0.14;
   }
 
-  private function computeTotalDriftomkostningerPrAar() {
+  private function calculateTotalDriftomkostningerPrAar() {
     return $this->driftPrAarKr + $this->omkostningTilMaalerKr + $this->raadighedstarifKr;
   }
 

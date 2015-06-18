@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\InheritanceType;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
@@ -162,7 +161,7 @@ abstract class TiltagDetail {
   /**
    * @var boolean
    *
-   * @ORM\Column(name="tilvalgt", type="boolean")
+   * @ORM\Column(name="tilvalgt", type="boolean", nullable=true)
    */
   private $tilvalgt = false;
 
@@ -190,7 +189,7 @@ abstract class TiltagDetail {
   /**
    * @var boolean
    *
-   * @ORM\Column(name="laastAfEnergiraadgiver", type="boolean")
+   * @ORM\Column(name="laastAfEnergiraadgiver", type="boolean", nullable=true)
    */
   private $laastAfEnergiraadgiver;
 
@@ -236,25 +235,14 @@ abstract class TiltagDetail {
   protected $configuration;
 
   /**
-   * Post load handler.
-   *
-   * @ORM\PostLoad
-   * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+   * Calculate stuff.
    */
-  public function postLoad(LifecycleEventArgs $event) {
-    $repository = $event->getEntityManager()->getRepository('AppBundle:Configuration');
-    $this->configuration = $repository->getConfiguration();
-    $this->compute();
-  }
-
-  /**
-   * Compute stuff.
-   */
-  public function compute() {
-    $this->tiltag->compute();
+  public function calculate() {
+    $this->tiltag->calculate();
   }
 
   protected function fordelbesparelse($BesparKwh, $Kilde, $typen) {
+    // @FIXME
     return 0;
 
     /*

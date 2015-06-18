@@ -29,7 +29,7 @@ class ConfigurationType extends AbstractType {
       ->add('inflation')
       ->add('lobetid')
 
-      ->add('nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt')
+      ->add('nominelEnergiprisstigning')
 
       ->add('varmeledningsevneEksistLamelmaatter')
       ->add('varmeledningsevneNyIsolering');

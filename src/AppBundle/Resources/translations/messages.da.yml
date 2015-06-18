@@ -481,13 +481,14 @@ appbundle:
     inflationsfaktor: Inflationsfaktor
     inflation: Inflation
     lobetid: Løbetid
+    nominelEnergiprisstigning: Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt
     elfaktor: El-faktor
     varmefaktor: Varmefaktor
     vandfaktor: Vandfaktor
     varmeKrKWh: Varme (kr/kWh)
     elKrKWh: El (kr/kWh)
-    varmeledningsevneEksistLamelmaatter: Varmeledningsevne (W/m*K), eksist. lamelmåtter
-    varmeledningsevneNyIsolering: Varmeledningsevne (W/m*K), ny isolering
+    varmeledningsevneEksistLamelmaatter: Varmeledningsevne (W/m·K), eksist. lamelmåtter
+    varmeledningsevneNyIsolering: Varmeledningsevne (W/m·K), ny isolering
 
 # Calculations
 appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |

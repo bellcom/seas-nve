@@ -615,19 +615,19 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     return $this->kWhBesparVarmevaerkEksternEnergikilde;
   }
 
-  public function compute() {
-    $this->arealM2 = $this->computeArealM2();
-    $this->besparelseKWhAar = $this->computeBesparelseKWhAar();
-    $this->samletInvesteringKr = $this->computeSamletInvesteringKr();
-    $this->faktorForReinvestering = $this->computeFaktorForReinvestering();
-    $this->kWhBesparElvaerkEksternEnergikilde = $this->computeKWhBesparElvaerkEksternEnergikilde();
-    $this->kWhBesparVarmevaerkEksternEnergikilde = $this->computeKWhBesparVarmevaerkEksternEnergikilde();
-    $this->nutidsvaerdiSetOver15AarKr = $this->computeNutidsvaerdiSetOver15AarKr();
-    $this->simpelTilbagebetalingstidAar = $this->computeSimpelTilbagebetalingstidAar();
-    parent::compute();
+  public function calculate() {
+    $this->arealM2 = $this->calculateArealM2();
+    $this->besparelseKWhAar = $this->calculateBesparelseKWhAar();
+    $this->samletInvesteringKr = $this->calculateSamletInvesteringKr();
+    $this->faktorForReinvestering = $this->calculateFaktorForReinvestering();
+    $this->kWhBesparElvaerkEksternEnergikilde = $this->calculateKWhBesparElvaerkEksternEnergikilde();
+    $this->kWhBesparVarmevaerkEksternEnergikilde = $this->calculateKWhBesparVarmevaerkEksternEnergikilde();
+    $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
+    $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
+    parent::calculate();
   }
 
-  private function computeArealM2() {
+  private function calculateArealM2() {
     // "Q": "Areal\n(m²)"
     if (!$this->hoejdeElLaengdeM || !$this->breddeM || !$this->antalStk) {
       return 0;
@@ -637,7 +637,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeBesparelseKWhAar() {
+  private function calculateBesparelseKWhAar() {
     // "Y": "Besparelse\n(kWh/år)"
     if ($this->arealM2 == 0) {
       return 0;
@@ -647,23 +647,23 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeSamletInvesteringKr() {
+  private function calculateSamletInvesteringKr() {
     // "AE": "Samlet investering (kr)"
     return $this->klimaskaerm->getEnhedsprisEksklMoms() * $this->arealM2;
   }
 
-  private function computeSimpelTilbagebetalingstidAar() {
+  private function calculateSimpelTilbagebetalingstidAar() {
     // "AF": "Simpel tilbagebetalingstid (år)"
     $denominator = ($this->kWhBesparElvaerkEksternEnergikilde * $this->getRapport()->getElKrKWh() + $this->kWhBesparVarmevaerkEksternEnergikilde * $this->getRapport()->getVarmeKrKWh());
     return $denominator == 0 ? 0 : $this->samletInvesteringKr / $denominator;
   }
 
-  private function computeFaktorForReinvestering() {
+  private function calculateFaktorForReinvestering() {
     // "AM": "Faktor for reinvestering"
     return 1;
   }
 
-  private function computeNutidsvaerdiSetOver15AarKr() {
+  private function calculateNutidsvaerdiSetOver15AarKr() {
     // "AN": "Nutidsværdi set over 15 år (kr)"
     if ($this->kWhBesparElvaerkEksternEnergikilde == 0 && $this->kWhBesparVarmevaerkEksternEnergikilde == 0) {
       return 0;
@@ -673,7 +673,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeKWhBesparElvaerkEksternEnergikilde() {
+  private function calculateKWhBesparElvaerkEksternEnergikilde() {
     // "AO": "kWh-bespar. Elværk (Ekstern energikilde)"
     if ($this->besparelseKWhAar == 0) {
       return 0;
@@ -691,7 +691,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeKWhBesparVarmevaerkEksternEnergikilde() {
+  private function calculateKWhBesparVarmevaerkEksternEnergikilde() {
     // "AP": "kWh-bespar. Varmeværk (ekstern energikilde)"
     if ($this->besparelseKWhAar == 0) {
       return 0;

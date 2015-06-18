@@ -950,7 +950,7 @@ class LoadRapport extends LoadData {
       'L' => 'investeringKr',
       'M' => 'screeningOgProjekteringKr',
       'N' => 'omkostningTilMaalerKr',
-
+      'O' => array('solcelle', function($value, $row) { return $this->manager->getRepository('AppBundle:Solcelle')->findByKWp($row['C']); }),
       // Calculated
       'AA' => 'tilEgetForbrugPct',
       'AB' => 'egetForbrugAfProduktionenKWh',
