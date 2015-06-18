@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\InheritanceType;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
@@ -234,17 +233,6 @@ abstract class TiltagDetail {
   protected $configuration;
 
   /**
-   * Post load handler.
-   *
-   * @ORM\PostLoad
-   * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
-   */
-  public function postLoad(LifecycleEventArgs $event) {
-    $repository = $event->getEntityManager()->getRepository('AppBundle:Configuration');
-    $this->configuration = $repository->getConfiguration();
-    $this->compute();
-  }
-
    * Calculate stuff.
    */
   public function calculate() {
