@@ -31,14 +31,14 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $lokale_type;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="armaturhoejde_m", type="decimal", scale=2)
    */
   private $armaturhoejde_m;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="rumstoerrelse_m2", type="decimal", scale=2)
    */
@@ -138,14 +138,14 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $nye_sensorer_stk_lokale;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="standardinvest_sensor_kr_stk", type="decimal", scale=2)
    */
   private $standardinvest_sensor_kr_stk;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="reduktion_af_drifttid", type="decimal", scale=2)
    */
@@ -160,14 +160,14 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $ny_driftstid;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="standardinvest_armatur_el_lyskilde_kr_stk", type="decimal", scale=2)
    */
   private $standardinvest_armatur_el_lyskilde_kr_stk;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="standardinvest_lyskilde_kr_stk", type="decimal", scale=2)
    */
@@ -218,14 +218,14 @@ class BelysningTiltagDetail extends TiltagDetail {
   private $nye_armaturer_stk_lokale;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="nyttiggjort_varme_af_el_besparelse", type="decimal", scale=2)
    */
   private $nyttiggjort_varme_af_el_besparelse;
 
   /**
-   * @var double
+   * @var float
    *
    * @ORM\Column(name="prisfaktor", type="decimal", scale=2)
    */
@@ -346,9 +346,9 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set armaturhoejde_m
+   * Set armaturhoejde_m.
    *
-   * @param double $armaturhoejdeM
+   * @param float $armaturhoejdeM
    * @return BelysningTiltagDetail
    */
   public function setArmaturhoejdeM($armaturhoejdeM) {
@@ -360,7 +360,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get armaturhoejde_m
    *
-   * @return double
+   * @return float
    */
   public function getArmaturhoejdeM() {
     return $this->armaturhoejde_m;
@@ -369,7 +369,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Set rumstoerrelse_m2
    *
-   * @param double $rumstoerrelseM2
+   * @param float $rumstoerrelseM2
    * @return BelysningTiltagDetail
    */
   public function setRumstoerrelseM2($rumstoerrelseM2) {
@@ -381,7 +381,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get rumstoerrelse_m2
    *
-   * @return double
+   * @return float
    */
   public function getRumstoerrelseM2() {
     return $this->rumstoerrelse_m2;
@@ -423,7 +423,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get drifttid_t_aar
    *
-   * @return string
+   * @return float
    */
   public function getDrifttidTAar() {
     return $this->drifttid_t_aar;
@@ -541,7 +541,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get elforbrug_w_m2
    *
-   * @return string
+   * @return float
    */
   public function getElforbrugWM2() {
     return $this->elforbrug_w_m2;
@@ -691,7 +691,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get standardinvest_sensor_kr_stk
    *
-   * @return string
+   * @return float
    */
   public function getStandardinvestSensorKrStk() {
     return $this->standardinvest_sensor_kr_stk;
@@ -712,7 +712,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get reduktion_af_drifttid
    *
-   * @return string
+   * @return float
    */
   public function getReduktionAfDrifttid() {
     return $this->reduktion_af_drifttid;
@@ -721,7 +721,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get ny_driftstid
    *
-   * @return string
+   * @return float
    */
   public function getNyDriftstid() {
     return $this->ny_driftstid;
@@ -742,7 +742,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get standardinvest_armatur_el_lyskilde_kr_stk
    *
-   * @return string
+   * @return float
    */
   public function getStandardinvestArmaturElLyskildeKrStk() {
     return $this->standardinvest_armatur_el_lyskilde_kr_stk;
@@ -763,7 +763,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get standardinvest_lyskilde_kr_stk
    *
-   * @return string
+   * @return float
    */
   public function getStandardinvestLyskildeKrStk() {
     return $this->standardinvest_lyskilde_kr_stk;
@@ -860,7 +860,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get ny_armatureffekt_w_stk
    *
-   * @return string
+   * @return float
    */
   public function getNyArmatureffektWStk() {
     return $this->ny_armatureffekt_w_stk;
@@ -902,7 +902,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get nyttiggjort_varme_af_el_besparelse
    *
-   * @return string
+   * @return float
    */
   public function getNyttiggjortVarmeAfElBesparelse() {
     return $this->nyttiggjort_varme_af_el_besparelse;
@@ -923,7 +923,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get prisfaktor
    *
-   * @return string
+   * @return float
    */
   public function getPrisfaktor() {
     return $this->prisfaktor;
@@ -932,7 +932,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get prisfaktor_tillaeg_kr_lokale
    *
-   * @return string
+   * @return float
    */
   public function getPrisfaktorTillaegKrLokale() {
     return $this->prisfaktor_tillaeg_kr_lokale;
@@ -941,7 +941,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get investering_alle_lokaler_kr
    *
-   * @return string
+   * @return float
    */
   public function getInvesteringAlleLokalerKr() {
     return $this->investering_alle_lokaler_kr;
@@ -950,7 +950,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get nyt_elforbrug_w_m2
    *
-   * @return string
+   * @return float
    */
   public function getNytElforbrugWM2() {
     return $this->nyt_elforbrug_w_m2;
@@ -959,7 +959,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get driftsbesparelse_til_lyskilder_kr_aar
    *
-   * @return string
+   * @return float
    */
   public function getDriftsbesparelseTilLyskilderKrAar() {
     return $this->driftsbesparelse_til_lyskilder_kr_aar;
@@ -968,7 +968,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get simpel_tilbagebetalingstid_aar
    *
-   * @return string
+   * @return float
    */
   public function getSimpelTilbagebetalingstidAar() {
     return $this->simpel_tilbagebetalingstid_aar;
@@ -977,7 +977,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get vaegtet_levetid_aar
    *
-   * @return string
+   * @return float
    */
   public function getVaegtetLevetidAar() {
     return $this->vaegtet_levetid_aar;
@@ -986,7 +986,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get nutidsvaerdi_set_over_15_aar_kr
    *
-   * @return string
+   * @return float
    */
   public function getNutidsvaerdiSetOver15AarKr() {
     return $this->nutidsvaerdi_set_over_15_aar_kr;
@@ -995,7 +995,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get kwh_besparelse_el
    *
-   * @return string
+   * @return float
    */
   public function getKwhBesparelseEl() {
     return $this->kwh_besparelse_el;
@@ -1004,13 +1004,13 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get kwh_besparelse_varme_fra_varmevaerket
    *
-   * @return string
+   * @return float
    */
   public function getKwhBesparelseVarmeFraVarmevaerket() {
     return $this->kwh_besparelse_varme_fra_varmevaerket;
   }
 
-  public function compute() {
+  public function compute(\Symfony\Component\DependencyInjection\Container $container = NULL) {
     $this->elforbrug_w_m2 = $this->computeElforbrugWM2();
     $this->ny_driftstid = $this->computeNyDriftstid();
     $this->ny_armatureffekt_w_stk = $this->computeNyArmatureffektWStk();

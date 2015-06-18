@@ -7,7 +7,7 @@ abstract class EntityTestCase extends KernelTestCase {
   /**
    * Allowed deviance when comparing numbers.
    *
-   * @var double
+   * @var float
    */
   protected $allowedDeviance = 0.0;
 

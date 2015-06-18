@@ -513,7 +513,7 @@ class Forsyningsvaerk {
   /**
    * Set navn.
    *
-   * @param double $navn
+   * @param string $navn
    *   navn.
    *
    * @return Forsyningsvaerk
@@ -528,7 +528,7 @@ class Forsyningsvaerk {
   /**
    * Get navn.
    *
-   * @return double
+   * @return string
    *   The navn.
    */
   public function getNavn() {
@@ -538,7 +538,7 @@ class Forsyningsvaerk {
   /**
    * Set energiform.
    *
-   * @param double $energiform
+   * @param string $energiform
    *   energiform.
    *
    * @return Forsyningsvaerk
@@ -553,7 +553,7 @@ class Forsyningsvaerk {
   /**
    * Get energiform.
    *
-   * @return double
+   * @return float
    *   The energiform.
    */
   public function getEnergiform() {
@@ -563,7 +563,7 @@ class Forsyningsvaerk {
   /**
    * Set noter.
    *
-   * @param double $noter
+   * @param string $noter
    *   noter.
    *
    * @return Forsyningsvaerk
@@ -578,7 +578,7 @@ class Forsyningsvaerk {
   /**
    * Get noter.
    *
-   * @return double
+   * @return string
    *   The noter.
    */
   public function getNoter() {
@@ -588,7 +588,7 @@ class Forsyningsvaerk {
   /**
    * Set noterTBeregningAfRabat.
    *
-   * @param double $noterTBeregningAfRabat
+   * @param string $noterTBeregningAfRabat
    *   noterTBeregningAfRabat.
    *
    * @return Forsyningsvaerk
@@ -603,7 +603,7 @@ class Forsyningsvaerk {
   /**
    * Get noterTBeregningAfRabat.
    *
-   * @return double
+   * @return string
    *   The noterTBeregningAfRabat.
    */
   public function getNoterTBeregningAfRabat() {
@@ -613,7 +613,7 @@ class Forsyningsvaerk {
   /**
    * Set vedForbrugOverKWh.
    *
-   * @param double $vedForbrugOverKWh
+   * @param float $vedForbrugOverKWh
    *   vedForbrugOverKWh.
    *
    * @return Forsyningsvaerk
@@ -628,7 +628,7 @@ class Forsyningsvaerk {
   /**
    * Get vedForbrugOverKWh.
    *
-   * @return double
+   * @return float
    *   The vedForbrugOverKWh.
    */
   public function getVedForbrugOverKWh() {
@@ -638,7 +638,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2009.
    *
-   * @param double $pris2009
+   * @param float $pris2009
    *   pris2009.
    *
    * @return Forsyningsvaerk
@@ -653,7 +653,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2009.
    *
-   * @return double
+   * @return float
    *   The pris2009.
    */
   public function getPris2009() {
@@ -663,7 +663,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2014.
    *
-   * @param double $pris2014
+   * @param float $pris2014
    *   pris2014.
    *
    * @return Forsyningsvaerk
@@ -678,7 +678,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2014.
    *
-   * @return double
+   * @return float
    *   The pris2014.
    */
   public function getPris2014() {
@@ -688,7 +688,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2015.
    *
-   * @param double $pris2015
+   * @param float $pris2015
    *   pris2015.
    *
    * @return Forsyningsvaerk
@@ -703,7 +703,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2015.
    *
-   * @return double
+   * @return float
    *   The pris2015.
    */
   public function getPris2015() {
@@ -713,7 +713,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2016.
    *
-   * @param double $pris2016
+   * @param float $pris2016
    *   pris2016.
    *
    * @return Forsyningsvaerk
@@ -728,7 +728,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2016.
    *
-   * @return double
+   * @return float
    *   The pris2016.
    */
   public function getPris2016() {
@@ -738,7 +738,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2017.
    *
-   * @param double $pris2017
+   * @param float $pris2017
    *   pris2017.
    *
    * @return Forsyningsvaerk
@@ -753,7 +753,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2017.
    *
-   * @return double
+   * @return float
    *   The pris2017.
    */
   public function getPris2017() {
@@ -763,7 +763,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2018.
    *
-   * @param double $pris2018
+   * @param float $pris2018
    *   pris2018.
    *
    * @return Forsyningsvaerk
@@ -778,7 +778,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2018.
    *
-   * @return double
+   * @return float
    *   The pris2018.
    */
   public function getPris2018() {
@@ -788,7 +788,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2019.
    *
-   * @param double $pris2019
+   * @param float $pris2019
    *   pris2019.
    *
    * @return Forsyningsvaerk
@@ -803,7 +803,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2019.
    *
-   * @return double
+   * @return float
    *   The pris2019.
    */
   public function getPris2019() {
@@ -813,7 +813,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2020.
    *
-   * @param double $pris2020
+   * @param float $pris2020
    *   pris2020.
    *
    * @return Forsyningsvaerk
@@ -828,7 +828,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2020.
    *
-   * @return double
+   * @return float
    *   The pris2020.
    */
   public function getPris2020() {
@@ -838,7 +838,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2021.
    *
-   * @param double $pris2021
+   * @param float $pris2021
    *   pris2021.
    *
    * @return Forsyningsvaerk
@@ -853,7 +853,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2021.
    *
-   * @return double
+   * @return float
    *   The pris2021.
    */
   public function getPris2021() {
@@ -863,7 +863,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2022.
    *
-   * @param double $pris2022
+   * @param float $pris2022
    *   pris2022.
    *
    * @return Forsyningsvaerk
@@ -878,7 +878,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2022.
    *
-   * @return double
+   * @return float
    *   The pris2022.
    */
   public function getPris2022() {
@@ -888,7 +888,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2023.
    *
-   * @param double $pris2023
+   * @param float $pris2023
    *   pris2023.
    *
    * @return Forsyningsvaerk
@@ -903,7 +903,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2023.
    *
-   * @return double
+   * @return float
    *   The pris2023.
    */
   public function getPris2023() {
@@ -913,7 +913,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2024.
    *
-   * @param double $pris2024
+   * @param float $pris2024
    *   pris2024.
    *
    * @return Forsyningsvaerk
@@ -928,7 +928,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2024.
    *
-   * @return double
+   * @return float
    *   The pris2024.
    */
   public function getPris2024() {
@@ -938,7 +938,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2025.
    *
-   * @param double $pris2025
+   * @param float $pris2025
    *   pris2025.
    *
    * @return Forsyningsvaerk
@@ -953,7 +953,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2025.
    *
-   * @return double
+   * @return float
    *   The pris2025.
    */
   public function getPris2025() {
@@ -963,7 +963,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2026.
    *
-   * @param double $pris2026
+   * @param float $pris2026
    *   pris2026.
    *
    * @return Forsyningsvaerk
@@ -978,7 +978,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2026.
    *
-   * @return double
+   * @return float
    *   The pris2026.
    */
   public function getPris2026() {
@@ -988,7 +988,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2027.
    *
-   * @param double $pris2027
+   * @param float $pris2027
    *   pris2027.
    *
    * @return Forsyningsvaerk
@@ -1003,7 +1003,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2027.
    *
-   * @return double
+   * @return float
    *   The pris2027.
    */
   public function getPris2027() {
@@ -1013,7 +1013,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2028.
    *
-   * @param double $pris2028
+   * @param float $pris2028
    *   pris2028.
    *
    * @return Forsyningsvaerk
@@ -1028,7 +1028,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2028.
    *
-   * @return double
+   * @return float
    *   The pris2028.
    */
   public function getPris2028() {
@@ -1038,7 +1038,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2029.
    *
-   * @param double $pris2029
+   * @param float $pris2029
    *   pris2029.
    *
    * @return Forsyningsvaerk
@@ -1053,7 +1053,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2029.
    *
-   * @return double
+   * @return float
    *   The pris2029.
    */
   public function getPris2029() {
@@ -1063,7 +1063,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2030.
    *
-   * @param double $pris2030
+   * @param float $pris2030
    *   pris2030.
    *
    * @return Forsyningsvaerk
@@ -1078,7 +1078,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2030.
    *
-   * @return double
+   * @return float
    *   The pris2030.
    */
   public function getPris2030() {
@@ -1088,7 +1088,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2031.
    *
-   * @param double $pris2031
+   * @param float $pris2031
    *   pris2031.
    *
    * @return Forsyningsvaerk
@@ -1103,7 +1103,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2031.
    *
-   * @return double
+   * @return float
    *   The pris2031.
    */
   public function getPris2031() {
@@ -1113,7 +1113,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2032.
    *
-   * @param double $pris2032
+   * @param float $pris2032
    *   pris2032.
    *
    * @return Forsyningsvaerk
@@ -1128,7 +1128,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2032.
    *
-   * @return double
+   * @return float
    *   The pris2032.
    */
   public function getPris2032() {
@@ -1138,7 +1138,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2033.
    *
-   * @param double $pris2033
+   * @param float $pris2033
    *   pris2033.
    *
    * @return Forsyningsvaerk
@@ -1153,7 +1153,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2033.
    *
-   * @return double
+   * @return float
    *   The pris2033.
    */
   public function getPris2033() {
@@ -1163,7 +1163,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2034.
    *
-   * @param double $pris2034
+   * @param float $pris2034
    *   pris2034.
    *
    * @return Forsyningsvaerk
@@ -1178,7 +1178,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2034.
    *
-   * @return double
+   * @return float
    *   The pris2034.
    */
   public function getPris2034() {
@@ -1188,7 +1188,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2035.
    *
-   * @param double $pris2035
+   * @param float $pris2035
    *   pris2035.
    *
    * @return Forsyningsvaerk
@@ -1203,7 +1203,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2035.
    *
-   * @return double
+   * @return float
    *   The pris2035.
    */
   public function getPris2035() {
@@ -1213,7 +1213,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2036.
    *
-   * @param double $pris2036
+   * @param float $pris2036
    *   pris2036.
    *
    * @return Forsyningsvaerk
@@ -1228,7 +1228,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2036.
    *
-   * @return double
+   * @return float
    *   The pris2036.
    */
   public function getPris2036() {
@@ -1238,7 +1238,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2037.
    *
-   * @param double $pris2037
+   * @param float $pris2037
    *   pris2037.
    *
    * @return Forsyningsvaerk
@@ -1253,7 +1253,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2037.
    *
-   * @return double
+   * @return float
    *   The pris2037.
    */
   public function getPris2037() {
@@ -1263,7 +1263,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2038.
    *
-   * @param double $pris2038
+   * @param float $pris2038
    *   pris2038.
    *
    * @return Forsyningsvaerk
@@ -1278,7 +1278,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2038.
    *
-   * @return double
+   * @return float
    *   The pris2038.
    */
   public function getPris2038() {
@@ -1288,7 +1288,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2039.
    *
-   * @param double $pris2039
+   * @param float $pris2039
    *   pris2039.
    *
    * @return Forsyningsvaerk
@@ -1303,7 +1303,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2039.
    *
-   * @return double
+   * @return float
    *   The pris2039.
    */
   public function getPris2039() {
@@ -1313,7 +1313,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2040.
    *
-   * @param double $pris2040
+   * @param float $pris2040
    *   pris2040.
    *
    * @return Forsyningsvaerk
@@ -1328,7 +1328,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2040.
    *
-   * @return double
+   * @return float
    *   The pris2040.
    */
   public function getPris2040() {
@@ -1338,7 +1338,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2041.
    *
-   * @param double $pris2041
+   * @param float $pris2041
    *   pris2041.
    *
    * @return Forsyningsvaerk
@@ -1353,7 +1353,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2041.
    *
-   * @return double
+   * @return float
    *   The pris2041.
    */
   public function getPris2041() {
@@ -1363,7 +1363,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2042.
    *
-   * @param double $pris2042
+   * @param float $pris2042
    *   pris2042.
    *
    * @return Forsyningsvaerk
@@ -1378,7 +1378,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2042.
    *
-   * @return double
+   * @return float
    *   The pris2042.
    */
   public function getPris2042() {
@@ -1388,7 +1388,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2043.
    *
-   * @param double $pris2043
+   * @param float $pris2043
    *   pris2043.
    *
    * @return Forsyningsvaerk
@@ -1403,7 +1403,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2043.
    *
-   * @return double
+   * @return float
    *   The pris2043.
    */
   public function getPris2043() {
@@ -1413,7 +1413,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2044.
    *
-   * @param double $pris2044
+   * @param float $pris2044
    *   pris2044.
    *
    * @return Forsyningsvaerk
@@ -1428,7 +1428,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2044.
    *
-   * @return double
+   * @return float
    *   The pris2044.
    */
   public function getPris2044() {
@@ -1438,7 +1438,7 @@ class Forsyningsvaerk {
   /**
    * Set pris2045.
    *
-   * @param double $pris2045
+   * @param float $pris2045
    *   pris2045.
    *
    * @return Forsyningsvaerk
@@ -1453,7 +1453,7 @@ class Forsyningsvaerk {
   /**
    * Get pris2045.
    *
-   * @return double
+   * @return float
    *   The pris2045.
    */
   public function getPris2045() {
@@ -1463,7 +1463,7 @@ class Forsyningsvaerk {
   /**
    * Set co2ynoter.
    *
-   * @param double $co2ynoter
+   * @param float $co2ynoter
    *   co2ynoter.
    *
    * @return Forsyningsvaerk
@@ -1478,7 +1478,7 @@ class Forsyningsvaerk {
   /**
    * Get co2ynoter.
    *
-   * @return double
+   * @return float
    *   The co2ynoter.
    */
   public function getCo2Noter() {
@@ -1488,7 +1488,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2009.
    *
-   * @param double $co2y2009
+   * @param float $co2y2009
    *   co2y2009.
    *
    * @return Forsyningsvaerk
@@ -1503,7 +1503,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2009.
    *
-   * @return double
+   * @return float
    *   The co2y2009.
    */
   public function getCo2y2009() {
@@ -1513,7 +1513,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2014.
    *
-   * @param double $co2y2014
+   * @param float $co2y2014
    *   co2y2014.
    *
    * @return Forsyningsvaerk
@@ -1528,7 +1528,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2014.
    *
-   * @return double
+   * @return float
    *   The co2y2014.
    */
   public function getCo2y2014() {
@@ -1538,7 +1538,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2015.
    *
-   * @param double $co2y2015
+   * @param float $co2y2015
    *   co2y2015.
    *
    * @return Forsyningsvaerk
@@ -1553,7 +1553,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2015.
    *
-   * @return double
+   * @return float
    *   The co2y2015.
    */
   public function getCo2y2015() {
@@ -1563,7 +1563,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2016.
    *
-   * @param double $co2y2016
+   * @param float $co2y2016
    *   co2y2016.
    *
    * @return Forsyningsvaerk
@@ -1578,7 +1578,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2016.
    *
-   * @return double
+   * @return float
    *   The co2y2016.
    */
   public function getCo2y2016() {
@@ -1588,7 +1588,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2017.
    *
-   * @param double $co2y2017
+   * @param float $co2y2017
    *   co2y2017.
    *
    * @return Forsyningsvaerk
@@ -1603,7 +1603,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2017.
    *
-   * @return double
+   * @return float
    *   The co2y2017.
    */
   public function getCo2y2017() {
@@ -1613,7 +1613,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2018.
    *
-   * @param double $co2y2018
+   * @param float $co2y2018
    *   co2y2018.
    *
    * @return Forsyningsvaerk
@@ -1628,7 +1628,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2018.
    *
-   * @return double
+   * @return float
    *   The co2y2018.
    */
   public function getCo2y2018() {
@@ -1638,7 +1638,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2019.
    *
-   * @param double $co2y2019
+   * @param float $co2y2019
    *   co2y2019.
    *
    * @return Forsyningsvaerk
@@ -1653,7 +1653,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2019.
    *
-   * @return double
+   * @return float
    *   The co2y2019.
    */
   public function getCo2y2019() {
@@ -1663,7 +1663,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2020.
    *
-   * @param double $co2y2020
+   * @param float $co2y2020
    *   co2y2020.
    *
    * @return Forsyningsvaerk
@@ -1678,7 +1678,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2020.
    *
-   * @return double
+   * @return float
    *   The co2y2020.
    */
   public function getCo2y2020() {
@@ -1688,7 +1688,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2021.
    *
-   * @param double $co2y2021
+   * @param float $co2y2021
    *   co2y2021.
    *
    * @return Forsyningsvaerk
@@ -1703,7 +1703,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2021.
    *
-   * @return double
+   * @return float
    *   The co2y2021.
    */
   public function getCo2y2021() {
@@ -1713,7 +1713,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2022.
    *
-   * @param double $co2y2022
+   * @param float $co2y2022
    *   co2y2022.
    *
    * @return Forsyningsvaerk
@@ -1728,7 +1728,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2022.
    *
-   * @return double
+   * @return float
    *   The co2y2022.
    */
   public function getCo2y2022() {
@@ -1738,7 +1738,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2023.
    *
-   * @param double $co2y2023
+   * @param float $co2y2023
    *   co2y2023.
    *
    * @return Forsyningsvaerk
@@ -1753,7 +1753,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2023.
    *
-   * @return double
+   * @return float
    *   The co2y2023.
    */
   public function getCo2y2023() {
@@ -1763,7 +1763,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2024.
    *
-   * @param double $co2y2024
+   * @param float $co2y2024
    *   co2y2024.
    *
    * @return Forsyningsvaerk
@@ -1778,7 +1778,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2024.
    *
-   * @return double
+   * @return float
    *   The co2y2024.
    */
   public function getCo2y2024() {
@@ -1788,7 +1788,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2025.
    *
-   * @param double $co2y2025
+   * @param float $co2y2025
    *   co2y2025.
    *
    * @return Forsyningsvaerk
@@ -1803,7 +1803,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2025.
    *
-   * @return double
+   * @return float
    *   The co2y2025.
    */
   public function getCo2y2025() {
@@ -1813,7 +1813,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2026.
    *
-   * @param double $co2y2026
+   * @param float $co2y2026
    *   co2y2026.
    *
    * @return Forsyningsvaerk
@@ -1828,7 +1828,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2026.
    *
-   * @return double
+   * @return float
    *   The co2y2026.
    */
   public function getCo2y2026() {
@@ -1838,7 +1838,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2027.
    *
-   * @param double $co2y2027
+   * @param float $co2y2027
    *   co2y2027.
    *
    * @return Forsyningsvaerk
@@ -1853,7 +1853,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2027.
    *
-   * @return double
+   * @return float
    *   The co2y2027.
    */
   public function getCo2y2027() {
@@ -1863,7 +1863,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2028.
    *
-   * @param double $co2y2028
+   * @param float $co2y2028
    *   co2y2028.
    *
    * @return Forsyningsvaerk
@@ -1878,7 +1878,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2028.
    *
-   * @return double
+   * @return float
    *   The co2y2028.
    */
   public function getCo2y2028() {
@@ -1888,7 +1888,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2029.
    *
-   * @param double $co2y2029
+   * @param float $co2y2029
    *   co2y2029.
    *
    * @return Forsyningsvaerk
@@ -1903,7 +1903,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2029.
    *
-   * @return double
+   * @return float
    *   The co2y2029.
    */
   public function getCo2y2029() {
@@ -1913,7 +1913,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2030.
    *
-   * @param double $co2y2030
+   * @param float $co2y2030
    *   co2y2030.
    *
    * @return Forsyningsvaerk
@@ -1928,7 +1928,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2030.
    *
-   * @return double
+   * @return float
    *   The co2y2030.
    */
   public function getCo2y2030() {
@@ -1938,7 +1938,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2031.
    *
-   * @param double $co2y2031
+   * @param float $co2y2031
    *   co2y2031.
    *
    * @return Forsyningsvaerk
@@ -1953,7 +1953,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2031.
    *
-   * @return double
+   * @return float
    *   The co2y2031.
    */
   public function getCo2y2031() {
@@ -1963,7 +1963,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2032.
    *
-   * @param double $co2y2032
+   * @param float $co2y2032
    *   co2y2032.
    *
    * @return Forsyningsvaerk
@@ -1978,7 +1978,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2032.
    *
-   * @return double
+   * @return float
    *   The co2y2032.
    */
   public function getCo2y2032() {
@@ -1988,7 +1988,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2033.
    *
-   * @param double $co2y2033
+   * @param float $co2y2033
    *   co2y2033.
    *
    * @return Forsyningsvaerk
@@ -2003,7 +2003,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2033.
    *
-   * @return double
+   * @return float
    *   The co2y2033.
    */
   public function getCo2y2033() {
@@ -2013,7 +2013,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2034.
    *
-   * @param double $co2y2034
+   * @param float $co2y2034
    *   co2y2034.
    *
    * @return Forsyningsvaerk
@@ -2028,7 +2028,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2034.
    *
-   * @return double
+   * @return float
    *   The co2y2034.
    */
   public function getCo2y2034() {
@@ -2038,7 +2038,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2035.
    *
-   * @param double $co2y2035
+   * @param float $co2y2035
    *   co2y2035.
    *
    * @return Forsyningsvaerk
@@ -2053,7 +2053,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2035.
    *
-   * @return double
+   * @return float
    *   The co2y2035.
    */
   public function getCo2y2035() {
@@ -2063,7 +2063,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2036.
    *
-   * @param double $co2y2036
+   * @param float $co2y2036
    *   co2y2036.
    *
    * @return Forsyningsvaerk
@@ -2078,7 +2078,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2036.
    *
-   * @return double
+   * @return float
    *   The co2y2036.
    */
   public function getCo2y2036() {
@@ -2088,7 +2088,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2037.
    *
-   * @param double $co2y2037
+   * @param float $co2y2037
    *   co2y2037.
    *
    * @return Forsyningsvaerk
@@ -2103,7 +2103,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2037.
    *
-   * @return double
+   * @return float
    *   The co2y2037.
    */
   public function getCo2y2037() {
@@ -2113,7 +2113,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2038.
    *
-   * @param double $co2y2038
+   * @param float $co2y2038
    *   co2y2038.
    *
    * @return Forsyningsvaerk
@@ -2128,7 +2128,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2038.
    *
-   * @return double
+   * @return float
    *   The co2y2038.
    */
   public function getCo2y2038() {
@@ -2138,7 +2138,7 @@ class Forsyningsvaerk {
   /**
    * Set co2y2039.
    *
-   * @param double $co2y2039
+   * @param float $co2y2039
    *   co2y2039.
    *
    * @return Forsyningsvaerk
@@ -2153,7 +2153,7 @@ class Forsyningsvaerk {
   /**
    * Get co2y2039.
    *
-   * @return double
+   * @return float
    *   The co2y2039.
    */
   public function getCo2y2039() {

@@ -13,6 +13,7 @@ use AppBundle\Entity\Solcelle;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\Tiltag;
+use AppBundle\Entity\TiltagDetail;
 use AppBundle\Entity\BelysningTiltag;
 use AppBundle\Entity\BelysningTiltagDetail;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
@@ -866,27 +867,103 @@ class LoadRapport extends LoadData {
   }
 
   private function loadSolcelleTiltagDetail(SolcelleTiltag $tiltag, \PHPExcel_Worksheet $sheet) {
-    $data = $sheet->rangeToArray('J37:P54', null, false, false, true);
-    $data = $this->getCalculatedCells($data, $sheet);
+    // Move cells into rows that can be loaded as usual
 
-    $detail = (new SolcelleTiltagDetail())
-            ->setTiltag($tiltag)
-            ->setLaastAfEnergiraadgiver(false)
-            ->setTilvalgt(false)
-            ->setAnlaegsstoerrelseKWp($data[37]['J'])
-            ->setProduktionKWh($data[40]['J'])
-            ->setTilNettetPct($data[41]['J'])
-            ->setForringetYdeevnePrAar($data[46]['J'])
-            ->setInverterskift1Aar($data[51]['J'])
-            ->setInverterskift2Aar($data[52]['J'])
-            ->setSalgsprisFoerste10AarKrKWh($data[37]['P'])
-            ->setSalgsprisEfter10AarKrKWh($data[38]['P'])
-            ->setEnergiprisstigningPctPrAar($data[40]['P'])
-            ->setInvesteringKr($data[42]['P'])
-            ->setScreeningOgProjekteringKr($data[43]['P'])
-            ->setOmkostningTilMaalerKr($data[46]['P']);
+    $sheet->getCell('A101')->setValue('Låst af energirådgiver');
+    $sheet->getCell('A102')->setValue('');
+    $sheet->getCell('B101')->setValue('Tilvalgt');
+    $sheet->getCell('B102')->setValue('1');
+    foreach (array(
+      // Headers
+      'L37' => 'C101', // 'Anlægsstørrelse',
+      'L40' => 'D101', // 'Produktion',
+      'L41' => 'E101', // 'Til nettet i procent',
+      'L46' => 'F101', // 'Forringet ydeevne pr. år',
+      'L51' => 'G101', // 'Inverterskift 1',
+      'L52' => 'H101', // 'Inverterskift 2',
+      'R37' => 'I101', // 'Salgspris (Første 10 år)',
+      'R38' => 'J101', // 'Salgspris (Efter 10 år)',
+      'R40' => 'K101', // 'Energiprisstigning',
+      'R42' => 'L101', // 'Investering (Anlæg + opsætning)',
+      'R43' => 'M101', // 'Screening og projektering',
+      'R46' => 'N101', // 'Omkostning til måler',
 
-    $this->persist($detail);
+      // Calculated
+      'L42' => 'AA101', // 'Til eget forbrug',
+      'L43' => 'AB101', // 'Eget forbrug af produktionen',
+      'L44' => 'AC101', // 'Produktion til nettet',
+      'L54' => 'AD101', // 'Pris for ny inverter',
+      'R45' => 'AE101', // 'Drift pr. år',
+      'R47' => 'AF101', // 'Rådighedstarif ca 14 øre/KWh',
+      'R49' => 'AG101', // 'Total driftomkostninger pr. år',
+
+      // Values
+      'J37' => 'C102',
+      'J40' => 'D102',
+      'J41' => 'E102',
+      'J46' => 'F102',
+      'J51' => 'G102',
+      'J52' => 'H102',
+      'P37' => 'I102',
+      'P38' => 'J102',
+      'P40' => 'K102',
+      'P42' => 'L102',
+      'P43' => 'M102',
+      'P46' => 'N102',
+
+      // Formulas
+      'J42' => 'AA102',
+      'J43' => 'AB102',
+      'J44' => 'AC102',
+      'J54' => 'AD102',
+      'P45' => 'AE102',
+      'P47' => 'AF102',
+      'P49' => 'AG102',
+    ) as $source => $target) {
+      $sourceCell = $sheet->getCell($source);
+      $targetCell = $sheet->getCell($target);
+
+      if ($sourceCell->getDataType() == \PHPExcel_Cell_DataType::TYPE_FORMULA) {
+        $targetCell
+          ->setCalculatedValue($sourceCell->getOldCalculatedValue())
+          ->setValueExplicit($sourceCell->getValue(), \PHPExcel_Cell_DataType::TYPE_FORMULA)
+          // ->setValue($sourceCell->getValue()) // \PHPExcel_Cell_DataType::TYPE_FORMULA)
+          ;
+      }
+      else {
+        $targetCell->setValue($sourceCell->getValue());
+      }
+    }
+
+    $columnMapping = array(
+      'A' => array('laastAfEnergiraadgiver', 'boolean'),
+      'B' => array('tilvalgt', 'boolean'),
+      'C' => 'anlaegsstoerrelseKWp',
+      'D' => 'produktionKWh',
+      'E' => 'tilNettetPct',
+      'F' => 'forringetYdeevnePrAar',
+      'G' => 'inverterskift1Aar',
+      'H' => 'inverterskift2Aar',
+      'I' => 'salgsprisFoerste10AarKrKWh',
+      'J' => 'salgsprisEfter10AarKrKWh',
+      'K' => 'energiprisstigningPctPrAar',
+      'L' => 'investeringKr',
+      'M' => 'screeningOgProjekteringKr',
+      'N' => 'omkostningTilMaalerKr',
+
+      // Calculated
+      'AA' => 'tilEgetForbrugPct',
+      'AB' => 'egetForbrugAfProduktionenKWh',
+      'AC' => 'produktionTilNettetKWh',
+      'AD' => 'prisForNyInverterKr',
+      'AE' => 'driftPrAarKr',
+      'AF' => 'raadighedstarifKr',
+      'AG' => 'totalDriftomkostningerPrAar',
+    );
+
+    $this->loadTiltagDetail($tiltag, new SolcelleTiltagDetail(), $sheet, 'A101:AG102', $columnMapping, function($row) {
+      return $row['C'];
+    });
   }
 
   private function loadTiltagDetail(Tiltag $tiltag, $detail, \PHPExcel_Worksheet $sheet, $range, array $columnMapping, callable $includeRow) {
@@ -961,7 +1038,7 @@ class LoadRapport extends LoadData {
    * @return boolean
    */
   private static function isCalculatedValue($value) {
-    return is_string($value) && $value[0] == '=';
+    return is_string($value) && strlen($value) > 0 && $value[0] == '=';
   }
 
   /**
@@ -1004,6 +1081,10 @@ class LoadRapport extends LoadData {
     $type = null;
 
     switch ($sheet->getTitle()) {
+      case 'Detailark (1)':
+        $type = 'SolcelleTiltagDetail';
+        break;
+
       case 'Detailark (3)':
         $type = 'TekniskIsoleringTiltagDetail';
         break;
