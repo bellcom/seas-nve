@@ -481,7 +481,7 @@ appbundle:
     inflationsfaktor: Inflationsfaktor
     inflation: Inflation
     lobetid: Løbetid
-    nominel.energiprisstigning.for.varmevaerker.hvor.energiprisudviklingen.er.ukendt: Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt
+    nominelEnergiprisstigning: Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt
     elfaktor: El-faktor
     varmefaktor: Varmefaktor
     vandfaktor: Vandfaktor

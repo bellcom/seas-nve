@@ -44,9 +44,9 @@ class Configuration {
 
   /**
    * @var float
-   * @ORM\Column(name="rapport_nominel_energiprisstigning", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="rapport_nominelEnergiprisstigning", type="decimal", scale=4, nullable=true)
    */
-  private $rapport_nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt;
+  private $rapport_nominelEnergiprisstigning;
 
   /**
    * @var float
@@ -62,9 +62,9 @@ class Configuration {
 
   /**
    * @var float
-   * @ORM\Column(name="solcelle_forringet_ydeevne_pr_aar", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="solcelle_forringetYdeevnePrAar", type="decimal", scale=4, nullable=true)
    */
-  private $solcelle_forringet_ydeevne_pr_aar;
+  private $solcelle_forringetYdeevnePrAar;
 
   public function setId($id) {
     $this->id = $id;
@@ -100,14 +100,14 @@ class Configuration {
     return $this->rapport_lobetid;
   }
 
-  public function setNominelEnergiprisstigningForVarmevaerkerHvorEnergiprisudviklingenErUkendt($rapport_nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt) {
-    $this->rapport_nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt = $rapport_nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt;
+  public function setNominelEnergiprisstigning($rapport_nominelEnergiprisstigning) {
+    $this->rapport_nominelEnergiprisstigning = $rapport_nominelEnergiprisstigning;
 
     return $this;
   }
 
-  public function getNominelEnergiprisstigningForVarmevaerkerHvorEnergiprisudviklingenErUkendt() {
-    return $this->rapport_nominel_energiprisstigning_for_varmevaerker_hvor_energiprisudviklingen_er_ukendt;
+  public function getNominelEnergiprisstigning() {
+    return $this->rapport_nominelEnergiprisstigning;
   }
 
 
