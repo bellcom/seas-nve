@@ -279,86 +279,77 @@ class SolcelleTiltagDetail extends TiltagDetail {
     return $this->omkostningTilMaalerKr;
   }
 
-  public function setTilEgetForbrugPct($tilEgetForbrugPct) {
-    $this->tilEgetForbrugPct = $tilEgetForbrugPct;
-
-    return $this;
-  }
-
   public function getTilEgetForbrugPct() {
     return $this->tilEgetForbrugPct;
-  }
-
-  public function setEgetForbrugAfProduktionenKWh($egetForbrugAfProduktionenKWh) {
-    $this->egetForbrugAfProduktionenKWh = $egetForbrugAfProduktionenKWh;
-
-    return $this;
   }
 
   public function getEgetForbrugAfProduktionenKWh() {
     return $this->egetForbrugAfProduktionenKWh;
   }
 
-  public function setProduktionTilNettetKWh($produktionTilNettetKWh) {
-    $this->produktionTilNettetKWh = $produktionTilNettetKWh;
-
-    return $this;
-  }
-
   public function getProduktionTilNettetKWh() {
     return $this->produktionTilNettetKWh;
-  }
-
-  public function setPrisForNyInverterKr($prisForNyInverterKr) {
-    $this->prisForNyInverterKr = $prisForNyInverterKr;
-
-    return $this;
   }
 
   public function getPrisForNyInverterKr() {
     return $this->prisForNyInverterKr;
   }
 
-  public function setDriftPrAarKr($driftPrAarKr) {
-    $this->driftPrAarKr = $driftPrAarKr;
-
-    return $this;
-  }
-
   public function getDriftPrAarKr() {
     return $this->driftPrAarKr;
-  }
-
-  public function setRaadighedstarifKr($raadighedstarifKr) {
-    $this->raadighedstarifKr = $raadighedstarifKr;
-
-    return $this;
   }
 
   public function getRaadighedstarifKr() {
     return $this->raadighedstarifKr;
   }
 
-  public function setTotalDriftomkostningerPrAar($totalDriftomkostningerPrAar) {
-    $this->totalDriftomkostningerPrAar = $totalDriftomkostningerPrAar;
-
-    return $this;
-  }
-
   public function getTotalDriftomkostningerPrAar() {
     return $this->totalDriftomkostningerPrAar;
   }
 
-  // public function compute() {
-  //   $this->tilEgetForbrugPct = $this->computeTilEgetForbrugPct();
-  //   $this->egetForbrugAfProduktionenKWh = $this->computeEgetForbrugAfProduktionenKWh();
-  //   $this->produktionTilNettetKWh = $this->computeProduktionTilNettetKWh();
-  //   $this->prisForNyInverterKr = $this->computePrisForNyInverterKr();
-  //   $this->driftPrAarKr = $this->computeDriftPrAarKr();
-  //   $this->raadighedstarifKr = $this->computeRaadighedstarifKr();
-  //   $this->totalDriftomkostningerPrAar = $this->computeTotalDriftomkostningerPrAar();
-  //   parent::compute();
-  // }
+  public function compute(\Symfony\Component\DependencyInjection\Container $container = NULL) {
+    $solcelle = NULL;
+    if ($container) {
+      $repository = $container->get('doctrine')->getRepository('AppBundle:Solcelle');
+      $solcelle = $repository->findByKWp($this->anlaegsstoerrelseKWp);
+    }
 
+    $this->tilEgetForbrugPct = $this->computeTilEgetForbrugPct();
+    $this->egetForbrugAfProduktionenKWh = $this->computeEgetForbrugAfProduktionenKWh();
+    $this->produktionTilNettetKWh = $this->computeProduktionTilNettetKWh();
+    $this->prisForNyInverterKr = $this->computePrisForNyInverterKr($solcelle);
+    $this->driftPrAarKr = $this->computeDriftPrAarKr($solcelle);
+    $this->raadighedstarifKr = $this->computeRaadighedstarifKr();
+    $this->totalDriftomkostningerPrAar = $this->computeTotalDriftomkostningerPrAar();
+    parent::compute();
+  }
+
+  private function computeTilEgetForbrugPct() {
+    return 1 - $this->tilNettetPct;
+  }
+
+  private function computeEgetForbrugAfProduktionenKWh() {
+    return $this->produktionKWh - ($this->produktionKWh * $this->tilNettetPct);
+  }
+
+  private function computeProduktionTilNettetKWh() {
+    return $this->produktionKWh - $this->egetForbrugAfProduktionenKWh;
+  }
+
+  private function computePrisForNyInverterKr($solcelle) {
+    return $solcelle ? $solcelle->getInverterpris() : 0;
+  }
+
+  private function computeDriftPrAarKr($solcelle) {
+    return $solcelle ? $solcelle->getDrift() : 0;
+  }
+
+  private function computeRaadighedstarifKr() {
+    return $this->produktionKWh * 0.14;
+  }
+
+  private function computeTotalDriftomkostningerPrAar() {
+    return $this->driftPrAarKr + $this->omkostningTilMaalerKr + $this->raadighedstarifKr;
+  }
 
 }
