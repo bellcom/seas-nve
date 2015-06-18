@@ -14,6 +14,7 @@
 1. Copy Excel files from Dropbox into the fixtures folder:
 
     ```
+    rm src/AppBundle/DataFixtures/Data/Excel/*.xlsm
     cp -v ~/Dropbox*/Dokumentation/Websites/Aa+/Dokumenter/fixtures/*.xlsm src/AppBundle/DataFixtures/Data/Excel
 	```
 
