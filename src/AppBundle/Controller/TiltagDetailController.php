@@ -70,6 +70,7 @@ class TiltagDetailController extends Controller {
 
     $template = $this->getTemplate($entity, 'edit');
     return $this->render($template, array(
+      'calculation_changes' => $this->container->get('aaplus.tiltagdetails_calculation')->getChanges($entity),
       'entity' => $entity,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
