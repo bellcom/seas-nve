@@ -52,8 +52,7 @@ abstract class EntityTestCase extends KernelTestCase {
     if ($properties) {
       foreach ($properties as $name => $value) {
         $propertyName = $this->getPropertyName($name);
-        $delta = $value * $this->allowedDeviance;
-        $this->assertEquals($value, $entity->{'get'.$propertyName}(), __METHOD__ . ' '. $propertyName, $delta);
+        $this->assertAlmostEquals($value, $entity->{'get'.$propertyName}(), __METHOD__ . ' '. $propertyName);
       }
     }
   }
@@ -105,6 +104,11 @@ abstract class EntityTestCase extends KernelTestCase {
     }
 
     return null;
+  }
+
+  protected function assertAlmostEquals($expected, $actual, $message) {
+    $delta = $actual * $this->allowedDeviance;
+    $this->assertEquals($expected, $actual, $message, $delta);
   }
 
 }

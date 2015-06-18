@@ -11,6 +11,8 @@ use AppBundle\Entity\SpecialTiltag;
 use AppBundle\Entity\SpecialTiltagDetail;
 
 class TiltagDetailTest extends EntityTestCase {
+  protected $allowedDeviance = 0.001;
+
   public function testSetGetData() {
     $detail = new SpecialTiltagDetail();
 
@@ -70,7 +72,7 @@ class TiltagDetailTest extends EntityTestCase {
     $nvPTO2->setAccessible(true);
     $actual = $nvPTO2->invoke($detail, $Invest, $BesparKwhVarme, $BesparKwhEl, $Besparm3Vand, $DogV, $Straf, $Levetid, $FaktorReInvest, $SalgAfEnergibesparelse);
 
-    $this->assertEquals($expected, $actual, null, 0.2);
+    $this->assertAlmostEquals($expected, $actual, null, 0.2);
   }
 
 }
