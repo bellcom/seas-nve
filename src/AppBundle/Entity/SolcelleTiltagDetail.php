@@ -26,6 +26,14 @@ class SolcelleTiltagDetail extends TiltagDetail {
   protected $anlaegsstoerrelseKWp;
 
   /**
+   * @var BelysningTiltagDetailLyskilde
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Solcelle")
+   * ORM\JoinColumn(name="solcelle_id", referencedColumnName="id")
+   */
+  protected $solcelle;
+
+  /**
    * @var float
    *
    * @ORM\Column(name="produktionKWh", type="decimal", scale=2)
@@ -169,6 +177,31 @@ class SolcelleTiltagDetail extends TiltagDetail {
     return $this->anlaegsstoerrelseKWp;
   }
 
+  /**
+   * Set solcelle
+   *
+   * @param Solcelle $solcelle
+   * @return SolcelleTiltagDetail
+   */
+  public function setSolcelle(Solcelle $solcelle) {
+    $this->solcelle = $solcelle;
+    $this->addData('solcelle', $solcelle);
+
+    return $this;
+  }
+
+  /**
+   * Get solcelle.
+   *
+   * @param bool $useCached
+   *   If set, then that cached value is returned. Otherwise the current value is returned.
+   *
+   * @return Solcelle
+   */
+  public function getSolcelle($useCached = false) {
+    return $useCached ? $this->getData('solcelle') : $this->solcelle;
+  }
+
   public function setProduktionKWh($produktionKWh) {
     $this->produktionKWh = $produktionKWh;
 
@@ -307,18 +340,12 @@ class SolcelleTiltagDetail extends TiltagDetail {
     return $this->totalDriftomkostningerPrAar;
   }
 
-  public function compute(\Symfony\Component\DependencyInjection\Container $container = NULL) {
-    $solcelle = NULL;
-    if ($container) {
-      $repository = $container->get('doctrine')->getRepository('AppBundle:Solcelle');
-      $solcelle = $repository->findByKWp($this->anlaegsstoerrelseKWp);
-    }
-
+  public function compute() {
     $this->tilEgetForbrugPct = $this->computeTilEgetForbrugPct();
     $this->egetForbrugAfProduktionenKWh = $this->computeEgetForbrugAfProduktionenKWh();
     $this->produktionTilNettetKWh = $this->computeProduktionTilNettetKWh();
-    $this->prisForNyInverterKr = $this->computePrisForNyInverterKr($solcelle);
-    $this->driftPrAarKr = $this->computeDriftPrAarKr($solcelle);
+    $this->prisForNyInverterKr = $this->computePrisForNyInverterKr();
+    $this->driftPrAarKr = $this->computeDriftPrAarKr();
     $this->raadighedstarifKr = $this->computeRaadighedstarifKr();
     $this->totalDriftomkostningerPrAar = $this->computeTotalDriftomkostningerPrAar();
     parent::compute();
@@ -336,11 +363,13 @@ class SolcelleTiltagDetail extends TiltagDetail {
     return $this->produktionKWh - $this->egetForbrugAfProduktionenKWh;
   }
 
-  private function computePrisForNyInverterKr($solcelle) {
+  private function computePrisForNyInverterKr() {
+    $solcelle = $this->getSolcelle(true);
     return $solcelle ? $solcelle->getInverterpris() : 0;
   }
 
-  private function computeDriftPrAarKr($solcelle) {
+  private function computeDriftPrAarKr() {
+    $solcelle = $this->getSolcelle(true);
     return $solcelle ? $solcelle->getDrift() : 0;
   }
 
