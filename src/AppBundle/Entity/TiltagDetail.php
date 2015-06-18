@@ -159,7 +159,7 @@ abstract class TiltagDetail {
   /**
    * @var boolean
    *
-   * @ORM\Column(name="tilvalgt", type="boolean")
+   * @ORM\Column(name="tilvalgt", type="boolean", nullable=true)
    */
   private $tilvalgt = false;
 
@@ -187,7 +187,7 @@ abstract class TiltagDetail {
   /**
    * @var boolean
    *
-   * @ORM\Column(name="laastAfEnergiraadgiver", type="boolean")
+   * @ORM\Column(name="laastAfEnergiraadgiver", type="boolean", nullable=true)
    */
   private $laastAfEnergiraadgiver;
 
