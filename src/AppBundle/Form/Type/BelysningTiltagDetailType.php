@@ -24,14 +24,14 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       //->add('tilvalgt')
       ->add('lokale_navn')
       ->add('lokale_type')
-      ->add('armaturhoejde_m', null, array(
+      ->add('armaturhoejdeM', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'm'
           )
         )
       ))
-      ->add('rumstoerrelse_m2', null, array(
+      ->add('rumstoerrelseM2', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'm²'
@@ -39,7 +39,7 @@ class BelysningTiltagDetailType extends TiltagDetailType {
         )
       ))
       ->add('lokale_antal')
-      ->add('drifttid_t_aar', null, array(
+      ->add('drifttidTAar', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 't/år'
@@ -47,35 +47,35 @@ class BelysningTiltagDetailType extends TiltagDetailType {
         )
       ))
       ->add('lyskilde')
-      ->add('lyskilde_stk_armatur', null, array(
+      ->add('lyskildeStkArmatur', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'stk/armatur'
           )
         )
       ))
-      ->add('lyskilde_w_lyskilde', null, array(
+      ->add('lyskildeWLyskilde', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'W/lyskilde'
           )
         )
       ))
-      ->add('forkobling_stk_armatur', null, array(
+      ->add('forkoblingStkArmatur', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'stk/armatur'
           )
         )
       ))
-      ->add('armaturer_stk_lokale', null, array(
+      ->add('armaturerStkLokale', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'stk/lokale'
           )
         )
       ))
-      // ->add('elforbrug_w_m2', null, array( 'disabled' => true, ))
+      // ->add('elforbrugWM2', null, array( 'disabled' => true, ))
       ->add('placering_id', 'choice', array(
         'choices' => (new PlaceringRepository())->loadChoiceList(),
         'choices_as_values' => true,
@@ -89,70 +89,70 @@ class BelysningTiltagDetailType extends TiltagDetailType {
         'choices' => (new TiltagRepository())->loadChoiceList(),
         'choices_as_values' => true,
       ))
-      ->add('nye_sensorer_stk_lokale', null, array(
+      ->add('nyeSensorerStkLokale', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'stk/lokale'
           )
         )
       ))
-      ->add('standardinvest_sensor_kr_stk', null, array(
+      ->add('standardinvestSensorKrStk', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'kr/stk'
           )
         )
       ))
-      ->add('reduktion_af_drifttid', 'percent')
-      // ->add('ny_driftstid', null, array( 'disabled' => true ))
-      ->add('standardinvest_armatur_el_lyskilde_kr_stk', null, array(
+      ->add('reduktionAfDrifttid', 'percent')
+      // ->add('nyDriftstid', null, array( 'disabled' => true ))
+      ->add('standardinvestArmaturElLyskildeKrStk', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'kr/stk'
           )
         )
       ))
-      ->add('ny_lyskilde')
-      ->add('ny_lyskilde_stk_armatur', null, array(
+      ->add('nyLyskilde')
+      ->add('nyLyskildeStkArmatur', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'stk/armatur'
           )
         )
       ))
-      ->add('ny_lyskilde_w_lyskilde', null, array(
+      ->add('nyLyskildeWLyskilde', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'w/lyskilde'
           )
         )
       ))
-      ->add('ny_forkobling_stk_armatur', null, array(
+      ->add('nyForkoblingStkArmatur', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'stk/armatur'
           )
         )
       ))
-      // ->add('ny_armatureffekt_w_stk', null, array( 'disabled' => true, ))
-      ->add('nye_armaturer_stk_lokale', null, array(
+      // ->add('nyArmatureffektWStk', null, array( 'disabled' => true, ))
+      ->add('nyeArmaturerStkLokale', null, array(
         'attr' => array(
           'input_group' => array(
             'append' => 'stk/lokale'
           )
         )
       ))
-      ->add('nyttiggjort_varme_af_el_besparelse', 'percent')
+      ->add('nyttiggjortVarmeAfElBesparelse', 'percent')
       // ->add('prisfaktor', null, array( 'disabled' => true, ))
-      // ->add('prisfaktor_tillaeg_kr_lokale', null, array( 'disabled' => true, ))
-      // ->add('investering_alle_lokaler_kr', null, array( 'disabled' => true, ))
-      // ->add('nyt_elforbrug_w_m2', null, array( 'disabled' => true, ))
-      // ->add('driftsbesparelse_til_lyskilder_kr_aar', null, array( 'disabled' => true, ))
-      // ->add('simpel_tilbagebetalingstid_aar', null, array( 'disabled' => true, ))
-      // ->add('vaegtet_levetid_aar', null, array( 'disabled' => true, ))
-      // ->add('nutidsvaerdi_set_over_15_aar_kr', null, array( 'disabled' => true, ))
-      // ->add('kwh_besparelse_el', null, array( 'disabled' => true, ))
-      // ->add('kwh_besparelse_varme_fra_varmevaerket', null, array( 'disabled' => true, ))
+      // ->add('prisfaktorTillaegKrLokale', null, array( 'disabled' => true, ))
+      // ->add('investeringAlleLokalerKr', null, array( 'disabled' => true, ))
+      // ->add('nytElforbrugWM2', null, array( 'disabled' => true, ))
+      // ->add('driftsbesparelseTilLyskilderKrAar', null, array( 'disabled' => true, ))
+      // ->add('simpelTilbagebetalingstidAar', null, array( 'disabled' => true, ))
+      // ->add('vaegtetLevetidAar', null, array( 'disabled' => true, ))
+      // ->add('nutidsvaerdiSetOver15AarKr', null, array( 'disabled' => true, ))
+      // ->add('kwhBesparelseEl', null, array( 'disabled' => true, ))
+      // ->add('kwhBesparelseVarmeFraVarmevaerket', null, array( 'disabled' => true, ))
       ;
   }
 
