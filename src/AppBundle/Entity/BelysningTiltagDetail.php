@@ -1220,8 +1220,8 @@ class BelysningTiltagDetail extends TiltagDetail {
       $udgiftLyskilde = $this->_computeUdgiftLyskilde();
       $levetidLyskilde = $this->_computeLevetidLyskilde();
 
-      return ($udgiftSensorer * $levetidSensor + $udgiftArmatur * $levetidArmatur + $udgiftLyskilde * $levetidLyskilde)
-        / ($udgiftSensorer + $udgiftArmatur + $udgiftLyskilde);
+      $denominator = $udgiftSensorer + $udgiftArmatur + $udgiftLyskilde;
+      return $denominator == 0 ? 0 : ($udgiftSensorer * $levetidSensor + $udgiftArmatur * $levetidArmatur + $udgiftLyskilde * $levetidLyskilde) / $denominator;
     }
   }
 
