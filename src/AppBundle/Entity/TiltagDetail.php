@@ -240,6 +240,7 @@ abstract class TiltagDetail {
   }
 
   protected function fordelbesparelse($BesparKwh, $Kilde, $typen) {
+    // @FIXME
     return 0;
 
     /*
