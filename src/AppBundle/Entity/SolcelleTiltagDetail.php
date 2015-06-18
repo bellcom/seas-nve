@@ -340,44 +340,44 @@ class SolcelleTiltagDetail extends TiltagDetail {
     return $this->totalDriftomkostningerPrAar;
   }
 
-  public function compute() {
-    $this->tilEgetForbrugPct = $this->computeTilEgetForbrugPct();
-    $this->egetForbrugAfProduktionenKWh = $this->computeEgetForbrugAfProduktionenKWh();
-    $this->produktionTilNettetKWh = $this->computeProduktionTilNettetKWh();
-    $this->prisForNyInverterKr = $this->computePrisForNyInverterKr();
-    $this->driftPrAarKr = $this->computeDriftPrAarKr();
-    $this->raadighedstarifKr = $this->computeRaadighedstarifKr();
-    $this->totalDriftomkostningerPrAar = $this->computeTotalDriftomkostningerPrAar();
-    parent::compute();
+  public function calculate() {
+    $this->tilEgetForbrugPct = $this->calculateTilEgetForbrugPct();
+    $this->egetForbrugAfProduktionenKWh = $this->calculateEgetForbrugAfProduktionenKWh();
+    $this->produktionTilNettetKWh = $this->calculateProduktionTilNettetKWh();
+    $this->prisForNyInverterKr = $this->calculatePrisForNyInverterKr();
+    $this->driftPrAarKr = $this->calculateDriftPrAarKr();
+    $this->raadighedstarifKr = $this->calculateRaadighedstarifKr();
+    $this->totalDriftomkostningerPrAar = $this->calculateTotalDriftomkostningerPrAar();
+    parent::calculate();
   }
 
-  private function computeTilEgetForbrugPct() {
+  private function calculateTilEgetForbrugPct() {
     return 1 - $this->tilNettetPct;
   }
 
-  private function computeEgetForbrugAfProduktionenKWh() {
+  private function calculateEgetForbrugAfProduktionenKWh() {
     return $this->produktionKWh - ($this->produktionKWh * $this->tilNettetPct);
   }
 
-  private function computeProduktionTilNettetKWh() {
+  private function calculateProduktionTilNettetKWh() {
     return $this->produktionKWh - $this->egetForbrugAfProduktionenKWh;
   }
 
-  private function computePrisForNyInverterKr() {
+  private function calculatePrisForNyInverterKr() {
     $solcelle = $this->getSolcelle(true);
     return $solcelle ? $solcelle->getInverterpris() : 0;
   }
 
-  private function computeDriftPrAarKr() {
+  private function calculateDriftPrAarKr() {
     $solcelle = $this->getSolcelle(true);
     return $solcelle ? $solcelle->getDrift() : 0;
   }
 
-  private function computeRaadighedstarifKr() {
+  private function calculateRaadighedstarifKr() {
     return $this->produktionKWh * 0.14;
   }
 
-  private function computeTotalDriftomkostningerPrAar() {
+  private function calculateTotalDriftomkostningerPrAar() {
     return $this->driftPrAarKr + $this->omkostningTilMaalerKr + $this->raadighedstarifKr;
   }
 

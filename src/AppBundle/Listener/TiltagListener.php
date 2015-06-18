@@ -9,7 +9,7 @@ use AppBundle\Entity\TiltagDetail;
 
 class TiltagListener {
   /**
-   * Recompute Tiltag when it is updated or when any related TiltagDetail is updated
+   * Recalculate Tiltag when it is updated or when any related TiltagDetail is updated
    * @param OnFlushEventArgs $args
    */
   public function onFlush(OnFlushEventArgs $args) {
@@ -36,7 +36,7 @@ class TiltagListener {
       }
 
       foreach ($targets as $target) {
-        if ($target->compute($em)) {
+        if ($target->calculate($em)) {
           $em->persist($target);
           $md = $em->getClassMetadata(get_class($target));
           $uow->recomputeSingleEntityChangeSet($md, $target);

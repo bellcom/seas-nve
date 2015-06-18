@@ -72,3 +72,14 @@ services:
         class: AppBundle\Listener\TiltagListener
         tags:
             - { name: doctrine.event_listener, event: onFlush }
+
+    aaplus.tiltagdetails_calculation:
+        class: AppBundle\Calculation\TiltagDetailCalculation
+        arguments: [ @service_container ]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+
+    aaplus.solcelletiltagdetail_calculation:
+        class: AppBundle\Calculation\SolcelleTiltagDetailCalculation
+        arguments: [ @service_container ]

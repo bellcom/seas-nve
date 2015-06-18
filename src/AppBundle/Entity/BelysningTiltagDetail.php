@@ -1010,23 +1010,23 @@ class BelysningTiltagDetail extends TiltagDetail {
     return $this->kwh_besparelse_varme_fra_varmevaerket;
   }
 
-  public function compute(\Symfony\Component\DependencyInjection\Container $container = NULL) {
-    $this->elforbrug_w_m2 = $this->computeElforbrugWM2();
-    $this->ny_driftstid = $this->computeNyDriftstid();
-    $this->ny_armatureffekt_w_stk = $this->computeNyArmatureffektWStk();
-    $this->prisfaktor_tillaeg_kr_lokale = $this->computePrisfaktorTillaegKrLokale();
-    $this->investering_alle_lokaler_kr = $this->computeInvesteringAlleLokalerKr();
-    $this->nyt_elforbrug_w_m2 = $this->computeNytElforbrugWM2();
-    $this->driftsbesparelse_til_lyskilder_kr_aar = $this->computeDriftsbesparelseTilLyskilderKrAar();
-    $this->kwh_besparelse_el = $this->computeKwhBesparelseEl();
-    $this->kwh_besparelse_varme_fra_varmevaerket = $this->computeKwhBesparelseVarmeFraVarmevaerket();
-    $this->simpel_tilbagebetalingstid_aar = $this->computeSimpelTilbagebetalingstidAar();
-    $this->vaegtet_levetid_aar = $this->computeVaegtetLevetidAar();
-    $this->nutidsvaerdi_set_over_15_aar_kr = $this->computeNutidsvaerdiSetOver15AarKr();
-    parent::compute();
+  public function calculate() {
+    $this->elforbrug_w_m2 = $this->calculateElforbrugWM2();
+    $this->ny_driftstid = $this->calculateNyDriftstid();
+    $this->ny_armatureffekt_w_stk = $this->calculateNyArmatureffektWStk();
+    $this->prisfaktor_tillaeg_kr_lokale = $this->calculatePrisfaktorTillaegKrLokale();
+    $this->investering_alle_lokaler_kr = $this->calculateInvesteringAlleLokalerKr();
+    $this->nyt_elforbrug_w_m2 = $this->calculateNytElforbrugWM2();
+    $this->driftsbesparelse_til_lyskilder_kr_aar = $this->calculateDriftsbesparelseTilLyskilderKrAar();
+    $this->kwh_besparelse_el = $this->calculateKwhBesparelseEl();
+    $this->kwh_besparelse_varme_fra_varmevaerket = $this->calculateKwhBesparelseVarmeFraVarmevaerket();
+    $this->simpel_tilbagebetalingstid_aar = $this->calculateSimpelTilbagebetalingstidAar();
+    $this->vaegtet_levetid_aar = $this->calculateVaegtetLevetidAar();
+    $this->nutidsvaerdi_set_over_15_aar_kr = $this->calculateNutidsvaerdiSetOver15AarKr();
+    parent::calculate();
   }
 
-  private function computeElforbrugWM2() {
+  private function calculateElforbrugWM2() {
     // AC
     $armaturEffekt = $this->_computeArmaturEffekt($this->getLyskilde(true));
 
@@ -1038,7 +1038,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeNyDriftstid() {
+  private function calculateNyDriftstid() {
     // AN
     if ($this->drifttid_t_aar == 0 || $this->belysningstiltagId == null) {
       return 0;
@@ -1048,12 +1048,12 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeNyArmatureffektWStk() {
+  private function calculateNyArmatureffektWStk() {
     // AW
     return $this->__computeArmaturEffekt($this->getNyLyskilde(true), $this->ny_lyskilde_stk_armatur, $this->ny_lyskilde_w_lyskilde, $this->ny_forkobling_stk_armatur);
   }
 
-  private function computePrisfaktorTillaegKrLokale() {
+  private function calculatePrisfaktorTillaegKrLokale() {
     // BA
     if ($this->prisfaktor == 0) {
       return 0;
@@ -1066,7 +1066,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeInvesteringAlleLokalerKr() {
+  private function calculateInvesteringAlleLokalerKr() {
     // BB
     $nyLyskilde = $this->getNyLyskilde(true);
     if (!$nyLyskilde) {
@@ -1085,7 +1085,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeNytElforbrugWM2() {
+  private function calculateNytElforbrugWM2() {
     // BD
     if ($this->rumstoerrelse_m2 == 0) {
       return 0;
@@ -1100,7 +1100,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeDriftsbesparelseTilLyskilderKrAar() {
+  private function calculateDriftsbesparelseTilLyskilderKrAar() {
     // BK
     $lyskilde = $this->getLyskilde(true);
     $nyLyskilde = $this->getNyLyskilde(true);
@@ -1115,7 +1115,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeKwhBesparelseEl() {
+  private function calculateKwhBesparelseEl() {
     // BT
     $elbesparelse = $this->_computeElbesparelseAlleLokaler();
     $varmebesparelse = $this->_computeVarmebesparelseAlleLokaler();
@@ -1180,7 +1180,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeKwhBesparelseVarmeFraVarmevaerket() {
+  private function calculateKwhBesparelseVarmeFraVarmevaerket() {
     // BU
     $varmebesparelse = $this->_computeVarmebesparelseAlleLokaler();
     if ($varmebesparelse == 0) {
@@ -1194,7 +1194,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeSimpelTilbagebetalingstidAar() {
+  private function calculateSimpelTilbagebetalingstidAar() {
     // BL
     if ($this->investering_alle_lokaler_kr == 0) {
       return 0;
@@ -1204,7 +1204,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function computeVaegtetLevetidAar() {
+  private function calculateVaegtetLevetidAar() {
     // BM
     if ($this->investering_alle_lokaler_kr == 0) {
       return 0;
@@ -1277,7 +1277,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     return $this->_computeLevetidArmatur();
   }
 
-  private function computeNutidsvaerdiSetOver15AarKr() {
+  private function calculateNutidsvaerdiSetOver15AarKr() {
     // BU
     $faktorForReinvestering = $this->_computeFaktorForReinvestering();
     if ($this->vaegtet_levetid_aar == 0 || $faktorForReinvestering == 0) {
