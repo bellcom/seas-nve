@@ -115,51 +115,51 @@ configuration:
 appbundle:
   belysningtiltagdetail:
     tilvalgt: Tilvalgt
-    lokale.navn: Lokalenavn
-    lokale.type: Lokaletype
-    armaturhoejde.m: Armaturhøjde (m)
-    armaturhoejde.m.help: ﻿Monteringshøjden for armaturene i rummet indtastes
-    rumstoerrelse.m2: Rumstørrelse (m²)
-    rumstoerrelse.m2.help: ﻿Rumstørrelse indtastes. Der kan også regnes på flere sammenlignelige rum i en større zone.
+    lokale.navn: Lokale, navn
+    lokale.type: Lokale, type
+    armaturhoejdeM: Armaturhøjde (m)
+    armaturhoejdeM.help: ﻿Monteringshøjden for armaturene i rummet indtastes
+    rumstoerrelseM2: Rumstørrelse (m²)
+    rumstoerrelseM2.help: ﻿Rumstørrelse indtastes. Der kan også regnes på flere sammenlignelige rum i en større zone.
     lokale.antal: Lokaleantal
-    drifttid.t.aar: Drifttid (t/år)
-    drifttid.t.aar: ﻿Ferieperioder, reduktion af driftstid som følge af eksisterende lysstyring  mv. skal indregnes
+    drifttidTAar: Drifttid (t/år)
+    drifttidTAar: ﻿Ferieperioder, reduktion af driftstid som følge af eksisterende lysstyring  mv. skal indregnes
     lyskilde: Lyskilde
-    lyskilde.stk.armatur: Lyskilde (stk/armatur)
-    lyskilde.w.lyskilde: Lyskilde (W/lyskilde)
-    forkobling.stk.armatur: Forkobling (stk/armatur)
-    forkobling.stk.armatur.help: ﻿Antal af forkoblinger indtastes, kun relevant for belysning med konventionelle- eller HF-forkoblinger. Kan udelades ved øvrige lystyper.
-    armaturer.stk.lokale: Armaturer (stk/lokale)
-    armaturer.stk.lokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
-    elforbrug.w.m2: Elforbrug (W/m²)
+    lyskildeStkArmatur: Lyskilde (stk/armatur)
+    lyskildeWLyskilde: Lyskilde (W/lyskilde)
+    forkoblingStkArmatur: Forkobling (stk/armatur)
+    forkoblingStkArmatur.help: ﻿Antal af forkoblinger indtastes, kun relevant for belysning med konventionelle- eller HF-forkoblinger. Kan udelades ved øvrige lystyper.
+    armaturerStkLokale: Armaturer (stk/lokale)
+    armaturerStkLokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
+    elforbrugWM2: Elforbrug (W/m²)
     placering.id: Placering
     styring.id: Styring
     noter: Noter
     belysningstiltag: Tiltag
-    nye.sensorer.stk.lokale: Nye sensorer (stk/lokale)
-    standardinvest.sensor.kr.stk: Standardinvest. sensor (kr/stk)
-    reduktion.af.drifttid: Reduktion af drifttid (%)
-    ny.driftstid: Ny driftstid
-    standardinvest.armatur.el.lyskilde.kr.stk: Standardinvest. armatur el. lyskilde (kr/stk)
-    ny.lyskilde: Ny lyskilde
-    ny.lyskilde.stk.armatur: Ny lyskilde (stk/armatur)
-    ny.lyskilde.w.lyskilde: Ny lyskilde (W/lyskilde)
-    ny.forkobling.stk.armatur: Ny forkobling (stk/armatur)
-    ny.armatureffekt.w.stk: Ny armatureffekt (W/stk)
-    nye.armaturer.stk.lokale: Nye armaturer (stk/lokale)
-    nyttiggjort.varme.af.el.besparelse: Nyttiggjort varme (% af el-besparelse)
-    nyttiggjort.varme.af.el.besparelse.help: ﻿Nyttigjort varme: procentdel af varmeudledning fra tidligere beslygning der har været nyttigjort, dvs. en varmeudledning der efterfølgende skal udføres af varmeanlægge.
+    nyeSensorerStkLokale: Nye sensorer (stk/lokale)
+    standardinvestSensorKrStk: Standardinvest. sensor (kr/stk)
+    reduktionAfDrifttid: Reduktion af drifttid (%)
+    nyDriftstid: Ny driftstid
+    standardinvestArmaturElLyskildeKrStk: Standardinvest. armatur el. lyskilde (kr/stk)
+    nyLyskilde: Ny lyskilde
+    nyLyskildeStkArmatur: Ny lyskilde (stk/armatur)
+    nyLyskildeWLyskilde: Ny lyskilde (W/lyskilde)
+    nyForkoblingStkArmatur: Ny forkobling (stk/armatur)
+    nyArmatureffektWStk: Ny armatureffekt (W/stk)
+    nyeArmaturerStkLokale: Nye armaturer (stk/lokale)
+    nyttiggjortVarmeAfElBesparelse: Nyttiggjort varme (% af el-besparelse)
+    nyttiggjortVarmeAfElBesparelse.help: ﻿Nyttigjort varme: procentdel af varmeudledning fra tidligere beslygning der har været nyttigjort, dvs. en varmeudledning der efterfølgende skal udføres af varmeanlægge.
     prisfaktor: Prisfaktor
-    prisfaktor.tillaeg.kr.lokale: Prisfaktor-tillæg (kr/lokale)
-    investering.alle.lokaler.kr: Investering, alle lokaler (kr)
-    nyt.elforbrug.w.m2: Nyt elforbrug (W/m²)
-    driftsbesparelse.til.lyskilder.kr.aar: Driftsbesparelse til lyskilder Alle lokaler (kr/år)
-    simpel.tilbagebetalingstid.aar: Simpel tilbagebetalingstid (år)
-    vaegtet.levetid.aar: Vægtet Levetid (år)
-    nutidsvaerdi.set.over15.aar.kr: Nutidsværdi set over 15 år (kr)
+    prisfaktorTillaegKrLokale: Prisfaktor-tillæg (kr/lokale)
+    investeringAlleLokalerKr: Investering, alle lokaler (kr)
+    nytElforbrugWM2: Nyt elforbrug (W/m²)
+    driftsbesparelseTilLyskilderKrAar: Driftsbesparelse til lyskilder Alle lokaler (kr/år)
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    vaegtetLevetidAar: Vægtet Levetid (år)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
     styring: Styring, input
-    kwh.besparelse.el: kWh-besparelse El
-    kwh.besparelse.varme.fra.varmevaerket: kWh-besparelse Varme fra varmeværket
+    kwhBesparelseEl: kWh-besparelse El
+    kwhBesparelseVarmeFraVarmevaerket: kWh-besparelse Varme fra varmeværket
     add: Tilføj
     tiltag.id: Tiltag, input
 
