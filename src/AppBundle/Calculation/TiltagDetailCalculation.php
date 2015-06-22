@@ -94,22 +94,26 @@ class TiltagDetailCalculation {
       $oldValue = $old->{$getter}();
       $newValue = $new->{$getter}();
       // Compare numeric values with a fixed scale
-      if (is_numeric($oldValue) && is_numeric($newValue)) {
-        $oldValueFormatted = $this->formatNumber($oldValue);
-        $newValueFormatted = $this->formatNumber($newValue);
-        if ($oldValueFormatted != $newValueFormatted) {
-          $changes[] = array(
-            'property' => lcfirst(preg_replace('/^get/', '', $getter)),
-            'oldValue' => $oldValue,
-            'newValue' => $newValue,
-            'oldValueFormatted' => $oldValueFormatted,
-            'newValueFormatted' => $newValueFormatted,
-          );
-        }
+      if (is_numeric($oldValue) && is_numeric($newValue) && !$this->areAlmostEqual($oldValue, $newValue)) {
+        $changes[] = array(
+          'property' => lcfirst(preg_replace('/^get/', '', $getter)),
+          'oldValue' => $oldValue,
+          'newValue' => $newValue,
+        );
       }
     }
 
     return $changes;
+  }
+
+  private static $allowedDeviance = 0.001;
+
+  private function areAlmostEqual($a, $b) {
+    $delta = $a * self::$allowedDeviance;
+    if (abs($a - $b) > $delta) {
+      return false;
+    }
+    return true;
   }
 
   private function formatNumber($value) {
