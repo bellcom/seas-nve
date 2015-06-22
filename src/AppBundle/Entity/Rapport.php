@@ -408,8 +408,15 @@ class Rapport {
 
   public function getInflationsfaktor()
   {
-    // @FIXME: How do we get the real value for this?
-    return 0.02;
+    $kalkulationsrente = $this->getKalkulationsrente();
+    $inflation = $this->getInflation();
+
+    $inflationsfaktor = 0;
+    for ($year = 1; $year <= 15; $year++) {
+      $inflationsfaktor += pow(1 + $inflation, $year) / pow(1 + $kalkulationsrente, $year);
+    }
+
+    return $inflationsfaktor;
   }
 
   public function getInflation()
