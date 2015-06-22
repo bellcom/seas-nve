@@ -24,13 +24,4 @@ class KlimaskaermTiltagDetailTest extends EntityTestCase {
     ), $rapport);
   }
 
-  public function loadProperties(array $properties) {
-    $properties['klimaskaerm'] = $this->getKlimaskaerm($properties['klimaskaerm']);
-    return $properties;
-  }
-
-  private function getKlimaskaerm(array $properties = null) {
-    return $properties ? $this->loadEntity(new Klimaskaerm(), $properties) : null;
-  }
-
 }
