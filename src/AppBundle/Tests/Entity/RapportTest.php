@@ -4,7 +4,7 @@ namespace AppBundle\Tests\Entity;
 use AppBundle\Entity\Configuration;
 use AppBundle\Entity\Rapport;
 
-class KlimaskaermTiltagDetailTest extends EntityTestCase {
+class RapportTest extends EntityTestCase {
   // protected $allowedDeviance = 0.001;
 
   public function testInflationsfaktor() {
