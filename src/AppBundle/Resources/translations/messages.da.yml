@@ -1,3 +1,6 @@
+fos.user.resetting.form.plainPassword.first: Indtast nyt kodeord
+fos.user.resetting.form.plainPassword.second: Gentag kodeord
+
 common:
   edit: Rediger
   show: Vis

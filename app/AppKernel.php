@@ -24,6 +24,7 @@ class AppKernel extends Kernel
       new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
       new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
       new JMS\SerializerBundle\JMSSerializerBundle(),
+      new Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPasswordStrengthBundle(),
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints as RollerworksPassword;
 
 /**
  * @ORM\Entity
@@ -17,6 +18,15 @@ class User extends BaseUser {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
+
+  /**
+   * Plain password. Used for model validation. Must not be persisted.
+   *
+   * @var string
+   *
+   * @RollerworksPassword\PasswordStrength(minLength=7, minStrength=3)
+   */
+  protected $plainPassword;
 
   /**
    * @ORM\ManyToMany(targetEntity="Group")
