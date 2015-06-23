@@ -7,7 +7,7 @@
       {% for message in calculation_changes %}
         <p>
           {{ message.property | trans }}:
-          {{ message.oldValueFormatted }} → {{ message.newValueFormatted }}
+          {{ message.oldValue | format_decimal }} → {{ message.newValue | format_decimal }}
           ({{ message.oldValue }} → {{ message.newValue }})
         </p>
       {% endfor %}
