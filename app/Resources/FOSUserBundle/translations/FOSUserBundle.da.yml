@@ -27,6 +27,7 @@ profile:
         username: Brugernavn
         email: Email
     edit:
+        info: Rediger profil
         submit: Opdater
     flash:
         updated: Profilen er blevet opdateret

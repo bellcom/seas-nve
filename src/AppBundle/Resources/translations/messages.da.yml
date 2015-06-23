@@ -1,5 +1,27 @@
-fos.user.resetting.form.plainPassword.first: Indtast nyt kodeord
-fos.user.resetting.form.plainPassword.second: Gentag kodeord
+fos:
+  user:
+    profile:
+      form:
+        username: Brugernavn
+        email: Email
+        current:
+          password: Nuværende kodeord
+    resetting:
+      form:
+        plainPassword:
+          first: Indtast nyt kodeord
+          second: Gentag kodeord
+    change:
+      password:
+        form:
+          current:
+            password: Nuværende kodeord
+          plainPassword:
+            first: Indtast nyt kodeord
+            second: Gentag kodeord
+
+user:
+  profile: Profil
 
 common:
   edit: Rediger
