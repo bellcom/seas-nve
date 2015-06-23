@@ -199,7 +199,7 @@ class SolcelleTiltagDetail extends TiltagDetail {
    * @param Solcelle $solcelle
    * @return SolcelleTiltagDetail
    */
-  public function setSolcelle(Solcelle $solcelle) {
+  public function setSolcelle(Solcelle $solcelle = NULL) {
     $this->solcelle = $solcelle;
     $this->addData('solcelle', $solcelle);
 

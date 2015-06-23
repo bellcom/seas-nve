@@ -107,7 +107,7 @@ abstract class EntityTestCase extends KernelTestCase {
   }
 
   protected function assertAlmostEquals($expected, $actual, $message) {
-    $delta = $actual * $this->allowedDeviance;
+    $delta = min($expected, $actual) * $this->allowedDeviance;
     $this->assertEquals($expected, $actual, $message, $delta);
   }
 
