@@ -33,14 +33,14 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="armaturhoejdeM", type="decimal", scale=2)
+   * @ORM\Column(name="armaturhoejdeM", type="decimal", scale=4)
    */
   private $armaturhoejdeM;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="rumstoerrelseM2", type="decimal", scale=2)
+   * @ORM\Column(name="rumstoerrelseM2", type="decimal", scale=4)
    */
   private $rumstoerrelseM2;
 
@@ -140,14 +140,14 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestSensorKrStk", type="decimal", scale=2)
+   * @ORM\Column(name="standardinvestSensorKrStk", type="decimal", scale=4)
    */
   private $standardinvestSensorKrStk;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="reduktionAfDrifttid", type="decimal", scale=2)
+   * @ORM\Column(name="reduktionAfDrifttid", type="decimal", scale=4)
    */
   private $reduktionAfDrifttid;
 
@@ -162,14 +162,14 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestArmaturElLyskildeKrStk", type="decimal", scale=2)
+   * @ORM\Column(name="standardinvestArmaturElLyskildeKrStk", type="decimal", scale=4)
    */
   private $standardinvestArmaturElLyskildeKrStk;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestLyskildeKrStk", type="decimal", scale=2)
+   * @ORM\Column(name="standardinvestLyskildeKrStk", type="decimal", scale=4)
    */
   private $standardinvestLyskildeKrStk;
 
@@ -220,14 +220,14 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="nyttiggjortVarmeAfElBesparelse", type="decimal", scale=2)
+   * @ORM\Column(name="nyttiggjortVarmeAfElBesparelse", type="decimal", scale=4)
    */
   private $nyttiggjortVarmeAfElBesparelse;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="prisfaktor", type="decimal", scale=2)
+   * @ORM\Column(name="prisfaktor", type="decimal", scale=4)
    */
   private $prisfaktor;
 

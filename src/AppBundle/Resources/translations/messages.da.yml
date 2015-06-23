@@ -486,6 +486,8 @@ appbundle:
     omkostningTilMaalerKr: Omkostning til måler
     raadighedstarifKr: Rådighedstarif
     totalDriftomkostningerPrAar: Total driftomkostninger pr. år
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
 
   solcelle:
     kwp: KWp

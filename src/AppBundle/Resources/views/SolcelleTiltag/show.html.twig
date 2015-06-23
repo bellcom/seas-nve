@@ -31,6 +31,8 @@
               {{ helper.header('appbundle.solcelletiltagdetail.omkostningTilMaalerKr') }}
               {{ helper.header('appbundle.solcelletiltagdetail.raadighedstarifKr') }}
               {{ helper.header('appbundle.solcelletiltagdetail.totalDriftomkostningerPrAar') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.simpelTilbagebetalingstidAar') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.nutidsvaerdiSetOver15AarKr') }}
 			  {{ helper.header() }}
 			</tr>
 		  </thead>
@@ -57,6 +59,8 @@
                 <td>{{ detail.omkostningTilMaalerKr | format_decimal }}</td>
                 <td>{{ detail.raadighedstarifKr | format_decimal }}</td>
                 <td>{{ detail.totalDriftomkostningerPrAar | format_decimal }}</td>
+                <td>{{ detail.simpelTilbagebetalingstidAar | format_integer }}</td>
+                <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
 				<td>
 				  <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
 				</td>

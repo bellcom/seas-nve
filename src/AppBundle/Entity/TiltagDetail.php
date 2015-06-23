@@ -406,4 +406,24 @@ End If
 End Function
 */
 
+  /**
+   * Calculate Net Present Value
+   *
+   * @param float $rate
+   *   The rate.
+   *
+   * @param array $values
+   *   The values. Indexes should be years (from 1).
+   */
+  protected function npv($rate, array $values) {
+    $nvp = 0;
+
+    // @see http://stackoverflow.com/questions/2027460/how-to-calculate-npv
+    foreach ($values as $year => $value) {
+      $nvp += $value / pow(1 + $rate, $year);
+    }
+
+    return $nvp;
+  }
+
 }
