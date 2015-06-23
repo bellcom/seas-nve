@@ -448,7 +448,7 @@ class SolcelleTiltagDetail extends TiltagDetail {
       $flow['Eget forbrug'][$year] = $this->produktionKWh * $this->tilEgetForbrugPct * $elKrKWh
                                    * pow(1 - $this->forringetYdeevnePrAar, $year -1 ) * pow(1 + $inflation + $this->energiprisstigningPctPrAar, $year - 1);
       $flow['Salg til nettet'][$year] = $this->produktionKWh * $this->tilNettetPct *
-                                      (($year > $this->inverterskift1Aar + 1) ? $this->salgsprisEfter10AarKrKWh : $this->salgsprisFoerste10AarKrKWh)
+                                      (($year > 10) ? $this->salgsprisEfter10AarKrKWh : $this->salgsprisFoerste10AarKrKWh)
                                       * pow(1 - $this->forringetYdeevnePrAar, $year);
       $flow['Inv. skift'][$year] = ($year == $this->inverterskift1Aar || $year == $this->inverterskift2Aar)
                                  ? -$this->prisForNyInverterKr // -$R$39
