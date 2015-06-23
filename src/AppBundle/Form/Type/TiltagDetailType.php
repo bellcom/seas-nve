@@ -9,14 +9,21 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * Class TiltagDetailType
  * @package AppBundle\Form
  */
 class TiltagDetailType extends AbstractType {
-  public function buildForm(FormBuilderInterface $builder, array $options) {
+  protected $context;
 
+  public function __construct(SecurityContext $context = NULL)
+  {
+    $this->context = $context;
+  }
+
+  public function buildForm(FormBuilderInterface $builder, array $options) {
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver) {

@@ -4,7 +4,7 @@ namespace AppBundle\Tests\Entity;
 use AppBundle\Entity\Solcelle;
 
 class SolcelleTiltagDetailTest extends TiltagDetailTestCase {
-  // protected $allowedDeviance = 0.001;
+  protected $allowedDeviance = 0.001;
 
   protected function loadProperties(array $properties) {
     $properties['solcelle'] = $this->getSolcelle($properties['solcelle']);
