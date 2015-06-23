@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\TiltagDetail;
 
-class TiltagDetailCalculation {
+class TiltagDetailCalculation extends Calculation {
   protected $container = null;
 
   public function __construct(Container $container) {
@@ -94,7 +94,7 @@ class TiltagDetailCalculation {
       $oldValue = $old->{$getter}();
       $newValue = $new->{$getter}();
       // Compare numeric values with a fixed scale
-      if (is_numeric($oldValue) && is_numeric($newValue) && !$this->areAlmostEqual($oldValue, $newValue)) {
+      if (is_numeric($oldValue) && is_numeric($newValue) && !self::areEqual($oldValue, $newValue)) {
         $changes[] = array(
           'property' => lcfirst(preg_replace('/^get/', '', $getter)),
           'oldValue' => $oldValue,
@@ -104,20 +104,6 @@ class TiltagDetailCalculation {
     }
 
     return $changes;
-  }
-
-  private static $allowedDeviance = 0.001;
-
-  private function areAlmostEqual($a, $b) {
-    $delta = $a * self::$allowedDeviance;
-    if (abs($a - $b) > $delta) {
-      return false;
-    }
-    return true;
-  }
-
-  private function formatNumber($value) {
-    return number_format($value, 2, '.', '');
   }
 
   private function getCalculationService($entity) {
