@@ -167,6 +167,22 @@ class SolcelleTiltagDetail extends TiltagDetail {
    */
   protected $totalDriftomkostningerPrAar;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="simpelTilbagebetalingstidAar", type="float")
+   */
+  protected $simpelTilbagebetalingstidAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float")
+   */
+  protected $nutidsvaerdiSetOver15AarKr;
+
   public function setAnlaegsstoerrelseKWp($anlaegsstoerrelseKWp) {
     $this->anlaegsstoerrelseKWp = $anlaegsstoerrelseKWp;
 
@@ -340,6 +356,14 @@ class SolcelleTiltagDetail extends TiltagDetail {
     return $this->totalDriftomkostningerPrAar;
   }
 
+  public function getSimpelTilbagebetalingstidAar() {
+    return $this->simpelTilbagebetalingstidAar;
+  }
+
+  public function getNutidsvaerdiSetOver15AarKr() {
+    return $this->nutidsvaerdiSetOver15AarKr;
+  }
+
   public function calculate() {
     $this->tilEgetForbrugPct = $this->calculateTilEgetForbrugPct();
     $this->egetForbrugAfProduktionenKWh = $this->calculateEgetForbrugAfProduktionenKWh();
@@ -348,6 +372,10 @@ class SolcelleTiltagDetail extends TiltagDetail {
     $this->driftPrAarKr = $this->calculateDriftPrAarKr();
     $this->raadighedstarifKr = $this->calculateRaadighedstarifKr();
     $this->totalDriftomkostningerPrAar = $this->calculateTotalDriftomkostningerPrAar();
+
+    $cashFlow = $this->calculateCashFlow();
+    $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar($cashFlow);
+    $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr($cashFlow);
     parent::calculate();
   }
 
@@ -379,6 +407,63 @@ class SolcelleTiltagDetail extends TiltagDetail {
 
   private function calculateTotalDriftomkostningerPrAar() {
     return $this->driftPrAarKr + $this->omkostningTilMaalerKr + $this->raadighedstarifKr;
+  }
+
+  private function calculateSimpelTilbagebetalingstidAar(array $cashFlow) {
+    return array_sum($cashFlow['TBT']);
+  }
+
+  private function calculateNutidsvaerdiSetOver15AarKr(array $cashFlow) {
+    return $this->npv($this->getRapport()->getKalkulationsrente(), $cashFlow['Cash flow']);
+  }
+
+  /**
+   * Calculate cash flow for a number of years.
+   *
+   * @param integer $numberOfYears
+   *   The number of years.
+   *
+   * @return array
+   *   The cash flow.
+   */
+  private function calculateCashFlow($numberOfYears = 15) {
+    $inflation = $this->getRapport()->getInflation();
+    $elKrKWh = $this->getRapport()->getBygning()->getForsyningsvaerkEl()->getKrKWh();
+
+    $flow = array(
+      'Investering' => array_fill(0, $numberOfYears + 1, 0),
+      'Drift' => array_fill(0, $numberOfYears + 1, 0),
+      'Eget forbrug' => array_fill(0, $numberOfYears + 1, 0),
+      'Salg til nettet' => array_fill(0, $numberOfYears + 1, 0),
+      'Inv. skift' => array_fill(0, $numberOfYears + 1, 0),
+      'Cash flow' => array_fill(0, $numberOfYears + 1, 0),
+      'STATUS' => array_fill(0, $numberOfYears + 1, 0),
+      'TBT' => array_fill(0, $numberOfYears + 1, 0),
+    );
+
+    $flow['Investering'][1] = -$this->investeringKr - $this->screeningOgProjekteringKr;
+
+    for ($year = 1; $year <= $numberOfYears; $year++) {
+      $flow['Drift'][$year] = -$this->totalDriftomkostningerPrAar * pow(1 + $inflation, $year);
+      $flow['Eget forbrug'][$year] = $this->produktionKWh * $this->tilEgetForbrugPct * $elKrKWh
+                                   * pow(1 - $this->forringetYdeevnePrAar, $year -1 ) * pow(1 + $inflation + $this->energiprisstigningPctPrAar, $year - 1);
+      $flow['Salg til nettet'][$year] = $this->produktionKWh * $this->tilNettetPct *
+                                      (($year > $this->inverterskift1Aar + 1) ? $this->salgsprisEfter10AarKrKWh : $this->salgsprisFoerste10AarKrKWh)
+                                      * pow(1 - $this->forringetYdeevnePrAar, $year);
+      $flow['Inv. skift'][$year] = ($year == $this->inverterskift1Aar || $year == $this->inverterskift2Aar)
+                                 ? -$this->prisForNyInverterKr // -$R$39
+                                 * pow(1 + $inflation, $year) // *(1+$'1.TiltagslisteRådgiver'.$AK$23)^L44
+                                 : 0;
+      $flow['Cash flow'][$year] = $flow['Investering'][$year] + $flow['Drift'][$year] + $flow['Eget forbrug'][$year] + $flow['Salg til nettet'][$year] + $flow['Inv. skift'][$year];
+      if ($year == $numberOfYears) {
+        // Add scrapvaerdi
+        $flow['Cash flow'][$year] += (1 - ($numberOfYears / $this->tiltag->getLevetid())) * pow(1 + $inflation, $numberOfYears) * ($this->investeringKr + $this->screeningOgProjekteringKr);
+      }
+      $flow['STATUS'][$year] = $flow['STATUS'][$year - 1] + $flow['Cash flow'][$year];
+      $flow['TBT'][$year] = $flow['STATUS'][$year] > 0 ? 0 : 1;
+    }
+
+    return $flow;
   }
 
 }
