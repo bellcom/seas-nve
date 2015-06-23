@@ -21,7 +21,7 @@ class SolcelleTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="anlaegsstoerrelseKWp", type="decimal", scale=2)
+   * @ORM\Column(name="anlaegsstoerrelseKWp", type="decimal", scale=4)
    */
   protected $anlaegsstoerrelseKWp;
 
@@ -36,14 +36,14 @@ class SolcelleTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="produktionKWh", type="decimal", scale=2)
+   * @ORM\Column(name="produktionKWh", type="decimal", scale=4)
    */
   protected $produktionKWh;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="tilNettetPct", type="decimal", scale=2)
+   * @ORM\Column(name="tilNettetPct", type="decimal", scale=4)
    */
   protected $tilNettetPct;
 
@@ -74,7 +74,7 @@ class SolcelleTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="forringetYdeevnePrAar", type="decimal", scale=2)
+   * @ORM\Column(name="forringetYdeevnePrAar", type="decimal", scale=4)
    */
   protected $forringetYdeevnePrAar;
 
@@ -103,35 +103,35 @@ class SolcelleTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="salgsprisFoerste10AarKrKWh", type="decimal", scale=2)
+   * @ORM\Column(name="salgsprisFoerste10AarKrKWh", type="decimal", scale=4)
    */
   protected $salgsprisFoerste10AarKrKWh;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="salgsprisEfter10AarKrKWh", type="decimal", scale=2)
+   * @ORM\Column(name="salgsprisEfter10AarKrKWh", type="decimal", scale=4)
    */
   protected $salgsprisEfter10AarKrKWh;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="energiprisstigningPctPrAar", type="decimal", scale=2)
+   * @ORM\Column(name="energiprisstigningPctPrAar", type="decimal", scale=4)
    */
   protected $energiprisstigningPctPrAar;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="investeringKr", type="decimal", scale=2)
+   * @ORM\Column(name="investeringKr", type="decimal", scale=4)
    */
   protected $investeringKr;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="screeningOgProjekteringKr", type="decimal", scale=2)
+   * @ORM\Column(name="screeningOgProjekteringKr", type="decimal", scale=4)
    */
   protected $screeningOgProjekteringKr;
 
