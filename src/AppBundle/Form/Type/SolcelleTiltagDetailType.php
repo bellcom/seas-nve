@@ -20,22 +20,19 @@ class SolcelleTiltagDetailType extends TiltagDetailType {
       ->add('anlaegsstoerrelseKWp')
       ->add('produktionKWh')
       ->add('tilNettetPct')
-      ->add('tilEgetForbrugPct', null, array( 'read_only' => true ))
-      ->add('egetForbrugAfProduktionenKWh', null, array( 'read_only' => true ))
-      ->add('produktionTilNettetKWh', null, array( 'read_only' => true ))
-      ->add('forringetYdeevnePrAar')
       ->add('inverterskift1Aar')
       ->add('inverterskift2Aar')
-      ->add('prisForNyInverterKr', null, array( 'read_only' => true ))
-      ->add('salgsprisFoerste10AarKrKWh')
-      ->add('salgsprisEfter10AarKrKWh')
-      ->add('energiprisstigningPctPrAar')
       ->add('investeringKr')
       ->add('screeningOgProjekteringKr')
-      ->add('driftPrAarKr', null, array( 'read_only' => true ))
-      ->add('omkostningTilMaalerKr')
-      ->add('raadighedstarifKr', null, array( 'read_only' => true ))
-      ->add('totalDriftomkostningerPrAar', null, array( 'read_only' => true ));
+      ->add('omkostningTilMaalerKr');
+
+    if ($this->context && $this->context->isGranted('ROLE_ADMIN')) {
+      $builder
+        ->add('forringetYdeevnePrAar')
+        ->add('energiprisstigningPctPrAar')
+        ->add('salgsprisFoerste10AarKrKWh')
+        ->add('salgsprisEfter10AarKrKWh');
+    }
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver) {
