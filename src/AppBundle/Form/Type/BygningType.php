@@ -41,7 +41,6 @@ class BygningType extends AbstractType {
       ->add('anvendelse')
       ->add('bruttoetageareal')
       ->add('maalertype')
-      ->add('vand')
       ->add('kundenummer')
       ->add('kode')
       ->add('forsyningsvaerkVarme')

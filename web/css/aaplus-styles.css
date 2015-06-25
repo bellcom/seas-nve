@@ -1,7 +1,15 @@
+/**
+* Login
+*/
+
 .login--form {
     max-width: 400px;
     margin-top: 5%;
     margin: 10% auto 0 auto;
+}
+
+.login--form .form-group {
+    margin-bottom: 15px;
 }
 
 .login--links {
@@ -32,6 +40,10 @@ form.inline-block {
     .container {
         width: 95%;
     }
+}
+
+.form-group {
+    margin-bottom: 0px;
 }
 
 
