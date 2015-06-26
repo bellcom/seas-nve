@@ -73,7 +73,7 @@ services:
         tags:
             - { name: doctrine.event_listener, event: onFlush }
 
-    aaplus.tiltagdetails_calculation:
+    aaplus.tiltagdetail_calculation:
         class: AppBundle\Calculation\TiltagDetailCalculation
         arguments: [ @service_container ]
         tags:
