@@ -70,6 +70,7 @@ class BygningType extends AbstractType {
       ->add('vandNotat')
       ->add('elNotat')
       ->add('varmeNotat')
+      ->add('forsyningsvaerkVand')
       ->add('users');
   }
 

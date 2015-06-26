@@ -1,0 +1,48 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>Økonomi</h1>
+
+  <table class="table table-condensed">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nummer</th>
+      <th>Faktureret</th>
+      <th>Tiltag</th>
+      <th>Startdato</th>
+      <th>Slutdato</th>
+      <th>Createdat</th>
+      <th>Updatedat</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for t in tiltag %}
+      {% for entity in t.regning %}
+        <tr>
+          <td><a href="{{ path('regning_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+          <td>{{ entity.nummer }}</td>
+          <td>{{ entity.faktureret }}</td>
+          <td>{{ entity.tiltag }}</td>
+          <td>{% if entity.startdato %}{{ entity.startdato|date('Y-m-d H:i:s') }}{% endif %}</td>
+          <td>{% if entity.slutdato %}{{ entity.slutdato|date('Y-m-d H:i:s') }}{% endif %}</td>
+          <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+          <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+          <td>
+            <a href="{{ path('regning_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <ul>
+    <li>
+      <a href="{{ path('regning_new') }}">
+        Create a new entry
+      </a>
+    </li>
+  </ul>
+{% endblock %}

@@ -1402,27 +1402,27 @@ class Bygning {
     return $this->users;
   }
 
-    /**
-     * Add user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return Bygning
-     */
-    public function addUser(\AppBundle\Entity\User $user)
-    {
-        $this->users[] = $user;
+  /**
+   * Add user
+   *
+   * @param \AppBundle\Entity\User $user
+   *
+   * @return Bygning
+   */
+  public function addUser(\AppBundle\Entity\User $user)
+  {
+    $this->users[] = $user;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Remove user
-     *
-     * @param \AppBundle\Entity\User $user
-     */
-    public function removeUser(\AppBundle\Entity\User $user)
-    {
-        $this->users->removeElement($user);
-    }
+  /**
+   * Remove user
+   *
+   * @param \AppBundle\Entity\User $user
+   */
+  public function removeUser(\AppBundle\Entity\User $user)
+  {
+    $this->users->removeElement($user);
+  }
 }

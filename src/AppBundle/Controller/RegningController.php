@@ -35,6 +35,7 @@ class RegningController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Regning entity.
      *

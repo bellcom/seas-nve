@@ -233,6 +233,9 @@ abstract class Tiltag {
    */
   private $details;
 
+
+  //----- Økonomi ----- //
+
   /**
    * @var ArrayCollection
    *
@@ -241,6 +244,34 @@ abstract class Tiltag {
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Regning>")
    */
   private $regning;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="EstimeredeUdgifter", type="decimal", nullable=true)
+   */
+  private $estimeredeUdgifter;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="BudgetteredeUdgifter", type="decimal", nullable=true)
+   */
+  private $budgetteredeUdgifter;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
+   */
+  private $genopretning;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
+   */
+  private $modernisering;
 
   /**
    * Get Name
@@ -858,5 +889,101 @@ abstract class Tiltag {
     public function getRegning()
     {
         return $this->regning;
+    }
+
+    /**
+     * Set estimeredeUdgifter
+     *
+     * @param string $estimeredeUdgifter
+     *
+     * @return Tiltag
+     */
+    public function setEstimeredeUdgifter($estimeredeUdgifter)
+    {
+        $this->estimeredeUdgifter = $estimeredeUdgifter;
+
+        return $this;
+    }
+
+    /**
+     * Get estimeredeUdgifter
+     *
+     * @return string
+     */
+    public function getEstimeredeUdgifter()
+    {
+        return $this->estimeredeUdgifter;
+    }
+
+    /**
+     * Set budgetteredeUdgifter
+     *
+     * @param string $budgetteredeUdgifter
+     *
+     * @return Tiltag
+     */
+    public function setBudgetteredeUdgifter($budgetteredeUdgifter)
+    {
+        $this->budgetteredeUdgifter = $budgetteredeUdgifter;
+
+        return $this;
+    }
+
+    /**
+     * Get budgetteredeUdgifter
+     *
+     * @return string
+     */
+    public function getBudgetteredeUdgifter()
+    {
+        return $this->budgetteredeUdgifter;
+    }
+
+    /**
+     * Set genopretning
+     *
+     * @param string $genopretning
+     *
+     * @return Tiltag
+     */
+    public function setGenopretning($genopretning)
+    {
+        $this->genopretning = $genopretning;
+
+        return $this;
+    }
+
+    /**
+     * Get genopretning
+     *
+     * @return string
+     */
+    public function getGenopretning()
+    {
+        return $this->genopretning;
+    }
+
+    /**
+     * Set modernisering
+     *
+     * @param string $modernisering
+     *
+     * @return Tiltag
+     */
+    public function setModernisering($modernisering)
+    {
+        $this->modernisering = $modernisering;
+
+        return $this;
+    }
+
+    /**
+     * Get modernisering
+     *
+     * @return string
+     */
+    public function getModernisering()
+    {
+        return $this->modernisering;
     }
 }

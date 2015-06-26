@@ -306,6 +306,7 @@ appbundle:
     elNotat: El notat
     varmeNotat: Varme notat
     users: Brugere
+    forsyningsvaerkVand: Vand
   pumpe:
     nuvaerendeType: Nuværende Type
     byggemaal: Byggemål
@@ -331,6 +332,13 @@ appbundle:
     pumpeID: ID
     forsyningsomraade: Forsyningsomraade
     placering: Placering
+    applikation: Applikation
+    isoleringskappe: Isoleringskappe
+    bfaktor: B-Faktor
+    noter: Noter
+    eksisterendeDrifttid: Eksisterende Drifttid
+    nyDrifttid: Ny Drifttid
+    prisfaktor: Prisfaktor
   pumpetiltagdetail:
     add: Tilføj pumpe
     pumpeID: Pumpe ID

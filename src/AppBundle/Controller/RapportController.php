@@ -201,4 +201,29 @@ class RapportController extends Controller implements InitControllerInterface {
 
     return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
   }
+
+  //---------------- Regninger -------------------//
+
+  /**
+   * Finds and displays a Rapport entity.
+   *
+   * @Route("/{id}/regninger", name="rapport_regninger_show")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Rapport $rapport
+   * @return array
+   */
+  public function showRegningerAction(Rapport $rapport) {
+    $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $rapport->getId())));
+
+    $deleteForm = $this->createDeleteForm($rapport->getId());
+
+    return array(
+      'tiltag' => $rapport->getTiltag(),
+      'delete_form' => $deleteForm->createView(),
+    );
+  }
+
 }

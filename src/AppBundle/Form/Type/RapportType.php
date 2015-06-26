@@ -26,6 +26,7 @@ class RapportType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('version')
+      ->add('version')
       ->add('datering')
       ->add('BaselineEl', null, array(
         'attr' => array(

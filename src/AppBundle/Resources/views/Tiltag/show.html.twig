@@ -19,7 +19,7 @@
 {% block body -%}
   <h1>{% if entity.title is empty %}{{ 'tiltag.title.missing' | trans }}{% else %}{{ entity.title }}{% endif %}</h1>
 
-  <table class="table">
+  <table class="table table-condensed">
     <tbody>
       <tr>
         <th>{{ 'appbundle.tiltag.rapport' | trans }}</th>

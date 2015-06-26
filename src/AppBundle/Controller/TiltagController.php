@@ -373,7 +373,7 @@ class TiltagController extends Controller implements InitControllerInterface {
   /**
    * Creates a new Regning entity.
    *
-   * @Route("/{id}/regning/new", name="regning_create")
+   * @Route("/{id}/regning/new", name="regning_create_x")
    * @Method("POST")
    * @Template("AppBundle:Regning:new.html.twig")
    */
