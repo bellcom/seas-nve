@@ -6,13 +6,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Configuration;
 use Doctrine\ORM\Mapping as ORM;
-// use Doctrine\ORM\Mapping\OneToMany;
-// use Doctrine\ORM\Mapping\ManyToMany;
-// use Doctrine\ORM\Mapping\JoinTable;
-// use Doctrine\ORM\Mapping\OrderBy;
-// use Doctrine\Common\Collections\ArrayCollection;
-// use JMS\Serializer\Annotation as JMS;
 
 /**
  * Forsyningsvaerk
@@ -2174,13 +2169,16 @@ class Forsyningsvaerk {
     return isset($this->{$property}) ? $this->{$property} : 0;
   }
 
-  public function getFaktor($startYear = NULL) {
+  public function getFaktor(Configuration $configuration, $startYear = NULL) {
+    $numberOfYears = 15;
+
     if ($startYear === NULL) {
       $startYear = date('Y');
     }
+
     $faktor = 0;
-    for ($year = 0; $year < 15; $year++) {
-      $faktor += $this->getKrKWh($startYear + $year);
+    for ($year = 1; $year <= $numberOfYears; $year++) {
+      $faktor += $this->getKrKWh($startYear + $year - 1) / pow(1 + $configuration->getKalkulationsrente(), $year);
     }
     return $faktor;
   }

@@ -1073,15 +1073,15 @@ class BelysningTiltagDetail extends TiltagDetail {
       return 0;
     }
     elseif ($nyLyskilde->getId() == 12) { // !!!
-      return (($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
-               + $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale * $this->nyLyskildeStkArmatur) + $this->prisfaktorTillaegKrLokale) * $this->lokale_antal;
+      return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
+              + $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale * $this->nyLyskildeStkArmatur
+              + $this->prisfaktorTillaegKrLokale) * $this->lokale_antal;
     }
     else {
-      return (($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
-               + $this->nyeArmaturerStkLokale * $this->standardinvestArmaturElLyskildeKrStk
-               + $this->nyLyskildeStkArmatur * $this->standardinvestLyskildeKrStk)
-              + $this->prisfaktorTillaegKrLokale)
-        * $this->lokale_antal;
+      return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
+              + $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale
+              + $this->standardinvestLyskildeKrStk * $this->nyLyskildeStkArmatur * $this->nyeArmaturerStkLokale
+              + $this->prisfaktorTillaegKrLokale) * $this->lokale_antal;
     }
   }
 

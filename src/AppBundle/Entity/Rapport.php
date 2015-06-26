@@ -431,17 +431,17 @@ class Rapport {
 
   public function getElfaktor()
   {
-    return $this->bygning->getForsyningsvaerkEl()->getFaktor();
+    return $this->bygning->getForsyningsvaerkEl()->getFaktor($this->configuration);
   }
 
   public function getVarmefaktor()
   {
-    return $this->bygning->getForsyningsvaerkVarme()->getFaktor();
+    return $this->bygning->getForsyningsvaerkVarme()->getFaktor($this->configuration);
   }
 
   public function getVandfaktor()
   {
-    return $this->bygning->getForsyningsvaerkVand()->getFaktor();
+    return $this->bygning->getForsyningsvaerkVand()->getFaktor($this->configuration);
   }
 
   public function getVarmeKrKWh()
