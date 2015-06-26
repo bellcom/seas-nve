@@ -9,7 +9,7 @@ class BelysningTiltagDetailTest extends TiltagDetailTestCase {
 
   protected function loadProperties(array $properties) {
     $properties['lyskilde'] = $this->getLyskilde($properties['lyskilde']);
-    $properties['nylyskilde'] = $this->getLyskilde($properties['nylyskilde']);
+    $properties['nyLyskilde'] = $this->getLyskilde($properties['nyLyskilde']);
     return $properties;
   }
 

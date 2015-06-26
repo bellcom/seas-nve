@@ -164,6 +164,9 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   /**
    * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="simpelTilbagebetalingstidAar", type="float")
    */
   private $simpelTilbagebetalingstidAar;
 
@@ -699,7 +702,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     else {
       if ($this->besparelseKWhAar > 0) {
         if ($this->getRapport()->isStandardforsyning()) {
-          return 0;
+          return $this->besparelseKWhAar;
         }
         else {
           return $this->fordelbesparelse($this->besparelseKWhAar, $this->tiltag->getForsyningVarme(), 'VARME');
