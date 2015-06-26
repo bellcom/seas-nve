@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotations\Calculated;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -65,6 +66,7 @@ abstract class Tiltag {
   /**
    * @var float
    *
+   * @Calculated
    * @ORM\Column(name="VarmebesparelseGUF", type="float", nullable=true)
    */
   private $varmebesparelseGUF;
@@ -72,6 +74,7 @@ abstract class Tiltag {
   /**
    * @var float
    *
+   * @Calculated
    * @ORM\Column(name="VarmebesparelseGAF", type="float", nullable=true)
    */
   private $varmebesparelseGAF;
@@ -79,6 +82,7 @@ abstract class Tiltag {
   /**
    * @var float
    *
+   * @Calculated
    * @ORM\Column(name="Elbesparelse", type="float", nullable=true)
    */
   private $elbesparelse;
@@ -86,6 +90,7 @@ abstract class Tiltag {
   /**
    * @var float
    *
+   * @Calculated
    * @ORM\Column(name="Vandbesparelse", type="float", nullable=true)
    */
   private $vandbesparelse;
@@ -93,6 +98,7 @@ abstract class Tiltag {
   /**
    * @var float
    *
+   * @Calculated
    * @ORM\Column(name="EnergibesparelseAarEt", type="float", nullable=true)
    */
   private $energibesparelseAarEt;
@@ -100,6 +106,7 @@ abstract class Tiltag {
   /**
    * @var float
    *
+   * @Calculated
    * @ORM\Column(name="CO2besparelseAarEt", type="float", nullable=true)
    */
   private $co2besparelseAarEt;
