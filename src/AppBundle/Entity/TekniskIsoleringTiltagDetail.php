@@ -29,21 +29,21 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="driftstidTAar", type="float")
+   * @ORM\Column(name="driftstidTAar", type="decimal", scale=4)
    */
   private $driftstidTAar;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="udvDiameterMm", type="float")
+   * @ORM\Column(name="udvDiameterMm", type="decimal", scale=4)
    */
   private $udvDiameterMm;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="eksistIsolMm", type="float")
+   * @ORM\Column(name="eksistIsolMm", type="decimal", scale=4)
    */
   private $eksistIsolMm;
 
@@ -58,42 +58,42 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="tankVolL", type="float")
+   * @ORM\Column(name="tankVolL", type="decimal", scale=4)
    */
   private $tankVolL;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="tempOmgivelC", type="float")
+   * @ORM\Column(name="tempOmgivelC", type="decimal", scale=4)
    */
   private $tempOmgivelC;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="tempMedieC", type="float")
+   * @ORM\Column(name="tempMedieC", type="decimal", scale=4)
    */
   private $tempMedieC;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="roerlaengdeEllerHoejdeAfVvbM", type="float")
+   * @ORM\Column(name="roerlaengdeEllerHoejdeAfVvbM", type="decimal", scale=4)
    */
   private $roerlaengdeEllerHoejdeAfVvbM;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="nyttiggjortVarme", type="float")
+   * @ORM\Column(name="nyttiggjortVarme", type="decimal", scale=4)
    */
   private $nyttiggjortVarme;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="nyIsolMm", type="float")
+   * @ORM\Column(name="nyIsolMm", type="decimal", scale=4)
    */
   private $nyIsolMm;
 
@@ -124,14 +124,14 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestKrM2EllerKrM", type="float")
+   * @ORM\Column(name="standardinvestKrM2EllerKrM", type="decimal", scale=4)
    */
   private $standardinvestKrM2EllerKrM;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="prisfaktor", type="float")
+   * @ORM\Column(name="prisfaktor", type="decimal", scale=4)
    */
   private $prisfaktor;
 

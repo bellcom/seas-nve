@@ -44,14 +44,14 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="hoejdeElLaengdeM", type="float")
+   * @ORM\Column(name="hoejdeElLaengdeM", type="decimal", scale=4)
    */
   private $hoejdeElLaengdeM;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="breddeM", type="float")
+   * @ORM\Column(name="breddeM", type="decimal", scale=4)
    */
   private $breddeM;
 
@@ -65,56 +65,56 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="andelAfArealDerEfterisoleres", type="float")
+   * @ORM\Column(name="andelAfArealDerEfterisoleres", type="decimal", scale=4)
    */
   private $andelAfArealDerEfterisoleres;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="uEksWM2K", type="float")
+   * @ORM\Column(name="uEksWM2K", type="decimal", scale=4)
    */
   private $uEksWM2K;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="uNyWM2K", type="float")
+   * @ORM\Column(name="uNyWM2K", type="decimal", scale=4)
    */
   private $uNyWM2K;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="tIndeC", type="float")
+   * @ORM\Column(name="tIndeC", type="decimal", scale=4)
    */
   private $tIndeC;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="tUdeC", type="float")
+   * @ORM\Column(name="tUdeC", type="decimal", scale=4)
    */
   private $tUdeC;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="tOpvarmningTimerAar", type="float")
+   * @ORM\Column(name="tOpvarmningTimerAar", type="decimal", scale=4)
    */
   private $tOpvarmningTimerAar;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="yderligereBesparelserPct", type="float")
+   * @ORM\Column(name="yderligereBesparelserPct", type="decimal", scale=4)
    */
   private $yderligereBesparelserPct;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="prisfaktor", type="float")
+   * @ORM\Column(name="prisfaktor", type="decimal", scale=4)
    */
   private $prisfaktor;
 

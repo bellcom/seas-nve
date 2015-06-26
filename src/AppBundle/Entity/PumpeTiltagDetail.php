@@ -56,7 +56,7 @@ class PumpeTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="bFaktor", type="float")
+   * @ORM\Column(name="bFaktor", type="decimal", scale=4)
    */
   private $bFaktor;
 
