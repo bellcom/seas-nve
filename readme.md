@@ -1,22 +1,26 @@
 # Setting up Symfony
 
-`git clone git@github.com:aakb/aaplus.git htdocs`
-`composer install`
+```
+git clone git@github.com:aakb/aaplus.git htdocs
+composer install
+```
 
 # Create Database & update schema
 
-`php app/console doctrine:database:create`
-`php app/console doctrine:schema:update --force`
-
+```
+php app/console doctrine:database:create
+php app/console doctrine:schema:update --force
+```
 
 # Import data
 
 1. Copy Excel files from Dropbox into the fixtures folder:
 
     ```
+    mkdir -p src/AppBundle/DataFixtures/Data/Excel
     rm src/AppBundle/DataFixtures/Data/Excel/*.xlsm
     cp -v ~/Dropbox*/Dokumentation/Websites/Aa+/Dokumenter/fixtures/*.xlsm src/AppBundle/DataFixtures/Data/Excel
-	```
+    ```
 
 2. Load the fixtures (inside Vagrant box):
 
