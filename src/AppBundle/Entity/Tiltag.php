@@ -843,12 +843,108 @@ abstract class Tiltag {
   }
 
   /**
+   * Get all selected TiltagDetails.
+   *
+   * @return ArrayCollection
+   *   The list of selected TiltagDetails.
+   */
+  protected function getTilvalgteDetails() {
+    return $this->getDetails()->filter(function($detail) {
+      return $detail->getTilvalgt();
+    });
+  }
+
+  /**
    * Calculate values in this Tiltag
    *
    * @return bool
    */
   public function calculate() {
+    $this->varmebesparelseGUF = $this->calculateVarmebesparelseGUF();
+    $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
+    $this->elbesparelse = $this->calculateElbesparelse();
+    $this->vandbesparelse = $this->calculateVandbesparelse();
+    $this->energibesparelseAarEt = $this->calculateEnergibesparelseAarEt();
+    $this->co2besparelseAarEt = $this->calculateCo2besparelseAarEt();
+    $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
+    $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
+    $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
+    $this->scrapvaerdi = $this->calculateScrapvaerdi();
+    $this->reinvestering = $this->calculateReinvestering();
+
     return false;
+  }
+
+  protected function calculateVarmebesparelseGUF() {
+    return 0;
+  }
+
+  protected function calculateVarmebesparelseGAF() {
+    return 0;
+  }
+
+  protected function calculateElbesparelse() {
+    return 0;
+  }
+
+  protected function calculateVandbesparelse() {
+    return 0;
+  }
+
+  protected function calculateEnergibesparelseAarEt() {
+    return 0;
+  }
+
+  protected function calculateCo2besparelseAarEt() {
+    return 0;
+  }
+
+  protected function calculateAntalReinvesteringer() {
+    return 0;
+  }
+
+  protected function calculateAnlaegsinvestering() {
+    return 0;
+  }
+
+  protected function calculateSimpelTilbagebetalingstidAar() {
+    return 0;
+  }
+
+  protected function calculateNutidsvaerdiSetOver15AarKr() {
+    return 0;
+  }
+
+  protected function calculateScrapvaerdi() {
+    return 0;
+  }
+
+  protected function calculateReinvestering() {
+    return 0;
+  }
+
+  protected function accumulate(callable $accumulator, $start = 0) {
+    $value = $start;
+    foreach ($this->getTilvalgteDetails() as $detail) {
+      $value = $accumulator($detail, $value);
+    }
+    return $value;
+  }
+
+  /**
+   * Calculate the sum of something from each tilvalgt detail.
+   *
+   * @param string|callable $f
+   *   A callable or a property name.
+   *
+   * @return integer
+   *   The sum af results from calling $f on each tilvalgt detail.
+   */
+  protected function sum($f) {
+    return $this->accumulate(function($detail, $value) use ($f) {
+        return $value + (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
+      });
   }
 
   public function __construct() {
