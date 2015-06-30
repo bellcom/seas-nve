@@ -67,7 +67,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="VarmebesparelseGUF", type="float", nullable=true)
+   * @ORM\Column(name="varmebesparelseGUF", type="float", nullable=true)
    */
   protected $varmebesparelseGUF;
 
@@ -75,7 +75,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="VarmebesparelseGAF", type="float", nullable=true)
+   * @ORM\Column(name="varmebesparelseGAF", type="float", nullable=true)
    */
   protected $varmebesparelseGAF;
 
@@ -83,7 +83,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="Elbesparelse", type="float", nullable=true)
+   * @ORM\Column(name="elbesparelse", type="float", nullable=true)
    */
   protected $elbesparelse;
 
@@ -91,7 +91,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="Vandbesparelse", type="float", nullable=true)
+   * @ORM\Column(name="vandbesparelse", type="float", nullable=true)
    */
   protected $vandbesparelse;
 
@@ -99,7 +99,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="EnergibesparelseAarEt", type="float", nullable=true)
+   * @ORM\Column(name="energibesparelseAarEt", type="float", nullable=true)
    */
   protected $energibesparelseAarEt;
 
@@ -107,7 +107,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="CO2besparelseAarEt", type="float", nullable=true)
+   * @ORM\Column(name="co2besparelseAarEt", type="float", nullable=true)
    */
   protected $co2besparelseAarEt;
 
@@ -154,7 +154,8 @@ abstract class Tiltag {
   /**
    * @var integer
    *
-   * @ORM\Column(name="AntalReinvesteringer", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="antalReinvesteringer", type="integer", nullable=true)
    */
   protected $antalReinvesteringer;
 
@@ -304,18 +305,6 @@ abstract class Tiltag {
   }
 
   /**
-   * Set vandbesparelse
-   *
-   * @param float $vandbesparelse
-   * @return Tiltag
-   */
-  public function setVandbesparelse($vandbesparelse) {
-    $this->vandbesparelse = $vandbesparelse;
-
-    return $this;
-  }
-
-  /**
    * Get vandbesparelse
    *
    * @return float
@@ -385,18 +374,6 @@ abstract class Tiltag {
    */
   public function getTiltagskategori() {
     return $this->tiltagskategori;
-  }
-
-  /**
-   * Set anlaegsinvestering
-   *
-   * @param string $anlaegsinvestering
-   * @return Tiltag
-   */
-  public function setAnlaegsinvestering($anlaegsinvestering) {
-    $this->anlaegsinvestering = $anlaegsinvestering;
-
-    return $this;
   }
 
   /**
@@ -661,36 +638,12 @@ abstract class Tiltag {
   }
 
   /**
-   * Set varmebesparelseGUF;
-   *
-   * @param float $varmebesparelseGUF;
-   * @return Tiltag
-   */
-  public function setVarmebesparelseGUF($varmebesparelseGUF) {
-    $this->varmebesparelseGUF = $varmebesparelseGUF;
-
-    return $this;
-  }
-
-  /**
    * Get varmebesparelseGUF;
    *
    * @return float
    */
   public function getVarmebesparelseGUF() {
     return $this->varmebesparelseGUF;
-  }
-
-  /**
-   * Set varmebesparelseGAF
-   *
-   * @param float $varmebesparelseGAF
-   * @return Tiltag
-   */
-  public function setVarmebesparelseGAF($varmebesparelseGAF) {
-    $this->varmebesparelseGAF = $varmebesparelseGAF;
-
-    return $this;
   }
 
   /**
@@ -703,36 +656,12 @@ abstract class Tiltag {
   }
 
   /**
-   * Set elbesparelse
-   *
-   * @param float $elbesparelse
-   * @return Tiltag
-   */
-  public function setElbesparelse($elbesparelse) {
-    $this->elbesparelse = $elbesparelse;
-
-    return $this;
-  }
-
-  /**
    * Get elbesparelse
    *
    * @return float
    */
   public function getElbesparelse() {
     return $this->elbesparelse;
-  }
-
-  /**
-   * Set energibesparelseAarEt
-   *
-   * @param float $energibesparelseAarEt
-   * @return Tiltag
-   */
-  public function setEnergibesparelseAarEt($energibesparelseAarEt) {
-    $this->energibesparelseAarEt = $energibesparelseAarEt;
-
-    return $this;
   }
 
   /**
@@ -745,18 +674,6 @@ abstract class Tiltag {
   }
 
   /**
-   * Set co2besparelseAarEt
-   *
-   * @param float $co2besparelseAarEt
-   * @return Tiltag
-   */
-  public function setCo2besparelseAarEt($co2besparelseAarEt) {
-    $this->co2besparelseAarEt = $co2besparelseAarEt;
-
-    return $this;
-  }
-
-  /**
    * Get co2besparelseAarEt
    *
    * @return float
@@ -766,24 +683,48 @@ abstract class Tiltag {
   }
 
   /**
-   * Set antalReinvesteringer
-   *
-   * @param integer $antalReinvesteringer
-   * @return Tiltag
-   */
-  public function setAntalReinvesteringer($antalReinvesteringer) {
-    $this->antalReinvesteringer = $antalReinvesteringer;
-
-    return $this;
-  }
-
-  /**
    * Get antalReinvesteringer
    *
    * @return integer
    */
   public function getAntalReinvesteringer() {
     return $this->antalReinvesteringer;
+  }
+
+  /**
+   * Get simpelTilbagebetalingstidAar.
+   *
+   * @return float
+   */
+  public function getSimpelTilbagebetalingstidAar() {
+    return $this->simpelTilbagebetalingstidAar;
+  }
+
+  /**
+   * Get nutidsvaerdiSetOver15AarKr.
+   *
+   * @return float
+   */
+  public function getNutidsvaerdiSetOver15AarKr() {
+    return $this->nutidsvaerdiSetOver15AarKr;
+  }
+
+  /**
+   * Get scrapvaerdi.
+   *
+   * @return float
+   */
+  public function getScrapvaerdi() {
+    return $this->scrapvaerdi;
+  }
+
+  /**
+   * Get reinvestering.
+   *
+   * @return float
+   */
+  public function getReinvestering() {
+    return $this->reinvestering;
   }
 
   /**
@@ -843,12 +784,108 @@ abstract class Tiltag {
   }
 
   /**
+   * Get all selected TiltagDetails.
+   *
+   * @return ArrayCollection
+   *   The list of selected TiltagDetails.
+   */
+  protected function getTilvalgteDetails() {
+    return $this->getDetails()->filter(function($detail) {
+      return $detail->getTilvalgt();
+    });
+  }
+
+  /**
    * Calculate values in this Tiltag
    *
    * @return bool
    */
   public function calculate() {
+    $this->varmebesparelseGUF = $this->calculateVarmebesparelseGUF();
+    $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
+    $this->elbesparelse = $this->calculateElbesparelse();
+    $this->vandbesparelse = $this->calculateVandbesparelse();
+    $this->energibesparelseAarEt = $this->calculateEnergibesparelseAarEt();
+    $this->co2besparelseAarEt = $this->calculateCo2besparelseAarEt();
+    $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
+    $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
+    $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
+    $this->scrapvaerdi = $this->calculateScrapvaerdi();
+    $this->reinvestering = $this->calculateReinvestering();
+
     return false;
+  }
+
+  protected function calculateVarmebesparelseGUF() {
+    return 0;
+  }
+
+  protected function calculateVarmebesparelseGAF() {
+    return 0;
+  }
+
+  protected function calculateElbesparelse() {
+    return 0;
+  }
+
+  protected function calculateVandbesparelse() {
+    return 0;
+  }
+
+  protected function calculateEnergibesparelseAarEt() {
+    return 0;
+  }
+
+  protected function calculateCo2besparelseAarEt() {
+    return 0;
+  }
+
+  protected function calculateAntalReinvesteringer() {
+    return 0;
+  }
+
+  protected function calculateAnlaegsinvestering() {
+    return 0;
+  }
+
+  protected function calculateSimpelTilbagebetalingstidAar() {
+    return 0;
+  }
+
+  protected function calculateNutidsvaerdiSetOver15AarKr() {
+    return 0;
+  }
+
+  protected function calculateScrapvaerdi() {
+    return 0;
+  }
+
+  protected function calculateReinvestering() {
+    return 0;
+  }
+
+  protected function accumulate(callable $accumulator, $start = 0) {
+    $value = $start;
+    foreach ($this->getTilvalgteDetails() as $detail) {
+      $value = $accumulator($detail, $value);
+    }
+    return $value;
+  }
+
+  /**
+   * Calculate the sum of something from each tilvalgt detail.
+   *
+   * @param string|callable $f
+   *   A callable or a property name.
+   *
+   * @return integer
+   *   The sum af results from calling $f on each tilvalgt detail.
+   */
+  protected function sum($f) {
+    return $this->accumulate(function($detail, $value) use ($f) {
+        return $value + (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
+      });
   }
 
   public function __construct() {
