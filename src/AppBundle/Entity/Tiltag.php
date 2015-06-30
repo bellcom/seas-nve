@@ -67,7 +67,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="VarmebesparelseGUF", type="float", nullable=true)
+   * @ORM\Column(name="varmebesparelseGUF", type="float", nullable=true)
    */
   protected $varmebesparelseGUF;
 
@@ -75,7 +75,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="VarmebesparelseGAF", type="float", nullable=true)
+   * @ORM\Column(name="varmebesparelseGAF", type="float", nullable=true)
    */
   protected $varmebesparelseGAF;
 
@@ -83,7 +83,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="Elbesparelse", type="float", nullable=true)
+   * @ORM\Column(name="elbesparelse", type="float", nullable=true)
    */
   protected $elbesparelse;
 
@@ -91,7 +91,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="Vandbesparelse", type="float", nullable=true)
+   * @ORM\Column(name="vandbesparelse", type="float", nullable=true)
    */
   protected $vandbesparelse;
 
@@ -99,7 +99,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="EnergibesparelseAarEt", type="float", nullable=true)
+   * @ORM\Column(name="energibesparelseAarEt", type="float", nullable=true)
    */
   protected $energibesparelseAarEt;
 
@@ -107,7 +107,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="CO2besparelseAarEt", type="float", nullable=true)
+   * @ORM\Column(name="co2besparelseAarEt", type="float", nullable=true)
    */
   protected $co2besparelseAarEt;
 
@@ -154,7 +154,8 @@ abstract class Tiltag {
   /**
    * @var integer
    *
-   * @ORM\Column(name="AntalReinvesteringer", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="antalReinvesteringer", type="integer", nullable=true)
    */
   protected $antalReinvesteringer;
 
