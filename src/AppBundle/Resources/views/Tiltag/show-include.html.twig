@@ -6,31 +6,31 @@
       <tbody>
       <tr>
         <th>{{ 'appbundle.tiltag.varmebesparelseGUF' | trans }}</th>
-        <td>{{ entity.varmebesparelseGUF }}</td>
+        <td>{{ entity.varmebesparelseGUF | format_decimal }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.tiltag.varmebesparelseGAF' | trans }}</th>
-        <td>{{ entity.varmebesparelseGAF }}</td>
+        <td>{{ entity.varmebesparelseGAF | format_decimal }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.tiltag.elbesparelse' | trans }}</th>
-        <td>{{ entity.elbesparelse }}</td>
+        <td>{{ entity.elbesparelse | format_decimal }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.tiltag.vandbesparelse' | trans }}</th>
-        <td>{{ entity.vandbesparelse }}</td>
+        <td>{{ entity.vandbesparelse | format_decimal }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.tiltag.energibesparelseAarEt' | trans }}</th>
-        <td>{{ entity.energibesparelseAarEt }}</td>
+        <td>{{ entity.energibesparelseAarEt | format_decimal }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.tiltag.co2besparelseAarEt' | trans }}</th>
-        <td>{{ entity.co2besparelseAarEt }}</td>
+        <td>{{ entity.co2besparelseAarEt | format_decimal }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.tiltag.antalReinvesteringer' | trans }}</th>
-        <td>{{ entity.antalReinvesteringer }}</td>
+        <td>{{ entity.antalReinvesteringer | format_integer }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.tiltag.faktorForReinvesteringer' | trans }}</th>
@@ -46,7 +46,7 @@
       </tr>
       <tr>
         <th>{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
-        <td>{{ entity.anlaegsInvestering }}</td>
+        <td>{{ entity.anlaegsInvestering | format_decimal }}</td>
       </tr>
       </tbody>
     </table>
@@ -57,12 +57,12 @@
     <table class="table">
       <tbody>
       <tr>
-        <th>{{ 'appbundle.tiltag.dVBesparelse' | trans }}</th>
-        <td>{{ entity.dVBesparelse }}</td>
+        <th>{{ 'appbundle.tiltag.besparelseDogV' | trans }}</th>
+        <td>{{ entity.besparelseDogV | format_decimal }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.tiltag.levetid' | trans }}</th>
-        <td>{{ entity.levetid }}</td>
+        <td>{{ entity.levetid | format_integer }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.tiltag.forsyningVarme' | trans }}</th>

@@ -388,45 +388,45 @@ abstract class Tiltag {
   }
 
   /**
-   * Set anlaegsInvestering
+   * Set anlaegsinvestering
    *
-   * @param string $anlaegsInvestering
+   * @param string $anlaegsinvestering
    * @return Tiltag
    */
-  public function setAnlaegsInvestering($anlaegsInvestering) {
-    $this->anlaegsInvestering = $anlaegsInvestering;
+  public function setAnlaegsinvestering($anlaegsinvestering) {
+    $this->anlaegsinvestering = $anlaegsinvestering;
 
     return $this;
   }
 
   /**
-   * Get anlaegsInvestering
+   * Get anlaegsinvestering
    *
    * @return string
    */
-  public function getAnlaegsInvestering() {
-    return $this->anlaegsInvestering;
+  public function getAnlaegsinvestering() {
+    return $this->anlaegsinvestering;
   }
 
   /**
-   * Set dVBesparelse
+   * Set besparelseDogV
    *
-   * @param string $dVBesparelse
+   * @param string $besparelseDogV
    * @return Tiltag
    */
-  public function setDVBesparelse($dVBesparelse) {
-    $this->dVBesparelse = $dVBesparelse;
+  public function setBesparelseDogV($besparelseDogV) {
+    $this->besparelseDogV = $besparelseDogV;
 
     return $this;
   }
 
   /**
-   * Get dVBesparelse
+   * Get besparelseDogV
    *
    * @return string
    */
-  public function getDVBesparelse() {
-    return $this->dVBesparelse;
+  public function getBesparelseDogV() {
+    return $this->besparelseDogV;
   }
 
   /**
