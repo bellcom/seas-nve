@@ -22,49 +22,49 @@ class Configuration {
    * @ORM\Column(name="id", type="integer")
    * @ORM\Id
    */
-  private $id;
+  protected $id;
 
   /**
    * @var float
    * @ORM\Column(name="rapport_kalkulationsrente", type="decimal", scale=4, nullable=true)
    */
-  private $rapport_kalkulationsrente;
+  protected $rapport_kalkulationsrente;
 
   /**
    * @var float
    * @ORM\Column(name="rapport_inflation", type="decimal", scale=4, nullable=true)
    */
-  private $rapport_inflation;
+  protected $rapport_inflation;
 
   /**
    * @var float
    * @ORM\Column(name="rapport_lobetid", type="decimal", scale=4, nullable=true)
    */
-  private $rapport_lobetid;
+  protected $rapport_lobetid;
 
   /**
    * @var float
    * @ORM\Column(name="rapport_nominelEnergiprisstigning", type="decimal", scale=4, nullable=true)
    */
-  private $rapport_nominelEnergiprisstigning;
+  protected $rapport_nominelEnergiprisstigning;
 
   /**
    * @var float
    * @ORM\Column(name="tekniskisolering_varmeledningsevneEksistLamelmaatter", type="decimal", scale=4, nullable=true)
    */
-  private $tekniskisolering_varmeledningsevneEksistLamelmaatter;
+  protected $tekniskisolering_varmeledningsevneEksistLamelmaatter;
 
   /**
    * @var float
    * @ORM\Column(name="tekniskisolering_varmeledningsevneNyIsolering", type="decimal", scale=4, nullable=true)
    */
-  private $tekniskisolering_varmeledningsevneNyIsolering;
+  protected $tekniskisolering_varmeledningsevneNyIsolering;
 
   /**
    * @var float
    * @ORM\Column(name="solcelle_forringetYdeevnePrAar", type="decimal", scale=4, nullable=true)
    */
-  private $solcelle_forringetYdeevnePrAar;
+  protected $solcelle_forringetYdeevnePrAar;
 
   public function setId($id) {
     $this->id = $id;

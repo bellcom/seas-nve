@@ -14,14 +14,14 @@ class Placering {
    *
    * @var string
    */
-  private $id;
+  protected $id;
 
   /**
    * The name.
    *
    * @var string
    */
-  private $name;
+  protected $name;
 
   /**
    * Get id.

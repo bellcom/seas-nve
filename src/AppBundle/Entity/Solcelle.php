@@ -22,28 +22,28 @@ class Solcelle {
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
    */
-  private $id;
+  protected $id;
 
   /**
    * @var float
    *
    * @ORM\Column(name="KWp", type="decimal", scale=4)
    */
-  private $KWp;
+  protected $KWp;
 
   /**
    * @var float
    *
    * @ORM\Column(name="inverterpris", type="decimal", scale=4)
    */
-  private $inverterpris;
+  protected $inverterpris;
 
   /**
    * @var float
    *
    * @ORM\Column(name="drift", type="decimal", scale=4)
    */
-  private $drift;
+  protected $drift;
 
   public function getId() {
     return $this->id;

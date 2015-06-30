@@ -25,152 +25,152 @@ class Pumpe {
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
    */
-  private $id;
+  protected $id;
 
   /**
    * @var string
    *
    * @ORM\Column(name="NuvaerendeType", type="string", length=255)
    */
-  private $nuvaerendeType;
+  protected $nuvaerendeType;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Byggemaal", type="integer")
    */
-  private $byggemaal;
+  protected $byggemaal;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Tilslutning", type="string", length=25)
    */
-  private $tilslutning;
+  protected $tilslutning;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Indst", type="integer")
    */
-  private $indst;
+  protected $indst;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Forbrug", type="string", length=25)
    */
-  private $forbrug;
+  protected $forbrug;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Q", type="decimal")
    */
-  private $q;
+  protected $q;
 
   /**
    * @var string
    *
    * @ORM\Column(name="H", type="decimal")
    */
-  private $h;
+  protected $h;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Aarsforbrug", type="integer")
    */
-  private $aarsforbrug;
+  protected $aarsforbrug;
 
   /**
    * @var string
    *
    * @ORM\Column(name="NyPumpe", type="string", length=255)
    */
-  private $nyPumpe;
+  protected $nyPumpe;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="NyByggemaal", type="integer")
    */
-  private $nyByggemaal;
+  protected $nyByggemaal;
 
   /**
    * @var string
    *
    * @ORM\Column(name="NyTilslutning", type="string", length=25)
    */
-  private $nyTilslutning;
+  protected $nyTilslutning;
 
   /**
    * @var string
    *
    * @ORM\Column(name="vvsnr", type="string", length=20)
    */
-  private $vvsnr;
+  protected $vvsnr;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="NytAarsforbrug", type="integer")
    */
-  private $nytAarsforbrug;
+  protected $nytAarsforbrug;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Elbesparelse", type="integer")
    */
-  private $elbesparelse;
+  protected $elbesparelse;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Udligningssaet", type="string", length=20)
    */
-  private $udligningssaet;
+  protected $udligningssaet;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Kommentarer", type="string", length=255)
    */
-  private $kommentarer;
+  protected $kommentarer;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="StandInvestering", type="integer", nullable=true)
    */
-  private $standInvestering;
+  protected $standInvestering;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Fabrikant", type="string", length=50)
    */
-  private $fabrikant;
+  protected $fabrikant;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Roerlaengde", type="integer")
    */
-  private $roerlaengde;
+  protected $roerlaengde;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Roerstoerrelse", type="string", length=10)
    */
-  private $roerstoerrelse;
+  protected $roerstoerrelse;
 
   /**
    * @var float
    */
-  private $besparelseVedIsoleringskappe = null;
+  protected $besparelseVedIsoleringskappe = null;
 
   /**
    * Get Name

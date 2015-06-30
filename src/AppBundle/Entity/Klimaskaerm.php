@@ -22,49 +22,49 @@ class Klimaskaerm {
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
    */
-  private $id;
+  protected $id;
 
   /**
    * @var string
    *
    * @ORM\Column(name="post", type="string", length=255)
    */
-  private $post;
+  protected $post;
 
   /**
    * @var string
    *
    * @ORM\Column(name="klimaskaerm", type="string", length=255, nullable=true)
    */
-  private $klimaskaerm;
+  protected $klimaskaerm;
 
   /**
    * @var string
    *
    * @ORM\Column(name="arbejdeOmfang", type="string", length=255, nullable=true)
    */
-  private $arbejdeOmfang;
+  protected $arbejdeOmfang;
 
   /**
    * @var float
    *
    * @ORM\Column(name="enhedsprisEksklMoms", type="decimal", scale=4)
    */
-  private $enhedsprisEksklMoms;
+  protected $enhedsprisEksklMoms;
 
   /**
    * @var string
    *
    * @ORM\Column(name="enhed", type="string", length=255)
    */
-  private $enhed;
+  protected $enhed;
 
   /**
    * @var string
    *
    * @ORM\Column(name="noter", type="text", nullable=true)
    */
-  private $noter;
+  protected $noter;
 
   public function getId() {
     return $this->id;

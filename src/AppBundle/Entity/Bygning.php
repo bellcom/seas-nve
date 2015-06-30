@@ -28,340 +28,340 @@ class Bygning {
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
    */
-  private $id;
+  protected $id;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="BygId", type="integer", nullable=true)
    */
-  private $bygId;
+  protected $bygId;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Ident", type="integer", nullable=true)
    */
-  private $ident;
+  protected $ident;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Enhedsys", type="integer", nullable=true)
    */
-  private $enhedsys;
+  protected $enhedsys;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Enhedskode", type="string", length=255, nullable=true)
    */
-  private $enhedskode;
+  protected $enhedskode;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Type", type="string", length=255, nullable=true)
    */
-  private $type;
+  protected $type;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Kommentarer", type="text", nullable=true)
    */
-  private $kommentarer;
+  protected $kommentarer;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Adresse", type="text", nullable=true)
    */
-  private $adresse;
+  protected $adresse;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Postnummer", type="integer", nullable=true)
    */
-  private $postnummer;
+  protected $postnummer;
 
   /**
    * @var string
    *
    * @ORM\Column(name="PostBy", type="string", length=255, nullable=true)
    */
-  private $postBy;
+  protected $postBy;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Navn", type="string", length=255, nullable=true)
    */
-  private $navn;
+  protected $navn;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Ejer", type="string", length=10, nullable=true)
    */
-  private $ejer;
+  protected $ejer;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Afdelingsnavn", type="string", length=255, nullable=true)
    */
-  private $afdelingsnavn;
+  protected $afdelingsnavn;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Ejer_A", type="string", length=255, nullable=true)
    */
-  private $ejerA;
+  protected $ejerA;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Anvendelse", type="string", length=255, nullable=true)
    */
-  private $anvendelse;
+  protected $anvendelse;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Bruttoetageareal", type="integer", nullable=true)
    */
-  private $bruttoetageareal;
+  protected $bruttoetageareal;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Maalertype", type="string", length=10, nullable=true)
    */
-  private $maalertype;
+  protected $maalertype;
 
   /**
    * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
    * @ORM\JoinColumn(name="vand_forsyningsvaerk_id", referencedColumnName="id")
    **/
-  private $forsyningsvaerkVand;
+  protected $forsyningsvaerkVand;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Kundenummer", type="integer", nullable=true)
    */
-  private $kundenummer;
+  protected $kundenummer;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Kode", type="integer", nullable=true)
    */
-  private $kode;
+  protected $kode;
 
   /**
    * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
    * @ORM\JoinColumn(name="varme_forsyningsvaerk_id", referencedColumnName="id")
    **/
-  private $forsyningsvaerkVarme;
+  protected $forsyningsvaerkVarme;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Kundenr_1", type="integer", nullable=true)
    */
-  private $kundenr1;
+  protected $kundenr1;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Kode_1", type="integer", nullable=true)
    */
-  private $kode1;
+  protected $kode1;
 
   /**
    * @var string
    *
    * @ORM\Column(name="MaalerskifteAFV", type="string", length=10, nullable=true)
    */
-  private $maalerskifteAFV;
+  protected $maalerskifteAFV;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="AFVInstnr_1", type="integer", nullable=true)
    */
-  private $aFVInstnr1;
+  protected $aFVInstnr1;
 
   /**
    * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
    * @ORM\JoinColumn(name="el_forsyningsvaerk_id", referencedColumnName="id")
    **/
-  private $forsyningsvaerkEl;
+  protected $forsyningsvaerkEl;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Instnr", type="string", length=255, nullable=true)
    */
-  private $instnr;
+  protected $instnr;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Kundenr_NRGI", type="integer", nullable=true)
    */
-  private $kundenrNRGI;
+  protected $kundenrNRGI;
 
   /**
    * @var string
    *
    * @ORM\Column(name="internetkode", type="string", length=255, nullable=true)
    */
-  private $internetkode;
+  protected $internetkode;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Aftagenr", type="integer", nullable=true)
    */
-  private $aftagenr;
+  protected $aftagenr;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Telefon", type="integer", nullable=true)
    */
-  private $telefon;
+  protected $telefon;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Divisionnavn", type="string", length=255, nullable=true)
    */
-  private $divisionnavn;
+  protected $divisionnavn;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Omraadenavn", type="string", length=255, nullable=true)
    */
-  private $omraadenavn;
+  protected $omraadenavn;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Kommune", type="integer", nullable=true)
    */
-  private $kommune;
+  protected $kommune;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Ejerforhold", type="integer", nullable=true)
    */
-  private $ejerforhold;
+  protected $ejerforhold;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Ansvarlig", type="string", length=255, nullable=true)
    */
-  private $ansvarlig;
+  protected $ansvarlig;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Magistrat", type="string", length=10, nullable=true)
    */
-  private $magistrat;
+  protected $magistrat;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Lokation", type="integer", nullable=true)
    */
-  private $lokation;
+  protected $lokation;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Lokationsnavn", type="string", length=255, nullable=true)
    */
-  private $lokationsnavn;
+  protected $lokationsnavn;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Lederbetegnelse", type="string", length=255, nullable=true)
    */
-  private $lederbetegnelse;
+  protected $lederbetegnelse;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Ledersnavn", type="string", length=255, nullable=true)
    */
-  private $ledersnavn;
+  protected $ledersnavn;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Ledersmail", type="string", length=255, nullable=true)
    */
-  private $ledersmail;
+  protected $ledersmail;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Kontakt_Notat", type="string", length=255, nullable=true)
    */
-  private $kontaktNotat;
+  protected $kontaktNotat;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Stamdata_Notat", type="string", length=255, nullable=true)
    */
-  private $stamdataNotat;
+  protected $stamdataNotat;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Vand_Notat", type="string", length=255, nullable=true)
    */
-  private $vandNotat;
+  protected $vandNotat;
 
   /**
    * @var string
    *
    * @ORM\Column(name="El_Notat", type="string", length=255, nullable=true)
    */
-  private $elNotat;
+  protected $elNotat;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Varme_Notat", type="string", length=255, nullable=true)
    */
-  private $varmeNotat;
+  protected $varmeNotat;
 
   /**
    * @OneToMany(targetEntity="Rapport", mappedBy="bygning")
    * @OrderBy({"datering" = "ASC"})
    * @JMS\Exclude
    **/
-  private $rapporter;
+  protected $rapporter;
 
   /**
    * @ManyToMany(targetEntity="User", inversedBy="bygninger")
    * @JoinTable(name="bygning_user")
    * @JMS\Exclude
    **/
-  private $users;
+  protected $users;
 
   public function __construct() {
     $this->rapporter = new ArrayCollection();

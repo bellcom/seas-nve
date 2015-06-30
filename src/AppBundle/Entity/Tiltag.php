@@ -54,14 +54,14 @@ abstract class Tiltag {
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
    */
-  private $id;
+  protected $id;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Title", type="string", length=255, nullable=true)
    */
-  private $title;
+  protected $title;
 
   /**
    * @var float
@@ -69,7 +69,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="VarmebesparelseGUF", type="float", nullable=true)
    */
-  private $varmebesparelseGUF;
+  protected $varmebesparelseGUF;
 
   /**
    * @var float
@@ -77,7 +77,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="VarmebesparelseGAF", type="float", nullable=true)
    */
-  private $varmebesparelseGAF;
+  protected $varmebesparelseGAF;
 
   /**
    * @var float
@@ -85,7 +85,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="Elbesparelse", type="float", nullable=true)
    */
-  private $elbesparelse;
+  protected $elbesparelse;
 
   /**
    * @var float
@@ -93,7 +93,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="Vandbesparelse", type="float", nullable=true)
    */
-  private $vandbesparelse;
+  protected $vandbesparelse;
 
   /**
    * @var float
@@ -101,7 +101,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="EnergibesparelseAarEt", type="float", nullable=true)
    */
-  private $energibesparelseAarEt;
+  protected $energibesparelseAarEt;
 
   /**
    * @var float
@@ -109,119 +109,152 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="CO2besparelseAarEt", type="float", nullable=true)
    */
-  private $co2besparelseAarEt;
+  protected $co2besparelseAarEt;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="anlaegsinvestering", type="float", nullable=true)
+   */
+  protected $anlaegsinvestering;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="simpelTilbagebetalingstidAar", type="float", nullable=true)
+   */
+  protected $simpelTilbagebetalingstidAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float", nullable=true)
+   */
+  protected $nutidsvaerdiSetOver15AarKr;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="scrapvaerdi", type="float", nullable=true)
+   */
+  protected $scrapvaerdi;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="reinvestering", type="float", nullable=true)
+   */
+  protected $reinvestering;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="AntalReinvesteringer", type="integer", nullable=true)
    */
-  private $antalReinvesteringer;
+  protected $antalReinvesteringer;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="FaktorForReinvesteringer", type="integer", nullable=true)
    */
-  private $faktorForReinvesteringer;
+  protected $faktorForReinvesteringer;
 
   /**
    * @var string
    *
    * @ORM\Column(name="PrimaerEnterprise", type="string", length=50, nullable=true)
    */
-  private $primaerEnterprise;
+  protected $primaerEnterprise;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Tiltagskategori", type="string", length=50, nullable=true)
    */
-  private $tiltagskategori;
+  protected $tiltagskategori;
 
   /**
-   * @var string
+   * @var float
    *
-   * @ORM\Column(name="AnlaegsInvestering", type="decimal", nullable=true)
+   * @ORM\Column(name="besparelseDogV", type="decimal", nullable=true)
    */
-  private $anlaegsInvestering;
+  protected $besparelseDogV;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="DVBesparelse", type="decimal", nullable=true)
-   */
-  private $dVBesparelse;
-
-  /**
-   * @var string
+   * @var float
    *
    * @ORM\Column(name="Levetid", type="decimal", nullable=true)
    */
-  private $levetid;
+  protected $levetid;
 
   /**
    * @var string
    *
    * @ORM\Column(name="ForsyningVarme", type="string", length=50, nullable=true)
    */
-  private $forsyningVarme;
+  protected $forsyningVarme;
 
   /**
    * @var string
    *
    * @ORM\Column(name="ForsyningEl", type="string", length=50, nullable=true)
    */
-  private $forsyningEl;
+  protected $forsyningEl;
 
   /**
    * @var string
    *
    * @ORM\Column(name="BeskrivelseNuvaerende", type="text", nullable=true)
    */
-  private $beskrivelseNuvaerende;
+  protected $beskrivelseNuvaerende;
 
   /**
    * @var string
    *
    * @ORM\Column(name="BeskrivelseForslag", type="text", nullable=true)
    */
-  private $beskrivelseForslag;
+  protected $beskrivelseForslag;
 
   /**
    * @var string
    *
    * @ORM\Column(name="BeskrivelseOevrige", type="text", nullable=true)
    */
-  private $beskrivelseOevrige;
+  protected $beskrivelseOevrige;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Risikovurdering", type="string", length=10, nullable=true)
    */
-  private $risikovurdering;
+  protected $risikovurdering;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Placering", type="string", length=255, nullable=true)
    */
-  private $placering;
+  protected $placering;
 
   /**
    * @var string
    *
    * @ORM\Column(name="BeskrivelseBV", type="text", nullable=true)
    */
-  private $beskrivelseBV;
+  protected $beskrivelseBV;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Indeklima", type="text", nullable=true)
    */
-  private $indeklima;
+  protected $indeklima;
 
   /**
    * @var Rapport
@@ -229,7 +262,7 @@ abstract class Tiltag {
    * @ManyToOne(targetEntity="Rapport", inversedBy="tiltag")
    * @JoinColumn(name="rapport_id", referencedColumnName="id")
    **/
-  private $rapport;
+  protected $rapport;
 
   /**
    * Get Name
@@ -760,7 +793,7 @@ abstract class Tiltag {
    * @OrderBy({"createdAt" = "ASC"})
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\TiltagDetail>")
    */
-  private $details;
+  protected $details;
 
   /**
    * Add a TiltagDetail to this Tiltag

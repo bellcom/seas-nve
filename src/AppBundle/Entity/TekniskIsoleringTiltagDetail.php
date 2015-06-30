@@ -17,35 +17,35 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    *
    * @ORM\Column(name="beskrivelseType", type="text")
    */
-  private $beskrivelseType;
+  protected $beskrivelseType;
 
   /**
    * @var string
    *
    * @ORM\Column(name="type", type="string", length=255)
    */
-  private $type;
+  protected $type;
 
   /**
    * @var float
    *
    * @ORM\Column(name="driftstidTAar", type="decimal", scale=4)
    */
-  private $driftstidTAar;
+  protected $driftstidTAar;
 
   /**
    * @var float
    *
    * @ORM\Column(name="udvDiameterMm", type="decimal", scale=4)
    */
-  private $udvDiameterMm;
+  protected $udvDiameterMm;
 
   /**
    * @var float
    *
    * @ORM\Column(name="eksistIsolMm", type="decimal", scale=4)
    */
-  private $eksistIsolMm;
+  protected $eksistIsolMm;
 
   /**
    * @var float
@@ -53,49 +53,49 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="roerstoerrelseMmAekvivalent", type="float")
    */
-  private $roerstoerrelseMmAekvivalent;
+  protected $roerstoerrelseMmAekvivalent;
 
   /**
    * @var float
    *
    * @ORM\Column(name="tankVolL", type="decimal", scale=4)
    */
-  private $tankVolL;
+  protected $tankVolL;
 
   /**
    * @var float
    *
    * @ORM\Column(name="tempOmgivelC", type="decimal", scale=4)
    */
-  private $tempOmgivelC;
+  protected $tempOmgivelC;
 
   /**
    * @var float
    *
    * @ORM\Column(name="tempMedieC", type="decimal", scale=4)
    */
-  private $tempMedieC;
+  protected $tempMedieC;
 
   /**
    * @var float
    *
    * @ORM\Column(name="roerlaengdeEllerHoejdeAfVvbM", type="decimal", scale=4)
    */
-  private $roerlaengdeEllerHoejdeAfVvbM;
+  protected $roerlaengdeEllerHoejdeAfVvbM;
 
   /**
    * @var float
    *
    * @ORM\Column(name="nyttiggjortVarme", type="decimal", scale=4)
    */
-  private $nyttiggjortVarme;
+  protected $nyttiggjortVarme;
 
   /**
    * @var float
    *
    * @ORM\Column(name="nyIsolMm", type="decimal", scale=4)
    */
-  private $nyIsolMm;
+  protected $nyIsolMm;
 
   /**
    * @var float
@@ -103,7 +103,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="varmeledningsevnePaaEksistIsoleringWMK", type="float")
    */
-  private $varmeledningsevnePaaEksistIsoleringWMK;
+  protected $varmeledningsevnePaaEksistIsoleringWMK;
 
   /**
    * @var float
@@ -111,7 +111,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="varmeledningsevnePaaNyIsoleringWMK", type="float")
    */
-  private $varmeledningsevnePaaNyIsoleringWMK;
+  protected $varmeledningsevnePaaNyIsoleringWMK;
 
   /**
    * @var float
@@ -119,21 +119,21 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="arealAfBeholderM2", type="float")
    */
-  private $arealAfBeholderM2;
+  protected $arealAfBeholderM2;
 
   /**
    * @var float
    *
    * @ORM\Column(name="standardinvestKrM2EllerKrM", type="decimal", scale=4)
    */
-  private $standardinvestKrM2EllerKrM;
+  protected $standardinvestKrM2EllerKrM;
 
   /**
    * @var float
    *
    * @ORM\Column(name="prisfaktor", type="decimal", scale=4)
    */
-  private $prisfaktor;
+  protected $prisfaktor;
 
   /**
    * @var float
@@ -141,7 +141,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="investeringKr", type="float")
    */
-  private $investeringKr;
+  protected $investeringKr;
 
   /**
    * @var float
@@ -149,7 +149,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="eksistVarmetabKwh", type="float")
    */
-  private $eksistVarmetabKwh;
+  protected $eksistVarmetabKwh;
 
   /**
    * @var float
@@ -157,7 +157,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="nytVarmetabKwh", type="float")
    */
-  private $nytVarmetabKwh;
+  protected $nytVarmetabKwh;
 
   /**
    * @var float
@@ -165,7 +165,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="varmebespKwhAar", type="float")
    */
-  private $varmebespKwhAar;
+  protected $varmebespKwhAar;
 
   /**
    * @var float
@@ -173,7 +173,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="simpelTilbagebetalingstidAar", type="float")
    */
-  private $simpelTilbagebetalingstidAar;
+  protected $simpelTilbagebetalingstidAar;
 
   /**
    * @var float
@@ -181,7 +181,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float")
    */
-  private $nutidsvaerdiSetOver15AarKr;
+  protected $nutidsvaerdiSetOver15AarKr;
 
   /**
    * @var float
@@ -189,7 +189,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="kwhBesparelseElFraVaerket", type="float")
    */
-  private $kwhBesparelseElFraVaerket;
+  protected $kwhBesparelseElFraVaerket;
 
   /**
    * @var float
@@ -197,7 +197,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="kwhBesparelseVarmeFraVaerket", type="float")
    */
-  private $kwhBesparelseVarmeFraVaerket;
+  protected $kwhBesparelseVarmeFraVaerket;
 
   public function setBeskrivelseType($beskrivelseType) {
     $this->beskrivelseType = $beskrivelseType;
