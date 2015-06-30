@@ -73,6 +73,25 @@ abstract class EntityTestCase extends KernelTestCase {
   }
 
   /**
+   * Get test class name for an entity.
+   *
+   * @param object $entity
+   *   The entity.
+   *
+   * @return string
+   *   The entity test class name.
+   */
+  protected function getTestClassName($entity) {
+    $className = get_class($entity);
+    $testClassName = preg_replace('/AppBundle\\\\/', 'AppBundle\\Tests\\', $this->detailClassName) . 'Test';
+    return $testClassName;
+  }
+
+  public function loadProperties(array $properties) {
+    return $properties;
+  }
+
+  /**
    * Load test fixtures from file
    *
    * @param string $type

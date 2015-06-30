@@ -56,6 +56,10 @@ class LoadRapport extends LoadData {
       $this->workbook = $reader->load($filepath);
       $this->writeInfo('Done. %s', (new \DateTime())->format('c'));
 
+      $this->isSelected = function($value) {
+        return $value == 'x';
+      };
+
       $this->loadForsyningsvaerker();
       $this->loadSolceller();
       $this->loadBygning();
@@ -378,6 +382,8 @@ class LoadRapport extends LoadData {
       ->setLobetid($sheet->getCell('AN23')->getValue());
   }
 
+  private $tiltagCalculatedValues;
+
   /**
    * Load a Tiltag with properties shared by all Tiltag
    */
@@ -401,6 +407,30 @@ class LoadRapport extends LoadData {
       $tiltag->setBeskrivelseNuvaerende($tokens[1]);
       $tiltag->setBeskrivelseForslag($tokens[2]);
       $tiltag->setBeskrivelseOevrige($tokens[3]);
+    }
+
+    // Calculated values.
+    $calculatedValues = array(
+      'varmebesparelseGUF' => 'C4',
+      'varmebesparelseGAF' => 'C5',
+      'elbesparelse' => 'C6',
+      'vandbesparelse' => 'C7',
+      'energibesparelseAarEt' => 'C8',
+      'co2besparelseAarEt' => 'C9',
+      'antalReinvesteringer' => 'C10',
+      'anlaegsinvestering' => 'G4',
+      'besparelseDogV' => 'G5',
+      'besparelseStrafafkoelingsafgift' => 'G6',
+      'simpelTilbagebetalingstidAar' => 'G8',
+      'nutidsvaerdiSetOver15AarKr' => 'G9',
+      'scrapvaerdi' => 'G10',
+      'reinvestering' => 'G11',
+    );
+
+    $this->tiltagCalculatedValues = array();
+    foreach ($calculatedValues as $key => $cell) {
+      $value = floatval($sheet->getCell($cell)->getOldCalculatedValue());
+      $this->tiltagCalculatedValues[$key] = $value;
     }
 
     return $tiltag;
@@ -437,8 +467,8 @@ class LoadRapport extends LoadData {
   private function loadTekniskIsoleringTiltagDetail(TekniskIsoleringTiltag $tiltag, \PHPExcel_Worksheet $sheet) {
     // Column name => class property (, type)
     $columnMapping = array(
-      'I' => array('laastAfEnergiraadgiver', 'boolean'),
-      'J' => array('tilvalgt', 'boolean'),
+      'I' => array('laastAfEnergiraadgiver', $this->isSelected),
+      'J' => array('tilvalgt', $this->isSelected),
       'K' => 'beskrivelseType',
       'L' => 'type',
       'M' => 'driftstidTAar',
@@ -501,8 +531,8 @@ class LoadRapport extends LoadData {
   private function loadBelysningTiltagDetail(BelysningTiltag $tiltag, \PHPExcel_Worksheet $sheet) {
     $columnMapping = array(
       // Column name => class property (, type)
-      'I' => array('laastAfEnergiraadgiver', 'boolean'),
-      'J' => array('tilvalgt', 'boolean'),
+      'I' => array('laastAfEnergiraadgiver', $this->isSelected),
+      'J' => array('tilvalgt', $this->isSelected),
       'K' => 'lokale_navn',
       // 'L' => '',
       'M' => 'lokale_type',
@@ -751,8 +781,8 @@ class LoadRapport extends LoadData {
   private function loadPumpeTiltagDetail(PumpeTiltag $tiltag, \PHPExcel_Worksheet $sheet) {
     // Column name => class property (, type)
     $columnMapping = array(
-      'I' => array('laastAfEnergiraadgiver', 'boolean'),
-      'J' => array('tilvalgt', 'boolean'),
+      'I' => array('laastAfEnergiraadgiver', $this->isSelected),
+      'J' => array('tilvalgt', $this->isSelected),
       'K' => 'pumpeID',
       'L' => 'forsyningsomraade',
       'M' => 'placering',
@@ -819,8 +849,8 @@ class LoadRapport extends LoadData {
   private function loadKlimaskaermTiltagDetail(KlimaskaermTiltag $tiltag, \PHPExcel_Worksheet $sheet) {
     // Column name => class property (, type)
     $columnMapping = array(
-      'I' => array('laastAfEnergiraadgiver', 'boolean'),
-      'J' => array('tilvalgt', 'boolean'),
+      'I' => array('laastAfEnergiraadgiver', $this->isSelected),
+      'J' => array('tilvalgt', $this->isSelected),
       'M' => 'typePlaceringJfPlantegning',
       'N' => 'hoejdeElLaengdeM',
       'O' => 'breddeM',
@@ -874,8 +904,8 @@ class LoadRapport extends LoadData {
     }
 
     $columnMapping = array(
-      'H' => array('laastAfEnergiraadgiver', 'boolean'),
-      'I' => array('tilvalgt', 'boolean'),
+      'H' => array('laastAfEnergiraadgiver', $this->isSelected),
+      'I' => array('tilvalgt', $this->isSelected),
       'J' => 'anlaegsstoerrelseKWp',
       'K' => 'produktionKWh',
       'L' => 'tilNettetPct',
@@ -965,9 +995,7 @@ class LoadRapport extends LoadData {
       $first = false;
     }
 
-    if (getenv('DUMP_UNITTEST_DATA')) {
-      $this->dumpUnittestData($sheet, $columns, $data, $tiltag, getenv('DUMP_UNITTEST_DATA'));
-    }
+    $this->dumpUnittestData($sheet, $columns, $data, $tiltag);
 
     return array($inputData, $inputColumns);
   }
@@ -991,7 +1019,9 @@ class LoadRapport extends LoadData {
     return \PHPExcel_Shared_Date::ExcelToPHPObject($cell->getValue());
   }
 
-  private function dumpUnittestData(\PHPExcel_Worksheet $sheet, array $columns, array $cells, Tiltag $tiltag, $formats) {
+  private function dumpUnittestData(\PHPExcel_Worksheet $sheet, array $columns, array $cells, Tiltag $tiltag) {
+    $formats = getenv('DUMP_UNITTEST_DATA') ? preg_split('/\s*,\s*/', getenv('DUMP_UNITTEST_DATA')) : array();
+
     $calculatedCells = $this->getCalculatedCells($cells, $sheet);
     $inputColumns = array_filter($columns, function($column) { return !$column['calculated']; });
     $inputData = array();
@@ -1021,31 +1051,9 @@ class LoadRapport extends LoadData {
       $first = false;
     }
 
-    $type = null;
+    $type = preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', get_class($tiltag));
 
-    switch ($sheet->getTitle()) {
-      case 'Detailark (1)':
-        $type = 'SolcelleTiltagDetail';
-        break;
-
-      case 'Detailark (3)':
-        $type = 'TekniskIsoleringTiltagDetail';
-        break;
-
-      case 'Detailark (4)':
-        $type = 'BelysningTiltagDetail';
-        break;
-
-      case 'Detailark (5)':
-        $type = 'PumpeTiltagDetail';
-        break;
-
-      case 'Detailark (7)':
-        $type = 'KlimaskaermTiltagDetail';
-        break;
-    }
-
-    if (stripos($formats, 'json') !== false) {
+    if (in_array('json', $formats)) {
       echo PHP_EOL, '=== JSON ' . $type .' start =============================================================================', PHP_EOL;
       echo json_encode(array(
         'type' => $type,
@@ -1056,9 +1064,9 @@ class LoadRapport extends LoadData {
       echo PHP_EOL, '=== JSON ' . $type .' end ===============================================================================', PHP_EOL;
     }
 
-    if (stripos($formats, 'php') !== false) {
+    if (in_array('php', $formats)) {
       if ($type) {
-        $tests = array();
+        $details = array();
         foreach ($inputData as $rowId => $inputRow) {
           $properties = $this->mapRow($inputRow, $columns);
           foreach ($properties as $key => $value) {
@@ -1067,7 +1075,10 @@ class LoadRapport extends LoadData {
             }
           }
           $expected = $this->mapRow($calculatedData[$rowId], $columns);
-          $tests[] = array($properties, $expected);
+          $details[] = array(
+            'input' => $properties,
+            'calculated' => $expected,
+          );
         }
 
         $testFixturesPath = null;
@@ -1084,9 +1095,14 @@ class LoadRapport extends LoadData {
         if ($testFixturesPath) {
           $filepath = $testFixturesPath . $type . '.data.' . $this->name;
           $content = json_encode(array(
-            'tests' => $tests,
-            'tiltag' => $this->getProperties($tiltag),
-            'rapport' => $this->getProperties($tiltag->getRapport(), array('bygning')),
+            'details' => $details,
+            'tiltag' => array(
+              'input' => $this->getProperties($tiltag),
+              'calculated' => $this->tiltagCalculatedValues,
+            ),
+            'rapport' => array(
+              'input' => $this->getProperties($tiltag->getRapport(), array('bygning')),
+            ),
             'bygning' => $this->getProperties($tiltag->getRapport()->getBygning()),
             'bygning.forsyningsvaerkVarme' => $this->getProperties($tiltag->getRapport()->getBygning()->getForsyningsvaerkVarme()),
             'bygning.forsyningsvaerkEl' => $this->getProperties($tiltag->getRapport()->getBygning()->getForsyningsvaerkEl()),
