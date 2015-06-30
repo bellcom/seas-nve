@@ -372,6 +372,10 @@ appbundle:
     beskrivelseBV: ﻿Beskrivelse af ændringer til D&V udgifter samt fremtidigt timeforbrug for driftspersonale
     indeklima: Indeklima
     rapport: Rapport
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    scrapvaerdi: Scrapævrdi
+    reinvestering: Reinvestering
   tiltagdetail:
     tilvalgt: Tilvalgt
 
