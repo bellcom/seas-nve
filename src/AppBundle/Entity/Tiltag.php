@@ -304,18 +304,6 @@ abstract class Tiltag {
   }
 
   /**
-   * Set vandbesparelse
-   *
-   * @param float $vandbesparelse
-   * @return Tiltag
-   */
-  public function setVandbesparelse($vandbesparelse) {
-    $this->vandbesparelse = $vandbesparelse;
-
-    return $this;
-  }
-
-  /**
    * Get vandbesparelse
    *
    * @return float
@@ -385,18 +373,6 @@ abstract class Tiltag {
    */
   public function getTiltagskategori() {
     return $this->tiltagskategori;
-  }
-
-  /**
-   * Set anlaegsinvestering
-   *
-   * @param string $anlaegsinvestering
-   * @return Tiltag
-   */
-  public function setAnlaegsinvestering($anlaegsinvestering) {
-    $this->anlaegsinvestering = $anlaegsinvestering;
-
-    return $this;
   }
 
   /**
@@ -661,36 +637,12 @@ abstract class Tiltag {
   }
 
   /**
-   * Set varmebesparelseGUF;
-   *
-   * @param float $varmebesparelseGUF;
-   * @return Tiltag
-   */
-  public function setVarmebesparelseGUF($varmebesparelseGUF) {
-    $this->varmebesparelseGUF = $varmebesparelseGUF;
-
-    return $this;
-  }
-
-  /**
    * Get varmebesparelseGUF;
    *
    * @return float
    */
   public function getVarmebesparelseGUF() {
     return $this->varmebesparelseGUF;
-  }
-
-  /**
-   * Set varmebesparelseGAF
-   *
-   * @param float $varmebesparelseGAF
-   * @return Tiltag
-   */
-  public function setVarmebesparelseGAF($varmebesparelseGAF) {
-    $this->varmebesparelseGAF = $varmebesparelseGAF;
-
-    return $this;
   }
 
   /**
@@ -703,36 +655,12 @@ abstract class Tiltag {
   }
 
   /**
-   * Set elbesparelse
-   *
-   * @param float $elbesparelse
-   * @return Tiltag
-   */
-  public function setElbesparelse($elbesparelse) {
-    $this->elbesparelse = $elbesparelse;
-
-    return $this;
-  }
-
-  /**
    * Get elbesparelse
    *
    * @return float
    */
   public function getElbesparelse() {
     return $this->elbesparelse;
-  }
-
-  /**
-   * Set energibesparelseAarEt
-   *
-   * @param float $energibesparelseAarEt
-   * @return Tiltag
-   */
-  public function setEnergibesparelseAarEt($energibesparelseAarEt) {
-    $this->energibesparelseAarEt = $energibesparelseAarEt;
-
-    return $this;
   }
 
   /**
@@ -745,18 +673,6 @@ abstract class Tiltag {
   }
 
   /**
-   * Set co2besparelseAarEt
-   *
-   * @param float $co2besparelseAarEt
-   * @return Tiltag
-   */
-  public function setCo2besparelseAarEt($co2besparelseAarEt) {
-    $this->co2besparelseAarEt = $co2besparelseAarEt;
-
-    return $this;
-  }
-
-  /**
    * Get co2besparelseAarEt
    *
    * @return float
@@ -766,24 +682,48 @@ abstract class Tiltag {
   }
 
   /**
-   * Set antalReinvesteringer
-   *
-   * @param integer $antalReinvesteringer
-   * @return Tiltag
-   */
-  public function setAntalReinvesteringer($antalReinvesteringer) {
-    $this->antalReinvesteringer = $antalReinvesteringer;
-
-    return $this;
-  }
-
-  /**
    * Get antalReinvesteringer
    *
    * @return integer
    */
   public function getAntalReinvesteringer() {
     return $this->antalReinvesteringer;
+  }
+
+  /**
+   * Get simpelTilbagebetalingstidAar.
+   *
+   * @return float
+   */
+  public function getSimpelTilbagebetalingstidAar() {
+    return $this->simpelTilbagebetalingstidAar;
+  }
+
+  /**
+   * Get nutidsvaerdiSetOver15AarKr.
+   *
+   * @return float
+   */
+  public function getNutidsvaerdiSetOver15AarKr() {
+    return $this->nutidsvaerdiSetOver15AarKr;
+  }
+
+  /**
+   * Get scrapvaerdi.
+   *
+   * @return float
+   */
+  public function getScrapvaerdi() {
+    return $this->scrapvaerdi;
+  }
+
+  /**
+   * Get reinvestering.
+   *
+   * @return float
+   */
+  public function getReinvestering() {
+    return $this->reinvestering;
   }
 
   /**
