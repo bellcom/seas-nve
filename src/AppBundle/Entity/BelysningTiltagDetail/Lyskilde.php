@@ -26,42 +26,42 @@ class Lyskilde {
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
    */
-  private $id;
+  protected $id;
 
   /**
    * @var string
    *
    * @ORM\Column(name="navn", type="string", length=255)
    */
-  private $navn;
+  protected $navn;
 
   /**
    * @var string
    *
    * @ORM\Column(name="type", type="string", length=255)
    */
-  private $type;
+  protected $type;
 
   /**
    * @var string
    *
    * @ORM\Column(name="forkobling", type="string", length=255)
    */
-  private $forkobling;
+  protected $forkobling;
 
   /**
    * @var float
    *
    * @ORM\Column(name="udgift", type="decimal", scale=2)
    */
-  private $udgift;
+  protected $udgift;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="levetid", type="integer")
    */
-  private $levetid;
+  protected $levetid;
 
 
   /**

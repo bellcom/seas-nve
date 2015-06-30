@@ -23,76 +23,76 @@ class PumpeTiltagDetail extends TiltagDetail {
    *
    * @ORM\Column(name="PumpeID", type="string", length=50)
    */
-  private $pumpeID;
+  protected $pumpeID;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Forsyningsomraade", type="string", length=255)
    */
-  private $forsyningsomraade;
+  protected $forsyningsomraade;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Placering", type="string", length=255)
    */
-  private $placering;
+  protected $placering;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Applikation", type="string", length=10)
    */
-  private $applikation;
+  protected $applikation;
 
   /**
    * @var boolean
    *
    * @ORM\Column(name="Isoleringskappe", type="boolean")
    */
-  private $isoleringskappe = false;
+  protected $isoleringskappe = false;
 
   /**
    * @var string
    *
    * @ORM\Column(name="bFaktor", type="decimal", scale=4)
    */
-  private $bFaktor;
+  protected $bFaktor;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Noter", type="text")
    */
-  private $noter;
+  protected $noter;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="EksisterendeDrifttid", type="integer")
    */
-  private $eksisterendeDrifttid;
+  protected $eksisterendeDrifttid;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="NyDrifttid", type="integer")
    */
-  private $nyDrifttid;
+  protected $nyDrifttid;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Prisfaktor", type="decimal")
    */
-  private $prisfaktor;
+  protected $prisfaktor;
 
   /**
    * @ManyToOne(targetEntity="Pumpe")
    * @JoinColumn(name="pumpe_id", referencedColumnName="id")
    **/
-  private $pumpe;
+  protected $pumpe;
 
   /**
    * @var float
@@ -100,7 +100,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="pristillaeg", type="float")
    */
-  private $pristillaeg;
+  protected $pristillaeg;
 
   /**
    * @var float
@@ -108,7 +108,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="samletInvesteringInklPristillaeg", type="float")
    */
-  private $samletInvesteringInklPristillaeg;
+  protected $samletInvesteringInklPristillaeg;
 
   /**
    * @var float
@@ -116,7 +116,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="elforbrugVedNyeDriftstidKWhAar", type="float")
    */
-  private $elforbrugVedNyeDriftstidKWhAar;
+  protected $elforbrugVedNyeDriftstidKWhAar;
 
   /**
    * @var float
@@ -124,7 +124,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="elbespKWhAar", type="float")
    */
-  private $elbespKWhAar;
+  protected $elbespKWhAar;
 
   /**
    * @var float
@@ -132,7 +132,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="varmebespIsokappeKWh", type="float")
    */
-  private $varmebespIsokappeKWh;
+  protected $varmebespIsokappeKWh;
 
   /**
    * @var float
@@ -140,7 +140,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="simpelTilbagebetalingstidAar", type="float")
    */
-  private $simpelTilbagebetalingstidAar;
+  protected $simpelTilbagebetalingstidAar;
 
   /**
    * @var float
@@ -148,7 +148,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float")
    */
-  private $nutidsvaerdiSetOver15AarKr;
+  protected $nutidsvaerdiSetOver15AarKr;
 
   /**
    * @var float
@@ -156,7 +156,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="kwhBesparelseElFraVaerket", type="float")
    */
-  private $kwhBesparelseElFraVaerket;
+  protected $kwhBesparelseElFraVaerket;
 
   /**
    * @var float
@@ -164,7 +164,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="kwhBesparelseVarmeFraVaerket", type="float")
    */
-  private $kwhBesparelseVarmeFraVaerket;
+  protected $kwhBesparelseVarmeFraVaerket;
 
   /**
    * Set pumpeID

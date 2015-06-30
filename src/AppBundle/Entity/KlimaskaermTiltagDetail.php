@@ -17,14 +17,14 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    *
    * @ORM\Column(name="type", type="string")
    */
-  private $type; // "klimaskaerm" / "vindue"
+  protected $type; // "klimaskaerm" / "vindue"
 
   /**
    * @var string
    *
    * @ORM\Column(name="vindue_orientering", type="string", nullable=true)
    */
-  private $vindue_orientering; // "nord", "syd", "øst", "vest"
+  protected $vindue_orientering; // "nord", "syd", "øst", "vest"
 
   /**
    * @var Klimaskaerm
@@ -32,105 +32,105 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @ORM\ManyToOne(targetEntity="Klimaskaerm")
    * @ORM\JoinColumn(name="klimaskaerm_id", referencedColumnName="id")
    **/
-  private $klimaskaerm;
+  protected $klimaskaerm;
 
   /**
    * @var string
    *
    * @ORM\Column(name="typePlaceringJfPlantegning", type="string")
    */
-  private $typePlaceringJfPlantegning;
+  protected $typePlaceringJfPlantegning;
 
   /**
    * @var float
    *
    * @ORM\Column(name="hoejdeElLaengdeM", type="decimal", scale=4)
    */
-  private $hoejdeElLaengdeM;
+  protected $hoejdeElLaengdeM;
 
   /**
    * @var float
    *
    * @ORM\Column(name="breddeM", type="decimal", scale=4)
    */
-  private $breddeM;
+  protected $breddeM;
 
   /**
    * @var string
    *
    * @ORM\Column(name="antalStk", type="string")
    */
-  private $antalStk;
+  protected $antalStk;
 
   /**
    * @var float
    *
    * @ORM\Column(name="andelAfArealDerEfterisoleres", type="decimal", scale=4)
    */
-  private $andelAfArealDerEfterisoleres;
+  protected $andelAfArealDerEfterisoleres;
 
   /**
    * @var float
    *
    * @ORM\Column(name="uEksWM2K", type="decimal", scale=4)
    */
-  private $uEksWM2K;
+  protected $uEksWM2K;
 
   /**
    * @var float
    *
    * @ORM\Column(name="uNyWM2K", type="decimal", scale=4)
    */
-  private $uNyWM2K;
+  protected $uNyWM2K;
 
   /**
    * @var float
    *
    * @ORM\Column(name="tIndeC", type="decimal", scale=4)
    */
-  private $tIndeC;
+  protected $tIndeC;
 
   /**
    * @var float
    *
    * @ORM\Column(name="tUdeC", type="decimal", scale=4)
    */
-  private $tUdeC;
+  protected $tUdeC;
 
   /**
    * @var float
    *
    * @ORM\Column(name="tOpvarmningTimerAar", type="decimal", scale=4)
    */
-  private $tOpvarmningTimerAar;
+  protected $tOpvarmningTimerAar;
 
   /**
    * @var float
    *
    * @ORM\Column(name="yderligereBesparelserPct", type="decimal", scale=4)
    */
-  private $yderligereBesparelserPct;
+  protected $yderligereBesparelserPct;
 
   /**
    * @var float
    *
    * @ORM\Column(name="prisfaktor", type="decimal", scale=4)
    */
-  private $prisfaktor;
+  protected $prisfaktor;
 
   /**
    * @var string
    *
    * @ORM\Column(name="noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet", type="text")
    */
-  private $noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet;
+  protected $noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="levetidAar", type="integer")
    */
-  private $levetidAar;
+  protected $levetidAar;
 
   /**
    * @var float
@@ -138,7 +138,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="arealM2", type="float")
    */
-  private $arealM2;
+  protected $arealM2;
 
   /**
    * @var float
@@ -146,13 +146,13 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="besparelseKWhAar", type="float")
    */
-  private $besparelseKWhAar;
+  protected $besparelseKWhAar;
 
   /**
    * @var string
    * @ORM\Column(name="priskategori", type="string")
    */
-  private $priskategori;
+  protected $priskategori;
 
   /**
    * @var float
@@ -160,7 +160,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="samletInvesteringKr", type="float")
    */
-  private $samletInvesteringKr;
+  protected $samletInvesteringKr;
 
   /**
    * @var float
@@ -168,7 +168,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="simpelTilbagebetalingstidAar", type="float")
    */
-  private $simpelTilbagebetalingstidAar;
+  protected $simpelTilbagebetalingstidAar;
 
   /**
    * @var float
@@ -176,7 +176,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="faktorForReinvestering", type="float")
    */
-  private $faktorForReinvestering;
+  protected $faktorForReinvestering;
 
   /**
    * @var float
@@ -184,7 +184,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float")
    */
-  private $nutidsvaerdiSetOver15AarKr;
+  protected $nutidsvaerdiSetOver15AarKr;
 
   /**
    * @var float
@@ -192,7 +192,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="kWhBesparElvaerkEksternEnergikilde", type="float")
    */
-  private $kWhBesparElvaerkEksternEnergikilde;
+  protected $kWhBesparElvaerkEksternEnergikilde;
 
   /**
    * @var float
@@ -200,7 +200,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="kWhBesparVarmevaerkEksternEnergikilde", type="float")
    */
-  private $kWhBesparVarmevaerkEksternEnergikilde;
+  protected $kWhBesparVarmevaerkEksternEnergikilde;
 
   public function setType($type) {
     $this->type = $type;

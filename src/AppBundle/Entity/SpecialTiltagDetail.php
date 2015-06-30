@@ -31,7 +31,7 @@ class SpecialTiltagDetail extends TiltagDetail {
    *
    * @ORM\Column(name="Kommentar", type="text", nullable=true)
    */
-  private $kommentar;
+  protected $kommentar;
 
   public function setKommentar($kommentar) {
     $this->kommentar = $kommentar;
@@ -46,7 +46,7 @@ class SpecialTiltagDetail extends TiltagDetail {
    * @Gedmo\UploadableFilePath
    * @Assert\File()
    */
-  private $filepath;
+  protected $filepath;
 
   /**
    * Sets filepath.

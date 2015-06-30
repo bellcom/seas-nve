@@ -51,7 +51,7 @@ abstract class TiltagDetail {
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
    */
-  private $id;
+  protected $id;
 
   /**
    * Get id
@@ -67,7 +67,7 @@ abstract class TiltagDetail {
    *
    * @ORM\Column(name="data", type="object")
    */
-  private $data;
+  protected $data;
 
   /**
    * Get data.
@@ -109,7 +109,7 @@ abstract class TiltagDetail {
    *
    * @ORM\Column(name="Title", type="string", length=255, nullable=true)
    */
-  private $title;
+  protected $title;
 
   public function setTitle($title) {
     $this->title = $title;
@@ -161,7 +161,7 @@ abstract class TiltagDetail {
    *
    * @ORM\Column(name="tilvalgt", type="boolean", nullable=true)
    */
-  private $tilvalgt = false;
+  protected $tilvalgt = false;
 
   /**
    * Set tilvalgt
@@ -189,7 +189,7 @@ abstract class TiltagDetail {
    *
    * @ORM\Column(name="laastAfEnergiraadgiver", type="boolean", nullable=true)
    */
-  private $laastAfEnergiraadgiver;
+  protected $laastAfEnergiraadgiver;
 
     /**
    * Set laastAfEnergiraadgiver

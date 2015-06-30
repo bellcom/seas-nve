@@ -21,42 +21,42 @@ class BelysningTiltagDetail extends TiltagDetail {
    *
    * @ORM\Column(name="lokale_navn", type="string", length=255)
    */
-  private $lokale_navn;
+  protected $lokale_navn;
 
   /**
    * @var string
    *
    * @ORM\Column(name="lokale_type", type="string", length=255)
    */
-  private $lokale_type;
+  protected $lokale_type;
 
   /**
    * @var float
    *
    * @ORM\Column(name="armaturhoejdeM", type="decimal", scale=4)
    */
-  private $armaturhoejdeM;
+  protected $armaturhoejdeM;
 
   /**
    * @var float
    *
    * @ORM\Column(name="rumstoerrelseM2", type="decimal", scale=4)
    */
-  private $rumstoerrelseM2;
+  protected $rumstoerrelseM2;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="lokale_antal", type="integer")
    */
-  private $lokale_antal;
+  protected $lokale_antal;
 
   /**
    * @var string
    *
    * @ORM\Column(name="drifttidTAar", type="integer")
    */
-  private $drifttidTAar;
+  protected $drifttidTAar;
 
   /**
    * @var BelysningTiltagDetailLyskilde
@@ -64,35 +64,35 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Lyskilde")
    * ORM\JoinColumn(name="lyskilde_id", referencedColumnName="id")
    **/
-  private $lyskilde;
+  protected $lyskilde;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="lyskildeStkArmatur", type="integer")
    */
-  private $lyskildeStkArmatur;
+  protected $lyskildeStkArmatur;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="lyskildeWLyskilde", type="integer")
    */
-  private $lyskildeWLyskilde;
+  protected $lyskildeWLyskilde;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="forkoblingStkArmatur", type="integer")
    */
-  private $forkoblingStkArmatur;
+  protected $forkoblingStkArmatur;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="armaturerStkLokale", type="integer")
    */
-  private $armaturerStkLokale;
+  protected $armaturerStkLokale;
 
   /**
    * @var float
@@ -100,56 +100,56 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="elforbrugWM2", type="float")
    */
-  private $elforbrugWM2;
+  protected $elforbrugWM2;
 
   /**
    * @var string
    *
    * @ORM\Column(name="placering_id", type="string", length=255)
    */
-  private $placeringId;
+  protected $placeringId;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="styring_id", type="string", length=255)
    */
-  private $styringId;
+  protected $styringId;
 
   /**
    * @var string
    *
    * @ORM\Column(name="noter", type="text")
    */
-  private $noter;
+  protected $noter;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="belysningstiltag_id", type="string", length=255)
    **/
-  private $belysningstiltagId;
+  protected $belysningstiltagId;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="nyeSensorerStkLokale", type="integer")
    */
-  private $nyeSensorerStkLokale;
+  protected $nyeSensorerStkLokale;
 
   /**
    * @var float
    *
    * @ORM\Column(name="standardinvestSensorKrStk", type="decimal", scale=4)
    */
-  private $standardinvestSensorKrStk;
+  protected $standardinvestSensorKrStk;
 
   /**
    * @var float
    *
    * @ORM\Column(name="reduktionAfDrifttid", type="decimal", scale=4)
    */
-  private $reduktionAfDrifttid;
+  protected $reduktionAfDrifttid;
 
   /**
    * @var float
@@ -157,21 +157,21 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="nyDriftstid", type="float")
    */
-  private $nyDriftstid;
+  protected $nyDriftstid;
 
   /**
    * @var float
    *
    * @ORM\Column(name="standardinvestArmaturElLyskildeKrStk", type="decimal", scale=4)
    */
-  private $standardinvestArmaturElLyskildeKrStk;
+  protected $standardinvestArmaturElLyskildeKrStk;
 
   /**
    * @var float
    *
    * @ORM\Column(name="standardinvestLyskildeKrStk", type="decimal", scale=4)
    */
-  private $standardinvestLyskildeKrStk;
+  protected $standardinvestLyskildeKrStk;
 
   /**
    * @var BelysningTiltagDetailLyskilde
@@ -179,28 +179,28 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Lyskilde")
    * ORM\JoinColumn(name="ny_lyskilde_id", referencedColumnName="id")
    */
-  private $nyLyskilde;
+  protected $nyLyskilde;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="nyLyskildeStkArmatur", type="integer")
    */
-  private $nyLyskildeStkArmatur;
+  protected $nyLyskildeStkArmatur;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="nyLyskildeWLyskilde", type="integer")
    */
-  private $nyLyskildeWLyskilde;
+  protected $nyLyskildeWLyskilde;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="nyForkoblingStkArmatur", type="integer")
    */
-  private $nyForkoblingStkArmatur;
+  protected $nyForkoblingStkArmatur;
 
   /**
    * @var float
@@ -208,28 +208,28 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="nyArmatureffektWStk", type="float")
    */
-  private $nyArmatureffektWStk;
+  protected $nyArmatureffektWStk;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="nyeArmaturerStkLokale", type="integer")
    */
-  private $nyeArmaturerStkLokale;
+  protected $nyeArmaturerStkLokale;
 
   /**
    * @var float
    *
    * @ORM\Column(name="nyttiggjortVarmeAfElBesparelse", type="decimal", scale=4)
    */
-  private $nyttiggjortVarmeAfElBesparelse;
+  protected $nyttiggjortVarmeAfElBesparelse;
 
   /**
    * @var float
    *
    * @ORM\Column(name="prisfaktor", type="decimal", scale=4)
    */
-  private $prisfaktor;
+  protected $prisfaktor;
 
   /**
    * @var float
@@ -237,7 +237,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="prisfaktorTillaegKrLokale", type="float")
    */
-  private $prisfaktorTillaegKrLokale;
+  protected $prisfaktorTillaegKrLokale;
 
   /**
    * @var float
@@ -245,7 +245,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="investeringAlleLokalerKr", type="float")
    */
-  private $investeringAlleLokalerKr;
+  protected $investeringAlleLokalerKr;
 
   /**
    * @var float
@@ -253,7 +253,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="nytElforbrugWM2", type="float")
    */
-  private $nytElforbrugWM2;
+  protected $nytElforbrugWM2;
 
   /**
    * @var float
@@ -261,7 +261,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="driftsbesparelseTilLyskilderKrAar", type="float")
    */
-  private $driftsbesparelseTilLyskilderKrAar;
+  protected $driftsbesparelseTilLyskilderKrAar;
 
   /**
    * @var float
@@ -269,7 +269,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="simpelTilbagebetalingstidAar", type="float")
    */
-  private $simpelTilbagebetalingstidAar;
+  protected $simpelTilbagebetalingstidAar;
 
   /**
    * @var float
@@ -277,7 +277,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="vaegtetLevetidAar", type="float")
    */
-  private $vaegtetLevetidAar;
+  protected $vaegtetLevetidAar;
 
   /**
    * @var float
@@ -285,7 +285,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float")
    */
-  private $nutidsvaerdiSetOver15AarKr;
+  protected $nutidsvaerdiSetOver15AarKr;
 
   /**
    * @var float
@@ -293,7 +293,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="kWhBesparelseEl", type="float")
    */
-  private $kWhBesparelseEl;
+  protected $kWhBesparelseEl;
 
   /**
    * @var float
@@ -301,7 +301,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @Calculated
    * @ORM\Column(name="kWhBesparelseVarmeFraVarmevaerket", type="float")
    */
-  private $kWhBesparelseVarmeFraVarmevaerket;
+  protected $kWhBesparelseVarmeFraVarmevaerket;
 
   /**
    * Set lokale_navn

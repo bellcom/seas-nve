@@ -29,13 +29,13 @@ class Rapport {
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
    */
-  private $id;
+  protected $id;
 
   /**
    * @ManyToOne(targetEntity="Bygning", inversedBy="rapporter", fetch="EAGER")
    * @JoinColumn(name="bygning_id", referencedColumnName="id")
    **/
-  private $bygning;
+  protected $bygning;
 
 
   /**
@@ -43,70 +43,70 @@ class Rapport {
    * @OrderBy({"title" = "ASC"})
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Tiltag>")
    */
-  private $tiltag;
+  protected $tiltag;
 
   /**
    * @var string
    *
    * @ORM\Column(name="version", type="string", length=255)
    */
-  private $version;
+  protected $version;
 
   /**
    * @var \DateTime
    *
    * @ORM\Column(name="Datering", type="date")
    */
-  private $datering;
+  protected $datering;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="BaselineEl", type="integer", nullable=true)
    */
-  private $BaselineEl;
+  protected $BaselineEl;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="BaselineVarmeGUF", type="integer", nullable=true)
    */
-  private $BaselineVarmeGUF;
+  protected $BaselineVarmeGUF;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="BaselineVarmeGAF", type="integer", nullable=true)
    */
-  private $BaselineVarmeGAF;
+  protected $BaselineVarmeGAF;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="BaselineVand", type="integer", nullable=true)
    */
-  private $BaselineVand;
+  protected $BaselineVand;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="BaselineStrafAfkoeling", type="integer", nullable=true)
    */
-  private $BaselineStrafAfkoeling;
+  protected $BaselineStrafAfkoeling;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="SamtidighedsFaktor", type="integer", nullable=true)
    */
-  private $SamtidighedsFaktor;
+  protected $SamtidighedsFaktor;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="Energiscreening", type="integer", nullable=true)
    */
-  private $Energiscreening;
+  protected $Energiscreening;
 
   /**
    * Constructor
@@ -487,7 +487,7 @@ class Rapport {
   /**
    * @var Configuration
    */
-  private $configuration;
+  protected $configuration;
 
   public function setConfiguration(Configuration $configuration) {
     $this->configuration = $configuration;

@@ -23,469 +23,469 @@ class Forsyningsvaerk {
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
    */
-  private $id;
+  protected $id;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Navn", type="string", length=255, nullable=true)
    */
-  private $navn;
+  protected $navn;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Energiform", type="string", length=255, nullable=true)
    */
-  private $energiform;
+  protected $energiform;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Noter", type="text", nullable=true)
    */
-  private $noter;
+  protected $noter;
 
   /**
    * @var string
    *
    * @ORM\Column(name="NoterTBeregningAfRabat", type="text", nullable=true)
    */
-  private $noterTBeregningAfRabat;
+  protected $noterTBeregningAfRabat;
 
   /**
    * @var string
    *
    * @ORM\Column(name="vedForbrugOverKWh", type="text", nullable=true)
    */
-  private $vedForbrugOverKWh;
+  protected $vedForbrugOverKWh;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2009", type="decimal", scale=4, nullable=true)
    */
-  private $pris2009;
+  protected $pris2009;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2014", type="decimal", scale=4, nullable=true)
    */
-  private $pris2014;
+  protected $pris2014;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2015", type="decimal", scale=4, nullable=true)
    */
-  private $pris2015;
+  protected $pris2015;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2016", type="decimal", scale=4, nullable=true)
    */
-  private $pris2016;
+  protected $pris2016;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2017", type="decimal", scale=4, nullable=true)
    */
-  private $pris2017;
+  protected $pris2017;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2018", type="decimal", scale=4, nullable=true)
    */
-  private $pris2018;
+  protected $pris2018;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2019", type="decimal", scale=4, nullable=true)
    */
-  private $pris2019;
+  protected $pris2019;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2020", type="decimal", scale=4, nullable=true)
    */
-  private $pris2020;
+  protected $pris2020;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2021", type="decimal", scale=4, nullable=true)
    */
-  private $pris2021;
+  protected $pris2021;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2022", type="decimal", scale=4, nullable=true)
    */
-  private $pris2022;
+  protected $pris2022;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2023", type="decimal", scale=4, nullable=true)
    */
-  private $pris2023;
+  protected $pris2023;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2024", type="decimal", scale=4, nullable=true)
    */
-  private $pris2024;
+  protected $pris2024;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2025", type="decimal", scale=4, nullable=true)
    */
-  private $pris2025;
+  protected $pris2025;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2026", type="decimal", scale=4, nullable=true)
    */
-  private $pris2026;
+  protected $pris2026;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2027", type="decimal", scale=4, nullable=true)
    */
-  private $pris2027;
+  protected $pris2027;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2028", type="decimal", scale=4, nullable=true)
    */
-  private $pris2028;
+  protected $pris2028;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2029", type="decimal", scale=4, nullable=true)
    */
-  private $pris2029;
+  protected $pris2029;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2030", type="decimal", scale=4, nullable=true)
    */
-  private $pris2030;
+  protected $pris2030;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2031", type="decimal", scale=4, nullable=true)
    */
-  private $pris2031;
+  protected $pris2031;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2032", type="decimal", scale=4, nullable=true)
    */
-  private $pris2032;
+  protected $pris2032;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2033", type="decimal", scale=4, nullable=true)
    */
-  private $pris2033;
+  protected $pris2033;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2034", type="decimal", scale=4, nullable=true)
    */
-  private $pris2034;
+  protected $pris2034;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2035", type="decimal", scale=4, nullable=true)
    */
-  private $pris2035;
+  protected $pris2035;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2036", type="decimal", scale=4, nullable=true)
    */
-  private $pris2036;
+  protected $pris2036;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2037", type="decimal", scale=4, nullable=true)
    */
-  private $pris2037;
+  protected $pris2037;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2038", type="decimal", scale=4, nullable=true)
    */
-  private $pris2038;
+  protected $pris2038;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2039", type="decimal", scale=4, nullable=true)
    */
-  private $pris2039;
+  protected $pris2039;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2040", type="decimal", scale=4, nullable=true)
    */
-  private $pris2040;
+  protected $pris2040;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2041", type="decimal", scale=4, nullable=true)
    */
-  private $pris2041;
+  protected $pris2041;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2042", type="decimal", scale=4, nullable=true)
    */
-  private $pris2042;
+  protected $pris2042;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2043", type="decimal", scale=4, nullable=true)
    */
-  private $pris2043;
+  protected $pris2043;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2044", type="decimal", scale=4, nullable=true)
    */
-  private $pris2044;
+  protected $pris2044;
 
   /**
    * @var float
    *
    * @ORM\Column(name="pris2045", type="decimal", scale=4, nullable=true)
    */
-  private $pris2045;
+  protected $pris2045;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2noter", type="text", nullable=true)
    */
-  private $co2Noter;
+  protected $co2Noter;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2009", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2009;
+  protected $co2y2009;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2014", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2014;
+  protected $co2y2014;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2015", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2015;
+  protected $co2y2015;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2016", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2016;
+  protected $co2y2016;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2017", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2017;
+  protected $co2y2017;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2018", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2018;
+  protected $co2y2018;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2019", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2019;
+  protected $co2y2019;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2020", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2020;
+  protected $co2y2020;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2021", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2021;
+  protected $co2y2021;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2022", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2022;
+  protected $co2y2022;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2023", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2023;
+  protected $co2y2023;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2024", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2024;
+  protected $co2y2024;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2025", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2025;
+  protected $co2y2025;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2026", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2026;
+  protected $co2y2026;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2027", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2027;
+  protected $co2y2027;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2028", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2028;
+  protected $co2y2028;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2029", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2029;
+  protected $co2y2029;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2030", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2030;
+  protected $co2y2030;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2031", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2031;
+  protected $co2y2031;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2032", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2032;
+  protected $co2y2032;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2033", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2033;
+  protected $co2y2033;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2034", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2034;
+  protected $co2y2034;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2035", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2035;
+  protected $co2y2035;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2036", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2036;
+  protected $co2y2036;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2037", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2037;
+  protected $co2y2037;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2038", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2038;
+  protected $co2y2038;
 
   /**
    * @var float
    *
    * @ORM\Column(name="co2y2039", type="decimal", scale=4, nullable=true)
    */
-  private $co2y2039;
+  protected $co2y2039;
 
   /**
    * Get Name
