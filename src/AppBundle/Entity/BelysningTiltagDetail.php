@@ -1299,7 +1299,21 @@ class BelysningTiltagDetail extends TiltagDetail {
     return $this->__computeArmaturEffekt($this->getLyskilde(true), $this->lyskildeStkArmatur, $this->lyskildeWLyskilde, $this->forkoblingStkArmatur);
   }
 
-  private function __computeArmaturEffekt(BelysningTiltagDetailLyskilde $lyskilde, $lyskildeStkArmatur, $lyskildeWLyskilde, $forkoblingStkArmatur) {
+  /**
+   *
+   * @param BelysningTiltagDetailLyskilde|NULL $lyskilde
+   *   The Lyskilde.
+   * @param integer $lyskildeStkArmatur
+   *   .
+   * @param float $lyskildeWLyskilde
+   *   .
+   * @param integer $forkoblingStkArmatur
+   *   .
+   *
+   * @return float
+   *   .
+   */
+  private function __computeArmaturEffekt($lyskilde, $lyskildeStkArmatur, $lyskildeWLyskilde, $forkoblingStkArmatur) {
     // Z, AW
     if (!$lyskilde || $lyskildeStkArmatur == 0 || $lyskildeWLyskilde == 0) {
       return 0;
