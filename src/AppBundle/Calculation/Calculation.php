@@ -19,7 +19,7 @@ abstract class Calculation {
    *   True iff the values are equal within the allowed deviance.
    */
   public static function areEqual($a, $b, $allowedDeviance = NULL) {
-    $delta = min($a, $b) * ($allowedDeviance === NULL ? self::$allowedDeviance : $allowedDeviance);
+    $delta = abs(min($a, $b) * ($allowedDeviance === NULL ? self::$allowedDeviance : $allowedDeviance));
     if (abs($a - $b) > $delta) {
       return false;
     }
