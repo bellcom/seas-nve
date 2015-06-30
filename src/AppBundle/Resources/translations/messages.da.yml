@@ -360,7 +360,7 @@ appbundle:
     primaerEnterprise: Primær entreprise
     tiltagskategori: Tiltagskategori
     anlaegsInvestering: ﻿Anlægsinvestering (kr)
-    dVBesparelse: Besparelse på D&V (kr/år)
+    besparelseDogV: Besparelse på D&V (kr/år)
     levetid: Funktionsdygtig levetid (år)
     forsyningVarme: Forsyning, varme
     forsyningEl: Forsyning, el
