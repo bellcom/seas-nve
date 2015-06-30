@@ -73,39 +73,6 @@ class TiltagDetailCalculation extends Calculation {
     return false;
   }
 
-  /**
-   * Decide if any calculated values (numeric only) in entity will have different values if re-calculated.
-   *
-   * @FIXME:
-   *
-   * @param object $entity.
-   *   The entity.
-   *
-   * @return array of string
-   *   Whether any numeric value will if re-calculating values.
-   */
-  public function getChanges($entity) {
-    $old = $entity;
-    $new = $this->calculate(clone $old);
-
-    $getters = array_filter(get_class_methods($entity), function($method) { return strpos($method, 'get') === 0; });
-    $changes = array();
-    foreach ($getters as $getter) {
-      $oldValue = $old->{$getter}();
-      $newValue = $new->{$getter}();
-      // Compare numeric values with a fixed scale
-      if (is_numeric($oldValue) && is_numeric($newValue) && !self::areEqual($oldValue, $newValue)) {
-        $changes[] = array(
-          'property' => lcfirst(preg_replace('/^get/', '', $getter)),
-          'oldValue' => $oldValue,
-          'newValue' => $newValue,
-        );
-      }
-    }
-
-    return $changes;
-  }
-
   private function getCalculationService($entity) {
     $entityName = $this->getEntityName($entity);
     if (!$entityName) {
