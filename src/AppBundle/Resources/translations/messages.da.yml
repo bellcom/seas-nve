@@ -250,7 +250,7 @@ appbundle:
     anvendelse: Anvendelse
     bruttoetageareal: Bruttoetageareal
     maalertype: Målertype
-    vand: Vand
+    forsyningsvaerkVand: Vand
     kundenummer: Kundenummer
     kode: Kode
     forsyningsvaerkVarme: Varme
