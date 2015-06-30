@@ -444,6 +444,11 @@ class Rapport {
     return $this->bygning->getForsyningsvaerkVand()->getFaktor($this->configuration);
   }
 
+  public function getVandKrKWh()
+  {
+    return $this->bygning->getForsyningsvaerkVand()->getKrKWh();
+  }
+
   public function getVarmeKrKWh()
   {
     return $this->bygning->getForsyningsvaerkVarme()->getKrKWh();
@@ -508,6 +513,27 @@ class Rapport {
   public function postLoad(LifecycleEventArgs $event) {
     $repository = $event->getEntityManager()->getRepository('AppBundle:Configuration');
     $this->setConfiguration($repository->getConfiguration());
+  }
+
+  public function calculate() {
+    $this->BaselineVarmeGUF = $this->calculateBaselineVarmeGUF();
+    $this->BaselineVarmeGAF = $this->calculateBaselineVarmeGAF();
+  }
+
+  private function calculateBaselineVarmeGUF() {
+    $value = 0;
+    foreach ($this->tiltag as $tiltag) {
+      $value += $tiltag->getVarmebesparelseGUF();
+    }
+    return $value;
+  }
+
+  private function calculateBaselineVarmeGAF() {
+    $value = 0;
+    foreach ($this->tiltag as $tiltag) {
+      $value += $tiltag->getVarmebesparelseGAF();
+    }
+    return $value;
   }
 
 }
