@@ -431,32 +431,48 @@ class Rapport {
 
   public function getElfaktor()
   {
-    return $this->bygning->getForsyningsvaerkEl()->getFaktor($this->configuration);
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this->configuration);
   }
 
   public function getVarmefaktor()
   {
-    return $this->bygning->getForsyningsvaerkVarme()->getFaktor($this->configuration);
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this->configuration);
   }
 
   public function getVandfaktor()
   {
-    return $this->bygning->getForsyningsvaerkVand()->getFaktor($this->configuration);
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVand();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this->configuration);
   }
 
   public function getVandKrKWh()
   {
-    return $this->bygning->getForsyningsvaerkVand()->getKrKWh();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVand();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh();
   }
 
   public function getVarmeKrKWh()
   {
-    return $this->bygning->getForsyningsvaerkVarme()->getKrKWh();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh();
   }
 
   public function getElKrKWh()
   {
-    return $this->bygning->getForsyningsvaerkEl()->getKrKWh();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
+    return $forsyningsvaerk ? $forsyningsvaerk->getKrKWh() : 0;
+  }
+
+  public function getVarmeKgCo2MWh() {
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh();
+  }
+
+  public function getElKgCo2MWh() {
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh();
   }
 
   public function isStandardforsyning() {

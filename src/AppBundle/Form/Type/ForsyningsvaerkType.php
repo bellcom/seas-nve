@@ -26,9 +26,8 @@ class ForsyningsvaerkType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('navn')
+
       ->add('noter')
-      ->add('pris2009')
-      ->add('pris2014')
       ->add('pris2015')
       ->add('pris2016')
       ->add('pris2017')
@@ -60,9 +59,8 @@ class ForsyningsvaerkType extends AbstractType {
       ->add('pris2043')
       ->add('pris2044')
       ->add('pris2045')
+
       ->add('co2noter')
-      ->add('co2y2009')
-      ->add('co2y2014')
       ->add('co2y2015')
       ->add('co2y2016')
       ->add('co2y2017')

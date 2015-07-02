@@ -87,8 +87,8 @@ class LoadRapport extends LoadData {
         'C' => 'noter',
         'D' => 'noterTBeregningAfRabat', // @FIXME: How is this actually used?
         'E' => 'vedForbrugOverKWh',
-        'F' => 'pris2009',
-        'G' => 'pris2014',
+        // 'F' => 'pris2009',
+        // 'G' => 'pris2014',
         'H' => 'pris2015',
         'I' => 'pris2016',
         'J' => 'pris2017',
@@ -145,8 +145,8 @@ class LoadRapport extends LoadData {
         'A' => 'navn',
         // 'B' => 'energiform',
         'C' => 'co2noter',
-        'F' => 'co2y2009',
-        'G' => 'co2y2014',
+        // 'F' => 'co2y2009',
+        // 'G' => 'co2y2014',
         'H' => 'co2y2015',
         'I' => 'co2y2016',
         'J' => 'co2y2017',
@@ -242,7 +242,7 @@ class LoadRapport extends LoadData {
         // 'M' => 'Afdelingnavn',
         'N' => 'Ejer_A',
         'O' => 'Anvendelse',
-        'P' => 'Bruttoetageareal',
+        'P' => array('Bruttoetageareal', 'integer'),
         'Q' => 'Maalertype',
         'R' => array('forsyningsvaerkVand', function($value) { return $this->getForsyningsvaerk($value); }),
         // 'S' => 'Vand_InstNr',
@@ -304,6 +304,7 @@ class LoadRapport extends LoadData {
     $sheet = $this->workbook->getSheetByName('Klimaskærmspriser');
 
     $data = $sheet->rangeToArray('A2:F100', null, false, false, true);
+    $data = $this->getCalculatedCells($data, $sheet);
 
     foreach ($data as $rowId => $row) {
       $values = $row;
@@ -347,7 +348,7 @@ class LoadRapport extends LoadData {
    */
   private function loadRapport() {
     $sheet = $this->workbook->getSheetByName('1.TiltagslisteRådgiver');
-    $enhedsys = $sheet->getCell('C4')->getValue();
+    $enhedsys = $this->getCellValue($sheet->getCell('C4'));
 
     $this->loadConfiguration($sheet);
 
@@ -377,9 +378,9 @@ class LoadRapport extends LoadData {
     $repository = $this->manager->getRepository('AppBundle:Configuration');
     $this->configuration = $repository->getConfiguration();
     $this->configuration
-      ->setKalkulationsrente($sheet->getCell('AI23')->getValue())
-      ->setInflation($sheet->getCell('AK23')->getValue())
-      ->setLobetid($sheet->getCell('AN23')->getValue());
+      ->setKalkulationsrente($this->getCellValue($sheet->getCell('AI23')))
+      ->setInflation($this->getCellValue($sheet->getCell('AK23')))
+      ->setLobetid($this->getCellValue($sheet->getCell('AN23')));
   }
 
   private $tiltagCalculatedValues;
@@ -390,18 +391,18 @@ class LoadRapport extends LoadData {
   private function loadTiltag(Tiltag $tiltag, Rapport $rapport, \PHPExcel_Worksheet $sheet) {
     $tiltag
       ->setRapport($rapport)
-      ->setForsyningVarme($sheet->getCell('C13')->getValue())
-      ->setForsyningEl($sheet->getCell('F13')->getValue())
-      ->setLevetid($sheet->getCell('G7')->getValue())
-      ->setFaktorForReinvesteringer($sheet->getCell('C11')->getValue())
-      ->setTiltagskategori($sheet->getCell('D12')->getValue())
-      ->setPrimaerEnterprise($sheet->getCell('B12')->getValue())
-      ->setRisikovurdering($sheet->getCell('C17')->getValue())
-      ->setPlacering($sheet->getCell('C19')->getValue())
-      ->setBeskrivelseBV($sheet->getCell('A21')->getValue())
-      ->setIndeklima($sheet->getCell('A23')->getValue());
+      ->setForsyningVarme($this->getCellValue($sheet->getCell('C13')))
+      ->setForsyningEl($this->getCellValue($sheet->getCell('F13')))
+      ->setLevetid($this->getCellValue($sheet->getCell('G7')))
+      ->setFaktorForReinvesteringer($this->getCellValue($sheet->getCell('C11')))
+      ->setTiltagskategori($this->getCellValue($sheet->getCell('D12')))
+      ->setPrimaerEnterprise($this->getCellValue($sheet->getCell('B12')))
+      ->setRisikovurdering($this->getCellValue($sheet->getCell('C17')))
+      ->setPlacering($this->getCellValue($sheet->getCell('C19')))
+      ->setBeskrivelseBV($this->getCellValue($sheet->getCell('A21')))
+      ->setIndeklima($this->getCellValue($sheet->getCell('A23')));
 
-    $beskrivelse = $sheet->getCell('A15')->getValue();
+    $beskrivelse = $this->getCellValue($sheet->getCell('A15'));
     $tokens = array_map('trim', preg_split('/(Nuværende forhold|Forslag|Øvrige bemærkninger):/i', $beskrivelse));
     if (count($tokens) == 4) {
       $tiltag->setBeskrivelseNuvaerende($tokens[1]);
@@ -449,8 +450,8 @@ class LoadRapport extends LoadData {
     $sheet = $this->workbook->getSheetByName('Detailark (3)');
 
     $this->configuration
-      ->setVarmeledningsevneEksistLamelmaatter($sheet->getCell('N38')->getValue())
-      ->setVarmeledningsevneNyIsolering($sheet->getCell('N39')->getValue());
+      ->setVarmeledningsevneEksistLamelmaatter($this->getCellValue($sheet->getCell('N38')))
+      ->setVarmeledningsevneNyIsolering($this->getCellValue($sheet->getCell('N39')));
 
     $tiltag = $this->loadTiltag(new TekniskIsoleringTiltag(), $rapport, $sheet);
     $this->loadTekniskIsoleringTiltagDetail($tiltag, $sheet);
@@ -703,7 +704,7 @@ class LoadRapport extends LoadData {
         'O' => 'Elbesparelse',
         'P' => array('Udligningssaet', 'string'),
         'Q' => array('Kommentarer', 'string'),
-        'R' => 'StandInvestering',
+        'R' => array('StandInvestering', 'float'),
         // 'S' => 'Besparelse ved isoleringskappe',
         'T' => 'Roerlaengde',
         'U' => 'Roerstoerrelse',
@@ -1016,7 +1017,7 @@ class LoadRapport extends LoadData {
    * @return \DateTime
    */
   private function getDateTime(\PHPExcel_Cell $cell) {
-    return \PHPExcel_Shared_Date::ExcelToPHPObject($cell->getValue());
+    return \PHPExcel_Shared_Date::ExcelToPHPObject($this->getCellValue($cell));
   }
 
   private function dumpUnittestData(\PHPExcel_Worksheet $sheet, array $columns, array $cells, Tiltag $tiltag) {
@@ -1142,6 +1143,14 @@ class LoadRapport extends LoadData {
     }
 
     return $properties;
+  }
+
+  private function getCellValue(\PHPExcel_Cell $cell) {
+    $value = 0;
+    if ($cell) {
+      $value = ($cell->getDataType() == \PHPExcel_Cell_DataType::TYPE_FORMULA) ? $cell->getOldCalculatedValue() : $cell->getValue();
+    }
+    return floatval($value);
   }
 
   private function getCalculatedCells(array $cells, \PHPExcel_Worksheet $sheet) {

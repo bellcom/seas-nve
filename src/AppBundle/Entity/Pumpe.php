@@ -140,9 +140,9 @@ class Pumpe {
   protected $kommentarer;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="StandInvestering", type="integer", nullable=true)
+   * @ORM\Column(name="StandInvestering", type="decimal", scale=4, nullable=true)
    */
   protected $standInvestering;
 
@@ -530,7 +530,7 @@ class Pumpe {
   /**
    * Set standInvestering
    *
-   * @param integer $standInvestering
+   * @param float $standInvestering
    * @return Pumpe
    */
   public function setStandInvestering($standInvestering) {
@@ -542,7 +542,7 @@ class Pumpe {
   /**
    * Get standInvestering
    *
-   * @return integer
+   * @return float
    */
   public function getStandInvestering() {
     return $this->standInvestering;
