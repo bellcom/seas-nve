@@ -33,15 +33,27 @@
       <a class="navbar-brand" href="/"><img src="{{ asset('img/aaplus-logo.png') }}" title="Aa+" class="navbar-brand--logo"/> </a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
       <ul class="nav navbar-nav">
         <li><a href="/bygning">{{ icon('home') }} {{ 'bygninger.labels.plural' | trans }}</a></li>
         <li><a href="/rapport">{{ icon('file') }} {{ 'rapporter.labels.plural' | trans }}</a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+          <li><a href="/user">{{ icon('file') }} {{ 'user.labels.plural' | trans }}</a></li>
+        {% endif %}
       </ul>
-      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        <p class="navbar-text navbar-right">
-          {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-          <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
-        </p>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="{{ path('fos_user_profile_show') }}">{{ icon('user') }} {{ 'profile.title'|trans({}, 'FOSUserBundle') }}</a></li>
+            <li><a href="{{ path('fos_user_change_password') }}">{{ icon('key') }} {{ 'change_password.submit'|trans({}, 'FOSUserBundle') }}</a></li>
+          </ul>
+        </li>
+        <li><a href="{{ path('fos_user_security_logout') }}">{{ icon('sign-out') }} {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+      </ul>
       {% endif %}
     </div><!--/.nav-collapse -->
   </div>

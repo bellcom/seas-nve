@@ -1,10 +1,13 @@
 {# override FOSUserBundle:Security:login.html.twig #}
 
-{% extends 'AppBundle::base.html.twig' %}
+{% extends "FOSUserBundle::layout.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block body -%}
+{% block fos_user_content %}
+
+  <h1>{{ 'layout.login' | trans }}</h1>
+
   {% if error %}
     <div class="alert alert-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
   {% endif %}
@@ -29,6 +32,10 @@
       </label>
     </div>
 
-    <button class="btn btn-primary" type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans }}</button>
+    <button class="btn btn-primary" type="submit" id="_submit" name="_submit">{{ icon('sign-in') }} {{ 'security.login.submit'|trans }}</button>
   </form>
+
+  <div class="login--links">
+    <a href="{{ path('fos_user_resetting_request') }}">{{ 'resetting.reset.forgot'|trans }}</a>
+  </div>
 {% endblock %}

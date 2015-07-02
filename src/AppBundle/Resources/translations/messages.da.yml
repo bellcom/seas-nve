@@ -1,6 +1,29 @@
+fos:
+  user:
+    profile:
+      form:
+        username: Brugernavn
+        email: Email
+        current:
+          password: Nuværende kodeord
+    resetting:
+      form:
+        plainPassword:
+          first: Indtast nyt kodeord
+          second: Gentag kodeord
+    change:
+      password:
+        form:
+          current:
+            password: Nuværende kodeord
+          plainPassword:
+            first: Indtast nyt kodeord
+            second: Gentag kodeord
+
 common:
   edit: Rediger
   show: Vis
+  create: Opret
 
 footer:
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
@@ -106,6 +129,15 @@ configuration:
   actions:
     edit: Rediger indstillinger
   strings:
+
+user:
+  labels:
+    singular: Bruger
+    plural: Brugere
+  actions:
+    add: Tilføj bruger
+    edit: Rediger bruger
+    create: Opret bruger
 
 # Forms - We follow the formbuilders form id format
 
@@ -281,6 +313,7 @@ appbundle:
     elNotat: El notat
     varmeNotat: Varme notat
     users: Brugere
+    forsyningsvaerkVand: Vand
   pumpe:
     nuvaerendeType: Nuværende Type
     byggemaal: Byggemål
@@ -306,6 +339,13 @@ appbundle:
     pumpeID: ID
     forsyningsomraade: Forsyningsomraade
     placering: Placering
+    applikation: Applikation
+    isoleringskappe: Isoleringskappe
+    bfaktor: B-Faktor
+    noter: Noter
+    eksisterendeDrifttid: Eksisterende Drifttid
+    nyDrifttid: Ny Drifttid
+    prisfaktor: Prisfaktor
   pumpetiltagdetail:
     add: Tilføj pumpe
     pumpeID: Pumpe ID
@@ -495,6 +535,15 @@ appbundle:
     elKrKWh: El (kr/kWh)
     varmeledningsevneEksistLamelmaatter: Varmeledningsevne (W/m·K), eksist. lamelmåtter
     varmeledningsevneNyIsolering: Varmeledningsevne (W/m·K), ny isolering
+
+  user:
+    profile: Profil
+    firstname: Fornavn
+    lastname: Efternavn
+    phone: Telefon
+    bygninger: Bygninger
+    locked: Låst
+    email: Email
 
 # Calculations
 appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |

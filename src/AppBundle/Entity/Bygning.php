@@ -11,13 +11,14 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\OrderBy;
+use Doctrine\ORM\Mapping\Index;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  * Bygning
  *
- * @ORM\Table()
+ * @ORM\Table(name="Bygning",indexes={@Index(name="bygning_idx", columns={"Enhedsys"})})
  * @ORM\Entity(repositoryClass="AppBundle\Entity\BygningRepository")
  */
 class Bygning {
@@ -1399,5 +1400,29 @@ class Bygning {
    */
   public function getUsers() {
     return $this->users;
+  }
+
+  /**
+   * Add user
+   *
+   * @param \AppBundle\Entity\User $user
+   *
+   * @return Bygning
+   */
+  public function addUser(\AppBundle\Entity\User $user)
+  {
+    $this->users[] = $user;
+
+    return $this;
+  }
+
+  /**
+   * Remove user
+   *
+   * @param \AppBundle\Entity\User $user
+   */
+  public function removeUser(\AppBundle\Entity\User $user)
+  {
+    $this->users->removeElement($user);
   }
 }

@@ -41,7 +41,6 @@ class BygningType extends AbstractType {
       ->add('anvendelse')
       ->add('bruttoetageareal')
       ->add('maalertype')
-      ->add('forsyningsvaerkVand')
       ->add('kundenummer')
       ->add('kode')
       ->add('forsyningsvaerkVarme')
@@ -71,6 +70,7 @@ class BygningType extends AbstractType {
       ->add('vandNotat')
       ->add('elNotat')
       ->add('varmeNotat')
+      ->add('forsyningsvaerkVand')
       ->add('users');
   }
 

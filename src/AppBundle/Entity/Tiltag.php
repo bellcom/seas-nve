@@ -6,7 +6,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Annotations\Calculated;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -54,217 +53,168 @@ abstract class Tiltag {
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
    */
-  protected $id;
+  private $id;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Title", type="string", length=255, nullable=true)
    */
-  protected $title;
+  private $title;
 
   /**
    * @var float
    *
-   * @Calculated
-   * @ORM\Column(name="varmebesparelseGUF", type="float", nullable=true)
+   * @ORM\Column(name="VarmebesparelseGUF", type="float", nullable=true)
    */
-  protected $varmebesparelseGUF;
+  private $varmebesparelseGUF;
 
   /**
    * @var float
    *
-   * @Calculated
-   * @ORM\Column(name="varmebesparelseGAF", type="float", nullable=true)
+   * @ORM\Column(name="VarmebesparelseGAF", type="float", nullable=true)
    */
-  protected $varmebesparelseGAF;
+  private $varmebesparelseGAF;
 
   /**
    * @var float
    *
-   * @Calculated
-   * @ORM\Column(name="elbesparelse", type="float", nullable=true)
+   * @ORM\Column(name="Elbesparelse", type="float", nullable=true)
    */
-  protected $elbesparelse;
+  private $elbesparelse;
 
   /**
    * @var float
    *
-   * @Calculated
-   * @ORM\Column(name="vandbesparelse", type="float", nullable=true)
+   * @ORM\Column(name="Vandbesparelse", type="float", nullable=true)
    */
-  protected $vandbesparelse;
+  private $vandbesparelse;
 
   /**
    * @var float
    *
-   * @Calculated
-   * @ORM\Column(name="samletEnergibesparelse", type="float", nullable=true)
+   * @ORM\Column(name="EnergibesparelseAarEt", type="float", nullable=true)
    */
-  protected $samletEnergibesparelse;
+  private $energibesparelseAarEt;
 
   /**
    * @var float
    *
-   * @Calculated
-   * @ORM\Column(name="samletCo2besparelse", type="float", nullable=true)
+   * @ORM\Column(name="CO2besparelseAarEt", type="float", nullable=true)
    */
-  protected $samletCo2besparelse;
-
-  /**
-   * @var float
-   *
-   * @Calculated
-   * @ORM\Column(name="anlaegsinvestering", type="float", nullable=true)
-   */
-  protected $anlaegsinvestering;
-
-  /**
-   * @var float
-   *
-   * @Calculated
-   * @ORM\Column(name="simpelTilbagebetalingstidAar", type="float", nullable=true)
-   */
-  protected $simpelTilbagebetalingstidAar;
-
-  /**
-   * @var float
-   *
-   * @Calculated
-   * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float", nullable=true)
-   */
-  protected $nutidsvaerdiSetOver15AarKr;
-
-  /**
-   * @var float
-   *
-   * @Calculated
-   * @ORM\Column(name="scrapvaerdi", type="float", nullable=true)
-   */
-  protected $scrapvaerdi;
-
-  /**
-   * @var float
-   *
-   * @Calculated
-   * @ORM\Column(name="reinvestering", type="float", nullable=true)
-   */
-  protected $reinvestering;
+  private $co2besparelseAarEt;
 
   /**
    * @var integer
    *
-   * @Calculated
-   * @ORM\Column(name="antalReinvesteringer", type="integer", nullable=true)
+   * @ORM\Column(name="AntalReinvesteringer", type="integer", nullable=true)
    */
-  protected $antalReinvesteringer;
+  private $antalReinvesteringer;
 
   /**
    * @var integer
    *
    * @ORM\Column(name="FaktorForReinvesteringer", type="integer", nullable=true)
    */
-  protected $faktorForReinvesteringer;
+  private $faktorForReinvesteringer;
 
   /**
    * @var string
    *
    * @ORM\Column(name="PrimaerEnterprise", type="string", length=50, nullable=true)
    */
-  protected $primaerEnterprise;
+  private $primaerEnterprise;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Tiltagskategori", type="string", length=50, nullable=true)
    */
-  protected $tiltagskategori;
+  private $tiltagskategori;
 
   /**
-   * @var float
+   * @var string
    *
-   * @Calculated
-   * @ORM\Column(name="besparelseDriftOgVedligeholdelse", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="AnlaegsInvestering", type="decimal", nullable=true)
    */
-  protected $besparelseDriftOgVedligeholdelse;
+  private $anlaegsInvestering;
 
   /**
-   * @var float
+   * @var string
    *
-   * @Calculated
-   * @ORM\Column(name="besparelseStrafafkoelingsafgift", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="DVBesparelse", type="decimal", nullable=true)
    */
-  protected $besparelseStrafafkoelingsafgift;
+  private $dVBesparelse;
 
   /**
-   * @var float
+   * @var string
    *
    * @ORM\Column(name="Levetid", type="decimal", nullable=true)
    */
-  protected $levetid;
+  private $levetid;
 
   /**
    * @var string
    *
    * @ORM\Column(name="ForsyningVarme", type="string", length=50, nullable=true)
    */
-  protected $forsyningVarme;
+  private $forsyningVarme;
 
   /**
    * @var string
    *
    * @ORM\Column(name="ForsyningEl", type="string", length=50, nullable=true)
    */
-  protected $forsyningEl;
+  private $forsyningEl;
 
   /**
    * @var string
    *
    * @ORM\Column(name="BeskrivelseNuvaerende", type="text", nullable=true)
    */
-  protected $beskrivelseNuvaerende;
+  private $beskrivelseNuvaerende;
 
   /**
    * @var string
    *
    * @ORM\Column(name="BeskrivelseForslag", type="text", nullable=true)
    */
-  protected $beskrivelseForslag;
+  private $beskrivelseForslag;
 
   /**
    * @var string
    *
    * @ORM\Column(name="BeskrivelseOevrige", type="text", nullable=true)
    */
-  protected $beskrivelseOevrige;
+  private $beskrivelseOevrige;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Risikovurdering", type="string", length=10, nullable=true)
    */
-  protected $risikovurdering;
+  private $risikovurdering;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Placering", type="string", length=255, nullable=true)
    */
-  protected $placering;
+  private $placering;
 
   /**
    * @var string
    *
    * @ORM\Column(name="BeskrivelseBV", type="text", nullable=true)
    */
-  protected $beskrivelseBV;
+  private $beskrivelseBV;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Indeklima", type="text", nullable=true)
    */
-  protected $indeklima;
+  private $indeklima;
 
   /**
    * @var Rapport
@@ -272,7 +222,56 @@ abstract class Tiltag {
    * @ManyToOne(targetEntity="Rapport", inversedBy="tiltag")
    * @JoinColumn(name="rapport_id", referencedColumnName="id")
    **/
-  protected $rapport;
+  private $rapport;
+
+  /**
+   * @var ArrayCollection
+   *
+   * @OneToMany(targetEntity="TiltagDetail", mappedBy="tiltag", cascade={"persist", "remove"})
+   * @OrderBy({"createdAt" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\TiltagDetail>")
+   */
+  private $details;
+
+
+  //----- Økonomi ----- //
+
+  /**
+   * @var ArrayCollection
+   *
+   * @OneToMany(targetEntity="Regning", mappedBy="tiltag", cascade={"persist", "remove"})
+   * @OrderBy({"createdAt" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Regning>")
+   */
+  private $regning;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="EstimeredeUdgifter", type="decimal", nullable=true)
+   */
+  private $estimeredeUdgifter;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="BudgetteredeUdgifter", type="decimal", nullable=true)
+   */
+  private $budgetteredeUdgifter;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
+   */
+  private $genopretning;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
+   */
+  private $modernisering;
 
   /**
    * Get Name
@@ -311,6 +310,18 @@ abstract class Tiltag {
    */
   public function getTitle() {
     return $this->title;
+  }
+
+  /**
+   * Set vandbesparelse
+   *
+   * @param float $vandbesparelse
+   * @return Tiltag
+   */
+  public function setVandbesparelse($vandbesparelse) {
+    $this->vandbesparelse = $vandbesparelse;
+
+    return $this;
   }
 
   /**
@@ -386,30 +397,45 @@ abstract class Tiltag {
   }
 
   /**
-   * Get anlaegsinvestering
+   * Set anlaegsInvestering
    *
-   * @return string
+   * @param string $anlaegsInvestering
+   * @return Tiltag
    */
-  public function getAnlaegsinvestering() {
-    return $this->anlaegsinvestering;
+  public function setAnlaegsInvestering($anlaegsInvestering) {
+    $this->anlaegsInvestering = $anlaegsInvestering;
+
+    return $this;
   }
 
   /**
-   * Get besparelseDriftOgVedligeholdelse
+   * Get anlaegsInvestering
    *
    * @return string
    */
-  public function getBesparelseDriftOgVedligeholdelse() {
-    return $this->besparelseDriftOgVedligeholdelse;
+  public function getAnlaegsInvestering() {
+    return $this->anlaegsInvestering;
   }
 
   /**
-   * Get besparelseStrafafkoelingsafgift
+   * Set dVBesparelse
+   *
+   * @param string $dVBesparelse
+   * @return Tiltag
+   */
+  public function setDVBesparelse($dVBesparelse) {
+    $this->dVBesparelse = $dVBesparelse;
+
+    return $this;
+  }
+
+  /**
+   * Get dVBesparelse
    *
    * @return string
    */
-  public function getBesparelseStrafafkoelingsafgift() {
-    return $this->besparelseStrafafkoelingsafgift;
+  public function getDVBesparelse() {
+    return $this->dVBesparelse;
   }
 
   /**
@@ -644,12 +670,36 @@ abstract class Tiltag {
   }
 
   /**
+   * Set varmebesparelseGUF;
+   *
+   * @param float $varmebesparelseGUF;
+   * @return Tiltag
+   */
+  public function setVarmebesparelseGUF($varmebesparelseGUF) {
+    $this->varmebesparelseGUF = $varmebesparelseGUF;
+
+    return $this;
+  }
+
+  /**
    * Get varmebesparelseGUF;
    *
    * @return float
    */
   public function getVarmebesparelseGUF() {
     return $this->varmebesparelseGUF;
+  }
+
+  /**
+   * Set varmebesparelseGAF
+   *
+   * @param float $varmebesparelseGAF
+   * @return Tiltag
+   */
+  public function setVarmebesparelseGAF($varmebesparelseGAF) {
+    $this->varmebesparelseGAF = $varmebesparelseGAF;
+
+    return $this;
   }
 
   /**
@@ -662,6 +712,18 @@ abstract class Tiltag {
   }
 
   /**
+   * Set elbesparelse
+   *
+   * @param float $elbesparelse
+   * @return Tiltag
+   */
+  public function setElbesparelse($elbesparelse) {
+    $this->elbesparelse = $elbesparelse;
+
+    return $this;
+  }
+
+  /**
    * Get elbesparelse
    *
    * @return float
@@ -671,21 +733,57 @@ abstract class Tiltag {
   }
 
   /**
-   * Get samletEnergibesparelse
+   * Set energibesparelseAarEt
    *
-   * @return float
+   * @param float $energibesparelseAarEt
+   * @return Tiltag
    */
-  public function getSamletEnergibesparelse() {
-    return $this->samletEnergibesparelse;
+  public function setEnergibesparelseAarEt($energibesparelseAarEt) {
+    $this->energibesparelseAarEt = $energibesparelseAarEt;
+
+    return $this;
   }
 
   /**
-   * Get samletCo2besparelse
+   * Get energibesparelseAarEt
    *
    * @return float
    */
-  public function getSamletCo2besparelse() {
-    return $this->samletCo2besparelse;
+  public function getEnergibesparelseAarEt() {
+    return $this->energibesparelseAarEt;
+  }
+
+  /**
+   * Set co2besparelseAarEt
+   *
+   * @param float $co2besparelseAarEt
+   * @return Tiltag
+   */
+  public function setCo2besparelseAarEt($co2besparelseAarEt) {
+    $this->co2besparelseAarEt = $co2besparelseAarEt;
+
+    return $this;
+  }
+
+  /**
+   * Get co2besparelseAarEt
+   *
+   * @return float
+   */
+  public function getCo2besparelseAarEt() {
+    return $this->co2besparelseAarEt;
+  }
+
+  /**
+   * Set antalReinvesteringer
+   *
+   * @param integer $antalReinvesteringer
+   * @return Tiltag
+   */
+  public function setAntalReinvesteringer($antalReinvesteringer) {
+    $this->antalReinvesteringer = $antalReinvesteringer;
+
+    return $this;
   }
 
   /**
@@ -697,50 +795,6 @@ abstract class Tiltag {
     return $this->antalReinvesteringer;
   }
 
-  /**
-   * Get simpelTilbagebetalingstidAar.
-   *
-   * @return float
-   */
-  public function getSimpelTilbagebetalingstidAar() {
-    return $this->simpelTilbagebetalingstidAar;
-  }
-
-  /**
-   * Get nutidsvaerdiSetOver15AarKr.
-   *
-   * @return float
-   */
-  public function getNutidsvaerdiSetOver15AarKr() {
-    return $this->nutidsvaerdiSetOver15AarKr;
-  }
-
-  /**
-   * Get scrapvaerdi.
-   *
-   * @return float
-   */
-  public function getScrapvaerdi() {
-    return $this->scrapvaerdi;
-  }
-
-  /**
-   * Get reinvestering.
-   *
-   * @return float
-   */
-  public function getReinvestering() {
-    return $this->reinvestering;
-  }
-
-  /**
-   * @var ArrayCollection
-   *
-   * @OneToMany(targetEntity="TiltagDetail", mappedBy="tiltag", cascade={"persist", "remove"})
-   * @OrderBy({"createdAt" = "ASC"})
-   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\TiltagDetail>")
-   */
-  protected $details;
 
   /**
    * Add a TiltagDetail to this Tiltag
@@ -790,112 +844,146 @@ abstract class Tiltag {
   }
 
   /**
-   * Get all selected TiltagDetails.
-   *
-   * @return ArrayCollection
-   *   The list of selected TiltagDetails.
-   */
-  protected function getTilvalgteDetails() {
-    return $this->getDetails()->filter(function($detail) {
-      return $detail->getTilvalgt();
-    });
-  }
-
-  /**
    * Calculate values in this Tiltag
    *
    * @return bool
    */
   public function calculate() {
-    $this->varmebesparelseGUF = $this->calculateVarmebesparelseGUF();
-    $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
-    $this->elbesparelse = $this->calculateElbesparelse();
-    $this->vandbesparelse = $this->calculateVandbesparelse();
-    $this->samletEnergibesparelse = $this->calculateSamletEnergibesparelse();
-    $this->samletCo2besparelse = $this->calculateSamletCo2besparelse();
-    $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
-    $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
-    $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
-    $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
-    $this->scrapvaerdi = $this->calculateScrapvaerdi();
-    $this->reinvestering = $this->calculateReinvestering();
-
     return false;
-  }
-
-  protected function calculateVarmebesparelseGUF() {
-    return 0;
-  }
-
-  protected function calculateVarmebesparelseGAF() {
-    return 0;
-  }
-
-  protected function calculateElbesparelse() {
-    return 0;
-  }
-
-  protected function calculateVandbesparelse() {
-    return 0;
-  }
-
-    return 0;
-  protected function calculateSamletEnergibesparelse() {
-  }
-
-    return 0;
-  protected function calculateSamletCo2besparelse() {
-  }
-
-  protected function calculateAntalReinvesteringer() {
-    return 0;
-  }
-
-  protected function calculateAnlaegsinvestering() {
-    return 0;
-  }
-
-  protected function calculateSimpelTilbagebetalingstidAar() {
-    return 0;
-  }
-
-  protected function calculateNutidsvaerdiSetOver15AarKr() {
-    return 0;
-  }
-
-  protected function calculateScrapvaerdi() {
-    return 0;
-  }
-
-  protected function calculateReinvestering() {
-    return 0;
-  }
-
-  protected function accumulate(callable $accumulator, $start = 0) {
-    $value = $start;
-    foreach ($this->getTilvalgteDetails() as $detail) {
-      $value = $accumulator($detail, $value);
-    }
-    return $value;
-  }
-
-  /**
-   * Calculate the sum of something from each tilvalgt detail.
-   *
-   * @param string|callable $f
-   *   A callable or a property name.
-   *
-   * @return integer
-   *   The sum af results from calling $f on each tilvalgt detail.
-   */
-  protected function sum($f) {
-    return $this->accumulate(function($detail, $value) use ($f) {
-        return $value + (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
-      });
   }
 
   public function __construct() {
     $this->details = new \Doctrine\Common\Collections\ArrayCollection();
   }
 
+
+    /**
+     * Add regning
+     *
+     * @param \AppBundle\Entity\Regning $regning
+     *
+     * @return Tiltag
+     */
+    public function addRegning(\AppBundle\Entity\Regning $regning)
+    {
+        $this->regning[] = $regning;
+
+        return $this;
+    }
+
+    /**
+     * Remove regning
+     *
+     * @param \AppBundle\Entity\Regning $regning
+     */
+    public function removeRegning(\AppBundle\Entity\Regning $regning)
+    {
+        $this->regning->removeElement($regning);
+    }
+
+    /**
+     * Get regning
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRegning()
+    {
+        return $this->regning;
+    }
+
+    /**
+     * Set estimeredeUdgifter
+     *
+     * @param string $estimeredeUdgifter
+     *
+     * @return Tiltag
+     */
+    public function setEstimeredeUdgifter($estimeredeUdgifter)
+    {
+        $this->estimeredeUdgifter = $estimeredeUdgifter;
+
+        return $this;
+    }
+
+    /**
+     * Get estimeredeUdgifter
+     *
+     * @return string
+     */
+    public function getEstimeredeUdgifter()
+    {
+        return $this->estimeredeUdgifter;
+    }
+
+    /**
+     * Set budgetteredeUdgifter
+     *
+     * @param string $budgetteredeUdgifter
+     *
+     * @return Tiltag
+     */
+    public function setBudgetteredeUdgifter($budgetteredeUdgifter)
+    {
+        $this->budgetteredeUdgifter = $budgetteredeUdgifter;
+
+        return $this;
+    }
+
+    /**
+     * Get budgetteredeUdgifter
+     *
+     * @return string
+     */
+    public function getBudgetteredeUdgifter()
+    {
+        return $this->budgetteredeUdgifter;
+    }
+
+    /**
+     * Set genopretning
+     *
+     * @param string $genopretning
+     *
+     * @return Tiltag
+     */
+    public function setGenopretning($genopretning)
+    {
+        $this->genopretning = $genopretning;
+
+        return $this;
+    }
+
+    /**
+     * Get genopretning
+     *
+     * @return string
+     */
+    public function getGenopretning()
+    {
+        return $this->genopretning;
+    }
+
+    /**
+     * Set modernisering
+     *
+     * @param string $modernisering
+     *
+     * @return Tiltag
+     */
+    public function setModernisering($modernisering)
+    {
+        $this->modernisering = $modernisering;
+
+        return $this;
+    }
+
+    /**
+     * Get modernisering
+     *
+     * @return string
+     */
+    public function getModernisering()
+    {
+        return $this->modernisering;
+    }
 }

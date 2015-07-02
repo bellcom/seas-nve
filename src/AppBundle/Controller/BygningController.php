@@ -98,7 +98,7 @@ class BygningController extends Controller implements InitControllerInterface {
       'method' => 'POST',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Create'));
+    $form->add('submit', 'submit', array('label' => 'bygninger.actions.create'));
 
     return $form;
   }
