@@ -99,17 +99,17 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="energibesparelseAarEt", type="float", nullable=true)
+   * @ORM\Column(name="samletEnergibesparelse", type="float", nullable=true)
    */
-  protected $energibesparelseAarEt;
+  protected $samletEnergibesparelse;
 
   /**
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="co2besparelseAarEt", type="float", nullable=true)
+   * @ORM\Column(name="samletCo2besparelse", type="float", nullable=true)
    */
-  protected $co2besparelseAarEt;
+  protected $samletCo2besparelse;
 
   /**
    * @var float
@@ -183,9 +183,18 @@ abstract class Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="besparelseDogV", type="decimal", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="besparelseDriftOgVedligeholdelse", type="decimal", scale=4, nullable=true)
    */
-  protected $besparelseDogV;
+  protected $besparelseDriftOgVedligeholdelse;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="besparelseStrafafkoelingsafgift", type="decimal", scale=4, nullable=true)
+   */
+  protected $besparelseStrafafkoelingsafgift;
 
   /**
    * @var float
@@ -386,24 +395,21 @@ abstract class Tiltag {
   }
 
   /**
-   * Set besparelseDogV
-   *
-   * @param string $besparelseDogV
-   * @return Tiltag
-   */
-  public function setBesparelseDogV($besparelseDogV) {
-    $this->besparelseDogV = $besparelseDogV;
-
-    return $this;
-  }
-
-  /**
-   * Get besparelseDogV
+   * Get besparelseDriftOgVedligeholdelse
    *
    * @return string
    */
-  public function getBesparelseDogV() {
-    return $this->besparelseDogV;
+  public function getBesparelseDriftOgVedligeholdelse() {
+    return $this->besparelseDriftOgVedligeholdelse;
+  }
+
+  /**
+   * Get besparelseStrafafkoelingsafgift
+   *
+   * @return string
+   */
+  public function getBesparelseStrafafkoelingsafgift() {
+    return $this->besparelseStrafafkoelingsafgift;
   }
 
   /**
@@ -665,21 +671,21 @@ abstract class Tiltag {
   }
 
   /**
-   * Get energibesparelseAarEt
+   * Get samletEnergibesparelse
    *
    * @return float
    */
-  public function getEnergibesparelseAarEt() {
-    return $this->energibesparelseAarEt;
+  public function getSamletEnergibesparelse() {
+    return $this->samletEnergibesparelse;
   }
 
   /**
-   * Get co2besparelseAarEt
+   * Get samletCo2besparelse
    *
    * @return float
    */
-  public function getCo2besparelseAarEt() {
-    return $this->co2besparelseAarEt;
+  public function getSamletCo2besparelse() {
+    return $this->samletCo2besparelse;
   }
 
   /**
@@ -805,8 +811,8 @@ abstract class Tiltag {
     $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
     $this->elbesparelse = $this->calculateElbesparelse();
     $this->vandbesparelse = $this->calculateVandbesparelse();
-    $this->energibesparelseAarEt = $this->calculateEnergibesparelseAarEt();
-    $this->co2besparelseAarEt = $this->calculateCo2besparelseAarEt();
+    $this->samletEnergibesparelse = $this->calculateSamletEnergibesparelse();
+    $this->samletCo2besparelse = $this->calculateSamletCo2besparelse();
     $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
     $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
     $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
@@ -833,12 +839,12 @@ abstract class Tiltag {
     return 0;
   }
 
-  protected function calculateEnergibesparelseAarEt() {
     return 0;
+  protected function calculateSamletEnergibesparelse() {
   }
 
-  protected function calculateCo2besparelseAarEt() {
     return 0;
+  protected function calculateSamletCo2besparelse() {
   }
 
   protected function calculateAntalReinvesteringer() {

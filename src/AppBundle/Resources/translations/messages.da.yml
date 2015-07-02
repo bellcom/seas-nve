@@ -353,14 +353,14 @@ appbundle:
     varmebesparelseGAF: ﻿Varmebesparelse, GAF (kWh/år)
     elbesparelse: Elbesparelse (kWh/år)
     vandbesparelse: Vandbesparelse (m³/år)
-    energibesparelseAarEt: Energi- og vandbesparelser i år 1 (kr/år)
-    co2besparelseAarEt: Samlet co2-besparelse i år 1  (t/år)
+    samletEnergibesparelse: Samlet energibesparelse (kr/år)
+    samletCo2besparelse: Samlet co2-besparelse (t/år)
     antalReinvesteringer: Antal reinvesteringer (stk.)
     faktorForReinvesteringer: Faktor for reinvesteringer
     primaerEnterprise: Primær entreprise
     tiltagskategori: Tiltagskategori
     anlaegsInvestering: ﻿Anlægsinvestering (kr)
-    besparelseDogV: Besparelse på D&V (kr/år)
+    besparelseDriftOgVedligeholdelse: Besparelse på D & V (kr/år)
     levetid: Funktionsdygtig levetid (år)
     forsyningVarme: Forsyning, varme
     forsyningEl: Forsyning, el
