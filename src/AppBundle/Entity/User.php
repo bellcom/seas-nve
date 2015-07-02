@@ -12,12 +12,34 @@ use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints as Rollerwor
  * @ORM\Table(name="fos_user")
  */
 class User extends BaseUser {
+
   /**
    * @ORM\Id
    * @ORM\Column(type="integer")
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="firstname", type="string", length=10, nullable=true)
+   */
+  private $firstname;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="lastname", type="string", length=10, nullable=true)
+   */
+  private $lastname;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="phone", type="string", length=10, nullable=true)
+   */
+  private $phone;
 
   /**
    * Plain password. Used for model validation. Must not be persisted.
@@ -64,27 +86,99 @@ class User extends BaseUser {
     $this->bygninger = new ArrayCollection();
   }
 
+  /**
+   * Add bygninger
+   *
+   * @param \AppBundle\Entity\Bygning $bygninger
+   *
+   * @return User
+   */
+  public function addBygninger(\AppBundle\Entity\Bygning $bygninger)
+  {
+    $this->bygninger[] = $bygninger;
+
+    return $this;
+  }
+
+  /**
+   * Remove bygninger
+   *
+   * @param \AppBundle\Entity\Bygning $bygninger
+   */
+  public function removeBygninger(\AppBundle\Entity\Bygning $bygninger)
+  {
+    $this->bygninger->removeElement($bygninger);
+  }
+
     /**
-     * Add bygninger
+     * Set firstname
      *
-     * @param \AppBundle\Entity\Bygning $bygninger
+     * @param string $firstname
      *
      * @return User
      */
-    public function addBygninger(\AppBundle\Entity\Bygning $bygninger)
+    public function setFirstname($firstname)
     {
-        $this->bygninger[] = $bygninger;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
     /**
-     * Remove bygninger
+     * Get firstname
      *
-     * @param \AppBundle\Entity\Bygning $bygninger
+     * @return string
      */
-    public function removeBygninger(\AppBundle\Entity\Bygning $bygninger)
+    public function getFirstname()
     {
-        $this->bygninger->removeElement($bygninger);
+        return $this->firstname;
+    }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     *
+     * @return User
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get lastname
+     *
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     *
+     * @return User
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }

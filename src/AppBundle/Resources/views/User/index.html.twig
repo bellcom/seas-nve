@@ -1,0 +1,50 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <div class="row">
+    <div class="col-md-10">
+      <h1>{{ 'user.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-2 right">
+      <a href="{{ path('user_new') }}" class="btn btn-default">
+        {{ icon('plus') }} {{ 'user.actions.add' | trans }}
+      </a>
+    </div>
+
+  </div>
+
+  <table class="table table-condensed">
+    <thead>
+    <tr>
+      <th>{{ knp_pagination_sortable(pagination, 'fos.user.profile.form.username' | trans, 'u.username') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'fos.user.profile.form.email' | trans, 'u.email') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.user.firstname' | trans, 'u.firstname') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.user.lastname' | trans, 'u.lastname') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.user.phone' | trans, 'u.phone') }}</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in pagination %}
+      <tr>
+        <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.username }}</a></td>
+        <td>{{ entity.email }}</td>
+        <td>{{ entity.firstname }}</td>
+        <td>{{ entity.lastname }}</td>
+        <td>{{ entity.phone }}</td>
+        <td>
+          <a href="{{ path('user_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+          <a href="{{ path('user_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="col-md-12">
+      {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
+    </div>
+  </div>
+
+{% endblock %}
