@@ -29,24 +29,24 @@
   </table>
 
 	<div role="tabpanel">
-		{{ form(delete_form) }}
 
-    <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation"><a href="#oversigt" aria-controls="Oversigt" role="tab" data-toggle="tab">{{ 'tiltag.strings.oversigt' | trans }}</a></li>
+    <ul class="nav nav-pills" role="tablist">
+      <li role="presentation" class="active"><a href="#oversigt" aria-controls="Oversigt" role="tab" data-toggle="tab">{{ 'tiltag.strings.oversigt' | trans }}</a></li>
       <li role="presentation"><a href="#forhold" aria-controls="Forhold" role="tab" data-toggle="tab">{{ 'tiltag.strings.forhold' | trans }}</a></li>
-      <li role="presentation" class="active"><a href="#detailark" aria-controls="Detailark" role="tab" data-toggle="tab">{{ 'tiltag.strings.detailark' | trans }}</a></li>
+      <li role="presentation"><a href="#detailark" aria-controls="Detailark" role="tab" data-toggle="tab">{{ 'tiltag.strings.detailark' | trans }}</a></li>
     </ul>
 
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane" id="oversigt">
+      <div role="tabpanel" class="tab-pane active" id="oversigt">
         {% include 'AppBundle:Tiltag:show-include.html.twig' %}
       </div>
 
       <div role="tabpanel" class="tab-pane" id="forhold">
-        {{ form(edit_form) }}
+        {% form_theme edit_form 'AppBundle:Form:twocol-form.html.twig' %}
+        {{ form(edit_form, { 'style': 'horizontal' }) }}
       </div>
 
-      <div role="tabpanel" class="tab-pane active" id="detailark">
+      <div role="tabpanel" class="tab-pane" id="detailark">
         {% block detailark -%}...{% endblock %}
       </div>
     </div>
@@ -55,4 +55,5 @@
   <form method="POST" action="{{ path('regning_create', { 'id': entity.id}) }}" class="inline-block">
     <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('tiltag.strings.regning') | trans }}</button>
   </form>
+
 {% endblock %}

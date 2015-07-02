@@ -24,6 +24,7 @@ class TiltagDetailType extends AbstractType {
   }
 
   public function buildForm(FormBuilderInterface $builder, array $options) {
+    $builder->add('tilvalgt');
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver) {
