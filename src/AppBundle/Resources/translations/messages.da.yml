@@ -20,12 +20,10 @@ fos:
             first: Indtast nyt kodeord
             second: Gentag kodeord
 
-user:
-  profile: Profil
-
 common:
   edit: Rediger
   show: Vis
+  create: Opret
 
 footer:
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
@@ -131,6 +129,15 @@ configuration:
   actions:
     edit: Rediger indstillinger
   strings:
+
+user:
+  labels:
+    singular: Bruger
+    plural: Brugere
+  actions:
+    add: Tilføj bruger
+    edit: Rediger bruger
+    create: Opret bruger
 
 # Forms - We follow the formbuilders form id format
 
@@ -524,6 +531,15 @@ appbundle:
     elKrKWh: El (kr/kWh)
     varmeledningsevneEksistLamelmaatter: Varmeledningsevne (W/m·K), eksist. lamelmåtter
     varmeledningsevneNyIsolering: Varmeledningsevne (W/m·K), ny isolering
+
+  user:
+    profile: Profil
+    firstname: Fornavn
+    lastname: Efternavn
+    phone: Telefon
+    bygninger: Bygninger
+    locked: Låst
+    email: Email
 
 # Calculations
 appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |
