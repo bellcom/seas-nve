@@ -80,9 +80,9 @@ class Bygning {
   protected $adresse;
 
   /**
-   * @var integer
+   * @var string
    *
-   * @ORM\Column(name="Postnummer", type="integer", nullable=true)
+   * @ORM\Column(name="Postnummer", type="string", nullable=true)
    */
   protected $postnummer;
 
@@ -103,7 +103,7 @@ class Bygning {
   /**
    * @var string
    *
-   * @ORM\Column(name="Ejer", type="string", length=10, nullable=true)
+   * @ORM\Column(name="Ejer", type="string", length=255, nullable=true)
    */
   protected $ejer;
 
@@ -138,7 +138,7 @@ class Bygning {
   /**
    * @var string
    *
-   * @ORM\Column(name="Maalertype", type="string", length=10, nullable=true)
+   * @ORM\Column(name="Maalertype", type="string", length=255, nullable=true)
    */
   protected $maalertype;
 
@@ -149,16 +149,16 @@ class Bygning {
   protected $forsyningsvaerkVand;
 
   /**
-   * @var integer
+   * @var string
    *
-   * @ORM\Column(name="Kundenummer", type="integer", nullable=true)
+   * @ORM\Column(name="Kundenummer", type="string", length=255, nullable=true)
    */
   protected $kundenummer;
 
   /**
-   * @var integer
+   * @var string
    *
-   * @ORM\Column(name="Kode", type="integer", nullable=true)
+   * @ORM\Column(name="Kode", type="string", length=255, nullable=true)
    */
   protected $kode;
 
@@ -169,30 +169,30 @@ class Bygning {
   protected $forsyningsvaerkVarme;
 
   /**
-   * @var integer
+   * @var string
    *
-   * @ORM\Column(name="Kundenr_1", type="integer", nullable=true)
+   * @ORM\Column(name="Kundenr_1", type="string", length=255, nullable=true)
    */
   protected $kundenr1;
 
   /**
-   * @var integer
+   * @var string
    *
-   * @ORM\Column(name="Kode_1", type="integer", nullable=true)
+   * @ORM\Column(name="Kode_1", type="string", length=255, nullable=true)
    */
   protected $kode1;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="MaalerskifteAFV", type="string", length=10, nullable=true)
+   * @ORM\Column(name="MaalerskifteAFV", type="string", length=255, nullable=true)
    */
   protected $maalerskifteAFV;
 
   /**
-   * @var integer
+   * @var string
    *
-   * @ORM\Column(name="AFVInstnr_1", type="integer", nullable=true)
+   * @ORM\Column(name="AFVInstnr_1", type="string", length=255, nullable=true)
    */
   protected $aFVInstnr1;
 
@@ -210,9 +210,9 @@ class Bygning {
   protected $instnr;
 
   /**
-   * @var integer
+   * @var string
    *
-   * @ORM\Column(name="Kundenr_NRGI", type="integer", nullable=true)
+   * @ORM\Column(name="Kundenr_NRGI", type="string", length=255, nullable=true)
    */
   protected $kundenrNRGI;
 
@@ -224,9 +224,9 @@ class Bygning {
   protected $internetkode;
 
   /**
-   * @var integer
+   * @var string
    *
-   * @ORM\Column(name="Aftagenr", type="integer", nullable=true)
+   * @ORM\Column(name="Aftagenr", type="string", length=255, nullable=true)
    */
   protected $aftagenr;
 
@@ -275,14 +275,14 @@ class Bygning {
   /**
    * @var string
    *
-   * @ORM\Column(name="Magistrat", type="string", length=10, nullable=true)
+   * @ORM\Column(name="Magistrat", type="string", length=255, nullable=true)
    */
   protected $magistrat;
 
   /**
-   * @var integer
+   * @var string
    *
-   * @ORM\Column(name="Lokation", type="integer", nullable=true)
+   * @ORM\Column(name="Lokation", type="string", length=255, nullable=true)
    */
   protected $lokation;
 
@@ -537,7 +537,7 @@ class Bygning {
   /**
    * Set postnummer
    *
-   * @param integer $postnummer
+   * @param string $postnummer
    * @return Bygning
    */
   public function setPostnummer($postnummer) {
@@ -549,7 +549,7 @@ class Bygning {
   /**
    * Get postnummer
    *
-   * @return integer
+   * @return string
    */
   public function getPostnummer() {
     return $this->postnummer;
@@ -747,7 +747,7 @@ class Bygning {
   /**
    * Set kundenummer
    *
-   * @param integer $kundenummer
+   * @param string $kundenummer
    * @return Bygning
    */
   public function setKundenummer($kundenummer) {
@@ -759,7 +759,7 @@ class Bygning {
   /**
    * Get kundenummer
    *
-   * @return integer
+   * @return string
    */
   public function getKundenummer() {
     return $this->kundenummer;
@@ -768,7 +768,7 @@ class Bygning {
   /**
    * Set kode
    *
-   * @param integer $kode
+   * @param string $kode
    * @return Bygning
    */
   public function setKode($kode) {
@@ -780,7 +780,7 @@ class Bygning {
   /**
    * Get kode
    *
-   * @return integer
+   * @return string
    */
   public function getKode() {
     return $this->kode;
@@ -810,7 +810,7 @@ class Bygning {
   /**
    * Set kundenr1
    *
-   * @param integer $kundenr1
+   * @param string $kundenr1
    * @return Bygning
    */
   public function setKundenr1($kundenr1) {
@@ -822,7 +822,7 @@ class Bygning {
   /**
    * Get kundenr1
    *
-   * @return integer
+   * @return string
    */
   public function getKundenr1() {
     return $this->kundenr1;
@@ -831,7 +831,7 @@ class Bygning {
   /**
    * Set kode1
    *
-   * @param integer $kode1
+   * @param string $kode1
    * @return Bygning
    */
   public function setKode1($kode1) {
@@ -843,7 +843,7 @@ class Bygning {
   /**
    * Get kode1
    *
-   * @return integer
+   * @return string
    */
   public function getKode1() {
     return $this->kode1;
@@ -873,7 +873,7 @@ class Bygning {
   /**
    * Set aFVInstnr1
    *
-   * @param integer $aFVInstnr1
+   * @param string $aFVInstnr1
    * @return Bygning
    */
   public function setAFVInstnr1($aFVInstnr1) {
@@ -885,7 +885,7 @@ class Bygning {
   /**
    * Get aFVInstnr1
    *
-   * @return integer
+   * @return string
    */
   public function getAFVInstnr1() {
     return $this->aFVInstnr1;
@@ -936,7 +936,7 @@ class Bygning {
   /**
    * Set kundenrNRGI
    *
-   * @param integer $kundenrNRGI
+   * @param string $kundenrNRGI
    * @return Bygning
    */
   public function setKundenrNRGI($kundenrNRGI) {
@@ -948,7 +948,7 @@ class Bygning {
   /**
    * Get kundenrNRGI
    *
-   * @return integer
+   * @return string
    */
   public function getKundenrNRGI() {
     return $this->kundenrNRGI;
@@ -978,7 +978,7 @@ class Bygning {
   /**
    * Set aftagenr
    *
-   * @param integer $aftagenr
+   * @param string $aftagenr
    * @return Bygning
    */
   public function setAftagenr($aftagenr) {
@@ -990,7 +990,7 @@ class Bygning {
   /**
    * Get aftagenr
    *
-   * @return integer
+   * @return string
    */
   public function getAftagenr() {
     return $this->aftagenr;
@@ -1146,7 +1146,7 @@ class Bygning {
   /**
    * Set lokation
    *
-   * @param integer $lokation
+   * @param string $lokation
    * @return Bygning
    */
   public function setLokation($lokation) {
@@ -1158,7 +1158,7 @@ class Bygning {
   /**
    * Get lokation
    *
-   * @return integer
+   * @return string
    */
   public function getLokation() {
     return $this->lokation;

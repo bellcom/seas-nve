@@ -63,20 +63,6 @@ class Forsyningsvaerk {
   /**
    * @var float
    *
-   * @ORM\Column(name="pris2009", type="decimal", scale=4, nullable=true)
-   */
-  protected $pris2009;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="pris2014", type="decimal", scale=4, nullable=true)
-   */
-  protected $pris2014;
-
-  /**
-   * @var float
-   *
    * @ORM\Column(name="pris2015", type="decimal", scale=4, nullable=true)
    */
   protected $pris2015;
@@ -297,20 +283,6 @@ class Forsyningsvaerk {
    * @ORM\Column(name="co2noter", type="text", nullable=true)
    */
   protected $co2Noter;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="co2y2009", type="decimal", scale=4, nullable=true)
-   */
-  protected $co2y2009;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="co2y2014", type="decimal", scale=4, nullable=true)
-   */
-  protected $co2y2014;
 
   /**
    * @var float
@@ -628,56 +600,6 @@ class Forsyningsvaerk {
    */
   public function getVedForbrugOverKWh() {
     return $this->vedForbrugOverKWh;
-  }
-
-  /**
-   * Set pris2009.
-   *
-   * @param float $pris2009
-   *   pris2009.
-   *
-   * @return Forsyningsvaerk
-   *   This.
-   */
-  public function setPris2009($pris2009) {
-    $this->pris2009 = $pris2009;
-
-    return $this;
-  }
-
-  /**
-   * Get pris2009.
-   *
-   * @return float
-   *   The pris2009.
-   */
-  public function getPris2009() {
-    return $this->pris2009;
-  }
-
-  /**
-   * Set pris2014.
-   *
-   * @param float $pris2014
-   *   pris2014.
-   *
-   * @return Forsyningsvaerk
-   *   This.
-   */
-  public function setPris2014($pris2014) {
-    $this->pris2014 = $pris2014;
-
-    return $this;
-  }
-
-  /**
-   * Get pris2014.
-   *
-   * @return float
-   *   The pris2014.
-   */
-  public function getPris2014() {
-    return $this->pris2014;
   }
 
   /**
@@ -1481,56 +1403,6 @@ class Forsyningsvaerk {
   }
 
   /**
-   * Set co2y2009.
-   *
-   * @param float $co2y2009
-   *   co2y2009.
-   *
-   * @return Forsyningsvaerk
-   *   This.
-   */
-  public function setCo2y2009($co2y2009) {
-    $this->co2y2009 = $co2y2009;
-
-    return $this;
-  }
-
-  /**
-   * Get co2y2009.
-   *
-   * @return float
-   *   The co2y2009.
-   */
-  public function getCo2y2009() {
-    return $this->co2y2009;
-  }
-
-  /**
-   * Set co2y2014.
-   *
-   * @param float $co2y2014
-   *   co2y2014.
-   *
-   * @return Forsyningsvaerk
-   *   This.
-   */
-  public function setCo2y2014($co2y2014) {
-    $this->co2y2014 = $co2y2014;
-
-    return $this;
-  }
-
-  /**
-   * Get co2y2014.
-   *
-   * @return float
-   *   The co2y2014.
-   */
-  public function getCo2y2014() {
-    return $this->co2y2014;
-  }
-
-  /**
    * Set co2y2015.
    *
    * @param float $co2y2015
@@ -2162,10 +2034,24 @@ class Forsyningsvaerk {
    *   The year. Leave empty to use current year.
    *
    * @return float
-   *   The rpice in the given year.
+   *   The price in the given year.
    */
   public function getKrKWh($year = NULL) {
     $property = 'pris' . ($year !== NULL ? $year : date('Y'));
+    return isset($this->{$property}) ? $this->{$property} : 0;
+  }
+
+  /**
+   * Return co2 stuff in a given year. Defaults to the current year.
+   *
+   * @param int $year
+   *   The year. Leave empty to use current year.
+   *
+   * @return float
+   *   The price in the given year.
+   */
+  public function getKgCo2MWh($year = NULL) {
+    $property = 'co2y' . ($year !== NULL ? $year : date('Y'));
     return isset($this->{$property}) ? $this->{$property} : 0;
   }
 
