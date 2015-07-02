@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RegningType extends AbstractType
+class UserType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,11 +15,11 @@ class RegningType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nummer')
-            ->add('faktureret')
-            ->add('startdato')
-            ->add('slutdato')
-            ->add('tiltag')
+            ->add('firstname')
+            ->add('lastname')
+            ->add('email')
+            ->add('phone')
+            ->add('bygninger')
         ;
     }
     
@@ -29,7 +29,7 @@ class RegningType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Regning'
+            'data_class' => 'AppBundle\Entity\User'
         ));
     }
 
@@ -38,6 +38,6 @@ class RegningType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_regning';
+        return 'appbundle_user';
     }
 }

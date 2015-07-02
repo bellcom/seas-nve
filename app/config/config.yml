@@ -108,6 +108,9 @@ fos_user:
     user_class: AppBundle\Entity\User
     group:
         group_class: AppBundle\Entity\Group
+    profile:
+        form:
+            type: appbundle_user_profile
 
 simple_things_entity_audit:
     audited_entities:

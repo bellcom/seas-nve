@@ -36,6 +36,9 @@ class LoadUsersData extends LoadData {
         $user->setUsername($item['username'])
           ->setPassword($encoder->encodePassword($user, $item['password']))
           ->setEmail($item['email'])
+          ->setFirstname($item['firstname'])
+          ->setLastname($item['lastname'])
+          ->setPhone($item['phone'])
           ->setRoles($item['roles'] ? explode(',', $item['roles']) : array())
           ->setGroups($groups)
           ->setEnabled(true);

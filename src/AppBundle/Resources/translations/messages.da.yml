@@ -4,6 +4,9 @@ fos:
       form:
         username: Brugernavn
         email: Email
+        firstname: Fornavn
+        lastname: Efternavn
+        phone: Telefon
         current:
           password: Nuværende kodeord
     resetting:

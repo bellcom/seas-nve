@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class LeverandoerType extends AbstractType
+class RegningType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,7 +15,11 @@ class LeverandoerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('nummer')
+            ->add('faktureret')
+            ->add('startdato')
+            ->add('slutdato')
+            ->add('tiltag')
         ;
     }
     
@@ -25,7 +29,7 @@ class LeverandoerType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Leverandoer'
+            'data_class' => 'AppBundle\Entity\Regning'
         ));
     }
 
@@ -34,6 +38,6 @@ class LeverandoerType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_leverandoer';
+        return 'appbundle_regning';
     }
 }

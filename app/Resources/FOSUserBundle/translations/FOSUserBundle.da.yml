@@ -26,6 +26,11 @@ profile:
     show:
         username: Brugernavn
         email: Email
+        name: Navn
+        phone: Telefon
+        firstname: Fornavn
+        lastname: Efternavn
+        phone: Telefon
     edit:
         info: Rediger profil
         submit: Opdater
