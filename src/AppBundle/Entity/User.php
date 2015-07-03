@@ -110,75 +110,75 @@ class User extends BaseUser {
     $this->bygninger->removeElement($bygninger);
   }
 
-    /**
-     * Set firstname
-     *
-     * @param string $firstname
-     *
-     * @return User
-     */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
+  /**
+   * Set firstname
+   *
+   * @param string $firstname
+   *
+   * @return User
+   */
+  public function setFirstname($firstname)
+  {
+    $this->firstname = $firstname;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get firstname
-     *
-     * @return string
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
+  /**
+   * Get firstname
+   *
+   * @return string
+   */
+  public function getFirstname()
+  {
+    return $this->firstname;
+  }
 
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     *
-     * @return User
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
+  /**
+   * Set lastname
+   *
+   * @param string $lastname
+   *
+   * @return User
+   */
+  public function setLastname($lastname)
+  {
+    $this->lastname = $lastname;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get lastname
-     *
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
+  /**
+   * Get lastname
+   *
+   * @return string
+   */
+  public function getLastname()
+  {
+    return $this->lastname;
+  }
 
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     *
-     * @return User
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
+  /**
+   * Set phone
+   *
+   * @param string $phone
+   *
+   * @return User
+   */
+  public function setPhone($phone)
+  {
+    $this->phone = $phone;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
+  /**
+   * Get phone
+   *
+   * @return string
+   */
+  public function getPhone()
+  {
+    return $this->phone;
+  }
 }

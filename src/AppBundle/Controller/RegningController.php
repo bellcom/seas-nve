@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Regning;
-use AppBundle\Form\RegningType;
+use AppBundle\Form\Type\RegningType;
 
 /**
  * Regning controller.

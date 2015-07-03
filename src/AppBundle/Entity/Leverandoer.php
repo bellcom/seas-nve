@@ -80,7 +80,7 @@ class Leverandoer
      */
     public function __construct()
     {
-        $this->regning = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->regninger = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -92,7 +92,7 @@ class Leverandoer
      */
     public function addRegning(\AppBundle\Entity\Regning $regning)
     {
-        $this->regning[] = $regning;
+        $this->regninger[] = $regning;
 
         return $this;
     }
