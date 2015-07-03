@@ -238,7 +238,7 @@ abstract class TiltagDetail {
    * Calculate stuff.
    */
   public function calculate() {
-    $this->tiltag->calculate();
+    // $this->tiltag->calculate();
   }
 
   protected function fordelbesparelse($BesparKwh, $Kilde, $typen) {
@@ -407,23 +407,19 @@ End Function
 */
 
   /**
-   * Calculate Net Present Value
+   * Safe division.
    *
-   * @param float $rate
-   *   The rate.
+   * @param float $numerator
+   *   The numerator.
    *
-   * @param array $values
-   *   The values. Indexes should be years (from 1).
+   * @param float $denominator
+   *   The denominator.
+   *
+   * @return float
+   *   .
    */
-  protected function npv($rate, array $values) {
-    $nvp = 0;
-
-    // @see http://stackoverflow.com/questions/2027460/how-to-calculate-npv
-    foreach ($values as $year => $value) {
-      $nvp += $value / pow(1 + $rate, $year);
-    }
-
-    return $nvp;
+  protected function divide($numerator, $denominator) {
+    return $denominator == 0 ? 0 : ($numerator / $denominator);
   }
 
 }

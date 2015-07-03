@@ -31,4 +31,24 @@ class SolcelleTiltag extends Tiltag {
     $this->setTitle('Solcelletiltag');
   }
 
+  protected function calculateElbesparelse() {
+    return $this->sum('egetForbrugAfProduktionenKWh');
+  }
+
+  protected function calculateSamletEnergibesparelse() {
+    return $this->elbesparelse * $this->getRapport()->getElKrKWh()
+      + $this->sum(function($detail) {
+        return $detail->getCashFlow()['Salg til nettet'][1];
+      });
+  }
+
+  protected function calculateSamletCo2besparelse() {
+    return (($this->varmebesparelseGAF / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
+            + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
+  }
+
+  protected function calculateAnlaegsinvestering() {
+    return $this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr');
+  }
+
 }

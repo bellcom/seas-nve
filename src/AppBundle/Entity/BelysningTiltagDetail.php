@@ -1200,7 +1200,8 @@ class BelysningTiltagDetail extends TiltagDetail {
       return 0;
     }
     else {
-      return $this->investeringAlleLokalerKr / ($this->kWhBesparelseEl * $this->getRapport()->getElKrKWh() + $this->kWhBesparelseVarmeFraVarmevaerket * $this->getRapport()->getVarmeKrKWh() + $this->driftsbesparelseTilLyskilderKrAar);
+      return $this->divide($this->investeringAlleLokalerKr,
+                           $this->kWhBesparelseEl * $this->getRapport()->getElKrKWh() + $this->kWhBesparelseVarmeFraVarmevaerket * $this->getRapport()->getVarmeKrKWh() + $this->driftsbesparelseTilLyskilderKrAar);
     }
   }
 
@@ -1220,8 +1221,8 @@ class BelysningTiltagDetail extends TiltagDetail {
       $udgiftLyskilde = $this->_computeUdgiftLyskilde();
       $levetidLyskilde = $this->_computeLevetidLyskilde();
 
-      $denominator = $udgiftSensorer + $udgiftArmatur + $udgiftLyskilde;
-      return $denominator == 0 ? 0 : ($udgiftSensorer * $levetidSensor + $udgiftArmatur * $levetidArmatur + $udgiftLyskilde * $levetidLyskilde) / $denominator;
+      return $this->divide($udgiftSensorer * $levetidSensor + $udgiftArmatur * $levetidArmatur + $udgiftLyskilde * $levetidLyskilde,
+                           $udgiftSensorer + $udgiftArmatur + $udgiftLyskilde);
     }
   }
 
@@ -1355,6 +1356,60 @@ class BelysningTiltagDetail extends TiltagDetail {
           }
       }
     }
+  }
+
+  protected $udgiftSensorer;
+
+  public function getUdgiftSensorer() {
+    if ($this->udgiftSensorer === NULL) {
+      $this->udgiftSensorer = $this->_computeUdgiftSensorer();
+    }
+    return $this->udgiftSensorer;
+  }
+
+  protected $udgiftArmaturer;
+
+  public function getUdgiftArmaturer() {
+    if ($this->udgiftArmaturer === NULL) {
+      $this->udgiftArmaturer = $this->_computeUdgiftArmatur();
+    }
+    return $this->udgiftArmaturer;
+  }
+
+  protected $udgiftLyskilde;
+
+  public function getUdgiftLyskilde() {
+    if ($this->udgiftLyskilde === NULL) {
+      $this->udgiftLyskilde = $this->_computeUdgiftLyskilde();
+    }
+    return $this->udgiftLyskilde;
+  }
+
+  protected $levetidSensor;
+
+  public function getLevetidSensor() {
+    if ($this->levetidSensor === NULL) {
+      $this->levetidSensor = $this->_computeLevetidSensor();
+    }
+    return $this->levetidSensor;
+  }
+
+  protected $armaturvaegtning;
+
+  public function getArmaturvaegtning() {
+    if ($this->armaturvaegtning === NULL) {
+      $this->armaturvaegtning = $this->getUdgiftArmaturer() * $this->_computeLevetidArmatur();
+    }
+    return $this->armaturvaegtning;
+  }
+
+  protected $lyskildevaegtning;
+
+  public function getLyskildevaegtning() {
+    if ($this->lyskildevaegtning === NULL) {
+      $this->lyskildevaegtning = $this->getUdgiftLyskilde() * $this->_computeLevetidLyskilde();
+    }
+    return $this->lyskildevaegtning;
   }
 
 }

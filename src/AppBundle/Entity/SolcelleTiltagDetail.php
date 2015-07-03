@@ -7,6 +7,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Annotations\Calculated;
+use AppBundle\Calculation\Calculation;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
@@ -166,6 +167,14 @@ class SolcelleTiltagDetail extends TiltagDetail {
    * @ORM\Column(name="totalDriftomkostningerPrAar", type="float")
    */
   protected $totalDriftomkostningerPrAar;
+
+  /**
+   * @var array
+   *
+   * @Calculated
+   * @ORM\Column(name="cashFlow", type="array")
+   */
+  protected $cashFlow;
 
   /**
    * @var float
@@ -356,6 +365,14 @@ class SolcelleTiltagDetail extends TiltagDetail {
     return $this->totalDriftomkostningerPrAar;
   }
 
+  public function getCashFlow() {
+    if (!$this->cashFlow) {
+      $cashFlow = $this->calculateCashFlow();
+      $this->cashFlow = $cashFlow;
+    }
+    return $this->cashFlow;
+  }
+
   public function getSimpelTilbagebetalingstidAar() {
     return $this->simpelTilbagebetalingstidAar;
   }
@@ -372,10 +389,9 @@ class SolcelleTiltagDetail extends TiltagDetail {
     $this->driftPrAarKr = $this->calculateDriftPrAarKr();
     $this->raadighedstarifKr = $this->calculateRaadighedstarifKr();
     $this->totalDriftomkostningerPrAar = $this->calculateTotalDriftomkostningerPrAar();
-
-    $cashFlow = $this->calculateCashFlow();
-    $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar($cashFlow);
-    $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr($cashFlow);
+    $this->cashFlow = $this->calculateCashFlow();
+    $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
+    $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     parent::calculate();
   }
 
@@ -409,12 +425,12 @@ class SolcelleTiltagDetail extends TiltagDetail {
     return $this->driftPrAarKr + $this->omkostningTilMaalerKr + $this->raadighedstarifKr;
   }
 
-  private function calculateSimpelTilbagebetalingstidAar(array $cashFlow) {
-    return array_sum($cashFlow['TBT']);
+  private function calculateSimpelTilbagebetalingstidAar() {
+    return array_sum($this->cashFlow['TBT']);
   }
 
-  private function calculateNutidsvaerdiSetOver15AarKr(array $cashFlow) {
-    return $this->npv($this->getRapport()->getKalkulationsrente(), $cashFlow['Cash flow']);
+  private function calculateNutidsvaerdiSetOver15AarKr() {
+    return Calculation::npv($this->getRapport()->getKalkulationsrente(), $this->cashFlow['Cash flow']);
   }
 
   /**
@@ -428,7 +444,7 @@ class SolcelleTiltagDetail extends TiltagDetail {
    */
   private function calculateCashFlow($numberOfYears = 15) {
     $inflation = $this->getRapport()->getInflation();
-    $elKrKWh = $this->getRapport()->getBygning()->getForsyningsvaerkEl()->getKrKWh();
+    $elKrKWh = $this->getRapport()->getElKrKWh();
 
     $flow = array(
       'Investering' => array_fill(0, $numberOfYears + 1, 0),

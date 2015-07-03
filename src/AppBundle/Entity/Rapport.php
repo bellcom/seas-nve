@@ -447,32 +447,32 @@ class Rapport {
     return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this->configuration);
   }
 
-  public function getVandKrKWh()
+  public function getVandKrKWh($yearNumber = 1)
   {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkVand();
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh(date('Y') - 1 + $yearNumber);
   }
 
-  public function getVarmeKrKWh()
+  public function getVarmeKrKWh($yearNumber = 1)
   {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh(date('Y') - 1 + $yearNumber);
   }
 
-  public function getElKrKWh()
+  public function getElKrKWh($yearNumber = 1)
   {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
-    return $forsyningsvaerk ? $forsyningsvaerk->getKrKWh() : 0;
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh(date('Y') - 1 + $yearNumber);
   }
 
-  public function getVarmeKgCo2MWh() {
+  public function getVarmeKgCo2MWh($yearNumber = 1) {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(date('Y') - 1 + $yearNumber);
   }
 
-  public function getElKgCo2MWh() {
+  public function getElKgCo2MWh($yearNumber = 1) {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(date('Y') - 1 + $yearNumber);
   }
 
   public function isStandardforsyning() {

@@ -176,7 +176,8 @@ class TiltagDetailTest extends EntityTestCase {
                  )))
                );
       $tiltag = $this->loadEntity(new SpecialTiltag(), array())
-              ->setRapport($rapport);
+              ->setRapport($rapport)
+              ->setLevetid(15);
       $detail = (new SpecialTiltagDetail())->setTiltag($tiltag);
       $this->loadEntity($detail, array());
 

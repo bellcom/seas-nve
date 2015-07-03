@@ -58,8 +58,24 @@ class TiltagType extends AbstractType {
       ->add('beskrivelseOevrige')
       ->add('risikovurdering')
       ->add('placering')
-      ->add('beskrivelseBV')
-      ->add('indeklima');
+      ->add('beskrivelseDriftOgVedligeholdelse')
+      ->add('indeklima')
+      ->add('reelAnlaegsinvestering');
+
+    if ($this instanceof TekniskIsoleringTiltag || $this instanceof PumpeTiltag) {
+      $builder
+        ->add('besparelseDriftOgVedligeholdelse')
+        ->add('besparelseStrafafkoelingsafgift')
+        ->add('levetid');
+    }
+    elseif ($this instanceof SolcelleTiltag) {
+      $builder
+        ->add('levetid');
+    }
+    elseif ($this instanceof KlimaskaermTiltag) {
+      $builder
+        ->add('besparelseDriftOgVedligeholdelse');
+    }
   }
 
   /**

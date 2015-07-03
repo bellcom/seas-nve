@@ -657,8 +657,8 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   private function calculateSimpelTilbagebetalingstidAar() {
     // "AF": "Simpel tilbagebetalingstid (år)"
-    $denominator = ($this->kWhBesparElvaerkEksternEnergikilde * $this->getRapport()->getElKrKWh() + $this->kWhBesparVarmevaerkEksternEnergikilde * $this->getRapport()->getVarmeKrKWh());
-    return $denominator == 0 ? 0 : $this->samletInvesteringKr / $denominator;
+    return $this->divide($this->samletInvesteringKr,
+                         $this->kWhBesparElvaerkEksternEnergikilde * $this->getRapport()->getElKrKWh() + $this->kWhBesparVarmevaerkEksternEnergikilde * $this->getRapport()->getVarmeKrKWh());
   }
 
   private function calculateFaktorForReinvestering() {

@@ -280,6 +280,216 @@ class Forsyningsvaerk {
   /**
    * @var float
    *
+   * @ORM\Column(name="pris2046", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2046;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2047", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2047;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2048", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2048;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2049", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2049;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2050", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2050;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2051", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2051;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2052", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2052;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2053", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2053;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2054", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2054;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2055", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2055;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2056", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2056;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2057", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2057;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2058", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2058;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2059", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2059;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2060", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2060;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2061", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2061;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2062", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2062;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2063", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2063;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2064", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2064;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2065", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2065;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2066", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2066;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2067", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2067;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2068", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2068;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2069", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2069;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2070", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2070;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2071", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2071;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2072", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2072;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2073", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2073;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2074", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2074;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2075", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2075;
+
+  /**
+   * @var float
+   *
    * @ORM\Column(name="co2noter", type="text", nullable=true)
    */
   protected $co2Noter;
@@ -458,6 +668,258 @@ class Forsyningsvaerk {
    * @ORM\Column(name="co2y2039", type="decimal", scale=4, nullable=true)
    */
   protected $co2y2039;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2040", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2040;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2041", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2041;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2042", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2042;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2043", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2043;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2044", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2044;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2045", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2045;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2046", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2046;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2047", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2047;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2048", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2048;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2049", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2049;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2050", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2050;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2051", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2051;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2052", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2052;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2053", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2053;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2054", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2054;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2055", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2055;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2056", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2056;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2057", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2057;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2058", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2058;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2059", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2059;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2060", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2060;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2061", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2061;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2062", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2062;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2063", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2063;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2064", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2064;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2065", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2065;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2066", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2066;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2067", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2067;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2068", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2068;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2069", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2069;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2070", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2070;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2071", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2071;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2072", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2072;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2073", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2073;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2074", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2074;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2075", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2075;
 
   /**
    * Get Name
@@ -1378,6 +1840,756 @@ class Forsyningsvaerk {
   }
 
   /**
+   * Set pris2046.
+   *
+   * @param float $pris2046
+   *   pris2046.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2046($pris2046) {
+    $this->pris2046 = $pris2046;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2046.
+   *
+   * @return float
+   *   The pris2046.
+   */
+  public function getPris2046() {
+    return $this->pris2046;
+  }
+
+  /**
+   * Set pris2047.
+   *
+   * @param float $pris2047
+   *   pris2047.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2047($pris2047) {
+    $this->pris2047 = $pris2047;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2047.
+   *
+   * @return float
+   *   The pris2047.
+   */
+  public function getPris2047() {
+    return $this->pris2047;
+  }
+
+  /**
+   * Set pris2048.
+   *
+   * @param float $pris2048
+   *   pris2048.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2048($pris2048) {
+    $this->pris2048 = $pris2048;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2048.
+   *
+   * @return float
+   *   The pris2048.
+   */
+  public function getPris2048() {
+    return $this->pris2048;
+  }
+
+  /**
+   * Set pris2049.
+   *
+   * @param float $pris2049
+   *   pris2049.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2049($pris2049) {
+    $this->pris2049 = $pris2049;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2049.
+   *
+   * @return float
+   *   The pris2049.
+   */
+  public function getPris2049() {
+    return $this->pris2049;
+  }
+
+  /**
+   * Set pris2050.
+   *
+   * @param float $pris2050
+   *   pris2050.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2050($pris2050) {
+    $this->pris2050 = $pris2050;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2050.
+   *
+   * @return float
+   *   The pris2050.
+   */
+  public function getPris2050() {
+    return $this->pris2050;
+  }
+
+  /**
+   * Set pris2051.
+   *
+   * @param float $pris2051
+   *   pris2051.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2051($pris2051) {
+    $this->pris2051 = $pris2051;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2051.
+   *
+   * @return float
+   *   The pris2051.
+   */
+  public function getPris2051() {
+    return $this->pris2051;
+  }
+
+  /**
+   * Set pris2052.
+   *
+   * @param float $pris2052
+   *   pris2052.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2052($pris2052) {
+    $this->pris2052 = $pris2052;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2052.
+   *
+   * @return float
+   *   The pris2052.
+   */
+  public function getPris2052() {
+    return $this->pris2052;
+  }
+
+  /**
+   * Set pris2053.
+   *
+   * @param float $pris2053
+   *   pris2053.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2053($pris2053) {
+    $this->pris2053 = $pris2053;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2053.
+   *
+   * @return float
+   *   The pris2053.
+   */
+  public function getPris2053() {
+    return $this->pris2053;
+  }
+
+  /**
+   * Set pris2054.
+   *
+   * @param float $pris2054
+   *   pris2054.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2054($pris2054) {
+    $this->pris2054 = $pris2054;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2054.
+   *
+   * @return float
+   *   The pris2054.
+   */
+  public function getPris2054() {
+    return $this->pris2054;
+  }
+
+  /**
+   * Set pris2055.
+   *
+   * @param float $pris2055
+   *   pris2055.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2055($pris2055) {
+    $this->pris2055 = $pris2055;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2055.
+   *
+   * @return float
+   *   The pris2055.
+   */
+  public function getPris2055() {
+    return $this->pris2055;
+  }
+
+  /**
+   * Set pris2056.
+   *
+   * @param float $pris2056
+   *   pris2056.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2056($pris2056) {
+    $this->pris2056 = $pris2056;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2056.
+   *
+   * @return float
+   *   The pris2056.
+   */
+  public function getPris2056() {
+    return $this->pris2056;
+  }
+
+  /**
+   * Set pris2057.
+   *
+   * @param float $pris2057
+   *   pris2057.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2057($pris2057) {
+    $this->pris2057 = $pris2057;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2057.
+   *
+   * @return float
+   *   The pris2057.
+   */
+  public function getPris2057() {
+    return $this->pris2057;
+  }
+
+  /**
+   * Set pris2058.
+   *
+   * @param float $pris2058
+   *   pris2058.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2058($pris2058) {
+    $this->pris2058 = $pris2058;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2058.
+   *
+   * @return float
+   *   The pris2058.
+   */
+  public function getPris2058() {
+    return $this->pris2058;
+  }
+
+  /**
+   * Set pris2059.
+   *
+   * @param float $pris2059
+   *   pris2059.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2059($pris2059) {
+    $this->pris2059 = $pris2059;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2059.
+   *
+   * @return float
+   *   The pris2059.
+   */
+  public function getPris2059() {
+    return $this->pris2059;
+  }
+
+  /**
+   * Set pris2060.
+   *
+   * @param float $pris2060
+   *   pris2060.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2060($pris2060) {
+    $this->pris2060 = $pris2060;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2060.
+   *
+   * @return float
+   *   The pris2060.
+   */
+  public function getPris2060() {
+    return $this->pris2060;
+  }
+
+  /**
+   * Set pris2061.
+   *
+   * @param float $pris2061
+   *   pris2061.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2061($pris2061) {
+    $this->pris2061 = $pris2061;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2061.
+   *
+   * @return float
+   *   The pris2061.
+   */
+  public function getPris2061() {
+    return $this->pris2061;
+  }
+
+  /**
+   * Set pris2062.
+   *
+   * @param float $pris2062
+   *   pris2062.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2062($pris2062) {
+    $this->pris2062 = $pris2062;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2062.
+   *
+   * @return float
+   *   The pris2062.
+   */
+  public function getPris2062() {
+    return $this->pris2062;
+  }
+
+  /**
+   * Set pris2063.
+   *
+   * @param float $pris2063
+   *   pris2063.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2063($pris2063) {
+    $this->pris2063 = $pris2063;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2063.
+   *
+   * @return float
+   *   The pris2063.
+   */
+  public function getPris2063() {
+    return $this->pris2063;
+  }
+
+  /**
+   * Set pris2064.
+   *
+   * @param float $pris2064
+   *   pris2064.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2064($pris2064) {
+    $this->pris2064 = $pris2064;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2064.
+   *
+   * @return float
+   *   The pris2064.
+   */
+  public function getPris2064() {
+    return $this->pris2064;
+  }
+
+  /**
+   * Set pris2065.
+   *
+   * @param float $pris2065
+   *   pris2065.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2065($pris2065) {
+    $this->pris2065 = $pris2065;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2065.
+   *
+   * @return float
+   *   The pris2065.
+   */
+  public function getPris2065() {
+    return $this->pris2065;
+  }
+
+  /**
+   * Set pris2066.
+   *
+   * @param float $pris2066
+   *   pris2066.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2066($pris2066) {
+    $this->pris2066 = $pris2066;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2066.
+   *
+   * @return float
+   *   The pris2066.
+   */
+  public function getPris2066() {
+    return $this->pris2066;
+  }
+
+  /**
+   * Set pris2067.
+   *
+   * @param float $pris2067
+   *   pris2067.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2067($pris2067) {
+    $this->pris2067 = $pris2067;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2067.
+   *
+   * @return float
+   *   The pris2067.
+   */
+  public function getPris2067() {
+    return $this->pris2067;
+  }
+
+  /**
+   * Set pris2068.
+   *
+   * @param float $pris2068
+   *   pris2068.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2068($pris2068) {
+    $this->pris2068 = $pris2068;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2068.
+   *
+   * @return float
+   *   The pris2068.
+   */
+  public function getPris2068() {
+    return $this->pris2068;
+  }
+
+  /**
+   * Set pris2069.
+   *
+   * @param float $pris2069
+   *   pris2069.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2069($pris2069) {
+    $this->pris2069 = $pris2069;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2069.
+   *
+   * @return float
+   *   The pris2069.
+   */
+  public function getPris2069() {
+    return $this->pris2069;
+  }
+
+  /**
+   * Set pris2070.
+   *
+   * @param float $pris2070
+   *   pris2070.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2070($pris2070) {
+    $this->pris2070 = $pris2070;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2070.
+   *
+   * @return float
+   *   The pris2070.
+   */
+  public function getPris2070() {
+    return $this->pris2070;
+  }
+
+  /**
+   * Set pris2071.
+   *
+   * @param float $pris2071
+   *   pris2071.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2071($pris2071) {
+    $this->pris2071 = $pris2071;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2071.
+   *
+   * @return float
+   *   The pris2071.
+   */
+  public function getPris2071() {
+    return $this->pris2071;
+  }
+
+  /**
+   * Set pris2072.
+   *
+   * @param float $pris2072
+   *   pris2072.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2072($pris2072) {
+    $this->pris2072 = $pris2072;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2072.
+   *
+   * @return float
+   *   The pris2072.
+   */
+  public function getPris2072() {
+    return $this->pris2072;
+  }
+
+  /**
+   * Set pris2073.
+   *
+   * @param float $pris2073
+   *   pris2073.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2073($pris2073) {
+    $this->pris2073 = $pris2073;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2073.
+   *
+   * @return float
+   *   The pris2073.
+   */
+  public function getPris2073() {
+    return $this->pris2073;
+  }
+
+  /**
+   * Set pris2074.
+   *
+   * @param float $pris2074
+   *   pris2074.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2074($pris2074) {
+    $this->pris2074 = $pris2074;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2074.
+   *
+   * @return float
+   *   The pris2074.
+   */
+  public function getPris2074() {
+    return $this->pris2074;
+  }
+
+  /**
+   * Set pris2075.
+   *
+   * @param float $pris2075
+   *   pris2075.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setPris2075($pris2075) {
+    $this->pris2075 = $pris2075;
+
+    return $this;
+  }
+
+  /**
+   * Get pris2075.
+   *
+   * @return float
+   *   The pris2075.
+   */
+  public function getPris2075() {
+    return $this->pris2075;
+  }
+
+  /**
    * Set co2ynoter.
    *
    * @param float $co2ynoter
@@ -2028,6 +3240,906 @@ class Forsyningsvaerk {
   }
 
   /**
+   * Set co2y2040.
+   *
+   * @param float $co2y2040
+   *   co2y2040.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2040($co2y2040) {
+    $this->co2y2040 = $co2y2040;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2040.
+   *
+   * @return float
+   *   The co2y2040.
+   */
+  public function getCo2y2040() {
+    return $this->co2y2040;
+  }
+
+  /**
+   * Set co2y2041.
+   *
+   * @param float $co2y2041
+   *   co2y2041.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2041($co2y2041) {
+    $this->co2y2041 = $co2y2041;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2041.
+   *
+   * @return float
+   *   The co2y2041.
+   */
+  public function getCo2y2041() {
+    return $this->co2y2041;
+  }
+
+  /**
+   * Set co2y2042.
+   *
+   * @param float $co2y2042
+   *   co2y2042.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2042($co2y2042) {
+    $this->co2y2042 = $co2y2042;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2042.
+   *
+   * @return float
+   *   The co2y2042.
+   */
+  public function getCo2y2042() {
+    return $this->co2y2042;
+  }
+
+  /**
+   * Set co2y2043.
+   *
+   * @param float $co2y2043
+   *   co2y2043.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2043($co2y2043) {
+    $this->co2y2043 = $co2y2043;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2043.
+   *
+   * @return float
+   *   The co2y2043.
+   */
+  public function getCo2y2043() {
+    return $this->co2y2043;
+  }
+
+  /**
+   * Set co2y2044.
+   *
+   * @param float $co2y2044
+   *   co2y2044.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2044($co2y2044) {
+    $this->co2y2044 = $co2y2044;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2044.
+   *
+   * @return float
+   *   The co2y2044.
+   */
+  public function getCo2y2044() {
+    return $this->co2y2044;
+  }
+
+  /**
+   * Set co2y2045.
+   *
+   * @param float $co2y2045
+   *   co2y2045.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2045($co2y2045) {
+    $this->co2y2045 = $co2y2045;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2045.
+   *
+   * @return float
+   *   The co2y2045.
+   */
+  public function getCo2y2045() {
+    return $this->co2y2045;
+  }
+
+  /**
+   * Set co2y2046.
+   *
+   * @param float $co2y2046
+   *   co2y2046.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2046($co2y2046) {
+    $this->co2y2046 = $co2y2046;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2046.
+   *
+   * @return float
+   *   The co2y2046.
+   */
+  public function getCo2y2046() {
+    return $this->co2y2046;
+  }
+
+  /**
+   * Set co2y2047.
+   *
+   * @param float $co2y2047
+   *   co2y2047.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2047($co2y2047) {
+    $this->co2y2047 = $co2y2047;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2047.
+   *
+   * @return float
+   *   The co2y2047.
+   */
+  public function getCo2y2047() {
+    return $this->co2y2047;
+  }
+
+  /**
+   * Set co2y2048.
+   *
+   * @param float $co2y2048
+   *   co2y2048.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2048($co2y2048) {
+    $this->co2y2048 = $co2y2048;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2048.
+   *
+   * @return float
+   *   The co2y2048.
+   */
+  public function getCo2y2048() {
+    return $this->co2y2048;
+  }
+
+  /**
+   * Set co2y2049.
+   *
+   * @param float $co2y2049
+   *   co2y2049.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2049($co2y2049) {
+    $this->co2y2049 = $co2y2049;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2049.
+   *
+   * @return float
+   *   The co2y2049.
+   */
+  public function getCo2y2049() {
+    return $this->co2y2049;
+  }
+
+  /**
+   * Set co2y2050.
+   *
+   * @param float $co2y2050
+   *   co2y2050.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2050($co2y2050) {
+    $this->co2y2050 = $co2y2050;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2050.
+   *
+   * @return float
+   *   The co2y2050.
+   */
+  public function getCo2y2050() {
+    return $this->co2y2050;
+  }
+
+  /**
+   * Set co2y2051.
+   *
+   * @param float $co2y2051
+   *   co2y2051.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2051($co2y2051) {
+    $this->co2y2051 = $co2y2051;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2051.
+   *
+   * @return float
+   *   The co2y2051.
+   */
+  public function getCo2y2051() {
+    return $this->co2y2051;
+  }
+
+  /**
+   * Set co2y2052.
+   *
+   * @param float $co2y2052
+   *   co2y2052.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2052($co2y2052) {
+    $this->co2y2052 = $co2y2052;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2052.
+   *
+   * @return float
+   *   The co2y2052.
+   */
+  public function getCo2y2052() {
+    return $this->co2y2052;
+  }
+
+  /**
+   * Set co2y2053.
+   *
+   * @param float $co2y2053
+   *   co2y2053.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2053($co2y2053) {
+    $this->co2y2053 = $co2y2053;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2053.
+   *
+   * @return float
+   *   The co2y2053.
+   */
+  public function getCo2y2053() {
+    return $this->co2y2053;
+  }
+
+  /**
+   * Set co2y2054.
+   *
+   * @param float $co2y2054
+   *   co2y2054.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2054($co2y2054) {
+    $this->co2y2054 = $co2y2054;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2054.
+   *
+   * @return float
+   *   The co2y2054.
+   */
+  public function getCo2y2054() {
+    return $this->co2y2054;
+  }
+
+  /**
+   * Set co2y2055.
+   *
+   * @param float $co2y2055
+   *   co2y2055.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2055($co2y2055) {
+    $this->co2y2055 = $co2y2055;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2055.
+   *
+   * @return float
+   *   The co2y2055.
+   */
+  public function getCo2y2055() {
+    return $this->co2y2055;
+  }
+
+  /**
+   * Set co2y2056.
+   *
+   * @param float $co2y2056
+   *   co2y2056.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2056($co2y2056) {
+    $this->co2y2056 = $co2y2056;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2056.
+   *
+   * @return float
+   *   The co2y2056.
+   */
+  public function getCo2y2056() {
+    return $this->co2y2056;
+  }
+
+  /**
+   * Set co2y2057.
+   *
+   * @param float $co2y2057
+   *   co2y2057.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2057($co2y2057) {
+    $this->co2y2057 = $co2y2057;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2057.
+   *
+   * @return float
+   *   The co2y2057.
+   */
+  public function getCo2y2057() {
+    return $this->co2y2057;
+  }
+
+  /**
+   * Set co2y2058.
+   *
+   * @param float $co2y2058
+   *   co2y2058.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2058($co2y2058) {
+    $this->co2y2058 = $co2y2058;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2058.
+   *
+   * @return float
+   *   The co2y2058.
+   */
+  public function getCo2y2058() {
+    return $this->co2y2058;
+  }
+
+  /**
+   * Set co2y2059.
+   *
+   * @param float $co2y2059
+   *   co2y2059.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2059($co2y2059) {
+    $this->co2y2059 = $co2y2059;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2059.
+   *
+   * @return float
+   *   The co2y2059.
+   */
+  public function getCo2y2059() {
+    return $this->co2y2059;
+  }
+
+  /**
+   * Set co2y2060.
+   *
+   * @param float $co2y2060
+   *   co2y2060.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2060($co2y2060) {
+    $this->co2y2060 = $co2y2060;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2060.
+   *
+   * @return float
+   *   The co2y2060.
+   */
+  public function getCo2y2060() {
+    return $this->co2y2060;
+  }
+
+  /**
+   * Set co2y2061.
+   *
+   * @param float $co2y2061
+   *   co2y2061.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2061($co2y2061) {
+    $this->co2y2061 = $co2y2061;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2061.
+   *
+   * @return float
+   *   The co2y2061.
+   */
+  public function getCo2y2061() {
+    return $this->co2y2061;
+  }
+
+  /**
+   * Set co2y2062.
+   *
+   * @param float $co2y2062
+   *   co2y2062.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2062($co2y2062) {
+    $this->co2y2062 = $co2y2062;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2062.
+   *
+   * @return float
+   *   The co2y2062.
+   */
+  public function getCo2y2062() {
+    return $this->co2y2062;
+  }
+
+  /**
+   * Set co2y2063.
+   *
+   * @param float $co2y2063
+   *   co2y2063.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2063($co2y2063) {
+    $this->co2y2063 = $co2y2063;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2063.
+   *
+   * @return float
+   *   The co2y2063.
+   */
+  public function getCo2y2063() {
+    return $this->co2y2063;
+  }
+
+  /**
+   * Set co2y2064.
+   *
+   * @param float $co2y2064
+   *   co2y2064.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2064($co2y2064) {
+    $this->co2y2064 = $co2y2064;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2064.
+   *
+   * @return float
+   *   The co2y2064.
+   */
+  public function getCo2y2064() {
+    return $this->co2y2064;
+  }
+
+  /**
+   * Set co2y2065.
+   *
+   * @param float $co2y2065
+   *   co2y2065.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2065($co2y2065) {
+    $this->co2y2065 = $co2y2065;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2065.
+   *
+   * @return float
+   *   The co2y2065.
+   */
+  public function getCo2y2065() {
+    return $this->co2y2065;
+  }
+
+  /**
+   * Set co2y2066.
+   *
+   * @param float $co2y2066
+   *   co2y2066.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2066($co2y2066) {
+    $this->co2y2066 = $co2y2066;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2066.
+   *
+   * @return float
+   *   The co2y2066.
+   */
+  public function getCo2y2066() {
+    return $this->co2y2066;
+  }
+
+  /**
+   * Set co2y2067.
+   *
+   * @param float $co2y2067
+   *   co2y2067.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2067($co2y2067) {
+    $this->co2y2067 = $co2y2067;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2067.
+   *
+   * @return float
+   *   The co2y2067.
+   */
+  public function getCo2y2067() {
+    return $this->co2y2067;
+  }
+
+  /**
+   * Set co2y2068.
+   *
+   * @param float $co2y2068
+   *   co2y2068.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2068($co2y2068) {
+    $this->co2y2068 = $co2y2068;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2068.
+   *
+   * @return float
+   *   The co2y2068.
+   */
+  public function getCo2y2068() {
+    return $this->co2y2068;
+  }
+
+  /**
+   * Set co2y2069.
+   *
+   * @param float $co2y2069
+   *   co2y2069.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2069($co2y2069) {
+    $this->co2y2069 = $co2y2069;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2069.
+   *
+   * @return float
+   *   The co2y2069.
+   */
+  public function getCo2y2069() {
+    return $this->co2y2069;
+  }
+
+  /**
+   * Set co2y2070.
+   *
+   * @param float $co2y2070
+   *   co2y2070.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2070($co2y2070) {
+    $this->co2y2070 = $co2y2070;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2070.
+   *
+   * @return float
+   *   The co2y2070.
+   */
+  public function getCo2y2070() {
+    return $this->co2y2070;
+  }
+
+  /**
+   * Set co2y2071.
+   *
+   * @param float $co2y2071
+   *   co2y2071.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2071($co2y2071) {
+    $this->co2y2071 = $co2y2071;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2071.
+   *
+   * @return float
+   *   The co2y2071.
+   */
+  public function getCo2y2071() {
+    return $this->co2y2071;
+  }
+
+  /**
+   * Set co2y2072.
+   *
+   * @param float $co2y2072
+   *   co2y2072.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2072($co2y2072) {
+    $this->co2y2072 = $co2y2072;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2072.
+   *
+   * @return float
+   *   The co2y2072.
+   */
+  public function getCo2y2072() {
+    return $this->co2y2072;
+  }
+
+  /**
+   * Set co2y2073.
+   *
+   * @param float $co2y2073
+   *   co2y2073.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2073($co2y2073) {
+    $this->co2y2073 = $co2y2073;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2073.
+   *
+   * @return float
+   *   The co2y2073.
+   */
+  public function getCo2y2073() {
+    return $this->co2y2073;
+  }
+
+  /**
+   * Set co2y2074.
+   *
+   * @param float $co2y2074
+   *   co2y2074.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2074($co2y2074) {
+    $this->co2y2074 = $co2y2074;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2074.
+   *
+   * @return float
+   *   The co2y2074.
+   */
+  public function getCo2y2074() {
+    return $this->co2y2074;
+  }
+
+  /**
+   * Set co2y2075.
+   *
+   * @param float $co2y2075
+   *   co2y2075.
+   *
+   * @return Forsyningsvaerk
+   *   This.
+   */
+  public function setCo2y2075($co2y2075) {
+    $this->co2y2075 = $co2y2075;
+
+    return $this;
+  }
+
+  /**
+   * Get co2y2075.
+   *
+   * @return float
+   *   The co2y2075.
+   */
+  public function getCo2y2075() {
+    return $this->co2y2075;
+  }
+
+  /**
    * Return price in a given year. Defaults to the current year.
    *
    * @param int $year
@@ -2036,8 +4148,8 @@ class Forsyningsvaerk {
    * @return float
    *   The price in the given year.
    */
-  public function getKrKWh($year = NULL) {
-    $property = 'pris' . ($year !== NULL ? $year : date('Y'));
+  public function getKrKWh($year) {
+    $property = 'pris' . $year;
     return isset($this->{$property}) ? $this->{$property} : 0;
   }
 
@@ -2050,8 +4162,8 @@ class Forsyningsvaerk {
    * @return float
    *   The price in the given year.
    */
-  public function getKgCo2MWh($year = NULL) {
-    $property = 'co2y' . ($year !== NULL ? $year : date('Y'));
+  public function getKgCo2MWh($year) {
+    $property = 'co2y' . $year;
     return isset($this->{$property}) ? $this->{$property} : 0;
   }
 

@@ -487,8 +487,8 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   private function calculateSimpelTilbagebetalingstidAar() {
     // 'AF'
     if ($this->standardinvestKrM2EllerKrM > 0) {
-      return ($this->standardinvestKrM2EllerKrM * $this->roerlaengdeEllerHoejdeAfVvbM)
-        / ($this->getRapport()->getElKrKWh() * $this->kwhBesparelseElFraVaerket + $this->getRapport()->getVarmeKrKWh() * $this->kwhBesparelseVarmeFraVaerket);
+      return $this->divide($this->standardinvestKrM2EllerKrM * $this->roerlaengdeEllerHoejdeAfVvbM,
+                           $this->getRapport()->getElKrKWh() * $this->kwhBesparelseElFraVaerket + $this->getRapport()->getVarmeKrKWh() * $this->kwhBesparelseVarmeFraVaerket);
     } else {
       return 0;
     }

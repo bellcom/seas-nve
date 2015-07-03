@@ -488,7 +488,8 @@ class PumpeTiltagDetail extends TiltagDetail {
       return 0;
     }
     else {
-      return $this->samletInvesteringInklPristillaeg / ($this->kwhBesparelseElFraVaerket * $this->getRapport()->getElKrKWh() + $this->kwhBesparelseVarmeFraVaerket * $this->getRapport()->getVarmeKrKWh());
+      return $this->divide($this->samletInvesteringInklPristillaeg,
+                           $this->kwhBesparelseElFraVaerket * $this->getRapport()->getElKrKWh() + $this->kwhBesparelseVarmeFraVaerket * $this->getRapport()->getVarmeKrKWh());
     }
   }
 

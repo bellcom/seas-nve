@@ -41,6 +41,7 @@ abstract class TiltagTestCase extends EntityTestCase {
       }
 
       $expected = $fixture['tiltag']['calculated'];
+      $tiltag->calculate();
       $this->assertProperties($expected, $tiltag);
     }
   }

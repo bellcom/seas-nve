@@ -233,6 +233,36 @@ appbundle:
     pris2043: Pris, 2043
     pris2044: Pris, 2044
     pris2045: Pris, 2045
+    pris2046: Pris, 2046
+    pris2047: Pris, 2047
+    pris2048: Pris, 2048
+    pris2049: Pris, 2049
+    pris2050: Pris, 2050
+    pris2051: Pris, 2051
+    pris2052: Pris, 2052
+    pris2053: Pris, 2053
+    pris2054: Pris, 2054
+    pris2055: Pris, 2055
+    pris2056: Pris, 2056
+    pris2057: Pris, 2057
+    pris2058: Pris, 2058
+    pris2059: Pris, 2059
+    pris2060: Pris, 2060
+    pris2061: Pris, 2061
+    pris2062: Pris, 2062
+    pris2063: Pris, 2063
+    pris2064: Pris, 2064
+    pris2065: Pris, 2065
+    pris2066: Pris, 2066
+    pris2067: Pris, 2067
+    pris2068: Pris, 2068
+    pris2069: Pris, 2069
+    pris2070: Pris, 2070
+    pris2071: Pris, 2071
+    pris2072: Pris, 2072
+    pris2073: Pris, 2073
+    pris2074: Pris, 2074
+    pris2075: Pris, 2075
     co2: CO2
     co2noter: Noter (CO2)
     co2y2009: CO2, 2009
@@ -262,6 +292,42 @@ appbundle:
     co2y2037: CO2, 2037
     co2y2038: CO2, 2038
     co2y2039: CO2, 2039
+    co2y2040: CO2, 2040
+    co2y2041: CO2, 2041
+    co2y2042: CO2, 2042
+    co2y2043: CO2, 2043
+    co2y2044: CO2, 2044
+    co2y2045: CO2, 2045
+    co2y2046: CO2, 2046
+    co2y2047: CO2, 2047
+    co2y2048: CO2, 2048
+    co2y2049: CO2, 2049
+    co2y2050: CO2, 2050
+    co2y2051: CO2, 2051
+    co2y2052: CO2, 2052
+    co2y2053: CO2, 2053
+    co2y2054: CO2, 2054
+    co2y2055: CO2, 2055
+    co2y2056: CO2, 2056
+    co2y2057: CO2, 2057
+    co2y2058: CO2, 2058
+    co2y2059: CO2, 2059
+    co2y2060: CO2, 2060
+    co2y2061: CO2, 2061
+    co2y2062: CO2, 2062
+    co2y2063: CO2, 2063
+    co2y2064: CO2, 2064
+    co2y2065: CO2, 2065
+    co2y2066: CO2, 2066
+    co2y2067: CO2, 2067
+    co2y2068: CO2, 2068
+    co2y2069: CO2, 2069
+    co2y2070: CO2, 2070
+    co2y2071: CO2, 2071
+    co2y2072: CO2, 2072
+    co2y2073: CO2, 2073
+    co2y2074: CO2, 2074
+    co2y2075: CO2, 2075
 
   bygning:
     singular: Bygning
@@ -403,6 +469,7 @@ appbundle:
     primaerEnterprise: Primær entreprise
     tiltagskategori: Tiltagskategori
     anlaegsInvestering: ﻿Anlægsinvestering (kr)
+    reelAnlaegsinvestering: ﻿Reel Anlægsinvestering (kr)
     besparelseDriftOgVedligeholdelse: Besparelse på D & V (kr/år)
     levetid: Funktionsdygtig levetid (år)
     forsyningVarme: Forsyning, varme
@@ -412,7 +479,7 @@ appbundle:
     beskrivelseOevrige: Øvrige bemærkninger
     risikovurdering: Risikovurdering
     placering: Placering
-    beskrivelseBV: ﻿Beskrivelse af ændringer til D&V udgifter samt fremtidigt timeforbrug for driftspersonale
+    beskrivelseDriftOgVedligeholdelse: ﻿Beskrivelse af ændringer til D & V udgifter samt fremtidigt timeforbrug for driftspersonale
     indeklima: Indeklima
     rapport: Rapport
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)

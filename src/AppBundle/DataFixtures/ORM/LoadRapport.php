@@ -393,13 +393,12 @@ class LoadRapport extends LoadData {
       ->setRapport($rapport)
       ->setForsyningVarme($this->getCellValue($sheet->getCell('C13')))
       ->setForsyningEl($this->getCellValue($sheet->getCell('F13')))
-      ->setLevetid($this->getCellValue($sheet->getCell('G7')))
       ->setFaktorForReinvesteringer($this->getCellValue($sheet->getCell('C11')))
       ->setTiltagskategori($this->getCellValue($sheet->getCell('D12')))
       ->setPrimaerEnterprise($this->getCellValue($sheet->getCell('B12')))
       ->setRisikovurdering($this->getCellValue($sheet->getCell('C17')))
       ->setPlacering($this->getCellValue($sheet->getCell('C19')))
-      ->setBeskrivelseBV($this->getCellValue($sheet->getCell('A21')))
+      ->setBeskrivelseDriftOgVedligeholdelse($this->getCellValue($sheet->getCell('A21')))
       ->setIndeklima($this->getCellValue($sheet->getCell('A23')));
 
     $beskrivelse = $this->getCellValue($sheet->getCell('A15'));
@@ -426,11 +425,37 @@ class LoadRapport extends LoadData {
       'nutidsvaerdiSetOver15AarKr' => 'G9',
       'scrapvaerdi' => 'G10',
       'reinvestering' => 'G11',
+      'levetid' => 'G7',
     );
+
+    $convertToInput = function(array $properties) use ($sheet, $tiltag, $calculatedValues) {
+      foreach ($properties as $property) {
+        $tiltag->{'set' . $property}($this->getCellValue($sheet->getCell($calculatedValues[$property])));
+        unset($calculatedValues[$property]);
+      }
+    };
+
+    if ($tiltag instanceof TekniskIsoleringTiltag || $tiltag instanceof PumpeTiltag) {
+      $convertToInput(array(
+        'besparelseDriftOgVedligeholdelse',
+        'besparelseStrafafkoelingsafgift',
+        'levetid',
+      ));
+    }
+    elseif ($tiltag instanceof SolcelleTiltag) {
+      $convertToInput(array(
+        'levetid',
+      ));
+    }
+    elseif ($tiltag instanceof KlimaskaermTiltag) {
+      $convertToInput(array(
+        'besparelseDriftOgVedligeholdelse',
+      ));
+    }
 
     $this->tiltagCalculatedValues = array();
     foreach ($calculatedValues as $key => $cell) {
-      $value = floatval($sheet->getCell($cell)->getOldCalculatedValue());
+      $value = floatval($this->getCellValue($sheet->getCell($cell)));
       $this->tiltagCalculatedValues[$key] = $value;
     }
 
@@ -906,7 +931,8 @@ class LoadRapport extends LoadData {
 
     $columnMapping = array(
       'H' => array('laastAfEnergiraadgiver', $this->isSelected),
-      'I' => array('tilvalgt', $this->isSelected),
+      // Only one SolcelleTiltagDetail exists and it is selected
+      'I' => array('tilvalgt', function() { return true; }),
       'J' => 'anlaegsstoerrelseKWp',
       'K' => 'produktionKWh',
       'L' => 'tilNettetPct',

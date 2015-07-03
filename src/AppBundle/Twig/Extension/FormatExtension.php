@@ -30,6 +30,9 @@ class FormatExtension extends \Twig_Extension {
   }
 
   public function formatDecimal($number, $numberOfDecimals = 2) {
+    if ($number === NULL) {
+      return '–';
+    }
     $formatter = $this->getNumberFormatter(null, \NumberFormatter::DECIMAL);
     $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $numberOfDecimals);
     $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $numberOfDecimals);
@@ -37,6 +40,9 @@ class FormatExtension extends \Twig_Extension {
   }
 
   public function formatPercent($number, $numberOfDecimals = 0) {
+    if ($number === NULL) {
+      return '–';
+    }
     $formatter = $this->getNumberFormatter(null, \NumberFormatter::PERCENT);
     $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $numberOfDecimals);
     $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $numberOfDecimals);
