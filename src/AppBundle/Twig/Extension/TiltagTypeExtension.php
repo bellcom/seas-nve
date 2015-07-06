@@ -3,6 +3,7 @@
 namespace AppBundle\Twig\Extension;
 
 use Twig_Extension;
+use Twig_SimpleFunction;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\BelysningTiltag;
@@ -24,9 +25,9 @@ class TiltagTypeExtension extends \Twig_Extension {
    */
   public function getFunctions() {
     return array(
-      'tiltag_type' => new \Twig_Function_Method($this, 'getTiltagType', ['is_safe'=>['html']]),
-      'tiltag_route' => new \Twig_Function_Method($this, 'getTiltagRouteName', array('is_safe' => array('html'))),
-      'is_missing_tiltag_type' => new \Twig_Function_Method($this, 'isMissingTiltagType', array('is_safe' => array('html')))
+      new Twig_SimpleFunction('tiltag_type', [$this, 'getTiltagType'], ['is_safe'=>['html']]),
+      new Twig_SimpleFunction('tiltag_route', [$this, 'getTiltagRouteName'], ['is_safe' => ['html']]),
+      new Twig_SimpleFunction('is_missing_tiltag_type', [$this, 'isMissingTiltagType'], ['is_safe' => ['html']]),
     );
   }
 
@@ -85,6 +86,6 @@ class TiltagTypeExtension extends \Twig_Extension {
    * {@inheritdoc}
    */
   public function getName() {
-    return "tiltag_type_extension";
+    return 'tiltag_type_extension';
   }
 }
