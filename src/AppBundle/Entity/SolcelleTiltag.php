@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Calculation\Calculation;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
@@ -49,6 +50,14 @@ class SolcelleTiltag extends Tiltag {
 
   protected function calculateAnlaegsinvestering() {
     return $this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr');
+  }
+
+  protected function calculateSimpelTilbagebetalingstidAar() {
+    return $this->sum('simpelTilbagebetalingstidAar');
+  }
+
+  protected function calculateNutidsvaerdiSetOver15AarKr() {
+    return Calculation::npv($this->getRapport()->getKalkulationsrente(), $this->getTilvalgteDetails()[0]->getCashFlow()['Cash flow']);
   }
 
 }
