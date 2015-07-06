@@ -417,15 +417,15 @@ class LoadRapport extends LoadData {
       'vandbesparelse' => 'C7',
       'samletEnergibesparelse' => 'C8',
       'samletCo2besparelse' => 'C9',
+      'besparelseDriftOgVedligeholdelse' => 'G5',
+      'levetid' => 'G7',
       'antalReinvesteringer' => 'C10',
       'anlaegsinvestering' => 'G4',
-      'besparelseDriftOgVedligeholdelse' => 'G5',
+      'reinvestering' => 'G11',
       'besparelseStrafafkoelingsafgift' => 'G6',
+      'scrapvaerdi' => 'G10',
       'simpelTilbagebetalingstidAar' => 'G8',
       'nutidsvaerdiSetOver15AarKr' => 'G9',
-      'scrapvaerdi' => 'G10',
-      'reinvestering' => 'G11',
-      'levetid' => 'G7',
     );
 
     $convertToInput = function(array $properties) use ($sheet, $tiltag, $calculatedValues) {
