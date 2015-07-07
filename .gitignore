@@ -12,3 +12,5 @@
 /bin/
 /composer.phar
 /src/AppBundle/DataFixtures/Data/*
+.idea/
+
