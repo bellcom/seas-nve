@@ -890,6 +890,7 @@ class LoadRapport extends LoadData {
       'W' => 'tOpvarmningTimerAar',
       'X' => 'yderligereBesparelserPct',
       'AA' => array('klimaskaerm', function($value) { return $this->getKlimaskaerm($value); }),
+      'AC' => 'prisfaktor',
       'AG' => 'noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet',
       'AJ' => 'levetidAar',
 
@@ -968,6 +969,7 @@ class LoadRapport extends LoadData {
 
   private function loadTiltagDetail(Tiltag $tiltag, $detail, \PHPExcel_Worksheet $sheet, $range, array $columnMapping, callable $includeRow) {
     list($data, $columns) = $this->getData($range, $sheet, $columnMapping, $includeRow, $tiltag);
+    $data = $this->getCalculatedCells($data, $sheet);
 
     foreach ($data as $row) {
       $clone = clone $detail;
@@ -1064,6 +1066,9 @@ class LoadRapport extends LoadData {
           $column = $columns[$colId];
           if (isset($calculatedColumns[$colId])) {
             $value = $calculatedCells[$rowId][$colId];
+          }
+          if (self::isCalculatedValue($value)) {
+            $value = $this->getCellValue($sheet->getCell($colId . $rowId));
           }
           $value = $this->getValue($value, $column, $row);
           if (isset($calculatedColumns[$colId])) {
