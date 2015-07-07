@@ -1105,12 +1105,23 @@ class BelysningTiltagDetail extends TiltagDetail {
     $lyskilde = $this->getLyskilde(true);
     $nyLyskilde = $this->getNyLyskilde(true);
 
-    if (!$lyskilde || $lyskilde->getLevetid() == 0 || !$nyLyskilde || $nyLyskilde->getLevetid() == 0) {
+    $nyLyskildeLevetid = 0;
+    $nyLyskildeUdgift = 0;
+    if ($nyLyskilde) {
+      $nyLyskildeLevetid = $nyLyskilde->getLevetid();
+      $nyLyskildeUdgift = $nyLyskilde->getUdgift();
+    }
+    elseif ($this->nyeSensorerStkLokale && $lyskilde) {
+      $nyLyskildeLevetid = $lyskilde->getLevetid();
+      $nyLyskildeUdgift = $lyskilde->getUdgift();
+    }
+
+    if (!$lyskilde || $lyskilde->getLevetid() == 0 || $nyLyskildeLevetid == 0) {
       return 0;
     }
     else {
       return ($this->lyskildeStkArmatur * $this->armaturerStkLokale * $lyskilde->getUdgift() * $this->drifttidTAar / $lyskilde->getLevetid()
-              - $this->nyLyskildeStkArmatur * $this->nyeArmaturerStkLokale * $nyLyskilde->getUdgift() * $this->nyDriftstid / $nyLyskilde->getLevetid())
+              - $this->nyLyskildeStkArmatur * $this->nyeArmaturerStkLokale * $nyLyskildeUdgift * $this->nyDriftstid / $nyLyskildeLevetid)
         * $this->lokale_antal;
     }
   }

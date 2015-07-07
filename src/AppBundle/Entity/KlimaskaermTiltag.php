@@ -57,7 +57,7 @@ class KlimaskaermTiltag extends Tiltag {
       return 1;
     }
 
-    return $this->divide(
+    return round($this->divide(
       $this->sum(function($detail) {
         // AK
         if ($detail->getLevetidAar() > 0) {
@@ -68,7 +68,7 @@ class KlimaskaermTiltag extends Tiltag {
         }
       }),
       $denominator
-    );
+    ));
   }
 
 }
