@@ -5,8 +5,6 @@ use AppBundle\Entity\Configuration;
 use AppBundle\Entity\Rapport;
 
 class RapportTest extends EntityTestCase {
-  // protected $allowedDeviance = 0.001;
-
   public function testInflationsfaktor() {
     $rapport = $this->loadEntity(new Rapport(), array(
     ))->setConfiguration($this->loadEntity(new Configuration(), array(

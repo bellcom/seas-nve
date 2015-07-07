@@ -9,7 +9,7 @@ abstract class EntityTestCase extends KernelTestCase {
    *
    * @var float
    */
-  protected $allowedDeviance = 0.0;
+  protected $allowedDeviance = 0.00001;
 
   /**
    * Set properties on an entity.
