@@ -19,6 +19,7 @@ php app/console doctrine:schema:update --force
     ```
     mkdir -p src/AppBundle/DataFixtures/Data/Excel
     rm src/AppBundle/DataFixtures/Data/Excel/*.xlsm
+	rm src/AppBundle/DataFixtures/Data/fixtures/*
     cp -v ~/Dropbox*/Dokumentation/Websites/Aa+/Dokumenter/fixtures/*.xlsm src/AppBundle/DataFixtures/Data/Excel
     ```
 

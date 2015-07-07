@@ -652,7 +652,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   private function calculateSamletInvesteringKr() {
     // "AE": "Samlet investering (kr)"
-    return $this->klimaskaerm->getEnhedsprisEksklMoms() * $this->arealM2;
+    return $this->klimaskaerm->getEnhedsprisEksklMoms() * $this->prisfaktor * $this->arealM2;
   }
 
   private function calculateSimpelTilbagebetalingstidAar() {

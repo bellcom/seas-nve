@@ -31,4 +31,26 @@ class PumpeTiltag extends Tiltag {
     $this->setTitle('Pumpeudskiftninger');
   }
 
+  protected function calculateVarmebesparelseGAF() {
+    return $this->sum('kwhBesparelseVarmeFraVaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+  }
+
+  protected function calculateElbesparelse() {
+    return $this->sum('kwhBesparelseElFraVaerket');
+  }
+
+  protected function calculateSamletEnergibesparelse() {
+    return $this->varmebesparelseGAF * $this->getRapport()->getVarmeKrKWh()
+      + $this->elbesparelse * $this->getRapport()->getElKrKWh();
+  }
+
+  protected function calculateSamletCo2besparelse() {
+    return (($this->varmebesparelseGAF / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
+            + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
+  }
+
+  protected function calculateAnlaegsinvestering() {
+    return $this->sum('samletInvesteringInklPristillaeg');
+  }
+
 }

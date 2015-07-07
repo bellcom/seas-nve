@@ -6,6 +6,6 @@ use AppBundle\Entity\TekniskIsoleringTiltag;
 use AppBundle\Entity\TekniskIsoleringTiltagDetail;
 
 class TekniskIsoleringTiltagDetailTest extends TiltagDetailTestCase {
-  protected $allowedDeviance = 0.0001;
+  protected $allowedDeviance = 0.001;
 
 }

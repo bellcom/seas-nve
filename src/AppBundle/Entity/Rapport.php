@@ -95,11 +95,11 @@ class Rapport {
   protected $BaselineStrafAfkoeling;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="SamtidighedsFaktor", type="integer", nullable=true)
+   * @ORM\Column(name="faktorPaaVarmebesparelse", type="decimal", scale=4, nullable=true)
    */
-  protected $SamtidighedsFaktor;
+  protected $faktorPaaVarmebesparelse;
 
   /**
    * @var integer
@@ -346,26 +346,26 @@ class Rapport {
   }
 
   /**
-   * Set SamtidighedsFaktor
+   * Set faktorPaaVarmebesparelse
    *
-   * @param integer $samtidighedsFaktor
+   * @param float $faktorPaaVarmebesparelse
    * @return Rapport
    */
-  public function setSamtidighedsFaktor($samtidighedsFaktor)
+  public function setFaktorPaaVarmebesparelse($faktorPaaVarmebesparelse)
   {
-    $this->SamtidighedsFaktor = $samtidighedsFaktor;
+    $this->faktorPaaVarmebesparelse = $faktorPaaVarmebesparelse;
 
     return $this;
   }
 
   /**
-   * Get SamtidighedsFaktor
+   * Get faktorPaaVarmebesparelse
    *
-   * @return integer
+   * @return float
    */
-  public function getSamtidighedsFaktor()
+  public function getFaktorPaaVarmebesparelse()
   {
-    return $this->SamtidighedsFaktor;
+    return $this->faktorPaaVarmebesparelse;
   }
 
   /**
