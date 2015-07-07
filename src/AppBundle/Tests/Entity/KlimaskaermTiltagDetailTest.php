@@ -6,8 +6,6 @@ use AppBundle\Entity\KlimaskaermTiltag;
 use AppBundle\Entity\KlimaskaermTiltagDetail;
 
 class KlimaskaermTiltagDetailTest extends TiltagDetailTestCase {
-  protected $allowedDeviance = 0.001;
-
   public function loadProperties(array $properties) {
     $properties['klimaskaerm'] = $this->getKlimaskaerm($properties['klimaskaerm']);
     return $properties;

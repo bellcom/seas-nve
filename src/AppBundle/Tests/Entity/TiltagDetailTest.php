@@ -11,8 +11,6 @@ use AppBundle\Entity\SpecialTiltag;
 use AppBundle\Entity\SpecialTiltagDetail;
 
 class TiltagDetailTest extends EntityTestCase {
-  protected $allowedDeviance = 0.001;
-
   public function testSetGetData() {
     $detail = new SpecialTiltagDetail();
 
