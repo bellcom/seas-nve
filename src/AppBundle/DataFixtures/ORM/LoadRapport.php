@@ -358,6 +358,7 @@ class LoadRapport extends LoadData {
       ->setBygning($bygning)
       ->setVersion($sheet->getCell('C24')->getOldCalculatedValue())
       ->setDatering($this->getDateTime($sheet->getCell('F23')))
+      ->setFaktorPaaVarmebesparelse($this->getCellValue($sheet->getCell('F21')))
       ->setConfiguration($this->configuration);
 
     $this->loadTekniskIsoleringTiltag($rapport);
