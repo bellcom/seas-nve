@@ -348,6 +348,8 @@ End Function
       } else {
         $Scrapvaerdi = (1 - ($Lobetid - $AntalReinvest * $Levetid) / $Levetid) * $Invest * $FaktorReInvest * pow(1 + $Inflation, $Lobetid);
       }
+      // $Scrapvaerdi is defined as long in Excel.
+      $Scrapvaerdi = round($Scrapvaerdi);
     }
 
     return ((-$Invest + $SalgAfEnergibesparelse) / (1 + $Kalkulationsrente)) + $BesparKwhVarme * $Varmefaktor + $BesparKwhEl * $Elfaktor + $Besparm3Vand * $Vandfaktor + ($Scrapvaerdi / pow(1 + $Kalkulationsrente, $Lobetid)) + ($DogV + $Straf) * $Inflationsfaktor - $Reinvest;

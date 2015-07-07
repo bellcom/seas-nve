@@ -1072,7 +1072,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     if (!$nyLyskilde) {
       return 0;
     }
-    elseif ($nyLyskilde->getId() == 12) { // !!!
+    elseif ($nyLyskilde->getType() == 'LED-arm.') {
       return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
               + $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale * $this->nyLyskildeStkArmatur
               + $this->prisfaktorTillaegKrLokale) * $this->lokale_antal;
@@ -1290,7 +1290,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   private function calculateNutidsvaerdiSetOver15AarKr() {
-    // BU
+    // BV
     $faktorForReinvestering = $this->_computeFaktorForReinvestering();
     if ($this->vaegtetLevetidAar == 0 || $faktorForReinvestering == 0) {
       return 0;
