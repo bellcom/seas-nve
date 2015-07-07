@@ -32,7 +32,7 @@ use AppBundle\Entity\SolcelleTiltagDetail;
  * Class LoadRapport
  * @package AppBundle\DataFixtures\ORM
  */
-class LoadRapport extends LoadData {
+class LoadExcelRapport extends LoadData {
   protected $order = 1;
 
   private $manager;
@@ -46,7 +46,7 @@ class LoadRapport extends LoadData {
     $this->manager = $manager;
 
     $basepath = $this->container->get('kernel')
-              ->locateResource('@AppBundle/DataFixtures/Data/Excel/');
+              ->locateResource('@AppBundle/DataFixtures/Data/');
     foreach (glob($basepath . '*.xlsm') as $filepath) {
       $this->name = basename($filepath, '.xlsm');
 
