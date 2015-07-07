@@ -446,7 +446,7 @@ appbundle:
     varmetotal: ﻿I alt varme
     BaselineVand: Vand
     BaselineStrafAfkoeling: Strafafkøling
-    SamtidighedsFaktor: ﻿Faktor på varmebespar. (kWh GAF + GUF)
+    faktorPaaVarmebesparelse: Faktor på varmebesparelse
     Energiscreening: Energiscreening
   specialtiltag:
     kommentar: Kommentar

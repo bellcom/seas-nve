@@ -63,7 +63,7 @@ class RapportType extends AbstractType {
           )
         )
       ))
-      ->add('SamtidighedsFaktor')
+      ->add('faktorPaaVarmebesparelse')
       ->add('Energiscreening', null, array(
         'attr' => array(
           'input_group' => array(
