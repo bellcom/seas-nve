@@ -2592,11 +2592,11 @@ class Forsyningsvaerk {
   /**
    * Set co2ynoter.
    *
-   * @param float $co2ynoter
-   *   co2ynoter.
+   * @param $co2Noter
+   * @return \AppBundle\Entity\Forsyningsvaerk This.
+   * This.
+   * @internal param float $co2ynoter co2ynoter.*   co2ynoter.
    *
-   * @return Forsyningsvaerk
-   *   This.
    */
   public function setCo2Noter($co2Noter) {
     $this->co2Noter = $co2Noter;

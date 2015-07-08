@@ -6,6 +6,9 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\PumpeTiltag;
+use AppBundle\Entity\SolcelleTiltag;
+use AppBundle\Entity\TekniskIsoleringTiltag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

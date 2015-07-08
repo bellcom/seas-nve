@@ -67,6 +67,9 @@ abstract class Calculation {
    *
    * @param array $values
    *   The values. Indexes should be years (from 1).
+   *
+   * @return float
+   *   The npv.
    */
   public static function npv($rate, array $values) {
     $npv = 0;

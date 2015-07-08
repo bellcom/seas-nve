@@ -1,10 +1,7 @@
 <?php
 namespace AppBundle\Tests\Entity;
 
-use AppBundle\Entity\Rapport;
 use AppBundle\Entity\Pumpe;
-use AppBundle\Entity\PumpeTiltag;
-use AppBundle\Entity\PumpeTiltagDetail;
 
 class PumpeTiltagDetailTest extends TiltagDetailTestCase {
   public function loadProperties(array $properties) {

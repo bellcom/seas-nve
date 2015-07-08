@@ -7,15 +7,12 @@ use AppBundle\Entity\Forsyningsvaerk;
 use AppBundle\Entity\Rapport;
 
 abstract class TiltagTestCase extends EntityTestCase {
-  protected $tiltagClassName;
-  protected $detailClassName;
-
   public function testCalculate() {
-    $this->tiltagClassName = str_replace('\\Tests\\', '\\', preg_replace('/Test$/', '', get_class($this)));
-    $this->detailClassName = $this->tiltagClassName . 'Detail';
-    $fixtures = $this->loadTestFixtures(preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', $this->tiltagClassName));
+    $tiltagClassName = str_replace('\\Tests\\', '\\', preg_replace('/Test$/', '', get_class($this)));
+    $detailClassName = $tiltagClassName . 'Detail';
+    $fixtures = $this->loadTestFixtures(preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', $tiltagClassName));
 
-    $this->assertNotEmpty($fixtures, 'Cannot load fixtures for class ' . $this->tiltagClassName);
+    $this->assertNotEmpty($fixtures, 'Cannot load fixtures for class ' . $tiltagClassName);
 
     foreach ($fixtures as $fixture) {
       $bygning = $this->loadEntity(new Bygning(), $fixture['bygning'])
@@ -25,12 +22,12 @@ abstract class TiltagTestCase extends EntityTestCase {
       $rapport = $this->loadEntity(new Rapport(), $fixture['rapport']['input'])
                ->setBygning($bygning);
       $rapport->setConfiguration($this->loadEntity(new Configuration(), $fixture['configuration']));
-      $tiltag = new $this->tiltagClassName();
+      $tiltag = new $tiltagClassName();
       $tiltag->setRapport($rapport);
       $this->loadEntity($tiltag, $this->loadProperties($fixture['tiltag']['input']));
 
       foreach ($fixture['details'] as $test) {
-        $detail = new $this->detailClassName();
+        $detail = new $detailClassName();
         $detail->setTiltag($tiltag);
 
         $detailTestClassName = $this->getTestClassName($detail);

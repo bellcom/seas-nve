@@ -1,8 +1,6 @@
 <?php
 namespace AppBundle\Tests\Entity;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-
 use AppBundle\Entity\Configuration;
 use AppBundle\Entity\Forsyningsvaerk;
 use AppBundle\Entity\Bygning;

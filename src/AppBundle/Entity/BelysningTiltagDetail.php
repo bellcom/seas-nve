@@ -1345,7 +1345,7 @@ class BelysningTiltagDetail extends TiltagDetail {
         case 'Kom. K':
           return $lyskildeStkArmatur * $lyskildeWLyskilde * 1.1817 + 2.44275 + (1.2794 * ($lyskildeStkArmatur - 1)) * 0.9432;
 
-        case 'Hal.': // !!!
+        case 'Hal.': // @FIXME: Duplicate case!
           return 1.0832 * $lyskildeWLyskilde + 0.192;
 
         default:

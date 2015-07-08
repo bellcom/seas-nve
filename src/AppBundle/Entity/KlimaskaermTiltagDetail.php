@@ -547,7 +547,9 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * Set priskategori
    *
-   * @return KlimaskaermTiltagDetail
+   * @param string $priskategori
+   * 
+   * @return \AppBundle\Entity\KlimaskaermTiltagDetail
    */
   public function setPriskategori($priskategori) {
     $this->priskategori = $priskategori;

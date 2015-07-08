@@ -40,6 +40,11 @@ class LoadExcelRapport extends LoadData {
   private $name;
 
   /**
+   * @var callable
+   */
+  private $isSelected;
+
+  /**
    * {@inheritDoc}
    */
   public function load(ObjectManager $manager) {
@@ -1081,7 +1086,6 @@ class LoadExcelRapport extends LoadData {
       }
       $inputData[$rowId] = $inputRow;
       $calculatedData[$rowId] = $calculatedRow;
-      $first = false;
     }
 
     $type = preg_replace('/^.+\\\\([^\\\\]+)$/', '$1', get_class($tiltag));
@@ -1121,7 +1125,7 @@ class LoadExcelRapport extends LoadData {
 
           if (!is_dir($testFixturesPath) && !@mkdir($testFixturesPath, 0777, true)) {
             $testFixturesPath = null;
-            throw new UploadableInvalidPathException(sprintf('Unable to create "%s" directory.', $testFixturesPath));
+            throw new \Exception(sprintf('Unable to create "%s" directory.', $testFixturesPath));
           }
         } catch (\Exception $ex) {}
 

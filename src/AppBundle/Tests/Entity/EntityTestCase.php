@@ -83,7 +83,7 @@ abstract class EntityTestCase extends KernelTestCase {
    */
   protected function getTestClassName($entity) {
     $className = get_class($entity);
-    $testClassName = preg_replace('/AppBundle\\\\/', 'AppBundle\\Tests\\', $this->detailClassName) . 'Test';
+    $testClassName = preg_replace('/AppBundle\\\\/', 'AppBundle\\Tests\\', $className) . 'Test';
     return $testClassName;
   }
 
