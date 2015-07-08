@@ -13,12 +13,16 @@ class TiltagCalculation extends Calculation {
     $this->container = $container;
   }
 
+  public function prePersist(LifecycleEventArgs $args) {
+    $this->preUpdate($args);
+  }
+
   /**
-   * Calculate tiltag after loading from data store.
+   * Calculate tiltag detail before saving to data store.
    *
    * @param LifecycleEventArgs $args
    */
-  public function postLoad(LifecycleEventArgs $args) {
+  public function preUpdate(LifecycleEventArgs $args) {
     $entity = $args->getEntity();
 
     if (!$entity instanceof Tiltag) {

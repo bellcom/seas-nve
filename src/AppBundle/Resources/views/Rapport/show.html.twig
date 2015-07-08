@@ -27,15 +27,15 @@
         <tbody>
         <tr>
           <th>{{ 'appbundle.rapport.BaselineVarmeGUF' | trans }}</th>
-          <td>{{ entity.BaselineVarmeGUF }}</td>
+          <td>{{ entity.BaselineVarmeGUF | format_decimal }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.rapport.BaselineVarmeGAF' | trans }}</th>
-          <td>{{ entity.BaselineVarmeGAF }}</td>
+          <td>{{ entity.BaselineVarmeGAF | format_decimal }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.rapport.varmetotal' | trans }}</th>
-          <td>{{ entity.totalvarme }}</td>
+          <td>{{ entity.totalvarme | format_decimal }}</td>
         </tr>
         </tbody>
       </table>
@@ -56,8 +56,8 @@
     {% for t in entity.tiltag %}
       <tr>
         <td>{{ t.title }}</td>
-        <td>{{ t.varmebesparelseGUF }}</td>
-        <td>{{ t.varmebesparelseGAF }}</td>
+        <td>{{ t.varmebesparelseGUF | format_decimal }}</td>
+        <td>{{ t.varmebesparelseGAF | format_decimal }}</td>
       </tr>
     {% endfor %}
     </tbody>
