@@ -82,4 +82,8 @@ abstract class Calculation {
     return $npv;
   }
 
+  public static function divide($numerator, $denominator) {
+    return $denominator == 0 ? 0 : ($numerator / $denominator);
+  }
+
 }

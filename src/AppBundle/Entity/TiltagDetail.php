@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Calculation\Calculation;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
@@ -241,8 +242,59 @@ abstract class TiltagDetail {
     // $this->tiltag->calculate();
   }
 
-  protected function fordelbesparelse($BesparKwh, $Kilde, $typen) {
-    // @FIXME
+  protected function fordelbesparelse($BesparKwh, $kilde, $type) {
+    if ($kilde) {
+      switch ($type) {
+        case 'EL':
+        case 'VARME':
+        case 'PRIORITEREL':
+        case 'PRIORITERVARME':
+          /* Konverteringer bruges ikke – endnu …
+             If Worksheets("2.Forsyning").Range("al" & y) <> "" Then 'der er beregnet konvertering
+             t = Worksheets("2.Forsyning").Range("al" & y).Value 'række for konvertering indtastes
+
+             If Worksheets("2.Forsyning").Range("a" & t) <> "" Then 'konverteringen er tilvalgt
+             If typen = "EL" Or typen = "VARME" Then
+             If Worksheets("2.Forsyning").Range("am" & t) = 1 Then 'konvertering prioriteres forud for øvrige tiltag
+             y = t 'denne funktion bypasses hvis de er er tale om KONVERTERINGVARME eller KONVERTERINGEL, hvor det eksisterende værks værdier skal anvendes.
+             'MsgBox ("y er " & y)
+             End If
+
+             ElseIf typen = "PRIORITEREL" Then
+             y = t 'prioriterel og varme er altid efter nye forsyningskildes effektivitet, uanset om prioritering er 1 eller 2
+             typen = "EL"
+             ElseIf typen = "PRIORITERVARME" Then
+             y = t
+             typen = "VARME"
+             'MsgBox ("prioritering virker")
+             End If
+             End If
+             End If
+          */
+          break;
+
+        case 'KONVERTERINGVARME':
+          $type = 'VARME';
+          break;
+
+        case 'KONVERTERINGEL':
+          $type = 'EL';
+          break;
+
+      }
+
+      if ($type == 'EL') {
+        $BesparKwh *= $kilde->getSamletEleffektivitet();
+      }
+      elseif ($type == 'VARME') {
+        $BesparKwh *= $kilde->getSamletVarmeeffektivitet();
+      }
+    }
+
+    if ($type == 'EL' || $type == 'VARME') {
+      return $BesparKwh;
+    }
+
     return 0;
 
     /*
@@ -260,12 +312,12 @@ Public Function FordelBesparelse(BesparKwh As Single, Kilde As String, typen As 
 
         If Worksheets("2.Forsyning").Range("a" & y) = Kilde Then
             If typen = "EL" Or typen = "VARME" Or typen = "PRIORITEREL" Or typen = "PRIORITERVARME" Then 'tjekker at der er tale om alm. el og varme og ikke "konverteringvarme" hvor det gamle forsyningsværks værdier skal bruges
-                If Worksheets("2.Forsyning").Range("ai" & y) <> "" Then 'der er beregnet konvertering
-                    t = Worksheets("2.Forsyning").Range("ai" & y).Value 'række for konvertering indtastes
+                If Worksheets("2.Forsyning").Range("al" & y) <> "" Then 'der er beregnet konvertering
+                    t = Worksheets("2.Forsyning").Range("al" & y).Value 'række for konvertering indtastes
 
                     If Worksheets("2.Forsyning").Range("a" & t) <> "" Then 'konverteringen er tilvalgt
                         If typen = "EL" Or typen = "VARME" Then
-                            If Worksheets("2.Forsyning").Range("aj" & t) = 1 Then 'konvertering prioriteres forud for øvrige tiltag
+                            If Worksheets("2.Forsyning").Range("am" & t) = 1 Then 'konvertering prioriteres forud for øvrige tiltag
                                 y = t 'denne funktion bypasses hvis de er er tale om KONVERTERINGVARME eller KONVERTERINGEL, hvor det eksisterende værks værdier skal anvendes.
                                 'MsgBox ("y er " & y)
                             End If
@@ -288,11 +340,11 @@ Public Function FordelBesparelse(BesparKwh As Single, Kilde As String, typen As 
             End If
 
             If typen = "EL" Then
-                 BesparKwh = BesparKwh * Worksheets("2.Forsyning").Range("ah" & y)
+                 BesparKwh = BesparKwh * Worksheets("2.Forsyning").Range("ak" & y)
             End If
 
             If typen = "VARME" Then
-                BesparKwh = BesparKwh * Worksheets("2.Forsyning").Range("ag" & y)
+                BesparKwh = BesparKwh * Worksheets("2.Forsyning").Range("aj" & y)
             End If
 
             y = lastRow 'såfremt der forsyningskilden er fundet, skal efterfølgende rækker ikke kontrolleres
@@ -421,7 +473,7 @@ End Function
    *   .
    */
   protected function divide($numerator, $denominator) {
-    return $denominator == 0 ? 0 : ($numerator / $denominator);
+    return Calculation::divide($numerator, $denominator);
   }
 
 }

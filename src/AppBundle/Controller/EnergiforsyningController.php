@@ -14,16 +14,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use AppBundle\Entity\Tiltag;
-use AppBundle\Entity\TiltagDetail;
+use AppBundle\Entity\Energiforsyning;
 use Yavin\Symfony\Controller\InitControllerInterface;
 
 /**
- * Tiltag controller.
+ * Energiforsyning controller.
  *
- * @Route("/tiltag")
+ * @Route("/energiforsyning")
  */
-class TiltagController extends Controller implements InitControllerInterface {
+class EnergiforsyningController extends Controller implements InitControllerInterface {
 
   protected $breadcrumbs;
 
@@ -34,33 +33,33 @@ class TiltagController extends Controller implements InitControllerInterface {
     $this->breadcrumbs->addItem('Bygninger', $this->get('router')->generate('bygning'));
   }
 
+  // /**
+  //  * Lists all Energiforsyning entities.
+  //  *
+  //  * @Route("/", name="energiforsyning")
+  //  * @Method("GET")
+  //  * @Template()
+  //  */
+  // public function indexAction() {
+  //   $em = $this->getDoctrine()->getManager();
+
+  //   $entities = $em->getRepository('AppBundle:Energiforsyning')->findAll();
+
+  //   return array(
+  //     'entities' => $entities,
+  //   );
+  // }
+
   /**
-   * Lists all Tiltag entities.
+   * Finds and displays a Energiforsyning entity.
    *
-   * @Route("/", name="tiltag")
+   * @Route("/{id}", name="energiforsyning_show")
    * @Method("GET")
    * @Template()
-   */
-  public function indexAction() {
-    $em = $this->getDoctrine()->getManager();
-
-    $entities = $em->getRepository('AppBundle:Tiltag')->findAll();
-
-    return array(
-      'entities' => $entities,
-    );
-  }
-
-  /**
-   * Finds and displays a Tiltag entity.
-   *
-   * @Route("/{id}", name="tiltag_show")
-   * @Method("GET")
-   * @Template()
-   * @param Tiltag $entity
+   * @param Energiforsyning $entity
    * @return \Symfony\Component\HttpFoundation\Response
    */
-  public function showAction(Tiltag $entity) {
+  public function showAction(Energiforsyning $entity) {
     $this->breadcrumbs->addItem($entity->getRapport()->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $entity->getRapport()->getBygning()->getId())));
     $this->breadcrumbs->addItem($entity->getRapport()->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
     $this->breadcrumbs->addItem($entity->getTitle(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
@@ -79,13 +78,13 @@ class TiltagController extends Controller implements InitControllerInterface {
   }
 
   /**
-   * Displays a form to edit an existing Tiltag entity.
+   * Displays a form to edit an existing Energiforsyning entity.
    *
-   * @Route("/{id}/edit", name="tiltag_edit")
+   * @Route("/{id}/edit", name="energiforsyning_edit")
    * @Method("GET")
    * @Template()
    */
-  public function editAction(Tiltag $entity) {
+  public function editAction(Energiforsyning $entity) {
     $editForm = $this->createEditForm($entity);
     $deleteForm = $this->createDeleteForm($entity);
 
@@ -98,16 +97,16 @@ class TiltagController extends Controller implements InitControllerInterface {
   }
 
   /**
-   * Creates a form to edit a Tiltag entity.
+   * Creates a form to edit a Energiforsyning entity.
    *
-   * @param Tiltag $entity The entity
+   * @param Energiforsyning $entity The entity
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createEditForm(Tiltag $entity) {
+  private function createEditForm(Energiforsyning $entity) {
     $className = $this->getFormTypeClassName($entity);
-    $form = $this->createForm(new $className($entity->getRapport()), $entity, array(
-      'action' => $this->generateUrl('tiltag_update', array('id' => $entity->getId())),
+    $form = $this->createForm(new $className(), $entity, array(
+      'action' => $this->generateUrl('energiforsyning_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));
 
@@ -117,13 +116,13 @@ class TiltagController extends Controller implements InitControllerInterface {
   }
 
   /**
-   * Edits an existing Tiltag entity.
+   * Edits an existing Energiforsyning entity.
    *
-   * @Route("/{id}", name="tiltag_update")
+   * @Route("/{id}", name="energiforsyning_update")
    * @Method("PUT")
-   * @Template("AppBundle:Tiltag:edit.html.twig")
+   * @Template("AppBundle:Energiforsyning:edit.html.twig")
    */
-  public function updateAction(Request $request, Tiltag $entity) {
+  public function updateAction(Request $request, Energiforsyning $entity) {
     $deleteForm = $this->createDeleteForm($entity);
     $editForm = $this->createEditForm($entity);
     $editForm->handleRequest($request);
@@ -132,7 +131,7 @@ class TiltagController extends Controller implements InitControllerInterface {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('tiltag_edit', array('id' => $entity->getId())));
+      return $this->redirect($this->generateUrl('energiforsyning_edit', array('id' => $entity->getId())));
     }
 
     return array(
@@ -143,12 +142,12 @@ class TiltagController extends Controller implements InitControllerInterface {
   }
 
   /**
-   * Deletes a Tiltag entity.
+   * Deletes a Energiforsyning entity.
    *
-   * @Route("/{id}", name="tiltag_delete")
+   * @Route("/{id}", name="energiforsyning_delete")
    * @Method("DELETE")
    */
-  public function deleteAction(Request $request, Tiltag $entity) {
+  public function deleteAction(Request $request, Energiforsyning $entity) {
     $form = $this->createDeleteForm($entity);
     $form->handleRequest($request);
 
@@ -158,32 +157,32 @@ class TiltagController extends Controller implements InitControllerInterface {
       $em->flush();
     }
 
-    return $this->redirect($this->generateUrl('tiltag'));
+    return $this->redirect($this->generateUrl('energiforsyning'));
   }
 
   /**
-   * Creates a form to delete a Tiltag entity
+   * Creates a form to delete a Energiforsyning entity
    *
-   * @param Tiltag $entity
+   * @param Energiforsyning $entity
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createDeleteForm(Tiltag $entity) {
+  private function createDeleteForm(Energiforsyning $entity) {
     return $this->createFormBuilder()
-      ->setAction($this->generateUrl('tiltag_delete', array('id' => $entity->getId())))
+      ->setAction($this->generateUrl('energiforsyning_delete', array('id' => $entity->getId())))
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
       ->getForm();
   }
 
   /**
-   * Displays a form to create a new Tiltag entity.
+   * Displays a form to create a new Energiforsyning entity.
    *
-   * @Route("/new/{type}", name="tiltag_new")
+   * @Route("/new/{type}", name="energiforsyning_new")
    * @Method("GET")
    * @Template()
    */
   public function newAction($type) {
-    $entity = $this->createTiltag($type);
+    $entity = $this->createEnergiforsyning($type);
     $form = $this->createCreateForm($entity, $type);
 
     return array(
@@ -193,14 +192,14 @@ class TiltagController extends Controller implements InitControllerInterface {
   }
 
   /**
-   * Creates a new Tiltag entity.
+   * Creates a new Energiforsyning entity.
    *
-   * @Route("/new/{type}", name="x_tiltag_create")
+   * @Route("/new/{type}", name="energiforsyning_create")
    * @Method("POST")
-   * @Template("AppBundle:Tiltag:new.html.twig")
+   * @Template("AppBundle:Energiforsyning:new.html.twig")
    */
   public function createAction(Request $request, $type) {
-    $entity = $this->createTiltag($type);
+    $entity = $this->createEnergiforsyning($type);
     $form = $this->createCreateForm($entity, $type);
     $form->handleRequest($request);
 
@@ -209,7 +208,7 @@ class TiltagController extends Controller implements InitControllerInterface {
       $em->persist($entity);
       $em->flush();
 
-      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $entity->getId())));
+      return $this->redirect($this->generateUrl('energiforsyning_show', array('id' => $entity->getId())));
     }
 
     return array(
@@ -219,16 +218,16 @@ class TiltagController extends Controller implements InitControllerInterface {
   }
 
   /**
-   * Creates a form to create a Tiltag entity.
+   * Creates a form to create a Energiforsyning entity.
    *
-   * @param Tiltag $entity The entity
+   * @param Energiforsyning $entity The entity
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createCreateForm(Tiltag $entity, $type) {
+  private function createCreateForm(Energiforsyning $entity, $type) {
     $className = $this->getFormTypeClassName($entity);
-    $form = $this->createForm(new $className($entity->getRapport()), $entity, array(
-      'action' => $this->generateUrl('tiltag_create', array('type' => $type)),
+    $form = $this->createForm(new $className(), $entity, array(
+      'action' => $this->generateUrl('energiforsyning_create', array('type' => $type)),
       'method' => 'POST',
     ));
 
@@ -237,13 +236,13 @@ class TiltagController extends Controller implements InitControllerInterface {
     return $form;
   }
 
-  private function createDetailCreateForm(Tiltag $tiltag, TiltagDetail $detail = null) {
+  private function createDetailCreateForm(Energiforsyning $energiforsyning, EnergiforsyningDetail $detail = null) {
     if (!$detail) {
-      $detail = $this->createDetailEntity($tiltag);
+      $detail = $this->createDetailEntity($energiforsyning);
     }
     $formClass = $this->getFormTypeClassName($detail, true);
-    $form = $this->createForm(new $formClass($this->get('security.context')), $detail, array(
-      'action' => $this->generateUrl('tiltag_detail_new', array('id' => $tiltag->getId())),
+    $form = $this->createForm(new $formClass(), $detail, array(
+      'action' => $this->generateUrl('energiforsyning_detail_new', array('id' => $energiforsyning->getId())),
       'method' => 'POST',
     ));
 
@@ -255,28 +254,28 @@ class TiltagController extends Controller implements InitControllerInterface {
   /**
    * Displays a form to create a new Detail entity.
    *
-   * @Route("/{id}/detail", name="tiltag_detail_new")
+   * @Route("/{id}/detail", name="energiforsyning_detail_new")
    * @Method("POST")
    * @Template()
    */
-  public function createDetailAction(Request $request, Tiltag $tiltag) {
-    $detail = $this->createDetailEntity($tiltag);
-    $form = $this->createDetailCreateForm($tiltag, $detail);
+  public function createDetailAction(Request $request, Energiforsyning $energiforsyning) {
+    $detail = $this->createDetailEntity($energiforsyning);
+    $form = $this->createDetailCreateForm($energiforsyning, $detail);
     $form->handleRequest($request);
 
     if ($form->isValid()) {
-      $detail->setTiltag($tiltag);
+      $detail->setEnergiforsyning($energiforsyning);
       $detail->handleUploads($this->get('stof_doctrine_extensions.uploadable.manager'));
       $em = $this->getDoctrine()->getManager();
       $em->persist($detail);
       $em->flush();
 
-      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+      return $this->redirect($this->generateUrl('energiforsyning_show', array('id' => $energiforsyning->getId())));
     }
 
     // @FIXME: How do we handle form errors in modal?
 
-    $template = $this->getTemplate($tiltag, 'new');
+    $template = $this->getTemplate($energiforsyning, 'new');
     return $this->render($template, array(
       'entity' => $detail,
       'form' => $form->createView(),
@@ -288,9 +287,9 @@ class TiltagController extends Controller implements InitControllerInterface {
    * @return mixed
    * @throws Exception
    */
-  private function createTiltag($type) {
-    $className = 'AppBundle\\Entity\\'.ucwords($type).'Tiltag';
-    if (!class_exists($className) || !is_subclass_of($className, 'AppBundle\\Entity\\Tiltag')) {
+  private function createEnergiforsyning($type) {
+    $className = 'AppBundle\\Entity\\'.ucwords($type).'Energiforsyning';
+    if (!class_exists($className) || !is_subclass_of($className, 'AppBundle\\Entity\\Energiforsyning')) {
       throw new Exception('Invalid type: '.$type);
     }
     return new $className();
@@ -314,15 +313,15 @@ class TiltagController extends Controller implements InitControllerInterface {
    * Get template for an entity and an action.
    * If a specific template for the entity does not exist, a fallback template is returned.
    *
-   * @param Tiltag $entity
+   * @param Energiforsyning $entity
    * @param string $action
    * @return string
    */
-  private function getTemplate(Tiltag $entity, $action) {
+  private function getTemplate(Energiforsyning $entity, $action) {
     $className = $this->getEntityName($entity);
     $template = 'AppBundle:'.$className.':'.$action.'.html.twig';
     if (!$this->get('templating')->exists($template)) {
-      $template = 'AppBundle:Tiltag:'.$action.'.html.twig';
+      $template = 'AppBundle:Energiforsyning:'.$action.'.html.twig';
     }
     return $template;
   }
@@ -330,24 +329,24 @@ class TiltagController extends Controller implements InitControllerInterface {
   /**
    * Get form type class name for a entity
    *
-   * @param Tiltag|TiltagDetail $entity
+   * @param Energiforsyning|EnergiforsyningDetail $entity
    * @param boolean $isDetail
    * @return string
    */
   private function getFormTypeClassName($entity, $isDetail = false) {
     $className = '\\AppBundle\\Form\\Type\\'.$this->getEntityName($entity).'Type';
     if (!class_exists($className)) {
-      $className = '\\AppBundle\\Form\\Type\\Tiltag'.($isDetail ? 'Detail' : '').'Type';
+      $className = '\\AppBundle\\Form\\Type\\Energiforsyning'.($isDetail ? 'Detail' : '').'Type';
     }
     return $className;
   }
 
   /**
-   * @param Tiltag $entity
+   * @param Energiforsyning $entity
    * @return string
    * @throws \Exception
    */
-  private function getDetailClassName(Tiltag $entity) {
+  private function getDetailClassName(Energiforsyning $entity) {
     $entityName = $this->getEntityName($entity);
     $className = '\\AppBundle\\Entity\\'.$entityName.'Detail';
     if (!class_exists($className)) {
@@ -357,12 +356,12 @@ class TiltagController extends Controller implements InitControllerInterface {
   }
 
   /**
-   * @param Tiltag $tiltag
-   * @return TiltagDetail
+   * @param Energiforsyning $energiforsyning
+   * @return EnergiforsyningDetail
    * @throws \Exception
    */
-  private function createDetailEntity(Tiltag $tiltag) {
-    $detailClass = $this->getDetailClassName($tiltag);
+  private function createDetailEntity(Energiforsyning $energiforsyning) {
+    $detailClass = $this->getDetailClassName($energiforsyning);
     $detail = new $detailClass();
     return $detail;
   }
@@ -377,11 +376,11 @@ class TiltagController extends Controller implements InitControllerInterface {
    * @Method("POST")
    * @Template("AppBundle:Regning:new.html.twig")
    */
-  public function newRegningAction(Request $request, Tiltag $tiltag) {
+  public function newRegningAction(Request $request, Energiforsyning $energiforsyning) {
     $em = $this->getDoctrine()->getManager();
     $regning = new Regning();
 
-    $regning->setTiltag($tiltag);
+    $regning->setEnergiforsyning($energiforsyning);
 
     $em->persist($regning);
     $em->flush();

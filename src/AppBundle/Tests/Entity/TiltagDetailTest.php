@@ -72,7 +72,7 @@ class TiltagDetailTest extends EntityTestCase {
       extract($test['variables']);
       $expected = $test['expected'];
 
-      $configuration = $this->loadEntity(new Configuration(), array(
+      $configuration = $this->setProperties(new Configuration(), array(
         'kalkulationsrente' => 0.0292,
         'inflation' => 0.019,
         'lobetid' => 15,
@@ -80,12 +80,12 @@ class TiltagDetailTest extends EntityTestCase {
         'varmeledningsevneNyIsolering' => 0.044
       ));
 
-      $rapport = $this->loadEntity(new Rapport(), array())
+      $rapport = $this->setProperties(new Rapport(), array())
                ->setConfiguration($configuration)
                ->setBygning(
-                 $this->loadEntity(new Bygning(), array(
+                 $this->setProperties(new Bygning(), array(
                  ))
-                 ->setForsyningsvaerkEl($this->loadEntity(new Forsyningsvaerk(), array(
+                 ->setForsyningsvaerkEl($this->setProperties(new Forsyningsvaerk(), array(
                    'pris2015' => 1.609478,
                    'pris2016' => 1.65776234,
                    'pris2017' => 1.7074952102,
@@ -118,7 +118,7 @@ class TiltagDetailTest extends EntityTestCase {
                    'pris2044' => 3.443477065731436,
                    'pris2045' => 3.508903129980333,
                  )))
-                 ->setForsyningsvaerkVarme($this->loadEntity(new Forsyningsvaerk(), array(
+                 ->setForsyningsvaerkVarme($this->setProperties(new Forsyningsvaerk(), array(
                    'pris2015' => 0.491,
                    'pris2016' => 0.49,
                    'pris2017' => 0.459,
@@ -151,7 +151,7 @@ class TiltagDetailTest extends EntityTestCase {
                    'pris2044' => 0.459,
                    'pris2045' => 0.459,
                  )))
-                 ->setForsyningsvaerkVand($this->loadEntity(new Forsyningsvaerk(), array(
+                 ->setForsyningsvaerkVand($this->setProperties(new Forsyningsvaerk(), array(
                    'pris2015' => 41.64652999999999,
                    'pris2016' => 42.43781406999999,
                    'pris2017' => 43.24413253732998,
@@ -185,11 +185,11 @@ class TiltagDetailTest extends EntityTestCase {
                    'pris2045' => 73.24944558289999
                  )))
                );
-      $tiltag = $this->loadEntity(new SpecialTiltag(), array())
+      $tiltag = $this->setProperties(new SpecialTiltag(), array())
               ->setRapport($rapport)
               ->setLevetid(15);
       $detail = (new SpecialTiltagDetail())->setTiltag($tiltag);
-      $this->loadEntity($detail, array());
+      $this->setProperties($detail, array());
 
       $nvPTO2 = new \ReflectionMethod($detail, 'nvPTO2');
       $nvPTO2->setAccessible(true);

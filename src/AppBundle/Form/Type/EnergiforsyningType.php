@@ -11,10 +11,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class ConfigurationType
+ * Class EnergiforsyningType
  * @package AppBundle\Form
  */
-class ConfigurationType extends AbstractType {
+class EnergiforsyningType extends AbstractType {
   /**
    * @TODO: Missing description.
    *
@@ -25,16 +25,21 @@ class ConfigurationType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('kalkulationsrente')
-      ->add('inflation')
-      ->add('lobetid')
-
-      ->add('procentAfInvestering', 'percent')
-
-      ->add('nominelEnergiprisstigning')
-
-      ->add('varmeledningsevneEksistLamelmaatter')
-      ->add('varmeledningsevneNyIsolering');
+      ->add('navn')
+      ->add('beskrivelse')
+      ->add('internProduktioner', 'collection', array(
+        'type' => new InternProduktionType(),
+        'allow_add' => TRUE,
+      ))
+      // ->add('samletVarmeeffektivitet', NULL, array(
+      //   'read_only' => TRUE,
+      //   // 'mapped' => FALSE,
+      // ))
+      // ->add('samletEleffektivitet', NULL, array(
+      //   'read_only' => TRUE,
+      //   // 'mapped' => FALSE,
+      // ))
+      ;
   }
 
   /**
@@ -42,12 +47,10 @@ class ConfigurationType extends AbstractType {
    *
    * @param OptionsResolverInterface $resolver
    *   @TODO: Missing description.
-   *
-   * @TODO: OptionsResolverInterface er deprecated?
    */
   public function setDefaultOptions(OptionsResolverInterface $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Configuration'
+      'data_class' => 'AppBundle\Entity\Energiforsyning'
     ));
   }
 
@@ -58,6 +61,6 @@ class ConfigurationType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'appbundle_configuration';
+    return 'appbundle_energiforsyning';
   }
 }

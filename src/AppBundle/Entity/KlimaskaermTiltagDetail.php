@@ -684,7 +684,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
       return 0;
     }
     elseif ($this->besparelseKWhAar > 0) {
-      if ($this->getRapport()->isStandardforsyning()) {
+      if ($this->getRapport()->getStandardforsyning()) {
         return 0;
       }
       else {
@@ -703,7 +703,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     }
     else {
       if ($this->besparelseKWhAar > 0) {
-        if ($this->getRapport()->isStandardforsyning()) {
+        if ($this->getRapport()->getStandardforsyning()) {
           return $this->besparelseKWhAar;
         }
         else {

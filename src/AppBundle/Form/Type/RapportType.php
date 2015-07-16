@@ -9,12 +9,20 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * Class RapportType
  * @package AppBundle\Form
  */
 class RapportType extends AbstractType {
+  protected $context;
+
+  public function __construct(SecurityContext $context)
+  {
+    $this->context = $context;
+  }
+
   /**
    * @TODO: Missing description.
    *
@@ -70,7 +78,12 @@ class RapportType extends AbstractType {
             'append' => 'Kr.'
           )
         )
-      ));
+      ))
+      ->add('laanRente', 'percent');
+
+    if ($this->context && $this->context->isGranted('ROLE_ADMIN')) {
+      $builder->add('laanLoebetid');
+    }
   }
 
   /**

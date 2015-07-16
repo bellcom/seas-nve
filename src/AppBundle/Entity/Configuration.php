@@ -50,6 +50,12 @@ class Configuration {
 
   /**
    * @var float
+   * @ORM\Column(name="rapport_procentAfInvestering", type="decimal", scale=4, nullable=true)
+   */
+  protected $rapport_procentAfInvestering = 0.1;
+
+  /**
+   * @var float
    * @ORM\Column(name="tekniskisolering_varmeledningsevneEksistLamelmaatter", type="decimal", scale=4, nullable=true)
    */
   protected $tekniskisolering_varmeledningsevneEksistLamelmaatter;
@@ -110,6 +116,15 @@ class Configuration {
     return $this->rapport_nominelEnergiprisstigning;
   }
 
+  public function setProcentAfInvestering($rapport_procentAfInvestering) {
+    $this->rapport_procentAfInvestering = $rapport_procentAfInvestering;
+
+    return $this;
+  }
+
+  public function getProcentAfInvestering() {
+    return $this->rapport_procentAfInvestering;
+  }
 
   public function setVarmeledningsevneEksistLamelmaatter($varmeledningsevneEksistLamelmaatter) {
     $this->tekniskisolering_varmeledningsevneEksistLamelmaatter = $varmeledningsevneEksistLamelmaatter;

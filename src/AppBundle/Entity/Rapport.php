@@ -37,6 +37,12 @@ class Rapport {
    **/
   protected $bygning;
 
+  /**
+   * @OneToMany(targetEntity="Energiforsyning", mappedBy="rapport", cascade={"persist", "remove"})
+   * @OrderBy({"id" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Energiforsyning>")
+   */
+  protected $energiforsyninger;
 
   /**
    * @OneToMany(targetEntity="Tiltag", mappedBy="rapport", cascade={"persist", "remove"})
@@ -102,17 +108,36 @@ class Rapport {
   protected $faktorPaaVarmebesparelse;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="energiscreening", type="decimal", scale=4, nullable=true)
+   */
+  protected $energiscreening;
+
+  /**
    * @var integer
    *
-   * @ORM\Column(name="Energiscreening", type="integer", nullable=true)
+   * @ORM\Column(name="laanLoebetid", type="integer", nullable=true)
    */
-  protected $Energiscreening;
+  protected $laanLoebetid;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="laanRente", type="decimal", scale=4, nullable=true)
+   */
+  protected $laanRente;
+
+  /**
+   * @var
+   */
 
   /**
    * Constructor
    */
   public function __construct() {
     $this->tiltag = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->energiforsyninger = new \Doctrine\Common\Collections\ArrayCollection();
     $this->datering = new \DateTime();
   }
 
@@ -196,6 +221,49 @@ class Rapport {
    */
   public function getBygning() {
     return $this->bygning;
+  }
+
+  /**
+   * Add energiforsyning
+   *
+   * @param \AppBundle\Entity\Energiforsyning $energiforsyning
+   * @return Rapport
+   */
+  public function addEnergiforsyning(\AppBundle\Entity\Energiforsyning $energiforsyning) {
+    $this->energiforsyninger[] = $energiforsyning;
+
+    $energiforsyning->setRapport($this);
+
+    return $this;
+  }
+
+  /**
+   * Remove energiforsyning
+   *
+   * @param \AppBundle\Entity\Energiforsyning $energiforsyning
+   */
+  public function removeEnergiforsyning(\AppBundle\Entity\Energiforsyning $energiforsyning) {
+    $this->energiforsyninger->removeElement($energiforsyning);
+  }
+
+  /**
+   * Set energiforsyninger
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function setEnergiforsyninger($energiforsyninger) {
+    $this->energiforsyninger = $energiforsyninger;
+
+    return $this;
+  }
+
+  /**
+   * Get energiforsyninger
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getEnergiforsyninger() {
+    return $this->energiforsyninger;
   }
 
   /**
@@ -369,14 +437,14 @@ class Rapport {
   }
 
   /**
-   * Set Energiscreening
+   * Set energiscreening
    *
    * @param integer $energiscreening
    * @return Rapport
    */
   public function setEnergiscreening($energiscreening)
   {
-    $this->Energiscreening = $energiscreening;
+    $this->energiscreening = $energiscreening;
 
     return $this;
   }
@@ -388,7 +456,53 @@ class Rapport {
    */
   public function getEnergiscreening()
   {
-    return $this->Energiscreening;
+    return $this->energiscreening;
+  }
+
+  /**
+   * Set laanLoebetid
+   *
+   * @param integer $laanLoebetid
+   * @return Rapport
+   */
+  public function setLaanLoebetid($laanLoebetid)
+  {
+    $this->laanLoebetid = $laanLoebetid;
+
+    return $this;
+  }
+
+  /**
+   * Get LaanLoebetid
+   *
+   * @return integer
+   */
+  public function getLaanLoebetid()
+  {
+    return $this->laanLoebetid;
+  }
+
+  /**
+   * Set laanRente
+   *
+   * @param integer $laanRente
+   * @return Rapport
+   */
+  public function setLaanRente($laanRente)
+  {
+    $this->laanRente = $laanRente;
+
+    return $this;
+  }
+
+  /**
+   * Get LaanRente
+   *
+   * @return integer
+   */
+  public function getLaanRente()
+  {
+    return $this->laanRente;
   }
 
   /**
@@ -475,34 +589,36 @@ class Rapport {
     return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(date('Y') - 1 + $yearNumber);
   }
 
-  public function isStandardforsyning() {
-    // INDIRECT(\"'2.Forsyning'!$H$3\")=1
-    // =HVIS(
-		// 	OG(
-		// 		A15="Hovedforsyning El";
-		// 		J15="El";
-		// 		I15=1;
-		// 		H15=1;
-		// 		A16="Fjernvarme";
-		// 		J16="Varme";
-		// 		I16=1;
-		// 		H16=1
-		// 	);
-		// 	1;
-		// 	"ikke standardforsyning"
-		// )
+  public function getStandardforsyning() {
+    if (!$this->energiforsyninger || $this->energiforsyninger->count() != 2) {
+      return false;
+    }
 
-    // A15: text, fx "Hovedforsyning El"
-    // J15: 1. Interne Produktion, PRISGRUNDLAG 1
-    // I15: 1. Interne Produktion, Effektivitet enhed/kWh 1
-    // H15: 1. Interne Produktion, %-Fordeling 1
-    // A16: text, fx "Fjernvarme"
-    // J16: 1. Interne Produktion, PRISGRUNDLAG 1
-    // I16: 1. Interne Produktion, Effektivitet enhed/kWh 1
-    // H16: 1. Interne Produktion, %-Fordeling 1
+    $energiforsyningEl = $this->getEnergiforsyningByNavn('Hovedforsyning El');
+    $energiforsyningVarme = $this->getEnergiforsyningByNavn('Fjernvarme');
 
-    // @FIXME:
-    return true;
+    if (!$energiforsyningEl || !$energiforsyningVarme) {
+      return false;
+    }
+
+    $internProduktionEl = $energiforsyningEl->getInternProduktioner() ? $energiforsyningEl->getInternProduktioner()->first() : NULL;
+    $internProduktionVarme = $energiforsyningVarme->getInternProduktioner() ? $energiforsyningVarme->getInternProduktioner()->first() : NULL;
+
+    if ($internProduktionEl && $internProduktionVarme) {
+      return $internProduktionEl->getPrisgrundlag() == 'EL' && $internProduktionEl->getFordeling() == 1 && $internProduktionEl->getEffektivitet() == 1
+                                                    && $internProduktionVarme->getPrisgrundlag() == 'VARME' && $internProduktionVarme->getFordeling() == 1 && $internProduktionVarme->getEffektivitet() == 1;
+    }
+
+    return false;
+  }
+
+  public function getEnergiforsyningByNavn($navn) {
+    if (!$this->energiforsyninger) {
+      return NULL;
+    }
+    return $this->energiforsyninger->filter(function($energiforsyning) use ($navn) {
+        return $energiforsyning->getNavn() == $navn;
+      })->first();
   }
 
   /**

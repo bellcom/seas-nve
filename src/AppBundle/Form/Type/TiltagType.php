@@ -6,6 +6,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\Rapport;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\SolcelleTiltag;
 use AppBundle\Entity\TekniskIsoleringTiltag;
@@ -18,6 +19,12 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * @package AppBundle\Form
  */
 class TiltagType extends AbstractType {
+  protected $rapport;
+
+  public function __construct(Rapport $rapport) {
+    $this->rapport = $rapport;
+  }
+
   /**
    * @TODO: Missing description.
    *
@@ -27,7 +34,16 @@ class TiltagType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
+    $forsyninger = array();
+    if ($this->rapport) {
+      $items = $this->rapport->getEnergiforsyninger()->toArray();
+      $forsyninger = array_combine($items, array_map(function($item) {
+        return $item->getId();
+      }, $items));
+    }
+
     $builder
+      ->add('tilvalgt')
       ->add('faktorForReinvesteringer')
       ->add('primaerEnterprise', 'choice',
         array(
@@ -54,8 +70,14 @@ class TiltagType extends AbstractType {
           )
         )
       )
-      ->add('forsyningVarme')
-      ->add('forsyningEl')
+      ->add('forsyningVarme', 'choice', array(
+        'choices' => $forsyninger,
+        'choices_as_values' => true,
+      ))
+      ->add('forsyningEl', 'choice', array(
+        'choices' => $forsyninger,
+        'choices_as_values' => true,
+      ))
       ->add('beskrivelseNuvaerende')
       ->add('beskrivelseForslag')
       ->add('beskrivelseOevrige')

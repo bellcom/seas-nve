@@ -12,6 +12,8 @@ use AppBundle\Entity\Forsyningsvaerk;
 use AppBundle\Entity\Solcelle;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Rapport;
+use AppBundle\Entity\Energiforsyning;
+use AppBundle\Entity\Energiforsyning\InternProduktion;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\TiltagDetail;
 use AppBundle\Entity\BelysningTiltag;
@@ -53,6 +55,8 @@ class LoadExcelRapport extends LoadData {
     $basepath = $this->container->get('kernel')
               ->locateResource('@AppBundle/DataFixtures/Data/');
     foreach (glob($basepath . '*.xlsm') as $filepath) {
+      $this->clearEntityReferences();
+
       $this->name = basename($filepath, '.xlsm');
 
       $reader = \PHPExcel_IOFactory::createReaderForFile($filepath);
@@ -127,8 +131,7 @@ class LoadExcelRapport extends LoadData {
         'AL' => 'pris2045',
       ), $values);
 
-      $key = 'forsyningsvaerk:' . $values['A'];
-      $this->setReference($key, $forsyningsvaerk);
+      $this->setEntityReference('forsyningsvaerk', $values['A'], $forsyningsvaerk);
 
       $this->persist($forsyningsvaerk);
     }
@@ -144,8 +147,7 @@ class LoadExcelRapport extends LoadData {
         break;
       }
 
-      $key = 'forsyningsvaerk:' . $values['A'];
-      $forsyningsvaerk = $this->hasReference($key) ? $this->getReference($key) : new Forsyningsvaerk();
+      $forsyningsvaerk = $this->getEntityReference('forsyningsvaerk', $values['A'], FALSE) ?: new Forsyningsvaerk();
       $forsyningsvaerk = $this->loadEntity($forsyningsvaerk, array(
         'A' => 'navn',
         // 'B' => 'energiform',
@@ -179,22 +181,65 @@ class LoadExcelRapport extends LoadData {
         'AF' => 'co2y2039',
       ), $values);
 
-      $this->setReference($key, $forsyningsvaerk);
+      $this->setEntityReference('forsyningsvaerk', $values['A'], $forsyningsvaerk);
 
       $this->persist($forsyningsvaerk);
     }
   }
 
-  private function getForsyningsvaerk($id) {
-    if (!$id) {
+  private $calculatedValues = array();
+
+  private function setCalculatedValues($entity, $values) {
+    if ($entity) {
+      $this->calculatedValues[spl_object_hash($entity)] = $values;
+    }
+  }
+
+  private function getCalculatedValues($entity) {
+    if (!$entity) {
+      return NULL;
+    }
+    $key = spl_object_hash($entity);
+    return isset($this->calculatedValues[$key]) ? $this->calculatedValues[$key] : NULL;
+  }
+
+  private function clearEntityReferences() {
+    $this->setReferenceRepository(new \Doctrine\Common\DataFixtures\ReferenceRepository($this->manager));
+  }
+
+  /**
+   * Set a reference to an entity for later retrieval.
+   *
+   * @param string $type
+   * @param string $id
+   * @param object $entity
+   */
+  private function setEntityReference($type, $id, $entity) {
+    $key = $type . ':' . $id;
+    $this->setReference($key, $entity);
+  }
+
+  /**
+   * Get an entity by type and id.
+   *
+   * @param string $type
+   * @param string $id
+   *
+   * @return object
+   */
+  private function getEntityReference($type, $id, $errorOnMissing = TRUE) {
+    if (!$type || !$id) {
       return null;
     }
-    $key = 'forsyningsvaerk:' . $id;
-    if (!$this->hasReference($key)) {
-      $this->writeError('No such Forsyningsvaerk ' . $id);
+    $key = $type . ':' . $id;
+    if (!$this->hasReference($key) || !$this->getReference($key)) {
+      if ($errorOnMissing) {
+        $this->writeError('No such ' . $type .': ' . $id);
+      }
       return null;
     }
     return $this->getReference($key);
+
   }
 
   private function loadSolceller() {
@@ -249,20 +294,20 @@ class LoadExcelRapport extends LoadData {
         'O' => 'Anvendelse',
         'P' => array('Bruttoetageareal', 'integer'),
         'Q' => 'Maalertype',
-        'R' => array('forsyningsvaerkVand', function($value) { return $this->getForsyningsvaerk($value); }),
+        'R' => array('forsyningsvaerkVand', function($value) { return $this->getEntityReference('forsyningsvaerk', $value); }),
         // 'S' => 'Vand_InstNr',
         // 'T' => 'Vand_MaalerNr',
         // 'U' => 'Vand_Qn',
         'V' => 'kundenummer',
         'W' => 'kode',
-        'X' => array('forsyningsvaerkVarme', function($value) { return $this->getForsyningsvaerk($value); }),
+        'X' => array('forsyningsvaerkVarme', function($value) { return $this->getEntityReference('forsyningsvaerk', $value); }),
         'Y' => 'kundenr_1',
         'Z' => 'kode_1',
         'AA' => 'MaalerskifteAFV',
         'AB' => 'AFVInstnr_1',
         // 'AC' => 'Varme_MaalerNr',
         // 'AD' => 'Varme_Qn',
-        'AE' => array('forsyningsvaerkEl', function($value) { return $this->getForsyningsvaerk($value); }),
+        'AE' => array('forsyningsvaerkEl', function($value) { return $this->getEntityReference('forsyningsvaerk', $value); }),
         'AF' => 'Instnr',
         // 'AG' => 'El_MaalerNr',
         'AH' => 'kundenr_NRGI',
@@ -298,8 +343,7 @@ class LoadExcelRapport extends LoadData {
         // 'BL' => 'Kontakt3_Telefon',
       ), $values);
 
-      $key = 'bygning:' . $bygning->getEnhedsys();
-      $this->setReference($key, $bygning);
+      $this->setEntityReference('bygning', $bygning->getEnhedsys(), $bygning);
 
       $this->persist($bygning);
     }
@@ -327,23 +371,10 @@ class LoadExcelRapport extends LoadData {
         'F' => 'noter',
       ), $values);
 
-      $key = 'klimaskaerm:' . $values['A'];
-      $this->setReference($key, $klimaskaerm);
+      $this->setEntityReference('klimaskaerm', $values['A'], $klimaskaerm);
 
       $this->persist($klimaskaerm);
     }
-  }
-
-  private function getKlimaskaerm($id) {
-    if (!$id) {
-      return null;
-    }
-    $key = 'klimaskaerm:' . $id;
-    if (!$this->hasReference($key)) {
-      $this->writeError('No such Klimaskaerm ' . $id);
-      return null;
-    }
-    return $this->getReference($key);
   }
 
   private $configuration;
@@ -353,11 +384,11 @@ class LoadExcelRapport extends LoadData {
    */
   private function loadRapport() {
     $sheet = $this->workbook->getSheetByName('1.TiltagslisteRådgiver');
-    $enhedsys = $this->getCellValue($sheet->getCell('C4'));
+    $enhedsys = $sheet->getCell('C4');
 
     $this->loadConfiguration($sheet);
 
-    $bygning = $this->getBygning($enhedsys);
+    $bygning = $this->getEntityReference('bygning', $enhedsys);
     $rapport = new Rapport();
     $rapport
       ->setBygning($bygning)
@@ -366,6 +397,11 @@ class LoadExcelRapport extends LoadData {
       ->setFaktorPaaVarmebesparelse($this->getCellValue($sheet->getCell('F21')))
       ->setConfiguration($this->configuration);
 
+    $this->setCalculatedValues($rapport, array(
+      'standardforsyning' => $this->getCellValue($this->getCell('2.Forsyning', 'H3')) == 1,
+    ));
+
+    $this->loadEnergiforsyning($rapport);
     $this->loadTekniskIsoleringTiltag($rapport);
     $this->loadBelysningTiltag($rapport);
     $this->loadPumpeTiltag($rapport);
@@ -389,7 +425,73 @@ class LoadExcelRapport extends LoadData {
       ->setLobetid($this->getCellValue($sheet->getCell('AN23')));
   }
 
-  private $tiltagCalculatedValues;
+  protected function loadEnergiforsyning(Rapport $rapport) {
+    $sheet = $this->workbook->getSheetByName('2.Forsyning');
+    $data = $sheet->rangeToArray('A15:AK25', null, false, false, true);
+
+    foreach ($data as $rowId => $row) {
+      if ($row['A']) {
+        $energiforsyning = $this->loadEntity(new Energiforsyning(), array(
+          'A' => 'navn',
+          'B' => 'beskrivelse',
+        ), $row);
+
+        $rapport->addEnergiforsyning($energiforsyning);
+
+        for ($index = ord('H'); $index <= ord('V'); $index += 6) {
+          if ($row[chr($index)] && $row[chr($index+1)]) {
+            $columnMapping = array();
+            $columnMapping[chr($index-1)] = array('navn', function($value) { return $value ? $value : ''; });
+            $columnMapping[chr($index)] = 'fordeling';
+            $columnMapping[chr($index+1)] = 'effektivitet';
+            $columnMapping[chr($index+2)] = 'prisgrundlag';
+
+            $internProduktion = $this->loadEntity(new InternProduktion(), $columnMapping, $row);
+            $energiforsyning->addInternProduktion($internProduktion);
+
+            $this->persist($internProduktion);
+            $this->writeInfo(get_class($internProduktion) . ' ' . $internProduktion->getId() . ' loaded');
+          }
+        }
+
+        $this->setEntityReference('energiforsyning', $row['A'], $energiforsyning);
+        $this->setCalculatedValues($energiforsyning, array(
+          'samletVarmeeffektivitet' => $this->getCellValue($sheet->getCell('AJ' . $rowId)),
+          'samletEleffektivitet' => $this->getCellValue($sheet->getCell('AK' . $rowId)),
+        ));
+        $this->persist($energiforsyning);
+
+        $this->writeInfo(get_class($energiforsyning) . ' ' . $energiforsyning->getId() . ' loaded');
+      }
+    }
+  }
+
+  private function getCell($sheet, $coordinate) {
+    if (is_string($sheet)) {
+      $sheet = $this->workbook->getSheetByName($sheet);
+    }
+    return $sheet->getCell($coordinate);
+  }
+
+  private function getRange(\PHPExcel_Worksheet $sheet, $range) {
+    return $this->getCellValues($sheet->rangeToArray($range, null, false, false, true), $sheet);
+  }
+
+  private function getCellValues(array $cells, \PHPExcel_Worksheet $sheet) {
+    $values = $cells;
+    array_walk($values, function(&$array, $rowId) use ($sheet) {
+        array_walk($array, function(&$value, $colId, $rowId) use ($sheet) {
+            $cell = $sheet->getCell($colId . $rowId);
+            if ($cell && $cell->getDataType() == \PHPExcel_Cell_DataType::TYPE_FORMULA) {
+              try {
+                $value = $cell->getOldCalculatedValue();
+              } catch (\Exception $ex) {}
+            }
+          }, $rowId);
+      });
+
+    return $values;
+  }
 
   /**
    * Load a Tiltag with properties shared by all Tiltag
@@ -397,8 +499,8 @@ class LoadExcelRapport extends LoadData {
   private function loadTiltag(Tiltag $tiltag, Rapport $rapport, \PHPExcel_Worksheet $sheet) {
     $tiltag
       ->setRapport($rapport)
-      ->setForsyningVarme($this->getCellValue($sheet->getCell('C13')))
-      ->setForsyningEl($this->getCellValue($sheet->getCell('F13')))
+      ->setForsyningVarme($this->getEntityReference('energiforsyning', $sheet->getCell('C13')->getValue()))
+      ->setForsyningEl($this->getEntityReference('energiforsyning', $sheet->getCell('F13')->getValue()))
       ->setFaktorForReinvesteringer($this->getCellValue($sheet->getCell('C11')))
       ->setTiltagskategori($this->getCellValue($sheet->getCell('D12')))
       ->setPrimaerEnterprise($this->getCellValue($sheet->getCell('B12')))
@@ -406,6 +508,33 @@ class LoadExcelRapport extends LoadData {
       ->setPlacering($this->getCellValue($sheet->getCell('C19')))
       ->setBeskrivelseDriftOgVedligeholdelse($this->getCellValue($sheet->getCell('A21')))
       ->setIndeklima($this->getCellValue($sheet->getCell('A23')));
+
+    $rapportSheet = $this->workbook->getSheetByName('1.TiltagslisteRådgiver');
+    $tilvalgtData = $this->getRange($rapportSheet, 'B31:D64');
+
+    $tiltagNumber = 0;
+    if ($tiltag instanceof TekniskIsoleringTiltag) {
+      $tiltagNumber = 3;
+    }
+    elseif ($tiltag instanceof BelysningTiltag) {
+      $tiltagNumber = 4;
+    }
+    elseif ($tiltag instanceof KlimaskaermTiltag) {
+      $tiltagNumber = 7;
+    }
+    elseif ($tiltag instanceof PumpeTiltag) {
+      $tiltagNumber = 5;
+    }
+    elseif ($tiltag instanceof SolcelleTiltag) {
+      $tiltagNumber = 1;
+    }
+    if ($tiltagNumber) {
+      foreach ($tilvalgtData as $rowId => $row) {
+        if ($row['B'] == $tiltagNumber) {
+          $tiltag->setTilvalgt($row['D'] == 'TILVALGT');
+        }
+      }
+    }
 
     $beskrivelse = $this->getCellValue($sheet->getCell('A15'));
     $tokens = array_map('trim', preg_split('/(Nuværende forhold|Forslag|Øvrige bemærkninger):/i', $beskrivelse));
@@ -459,11 +588,11 @@ class LoadExcelRapport extends LoadData {
       ));
     }
 
-    $this->tiltagCalculatedValues = array();
+    $values = array();
     foreach ($calculatedValues as $key => $cell) {
-      $value = floatval($this->getCellValue($sheet->getCell($cell)));
-      $this->tiltagCalculatedValues[$key] = $value;
+      $values[$key] = floatval($this->getCellValue($sheet->getCell($cell)));
     }
+    $this->setCalculatedValues($tiltag, $values);
 
     return $tiltag;
   }
@@ -574,7 +703,7 @@ class LoadExcelRapport extends LoadData {
       'Q' => 'lokale_antal',
       'R' => 'drifttidTAar',
       // 'S' => '',
-      'T' => array('lyskilde', function($value) { return $this->getLyskilde($value); }),
+      'T' => array('lyskilde', function($value) { return $this->getEntityReference('lyskilde', $value); }),
       // 'U' => '',
       // 'V' => '',
       'W' => 'lyskildeStkArmatur',
@@ -595,7 +724,7 @@ class LoadExcelRapport extends LoadData {
       'AM' => 'reduktionAfDrifttid',
       'AO' => 'standardinvestArmaturElLyskildeKrStk',
       'AP' => 'standardinvestLyskildeKrStk',
-      'AQ' => array('nyLyskilde', function($value) { return $this->getLyskilde($value); }),
+      'AQ' => array('nyLyskilde', function($value) { return $this->getEntityReference('lyskilde', $value); }),
       // 'AR' => ''
       // 'AS' => ''
       'AT' => 'nyLyskildeStkArmatur',
@@ -688,23 +817,10 @@ class LoadExcelRapport extends LoadData {
         ->setUdgift($values[7])
         ->setLevetid($values[11]);
 
-      $key = 'lyskilde:' . $values[0];
-      $this->setReference($key, $lyskilde);
+      $this->setEntityReference('lyskilde', $values[0], $lyskilde);
 
       $this->persist($lyskilde);
     }
-  }
-
-  private function getLyskilde($id) {
-    if (!$id) {
-      return null;
-    }
-    $key = 'lyskilde:' . $id;
-    if (!$this->hasReference($key)) {
-      $this->writeError('No such Lyskilde ' . $id);
-      return null;
-    }
-    return $this->getReference($key);
   }
 
   private function loadPumpe() {
@@ -742,8 +858,7 @@ class LoadExcelRapport extends LoadData {
         'V' => 'Fabrikant',
       ), $values);
 
-      $key = 'pumpe:' . $values['A'];
-      $this->setReference($key, $pumpe);
+      $this->setEntityReference('pumpe', $values['A'], $pumpe);
 
       $this->persist($pumpe);
     }
@@ -760,30 +875,6 @@ class LoadExcelRapport extends LoadData {
       $entity->{$setter}($value);
     }
     return $entity;
-  }
-
-  private function getPumpe($id) {
-    if (!$id) {
-      return null;
-    }
-    $key = 'pumpe:' . $id;
-    if (!$this->hasReference($key)) {
-      $this->writeError('No such Pumpe ' . $id);
-      return null;
-    }
-    return $this->getReference($key);
-  }
-
-  private function getBygning($id) {
-    if (!$id) {
-      return null;
-    }
-    $key = 'bygning:' . $id;
-    if (!$this->hasReference($key)) {
-      $this->writeError('No such Bygning ' . $id);
-      return null;
-    }
-    return $this->getReference($key);
   }
 
   /* -------------------------------------------------------------------------------- *
@@ -825,7 +916,7 @@ class LoadExcelRapport extends LoadData {
       'R' => 'eksisterendeDrifttid',
       'S' => 'nyDrifttid',
       'T' => 'prisfaktor',
-      'U' => array('pumpe', function($value, $row) { return $this->getPumpe($value, $row); }),
+      'U' => array('pumpe', function($value, $row) { return $this->getEntityReference('pumpe', $value); }),
       // 'V' => '',
       // 'W' => '',
       // 'X' => '',
@@ -894,7 +985,7 @@ class LoadExcelRapport extends LoadData {
       'V' => 'tUdeC',
       'W' => 'tOpvarmningTimerAar',
       'X' => 'yderligereBesparelserPct',
-      'AA' => array('klimaskaerm', function($value) { return $this->getKlimaskaerm($value); }),
+      'AA' => array('klimaskaerm', function($value) { return $this->getEntityReference('klimaskaerm', $value); }),
       'AC' => 'prisfaktor',
       'AG' => 'noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet',
       'AJ' => 'levetidAar',
@@ -1113,8 +1204,8 @@ class LoadExcelRapport extends LoadData {
           }
           $expected = $this->mapRow($calculatedData[$rowId], $columns);
           $details[] = array(
-            'input' => $properties,
-            'calculated' => $expected,
+            '_input' => $properties,
+            '_calculated' => $expected,
           );
         }
 
@@ -1130,28 +1221,89 @@ class LoadExcelRapport extends LoadData {
         } catch (\Exception $ex) {}
 
         if ($testFixturesPath) {
-          $filepath = $testFixturesPath . $type . '.data.' . $this->name;
-          $content = json_encode(array(
+          $filepath = $testFixturesPath . $this->name . '.' . $type;
+          $data = array(
             'details' => $details,
             'tiltag' => array(
-              'input' => $this->getProperties($tiltag),
-              'calculated' => $this->tiltagCalculatedValues,
+              '_input' => $this->getProperties($tiltag),
+              '_calculated' => $this->getCalculatedValues($tiltag),
             ),
+
+            'tiltag' => $this->serialize($tiltag, array(
+              'forsyningVarme' => array(
+                'internproduktioner' => NULL,
+              ),
+              'forsyningEl' => array(
+                'internproduktioner' => NULL,
+              ),
+            )),
+
             'rapport' => array(
-              'input' => $this->getProperties($tiltag->getRapport(), array('bygning')),
+              '_input' => $this->getProperties($tiltag->getRapport()),
+              '_calculated' => $this->getCalculatedValues($tiltag->getRapport()),
+              'energiforsyninger' => $this->serialize($tiltag->getRapport()->getEnergiforsyninger(), array('internproduktioner')),
             ),
-            'bygning' => $this->getProperties($tiltag->getRapport()->getBygning()),
+
+            'rapport' => $this->serialize($tiltag->getRapport(), array(
+              'configuration' => NULL,
+              'bygning' => array(
+                'forsyningsvaerkVarme' => NULL,
+                'forsyningsvaerkEl' => NULL,
+                'forsyningsvaerkVand' => NULL,
+              ),
+              'energiforsyninger' => array(
+                'internproduktioner' => NULL,
+              ),
+            )),
+
+            'bygning' => array(
+              '_input' => $this->getProperties($tiltag->getRapport()->getBygning()),
+            ),
             'bygning.forsyningsvaerkVarme' => $this->getProperties($tiltag->getRapport()->getBygning()->getForsyningsvaerkVarme()),
             'bygning.forsyningsvaerkEl' => $this->getProperties($tiltag->getRapport()->getBygning()->getForsyningsvaerkEl()),
             'bygning.forsyningsvaerkVand' => $this->getProperties($tiltag->getRapport()->getBygning()->getForsyningsvaerkVand()),
             'configuration' => $this->getProperties($tiltag->getRapport()->getConfiguration()),
-          ), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+          );
+          $content = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
           if (@file_put_contents($filepath, $content) !== false) {
             $this->writeInfo('Unittest data fixtures written to file ' . $filepath);
           }
         }
       }
     }
+  }
+
+  private function serialize($object, array $additionalProperties = array()) {
+    if ($object instanceof \Doctrine\Common\Collections\ArrayCollection) {
+      $object = $object->toArray();
+    }
+
+    if (is_array($object)) {
+      return array_map(function($item) use ($additionalProperties) {
+          return $this->serializeObject($item, $additionalProperties);
+        }, $object);
+    }
+
+    return $this->serializeObject($object, $additionalProperties);
+  }
+
+  private function serializeObject($object, array $additionalProperties) {
+    if (!$object) {
+      return NULL;
+    }
+    $properties = $this->getProperties($object);
+    $result = array(
+      '_input' => $properties,
+    );
+    if ($calculatedValues = $this->getCalculatedValues($object)) {
+      $result['_calculated'] = $calculatedValues;
+    }
+    foreach ($additionalProperties as $property => $subProperties) {
+      if (method_exists($object, 'get' . $property)) {
+        $result[$property] = $this->serialize($object->{'get' . $property}(), $subProperties ?: array());
+      }
+    }
+    return $result;
   }
 
   /**
@@ -1162,8 +1314,8 @@ class LoadExcelRapport extends LoadData {
     $methods = get_class_methods($object);
     if ($methods) {
       foreach ($methods as $method) {
-        if (strpos($method, 'set') === 0) {
-          $property = substr($method, 3);
+        if (preg_match('/^set([A-Z].*)$/', $method, $matches)) {
+          $property = $matches[1];
           if (method_exists($object, 'get'.$property)) {
             $value = $object->{'get'.$property}();
             if ($value !== null) {
@@ -1186,7 +1338,7 @@ class LoadExcelRapport extends LoadData {
     if ($cell) {
       $value = ($cell->getDataType() == \PHPExcel_Cell_DataType::TYPE_FORMULA) ? $cell->getOldCalculatedValue() : $cell->getValue();
     }
-    return floatval($value);
+    return $value;
   }
 
   private function getCalculatedCells(array $cells, \PHPExcel_Worksheet $sheet) {
@@ -1199,7 +1351,6 @@ class LoadExcelRapport extends LoadData {
                 $value = floatval($cell->getOldCalculatedValue());
               } catch (\Exception $ex) {}
             }
-            $staticHeaders[$colId] = true;
           }, $rowId);
       });
 

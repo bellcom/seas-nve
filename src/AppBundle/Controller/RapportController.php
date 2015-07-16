@@ -98,7 +98,7 @@ class RapportController extends Controller implements InitControllerInterface {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Rapport $entity) {
-    $form = $this->createForm(new RapportType(), $entity, array(
+    $form = $this->createForm(new RapportType($this->get('security.context')), $entity, array(
       'action' => $this->generateUrl('rapport_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));

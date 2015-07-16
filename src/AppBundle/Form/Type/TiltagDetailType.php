@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 class TiltagDetailType extends AbstractType {
   protected $context;
 
-  public function __construct(SecurityContext $context = NULL)
+  public function __construct(SecurityContext $context)
   {
     $this->context = $context;
   }

@@ -11,7 +11,7 @@ class SolcelleTiltagDetailTest extends TiltagDetailTestCase {
   }
 
   private function getSolcelle(array $properties = null) {
-    return $properties ? $this->loadEntity(new Solcelle(), $properties) : null;
+    return $properties ? $this->setProperties(new Solcelle(), $properties) : null;
   }
 
 }
