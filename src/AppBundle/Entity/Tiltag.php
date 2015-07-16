@@ -58,6 +58,13 @@ abstract class Tiltag {
   protected $id;
 
   /**
+   * @var boolean
+   *
+   * @ORM\Column(name="tilvalgt", type="boolean", nullable=true)
+   */
+  protected $tilvalgt = false;
+
+  /**
    * @var string
    *
    * @ORM\Column(name="title", type="string", length=255, nullable=true)
@@ -213,16 +220,18 @@ abstract class Tiltag {
   protected $tiltagskategori;
 
   /**
-   * @var string
+   * @var Energiforsyning
    *
-   * @ORM\Column(name="forsyningVarme", type="string", length=50, nullable=true)
+   * @ManyToOne(targetEntity="Energiforsyning")
+   * @JoinColumn(name="varme_energiforsyning_id", referencedColumnName="id")
    */
   protected $forsyningVarme;
 
   /**
-   * @var string
+   * @var Energiforsyning
    *
-   * @ORM\Column(name="forsyningEl", type="string", length=50, nullable=true)
+   * @ManyToOne(targetEntity="Energiforsyning")
+   * @JoinColumn(name="el_energiforsyning_id", referencedColumnName="id")
    */
   protected $forsyningEl;
 
@@ -364,6 +373,16 @@ abstract class Tiltag {
    */
   public function getId() {
     return $this->id;
+  }
+
+  public function setTilvalgt($tilvalgt) {
+    $this->tilvalgt = $tilvalgt;
+
+    return $this;
+  }
+
+  public function getTilvalgt() {
+    return $this->tilvalgt;
   }
 
   /**
