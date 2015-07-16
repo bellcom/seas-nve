@@ -37,6 +37,12 @@ class Rapport {
    **/
   protected $bygning;
 
+  /**
+   * @OneToMany(targetEntity="Energiforsyning", mappedBy="rapport", cascade={"persist", "remove"})
+   * @OrderBy({"id" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Energiforsyning>")
+   */
+  protected $energiforsyninger;
 
   /**
    * @OneToMany(targetEntity="Tiltag", mappedBy="rapport", cascade={"persist", "remove"})
@@ -102,17 +108,36 @@ class Rapport {
   protected $faktorPaaVarmebesparelse;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="energiscreening", type="decimal", scale=4, nullable=true)
+   */
+  protected $energiscreening;
+
+  /**
    * @var integer
    *
-   * @ORM\Column(name="Energiscreening", type="integer", nullable=true)
+   * @ORM\Column(name="laanLoebetid", type="integer", nullable=true)
    */
-  protected $Energiscreening;
+  protected $laanLoebetid;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="laanRente", type="decimal", scale=4, nullable=true)
+   */
+  protected $laanRente;
+
+  /**
+   * @var
+   */
 
   /**
    * Constructor
    */
   public function __construct() {
     $this->tiltag = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->energiforsyninger = new \Doctrine\Common\Collections\ArrayCollection();
     $this->datering = new \DateTime();
   }
 
@@ -196,6 +221,49 @@ class Rapport {
    */
   public function getBygning() {
     return $this->bygning;
+  }
+
+  /**
+   * Add energiforsyning
+   *
+   * @param \AppBundle\Entity\Energiforsyning $energiforsyning
+   * @return Rapport
+   */
+  public function addEnergiforsyning(\AppBundle\Entity\Energiforsyning $energiforsyning) {
+    $this->energiforsyninger[] = $energiforsyning;
+
+    $energiforsyning->setRapport($this);
+
+    return $this;
+  }
+
+  /**
+   * Remove energiforsyning
+   *
+   * @param \AppBundle\Entity\Energiforsyning $energiforsyning
+   */
+  public function removeEnergiforsyning(\AppBundle\Entity\Energiforsyning $energiforsyning) {
+    $this->energiforsyninger->removeElement($energiforsyning);
+  }
+
+  /**
+   * Set energiforsyninger
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function setEnergiforsyninger($energiforsyninger) {
+    $this->energiforsyninger = $energiforsyninger;
+
+    return $this;
+  }
+
+  /**
+   * Get energiforsyninger
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getEnergiforsyninger() {
+    return $this->energiforsyninger;
   }
 
   /**
@@ -369,14 +437,14 @@ class Rapport {
   }
 
   /**
-   * Set Energiscreening
+   * Set energiscreening
    *
    * @param integer $energiscreening
    * @return Rapport
    */
   public function setEnergiscreening($energiscreening)
   {
-    $this->Energiscreening = $energiscreening;
+    $this->energiscreening = $energiscreening;
 
     return $this;
   }
@@ -388,7 +456,53 @@ class Rapport {
    */
   public function getEnergiscreening()
   {
-    return $this->Energiscreening;
+    return $this->energiscreening;
+  }
+
+  /**
+   * Set laanLoebetid
+   *
+   * @param integer $laanLoebetid
+   * @return Rapport
+   */
+  public function setLaanLoebetid($laanLoebetid)
+  {
+    $this->laanLoebetid = $laanLoebetid;
+
+    return $this;
+  }
+
+  /**
+   * Get LaanLoebetid
+   *
+   * @return integer
+   */
+  public function getLaanLoebetid()
+  {
+    return $this->laanLoebetid;
+  }
+
+  /**
+   * Set laanRente
+   *
+   * @param integer $laanRente
+   * @return Rapport
+   */
+  public function setLaanRente($laanRente)
+  {
+    $this->laanRente = $laanRente;
+
+    return $this;
+  }
+
+  /**
+   * Get LaanRente
+   *
+   * @return integer
+   */
+  public function getLaanRente()
+  {
+    return $this->laanRente;
   }
 
   /**

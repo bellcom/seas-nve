@@ -448,6 +448,8 @@ appbundle:
     BaselineStrafAfkoeling: Strafafkøling
     faktorPaaVarmebesparelse: Faktor på varmebesparelse
     Energiscreening: Energiscreening
+    laanRente: Rente på lån
+    laanLoebetid: Løbetid på lån
   specialtiltag:
     kommentar: Kommentar
     filepath: Uploadet fil
