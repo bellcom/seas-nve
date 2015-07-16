@@ -119,6 +119,8 @@ simple_things_entity_audit:
         - AppBundle\Entity\Configuration
         - AppBundle\Entity\Forsyningsvaerk
         - AppBundle\Entity\Rapport
+        - AppBundle\Entity\Energiforsyning
+        - AppBundle\Entity\Energiforsyning\InternProduktion
         - AppBundle\Entity\Pumpe
         - AppBundle\Entity\Tiltag
         - AppBundle\Entity\PumpeTiltag
