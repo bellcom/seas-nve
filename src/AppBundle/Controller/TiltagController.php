@@ -106,7 +106,7 @@ class TiltagController extends Controller implements InitControllerInterface {
    */
   private function createEditForm(Tiltag $entity) {
     $className = $this->getFormTypeClassName($entity);
-    $form = $this->createForm(new $className(), $entity, array(
+    $form = $this->createForm(new $className($entity->getRapport()), $entity, array(
       'action' => $this->generateUrl('tiltag_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));
@@ -227,7 +227,7 @@ class TiltagController extends Controller implements InitControllerInterface {
    */
   private function createCreateForm(Tiltag $entity, $type) {
     $className = $this->getFormTypeClassName($entity);
-    $form = $this->createForm(new $className(), $entity, array(
+    $form = $this->createForm(new $className($entity->getRapport()), $entity, array(
       'action' => $this->generateUrl('tiltag_create', array('type' => $type)),
       'method' => 'POST',
     ));
@@ -242,7 +242,7 @@ class TiltagController extends Controller implements InitControllerInterface {
       $detail = $this->createDetailEntity($tiltag);
     }
     $formClass = $this->getFormTypeClassName($detail, true);
-    $form = $this->createForm(new $formClass(), $detail, array(
+    $form = $this->createForm(new $formClass($this->get('security.context')), $detail, array(
       'action' => $this->generateUrl('tiltag_detail_new', array('id' => $tiltag->getId())),
       'method' => 'POST',
     ));
