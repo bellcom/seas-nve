@@ -12,7 +12,7 @@ class KlimaskaermTiltagDetailTest extends TiltagDetailTestCase {
   }
 
   private function getKlimaskaerm(array $properties = null) {
-    return $properties ? $this->loadEntity(new Klimaskaerm(), $properties) : null;
+    return $properties ? $this->setProperties(new Klimaskaerm(), $properties) : null;
   }
 
 }

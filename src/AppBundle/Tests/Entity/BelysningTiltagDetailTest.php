@@ -12,7 +12,7 @@ class BelysningTiltagDetailTest extends TiltagDetailTestCase {
   }
 
   private function getLyskilde(array $properties = null) {
-    return $properties ? $this->loadEntity(new Lyskilde(), $properties) : null;
+    return $properties ? $this->setProperties(new Lyskilde(), $properties) : null;
   }
 
 }

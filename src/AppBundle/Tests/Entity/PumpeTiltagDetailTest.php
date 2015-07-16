@@ -10,7 +10,7 @@ class PumpeTiltagDetailTest extends TiltagDetailTestCase {
   }
 
   private function getPumpe(array $properties = null) {
-    return $properties ? $this->loadEntity(new Pumpe(), $properties) : null;
+    return $properties ? $this->setProperties(new Pumpe(), $properties) : null;
   }
 
 }
