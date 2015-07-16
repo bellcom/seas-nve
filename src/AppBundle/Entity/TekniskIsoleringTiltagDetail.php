@@ -466,7 +466,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     // 'AH'
     if ($this->varmebespKwhAar == 0) {
       return 0;
-    } else if ($this->getRapport()->isStandardforsyning()) {
+    } else if ($this->getRapport()->getStandardforsyning()) {
       return 0;
     } else {
       return $this->fordelbesparelse($this->varmebespKwhAar, $this->tiltag->getForsyningVarme(), 'EL');
@@ -477,7 +477,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     // 'AI'
     if ($this->varmebespKwhAar == 0) {
       return 0;
-    } else if ($this->getRapport()->isStandardforsyning()) {
+    } else if ($this->getRapport()->getStandardforsyning()) {
       return $this->varmebespKwhAar;
     } else {
       return $this->fordelbesparelse($this->varmebespKwhAar, $this->tiltag->getForsyningVarme(), 'VARME');

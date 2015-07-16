@@ -509,7 +509,7 @@ class PumpeTiltagDetail extends TiltagDetail {
       return 0;
     }
     else {
-      if ($this->getRapport()->isStandardforsyning()) {
+      if ($this->getRapport()->getStandardforsyning()) {
         return $this->elbespKWhAar;
       }
       else {
@@ -524,7 +524,7 @@ class PumpeTiltagDetail extends TiltagDetail {
       return 0;
     }
     else {
-      if ($this->getRapport()->isStandardforsyning()) {
+      if ($this->getRapport()->getStandardforsyning()) {
         return $this->varmebespIsokappeKWh;
       }
       else {
