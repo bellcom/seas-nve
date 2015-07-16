@@ -1236,7 +1236,7 @@ abstract class Tiltag {
    *   .
    */
   protected function divide($numerator, $denominator) {
-    return $denominator == 0 ? 0 : ($numerator / $denominator);
+    return Calculation::divide($numerator, $denominator);
   }
 
 }

@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Calculation\Calculation;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
@@ -421,7 +422,7 @@ End Function
    *   .
    */
   protected function divide($numerator, $denominator) {
-    return $denominator == 0 ? 0 : ($numerator / $denominator);
+    return Calculation::divide($numerator, $denominator);
   }
 
 }
