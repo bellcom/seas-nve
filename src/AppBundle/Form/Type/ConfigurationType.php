@@ -29,6 +29,8 @@ class ConfigurationType extends AbstractType {
       ->add('inflation')
       ->add('lobetid')
 
+      ->add('procentAfInvestering', 'percent')
+
       ->add('nominelEnergiprisstigning')
 
       ->add('varmeledningsevneEksistLamelmaatter')
