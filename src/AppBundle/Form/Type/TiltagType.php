@@ -10,6 +10,7 @@ use AppBundle\Entity\Rapport;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\SolcelleTiltag;
 use AppBundle\Entity\TekniskIsoleringTiltag;
+use AppBundle\Entity\KlimaskaermTiltag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

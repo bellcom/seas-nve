@@ -6,7 +6,6 @@
 
 namespace AppBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Class SpecialTiltagType
  * @package AppBundle\Form
  */
-class SpecialTiltagType extends TiltagType /*AbstractType*/ {
+class SpecialTiltagType extends TiltagType {
   /**
    * @TODO: Missing description.
    *
