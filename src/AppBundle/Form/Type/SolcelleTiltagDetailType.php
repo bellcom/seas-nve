@@ -26,7 +26,7 @@ class SolcelleTiltagDetailType extends TiltagDetailType {
       ->add('screeningOgProjekteringKr')
       ->add('omkostningTilMaalerKr');
 
-    if ($this->context && $this->context->isGranted('ROLE_ADMIN')) {
+    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder
         ->add('forringetYdeevnePrAar')
         ->add('energiprisstigningPctPrAar')

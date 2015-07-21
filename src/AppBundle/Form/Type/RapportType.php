@@ -8,19 +8,19 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class RapportType
  * @package AppBundle\Form
  */
 class RapportType extends AbstractType {
-  protected $context;
+  protected $authorizationChecker;
 
-  public function __construct(SecurityContext $context)
+  public function __construct(AuthorizationCheckerInterface $authorizationChecker)
   {
-    $this->context = $context;
+    $this->authorizationChecker = $authorizationChecker;
   }
 
   /**
@@ -81,7 +81,7 @@ class RapportType extends AbstractType {
       ))
       ->add('laanRente', 'percent');
 
-    if ($this->context && $this->context->isGranted('ROLE_ADMIN')) {
+    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder->add('laanLoebetid');
     }
   }
