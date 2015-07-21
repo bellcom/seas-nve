@@ -431,6 +431,10 @@ form .alert ul {
     padding-left: 0;
 }
 
+.multiline {
+	white-space: pre-line;
+}
+
 /* Chart.js line chart */
 .line-legend li {
 	list-style: none;
