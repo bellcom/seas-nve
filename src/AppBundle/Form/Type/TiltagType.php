@@ -10,9 +10,10 @@ use AppBundle\Entity\Rapport;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\SolcelleTiltag;
 use AppBundle\Entity\TekniskIsoleringTiltag;
+use AppBundle\Entity\KlimaskaermTiltag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class TiltagType
@@ -106,10 +107,10 @@ class TiltagType extends AbstractType {
   /**
    * @TODO: Missing description.
    *
-   * @param OptionsResolverInterface $resolver
+   * @param OptionsResolver $resolver
    *   @TODO: Missing description.
    */
-  public function setDefaultOptions(OptionsResolverInterface $resolver) {
+  public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
       'data_class' => 'AppBundle\Entity\Tiltag'
     ));
