@@ -430,3 +430,22 @@ form .alert ul {
     list-style: none;
     padding-left: 0;
 }
+
+.multiline {
+	white-space: pre-line;
+}
+
+/* Chart.js line chart */
+.line-legend li {
+	list-style: none;
+}
+
+.line-legend span[style] {
+	display: inline-block;
+	font-size: 8px;
+	width: 1em;
+	height: 1em;
+	margin-right: 1em;
+	vertical-align: middle;
+	border-radius: 100%;
+}

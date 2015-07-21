@@ -31,7 +31,7 @@ use AppBundle\Entity\SolcelleTiltag;
 use AppBundle\Entity\SolcelleTiltagDetail;
 
 /**
- * Class LoadRapport
+ * Class LoadExcelRapport
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadExcelRapport extends LoadData {
@@ -395,10 +395,15 @@ class LoadExcelRapport extends LoadData {
       ->setVersion($sheet->getCell('C24')->getOldCalculatedValue())
       ->setDatering($this->getDateTime($sheet->getCell('F23')))
       ->setFaktorPaaVarmebesparelse($this->getCellValue($sheet->getCell('F21')))
+      ->setLaanLoebetid($this->getCellValue($this->getCell('TiltagslisteBruger', 'Q108')))
+      ->setLaanRente($this->getCellValue($this->getCell('TiltagslisteBruger', 'P108')))
       ->setConfiguration($this->configuration);
 
     $this->setCalculatedValues($rapport, array(
       'standardforsyning' => $this->getCellValue($this->getCell('2.Forsyning', 'H3')) == 1,
+      'mtmFaellesomkostninger' => $this->getCellValue($sheet->getCell('P5')),
+      'implementering' => $this->getCellValue($sheet->getCell('P6')),
+      'faellesomkostninger' => $this->getCellValue($sheet->getCell('P8')),
     ));
 
     $this->loadEnergiforsyning($rapport);
@@ -1221,13 +1226,15 @@ class LoadExcelRapport extends LoadData {
         } catch (\Exception $ex) {}
 
         if ($testFixturesPath) {
-          $filepath = $testFixturesPath . $this->name . '.' . $type;
+          $dir = $testFixturesPath . $this->name;
+          if (!is_dir($dir) && !@mkdir($dir, 0777, true)) {
+            $testFixturesPath = null;
+            throw new \Exception(sprintf('Unable to create "%s" directory.', $dir));
+          }
+          $filepath = $dir . '/' . $type;
+
           $data = array(
             'details' => $details,
-            'tiltag' => array(
-              '_input' => $this->getProperties($tiltag),
-              '_calculated' => $this->getCalculatedValues($tiltag),
-            ),
 
             'tiltag' => $this->serialize($tiltag, array(
               'forsyningVarme' => array(
@@ -1237,12 +1244,6 @@ class LoadExcelRapport extends LoadData {
                 'internproduktioner' => NULL,
               ),
             )),
-
-            'rapport' => array(
-              '_input' => $this->getProperties($tiltag->getRapport()),
-              '_calculated' => $this->getCalculatedValues($tiltag->getRapport()),
-              'energiforsyninger' => $this->serialize($tiltag->getRapport()->getEnergiforsyninger(), array('internproduktioner')),
-            ),
 
             'rapport' => $this->serialize($tiltag->getRapport(), array(
               'configuration' => NULL,
@@ -1308,6 +1309,8 @@ class LoadExcelRapport extends LoadData {
 
   /**
    * Get all properties exposed through set/get methods
+   * @param $object
+   * @return array
    */
   private function getProperties($object) {
     $properties = array();

@@ -155,17 +155,23 @@ abstract class EntityTestCase extends KernelTestCase {
    * @return array
    *   array(properties, expected)
    */
-  protected function loadTestFixtures($type) {
+  protected function loadTestFixtures($type = NULL) {
     $fixtures = array();
 
-    $testFixturesPath = $this->getAppBundlePath().'/DataFixtures/Data/fixtures/';
-    $filepaths = glob($testFixturesPath . '*' . $type);
+    $testFixturesPath = $this->getAppBundlePath().'DataFixtures/Data/fixtures';
+    $filepaths = glob($testFixturesPath . '/*/' . ($type ? $type : '*'));
 
     foreach ($filepaths as $filepath) {
       if (($content = @file_get_contents($filepath))) {
+        $type = basename($filepath);
+        $name = basename(dirname($filepath));
+
+        if (!isset($fixtures[$name])) {
+          $fixtures[$name] = array();
+        }
+
         try {
-          $key = trim(substr($filepath, strlen($testFixturesPath.$type)), '.');
-          $fixtures[$key] = json_decode($content, true);
+          $fixtures[$name][$type] = json_decode($content, true);
         } catch (\Exception $ex) {}
       }
     }

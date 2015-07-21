@@ -86,4 +86,9 @@ abstract class Calculation {
     return $denominator == 0 ? 0 : ($numerator / $denominator);
   }
 
+  // @see https://en.wikipedia.org/wiki/Mortgage_calculator#Monthly_payment_formula
+  public static function pmt($r, $N, $P) {
+    return -self::divide($r * $P, 1 - pow(1 + $r, -$N));
+  }
+
 }
