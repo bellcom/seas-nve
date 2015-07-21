@@ -10,38 +10,44 @@ use AppBundle\Entity\Energiforsyning\InternProduktion;
 
 class RapportTest extends EntityTestCase {
   public function testCalculate() {
-    $fixtures = $this->loadTestFixtures(NULL);
+    $fixtures = $this->loadTestFixtures();
 
     $this->assertNotEmpty($fixtures, 'Cannot load fixtures for class ' . get_class($this));
 
-    foreach ($fixtures as $fixture) {
-      $rapport = $this->loadEntity(new Rapport(), $fixture['rapport']);
+    foreach ($fixtures as $name => $tiltag) {
+      $rapport = NULL;
+      $expected = NULL;
+      foreach ($tiltag as $type => $fixture) {
+        if (!$rapport) {
+          $rapport = $this->loadEntity(new Rapport(), $fixture['rapport']);
+          $expected = $fixture['rapport']['_calculated'];
+        }
 
-      $expected = $fixture['rapport']['_calculated'];
+        $tiltagClassName = 'AppBundle\\Entity\\' . $type;
+        $detailClassName = 'AppBundle\\Entity\\' . $type . 'Detail';
+
+        $tiltag = $this->loadEntity(new $tiltagClassName(), $fixture['tiltag'])
+                ->setRapport($rapport);
+
+        foreach ($fixture['details'] as $test) {
+          $detail = new $detailClassName();
+          $detail->setTiltag($tiltag);
+
+          $detailTestClassName = $this->getTestClassName($detail);
+          $properties = (new $detailTestClassName())->loadProperties($test['_input']);
+
+          $this->setProperties($detail, $properties)
+            ->calculate();
+        }
+
+        $tiltag->calculate();
+        $rapport->addTiltag($tiltag);
+      }
 
       $rapport->calculate();
       $this->assertProperties($expected, $rapport);
     }
   }
-
-  protected function loadEnergiforsyning(array $data) {
-    $energiforsyning = $this->setProperties(new Energiforsyning(), $data['_input']);
-
-    $internProduktioner = new \Doctrine\Common\Collections\ArrayCollection(array_map(function($data) {
-      return $this->loadInternProduktion($data);
-    }, $data['internproduktioner']));
-
-    $energiforsyning->setInternProduktioner($internProduktioner);
-
-    return $energiforsyning;
-  }
-
-  protected function loadInternProduktion(array $data) {
-    $internProduktion = $this->setProperties(new InternProduktion(), $data['_input']);
-
-    return $internProduktion;
-  }
-
 
   public function testInflationsfaktor() {
     $rapport = $this->setProperties(new Rapport(), array(

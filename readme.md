@@ -19,7 +19,7 @@ php app/console doctrine:schema:update --force
     ```
     mkdir -p src/AppBundle/DataFixtures/Data
     rm src/AppBundle/DataFixtures/Data/*.{csv,xlsm}
-    cp -v ~/Dropbox*/Dokumentation/Websites/Aa+/Dokumenter/Data/*.{csv,xlsm} src/AppBundle/DataFixtures/Data/
+    cp -v ~/Dropbox*/Projekter/Aa+/Data/*.{csv,xlsm} src/AppBundle/DataFixtures/Data/
     ```
 
 2. Load the fixtures (inside Vagrant box):
