@@ -55,7 +55,7 @@ class Energiforsyning {
 
   /**
    * @OneToMany(targetEntity="AppBundle\Entity\Energiforsyning\InternProduktion", mappedBy="energiforsyning", cascade={"persist", "remove"})
-   * @OrderBy({"navn" = "ASC"})
+   * @OrderBy({"id" = "ASC"})
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Energiforsyning\InternProduktion>")
    */
   protected $internProduktioner;
@@ -97,6 +97,10 @@ class Energiforsyning {
     $this->rapport = $rapport;
 
     return $this;
+  }
+
+  public function getRapport() {
+    return $this->rapport;
   }
 
   public function setNavn($navn) {
@@ -142,12 +146,10 @@ class Energiforsyning {
   }
 
   public function getSamletVarmeeffektivitet() {
-    $this->calculate();
     return $this->samletVarmeeffektivitet;
   }
 
   public function getSamletEleffektivitet() {
-    $this->calculate();
     return $this->samletEleffektivitet;
   }
 
@@ -175,4 +177,18 @@ class Energiforsyning {
   public function __toString() {
     return $this->navn;
   }
+
+
+  /*
+   * Additional setter and getter to make automatic English singularization behave.
+   * Symfony can thus get from internProduktions to internProduktion.
+   */
+  public function setInternProduktions($internProduktioner) {
+    return $this->setInternProduktioner($internProduktioner);
+  }
+
+  public function getInternProduktions() {
+    return $this->getInternProduktioner();
+  }
+
 }

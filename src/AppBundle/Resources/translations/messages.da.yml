@@ -53,6 +53,15 @@ rapporter:
     tiltag: Tiltag
     tilvalgt: Tilvalgt
 
+energiforsyninger:
+  labels:
+    singular: Energiforsyning
+    plural: Energiforsyninger
+  actions:
+    add: Tilføj energiforsyning
+    edit: Rediger energiforsyning
+    create: Opret energiforsyning
+
 bygninger:
   labels:
     singular: Bygning
@@ -616,6 +625,44 @@ appbundle:
     bygninger: Bygninger
     locked: Låst
     email: Email
+
+  energiforsyning:
+    navn: Navn
+    beskrivelse: Beskrivelse
+    samletVarmeeffektivitet: Samlet varmeeffektivitet:
+    samletEleffektivitet: Samlet eleffektivitet:
+    internProduktioner: Interne produktioner
+    internProduktioner.0:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.1:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.2:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.3:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.4:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+
+    internproduktion:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
 
 # Calculations
 appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |

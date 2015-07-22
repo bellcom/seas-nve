@@ -27,19 +27,17 @@ class EnergiforsyningType extends AbstractType {
     $builder
       ->add('navn')
       ->add('beskrivelse')
-      ->add('internProduktioner', 'collection', array(
+      ->add('internProduktioner', 'bootstrap_collection', array(
+        'property_path' => 'internProduktions',
         'type' => new InternProduktionType(),
-        'allow_add' => TRUE,
-      ))
-      // ->add('samletVarmeeffektivitet', NULL, array(
-      //   'read_only' => TRUE,
-      //   // 'mapped' => FALSE,
-      // ))
-      // ->add('samletEleffektivitet', NULL, array(
-      //   'read_only' => TRUE,
-      //   // 'mapped' => FALSE,
-      // ))
-      ;
+        'allow_add' => true,
+        'by_reference' => false,
+        'allow_delete' => true,
+        'add_button_text'    => 'Add',
+        'delete_button_text' => 'Delete',
+        'sub_widget_col'     => 10,
+        'button_col'         => 2
+      ));
   }
 
   /**
