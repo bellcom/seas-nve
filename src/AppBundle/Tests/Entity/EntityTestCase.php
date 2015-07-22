@@ -99,7 +99,7 @@ abstract class EntityTestCase extends KernelTestCase {
     'forsyningsvaerkEl' => '\AppBundle\Entity\Forsyningsvaerk',
     'forsyningsvaerkVand' => '\AppBundle\Entity\Forsyningsvaerk',
     'energiforsyninger' => '\AppBundle\Entity\Energiforsyning',
-    'internproduktioner' => '\AppBundle\Entity\Energiforsyning\InternProduktion',
+    'internProduktioner' => '\AppBundle\Entity\Energiforsyning\InternProduktion',
     'forsyningVarme' => '\AppBundle\Entity\Energiforsyning',
     'forsyningEl' => '\AppBundle\Entity\Energiforsyning',
   );

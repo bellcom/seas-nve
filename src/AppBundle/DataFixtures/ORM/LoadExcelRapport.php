@@ -29,6 +29,8 @@ use AppBundle\Entity\TekniskIsoleringTiltag;
 use AppBundle\Entity\TekniskIsoleringTiltagDetail;
 use AppBundle\Entity\SolcelleTiltag;
 use AppBundle\Entity\SolcelleTiltagDetail;
+use AppBundle\Entity\SpecialTiltag;
+use AppBundle\Entity\SpecialTiltagDetail;
 
 /**
  * Class LoadExcelRapport
@@ -412,6 +414,7 @@ class LoadExcelRapport extends LoadData {
     $this->loadPumpeTiltag($rapport);
     $this->loadKlimaskaermTiltag($rapport);
     $this->loadSolcelleTiltag($rapport);
+    $this->loadSpecialTiltag($rapport);
 
     $this->persist($rapport);
 
@@ -533,6 +536,9 @@ class LoadExcelRapport extends LoadData {
     elseif ($tiltag instanceof SolcelleTiltag) {
       $tiltagNumber = 1;
     }
+    elseif ($tiltag instanceof SpecialTiltag) {
+      $tiltagNumber = 10;
+    }
     if ($tiltagNumber) {
       foreach ($tilvalgtData as $rowId => $row) {
         if ($row['B'] == $tiltagNumber) {
@@ -591,6 +597,18 @@ class LoadExcelRapport extends LoadData {
       $convertToInput(array(
         'besparelseDriftOgVedligeholdelse',
       ));
+    }
+    elseif ($tiltag instanceof SpecialTiltag) {
+      $convertToInput(array(
+        'besparelseDriftOgVedligeholdelse',
+        'besparelseStrafafkoelingsafgift',
+        'levetid',
+        'anlaegsinvestering',
+      ));
+      $tiltag
+        ->setBesparelseGUF($this->getCellValue($sheet->getCell('J29')))
+        ->setBesparelseGAF($this->getCellValue($sheet->getCell('J30')))
+        ->setBesparelseEl($this->getCellValue($sheet->getCell('J31')));
     }
 
     $values = array();
@@ -1068,7 +1086,25 @@ class LoadExcelRapport extends LoadData {
     });
   }
 
-  private function loadTiltagDetail(Tiltag $tiltag, $detail, \PHPExcel_Worksheet $sheet, $range, array $columnMapping, callable $includeRow) {
+  private function loadSpecialTiltag(Rapport $rapport) {
+    $sheet = $this->workbook->getSheetByName('Detailark (10)');
+    $tiltag = $this->loadTiltag(new SpecialTiltag(), $rapport, $sheet);
+
+    $this->loadSpecialTiltagDetail($tiltag, $sheet);
+
+    $this->persist($tiltag);
+
+    $this->writeInfo(get_class($tiltag) . ' ' . $tiltag->getId() . ' loaded');
+  }
+
+  private function loadSpecialTiltagDetail(SpecialTiltag $tiltag, \PHPExcel_Worksheet $sheet) {
+    $columnMapping = array();
+    $this->loadTiltagDetail($tiltag, new SpecialTiltagDetail(), $sheet, 'J29:J29', $columnMapping, function($row) {
+      return false;
+    });
+  }
+
+  private function loadTiltagDetail(Tiltag $tiltag, TiltagDetail $detail, \PHPExcel_Worksheet $sheet, $range, array $columnMapping, callable $includeRow) {
     list($data, $columns) = $this->getData($range, $sheet, $columnMapping, $includeRow, $tiltag);
     $data = $this->getCalculatedCells($data, $sheet);
 
@@ -1238,10 +1274,10 @@ class LoadExcelRapport extends LoadData {
 
             'tiltag' => $this->serialize($tiltag, array(
               'forsyningVarme' => array(
-                'internproduktioner' => NULL,
+                'internProduktioner' => NULL,
               ),
               'forsyningEl' => array(
-                'internproduktioner' => NULL,
+                'internProduktioner' => NULL,
               ),
             )),
 
@@ -1253,7 +1289,7 @@ class LoadExcelRapport extends LoadData {
                 'forsyningsvaerkVand' => NULL,
               ),
               'energiforsyninger' => array(
-                'internproduktioner' => NULL,
+                'internProduktioner' => NULL,
               ),
             )),
 

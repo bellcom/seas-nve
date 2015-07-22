@@ -30,9 +30,9 @@ class InternProduktionType extends AbstractType {
       ->add('effektivitet', 'percent')
       ->add('prisgrundlag', 'choice', array(
         'choices' => array(
-          'El' => 'el',
-          'Vand' => 'vand',
-          'Varme' => 'varme',
+          'El' => 'EL',
+          'Vand' => 'VAND',
+          'Varme' => 'VARME',
         ),
         'choices_as_values' => true,
       ));
@@ -57,6 +57,6 @@ class InternProduktionType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'appbundle_energiforsyning';
+    return 'internproduktion';
   }
 }

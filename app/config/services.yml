@@ -79,6 +79,13 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postLoad }
 
+    aaplus.energiforsyning_calculation:
+        class: AppBundle\Calculation\EnergiforsyningCalculation
+        arguments: [ @service_container ]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+
     aaplus.tiltag_calculation:
         class: AppBundle\Calculation\TiltagCalculation
         arguments: [ @service_container ]
