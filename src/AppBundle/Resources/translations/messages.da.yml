@@ -495,8 +495,11 @@ appbundle:
     rapport: Rapport
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
-    scrapvaerdi: Scrapævrdi
+    scrapvaerdi: Scrapværdi
     reinvestering: Reinvestering
+    besparelseGAF: Besparelse GAF
+    besparelseGUF: Besparelse GUF
+    besparelseEl: Besparelse El
   tiltagdetail:
     tilvalgt: Tilvalgt
 

@@ -6,11 +6,12 @@
 
 namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\Rapport;
+use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\SolcelleTiltag;
 use AppBundle\Entity\TekniskIsoleringTiltag;
 use AppBundle\Entity\KlimaskaermTiltag;
+use AppBundle\Entity\SpecialTiltag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,10 +21,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * @package AppBundle\Form
  */
 class TiltagType extends AbstractType {
-  protected $rapport;
+  protected $tiltag;
 
-  public function __construct(Rapport $rapport) {
-    $this->rapport = $rapport;
+  public function __construct(Tiltag $tiltag) {
+    $this->tiltag = $tiltag;
   }
 
   /**
@@ -35,14 +36,6 @@ class TiltagType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $forsyninger = array();
-    if ($this->rapport) {
-      $items = $this->rapport->getEnergiforsyninger()->toArray();
-      $forsyninger = array_combine($items, array_map(function($item) {
-        return $item->getId();
-      }, $items));
-    }
-
     $builder
       ->add('tilvalgt')
       ->add('faktorForReinvesteringer')
@@ -71,13 +64,15 @@ class TiltagType extends AbstractType {
           )
         )
       )
-      ->add('forsyningVarme', 'choice', array(
-        'choices' => $forsyninger,
-        'choices_as_values' => true,
+      ->add('forsyningVarme', 'entity', array(
+        'class' => 'AppBundle:Energiforsyning',
+        'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
+        'required' => false,
       ))
-      ->add('forsyningEl', 'choice', array(
-        'choices' => $forsyninger,
-        'choices_as_values' => true,
+      ->add('forsyningEl', 'entity', array(
+        'class' => 'AppBundle:Energiforsyning',
+        'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
+        'required' => false,
       ))
       ->add('beskrivelseNuvaerende')
       ->add('beskrivelseForslag')
@@ -88,19 +83,25 @@ class TiltagType extends AbstractType {
       ->add('indeklima')
       ->add('reelAnlaegsinvestering');
 
-    if ($this instanceof TekniskIsoleringTiltag || $this instanceof PumpeTiltag) {
+    if ($this->tiltag instanceof TekniskIsoleringTiltag || $this->tiltag instanceof PumpeTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
         ->add('besparelseStrafafkoelingsafgift')
         ->add('levetid');
     }
-    elseif ($this instanceof SolcelleTiltag) {
+    elseif ($this->tiltag instanceof SolcelleTiltag) {
       $builder
         ->add('levetid');
     }
-    elseif ($this instanceof KlimaskaermTiltag) {
+    elseif ($this->tiltag instanceof KlimaskaermTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse');
+    }
+    elseif ($this->tiltag instanceof SpecialTiltag) {
+      $builder
+        ->add('besparelseGUF')
+        ->add('besparelseGAF')
+        ->add('besparelseEl');
     }
   }
 
