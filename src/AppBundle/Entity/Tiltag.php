@@ -1088,7 +1088,10 @@ abstract class Tiltag {
       $this->levetid = $value;
     }
     $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
-    $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    // This may be computed, may be an input
+    if (($value = $this->calculateAnlaegsinvestering()) !== NULL) {
+      $this->anlaegsinvestering = $value;
+    }
     $this->reinvestering = $this->calculateReinvestering();
     $this->scrapvaerdi = $this->calculateScrapvaerdi();
     $this->cashFlow15 = $this->calculateCashFlow(15);
@@ -1256,6 +1259,10 @@ abstract class Tiltag {
    */
   protected function divide($numerator, $denominator) {
     return Calculation::divide($numerator, $denominator);
+  }
+
+  protected function fordelbesparelse($BesparKwh, $kilde, $type) {
+    return Calculation::fordelbesparelse($BesparKwh, $kilde, $type);
   }
 
 }
