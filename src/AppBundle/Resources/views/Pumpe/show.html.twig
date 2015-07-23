@@ -92,6 +92,10 @@
     </tbody>
   </table>
 
+  <a href="{{ path('pumpe_edit', { 'id': entity.id }) }}"  class="btn btn-default">
+    {{ 'common.edit' | trans }}
+  </a>
+
   {{ form(delete_form) }}
 
 {% endblock %}

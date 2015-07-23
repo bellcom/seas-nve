@@ -1,7 +1,18 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  <h1>{{ 'pumper.labels.plural' | trans }}</h1>
+  <div class="row">
+    <div class="col-md-10">
+      <h1>{{ 'pumper.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-2 right">
+      {#
+      <a href="{{ path('pumpe_new') }}" class="btn btn-default">
+        {{ icon('plus') }} {{ 'pumpe.actions.add' | trans }}
+      </a>
+      #}
+    </div>
+  </div>
 
   <table class="table table-condensed">
     <thead>

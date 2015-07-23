@@ -72,12 +72,3 @@
   </div></div></div>
   {% endspaceless %}
 {% endblock button_row %}
-
-
-{% block submit_widget %}
-  <button class="btn btn-default" onclick="window.history.back()">{{ 'Cancel' | trans }}</button>
-  {% spaceless %}
-    {% set type = type|default('submit') %}
-    {{ block('button_widget') }}
-  {% endspaceless %}
-{% endblock submit_widget %}

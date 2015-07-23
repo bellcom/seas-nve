@@ -9,7 +9,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Regning;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -23,17 +22,7 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  *
  * @Route("/tiltag")
  */
-class TiltagController extends Controller implements InitControllerInterface {
-
-  protected $breadcrumbs;
-
-  public function init(Request $request)
-  {
-    $this->breadcrumbs = $this->get('white_october_breadcrumbs');
-    $this->breadcrumbs->addItem('Dashboard', $this->get('router')->generate('dashboard'));
-    $this->breadcrumbs->addItem('Bygninger', $this->get('router')->generate('bygning'));
-  }
-
+class TiltagController extends BaseController {
   /**
    * Lists all Tiltag entities.
    *
@@ -111,7 +100,7 @@ class TiltagController extends Controller implements InitControllerInterface {
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form);
 
     return $form;
   }

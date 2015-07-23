@@ -23,10 +23,19 @@ fos:
             first: Indtast nyt kodeord
             second: Gentag kodeord
 
+Update: Opdater
+Edit: Rediger
+Show: Vis
+Create: Opret
+Cancel: Annuller
+Update: Opdater
+
 common:
   edit: Rediger
   show: Vis
   create: Opret
+  cancel: Annuller
+  update: Opdater
 
 footer:
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
