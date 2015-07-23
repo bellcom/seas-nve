@@ -7,7 +7,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -21,15 +20,14 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  *
  * @Route("/rapport")
  */
-class RapportController extends Controller implements InitControllerInterface {
+class RapportController extends BaseController {
 
   protected $breadcrumbs;
 
   public function init(Request $request)
   {
-    $this->breadcrumbs = $this->get('white_october_breadcrumbs');
-    $this->breadcrumbs->addItem('Dashboard', $this->get('router')->generate('dashboard'));
-    $this->breadcrumbs->addItem('Bygninger', $this->get('router')->generate('bygning'));
+    parent::init($request);
+    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
   }
 
   /**

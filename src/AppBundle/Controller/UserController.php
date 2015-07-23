@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -16,8 +15,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  *
  * @Route("/user")
  */
-class UserController extends Controller
+class UserController extends BaseController
 {
+  public function init(Request $request) {
+    parent::init($request);
+    $this->breadcrumbs->addItem('Brugere', $this->generateUrl('user'));
+  }
 
   /**
    * Lists all User entities.
@@ -85,7 +88,7 @@ class UserController extends Controller
       'method' => 'POST',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'user.actions.create'));
+    $this->addCreate($form, $this->generateUrl('user'));
 
     return $form;
   }
@@ -177,7 +180,7 @@ class UserController extends Controller
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form, $this->generateUrl('user'));
 
     return $form;
   }

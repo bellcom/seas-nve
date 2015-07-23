@@ -1,8 +1,18 @@
 {% extends "AppBundle::base.html.twig" %}
 
-{% block title %}AppBundle:Dashboard:index{% endblock %}
-
 {% block body %}
   <h1>Aa+</h1>
 
+  {% for route, name in {
+    'bygning' : 'Bygninger',
+    'rapport' : 'Rapporter',
+    'user' : 'Brugere',
+    'solcelle': 'Solceller',
+    'klimaskaerm': 'Klimaskærme',
+    'pumpe': 'Pumper',
+    'forsyningsvaerk': 'Forsyningsværker',
+    'configuration': 'Indstillinger',
+    } %}
+    <a href="{{ path(route) }}" class="btn btn-default btn-lg">{{ name | trans }}</a>
+  {% endfor %}
 {% endblock %}

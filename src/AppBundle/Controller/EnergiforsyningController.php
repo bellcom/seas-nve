@@ -8,7 +8,6 @@ namespace AppBundle\Controller;
 
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -26,19 +25,18 @@ use AppBundle\Form\Type\EnergiforsyningType;
  * @Route("/rapport/{rapport_id}/energiforsyning")
  * @ParamConverter("rapport", class="AppBundle:Rapport", options={"id" = "rapport_id"})
  */
-class EnergiforsyningController extends Controller implements InitControllerInterface {
+class EnergiforsyningController extends BaseController {
 
   protected $breadcrumbs;
 
   public function init(Request $request)
   {
-    $this->breadcrumbs = $this->get('white_october_breadcrumbs');
-    $this->breadcrumbs->addItem('Dashboard', $this->get('router')->generate('dashboard'));
-    $this->breadcrumbs->addItem('Bygninger', $this->get('router')->generate('bygning'));
+    parent::init($request);
 
     $rapport = $this->getRapport();
     $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $rapport->getBygning()->getId())));
     $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('Energiforsyninger', $this->get('router')->generate('energiforsyning', array('rapport_id' => $this->getRapport()->getId())));
   }
 
   /**
@@ -49,8 +47,6 @@ class EnergiforsyningController extends Controller implements InitControllerInte
    * @Template()
    */
   public function indexAction() {
-    $this->breadcrumbs->addItem('Energiforsyninger', $this->get('router')->generate('energiforsyning', array('rapport_id' => $this->getRapport()->getId())));
-
     $rapport = $this->getRapport();
     $entities = $rapport->getEnergiforsyninger();
 
@@ -86,6 +82,8 @@ class EnergiforsyningController extends Controller implements InitControllerInte
    * @Template()
    */
   public function showAction(Rapport $rapport, Energiforsyning $entity) {
+    $this->breadcrumbs->addItem($entity->getNavn());
+
     return array(
       'entity' => $entity,
     );
@@ -99,6 +97,8 @@ class EnergiforsyningController extends Controller implements InitControllerInte
    * @Template()
    */
   public function editAction(Rapport $rapport, Energiforsyning $entity) {
+    $this->breadcrumbs->addItem($entity->getNavn());
+
     $editForm = $this->createEditForm($entity);
     $deleteForm = $this->createDeleteForm($entity);
 
@@ -122,7 +122,7 @@ class EnergiforsyningController extends Controller implements InitControllerInte
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form, $this->generateUrl('energiforsyning_show', array('rapport_id' => $entity->getRapport()->getId(), 'id' => $entity->getId())));
 
     return $form;
   }
@@ -140,6 +140,7 @@ class EnergiforsyningController extends Controller implements InitControllerInte
 
     $deleteForm = $this->createDeleteForm($entity);
     $editForm = $this->createEditForm($entity);
+
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
@@ -237,7 +238,7 @@ class EnergiforsyningController extends Controller implements InitControllerInte
       'method' => 'POST',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'energiforsyninger.actions.create'));
+    $this->addCreate($form, $this->generateUrl('energiforsyning', array('rapport_id' => $this->getRapport()->getId())));
 
     return $form;
   }

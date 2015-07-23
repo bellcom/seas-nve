@@ -7,7 +7,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -21,7 +20,7 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  *
  * @Route("/solcelle")
  */
-class SolcelleController extends Controller {
+class SolcelleController extends BaseController {
   /**
    * Lists all Solcelle entities.
    *
@@ -80,7 +79,7 @@ class SolcelleController extends Controller {
       'method' => 'POST',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Create'));
+    $this->addCreate($form, $this->generateUrl('solcelle'));
 
     return $form;
   }
@@ -152,7 +151,7 @@ class SolcelleController extends Controller {
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form, $this->generateUrl('solcelle'));
 
     return $form;
   }
