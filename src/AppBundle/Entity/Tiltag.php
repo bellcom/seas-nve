@@ -887,7 +887,6 @@ abstract class Tiltag {
   public function addDetail(TiltagDetail $detail) {
     if (!$this->details->contains($detail)) {
       $this->details->add($detail);
-      // $this->calculate();
     }
 
     return $this;
@@ -902,7 +901,6 @@ abstract class Tiltag {
   public function removeDetail(TiltagDetail $detail) {
     if ($this->details->contains($detail)) {
       $this->details->removeElement($detail);
-      // $this->calculate();
     }
 
     return $this;
@@ -1069,8 +1067,6 @@ abstract class Tiltag {
 
   /**
    * Calculate values in this Tiltag
-   *
-   * @return bool
    */
   public function calculate() {
     $this->varmebesparelseGUF = $this->calculateVarmebesparelseGUF();
@@ -1098,8 +1094,6 @@ abstract class Tiltag {
     $this->cashFlow30 = $this->calculateCashFlow(30);
     $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
-
-    return false;
   }
 
   protected function calculateCashFlow($numberOfYears) {
