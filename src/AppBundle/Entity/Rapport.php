@@ -171,7 +171,7 @@ class Rapport {
    */
   protected $traepillefyr;
 
-  public function setTraepillefyr(Forsyningsvaerk $traepillefyr) {
+  public function setTraepillefyr(Forsyningsvaerk $traepillefyr = NULL) {
     $this->traepillefyr = $traepillefyr;
 
     return $this;
