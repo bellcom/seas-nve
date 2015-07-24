@@ -343,7 +343,7 @@ class Rapport {
    * @return \Doctrine\Common\Collections\Collection
    *   The list of selected TiltagDetails.
    */
-  protected function getTilvalgteTiltag() {
+  public function getTilvalgteTiltag() {
     return $this->getTiltag()->filter(function($tiltag) {
       return $tiltag->getTilvalgt();
     });
