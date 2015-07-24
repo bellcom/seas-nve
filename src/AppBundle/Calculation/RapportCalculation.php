@@ -40,6 +40,8 @@ class RapportCalculation extends Calculation {
    *   The rapport.
    */
   public function calculate(Rapport $rapport) {
+    $traepillefyr = $this->container->get('doctrine')->getManager()->getRepository('AppBundle:Forsyningsvaerk')->findOneByNavn('Træpillefyr');
+    $rapport->setTraepillefyr($traepillefyr);
     $rapport->calculate();
 
     return $rapport;

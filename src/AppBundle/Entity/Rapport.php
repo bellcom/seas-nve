@@ -167,6 +167,17 @@ class Rapport {
   protected $elena = false;
 
   /**
+   * @var Forsyningsvaerk
+   */
+  protected $traepillefyr;
+
+  public function setTraepillefyr(Forsyningsvaerk $traepillefyr) {
+    $this->traepillefyr = $traepillefyr;
+
+    return $this;
+  }
+
+  /**
    * @var array
    */
   protected $cashFlow;
@@ -883,13 +894,15 @@ class Rapport {
       $flow['ydelse laan inkl. faellesomkostninger'][$year] = $flow['ydelse laan'][$year] + $flow['laan til faellesomkostninger'][$year];
       $besparelse = 0;
       foreach ($tilvalgteTiltag as $tiltag) {
-        if (true || $tiltag instanceof \AppBundle\Entity\SolcelleTiltag) {
-          $besparelse += // $tiltag->getIndtaegtSalgAfEnergibesparelse()
-                       + ($tiltag->getVarmebesparelseGUF() + $tiltag->getVarmebesparelseGAF()) * $this->getVarmeKrKWh($year)
-                       + $tiltag->getElbesparelse() * $this->getElKrKWh($year)
-                       + $tiltag->getVandbesparelse() * $this->getVandKrKWh($year)
-                       + ($tiltag->getBesparelseStrafafkoelingsafgift() + $tiltag->getBesparelseDriftOgVedligeholdelse()) * pow(1 + $inflation, $year);
+        $varmePris = $this->getVarmeKrKWh($year);
+        if ($tiltag->getForsyningVarme() && $tiltag->getForsyningVarme()->getNavn() == 'Træpillefyr') {
+          $varmePris = $this->traepillefyr ? $this->traepillefyr->getKrKWh(date('Y') - 1 + $year) : 0;
         }
+        $besparelse += // $tiltag->getIndtaegtSalgAfEnergibesparelse()
+                     + ($tiltag->getVarmebesparelseGUF() + $tiltag->getVarmebesparelseGAF()) * $varmePris
+                     + $tiltag->getElbesparelse() * $this->getElKrKWh($year)
+                     + $tiltag->getVandbesparelse() * $this->getVandKrKWh($year)
+                     + ($tiltag->getBesparelseStrafafkoelingsafgift() + $tiltag->getBesparelseDriftOgVedligeholdelse()) * pow(1 + $inflation, $year);
       }
 
       $flow['besparelse'][$year] = $besparelse;
