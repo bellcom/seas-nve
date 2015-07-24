@@ -50,7 +50,7 @@ class AppKernel extends Kernel
 
   public function getCacheDir()
   {
-    if ($this->isVagrantBox()) {
+    if (in_array($this->environment, array('dev', 'test'))) {
       return '/dev/shm/appname/cache/' .  $this->environment;
     }
 
@@ -59,20 +59,10 @@ class AppKernel extends Kernel
 
   public function getLogDir()
   {
-    if ($this->isVagrantBox()) {
+    if (in_array($this->environment, array('dev', 'test'))) {
       return '/dev/shm/appname/logs';
     }
 
     return parent::getLogDir();
-  }
-
-  /**
-   * Determine if we're running inside a Vagrant box.
-   *
-   * @return boolean
-   */
-  private function isVagrantBox()
-  {
-    return preg_match('/\.vm$/', $_SERVER['SERVER_NAME']) && in_array($this->environment, array('dev', 'test'));
   }
 }
