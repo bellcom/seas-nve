@@ -155,6 +155,13 @@ class Rapport {
   protected $laanRente;
 
   /**
+   * @var boolean
+   *
+   * @ORM\Column(name="elena", type="boolean", nullable=true)
+   */
+  protected $elena = false;
+
+  /**
    * @var array
    */
   protected $cashFlow;
@@ -542,6 +549,27 @@ class Rapport {
   public function getLaanRente()
   {
     return $this->laanRente;
+  }
+
+  /**
+   * Set elena
+   *
+   * @param string $elena
+   * @return Bygning
+   */
+  public function setElena($elena) {
+    $this->elena = $elena;
+
+    return $this;
+  }
+
+  /**
+   * Get elena
+   *
+   * @return boolean
+   */
+  public function getElena() {
+    return $this->elena;
   }
 
   /**
