@@ -68,37 +68,42 @@ class Rapport {
   protected $datering;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="BaselineEl", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="BaselineEl", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineEl;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="BaselineVarmeGUF", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="BaselineVarmeGUF", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineVarmeGUF;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="BaselineVarmeGAF", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="BaselineVarmeGAF", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineVarmeGAF;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="BaselineVand", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="BaselineVand", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineVand;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="BaselineStrafAfkoeling", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="BaselineStrafAfkoeling", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineStrafAfkoeling;
 
