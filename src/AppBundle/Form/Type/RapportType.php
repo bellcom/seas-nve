@@ -79,7 +79,8 @@ class RapportType extends AbstractType {
           )
         )
       ))
-      ->add('laanRente', 'percent');
+      ->add('laanRente', 'percent')
+      ->add('elena');
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder->add('laanLoebetid');

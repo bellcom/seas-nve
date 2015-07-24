@@ -68,37 +68,42 @@ class Rapport {
   protected $datering;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="BaselineEl", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="BaselineEl", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineEl;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="BaselineVarmeGUF", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="BaselineVarmeGUF", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineVarmeGUF;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="BaselineVarmeGAF", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="BaselineVarmeGAF", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineVarmeGAF;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="BaselineVand", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="BaselineVand", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineVand;
 
   /**
-   * @var integer
+   * @var float
    *
-   * @ORM\Column(name="BaselineStrafAfkoeling", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="BaselineStrafAfkoeling", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineStrafAfkoeling;
 
@@ -153,6 +158,24 @@ class Rapport {
    * @ORM\Column(name="laanRente", type="decimal", scale=4, nullable=true)
    */
   protected $laanRente;
+
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="elena", type="boolean", nullable=true)
+   */
+  protected $elena = false;
+
+  /**
+   * @var Forsyningsvaerk
+   */
+  protected $traepillefyr;
+
+  public function setTraepillefyr(Forsyningsvaerk $traepillefyr) {
+    $this->traepillefyr = $traepillefyr;
+
+    return $this;
+  }
 
   /**
    * @var array
@@ -331,7 +354,7 @@ class Rapport {
    * @return \Doctrine\Common\Collections\Collection
    *   The list of selected TiltagDetails.
    */
-  protected function getTilvalgteTiltag() {
+  public function getTilvalgteTiltag() {
     return $this->getTiltag()->filter(function($tiltag) {
       return $tiltag->getTilvalgt();
     });
@@ -542,6 +565,27 @@ class Rapport {
   public function getLaanRente()
   {
     return $this->laanRente;
+  }
+
+  /**
+   * Set elena
+   *
+   * @param string $elena
+   * @return Bygning
+   */
+  public function setElena($elena) {
+    $this->elena = $elena;
+
+    return $this;
+  }
+
+  /**
+   * Get elena
+   *
+   * @return boolean
+   */
+  public function getElena() {
+    return $this->elena;
   }
 
   /**
@@ -850,13 +894,15 @@ class Rapport {
       $flow['ydelse laan inkl. faellesomkostninger'][$year] = $flow['ydelse laan'][$year] + $flow['laan til faellesomkostninger'][$year];
       $besparelse = 0;
       foreach ($tilvalgteTiltag as $tiltag) {
-        if (true || $tiltag instanceof \AppBundle\Entity\SolcelleTiltag) {
-          $besparelse += // $tiltag->getIndtaegtSalgAfEnergibesparelse()
-                       + ($tiltag->getVarmebesparelseGUF() + $tiltag->getVarmebesparelseGAF()) * $this->getVarmeKrKWh($year)
-                       + $tiltag->getElbesparelse() * $this->getElKrKWh($year)
-                       + $tiltag->getVandbesparelse() * $this->getVandKrKWh($year)
-                       + ($tiltag->getBesparelseStrafafkoelingsafgift() + $tiltag->getBesparelseDriftOgVedligeholdelse()) * pow(1 + $inflation, $year);
+        $varmePris = $this->getVarmeKrKWh($year);
+        if ($tiltag->getForsyningVarme() && $tiltag->getForsyningVarme()->getNavn() == 'Træpillefyr') {
+          $varmePris = $this->traepillefyr ? $this->traepillefyr->getKrKWh(date('Y') - 1 + $year) : 0;
         }
+        $besparelse += // $tiltag->getIndtaegtSalgAfEnergibesparelse()
+                     + ($tiltag->getVarmebesparelseGUF() + $tiltag->getVarmebesparelseGAF()) * $varmePris
+                     + $tiltag->getElbesparelse() * $this->getElKrKWh($year)
+                     + $tiltag->getVandbesparelse() * $this->getVandKrKWh($year)
+                     + ($tiltag->getBesparelseStrafafkoelingsafgift() + $tiltag->getBesparelseDriftOgVedligeholdelse()) * pow(1 + $inflation, $year);
       }
 
       $flow['besparelse'][$year] = $besparelse;

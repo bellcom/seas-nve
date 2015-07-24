@@ -122,20 +122,19 @@ simple_things_entity_audit:
         - AppBundle\Entity\Energiforsyning
         - AppBundle\Entity\Energiforsyning\InternProduktion
         - AppBundle\Entity\Pumpe
-        - AppBundle\Entity\Tiltag
+        - AppBundle\Entity\Solcelle
+        - AppBundle\Entity\BelysningTiltag
+        - AppBundle\Entity\BelysningTiltagDetail
+        - AppBundle\Entity\KlimaskaermTiltag
+        - AppBundle\Entity\KlimaskaermTiltagDetail
         - AppBundle\Entity\PumpeTiltag
-        - AppBundle\Entity\SpecialTiltag
-        - AppBundle\Entity\TiltagDetail
         - AppBundle\Entity\PumpeTiltagDetail
+        - AppBundle\Entity\SolcelleTiltag
+        - AppBundle\Entity\SolcelleTiltagDetail
+        - AppBundle\Entity\SpecialTiltag
         - AppBundle\Entity\SpecialTiltagDetail
         - AppBundle\Entity\TekniskIsoleringTiltag
         - AppBundle\Entity\TekniskIsoleringTiltagDetail
-        - AppBundle\Entity\Klimaskaerm
-        - AppBundle\Entity\KlimaskaermTiltag
-        - AppBundle\Entity\KlimaskaermTiltagDetail
-        - AppBundle\Entity\Solcelle
-        - AppBundle\Entity\SolcelleTiltag
-        - AppBundle\Entity\SolcelleTiltagDetail
 
 white_october_breadcrumbs:
   separator:

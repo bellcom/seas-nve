@@ -21,9 +21,6 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  * @Route("/rapport")
  */
 class RapportController extends BaseController {
-
-  protected $breadcrumbs;
-
   public function init(Request $request)
   {
     parent::init($request);
@@ -58,8 +55,8 @@ class RapportController extends BaseController {
    * @return array
    */
   public function showAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $rapport->getBygning()->getId())));
-    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport->getVersion(), $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
 
     $deleteForm = $this->createDeleteForm($rapport->getId());
 
@@ -101,7 +98,7 @@ class RapportController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form, $this->generateUrl('rapport_show', array('id' => $entity->getId())));
 
     return $form;
   }
@@ -129,7 +126,7 @@ class RapportController extends BaseController {
     if ($editForm->isValid()) {
       $em->flush();
 
-      return $this->redirect($this->generateUrl('rapport_edit', array('id' => $id)));
+      return $this->redirect($this->generateUrl('rapport_show', array('id' => $id)));
     }
 
     return array(

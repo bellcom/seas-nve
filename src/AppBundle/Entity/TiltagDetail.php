@@ -239,7 +239,6 @@ abstract class TiltagDetail {
    * Calculate stuff.
    */
   public function calculate() {
-    // $this->tiltag->calculate();
   }
 
   protected function fordelbesparelse($BesparKwh, $kilde, $type) {

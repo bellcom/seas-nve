@@ -468,6 +468,7 @@ appbundle:
     Energiscreening: Energiscreening
     laanRente: Rente på lån
     laanLoebetid: Løbetid på lån
+    elena: Elena
   specialtiltag:
     kommentar: Kommentar
     filepath: Uploadet fil

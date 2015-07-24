@@ -19,6 +19,10 @@
           <th>{{ 'appbundle.rapport.datering' | trans }}</th>
           <td>{{ entity.datering | date('Y-m-d H:i:s') }}</td>
         </tr>
+        <tr>
+          <th>{{ 'appbundle.rapport.elena' | trans }}</th>
+          <td>{{ entity.elena | b2icon }}</td>
+        </tr>
         </tbody>
       </table>
     </div>
@@ -44,8 +48,11 @@
 
   <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">Energiforsyninger</a>
 
-  <h2>Tiltag - liste:</h2>
+  <h2>Tilvalgte tiltag</h2>
 
+  {% if entity.tilvalgteTiltag is empty %}
+  <div class="alert alert-info">Ingen tilvagte tiltag</div>
+	{% else %}
   <table class="table table-condensed">
     <thead>
       <tr>
@@ -55,7 +62,7 @@
       </tr>
     </thead>
     <tbody>
-    {% for t in entity.tiltag %}
+    {% for t in entity.tilvalgteTiltag %}
       <tr>
         <td>{{ t.title }}</td>
         <td>{{ t.varmebesparelseGUF | format_decimal }}</td>
@@ -64,6 +71,7 @@
     {% endfor %}
     </tbody>
   </table>
+  {% endif %}
 
   <h2>Tiltag:</h2>
 

@@ -100,7 +100,7 @@ class TiltagController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form);
+    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $entity->getId())));
 
     return $form;
   }
@@ -121,7 +121,7 @@ class TiltagController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('tiltag_edit', array('id' => $entity->getId())));
+      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $entity->getId())));
     }
 
     return array(

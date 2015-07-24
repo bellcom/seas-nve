@@ -23,25 +23,22 @@ class TiltagListener {
     $targets = array();
 
     foreach ($entities as $entity) {
-      $target = NULL;
       if ($entity instanceof Tiltag) {
-        $target = $entity;
+        $targets[] = $entity;
+        $targets[] = $entity->getRapport();;
       }
       elseif ($entity instanceof TiltagDetail) {
-        $target = $entity->getTiltag();
+        $targets[] = $entity;
+        $targets[] = $entity->getTiltag();
+        $targets[] = $entity->getTiltag()->getRapport();
       }
+    }
 
-      if ($target !== null && !in_array($target, $targets)) {
-        $targets[] = $target;
-      }
-
-      foreach ($targets as $target) {
-        if ($target->calculate($em)) {
-          $em->persist($target);
-          $md = $em->getClassMetadata(get_class($target));
-          $uow->recomputeSingleEntityChangeSet($md, $target);
-        }
-      }
+    foreach ($targets as $target) {
+      $target->calculate();
+      $em->persist($target);
+      $md = $em->getClassMetadata(get_class($target));
+      $uow->recomputeSingleEntityChangeSet($md, $target);
     }
   }
 }
