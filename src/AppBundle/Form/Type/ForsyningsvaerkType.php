@@ -26,6 +26,7 @@ class ForsyningsvaerkType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('navn')
+      ->add('energiform')
       ->add('noter');
 
     $startYear = intval(date('Y'));
