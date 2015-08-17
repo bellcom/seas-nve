@@ -7,7 +7,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -23,15 +22,14 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  *
  * @Route("/bygning")
  */
-class BygningController extends Controller implements InitControllerInterface {
+class BygningController extends BaseController implements InitControllerInterface {
 
   protected $breadcrumbs;
 
   public function init(Request $request)
   {
-    $this->breadcrumbs = $this->get('white_october_breadcrumbs');
-    $this->breadcrumbs->addItem('Dashboard', $this->get('router')->generate('dashboard'));
-    $this->breadcrumbs->addItem('Bygninger', $this->get('router')->generate('bygning'));
+    parent::init($request);
+    $this->breadcrumbs->addItem('Bygninger', $this->generateUrl('bygning'));
   }
 
   /**
@@ -98,7 +96,7 @@ class BygningController extends Controller implements InitControllerInterface {
       'method' => 'POST',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'bygninger.actions.create'));
+    $this->addCreate($form, $this->generateUrl('bygning'));
 
     return $form;
   }
@@ -130,7 +128,7 @@ class BygningController extends Controller implements InitControllerInterface {
    * @Security("is_granted('BYGNING_VIEW', bygning)")
    */
   public function showAction(Bygning $bygning) {
-    $deleteForm = $this->createDeleteForm($bygning->getId());
+    $deleteForm = $this->createDeleteForm($bygning);
 
     $this->breadcrumbs->addItem($bygning);
 
@@ -150,7 +148,7 @@ class BygningController extends Controller implements InitControllerInterface {
    */
   public function editAction(Bygning $bygning) {
     $editForm = $this->createEditForm($bygning);
-    $deleteForm = $this->createDeleteForm($bygning->getId());
+    $deleteForm = $this->createDeleteForm($bygning);
 
     return array(
       'entity' => $bygning,
@@ -172,7 +170,7 @@ class BygningController extends Controller implements InitControllerInterface {
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
 
     return $form;
   }
@@ -186,7 +184,7 @@ class BygningController extends Controller implements InitControllerInterface {
    * @Security("is_granted('BYGNING_EDIT', bygning)")
    */
   public function updateAction(Request $request, Bygning $bygning) {
-    $deleteForm = $this->createDeleteForm($bygning->getId());
+    $deleteForm = $this->createDeleteForm($bygning);
     $editForm = $this->createEditForm($bygning);
     $editForm->handleRequest($request);
 
@@ -212,7 +210,7 @@ class BygningController extends Controller implements InitControllerInterface {
    * @Security("is_granted('BYGNING_EDIT', bygning)")
    */
   public function deleteAction(Request $request, Bygning $bygning) {
-    $form = $this->createDeleteForm($bygning->getId());
+    $form = $this->createDeleteForm($bygning);
     $form->handleRequest($request);
 
     if ($form->isValid()) {
@@ -227,13 +225,14 @@ class BygningController extends Controller implements InitControllerInterface {
   /**
    * Creates a form to delete a Bygning entity by id.
    *
-   * @param mixed $id The entity id
+   * @param Bygning $bygning
+   *   The entity.
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createDeleteForm($id) {
+  private function createDeleteForm(Bygning $bygning) {
     return $this->createFormBuilder()
-      ->setAction($this->generateUrl('bygning_delete', array('id' => $id)))
+      ->setAction($this->generateUrl('bygning_delete', array('id' => $bygning->getId())))
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
       ->getForm();
@@ -248,16 +247,13 @@ class BygningController extends Controller implements InitControllerInterface {
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createRapportCreateForm(Rapport $entity, $id) {
-    $form = $this->createForm(new RapportType(), $entity, array(
-      'action' => $this->generateUrl(
-        'bygning_rapport_create',
-        array('id' => $id)
-      ),
+  private function createRapportCreateForm(Rapport $entity, Bygning $bygning) {
+    $form = $this->createForm(new RapportType($this->get('security.context')), $entity, array(
+      'action' => $this->generateUrl('bygning_rapport_create',array('id' => $bygning->getId())),
       'method' => 'POST',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Create'));
+    $this->addCreate($form, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
 
     return $form;
   }
@@ -272,7 +268,7 @@ class BygningController extends Controller implements InitControllerInterface {
    */
   public function newRapportAction(Bygning $bygning) {
     $entity = new Rapport();
-    $form = $this->createRapportCreateForm($entity, $bygning->getId());
+    $form = $this->createRapportCreateForm($entity, $bygning);
 
     return $this->render('AppBundle:Rapport:new.html.twig', array(
       'entity' => $entity,
@@ -291,7 +287,7 @@ class BygningController extends Controller implements InitControllerInterface {
   public function createRapportAction(Request $request, Bygning $bygning) {
     $entity = new Rapport();
     $entity->setBygning($bygning);
-    $form = $this->createRapportCreateForm($entity, $bygning->getId());
+    $form = $this->createRapportCreateForm($entity, $bygning);
     $form->handleRequest($request);
 
     if ($form->isValid()) {

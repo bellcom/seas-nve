@@ -22,7 +22,7 @@ abstract class EntityTestCase extends KernelTestCase {
    * @return object
    *   The entity
    */
-  protected function loadEntity($entity, array $properties) {
+  protected function setProperties($entity, array $properties) {
     foreach ($properties as $name => $value) {
       if ($value !== null) {
         if ($name == 'id') {
@@ -55,6 +55,61 @@ abstract class EntityTestCase extends KernelTestCase {
         $this->assertAlmostEquals($value, $entity->{'get'.$propertyName}(), __METHOD__ . ' '. $propertyName);
       }
     }
+  }
+
+  // http://stackoverflow.com/a/173479
+  private static function isAssoc($arr) {
+    return array_keys($arr) !== range(0, count($arr) - 1);
+  }
+
+  protected function loadEntity($entity, array $data) {
+    if (!isset($data['_input'])) {
+      $entity = $this->setProperties($entity, $data);
+    }
+    else {
+      $entity = $this->setProperties($entity, $data['_input']);
+
+      foreach ($data as $property => $values) {
+        if (!preg_match('/^_/', $property)) {
+          $className = $this->getEntityClassName($property);
+          if ($className && $values) {
+            $value = self::isAssoc($values) ? $this->loadEntity(new $className(), $values) : $this->loadEntities(new $className(), $values);
+            $entity->{'set' . $property}($value);
+          }
+        }
+      }
+    }
+
+    return $entity;
+  }
+
+  protected function loadEntities($entity, array $data) {
+    $entities = array();
+    foreach ($data as $values) {
+      $entities[] = $this->loadEntity(clone $entity, $values);
+    }
+
+    return new \Doctrine\Common\Collections\ArrayCollection($entities);
+  }
+
+  protected static $classNames = array(
+    'configuration' => '\AppBundle\Entity\Configuration',
+    'bygning' => '\AppBundle\Entity\Bygning',
+    'forsyningsvaerkVarme' => '\AppBundle\Entity\Forsyningsvaerk',
+    'forsyningsvaerkEl' => '\AppBundle\Entity\Forsyningsvaerk',
+    'forsyningsvaerkVand' => '\AppBundle\Entity\Forsyningsvaerk',
+    'energiforsyninger' => '\AppBundle\Entity\Energiforsyning',
+    'internProduktioner' => '\AppBundle\Entity\Energiforsyning\InternProduktion',
+    'forsyningVarme' => '\AppBundle\Entity\Energiforsyning',
+    'forsyningEl' => '\AppBundle\Entity\Energiforsyning',
+  );
+
+  protected function getEntityClassName($property) {
+    if (isset(self::$classNames[$property])) {
+      return self::$classNames[$property];
+    }
+
+    throw new \Exception('Unknown class name for property ' . $property);
   }
 
   /**
@@ -100,17 +155,23 @@ abstract class EntityTestCase extends KernelTestCase {
    * @return array
    *   array(properties, expected)
    */
-  protected function loadTestFixtures($type) {
+  protected function loadTestFixtures($type = NULL) {
     $fixtures = array();
 
-    $testFixturesPath = $this->getAppBundlePath().'/DataFixtures/Data/fixtures/';
-    $filepaths = glob($testFixturesPath.$type . '*');
+    $testFixturesPath = $this->getAppBundlePath().'DataFixtures/Data/fixtures';
+    $filepaths = glob($testFixturesPath . '/*/' . ($type ? $type : '*'));
 
     foreach ($filepaths as $filepath) {
       if (($content = @file_get_contents($filepath))) {
+        $type = basename($filepath);
+        $name = basename(dirname($filepath));
+
+        if (!isset($fixtures[$name])) {
+          $fixtures[$name] = array();
+        }
+
         try {
-          $key = trim(substr($filepath, strlen($testFixturesPath.$type)), '.');
-          $fixtures[$key] = json_decode($content, true);
+          $fixtures[$name][$type] = json_decode($content, true);
         } catch (\Exception $ex) {}
       }
     }

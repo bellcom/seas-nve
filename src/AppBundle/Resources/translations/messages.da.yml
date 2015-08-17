@@ -23,10 +23,19 @@ fos:
             first: Indtast nyt kodeord
             second: Gentag kodeord
 
+Update: Opdater
+Edit: Rediger
+Show: Vis
+Create: Opret
+Cancel: Annuller
+Update: Opdater
+
 common:
   edit: Rediger
   show: Vis
   create: Opret
+  cancel: Annuller
+  update: Opdater
 
 footer:
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
@@ -52,6 +61,15 @@ rapporter:
     solcelletiltag: Solcelle
     tiltag: Tiltag
     tilvalgt: Tilvalgt
+
+energiforsyninger:
+  labels:
+    singular: Energiforsyning
+    plural: Energiforsyninger
+  actions:
+    add: Tilføj energiforsyning
+    edit: Rediger energiforsyning
+    create: Opret energiforsyning
 
 bygninger:
   labels:
@@ -448,6 +466,9 @@ appbundle:
     BaselineStrafAfkoeling: Strafafkøling
     faktorPaaVarmebesparelse: Faktor på varmebesparelse
     Energiscreening: Energiscreening
+    laanRente: Rente på lån
+    laanLoebetid: Løbetid på lån
+    elena: Elena
   specialtiltag:
     kommentar: Kommentar
     filepath: Uploadet fil
@@ -484,8 +505,11 @@ appbundle:
     rapport: Rapport
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
-    scrapvaerdi: Scrapævrdi
+    scrapvaerdi: Scrapværdi
     reinvestering: Reinvestering
+    besparelseGAF: Besparelse GAF
+    besparelseGUF: Besparelse GUF
+    besparelseEl: Besparelse El
   tiltagdetail:
     tilvalgt: Tilvalgt
 
@@ -614,6 +638,44 @@ appbundle:
     bygninger: Bygninger
     locked: Låst
     email: Email
+
+  energiforsyning:
+    navn: Navn
+    beskrivelse: Beskrivelse
+    samletVarmeeffektivitet: Samlet varmeeffektivitet:
+    samletEleffektivitet: Samlet eleffektivitet:
+    internProduktioner: Interne produktioner
+    internProduktioner.0:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.1:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.2:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.3:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.4:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+
+    internproduktion:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
 
 # Calculations
 appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |

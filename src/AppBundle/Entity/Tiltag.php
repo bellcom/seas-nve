@@ -58,6 +58,13 @@ abstract class Tiltag {
   protected $id;
 
   /**
+   * @var boolean
+   *
+   * @ORM\Column(name="tilvalgt", type="boolean", nullable=true)
+   */
+  protected $tilvalgt = false;
+
+  /**
    * @var string
    *
    * @ORM\Column(name="title", type="string", length=255, nullable=true)
@@ -213,16 +220,18 @@ abstract class Tiltag {
   protected $tiltagskategori;
 
   /**
-   * @var string
+   * @var Energiforsyning
    *
-   * @ORM\Column(name="forsyningVarme", type="string", length=50, nullable=true)
+   * @ManyToOne(targetEntity="Energiforsyning")
+   * @JoinColumn(name="varme_energiforsyning_id", referencedColumnName="id")
    */
   protected $forsyningVarme;
 
   /**
-   * @var string
+   * @var Energiforsyning
    *
-   * @ORM\Column(name="forsyningEl", type="string", length=50, nullable=true)
+   * @ManyToOne(targetEntity="Energiforsyning")
+   * @JoinColumn(name="el_energiforsyning_id", referencedColumnName="id")
    */
   protected $forsyningEl;
 
@@ -364,6 +373,16 @@ abstract class Tiltag {
    */
   public function getId() {
     return $this->id;
+  }
+
+  public function setTilvalgt($tilvalgt) {
+    $this->tilvalgt = $tilvalgt;
+
+    return $this;
+  }
+
+  public function getTilvalgt() {
+    return $this->tilvalgt;
   }
 
   /**
@@ -868,7 +887,6 @@ abstract class Tiltag {
   public function addDetail(TiltagDetail $detail) {
     if (!$this->details->contains($detail)) {
       $this->details->add($detail);
-      // $this->calculate();
     }
 
     return $this;
@@ -883,7 +901,6 @@ abstract class Tiltag {
   public function removeDetail(TiltagDetail $detail) {
     if ($this->details->contains($detail)) {
       $this->details->removeElement($detail);
-      // $this->calculate();
     }
 
     return $this;
@@ -1050,8 +1067,6 @@ abstract class Tiltag {
 
   /**
    * Calculate values in this Tiltag
-   *
-   * @return bool
    */
   public function calculate() {
     $this->varmebesparelseGUF = $this->calculateVarmebesparelseGUF();
@@ -1069,15 +1084,16 @@ abstract class Tiltag {
       $this->levetid = $value;
     }
     $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
-    $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    // This may be computed, may be an input
+    if (($value = $this->calculateAnlaegsinvestering()) !== NULL) {
+      $this->anlaegsinvestering = $value;
+    }
     $this->reinvestering = $this->calculateReinvestering();
     $this->scrapvaerdi = $this->calculateScrapvaerdi();
     $this->cashFlow15 = $this->calculateCashFlow(15);
     $this->cashFlow30 = $this->calculateCashFlow(30);
     $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
-
-    return false;
   }
 
   protected function calculateCashFlow($numberOfYears) {
@@ -1236,7 +1252,11 @@ abstract class Tiltag {
    *   .
    */
   protected function divide($numerator, $denominator) {
-    return $denominator == 0 ? 0 : ($numerator / $denominator);
+    return Calculation::divide($numerator, $denominator);
+  }
+
+  protected function fordelbesparelse($BesparKwh, $kilde, $type) {
+    return Calculation::fordelbesparelse($BesparKwh, $kilde, $type);
   }
 
 }

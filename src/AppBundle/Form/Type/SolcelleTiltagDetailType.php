@@ -7,7 +7,7 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class SolcelleTiltagDetailType
@@ -26,7 +26,7 @@ class SolcelleTiltagDetailType extends TiltagDetailType {
       ->add('screeningOgProjekteringKr')
       ->add('omkostningTilMaalerKr');
 
-    if ($this->context && $this->context->isGranted('ROLE_ADMIN')) {
+    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder
         ->add('forringetYdeevnePrAar')
         ->add('energiprisstigningPctPrAar')
@@ -35,7 +35,7 @@ class SolcelleTiltagDetailType extends TiltagDetailType {
     }
   }
 
-  public function setDefaultOptions(OptionsResolverInterface $resolver) {
+  public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
       'data_class' => 'AppBundle\Entity\SolcelleTiltagDetail'
     ));

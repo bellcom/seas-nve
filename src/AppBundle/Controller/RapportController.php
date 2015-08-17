@@ -7,7 +7,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -21,15 +20,11 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  *
  * @Route("/rapport")
  */
-class RapportController extends Controller implements InitControllerInterface {
-
-  protected $breadcrumbs;
-
+class RapportController extends BaseController {
   public function init(Request $request)
   {
-    $this->breadcrumbs = $this->get('white_october_breadcrumbs');
-    $this->breadcrumbs->addItem('Dashboard', $this->get('router')->generate('dashboard'));
-    $this->breadcrumbs->addItem('Bygninger', $this->get('router')->generate('bygning'));
+    parent::init($request);
+    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
   }
 
   /**
@@ -60,8 +55,8 @@ class RapportController extends Controller implements InitControllerInterface {
    * @return array
    */
   public function showAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $rapport->getBygning()->getId())));
-    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport->getVersion(), $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
 
     $deleteForm = $this->createDeleteForm($rapport->getId());
 
@@ -98,12 +93,12 @@ class RapportController extends Controller implements InitControllerInterface {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Rapport $entity) {
-    $form = $this->createForm(new RapportType(), $entity, array(
+    $form = $this->createForm(new RapportType($this->get('security.context')), $entity, array(
       'action' => $this->generateUrl('rapport_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form, $this->generateUrl('rapport_show', array('id' => $entity->getId())));
 
     return $form;
   }
@@ -131,7 +126,7 @@ class RapportController extends Controller implements InitControllerInterface {
     if ($editForm->isValid()) {
       $em->flush();
 
-      return $this->redirect($this->generateUrl('rapport_edit', array('id' => $id)));
+      return $this->redirect($this->generateUrl('rapport_show', array('id' => $id)));
     }
 
     return array(
@@ -223,6 +218,25 @@ class RapportController extends Controller implements InitControllerInterface {
     return array(
       'tiltag' => $rapport->getTiltag(),
       'delete_form' => $deleteForm->createView(),
+    );
+  }
+
+  /**
+   * Finds and displays a Rapport entity.
+   *
+   * @Route("/{id}/finansiering", name="rapport_finansiering_show")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Rapport $rapport
+   * @return array
+   */
+  public function showFinansieringAction(Rapport $rapport) {
+    $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $rapport->getId())));
+
+    return array(
+      'entity' => $rapport,
     );
   }
 

@@ -7,7 +7,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -18,22 +17,15 @@ use AppBundle\Entity\TiltagDetail;
  *
  * @Route("/tiltag_detail")
  */
-class TiltagDetailController extends Controller {
-  /**
-   * Lists all TiltagDetail entities.
-   *
-   * @Route("/", name="tiltag_detail")
-   * @Method("GET")
-   * @Template()
-   */
-  public function indexAction() {
-    $em = $this->getDoctrine()->getManager();
-
-    $entities = $em->getRepository('AppBundle:TiltagDetail')->findAll();
-
-    return array(
-      'entities' => $entities,
-    );
+class TiltagDetailController extends BaseController {
+  private function setBreadcrumb(TiltagDetail $detail) {
+    $tiltag = $detail->getTiltag();
+    $rapport = $tiltag->getRapport();
+    $bygning = $rapport->getBygning();
+    $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem($tiltag, $this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+    $this->breadcrumbs->addItem(get_class($detail));
   }
 
   /**
@@ -46,6 +38,7 @@ class TiltagDetailController extends Controller {
    * @return \Symfony\Component\HttpFoundation\Response
    */
   public function showAction(TiltagDetail $entity) {
+    $this->setBreadcrumb($entity);
     $deleteForm = $this->createDeleteForm($entity);
 
     $template = $this->getTemplate($entity, 'show');
@@ -65,6 +58,7 @@ class TiltagDetailController extends Controller {
    * @return \Symfony\Component\HttpFoundation\Response
    */
   public function editAction(TiltagDetail $entity) {
+    $this->setBreadcrumb($entity);
     $editForm = $this->createEditForm($entity);
     $deleteForm = $this->createDeleteForm($entity);
 
@@ -91,7 +85,7 @@ class TiltagDetailController extends Controller {
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $entity->getTiltag()->getId())));
 
     return $form;
   }
@@ -116,7 +110,7 @@ class TiltagDetailController extends Controller {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('tiltag_detail_edit', array('id' => $entity->getId())));
+      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $entity->getTiltag()->getId())));
     }
 
     return array(

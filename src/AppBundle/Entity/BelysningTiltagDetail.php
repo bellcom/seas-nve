@@ -1134,7 +1134,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     if ($elbesparelse == 0 && $varmebesparelse == 0) {
       return 0;
     }
-    elseif ($this->getRapport()->isStandardforsyning()) {
+    elseif ($this->getRapport()->getStandardforsyning()) {
       return $elbesparelse;
     }
     else {
@@ -1197,7 +1197,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     if ($varmebesparelse == 0) {
       return 0;
     }
-    elseif ($this->getRapport()->isStandardforsyning()) {
+    elseif ($this->getRapport()->getStandardforsyning()) {
       return $varmebesparelse;
     }
     else {

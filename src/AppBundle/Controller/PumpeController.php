@@ -7,7 +7,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -19,7 +18,7 @@ use AppBundle\Form\Type\PumpeType;
  *
  * @Route("/pumpe")
  */
-class PumpeController extends Controller {
+class PumpeController extends BaseController {
   /**
    * Lists all Pumpe entities.
    *
@@ -109,7 +108,7 @@ class PumpeController extends Controller {
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form, $this->generateUrl('pumpe_show', array('id' => $pumpe->getId())));
 
     return $form;
   }

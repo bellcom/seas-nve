@@ -8,26 +8,26 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class TiltagDetailType
  * @package AppBundle\Form
  */
 class TiltagDetailType extends AbstractType {
-  protected $context;
+  protected $authorizationChecker;
 
-  public function __construct(SecurityContext $context = NULL)
+  public function __construct(AuthorizationCheckerInterface $authorizationChecker)
   {
-    $this->context = $context;
+    $this->authorizationChecker = $authorizationChecker;
   }
 
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder->add('tilvalgt');
   }
 
-  public function setDefaultOptions(OptionsResolverInterface $resolver) {
+  public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(
       array(
         'data_class' => 'AppBundle\Entity\TiltagDetail'

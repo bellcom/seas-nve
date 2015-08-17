@@ -7,7 +7,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -21,7 +20,7 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  *
  * @Route("/klimaskaerm")
  */
-class KlimaskaermController extends Controller {
+class KlimaskaermController extends BaseController {
   /**
    * Lists all Klimaskaerm entities.
    *
@@ -80,7 +79,7 @@ class KlimaskaermController extends Controller {
       'method' => 'POST',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Create'));
+    $this->addCreate($form, $this->generateUrl('klimaskaerm'));
 
     return $form;
   }
@@ -152,7 +151,7 @@ class KlimaskaermController extends Controller {
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form, $this->generateUrl('klimaskaerm_show', array('id' => $entity->getId())));
 
     return $form;
   }

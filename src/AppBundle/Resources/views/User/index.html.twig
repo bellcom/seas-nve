@@ -33,7 +33,7 @@
         <td>{{ entity.lastname }}</td>
         <td>{{ entity.phone }}</td>
         <td>
-          <a href="{{ path('user_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+          {# <a href="{{ path('user_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a> #}
           <a href="{{ path('user_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
         </td>
       </tr>

@@ -57,7 +57,10 @@ class SolcelleTiltag extends Tiltag {
   }
 
   protected function calculateNutidsvaerdiSetOver15AarKr() {
-    return Calculation::npv($this->getRapport()->getKalkulationsrente(), $this->getTilvalgteDetails()[0]->getCashFlow()['Cash flow']);
+    if ($this->getTilvalgteDetails()->count() == 1) {
+      return Calculation::npv($this->getRapport()->getKalkulationsrente(), $this->getTilvalgteDetails()[0]->getCashFlow()['Cash flow']);
+    }
+    return 0;
   }
 
 }

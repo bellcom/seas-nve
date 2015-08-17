@@ -1,7 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  <h1>Rapport list</h1>
+  <h1>{{ 'rapporter.labels.plural' | trans }}</h1>
 
   <table class="table table-condensed table-hover">
     <thead>
@@ -9,6 +9,7 @@
       <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
       <th>{{ 'appbundle.rapport.version' | trans }}</th>
       <th>{{ 'appbundle.rapport.datering' | trans }}</th>
+      <th>{{ 'appbundle.rapport.elena' | trans }}</th>
       <th></th>
     </tr>
     </thead>
@@ -18,6 +19,7 @@
         <td>{{ entity.bygning }}</td>
         <td>{{ entity.version }}</td>
         <td>{% if entity.datering %}{{ entity.datering|date('Y-m-d') }}{% endif %}</td>
+        <td>{{ entity.elena | b2icon }}</td>
         <td>
           <a href="{{ path('rapport_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
           <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>

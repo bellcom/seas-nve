@@ -14,32 +14,27 @@ abstract class TiltagTestCase extends EntityTestCase {
 
     $this->assertNotEmpty($fixtures, 'Cannot load fixtures for class ' . $tiltagClassName);
 
-    foreach ($fixtures as $fixture) {
-      $bygning = $this->loadEntity(new Bygning(), $fixture['bygning'])
-               ->setForsyningsvaerkVarme($this->loadEntity(new Forsyningsvaerk(), $fixture['bygning.forsyningsvaerkVarme']))
-               ->setForsyningsvaerkEl($this->loadEntity(new Forsyningsvaerk(), $fixture['bygning.forsyningsvaerkEl']))
-               ->setForsyningsvaerkVand($this->loadEntity(new Forsyningsvaerk(), $fixture['bygning.forsyningsvaerkVand']));
-      $rapport = $this->loadEntity(new Rapport(), $fixture['rapport']['input'])
-               ->setBygning($bygning);
-      $rapport->setConfiguration($this->loadEntity(new Configuration(), $fixture['configuration']));
-      $tiltag = new $tiltagClassName();
-      $tiltag->setRapport($rapport);
-      $this->loadEntity($tiltag, $this->loadProperties($fixture['tiltag']['input']));
+    foreach ($fixtures as $name => $tiltag) {
+      foreach ($tiltag as $type => $fixture) {
+        $rapport = $this->loadEntity(new Rapport(), $fixture['rapport']);
+        $tiltag = $this->loadEntity(new $tiltagClassName(), $fixture['tiltag'])
+                ->setRapport($rapport);
 
-      foreach ($fixture['details'] as $test) {
-        $detail = new $detailClassName();
-        $detail->setTiltag($tiltag);
+        foreach ($fixture['details'] as $test) {
+          $detail = new $detailClassName();
+          $detail->setTiltag($tiltag);
 
-        $detailTestClassName = $this->getTestClassName($detail);
-        $properties = (new $detailTestClassName())->loadProperties($test['input']);
+          $detailTestClassName = $this->getTestClassName($detail);
+          $properties = (new $detailTestClassName())->loadProperties($test['_input']);
 
-        $this->loadEntity($detail, $properties)
-          ->calculate();
+          $this->setProperties($detail, $properties)
+            ->calculate();
+        }
+
+        $expected = $fixture['tiltag']['_calculated'];
+        $tiltag->calculate();
+        $this->assertProperties($expected, $tiltag);
       }
-
-      $expected = $fixture['tiltag']['calculated'];
-      $tiltag->calculate();
-      $this->assertProperties($expected, $tiltag);
     }
   }
 

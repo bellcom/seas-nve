@@ -9,7 +9,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Regning;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -23,17 +22,7 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  *
  * @Route("/tiltag")
  */
-class TiltagController extends Controller implements InitControllerInterface {
-
-  protected $breadcrumbs;
-
-  public function init(Request $request)
-  {
-    $this->breadcrumbs = $this->get('white_october_breadcrumbs');
-    $this->breadcrumbs->addItem('Dashboard', $this->get('router')->generate('dashboard'));
-    $this->breadcrumbs->addItem('Bygninger', $this->get('router')->generate('bygning'));
-  }
-
+class TiltagController extends BaseController {
   /**
    * Lists all Tiltag entities.
    *
@@ -106,12 +95,12 @@ class TiltagController extends Controller implements InitControllerInterface {
    */
   private function createEditForm(Tiltag $entity) {
     $className = $this->getFormTypeClassName($entity);
-    $form = $this->createForm(new $className(), $entity, array(
+    $form = $this->createForm(new $className($entity), $entity, array(
       'action' => $this->generateUrl('tiltag_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $entity->getId())));
 
     return $form;
   }
@@ -132,7 +121,7 @@ class TiltagController extends Controller implements InitControllerInterface {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('tiltag_edit', array('id' => $entity->getId())));
+      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $entity->getId())));
     }
 
     return array(
@@ -227,7 +216,7 @@ class TiltagController extends Controller implements InitControllerInterface {
    */
   private function createCreateForm(Tiltag $entity, $type) {
     $className = $this->getFormTypeClassName($entity);
-    $form = $this->createForm(new $className(), $entity, array(
+    $form = $this->createForm(new $className($entity), $entity, array(
       'action' => $this->generateUrl('tiltag_create', array('type' => $type)),
       'method' => 'POST',
     ));
@@ -242,7 +231,7 @@ class TiltagController extends Controller implements InitControllerInterface {
       $detail = $this->createDetailEntity($tiltag);
     }
     $formClass = $this->getFormTypeClassName($detail, true);
-    $form = $this->createForm(new $formClass(), $detail, array(
+    $form = $this->createForm(new $formClass($this->get('security.context')), $detail, array(
       'action' => $this->generateUrl('tiltag_detail_new', array('id' => $tiltag->getId())),
       'method' => 'POST',
     ));
