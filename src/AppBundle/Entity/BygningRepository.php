@@ -50,6 +50,43 @@ class BygningRepository extends EntityRepository {
   }
 
   /**
+   * Search all Bygning that a User has access to
+   *
+   * @param User $user
+   * @param bool $returnQuery
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function searchByUser(User $user, $search) {
+    $qb = $this->_em->createQueryBuilder();
+    $qb->select('b')
+      ->from('AppBundle:Bygning', 'b')
+      ->where('b.navn LIKE :navn')
+      ->andWhere('b.adresse LIKE :adresse')
+      ->andWhere('b.postBy LIKE :postBy')
+
+      ->setParameter('navn', '%'.$search['navn'].'%')
+      ->setParameter('adresse', '%'.$search['adresse'].'%')
+      ->setParameter('postBy', '%'.$search['postBy'].'%');
+
+    if(!empty($search['bygId'])) {
+      $qb->andWhere('b.bygId = :bygId')
+        ->setParameter('bygId', $search['bygId']);
+    }
+
+    if(!empty($search['postnummer'])) {
+      $qb->andWhere('b.postnummer = :postnummer')
+        ->setParameter('postnummer', $search['postnummer']);
+    }
+
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF b.users');
+      $qb->setParameter('user', $user);
+    }
+
+    return $qb->getQuery()->getResult();
+  }
+
+  /**
    * The ugly function to check if a user is allowed to do everything …
    *
    * @param $user

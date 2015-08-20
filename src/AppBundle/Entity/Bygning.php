@@ -18,7 +18,16 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * Bygning
  *
- * @ORM\Table(name="Bygning",indexes={@Index(name="bygning_idx", columns={"Enhedsys"})})
+ * @ORM\Table(name="Bygning",
+ *    indexes={
+ *      @Index(name="bygning_idx_enhedssys", columns={"Enhedsys"}),
+ *      @Index(name="bygning_idx_bygid", columns={"BygId"}),
+ *      @Index(name="bygning_idx_navn", columns={"Navn"}),
+ *      @Index(name="bygning_idx_adresse", columns={"Adresse"}),
+ *      @Index(name="bygning_idx_postnummer", columns={"Postnummer"}),
+ *      @Index(name="bygning_idx_postby", columns={"PostBy"}),
+ *    }
+ * )
  * @ORM\Entity(repositoryClass="AppBundle\Entity\BygningRepository")
  */
 class Bygning {
@@ -76,14 +85,14 @@ class Bygning {
   /**
    * @var string
    *
-   * @ORM\Column(name="Adresse", type="text", nullable=true)
+   * @ORM\Column(name="Adresse", type="string", length=255, nullable=true)
    */
   protected $adresse;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="Postnummer", type="string", nullable=true)
+   * @ORM\Column(name="Postnummer", type="string", length=4, nullable=true)
    */
   protected $postnummer;
 

@@ -36,6 +36,8 @@ common:
   create: Opret
   cancel: Annuller
   update: Opdater
+  search: Søg
+  a_search: Søgning
 
 footer:
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
@@ -353,7 +355,7 @@ appbundle:
     adresse: Adresse
     postnr: Postnr.
     by: By
-    bygId: Bygnings ID
+    bygId: ID
     ident: Ident
     enhedsys: Enhedsys
     enhedskode: Enhedskode

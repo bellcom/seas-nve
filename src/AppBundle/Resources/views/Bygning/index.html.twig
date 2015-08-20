@@ -2,42 +2,70 @@
 
 {% block body %}
   <div class="row">
-    <div class="col-md-10">
-      <h1>{{ 'bygninger.labels.plural' | trans }}</h1>
+    <div class="col-md-4">
+      <h1>
+        {{ 'bygninger.labels.plural' | trans }}
+        {% if search['is_search'] %}
+          : {{ 'common.a_search' | trans }}
+        {% endif %}
+      </h1>
     </div>
-    <div class="col-md-2 right">
-      <a href="{{ path('bygning_new') }}" class="btn btn-default">
-        {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
-      </a>
+    <div class="col-md-8 right">
+        <a href="{{ path('bygning_new') }}" class="btn btn-default">
+          {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
+        </a>
     </div>
 
   </div>
 
-  <table class="table table-condensed table-hover">
-    <tr>
-      <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
-      <th></th>
-    </tr>
-    {% for bygning in pagination %}
+  <form name="search" action="{{ path('bygning') }}" method="get">
+    <table class="table table-condensed table-hover">
       <tr>
-        <td>{{ bygning.bygId }}</td>
-        <td>{{ bygning.navn }}</td>
-        <td>{{ bygning.adresse }}</td>
-        <td>{{ bygning.postnummer }}</td>
-        <td>{{ bygning.postBy }}</td>
-        <td>
-          <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
-          <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-        </td>
+        <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
+        <th></th>
       </tr>
-    {% else %}
-      {{ 'bygninger.strings.ingen' | trans }}
-    {% endfor %}
-  </table>
+      <tr>
+        <th>
+          <input type="text" name="term_bygId" class="form-control input-sm" placeholder="{{ 'appbundle.bygning.bygId'|trans }}" size="4" value="{{ search['bygId'] }}"/>
+        </th>
+        <th>
+          <input type="text" name="term_navn" class="form-control input-sm" placeholder="{{ 'appbundle.bygning.navn'|trans }}" value="{{ search['navn'] }}"/>
+        </th>
+        <th>
+          <input type="text" name="term_adresse" class="form-control input-sm" placeholder="{{ 'appbundle.bygning.adresse'|trans }}" value="{{ search['adresse'] }}"/>
+        </th>
+        <th>
+          <input type="text" name="term_postnummer" class="form-control input-sm" placeholder="{{ 'appbundle.bygning.postnummer'|trans }}" size="4" value="{{ search['postnummer'] }}"/>
+        </th>
+        <th>
+          <input type="text" name="term_postBy" class="form-control input-sm" placeholder="{{ 'appbundle.bygning.postBy'|trans }}" value="{{ search['postBy'] }}"/>
+        </th>
+        <th>
+          <input type="hidden" name="is_search" value="true"/>
+          <button type="submit" class="btn btn-default btn-sm">{{ icon('search') }} {{ 'common.search' | trans }}</button>
+        </th>
+      </tr>
+      {% for bygning in pagination %}
+        <tr>
+          <td>{{ bygning.bygId }}</td>
+          <td>{{ bygning.navn }}</td>
+          <td>{{ bygning.adresse }}</td>
+          <td>{{ bygning.postnummer }}</td>
+          <td>{{ bygning.postBy }}</td>
+          <td>
+            <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+            <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="6"><div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div></td></tr>
+      {% endfor %}
+    </table>
+  </form>
 
   <div class="row">
     <div class="col-md-12">
