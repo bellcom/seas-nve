@@ -41,7 +41,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    */
   public function indexAction(Request $request) {
     if($request->get('is_search')) {
-      $this->breadcrumbs->addItem('Søg', $this->generateUrl('bygning_search'));
+      $this->breadcrumbs->addItem('Søg', $this->generateUrl('bygning'));
     }
 
     $em = $this->getDoctrine()->getManager();
