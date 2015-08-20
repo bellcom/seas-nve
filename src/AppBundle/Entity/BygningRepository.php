@@ -59,14 +59,22 @@ class BygningRepository extends EntityRepository {
   public function searchByUser(User $user, $search) {
     $qb = $this->_em->createQueryBuilder();
     $qb->select('b')
-      ->from('AppBundle:Bygning', 'b')
-      ->where('b.navn LIKE :navn')
-      ->andWhere('b.adresse LIKE :adresse')
-      ->andWhere('b.postBy LIKE :postBy')
+      ->from('AppBundle:Bygning', 'b');
 
-      ->setParameter('navn', '%'.$search['navn'].'%')
-      ->setParameter('adresse', '%'.$search['adresse'].'%')
-      ->setParameter('postBy', '%'.$search['postBy'].'%');
+    if(!empty($search['navn'])) {
+      $qb->andWhere('b.navn LIKE :navn')
+        ->setParameter('navn', '%'.$search['navn'].'%');
+    }
+
+    if(!empty($search['adresse'])) {
+      $qb->andWhere('b.adresse LIKE :adresse')
+        ->setParameter('adresse', '%'.$search['adresse'].'%');
+    }
+
+    if(!empty($search['postBy'])) {
+      $qb->andWhere('b.postBy LIKE :postBy')
+        ->setParameter('postBy', '%'.$search['postBy'].'%');
+    }
 
     if(!empty($search['bygId'])) {
       $qb->andWhere('b.bygId = :bygId')
