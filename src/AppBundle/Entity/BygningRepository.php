@@ -38,8 +38,8 @@ class BygningRepository extends EntityRepository {
    * @param bool $returnQuery
    * @return array|\Doctrine\ORM\Query
    */
-  public function findByUser(User $user, $returnQuery = false) {
-    if ($this->hasFullAccess($user)) {
+  public function findByUser(User $user, $returnQuery = false, $onlyOwnBuildings = false) {
+    if ($this->hasFullAccess($user) && !$onlyOwnBuildings) {
       $query = $this->_em->createQuery("SELECT b FROM AppBundle:Bygning b");
     } else {
       $query = $this->_em->createQuery("SELECT b FROM AppBundle:Bygning b WHERE :user MEMBER OF b.users");
@@ -91,7 +91,7 @@ class BygningRepository extends EntityRepository {
       $qb->setParameter('user', $user);
     }
 
-    return $qb->getQuery()->getResult();
+    return $qb->getQuery();
   }
 
   /**

@@ -22,8 +22,20 @@ class DashboardController extends BaseController {
    * @Route("/", name="dashboard")
    * @Template()
    */
-  public function indexAction() {
-    return array();
+  public function indexAction(Request $request) {
+    $em = $this->getDoctrine()->getManager();
+
+    $user = $this->get('security.context')->getToken()->getUser();
+    $query = $em->getRepository('AppBundle:Bygning')->findByUser($user, true, true);
+
+    $paginator = $this->get('knp_paginator');
+    $pagination = $paginator->paginate(
+      $query,
+      $request->query->get('page', 1),
+      20
+    );
+
+    return $this->render('AppBundle:Dashboard:index.html.twig', array('pagination' => $pagination));
   }
 
 }

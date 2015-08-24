@@ -157,3 +157,4 @@ stof_doctrine_extensions:
         default:
             uploadable: true
             timestampable: true
+            blameable: true

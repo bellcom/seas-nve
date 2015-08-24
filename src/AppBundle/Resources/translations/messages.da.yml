@@ -38,6 +38,7 @@ common:
   update: Opdater
   search: Søg
   a_search: Søgning
+  your_buildings: Dine bygninger
 
 footer:
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
@@ -403,6 +404,10 @@ appbundle:
     varmeNotat: Varme notat
     users: Brugere
     forsyningsvaerkVand: Vand
+    updatedAt: Opdateret
+    createdAt: Oprettet
+    updatedBy: Opdateret af
+    createdBy: Oprettet af
   pumpe:
     nuvaerendeType: Nuværende Type
     byggemaal: Byggemål

@@ -15,6 +15,8 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use JMS\Serializer\Annotation as JMS;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Blameable\Traits\BlameableEntity;
 
 /**
  * Rapport
@@ -24,6 +26,10 @@ use JMS\Serializer\Annotation as JMS;
  * @ORM\HasLifecycleCallbacks
  */
 class Rapport {
+
+  use BlameableEntity;
+  use TimestampableEntity;
+
   /**
    * @var integer
    *
