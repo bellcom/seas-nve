@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Blameable\Traits\BlameableEntity;
 
 /**
  * Bygning
@@ -31,6 +33,10 @@ use JMS\Serializer\Annotation as JMS;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\BygningRepository")
  */
 class Bygning {
+
+  use BlameableEntity;
+  use TimestampableEntity;
+
   /**
    * @var integer
    *

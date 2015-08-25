@@ -31,13 +31,16 @@ Cancel: Annuller
 Update: Opdater
 
 common:
+  all: Alle
   edit: Rediger
+  empty: Blank
   show: Vis
   create: Opret
   cancel: Annuller
   update: Opdater
   search: Søg
   a_search: Søgning
+  your_buildings: Dine bygninger
 
 footer:
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
@@ -350,6 +353,7 @@ appbundle:
     co2y2075: CO2, 2075
 
   bygning:
+    magistrat: Magistrat
     singular: Bygning
     plural: Bygninger
     adresse: Adresse
@@ -403,6 +407,10 @@ appbundle:
     varmeNotat: Varme notat
     users: Brugere
     forsyningsvaerkVand: Vand
+    updatedAt: Opdateret
+    createdAt: Oprettet
+    updatedBy: Opdateret af
+    createdBy: Oprettet af
   pumpe:
     nuvaerendeType: Nuværende Type
     byggemaal: Byggemål

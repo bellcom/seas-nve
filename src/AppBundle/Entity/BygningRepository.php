@@ -38,8 +38,8 @@ class BygningRepository extends EntityRepository {
    * @param bool $returnQuery
    * @return array|\Doctrine\ORM\Query
    */
-  public function findByUser(User $user, $returnQuery = false) {
-    if ($this->hasFullAccess($user)) {
+  public function findByUser(User $user, $returnQuery = false, $onlyOwnBuildings = false) {
+    if ($this->hasFullAccess($user) && !$onlyOwnBuildings) {
       $query = $this->_em->createQuery("SELECT b FROM AppBundle:Bygning b");
     } else {
       $query = $this->_em->createQuery("SELECT b FROM AppBundle:Bygning b WHERE :user MEMBER OF b.users");
@@ -86,12 +86,21 @@ class BygningRepository extends EntityRepository {
         ->setParameter('postnummer', $search['postnummer']);
     }
 
+    if(!empty($search['magistrat'])) {
+      if($search['magistrat'] == 'empty') {
+        $qb->andWhere('b.magistrat IS NULL');
+      } else {
+        $qb->andWhere('b.magistrat = :magistrat')
+          ->setParameter('magistrat', $search['magistrat']);
+      }
+    }
+
     if (!$this->hasFullAccess($user)) {
       $qb->andWhere(':user MEMBER OF b.users');
       $qb->setParameter('user', $user);
     }
 
-    return $qb->getQuery()->getResult();
+    return $qb->getQuery();
   }
 
   /**
@@ -102,5 +111,21 @@ class BygningRepository extends EntityRepository {
    */
   private function hasFullAccess($user) {
     return $user && $user->hasRole('ROLE_SUPER_ADMIN');
+  }
+
+  /**
+   * Get all Magistrat names
+   *
+   * @return Result
+   */
+  public function getAllMagistratNames() {
+    $qb = $this->_em->createQueryBuilder();
+    $qb->select('b.magistrat')
+      ->from('AppBundle:Bygning', 'b')
+      ->where('b.magistrat IS NOT NULL')
+      ->distinct()
+      ->orderBy('b.magistrat');
+
+    return $qb->getQuery()->getResult();
   }
 }
