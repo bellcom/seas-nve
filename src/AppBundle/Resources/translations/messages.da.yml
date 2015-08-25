@@ -395,6 +395,7 @@ appbundle:
     ejerforhold: Ejerforhold
     ansvarlig: Ansvarlig
     magistrat: Magistrat
+    segment: Segment
     lokation: Lokation
     lokationsnavn: Lokationsnavn
     lederbetegnelse: Lederbetegnelse
@@ -479,6 +480,13 @@ appbundle:
     laanRente: Rente på lån
     laanLoebetid: Løbetid på lån
     elena: Elena
+  segment:
+    add: Opret Segment
+    edit: Rediger Segment
+    navn: Navn
+    plural: Segmenter
+    forkortelse: Magistrat Forkortelse
+    magistrat: Magistrat
   specialtiltag:
     kommentar: Kommentar
     filepath: Uploadet fil

@@ -60,6 +60,7 @@ class BygningType extends AbstractType {
       ->add('ejerforhold')
       ->add('ansvarlig')
       ->add('magistrat')
+      ->add('segment')
       ->add('lokation')
       ->add('lokationsnavn')
       ->add('lederbetegnelse')

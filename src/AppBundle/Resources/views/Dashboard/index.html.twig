@@ -3,22 +3,25 @@
 {% block body %}
 
   {% for route, name in {
-    'bygning' : 'Bygninger',
-    'rapport' : 'Rapporter',
-    'user' : 'Brugere',
-    'solcelle': 'Solceller',
-    'klimaskaerm': 'Klimaskærme',
-    'pumpe': 'Pumper',
-    'forsyningsvaerk': 'Forsyningsværker',
-    'configuration': 'Indstillinger',
-    } %}
+  'bygning' : 'Bygninger',
+  'rapport' : 'Rapporter',
+  'user' : 'Brugere',
+  'solcelle': 'Solceller',
+  'klimaskaerm': 'Klimaskærme',
+  'pumpe': 'Pumper',
+  'forsyningsvaerk': 'Forsyningsværker',
+  'configuration': 'Indstillinger',
+  } %}
     <a href="{{ path(route) }}" class="btn btn-default btn-lg">{{ name | trans }}</a>
   {% endfor %}
 
-  <div class="row">
-    <div class="col-md-6">
+<div class="row">
+  <div class="col-md-6">
 
-      <h2>{{ 'common.your_buildings' | trans }}</h2>
+    <h2>{{ 'common.your_buildings' | trans }}</h2>
+    {% if pagination is empty %}
+    <div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
+    {% else %}
       <form name="search" action="{{ path('bygning') }}" method="get">
         <table class="table table-condensed table-hover">
           <tr>
@@ -39,19 +42,18 @@
                 <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
               </td>
             </tr>
-          {% else %}
-            <tr><td colspan="6"><div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div></td></tr>
           {% endfor %}
         </table>
       </form>
+    {% endif %}
 
-      <div class="row">
-        <div class="col-md-12">
-          {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
-        </div>
+    <div class="row">
+      <div class="col-md-12">
+        {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
       </div>
-
     </div>
+
   </div>
+</div>
 
 {% endblock %}
