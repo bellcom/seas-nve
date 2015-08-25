@@ -54,9 +54,12 @@ class BygningController extends BaseController implements InitControllerInterfac
     $search['adresse'] = $request->get('term_adresse');
     $search['postnummer'] = $request->get('term_postnummer');
     $search['postBy'] = $request->get('term_postBy');
+    $search['magistrat'] = $request->get('term_magistrat');
 
     $user = $this->get('security.context')->getToken()->getUser();
     $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
+
+    $magistrater = $em->getRepository('AppBundle:Bygning')->getAllMagistratNames();
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
@@ -65,7 +68,7 @@ class BygningController extends BaseController implements InitControllerInterfac
       20
     );
 
-    return $this->render('AppBundle:Bygning:index.html.twig', array('pagination' => $pagination, 'search' => $search));
+    return $this->render('AppBundle:Bygning:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'magistrater' => $magistrater));
   }
 
 

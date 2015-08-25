@@ -15,37 +15,43 @@
     <a href="{{ path(route) }}" class="btn btn-default btn-lg">{{ name | trans }}</a>
   {% endfor %}
 
-  <h2>{{ 'common.your_buildings' | trans }}</h2>
-
-  <form name="search" action="{{ path('bygning') }}" method="get">
-    <table class="table table-condensed table-hover">
-      <tr>
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.updatedAt'|trans, 'b.updatedAt') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.updatedBy'|trans, 'b.updatedBy') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
-        <th></th>
-      </tr>
-      {% for bygning in pagination %}
-        <tr>
-          <td>{{ bygning.navn }}</td>
-          <td>{{ bygning.updatedAt | date('F j, Y H:i') }}</td>
-          <td>{{ bygning.updatedBy }}</td>
-          <td>{{ bygning.postBy }}</td>
-          <td>
-            <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
-            <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-          </td>
-        </tr>
-      {% else %}
-        <tr><td colspan="6"><div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div></td></tr>
-      {% endfor %}
-    </table>
-  </form>
-
   <div class="row">
-    <div class="col-md-12">
-      {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
+    <div class="col-md-6">
+
+      <h2>{{ 'common.your_buildings' | trans }}</h2>
+      <form name="search" action="{{ path('bygning') }}" method="get">
+        <table class="table table-condensed table-hover">
+          <tr>
+            <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.updatedAt'|trans, 'b.updatedAt') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.updatedBy'|trans, 'b.updatedBy') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
+            <th></th>
+          </tr>
+          {% for bygning in pagination %}
+            <tr>
+              <td>{{ bygning.navn }}</td>
+              <td>{{ bygning.updatedAt | date('F j, Y H:i') }}</td>
+              <td>{{ bygning.updatedBy }}</td>
+              <td>{{ bygning.postBy }}</td>
+              <td>
+                <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+                <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+              </td>
+            </tr>
+          {% else %}
+            <tr><td colspan="6"><div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div></td></tr>
+          {% endfor %}
+        </table>
+      </form>
+
+      <div class="row">
+        <div class="col-md-12">
+          {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
+        </div>
+      </div>
+
     </div>
   </div>
+
 {% endblock %}

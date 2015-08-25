@@ -86,6 +86,15 @@ class BygningRepository extends EntityRepository {
         ->setParameter('postnummer', $search['postnummer']);
     }
 
+    if(!empty($search['magistrat'])) {
+      if($search['magistrat'] == 'empty') {
+        $qb->andWhere('b.magistrat IS NULL');
+      } else {
+        $qb->andWhere('b.magistrat = :magistrat')
+          ->setParameter('magistrat', $search['magistrat']);
+      }
+    }
+
     if (!$this->hasFullAccess($user)) {
       $qb->andWhere(':user MEMBER OF b.users');
       $qb->setParameter('user', $user);
@@ -102,5 +111,21 @@ class BygningRepository extends EntityRepository {
    */
   private function hasFullAccess($user) {
     return $user && $user->hasRole('ROLE_SUPER_ADMIN');
+  }
+
+  /**
+   * Get all Magistrat names
+   *
+   * @return Result
+   */
+  public function getAllMagistratNames() {
+    $qb = $this->_em->createQueryBuilder();
+    $qb->select('b.magistrat')
+      ->from('AppBundle:Bygning', 'b')
+      ->where('b.magistrat IS NOT NULL')
+      ->distinct()
+      ->orderBy('b.magistrat');
+
+    return $qb->getQuery()->getResult();
   }
 }

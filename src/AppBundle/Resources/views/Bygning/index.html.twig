@@ -1,24 +1,22 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body %}
-  <div class="row">
-    <div class="col-md-4">
-      <h1>
-        {{ 'bygninger.labels.plural' | trans }}
-        {% if search['is_search'] %}
-          : {{ 'common.a_search' | trans }}
-        {% endif %}
-      </h1>
-    </div>
-    <div class="col-md-8 right">
-        <a href="{{ path('bygning_new') }}" class="btn btn-default">
-          {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
-        </a>
+  <form name="search" id="search" action="{{ path('bygning') }}" method="get">
+    <div class="row">
+      <div class="col-md-9">
+        <h1>
+          {{ 'bygninger.labels.plural' | trans }}
+          {% if search['is_search'] %}
+            : {{ 'common.a_search' | trans }}
+          {% endif %}
+        </h1>
+      </div>
+      <div class="col-md-3 right">
+
+      </div>
+
     </div>
 
-  </div>
-
-  <form name="search" action="{{ path('bygning') }}" method="get">
     <table class="table table-condensed table-hover">
       <tr>
         <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
@@ -26,6 +24,7 @@
         <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
         <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
         <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.magistrat'|trans, 'b.divisionnavn') }}</th>
         <th></th>
       </tr>
       <tr>
@@ -42,7 +41,16 @@
           <input type="text" name="term_postnummer" class="form-control input-sm" placeholder="{{ 'appbundle.bygning.postnummer'|trans }}" size="4" value="{{ search['postnummer'] }}"/>
         </th>
         <th>
-          <input type="text" name="term_postBy" class="form-control input-sm" placeholder="{{ 'appbundle.bygning.postBy'|trans }}" value="{{ search['postBy'] }}"/>
+          <input type="text" name="term_postBy" class="form-control input-sm" placeholder="{{ 'appbundle.bygning.postBy'|trans }}" size="8" value="{{ search['postBy'] }}"/>
+        </th>
+        <th>
+          <select name="term_magistrat" form="search" class="form-control">
+            <option value="">[ {{ 'common.all' | trans }} ]</option>
+            <option value="{{ 'empty' | trans }}">[ {{ 'common.empty' | trans }} ]</option>
+            {% for magistrat in magistrater %}
+              <option value="{{ magistrat['magistrat'] }}">{{ magistrat['magistrat'] }}</option>
+            {% endfor %}
+          </select>
         </th>
         <th>
           <input type="hidden" name="is_search" value="true"/>
@@ -56,6 +64,7 @@
           <td>{{ bygning.adresse }}</td>
           <td>{{ bygning.postnummer }}</td>
           <td>{{ bygning.postBy }}</td>
+          <td>{{ bygning.magistrat }}</td>
           <td>
             <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
             <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
@@ -68,7 +77,12 @@
   </form>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
+      <a href="{{ path('bygning_new') }}" class="btn btn-default">
+        {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
+      </a>
+    </div>
+    <div class="col-md-8 right">
       {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
     </div>
   </div>
