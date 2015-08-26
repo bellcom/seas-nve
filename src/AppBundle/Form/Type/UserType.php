@@ -20,6 +20,8 @@ class UserType extends AbstractType
             ->add('email')
             ->add('phone')
             ->add('bygninger')
+            ->add('segmenter')
+            ->add('groups')
         ;
     }
 

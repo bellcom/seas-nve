@@ -387,6 +387,7 @@ class Bygning {
    **/
   protected $segment;
 
+
   public function __construct() {
     $this->rapporter = new ArrayCollection();
     $this->users = new ArrayCollection();

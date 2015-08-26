@@ -656,6 +656,7 @@ appbundle:
     bygninger: Bygninger
     locked: Låst
     email: Email
+    segmenter: Segmentansvarlig for:
 
   energiforsyning:
     navn: Navn

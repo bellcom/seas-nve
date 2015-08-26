@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * Segment
@@ -47,6 +49,13 @@ class Segment
    * @OneToMany(targetEntity="Bygning", mappedBy="segment")
    **/
   protected $bygninger;
+
+  /**
+   * @ManyToOne(targetEntity="User", inversedBy="segmenter", fetch="EAGER")
+   * @JoinColumn(name="user_id", referencedColumnName="id")
+   **/
+  protected $segmentAnsvarlig;
+
 
   public function __construct() {
     $this->bygninger = new ArrayCollection();
@@ -178,4 +187,28 @@ class Segment
   {
     return $this->bygninger;
   }
+
+    /**
+     * Set segmentAnsvarlig
+     *
+     * @param \AppBundle\Entity\User $segmentAnsvarlig
+     *
+     * @return Segment
+     */
+    public function setSegmentAnsvarlig(\AppBundle\Entity\User $segmentAnsvarlig = null)
+    {
+        $this->segmentAnsvarlig = $segmentAnsvarlig;
+
+        return $this;
+    }
+
+    /**
+     * Get segmentAnsvarlig
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getSegmentAnsvarlig()
+    {
+        return $this->segmentAnsvarlig;
+    }
 }
