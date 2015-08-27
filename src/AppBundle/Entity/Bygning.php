@@ -49,6 +49,13 @@ class Bygning {
   protected $id;
 
   /**
+   * @var string
+   *
+   * @ORM\Column(name="status_id", type="string", length=255)
+   */
+  protected $statusId;
+
+  /**
    * @var integer
    *
    * @ORM\Column(name="BygId", type="integer", nullable=true)
@@ -431,6 +438,27 @@ class Bygning {
    */
   public function getBygId() {
     return $this->bygId;
+  }
+
+  /**
+   * Set statusId
+   *
+   * @param string $statusId
+   * @return BelysningTiltagDetail
+   */
+  public function setStatusId($statusId) {
+    $this->statusId = $statusId;
+
+    return $this;
+  }
+
+  /**
+   * Get statusId
+   *
+   * @return string
+   */
+  public function getStatusId() {
+    return $this->statusId;
   }
 
   /**

@@ -412,6 +412,7 @@ appbundle:
     createdAt: Oprettet
     updatedBy: Opdateret af
     createdBy: Oprettet af
+    status.id: Status
   pumpe:
     nuvaerendeType: Nuværende Type
     byggemaal: Byggemål
