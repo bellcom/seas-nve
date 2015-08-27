@@ -4,58 +4,42 @@
   {% spaceless %}
     {% set help_text = id|get_help %}
 
-      <span class="help-block">{{ help_text }}</span>
+    {% if help_text is not empty %}
+    <span class="help-block">{{ help_text }}</span>
+    {% endif %}
 
   {% endspaceless %}
 {% endblock form_help %}
 
 
-{% block form_row2 %}
+{% block choice_widget_options %}
   {% spaceless %}
-    {% set style = style|default(bootstrap_get_style()) %}
-    {% set col_size = col_size|default(bootstrap_get_col_size()) %}
-
-    {% if attr.label_col is defined and attr.label_col is not empty %}
-      {% set label_col = attr.label_col %}
-    {% endif %}
-    {% if attr.widget_col is defined and attr.widget_col is not empty %}
-      {% set widget_col = attr.widget_col %}
-      {% if label is sameas(false) and label_col is defined %}
-        {% set widget_col = widget_col + label_col %}
-      {% endif %}
-    {% endif %}
-    {% if attr.col_size is defined and attr.col_size is not empty %}
-      {% set col_size = attr.col_size %}
-    {% endif %}
-    {% if attr.style is defined and attr.style is not empty %}
-      {% set style = attr.style %}
-    {% endif %}
-
-    {% set label_col = label_col|default(bootstrap_get_label_col()) %}
-    {% set widget_col = widget_col|default(bootstrap_get_widget_col()) %}
-
-    <div class="col-md-6">
-    <div class="form-group{% if form.vars.errors|length > 0 %} has-error{% endif %}">
-      {% if style == 'horizontal' %}
-        {{ form_label(form) }}
-        <div class="col-{{ col_size }}-{{ widget_col }}">
-          {{ block('form_input_group') }}
-          {{ block('form_help') }}
-          {{ form_errors(form) }}
-        </div>
+    {% for group_label, choice in options %}
+      {% if choice is iterable %}
+        <optgroup label="{{ group_label }}">
+          {% set options = choice %}
+          {{ block('choice_widget_options') }}
+        </optgroup>
       {% else %}
-        {{ form_label(form) }}
-        {{ block('form_input_group') }}
-        {{ block('form_help') }}
-        {{ form_errors(form) }}
+        <option value="{{ choice.value }}"{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice.label }}</option>
       {% endif %}
-    </div>
-    </div>
-
-    {% if style == 'inline' %}&nbsp;{% endif %}
+    {% endfor %}
   {% endspaceless %}
-{% endblock form_row2 %}
+{% endblock choice_widget_options %}
 
+{% block choice_widget_expanded %}
+  {% spaceless %}
+    <div {{ block('widget_container_attributes') }} class="row">
+      {% for child in form %}
+        {% if multiple %}
+          {{ checkbox_row(child, { 'no_form_group': true, 'inline' : (attr.inline is defined and attr.inline), 'label_attr': label_attr }) }}
+        {% else %}
+          {{ radio_row(child, { 'no_form_group': true, 'inline' : (attr.inline is defined and attr.inline), 'label_attr': label_attr  }) }}
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endspaceless %}
+{% endblock choice_widget_expanded %}
 
 {% block checkbox_row %}
   {% spaceless %}
@@ -90,8 +74,8 @@
     {% set widget_col = widget_col|default(bootstrap_get_widget_col()) %}
 
     {% if style == 'horizontal' %}
-      {{ form_label(form) }}
-      <div class="col-{{ col_size }}-{{ widget_col }}">
+      {# {{ form_label(form) }} #}
+      {# <div class="col-{{ col_size }}-{{ widget_col }}"> #}
     {% endif %}
 
     {%set checkboxdata %}
@@ -110,7 +94,7 @@
     {% endif %}
             <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
             {{ block('checkbox_widget') }}
-            {{ id|get_trans }}
+            {{ label }}
             </label>
         {% else %}
       {{ block('checkbox_widget') }}
@@ -121,7 +105,7 @@
     {% if inline is defined and inline %}
       {{ checkboxdata|raw }}
     {% else%}
-      <div class="checkbox">{{ checkboxdata|raw }}</div>
+      <div class="checkbox horizontal col-sm-6 col-md-4 col-lg-3">{{ checkboxdata|raw }}</div>
     {% endif %}
 
     {{ block('form_help') }}
@@ -136,7 +120,7 @@
     {% if style == 'inline' %}&nbsp;{% endif %}
 
     {% if style == 'horizontal' %}
-        </div>
+       {# </div> #}
     {%  endif %}
   {% endspaceless %}
 {% endblock checkbox_row %}

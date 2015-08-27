@@ -39,21 +39,21 @@ class RapportType extends AbstractType {
       ->add('BaselineEl', null, array(
         'attr' => array(
           'input_group' => array(
-            'append' => '﻿kwh/år'
+            'append' => 'kwh/år'
           )
         )
       ))
       ->add('BaselineVarmeGUF', null, array(
         'attr' => array(
           'input_group' => array(
-            'append' => '﻿kwh/år'
+            'append' => 'kwh/år'
           )
         )
       ))
       ->add('BaselineVarmeGAF', null, array(
         'attr' => array(
           'input_group' => array(
-            'append' => '﻿kwh/år'
+            'append' => 'kwh/år'
           )
         )
       ))
@@ -67,15 +67,15 @@ class RapportType extends AbstractType {
       ->add('BaselineStrafAfkoeling', null, array(
         'attr' => array(
           'input_group' => array(
-            'append' => 'kr/år'
+            'append' => 'kr./år'
           )
         )
       ))
-      ->add('faktorPaaVarmebesparelse')
+      ->add('faktorPaaVarmebesparelse', 'percent')
       ->add('Energiscreening', null, array(
         'attr' => array(
           'input_group' => array(
-            'append' => 'Kr.'
+            'append' => 'kr.'
           )
         )
       ))
@@ -83,7 +83,13 @@ class RapportType extends AbstractType {
       ->add('elena');
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-      $builder->add('laanLoebetid');
+      $builder->add('laanLoebetid', null, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'år'
+          )
+        )
+      ));
     }
   }
 

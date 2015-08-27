@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Segment;
-use AppBundle\Form\SegmentType;
+use AppBundle\Form\Type\SegmentType;
 use Yavin\Symfony\Controller\InitControllerInterface;
 
 /**

@@ -72,7 +72,7 @@ class BygningType extends AbstractType {
       ->add('elNotat')
       ->add('varmeNotat')
       ->add('forsyningsvaerkVand')
-      ->add('users');
+      ->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
   }
 
   /**

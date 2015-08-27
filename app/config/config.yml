@@ -135,6 +135,8 @@ simple_things_entity_audit:
         - AppBundle\Entity\SpecialTiltagDetail
         - AppBundle\Entity\TekniskIsoleringTiltag
         - AppBundle\Entity\TekniskIsoleringTiltagDetail
+        - AppBundle\Entity\Tiltag
+        - AppBundle\Entity\TiltagDetail
         - AppBundle\Entity\Segment
 
 white_october_breadcrumbs:

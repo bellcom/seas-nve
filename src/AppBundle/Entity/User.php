@@ -105,9 +105,10 @@ class User extends BaseUser {
    *
    * @return User
    */
-  public function addBygninger(\AppBundle\Entity\Bygning $bygninger)
+  public function addBygninger(\AppBundle\Entity\Bygning $bygning)
   {
-    $this->bygninger[] = $bygninger;
+    $this->bygninger[] = $bygning;
+    $bygning->addUser($this);
 
     return $this;
   }
@@ -117,9 +118,10 @@ class User extends BaseUser {
    *
    * @param \AppBundle\Entity\Bygning $bygninger
    */
-  public function removeBygninger(\AppBundle\Entity\Bygning $bygninger)
+  public function removeBygninger(\AppBundle\Entity\Bygning $bygning)
   {
-    $this->bygninger->removeElement($bygninger);
+    $this->bygninger->removeElement($bygning);
+    $bygning->removeUser($this);
   }
 
   /**
@@ -194,14 +196,6 @@ class User extends BaseUser {
     return $this->phone;
   }
 
-  /**
-   * Set segmenter
-   */
-  public function setSegmenter(\Doctrine\Common\Collections\Collection $segmenter) {
-    $this->segmenter = $segmenter;
-
-    return $this;
-  }
 
   /**
    * Add segmenter
@@ -213,6 +207,7 @@ class User extends BaseUser {
   public function addSegmenter(\AppBundle\Entity\Segment $segment)
   {
     $this->segmenter[] = $segment;
+    $segment->setSegmentAnsvarlig($this);
 
     return $this;
   }
@@ -222,9 +217,10 @@ class User extends BaseUser {
    *
    * @param \AppBundle\Entity\Segment $segmenter
    */
-  public function removeSegmenter(\Doctrine\Common\Collections\Collection $segment)
+  public function removeSegmenter(\AppBundle\Entity\Segment $segment)
   {
     $this->segmenter->removeElement($segment);
+    $segment->removeSegmentAnsvarlig();
   }
 
   /**
@@ -235,5 +231,14 @@ class User extends BaseUser {
   public function getSegmenter()
   {
     return $this->segmenter;
+  }
+
+  /**
+   * Get Name
+   *
+   * @return string
+   */
+  public function __toString() {
+    return $this->getFirstname().' '.$this->getLastname();
   }
 }
