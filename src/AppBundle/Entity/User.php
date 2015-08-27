@@ -6,6 +6,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints as RollerworksPassword;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * @ORM\Entity
@@ -59,6 +60,19 @@ class User extends BaseUser {
    */
   protected $groups;
 
+  /**
+   * @OneToMany(targetEntity="Segment", mappedBy="segmentAnsvarlig")
+   **/
+  protected $segmenter;
+
+
+  public function __construct() {
+    parent::__construct();
+    $this->groups = new ArrayCollection();
+    $this->bygninger = new ArrayCollection();
+    $this->segmenter = new ArrayCollection();
+  }
+
   public function setGroups(ArrayCollection $groups) {
     $this->groups = $groups;
 
@@ -70,7 +84,11 @@ class User extends BaseUser {
    */
   protected $bygninger;
 
-  public function setBygninger($bygninger) {
+
+  /**
+   * Set bygninger
+   */
+  public function setBygninger(\Doctrine\Common\Collections\Collection $bygninger) {
     $this->bygninger = $bygninger;
 
     return $this;
@@ -80,12 +98,6 @@ class User extends BaseUser {
     return $this->bygninger;
   }
 
-  public function __construct() {
-    parent::__construct();
-    $this->groups = new ArrayCollection();
-    $this->bygninger = new ArrayCollection();
-  }
-
   /**
    * Add bygninger
    *
@@ -93,9 +105,10 @@ class User extends BaseUser {
    *
    * @return User
    */
-  public function addBygninger(\AppBundle\Entity\Bygning $bygninger)
+  public function addBygninger(\AppBundle\Entity\Bygning $bygning)
   {
-    $this->bygninger[] = $bygninger;
+    $this->bygninger[] = $bygning;
+    $bygning->addUser($this);
 
     return $this;
   }
@@ -105,9 +118,10 @@ class User extends BaseUser {
    *
    * @param \AppBundle\Entity\Bygning $bygninger
    */
-  public function removeBygninger(\AppBundle\Entity\Bygning $bygninger)
+  public function removeBygninger(\AppBundle\Entity\Bygning $bygning)
   {
-    $this->bygninger->removeElement($bygninger);
+    $this->bygninger->removeElement($bygning);
+    $bygning->removeUser($this);
   }
 
   /**
@@ -180,5 +194,51 @@ class User extends BaseUser {
   public function getPhone()
   {
     return $this->phone;
+  }
+
+
+  /**
+   * Add segmenter
+   *
+   * @param \AppBundle\Entity\Segment $segmenter
+   *
+   * @return User
+   */
+  public function addSegmenter(\AppBundle\Entity\Segment $segment)
+  {
+    $this->segmenter[] = $segment;
+    $segment->setSegmentAnsvarlig($this);
+
+    return $this;
+  }
+
+  /**
+   * Remove segmenter
+   *
+   * @param \AppBundle\Entity\Segment $segmenter
+   */
+  public function removeSegmenter(\AppBundle\Entity\Segment $segment)
+  {
+    $this->segmenter->removeElement($segment);
+    $segment->removeSegmentAnsvarlig();
+  }
+
+  /**
+   * Get segmenter
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getSegmenter()
+  {
+    return $this->segmenter;
+  }
+
+  /**
+   * Get Name
+   *
+   * @return string
+   */
+  public function __toString() {
+    return $this->getFirstname().' '.$this->getLastname();
   }
 }

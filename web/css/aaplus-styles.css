@@ -8,10 +8,6 @@
     margin: 10% auto 0 auto;
 }
 
-.login--form .form-group {
-    margin-bottom: 15px;
-}
-
 .login--links {
     margin-top: 2em;
 }
@@ -40,10 +36,6 @@ form.inline-block {
     .container {
         width: 95%;
     }
-}
-
-.form-group {
-    margin-bottom: 0px;
 }
 
 /**
@@ -448,4 +440,13 @@ form .alert ul {
 	margin-right: 1em;
 	vertical-align: middle;
 	border-radius: 100%;
+}
+
+.checkbox.horizontal, .radio.horizontal {
+    margin-top: 10px;
+}
+
+.form-horizontal .checkbox.horizontal , .form-horizontal .radio.horizontal {
+    margin-top: 0px;
+    margin-left: 15px;
 }

@@ -1,0 +1,26 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Segment</h1>
+
+    <table class="table table-condensed">
+        <tbody>
+            <tr>
+                <th>{{ 'appbundle.segment.navn' | trans }}</th>
+                <td>{{ entity.navn }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'appbundle.segment.forkortelse' | trans }}</th>
+                <td>{{ entity.forkortelse }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'appbundle.segment.magistrat' | trans }}</th>
+                <td>{{ entity.magistrat }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('segment_edit', { 'id': entity.id }) }}"  class="btn btn-default">
+        {{ 'common.edit' | trans }}
+    </a>
+{% endblock %}

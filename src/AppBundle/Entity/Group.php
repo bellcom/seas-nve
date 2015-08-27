@@ -16,4 +16,13 @@ class Group extends BaseGroup {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
+
+  /**
+   * Get Name
+   *
+   * @return string
+   */
+  public function __toString() {
+    return $this->getName();
+  }
 }

@@ -19,7 +19,7 @@ class UserController extends BaseController
 {
   public function init(Request $request) {
     parent::init($request);
-    $this->breadcrumbs->addItem('Brugere', $this->generateUrl('user'));
+    $this->breadcrumbs->addItem('user.labels.plural', $this->generateUrl('user'));
   }
 
   /**
@@ -105,6 +105,7 @@ class UserController extends BaseController
   {
     $entity = new User();
     $form   = $this->createCreateForm($entity);
+    $this->breadcrumbs->addItem('user.actions.create', $this->generateUrl('user_new'));
 
     return array(
       'entity' => $entity,

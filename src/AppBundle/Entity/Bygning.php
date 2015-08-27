@@ -9,7 +9,9 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -378,6 +380,13 @@ class Bygning {
    * @JMS\Exclude
    **/
   protected $users;
+
+  /**
+   * @ManyToOne(targetEntity="Segment", inversedBy="bygninger", fetch="EAGER")
+   * @JoinColumn(name="segment_id", referencedColumnName="id")
+   **/
+  protected $segment;
+
 
   public function __construct() {
     $this->rapporter = new ArrayCollection();
@@ -1439,5 +1448,29 @@ class Bygning {
   public function removeUser(\AppBundle\Entity\User $user)
   {
     $this->users->removeElement($user);
+  }
+
+  /**
+   * Set segment
+   *
+   * @param \AppBundle\Entity\Segment $segment
+   *
+   * @return Bygning
+   */
+  public function setSegment(\AppBundle\Entity\Segment $segment = null)
+  {
+    $this->segment = $segment;
+
+    return $this;
+  }
+
+  /**
+   * Get segment
+   *
+   * @return \AppBundle\Entity\Segment
+   */
+  public function getSegment()
+  {
+    return $this->segment;
   }
 }
