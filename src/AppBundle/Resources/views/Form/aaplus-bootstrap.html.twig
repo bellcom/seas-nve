@@ -5,7 +5,7 @@
     {% set help_text = id|get_help %}
 
     {% if help_text is not empty %}
-    <span class="help-block">{{ help_text }}</span>
+      <span class="help-block">{{ help_text }}</span>
     {% endif %}
 
   {% endspaceless %}
@@ -74,8 +74,9 @@
     {% set widget_col = widget_col|default(bootstrap_get_widget_col()) %}
 
     {% if style == 'horizontal' %}
-      {# {{ form_label(form) }} #}
-      {# <div class="col-{{ col_size }}-{{ widget_col }}"> #}
+      {{ form_label(form) }}
+      <div class="col-{{ col_size }}-{{ widget_col }}">
+      {{ dump() }}
     {% endif %}
 
     {%set checkboxdata %}
@@ -120,7 +121,7 @@
     {% if style == 'inline' %}&nbsp;{% endif %}
 
     {% if style == 'horizontal' %}
-       {# </div> #}
+       </div>
     {%  endif %}
   {% endspaceless %}
 {% endblock checkbox_row %}
