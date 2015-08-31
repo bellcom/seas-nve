@@ -49,13 +49,6 @@ class Bygning {
   protected $id;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="status_id", type="string", length=255, nullable=true)
-   */
-  protected $statusId;
-
-  /**
    * @var integer
    *
    * @ORM\Column(name="BygId", type="integer", nullable=true)
@@ -393,6 +386,12 @@ class Bygning {
    * @JoinColumn(name="segment_id", referencedColumnName="id")
    **/
   protected $segment;
+
+  /**
+   * @ManyToOne(targetEntity="BygningStatus", fetch="EAGER")
+   * @JoinColumn(name="status_id", referencedColumnName="id")
+   **/
+  protected $status;
 
 
   public function __construct() {
@@ -1500,5 +1499,29 @@ class Bygning {
   public function getSegment()
   {
     return $this->segment;
+  }
+
+  /**
+   * Set status
+   *
+   * @param \AppBundle\Entity\BygningStatus status
+   *
+   * @return Bygning
+   */
+  public function setStatus(\AppBundle\Entity\BygningStatus $status = null)
+  {
+    $this->status = $status;
+
+    return $this;
+  }
+
+  /**
+   * Get segment
+   *
+   * @return \AppBundle\Entity\BygningStatus
+   */
+  public function getStatus()
+  {
+    return $this->status;
   }
 }

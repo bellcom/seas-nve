@@ -1,85 +1,72 @@
 <?php
-/**
- * @file
- */
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
- * The Bygnings Status class.
+ * Bygningstatus
  *
+ * @ORM\Table()
  */
-class BygningStatus {
+class BygningStatus
+{
   /**
-   * The id.
+   * @var integer
    *
-   * @var string
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
    */
-  protected $id;
+  private $id;
 
   /**
-   * The name.
-   *
    * @var string
+   *
+   * @ORM\Column(name="Navn", type="string", length=255)
    */
-  protected $name;
+  private $navn;
+
+  public function __construct() {
+
+  }
 
   /**
-   * Get id.
+   * Get id
    *
-   * @return string
-   *   The id.
+   * @return integer
    */
-  public function getId() {
+  public function getId()
+  {
     return $this->id;
   }
 
   /**
-   * Set name.
+   * Set navn
    *
-   * @param string $name
-   *   The name.
+   * @param string $navn
    *
-   * @return Placering
-   *   The placering.
+   * @return Bygningstatus
    */
-  public function setName($name) {
-    $this->name = $name;
+  public function setNavn($navn)
+  {
+    $this->navn = $navn;
 
     return $this;
   }
 
   /**
-   * Get name.
+   * Get navn
    *
    * @return string
-   *   The name.
    */
-  public function getName() {
-    return $this->name;
-  }
-
-  /**
-   * Construct a new Placering.
-   *
-   * @param int $id
-   *   The id.
-   * @param string $name
-   *   The name.
-   */
-  public function __construct($id, $name) {
-    $this->id = $id;
-    $this->setName($name);
-  }
-
-  /**
-   * Convert to string.
-   *
-   * @return string
-   *   The string.
-   */
-  public function __toString() {
-    return $this->name;
+  public function getNavn()
+  {
+    return $this->navn;
   }
 
 }

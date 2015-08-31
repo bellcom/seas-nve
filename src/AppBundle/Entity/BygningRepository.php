@@ -86,13 +86,14 @@ class BygningRepository extends EntityRepository {
         ->setParameter('postnummer', $search['postnummer']);
     }
 
-    if(!empty($search['magistrat'])) {
-      if($search['magistrat'] == 'empty') {
-        $qb->andWhere('b.magistrat IS NULL');
-      } else {
-        $qb->andWhere('b.magistrat = :magistrat')
-          ->setParameter('magistrat', $search['magistrat']);
-      }
+    if(!empty($search['status_id'])) {
+      $qb->andWhere('b.statusId = :statusId')
+        ->setParameter('statusId', $search['status_id']);
+    }
+
+    if(!empty($search['segment'])) {
+      $qb->andWhere('b.segment = :segment')
+        ->setParameter('segment', $search['segment']);
     }
 
     if (!$this->hasFullAccess($user)) {

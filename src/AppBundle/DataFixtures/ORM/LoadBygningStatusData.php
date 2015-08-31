@@ -6,9 +6,8 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
-use AppBundle\Entity\Segment;
+use AppBundle\Entity\BygningStatus;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Collections\ArrayCollection;
 use Ddeboer\DataImport\Writer\CallbackWriter;
 
 use AppBundle\Entity\User;
@@ -17,18 +16,16 @@ use AppBundle\Entity\User;
  * Class LoadUserData
  * @package AppBundle\DataFixtures\ORM
  */
-class LoadSegmentData extends LoadData {
-  protected $order = 14;
+class LoadBygningStatusData extends LoadData {
+  protected $order = 13;
   protected $flush = true;
 
   protected function createWriter(ObjectManager $manager) {
     return new CallbackWriter(function($item) use ($manager) {
-      $segment = new Segment();
+      $status = new Bygningstatus();
 
-      $segment->setNavn($item['navn'])
-        ->setMagistrat($item['magistrat'])
-        ->setForkortelse($item['forkortelse']);
-      $manager->persist($segment);
+      $status->setNavn($item['navn']);
+      $manager->persist($status);
     });
   }
 }
