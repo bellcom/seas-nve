@@ -568,7 +568,7 @@ appbundle:
     breddeM: Bredde (m)
     antalStk: Antal (stk)
     arealM2: Areal (m²)
-    andelAfArealDerEfterisoleres: Andel af areal der efterisoleres
+    andelAfArealDerEfterisoleres: Andel af areal der efterisoleres (%)
     uEksWM2K: U_eks (W/m²K)
     uNyWM2K: U_ny (W/m²K)
     tIndeC: T_inde (°C)
@@ -577,7 +577,6 @@ appbundle:
     yderligereBesparelserPct: Yderligere besparelser (%)
     besparelseKWhAar: Besparelse (kWh/år)
     samletBesparelseKWhAarInklDelbesparelser: Samlet Besparelse (kWh/år) inkl. delbesparelser
-    priskategori: Priskategori
     prisfaktor: Prisfaktor
     delprisKrM2: Delpris (kr/m2)
     samletInvesteringKr: Samlet investering (kr)

@@ -154,7 +154,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="besparelseDriftOgVedligeholdelse", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="besparelseDriftOgVedligeholdelse", type="float", nullable=true)
    */
   protected $besparelseDriftOgVedligeholdelse;
 
@@ -162,7 +162,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="besparelseStrafafkoelingsafgift", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="besparelseStrafafkoelingsafgift", type="float", nullable=true)
    */
   protected $besparelseStrafafkoelingsafgift;
 

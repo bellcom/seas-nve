@@ -41,13 +41,13 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ->add('hoejdeElLaengdeM')
       ->add('breddeM')
       ->add('antalStk')
-      ->add('andelAfArealDerEfterisoleres')
+      ->add('andelAfArealDerEfterisoleres', 'percent')
       ->add('uEksWM2K')
       ->add('uNyWM2K')
       ->add('tIndeC')
       ->add('tUdeC')
       ->add('tOpvarmningTimerAar')
-      ->add('yderligereBesparelserPct')
+      ->add('yderligereBesparelserPct', 'percent')
       ->add('prisfaktor')
       ->add('noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet', null, array(
         'required' => false,

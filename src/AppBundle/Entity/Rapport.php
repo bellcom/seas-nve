@@ -77,7 +77,7 @@ class Rapport {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="BaselineEl", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineEl", type="float", nullable=true)
    */
   protected $BaselineEl;
 
@@ -85,7 +85,7 @@ class Rapport {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="BaselineVarmeGUF", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineVarmeGUF", type="float", nullable=true)
    */
   protected $BaselineVarmeGUF;
 
@@ -93,7 +93,7 @@ class Rapport {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="BaselineVarmeGAF", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineVarmeGAF", type="float", nullable=true)
    */
   protected $BaselineVarmeGAF;
 
@@ -101,7 +101,7 @@ class Rapport {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="BaselineVand", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineVand", type="float", nullable=true)
    */
   protected $BaselineVand;
 
@@ -109,7 +109,7 @@ class Rapport {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="BaselineStrafAfkoeling", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineStrafAfkoeling", type="float", nullable=true)
    */
   protected $BaselineStrafAfkoeling;
 
