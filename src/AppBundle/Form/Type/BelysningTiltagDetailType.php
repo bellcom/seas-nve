@@ -143,7 +143,7 @@ class BelysningTiltagDetailType extends TiltagDetailType {
         )
       ))
       ->add('nyttiggjortVarmeAfElBesparelse', 'percent')
-      // ->add('prisfaktor', null, array( 'disabled' => true, ))
+      ->add('prisfaktor')
       // ->add('prisfaktorTillaegKrLokale', null, array( 'disabled' => true, ))
       // ->add('investeringAlleLokalerKr', null, array( 'disabled' => true, ))
       // ->add('nytElforbrugWM2', null, array( 'disabled' => true, ))
