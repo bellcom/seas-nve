@@ -131,7 +131,7 @@ class Klimaskaerm {
   }
 
   public function __toString() {
-    return $this->klimaskaerm ? $this->post . ', ' . $this->klimaskaerm : $this->post;
+    return $this->post . ': ' . $this->klimaskaerm . ($this->arbejdeOmfang ? ' – ' . $this->arbejdeOmfang : '');
   }
 
 }
