@@ -30,7 +30,6 @@ class TekniskIsoleringTiltagDetailType extends TiltagDetailType {
       ->add('driftstidTAar')
       ->add('udvDiameterMm')
       ->add('eksistIsolMm')
-      ->add('roerstoerrelseMmAekvivalent')
       ->add('tankVolL')
       ->add('tempOmgivelC')
       ->add('tempMedieC')
