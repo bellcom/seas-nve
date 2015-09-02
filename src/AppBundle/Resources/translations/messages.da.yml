@@ -568,7 +568,7 @@ appbundle:
     breddeM: Bredde (m)
     antalStk: Antal (stk)
     arealM2: Areal (m²)
-    andelAfArealDerEfterisoleres: Andel af areal der efterisoleres
+    andelAfArealDerEfterisoleres: Andel af areal der efterisoleres (%)
     uEksWM2K: U_eks (W/m²K)
     uNyWM2K: U_ny (W/m²K)
     tIndeC: T_inde (°C)
