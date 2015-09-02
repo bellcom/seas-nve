@@ -357,6 +357,17 @@ class LoadExcelRapport extends LoadData {
     $data = $sheet->rangeToArray('A2:F100', null, false, false, true);
     $data = $this->getCalculatedCells($data, $sheet);
 
+    // Copy previous 'klimaskaerm' value down when not specfied.
+    $currentValue = NULL;
+    foreach ($data as &$row) {
+      if ($row['B']) {
+        $currentValue = $row['B'];
+      }
+      else if ($currentValue) {
+        $row['B'] = $currentValue;
+      }
+    }
+
     foreach ($data as $rowId => $row) {
       $values = $row;
 
