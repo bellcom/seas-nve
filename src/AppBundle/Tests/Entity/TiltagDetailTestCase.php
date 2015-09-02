@@ -27,6 +27,13 @@ abstract class TiltagDetailTestCase extends EntityTestCase {
           $detail = new $detailClassName();
           $detail->setTiltag($tiltag);
 
+          if ($tiltag->getForsyningVarme()) {
+            $tiltag->getForsyningVarme()->calculate();
+          }
+          if ($tiltag->getForsyningEl()) {
+            $tiltag->getForsyningEl()->calculate();
+          }
+
           $this->setProperties($detail, $properties)
             ->calculate();
 
