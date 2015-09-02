@@ -2,8 +2,6 @@
 
 {% block body %}
 
-  {{ form(form) }}
-
     <div class="row">
       <div class="col-md-9">
         <h1>
@@ -18,7 +16,8 @@
       </div>
 
     </div>
-
+  {{ form_start(form) }}
+  {{ form_errors(form) }}
     <table class="table table-condensed table-hover">
       <tr>
         <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
@@ -31,6 +30,17 @@
         <th></th>
       </tr>
 
+      <tr class="search">
+        <th>{{ form_row(form.bygId) }}</th>
+        <th>{{ form_row(form.navn) }}</th>
+        <th>{{ form_row(form.adresse) }}</th>
+        <th>{{ form_row(form.postnummer) }}</th>
+        <th>{{ form_row(form.postBy) }}</th>
+        <th>{{ form_row(form.segment) }}</th>
+        <th>{{ form_row(form.status) }}</th>
+        <th>{{ form_row(form.Søg) }}</th>
+      </tr>
+
       {% for bygning in pagination %}
         <tr>
           <td>{{ bygning.bygId }}</td>
@@ -39,16 +49,16 @@
           <td>{{ bygning.postnummer }}</td>
           <td>{{ bygning.postBy }}</td>
           <td>{{ bygning.segment }}</td>
-          <td>{{ bygning.statusId }}</td>
+          <td>{{ bygning.status }}</td>
           <td>
-            <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
             <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
           </td>
         </tr>
       {% else %}
-        <tr><td colspan="6"><div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div></td></tr>
+        <tr><td colspan="8"><div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div></td></tr>
       {% endfor %}
     </table>
+  {{ form_end(form) }}
 
 
   <div class="row">

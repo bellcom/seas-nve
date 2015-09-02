@@ -86,9 +86,9 @@ class BygningRepository extends EntityRepository {
         ->setParameter('postnummer', $search['postnummer']);
     }
 
-    if(!empty($search['status_id'])) {
-      $qb->andWhere('b.statusId = :statusId')
-        ->setParameter('statusId', $search['status_id']);
+    if(!empty($search['status'])) {
+      $qb->andWhere('b.status = :status')
+        ->setParameter('status', $search['status']);
     }
 
     if(!empty($search['segment'])) {

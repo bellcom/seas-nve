@@ -440,27 +440,6 @@ class Bygning {
   }
 
   /**
-   * Set statusId
-   *
-   * @param string $statusId
-   * @return BelysningTiltagDetail
-   */
-  public function setStatusId($statusId) {
-    $this->statusId = $statusId;
-
-    return $this;
-  }
-
-  /**
-   * Get statusId
-   *
-   * @return string
-   */
-  public function getStatusId() {
-    return $this->statusId;
-  }
-
-  /**
    * Set ident
    *
    * @param integer $ident

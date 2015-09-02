@@ -74,9 +74,8 @@
     {% set widget_col = widget_col|default(bootstrap_get_widget_col()) %}
 
     {% if style == 'horizontal' %}
-      {{ form_label(form) }}
+      {# {{ form_label(form) }} #}
       <div class="col-{{ col_size }}-{{ widget_col }}">
-      {{ dump() }}
     {% endif %}
 
     {%set checkboxdata %}

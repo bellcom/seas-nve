@@ -73,10 +73,7 @@ class BygningType extends AbstractType {
       ->add('elNotat')
       ->add('varmeNotat')
       ->add('forsyningsvaerkVand')
-      ->add('status_id', 'choice', array(
-        'choices' => (new BygningStatusRepository())->loadChoiceList(),
-        'choices_as_values' => true
-      ))
+      ->add('status')
       ->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
   }
 

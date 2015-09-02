@@ -9,6 +9,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Form\Type\BygningStatusRepository;
 
 /**
  * Class BygningType
@@ -25,16 +26,13 @@ class BygningSearchType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('bygId')
-      ->add('navn')
-      ->add('adresse')
-      ->add('postnummer')
-      ->add('postBy')
-      ->add('segment')
-      ->add('status_id', 'choice', array(
-        'choices' => (new BygningStatusRepository())->loadChoiceList(),
-        'choices_as_values' => true
-      ))
+      ->add('bygId', 'text', array('label' => false, 'max_length' => 4, 'attr' => array('size' => '4')))
+      ->add('navn', null, array('label' => false))
+      ->add('adresse', null, array('label' => false))
+      ->add('postnummer', null, array('label' => false, 'max_length' => 4, 'attr' => array('size' => '4')))
+      ->add('postBy', null, array('label' => false))
+      ->add('segment', null, array('label' => false))
+      ->add('status', null, array('label' => false))
       ->add('Søg', 'submit');
   }
 
@@ -57,6 +55,6 @@ class BygningSearchType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'appbundle_bygning';
+    return 'bygning';
   }
 }

@@ -3,15 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToMany;
-use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Bygningstatus
+ * BygningStatus
  *
  * @ORM\Table()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\BygningStatusRepository")
  */
 class BygningStatus
 {
@@ -27,12 +24,18 @@ class BygningStatus
   /**
    * @var string
    *
-   * @ORM\Column(name="Navn", type="string", length=255)
+   * @ORM\Column(name="navn", type="string", length=255)
    */
   private $navn;
 
-  public function __construct() {
 
+  /**
+   * Get Name
+   *
+   * @return string
+   */
+  public function __toString() {
+    return $this->getNavn();
   }
 
   /**
@@ -50,7 +53,7 @@ class BygningStatus
    *
    * @param string $navn
    *
-   * @return Bygningstatus
+   * @return BygningStatus
    */
   public function setNavn($navn)
   {
@@ -68,5 +71,5 @@ class BygningStatus
   {
     return $this->navn;
   }
-
 }
+

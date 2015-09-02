@@ -24,14 +24,14 @@ class User extends BaseUser {
   /**
    * @var string
    *
-   * @ORM\Column(name="firstname", type="string", length=10, nullable=true)
+   * @ORM\Column(name="firstname", type="string", length=20, nullable=true)
    */
   private $firstname;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="lastname", type="string", length=10, nullable=true)
+   * @ORM\Column(name="lastname", type="string", length=30, nullable=true)
    */
   private $lastname;
 
@@ -71,6 +71,7 @@ class User extends BaseUser {
     $this->groups = new ArrayCollection();
     $this->bygninger = new ArrayCollection();
     $this->segmenter = new ArrayCollection();
+    $this->username = 'username';
   }
 
   public function setGroups(ArrayCollection $groups) {
@@ -240,5 +241,31 @@ class User extends BaseUser {
    */
   public function __toString() {
     return $this->getFirstname().' '.$this->getLastname();
+  }
+
+  /**
+   * Sets the email.
+   *
+   * @param string $email
+   * @return User
+   */
+  public function setEmail($email)
+  {
+    $this->setUsername($email);
+
+    return parent::setEmail($email);
+  }
+
+  /**
+   * Set the canonical email.
+   *
+   * @param string $emailCanonical
+   * @return User
+   */
+  public function setEmailCanonical($emailCanonical)
+  {
+    $this->setUsernameCanonical($emailCanonical);
+
+    return parent::setEmailCanonical($emailCanonical);
   }
 }

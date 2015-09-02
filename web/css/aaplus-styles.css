@@ -450,3 +450,11 @@ form .alert ul {
     margin-top: 0px;
     margin-left: 15px;
 }
+
+tr.search {
+    background-color: #f5f5f5;
+}
+
+tr.search .form-group {
+    margin-bottom: 0;
+}

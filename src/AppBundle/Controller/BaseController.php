@@ -20,7 +20,7 @@ abstract class BaseController extends Controller implements InitControllerInterf
   public function init(Request $request)
   {
     $this->breadcrumbs = $this->get('white_october_breadcrumbs');
-    $this->breadcrumbs->addItem('Dashboard', $this->get('router')->generate('dashboard'));
+    $this->breadcrumbs->addItem('common.forside', $this->get('router')->generate('dashboard'));
   }
 
   /**

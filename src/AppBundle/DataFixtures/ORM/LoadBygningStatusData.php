@@ -17,7 +17,7 @@ use AppBundle\Entity\User;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadBygningStatusData extends LoadData {
-  protected $order = 13;
+  protected $order = 1;
   protected $flush = true;
 
   protected function createWriter(ObjectManager $manager) {
@@ -25,6 +25,7 @@ class LoadBygningStatusData extends LoadData {
       $status = new Bygningstatus();
 
       $status->setNavn($item['navn']);
+      $this->addReference('bygningstatus_'.$item['id'], $status);
       $manager->persist($status);
     });
   }

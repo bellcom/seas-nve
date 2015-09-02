@@ -60,7 +60,7 @@ class BygningController extends BaseController implements InitControllerInterfac
     $search['postnummer'] = $entity->getPostnummer();
     $search['postBy'] = $entity->getPostBy();
     $search['segment'] = $entity->getSegment();
-    $search['status_id'] = $entity->getStatusId();
+    $search['status'] = $entity->getStatus();
 
     $user = $this->get('security.context')->getToken()->getUser();
     $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
