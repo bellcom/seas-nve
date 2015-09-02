@@ -577,7 +577,6 @@ appbundle:
     yderligereBesparelserPct: Yderligere besparelser (%)
     besparelseKWhAar: Besparelse (kWh/år)
     samletBesparelseKWhAarInklDelbesparelser: Samlet Besparelse (kWh/år) inkl. delbesparelser
-    priskategori: Priskategori
     prisfaktor: Prisfaktor
     delprisKrM2: Delpris (kr/m2)
     samletInvesteringKr: Samlet investering (kr)

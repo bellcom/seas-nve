@@ -149,12 +149,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   protected $besparelseKWhAar;
 
   /**
-   * @var string
-   * @ORM\Column(name="priskategori", type="string")
-   */
-  protected $priskategori;
-
-  /**
    * @var float
    *
    * @Calculated
@@ -542,28 +536,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    */
   public function getBesparelseKWhAar() {
     return $this->besparelseKWhAar;
-  }
-
-  /**
-   * Set priskategori
-   *
-   * @param string $priskategori
-   * 
-   * @return \AppBundle\Entity\KlimaskaermTiltagDetail
-   */
-  public function setPriskategori($priskategori) {
-    $this->priskategori = $priskategori;
-
-    return $this;
-  }
-
-  /**
-   * Get priskategori
-   *
-   * @return string
-   */
-  public function getPriskategori() {
-    return $this->priskategori;
   }
 
   /**
