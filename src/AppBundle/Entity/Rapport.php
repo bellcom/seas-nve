@@ -77,39 +77,66 @@ class Rapport {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="BaselineEl", type="float", nullable=true)
+   * @ORM\Column(name="besparelseVarmeGUF", type="float", scale=4, nullable=true)
+   */
+  protected $besparelseVarmeGUF;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="besparelseVarmeGAF", type="float", nullable=true)
+   */
+  protected $besparelseVarmeGAF;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="besparelseCO2", type="float", nullable=true)
+   */
+  protected $besparelseCO2;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="besparelseEl", type="float", nullable=true)
+   */
+  protected $besparelseEl;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="BaselineEl", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineEl;
 
   /**
    * @var float
    *
-   * @Calculated
-   * @ORM\Column(name="BaselineVarmeGUF", type="float", nullable=true)
+   * @ORM\Column(name="BaselineVarmeGUF", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineVarmeGUF;
 
   /**
    * @var float
    *
-   * @Calculated
-   * @ORM\Column(name="BaselineVarmeGAF", type="float", nullable=true)
+   * @ORM\Column(name="BaselineVarmeGAF", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineVarmeGAF;
 
   /**
    * @var float
    *
-   * @Calculated
-   * @ORM\Column(name="BaselineVand", type="float", nullable=true)
+   * @ORM\Column(name="BaselineVand", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineVand;
 
   /**
    * @var float
    *
-   * @Calculated
-   * @ORM\Column(name="BaselineStrafAfkoeling", type="float", nullable=true)
+   * @ORM\Column(name="BaselineStrafAfkoeling", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineStrafAfkoeling;
 
@@ -364,6 +391,46 @@ class Rapport {
     return $this->getTiltag()->filter(function($tiltag) {
       return $tiltag->getTilvalgt();
     });
+  }
+
+  /**
+   * Get besparelseVarmeGUF
+   *
+   * @return float
+   */
+  public function getBesparelseVarmeGUF()
+  {
+    return $this->besparelseVarmeGUF;
+  }
+
+  /**
+   * Get besparelseVarmeGAF
+   *
+   * @return float
+   */
+  public function getBesparelseVarmeGAF()
+  {
+    return $this->besparelseVarmeGAF;
+  }
+
+  /**
+   * Get besparelseCO2
+   *
+   * @return float
+   */
+  public function getBesparelseCO2()
+  {
+    return $this->besparelseCO2;
+  }
+
+  /**
+   * Get besparelseEl
+   *
+   * @return float
+   */
+  public function getBesparelseEl()
+  {
+    return $this->besparelseEl;
   }
 
   /**
@@ -830,8 +897,10 @@ class Rapport {
   }
 
   public function calculate() {
-    $this->BaselineVarmeGUF = $this->calculateBaselineVarmeGUF();
-    $this->BaselineVarmeGAF = $this->calculateBaselineVarmeGAF();
+    $this->besparelseVarmeGUF = $this->calculateBesparelseVarmeGUF();
+    $this->besparelseVarmeGAF = $this->calculateBesparelseVarmeGAF();
+    $this->besparelseCO2 = $this->calculateBesparelseCO2();
+    $this->besparelseEl = $this->calculateBesparelseEl();
 
     $this->mtmFaellesomkostninger = $this->calculateMtmFaellesomkostninger();
     $this->implementering = $this->calculateImplementering();
@@ -840,7 +909,7 @@ class Rapport {
     $this->cashFlow = $this->calculateCashFlow();
   }
 
-  private function calculateBaselineVarmeGUF() {
+  private function calculateBesparelseVarmeGUF() {
     $value = 0;
     foreach ($this->tiltag as $tiltag) {
       $value += $tiltag->getVarmebesparelseGUF();
@@ -848,10 +917,26 @@ class Rapport {
     return $value;
   }
 
-  private function calculateBaselineVarmeGAF() {
+  private function calculateBesparelseVarmeGAF() {
     $value = 0;
     foreach ($this->tiltag as $tiltag) {
       $value += $tiltag->getVarmebesparelseGAF();
+    }
+    return $value;
+  }
+
+  private function calculateBesparelseCO2() {
+    $value = 0;
+    foreach ($this->tiltag as $tiltag) {
+      $value += $tiltag->getSamletCo2besparelse();
+    }
+    return $value;
+  }
+
+  private function calculateBesparelseEl() {
+    $value = 0;
+    foreach ($this->tiltag as $tiltag) {
+      $value += $tiltag->getSamletEnergibesparelse();
     }
     return $value;
   }
