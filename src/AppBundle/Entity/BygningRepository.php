@@ -139,6 +139,13 @@ class BygningRepository extends EntityRepository {
     return $qb->getQuery();
   }
 
+  /**
+   * @param \AppBundle\Entity\User $user
+   * @param \AppBundle\Entity\BygningStatus $status
+   * @return mixed
+   * @throws \Doctrine\ORM\NoResultException
+   * @throws \Doctrine\ORM\NonUniqueResultException
+   */
   public function getSummaryByUserAndStatus(User $user, BygningStatus $status) {
     $qb = $this->_em->createQueryBuilder();
 

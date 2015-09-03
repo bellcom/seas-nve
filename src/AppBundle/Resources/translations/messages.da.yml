@@ -50,6 +50,15 @@ common:
   finished_buildings: Indsendt til Aa+
   summary: Opsummering
 
+dashboard:
+  current: Igangværende
+  finished: Afleverede
+  totalareal: Areal
+  besparelseEl: El Besparelse
+  besparelseVarmeGUF: GUF Besparelse
+  besparelseVarmeGAF: GAF Besparelse
+  besparelseCO2: CO2 Besparelse
+
 footer:
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
   adresse: Grøndalsvej 2, 8260 Viby J
@@ -65,6 +74,7 @@ rapporter:
     add: Tilføj Rapport
     edit: Rediger Rapport
     create: Opret Rapport
+    show: Vis Rapport
   strings:
     belysningtiltag: Belysning
     klimaskaermtiltag: Klimaskærm
@@ -92,6 +102,7 @@ bygninger:
     add: Tilføj Bygning
     edit: Rediger Bygning
     create: Opret Bygning
+    show: Vis Bygning
   strings:
     ingen: Ingen bygninger fundet
 

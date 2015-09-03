@@ -12,13 +12,17 @@
       {% for rapport in entity.rapporter %}
         <p><a href="{{ path('rapport_show', { 'id': rapport.id }) }}" class="btn btn-default">{{ icon('file') }}  Ver. {{ rapport.version }} - {{ rapport.datering|date("d/m/Y") }}</a></p>
       {% endfor %}
+      {% if is_granted('ROLE_RAPPORT_CREATE') %}
       <p><a href="{{ path('bygning_rapport_new', { 'id': entity.id }) }}" class="btn btn-default">{{ icon('plus') }} Ny Rapport</a></p>
+      {% endif %}
     </div>
     <div class="col-md-1 right">
       <p>
+        {% if is_granted('ROLE_BYGNING_EDIT') %}
         <a href="{{ path('bygning_edit', { 'id': entity.id }) }}" class="btn btn-success">
           {{ 'common.edit' | trans }}
         </a>
+        {% endif %}
       </p>
     </div>
 

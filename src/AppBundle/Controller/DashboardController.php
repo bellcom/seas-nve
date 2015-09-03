@@ -44,8 +44,8 @@ class DashboardController extends BaseController {
       $status_current = $em->getRepository('AppBundle:BygningStatus')->findOneBy(array('navn' => 'Tilknyttet Rådgiver'));
       $status_finished = $em->getRepository('AppBundle:BygningStatus')->findOneBy(array('navn' => 'Afleveret af Rådgiver'));
 
-      $current_buildings_q = $em->getRepository('AppBundle:Bygning')->getByUserAndStatus($user, $status_current);
-      $finished_buildings_q = $em->getRepository('AppBundle:Bygning')->getByUserAndStatus($user, $status_finished);
+      $current_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, $status_current);
+      $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, $status_finished);
 
       $paginator = $this->get('knp_paginator');
 
@@ -61,9 +61,10 @@ class DashboardController extends BaseController {
         10
       );
 
-      $totalareal = $em->getRepository('AppBundle:Bygning')->getSummaryByUserAndStatus($user, $status_current);
+      $summary_current = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, $status_current);
+      $summary_finished = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, $status_finished);
 
-      return $this->render('AppBundle:Dashboard:editor.html.twig', array('current_buildings' => $current_buildings, 'finished_buildings' => $finished_buildings, 'totalareal' => $totalareal['totalareal']));
+      return $this->render('AppBundle:Dashboard:editor.html.twig', array('current_buildings' => $current_buildings, 'finished_buildings' => $finished_buildings, 'summary_current' => $summary_current, 'summary_finished' => $summary_finished));
 
     } else {
 
