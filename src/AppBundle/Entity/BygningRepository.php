@@ -114,19 +114,44 @@ class BygningRepository extends EntityRepository {
     return $user && $user->hasRole('ROLE_SUPER_ADMIN');
   }
 
-  /**
-   * Get all Magistrat names
-   *
-   * @return Result
-   */
-  public function getAllMagistratNames() {
-    $qb = $this->_em->createQueryBuilder();
-    $qb->select('b.magistrat')
-      ->from('AppBundle:Bygning', 'b')
-      ->where('b.magistrat IS NOT NULL')
-      ->distinct()
-      ->orderBy('b.magistrat');
 
-    return $qb->getQuery()->getResult();
+  /**
+   * Search for buildings with specific status and user
+   *
+   * @param \AppBundle\Entity\User $user
+   * @param \AppBundle\Entity\BygningStatus $status
+   * @return \Doctrine\ORM\Query
+   */
+  public function getByUserAndStatus(User $user, BygningStatus $status) {
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('b')
+      ->from('AppBundle:Bygning', 'b');
+
+    $qb->where('b.status = :status')->setParameter('status', $status);
+    $qb->orderBy('b.updatedAt', 'DESC');
+
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF b.users');
+      $qb->setParameter('user', $user);
+    }
+
+    return $qb->getQuery();
+  }
+
+  public function getSummaryByUserAndStatus(User $user, BygningStatus $status) {
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('SUM(b.bruttoetageareal AS totalareal')
+      ->from('AppBundle:Bygning', 'b');
+
+    $qb->where('b.status = :status')->setParameter('status', $status);
+
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF b.users');
+      $qb->setParameter('user', $user);
+    }
+
+    return $qb->getQuery()->getSingleResult();
   }
 }

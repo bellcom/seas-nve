@@ -10,6 +10,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\Type\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+
 /**
  * User controller.
  *
@@ -56,20 +57,22 @@ class UserController extends BaseController
    */
   public function createAction(Request $request)
   {
-    $entity = new User();
-    $form = $this->createCreateForm($entity);
+    $userManager = $this->get('fos_user.user_manager');
+
+    $user = $userManager->createUser();
+    $user->setEnabled(true);
+
+    $form = $this->createCreateForm($user);
     $form->handleRequest($request);
 
     if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($entity);
-      $em->flush();
+      $userManager->updateUser($user);
 
-      return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+      return $this->redirect($this->generateUrl('user'));
     }
 
     return array(
-      'entity' => $entity,
+      'entity' => $user,
       'form'   => $form->createView(),
     );
   }
