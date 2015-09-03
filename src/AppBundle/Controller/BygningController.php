@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\BygningType;
+use AppBundle\Form\Type\BygningSearchType;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
 use Yavin\Symfony\Controller\InitControllerInterface;
@@ -44,22 +45,25 @@ class BygningController extends BaseController implements InitControllerInterfac
       $this->breadcrumbs->addItem('Søg', $this->generateUrl('bygning'));
     }
 
+    $entity = new Bygning();
+    $form = $this->createSearchForm($entity);
+    $form->handleRequest($request);
+
     $em = $this->getDoctrine()->getManager();
 
     $search = array();
 
     $search['is_search'] = $request->get('is_search');
-    $search['bygId'] = $request->get('term_bygId');
-    $search['navn'] = $request->get('term_navn');
-    $search['adresse'] = $request->get('term_adresse');
-    $search['postnummer'] = $request->get('term_postnummer');
-    $search['postBy'] = $request->get('term_postBy');
-    $search['magistrat'] = $request->get('term_magistrat');
+    $search['bygId'] = $entity->getBygId();
+    $search['navn'] = $entity->getNavn();
+    $search['adresse'] = $entity->getAdresse();
+    $search['postnummer'] = $entity->getPostnummer();
+    $search['postBy'] = $entity->getPostBy();
+    $search['segment'] = $entity->getSegment();
+    $search['status'] = $entity->getStatus();
 
     $user = $this->get('security.context')->getToken()->getUser();
     $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
-
-    $magistrater = $em->getRepository('AppBundle:Bygning')->getAllMagistratNames();
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
@@ -68,7 +72,23 @@ class BygningController extends BaseController implements InitControllerInterfac
       20
     );
 
-    return $this->render('AppBundle:Bygning:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'magistrater' => $magistrater));
+    return $this->render('AppBundle:Bygning:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'form' => $form->createView()));
+  }
+
+  /**
+   * Creates a form to search Bygning entities.
+   *
+   * @param Bygning $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createSearchForm(Bygning $entity) {
+    $form = $this->createForm(new BygningSearchType(), $entity, array(
+      'action' => $this->generateUrl('bygning'),
+      'method' => 'GET',
+    ));
+
+    return $form;
   }
 
 

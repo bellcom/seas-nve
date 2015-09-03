@@ -5,7 +5,7 @@
     {% set help_text = id|get_help %}
 
     {% if help_text is not empty %}
-    <span class="help-block">{{ help_text }}</span>
+      <span class="help-block">{{ help_text }}</span>
     {% endif %}
 
   {% endspaceless %}
@@ -75,7 +75,7 @@
 
     {% if style == 'horizontal' %}
       {# {{ form_label(form) }} #}
-      {# <div class="col-{{ col_size }}-{{ widget_col }}"> #}
+      <div class="col-{{ col_size }}-{{ widget_col }}">
     {% endif %}
 
     {%set checkboxdata %}
@@ -120,7 +120,7 @@
     {% if style == 'inline' %}&nbsp;{% endif %}
 
     {% if style == 'horizontal' %}
-       {# </div> #}
+       </div>
     {%  endif %}
   {% endspaceless %}
 {% endblock checkbox_row %}

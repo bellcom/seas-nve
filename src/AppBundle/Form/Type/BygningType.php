@@ -6,6 +6,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\BygningStatusRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -72,6 +73,7 @@ class BygningType extends AbstractType {
       ->add('elNotat')
       ->add('varmeNotat')
       ->add('forsyningsvaerkVand')
+      ->add('status')
       ->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
   }
 

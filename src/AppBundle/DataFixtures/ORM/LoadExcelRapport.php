@@ -37,7 +37,7 @@ use AppBundle\Entity\SpecialTiltagDetail;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadExcelRapport extends LoadData {
-  protected $order = 1;
+  protected $order = 2;
 
   private $manager;
   private $workbook;
@@ -57,8 +57,6 @@ class LoadExcelRapport extends LoadData {
     $basepath = $this->container->get('kernel')
               ->locateResource('@AppBundle/DataFixtures/Data/');
     foreach (glob($basepath . '*.xlsm') as $filepath) {
-      $this->clearEntityReferences();
-
       $this->name = basename($filepath, '.xlsm');
 
       $reader = \PHPExcel_IOFactory::createReaderForFile($filepath);
@@ -76,6 +74,8 @@ class LoadExcelRapport extends LoadData {
       $this->loadBygning();
       $this->loadKlimaskaerm();
       $this->loadRapport();
+
+      $this->clearEntityReferences();
     }
     $this->done($manager);
   }
@@ -346,6 +346,7 @@ class LoadExcelRapport extends LoadData {
       ), $values);
 
       $this->setEntityReference('bygning', $bygning->getEnhedsys(), $bygning);
+      $bygning->setStatus($this->getReference('bygningstatus_1'));
 
       $this->persist($bygning);
     }

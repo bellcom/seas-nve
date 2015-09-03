@@ -59,4 +59,20 @@ class RapportRepository extends EntityRepository {
   private function hasFullAccess($user) {
     return $user && $user->hasRole('ROLE_SUPER_ADMIN');
   }
+
+  public function getSummaryByUserAndStatus(User $user, BygningStatus $status) {
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('SUM(b.bruttoetageareal AS totalareal')
+      ->from('AppBundle:Bygning', 'b');
+
+    $qb->where('b.status = :status')->setParameter('status', $status);
+
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF b.users');
+      $qb->setParameter('user', $user);
+    }
+
+    return $qb->getQuery()->getSingleResult();
+  }
 }

@@ -387,6 +387,12 @@ class Bygning {
    **/
   protected $segment;
 
+  /**
+   * @ManyToOne(targetEntity="BygningStatus", fetch="EAGER")
+   * @JoinColumn(name="status_id", referencedColumnName="id")
+   **/
+  protected $status;
+
 
   public function __construct() {
     $this->rapporter = new ArrayCollection();
@@ -1472,5 +1478,29 @@ class Bygning {
   public function getSegment()
   {
     return $this->segment;
+  }
+
+  /**
+   * Set status
+   *
+   * @param \AppBundle\Entity\BygningStatus status
+   *
+   * @return Bygning
+   */
+  public function setStatus(\AppBundle\Entity\BygningStatus $status = null)
+  {
+    $this->status = $status;
+
+    return $this;
+  }
+
+  /**
+   * Get segment
+   *
+   * @return \AppBundle\Entity\BygningStatus
+   */
+  public function getStatus()
+  {
+    return $this->status;
   }
 }

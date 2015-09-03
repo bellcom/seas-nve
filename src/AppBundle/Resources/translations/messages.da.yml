@@ -2,7 +2,7 @@ fos:
   user:
     profile:
       form:
-        username: Brugernavn
+        username: Email
         email: Email
         firstname: Fornavn
         lastname: Efternavn
@@ -23,6 +23,10 @@ fos:
             first: Indtast nyt kodeord
             second: Gentag kodeord
 
+security:
+  login:
+    username: Email
+
 Update: Opdater
 Edit: Rediger
 Show: Vis
@@ -31,6 +35,7 @@ Cancel: Annuller
 Update: Opdater
 
 common:
+  forside: Forside
   all: Alle
   edit: Rediger
   empty: Blank
@@ -41,6 +46,9 @@ common:
   search: Søg
   a_search: Søgning
   your_buildings: Dine bygninger
+  current_buildings: Igangværende bygninger
+  finished_buildings: Indsendt til Aa+
+  summary: Opsummering
 
 footer:
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
@@ -412,6 +420,7 @@ appbundle:
     createdAt: Oprettet
     updatedBy: Opdateret af
     createdBy: Oprettet af
+    status: Status
   pumpe:
     nuvaerendeType: Nuværende Type
     byggemaal: Byggemål
@@ -657,6 +666,8 @@ appbundle:
     email: Email
     segmenter: Segmentansvarlig for:
     groups: Grupper
+    password: Kodeord
+    plainpassword: Kodeord
 
   energiforsyning:
     navn: Navn
