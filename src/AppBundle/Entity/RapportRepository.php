@@ -15,6 +15,35 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class RapportRepository extends EntityRepository {
+
+
+  /**
+   * Find all Bygning that a User has access to
+   *
+   * @param User $user
+   * @param bool $returnQuery
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function findByUser(User $user, $returnQuery = false, $onlyOwnBuildings = false) {
+    if ($this->hasFullAccess($user) && !$onlyOwnBuildings) {
+      $query = $this->_em->createQuery("SELECT r FROM AppBundle:Rapport r");
+    } else {
+      $qb = $this->_em->createQueryBuilder();
+
+      $qb->select('r', 'b');
+      $qb->from('AppBundle:Rapport', 'r');
+      $qb->leftJoin('r.bygning', 'b');
+
+      $qb->orderBy('b.updatedAt', 'DESC');
+
+      $qb->where(':user MEMBER OF b.users');
+      $qb->setParameter('user', $user);
+      $query = $qb->getQuery();
+    }
+
+    return $returnQuery ? $query : $query->getResult();
+  }
+
   /**
    * Get the Pumpetiltag for the rapport
    *
@@ -60,11 +89,51 @@ class RapportRepository extends EntityRepository {
     return $user && $user->hasRole('ROLE_SUPER_ADMIN');
   }
 
+  /**
+   * Search for buildings with specific status and user
+   *
+   * @param \AppBundle\Entity\User $user
+   * @param \AppBundle\Entity\BygningStatus $status
+   * @return \Doctrine\ORM\Query
+   */
+  public function getByUserAndStatus(User $user, BygningStatus $status) {
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('r', 'b');
+    $qb->from('AppBundle:Rapport', 'r');
+    $qb->leftJoin('r.bygning', 'b');
+
+
+    $qb->where('b.status = :status')->setParameter('status', $status);
+    $qb->orderBy('b.updatedAt', 'DESC');
+
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF b.users');
+      $qb->setParameter('user', $user);
+    }
+
+    return $qb->getQuery();
+  }
+
+  /**
+   * @param \AppBundle\Entity\User $user
+   * @param \AppBundle\Entity\BygningStatus $status
+   * @return mixed
+   * @throws \Doctrine\ORM\NoResultException
+   * @throws \Doctrine\ORM\NonUniqueResultException
+   */
   public function getSummaryByUserAndStatus(User $user, BygningStatus $status) {
     $qb = $this->_em->createQueryBuilder();
 
-    $qb->select('SUM(b.bruttoetageareal AS totalareal')
-      ->from('AppBundle:Bygning', 'b');
+    $qb->select('r', 'b');
+    $qb->from('AppBundle:Rapport', 'r');
+    $qb->leftJoin('r.bygning', 'b');
+
+    $qb->addSelect('SUM(b.bruttoetageareal AS totalareal');
+    $qb->addSelect('SUM(r.besparelseEl AS besparelseEl');
+    $qb->addSelect('SUM(r.besparelseVarmeGUF AS besparelseVarmeGUF');
+    $qb->addSelect('SUM(r.besparelseVarmeGAF AS besparelseVarmeGAF');
+    $qb->addSelect('SUM(r.besparelseCO2 AS besparelseCO2');
 
     $qb->where('b.status = :status')->setParameter('status', $status);
 

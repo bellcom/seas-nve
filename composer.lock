@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a77ba11ccb90d7196b5bb0402a61a0c8",
+    "hash": "7b212bf099bfea0d00fc42d600ce7fb9",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1149,16 +1149,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "336d9cd8ba0c5a462b3e70be144a7bef5377b219"
+                "reference": "5bc36484f70c9e8e41e4135407a2efbec3500eca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/336d9cd8ba0c5a462b3e70be144a7bef5377b219",
-                "reference": "336d9cd8ba0c5a462b3e70be144a7bef5377b219",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/5bc36484f70c9e8e41e4135407a2efbec3500eca",
+                "reference": "5bc36484f70c9e8e41e4135407a2efbec3500eca",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2",
+                "php": ">=5.3.9",
                 "symfony/form": "~2.3",
                 "symfony/framework-bundle": "~2.3",
                 "symfony/security-bundle": "~2.3",
@@ -1208,19 +1208,19 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2015-08-14 09:45:59"
+            "time": "2015-09-04 07:24:39"
         },
         {
             "name": "gedmo/doctrine-extensions",
             "version": "v2.4.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
+                "url": "git@github.com:Atlantic18/DoctrineExtensions.git",
                 "reference": "5d330411e27ab0ced67e1e5383ccae975c23c17d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/5d330411e27ab0ced67e1e5383ccae975c23c17d",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/211af4ba5201c422ee450be82c7044f090c90e39",
                 "reference": "5d330411e27ab0ced67e1e5383ccae975c23c17d",
                 "shasum": ""
             },
@@ -1691,18 +1691,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "1908c05d0e6a6319fff185f761070fac121c7423"
+                "reference": "29da11f8aef51a70ed5b4e0eb6540197f3336e1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/1908c05d0e6a6319fff185f761070fac121c7423",
-                "reference": "1908c05d0e6a6319fff185f761070fac121c7423",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/29da11f8aef51a70ed5b4e0eb6540197f3336e1a",
+                "reference": "29da11f8aef51a70ed5b4e0eb6540197f3336e1a",
                 "shasum": ""
             },
             "require": {
                 "knplabs/knp-components": "~1.2",
                 "php": ">=5.3.3",
-                "symfony/framework-bundle": "~2.0",
+                "symfony/framework-bundle": "~2.3",
                 "twig/twig": "~1.12"
             },
             "require-dev": {
@@ -1744,7 +1744,7 @@
                 "pagination",
                 "paginator"
             ],
-            "time": "2015-09-02 11:22:29"
+            "time": "2015-09-03 10:17:52"
         },
         {
             "name": "kriswallsmith/assetic",

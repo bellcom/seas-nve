@@ -36,8 +36,9 @@ class RapportController extends BaseController {
    */
   public function indexAction() {
     $em = $this->getDoctrine()->getManager();
+    $user = $this->get('security.context')->getToken()->getUser();
 
-    $entities = $em->getRepository('AppBundle:Rapport')->findAll();
+    $entities = $em->getRepository('AppBundle:Rapport')->findByUser($user);
 
     return array(
       'entities' => $entities,
@@ -75,6 +76,10 @@ class RapportController extends BaseController {
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function editAction(Rapport $rapport) {
+    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport->getVersion(), $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
+
     $editForm = $this->createEditForm($rapport);
     $deleteForm = $this->createDeleteForm($rapport->getId());
 

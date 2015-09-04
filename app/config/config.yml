@@ -32,7 +32,10 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - AppBundle:Form:aaplus-bootstrap.html.twig
-
+    number_format:
+        decimals: 2
+        decimal_point: ','
+        thousands_separator: '.'
 
 # Assetic Configuration
 assetic:

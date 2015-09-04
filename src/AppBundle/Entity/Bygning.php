@@ -405,7 +405,12 @@ class Bygning {
    * @return string
    */
   public function __toString() {
-    return $this->adresse;
+    if (!empty($this->navn)) {
+      return $this->navn;
+    } else {
+      return $this->adresse;
+    }
+
   }
 
 

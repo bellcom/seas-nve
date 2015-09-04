@@ -50,6 +50,15 @@ common:
   finished_buildings: Indsendt til Aa+
   summary: Opsummering
 
+dashboard:
+  current: Igangværende
+  finished: Afleverede
+  totalareal: Areal
+  besparelseEl: El Besparelse
+  besparelseVarmeGUF: GUF Besparelse
+  besparelseVarmeGAF: GAF Besparelse
+  besparelseCO2: CO2 Besparelse
+
 footer:
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
   adresse: Grøndalsvej 2, 8260 Viby J
@@ -65,12 +74,13 @@ rapporter:
     add: Tilføj Rapport
     edit: Rediger Rapport
     create: Opret Rapport
+    show: Vis Rapport
   strings:
     belysningtiltag: Belysning
     klimaskaermtiltag: Klimaskærm
     pumpetiltag: Pumper
     specialtiltag: Special
-    teknisk_isolering: Teknsik isolering
+    tekniskisoleringtiltag: Teknsik isolering
     solcelletiltag: Solcelle
     tiltag: Tiltag
     tilvalgt: Tilvalgt
@@ -92,6 +102,7 @@ bygninger:
     add: Tilføj Bygning
     edit: Rediger Bygning
     create: Opret Bygning
+    show: Vis Bygning
   strings:
     ingen: Ingen bygninger fundet
 
@@ -117,6 +128,7 @@ tiltag:
     oversigt: Oversigt
     forhold: Forhold
     detailark: Detailark
+    regning: Regning
   actions:
     add: Tilføj Tiltag
     edit: Rediger Tiltag
@@ -131,6 +143,11 @@ pumpetiltag:
     add: Tilføj Pumpetiltag
     edit: Rediger Pumpetiltag
     create: Opret Pumpetiltag
+
+belysningtiltag:
+  actions:
+    add: Tilføj belysningstiltag
+    edit: Rediger belysningstiltag
 
 belysningtiltagdetail:
   actions:
@@ -479,9 +496,9 @@ appbundle:
     version: Version
     datering: Dato
     BaselineEl: El
-    BaselineVarmeGUF: Varme GUF
-    BaselineVarmeGAF: Varme GAF
-    varmetotal: ﻿I alt varme
+    BaselineVarmeGUF: Baseline Varme GUF
+    BaselineVarmeGAF: Baseline Varme GAF
+    varmetotal: ﻿I alt baseline varme
     BaselineVand: Vand
     BaselineStrafAfkoeling: Strafafkøling
     faktorPaaVarmebesparelse: Faktor på varmebesparelse
@@ -541,6 +558,7 @@ appbundle:
     tilvalgt: Tilvalgt
 
   tekniskisoleringtiltagdetail:
+    add: Tilføg
     laastAfEnergiraadgiver: Låst af energirådgiver
     beskrivelseType: Beskrivelse (type)
     type: Type

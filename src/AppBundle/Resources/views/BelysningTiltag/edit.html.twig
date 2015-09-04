@@ -3,5 +3,6 @@
 {% block body -%}
   <h1>{{ 'belysningtiltag.actions.edit' | trans }}</h1>
 
+  {% form_theme edit_form 'AppBundle:Form:twocol-form.html.twig' %}
   {{ form(edit_form) }}
 {% endblock %}

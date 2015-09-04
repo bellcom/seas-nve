@@ -12,6 +12,7 @@
 
   {% block stylesheets %}
     <link href="{{ asset('css/lib/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/lib/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/lib/font-awesome.min.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/lib/sticky-footer-navbar.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/aaplus-styles.css') }}" type="text/css" rel="stylesheet" />
@@ -22,7 +23,7 @@
 
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
+  <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
         <span class="sr-only">Toggle navigation</span>
@@ -61,14 +62,14 @@
 
 <!-- Begin page content -->
 
-<div class="container">
+<div class="container-fluid">
   {{ wo_render_breadcrumbs() }}
 
   {% block body %}{% endblock %}
 </div>
 
 <footer class="footer">
-  <div class="container">
+  <div class="container-fluid">
     <p class="text-muted">{{ 'footer.navn' | trans }}, {{ icon('map-marker') }} {{ 'footer.adresse' | trans }} - {{ icon('envelope') }} {{ 'footer.email' | trans }}</p>
   </div>
 </footer>
