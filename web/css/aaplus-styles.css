@@ -458,3 +458,8 @@ tr.search {
 tr.search .form-group {
     margin-bottom: 0;
 }
+
+div.row.heading .btn {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}

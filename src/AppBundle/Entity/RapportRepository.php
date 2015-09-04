@@ -15,6 +15,35 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class RapportRepository extends EntityRepository {
+
+
+  /**
+   * Find all Bygning that a User has access to
+   *
+   * @param User $user
+   * @param bool $returnQuery
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function findByUser(User $user, $returnQuery = false, $onlyOwnBuildings = false) {
+    if ($this->hasFullAccess($user) && !$onlyOwnBuildings) {
+      $query = $this->_em->createQuery("SELECT r FROM AppBundle:Rapport r");
+    } else {
+      $qb = $this->_em->createQueryBuilder();
+
+      $qb->select('r', 'b');
+      $qb->from('AppBundle:Rapport', 'r');
+      $qb->leftJoin('r.bygning', 'b');
+
+      $qb->orderBy('b.updatedAt', 'DESC');
+
+      $qb->where(':user MEMBER OF b.users');
+      $qb->setParameter('user', $user);
+      $query = $qb->getQuery();
+    }
+
+    return $returnQuery ? $query : $query->getResult();
+  }
+
   /**
    * Get the Pumpetiltag for the rapport
    *

@@ -75,6 +75,10 @@ class TiltagController extends BaseController {
    * @Template()
    */
   public function editAction(Tiltag $entity) {
+    $this->breadcrumbs->addItem($entity->getRapport()->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $entity->getRapport()->getBygning()->getId())));
+    $this->breadcrumbs->addItem($entity->getRapport()->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
+    $this->breadcrumbs->addItem($entity->getTitle(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
+
     $editForm = $this->createEditForm($entity);
     $deleteForm = $this->createDeleteForm($entity);
 

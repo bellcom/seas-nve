@@ -23,7 +23,7 @@ class BelysningTiltag extends Tiltag {
     parent::__construct();
 
     // @Todo: Find af way to use the translations system or move this to some place else....
-    $this->setTitle('Belysningstiltag');
+    $this->setTitle('Belysning');
   }
 
   protected function calculateVarmebesparelseGUF() {

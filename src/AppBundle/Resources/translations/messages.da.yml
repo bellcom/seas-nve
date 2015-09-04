@@ -80,7 +80,7 @@ rapporter:
     klimaskaermtiltag: Klimaskærm
     pumpetiltag: Pumper
     specialtiltag: Special
-    teknisk_isolering: Teknsik isolering
+    tekniskisoleringtiltag: Teknsik isolering
     solcelletiltag: Solcelle
     tiltag: Tiltag
     tilvalgt: Tilvalgt
@@ -128,6 +128,7 @@ tiltag:
     oversigt: Oversigt
     forhold: Forhold
     detailark: Detailark
+    regning: Regning
   actions:
     add: Tilføj Tiltag
     edit: Rediger Tiltag
@@ -142,6 +143,11 @@ pumpetiltag:
     add: Tilføj Pumpetiltag
     edit: Rediger Pumpetiltag
     create: Opret Pumpetiltag
+
+belysningtiltag:
+  actions:
+    add: Tilføj belysningstiltag
+    edit: Rediger belysningstiltag
 
 belysningtiltagdetail:
   actions:
@@ -490,9 +496,9 @@ appbundle:
     version: Version
     datering: Dato
     BaselineEl: El
-    BaselineVarmeGUF: Varme GUF
-    BaselineVarmeGAF: Varme GAF
-    varmetotal: ﻿I alt varme
+    BaselineVarmeGUF: Baseline Varme GUF
+    BaselineVarmeGAF: Baseline Varme GAF
+    varmetotal: ﻿I alt baseline varme
     BaselineVand: Vand
     BaselineStrafAfkoeling: Strafafkøling
     faktorPaaVarmebesparelse: Faktor på varmebesparelse
@@ -552,6 +558,7 @@ appbundle:
     tilvalgt: Tilvalgt
 
   tekniskisoleringtiltagdetail:
+    add: Tilføg
     laastAfEnergiraadgiver: Låst af energirådgiver
     beskrivelseType: Beskrivelse (type)
     type: Type
