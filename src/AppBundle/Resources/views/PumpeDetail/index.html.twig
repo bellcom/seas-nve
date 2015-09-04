@@ -1,0 +1,54 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>PumpeDetail list</h1>
+
+  <table class="table table-condensed">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Tilvalgt</th>
+      <th>Pumpeid</th>
+      <th>Forsyningsomraade</th>
+      <th>Placering</th>
+      <th>Applikation</th>
+      <th>Isoleringskappe</th>
+      <th>B_faktor</th>
+      <th>Noter</th>
+      <th>Eksisterendedrifttid</th>
+      <th>Nydrifttid</th>
+      <th>Prisfaktor</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+      <tr>
+        <td><a href="{{ path('pumpedetail_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+        <td>{{ entity.tilvalgt }}</td>
+        <td>{{ entity.pumpeID }}</td>
+        <td>{{ entity.forsyningsomraade }}</td>
+        <td>{{ entity.placering }}</td>
+        <td>{{ entity.applikation }}</td>
+        <td>{{ entity.isoleringskappe }}</td>
+        <td>{{ entity.bfaktor }}</td>
+        <td>{{ entity.noter }}</td>
+        <td>{{ entity.eksisterendeDrifttid }}</td>
+        <td>{{ entity.nyDrifttid }}</td>
+        <td>{{ entity.prisfaktor }}</td>
+        <td>
+          <ul>
+            <li>
+              <a href="{{ path('pumpedetail_show', { 'id': entity.id }) }}">show</a>
+            </li>
+            <li>
+              <a href="{{ path('pumpedetail_edit', { 'id': entity.id }) }}">edit</a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

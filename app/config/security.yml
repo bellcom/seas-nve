@@ -1,12 +1,54 @@
 security:
+    role_hierarchy:
+        ROLE_BYGNING_VIEW:           [ ROLE_USER ]
+        ROLE_BYGNING_EDIT:           [ ROLE_BYGNING_VIEW ]
+        ROLE_BYGNING_CREATE:         [ ROLE_BYGNING_EDIT ]
+        ROLE_RAPPORT_VIEW:           [ ROLE_USER ]
+        ROLE_RAPPORT_EDIT:           [ ROLE_RAPPORT_VIEW ]
+        ROLE_RAPPORT_CREATE:         [ ROLE_RAPPORT_EDIT ]
+        ROLE_CONFIGURATION_VIEW:     [ ROLE_USER ]
+        ROLE_CONFIGURATION_EDIT:     [ ROLE_CONFIGURATION_VIEW ]
+        ROLE_CONFIGURATION_CREATE:   [ ROLE_CONFIGURATION_EDIT ]
+        ROLE_FORSYNINGSVAERK_VIEW:   [ ROLE_USER ]
+        ROLE_FORSYNINGSVAERK_EDIT:   [ ROLE_FORSYNINGSVAERK_VIEW ]
+        ROLE_FORSYNINGSVAERK_CREATE: [ ROLE_FORSYNINGSVAERK_EDIT ]
+        ROLE_SOLCELLE_VIEW:          [ ROLE_USER ]
+        ROLE_SOLCELLE_EDIT:          [ ROLE_SOLCELLE_VIEW ]
+        ROLE_SOLCELLE_CREATE:        [ ROLE_SOLCELLE_EDIT ]
+        ROLE_KLIMASKAERM_VIEW:       [ ROLE_USER ]
+        ROLE_KLIMASKAERM_EDIT:       [ ROLE_KLIMASKAERM_VIEW ]
+        ROLE_KLIMASKAERM_CREATE:     [ ROLE_KLIMASKAERM_EDIT ]
+        ROLE_VIEW:                   [ ROLE_BYGNING_VIEW, ROLE_RAPPORT_VIEW, ROLE_CONFIGURATION_VIEW, ROLE_FORSYNINGSVAERK_VIEW, ROLE_SOLCELLE_VIEW, ROLE_KLIMASKAERM_VIEW ]
+        ROLE_EDIT:                   [ ROLE_VIEW, ROLE_RAPPORT_EDIT, ROLE_CONFIGURATION_EDIT, ROLE_FORSYNINGSVAERK_EDIT, ROLE_SOLCELLE_EDIT, ROLE_KLIMASKAERM_EDIT ]
+        ROLE_CREATE:                 [ ROLE_EDIT, ROLE_BYGNING_CREATE, ROLE_RAPPORT_CREATE, ROLE_CONFIGURATION_CREATE, ROLE_FORSYNINGSVAERK_CREATE, ROLE_SOLCELLE_CREATE, ROLE_KLIMASKAERM_CREATE ]
+        ROLE_ADMIN:                  [ ROLE_CREATE ]
+        ROLE_SUPER_ADMIN:            [ ROLE_ADMIN ]
+
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
     providers:
-        in_memory:
-            memory: ~
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
 
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+            logout:       true
+            anonymous:    true
+
         default:
             anonymous: ~
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: ROLE_USER }

@@ -1,0 +1,135 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-8">
+      <h1>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h1>
+    </div>
+    <div class="col-md-4 right">
+      <a href="{{ path('rapport_edit', { 'id': entity.id }) }}"  class="btn btn-default">
+        {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}
+      </a>
+      <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">{{ icon('industry') }} Energiforsyninger</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-condensed">
+        <tbody>
+        <tr>
+          <th>{{ 'appbundle.rapport.version' | trans }}</th>
+          <td>{{ entity.version }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
+          <td>{{ entity.bygning }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.rapport.datering' | trans }}</th>
+          <td>{{ entity.datering | date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.rapport.elena' | trans }}</th>
+          <td>{{ entity.elena | b2icon }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <table class="table table-condensed">
+        <tbody>
+        <tr>
+          <th>{{ 'appbundle.rapport.BaselineVarmeGUF' | trans }}</th>
+          <td>{{ entity.BaselineVarmeGUF | format_decimal }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.rapport.BaselineVarmeGAF' | trans }}</th>
+          <td>{{ entity.BaselineVarmeGAF | format_decimal }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.rapport.varmetotal' | trans }}</th>
+          <td>{{ entity.totalvarme | format_decimal }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Tilvalgte tiltag</h2>
+
+  {% if entity.tilvalgteTiltag is empty %}
+    <div class="alert alert-info">Ingen tilvagte tiltag</div>
+  {% else %}
+    <table class="table table-condensed">
+      <thead>
+      <tr>
+        <th>{{ 'appbundle.tiltag.title' | trans }}</th>
+        <th>{{ 'appbundle.tiltag.varmebesparelseGUF' | trans }}</th>
+        <th>{{ 'appbundle.tiltag.varmebesparelseGAF' | trans }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for t in entity.tilvalgteTiltag %}
+        <tr>
+          <td>{{ t.title }}</td>
+          <td>{{ t.varmebesparelseGUF | format_decimal }}</td>
+          <td>{{ t.varmebesparelseGAF | format_decimal }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+  <div class="row heading">
+    <div class="col-md-2"><h2>{{ 'tiltag.labels.singular' | trans }}</h2></div>
+    <div class="col-md-10 right">
+
+      {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'solcelle', 'tekniskisolering' ] %}
+        {% if is_missing_tiltag_type(entity.tiltag, type) %}
+          <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': type }) }}" class="inline-block">
+            <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('rapporter.strings.' ~ type ~ 'tiltag') | trans }}</button>
+          </form>
+        {% endif %}
+      {% endfor %}
+
+      <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'special' }) }}" class="inline-block">
+        <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('rapporter.strings.' ~ 'special' ~ 'tiltag') | trans }}</button>
+      </form>
+    </div>
+  </div>
+
+  <div role="tabpanel">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      {% for key, t in entity.tiltag %}
+        <li role="presentation" {% if key == 0 %} class="active" {% endif %}><a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">{{ key + 1 }}. {{ t.title }}</a></li>
+      {% endfor %}
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      {% for key, t in entity.tiltag %}
+        <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
+          <div class="row">
+            <div class="col-md-6">
+              <h3>{{ t.title }}</h3>
+            </div>
+            <div class="col-md-6 right">
+              <a href="{{ path('tiltag_edit', { 'id': t.id }) }}" class="btn btn-default">
+                {{ icon('edit') }} {{ 'common.edit' | trans }}: {{ t.title }}
+              </a>
+              <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
+                {{ icon('list') }} {{ 'rapporter.labels.detailark' | trans }}: {{ t.title }}
+              </a>
+            </div>
+          </div>
+          {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+
+{% endblock %}

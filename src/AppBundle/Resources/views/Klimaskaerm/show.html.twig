@@ -1,0 +1,38 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>{{ icon('file') }} {{ 'klimaskaermer.labels.singular' | trans }}</h1>
+
+  <table class="table table-condensed">
+    <tbody>
+      <tr>
+        <th>{{ 'appbundle.klimaskaerm.post' | trans }}</th>
+        <td>{{ entity.post }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.klimaskaerm.klimaskaerm' | trans }}</th>
+        <td>{{ entity.klimaskaerm }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.klimaskaerm.arbejdeOmfang' | trans }}</th>
+        <td>{{ entity.arbejdeOmfang }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.klimaskaerm.enhedsprisEksklMoms' | trans }}</th>
+        <td>{{ entity.enhedsprisEksklMoms | format_decimal }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.klimaskaerm.enhed' | trans }}</th>
+        <td>{{ entity.enhed | format_decimal }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.klimaskaerm.noter' | trans }}</th>
+        <td>{{ entity.noter }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="{{ path('klimaskaerm_edit', { 'id': entity.id }) }}"  class="btn btn-default">
+    {{ 'Edit' | trans }}
+  </a>
+{% endblock %}

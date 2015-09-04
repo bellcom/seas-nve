@@ -1,0 +1,57 @@
+{% extends 'AppBundle:Tiltag:show.html.twig' %}
+
+{% block body -%}
+  {{ parent() }}
+{% endblock %}
+
+{% block detailark -%}
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-condensed table-header-rotated">
+        <thead>
+        <tr>
+          {{ helper.header('appbundle.tiltag.tilvalgt') }}
+          {{ helper.header('appbundle.pumpetiltag.pumpeID') }}
+          {{ helper.header('appbundle.pumpetiltag.forsyningsomraade') }}
+          {{ helper.header('appbundle.pumpetiltag.placering') }}
+          {{ helper.header('appbundle.pumpetiltag.applikation') }}
+          {{ helper.header('appbundle.pumpetiltag.isoleringskappe') }}
+          {{ helper.header('appbundle.pumpetiltag.bfaktor') }}
+          {{ helper.header('appbundle.pumpetiltag.noter') }}
+          {{ helper.header('appbundle.pumpetiltag.eksisterendeDrifttid') }}
+          {{ helper.header('appbundle.pumpetiltag.nyDrifttid') }}
+          {{ helper.header('appbundle.pumpetiltag.prisfaktor') }}
+          {{ helper.header() }}
+        </tr>
+        </thead>
+        <tbody>
+        {% for detail in entity.details %}
+          <tr>
+            <td>{{ detail.tilvalgt | b2icon }}</td>
+            <td>{{ detail.pumpeID }}</td>
+            <td>{{ detail.forsyningsomraade }}</td>
+            <td>{{ detail.placering }}</td>
+            <td>{{ detail.applikation }}</td>
+            <td>{{ detail.isoleringskappe | b2icon }}</td>
+            <td>{{ detail.bfaktor | format_decimal }}</td>
+            <td>{{ detail.noter }}</td>
+            <td>{{ detail.eksisterendeDrifttid | format_decimal }}</td>
+            <td>{{ detail.nyDrifttid | format_decimal }}</td>
+            <td>{{ detail.prisfaktor | format_decimal }}</td>
+            <td>
+              <a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+              <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% form_theme create_detail_form 'AppBundle:Form:modal-form.html.twig' %}
+  {{ form(create_detail_form) }}
+
+
+
+{% endblock %}

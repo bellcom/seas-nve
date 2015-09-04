@@ -7,3 +7,104 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    tiltag_type_extension:
+        class: AppBundle\Twig\Extension\TiltagTypeExtension
+        tags:
+            - {name: "twig.extension"}
+    filter_extension:
+        class: AppBundle\Twig\Extension\FilterExtension
+        tags:
+            - {name: "twig.extension"}
+    trans_key_extension:
+        class: AppBundle\Twig\Extension\TransKeyExtension
+        arguments: [@translator]
+        tags:
+            - {name: "twig.extension"}
+    format_extension:
+        class: AppBundle\Twig\Extension\FormatExtension
+        tags:
+            - {name: "twig.extension"}
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+
+    security.access.bygning_voter:
+        class:      AppBundle\Security\Authorization\Voter\BygningVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
+    security.access.rapport_voter:
+        class:      AppBundle\Security\Authorization\Voter\RapportVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
+    security.access.configuration_voter:
+        class:      AppBundle\Security\Authorization\Voter\ConfigurationVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
+    security.access.forsyningsvaerk_voter:
+        class:      AppBundle\Security\Authorization\Voter\ForsyningsvaerkVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
+    symfony.controller.subscriber.init:
+        class: Yavin\Symfony\Controller\InitControllerSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
+
+    aaplus.attachment_type_extension:
+        class: AppBundle\Form\Extension\AttachmentTypeExtension
+        tags:
+            - { name: form.type_extension, alias: file }
+
+    aaplus.tiltag_listener:
+        class: AppBundle\Listener\TiltagListener
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }
+
+    aaplus.rapport_calculation:
+        class: AppBundle\Calculation\RapportCalculation
+        arguments: [ @service_container ]
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+
+    aaplus.energiforsyning_calculation:
+        class: AppBundle\Calculation\EnergiforsyningCalculation
+        arguments: [ @service_container ]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+
+    aaplus.tiltag_calculation:
+        class: AppBundle\Calculation\TiltagCalculation
+        arguments: [ @service_container ]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+
+    aaplus.tiltagdetail_calculation:
+        class: AppBundle\Calculation\TiltagDetailCalculation
+        arguments: [ @service_container ]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+
+    aaplus.solcelletiltagdetail_calculation:
+        class: AppBundle\Calculation\SolcelleTiltagDetailCalculation
+        arguments: [ @service_container ]
+
+    appbundle.profile.form.type:
+        class: AppBundle\Form\Type\ProfileFormType
+        tags:
+            - { name: form.type, alias: appbundle_user_profile }

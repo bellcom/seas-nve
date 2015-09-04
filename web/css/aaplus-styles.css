@@ -1,0 +1,465 @@
+/**
+* Login
+*/
+
+.login--form {
+    max-width: 400px;
+    margin-top: 5%;
+    margin: 10% auto 0 auto;
+}
+
+.login--links {
+    margin-top: 2em;
+}
+
+.login--links a {
+    color: grey;
+}
+
+.navbar-brand--logo {
+    max-height: 100%;
+}
+
+.right {
+    text-align: right;
+}
+
+.form-group button:not(:first-child) {
+    margin-left: 5px;
+}
+
+form.inline-block {
+    display: inline-block;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 95%;
+    }
+}
+
+/**
+* https://css-tricks.com/rotated-table-column-headers/
+*/
+
+.table.table-header-rotated>thead:first-child>tr:first-child>th {
+    border-top: 1px solid #ddd;
+}
+
+.table-header-rotated {
+    border-collapse: collapse;
+    overflow: hidden;
+}
+.table-header-rotated td {
+    width: 30px;
+}
+.table-header-rotated td {
+    text-align: center;
+    padding: 10px 5px;
+}
+.table-header-rotated th.rotate {
+    height: 140px;
+    min-width: 30px;
+    white-space: nowrap;
+}
+.table-header-rotated th.rotate > div {
+    transform: translate(-15px, 15px) rotate(-45deg);
+    position: relative;
+    transform-origin: 0% 0%;
+    left: 50%;
+    top: 0;
+    margin-right: -999px;
+}
+.table-header-rotated th.rotate > div > span {
+    padding: 5px 10px;
+}
+.table-header-rotated th.row-header {
+    padding: 0 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.table-header-rotated td:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+div.tab-content div.row:first-child {
+    margin-top: 1.5em;
+}
+
+/**
+ * Additional styles for BraincraftedBootstrapBundle
+ * (c) 2013 Florian Eckerstorfer (http://braincrafted.com)
+ * http://bootstrap.braincrafted.com
+ */
+.bootstrap-time {
+    width: 100%;
+}
+.bootstrap-time select {
+    display: inline-block;
+    width: auto;
+}
+.bootstrap-date {
+    width: 100%;
+}
+.bootstrap-date select {
+    display: inline-block;
+    width: auto;
+    margin-right: 5px;
+}
+.bootstrap-datetime .bootstrap-time,
+.bootstrap-datetime .bootstrap-date {
+    display: inline-block;
+    width: auto;
+}
+.form-group .bc-collection {
+    margin-bottom: 0;
+}
+.form-group .bc-collection li + li {
+    margin-top: 10px;
+}
+.form-group .bc-collection li:nth-last-child(1) {
+    margin-bottom: 10px;
+}
+.form-inline .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.form-horizontal .col-lg-1 .col-1,
+.form-horizontal .col-lg-2 .col-1,
+.form-horizontal .col-lg-3 .col-1,
+.form-horizontal .col-lg-4 .col-1,
+.form-horizontal .col-lg-5 .col-1,
+.form-horizontal .col-lg-6 .col-1,
+.form-horizontal .col-lg-7 .col-1,
+.form-horizontal .col-lg-8 .col-1,
+.form-horizontal .col-lg-9 .col-1,
+.form-horizontal .col-lg-10 .col-1,
+.form-horizontal .col-lg-11 .col-1,
+.form-horizontal .col-lg12 .col-1,
+.form-horizontal .col-lg-1 .col-2,
+.form-horizontal .col-lg-2 .col-2,
+.form-horizontal .col-lg-3 .col-2,
+.form-horizontal .col-lg-4 .col-2,
+.form-horizontal .col-lg-5 .col-2,
+.form-horizontal .col-lg-6 .col-2,
+.form-horizontal .col-lg-7 .col-2,
+.form-horizontal .col-lg-8 .col-2,
+.form-horizontal .col-lg-9 .col-2,
+.form-horizontal .col-lg-10 .col-2,
+.form-horizontal .col-lg-11 .col-2,
+.form-horizontal .col-lg12 .col-2,
+.form-horizontal .col-lg-1 .col-3,
+.form-horizontal .col-lg-2 .col-3,
+.form-horizontal .col-lg-3 .col-3,
+.form-horizontal .col-lg-4 .col-3,
+.form-horizontal .col-lg-5 .col-3,
+.form-horizontal .col-lg-6 .col-3,
+.form-horizontal .col-lg-7 .col-3,
+.form-horizontal .col-lg-8 .col-3,
+.form-horizontal .col-lg-9 .col-3,
+.form-horizontal .col-lg-10 .col-3,
+.form-horizontal .col-lg-11 .col-3,
+.form-horizontal .col-lg12 .col-3,
+.form-horizontal .col-lg-1 .col-4,
+.form-horizontal .col-lg-2 .col-4,
+.form-horizontal .col-lg-3 .col-4,
+.form-horizontal .col-lg-4 .col-4,
+.form-horizontal .col-lg-5 .col-4,
+.form-horizontal .col-lg-6 .col-4,
+.form-horizontal .col-lg-7 .col-4,
+.form-horizontal .col-lg-8 .col-4,
+.form-horizontal .col-lg-9 .col-4,
+.form-horizontal .col-lg-10 .col-4,
+.form-horizontal .col-lg-11 .col-4,
+.form-horizontal .col-lg12 .col-4,
+.form-horizontal .col-lg-1 .col-5,
+.form-horizontal .col-lg-2 .col-5,
+.form-horizontal .col-lg-3 .col-5,
+.form-horizontal .col-lg-4 .col-5,
+.form-horizontal .col-lg-5 .col-5,
+.form-horizontal .col-lg-6 .col-5,
+.form-horizontal .col-lg-7 .col-5,
+.form-horizontal .col-lg-8 .col-5,
+.form-horizontal .col-lg-9 .col-5,
+.form-horizontal .col-lg-10 .col-5,
+.form-horizontal .col-lg-11 .col-5,
+.form-horizontal .col-lg12 .col-5,
+.form-horizontal .col-lg-1 .col-6,
+.form-horizontal .col-lg-2 .col-6,
+.form-horizontal .col-lg-3 .col-6,
+.form-horizontal .col-lg-4 .col-6,
+.form-horizontal .col-lg-5 .col-6,
+.form-horizontal .col-lg-6 .col-6,
+.form-horizontal .col-lg-7 .col-6,
+.form-horizontal .col-lg-8 .col-6,
+.form-horizontal .col-lg-9 .col-6,
+.form-horizontal .col-lg-10 .col-6,
+.form-horizontal .col-lg-11 .col-6,
+.form-horizontal .col-lg12 .col-6,
+.form-horizontal .col-lg-1 .col-7,
+.form-horizontal .col-lg-2 .col-7,
+.form-horizontal .col-lg-3 .col-7,
+.form-horizontal .col-lg-4 .col-7,
+.form-horizontal .col-lg-5 .col-7,
+.form-horizontal .col-lg-6 .col-7,
+.form-horizontal .col-lg-7 .col-7,
+.form-horizontal .col-lg-8 .col-7,
+.form-horizontal .col-lg-9 .col-7,
+.form-horizontal .col-lg-10 .col-7,
+.form-horizontal .col-lg-11 .col-7,
+.form-horizontal .col-lg12 .col-7,
+.form-horizontal .col-lg-1 .col-8,
+.form-horizontal .col-lg-2 .col-8,
+.form-horizontal .col-lg-3 .col-8,
+.form-horizontal .col-lg-4 .col-8,
+.form-horizontal .col-lg-5 .col-8,
+.form-horizontal .col-lg-6 .col-8,
+.form-horizontal .col-lg-7 .col-8,
+.form-horizontal .col-lg-8 .col-8,
+.form-horizontal .col-lg-9 .col-8,
+.form-horizontal .col-lg-10 .col-8,
+.form-horizontal .col-lg-11 .col-8,
+.form-horizontal .col-lg12 .col-8,
+.form-horizontal .col-lg-1 .col-9,
+.form-horizontal .col-lg-2 .col-9,
+.form-horizontal .col-lg-3 .col-9,
+.form-horizontal .col-lg-4 .col-9,
+.form-horizontal .col-lg-5 .col-9,
+.form-horizontal .col-lg-6 .col-9,
+.form-horizontal .col-lg-7 .col-9,
+.form-horizontal .col-lg-8 .col-9,
+.form-horizontal .col-lg-9 .col-9,
+.form-horizontal .col-lg-10 .col-9,
+.form-horizontal .col-lg-11 .col-9,
+.form-horizontal .col-lg12 .col-9,
+.form-horizontal .col-lg-1 .col-10,
+.form-horizontal .col-lg-2 .col-10,
+.form-horizontal .col-lg-3 .col-10,
+.form-horizontal .col-lg-4 .col-10,
+.form-horizontal .col-lg-5 .col-10,
+.form-horizontal .col-lg-6 .col-10,
+.form-horizontal .col-lg-7 .col-10,
+.form-horizontal .col-lg-8 .col-10,
+.form-horizontal .col-lg-9 .col-10,
+.form-horizontal .col-lg-10 .col-10,
+.form-horizontal .col-lg-11 .col-10,
+.form-horizontal .col-lg12 .col-10,
+.form-horizontal .col-lg-1 .col-11,
+.form-horizontal .col-lg-2 .col-11,
+.form-horizontal .col-lg-3 .col-11,
+.form-horizontal .col-lg-4 .col-11,
+.form-horizontal .col-lg-5 .col-11,
+.form-horizontal .col-lg-6 .col-11,
+.form-horizontal .col-lg-7 .col-11,
+.form-horizontal .col-lg-8 .col-11,
+.form-horizontal .col-lg-9 .col-11,
+.form-horizontal .col-lg-10 .col-11,
+.form-horizontal .col-lg-11 .col-11,
+.form-horizontal .col-lg12 .col-11,
+.form-horizontal .col-lg-1 .col-12,
+.form-horizontal .col-lg-2 .col-12,
+.form-horizontal .col-lg-3 .col-12,
+.form-horizontal .col-lg-4 .col-12,
+.form-horizontal .col-lg-5 .col-12,
+.form-horizontal .col-lg-6 .col-12,
+.form-horizontal .col-lg-7 .col-12,
+.form-horizontal .col-lg-8 .col-12,
+.form-horizontal .col-lg-9 .col-12,
+.form-horizontal .col-lg-10 .col-12,
+.form-horizontal .col-lg-11 .col-12,
+.form-horizontal .col-lg12 .col-12,
+.form-horizontal .col-lg-1 .col-sm-1,
+.form-horizontal .col-lg-2 .col-sm-1,
+.form-horizontal .col-lg-3 .col-sm-1,
+.form-horizontal .col-lg-4 .col-sm-1,
+.form-horizontal .col-lg-5 .col-sm-1,
+.form-horizontal .col-lg-6 .col-sm-1,
+.form-horizontal .col-lg-7 .col-sm-1,
+.form-horizontal .col-lg-8 .col-sm-1,
+.form-horizontal .col-lg-9 .col-sm-1,
+.form-horizontal .col-lg-10 .col-sm-1,
+.form-horizontal .col-lg-11 .col-sm-1,
+.form-horizontal .col-lg12 .col-sm-1,
+.form-horizontal .col-lg-1 .col-sm-2,
+.form-horizontal .col-lg-2 .col-sm-2,
+.form-horizontal .col-lg-3 .col-sm-2,
+.form-horizontal .col-lg-4 .col-sm-2,
+.form-horizontal .col-lg-5 .col-sm-2,
+.form-horizontal .col-lg-6 .col-sm-2,
+.form-horizontal .col-lg-7 .col-sm-2,
+.form-horizontal .col-lg-8 .col-sm-2,
+.form-horizontal .col-lg-9 .col-sm-2,
+.form-horizontal .col-lg-10 .col-sm-2,
+.form-horizontal .col-lg-11 .col-sm-2,
+.form-horizontal .col-lg12 .col-sm-2,
+.form-horizontal .col-lg-1 .col-sm-3,
+.form-horizontal .col-lg-2 .col-sm-3,
+.form-horizontal .col-lg-3 .col-sm-3,
+.form-horizontal .col-lg-4 .col-sm-3,
+.form-horizontal .col-lg-5 .col-sm-3,
+.form-horizontal .col-lg-6 .col-sm-3,
+.form-horizontal .col-lg-7 .col-sm-3,
+.form-horizontal .col-lg-8 .col-sm-3,
+.form-horizontal .col-lg-9 .col-sm-3,
+.form-horizontal .col-lg-10 .col-sm-3,
+.form-horizontal .col-lg-11 .col-sm-3,
+.form-horizontal .col-lg12 .col-sm-3,
+.form-horizontal .col-lg-1 .col-sm-4,
+.form-horizontal .col-lg-2 .col-sm-4,
+.form-horizontal .col-lg-3 .col-sm-4,
+.form-horizontal .col-lg-4 .col-sm-4,
+.form-horizontal .col-lg-5 .col-sm-4,
+.form-horizontal .col-lg-6 .col-sm-4,
+.form-horizontal .col-lg-7 .col-sm-4,
+.form-horizontal .col-lg-8 .col-sm-4,
+.form-horizontal .col-lg-9 .col-sm-4,
+.form-horizontal .col-lg-10 .col-sm-4,
+.form-horizontal .col-lg-11 .col-sm-4,
+.form-horizontal .col-lg12 .col-sm-4,
+.form-horizontal .col-lg-1 .col-sm-5,
+.form-horizontal .col-lg-2 .col-sm-5,
+.form-horizontal .col-lg-3 .col-sm-5,
+.form-horizontal .col-lg-4 .col-sm-5,
+.form-horizontal .col-lg-5 .col-sm-5,
+.form-horizontal .col-lg-6 .col-sm-5,
+.form-horizontal .col-lg-7 .col-sm-5,
+.form-horizontal .col-lg-8 .col-sm-5,
+.form-horizontal .col-lg-9 .col-sm-5,
+.form-horizontal .col-lg-10 .col-sm-5,
+.form-horizontal .col-lg-11 .col-sm-5,
+.form-horizontal .col-lg12 .col-sm-5,
+.form-horizontal .col-lg-1 .col-sm-6,
+.form-horizontal .col-lg-2 .col-sm-6,
+.form-horizontal .col-lg-3 .col-sm-6,
+.form-horizontal .col-lg-4 .col-sm-6,
+.form-horizontal .col-lg-5 .col-sm-6,
+.form-horizontal .col-lg-6 .col-sm-6,
+.form-horizontal .col-lg-7 .col-sm-6,
+.form-horizontal .col-lg-8 .col-sm-6,
+.form-horizontal .col-lg-9 .col-sm-6,
+.form-horizontal .col-lg-10 .col-sm-6,
+.form-horizontal .col-lg-11 .col-sm-6,
+.form-horizontal .col-lg12 .col-sm-6,
+.form-horizontal .col-lg-1 .col-sm-7,
+.form-horizontal .col-lg-2 .col-sm-7,
+.form-horizontal .col-lg-3 .col-sm-7,
+.form-horizontal .col-lg-4 .col-sm-7,
+.form-horizontal .col-lg-5 .col-sm-7,
+.form-horizontal .col-lg-6 .col-sm-7,
+.form-horizontal .col-lg-7 .col-sm-7,
+.form-horizontal .col-lg-8 .col-sm-7,
+.form-horizontal .col-lg-9 .col-sm-7,
+.form-horizontal .col-lg-10 .col-sm-7,
+.form-horizontal .col-lg-11 .col-sm-7,
+.form-horizontal .col-lg12 .col-sm-7,
+.form-horizontal .col-lg-1 .col-sm-8,
+.form-horizontal .col-lg-2 .col-sm-8,
+.form-horizontal .col-lg-3 .col-sm-8,
+.form-horizontal .col-lg-4 .col-sm-8,
+.form-horizontal .col-lg-5 .col-sm-8,
+.form-horizontal .col-lg-6 .col-sm-8,
+.form-horizontal .col-lg-7 .col-sm-8,
+.form-horizontal .col-lg-8 .col-sm-8,
+.form-horizontal .col-lg-9 .col-sm-8,
+.form-horizontal .col-lg-10 .col-sm-8,
+.form-horizontal .col-lg-11 .col-sm-8,
+.form-horizontal .col-lg12 .col-sm-8,
+.form-horizontal .col-lg-1 .col-sm-9,
+.form-horizontal .col-lg-2 .col-sm-9,
+.form-horizontal .col-lg-3 .col-sm-9,
+.form-horizontal .col-lg-4 .col-sm-9,
+.form-horizontal .col-lg-5 .col-sm-9,
+.form-horizontal .col-lg-6 .col-sm-9,
+.form-horizontal .col-lg-7 .col-sm-9,
+.form-horizontal .col-lg-8 .col-sm-9,
+.form-horizontal .col-lg-9 .col-sm-9,
+.form-horizontal .col-lg-10 .col-sm-9,
+.form-horizontal .col-lg-11 .col-sm-9,
+.form-horizontal .col-lg12 .col-sm-9,
+.form-horizontal .col-lg-1 .col-sm-10,
+.form-horizontal .col-lg-2 .col-sm-10,
+.form-horizontal .col-lg-3 .col-sm-10,
+.form-horizontal .col-lg-4 .col-sm-10,
+.form-horizontal .col-lg-5 .col-sm-10,
+.form-horizontal .col-lg-6 .col-sm-10,
+.form-horizontal .col-lg-7 .col-sm-10,
+.form-horizontal .col-lg-8 .col-sm-10,
+.form-horizontal .col-lg-9 .col-sm-10,
+.form-horizontal .col-lg-10 .col-sm-10,
+.form-horizontal .col-lg-11 .col-sm-10,
+.form-horizontal .col-lg12 .col-sm-10,
+.form-horizontal .col-lg-1 .col-sm-11,
+.form-horizontal .col-lg-2 .col-sm-11,
+.form-horizontal .col-lg-3 .col-sm-11,
+.form-horizontal .col-lg-4 .col-sm-11,
+.form-horizontal .col-lg-5 .col-sm-11,
+.form-horizontal .col-lg-6 .col-sm-11,
+.form-horizontal .col-lg-7 .col-sm-11,
+.form-horizontal .col-lg-8 .col-sm-11,
+.form-horizontal .col-lg-9 .col-sm-11,
+.form-horizontal .col-lg-10 .col-sm-11,
+.form-horizontal .col-lg-11 .col-sm-11,
+.form-horizontal .col-lg12 .col-sm-11,
+.form-horizontal .col-lg-1 .col-sm-12,
+.form-horizontal .col-lg-2 .col-sm-12,
+.form-horizontal .col-lg-3 .col-sm-12,
+.form-horizontal .col-lg-4 .col-sm-12,
+.form-horizontal .col-lg-5 .col-sm-12,
+.form-horizontal .col-lg-6 .col-sm-12,
+.form-horizontal .col-lg-7 .col-sm-12,
+.form-horizontal .col-lg-8 .col-sm-12,
+.form-horizontal .col-lg-9 .col-sm-12,
+.form-horizontal .col-lg-10 .col-sm-12,
+.form-horizontal .col-lg-11 .col-sm-12,
+.form-horizontal .col-lg12 .col-sm-12 {
+    padding-left: 0;
+}
+form .has-error ul.help-block {
+    list-style: none;
+    padding-left: 0;
+}
+form .alert ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.multiline {
+	white-space: pre-line;
+}
+
+/* Chart.js line chart */
+.line-legend li {
+	list-style: none;
+}
+
+.line-legend span[style] {
+	display: inline-block;
+	font-size: 8px;
+	width: 1em;
+	height: 1em;
+	margin-right: 1em;
+	vertical-align: middle;
+	border-radius: 100%;
+}
+
+.checkbox.horizontal, .radio.horizontal {
+    margin-top: 10px;
+}
+
+.form-horizontal .checkbox.horizontal , .form-horizontal .radio.horizontal {
+    margin-top: 0px;
+    margin-left: 15px;
+}
+
+tr.search {
+    background-color: #f5f5f5;
+}
+
+tr.search .form-group {
+    margin-bottom: 0;
+}
+
+div.row.heading .btn {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}

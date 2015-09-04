@@ -1,0 +1,120 @@
+{% extends 'AppBundle:Form:aaplus-bootstrap.html.twig' %}
+
+{% block form_widget_compound %}
+  {% spaceless %}
+    {% if form.parent is empty %}
+      {{ block('global_form_errors') }}
+    {% endif %}
+    {{ block('form_rows') }}
+    {{ form_rest(form) }}
+  {% endspaceless %}
+{% endblock form_widget_compound %}
+
+{% block form_start %}
+
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">{{ icon('plus') }} {{ (id ~ '.add') | get_trans }}</button>
+    </div>
+  </div>
+
+  <!-- Modal start -->
+
+  <!-- Modal -->
+{{ parent() }}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{ icon('plus') }} {{ (id ~ '.add') | get_trans }}</h4>
+      </div>
+      <div class="modal-body">
+{% endblock %}
+
+{% block button_row %}
+  {% spaceless %}
+  {% if row_number == 1 %}
+    </div>
+  {% endif %}
+
+    </div> <!-- end .modal-body -->
+    <div class="modal-footer">
+      {{ form_widget(form) }}
+    </div>
+  {% endspaceless %}
+{% endblock button_row %}
+
+{% block submit_widget %}
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  {% spaceless %}
+    {% set type = type|default('submit') %}
+    {{ block('button_widget') }}
+  {% endspaceless %}
+{% endblock submit_widget %}
+
+{% block form_end %}
+      {{ parent() }}
+    </div> <!-- end .modal-content -->
+  </div> <!-- end .modal-dialog -->
+</div> <!-- end #myModal -->
+{% endblock form_end %}
+
+{% block form_rows %}
+  {% set row_number = 0 %}
+  {% spaceless %}
+    {% for child in form %}
+
+          {% set childAttr = {} %}
+          {% if attr.col_size is defined %}
+            {% set childAttr = childAttr|merge({ 'col_size': attr.col_size }) %}
+          {% endif %}
+          {% if attr.widget_col is defined %}
+            {% set childAttr = childAttr|merge({ 'widget_col': attr.widget_col }) %}
+          {% endif %}
+          {% if attr.label_col is defined %}
+            {% set childAttr = childAttr|merge({ 'label_col': attr.label_col }) %}
+          {% endif %}
+          {% if attr.simple_col is defined %}
+            {% set childAttr = childAttr|merge({ 'simple_col': attr.simple_col }) %}
+          {% endif %}
+          {% if attr.style is defined %}
+            {% set childAttr = childAttr|merge({ 'style': attr.style }) %}
+          {% endif %}
+          {% set childAttr = childAttr|merge({ 'row_number': row_number }) %}
+          {{ form_row(child, childAttr, row_number) }}
+
+
+      {% if row_number == 0 %}
+        {% set row_number = 1 %}
+      {%  else %}
+        {% set row_number = 0 %}
+      {%  endif %}
+    {% endfor %}
+  {% endspaceless %}
+{% endblock form_rows %}
+
+{% block form_row %}
+  {% if row_number == 0 %}
+    <div class="row">
+  {% endif %}
+  <div class="col-md-6">
+    {{ parent() }}
+  </div>
+  {% if row_number == 1 %}
+    </div>
+  {% endif %}
+{% endblock form_row %}
+
+{% block checkbox_row %}
+  {% if row_number == 0 %}
+    <div class="row">
+  {% endif %}
+  <div class="col-md-6">
+    {{ block('form_label') }}
+  {{ parent() }}
+  </div>
+  {% if row_number == 1 %}
+    </div>
+  {% endif %}
+{% endblock checkbox_row %}

@@ -1,0 +1,745 @@
+fos:
+  user:
+    profile:
+      form:
+        username: Email
+        email: Email
+        firstname: Fornavn
+        lastname: Efternavn
+        phone: Telefon
+        current:
+          password: Nuværende kodeord
+    resetting:
+      form:
+        plainPassword:
+          first: Indtast nyt kodeord
+          second: Gentag kodeord
+    change:
+      password:
+        form:
+          current:
+            password: Nuværende kodeord
+          plainPassword:
+            first: Indtast nyt kodeord
+            second: Gentag kodeord
+
+security:
+  login:
+    username: Email
+
+Update: Opdater
+Edit: Rediger
+Show: Vis
+Create: Opret
+Cancel: Annuller
+Update: Opdater
+
+common:
+  forside: Forside
+  all: Alle
+  edit: Rediger
+  empty: Blank
+  show: Vis
+  create: Opret
+  cancel: Annuller
+  update: Opdater
+  search: Søg
+  a_search: Søgning
+  your_buildings: Dine bygninger
+  current_buildings: Igangværende bygninger
+  finished_buildings: Indsendt til Aa+
+  summary: Opsummering
+
+dashboard:
+  current: Igangværende
+  finished: Afleverede
+  totalareal: Areal
+  besparelseEl: El Besparelse
+  besparelseVarmeGUF: GUF Besparelse
+  besparelseVarmeGAF: GAF Besparelse
+  besparelseCO2: CO2 Besparelse
+
+footer:
+  navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
+  adresse: Grøndalsvej 2, 8260 Viby J
+  email: aarhusplus@mtm.aarhus.dk
+
+# Entities
+rapporter:
+  labels:
+    singular: Rapport
+    plural: Rapporter
+    detailark: Detailark
+  actions:
+    add: Tilføj Rapport
+    edit: Rediger Rapport
+    create: Opret Rapport
+    show: Vis Rapport
+  strings:
+    belysningtiltag: Belysning
+    klimaskaermtiltag: Klimaskærm
+    pumpetiltag: Pumper
+    specialtiltag: Special
+    tekniskisoleringtiltag: Teknsik isolering
+    solcelletiltag: Solcelle
+    tiltag: Tiltag
+    tilvalgt: Tilvalgt
+
+energiforsyninger:
+  labels:
+    singular: Energiforsyning
+    plural: Energiforsyninger
+  actions:
+    add: Tilføj energiforsyning
+    edit: Rediger energiforsyning
+    create: Opret energiforsyning
+
+bygninger:
+  labels:
+    singular: Bygning
+    plural: Bygninger
+  actions:
+    add: Tilføj Bygning
+    edit: Rediger Bygning
+    create: Opret Bygning
+    show: Vis Bygning
+  strings:
+    ingen: Ingen bygninger fundet
+
+forsyningsvaerker:
+  labels:
+    singular: Forsyningsværk
+    plural: Forsyningsværker
+  actions:
+    add: Tilføj forsyningsværk
+    edit: Rediger forsyningsværk
+    create: Opret forsyningsværk
+
+pumper:
+  labels:
+    singular: Pumpe
+    plural: Pumper
+
+tiltag:
+  labels:
+    singular: Tiltag
+    plural: Tiltag
+  strings:
+    oversigt: Oversigt
+    forhold: Forhold
+    detailark: Detailark
+    regning: Regning
+  actions:
+    add: Tilføj Tiltag
+    edit: Rediger Tiltag
+    create: Opret Tiltag
+
+pumpetiltag:
+  labels:
+    title: Pumpeudskiftninger
+    singular: Pumpetiltag
+    plural: Pumpetiltag
+  actions:
+    add: Tilføj Pumpetiltag
+    edit: Rediger Pumpetiltag
+    create: Opret Pumpetiltag
+
+belysningtiltag:
+  actions:
+    add: Tilføj belysningstiltag
+    edit: Rediger belysningstiltag
+
+belysningtiltagdetail:
+  actions:
+    add: Tilføj belysningstiltag
+    edit: Rediger belysningstiltag
+
+solcelle:
+  labels:
+    singular: Solcelle
+    plural: Solceller
+  actions:
+  actions:
+    add: Tilføj solcelle
+    edit: Rediger solcelle
+    create: Opret solcelle
+
+klimaskaerm:
+  labels:
+    singular: Klimaskærm
+    plural: Klimaskærme
+  actions:
+    add: Tilføj klimaskærm
+    edit: Rediger klimaskærm
+    create: Opret klimaskærm
+
+configuration:
+  labels:
+    singular: Indstillinger
+    plural: Indstillinger
+  actions:
+    edit: Rediger indstillinger
+  strings:
+
+user:
+  labels:
+    singular: Bruger
+    plural: Brugere
+  actions:
+    add: Tilføj bruger
+    edit: Rediger bruger
+    create: Opret bruger
+
+# Forms - We follow the formbuilders form id format
+
+appbundle:
+  belysningtiltagdetail:
+    tilvalgt: Tilvalgt
+    lokale.navn: Lokale, navn
+    lokale.type: Lokale, type
+    armaturhoejdeM: Armaturhøjde (m)
+    armaturhoejdeM.help: ﻿Monteringshøjden for armaturene i rummet indtastes
+    rumstoerrelseM2: Rumstørrelse (m²)
+    rumstoerrelseM2.help: ﻿Rumstørrelse indtastes. Der kan også regnes på flere sammenlignelige rum i en større zone.
+    lokale.antal: Lokaleantal
+    drifttidTAar: Drifttid (t/år)
+    drifttidTAar: ﻿Ferieperioder, reduktion af driftstid som følge af eksisterende lysstyring  mv. skal indregnes
+    lyskilde: Lyskilde
+    lyskildeStkArmatur: Lyskilde (stk/armatur)
+    lyskildeWLyskilde: Lyskilde (W/lyskilde)
+    forkoblingStkArmatur: Forkobling (stk/armatur)
+    forkoblingStkArmatur.help: ﻿Antal af forkoblinger indtastes, kun relevant for belysning med konventionelle- eller HF-forkoblinger. Kan udelades ved øvrige lystyper.
+    armaturerStkLokale: Armaturer (stk/lokale)
+    armaturerStkLokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
+    elforbrugWM2: Elforbrug (W/m²)
+    placering.id: Placering
+    styring.id: Styring
+    noter: Noter
+    belysningstiltag: Tiltag
+    nyeSensorerStkLokale: Nye sensorer (stk/lokale)
+    standardinvestSensorKrStk: Standardinvest. sensor (kr/stk)
+    reduktionAfDrifttid: Reduktion af drifttid (%)
+    nyDriftstid: Ny driftstid
+    standardinvestArmaturElLyskildeKrStk: Standardinvest. armatur el. lyskilde (kr/stk)
+    nyLyskilde: Ny lyskilde
+    nyLyskildeStkArmatur: Ny lyskilde (stk/armatur)
+    nyLyskildeWLyskilde: Ny lyskilde (W/lyskilde)
+    nyForkoblingStkArmatur: Ny forkobling (stk/armatur)
+    nyArmatureffektWStk: Ny armatureffekt (W/stk)
+    nyeArmaturerStkLokale: Nye armaturer (stk/lokale)
+    nyttiggjortVarmeAfElBesparelse: Nyttiggjort varme (% af el-besparelse)
+    nyttiggjortVarmeAfElBesparelse.help: ﻿Nyttigjort varme: procentdel af varmeudledning fra tidligere beslygning der har været nyttigjort, dvs. en varmeudledning der efterfølgende skal udføres af varmeanlægge.
+    prisfaktor: Prisfaktor
+    prisfaktorTillaegKrLokale: Prisfaktor-tillæg (kr/lokale)
+    investeringAlleLokalerKr: Investering, alle lokaler (kr)
+    nytElforbrugWM2: Nyt elforbrug (W/m²)
+    driftsbesparelseTilLyskilderKrAar: Driftsbesparelse til lyskilder Alle lokaler (kr/år)
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    vaegtetLevetidAar: Vægtet Levetid (år)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    styring: Styring, input
+    kwhBesparelseEl: kWh-besparelse El
+    kwhBesparelseVarmeFraVarmevaerket: kWh-besparelse Varme fra varmeværket
+    add: Tilføj
+    tiltag.id: Tiltag, input
+
+  forsyningsvaerk:
+    navn: Navn
+    energiform: Energiform
+    noter: Noter
+    priser: Priser
+    pris2009: Pris, 2009
+    pris2014: Pris, 2014
+    pris2015: Pris, 2015
+    pris2016: Pris, 2016
+    pris2017: Pris, 2017
+    pris2018: Pris, 2018
+    pris2019: Pris, 2019
+    pris2020: Pris, 2020
+    pris2021: Pris, 2021
+    pris2022: Pris, 2022
+    pris2023: Pris, 2023
+    pris2024: Pris, 2024
+    pris2025: Pris, 2025
+    pris2026: Pris, 2026
+    pris2027: Pris, 2027
+    pris2028: Pris, 2028
+    pris2029: Pris, 2029
+    pris2030: Pris, 2030
+    pris2031: Pris, 2031
+    pris2032: Pris, 2032
+    pris2033: Pris, 2033
+    pris2034: Pris, 2034
+    pris2035: Pris, 2035
+    pris2036: Pris, 2036
+    pris2037: Pris, 2037
+    pris2038: Pris, 2038
+    pris2039: Pris, 2039
+    pris2040: Pris, 2040
+    pris2041: Pris, 2041
+    pris2042: Pris, 2042
+    pris2043: Pris, 2043
+    pris2044: Pris, 2044
+    pris2045: Pris, 2045
+    pris2046: Pris, 2046
+    pris2047: Pris, 2047
+    pris2048: Pris, 2048
+    pris2049: Pris, 2049
+    pris2050: Pris, 2050
+    pris2051: Pris, 2051
+    pris2052: Pris, 2052
+    pris2053: Pris, 2053
+    pris2054: Pris, 2054
+    pris2055: Pris, 2055
+    pris2056: Pris, 2056
+    pris2057: Pris, 2057
+    pris2058: Pris, 2058
+    pris2059: Pris, 2059
+    pris2060: Pris, 2060
+    pris2061: Pris, 2061
+    pris2062: Pris, 2062
+    pris2063: Pris, 2063
+    pris2064: Pris, 2064
+    pris2065: Pris, 2065
+    pris2066: Pris, 2066
+    pris2067: Pris, 2067
+    pris2068: Pris, 2068
+    pris2069: Pris, 2069
+    pris2070: Pris, 2070
+    pris2071: Pris, 2071
+    pris2072: Pris, 2072
+    pris2073: Pris, 2073
+    pris2074: Pris, 2074
+    pris2075: Pris, 2075
+    co2: CO2
+    co2noter: Noter (CO2)
+    co2y2009: CO2, 2009
+    co2y2014: CO2, 2014
+    co2y2015: CO2, 2015
+    co2y2016: CO2, 2016
+    co2y2017: CO2, 2017
+    co2y2018: CO2, 2018
+    co2y2019: CO2, 2019
+    co2y2020: CO2, 2020
+    co2y2021: CO2, 2021
+    co2y2022: CO2, 2022
+    co2y2023: CO2, 2023
+    co2y2024: CO2, 2024
+    co2y2025: CO2, 2025
+    co2y2026: CO2, 2026
+    co2y2027: CO2, 2027
+    co2y2028: CO2, 2028
+    co2y2029: CO2, 2029
+    co2y2030: CO2, 2030
+    co2y2031: CO2, 2031
+    co2y2032: CO2, 2032
+    co2y2033: CO2, 2033
+    co2y2034: CO2, 2034
+    co2y2035: CO2, 2035
+    co2y2036: CO2, 2036
+    co2y2037: CO2, 2037
+    co2y2038: CO2, 2038
+    co2y2039: CO2, 2039
+    co2y2040: CO2, 2040
+    co2y2041: CO2, 2041
+    co2y2042: CO2, 2042
+    co2y2043: CO2, 2043
+    co2y2044: CO2, 2044
+    co2y2045: CO2, 2045
+    co2y2046: CO2, 2046
+    co2y2047: CO2, 2047
+    co2y2048: CO2, 2048
+    co2y2049: CO2, 2049
+    co2y2050: CO2, 2050
+    co2y2051: CO2, 2051
+    co2y2052: CO2, 2052
+    co2y2053: CO2, 2053
+    co2y2054: CO2, 2054
+    co2y2055: CO2, 2055
+    co2y2056: CO2, 2056
+    co2y2057: CO2, 2057
+    co2y2058: CO2, 2058
+    co2y2059: CO2, 2059
+    co2y2060: CO2, 2060
+    co2y2061: CO2, 2061
+    co2y2062: CO2, 2062
+    co2y2063: CO2, 2063
+    co2y2064: CO2, 2064
+    co2y2065: CO2, 2065
+    co2y2066: CO2, 2066
+    co2y2067: CO2, 2067
+    co2y2068: CO2, 2068
+    co2y2069: CO2, 2069
+    co2y2070: CO2, 2070
+    co2y2071: CO2, 2071
+    co2y2072: CO2, 2072
+    co2y2073: CO2, 2073
+    co2y2074: CO2, 2074
+    co2y2075: CO2, 2075
+
+  bygning:
+    magistrat: Magistrat
+    singular: Bygning
+    plural: Bygninger
+    adresse: Adresse
+    postnr: Postnr.
+    by: By
+    bygId: ID
+    ident: Ident
+    enhedsys: Enhedsys
+    enhedskode: Enhedskode
+    type: Type
+    kommentarer: Kommentarer
+    adresse: Adresse
+    postnummer: Postnummer
+    postBy: By
+    navn: Navn
+    ejer: Ejer
+    afdelingsnavn: Afdelingsnavn
+    ejerA: Ejer A
+    anvendelse: Anvendelse
+    bruttoetageareal: Bruttoetageareal
+    maalertype: Målertype
+    forsyningsvaerkVand: Vand
+    kundenummer: Kundenummer
+    kode: Kode
+    forsyningsvaerkVarme: Varme
+    kundenr1: Kundenr 1
+    kode1: Kode 1
+    maalerskifteAFV: ﻿Målerskifte AFV
+    aFVInstnr1: AFV inst. nr. 1
+    forsyningsvaerkEl: El
+    instnr: Instnr.
+    kundenrNRGI: Kundenr. NRGI
+    internetkode: Internetkode
+    aftagenr: Aftagenr.
+    telefon: Telefon
+    divisionnavn: Divisionnavn
+    omraadenavn: Områdenavn
+    kommune: Kommune
+    ejerforhold: Ejerforhold
+    ansvarlig: Ansvarlig
+    magistrat: Magistrat
+    segment: Segment
+    lokation: Lokation
+    lokationsnavn: Lokationsnavn
+    lederbetegnelse: Lederbetegnelse
+    ledersnavn: Leders navn
+    ledersmail: Leders mail
+    kontaktNotat: Kontakt Notat
+    stamdataNotat: Stamdata notat
+    vandNotat: Vand notat
+    elNotat: El notat
+    varmeNotat: Varme notat
+    users: Brugere
+    forsyningsvaerkVand: Vand
+    updatedAt: Opdateret
+    createdAt: Oprettet
+    updatedBy: Opdateret af
+    createdBy: Oprettet af
+    status: Status
+  pumpe:
+    nuvaerendeType: Nuværende Type
+    byggemaal: Byggemål
+    tilslutning: Tilslutning
+    indst: Indst.
+    forbrug: Forbrug
+    q: Q
+    h: H
+    aarsforbrug: Årsforbrug
+    nyPumpe: Ny pumpe
+    nyByggemaal: Nye byggemål
+    nyTilslutning: Ny tilslutning
+    vvsnr: VVS Nr.
+    nytAarsforbrug: Nyt Årsforbrug
+    elbesparelse: Elbsparelse
+    udligningssaet: Udligningssæt
+    kommentarer: Kommentarer
+    standInvestering: Standard investering
+    fabrikant: Fabrikant
+    roerlaengde: Rørlængde
+    roerstoerrelse: Rørstørrelse
+  pumpetiltag:
+    pumpeID: ID
+    forsyningsomraade: Forsyningsomraade
+    placering: Placering
+    applikation: Applikation
+    isoleringskappe: Isoleringskappe
+    bfaktor: B-Faktor
+    noter: Noter
+    eksisterendeDrifttid: Eksisterende Drifttid
+    nyDrifttid: Ny Drifttid
+    prisfaktor: Prisfaktor
+  pumpetiltagdetail:
+    add: Tilføj pumpe
+    pumpeID: Pumpe ID
+    pumpeID.help: ﻿Et ID der kan genfindes på vedlagt skitse angives, fx. "P1", "P2" osv.
+    forsyningsomraade: Forsyningsområde
+    forsyningsomraade.help: ﻿Beskriv pumpens forsyningsområde, fx "Blandesløjfe til gulvvarme i rum 20-30"
+    placering: Placering
+    placering.help: ﻿Rum nr. og eventuel note for placering  fx. "rum 20, under isoleringskappe til varmtvandsbeholder"
+    applikation: Applikation
+    isoleringskappe: Isoleringskappe
+    isoleringskappe.help: Sæt x hvis der er isoleringskappe på eksisterende pumpe.
+    b.faktor: B-Faktor
+    b.faktor.help: ﻿B-faktor for pumpens placering indtastes, undlades såfremt eksisterende pumpe har isoleringskappe. B-faktor jf. håndbog for energikonsulenter.
+    noter: Noter
+    noter.help: ﻿Rådgivers noter til pumpeudskiftning indtastes her. Krav til de punkter rådgiver skal tage stilling til er angivet i kolonnens overskrift
+    eksisterendeDrifttid: Eksisterende drifttid
+    eksisterendeDrifttid.help: ﻿Eksisterende driftstid indtastes i timer/år
+    nyDrifttid: Ny drifttid
+    prisfaktor: Prisfaktor
+    pumpetiltag: Pumpetiltag
+    pumpe: Pumpe
+  rapport:
+    bygning: Bygning
+    version: Version
+    datering: Dato
+    BaselineEl: El
+    BaselineVarmeGUF: Baseline Varme GUF
+    BaselineVarmeGAF: Baseline Varme GAF
+    varmetotal: ﻿I alt baseline varme
+    BaselineVand: Vand
+    BaselineStrafAfkoeling: Strafafkøling
+    faktorPaaVarmebesparelse: Faktor på varmebesparelse
+    Energiscreening: Energiscreening
+    laanRente: Rente på lån
+    laanLoebetid: Løbetid på lån
+    elena: Elena
+  segment:
+    add: Opret Segment
+    edit: Rediger Segment
+    navn: Navn
+    plural: Segmenter
+    forkortelse: Magistrat Forkortelse
+    magistrat: Magistrat
+  specialtiltag:
+    kommentar: Kommentar
+    filepath: Uploadet fil
+  specialtiltagdetail:
+    add: Upload fil
+    kommentar: Kommentar
+    title: Title
+  tiltag:
+    tilvalgt: Tilvalgt
+    title: Titel
+    varmebesparelseGUF: ﻿Varmebesparelse, GUF (kWh/år)
+    varmebesparelseGAF: ﻿Varmebesparelse, GAF (kWh/år)
+    elbesparelse: Elbesparelse (kWh/år)
+    vandbesparelse: Vandbesparelse (m³/år)
+    samletEnergibesparelse: Samlet energibesparelse (kr/år)
+    samletCo2besparelse: Samlet co2-besparelse (t/år)
+    antalReinvesteringer: Antal reinvesteringer (stk.)
+    faktorForReinvesteringer: Faktor for reinvesteringer
+    primaerEnterprise: Primær entreprise
+    tiltagskategori: Tiltagskategori
+    anlaegsInvestering: ﻿Anlægsinvestering (kr)
+    reelAnlaegsinvestering: ﻿Reel Anlægsinvestering (kr)
+    besparelseDriftOgVedligeholdelse: Besparelse på D & V (kr/år)
+    levetid: Funktionsdygtig levetid (år)
+    forsyningVarme: Forsyning, varme
+    forsyningEl: Forsyning, el
+    beskrivelseNuvaerende: Nuværende forhold
+    beskrivelseForslag: Forslag
+    beskrivelseOevrige: Øvrige bemærkninger
+    risikovurdering: Risikovurdering
+    placering: Placering
+    beskrivelseDriftOgVedligeholdelse: ﻿Beskrivelse af ændringer til D & V udgifter samt fremtidigt timeforbrug for driftspersonale
+    indeklima: Indeklima
+    rapport: Rapport
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    scrapvaerdi: Scrapværdi
+    reinvestering: Reinvestering
+    besparelseGAF: Besparelse GAF
+    besparelseGUF: Besparelse GUF
+    besparelseEl: Besparelse El
+  tiltagdetail:
+    tilvalgt: Tilvalgt
+
+  tekniskisoleringtiltagdetail:
+    add: Tilføg
+    laastAfEnergiraadgiver: Låst af energirådgiver
+    beskrivelseType: Beskrivelse (type)
+    type: Type
+    driftstidTAar: Driftstid (t/år)
+    udvDiameterMm: Udv. diameter [mm]
+    eksistIsolMm: Eksist. isol. [mm]
+    roerstoerrelseMmAekvivalent: Rørstørrelse [mm] ækvivalent
+    tankVolL: Tankvol. (L)
+    tempOmgivelC: Temp. omgivel. [°C]
+    tempMedieC: Temp. Medie [°C]
+    roerlaengdeEllerHoejdeAfVvbM: Rørlængde eller højde af VVB [m]
+    nyttiggjortVarme: Nyttiggjort varme [-]
+    nyIsolMm: Ny isol. [mm]
+    varmeledningsevnePaaEksistIsoleringWMK: Varmeledningsevne på eksist isolering [W/m·K]
+    varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering [W/m·K]
+    arealAfBeholderM2: Areal af beholder [m²]
+    standardinvestKrM2EllerKrM: Standardinvest. [kr/m² eller kr/m]
+    prisfaktor: Prisfaktor
+    investeringKr: Investering  [kr]
+    eksistVarmetabKwh: Eksist. varmetab [kwh]
+    nytVarmetabKwh: Nyt varmetab [kwh]
+    varmebespKwhAar: Varmebesp. [kWh/år]
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    kwhBesparelseElFraVaerket: kWh-besparelse El fra værket
+    kwhBesparelseVarmeFraVaerket: kWh-besparelse Varme fra værket
+
+  klimaskaermtiltagdetail:
+    laastAfEnergiraadgiver: Låst af energirådgiver
+    tiltagsnr: Tiltagsnr.
+    tiltagsnrDelpriser: Tiltagsnr. Delpriser
+    typePlaceringJfPlantegning: Type/placering jf. plantegning
+    hoejdeElLaengdeM: Højde el. Længde (m)
+    breddeM: Bredde (m)
+    antalStk: Antal (stk)
+    arealM2: Areal (m²)
+    andelAfArealDerEfterisoleres: Andel af areal der efterisoleres (%)
+    uEksWM2K: U_eks (W/m²K)
+    uNyWM2K: U_ny (W/m²K)
+    tIndeC: T_inde (°C)
+    tUdeC: T_ude (°C)
+    tOpvarmningTimerAar: t_opvarmning (timer/år)
+    yderligereBesparelserPct: Yderligere besparelser (%)
+    besparelseKWhAar: Besparelse (kWh/år)
+    samletBesparelseKWhAarInklDelbesparelser: Samlet Besparelse (kWh/år) inkl. delbesparelser
+    prisfaktor: Prisfaktor
+    delprisKrM2: Delpris (kr/m2)
+    samletInvesteringKr: Samlet investering (kr)
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
+    tilSortering: Til sortering
+    tilSummeringAfDelpriser: Til summering af delpriser
+    levetidAar: Levetid (år)
+    vaegtetGnm: VaegtetGnm
+    vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
+    faktorForReinvestering: Faktor for reinvestering
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
+    kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
+    tilvalgteDeltiltag: Tilvalgte (deltiltag)
+    type: Type
+    klimaskaerm: Klimaskærm
+    orientering: Orientering
+
+  solcelletiltagdetail:
+    anlaegsstoerrelseKWp: Anlægsstørrelse
+    produktionKWh: Produktion
+    tilNettetPct: Til nettet
+    tilEgetForbrugPct: Til eget forbrug
+    egetForbrugAfProduktionenKWh: Eget forbrug af produktionen
+    produktionTilNettetKWh: Produktion til nettet
+    forringetYdeevnePrAar: Forringet ydeevne pr. år
+    inverterskift1Aar: Inverterskift 1
+    inverterskift2Aar: Inverterskift 2
+    prisForNyInverterKr: Pris for ny inverter
+    salgsprisFoerste10AarKrKWh: Salgspris (Første 10 år)
+    salgsprisEfter10AarKrKWh: Salgspris (Efter 10 år)
+    energiprisstigningPctPrAar: Energiprisstigning
+    investeringKr: Investering (Anlæg + opsætning)
+    screeningOgProjekteringKr: Screening og projektering
+    driftPrAarKr: Drift pr. år
+    omkostningTilMaalerKr: Omkostning til måler
+    raadighedstarifKr: Rådighedstarif
+    totalDriftomkostningerPrAar: Total driftomkostninger pr. år
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+
+  solcelle:
+    kwp: KWp
+    KWp: KWp
+    inverterpris: Inverterpris
+    drift: Drift
+
+  klimaskaerm:
+    post: Post
+    klimaskaerm: Klimaskærm
+    arbejdeOmfang: Arbejde/omfang
+    enhedsprisEksklMoms: Estimat for enhedspris excl moms
+    enhed: Enhed
+    noter: Noter
+
+  configuration:
+    kalkulationsrente: Kalkulationsrente
+    inflationsfaktor: Inflationsfaktor
+    inflation: Inflation
+    lobetid: Løbetid
+    nominelEnergiprisstigning: Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt
+    elfaktor: El-faktor
+    varmefaktor: Varmefaktor
+    vandfaktor: Vandfaktor
+    varmeKrKWh: Varme (kr/kWh)
+    elKrKWh: El (kr/kWh)
+    varmeledningsevneEksistLamelmaatter: Varmeledningsevne (W/m·K), eksist. lamelmåtter
+    varmeledningsevneNyIsolering: Varmeledningsevne (W/m·K), ny isolering
+
+  user:
+    profile: Profil
+    firstname: Fornavn
+    lastname: Efternavn
+    phone: Telefon
+    bygninger: Bygninger
+    locked: Låst
+    email: Email
+    segmenter: Segmentansvarlig for:
+    groups: Grupper
+    password: Kodeord
+    plainpassword: Kodeord
+
+  energiforsyning:
+    navn: Navn
+    beskrivelse: Beskrivelse
+    samletVarmeeffektivitet: Samlet varmeeffektivitet:
+    samletEleffektivitet: Samlet eleffektivitet:
+    internProduktioner: Interne produktioner
+    internProduktioner.0:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.1:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.2:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.3:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+    internProduktioner.4:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+
+    internproduktion:
+      navn: Navn
+      fordeling: Fordeling
+      effektivitet: Effektivitet
+      prisgrundlag: Prisgrundlag
+
+# Calculations
+appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |
+    if ($this->rumstoerrelse_m2 == 0 || $armaturEffekt == 0 || $this->armaturer_stk_lokale == 0) {
+      return 0;
+    }
+    else {
+      return $armaturEffekt * $this->armaturer_stk_lokale / $this->rumstoerrelse_m2;
+    }
+appbundle.belysningtiltagdetail.ny.driftstid.calculation: |
+    if ($this->drifttid_t_aar == 0 || $this->belysningstiltagId == null) {
+      return 0;
+    }
+    else {
+      return $this->drifttid_t_aar - $this->reduktion_af_drifttid * $this->drifttid_t_aar;
+    }
+
+appbundle.tekniskisoleringtiltagdetail.roerstoerrelseMmAekvivalent.calculation: …
+appbundle.klimaskaermtiltagdetail.arealM2.calculation: …

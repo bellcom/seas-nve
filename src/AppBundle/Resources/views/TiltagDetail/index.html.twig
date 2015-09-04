@@ -1,0 +1,24 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>{{ 'tiltag_detail.id' | trans }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for detail in entities %}
+        <tr>
+          <td>{{ dump(detail) }}</td>
+          <td>
+            <a class="btn btn-default" href="{{ path('tiltag_detail_show', { id: detail.id }) }}">{{ 'tiltag_detail.show' | trans }}</a>
+            <a class="btn btn-default" href="{{ path('tiltag_detail_edit', { id: detail.id }) }}">{{ 'tiltag_detail.edit' | trans }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {{ dump() }}
+{% endblock %}

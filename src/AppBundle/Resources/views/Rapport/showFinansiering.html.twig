@@ -1,0 +1,98 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>{{ 'Finansiering' | trans }}</h1>
+
+  <figure id="chart">
+    <canvas id="chart-canvas" width="400" height="400"></canvas>
+    <figcaption></figcaption>
+  </figure>
+
+  <script src="{{ asset('js/lib/Chart.js/Chart.min.js') }}"></script>
+  <script>(function() {
+var formatData = function(data) {
+  var formatted = [], key;
+  for (key in data) {
+    if (key > 0) {
+      formatted[key-1] = data[key] ? data[key].toFixed(2) : null;
+    }
+  }
+  return formatted;
+},
+data = {
+  labels: (function(years) {
+    var currentYear = (new Date()).getFullYear();
+    return years.map(function(y) {
+      return y - 1 + currentYear;
+  });
+}({{ entity.cashFlow['cash flow'] | keys | json_encode | raw }})),
+datasets: [ {
+  label: {{ 'Besparelse' | trans | json_encode | raw }},
+  fillColor: 'rgba(151,187,205,0.2)',
+  strokeColor: 'rgba(151,187,205,1)',
+  pointColor: 'rgba(151,187,205,1)',
+  pointStrokeColor: '#fff',
+  pointHighlightFill: '#fff',
+  pointHighlightStroke: 'rgba(151,187,205,1)',
+  data: formatData({{ entity.cashFlow['besparelse'] | json_encode | raw }})
+}, {
+  label: {{ 'Ydelse, lån inkl. fællesomkostninger' | trans | json_encode | raw }},
+  fillColor: 'rgba(220,220,220,0.2)',
+  strokeColor: 'rgba(220,220,220,1)',
+  pointColor: 'rgba(220,220,220,1)',
+  pointStrokeColor: '#fff',
+  pointHighlightFill: '#fff',
+  pointHighlightStroke: 'rgba(220,220,220,1)',
+  data: formatData({{ entity.cashFlow['ydelse laan'] | json_encode | raw }})
+} ]
+},
+options = {
+  animation: !true,
+  responsive: true,
+  maintainAspectRatio: false,
+  datasetFill: false
+},
+ctx = document.querySelector('#chart canvas').getContext('2d'),
+chart = new Chart(ctx).Line(data, options);
+document.querySelector('#chart figcaption').innerHTML = chart.generateLegend();
+}())</script>
+
+  {% set slices = [
+    entity.cashFlow['cash flow'] | keys | slice(0, 15),
+    entity.cashFlow['cash flow'] | keys | slice(15, 15)
+  ] %}
+
+  {% for years in slices %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="row">
+            {{ 'År' | trans }}
+          </th>
+          {% for year in years %}
+            <th scope="col">
+              {{ year }}
+            </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for name, key in {
+          'Ydelse, lån [kr]': 'ydelse laan',
+          'Energibesp. [kr]': 'besparelse',
+          'Overskud [kr]': 'cash flow',
+          } %}
+          <tr>
+            <th scope="row">{{ name | trans }}</th>
+            {% for year in years %}
+              <td>
+                {{ entity.cashFlow[key][year] | format_decimal }}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endfor %}
+
+{% endblock %}

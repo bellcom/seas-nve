@@ -1,0 +1,15 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>TiltagDetail</h1>
+
+  <dl class="dl-horizontal">
+    <dt>{{ 'tiltag_detail.id' | trans }}</dt>
+    <dd>{{ entity.id }}</dd>
+
+    <dt>{{ 'tiltag_detail.tilvalgt' | trans }}</dt>
+    <dd>{{ entity.tilvalgt }}</dd>
+  </dl>
+
+  {{ dump() }}
+{% endblock %}

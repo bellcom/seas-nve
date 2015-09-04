@@ -1,0 +1,52 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Regning</h1>
+
+    <table class="table table-condensed">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nummer</th>
+                <td>{{ entity.nummer }}</td>
+            </tr>
+            <tr>
+                <th>Faktureret</th>
+                <td>{{ entity.faktureret }}</td>
+            </tr>
+            <tr>
+                <th>Startdato</th>
+                <td>{{ entity.startdato|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Slutdato</th>
+                <td>{{ entity.slutdato|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('regning') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('regning_edit', { 'id': entity.id }) }}" class="btn btn-default">
+            {{ 'common.edit' | trans }}
+        </a>
+    </li>
+
+</ul>
+{% endblock %}

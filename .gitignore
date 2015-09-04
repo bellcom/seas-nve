@@ -1,3 +1,4 @@
+/web/uploads/
 /web/bundles/
 /app/bootstrap.php.cache
 /app/cache/*
@@ -10,3 +11,6 @@
 /vendor/
 /bin/
 /composer.phar
+/src/AppBundle/DataFixtures/Data/*
+.idea/
+

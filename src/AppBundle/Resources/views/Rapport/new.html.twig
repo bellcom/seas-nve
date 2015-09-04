@@ -1,0 +1,8 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>{{ 'rapporter.actions.create' | trans }}</h1>
+
+  {{ form(form, { 'style': 'horizontal' }) }}
+
+{% endblock %}

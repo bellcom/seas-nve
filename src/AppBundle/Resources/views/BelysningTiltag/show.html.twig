@@ -1,0 +1,112 @@
+{% extends 'AppBundle:Tiltag:show.html.twig' %}
+
+{% block body -%}
+  {{ parent() }}
+{% endblock %}
+
+{% block detailark -%}
+  <div class="row">
+    <div class="col-md-12">
+			<div class="table-responsive">
+				<table class="table table-condensed table-header-rotated table-hover">
+					<thead>
+						<tr>
+							{{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lokale.navn') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lokale.type') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.armaturhoejdeM') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.rumstoerrelseM2') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lokale.antal') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.drifttidTAar') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lyskilde') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lyskildeStkArmatur') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.lyskildeWLyskilde') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.forkoblingStkArmatur') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.armaturerStkLokale') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.elforbrugWM2') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.placering.id') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.styring') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.noter') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.belysningstiltag') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nyeSensorerStkLokale') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.standardinvestSensorKrStk') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.reduktionAfDrifttid') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nyDriftstid') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.standardinvestArmaturElLyskildeKrStk') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nyLyskilde') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nyLyskildeStkArmatur') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nyLyskildeWLyskilde') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nyForkoblingStkArmatur') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nyArmatureffektWStk') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nyeArmaturerStkLokale') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nyttiggjortVarmeAfElBesparelse') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.prisfaktor') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.prisfaktorTillaegKrLokale') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.investeringAlleLokalerKr') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nytElforbrugWM2') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.driftsbesparelseTilLyskilderKrAar') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.simpelTilbagebetalingstidAar') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.vaegtetLevetidAar') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.kwhBesparelseEl') }}
+							{{ helper.header('appbundle.belysningtiltagdetail.kwhBesparelseVarmeFraVarmevaerket') }}
+						  {{ helper.header() }}
+						</tr>
+					</thead>
+					<tbody>
+						{% for detail in entity.details %}
+							<tr>
+								<td>{{ detail.tilvalgt | b2icon }}</td>
+								<td>{{ detail.lokaleNavn }}</td>
+								<td>{{ detail.lokaleType }}</td>
+								<td class="number">{{ detail.armaturhoejdeM | format_decimal(3) }}</td>
+								<td class="number">{{ detail.rumstoerrelseM2 | format_decimal(1) }}</td>
+								<td class="number">{{ detail.lokaleAntal | format_integer }}</td>
+								<td class="number">{{ detail.drifttidTAar | format_decimal(0) }}</td>
+								<td>{{ detail.lyskilde }}</td>
+								<td class="number">{{ detail.lyskildeStkArmatur | format_integer }}</td>
+								<td class="number">{{ detail.lyskildeWLyskilde | format_decimal }}</td>
+								<td class="number">{{ detail.forkoblingStkArmatur | format_integer }}</td>
+								<td class="number">{{ detail.armaturerStkLokale | format_integer }}</td>
+								<td class="number">{{ detail.elforbrugWM2 | format_decimal }}</td>
+								<td>{{ detail.placeringId }}</td>
+								<td>{{ detail.styring }}</td>
+								<td>{{ detail.noter }}</td>
+								<td>{{ detail.belysningstiltag }}</td>
+								<td class="number">{{ detail.nyeSensorerStkLokale | format_integer }}</td>
+								<td class="number">{{ detail.standardinvestSensorKrStk | format_decimal }}</td>
+								<td class="number">{{ detail.reduktionAfDrifttid | format_decimal }}</td>
+								<td class="number">{{ detail.nyDriftstid | format_decimal }}</td>
+								<td class="number">{{ detail.standardinvestArmaturElLyskildeKrStk | format_decimal }}</td>
+								<td>{{ detail.nyLyskilde }}</td>
+								<td class="number">{{ detail.nyLyskildeStkArmatur | format_integer }}</td>
+								<td class="number">{{ detail.nyLyskildeWLyskilde | format_decimal }}</td>
+								<td class="number">{{ detail.nyForkoblingStkArmatur | format_integer }}</td>
+								<td class="number">{{ detail.nyArmatureffektWStk | format_decimal }}</td>
+								<td class="number">{{ detail.nyeArmaturerStkLokale | format_integer }}</td>
+								<td class="number">{{ detail.nyttiggjortVarmeAfElBesparelse | format_percent }}</td>
+								<td class="number">{{ detail.prisfaktor | format_decimal }}</td>
+								<td class="number">{{ detail.prisfaktorTillaegKrLokale | format_decimal }}</td>
+								<td class="number">{{ detail.investeringAlleLokalerKr | format_decimal }}</td>
+								<td class="number">{{ detail.nytElforbrugWM2 | format_decimal }} </td>
+								<td class="number">{{ detail.driftsbesparelseTilLyskilderKrAar | format_decimal }}</td>
+								<td class="number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
+								<td class="number">{{ detail.vaegtetLevetidAar | format_decimal }}</td>
+								<td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+								<td class="number">{{ detail.kwhBesparelseEl | format_decimal }}</td>
+								<td class="number">{{ detail.kwhBesparelseVarmeFraVarmevaerket | format_decimal }}</td>
+								<td>
+									<a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+    </div>
+  </div>
+
+  {% form_theme create_detail_form 'AppBundle:Form:modal-form.html.twig' %}
+  {{ form(create_detail_form) }}
+
+{% endblock %}
