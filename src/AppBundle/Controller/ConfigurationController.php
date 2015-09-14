@@ -103,7 +103,7 @@ class ConfigurationController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Configuration $configuration) {
-    $form = $this->createForm(new ConfigurationType(), $configuration, array(
+    $form = $this->createForm(new ConfigurationType($this->get('security.context')), $configuration, array(
       'action' => $this->generateUrl('configuration_update'),
       'method' => 'PUT',
     ));
