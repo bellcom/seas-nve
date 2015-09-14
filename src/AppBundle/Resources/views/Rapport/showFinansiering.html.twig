@@ -95,4 +95,9 @@ document.querySelector('#chart figcaption').innerHTML = chart.generateLegend();
     </table>
   {% endfor %}
 
+  {{ 'Kalkulationsrente' | trans }}: {{ entity.configuration.kalkulationsrente }}
+
+  {% if edit_form %}
+    {{ form(edit_form, { 'style': 'horizontal' }) }}
+  {% endif %}
 {% endblock %}

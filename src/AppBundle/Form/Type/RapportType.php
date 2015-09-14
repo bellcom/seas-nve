@@ -80,16 +80,6 @@ class RapportType extends AbstractType {
         )
       ))
       ->add('elena');
-
-    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-      $builder->add('laanLoebetid', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'år'
-          )
-        )
-      ));
-    }
   }
 
   /**
