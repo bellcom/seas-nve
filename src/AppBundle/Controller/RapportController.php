@@ -240,8 +240,65 @@ class RapportController extends BaseController {
     $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $rapport->getBygning()->getId())));
     $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $rapport->getId())));
 
+    $editForm = $this->createEditFormFinansiering($rapport);
+
     return array(
       'entity' => $rapport,
+      'edit_form' => $editForm ? $editForm->createView() : NULL,
+    );
+  }
+
+    /**
+   * Creates a form to edit a Rapport entity.
+   *
+   * @param Rapport $rapport The rapport
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditFormFinansiering(Rapport $rapport) {
+    if (!$this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+      return NULL;
+    }
+
+    $form = $this->createFormBuilder($rapport)
+          ->setAction($this->generateUrl('rapport_finansiering_update', array('id' => $rapport->getId())))
+          ->setMethod('PUT')
+          ->add('laanLoebetid', null, array(
+            'attr' => array(
+              'input_group' => array(
+                'append' => 'år'
+              )
+            ),
+          ))
+          ->getForm();
+
+    $this->addUpdate($form);
+
+    return $form;
+  }
+
+  /**
+   * Edits an existing Rapport entity.
+   *
+   * @Route("/{id}/finansiering", name="rapport_finansiering_update")
+   * @Method("PUT")
+   * @Security("has_role('ROLE_ADMIN')")
+   */
+  public function updateActionFinansiering(Request $request, Rapport $rapport) {
+    $em = $this->getDoctrine()->getManager();
+
+    $editForm = $this->createEditFormFinansiering($rapport);
+    $editForm->handleRequest($request);
+
+    if ($editForm->isValid()) {
+      $em->flush();
+
+      return $this->redirect($this->generateUrl('rapport_finansiering_show', array('id' => $rapport->getId())));
+    }
+
+    return array(
+      'entity' => $rapport,
+      'edit_form' => $editForm->createView(),
     );
   }
 

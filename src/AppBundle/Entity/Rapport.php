@@ -186,13 +186,6 @@ class Rapport {
   protected $laanLoebetid;
 
   /**
-   * @var float
-   *
-   * @ORM\Column(name="laanRente", type="decimal", scale=4, nullable=true)
-   */
-  protected $laanRente;
-
-  /**
    * @var boolean
    *
    * @ORM\Column(name="elena", type="boolean", nullable=true)
@@ -618,29 +611,6 @@ class Rapport {
   }
 
   /**
-   * Set laanRente
-   *
-   * @param integer $laanRente
-   * @return Rapport
-   */
-  public function setLaanRente($laanRente)
-  {
-    $this->laanRente = $laanRente;
-
-    return $this;
-  }
-
-  /**
-   * Get LaanRente
-   *
-   * @return integer
-   */
-  public function getLaanRente()
-  {
-    return $this->laanRente;
-  }
-
-  /**
    * Set elena
    *
    * @param string $elena
@@ -971,7 +941,7 @@ class Rapport {
     );
 
     $tilvalgteTiltag = $this->getTilvalgteTiltag();
-    $rente = $this->getLaanRente();
+    $rente = $this->getKalkulationsrente();
     $loebetid = $this->getLaanLoebetid();
     $samletAarligYdelseTilLaan = 0;
     $inflation = $this->getInflation();
