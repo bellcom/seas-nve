@@ -9,12 +9,20 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class ConfigurationType
  * @package AppBundle\Form
  */
 class ConfigurationType extends AbstractType {
+  protected $authorizationChecker;
+
+  public function __construct(AuthorizationCheckerInterface $authorizationChecker)
+  {
+    $this->authorizationChecker = $authorizationChecker;
+  }
+
   /**
    * @TODO: Missing description.
    *
@@ -24,8 +32,12 @@ class ConfigurationType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
+    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+      $builder
+        ->add('kalkulationsrente');
+    }
+
     $builder
-      ->add('kalkulationsrente')
       ->add('inflation')
       ->add('lobetid')
 
