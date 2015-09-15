@@ -286,13 +286,6 @@ class Bygning {
   /**
    * @var string
    *
-   * @ORM\Column(name="Ansvarlig", type="string", length=255, nullable=true)
-   */
-  protected $ansvarlig;
-
-  /**
-   * @var string
-   *
    * @ORM\Column(name="Magistrat", type="string", length=255, nullable=true)
    */
   protected $magistrat;
@@ -375,6 +368,18 @@ class Bygning {
   protected $rapporter;
 
   /**
+   * @ManyToOne(targetEntity="User", inversedBy="ansvarlig")
+   * @JoinColumn(name="aaplusansvarlig_id", referencedColumnName="id")
+   **/
+  protected $aaplusAnsvarlig;
+
+  /**
+   * @ManyToOne(targetEntity="User", inversedBy="energiRaadgiver")
+   * @JoinColumn(name="energiraadgiver_id", referencedColumnName="id")
+   **/
+  protected $energiRaadgiver;
+
+  /**
    * @ManyToMany(targetEntity="User", inversedBy="bygninger")
    * @JoinTable(name="bygning_user")
    * @JMS\Exclude
@@ -382,7 +387,7 @@ class Bygning {
   protected $users;
 
   /**
-   * @ManyToOne(targetEntity="Segment", inversedBy="bygninger", fetch="EAGER")
+   * @ManyToOne(targetEntity="Segment", inversedBy="bygninger")
    * @JoinColumn(name="segment_id", referencedColumnName="id")
    **/
   protected $segment;
@@ -1138,27 +1143,6 @@ class Bygning {
   }
 
   /**
-   * Set ansvarlig
-   *
-   * @param string $ansvarlig
-   * @return Bygning
-   */
-  public function setAnsvarlig($ansvarlig) {
-    $this->ansvarlig = $ansvarlig;
-
-    return $this;
-  }
-
-  /**
-   * Get ansvarlig
-   *
-   * @return string
-   */
-  public function getAnsvarlig() {
-    return $this->ansvarlig;
-  }
-
-  /**
    * Set magistrat
    *
    * @param string $magistrat
@@ -1500,12 +1484,60 @@ class Bygning {
   }
 
   /**
-   * Get segment
+   * Get status
    *
    * @return \AppBundle\Entity\BygningStatus
    */
   public function getStatus()
   {
     return $this->status;
+  }
+
+  /**
+   * Set Aa+ Ansvarlig
+   *
+   * @param \AppBundle\Entity\User user
+   *
+   * @return Bygning
+   */
+  public function setAaplusAnsvarlig(\AppBundle\Entity\User $user = null)
+  {
+    $this->aaplusAnsvarlig = $user;
+
+    return $this;
+  }
+
+  /**
+   * Get Aa+ Ansvarlig
+   *
+   * @return \AppBundle\Entity\User
+   */
+  public function getAaplusAnsvarlig()
+  {
+    return $this->aaplusAnsvarlig;
+  }
+
+  /**
+   * Set Energirådgiver
+   *
+   * @param \AppBundle\Entity\User user
+   *
+   * @return Bygning
+   */
+  public function setEnergiRaadgiver(\AppBundle\Entity\User $user = null)
+  {
+    $this->energiRaadgiver = $user;
+
+    return $this;
+  }
+
+  /**
+   * Get Energirådgiver
+   *
+   * @return \AppBundle\Entity\User
+   */
+  public function getEnergiRaadgiver()
+  {
+    return $this->energiRaadgiver;
   }
 }

@@ -108,3 +108,7 @@ services:
         class: AppBundle\Form\Type\ProfileFormType
         tags:
             - { name: form.type, alias: appbundle_user_profile }
+
+    aaplus.form.bygningtype:
+        class:        AppBundle\Form\BygningType
+        arguments:    [doctrine]

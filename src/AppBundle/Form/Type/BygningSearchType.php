@@ -44,7 +44,8 @@ class BygningSearchType extends AbstractType {
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Bygning'
+      'data_class' => 'AppBundle\Entity\Bygning',
+      'validation_groups' => false
     ));
   }
 

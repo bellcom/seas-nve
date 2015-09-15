@@ -35,6 +35,13 @@ Cancel: Annuller
 Update: Opdater
 
 common:
+  result_overview: Resultatoversigt
+  none: Ingen
+  updatedat: Opdateret
+  updatedby: Opdateret af
+  createdat: Oprettet
+  createdby: Oprettet af
+  data: Data
   forside: Forside
   all: Alle
   edit: Rediger
@@ -378,6 +385,8 @@ appbundle:
     co2y2075: CO2, 2075
 
   bygning:
+    energiRaadgiver: Energirådgiver
+    aaplusAnsvarlig: Aa+ Ansvarlig
     magistrat: Magistrat
     singular: Bygning
     plural: Bygninger
@@ -492,9 +501,19 @@ appbundle:
     pumpetiltag: Pumpetiltag
     pumpe: Pumpe
   rapport:
+    besparelseEl: El
+    besparelseEl.unit: kWh/år
+    besparelseVarmeGAF: Varme GAF
+    besparelseVarmeGAF.unit: ??
+    besparelseVarmeGUF: Varme GUF
+    besparelseVarmeGUF.unit: ??
+    energibesparelser: Energibesparelser
+    co2besparelser: CO2 Besparelser
+    besparelseCO2: Samlet CO2
+    besparelseCO2.unit: ??
     bygning: Bygning
     version: Version
-    datering: Dato
+    datering: Screeningsdato
     BaselineEl: El
     BaselineVarmeGUF: Baseline Varme GUF
     BaselineVarmeGAF: Baseline Varme GAF

@@ -76,7 +76,7 @@ class RapportRepository extends EntityRepository {
       return true;
     }
 
-    return $rapport->getBygning()->getUsers()->contains($user);
+    return $rapport->getBygning()->getEnergiRaadgiver() == $user || $rapport->getBygning()->getUsers()->contains($user);
   }
 
   /**

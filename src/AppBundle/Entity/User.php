@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints as RollerworksPassword;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OrderBy;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity
@@ -52,7 +54,7 @@ class User extends BaseUser {
   protected $plainPassword;
 
   /**
-   * @ORM\ManyToMany(targetEntity="Group")
+   * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
    * @ORM\JoinTable(name="fos_user_group",
    *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
    *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
@@ -64,6 +66,20 @@ class User extends BaseUser {
    * @OneToMany(targetEntity="Segment", mappedBy="segmentAnsvarlig")
    **/
   protected $segmenter;
+
+  /**
+   * @OneToMany(targetEntity="Bygning", mappedBy="aaplusAnsvarlig")
+   * @OrderBy({"navn" = "ASC"})
+   * @JMS\Exclude
+   **/
+  protected $ansvarlig;
+
+  /**
+   * @OneToMany(targetEntity="Bygning", mappedBy="energiRaadgiver")
+   * @OrderBy({"navn" = "ASC"})
+   * @JMS\Exclude
+   **/
+  protected $energiRaadgiver;
 
 
   public function __construct() {
