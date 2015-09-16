@@ -154,7 +154,7 @@
       {% if style == 'horizontal' %}
         {% set label_attr = label_attr|merge({ 'class': (label_attr.class|default('') ~ ' col-' ~ col_size ~ '-' ~ label_col)|trim }) %}
       {% elseif style == 'inline' %}
-        {% set label_attr = label_attr|merge({ 'class': (label_attr.class|default('') ~ ' sr-only')|trim }) %}
+        {% set label_attr = label_attr|merge({ 'class': (label_attr.class|default('') )|trim }) %}
       {% endif %}
 
       {% if not compound %}

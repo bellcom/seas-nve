@@ -423,6 +423,10 @@ form .alert ul {
     padding-left: 0;
 }
 
+.form-inline .form-group .control-label {
+    margin-right: 1em;
+}
+
 .multiline {
 	white-space: pre-line;
 }

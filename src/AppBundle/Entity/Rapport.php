@@ -375,7 +375,7 @@ class Rapport {
   }
 
   /**
-   * Get all selected TiltagDetails.
+   * Get all selected Tiltag.
    *
    * @return \Doctrine\Common\Collections\Collection
    *   The list of selected TiltagDetails.
@@ -383,6 +383,18 @@ class Rapport {
   public function getTilvalgteTiltag() {
     return $this->getTiltag()->filter(function($tiltag) {
       return $tiltag->getTilvalgt();
+    });
+  }
+
+  /**
+   * Get all deselected Tiltag.
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   *   The list of selected TiltagDetails.
+   */
+  public function getFravalgteTiltag() {
+    return $this->getTiltag()->filter(function($tiltag) {
+      return !$tiltag->getTilvalgt();
     });
   }
 

@@ -35,6 +35,8 @@ Cancel: Annuller
 Update: Opdater
 
 common:
+  select: Tilvælg
+  deselect: Fravælg
   result_overview: Resultatoversigt
   none: Ingen
   updatedat: Opdateret
@@ -501,6 +503,9 @@ appbundle:
     pumpetiltag: Pumpetiltag
     pumpe: Pumpe
   rapport:
+    tilvalg: Tilvalg
+    fravalg: Fravalg
+    likviditetsoversigt: Likviditetsoversigt
     besparelseEl: El
     besparelseEl.unit: kWh/år
     besparelseVarmeGAF: Varme GAF
@@ -511,6 +516,10 @@ appbundle:
     co2besparelser: CO2 Besparelser
     besparelseCO2: Samlet CO2
     besparelseCO2.unit: ??
+    besparelseCO2el: El
+    besparelseCO2el.unit: ??
+    besparelseCO2varme: Varme
+    besparelseCO2varme.unit: ??
     bygning: Bygning
     version: Version
     datering: Screeningsdato
@@ -540,6 +549,8 @@ appbundle:
     kommentar: Kommentar
     title: Title
   tiltag:
+    tilvalgtAfMagistrat: Mag.
+    tilvalgtbegrundelse: Bemærkning
     tilvalgt: Tilvalgt
     title: Titel
     varmebesparelseGUF: ﻿Varmebesparelse, GUF (kWh/år)
@@ -552,10 +563,12 @@ appbundle:
     faktorForReinvesteringer: Faktor for reinvesteringer
     primaerEnterprise: Primær entreprise
     tiltagskategori: Tiltagskategori
-    anlaegsInvestering: ﻿Anlægsinvestering (kr)
+    anlaegsInvestering: ﻿Anlægsinvestering
+    anlaegsInvestering.unit: ﻿kr
     reelAnlaegsinvestering: ﻿Reel Anlægsinvestering (kr)
     besparelseDriftOgVedligeholdelse: Besparelse på D & V (kr/år)
-    levetid: Funktionsdygtig levetid (år)
+    levetid: Funktionsdygtig levetid
+    levetid.unit: År
     forsyningVarme: Forsyning, varme
     forsyningEl: Forsyning, el
     beskrivelseNuvaerende: Nuværende forhold
@@ -566,7 +579,8 @@ appbundle:
     beskrivelseDriftOgVedligeholdelse: ﻿Beskrivelse af ændringer til D & V udgifter samt fremtidigt timeforbrug for driftspersonale
     indeklima: Indeklima
     rapport: Rapport
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
+    simpelTilbagebetalingstidAar.unit: År
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
     scrapvaerdi: Scrapværdi
     reinvestering: Reinvestering
@@ -575,6 +589,8 @@ appbundle:
     besparelseEl: Besparelse El
   tiltagdetail:
     tilvalgt: Tilvalgt
+  tiltagtilvalgt:
+    tilvalgtbegrundelse: Bemærkning
 
   tekniskisoleringtiltagdetail:
     add: Tilføg

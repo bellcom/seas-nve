@@ -27,7 +27,7 @@
       </tr>
       <tr>
         <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
-        <td>{{ entity.bygning }}, {{ entity.bygning.adresse }}, {{ entity.bygning.postnummer }} {{ entity.bygning.postBy }}</td>
+        <td><a href="{{ path('bygning_show', { 'id': entity.bygning.id }) }}">{{ entity.bygning }}, {{ entity.bygning.adresse }}, {{ entity.bygning.postnummer }} {{ entity.bygning.postBy }}</a></td>
         <th>{{ 'appbundle.bygning.energiRaadgiver' | trans }}</th>
         <td>{{ entity.bygning.energiRaadgiver }}</td>
       </tr>
@@ -73,17 +73,17 @@
         <th>{{ 'appbundle.rapport.besparelseVarmeGAF' | trans }}</th>
         <td class="right">{{ entity.besparelseVarmeGAF | number_format }}</td>
         <td>{{ 'appbundle.rapport.besparelseVarmeGAF.unit' | trans }}</td>
-        <th></th>
-        <td></td>
-        <td></td>
+        <th>{{ 'appbundle.rapport.besparelseCO2el' | trans }}</th>
+        <td>xx</td>
+        <td>{{ 'appbundle.rapport.besparelseCO2el.unit' | trans }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.rapport.besparelseVarmeGUF' | trans }}</th>
         <td class="right">{{ entity.besparelseVarmeGUF | number_format }} {{ 'appbundle.rapport.besparelseVarmeGUF.unit' | trans }}</td>
         <td>{{ 'appbundle.rapport.besparelseVarmeGUF.unit' | trans }}</td>
-        <th></th>
-        <td></td>
-        <td></td>
+        <th>{{ 'appbundle.rapport.besparelseCO2varme' | trans }}</th>
+        <td>xx</td>
+        <td>{{ 'appbundle.rapport.besparelseCO2varme.unit' | trans }}</td>
       </tr>
       </tbody>
     </table>
@@ -91,12 +91,69 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">{{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}</div>
+    <div class="panel-heading">{{ icon('line-chart') }} {{ 'appbundle.rapport.likviditetsoversigt' | trans }}</div>
 
     <div class="panel-body">
       {% include('AppBundle::_includes/finansiering_graf.html.twig') %}
+
+      {% if is_granted('ROLE_RAPPORT_EDIT') %}
+        {% if edit_form %}
+          {{ form(edit_form, { 'style': 'inline' }) }}
+        {% endif %}
+      {% else %}
+        {{ 'appbundle.rapport.laanLoebetid' | trans }}: {{ entity.laanLoebetid }}
+      {% endif %}
+
     </div>
   </div>
+
+  {% if entity.tilvalgteTiltag is not empty %}
+
+    <div class="panel panel-default">
+      <div class="panel-heading">{{ icon('thumbs-up') }} {{ 'appbundle.rapport.tilvalg' | trans }}</div>
+
+      <table class="table table-condensed">
+        <thead>
+        <tr>
+          <th>{{ 'appbundle.tiltag.title' | trans }}</th>
+          <th>{{ 'appbundle.tiltag.tilvalgtAfMagistrat' | trans }}</th>
+          <th>{{ 'appbundle.tiltag.tilvalgtbegrundelse' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for t in entity.tilvalgteTiltag %}
+          <tr>
+            <td>{{ t.title }}</td>
+
+            <td>{{ t.tilvalgtAfMagistrat | b2icon }}</td>
+            <td>{{ t.tilvalgtbegrundelse }}</td>
+            <td class="right">{{ t.levetid | number_format }} {{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
+            <td class="right">{{ t.simpelTilbagebetalingstidAar | number_format }} {{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
+            <td class="right">{{ t.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
+            <td class="right">
+              <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
+                {{ 'common.deselect' | trans }}
+              </button>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+
+    {% for t in entity.tilvalgteTiltag %}
+      {% form_theme tilvalgt[t.id] 'AppBundle:Form:tilvalgt-modal-form.html.twig' %}
+      {{ form(tilvalgt[t.id], { 'style': 'horizontal' }) }}
+    {% endfor %}
+
+  {% endif %}
+
+  <!-- /////////////////////////////////////////////////// -->
 
 
   <hr>
