@@ -30,6 +30,10 @@ services:
         tags:
             - { name: twig.extension }
 
+    twig.extension.text:
+         class: Twig_Extensions_Extension_Text
+         tags: [{ name: twig.extension }]
+
     security.access.bygning_voter:
         class:      AppBundle\Security\Authorization\Voter\BygningVoter
         public:     false
@@ -108,3 +112,7 @@ services:
         class: AppBundle\Form\Type\ProfileFormType
         tags:
             - { name: form.type, alias: appbundle_user_profile }
+
+    aaplus.form.bygningtype:
+        class:        AppBundle\Form\BygningType
+        arguments:    [doctrine]

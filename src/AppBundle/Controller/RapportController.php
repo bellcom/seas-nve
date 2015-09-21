@@ -6,6 +6,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\Type\TiltagTilvalgtType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -21,8 +22,7 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  * @Route("/rapport")
  */
 class RapportController extends BaseController {
-  public function init(Request $request)
-  {
+  public function init(Request $request) {
     parent::init($request);
     $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
   }
@@ -56,14 +56,38 @@ class RapportController extends BaseController {
    * @return array
    */
   public function showAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array(
+      'id' => $rapport->getBygning()
+        ->getId()
+    )));
     $this->breadcrumbs->addItem($rapport->getVersion(), $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
 
-    $deleteForm = $this->createDeleteForm($rapport->getId());
+    $deleteForm = $this->createDeleteForm($rapport->getId())->createView();
+
+    $editForm = $this->createEditFormFinansiering($rapport);
+
+    $tilvalgtFormArray = array();
+    $fravalgtFormArray = array();
+
+    if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+      foreach ($rapport->getTiltag() as $tiltag) {
+        if ($tiltag->getTilvalgt()) {
+          $tilvalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
+            ->createView();
+        }
+        else {
+          $fravalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
+            ->createView();
+        }
+      }
+    }
 
     return array(
       'entity' => $rapport,
-      'delete_form' => $deleteForm->createView(),
+      'tilvalgt_form_array' => $tilvalgtFormArray,
+      'fravalgt_form_array' => $fravalgtFormArray,
+      'delete_form' => $deleteForm,
+      'edit_form' => $editForm,
     );
   }
 
@@ -76,7 +100,10 @@ class RapportController extends BaseController {
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function editAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array(
+      'id' => $rapport->getBygning()
+        ->getId()
+    )));
     $this->breadcrumbs->addItem($rapport->getVersion(), $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
 
@@ -104,6 +131,26 @@ class RapportController extends BaseController {
     ));
 
     $this->addUpdate($form, $this->generateUrl('rapport_show', array('id' => $entity->getId())));
+
+    return $form;
+  }
+
+  /**
+   * Creates a form to edit a Tiltag entity.
+   *
+   * @param Tiltag $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditTilvalgTilvalgtForm($entity, Rapport $rapport) {
+
+    $form = $this->createForm(new TiltagTilvalgtType($entity), $entity, array(
+      'action' => $this->generateUrl('tiltag_tilvalgt_update', array('id' => $entity->getId())),
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form);
+    //$form->add('submit', 'submit', array('label' => 'Create'));
 
     return $form;
   }
@@ -215,8 +262,13 @@ class RapportController extends BaseController {
    * @return array
    */
   public function showRegningerAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $rapport->getBygning()->getId())));
-    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')
+      ->generate('bygning_show', array(
+        'id' => $rapport->getBygning()
+          ->getId()
+      )));
+    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')
+      ->generate('rapport_show', array('id' => $rapport->getId())));
 
     $deleteForm = $this->createDeleteForm($rapport->getId());
 
@@ -237,8 +289,13 @@ class RapportController extends BaseController {
    * @return array
    */
   public function showFinansieringAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $rapport->getBygning()->getId())));
-    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')
+      ->generate('bygning_show', array(
+        'id' => $rapport->getBygning()
+          ->getId()
+      )));
+    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')
+      ->generate('rapport_show', array('id' => $rapport->getId())));
 
     $editForm = $this->createEditFormFinansiering($rapport);
 
@@ -248,7 +305,7 @@ class RapportController extends BaseController {
     );
   }
 
-    /**
+  /**
    * Creates a form to edit a Rapport entity.
    *
    * @param Rapport $rapport The rapport
@@ -261,20 +318,20 @@ class RapportController extends BaseController {
     }
 
     $form = $this->createFormBuilder($rapport)
-          ->setAction($this->generateUrl('rapport_finansiering_update', array('id' => $rapport->getId())))
-          ->setMethod('PUT')
-          ->add('laanLoebetid', null, array(
-            'attr' => array(
-              'input_group' => array(
-                'append' => 'år'
-              )
-            ),
-          ))
-          ->getForm();
+      ->setAction($this->generateUrl('rapport_finansiering_update', array('id' => $rapport->getId())))
+      ->setMethod('PUT')
+      ->add('laanLoebetid', NULL, array(
+        'attr' => array(
+          'input_group' => array(
+            'append' => 'år'
+          )
+        ),
+      ))
+      ->getForm();
 
     $this->addUpdate($form);
 
-    return $form;
+    return $form->createView();
   }
 
   /**
@@ -293,7 +350,7 @@ class RapportController extends BaseController {
     if ($editForm->isValid()) {
       $em->flush();
 
-      return $this->redirect($this->generateUrl('rapport_finansiering_show', array('id' => $rapport->getId())));
+      return $this->redirect($request->headers->get('referer'));
     }
 
     return array(

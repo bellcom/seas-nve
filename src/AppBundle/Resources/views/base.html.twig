@@ -60,6 +60,22 @@
   </div>
 </nav>
 
+{% macro header(key) %}
+  {% set calculation = key|get_calculation %}
+
+  <th class="rotate">
+    <div>
+      {% if calculation is null %}
+        <span>{{ key | trans }}</span>
+      {% else %}
+        <span data-calculation="{{ calculation }}">{{ key | trans }}</span>
+      {% endif %}
+    </div>
+  </th>
+{% endmacro %}
+
+{% import _self as helper %}
+
 <!-- Begin page content -->
 
 <div class="container-fluid">

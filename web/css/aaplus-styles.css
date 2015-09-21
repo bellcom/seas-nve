@@ -1,4 +1,15 @@
 /**
+* Helpers
+*/
+.table-condensed>tbody>tr>th.indent {
+    padding-left: 2em;
+}
+
+.right {
+    text-align: right;
+}
+
+/**
 * Login
 */
 
@@ -18,10 +29,6 @@
 
 .navbar-brand--logo {
     max-height: 100%;
-}
-
-.right {
-    text-align: right;
 }
 
 .form-group button:not(:first-child) {
@@ -423,6 +430,10 @@ form .alert ul {
     padding-left: 0;
 }
 
+.form-inline .form-group .control-label {
+    margin-right: 1em;
+}
+
 .multiline {
 	white-space: pre-line;
 }
@@ -463,3 +474,5 @@ div.row.heading .btn {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+
+

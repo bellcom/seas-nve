@@ -67,6 +67,20 @@ abstract class Tiltag {
   /**
    * @var string
    *
+   * @ORM\Column(name="tilvalgtbegrundelse", type="text", nullable=true)
+   */
+  protected $tilvalgtbegrundelse;
+
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="tilvalgtAfMagistrat", type="boolean", nullable=true)
+   */
+  protected $tilvalgtAfMagistrat = false;
+
+  /**
+   * @var string
+   *
    * @ORM\Column(name="title", type="string", length=255, nullable=true)
    */
   protected $title;
@@ -213,10 +227,9 @@ abstract class Tiltag {
   protected $primaerEnterprise;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="tiltagskategori", type="string", length=50, nullable=true)
-   */
+   * @ManyToOne(targetEntity="TiltagsKategori")
+   * @JoinColumn(name="kategori_id", referencedColumnName="id")
+   **/
   protected $tiltagskategori;
 
   /**
@@ -460,7 +473,7 @@ abstract class Tiltag {
   /**
    * Set tiltagskategori
    *
-   * @param string $tiltagskategori
+   * @param \AppBundle\Entity\TiltagsKategori tiltagskategori
    * @return Tiltag
    */
   public function setTiltagskategori($tiltagskategori) {
@@ -472,7 +485,7 @@ abstract class Tiltag {
   /**
    * Get tiltagskategori
    *
-   * @return string
+   * @return \AppBundle\Entity\TiltagsKategori
    */
   public function getTiltagskategori() {
     return $this->tiltagskategori;
@@ -1258,5 +1271,55 @@ abstract class Tiltag {
   protected function fordelbesparelse($BesparKwh, $kilde, $type) {
     return Calculation::fordelbesparelse($BesparKwh, $kilde, $type);
   }
+
+
+    /**
+     * Set tilvalgtbegrundelse
+     *
+     * @param string $tilvalgtbegrundelse
+     *
+     * @return Tiltag
+     */
+    public function setTilvalgtbegrundelse($tilvalgtbegrundelse)
+    {
+        $this->tilvalgtbegrundelse = $tilvalgtbegrundelse;
+
+        return $this;
+    }
+
+    /**
+     * Get tilvalgtbegrundelse
+     *
+     * @return string
+     */
+    public function getTilvalgtbegrundelse()
+    {
+        return $this->tilvalgtbegrundelse;
+    }
+
+    /**
+     * Set tilvalgtAfMagistrat
+     *
+     * @param boolean $tilvalgtAfMagistrat
+     *
+     * @return Tiltag
+     */
+    public function setTilvalgtAfMagistrat($tilvalgtAfMagistrat)
+    {
+        $this->tilvalgtAfMagistrat = $tilvalgtAfMagistrat;
+
+        return $this;
+    }
+
+    /**
+     * Get tilvalgtAfMagistrat
+     *
+     * @return boolean
+     */
+    public function getTilvalgtAfMagistrat()
+    {
+        return $this->tilvalgtAfMagistrat;
+    }
+
 
 }

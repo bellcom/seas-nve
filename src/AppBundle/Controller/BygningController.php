@@ -128,7 +128,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createCreateForm(Bygning $entity) {
-    $form = $this->createForm(new BygningType(), $entity, array(
+    $form = $this->createForm(new BygningType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('bygning_create'),
       'method' => 'POST',
     ));
@@ -202,7 +202,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Bygning $entity) {
-    $form = $this->createForm(new BygningType(), $entity, array(
+    $form = $this->createForm(new BygningType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('bygning_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));

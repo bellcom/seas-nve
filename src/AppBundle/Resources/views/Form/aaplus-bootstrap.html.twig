@@ -11,6 +11,25 @@
   {% endspaceless %}
 {% endblock form_help %}
 
+{% block button_widget %}
+  {% spaceless %}
+    {% if label is empty and label is not sameas(false) %}
+      {% set label = name|humanize %}
+    {% endif %}
+    {% if type is defined and type == 'submit' and label is defined and label == 'Delete' %}
+      {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' btn btn-'~button_class|default('danger'))|trim }) %}
+    {% elseif type is defined and type == 'submit' %}
+      {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' btn btn-'~button_class|default('primary'))|trim }) %}
+    {% else %}
+      {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' btn btn-'~button_class|default('default'))|trim }) %}
+    {% endif %}
+    {% if as_link is defined and as_link == true %}
+      <a {{ block('button_attributes') }}>{% if attr.icon is defined and attr.icon != '' %}{{ icon(attr.icon) }}{% endif %}{{ label|trans({}, translation_domain) }}</a>
+    {% else %}
+      <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{% if attr.icon is defined and attr.icon != '' %}{{ icon(attr.icon) }}{% endif %}{{ label|trans({}, translation_domain) }}</button>
+    {% endif %}
+  {% endspaceless %}
+{% endblock button_widget %}
 
 {% block choice_widget_options %}
   {% spaceless %}
@@ -59,6 +78,8 @@
       {% set style = attr.style %}
     {% endif %}
 
+    {% set align_with_widget = true %}
+
     {% set class = '' %}
     {% if align_with_widget is defined or attr.align_with_widget is defined %}
       {% set widget_col = widget_col|default(bootstrap_get_widget_col()) %}
@@ -80,13 +101,13 @@
 
     {%set checkboxdata %}
     {% if label is not sameas(false) %}
-            {% if not compound %}
-      {% set label_attr = label_attr|merge({'for': id}) %}
-    {% endif %}
-            {% if inline is defined and inline %}
-      {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' checkbox-inline')|trim}) %}
-    {% endif %}
-            {% if required %}
+      {% if not compound %}
+        {% set label_attr = label_attr|merge({'for': id}) %}
+       {% endif %}
+         {% if inline is defined and inline %}
+           {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' checkbox-inline')|trim}) %}
+         {% endif %}
+          {% if required %}
       {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
     {% endif %}
             {% if label is empty %}
@@ -105,7 +126,7 @@
     {% if inline is defined and inline %}
       {{ checkboxdata|raw }}
     {% else%}
-      <div class="checkbox horizontal col-sm-6 col-md-4 col-lg-3">{{ checkboxdata|raw }}</div>
+      <div class="checkbox">{{ checkboxdata|raw }}</div>
     {% endif %}
 
     {{ block('form_help') }}
@@ -154,7 +175,7 @@
       {% if style == 'horizontal' %}
         {% set label_attr = label_attr|merge({ 'class': (label_attr.class|default('') ~ ' col-' ~ col_size ~ '-' ~ label_col)|trim }) %}
       {% elseif style == 'inline' %}
-        {% set label_attr = label_attr|merge({ 'class': (label_attr.class|default('') ~ ' sr-only')|trim }) %}
+        {% set label_attr = label_attr|merge({ 'class': (label_attr.class|default('') )|trim }) %}
       {% endif %}
 
       {% if not compound %}
@@ -179,13 +200,13 @@
 
     {{ block('form_widget') }}
     {% if attachment_url is defined and attachment_url is not null %}
-      <a id="{{id}}-display" class="form-control" href="{{ asset(attachment_url) }}">{{ attachment_url }}</a>
-      <label><input type="checkbox" id="{{id}}-replace"/> {{ 'common.replace_file' | trans }}</label>
-      <script>(function() {
+      <a id="{{ id }}-display" class="form-control" href="{{ asset(attachment_url) }}">{{ attachment_url }}</a>
+      <label><input type="checkbox" id="{{ id }}-replace"/> {{ 'common.replace_file' | trans }}</label>
+      <script>(function () {
           var target = document.getElementById('{{id}}'),
               display = document.getElementById('{{id}}-display'),
               handle = document.getElementById('{{id}}-replace'),
-              updateUI = function() {
+              updateUI = function () {
                 target.disabled = !handle.checked;
                 target.style.display = !handle.checked ? 'none' : target._display;
                 display.style.display = handle.checked ? 'none' : display._display;

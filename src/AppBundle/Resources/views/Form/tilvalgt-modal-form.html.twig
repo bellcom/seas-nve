@@ -1,0 +1,51 @@
+{% extends 'AppBundle:Form:aaplus-bootstrap.html.twig' %}
+
+{% block form_widget_compound %}
+  {% spaceless %}
+    {% if form.parent is empty %}
+      {{ block('global_form_errors') }}
+    {% endif %}
+    {{ block('form_rows') }}
+    {{ form_rest(form) }}
+  {% endspaceless %}
+{% endblock form_widget_compound %}
+
+{% block form_start %}
+
+  <!-- Modal start -->
+
+  <!-- Modal -->
+{{ parent() }}
+<div class="modal fade" id="tilvalgtModal-{{ form.vars.value.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{ 'common.deselect' | trans }} {{ form.vars.value.title | truncate(20) }}</h4>
+      </div>
+      <div class="modal-body">
+{% endblock %}
+
+{% block button_row %}
+  {% spaceless %}
+    </div> <!-- end .modal-body -->
+    <div class="modal-footer">
+      {{ form_widget(form) }}
+    </div>
+  {% endspaceless %}
+{% endblock button_row %}
+
+{% block submit_widget %}
+  <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'common.cancel' | trans }}</button>
+  {% spaceless %}
+    {% set type = type|default('submit') %}
+    {{ block('button_widget') }}
+  {% endspaceless %}
+{% endblock submit_widget %}
+
+{% block form_end %}
+      {{ parent() }}
+    </div> <!-- end .modal-content -->
+  </div> <!-- end .modal-dialog -->
+</div> <!-- end #myModal -->
+{% endblock form_end %}

@@ -70,4 +70,8 @@ abstract class BaseController extends Controller implements InitControllerInterf
     return $this->addSubmit($form, 'Update', $cancelUrl, 'Cancel');
   }
 
+  public function redirectToReferer(Request $request) {
+    return $this->redirect($request->headers->get('referer'));
+  }
+
 }

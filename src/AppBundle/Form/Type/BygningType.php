@@ -10,12 +10,20 @@ use AppBundle\Entity\BygningStatusRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * Class BygningType
  * @package AppBundle\Form
  */
 class BygningType extends AbstractType {
+
+  private $doctrine;
+
+  public function __construct(RegistryInterface $doctrine) {
+    $this->doctrine = $doctrine;
+  }
+
   /**
    * @TODO: Missing description.
    *
@@ -59,7 +67,6 @@ class BygningType extends AbstractType {
       ->add('omraadenavn')
       ->add('kommune')
       ->add('ejerforhold')
-      ->add('ansvarlig')
       ->add('magistrat')
       ->add('segment')
       ->add('lokation')
@@ -74,7 +81,27 @@ class BygningType extends AbstractType {
       ->add('varmeNotat')
       ->add('forsyningsvaerkVand')
       ->add('status')
-      ->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
+      ->add('aaplusAnsvarlig', 'entity', array(
+        'class' => 'AppBundle:User',
+        'choices' => $this->getUsersFromGroup("admin"),
+        'required' => false,
+        'empty_value'  => 'common.none',
+      ))
+      ->add('energiRaadgiver', 'entity', array(
+        'class' => 'AppBundle:User',
+        'choices' => $this->getUsersFromGroup("editor"),
+        'required' => false,
+        'empty_value'  => 'common.none',
+      ));
+      //->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
+  }
+
+  private function getUsersFromGroup($groupname) {
+    $em = $this->doctrine->getRepository('AppBundle:Group');
+
+    $group = $em->findOneByName($groupname);
+
+    return $group->getUsers();
   }
 
   /**

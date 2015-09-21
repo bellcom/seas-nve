@@ -39,7 +39,6 @@
             <td>{{ detail.nyDrifttid | format_decimal }}</td>
             <td>{{ detail.prisfaktor | format_decimal }}</td>
             <td>
-              <a href="{{ path('tiltag_detail_show', { 'id': detail.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
               <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
             </td>
           </tr>
