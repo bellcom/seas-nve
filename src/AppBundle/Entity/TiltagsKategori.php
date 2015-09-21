@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PumpeTiltagDetailApplikation
+ * TiltagsKategori
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class PumpeTiltagDetailApplikation {
+class TiltagsKategori {
   /**
    * @var integer
    *
@@ -50,7 +50,7 @@ class PumpeTiltagDetailApplikation {
    *
    * @param string $navn
    *
-   * @return PumpeTiltagDetailApplikation
+   * @return TiltagsKategori
    */
   public function setNavn($navn) {
     $this->navn = $navn;

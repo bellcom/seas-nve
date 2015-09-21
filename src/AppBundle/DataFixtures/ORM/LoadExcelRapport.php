@@ -37,7 +37,7 @@ use AppBundle\Entity\SpecialTiltagDetail;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadExcelRapport extends LoadData {
-  protected $order = 3;
+  protected $order = 4;
 
   private $manager;
   private $workbook;
@@ -521,7 +521,7 @@ class LoadExcelRapport extends LoadData {
       ->setForsyningVarme($this->getEntityReference('energiforsyning', $sheet->getCell('C13')->getValue()))
       ->setForsyningEl($this->getEntityReference('energiforsyning', $sheet->getCell('F13')->getValue()))
       ->setFaktorForReinvesteringer($this->getCellValue($sheet->getCell('C11')))
-      ->setTiltagskategori($this->getCellValue($sheet->getCell('D12')))
+      ->setTiltagskategori($this->getEntityReference('tiltagskategori', $sheet->getCell('D12')->getValue()))
       ->setPrimaerEnterprise($this->getCellValue($sheet->getCell('B12')))
       ->setRisikovurdering($this->getCellValue($sheet->getCell('C17')))
       ->setPlacering($this->getCellValue($sheet->getCell('C19')))

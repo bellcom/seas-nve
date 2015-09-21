@@ -227,10 +227,9 @@ abstract class Tiltag {
   protected $primaerEnterprise;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="tiltagskategori", type="string", length=50, nullable=true)
-   */
+   * @ManyToOne(targetEntity="TiltagsKategori")
+   * @JoinColumn(name="kategori_id", referencedColumnName="id")
+   **/
   protected $tiltagskategori;
 
   /**
@@ -474,7 +473,7 @@ abstract class Tiltag {
   /**
    * Set tiltagskategori
    *
-   * @param string $tiltagskategori
+   * @param \AppBundle\Entity\TiltagsKategori tiltagskategori
    * @return Tiltag
    */
   public function setTiltagskategori($tiltagskategori) {
@@ -486,7 +485,7 @@ abstract class Tiltag {
   /**
    * Get tiltagskategori
    *
-   * @return string
+   * @return \AppBundle\Entity\TiltagsKategori
    */
   public function getTiltagskategori() {
     return $this->tiltagskategori;

@@ -52,19 +52,7 @@ class TiltagType extends AbstractType {
             'ia'   => 'Interne i AAK'
           )
       ))
-      ->add('tiltagskategori', 'choice',
-        array(
-          'choices'   => array(
-            'el'   => 'El',
-            't/i'  => 'Tømrer/Isolatør',
-            've'   =>  'VE',
-            'vvs'  => 'VVS',
-            'hh'   => 'Hårde hvidevarer',
-            'a'    =>  'Automatik',
-            'ia'   => 'Interne i AAK'
-          )
-        )
-      )
+      ->add('tiltagskategori')
       ->add('forsyningVarme', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
