@@ -38,6 +38,7 @@ class TiltagType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('tilvalgt')
+      ->add('title')
       ->add('faktorForReinvesteringer')
       ->add('primaerEnterprise', 'choice',
         array(

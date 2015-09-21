@@ -92,8 +92,8 @@ class BygningType extends AbstractType {
         'choices' => $this->getUsersFromGroup("editor"),
         'required' => false,
         'empty_value'  => 'common.none',
-      ))
-      ->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
+      ));
+      //->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
   }
 
   private function getUsersFromGroup($groupname) {

@@ -40,10 +40,9 @@ class PumpeTiltagDetail extends TiltagDetail {
   protected $placering;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="Applikation", type="string", length=10)
-   */
+   * @ManyToOne(targetEntity="PumpeTiltagDetailApplikation")
+   * @JoinColumn(name="applikation_id", referencedColumnName="id")
+   **/
   protected $applikation;
 
   /**

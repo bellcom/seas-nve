@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\TiltagDetail;
 use Yavin\Symfony\Controller\InitControllerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Tiltag controller.
@@ -32,13 +33,7 @@ class TiltagController extends BaseController {
    * @Template()
    */
   public function indexAction() {
-    $em = $this->getDoctrine()->getManager();
-
-    $entities = $em->getRepository('AppBundle:Tiltag')->findAll();
-
-    return array(
-      'entities' => $entities,
-    );
+    return $this->redirect($this->generateUrl('dashboard'));
   }
 
   /**
@@ -171,6 +166,7 @@ class TiltagController extends BaseController {
    *
    * @Route("/tilvalgt/{id}", name="tiltag_tilvalgt_update")
    * @Method("PUT")
+   * @Security("has_role('ROLE_ADMIN')")
    */
   public function updateTilvalgtAction(Request $request, Tiltag $entity) {
     //$editForm = $this->createForm($entity);
@@ -199,13 +195,15 @@ class TiltagController extends BaseController {
     $form = $this->createDeleteForm($entity);
     $form->handleRequest($request);
 
+    $rapport = $entity->getRapport();
+
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
       $em->remove($entity);
       $em->flush();
     }
 
-    return $this->redirect($this->generateUrl('tiltag'));
+    return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
   }
 
   /**

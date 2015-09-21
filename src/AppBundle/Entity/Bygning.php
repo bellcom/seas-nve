@@ -1502,6 +1502,14 @@ class Bygning {
    */
   public function setAaplusAnsvarlig(\AppBundle\Entity\User $user = null)
   {
+    if($this->aaplusAnsvarlig !== NULL) {
+      $this->removeUser($this->aaplusAnsvarlig);
+    }
+
+    if($user) {
+      $this->addUser($user);
+    }
+
     $this->aaplusAnsvarlig = $user;
 
     return $this;
@@ -1526,6 +1534,14 @@ class Bygning {
    */
   public function setEnergiRaadgiver(\AppBundle\Entity\User $user = null)
   {
+    if($this->energiRaadgiver) {
+      $this->removeUser($this->energiRaadgiver);
+    }
+
+    if($user) {
+      $this->addUser($user);
+    }
+
     $this->energiRaadgiver = $user;
 
     return $this;

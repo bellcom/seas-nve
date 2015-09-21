@@ -37,7 +37,7 @@ use AppBundle\Entity\SpecialTiltagDetail;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadExcelRapport extends LoadData {
-  protected $order = 2;
+  protected $order = 3;
 
   private $manager;
   private $workbook;
@@ -944,6 +944,7 @@ class LoadExcelRapport extends LoadData {
       'L' => 'forsyningsomraade',
       'M' => 'placering',
       'N' => 'applikation',
+      'N' => array('applikation', function($value, $row) { return $this->getEntityReference('PumpeTiltagDetailApplikation', $value); }),
       'O' => 'isoleringskappe',
       'P' => 'bFaktor',
       'Q' => 'noter',

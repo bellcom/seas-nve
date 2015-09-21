@@ -1,4 +1,15 @@
 /**
+* Helpers
+*/
+.table-condensed>tbody>tr>th.indent {
+    padding-left: 2em;
+}
+
+.right {
+    text-align: right;
+}
+
+/**
 * Login
 */
 
@@ -18,10 +29,6 @@
 
 .navbar-brand--logo {
     max-height: 100%;
-}
-
-.right {
-    text-align: right;
 }
 
 .form-group button:not(:first-child) {

@@ -33,6 +33,7 @@ Show: Vis
 Create: Opret
 Cancel: Annuller
 Update: Opdater
+Delete: Slet
 
 common:
   select: Tilvælg
@@ -58,6 +59,7 @@ common:
   current_buildings: Igangværende bygninger
   finished_buildings: Indsendt til Aa+
   summary: Opsummering
+  finans: Økonomi
 
 dashboard:
   current: Igangværende
@@ -162,6 +164,11 @@ belysningtiltagdetail:
   actions:
     add: Tilføj belysningstiltag
     edit: Rediger belysningstiltag
+
+specialtiltag:
+  actions:
+    add: Tilføj specialtiltag
+    edit: Rediger specialtiltag
 
 solcelle:
   labels:
@@ -503,6 +510,30 @@ appbundle:
     pumpetiltag: Pumpetiltag
     pumpe: Pumpe
   rapport:
+    faellesomkostninger: Fællesomkostninger
+    faellesomkostninger.unit: Kr.
+    energiscreening: Energiscreening
+    energiscreening.unit: Kr.
+    mtmFaellesomkostninger: MTM Fællesomkostninger
+    mtmFaellesomkostninger.unit: Kr.
+    implementering: Implementering
+    implementering.unit: Kr.
+    interneDriftomkostninger: Interne Driftomkostninger
+    interneDriftomkostninger.unit: Kr.
+    investeringEksFaellesomkostninger: Investering eks. Fællesomkostninger
+    investeringEksFaellesomkostninger.unit: Kr.
+    investeringInklFaellesomkostninger: Investering inkl. Fællesomkostninger
+    investeringInklFaellesomkostninger.unit: Kr.
+    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Fællesomkostninger
+    nutidsvaerdiInklFaellesomkostninger.unit: Kr.
+    besparelse1aar: Økonomisk besparelse i år 1
+    besparelse1aar.unit: Kr.
+    internRenteInklFaellesomkostninger: Intern rente inkl. Fællesomkostninger
+    internRenteInklFaellesomkostninger.unit: Kr.
+    genopretning: Genopretning
+    genopretning.unit: Kr.
+    modernisering: Modernisering
+    modernisering.unit: Kr.
     tilvalg: Tilvalg
     fravalg: Fravalg
     likviditetsoversigt: Likviditetsoversigt
@@ -587,10 +618,13 @@ appbundle:
     besparelseGAF: Besparelse GAF
     besparelseGUF: Besparelse GUF
     besparelseEl: Besparelse El
+    besparelseStrafafkoelingsafgift: Besparelse på Strafafkølingsafgift
   tiltagdetail:
     tilvalgt: Tilvalgt
   tiltagtilvalgt:
     tilvalgtbegrundelse: Bemærkning
+    tilvalgt: Tilvalgt
+    tilvalgtAfMagistrat: Tilvalgt af Magistrat
 
   tekniskisoleringtiltagdetail:
     add: Tilføg

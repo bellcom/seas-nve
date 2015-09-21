@@ -62,27 +62,32 @@ class RapportController extends BaseController {
     )));
     $this->breadcrumbs->addItem($rapport->getVersion(), $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
 
-    $deleteForm = $this->createDeleteForm($rapport->getId());
+    $deleteForm = $this->createDeleteForm($rapport->getId())->createView();
 
     $editForm = $this->createEditFormFinansiering($rapport);
 
-    $tilvalgt = array();
-    $fravalgt = array();
-    foreach ($rapport->getTiltag() as $tiltag) {
-      if ($tiltag->getTilvalgt()) {
-        $tilvalgt[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)->createView();
-      }
-      else {
-        $fravalgt[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)->createView();
+    $tilvalgtFormArray = array();
+    $fravalgtFormArray = array();
+
+    if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+      foreach ($rapport->getTiltag() as $tiltag) {
+        if ($tiltag->getTilvalgt()) {
+          $tilvalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
+            ->createView();
+        }
+        else {
+          $fravalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
+            ->createView();
+        }
       }
     }
 
     return array(
       'entity' => $rapport,
-      'tilvalgt' => $tilvalgt,
-      'fravalgt' => $fravalgt,
-      'delete_form' => $deleteForm->createView(),
-      'edit_form' => $editForm->createView(),
+      'tilvalgt_form_array' => $tilvalgtFormArray,
+      'fravalgt_form_array' => $fravalgtFormArray,
+      'delete_form' => $deleteForm,
+      'edit_form' => $editForm,
     );
   }
 
@@ -326,7 +331,7 @@ class RapportController extends BaseController {
 
     $this->addUpdate($form);
 
-    return $form;
+    return $form->createView();
   }
 
   /**

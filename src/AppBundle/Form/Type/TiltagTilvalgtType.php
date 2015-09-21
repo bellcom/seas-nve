@@ -37,9 +37,9 @@ class TiltagTilvalgtType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
+      ->add('tilvalgtbegrundelse')
       ->add('tilvalgt')
-      ->add('tilvalgtAfMagistrat')
-      ->add('tilvalgtbegrundelse');
+      ->add('tilvalgtAfMagistrat');
   }
 
   /**

@@ -62,27 +62,27 @@
         <td></td>
       </tr>
       <tr>
-        <th>{{ 'appbundle.rapport.besparelseEl' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.besparelseEl' | trans }}</th>
         <td class="right">{{ entity.besparelseEl | number_format }}</td>
         <td>{{ 'appbundle.rapport.besparelseEl.unit' | trans }}</td>
-        <th>{{ 'appbundle.rapport.besparelseCO2' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.besparelseCO2' | trans }}</th>
         <td class="right">{{ entity.besparelseCO2 | number_format }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2.unit' | trans }}</td>
       </tr>
       <tr>
-        <th>{{ 'appbundle.rapport.besparelseVarmeGAF' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGAF' | trans }}</th>
         <td class="right">{{ entity.besparelseVarmeGAF | number_format }}</td>
         <td>{{ 'appbundle.rapport.besparelseVarmeGAF.unit' | trans }}</td>
-        <th>{{ 'appbundle.rapport.besparelseCO2el' | trans }}</th>
-        <td>xx</td>
+        <th class="indent">{{ 'appbundle.rapport.besparelseCO2el' | trans }}</th>
+        <td class="right">xx</td>
         <td>{{ 'appbundle.rapport.besparelseCO2el.unit' | trans }}</td>
       </tr>
       <tr>
-        <th>{{ 'appbundle.rapport.besparelseVarmeGUF' | trans }}</th>
-        <td class="right">{{ entity.besparelseVarmeGUF | number_format }} {{ 'appbundle.rapport.besparelseVarmeGUF.unit' | trans }}</td>
+        <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGUF' | trans }}</th>
+        <td class="right">{{ entity.besparelseVarmeGUF | number_format }}</td>
         <td>{{ 'appbundle.rapport.besparelseVarmeGUF.unit' | trans }}</td>
-        <th>{{ 'appbundle.rapport.besparelseCO2varme' | trans }}</th>
-        <td>xx</td>
+        <th class="indent">{{ 'appbundle.rapport.besparelseCO2varme' | trans }}</th>
+        <td class="right">xx</td>
         <td>{{ 'appbundle.rapport.besparelseCO2varme.unit' | trans }}</td>
       </tr>
       </tbody>
@@ -121,7 +121,9 @@
           <th class="right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
           <th class="right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
           <th class="right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
-          <th></th>
+          {% if is_granted('ROLE_ADMIN') %}
+            <th></th>
+          {% endif %}
         </tr>
         </thead>
         <tbody>
@@ -134,11 +136,13 @@
             <td class="right">{{ t.levetid | number_format }} {{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
             <td class="right">{{ t.simpelTilbagebetalingstidAar | number_format }} {{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
             <td class="right">{{ t.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
-            <td class="right">
-              <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
-                {{ 'common.deselect' | trans }}
-              </button>
-            </td>
+            {% if is_granted('ROLE_ADMIN') %}
+              <td class="right">
+                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
+                  {{ 'common.deselect' | trans }}
+                </button>
+              </td>
+            {% endif %}
           </tr>
         {% endfor %}
         </tbody>
@@ -146,110 +150,142 @@
 
     </div>
 
-    {% for t in entity.tilvalgteTiltag %}
-      {% form_theme tilvalgt[t.id] 'AppBundle:Form:tilvalgt-modal-form.html.twig' %}
-      {{ form(tilvalgt[t.id], { 'style': 'horizontal' }) }}
-    {% endfor %}
+    {% if is_granted('ROLE_ADMIN') %}
+      {% for t in entity.tilvalgteTiltag %}
+        {% form_theme tilvalgt_form_array[t.id] 'AppBundle:Form:tilvalgt-modal-form.html.twig' %}
+        {{ form(tilvalgt_form_array[t.id], { 'style': 'horizontal' }) }}
+      {% endfor %}
+    {% endif %}
 
   {% endif %}
 
-  <!-- /////////////////////////////////////////////////// -->
 
+  {% if entity.fravalgteTiltag is not empty %}
 
-  <hr>
-  <hr>
-  <hr>
+    <div class="panel panel-default">
+      <div class="panel-heading">{{ icon('thumbs-down') }} {{ 'appbundle.rapport.fravalg' | trans }}</div>
 
-  <div class="row heading">
-    <div class="col-md-8">
-      <h1>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h1>
-    </div>
-    <div class="col-md-4 right">
-      <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default">
-        {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}
-      </a>
-      <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">{{ icon('industry') }} Energiforsyninger</a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6">
       <table class="table table-condensed">
+        <thead>
+        <tr>
+          <th>{{ 'appbundle.tiltag.title' | trans }}</th>
+          <th>{{ 'appbundle.tiltag.tilvalgtAfMagistrat' | trans }}</th>
+          <th>{{ 'appbundle.tiltag.tilvalgtbegrundelse' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
+          {% if is_granted('ROLE_ADMIN') %}
+            <th></th>
+          {% endif %}
+        </tr>
+        </thead>
         <tbody>
-        <tr>
-          <th>{{ 'appbundle.rapport.version' | trans }}</th>
-          <td>{{ entity.version }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
-          <td>{{ entity.bygning }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.rapport.datering' | trans }}</th>
-          <td>{{ entity.datering | date('Y-m-d H:i:s') }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.rapport.elena' | trans }}</th>
-          <td>{{ entity.elena | b2icon }}</td>
-        </tr>
+        {% for t in entity.fravalgteTiltag %}
+          <tr>
+            <td>{{ t.title }}</td>
+
+            <td>{{ t.tilvalgtAfMagistrat | b2icon }}</td>
+            <td>{{ t.tilvalgtbegrundelse }}</td>
+            <td class="right">{{ t.levetid | number_format }} {{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
+            <td class="right">{{ t.simpelTilbagebetalingstidAar | number_format }} {{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
+            <td class="right">{{ t.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
+            {% if is_granted('ROLE_ADMIN') %}
+              <td class="right">
+                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
+                  {{ 'common.select' | trans }}
+                </button>
+              </td>
+            {% endif %}
+          </tr>
+        {% endfor %}
         </tbody>
       </table>
-    </div>
-    <div class="col-md-6">
-      <table class="table table-condensed">
-        <tbody>
-        <tr>
-          <th>{{ 'appbundle.rapport.BaselineVarmeGUF' | trans }}</th>
-          <td>{{ entity.BaselineVarmeGUF | format_decimal }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.rapport.BaselineVarmeGAF' | trans }}</th>
-          <td>{{ entity.BaselineVarmeGAF | format_decimal }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.rapport.varmetotal' | trans }}</th>
-          <td>{{ entity.totalvarme | format_decimal }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
 
-  <h2>Tilvalgte tiltag</h2>
+    </div>
 
-  {% if entity.tilvalgteTiltag is empty %}
-    <div class="alert alert-info">Ingen tilvagte tiltag</div>
-  {% else %}
-    <table class="table table-condensed">
-      <thead>
-      <tr>
-        <th>{{ 'appbundle.tiltag.title' | trans }}</th>
-        <th>{{ 'appbundle.tiltag.varmebesparelseGUF' | trans }}</th>
-        <th>{{ 'appbundle.tiltag.varmebesparelseGAF' | trans }}</th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for t in entity.tilvalgteTiltag %}
-        <tr>
-          <td>{{ t.title }}</td>
-          <td>{{ t.varmebesparelseGUF | format_decimal }}</td>
-          <td>{{ t.varmebesparelseGAF | format_decimal }}</td>
-        </tr>
+    {% if is_granted('ROLE_ADMIN') %}
+      {% for t in entity.fravalgteTiltag %}
+        {% form_theme fravalgt_form_array[t.id] 'AppBundle:Form:tilvalgt-modal-form.html.twig' %}
+        {{ form(fravalgt_form_array[t.id], { 'style': 'horizontal' }) }}
       {% endfor %}
+    {% endif %}
+
+  {% endif %}
+
+  <div class="panel panel-default">
+    <div class="panel-heading">{{ icon('dollar') }} {{ 'common.finans' | trans }}</div>
+
+    <table class="table table-condensed">
+      <tbody>
+      <tr>
+        <th>{{ 'appbundle.rapport.faellesomkostninger' | trans }}:</th>
+        <td></td>
+        <td></td>
+        <th>{{ 'appbundle.rapport.investeringEksFaellesomkostninger' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.investeringEksFaellesomkostninger.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th class="indent">{{ 'appbundle.rapport.energiscreening' | trans }}</th>
+        <td class="right">{{ entity.energiscreening | number_format }}</td>
+        <td>{{ 'appbundle.rapport.energiscreening.unit' | trans }}</td>
+        <th>{{ 'appbundle.rapport.investeringInklFaellesomkostninger' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.investeringInklFaellesomkostninger.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th class="indent">{{ 'appbundle.rapport.mtmFaellesomkostninger' | trans }}</th>
+        <td class="right">{{ entity.mtmFaellesomkostninger | number_format }}</td>
+        <td>{{ 'appbundle.rapport.mtmFaellesomkostninger.unit' | trans }}</td>
+        <th>{{ 'appbundle.rapport.nutidsvaerdiInklFaellesomkostninger' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.nutidsvaerdiInklFaellesomkostninger.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th class="indent">{{ 'appbundle.rapport.implementering' | trans }}</th>
+        <td class="right">{{ entity.implementering | number_format }}</td>
+        <td>{{ 'appbundle.rapport.implementering.unit' | trans }}</td>
+        <th>{{ 'appbundle.rapport.besparelse1aar' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.besparelse1aar.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th class="indent">{{ 'appbundle.rapport.interneDriftomkostninger' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.interneDriftomkostninger.unit' | trans }}</td>
+        <th>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+        <td></td>
+        <th>{{ 'appbundle.rapport.genopretning' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.genopretning.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+        <td></td>
+        <th>{{ 'appbundle.rapport.modernisering' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.modernisering.unit' | trans }}</td>
+      </tr>
       </tbody>
     </table>
-  {% endif %}
+
+  </div>
 
   <div class="row heading">
     <div class="col-md-2"><h2>{{ 'tiltag.labels.singular' | trans }}</h2></div>
     <div class="col-md-10 right">
 
       {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'solcelle', 'tekniskisolering' ] %}
-        {% if is_missing_tiltag_type(entity.tiltag, type) %}
-          <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': type }) }}" class="inline-block">
-            <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('rapporter.strings.' ~ type ~ 'tiltag') | trans }}</button>
-          </form>
-        {% endif %}
+        <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': type }) }}" class="inline-block">
+          <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('rapporter.strings.' ~ type ~ 'tiltag') | trans }}</button>
+        </form>
       {% endfor %}
 
       <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'special' }) }}" class="inline-block">

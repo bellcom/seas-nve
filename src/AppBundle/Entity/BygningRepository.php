@@ -28,7 +28,7 @@ class BygningRepository extends EntityRepository {
     }
 
     $bygninger = $this->findByUser($user);
-    return ($bygning->getEnergiRaadgiver() == $user) || ($bygninger && in_array($bygning, $bygninger));
+    return $bygninger && in_array($bygning, $bygninger);
   }
 
   /**
