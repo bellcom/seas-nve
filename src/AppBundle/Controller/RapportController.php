@@ -87,7 +87,7 @@ class RapportController extends BaseController {
       'tilvalgt_form_array' => $tilvalgtFormArray,
       'fravalgt_form_array' => $fravalgtFormArray,
       'delete_form' => $deleteForm,
-      'edit_form' => $editForm,
+      'edit_form' => $editForm ? $editForm->createView() : NULL,
     );
   }
 
@@ -331,7 +331,7 @@ class RapportController extends BaseController {
 
     $this->addUpdate($form);
 
-    return $form->createView();
+    return $form;
   }
 
   /**
