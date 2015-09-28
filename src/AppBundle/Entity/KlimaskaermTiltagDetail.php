@@ -570,7 +570,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     parent::calculate();
   }
 
-  private function calculateArealM2() {
+  protected function calculateArealM2() {
     // "Q": "Areal\n(m²)"
     if (!$this->hoejdeElLaengdeM || !$this->breddeM || !$this->antalStk) {
       return 0;
@@ -580,7 +580,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function calculateBesparelseKWhAar() {
+  protected function calculateBesparelseKWhAar() {
     // "Y": "Besparelse\n(kWh/år)"
     if ($this->arealM2 == 0) {
       return 0;
