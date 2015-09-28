@@ -96,12 +96,11 @@
     <div class="panel-body">
       {% include('AppBundle::_includes/finansiering_graf.html.twig') %}
 
-      {% if is_granted('ROLE_RAPPORT_EDIT') %}
-        {% if edit_form %}
-          {{ form(edit_form, { 'style': 'inline' }) }}
-        {% endif %}
+      {% if is_granted('ROLE_RAPPORT_EDIT') and edit_form %}
+        {{ form(edit_form, { 'style': 'inline' }) }}
       {% else %}
-        {{ 'appbundle.rapport.laanLoebetid' | trans }}: {{ entity.laanLoebetid }}
+        {{ 'appbundle.rapport.laanLoebetid' | trans }}:
+        {{ entity.laanLoebetid }} {{ 'appbundle.rapport.laanLoebetid.unit' | trans }}
       {% endif %}
 
     </div>
