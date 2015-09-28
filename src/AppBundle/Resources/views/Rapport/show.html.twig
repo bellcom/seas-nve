@@ -282,15 +282,11 @@
     <div class="col-md-2"><h2>{{ 'tiltag.labels.singular' | trans }}</h2></div>
     <div class="col-md-10 right">
 
-      {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'solcelle', 'tekniskisolering' ] %}
+      {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'solcelle', 'tekniskisolering', 'special' ] %}
         <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': type }) }}" class="inline-block">
           <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('rapporter.strings.' ~ type ~ 'tiltag') | trans }}</button>
         </form>
       {% endfor %}
-
-      <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': 'special' }) }}" class="inline-block">
-        <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('rapporter.strings.' ~ 'special' ~ 'tiltag') | trans }}</button>
-      </form>
     </div>
   </div>
 
