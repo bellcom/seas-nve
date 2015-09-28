@@ -564,6 +564,7 @@ appbundle:
     Energiscreening: Energiscreening
     laanRente: Rente på lån
     laanLoebetid: Løbetid på lån
+    laanLoebetid.unit: år
     elena: Elena
   segment:
     add: Opret Segment
