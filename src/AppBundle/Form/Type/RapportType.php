@@ -78,8 +78,11 @@ class RapportType extends AbstractType {
             'append' => 'kr.'
           )
         )
-      ))
-      ->add('elena');
+      ));
+
+    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+      $builder->add('elena');
+    }
   }
 
   /**
