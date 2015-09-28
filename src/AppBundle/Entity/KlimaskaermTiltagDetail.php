@@ -13,20 +13,6 @@ use AppBundle\Annotations\Calculated;
  */
 class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
-   * @var string
-   *
-   * @ORM\Column(name="type", type="string")
-   */
-  protected $type; // "klimaskaerm" / "vindue"
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="vindue_orientering", type="string", nullable=true)
-   */
-  protected $vindue_orientering; // "nord", "syd", "øst", "vest"
-
-  /**
    * @var Klimaskaerm
    *
    * @ORM\ManyToOne(targetEntity="Klimaskaerm")
@@ -195,26 +181,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @ORM\Column(name="kWhBesparVarmevaerkEksternEnergikilde", type="float")
    */
   protected $kWhBesparVarmevaerkEksternEnergikilde;
-
-  public function setType($type) {
-    $this->type = $type;
-
-    return $this;
-  }
-
-  public function getType() {
-    return $this->type;
-  }
-
-  public function setOrientering($orientering) {
-    $this->vindue_orientering = $orientering;
-
-    return $this;
-  }
-
-  public function getOrientering() {
-    return $this->vindue_orientering;
-  }
 
   public function setKlimaskaerm($klimaskaerm) {
     $this->klimaskaerm = $klimaskaerm;

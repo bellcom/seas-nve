@@ -689,7 +689,6 @@ appbundle:
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
-    type: Type
     klimaskaerm: Klimaskærm
     orientering: Orientering
 
