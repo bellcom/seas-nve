@@ -24,7 +24,7 @@ class BygningRepository extends EntityRepository {
    */
   public function hasAccess(User $user, Bygning $bygning) {
     if ($this->hasFullAccess($user)) {
-      return true;
+      return TRUE;
     }
 
     $bygninger = $this->findByUser($user);
@@ -38,13 +38,28 @@ class BygningRepository extends EntityRepository {
    * @param bool $returnQuery
    * @return array|\Doctrine\ORM\Query
    */
-  public function findByUser(User $user, $returnQuery = false, $onlyOwnBuildings = false) {
+  public function findByUser(User $user, $returnQuery = FALSE, $onlyOwnBuildings = FALSE) {
     if ($this->hasFullAccess($user) && !$onlyOwnBuildings) {
       $query = $this->_em->createQuery("SELECT b FROM AppBundle:Bygning b");
-    } else {
+    }
+    else {
       $query = $this->_em->createQuery("SELECT b FROM AppBundle:Bygning b WHERE :user MEMBER OF b.users");
       $query->setParameter('user', $user);
     }
+
+    return $returnQuery ? $query : $query->getResult();
+  }
+
+  /**
+   * Find all Bygning from given segment
+   *
+   * @param Segment $segment
+   * @param bool $returnQuery
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function findBySegment(Segment $segment, $returnQuery = FALSE) {
+    $query = $this->_em->createQuery("SELECT b FROM AppBundle:Bygning b WHERE :segment = b.segment");
+    $query->setParameter('segment', $segment);
 
     return $returnQuery ? $query : $query->getResult();
   }
@@ -61,37 +76,37 @@ class BygningRepository extends EntityRepository {
     $qb->select('b')
       ->from('AppBundle:Bygning', 'b');
 
-    if(!empty($search['navn'])) {
+    if (!empty($search['navn'])) {
       $qb->andWhere('b.navn LIKE :navn')
-        ->setParameter('navn', '%'.$search['navn'].'%');
+        ->setParameter('navn', '%' . $search['navn'] . '%');
     }
 
-    if(!empty($search['adresse'])) {
+    if (!empty($search['adresse'])) {
       $qb->andWhere('b.adresse LIKE :adresse')
-        ->setParameter('adresse', '%'.$search['adresse'].'%');
+        ->setParameter('adresse', '%' . $search['adresse'] . '%');
     }
 
-    if(!empty($search['postBy'])) {
+    if (!empty($search['postBy'])) {
       $qb->andWhere('b.postBy LIKE :postBy')
-        ->setParameter('postBy', '%'.$search['postBy'].'%');
+        ->setParameter('postBy', '%' . $search['postBy'] . '%');
     }
 
-    if(!empty($search['bygId'])) {
+    if (!empty($search['bygId'])) {
       $qb->andWhere('b.bygId = :bygId')
         ->setParameter('bygId', $search['bygId']);
     }
 
-    if(!empty($search['postnummer'])) {
+    if (!empty($search['postnummer'])) {
       $qb->andWhere('b.postnummer = :postnummer')
         ->setParameter('postnummer', $search['postnummer']);
     }
 
-    if(!empty($search['status'])) {
+    if (!empty($search['status'])) {
       $qb->andWhere('b.status = :status')
         ->setParameter('status', $search['status']);
     }
 
-    if(!empty($search['segment'])) {
+    if (!empty($search['segment'])) {
       $qb->andWhere('b.segment = :segment')
         ->setParameter('segment', $search['segment']);
     }

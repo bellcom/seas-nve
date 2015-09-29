@@ -25,7 +25,6 @@
                 <td>{{ r.bygning.postBy }}</td>
                 <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
                 <td>
-                  <a href="{{ path('bygning_show', { 'id': r.bygning.id }) }}" class="btn btn-default btn-xs">{{ 'bygninger.actions.show' | trans }}</a>
                   <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-primary btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
                 </td>
               </tr>
@@ -61,13 +60,12 @@
             </tr>
             {% for r in finished_buildings %}
               <tr>
-                <td>{{ r.bygning.navn }} {{ dump(bygning) }}</td>
+                <td>{{ r.bygning.navn }}</td>
                 <td>{{ r.bygning.adresse }}</td>
                 <td>{{ r.bygning.postBy }}</td>
                 <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
                 <td>
-                  <a href="{{ path('bygning_show', { 'id': r.bygning.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
-                  <a href="{{ path('rapport_edit', { 'id': r.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+                  <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-default btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
                 </td>
               </tr>
             {% endfor %}

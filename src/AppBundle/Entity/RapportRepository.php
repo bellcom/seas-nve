@@ -105,12 +105,32 @@ class RapportRepository extends EntityRepository {
 
 
     $qb->where('b.status = :status')->setParameter('status', $status);
-    $qb->orderBy('b.updatedAt', 'DESC');
+    $qb->orderBy('r.updatedAt', 'DESC');
 
     if (!$this->hasFullAccess($user)) {
       $qb->andWhere(':user MEMBER OF b.users');
       $qb->setParameter('user', $user);
     }
+
+    return $qb->getQuery();
+  }
+
+  /**
+   * Search for buildings with specific segment
+   *
+   * @param \AppBundle\Entity\Segment $segment
+   * @return \Doctrine\ORM\Query
+   */
+  public function getBySegment(Segment $segment) {
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('r', 'b');
+    $qb->from('AppBundle:Rapport', 'r');
+    $qb->leftJoin('r.bygning', 'b');
+
+
+    $qb->where('b.segment = :segment')->setParameter('segment', $segment);
+    $qb->orderBy('r.updatedAt', 'DESC');
 
     return $qb->getQuery();
   }
