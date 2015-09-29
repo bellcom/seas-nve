@@ -11,6 +11,7 @@
 				<table class="table table-condensed table-header-rotated table-hover">
 					<thead>
 						<tr>
+              {{ helper.header() }}
 							{{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
 							{{ helper.header('appbundle.belysningtiltagdetail.lokale.navn') }}
 							{{ helper.header('appbundle.belysningtiltagdetail.lokale.type') }}
@@ -50,12 +51,14 @@
 							{{ helper.header('appbundle.belysningtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
 							{{ helper.header('appbundle.belysningtiltagdetail.kwhBesparelseEl') }}
 							{{ helper.header('appbundle.belysningtiltagdetail.kwhBesparelseVarmeFraVarmevaerket') }}
-						  {{ helper.header() }}
 						</tr>
 					</thead>
 					<tbody>
 						{% for detail in entity.details %}
 							<tr>
+                <td>
+                  {{ block('tiltag_detail_edit') }}
+                </td>
 								<td>{{ detail.tilvalgt | b2icon }}</td>
 								<td>{{ detail.lokaleNavn }}</td>
 								<td>{{ detail.lokaleType }}</td>
@@ -95,9 +98,6 @@
 								<td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
 								<td class="number">{{ detail.kwhBesparelseEl | format_decimal }}</td>
 								<td class="number">{{ detail.kwhBesparelseVarmeFraVarmevaerket | format_decimal }}</td>
-								<td>
-									<a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-								</td>
 							</tr>
 						{% endfor %}
 					</tbody>

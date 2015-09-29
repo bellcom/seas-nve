@@ -15,3 +15,8 @@
   </form>
 
 {% endblock %}
+
+{% block tiltag_detail_edit %}
+  <p><a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('edit') }} {{ 'common.edit' | trans }}</a></p>
+  <p><a href="{{ path('tiltag_detail_copy', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('clone') }} {{ 'common.copy' | trans }}</a></p>
+{% endblock %}

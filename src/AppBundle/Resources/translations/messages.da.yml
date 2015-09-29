@@ -36,6 +36,7 @@ Update: Opdater
 Delete: Slet
 
 common:
+  copy: Kopier
   afleveret_raadgiver: Afleveret af Rådgiver
   select: Tilvælg
   deselect: Fravælg

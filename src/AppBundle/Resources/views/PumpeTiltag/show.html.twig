@@ -10,6 +10,7 @@
       <table class="table table-condensed table-header-rotated">
         <thead>
         <tr>
+          {{ helper.header() }}
           {{ helper.header('appbundle.tiltag.tilvalgt') }}
           {{ helper.header('appbundle.pumpetiltag.pumpeID') }}
           {{ helper.header('appbundle.pumpetiltag.forsyningsomraade') }}
@@ -21,12 +22,14 @@
           {{ helper.header('appbundle.pumpetiltag.eksisterendeDrifttid') }}
           {{ helper.header('appbundle.pumpetiltag.nyDrifttid') }}
           {{ helper.header('appbundle.pumpetiltag.prisfaktor') }}
-          {{ helper.header() }}
         </tr>
         </thead>
         <tbody>
         {% for detail in entity.details %}
           <tr>
+            <td>
+              {{ block('tiltag_detail_edit') }}
+            </td>
             <td>{{ detail.tilvalgt | b2icon }}</td>
             <td>{{ detail.pumpeID }}</td>
             <td>{{ detail.forsyningsomraade }}</td>
@@ -38,9 +41,6 @@
             <td>{{ detail.eksisterendeDrifttid | format_decimal }}</td>
             <td>{{ detail.nyDrifttid | format_decimal }}</td>
             <td>{{ detail.prisfaktor | format_decimal }}</td>
-            <td>
-              <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-            </td>
           </tr>
         {% endfor %}
         </tbody>
