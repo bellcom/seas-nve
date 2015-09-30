@@ -33,6 +33,18 @@ abstract class LoadData extends AbstractFixture implements FixtureInterface, Con
   protected $container;
 
   /**
+   * Set a reference to an entity for later retrieval.
+   *
+   * @param string $type
+   * @param string $id
+   * @param object $entity
+   */
+  protected function setEntityReference($type, $id, $entity) {
+    $key = $type . ':' . $id;
+    $this->setReference($key, $entity);
+  }
+
+  /**
    * {@inheritDoc}
    */
   public function setContainer(ContainerInterface $container = NULL) {

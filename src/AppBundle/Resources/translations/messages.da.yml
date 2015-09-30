@@ -238,7 +238,7 @@ appbundle:
     armaturerStkLokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
     elforbrugWM2: Elforbrug
     elforbrugWM2.unit: W/m²
-    placering.id: Placering
+    placering: Placering
     styring.id: Styring
     noter: Noter
     belysningstiltag: Tiltag
@@ -926,7 +926,7 @@ appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |
       return $armaturEffekt * $this->armaturer_stk_lokale / $this->rumstoerrelse_m2;
     }
 appbundle.belysningtiltagdetail.ny.driftstid.calculation: |
-    if ($this->drifttid_t_aar == 0 || $this->belysningstiltagId == null) {
+    if ($this->drifttid_t_aar == 0 || $this->belysningstiltag == null) {
       return 0;
     }
     else {

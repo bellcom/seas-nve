@@ -34,19 +34,10 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       ->add('forkoblingStkArmatur')
       ->add('armaturerStkLokale')
       // ->add('elforbrugWM2', null, array( 'disabled' => true, ))
-      ->add('placering_id', 'choice', array(
-        'choices' => (new PlaceringRepository())->loadChoiceList(),
-        'choices_as_values' => true,
-      ))
-      ->add('styring_id', 'choice', array(
-        'choices' => (new StyringRepository())->loadChoiceList(),
-        'choices_as_values' => true,
-      ))
+      ->add('placering')
+      ->add('styring')
       ->add('noter')
-      ->add('belysningstiltag_id', 'choice', array(
-        'choices' => (new TiltagRepository())->loadChoiceList(),
-        'choices_as_values' => true,
-      ))
+      ->add('belysningstiltag')
       ->add('nyeSensorerStkLokale')
       ->add('standardinvestSensorKrStk')
       ->add('reduktionAfDrifttid')

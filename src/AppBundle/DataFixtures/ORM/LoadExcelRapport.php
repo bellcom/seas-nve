@@ -37,7 +37,7 @@ use AppBundle\Entity\SpecialTiltagDetail;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadExcelRapport extends LoadData {
-  protected $order = 4;
+  protected $order = 10;
 
   private $manager;
   private $workbook;
@@ -207,18 +207,6 @@ class LoadExcelRapport extends LoadData {
 
   private function clearEntityReferences() {
     $this->setReferenceRepository(new \Doctrine\Common\DataFixtures\ReferenceRepository($this->manager));
-  }
-
-  /**
-   * Set a reference to an entity for later retrieval.
-   *
-   * @param string $type
-   * @param string $id
-   * @param object $entity
-   */
-  private function setEntityReference($type, $id, $entity) {
-    $key = $type . ':' . $id;
-    $this->setReference($key, $entity);
   }
 
   /**
@@ -746,12 +734,12 @@ class LoadExcelRapport extends LoadData {
       'AA' => 'armaturerStkLokale',
       // 'AB' => ''
       // 'AC' => ''
-      'AD' => 'placeringId',
+      'AD' => array('placering', function($value) { return $this->getEntityReference('placering', $value); }),
       // 'AE' => '',
-      'AF' => 'styringId',
+      'AF' => array('styring', function($value) { return $this->getEntityReference('styring', $value); }),
       // 'AG' => '',
       'AH' => 'noter',
-      'AI' => 'belysningstiltagId',
+      'AI' => array('belysningstiltag', function($value) { return $this->getEntityReference('belysningstiltag', $value); }),
       // 'AJ' => '',
       'AK' => 'nyeSensorerStkLokale',
       'AL' => 'standardinvestSensorKrStk',
