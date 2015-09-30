@@ -6,27 +6,28 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
-use AppBundle\Entity\BelysningTiltagDetail\Styring;
 use AppBundle\Entity\BygningStatus;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ddeboer\DataImport\Writer\CallbackWriter;
+
+use AppBundle\Entity\BelysningTiltagDetail\Placering;
 
 /**
  * Class LoadplaceringData
  * @package AppBundle\DataFixtures\ORM
  */
-class LoadStyringData extends LoadData {
-  protected $order = 5;
+class LoadPlaceringData extends LoadData {
+  protected $order = 4;
   protected $flush = true;
 
   protected function createWriter(ObjectManager $manager) {
     return new CallbackWriter(function($item) use ($manager) {
-      $styring = new Styring();
-      $styring->setName($item['name']);
+      $placering = new Placering();
+      $placering->setName($item['name']);
 
-      $this->setEntityReference('styring', $item['id'], $styring);
+      $this->setEntityReference('placering', $item['id'], $placering);
 
-      $manager->persist($styring);
+      $manager->persist($placering);
     });
   }
 }

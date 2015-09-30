@@ -111,11 +111,12 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $placering;
 
   /**
-   * @var integer
+   * @var BelysningTiltagDetailStyring
    *
-   * @ORM\Column(name="styring_id", type="string", length=255)
-   */
-  protected $styringId;
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Styring")
+   * ORM\JoinColumn(name="styring_id", referencedColumnName="id")
+   **/
+  protected $styring;
 
   /**
    * @var string
@@ -572,22 +573,13 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Set styring
    *
-   * @param string $styringId
+   * @param BelysningTiltagDetailStyring $styring
    * @return BelysningTiltagDetail
    */
-  public function setStyringId($styringId) {
-    $this->styringId = $styringId;
+  public function setStyring($styring) {
+    $this->styring = $styring;
 
     return $this;
-  }
-
-  /**
-   * Get styringId
-   *
-   * @return string
-   */
-  public function getStyringId() {
-    return $this->styringId;
   }
 
   /**
@@ -596,7 +588,9 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @return BelysningTiltagDetailStyring
    */
   public function getStyring() {
+    return $this->styring;
   }
+
 
   /**
    * Set noter

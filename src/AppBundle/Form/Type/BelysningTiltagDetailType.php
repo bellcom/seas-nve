@@ -35,10 +35,7 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       ->add('armaturerStkLokale')
       // ->add('elforbrugWM2', null, array( 'disabled' => true, ))
       ->add('placering')
-      ->add('styring_id', 'choice', array(
-        'choices' => (new StyringRepository())->loadChoiceList(),
-        'choices_as_values' => true,
-      ))
+      ->add('styring')
       ->add('noter')
       ->add('belysningstiltag_id', 'choice', array(
         'choices' => (new TiltagRepository())->loadChoiceList(),
