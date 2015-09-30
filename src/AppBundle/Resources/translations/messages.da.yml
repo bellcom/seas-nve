@@ -701,13 +701,8 @@ appbundle:
     breddeM: Bredde (m)
     antalStk: Antal (stk)
     arealM2: Areal (m²)
-    andelAfArealDerEfterisoleres: Andel af areal der efterisoleres (%)
     uEksWM2K: U_eks (W/m²K)
     uNyWM2K: U_ny (W/m²K)
-    tIndeC: T_inde (°C)
-    tUdeC: T_ude (°C)
-    tOpvarmningTimerAar: t_opvarmning (timer/år)
-    yderligereBesparelserPct: Yderligere besparelser (%)
     besparelseKWhAar: Besparelse (kWh/år)
     samletBesparelseKWhAarInklDelbesparelser: Samlet Besparelse (kWh/år) inkl. delbesparelser
     prisfaktor: Prisfaktor
@@ -731,6 +726,8 @@ appbundle:
     eWEksKWhM2Aar: E_w (kWh/år)
     eRefNyKWhM2Aar: E_ref,ny (kWh/m²/år)
     eWNyKWhM2Aar: E_w,ny (kWh/år)
+    solenergitransmittansEks: Solenergitransmittans
+    solenergitransmittansNy: Solenergitransmittans_ny
 
   solcelletiltagdetail:
     anlaegsstoerrelseKWp: Anlægsstørrelse

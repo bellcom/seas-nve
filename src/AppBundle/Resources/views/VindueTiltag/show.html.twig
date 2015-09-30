@@ -18,19 +18,16 @@
               {{ helper.header('appbundle.vinduetiltagdetail.eWEksKWhM2Aar') }}
               {{ helper.header('appbundle.vinduetiltagdetail.eRefNyKWhM2Aar') }}
               {{ helper.header('appbundle.vinduetiltagdetail.eWNyKWhM2Aar') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansEks') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansNy') }}
               {{ helper.header('appbundle.vinduetiltagdetail.klimaskaerm') }}
               {{ helper.header('appbundle.vinduetiltagdetail.typePlaceringJfPlantegning') }}
               {{ helper.header('appbundle.vinduetiltagdetail.hoejdeElLaengdeM') }}
               {{ helper.header('appbundle.vinduetiltagdetail.breddeM') }}
               {{ helper.header('appbundle.vinduetiltagdetail.antalStk') }}
               {{ helper.header('appbundle.vinduetiltagdetail.arealM2') }}
-              {{ helper.header('appbundle.vinduetiltagdetail.andelAfArealDerEfterisoleres') }}
               {{ helper.header('appbundle.vinduetiltagdetail.uEksWM2K') }}
               {{ helper.header('appbundle.vinduetiltagdetail.uNyWM2K') }}
-              {{ helper.header('appbundle.vinduetiltagdetail.tIndeC') }}
-              {{ helper.header('appbundle.vinduetiltagdetail.tUdeC') }}
-              {{ helper.header('appbundle.vinduetiltagdetail.tOpvarmningTimerAar') }}
-              {{ helper.header('appbundle.vinduetiltagdetail.yderligereBesparelserPct') }}
               {{ helper.header('appbundle.vinduetiltagdetail.besparelseKWhAar') }}
               {{ helper.header('appbundle.vinduetiltagdetail.prisfaktor') }}
               {{ helper.header('appbundle.vinduetiltagdetail.samletInvesteringKr') }}
@@ -54,19 +51,16 @@
                 <td>{{ detail.eWEksKWhM2Aar | format_decimal }}</td>
                 <td>{{ detail.eRefNyKWhM2Aar | format_decimal }}</td>
                 <td>{{ detail.eWNyKWhM2Aar | format_decimal }}</td>
+                <td>{{ detail.solenergitransmittansEks | format_percent }}</td>
+                <td>{{ detail.solenergitransmittansNy | format_percent }}</td>
                 <td>{{ detail.klimaskaerm }}</td>
                 <td>{{ detail.typePlaceringJfPlantegning }}</td>
                 <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
                 <td>{{ detail.breddeM | format_decimal }}</td>
                 <td>{{ detail.antalStk | format_integer }}</td>
                 <td>{{ detail.arealM2 | format_decimal }}</td>
-                <td>{{ detail.andelAfArealDerEfterisoleres | format_percent }}</td>
                 <td>{{ detail.uEksWM2K | format_decimal }}</td>
                 <td>{{ detail.uNyWM2K | format_decimal }}</td>
-                <td>{{ detail.tIndeC | format_decimal }}</td>
-                <td>{{ detail.tUdeC | format_decimal }}</td>
-                <td>{{ detail.tOpvarmningTimerAar | format_decimal }}</td>
-                <td>{{ detail.yderligereBesparelserPct | format_percent }}</td>
                 <td>{{ detail.besparelseKWhAar | format_decimal }}</td>
                 <td>{{ detail.prisfaktor | format_decimal }}</td>
                 <td>{{ detail.samletInvesteringKr | format_decimal }}</td>

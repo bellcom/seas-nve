@@ -13,13 +13,6 @@ use AppBundle\Annotations\Calculated;
  */
 class VindueTiltagDetail extends KlimaskaermTiltagDetail {
   /**
-   * @var string
-   *
-   * @ORM\Column(name="orientering", type="string", nullable=true)
-   */
-  protected $orientering; // "Nord", "Syd", "Øst", "Vest"
-
-  /**
    * @var float
    *
    * @ORM\Column(name="solenergitransmittansEks", type="decimal", scale=4)
