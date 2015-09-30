@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Placering
  *
- * @ORM\Table()
+ * @ORM\Table(name="BelysningTiltagDetail_Placering")
  * @ORM\Entity
  */
 class Placering {

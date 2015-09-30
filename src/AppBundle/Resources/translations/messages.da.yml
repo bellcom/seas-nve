@@ -926,7 +926,7 @@ appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |
       return $armaturEffekt * $this->armaturer_stk_lokale / $this->rumstoerrelse_m2;
     }
 appbundle.belysningtiltagdetail.ny.driftstid.calculation: |
-    if ($this->drifttid_t_aar == 0 || $this->belysningstiltagId == null) {
+    if ($this->drifttid_t_aar == 0 || $this->belysningstiltag == null) {
       return 0;
     }
     else {

@@ -37,10 +37,7 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       ->add('placering')
       ->add('styring')
       ->add('noter')
-      ->add('belysningstiltag_id', 'choice', array(
-        'choices' => (new TiltagRepository())->loadChoiceList(),
-        'choices_as_values' => true,
-      ))
+      ->add('belysningstiltag')
       ->add('nyeSensorerStkLokale')
       ->add('standardinvestSensorKrStk')
       ->add('reduktionAfDrifttid')

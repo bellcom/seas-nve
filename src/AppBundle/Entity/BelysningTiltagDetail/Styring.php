@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Styring
  *
- * @ORM\Table()
+ * @ORM\Table(name="BelysningTiltagDetail_Styring")
  * @ORM\Entity
  */
 class Styring {

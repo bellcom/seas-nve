@@ -739,7 +739,7 @@ class LoadExcelRapport extends LoadData {
       'AF' => array('styring', function($value) { return $this->getEntityReference('styring', $value); }),
       // 'AG' => '',
       'AH' => 'noter',
-      'AI' => 'belysningstiltagId',
+      'AI' => array('belysningstiltag', function($value) { return $this->getEntityReference('belysningstiltag', $value); }),
       // 'AJ' => '',
       'AK' => 'nyeSensorerStkLokale',
       'AL' => 'standardinvestSensorKrStk',

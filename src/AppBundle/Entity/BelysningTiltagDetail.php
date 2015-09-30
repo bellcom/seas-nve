@@ -126,11 +126,12 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $noter;
 
   /**
-   * @var integer
+   * @var BelysningTiltagDetailTiltag
    *
-   * @ORM\Column(name="belysningstiltag_id", type="string", length=255)
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Tiltag")
+   * ORM\JoinColumn(name="belysningstiltag_id", referencedColumnName="id")
    **/
-  protected $belysningstiltagId;
+  protected $belysningstiltag;
 
   /**
    * @var integer
@@ -616,22 +617,13 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Set tiltag
    *
-   * @param string $belysningstiltagId
+   * @param string $belysningstiltag
    * @return BelysningTiltagDetail
    */
-  public function setBelysningstiltagId($belysningstiltagId) {
-    $this->belysningstiltagId = $belysningstiltagId;
+  public function setBelysningstiltag($belysningstiltag) {
+    $this->belysningstiltag = $belysningstiltag;
 
     return $this;
-  }
-
-  /**
-   * Get belysningtiltagId
-   *
-   * @return string
-   */
-  public function getBelysningstiltagId() {
-    return $this->belysningstiltagId;
   }
 
   /**
@@ -640,6 +632,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @return BelysningTiltagDetailTiltag
    */
   public function getBelysningstiltag() {
+    return $this->belysningstiltag;
   }
 
   /**
@@ -1027,7 +1020,7 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function calculateNyDriftstid() {
     // AN
-    if ($this->drifttidTAar == 0 || $this->belysningstiltagId == null) {
+    if ($this->drifttidTAar == 0 || $this->belysningstiltag == null) {
       return 0;
     }
     else {

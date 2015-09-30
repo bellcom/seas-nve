@@ -1,46 +1,48 @@
 <?php
-/**
- * @file
- */
 
 namespace AppBundle\Entity\BelysningTiltagDetail;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * The Tiltag class.
+ * Styring
+ *
+ * @ORM\Table(name="BelysningTiltagDetail_Tiltag")
+ * @ORM\Entity
  */
 class Tiltag {
   /**
-   * The id.
+   * @var integer
    *
-   * @var string
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
    */
-  protected $id;
+  private $id;
 
   /**
-   * The name.
-   *
    * @var string
+   *
+   * @ORM\Column(name="name", type="string", length=255)
    */
-  protected $name;
+  private $name;
+
 
   /**
-   * Get id.
+   * Get id
    *
-   * @return string
-   *   The id.
+   * @return integer
    */
   public function getId() {
     return $this->id;
   }
 
   /**
-   * Set name.
+   * Set name
    *
    * @param string $name
-   *   The name.
    *
-   * @return Tiltag
-   *   The tiltag.
+   * @return Styring
    */
   public function setName($name) {
     $this->name = $name;
@@ -49,36 +51,17 @@ class Tiltag {
   }
 
   /**
-   * Get name.
+   * Get name
    *
    * @return string
-   *   The name.
    */
   public function getName() {
     return $this->name;
   }
 
-  /**
-   * Construct a new Tiltag.
-   *
-   * @param int $id
-   *   The id.
-   * @param string $name
-   *   The name.
-   */
-  public function __construct($id, $name) {
-    $this->id = $id;
-    $this->setName($name);
-  }
-
-  /**
-   * Convert to string.
-   *
-   * @return string
-   *   The string.
-   */
   public function __toString() {
     return $this->name;
   }
 
 }
+
