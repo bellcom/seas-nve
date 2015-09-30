@@ -937,3 +937,12 @@ appbundle.tekniskisoleringtiltagdetail.roerstoerrelseMmAekvivalent.calculation: 
 appbundle.klimaskaermtiltagdetail.arealM2.calculation: …
 
 form.laanLoebetid: Løbetid på lån
+
+TiltagDetail: Detalje
+BelysningTiltagDetail: Detalje
+KlimaskaermTiltagDetail: Detalje
+PumpeTiltagDetail: Detalje
+SolcelleTiltagDetail: Detalje
+SpecialTiltagDetail: Detalje
+TekniskIsoleringTiltagDetail: Detalje
+VindueTiltagDetail: Detalje
