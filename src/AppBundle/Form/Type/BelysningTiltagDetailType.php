@@ -24,57 +24,15 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       //->add('tilvalgt')
       ->add('lokale_navn')
       ->add('lokale_type')
-      ->add('armaturhoejdeM', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'm'
-          )
-        )
-      ))
-      ->add('rumstoerrelseM2', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'm²'
-          )
-        )
-      ))
+      ->add('armaturhoejdeM')
+      ->add('rumstoerrelseM2')
       ->add('lokale_antal')
-      ->add('drifttidTAar', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 't/år'
-          )
-        )
-      ))
+      ->add('drifttidTAar')
       ->add('lyskilde')
-      ->add('lyskildeStkArmatur', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'stk/armatur'
-          )
-        )
-      ))
-      ->add('lyskildeWLyskilde', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'W/lyskilde'
-          )
-        )
-      ))
-      ->add('forkoblingStkArmatur', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'stk/armatur'
-          )
-        )
-      ))
-      ->add('armaturerStkLokale', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'stk/lokale'
-          )
-        )
-      ))
+      ->add('lyskildeStkArmatur')
+      ->add('lyskildeWLyskilde')
+      ->add('forkoblingStkArmatur')
+      ->add('armaturerStkLokale')
       // ->add('elforbrugWM2', null, array( 'disabled' => true, ))
       ->add('placering_id', 'choice', array(
         'choices' => (new PlaceringRepository())->loadChoiceList(),
@@ -89,60 +47,18 @@ class BelysningTiltagDetailType extends TiltagDetailType {
         'choices' => (new TiltagRepository())->loadChoiceList(),
         'choices_as_values' => true,
       ))
-      ->add('nyeSensorerStkLokale', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'stk/lokale'
-          )
-        )
-      ))
-      ->add('standardinvestSensorKrStk', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'kr/stk'
-          )
-        )
-      ))
-      ->add('reduktionAfDrifttid', 'percent')
+      ->add('nyeSensorerStkLokale')
+      ->add('standardinvestSensorKrStk')
+      ->add('reduktionAfDrifttid')
       // ->add('nyDriftstid', null, array( 'disabled' => true ))
-      ->add('standardinvestArmaturElLyskildeKrStk', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'kr/stk'
-          )
-        )
-      ))
+      ->add('standardinvestArmaturElLyskildeKrStk')
       ->add('nyLyskilde')
-      ->add('nyLyskildeStkArmatur', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'stk/armatur'
-          )
-        )
-      ))
-      ->add('nyLyskildeWLyskilde', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'w/lyskilde'
-          )
-        )
-      ))
-      ->add('nyForkoblingStkArmatur', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'stk/armatur'
-          )
-        )
-      ))
+      ->add('nyLyskildeStkArmatur')
+      ->add('nyLyskildeWLyskilde')
+      ->add('nyForkoblingStkArmatur')
       // ->add('nyArmatureffektWStk', null, array( 'disabled' => true, ))
-      ->add('nyeArmaturerStkLokale', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'stk/lokale'
-          )
-        )
-      ))
-      ->add('nyttiggjortVarmeAfElBesparelse', 'percent')
+      ->add('nyeArmaturerStkLokale')
+      ->add('nyttiggjortVarmeAfElBesparelse')
       ->add('prisfaktor')
       // ->add('prisfaktorTillaegKrLokale', null, array( 'disabled' => true, ))
       // ->add('investeringAlleLokalerKr', null, array( 'disabled' => true, ))

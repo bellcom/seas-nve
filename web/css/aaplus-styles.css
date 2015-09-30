@@ -93,6 +93,11 @@ div.tab-content div.row:first-child {
     margin-top: 1.5em;
 }
 
+th.unit {
+    text-align: center;
+    background-color: #ddd;
+}
+
 /**
  * Additional styles for BraincraftedBootstrapBundle
  * (c) 2013 Florian Eckerstorfer (http://braincrafted.com)
