@@ -65,16 +65,6 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
    */
   protected $eWNyKWhM2Aar;
 
-  public function setOrientering($orientering) {
-    $this->orientering = $orientering;
-
-    return $this;
-  }
-
-  public function getOrientering() {
-    return $this->orientering;
-  }
-
   public function setSolenergitransmittansEks($solenergitransmittansEks) {
     $this->solenergitransmittansEks = $solenergitransmittansEks;
 

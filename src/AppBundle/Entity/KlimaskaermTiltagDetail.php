@@ -13,6 +13,13 @@ use AppBundle\Annotations\Calculated;
  */
 class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
+   * @var string
+   *
+   * @ORM\Column(name="orientering", type="string", nullable=true)
+   */
+  protected $orientering; // "Nord", "Syd", "Øst", "Vest"
+
+  /**
    * @var Klimaskaerm
    *
    * @ORM\ManyToOne(targetEntity="Klimaskaerm")
@@ -190,6 +197,16 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   public function getKlimaskaerm() {
     return $this->klimaskaerm;
+  }
+
+  public function setOrientering($orientering) {
+    $this->orientering = $orientering;
+
+    return $this;
+  }
+
+  public function getOrientering() {
+    return $this->orientering;
   }
 
   /**

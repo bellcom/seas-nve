@@ -690,6 +690,7 @@ appbundle:
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
     klimaskaerm: Klimaskærm
+    orientering: Orientering
 
   vinduetiltagdetail:
     laastAfEnergiraadgiver: Låst af energirådgiver
