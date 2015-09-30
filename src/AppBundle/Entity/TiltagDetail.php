@@ -357,4 +357,17 @@ End Function
     return Calculation::divide($numerator, $denominator);
   }
 
+  /**
+   * Get Name
+   *
+   * @return string
+   */
+  public function __toString() {
+    $className = get_class($this);
+    if (preg_match('@\\\\(?<name>[^\\\\]+)$@', $className, $matches)) {
+      return $matches['name'];
+    }
+    return $className;
+  }
+
 }
