@@ -238,7 +238,7 @@ appbundle:
     armaturerStkLokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
     elforbrugWM2: Elforbrug
     elforbrugWM2.unit: W/m²
-    placering.id: Placering
+    placering: Placering
     styring.id: Styring
     noter: Noter
     belysningstiltag: Tiltag

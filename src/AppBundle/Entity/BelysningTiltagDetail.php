@@ -103,11 +103,12 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $elforbrugWM2;
 
   /**
-   * @var string
+   * @var BelysningTiltagDetailPlacering
    *
-   * @ORM\Column(name="placering_id", type="string", length=255)
-   */
-  protected $placeringId;
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Placering")
+   * ORM\JoinColumn(name="placering_id", referencedColumnName="id")
+   **/
+  protected $placering;
 
   /**
    * @var integer
@@ -548,33 +549,25 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set placeringId
+   * Set placering
    *
-   * @param string $placeringId
+   * @param BelysningTiltagDetailPlacering $placering
    * @return BelysningTiltagDetail
    */
-  public function setPlaceringId($placeringId) {
-    $this->placeringId = $placeringId;
+  public function setPlacering($placering) {
+    $this->placering = $placering;
 
     return $this;
   }
 
   /**
-   * Get placeringId
+   * Get placering
    *
-   * @return string
+   * @return BelysningTiltagDetailPlacering
    */
-  public function getPlaceringId() {
-    return $this->placeringId;
+  public function getPlacering() {
+    return $this->placering;
   }
-
-  // /**
-  //  * Get placering
-  //  *
-  //  * @return BelysningTiltagDetailPlacering
-  //  */
-  // public function getPlacering() {
-  // }
 
   /**
    * Set styring
