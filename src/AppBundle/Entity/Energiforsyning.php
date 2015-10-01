@@ -16,6 +16,8 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OrderBy;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\DBAL\Types\Energiforsyning\NavnType;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * Energiforsyning
@@ -42,7 +44,8 @@ class Energiforsyning {
   /**
    * @var string
    *
-   * @ORM\Column(name="navn", type="string", length=255)
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\Energiforsyning\NavnType")
+   * @ORM\Column(name="navn", type="NavnType", nullable=true)
    */
   protected $navn;
 
@@ -175,7 +178,7 @@ class Energiforsyning {
   }
 
   public function __toString() {
-    return $this->navn;
+    return NavnType::getReadableValue($this->navn);
   }
 
 

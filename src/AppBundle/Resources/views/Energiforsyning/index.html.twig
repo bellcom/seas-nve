@@ -25,7 +25,7 @@
     <tbody>
     {% for entity in entities %}
       <tr>
-        <td>{{ entity.navn }}</td>
+        <td>{{ entity.navn | readable('NavnType') | trans }}</td>
         <td>{{ entity.beskrivelse }}</td>
         <td>{{ entity.samletVarmeeffektivitet | format_decimal }}</td>
         <td>{{ entity.samletEleffektivitet | format_decimal }}</td>
