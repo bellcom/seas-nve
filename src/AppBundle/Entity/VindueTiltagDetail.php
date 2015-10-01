@@ -135,14 +135,14 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
 
     $solenergitransmittansFactor = 0;
     switch ($this->orientering) {
-      case 'Nord':
+      case 'north':
         $solenergitransmittansFactor = 73.15;
         break;
-      case 'Syd':
+      case 'south':
         $solenergitransmittansFactor = 301.98;
         break;
-      case 'Øst':
-      case 'Vest':
+      case 'east':
+      case 'west':
         $solenergitransmittansFactor = 162.47;
     }
 
@@ -154,7 +154,12 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
   }
 
   protected function calculateBesparelseKWhAar() {
-    return ($this->eWEksKWhM2Aar == 0) ? 0 : $this->eWNyKWhM2Aar - $this->eWEksKWhM2Aar;
+    if ($this->eWEksKWhM2Aar == 0) {
+      return 0;
+    }
+    else {
+      return ($this->eWNyKWhM2Aar - $this->eWEksKWhM2Aar) * (1 + $this->yderligereBesparelserPct);
+    }
   }
 
 }
