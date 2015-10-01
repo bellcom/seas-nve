@@ -118,10 +118,12 @@
       {% set style = attr.style %}
     {% endif %}
 
-    {% set align_with_widget = true %}
+    {% if style == 'horizontal' %}
+      {% set align_with_widget = true %}
+    {% endif %}
 
     {% set class = '' %}
-    {% if align_with_widget is defined or attr.align_with_widget is defined %}
+    {% if (align_with_widget is defined or attr.align_with_widget is defined) and style != 'horizontal' %}
       {% set widget_col = widget_col|default(bootstrap_get_widget_col()) %}
       {% set label_col = label_col|default(bootstrap_get_label_col()) %}
       {% set class = 'col-' ~ col_size ~ '-' ~ widget_col ~ ' col-' ~ col_size ~ '-offset-' ~ label_col %}
@@ -135,7 +137,7 @@
     {% set widget_col = widget_col|default(bootstrap_get_widget_col()) %}
 
     {% if style == 'horizontal' %}
-      {# {{ form_label(form) }} #}
+      {{ form_label(form) }}
       <div class="col-{{ col_size }}-{{ widget_col }}">
     {% endif %}
 
@@ -180,9 +182,6 @@
 
     {% if style == 'inline' %}&nbsp;{% endif %}
 
-    {% if style == 'horizontal' %}
-       </div>
-    {%  endif %}
   {% endspaceless %}
 {% endblock checkbox_row %}
 
@@ -230,7 +229,7 @@
         {% set label = name|humanize %}
       {% endif %}
 
-      <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ id|get_trans }}</label>
+      <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ id|get_trans }}{% if required %} <span class="required">{{ icon('asterisk') }}</span>{% endif %}</label>
     {% endif %}
   {% endspaceless %}
 {% endblock form_label %}

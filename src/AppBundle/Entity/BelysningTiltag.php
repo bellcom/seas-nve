@@ -27,7 +27,7 @@ class BelysningTiltag extends Tiltag {
   }
 
   protected function calculateVarmebesparelseGUF() {
-    return $this->sum('kWhBesparelseVarmeFraVarmevaerket');
+    return $this->sum('kWhBesparelseVarmeFraVarmevaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
   }
 
   protected function calculateElbesparelse() {

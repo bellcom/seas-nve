@@ -9,6 +9,10 @@
     text-align: right;
 }
 
+span.required {
+    font-size: 0.7em;
+}
+
 /**
 * Login
 */

@@ -62,7 +62,7 @@ class PumpeTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="Noter", type="text")
+   * @ORM\Column(name="Noter", type="text", nullable=true)
    */
   protected $noter;
 
