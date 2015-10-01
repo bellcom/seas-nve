@@ -121,7 +121,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet", type="text")
+   * @ORM\Column(name="noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet", type="text", nullable=true)
    */
   protected $noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet;
 

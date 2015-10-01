@@ -121,7 +121,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="noter", type="text")
+   * @ORM\Column(name="noter", type="text", nullable=true)
    */
   protected $noter;
 
