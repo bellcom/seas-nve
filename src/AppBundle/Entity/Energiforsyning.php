@@ -162,7 +162,7 @@ class Energiforsyning {
     return array_reduce($this->internProduktioner->filter(function($item) {
       return $item->getPrisgrundlag() == 'VARME';
     })->toArray(), function($carry, $item) {
-      return $carry + Calculation::divide($item->getFordeling(), $item->getEffektivitet());
+      return $carry + (1 + (1 - $item->getEffektivitet())) * $item->getFordeling();
     }, 0);
   }
 
@@ -170,7 +170,7 @@ class Energiforsyning {
     return array_reduce($this->internProduktioner->filter(function($item) {
       return $item->getPrisgrundlag() == 'EL';
     })->toArray(), function($carry, $item) {
-      return $carry + Calculation::divide($item->getFordeling(), $item->getEffektivitet());
+      return $carry + (1 + (1 - $item->getEffektivitet())) * $item->getFordeling();
     }, 0);
   }
 
