@@ -803,6 +803,8 @@ appbundle:
     arealM2: Areal (m²)
     uEksWM2K: U_eks (W/m²K)
     uNyWM2K: U_ny (W/m²K)
+    yderligereBesparelserPct: Yderligere besparelser
+    yderligereBesparelserPct.unit: %
     besparelseKWhAar: Besparelse (kWh/år)
     samletBesparelseKWhAarInklDelbesparelser: Samlet Besparelse (kWh/år) inkl. delbesparelser
     prisfaktor: Prisfaktor
@@ -827,7 +829,9 @@ appbundle:
     eRefNyKWhM2Aar: E_ref,ny (kWh/m²/år)
     eWNyKWhM2Aar: E_w,ny (kWh/år)
     solenergitransmittansEks: Solenergitransmittans
-    solenergitransmittansNy: Solenergitransmittans_ny
+    solenergitransmittansEks.unit: %
+    solenergitransmittansNy: Solenergitransmittans, ny
+    solenergitransmittansNy.unit: %
 
   solcelletiltagdetail:
     tilvalgt: Tilvalgt
