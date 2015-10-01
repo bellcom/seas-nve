@@ -26,18 +26,31 @@ class DashboardController extends BaseController {
   public function indexAction(Request $request) {
     $user = $this->get('security.context')->getToken()->getUser();
     $em = $this->getDoctrine()->getManager();
+    $paginator = $this->get('knp_paginator');
 
     if ($this->isGranted('ROLE_ADMIN')) {
-      $query = $em->getRepository('AppBundle:Bygning')->findByUser($user, true, true);
+      $status_finished = $em->getRepository('AppBundle:BygningStatus')->findOneBy(array('navn' => 'Afleveret af Rådgiver'));
 
-      $paginator = $this->get('knp_paginator');
-      $pagination = $paginator->paginate(
-        $query,
+      $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, $status_finished);
+
+      $byg_pagination = $paginator->paginate(
+        $finished_buildings_q,
         $request->query->get('page', 1),
-        20
+        10
       );
 
-      return $this->render('AppBundle:Dashboard:admin.html.twig', array('pagination' => $pagination));
+      $segmenter_byg_pagination = array();
+      foreach($user->getSegmenter() as $segment) {
+        $seg_query = $em->getRepository('AppBundle:Rapport')->getBySegment($segment);
+
+        $segmenter_byg_pagination[$segment->getId()] = $paginator->paginate(
+          $seg_query,
+          $request->query->get('page', 1),
+          10
+        );
+      }
+
+      return $this->render('AppBundle:Dashboard:admin.html.twig', array('byg_pagination' => $byg_pagination, 'segmenter' => $user->getSegmenter(), 'segmenter_byg_pagination' => $segmenter_byg_pagination));
 
     } else if ($this->isGranted('ROLE_EDIT')) {
 
@@ -46,8 +59,6 @@ class DashboardController extends BaseController {
 
       $current_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, $status_current);
       $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, $status_finished);
-
-      $paginator = $this->get('knp_paginator');
 
       $current_buildings = $paginator->paginate(
         $current_buildings_q,

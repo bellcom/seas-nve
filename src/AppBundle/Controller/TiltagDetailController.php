@@ -25,7 +25,7 @@ class TiltagDetailController extends BaseController {
     $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
     $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     $this->breadcrumbs->addItem($tiltag, $this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
-    $this->breadcrumbs->addItem(get_class($detail));
+    $this->breadcrumbs->addItem($detail);
   }
 
   /**
@@ -66,6 +66,34 @@ class TiltagDetailController extends BaseController {
     return $this->render($template, array(
       'calculation_changes' => $this->container->get('aaplus.tiltagdetail_calculation')->getChanges($entity),
       'entity' => $entity,
+      'edit_form' => $editForm->createView(),
+      'delete_form' => $deleteForm->createView(),
+    ));
+  }
+
+  /**
+   * Copies a TiltagDetails and displays a form to edit the dublicated entity.
+   *
+   * @Route("/{id}/copy", name="tiltag_detail_copy")
+   * @Method("GET")
+   * @Template()
+   * @param TiltagDetail $entity
+   * @return \Symfony\Component\HttpFoundation\Response
+   */
+  public function copyAction(TiltagDetail $entity) {
+    $copy = clone $entity;
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($copy);
+    $em->flush();
+
+    $this->setBreadcrumb($copy);
+    $editForm = $this->createEditForm($copy);
+    $deleteForm = $this->createDeleteForm($copy);
+
+    $template = $this->getTemplate($copy, 'edit');
+    return $this->render($template, array(
+      'calculation_changes' => $this->container->get('aaplus.tiltagdetail_calculation')->getChanges($copy),
+      'entity' => $copy,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     ));

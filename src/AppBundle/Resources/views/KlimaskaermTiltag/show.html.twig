@@ -11,6 +11,7 @@
         <table class="table table-condensed table-header-rotated table-hover">
           <thead>
             <tr>
+              {{ helper.header() }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
               {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.klimaskaerm') }}
@@ -37,12 +38,45 @@
               {{ helper.header('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
-              {{ helper.header() }}
+            </tr>
+            <tr>
+              {{ helper.header_unit() }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
+              {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.type') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.orientering') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.klimaskaerm') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.typePlaceringJfPlantegning') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.hoejdeElLaengdeM') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.breddeM') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.antalStk') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.arealM2') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.andelAfArealDerEfterisoleres') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.uEksWM2K') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.uNyWM2K') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.tIndeC') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.tUdeC') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.tOpvarmningTimerAar') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.yderligereBesparelserPct') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.besparelseKWhAar') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.prisfaktor') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.samletInvesteringKr') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.levetidAar') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.faktorForReinvestering') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
             </tr>
           </thead>
           <tbody>
             {% for detail in entity.details %}
               <tr>
+                <td>
+                  <p><a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('edit') }} {{ 'common.edit' | trans }}</a></p>
+                  <p><a href="{{ path('tiltag_detail_copy', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('clone') }} {{ 'common.copy' | trans }}</a></p>
+                </td>
                 <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
                 <td>{{ detail.tilvalgt | b2icon }}</td>
                 <td>{{ detail.klimaskaerm }}</td>
@@ -69,9 +103,6 @@
                 <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
                 <td>{{ detail.kWhBesparElvaerkEksternEnergikilde | format_decimal }}</td>
                 <td>{{ detail.kWhBesparVarmevaerkEksternEnergikilde | format_decimal }}</td>
-                <td>
-                  <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-                </td>
               </tr>
             {% endfor %}
           </tbody>

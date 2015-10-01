@@ -321,6 +321,7 @@ class RapportController extends BaseController {
       ->setAction($this->generateUrl('rapport_finansiering_update', array('id' => $rapport->getId())))
       ->setMethod('PUT')
       ->add('laanLoebetid', NULL, array(
+        'label' => 'løbetid',
         'attr' => array(
           'input_group' => array(
             'append' => 'år'

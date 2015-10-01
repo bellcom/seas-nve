@@ -1,11 +1,15 @@
 {% extends 'AppBundle:TiltagDetail:show.html.twig' %}
 
 {% block body -%}
-    <h1>Specialtiltag</h1>
+    <h1>Belysningstiltag</h1>
 
   <dl class="dl-horizontal">
     <dt>{{ 'tiltag_detail.id' | trans }}</dt>
     <dd>{{ entity.id }}</dd>
+    <dt>{{ 'tiltag_detail.styringId' | trans }}</dt>
+    <dd>{{ entity.styringId }}</dd>
+    <dt>{{ 'tiltag_detail.placeringId' | trans }}</dt>
+    <dd>{{ entity.placeringId }}</dd>
   </dl>
 
 {% endblock %}

@@ -74,6 +74,14 @@
   </th>
 {% endmacro %}
 
+{% macro header_unit(key) %}
+  {% set translation = key|get_unit %}
+
+  <th class="unit">
+    {{ translation }}
+  </th>
+{% endmacro %}
+
 {% import _self as helper %}
 
 <!-- Begin page content -->

@@ -103,18 +103,20 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $elforbrugWM2;
 
   /**
-   * @var string
+   * @var BelysningTiltagDetailPlacering
    *
-   * @ORM\Column(name="placering_id", type="string", length=255)
-   */
-  protected $placeringId;
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Placering")
+   * ORM\JoinColumn(name="placering_id", referencedColumnName="id")
+   **/
+  protected $placering;
 
   /**
-   * @var integer
+   * @var BelysningTiltagDetailStyring
    *
-   * @ORM\Column(name="styring_id", type="string", length=255)
-   */
-  protected $styringId;
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Styring")
+   * ORM\JoinColumn(name="styring_id", referencedColumnName="id")
+   **/
+  protected $styring;
 
   /**
    * @var string
@@ -124,11 +126,12 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $noter;
 
   /**
-   * @var integer
+   * @var BelysningTiltagDetailTiltag
    *
-   * @ORM\Column(name="belysningstiltag_id", type="string", length=255)
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Tiltag")
+   * ORM\JoinColumn(name="belysningstiltag_id", referencedColumnName="id")
    **/
-  protected $belysningstiltagId;
+  protected $belysningstiltag;
 
   /**
    * @var integer
@@ -548,53 +551,36 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set placeringId
+   * Set placering
    *
-   * @param string $placeringId
+   * @param BelysningTiltagDetailPlacering $placering
    * @return BelysningTiltagDetail
    */
-  public function setPlaceringId($placeringId) {
-    $this->placeringId = $placeringId;
+  public function setPlacering($placering) {
+    $this->placering = $placering;
 
     return $this;
   }
 
   /**
-   * Get placeringId
+   * Get placering
    *
-   * @return string
+   * @return BelysningTiltagDetailPlacering
    */
-  public function getPlaceringId() {
-    return $this->placeringId;
+  public function getPlacering() {
+    return $this->placering;
   }
-
-  // /**
-  //  * Get placering
-  //  *
-  //  * @return BelysningTiltagDetailPlacering
-  //  */
-  // public function getPlacering() {
-  // }
 
   /**
    * Set styring
    *
-   * @param string $styringId
+   * @param BelysningTiltagDetailStyring $styring
    * @return BelysningTiltagDetail
    */
-  public function setStyringId($styringId) {
-    $this->styringId = $styringId;
+  public function setStyring($styring) {
+    $this->styring = $styring;
 
     return $this;
-  }
-
-  /**
-   * Get styringId
-   *
-   * @return string
-   */
-  public function getStyringId() {
-    return $this->styringId;
   }
 
   /**
@@ -603,7 +589,9 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @return BelysningTiltagDetailStyring
    */
   public function getStyring() {
+    return $this->styring;
   }
+
 
   /**
    * Set noter
@@ -629,22 +617,13 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Set tiltag
    *
-   * @param string $belysningstiltagId
+   * @param string $belysningstiltag
    * @return BelysningTiltagDetail
    */
-  public function setBelysningstiltagId($belysningstiltagId) {
-    $this->belysningstiltagId = $belysningstiltagId;
+  public function setBelysningstiltag($belysningstiltag) {
+    $this->belysningstiltag = $belysningstiltag;
 
     return $this;
-  }
-
-  /**
-   * Get belysningtiltagId
-   *
-   * @return string
-   */
-  public function getBelysningstiltagId() {
-    return $this->belysningstiltagId;
   }
 
   /**
@@ -653,6 +632,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @return BelysningTiltagDetailTiltag
    */
   public function getBelysningstiltag() {
+    return $this->belysningstiltag;
   }
 
   /**
@@ -1040,7 +1020,7 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function calculateNyDriftstid() {
     // AN
-    if ($this->drifttidTAar == 0 || $this->belysningstiltagId == null) {
+    if ($this->drifttidTAar == 0 || $this->belysningstiltag == null) {
       return 0;
     }
     else {

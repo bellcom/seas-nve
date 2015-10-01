@@ -36,6 +36,8 @@ Update: Opdater
 Delete: Slet
 
 common:
+  copy: Kopier
+  afleveret_raadgiver: Afleveret af Rådgiver
   select: Tilvælg
   deselect: Fravælg
   result_overview: Resultatoversigt
@@ -214,46 +216,72 @@ appbundle:
     tilvalgt: Tilvalgt
     lokale.navn: Lokale, navn
     lokale.type: Lokale, type
-    armaturhoejdeM: Armaturhøjde (m)
+    armaturhoejdeM: Armaturhøjde
+    armaturhoejdeM.unit: m
     armaturhoejdeM.help: ﻿Monteringshøjden for armaturene i rummet indtastes
-    rumstoerrelseM2: Rumstørrelse (m²)
+    rumstoerrelseM2: Rumstørrelse
+    rumstoerrelseM2.unit: m²
     rumstoerrelseM2.help: ﻿Rumstørrelse indtastes. Der kan også regnes på flere sammenlignelige rum i en større zone.
     lokale.antal: Lokaleantal
-    drifttidTAar: Drifttid (t/år)
-    drifttidTAar: ﻿Ferieperioder, reduktion af driftstid som følge af eksisterende lysstyring  mv. skal indregnes
+    drifttidTAar: Drifttid
+    drifttidTAar.unit: t/år
+    drifttidTAar.help: ﻿Ferieperioder, reduktion af driftstid som følge af eksisterende lysstyring  mv. skal indregnes
     lyskilde: Lyskilde
-    lyskildeStkArmatur: Lyskilde (stk/armatur)
-    lyskildeWLyskilde: Lyskilde (W/lyskilde)
-    forkoblingStkArmatur: Forkobling (stk/armatur)
+    lyskildeStkArmatur: Lyskilde
+    lyskildeStkArmatur.unit: stk/armatur
+    lyskildeWLyskilde: Lyskilde
+    lyskildeWLyskilde.unit: W/lyskilde
+    forkoblingStkArmatur: Forkobling
+    forkoblingStkArmatur.unit: stk/armatur
     forkoblingStkArmatur.help: ﻿Antal af forkoblinger indtastes, kun relevant for belysning med konventionelle- eller HF-forkoblinger. Kan udelades ved øvrige lystyper.
-    armaturerStkLokale: Armaturer (stk/lokale)
+    armaturerStkLokale: Armaturer
+    armaturerStkLokale.unit: stk/lokale
     armaturerStkLokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
-    elforbrugWM2: Elforbrug (W/m²)
-    placering.id: Placering
+    elforbrugWM2: Elforbrug
+    elforbrugWM2.unit: W/m²
+    placering: Placering
     styring.id: Styring
     noter: Noter
     belysningstiltag: Tiltag
-    nyeSensorerStkLokale: Nye sensorer (stk/lokale)
-    standardinvestSensorKrStk: Standardinvest. sensor (kr/stk)
-    reduktionAfDrifttid: Reduktion af drifttid (%)
+    nyeSensorerStkLokale: Nye sensorer
+    nyeSensorerStkLokale.unit: stk/lokale
+    standardinvestSensorKrStk: Standardinvest. sensor
+    standardinvestSensorKrStk.unit: kr/stk
+    reduktionAfDrifttid: Reduktion af drifttid
+    reduktionAfDrifttid.unit: %
     nyDriftstid: Ny driftstid
-    standardinvestArmaturElLyskildeKrStk: Standardinvest. armatur el. lyskilde (kr/stk)
+    nyDriftstid.unit: ??
+    standardinvestArmaturElLyskildeKrStk: Standardinvest. armatur el. lyskilde
+    standardinvestArmaturElLyskildeKrStk.unit: kr/stk
     nyLyskilde: Ny lyskilde
-    nyLyskildeStkArmatur: Ny lyskilde (stk/armatur)
-    nyLyskildeWLyskilde: Ny lyskilde (W/lyskilde)
-    nyForkoblingStkArmatur: Ny forkobling (stk/armatur)
-    nyArmatureffektWStk: Ny armatureffekt (W/stk)
-    nyeArmaturerStkLokale: Nye armaturer (stk/lokale)
-    nyttiggjortVarmeAfElBesparelse: Nyttiggjort varme (% af el-besparelse)
-    nyttiggjortVarmeAfElBesparelse.help: ﻿Nyttigjort varme: procentdel af varmeudledning fra tidligere beslygning der har været nyttigjort, dvs. en varmeudledning der efterfølgende skal udføres af varmeanlægge.
+    nyLyskildeStkArmatur: Ny lyskilde
+    nyLyskildeStkArmatur.unit: stk/armatur
+    nyLyskildeWLyskilde: Ny lyskilde
+    nyLyskildeWLyskilde.unit: W/lyskilde
+    nyForkoblingStkArmatur: Ny forkobling
+    nyForkoblingStkArmatur.unit: stk/armatur
+    nyArmatureffektWStk: Ny armatureffekt
+    nyArmatureffektWStk.unit: W/stk
+    nyeArmaturerStkLokale: Nye armaturer
+    nyeArmaturerStkLokale.unit: stk/lokale
+    nyttiggjortVarmeAfElBesparelse: Nyttiggjort varme
+    nyttiggjortVarmeAfElBesparelse.unit: % af el-besparelse
+    nyttiggjortVarmeAfElBesparelse.help: Nyttigjort varme: procentdel af varmeudledning fra tidligere beslygning der har været nyttigjort, dvs. en varmeudledning der efterfølgende skal udføres af varmeanlægge.
     prisfaktor: Prisfaktor
-    prisfaktorTillaegKrLokale: Prisfaktor-tillæg (kr/lokale)
-    investeringAlleLokalerKr: Investering, alle lokaler (kr)
-    nytElforbrugWM2: Nyt elforbrug (W/m²)
-    driftsbesparelseTilLyskilderKrAar: Driftsbesparelse til lyskilder Alle lokaler (kr/år)
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
-    vaegtetLevetidAar: Vægtet Levetid (år)
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    prisfaktorTillaegKrLokale: Prisfaktor-tillæg
+    prisfaktorTillaegKrLokale.unit: kr/lokale
+    investeringAlleLokalerKr: Investering, alle lokaler
+    investeringAlleLokalerKr.unit: kr
+    nytElforbrugWM2: Nyt elforbrug
+    nytElforbrugWM2.unit: W/m²
+    driftsbesparelseTilLyskilderKrAar: Driftsbesparelse til lyskilder Alle lokaler
+    driftsbesparelseTilLyskilderKrAar.unit: kr/år
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
+    simpelTilbagebetalingstidAar.unit: år
+    vaegtetLevetidAar: Vægtet Levetid
+    vaegtetLevetidAar.unit: år
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
+    nutidsvaerdiSetOver15AarKr.unit: kr
     styring: Styring, input
     kwhBesparelseEl: kWh-besparelse El
     kwhBesparelseVarmeFraVarmevaerket: kWh-besparelse Varme fra varmeværket
@@ -490,6 +518,7 @@ appbundle:
     nyDrifttid: Ny Drifttid
     prisfaktor: Prisfaktor
   pumpetiltagdetail:
+    bfaktor: B-Faktor
     add: Tilføj pumpe
     pumpeID: Pumpe ID
     pumpeID.help: ﻿Et ID der kan genfindes på vedlagt skitse angives, fx. "P1", "P2" osv.
@@ -510,6 +539,24 @@ appbundle:
     prisfaktor: Prisfaktor
     pumpetiltag: Pumpetiltag
     pumpe: Pumpe
+    pristillaeg: Pristillæg
+    pristillaeg.unit: Kr.
+    samletInvesteringInklPristillaeg: Samlet investering inkl. pristillæg
+    samletInvesteringInklPristillaeg.unit: Kr.
+    elforbrugVedNyeDriftstidKWhAar: Elforbrug ved nye driftstid
+    elforbrugVedNyeDriftstidKWhAar.unit: kWh/år
+    elbespKWhAar: El-Besparelse
+    elbespKWhAar.unit: kWh/år
+    varmebespIsokappeKWh: Varmebesp. iso.kappe
+    varmebespIsokappeKWh.unit: kWh
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
+    simpelTilbagebetalingstidAar.unit: år
+    nutidsvaerdiSetOver15AarKr: ﻿Nutidsværdi set over 15 år
+    nutidsvaerdiSetOver15AarKr.unit: Kr.
+    kwhBesparelseElFraVaerket: El: kWh-besparelse fra værket
+    kwhBesparelseElFraVaerket.unit: ??
+    kwhBesparelseVarmeFraVaerket: ﻿Varme: kWh-besparelse fra værket
+    kwhBesparelseVarmeFraVaerket.unit: ??
   rapport:
     faellesomkostninger: Fællesomkostninger
     faellesomkostninger.unit: Kr.
@@ -565,6 +612,7 @@ appbundle:
     Energiscreening: Energiscreening
     laanRente: Rente på lån
     laanLoebetid: Løbetid på lån
+    laanLoebetid.unit: år
     elena: Elena
   segment:
     add: Opret Segment
@@ -585,20 +633,29 @@ appbundle:
     tilvalgtbegrundelse: Bemærkning
     tilvalgt: Tilvalgt
     title: Titel
-    varmebesparelseGUF: ﻿Varmebesparelse, GUF (kWh/år)
-    varmebesparelseGAF: ﻿Varmebesparelse, GAF (kWh/år)
-    elbesparelse: Elbesparelse (kWh/år)
-    vandbesparelse: Vandbesparelse (m³/år)
-    samletEnergibesparelse: Samlet energibesparelse (kr/år)
-    samletCo2besparelse: Samlet co2-besparelse (t/år)
-    antalReinvesteringer: Antal reinvesteringer (stk.)
+    varmebesparelseGUF: ﻿Varmebesparelse, GUF
+    varmebesparelseGUF.unit: kWh/år
+    varmebesparelseGAF: Varmebesparelse, GAF
+    varmebesparelseGAF.unit: kWh/år
+    elbesparelse: Elbesparelse
+    elbesparelse.unit: kWh/år
+    vandbesparelse: Vandbesparelse
+    vandbesparelse.unit: m³/år
+    samletEnergibesparelse: Samlet energibesparelse
+    samletEnergibesparelse.unit: kr/år
+    samletCo2besparelse: Samlet co2-besparelse
+    samletCo2besparelse.unit: t/år
+    antalReinvesteringer: Antal reinvesteringer
+    antalReinvesteringer.unit: stk.
     faktorForReinvesteringer: Faktor for reinvesteringer
     primaerEnterprise: Primær entreprise
     tiltagskategori: Tiltagskategori
     anlaegsInvestering: ﻿Anlægsinvestering
-    anlaegsInvestering.unit: ﻿kr
-    reelAnlaegsinvestering: ﻿Reel Anlægsinvestering (kr)
-    besparelseDriftOgVedligeholdelse: Besparelse på D & V (kr/år)
+    anlaegsInvestering.unit: kr
+    reelAnlaegsinvestering: Reel Anlægsinvestering
+    reelAnlaegsinvestering.unit: kr
+    besparelseDriftOgVedligeholdelse: Besparelse på D & V
+    besparelseDriftOgVedligeholdelse.unit: kr/år
     levetid: Funktionsdygtig levetid
     levetid.unit: År
     forsyningVarme: Forsyning, varme
@@ -613,7 +670,8 @@ appbundle:
     rapport: Rapport
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
     simpelTilbagebetalingstidAar.unit: År
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
+    nutidsvaerdiSetOver15AarKr.unit: Kr.
     scrapvaerdi: Scrapværdi
     reinvestering: Reinvestering
     besparelseGAF: Besparelse GAF
@@ -632,62 +690,104 @@ appbundle:
     laastAfEnergiraadgiver: Låst af energirådgiver
     beskrivelseType: Beskrivelse (type)
     type: Type
-    driftstidTAar: Driftstid (t/år)
-    udvDiameterMm: Udv. diameter [mm]
-    eksistIsolMm: Eksist. isol. [mm]
-    roerstoerrelseMmAekvivalent: Rørstørrelse [mm] ækvivalent
-    tankVolL: Tankvol. (L)
-    tempOmgivelC: Temp. omgivel. [°C]
-    tempMedieC: Temp. Medie [°C]
-    roerlaengdeEllerHoejdeAfVvbM: Rørlængde eller højde af VVB [m]
-    nyttiggjortVarme: Nyttiggjort varme [-]
-    nyIsolMm: Ny isol. [mm]
-    varmeledningsevnePaaEksistIsoleringWMK: Varmeledningsevne på eksist isolering [W/m·K]
-    varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering [W/m·K]
-    arealAfBeholderM2: Areal af beholder [m²]
-    standardinvestKrM2EllerKrM: Standardinvest. [kr/m² eller kr/m]
+    driftstidTAar: Driftstid
+    driftstidTAar.unit: t/år
+    udvDiameterMm: Udv. diameter
+    udvDiameterMm.unit: mm
+    eksistIsolMm: Eksist. isol.
+    eksistIsolMm.unit: mm
+    roerstoerrelseMmAekvivalent: Rørstørrelse ækvivalent
+    roerstoerrelseMmAekvivalent.unit: mm
+    tankVolL: Tankvol.
+    tankVolL.unit: L
+    tempOmgivelC: Temp. omgivel.
+    tempOmgivelC.unit: °C
+    tempMedieC: Temp. Medie
+    tempMedieC.unit: °C
+    roerlaengdeEllerHoejdeAfVvbM: Rørlængde eller højde af VVB
+    roerlaengdeEllerHoejdeAfVvbM.unit: m
+    nyttiggjortVarme: Nyttiggjort varme
+    nyttiggjortVarme.unit: ??
+    nyIsolMm: Ny isol.
+    nyIsolMm.unit: mm
+    varmeledningsevnePaaEksistIsoleringWMK: Varmeledningsevne på eksist isolering
+    varmeledningsevnePaaEksistIsoleringWMK.unit: W/m·K
+    varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering
+    varmeledningsevnePaaNyIsoleringWMK.unit: W/m·K
+    arealAfBeholderM2: Areal af beholder
+    arealAfBeholderM2.unit: m²
+    standardinvestKrM2EllerKrM: Standardinvest.
+    standardinvestKrM2EllerKrM: kr/m² eller kr/m
     prisfaktor: Prisfaktor
-    investeringKr: Investering  [kr]
-    eksistVarmetabKwh: Eksist. varmetab [kwh]
-    nytVarmetabKwh: Nyt varmetab [kwh]
-    varmebespKwhAar: Varmebesp. [kWh/år]
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    investeringKr: Investering
+    investeringKr.unit: Kr.
+    eksistVarmetabKwh: Eksist. varmetab
+    eksistVarmetabKwh.unit: kwh
+    nytVarmetabKwh: Nyt varmetab
+    nytVarmetabKwh.unit: kwh
+    varmebespKwhAar: Varmebesp.
+    varmebespKwhAar.unit: kWh/år
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
+    simpelTilbagebetalingstidAar.unit: år
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
+    nutidsvaerdiSetOver15AarKr.unit: Kr.
     kwhBesparelseElFraVaerket: kWh-besparelse El fra værket
+    kwhBesparelseElFraVaerket.unit: ??
     kwhBesparelseVarmeFraVaerket: kWh-besparelse Varme fra værket
+    kwhBesparelseVarmeFraVaerket.unit: ??
 
   klimaskaermtiltagdetail:
     laastAfEnergiraadgiver: Låst af energirådgiver
     tiltagsnr: Tiltagsnr.
     tiltagsnrDelpriser: Tiltagsnr. Delpriser
     typePlaceringJfPlantegning: Type/placering jf. plantegning
-    hoejdeElLaengdeM: Højde el. Længde (m)
-    breddeM: Bredde (m)
-    antalStk: Antal (stk)
-    arealM2: Areal (m²)
-    andelAfArealDerEfterisoleres: Andel af areal der efterisoleres (%)
-    uEksWM2K: U_eks (W/m²K)
-    uNyWM2K: U_ny (W/m²K)
-    tIndeC: T_inde (°C)
-    tUdeC: T_ude (°C)
-    tOpvarmningTimerAar: t_opvarmning (timer/år)
-    yderligereBesparelserPct: Yderligere besparelser (%)
-    besparelseKWhAar: Besparelse (kWh/år)
-    samletBesparelseKWhAarInklDelbesparelser: Samlet Besparelse (kWh/år) inkl. delbesparelser
+    hoejdeElLaengdeM: Højde el. Længde
+    hoejdeElLaengdeM.unit: m
+    breddeM: Bredde
+    breddeM.unit: m
+    antalStk: Antal
+    antalStk.unit: stk
+    arealM2: Areal
+    arealM2.unit: m²
+    andelAfArealDerEfterisoleres: Andel af areal der efterisoleres
+    andelAfArealDerEfterisoleres.unit: %
+    uEksWM2K: U_eks
+    uEksWM2K.unit: W/m²K
+    uNyWM2K: U_ny
+    uNyWM2K.unit: W/m²K
+    tIndeC: T_inde
+    tIndeC.unit: °C
+    tUdeC: T_ude
+    tUdeC.unit: °C
+    tOpvarmningTimerAar: t_opvarmning
+    tOpvarmningTimerAar.unit: timer/år
+    yderligereBesparelserPct: Yderligere besparelser
+    yderligereBesparelserPct.unit: %
+    besparelseKWhAar: Besparelse
+    besparelseKWhAar.unit: kWh/år
+    samletBesparelseKWhAarInklDelbesparelser: Samlet Besparelse inkl. delbesparelser
+    samletBesparelseKWhAarInklDelbesparelser.unit: kWh/år
     prisfaktor: Prisfaktor
-    delprisKrM2: Delpris (kr/m2)
-    samletInvesteringKr: Samlet investering (kr)
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    delprisKrM2: Delpris
+    delprisKrM2.unit: kr/m2
+    samletInvesteringKr: Samlet investering
+    samletInvesteringKr.unit: kr
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
+    simpelTilbagebetalingstidAar.unit: år
     noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
     tilSortering: Til sortering
     tilSummeringAfDelpriser: Til summering af delpriser
-    levetidAar: Levetid (år)
+    levetidAar: Levetid
+    levetidAar.unit: år
     vaegtetGnm: VaegtetGnm
     vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
     faktorForReinvestering: Faktor for reinvestering
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
+    nutidsvaerdiSetOver15AarKr.unit: kr
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
+    kWhBesparElvaerkEksternEnergikilde.unit: ??
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
+    kWhBesparVarmevaerkEksternEnergikilde.unit: ??
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
     klimaskaerm: Klimaskærm
     orientering: Orientering
@@ -730,27 +830,50 @@ appbundle:
     solenergitransmittansNy: Solenergitransmittans_ny
 
   solcelletiltagdetail:
+    tilvalgt: Tilvalgt
+    add: Tilføj
     anlaegsstoerrelseKWp: Anlægsstørrelse
+    anlaegsstoerrelseKWp.unit: ??
     produktionKWh: Produktion
+    produktionKWh.unit: ??
     tilNettetPct: Til nettet
+    tilNettetPct.unit: ??
     tilEgetForbrugPct: Til eget forbrug
+    tilEgetForbrugPct.unit: ??
     egetForbrugAfProduktionenKWh: Eget forbrug af produktionen
+    egetForbrugAfProduktionenKWh.unit: ??
     produktionTilNettetKWh: Produktion til nettet
+    produktionTilNettetKWh.unit: ??
     forringetYdeevnePrAar: Forringet ydeevne pr. år
+    forringetYdeevnePrAar.unit: ??
     inverterskift1Aar: Inverterskift 1
+    inverterskift1Aar.unit: ??
     inverterskift2Aar: Inverterskift 2
+    inverterskift2Aar.unit: ??
     prisForNyInverterKr: Pris for ny inverter
+    prisForNyInverterKr.unit: ??
     salgsprisFoerste10AarKrKWh: Salgspris (Første 10 år)
+    salgsprisFoerste10AarKrKWh.unit: ??
     salgsprisEfter10AarKrKWh: Salgspris (Efter 10 år)
+    salgsprisEfter10AarKrKWh.unit: ??
     energiprisstigningPctPrAar: Energiprisstigning
+    energiprisstigningPctPrAar.unit: ??
     investeringKr: Investering (Anlæg + opsætning)
+    investeringKr.unit: ??
     screeningOgProjekteringKr: Screening og projektering
+    screeningOgProjekteringKr.unit: ??
     driftPrAarKr: Drift pr. år
+    driftPrAarKr.unit: ??
     omkostningTilMaalerKr: Omkostning til måler
+    omkostningTilMaalerKr.unit: ??
     raadighedstarifKr: Rådighedstarif
+    raadighedstarifKr.unit: ??
     totalDriftomkostningerPrAar: Total driftomkostninger pr. år
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    totalDriftomkostningerPrAar.unit: ??
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
+    simpelTilbagebetalingstidAar.unit: år
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
+    nutidsvaerdiSetOver15AarKr.unit: Kr.
 
   solcelle:
     kwp: KWp
@@ -840,7 +963,7 @@ appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |
       return $armaturEffekt * $this->armaturer_stk_lokale / $this->rumstoerrelse_m2;
     }
 appbundle.belysningtiltagdetail.ny.driftstid.calculation: |
-    if ($this->drifttid_t_aar == 0 || $this->belysningstiltagId == null) {
+    if ($this->drifttid_t_aar == 0 || $this->belysningstiltag == null) {
       return 0;
     }
     else {
@@ -851,6 +974,15 @@ appbundle.tekniskisoleringtiltagdetail.roerstoerrelseMmAekvivalent.calculation: 
 appbundle.klimaskaermtiltagdetail.arealM2.calculation: …
 
 form.laanLoebetid: Løbetid på lån
+
+TiltagDetail: Detalje
+BelysningTiltagDetail: Detalje
+KlimaskaermTiltagDetail: Detalje
+PumpeTiltagDetail: Detalje
+SolcelleTiltagDetail: Detalje
+SpecialTiltagDetail: Detalje
+TekniskIsoleringTiltagDetail: Detalje
+VindueTiltagDetail: Detalje
 
 orientation:
   north: Nord
