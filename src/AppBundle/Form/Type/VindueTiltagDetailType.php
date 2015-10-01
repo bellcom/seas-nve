@@ -21,11 +21,13 @@ class VindueTiltagDetailType extends KlimaskaermTiltagDetailType {
       ->remove('tIndeC')
       ->remove('tUdeC')
       ->remove('tOpvarmningTimerAar')
-      ->remove('yderligereBesparelserPct')
       ->remove('andelAfArealDerEfterisoleres')
-      ->add('solenergitransmittansEks', 'percent')
-      ->add('solenergitransmittansNy', 'percent')
       ;
+
+    $this->insertAfter($builder, $builder->get('uNyWM2K'), array(
+      array('solenergitransmittansEks', 'percent'),
+      array('solenergitransmittansNy', 'percent'),
+    ));
   }
 
   public function configureOptions(OptionsResolver $resolver) {
