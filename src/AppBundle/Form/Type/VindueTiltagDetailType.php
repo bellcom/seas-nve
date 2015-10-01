@@ -17,6 +17,12 @@ class VindueTiltagDetailType extends KlimaskaermTiltagDetailType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     parent::buildForm($builder, $options);
     $builder
+      ->remove('andelAfArealDerEfterisoleres')
+      ->remove('tIndeC')
+      ->remove('tUdeC')
+      ->remove('tOpvarmningTimerAar')
+      ->remove('yderligereBesparelserPct')
+      ->remove('andelAfArealDerEfterisoleres')
       ->add('solenergitransmittansEks', 'percent')
       ->add('solenergitransmittansNy', 'percent')
       ;
