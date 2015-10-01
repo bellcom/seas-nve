@@ -14,9 +14,8 @@
               {{ helper.header() }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
               {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
-              {{ helper.header('appbundle.klimaskaermtiltagdetail.type') }}
-              {{ helper.header('appbundle.klimaskaermtiltagdetail.orientering') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.klimaskaerm') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.orientering') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.typePlaceringJfPlantegning') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.hoejdeElLaengdeM') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.breddeM') }}
@@ -80,9 +79,8 @@
                 </td>
                 <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
                 <td>{{ detail.tilvalgt | b2icon }}</td>
-                <td>{{ detail.type }}</td>
-                <td>{{ detail.type == 'vindue' ? detail.orientering : '–' }}</td>
                 <td>{{ detail.klimaskaerm }}</td>
+                <td>{{ ('orientation.' ~ detail.orientering) | trans }}</td>
                 <td>{{ detail.typePlaceringJfPlantegning }}</td>
                 <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
                 <td>{{ detail.breddeM | format_decimal }}</td>

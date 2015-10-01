@@ -287,7 +287,7 @@ class TiltagController extends BaseController {
       $detail = $this->createDetailEntity($tiltag);
     }
     $formClass = $this->getFormTypeClassName($detail, TRUE);
-    $form = $this->createForm(new $formClass($this->get('security.context')), $detail, array(
+    $form = $this->createForm(new $formClass($this->container), $detail, array(
       'action' => $this->generateUrl('tiltag_detail_new', array('id' => $tiltag->getId())),
       'method' => 'POST',
     ));

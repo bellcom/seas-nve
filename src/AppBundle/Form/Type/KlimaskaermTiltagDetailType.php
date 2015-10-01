@@ -20,23 +20,19 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ->add('laastAfEnergiraadgiver', null, array(
         'required' => false,
       ))
-      ->add('type', 'choice', array(
-        'choices' => array(
-          'Klimaskærm' => 'klimaskaerm',
-          'Vindue' => 'vindue',
-        ),
-        'choices_as_values' => true,
-      ))
       ->add('orientering', 'choice', array(
         'choices' => array(
-          'Nord' => 'nord',
-          'Syd' => 'syd',
-          'Øst' => 'oest',
-          'Vest' => 'vest',
+          'orientation.north' => 'north',
+          'orientation.south' => 'south',
+          'orientation.east' => 'east',
+          'orientation.west' => 'west',
         ),
         'choices_as_values' => true,
       ))
-      ->add('klimaskaerm')
+      ->add('klimaskaerm', 'entity', array(
+        'class' => 'AppBundle:Klimaskaerm',
+        'choices' => $this->getKlimaskaerme(),
+      ))
       ->add('typePlaceringJfPlantegning')
       ->add('hoejdeElLaengdeM')
       ->add('breddeM')
@@ -64,5 +60,13 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
 
   public function getName() {
     return 'appbundle_klimaskaermtiltagdetail';
+  }
+
+  private function getKlimaskaerme() {
+    $repository = $this->container->get('doctrine')->getRepository('AppBundle:Klimaskaerm');
+
+    $result = $repository->findByType($this instanceof VindueTiltagDetailType ? 'vindue' : 'klimaskaerm');
+
+    return $result;
   }
 }

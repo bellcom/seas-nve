@@ -28,6 +28,7 @@ use JMS\Serializer\Annotation as JMS;
  *    "special" = "SpecialTiltagDetail",
  *    "belysning" = "BelysningTiltagDetail",
  *    "klimaskærm" = "KlimaskaermTiltagDetail",
+ *    "vindue" = "VindueTiltagDetail",
  *    "tekniskisolering" = "TekniskIsoleringTiltagDetail",
  *    "solcelle" = "SolcelleTiltagDetail",
  * })

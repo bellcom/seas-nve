@@ -91,6 +91,7 @@ rapporter:
   strings:
     belysningtiltag: Belysning
     klimaskaermtiltag: Klimaskærm
+    vinduetiltag: Vindue
     pumpetiltag: Pumper
     specialtiltag: Special
     tekniskisoleringtiltag: Teknisk isolering
@@ -788,9 +789,49 @@ appbundle:
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
     kWhBesparVarmevaerkEksternEnergikilde.unit: ??
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
-    type: Type
     klimaskaerm: Klimaskærm
     orientering: Orientering
+
+  vinduetiltagdetail:
+    laastAfEnergiraadgiver: Låst af energirådgiver
+    tiltagsnr: Tiltagsnr.
+    tiltagsnrDelpriser: Tiltagsnr. Delpriser
+    typePlaceringJfPlantegning: Type/placering jf. plantegning
+    hoejdeElLaengdeM: Højde el. Længde (m)
+    breddeM: Bredde (m)
+    antalStk: Antal (stk)
+    arealM2: Areal (m²)
+    uEksWM2K: U_eks (W/m²K)
+    uNyWM2K: U_ny (W/m²K)
+    yderligereBesparelserPct: Yderligere besparelser
+    yderligereBesparelserPct.unit: %
+    besparelseKWhAar: Besparelse (kWh/år)
+    samletBesparelseKWhAarInklDelbesparelser: Samlet Besparelse (kWh/år) inkl. delbesparelser
+    prisfaktor: Prisfaktor
+    delprisKrM2: Delpris (kr/m2)
+    samletInvesteringKr: Samlet investering (kr)
+    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid (år)
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
+    tilSortering: Til sortering
+    tilSummeringAfDelpriser: Til summering af delpriser
+    levetidAar: Levetid (år)
+    vaegtetGnm: VaegtetGnm
+    vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
+    faktorForReinvestering: Faktor for reinvestering
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år (kr)
+    kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
+    kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
+    tilvalgteDeltiltag: Tilvalgte (deltiltag)
+    klimaskaerm: Klimaskærm
+    orientering: Orientering
+    eRefEksKWhM2Aar: E_ref (kWh/m²/år)
+    eWEksKWhM2Aar: E_w (kWh/år)
+    eRefNyKWhM2Aar: E_ref,ny (kWh/m²/år)
+    eWNyKWhM2Aar: E_w,ny (kWh/år)
+    solenergitransmittansEks: Solenergitransmittans
+    solenergitransmittansEks.unit: %
+    solenergitransmittansNy: Solenergitransmittans, ny
+    solenergitransmittansNy.unit: %
 
   solcelletiltagdetail:
     tilvalgt: Tilvalgt
@@ -946,3 +987,9 @@ SolcelleTiltagDetail: Detalje
 SpecialTiltagDetail: Detalje
 TekniskIsoleringTiltagDetail: Detalje
 VindueTiltagDetail: Detalje
+
+orientation:
+  north: Nord
+  south: Syd
+  east: Øst
+  west: Vest
