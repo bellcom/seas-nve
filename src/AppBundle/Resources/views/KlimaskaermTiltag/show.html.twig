@@ -46,7 +46,7 @@
                 <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
                 <td>{{ detail.tilvalgt | b2icon }}</td>
                 <td>{{ detail.klimaskaerm }}</td>
-                <td>{{ detail.orientering }}</td>
+                <td>{{ ('orientation.' ~ detail.orientering) | trans }}</td>
                 <td>{{ detail.typePlaceringJfPlantegning }}</td>
                 <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
                 <td>{{ detail.breddeM | format_decimal }}</td>

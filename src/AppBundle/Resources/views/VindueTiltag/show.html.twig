@@ -46,7 +46,7 @@
               <tr>
                 <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
                 <td>{{ detail.tilvalgt | b2icon }}</td>
-                <td>{{ detail.orientering }}</td>
+                <td>{{ ('orientation.' ~ detail.orientering) | trans }}</td>
                 <td>{{ detail.eRefEksKWhM2Aar | format_decimal }}</td>
                 <td>{{ detail.eWEksKWhM2Aar | format_decimal }}</td>
                 <td>{{ detail.eRefNyKWhM2Aar | format_decimal }}</td>

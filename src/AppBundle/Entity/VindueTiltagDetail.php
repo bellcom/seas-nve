@@ -110,14 +110,14 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
 
     $solenergitransmittansFactor = 0;
     switch ($this->orientering) {
-      case 'nord':
+      case 'north':
         $solenergitransmittansFactor = 73.15;
         break;
-      case 'syd':
+      case 'south':
         $solenergitransmittansFactor = 301.98;
         break;
-      case 'øst':
-      case 'vest':
+      case 'east':
+      case 'west':
         $solenergitransmittansFactor = 162.47;
     }
 

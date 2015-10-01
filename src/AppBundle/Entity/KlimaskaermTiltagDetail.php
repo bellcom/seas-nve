@@ -17,7 +17,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    *
    * @ORM\Column(name="orientering", type="string", nullable=true)
    */
-  protected $orientering; // "Nord", "Syd", "Øst", "Vest"
+  protected $orientering; // "north", "south", "east", "west"
 
   /**
    * @var Klimaskaerm

@@ -22,10 +22,10 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ))
       ->add('orientering', 'choice', array(
         'choices' => array(
-          'Nord' => 'Nord',
-          'Syd' => 'Syd',
-          'Øst' => 'Øst',
-          'Vest' => 'Vest',
+          'orientation.north' => 'north',
+          'orientation.south' => 'south',
+          'orientation.east' => 'east',
+          'orientation.west' => 'west',
         ),
         'choices_as_values' => true,
       ))

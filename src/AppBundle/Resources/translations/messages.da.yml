@@ -851,3 +851,9 @@ appbundle.tekniskisoleringtiltagdetail.roerstoerrelseMmAekvivalent.calculation: 
 appbundle.klimaskaermtiltagdetail.arealM2.calculation: …
 
 form.laanLoebetid: Løbetid på lån
+
+orientation:
+  north: Nord
+  south: Syd
+  east: Øst
+  west: Vest
