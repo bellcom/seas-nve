@@ -19,7 +19,7 @@ class SolcelleTiltagDetailType extends TiltagDetailType {
     $builder
       ->add('anlaegsstoerrelseKWp')
       ->add('produktionKWh')
-      ->add('tilNettetPct')
+      ->add('tilNettetPct', 'percent')
       ->add('inverterskift1Aar')
       ->add('inverterskift2Aar')
       ->add('investeringKr')
@@ -29,7 +29,7 @@ class SolcelleTiltagDetailType extends TiltagDetailType {
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder
         ->add('forringetYdeevnePrAar')
-        ->add('energiprisstigningPctPrAar')
+        ->add('energiprisstigningPctPrAar', 'percent')
         ->add('salgsprisFoerste10AarKrKWh')
         ->add('salgsprisEfter10AarKrKWh');
     }

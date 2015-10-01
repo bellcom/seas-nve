@@ -800,9 +800,9 @@ appbundle:
     produktionKWh: Produktion
     produktionKWh.unit: ??
     tilNettetPct: Til nettet
-    tilNettetPct.unit: ??
+    tilNettetPct.unit: %
     tilEgetForbrugPct: Til eget forbrug
-    tilEgetForbrugPct.unit: ??
+    tilEgetForbrugPct.unit: %
     egetForbrugAfProduktionenKWh: Eget forbrug af produktionen
     egetForbrugAfProduktionenKWh.unit: ??
     produktionTilNettetKWh: Produktion til nettet
