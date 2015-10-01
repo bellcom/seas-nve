@@ -988,8 +988,8 @@ SpecialTiltagDetail: Detalje
 TekniskIsoleringTiltagDetail: Detalje
 VindueTiltagDetail: Detalje
 
-orientation:
-  north: Nord
-  south: Syd
-  east: Øst
-  west: Vest
+# Enum: CardinalDirectionType
+North: Nord
+South: Syd
+East: Øst
+West: Vest

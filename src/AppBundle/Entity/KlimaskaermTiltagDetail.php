@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotations\Calculated;
+use AppBundle\DBAL\Types\CardinalDirectionType;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * KlimaskaermTiltagDetail
@@ -15,9 +17,10 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="orientering", type="string", nullable=true)
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\CardinalDirectionType")
+   * @ORM\Column(name="orientering", type="CardinalDirectionType", nullable=true)
    */
-  protected $orientering; // "north", "south", "east", "west"
+  protected $orientering;
 
   /**
    * @var Klimaskaerm

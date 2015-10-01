@@ -20,14 +20,8 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ->add('laastAfEnergiraadgiver', null, array(
         'required' => false,
       ))
-      ->add('orientering', 'choice', array(
-        'choices' => array(
-          'orientation.north' => 'north',
-          'orientation.south' => 'south',
-          'orientation.east' => 'east',
-          'orientation.west' => 'west',
-        ),
-        'choices_as_values' => true,
+      ->add('orientering', NULL, array(
+        'required' => TRUE,
       ))
       ->add('klimaskaerm', 'entity', array(
         'class' => 'AppBundle:Klimaskaerm',

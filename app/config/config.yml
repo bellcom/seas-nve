@@ -68,6 +68,8 @@ doctrine:
         #     path:     "%database_path%"
         mapping_types:
             enum: string
+        types:
+            CardinalDirectionType: AppBundle\DBAL\Types\CardinalDirectionType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotations\Calculated;
+use AppBundle\DBAL\Types\CardinalDirectionType;
 
 /**
  * VindueTiltagDetail
@@ -110,15 +111,16 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
 
     $solenergitransmittansFactor = 0;
     switch ($this->orientering) {
-      case 'north':
+      case CardinalDirectionType::NORTH:
         $solenergitransmittansFactor = 73.15;
         break;
-      case 'south':
+      case CardinalDirectionType::SOUTH:
         $solenergitransmittansFactor = 301.98;
         break;
-      case 'east':
-      case 'west':
+      case CardinalDirectionType::EAST:
+      case CardinalDirectionType::WEST:
         $solenergitransmittansFactor = 162.47;
+        break;
     }
 
     return $solenergitransmittansFactor * $this->solenergitransmittansEks - 90.36 * $this->uEksWM2K;
@@ -135,15 +137,16 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
 
     $solenergitransmittansFactor = 0;
     switch ($this->orientering) {
-      case 'north':
+      case CardinalDirectionType::NORTH:
         $solenergitransmittansFactor = 73.15;
         break;
-      case 'south':
+      case CardinalDirectionType::SOUTH:
         $solenergitransmittansFactor = 301.98;
         break;
-      case 'east':
-      case 'west':
+      case CardinalDirectionType::EAST:
+      case CardinalDirectionType::WEST:
         $solenergitransmittansFactor = 162.47;
+        break;
     }
 
     return $solenergitransmittansFactor * $this->solenergitransmittansNy - 90.36 * $this->uNyWM2K;
