@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping\OrderBy;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\DBAL\Types\Energiforsyning\NavnType;
+use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
@@ -163,7 +164,7 @@ class Energiforsyning {
 
   private function calculateSamletVarmeeffektivitet() {
     return array_reduce($this->internProduktioner->filter(function($item) {
-      return $item->getPrisgrundlag() == 'VARME';
+      return $item->getPrisgrundlag() == PrisgrundlagType::VARME;
     })->toArray(), function($carry, $item) {
       return $carry + (1 + (1 - $item->getEffektivitet())) * $item->getFordeling();
     }, 0);
@@ -171,7 +172,7 @@ class Energiforsyning {
 
   private function calculateSamletEleffektivitet() {
     return array_reduce($this->internProduktioner->filter(function($item) {
-      return $item->getPrisgrundlag() == 'EL';
+      return $item->getPrisgrundlag() == PrisgrundlagType::EL;
     })->toArray(), function($carry, $item) {
       return $carry + (1 + (1 - $item->getEffektivitet())) * $item->getFordeling();
     }, 0);
