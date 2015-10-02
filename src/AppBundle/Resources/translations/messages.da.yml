@@ -932,33 +932,45 @@ appbundle:
     internProduktioner.0:
       navn: Navn
       fordeling: Fordeling
+      fordeling.unit: %
       effektivitet: Effektivitet
+      effektivitet.unit: %
       prisgrundlag: Prisgrundlag
     internProduktioner.1:
       navn: Navn
       fordeling: Fordeling
+      fordeling.unit: %
       effektivitet: Effektivitet
+      effektivitet.unit: %
       prisgrundlag: Prisgrundlag
     internProduktioner.2:
       navn: Navn
       fordeling: Fordeling
+      fordeling.unit: %
       effektivitet: Effektivitet
+      effektivitet.unit: %
       prisgrundlag: Prisgrundlag
     internProduktioner.3:
       navn: Navn
       fordeling: Fordeling
+      fordeling.unit: %
       effektivitet: Effektivitet
+      effektivitet.unit: %
       prisgrundlag: Prisgrundlag
     internProduktioner.4:
       navn: Navn
       fordeling: Fordeling
+      fordeling.unit: %
       effektivitet: Effektivitet
+      effektivitet.unit: %
       prisgrundlag: Prisgrundlag
 
     internproduktion:
       navn: Navn
       fordeling: Fordeling
+      fordeling.unit: %
       effektivitet: Effektivitet
+      effektivitet.unit: %
       prisgrundlag: Prisgrundlag
 
 # Calculations
