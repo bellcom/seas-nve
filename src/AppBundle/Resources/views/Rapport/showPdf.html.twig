@@ -1,0 +1,251 @@
+{% extends 'AppBundle::pdf.html.twig' %}
+
+{% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-8">
+      <h1>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h1>
+    </div>
+    <div class="col-md-4 right">
+      <p>{{ 'common.printed'| trans }} {{ 'now'|date }}</p>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">{{ icon('home') }} {{ 'common.data' | trans }}</div>
+
+    <table class="table table-condensed">
+      <tbody>
+      <tr>
+        <th>{{ 'appbundle.rapport.version' | trans }}</th>
+        <td>{{ entity.version }}</td>
+        <th>{{ 'appbundle.bygning.aaplusAnsvarlig' | trans }}</th>
+        <td>{{ entity.bygning.aaplusAnsvarlig }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
+        <td>{{ entity.bygning }}, {{ entity.bygning.adresse }}, {{ entity.bygning.postnummer }} {{ entity.bygning.postBy }}</td>
+        <th>{{ 'appbundle.bygning.energiRaadgiver' | trans }}</th>
+        <td>{{ entity.bygning.energiRaadgiver }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.rapport.datering' | trans }}</th>
+        <td>{{ entity.datering | date('Y-m-d') }}</td>
+        <th>{{ 'appbundle.rapport.elena' | trans }}</th>
+        <td>{{ entity.elena | b2icon }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'common.updatedat' | trans }}</th>
+        <td>{{ entity.updatedAt | date('Y-m-d  H:i') }}, {{ entity.updatedBy }}</td>
+        <th></th>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">{{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}</div>
+
+    <table class="table table-condensed">
+      <tbody>
+      <tr>
+        <th>{{ 'appbundle.rapport.energibesparelser' | trans }}:</th>
+        <td></td>
+        <td></td>
+        <th>{{ 'appbundle.rapport.co2besparelser' | trans }}:</th>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="indent">{{ 'appbundle.rapport.besparelseEl' | trans }}</th>
+        <td class="right">{{ entity.besparelseEl | number_format }}</td>
+        <td>{{ 'appbundle.rapport.besparelseEl.unit' | trans }}</td>
+        <th class="indent">{{ 'appbundle.rapport.besparelseCO2' | trans }}</th>
+        <td class="right">{{ entity.besparelseCO2 | number_format }}</td>
+        <td>{{ 'appbundle.rapport.besparelseCO2.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGAF' | trans }}</th>
+        <td class="right">{{ entity.besparelseVarmeGAF | number_format }}</td>
+        <td>{{ 'appbundle.rapport.besparelseVarmeGAF.unit' | trans }}</td>
+        <th class="indent">{{ 'appbundle.rapport.besparelseCO2el' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.besparelseCO2el.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGUF' | trans }}</th>
+        <td class="right">{{ entity.besparelseVarmeGUF | number_format }}</td>
+        <td>{{ 'appbundle.rapport.besparelseVarmeGUF.unit' | trans }}</td>
+        <th class="indent">{{ 'appbundle.rapport.besparelseCO2varme' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.besparelseCO2varme.unit' | trans }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  {% if entity.tilvalgteTiltag is not empty %}
+
+    <div class="panel panel-default">
+      <div class="panel-heading">{{ icon('thumbs-up') }} {{ 'appbundle.rapport.tilvalg' | trans }}</div>
+
+      <table class="table table-condensed">
+        <thead>
+        <tr>
+          <th>{{ 'appbundle.tiltag.title' | trans }}</th>
+          <th>{{ 'appbundle.tiltag.tilvalgtAfMagistrat' | trans }}</th>
+          <th>{{ 'appbundle.tiltag.tilvalgtbegrundelse' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for t in entity.tilvalgteTiltag %}
+          <tr>
+            <td>{{ t.title }}</td>
+
+            <td>{{ t.tilvalgtAfMagistrat | b2icon }}</td>
+            <td>{{ t.tilvalgtbegrundelse }}</td>
+            <td class="right">{{ t.levetid | number_format }} {{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
+            <td class="right">{{ t.simpelTilbagebetalingstidAar | number_format }} {{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
+            <td class="right">{{ t.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
+
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+
+
+
+  {% endif %}
+
+
+  {% if entity.fravalgteTiltag is not empty %}
+
+    <div class="panel panel-default">
+      <div class="panel-heading">{{ icon('thumbs-down') }} {{ 'appbundle.rapport.fravalg' | trans }}</div>
+
+      <table class="table table-condensed">
+        <thead>
+        <tr>
+          <th>{{ 'appbundle.tiltag.title' | trans }}</th>
+          <th>{{ 'appbundle.tiltag.tilvalgtAfMagistrat' | trans }}</th>
+          <th>{{ 'appbundle.tiltag.tilvalgtbegrundelse' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
+          <th class="right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for t in entity.fravalgteTiltag %}
+          <tr>
+            <td>{{ t.title }}</td>
+
+            <td>{{ t.tilvalgtAfMagistrat | b2icon }}</td>
+            <td>{{ t.tilvalgtbegrundelse }}</td>
+            <td class="right">{{ t.levetid | number_format }} {{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
+            <td class="right">{{ t.simpelTilbagebetalingstidAar | number_format }} {{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
+            <td class="right">{{ t.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
+
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+
+
+  {% endif %}
+
+  <div class="panel panel-default">
+    <div class="panel-heading">{{ icon('dollar') }} {{ 'common.finans' | trans }}</div>
+
+    <table class="table table-condensed">
+      <tbody>
+      <tr>
+        <th>{{ 'appbundle.rapport.faellesomkostninger' | trans }}:</th>
+        <td></td>
+        <td></td>
+        <th>{{ 'appbundle.rapport.investeringEksFaellesomkostninger' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.investeringEksFaellesomkostninger.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th class="indent">{{ 'appbundle.rapport.energiscreening' | trans }}</th>
+        <td class="right">{{ entity.energiscreening | number_format }}</td>
+        <td>{{ 'appbundle.rapport.energiscreening.unit' | trans }}</td>
+        <th>{{ 'appbundle.rapport.investeringInklFaellesomkostninger' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.investeringInklFaellesomkostninger.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th class="indent">{{ 'appbundle.rapport.mtmFaellesomkostninger' | trans }}</th>
+        <td class="right">{{ entity.mtmFaellesomkostninger | number_format }}</td>
+        <td>{{ 'appbundle.rapport.mtmFaellesomkostninger.unit' | trans }}</td>
+        <th>{{ 'appbundle.rapport.nutidsvaerdiInklFaellesomkostninger' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.nutidsvaerdiInklFaellesomkostninger.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th class="indent">{{ 'appbundle.rapport.implementering' | trans }}</th>
+        <td class="right">{{ entity.implementering | number_format }}</td>
+        <td>{{ 'appbundle.rapport.implementering.unit' | trans }}</td>
+        <th>{{ 'appbundle.rapport.besparelse1aar' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.besparelse1aar.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th class="indent">{{ 'appbundle.rapport.interneDriftomkostninger' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.interneDriftomkostninger.unit' | trans }}</td>
+        <th>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+        <td></td>
+        <th>{{ 'appbundle.rapport.genopretning' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.genopretning.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+        <td></td>
+        <th>{{ 'appbundle.rapport.modernisering' | trans }}</th>
+        <td class="right">xx</td>
+        <td>{{ 'appbundle.rapport.modernisering.unit' | trans }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="">
+    {% for key, t in entity.tiltag %}
+      <div>
+        <div class="row">
+          <div class="col-md-6">
+            <h3>{{ t.title }}</h3>
+          </div>
+          <div class="col-md-6 right">
+
+          </div>
+        </div>
+        {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
+      </div>
+    {% endfor %}
+  </div>
+
+
+{% endblock %}

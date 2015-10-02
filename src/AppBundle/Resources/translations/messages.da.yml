@@ -62,6 +62,7 @@ common:
   finished_buildings: Indsendt til Aa+
   summary: Opsummering
   finans: Økonomi
+  printed: Udskrevet
 
 dashboard:
   current: Igangværende
