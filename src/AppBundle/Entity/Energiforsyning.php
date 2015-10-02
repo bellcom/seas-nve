@@ -133,12 +133,14 @@ class Energiforsyning {
     $this->internProduktioner[] = $internProduktion;
 
     $internProduktion->setEnergiforsyning($this);
+    $this->calculate();
 
     return $this;
   }
 
   public function removeInternProduktion(InternProduktion $internProduktion) {
     $this->internProduktioner->removeElement($internProduktion);
+    $this->calculate();
   }
 
   public function getInternProduktioner() {
