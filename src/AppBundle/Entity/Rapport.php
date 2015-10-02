@@ -9,6 +9,7 @@ namespace AppBundle\Entity;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\Energiforsyning\NavnType;
+use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
