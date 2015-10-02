@@ -13,7 +13,9 @@ use AppBundle\Entity\Solcelle;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\Energiforsyning;
+use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
+use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\TiltagDetail;
 use AppBundle\Entity\BelysningTiltag;
@@ -439,7 +441,16 @@ class LoadExcelRapport extends LoadData {
     foreach ($data as $rowId => $row) {
       if ($row['A']) {
         $energiforsyning = $this->loadEntity(new Energiforsyning(), array(
-          'A' => 'navn',
+          'A' => array('navn', function($value) {
+            switch ($value) {
+              case 'Hovedforsyning El':
+                return NavnType::HOVEDFORSYNING_EL;
+              case 'Fjernvarme':
+                return NavnType::FJERNVARME;
+              default:
+                return NavnType::NONE;
+            }
+          }),
           'B' => 'beskrivelse',
         ), $row);
 
@@ -451,7 +462,18 @@ class LoadExcelRapport extends LoadData {
             $columnMapping[chr($index-1)] = array('navn', function($value) { return $value ? $value : ''; });
             $columnMapping[chr($index)] = 'fordeling';
             $columnMapping[chr($index+1)] = 'effektivitet';
-            $columnMapping[chr($index+2)] = 'prisgrundlag';
+            $columnMapping[chr($index+2)] = array('prisgrundlag', function($value) {
+              switch ($value) {
+                case 'EL':
+                  return PrisgrundlagType::EL;
+                case 'VAND':
+                  return PrisgrundlagType::VAND;
+                case 'VARME':
+                  return PrisgrundlagType::VARME;
+                default:
+                  return PrisgrundlagType::NONE;
+              }
+            });
 
             $internProduktion = $this->loadEntity(new InternProduktion(), $columnMapping, $row);
             $energiforsyning->addInternProduktion($internProduktion);
