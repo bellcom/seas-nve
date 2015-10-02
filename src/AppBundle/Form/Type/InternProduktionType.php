@@ -28,14 +28,7 @@ class InternProduktionType extends AbstractType {
       ->add('navn')
       ->add('fordeling', 'percent')
       ->add('effektivitet', 'percent')
-      ->add('prisgrundlag', 'choice', array(
-        'choices' => array(
-          'El' => 'EL',
-          'Vand' => 'VAND',
-          'Varme' => 'VARME',
-        ),
-        'choices_as_values' => true,
-      ));
+      ->add('prisgrundlag');
   }
 
   /**
