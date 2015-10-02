@@ -63,6 +63,7 @@ common:
   finished_buildings: Indsendt til Aa+
   summary: Opsummering
   finans: Økonomi
+  printed: Udskrevet
 
 dashboard:
   current: Igangværende
@@ -89,6 +90,7 @@ rapporter:
     edit: Rediger Rapport
     create: Opret Rapport
     show: Vis Rapport
+    pdf: Vis PDF
   strings:
     belysningtiltag: Belysning
     klimaskaermtiltag: Klimaskærm

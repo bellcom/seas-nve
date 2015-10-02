@@ -1,4 +1,4 @@
-{% extends 'AppBundle::base.html.twig' %}
+{% extends 'AppBundle::pdf.html.twig' %}
 
 {% block body -%}
 
@@ -7,17 +7,7 @@
       <h1>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h1>
     </div>
     <div class="col-md-4 right">
-      <a href="{{ path('rapport_show_pdf', { 'id': entity.id }) }}" class="btn btn-default">
-        {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf' | trans }}
-      </a>
-      {% if is_granted('ROLE_RAPPORT_EDIT') %}
-        <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default">
-          {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}
-        </a>
-      {% endif %}
-      {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">{{ icon('industry') }} Energiforsyninger</a>
-      {% endif %}
+      <p>{{ 'common.printed'| trans }} {{ 'now'|date }}</p>
     </div>
   </div>
 
@@ -34,7 +24,7 @@
       </tr>
       <tr>
         <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
-        <td><a href="{{ path('bygning_show', { 'id': entity.bygning.id }) }}">{{ entity.bygning }}, {{ entity.bygning.adresse }}, {{ entity.bygning.postnummer }} {{ entity.bygning.postBy }}</a></td>
+        <td>{{ entity.bygning }}, {{ entity.bygning.adresse }}, {{ entity.bygning.postnummer }} {{ entity.bygning.postBy }}</td>
         <th>{{ 'appbundle.bygning.energiRaadgiver' | trans }}</th>
         <td>{{ entity.bygning.energiRaadgiver }}</td>
       </tr>
@@ -97,22 +87,6 @@
 
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">{{ icon('line-chart') }} {{ 'appbundle.rapport.likviditetsoversigt' | trans }}</div>
-
-    <div class="panel-body">
-      {% include('AppBundle::_includes/finansiering_graf.html.twig') %}
-
-      {% if is_granted('ROLE_RAPPORT_EDIT') and edit_form %}
-        {{ form(edit_form, { 'style': 'inline' }) }}
-      {% else %}
-        {{ 'appbundle.rapport.laanLoebetid' | trans }}:
-        {{ entity.laanLoebetid }} {{ 'appbundle.rapport.laanLoebetid.unit' | trans }}
-      {% endif %}
-
-    </div>
-  </div>
-
   {% if entity.tilvalgteTiltag is not empty %}
 
     <div class="panel panel-default">
@@ -127,9 +101,7 @@
           <th class="right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
           <th class="right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
           <th class="right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
-          {% if is_granted('ROLE_ADMIN') %}
-            <th></th>
-          {% endif %}
+
         </tr>
         </thead>
         <tbody>
@@ -142,13 +114,7 @@
             <td class="right">{{ t.levetid | number_format }} {{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
             <td class="right">{{ t.simpelTilbagebetalingstidAar | number_format }} {{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
             <td class="right">{{ t.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
-            {% if is_granted('ROLE_ADMIN') %}
-              <td class="right">
-                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
-                  {{ 'common.deselect' | trans }}
-                </button>
-              </td>
-            {% endif %}
+
           </tr>
         {% endfor %}
         </tbody>
@@ -156,12 +122,7 @@
 
     </div>
 
-    {% if is_granted('ROLE_ADMIN') %}
-      {% for t in entity.tilvalgteTiltag %}
-        {% form_theme tilvalgt_form_array[t.id] 'AppBundle:Form:tilvalgt-modal-form.html.twig' %}
-        {{ form(tilvalgt_form_array[t.id], { 'style': 'horizontal' }) }}
-      {% endfor %}
-    {% endif %}
+
 
   {% endif %}
 
@@ -180,9 +141,7 @@
           <th class="right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
           <th class="right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
           <th class="right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
-          {% if is_granted('ROLE_ADMIN') %}
-            <th></th>
-          {% endif %}
+
         </tr>
         </thead>
         <tbody>
@@ -195,13 +154,7 @@
             <td class="right">{{ t.levetid | number_format }} {{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
             <td class="right">{{ t.simpelTilbagebetalingstidAar | number_format }} {{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
             <td class="right">{{ t.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
-            {% if is_granted('ROLE_ADMIN') %}
-              <td class="right">
-                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
-                  {{ 'common.select' | trans }}
-                </button>
-              </td>
-            {% endif %}
+
           </tr>
         {% endfor %}
         </tbody>
@@ -209,12 +162,6 @@
 
     </div>
 
-    {% if is_granted('ROLE_ADMIN') %}
-      {% for t in entity.fravalgteTiltag %}
-        {% form_theme fravalgt_form_array[t.id] 'AppBundle:Form:tilvalgt-modal-form.html.twig' %}
-        {{ form(fravalgt_form_array[t.id], { 'style': 'horizontal' }) }}
-      {% endfor %}
-    {% endif %}
 
   {% endif %}
 
@@ -284,49 +231,21 @@
 
   </div>
 
-  <div class="row heading">
-    <div class="col-md-2"><h2>{{ 'tiltag.labels.singular' | trans }}</h2></div>
-    <div class="col-md-10 right">
-
-      {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'vindue', 'solcelle', 'tekniskisolering', 'special' ] %}
-        <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': type }) }}" class="inline-block">
-          <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('rapporter.strings.' ~ type ~ 'tiltag') | trans }}</button>
-        </form>
-      {% endfor %}
-    </div>
-  </div>
-
-  <div role="tabpanel">
-
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-      {% for key, t in entity.tiltag %}
-        <li role="presentation" {% if key == 0 %} class="active" {% endif %}><a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">{{ key + 1 }}. {{ t.title }}</a></li>
-      {% endfor %}
-    </ul>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-      {% for key, t in entity.tiltag %}
-        <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
-          <div class="row">
-            <div class="col-md-6">
-              <h3>{{ t.title }}</h3>
-            </div>
-            <div class="col-md-6 right">
-              <a href="{{ path('tiltag_edit', { 'id': t.id }) }}" class="btn btn-default">
-                {{ icon('edit') }} {{ 'common.edit' | trans }}: {{ t.title }}
-              </a>
-              <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
-                {{ icon('list') }} {{ 'rapporter.labels.detailark' | trans }}: {{ t.title }}
-              </a>
-            </div>
+  <div class="">
+    {% for key, t in entity.tiltag %}
+      <div>
+        <div class="row">
+          <div class="col-md-6">
+            <h3>{{ t.title }}</h3>
           </div>
-          {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
-        </div>
-      {% endfor %}
-    </div>
+          <div class="col-md-6 right">
 
+          </div>
+        </div>
+        {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
+      </div>
+    {% endfor %}
   </div>
+
 
 {% endblock %}
