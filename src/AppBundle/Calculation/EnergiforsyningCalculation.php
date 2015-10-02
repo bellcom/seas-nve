@@ -4,7 +4,9 @@ namespace AppBundle\Calculation;
 
 use Symfony\Component\DependencyInjection\Container;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\OnFlushEventArgs;
 use AppBundle\Entity\Energiforsyning;
+use AppBundle\Entity\Energiforsyning\InternProduktion;
 
 class EnergiforsyningCalculation extends Calculation {
   protected $container = null;
@@ -47,6 +49,36 @@ class EnergiforsyningCalculation extends Calculation {
     $energiforsyning->calculate();
 
     return $energiforsyning;
+  }
+
+  /**
+   * Recalculate owning Energiforsyning when InternProduktion has changed.
+   *
+   * @param OnFlushEventArgs $args
+   */
+  public function onFlush(OnFlushEventArgs $args) {
+    $em = $args->getEntityManager();
+    $uow = $em->getUnitOfWork();
+
+    $entities = array_merge(
+      $uow->getScheduledEntityInsertions(),
+      $uow->getScheduledEntityUpdates()
+    );
+
+    foreach ($entities as $entity) {
+      if (!($entity instanceof InternProduktion)) {
+        continue;
+      }
+
+      $energiForsyning = $entity->getEnergiforsyning();
+      if ($energiForsyning) {
+        $this->calculate($energiForsyning);
+
+        $em->persist($energiForsyning);
+        $md = $em->getClassMetadata(get_class($entity));
+        $uow->recomputeSingleEntityChangeSet($md, $energiForsyning);
+      }
+    }
   }
 
 }
