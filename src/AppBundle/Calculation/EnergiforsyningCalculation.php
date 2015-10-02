@@ -75,7 +75,7 @@ class EnergiforsyningCalculation extends Calculation {
         $this->calculate($energiForsyning);
 
         $em->persist($energiForsyning);
-        $md = $em->getClassMetadata(get_class($entity));
+        $md = $em->getClassMetadata(get_class($energiForsyning));
         $uow->recomputeSingleEntityChangeSet($md, $energiForsyning);
       }
     }
