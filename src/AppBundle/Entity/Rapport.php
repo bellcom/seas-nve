@@ -970,7 +970,7 @@ class Rapport {
       $besparelse = 0;
       foreach ($tilvalgteTiltag as $tiltag) {
         $varmePris = $this->getVarmeKrKWh($year);
-        if ($tiltag->getForsyningVarme() && $tiltag->getForsyningVarme()->getNavn() == NavnType::TRÆPILLEFYR) {
+        if ($tiltag->getForsyningVarme() && $tiltag->getForsyningVarme()->getNavn() == NavnType::TRAEPILLEFYR) {
           $varmePris = $this->traepillefyr ? $this->traepillefyr->getKrKWh(date('Y') - 1 + $year) : 0;
         }
         $besparelse += // $tiltag->getIndtaegtSalgAfEnergibesparelse()

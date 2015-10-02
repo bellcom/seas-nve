@@ -9,7 +9,7 @@ class NavnType extends AbstractEnumType
   const FJERNVARME        = 'fjernvarme';
   const HOVEDFORSYNING_EL = 'hovedforsyning_el';
   const OLIEFYR           = 'oliefyr';
-  const TRÆPILLEFYR       = 'træpillefyr';
+  const TRAEPILLEFYR      = 'traepillefyr';
   const VARMEPUMPE        = 'varmepumpe';
 
   protected static $choices = [
@@ -17,7 +17,7 @@ class NavnType extends AbstractEnumType
     self::FJERNVARME        => 'Fjernvarme',
     self::HOVEDFORSYNING_EL => 'Hovedforsyning El',
     self::OLIEFYR           => 'Oliefyr',
-    self::TRÆPILLEFYR       => 'Træpillefyr',
+    self::TRAEPILLEFYR      => 'Træpillefyr',
     self::VARMEPUMPE        => 'Varmepumpe',
   ];
 }
