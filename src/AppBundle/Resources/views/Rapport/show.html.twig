@@ -7,10 +7,17 @@
       <h1>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h1>
     </div>
     <div class="col-md-4 right">
-      <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default">
-        {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}
+      <a href="{{ path('rapport_show_pdf', { 'id': entity.id }) }}" class="btn btn-default">
+        {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf' | trans }}
       </a>
-      <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">{{ icon('industry') }} Energiforsyninger</a>
+      {% if is_granted('ROLE_RAPPORT_EDIT') %}
+        <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default">
+          {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}
+        </a>
+      {% endif %}
+      {% if is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">{{ icon('industry') }} Energiforsyninger</a>
+      {% endif %}
     </div>
   </div>
 

@@ -89,6 +89,7 @@ rapporter:
     edit: Rediger Rapport
     create: Opret Rapport
     show: Vis Rapport
+    pdf: Vis PDF
   strings:
     belysningtiltag: Belysning
     klimaskaermtiltag: Klimaskærm
