@@ -254,8 +254,8 @@ appbundle:
     reduktionAfDrifttid.unit: %
     nyDriftstid: Ny driftstid
     nyDriftstid.unit: ??
-    standardinvestArmaturElLyskildeKrStk: Standardinvest. armatur el. lyskilde
-    standardinvestArmaturElLyskildeKrStk.unit: kr/stk
+    standardinvestArmaturKrStk: Standardinvest. armatur
+    standardinvestArmaturKrStk.unit: kr/stk
     nyLyskilde: Ny lyskilde
     nyLyskildeStkArmatur: Ny lyskilde
     nyLyskildeStkArmatur.unit: stk/armatur
