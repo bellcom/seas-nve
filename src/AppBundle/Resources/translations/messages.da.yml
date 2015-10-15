@@ -256,6 +256,8 @@ appbundle:
     nyDriftstid.unit: ??
     standardinvestArmaturKrStk: Standardinvest. armatur
     standardinvestArmaturKrStk.unit: kr/stk
+    standardinvestLyskildeKrStk: Standardinvest. lyskilde
+    standardinvestLyskildeKrStk.unit: kr/stk
     nyLyskilde: Ny lyskilde
     nyLyskildeStkArmatur: Ny lyskilde
     nyLyskildeStkArmatur.unit: stk/armatur
