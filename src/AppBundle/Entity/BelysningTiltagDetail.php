@@ -165,9 +165,9 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestArmaturElLyskildeKrStk", type="decimal", scale=4)
+   * @ORM\Column(name="standardinvestArmaturKrStk", type="decimal", scale=4)
    */
-  protected $standardinvestArmaturElLyskildeKrStk;
+  protected $standardinvestArmaturKrStk;
 
   /**
    * @var float
@@ -708,24 +708,24 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set standardinvestArmaturElLyskildeKrStk
+   * Set standardinvestArmaturKrStk
    *
-   * @param string $standardinvestArmaturElLyskildeKrStk
+   * @param string $standardinvestArmaturKrStk
    * @return BelysningTiltagDetail
    */
-  public function setStandardinvestArmaturElLyskildeKrStk($standardinvestArmaturElLyskildeKrStk) {
-    $this->standardinvestArmaturElLyskildeKrStk = $standardinvestArmaturElLyskildeKrStk;
+  public function setStandardinvestArmaturKrStk($standardinvestArmaturKrStk) {
+    $this->standardinvestArmaturKrStk = $standardinvestArmaturKrStk;
 
     return $this;
   }
 
   /**
-   * Get standardinvestArmaturElLyskildeKrStk
+   * Get standardinvestArmaturKrStk
    *
    * @return float
    */
-  public function getStandardinvestArmaturElLyskildeKrStk() {
-    return $this->standardinvestArmaturElLyskildeKrStk;
+  public function getStandardinvestArmaturKrStk() {
+    return $this->standardinvestArmaturKrStk;
   }
 
   /**
@@ -1040,7 +1040,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
     else {
       return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
-              + $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale
+              + $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale
               + $this->standardinvestLyskildeKrStk * $this->nyLyskildeStkArmatur)
         * ($this->prisfaktor - 1);
     }
@@ -1054,12 +1054,12 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
     elseif ($nyLyskilde->getType() == 'LED-arm.') {
       return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
-              + $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale * $this->nyLyskildeStkArmatur
+              + $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale * $this->nyLyskildeStkArmatur
               + $this->prisfaktorTillaegKrLokale) * $this->lokale_antal;
     }
     else {
       return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
-              + $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale
+              + $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale
               + $this->standardinvestLyskildeKrStk * $this->nyLyskildeStkArmatur * $this->nyeArmaturerStkLokale
               + $this->prisfaktorTillaegKrLokale) * $this->lokale_antal;
     }
@@ -1233,11 +1233,11 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function _computeUdgiftArmatur() {
     // BO
-    if ($this->standardinvestArmaturElLyskildeKrStk == 0) {
+    if ($this->standardinvestArmaturKrStk == 0) {
       return 0;
     }
     else {
-      return $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale * $this->lokale_antal * $this->prisfaktor;
+      return $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale * $this->lokale_antal * $this->prisfaktor;
     }
   }
 
