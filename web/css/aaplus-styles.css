@@ -484,4 +484,19 @@ div.row.heading .btn {
     margin-bottom: 10px;
 }
 
+.finansiering-likviditetsoverblik {
+	margin-top: 20px;
+}
 
+.finansiering-likviditetsoverblik header {
+	text-align: right;
+}
+
+.finansiering-likviditetsoverblik [data-toggle]::after {
+	font-family: FontAwesome;
+	content: '\f0d7';
+}
+
+.finansiering-likviditetsoverblik [data-toggle][aria-expanded = "true"]::after {
+	content: '\f0d8';
+}
