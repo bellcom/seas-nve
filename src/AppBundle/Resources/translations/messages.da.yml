@@ -151,6 +151,10 @@ tiltag:
     edit: Rediger Tiltag
     create: Opret Tiltag
 
+tiltagdetail:
+  actions:
+    edit: Rediger Detail
+
 pumpetiltag:
   labels:
     title: Pumpeudskiftninger
@@ -742,6 +746,7 @@ appbundle:
     kwhBesparelseVarmeFraVaerket.unit: ??
 
   klimaskaermtiltagdetail:
+    tilvalgt: Tilvalgt
     laastAfEnergiraadgiver: Låst af energirådgiver
     tiltagsnr: Tiltagsnr.
     tiltagsnrDelpriser: Tiltagsnr. Delpriser

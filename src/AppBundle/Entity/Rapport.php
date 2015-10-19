@@ -183,7 +183,7 @@ class Rapport {
    *
    * @ORM\Column(name="laanLoebetid", type="integer", nullable=true)
    */
-  protected $laanLoebetid;
+  protected $laanLoebetid = 15;
 
   /**
    * @var boolean
