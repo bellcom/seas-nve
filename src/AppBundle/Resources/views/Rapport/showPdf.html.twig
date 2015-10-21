@@ -88,81 +88,12 @@
   </div>
 
   {% if entity.tilvalgteTiltag is not empty %}
-
-    <div class="panel panel-default">
-      <div class="panel-heading">{{ icon('thumbs-up') }} {{ 'appbundle.rapport.tilvalg' | trans }}</div>
-
-      <table class="table table-condensed">
-        <thead>
-        <tr>
-          <th>{{ 'appbundle.tiltag.title' | trans }}</th>
-          <th>{{ 'appbundle.tiltag.tilvalgtAfMagistrat' | trans }}</th>
-          <th>{{ 'appbundle.tiltag.tilvalgtbegrundelse' | trans }}</th>
-          <th class="right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
-          <th class="right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
-          <th class="right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        {% for t in entity.tilvalgteTiltag %}
-          <tr>
-            <td>{{ t.title }}</td>
-
-            <td>{{ t.tilvalgtAfMagistrat | b2icon }}</td>
-            <td>{{ t.tilvalgtbegrundelse }}</td>
-            <td class="right">{{ t.levetid | number_format }} {{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
-            <td class="right">{{ t.simpelTilbagebetalingstidAar | number_format }} {{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
-            <td class="right">{{ t.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
-
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-
-    </div>
-
-
-
+    {% include 'AppBundle::Rapport/_valgteTiltagTable.html.twig' with {'tiltag': entity.tilvalgteTiltag, 'pdf': true, 'type': 'tilvalg' } %}
   {% endif %}
 
 
   {% if entity.fravalgteTiltag is not empty %}
-
-    <div class="panel panel-default">
-      <div class="panel-heading">{{ icon('thumbs-down') }} {{ 'appbundle.rapport.fravalg' | trans }}</div>
-
-      <table class="table table-condensed">
-        <thead>
-        <tr>
-          <th>{{ 'appbundle.tiltag.title' | trans }}</th>
-          <th>{{ 'appbundle.tiltag.tilvalgtAfMagistrat' | trans }}</th>
-          <th>{{ 'appbundle.tiltag.tilvalgtbegrundelse' | trans }}</th>
-          <th class="right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
-          <th class="right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
-          <th class="right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        {% for t in entity.fravalgteTiltag %}
-          <tr>
-            <td>{{ t.title }}</td>
-
-            <td>{{ t.tilvalgtAfMagistrat | b2icon }}</td>
-            <td>{{ t.tilvalgtbegrundelse }}</td>
-            <td class="right">{{ t.levetid | number_format }} {{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
-            <td class="right">{{ t.simpelTilbagebetalingstidAar | number_format }} {{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
-            <td class="right">{{ t.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
-
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-
-    </div>
-
-
+    {% include 'AppBundle::Rapport/_valgteTiltagTable.html.twig' with {'tiltag': entity.fravalgteTiltag, 'pdf': true, 'type': 'fravalg' } %}
   {% endif %}
 
   <div class="panel panel-default">

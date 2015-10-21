@@ -25,7 +25,11 @@ class FilterExtension extends \Twig_Extension {
   }
 
   public function booleanToIconFilter($boolean) {
-    return $boolean ? '<span class="fa fa-check-square-o"></span>' : '<span class="fa fa-square-o"></span>';
+    if($boolean === NULL) {
+      return '';
+    } else {
+      return $boolean ? '<span class="fa fa-check-square-o"></span>' : '<span class="fa fa-square-o"></span>';
+    }
   }
 
   /**

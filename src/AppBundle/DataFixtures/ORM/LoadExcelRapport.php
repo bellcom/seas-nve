@@ -541,7 +541,7 @@ class LoadExcelRapport extends LoadData {
     if ($tiltagNumber) {
       foreach ($tilvalgtData as $rowId => $row) {
         if ($row['B'] == $tiltagNumber) {
-          $tiltag->setTilvalgt($row['D'] == 'TILVALGT');
+          $tiltag->setTilvalgtAfRaadgiver($row['D'] == 'TILVALGT');
         }
       }
     }

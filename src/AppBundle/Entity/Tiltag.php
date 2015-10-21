@@ -61,9 +61,23 @@ abstract class Tiltag {
   /**
    * @var boolean
    *
-   * @ORM\Column(name="tilvalgt", type="boolean", nullable=true)
+   * @ORM\Column(name="tilvalgtAfRaadgiver", type="boolean")
    */
-  protected $tilvalgt = false;
+  protected $tilvalgtAfRaadgiver = TRUE;
+
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="tilvalgtAfAaPlaus", type="boolean", nullable=true)
+   */
+  protected $tilvalgtAfAaPlus;
+
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="tilvalgtAfMagistrat", type="boolean", nullable=true)
+   */
+  protected $tilvalgtAfMagistrat;
 
   /**
    * @var string
@@ -71,13 +85,6 @@ abstract class Tiltag {
    * @ORM\Column(name="tilvalgtbegrundelse", type="text", nullable=true)
    */
   protected $tilvalgtbegrundelse;
-
-  /**
-   * @var boolean
-   *
-   * @ORM\Column(name="tilvalgtAfMagistrat", type="boolean", nullable=true)
-   */
-  protected $tilvalgtAfMagistrat = false;
 
   /**
    * @var string
@@ -389,14 +396,27 @@ abstract class Tiltag {
     return $this->id;
   }
 
-  public function setTilvalgt($tilvalgt) {
-    $this->tilvalgt = $tilvalgt;
-
-    return $this;
-  }
-
+  /**
+   * Get "Tilvalgt"
+   *
+   * Magistrat takes presedence over AaPlus which takes presedence over Rådgiver.
+   *
+   * @return bool
+   */
   public function getTilvalgt() {
-    return $this->tilvalgt;
+    if($this->tilvalgtAfMagistrat !== null) {
+      return $this->tilvalgtAfMagistrat;
+    }
+
+    if($this->tilvalgtAfAaPlus !== null) {
+      return $this->tilvalgtAfAaPlus;
+    }
+
+    if($this->tilvalgtAfRaadgiver !== null) {
+      return $this->tilvalgtAfRaadgiver;
+    }
+
+    return false;
   }
 
   /**
@@ -1323,4 +1343,52 @@ abstract class Tiltag {
     }
 
 
+
+    /**
+     * Set tilvalgtAfRaadgiver
+     *
+     * @param boolean $tilvalgtAfRaadgiver
+     *
+     * @return Tiltag
+     */
+    public function setTilvalgtAfRaadgiver($tilvalgtAfRaadgiver)
+    {
+        $this->tilvalgtAfRaadgiver = $tilvalgtAfRaadgiver;
+
+        return $this;
+    }
+
+    /**
+     * Get tilvalgtAfRaadgiver
+     *
+     * @return boolean
+     */
+    public function getTilvalgtAfRaadgiver()
+    {
+        return $this->tilvalgtAfRaadgiver;
+    }
+
+    /**
+     * Set tilvalgtAfAaPlus
+     *
+     * @param boolean $tilvalgtAfAaPlus
+     *
+     * @return Tiltag
+     */
+    public function setTilvalgtAfAaPlus($tilvalgtAfAaPlus)
+    {
+        $this->tilvalgtAfAaPlus = $tilvalgtAfAaPlus;
+
+        return $this;
+    }
+
+    /**
+     * Get tilvalgtAfAaPlus
+     *
+     * @return boolean
+     */
+    public function getTilvalgtAfAaPlus()
+    {
+        return $this->tilvalgtAfAaPlus;
+    }
 }

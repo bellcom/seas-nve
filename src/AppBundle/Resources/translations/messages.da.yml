@@ -646,6 +646,8 @@ appbundle:
     kommentar: Kommentar
     title: Title
   tiltag:
+    tilvalgtAfRaadgiver: Rådg.
+    tilvalgtAfAaPlus: Aa+
     tilvalgtAfMagistrat: Mag.
     tilvalgtbegrundelse: Bemærkning
     tilvalgt: Tilvalgt
@@ -700,6 +702,8 @@ appbundle:
   tiltagtilvalgt:
     tilvalgtbegrundelse: Bemærkning
     tilvalgt: Tilvalgt
+    tilvalgtAfRaadgiver: Tilvalgt af Rådgiver
+    tilvalgtAfAaPlus: Tilvalgt af Aa+
     tilvalgtAfMagistrat: Tilvalgt af Magistrat
 
   tekniskisoleringtiltagdetail:
