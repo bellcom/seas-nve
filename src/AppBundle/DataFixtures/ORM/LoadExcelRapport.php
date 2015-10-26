@@ -20,6 +20,7 @@ use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\TiltagDetail;
 use AppBundle\Entity\BelysningTiltag;
 use AppBundle\Entity\BelysningTiltagDetail;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\Entity\Klimaskaerm;
 use AppBundle\Entity\KlimaskaermTiltag;
@@ -761,7 +762,26 @@ class LoadExcelRapport extends LoadData {
       'AF' => array('styring', function($value) { return $this->getEntityReference('styring', $value); }),
       // 'AG' => '',
       'AH' => 'noter',
-      'AI' => array('belysningstiltag', function($value) { return $this->getEntityReference('belysningstiltag', $value); }),
+      'AI' => array('belysningstiltag', function($value) {
+        switch ($value) {
+          case 1:
+            return TiltagType::PIR_I_AFBRYDER;
+          case 2:
+            return TiltagType::PIR_ON_OFF_CENTRAL;
+          case 3:
+            return TiltagType::PIR_DGS_CENT;
+          case 4:
+            return TiltagType::ARM_EVT_PIR_DGS;
+          case 5:
+            return TiltagType::LED_I_EKSIST_ARM;
+          case 6:
+            return TiltagType::NY_INDSATS_I_ARM;
+          case 7:
+            return TiltagType::ANDET_SE_NOTER;
+          default:
+            return TiltagType::NONE;
+        }
+      }),
       // 'AJ' => '',
       'AK' => 'nyeSensorerStkLokale',
       'AL' => 'standardinvestSensorKrStk',
