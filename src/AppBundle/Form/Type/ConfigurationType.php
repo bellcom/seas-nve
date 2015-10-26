@@ -41,7 +41,7 @@ class ConfigurationType extends AbstractType {
       ->add('inflation')
       ->add('lobetid')
 
-      ->add('procentAfInvestering', 'percent')
+      ->add('procentAfInvestering', 'percent', array('scale' => 2))
 
       ->add('nominelEnergiprisstigning')
 

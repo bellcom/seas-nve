@@ -1,0 +1,11 @@
+body {
+    font-size: 0.8em;
+}
+
+body > .container-fluid {
+    padding: 0;
+}
+
+.panel-heading {
+    font-size: 1.4em;
+}

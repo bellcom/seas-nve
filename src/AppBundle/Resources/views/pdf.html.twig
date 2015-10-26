@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('favicon.ico')) }}" />
+
+  <title>{% block title %}Aa+{% endblock %}</title>
+
+  {% block stylesheets %}
+    <link href="{{ absolute_url(asset('css/lib/bootstrap.min.css')) }}" type="text/css" rel="stylesheet" />
+    <link href="{{ absolute_url(asset('css/lib/font-awesome.min.css')) }}" type="text/css" rel="stylesheet" />
+    <link href="{{ absolute_url(asset('css/lib/sticky-footer-navbar.css')) }}" type="text/css" rel="stylesheet" />
+    <link href="{{ absolute_url(asset('css/aaplus-styles.css')) }}" type="text/css" rel="stylesheet" />
+    <link href="{{ absolute_url(asset('css/aaplus-pdfstyles.css')) }}" type="text/css" rel="stylesheet"/>
+  {% endblock %}
+</head>
+
+<body>
+
+{% macro header(key) %}
+  {% set calculation = key|get_calculation %}
+
+  <th class="rotate">
+    <div>
+      {% if calculation is null %}
+        <span>{{ key | trans }}</span>
+      {% else %}
+        <span data-calculation="{{ calculation }}">{{ key | trans }}</span>
+      {% endif %}
+    </div>
+  </th>
+{% endmacro %}
+
+{% macro header_unit(key) %}
+  {% set translation = key|get_unit %}
+
+  <th class="unit">
+    {{ translation }}
+  </th>
+{% endmacro %}
+
+{% import _self as helper %}
+
+<!-- Begin page content -->
+
+<div class="container-fluid">
+
+  {% block body %}{% endblock %}
+</div>
+
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+{% block javascripts %}
+
+{% endblock %}
+</body>
+</html>

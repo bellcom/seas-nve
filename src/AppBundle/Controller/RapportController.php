@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
 use Yavin\Symfony\Controller\InitControllerInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Rapport controller.
@@ -89,6 +90,57 @@ class RapportController extends BaseController {
       'delete_form' => $deleteForm,
       'edit_form' => $editForm ? $editForm->createView() : NULL,
     );
+  }
+
+  /**
+   * Finds and displays a Rapport entity.
+   *
+   * @Route("/{id}/pdf", name="rapport_show_pdf")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Rapport $rapport
+   * @return array
+   */
+  public function showPdfAction(Rapport $rapport) {
+
+
+    $tilvalgtFormArray = array();
+    $fravalgtFormArray = array();
+
+    if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+      foreach ($rapport->getTiltag() as $tiltag) {
+        if ($tiltag->getTilvalgt()) {
+          $tilvalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
+            ->createView();
+        }
+        else {
+          $fravalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
+            ->createView();
+        }
+      }
+    }
+
+    $html = $this->renderView('AppBundle:Rapport:showPdf.html.twig', array(
+      'entity' => $rapport,
+      'tilvalgt_form_array' => $tilvalgtFormArray,
+      'fravalgt_form_array' => $fravalgtFormArray,
+    ));
+
+    return new Response(
+      $this->get('knp_snappy.pdf')->getOutputFromHtml($html,
+        array('lowquality' => false,
+          'encoding' => 'utf-8',
+          'images' => true)
+      ),
+      200,
+      array(
+        'Content-Type'          => 'application/pdf',
+        'Content-Disposition'   => 'attachment; filename="file.pdf"'
+      )
+    );
+
+
   }
 
   /**

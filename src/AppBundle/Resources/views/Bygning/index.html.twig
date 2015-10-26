@@ -50,12 +50,8 @@
       <td>{{ bygning.postBy }}</td>
       <td>{{ bygning.segment }}</td>
       <td>{{ bygning.status }}</td>
-      <td>
-        {% if is_granted('ROLE_ADMIN') %}
-          <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-        {% else %}
-          <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
-        {% endif %}
+      <td class="right">
+        <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
       </td>
     </tr>
     {% else %}

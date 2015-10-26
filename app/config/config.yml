@@ -171,3 +171,7 @@ stof_doctrine_extensions:
             uploadable: true
             timestampable: true
             blameable: true
+
+knp_snappy:
+    pdf:
+        enabled:    true
