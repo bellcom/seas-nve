@@ -21,6 +21,7 @@ use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\TiltagDetail;
 use AppBundle\Entity\BelysningTiltag;
 use AppBundle\Entity\BelysningTiltagDetail;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType;
 use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\Entity\Klimaskaerm;
@@ -758,7 +759,22 @@ class LoadExcelRapport extends LoadData {
       'AA' => 'armaturerStkLokale',
       // 'AB' => ''
       // 'AC' => ''
-      'AD' => array('placering', function($value) { return $this->getEntityReference('placering', $value); }),
+      'AD' => array('placering', function($value) {
+        switch ($value) {
+          case 1:
+            return PlaceringType::NEDHAENGT;
+          case 2:
+            return PlaceringType::INDBYGGET;
+          case 3:
+            return PlaceringType::PAABYGGET;
+          case 4:
+            return PlaceringType::STAAENDE;
+          case 5:
+            return PlaceringType::ANDET_SE_NOTER;
+          default:
+            return PlaceringType::NONE;
+        }
+      }),
       // 'AE' => '',
       'AF' => array('styring', function($value) { return $this->getEntityReference('styring', $value); }),
       // 'AG' => '',
