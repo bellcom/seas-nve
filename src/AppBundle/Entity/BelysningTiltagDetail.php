@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\Annotations\Calculated;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
-use AppBundle\Entity\BelysningTiltagDetail\Styring as BelysningTiltagDetailStyring;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType;
 use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
@@ -111,10 +111,10 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $placering;
 
   /**
-   * @var BelysningTiltagDetailStyring
+   * @var string
    *
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Styring")
-   * ORM\JoinColumn(name="styring_id", referencedColumnName="id")
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType")
+   * @ORM\Column(name="styring", type="StyringType")
    **/
   protected $styring;
 
@@ -574,7 +574,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Set styring
    *
-   * @param BelysningTiltagDetailStyring $styring
+   * @param string $styring
    * @return BelysningTiltagDetail
    */
   public function setStyring($styring) {
@@ -586,7 +586,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get styring
    *
-   * @return BelysningTiltagDetailStyring
+   * @return string
    */
   public function getStyring() {
     return $this->styring;
