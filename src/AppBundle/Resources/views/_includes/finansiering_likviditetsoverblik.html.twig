@@ -1,0 +1,48 @@
+<div class="finansiering-likviditetsoverblik">
+  <header>
+    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#finansiering-likviditetsoverblik">
+      {{ icon('table') }}
+      {{ 'Likviditetsoverblik' | trans }}
+    </button>
+  </header>
+
+  <div class="collapse" id="finansiering-likviditetsoverblik">
+    {% set slices = [
+    entity.cashFlow['cash flow'] | keys | slice(0, 15),
+    entity.cashFlow['cash flow'] | keys | slice(15, 15)
+    ] %}
+
+    {% for years in slices %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="row">
+              {{ 'År' | trans }}
+            </th>
+            {% for year in years %}
+              <th scope="col">
+                {{ year }}
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for name, key in {
+            'Ydelse, lån [kr]': 'ydelse laan',
+            'Energibesp. [kr]': 'besparelse',
+            'Overskud [kr]': 'cash flow',
+            } %}
+            <tr>
+              <th scope="row">{{ name | trans }}</th>
+              {% for year in years %}
+                <td>
+                  {{ entity.cashFlow[key][year] | format_decimal }}
+                </td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+  </div>
+</div>

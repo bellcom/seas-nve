@@ -26,6 +26,7 @@ class AppKernel extends Kernel
       new JMS\SerializerBundle\JMSSerializerBundle(),
       new Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPasswordStrengthBundle(),
       new Fresh\DoctrineEnumBundle\FreshDoctrineEnumBundle(),
+      new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -25,27 +25,9 @@ class PumpeTiltagDetailType extends TiltagDetailType {
       ->add('isoleringskappe', null, array('required' => false))
       ->add('b_faktor')
       ->add('noter', null, array('required' => false))
-      ->add('eksisterendeDrifttid', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'Timer/år'
-          )
-        )
-      ))
-      ->add('nyDrifttid', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'Timer/år'
-          )
-        )
-      ))
-      ->add('prisfaktor', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => '%'
-          )
-        )
-      ));
+      ->add('eksisterendeDrifttid')
+      ->add('nyDrifttid')
+      ->add('prisfaktor');
   }
 
   public function configureOptions(OptionsResolver $resolver) {

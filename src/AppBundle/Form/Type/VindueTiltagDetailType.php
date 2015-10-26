@@ -25,8 +25,8 @@ class VindueTiltagDetailType extends KlimaskaermTiltagDetailType {
       ;
 
     $this->insertAfter($builder, $builder->get('uNyWM2K'), array(
-      array('solenergitransmittansEks', 'percent'),
-      array('solenergitransmittansNy', 'percent'),
+      array('solenergitransmittansEks', 'percent', array('scale' => 2)),
+      array('solenergitransmittansNy', 'percent', array('scale' => 2)),
     ));
   }
 

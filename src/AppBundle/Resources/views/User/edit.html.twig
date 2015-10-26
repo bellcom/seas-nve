@@ -3,5 +3,9 @@
 {% block body -%}
   <h1>{{ 'user.actions.edit' | trans }}</h1>
 
-  {{ form(edit_form) }}
+  <div class="row">
+    <div class="col-md-12">
+      {{ form(edit_form) }}
+    </div>
+  </div>
 {% endblock %}

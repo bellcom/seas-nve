@@ -563,7 +563,7 @@ class LoadExcelRapport extends LoadData {
     if ($tiltagNumber) {
       foreach ($tilvalgtData as $rowId => $row) {
         if ($row['B'] == $tiltagNumber) {
-          $tiltag->setTilvalgt($row['D'] == 'TILVALGT');
+          $tiltag->setTilvalgtAfRaadgiver($row['D'] == 'TILVALGT');
         }
       }
     }
@@ -766,7 +766,7 @@ class LoadExcelRapport extends LoadData {
       'AK' => 'nyeSensorerStkLokale',
       'AL' => 'standardinvestSensorKrStk',
       'AM' => 'reduktionAfDrifttid',
-      'AO' => 'standardinvestArmaturElLyskildeKrStk',
+      'AO' => 'standardinvestArmaturKrStk',
       'AP' => 'standardinvestLyskildeKrStk',
       'AQ' => array('nyLyskilde', function($value) { return $this->getEntityReference('lyskilde', $value); }),
       // 'AR' => ''
