@@ -73,6 +73,7 @@ doctrine:
             NavnType: AppBundle\DBAL\Types\Energiforsyning\NavnType
             PrisgrundlagType: AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType
             BygningStatusType: AppBundle\DBAL\Types\BygningStatusType
+            StyringType: AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType
             TiltagType: AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType
             PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
 

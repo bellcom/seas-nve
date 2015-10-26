@@ -291,7 +291,7 @@ appbundle:
     vaegtetLevetidAar.unit: år
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
-    styring: Styring, input
+    styring: Styring
     kwhBesparelseEl: kWh-besparelse El
     kwhBesparelseVarmeFraVarmevaerket: kWh-besparelse Varme fra varmeværket
     add: Tilføj

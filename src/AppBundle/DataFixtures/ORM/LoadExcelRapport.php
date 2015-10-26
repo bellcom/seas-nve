@@ -22,6 +22,7 @@ use AppBundle\Entity\TiltagDetail;
 use AppBundle\Entity\BelysningTiltag;
 use AppBundle\Entity\BelysningTiltagDetail;
 use AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType;
 use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\Entity\Klimaskaerm;
@@ -776,7 +777,28 @@ class LoadExcelRapport extends LoadData {
         }
       }),
       // 'AE' => '',
-      'AF' => array('styring', function($value) { return $this->getEntityReference('styring', $value); }),
+      'AF' => array('styring', function($value) {
+        switch ($value) {
+          case 1:
+            return StyringType::AFBRYDER_I_RUM;
+          case 2:
+            return StyringType::PIR_ON_OFF;
+          case 3:
+            return StyringType::PIR_DGS;
+          case 4:
+            return StyringType::SKUMRINGSRELAE;
+          case 5:
+            return StyringType::PIR_I_AFBRYDER;
+          case 6:
+            return StyringType::CENTRAL_AFBRYDER;
+          case 7:
+            return StyringType::URSTYRET;
+          case 8:
+            return StyringType::ANDET_SE_NOTER;
+          default:
+            return StyringType::NONE;
+        }
+      }),
       // 'AG' => '',
       'AH' => 'noter',
       'AI' => array('belysningstiltag', function($value) {
