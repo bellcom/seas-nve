@@ -8,6 +8,8 @@ use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLysk
 use AppBundle\Entity\BelysningTiltagDetail\Placering as BelysningTiltagDetailPlacering;
 use AppBundle\Entity\BelysningTiltagDetail\Styring as BelysningTiltagDetailStyring;
 use AppBundle\Entity\BelysningTiltagDetail\Tiltag as BelysningTiltagDetailTiltag;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * BelysningTiltagDetail
@@ -126,11 +128,11 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $noter;
 
   /**
-   * @var BelysningTiltagDetailTiltag
+   * @var string
    *
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Tiltag")
-   * ORM\JoinColumn(name="belysningstiltag_id", referencedColumnName="id")
-   **/
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType")
+   * @ORM\Column(name="belysningstiltag", type="TiltagType")
+   */
   protected $belysningstiltag;
 
   /**
@@ -1020,7 +1022,7 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function calculateNyDriftstid() {
     // AN
-    if ($this->drifttidTAar == 0 || $this->belysningstiltag == null) {
+    if ($this->drifttidTAar == 0 || $this->belysningstiltag == TiltagType::NONE) {
       return 0;
     }
     else {
