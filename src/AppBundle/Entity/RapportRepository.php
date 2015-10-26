@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\DBAL\Types\BygningStatusType;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -93,10 +94,10 @@ class RapportRepository extends EntityRepository {
    * Search for buildings with specific status and user
    *
    * @param \AppBundle\Entity\User $user
-   * @param \AppBundle\Entity\BygningStatus $status
+   * @param \AppBundle\DBAL\Types\BygningStatusType $status
    * @return \Doctrine\ORM\Query
    */
-  public function getByUserAndStatus(User $user, BygningStatus $status) {
+  public function getByUserAndStatus(User $user, BygningStatusType $status) {
     $qb = $this->_em->createQueryBuilder();
 
     $qb->select('r', 'b');
@@ -137,12 +138,12 @@ class RapportRepository extends EntityRepository {
 
   /**
    * @param \AppBundle\Entity\User $user
-   * @param \AppBundle\Entity\BygningStatus $status
+   * @param \AppBundle\DBAL\Types\BygningStatusType $status
    * @return mixed
    * @throws \Doctrine\ORM\NoResultException
    * @throws \Doctrine\ORM\NonUniqueResultException
    */
-  public function getSummaryByUserAndStatus(User $user, BygningStatus $status) {
+  public function getSummaryByUserAndStatus(User $user, BygningStatusType $status) {
     $qb = $this->_em->createQueryBuilder();
 
     $qb->select('r', 'b');

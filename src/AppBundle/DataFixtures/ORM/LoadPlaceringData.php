@@ -7,7 +7,6 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\BelysningTiltagDetail\Styring;
-use AppBundle\Entity\BygningStatus;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ddeboer\DataImport\Writer\CallbackWriter;
 

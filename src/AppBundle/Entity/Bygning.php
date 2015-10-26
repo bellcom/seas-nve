@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\DBAL\Types\BygningStatusType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToMany;
@@ -14,6 +15,7 @@ use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\ORM\Mapping\Index;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -393,8 +395,10 @@ class Bygning {
   protected $segment;
 
   /**
-   * @ManyToOne(targetEntity="BygningStatus", fetch="EAGER")
-   * @JoinColumn(name="status_id", referencedColumnName="id")
+   * @var string
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BygningStatusType")
+   * @ORM\Column(name="status", type="BygningStatusType", nullable=true)
    **/
   protected $status;
 
@@ -1476,7 +1480,7 @@ class Bygning {
    *
    * @return Bygning
    */
-  public function setStatus(\AppBundle\Entity\BygningStatus $status = null)
+  public function setStatus($status = null)
   {
     $this->status = $status;
 

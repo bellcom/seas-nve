@@ -9,8 +9,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use AppBundle\Form\Type\BygningStatusRepository;
-
+use AppBundle\DBAL\Types\BygningStatusType;
 /**
  * Class BygningType
  * @package AppBundle\Form

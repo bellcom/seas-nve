@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
-
+use AppBundle\DBAL\Types\BygningStatusType;
 /**
  * Class DashboardController
  * @package AppBundle\Controller
@@ -29,9 +29,7 @@ class DashboardController extends BaseController {
     $paginator = $this->get('knp_paginator');
 
     if ($this->isGranted('ROLE_ADMIN')) {
-      $status_finished = $em->getRepository('AppBundle:BygningStatus')->findOneBy(array('navn' => 'Afleveret af Rådgiver'));
-
-      $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, $status_finished);
+      $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, BygningStatusType::AFLEVERET_RAADGIVER);
 
       $byg_pagination = $paginator->paginate(
         $finished_buildings_q,
@@ -54,11 +52,8 @@ class DashboardController extends BaseController {
 
     } else if ($this->isGranted('ROLE_EDIT')) {
 
-      $status_current = $em->getRepository('AppBundle:BygningStatus')->findOneBy(array('navn' => 'Tilknyttet Rådgiver'));
-      $status_finished = $em->getRepository('AppBundle:BygningStatus')->findOneBy(array('navn' => 'Afleveret af Rådgiver'));
-
-      $current_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, $status_current);
-      $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, $status_finished);
+      $current_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, BygningStatusType::TILKNYTTET_RAADGIVER);
+      $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, BygningStatusType::AFLEVERET_RAADGIVER);
 
       $current_buildings = $paginator->paginate(
         $current_buildings_q,
@@ -72,8 +67,8 @@ class DashboardController extends BaseController {
         10
       );
 
-      $summary_current = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, $status_current);
-      $summary_finished = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, $status_finished);
+      $summary_current = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, BygningStatusType::TILKNYTTET_RAADGIVER);
+      $summary_finished = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, BygningStatusType::AFLEVERET_RAADGIVER);
 
       return $this->render('AppBundle:Dashboard:editor.html.twig', array('current_buildings' => $current_buildings, 'finished_buildings' => $finished_buildings, 'summary_current' => $summary_current, 'summary_finished' => $summary_finished));
 

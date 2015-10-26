@@ -6,11 +6,11 @@
 
 namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\BygningStatusRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use AppBundle\DBAL\Types\BygningStatusType;
 
 /**
  * Class BygningType

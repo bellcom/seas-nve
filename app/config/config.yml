@@ -72,6 +72,7 @@ doctrine:
             CardinalDirectionType: AppBundle\DBAL\Types\CardinalDirectionType
             NavnType: AppBundle\DBAL\Types\Energiforsyning\NavnType
             PrisgrundlagType: AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType
+            BygningStatusType: AppBundle\DBAL\Types\BygningStatusType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

@@ -6,6 +6,7 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\DBAL\Types\BygningStatusType;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use AppBundle\Entity\Forsyningsvaerk;
@@ -336,7 +337,7 @@ class LoadExcelRapport extends LoadData {
       ), $values);
 
       $this->setEntityReference('bygning', $bygning->getEnhedsys(), $bygning);
-      $bygning->setStatus($this->getReference('bygningstatus_1'));
+      $bygning->setStatus(BygningStatusType::IKKE_STARTET);
 
       $this->persist($bygning);
     }
