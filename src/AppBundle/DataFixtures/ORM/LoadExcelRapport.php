@@ -6,6 +6,7 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\DBAL\Types\BygningStatusType;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use AppBundle\Entity\Forsyningsvaerk;
@@ -13,11 +14,16 @@ use AppBundle\Entity\Solcelle;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\Energiforsyning;
+use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
+use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\TiltagDetail;
 use AppBundle\Entity\BelysningTiltag;
 use AppBundle\Entity\BelysningTiltagDetail;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\Entity\Klimaskaerm;
 use AppBundle\Entity\KlimaskaermTiltag;
@@ -334,7 +340,7 @@ class LoadExcelRapport extends LoadData {
       ), $values);
 
       $this->setEntityReference('bygning', $bygning->getEnhedsys(), $bygning);
-      $bygning->setStatus($this->getReference('bygningstatus_1'));
+      $bygning->setStatus(BygningStatusType::IKKE_STARTET);
 
       $this->persist($bygning);
     }
@@ -439,7 +445,16 @@ class LoadExcelRapport extends LoadData {
     foreach ($data as $rowId => $row) {
       if ($row['A']) {
         $energiforsyning = $this->loadEntity(new Energiforsyning(), array(
-          'A' => 'navn',
+          'A' => array('navn', function($value) {
+            switch ($value) {
+              case 'Hovedforsyning El':
+                return NavnType::HOVEDFORSYNING_EL;
+              case 'Fjernvarme':
+                return NavnType::FJERNVARME;
+              default:
+                return NavnType::NONE;
+            }
+          }),
           'B' => 'beskrivelse',
         ), $row);
 
@@ -451,7 +466,18 @@ class LoadExcelRapport extends LoadData {
             $columnMapping[chr($index-1)] = array('navn', function($value) { return $value ? $value : ''; });
             $columnMapping[chr($index)] = 'fordeling';
             $columnMapping[chr($index+1)] = 'effektivitet';
-            $columnMapping[chr($index+2)] = 'prisgrundlag';
+            $columnMapping[chr($index+2)] = array('prisgrundlag', function($value) {
+              switch ($value) {
+                case 'EL':
+                  return PrisgrundlagType::EL;
+                case 'VAND':
+                  return PrisgrundlagType::VAND;
+                case 'VARME':
+                  return PrisgrundlagType::VARME;
+                default:
+                  return PrisgrundlagType::NONE;
+              }
+            });
 
             $internProduktion = $this->loadEntity(new InternProduktion(), $columnMapping, $row);
             $energiforsyning->addInternProduktion($internProduktion);
@@ -734,12 +760,67 @@ class LoadExcelRapport extends LoadData {
       'AA' => 'armaturerStkLokale',
       // 'AB' => ''
       // 'AC' => ''
-      'AD' => array('placering', function($value) { return $this->getEntityReference('placering', $value); }),
+      'AD' => array('placering', function($value) {
+        switch ($value) {
+          case 1:
+            return PlaceringType::NEDHAENGT;
+          case 2:
+            return PlaceringType::INDBYGGET;
+          case 3:
+            return PlaceringType::PAABYGGET;
+          case 4:
+            return PlaceringType::STAAENDE;
+          case 5:
+            return PlaceringType::ANDET_SE_NOTER;
+          default:
+            return PlaceringType::NONE;
+        }
+      }),
       // 'AE' => '',
-      'AF' => array('styring', function($value) { return $this->getEntityReference('styring', $value); }),
+      'AF' => array('styring', function($value) {
+        switch ($value) {
+          case 1:
+            return StyringType::AFBRYDER_I_RUM;
+          case 2:
+            return StyringType::PIR_ON_OFF;
+          case 3:
+            return StyringType::PIR_DGS;
+          case 4:
+            return StyringType::SKUMRINGSRELAE;
+          case 5:
+            return StyringType::PIR_I_AFBRYDER;
+          case 6:
+            return StyringType::CENTRAL_AFBRYDER;
+          case 7:
+            return StyringType::URSTYRET;
+          case 8:
+            return StyringType::ANDET_SE_NOTER;
+          default:
+            return StyringType::NONE;
+        }
+      }),
       // 'AG' => '',
       'AH' => 'noter',
-      'AI' => array('belysningstiltag', function($value) { return $this->getEntityReference('belysningstiltag', $value); }),
+      'AI' => array('belysningstiltag', function($value) {
+        switch ($value) {
+          case 1:
+            return TiltagType::PIR_I_AFBRYDER;
+          case 2:
+            return TiltagType::PIR_ON_OFF_CENTRAL;
+          case 3:
+            return TiltagType::PIR_DGS_CENT;
+          case 4:
+            return TiltagType::ARM_EVT_PIR_DGS;
+          case 5:
+            return TiltagType::LED_I_EKSIST_ARM;
+          case 6:
+            return TiltagType::NY_INDSATS_I_ARM;
+          case 7:
+            return TiltagType::ANDET_SE_NOTER;
+          default:
+            return TiltagType::NONE;
+        }
+      }),
       // 'AJ' => '',
       'AK' => 'nyeSensorerStkLokale',
       'AL' => 'standardinvestSensorKrStk',

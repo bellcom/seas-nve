@@ -5,9 +5,10 @@ namespace AppBundle\Entity;
 use AppBundle\Annotations\Calculated;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
-use AppBundle\Entity\BelysningTiltagDetail\Placering as BelysningTiltagDetailPlacering;
-use AppBundle\Entity\BelysningTiltagDetail\Styring as BelysningTiltagDetailStyring;
-use AppBundle\Entity\BelysningTiltagDetail\Tiltag as BelysningTiltagDetailTiltag;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * BelysningTiltagDetail
@@ -103,18 +104,18 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $elforbrugWM2;
 
   /**
-   * @var BelysningTiltagDetailPlacering
+   * @var string
    *
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Placering")
-   * ORM\JoinColumn(name="placering_id", referencedColumnName="id")
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType")
+   * @ORM\Column(name="placering", type="PlaceringType")
    **/
   protected $placering;
 
   /**
-   * @var BelysningTiltagDetailStyring
+   * @var string
    *
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Styring")
-   * ORM\JoinColumn(name="styring_id", referencedColumnName="id")
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType")
+   * @ORM\Column(name="styring", type="StyringType")
    **/
   protected $styring;
 
@@ -126,11 +127,11 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $noter;
 
   /**
-   * @var BelysningTiltagDetailTiltag
+   * @var string
    *
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Tiltag")
-   * ORM\JoinColumn(name="belysningstiltag_id", referencedColumnName="id")
-   **/
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType")
+   * @ORM\Column(name="belysningstiltag", type="TiltagType")
+   */
   protected $belysningstiltag;
 
   /**
@@ -553,7 +554,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Set placering
    *
-   * @param BelysningTiltagDetailPlacering $placering
+   * @param string $placering
    * @return BelysningTiltagDetail
    */
   public function setPlacering($placering) {
@@ -565,7 +566,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get placering
    *
-   * @return BelysningTiltagDetailPlacering
+   * @return string
    */
   public function getPlacering() {
     return $this->placering;
@@ -574,7 +575,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Set styring
    *
-   * @param BelysningTiltagDetailStyring $styring
+   * @param string $styring
    * @return BelysningTiltagDetail
    */
   public function setStyring($styring) {
@@ -586,7 +587,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get styring
    *
-   * @return BelysningTiltagDetailStyring
+   * @return string
    */
   public function getStyring() {
     return $this->styring;
@@ -629,7 +630,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get belysningtiltag
    *
-   * @return BelysningTiltagDetailTiltag
+   * @return string
    */
   public function getBelysningstiltag() {
     return $this->belysningstiltag;
@@ -1020,7 +1021,7 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function calculateNyDriftstid() {
     // AN
-    if ($this->drifttidTAar == 0 || $this->belysningstiltag == null) {
+    if ($this->drifttidTAar == 0 || $this->belysningstiltag == TiltagType::NONE) {
       return 0;
     }
     else {

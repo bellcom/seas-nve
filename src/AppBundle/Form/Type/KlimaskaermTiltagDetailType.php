@@ -24,14 +24,8 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
         'class' => 'AppBundle:Klimaskaerm',
         'choices' => $this->getKlimaskaerme(),
       ))
-      ->add('orientering', 'choice', array(
-        'choices' => array(
-          'orientation.north' => 'north',
-          'orientation.south' => 'south',
-          'orientation.east' => 'east',
-          'orientation.west' => 'west',
-        ),
-        'choices_as_values' => true,
+      ->add('orientering', NULL, array(
+        'required' => TRUE,
       ))
       ->add('typePlaceringJfPlantegning')
       ->add('hoejdeElLaengdeM')

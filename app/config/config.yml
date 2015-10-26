@@ -66,6 +66,16 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #     path:     "%database_path%"
+        mapping_types:
+            enum: string
+        types:
+            CardinalDirectionType: AppBundle\DBAL\Types\CardinalDirectionType
+            NavnType: AppBundle\DBAL\Types\Energiforsyning\NavnType
+            PrisgrundlagType: AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType
+            BygningStatusType: AppBundle\DBAL\Types\BygningStatusType
+            StyringType: AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType
+            TiltagType: AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType
+            PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

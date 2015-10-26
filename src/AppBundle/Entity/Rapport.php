@@ -8,6 +8,8 @@ namespace AppBundle\Entity;
 
 use AppBundle\Annotations\Calculated;
 use AppBundle\Calculation\Calculation;
+use AppBundle\DBAL\Types\Energiforsyning\NavnType;
+use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -793,8 +795,8 @@ class Rapport {
       return false;
     }
 
-    $energiforsyningEl = $this->getEnergiforsyningByNavn('Hovedforsyning El');
-    $energiforsyningVarme = $this->getEnergiforsyningByNavn('Fjernvarme');
+    $energiforsyningEl = $this->getEnergiforsyningByNavn(NavnType::HOVEDFORSYNING_EL);
+    $energiforsyningVarme = $this->getEnergiforsyningByNavn(NavnType::FJERNVARME);
 
     if (!$energiforsyningEl || !$energiforsyningVarme) {
       return false;
@@ -804,8 +806,8 @@ class Rapport {
     $internProduktionVarme = $energiforsyningVarme->getInternProduktioner() ? $energiforsyningVarme->getInternProduktioner()->first() : NULL;
 
     if ($internProduktionEl && $internProduktionVarme) {
-      return $internProduktionEl->getPrisgrundlag() == 'EL' && $internProduktionEl->getFordeling() == 1 && $internProduktionEl->getEffektivitet() == 1
-                                                    && $internProduktionVarme->getPrisgrundlag() == 'VARME' && $internProduktionVarme->getFordeling() == 1 && $internProduktionVarme->getEffektivitet() == 1;
+      return $internProduktionEl->getPrisgrundlag() == PrisgrundlagType::EL && $internProduktionEl->getFordeling() == 1 && $internProduktionEl->getEffektivitet() == 1
+                                                    && $internProduktionVarme->getPrisgrundlag() == PrisgrundlagType::VARME && $internProduktionVarme->getFordeling() == 1 && $internProduktionVarme->getEffektivitet() == 1;
     }
 
     return false;
@@ -968,7 +970,7 @@ class Rapport {
       $besparelse = 0;
       foreach ($tilvalgteTiltag as $tiltag) {
         $varmePris = $this->getVarmeKrKWh($year);
-        if ($tiltag->getForsyningVarme() && $tiltag->getForsyningVarme()->getNavn() == 'Træpillefyr') {
+        if ($tiltag->getForsyningVarme() && $tiltag->getForsyningVarme()->getNavn() == NavnType::TRAEPILLEFYR) {
           $varmePris = $this->traepillefyr ? $this->traepillefyr->getKrKWh(date('Y') - 1 + $year) : 0;
         }
         $besparelse += // $tiltag->getIndtaegtSalgAfEnergibesparelse()

@@ -7,7 +7,7 @@
     <tbody>
       <tr>
         <th>{{ 'appbundle.energiforsyning.navn' | trans }}</th>
-        <td>{{ entity.navn }}</td>
+        <td>{{ entity.navn | readable('NavnType') | trans }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.energiforsyning.beskrivelse' | trans }}</th>
@@ -41,7 +41,7 @@
         <td>{{ p.navn }}</td>
         <td>{{ p.fordeling | format_percent }}</td>
         <td>{{ p.effektivitet | format_percent }}</td>
-        <td>{{ p.prisgrundlag }}</td>
+        <td>{{ p.prisgrundlag | readable('PrisgrundlagType') | trans }}</td>
       </tr>
     {% endfor %}
     </tbody>

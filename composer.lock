@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5a8d4dd95142c6e813b9a22b551aa6c2",
-    "content-hash": "e23c2a54b566361c7183b2186a552011",
+    "hash": "d795a2a1ecce932487d4169094473eb1",
+    "content-hash": "c223ff4c67507e9e1c211d2f2e7bb5ea",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1145,6 +1145,63 @@
             "time": "2015-07-28 21:55:03"
         },
         {
+            "name": "fresh/doctrine-enum-bundle",
+            "version": "v3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fre5h/DoctrineEnumBundle.git",
+                "reference": "e8bdadb6cf46c17744a533de8a34c7eaaca962cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fre5h/DoctrineEnumBundle/zipball/e8bdadb6cf46c17744a533de8a34c7eaaca962cb",
+                "reference": "e8bdadb6cf46c17744a533de8a34c7eaaca962cb",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "~2.2",
+                "php": ">=5.4.0",
+                "symfony/symfony": "~2.5"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Fresh\\DoctrineEnumBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Artem Genvald",
+                    "email": "genvaldartem@gmail.com",
+                    "role": "Creator"
+                },
+                {
+                    "name": "Community",
+                    "homepage": "https://github.com/fre5h/DoctrineEnumBundle/graphs/contributors",
+                    "role": "Developers"
+                }
+            ],
+            "description": "Provides support of ENUM type for Doctrine2 in Symfony2 applications.",
+            "homepage": "https://github.com/fre5h/DoctrineEnumBundle",
+            "keywords": [
+                "bundle",
+                "dbal",
+                "doctrine",
+                "entity",
+                "enum",
+                "mysql",
+                "postgresql",
+                "sqlite",
+                "symfony",
+                "type"
+            ],
+            "time": "2015-03-01 16:12:18"
+        },
+        {
             "name": "friendsofsymfony/user-bundle",
             "version": "dev-master",
             "source": {
@@ -1869,16 +1926,16 @@
         },
         {
             "name": "kriswallsmith/assetic",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "56cb5d6dec9e7a68a4da2fa89844f39d41092f31"
+                "reference": "cb92b179dddfb8a3f341d53bd27e088f24d9c2e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/56cb5d6dec9e7a68a4da2fa89844f39d41092f31",
-                "reference": "56cb5d6dec9e7a68a4da2fa89844f39d41092f31",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/cb92b179dddfb8a3f341d53bd27e088f24d9c2e5",
+                "reference": "cb92b179dddfb8a3f341d53bd27e088f24d9c2e5",
                 "shasum": ""
             },
             "require": {
@@ -1914,7 +1971,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -1943,20 +2000,20 @@
                 "compression",
                 "minification"
             ],
-            "time": "2015-08-31 19:07:16"
+            "time": "2015-10-15 01:33:42"
         },
         {
             "name": "monolog/monolog",
-            "version": "1.17.1",
+            "version": "1.17.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "0524c87587ab85bc4c2d6f5b41253ccb930a5422"
+                "reference": "bee7f0dc9c3e0b69a6039697533dca1e845c8c24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/0524c87587ab85bc4c2d6f5b41253ccb930a5422",
-                "reference": "0524c87587ab85bc4c2d6f5b41253ccb930a5422",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bee7f0dc9c3e0b69a6039697533dca1e845c8c24",
+                "reference": "bee7f0dc9c3e0b69a6039697533dca1e845c8c24",
                 "shasum": ""
             },
             "require": {
@@ -1970,10 +2027,11 @@
                 "aws/aws-sdk-php": "^2.4.9",
                 "doctrine/couchdb": "~1.0@dev",
                 "graylog2/gelf-php": "~1.0",
+                "jakub-onderka/php-parallel-lint": "0.9",
                 "php-console/php-console": "^3.1.3",
                 "phpunit/phpunit": "~4.5",
                 "phpunit/phpunit-mock-objects": "2.3.0",
-                "raven/raven": "~0.11",
+                "raven/raven": "^0.13",
                 "ruflin/elastica": ">=0.90 <3.0",
                 "swiftmailer/swiftmailer": "~5.3",
                 "videlalvaro/php-amqplib": "~2.4"
@@ -2019,7 +2077,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-08-31 09:17:37"
+            "time": "2015-10-14 12:51:02"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -2279,17 +2337,17 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.31",
+            "version": "v3.0.32",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "3a900814bd57bf20f9453ae81ff8772bc95d7fff"
+                "reference": "e46293aa6dd94f054c500ef990538d822c763ebd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/3a900814bd57bf20f9453ae81ff8772bc95d7fff",
-                "reference": "3a900814bd57bf20f9453ae81ff8772bc95d7fff",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/e46293aa6dd94f054c500ef990538d822c763ebd",
+                "reference": "e46293aa6dd94f054c500ef990538d822c763ebd",
                 "shasum": ""
             },
             "require": {
@@ -2335,7 +2393,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-08-03 10:07:12"
+            "time": "2015-10-20 06:53:22"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2665,16 +2723,16 @@
         },
         {
             "name": "symfony/monolog-bundle",
-            "version": "v2.8.0",
+            "version": "2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/monolog-bundle.git",
-                "reference": "78883d8c1cfa523ac3a28a482b7793036b243f7d"
+                "reference": "7117b9a145722e3c5768db4585f6ad0643ed5c4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/78883d8c1cfa523ac3a28a482b7793036b243f7d",
-                "reference": "78883d8c1cfa523ac3a28a482b7793036b243f7d",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/7117b9a145722e3c5768db4585f6ad0643ed5c4a",
+                "reference": "7117b9a145722e3c5768db4585f6ad0643ed5c4a",
                 "shasum": ""
             },
             "require": {
@@ -2720,7 +2778,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2015-09-29 17:13:11"
+            "time": "2015-10-02 11:51:59"
         },
         {
             "name": "symfony/swiftmailer-bundle",
@@ -3006,16 +3064,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.22.2",
+            "version": "v1.22.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "79249fc8c9ff62e41e217e0c630e2e00bcadda6a"
+                "reference": "ebfc36b7e77b0c1175afe30459cf943010245540"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/79249fc8c9ff62e41e217e0c630e2e00bcadda6a",
-                "reference": "79249fc8c9ff62e41e217e0c630e2e00bcadda6a",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ebfc36b7e77b0c1175afe30459cf943010245540",
+                "reference": "ebfc36b7e77b0c1175afe30459cf943010245540",
                 "shasum": ""
             },
             "require": {
@@ -3063,7 +3121,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-09-22 13:59:32"
+            "time": "2015-10-13 07:07:02"
         },
         {
             "name": "whiteoctober/breadcrumbs-bundle",

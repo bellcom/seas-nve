@@ -82,7 +82,7 @@ class EnergiforsyningController extends BaseController {
    * @Template()
    */
   public function showAction(Rapport $rapport, Energiforsyning $entity) {
-    $this->breadcrumbs->addItem($entity->getNavn());
+    $this->breadcrumbs->addItem($entity->__toString());
 
     return array(
       'entity' => $entity,
@@ -97,7 +97,7 @@ class EnergiforsyningController extends BaseController {
    * @Template()
    */
   public function editAction(Rapport $rapport, Energiforsyning $entity) {
-    $this->breadcrumbs->addItem($entity->getNavn());
+    $this->breadcrumbs->addItem($entity->__toString());
 
     $editForm = $this->createEditForm($entity);
     $deleteForm = $this->createDeleteForm($entity);
