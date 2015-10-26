@@ -74,6 +74,7 @@ doctrine:
             PrisgrundlagType: AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType
             BygningStatusType: AppBundle\DBAL\Types\BygningStatusType
             TiltagType: AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType
+            PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

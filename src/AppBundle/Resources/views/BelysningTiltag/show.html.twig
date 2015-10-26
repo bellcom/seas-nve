@@ -114,7 +114,7 @@
 								<td class="number">{{ detail.forkoblingStkArmatur | format_integer }}</td>
 								<td class="number">{{ detail.armaturerStkLokale | format_integer }}</td>
 								<td class="number">{{ detail.elforbrugWM2 | format_decimal }}</td>
-								<td>{{ detail.placering }}</td>
+								<td>{{ detail.placering | readable('PlaceringType') }}</td>
 								<td>{{ detail.styring }}</td>
 								<td>{{ detail.noter }}</td>
 								<td>{{ detail.belysningstiltag | readable('TiltagType') }}</td>
