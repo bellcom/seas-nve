@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\Entity\BelysningTiltagDetail\Placering as BelysningTiltagDetailPlacering;
 use AppBundle\Entity\BelysningTiltagDetail\Styring as BelysningTiltagDetailStyring;
-use AppBundle\Entity\BelysningTiltagDetail\Tiltag as BelysningTiltagDetailTiltag;
 use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
@@ -631,7 +630,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get belysningtiltag
    *
-   * @return BelysningTiltagDetailTiltag
+   * @return string
    */
   public function getBelysningstiltag() {
     return $this->belysningstiltag;
