@@ -6,6 +6,7 @@ use AppBundle\Annotations\Calculated;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\Entity\BelysningTiltagDetail\Styring as BelysningTiltagDetailStyring;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType;
 use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
