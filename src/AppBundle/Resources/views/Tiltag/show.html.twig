@@ -3,7 +3,7 @@
 {% block body -%}
   <div class="row heading">
     <div class="col-md-6"><h1>{% if entity.title is empty %}{{ 'tiltag.title.missing' | trans }}{% else %}{{ entity.title }}{% endif %}</h1></div>
-    <div class="col-md-6 right"><a class="btn btn-default" href="{{ path('tiltag_edit', { 'id': entity.id }) }}">{{ 'Edit' | trans }}</a></div>
+    <div class="col-md-6 text-right"><a class="btn btn-default" href="{{ path('tiltag_edit', { 'id': entity.id }) }}">{{ 'Edit' | trans }}</a></div>
   </div>
 
   {% include 'AppBundle:Tiltag:show-include.html.twig' %}
