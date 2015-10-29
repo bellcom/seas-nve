@@ -97,7 +97,7 @@ class RapportRepository extends EntityRepository {
    * @param \AppBundle\DBAL\Types\BygningStatusType $status
    * @return \Doctrine\ORM\Query
    */
-  public function getByUserAndStatus(User $user, BygningStatusType $status) {
+  public function getByUserAndStatus(User $user, $status) {
     $qb = $this->_em->createQueryBuilder();
 
     $qb->select('r', 'b');
@@ -143,7 +143,7 @@ class RapportRepository extends EntityRepository {
    * @throws \Doctrine\ORM\NoResultException
    * @throws \Doctrine\ORM\NonUniqueResultException
    */
-  public function getSummaryByUserAndStatus(User $user, BygningStatusType $status) {
+  public function getSummaryByUserAndStatus(User $user, $status) {
     $qb = $this->_em->createQueryBuilder();
 
     $qb->select('r', 'b');
