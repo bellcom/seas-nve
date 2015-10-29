@@ -13,6 +13,7 @@ use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -42,8 +43,7 @@ class Rapport {
   protected $id;
 
   /**
-   * @ManyToOne(targetEntity="Bygning", inversedBy="rapporter", fetch="EAGER")
-   * @JoinColumn(name="bygning_id", referencedColumnName="id")
+   * @OneToOne(targetEntity="Bygning", inversedBy="rapport", fetch="EAGER")
    **/
   protected $bygning;
 
@@ -217,6 +217,7 @@ class Rapport {
     $this->tiltag = new \Doctrine\Common\Collections\ArrayCollection();
     $this->energiforsyninger = new \Doctrine\Common\Collections\ArrayCollection();
     $this->datering = new \DateTime();
+    $this->version = 1;
   }
 
   /**

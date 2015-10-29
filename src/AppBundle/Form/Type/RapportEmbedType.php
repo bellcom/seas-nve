@@ -15,13 +15,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  * Class RapportType
  * @package AppBundle\Form
  */
-class RapportType extends AbstractType {
-  protected $authorizationChecker;
-
-  public function __construct(AuthorizationCheckerInterface $authorizationChecker)
-  {
-    $this->authorizationChecker = $authorizationChecker;
-  }
+class RapportEmbedType extends AbstractType {
 
   /**
    * @TODO: Missing description.
@@ -33,7 +27,6 @@ class RapportType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('version')
       ->add('datering')
       ->add('BaselineEl')
       ->add('BaselineVarmeGUF')
@@ -41,11 +34,8 @@ class RapportType extends AbstractType {
       ->add('BaselineVand')
       ->add('BaselineStrafAfkoeling')
       ->add('faktorPaaVarmebesparelse', 'percent', array('scale' => 2))
-      ->add('Energiscreening');
-
-    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-      $builder->add('elena');
-    }
+      ->add('Energiscreening')
+      ->add('elena');
   }
 
   /**
@@ -67,6 +57,6 @@ class RapportType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'appbundle_rapport';
+    return 'appbundle_rapport_embed';
   }
 }

@@ -65,6 +65,7 @@ common:
   summary: Opsummering
   finans: Økonomi
   printed: Udskrevet
+  form_error: Fejl: ret venligst de nævnte problemer nedenfor
 
 dashboard:
   current: Igangværende
@@ -125,6 +126,9 @@ bygninger:
     tilknyt_raadgiver: Tilknyt Rådgiver
   strings:
     ingen: Ingen bygninger fundet
+  confirmation:
+    bygning_infoert: Bygnings data verificeret
+    raadgiver_tilknyttet: Rådgiver tilknyttet
 
 forsyningsvaerker:
   labels:
@@ -497,6 +501,69 @@ appbundle:
     updatedBy: Opdateret af
     createdBy: Oprettet af
     status: Status
+    rapport:
+      faellesomkostninger: Projektomkostninger
+      faellesomkostninger.unit: Kr.
+      energiscreening: Energiscreening
+      energiscreening.unit: Kr.
+      mtmFaellesomkostninger: MTM Fællesomkostninger
+      mtmFaellesomkostninger.unit: Kr.
+      implementering: Implementering
+      implementering.unit: Kr.
+      interneDriftomkostninger: Interne Driftomkostninger
+      interneDriftomkostninger.unit: Kr.
+      investeringEksFaellesomkostninger: Investering eks. Fællesomkostninger
+      investeringEksFaellesomkostninger.unit: Kr.
+      investeringInklFaellesomkostninger: Investering inkl. Fællesomkostninger
+      investeringInklFaellesomkostninger.unit: Kr.
+      nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Fællesomkostninger
+      nutidsvaerdiInklFaellesomkostninger.unit: Kr.
+      besparelse1aar: Økonomisk besparelse i år 1
+      besparelse1aar.unit: Kr.
+      internRenteInklFaellesomkostninger: Intern rente inkl. Fællesomkostninger
+      internRenteInklFaellesomkostninger.unit: Kr.
+      genopretning: Genopretning
+      genopretning.unit: Kr.
+      modernisering: Modernisering
+      modernisering.unit: Kr.
+      tilvalg: Tilvalg
+      fravalg: Fravalg
+      likviditetsoversigt: Likviditetsoversigt
+      besparelseEl: El
+      besparelseEl.unit: kWh/år
+      besparelseVarmeGAF: Varme GAF
+      besparelseVarmeGAF.unit: kwh/år
+      besparelseVarmeGUF: Varme GUF
+      besparelseVarmeGUF.unit: kwh/år
+      energibesparelser: Energibesparelser
+      co2besparelser: CO2 Besparelser
+      besparelseCO2: Samlet CO2
+      besparelseCO2.unit: t/år
+      besparelseCO2el: El
+      besparelseCO2el.unit: t/år
+      besparelseCO2varme: Varme
+      besparelseCO2varme.unit: t/år
+      bygning: Bygning
+      version: Version
+      datering: Screeningsdato
+      BaselineEl: El
+      BaselineEl.unit: kwh/år
+      BaselineVarmeGUF: Baseline Varme GUF
+      BaselineVarmeGUF.unit: kwh/år
+      BaselineVarmeGAF: Baseline Varme GAF
+      BaselineVarmeGAF.unit: kwh/år
+      varmetotal: ﻿I alt baseline varme
+      BaselineVand: Vand
+      BaselineVand.unit: m3/år
+      BaselineStrafAfkoeling: Strafafkøling
+      BaselineStrafAfkoeling.unit: kr/år
+      faktorPaaVarmebesparelse: Faktor på varmebesparelse
+      Energiscreening: Energiscreening
+      Energiscreening.unit: Kr
+      laanRente: Rente på lån
+      laanLoebetid: Løbetid på lån
+      laanLoebetid.unit: år
+      elena: Elena
   pumpe:
     nuvaerendeType: Nuværende Type
     byggemaal: Byggemål

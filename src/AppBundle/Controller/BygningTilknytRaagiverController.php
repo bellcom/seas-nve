@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\BygningType;
+use AppBundle\Form\Type\BygningTilknytRaadgiverType;
 use AppBundle\Form\Type\BygningSearchType;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
@@ -22,10 +23,10 @@ use Yavin\Symfony\Controller\InitControllerInterface;
 /**
  * Bygning controller.
  *
- * @Route("/bygning/{id}/indfoer")
+ * @Route("/bygning/{id}/tilknytraadgiver")
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class BygningIndfoerController extends BaseController implements InitControllerInterface {
+class BygningTilknytRaagiverController extends BaseController implements InitControllerInterface {
 
   protected $breadcrumbs;
 
@@ -38,7 +39,7 @@ class BygningIndfoerController extends BaseController implements InitControllerI
   /**
    * Lists all Bygning entities.
    *
-   * @Route("/", name="bygning_indfoer")
+   * @Route("/", name="bygning_tilknyt")
    * @Method("GET")
    * @Template()
    */
@@ -47,7 +48,11 @@ class BygningIndfoerController extends BaseController implements InitControllerI
     $this->breadcrumbs->addItem('bygninger.actions.indfoer');
 
     //Set next status to trigger validation group
-    $bygning->setStatus(BygningStatusType::DATA_VERIFICERET);
+    $bygning->setStatus(BygningStatusType::TILKNYTTET_RAADGIVER);
+
+    if(!$bygning->getRapport()) {
+      $bygning->setRapport(new Rapport());
+    }
 
     $editForm = $this->createEditForm($bygning);
 
@@ -60,11 +65,16 @@ class BygningIndfoerController extends BaseController implements InitControllerI
   /**
    * Edits an existing Bygning entity.
    *
-   * @Route("/", name="bygning_indfoer_update")
+   * @Route("/", name="bygning_tilknyt_update")
    * @Method("PUT")
    * @Template("AppBundle:BygningIndfoer:index.html.twig")
    */
   public function updateAction(Request $request, Bygning $bygning) {
+    if(!$bygning->getRapport()) {
+      $rapport = new Rapport();
+      $rapport->setBygning($bygning);
+    }
+
     $editForm = $this->createEditForm($bygning);
     $editForm->handleRequest($request);
     $flash = $this->get('braincrafted_bootstrap.flash');
@@ -73,7 +83,7 @@ class BygningIndfoerController extends BaseController implements InitControllerI
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      $flash->success('bygninger.confirmation.bygning_infoert');
+      $flash->success('bygninger.confirmation.raadgiver_tilknyttet');
 
       return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
     }
@@ -94,8 +104,8 @@ class BygningIndfoerController extends BaseController implements InitControllerI
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Bygning $entity) {
-    $form = $this->createForm(new BygningType($this->getDoctrine()), $entity, array(
-      'action' => $this->generateUrl('bygning_indfoer_update', array('id' => $entity->getId())),
+    $form = $this->createForm(new BygningTilknytRaadgiverType($this->getDoctrine()), $entity, array(
+      'action' => $this->generateUrl('bygning_tilknyt_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));
 

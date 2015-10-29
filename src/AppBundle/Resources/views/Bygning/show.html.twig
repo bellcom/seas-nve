@@ -16,7 +16,7 @@
           <a href="{{ path('bygning_indfoer', { 'id': entity.id }) }}" class="btn btn-default">
             {{ icon('caret-square-o-right') }} {{ 'bygninger.actions.indfoer' | trans }}
           </a>
-          <a href="{{ path('bygning_indfoer', { 'id': entity.id }) }}" class="btn btn-default">
+          <a href="{{ path('bygning_tilknyt', { 'id': entity.id }) }}" class="btn btn-default">
             {{ icon('caret-square-o-right') }} {{ 'bygninger.actions.tilknyt_raadgiver' | trans }}
           </a>
         {% endif %}
@@ -133,6 +133,10 @@
     <div class="col-md-6">
       <table class="table table-condensed">
         <tbody>
+        <tr>
+          <th>{{ 'appbundle.bygning.status' | trans }}</th>
+          <td>{{ entity.status }}</td>
+        </tr>
         <tr>
           <th>{{ 'appbundle.bygning.aFVInstnr1' | trans }}</th>
           <td>{{ entity.aFVInstnr1 }}</td>
