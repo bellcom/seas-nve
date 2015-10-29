@@ -20,6 +20,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Bygning
@@ -389,8 +390,10 @@ class Bygning {
   protected $users;
 
   /**
+   * @Assert\NotBlank(groups={"DATA_VERIFICERET"})
+   *
    * @ManyToOne(targetEntity="Segment", inversedBy="bygninger")
-   * @JoinColumn(name="segment_id", referencedColumnName="id")
+   * @JoinColumn(name="segment_id", referencedColumnName="id", nullable=true)
    **/
   protected $segment;
 
@@ -398,7 +401,7 @@ class Bygning {
    * @var string
    *
    * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BygningStatusType")
-   * @ORM\Column(name="status", type="BygningStatusType", nullable=true)
+   * @ORM\Column(name="status", type="BygningStatusType")
    **/
   protected $status;
 

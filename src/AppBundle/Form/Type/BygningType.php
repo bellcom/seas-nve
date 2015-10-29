@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use AppBundle\DBAL\Types\BygningStatusType;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class BygningType
@@ -68,7 +69,11 @@ class BygningType extends AbstractType {
       ->add('kommune')
       ->add('ejerforhold')
       ->add('magistrat')
-      ->add('segment')
+      ->add('segment', 'entity', array(
+        'class' => 'AppBundle:Segment',
+        'required' => false,
+        'empty_value'  => '--',
+      ))
       ->add('lokation')
       ->add('lokationsnavn')
       ->add('lederbetegnelse')
@@ -80,7 +85,6 @@ class BygningType extends AbstractType {
       ->add('elNotat')
       ->add('varmeNotat')
       ->add('forsyningsvaerkVand')
-      ->add('status')
       ->add('aaplusAnsvarlig', 'entity', array(
         'class' => 'AppBundle:User',
         'choices' => $this->getUsersFromGroup("Aa+"),
@@ -92,6 +96,9 @@ class BygningType extends AbstractType {
         'choices' => $this->getUsersFromGroup("Rådgiver"),
         'required' => false,
         'empty_value'  => 'common.none',
+      ))
+      ->add('status', 'hidden', array(
+        'read_only' => true
       ));
       //->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
   }
@@ -112,7 +119,16 @@ class BygningType extends AbstractType {
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Bygning'
+      'data_class' => 'AppBundle\Entity\Bygning',
+      'validation_groups' => function (FormInterface $form) {
+        $data = $form->getData();
+
+        if (BygningStatusType::DATA_VERIFICERET == $data->getStatus()) {
+          return array('Default', 'DATA_VERIFICERET');
+        }
+
+        return array('Default');
+      },
     ));
   }
 

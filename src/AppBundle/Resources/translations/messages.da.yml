@@ -37,6 +37,7 @@ Delete: Slet
 Add: Tilføj
 
 common:
+  confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
   afleveret_raadgiver: Afleveret af Rådgiver
   select: Tilvælg
@@ -120,6 +121,8 @@ bygninger:
     edit: Rediger Bygning
     create: Opret Bygning
     show: Vis Bygning
+    indfoer: Indfør Bygning
+    tilknyt_raadgiver: Tilknyt Rådgiver
   strings:
     ingen: Ingen bygninger fundet
 

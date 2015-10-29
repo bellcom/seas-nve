@@ -229,7 +229,7 @@ class BygningController extends BaseController implements InitControllerInterfac
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('bygning_edit', array('id' => $bygning->getId())));
+      return $this->redirectToReferer($request);
     }
 
     return array(
@@ -238,6 +238,8 @@ class BygningController extends BaseController implements InitControllerInterfac
       'delete_form' => $deleteForm->createView(),
     );
   }
+
+
 
   /**
    * Deletes a Bygning entity.
