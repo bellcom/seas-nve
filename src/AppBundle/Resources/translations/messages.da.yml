@@ -36,6 +36,7 @@ Update: Opdater
 Delete: Slet
 Add: Tilføj
 
+
 common:
   confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
@@ -93,6 +94,22 @@ rapporter:
     create: Opret Rapport
     show: Vis Rapport
     pdf: Vis PDF
+    submit: Aflever Rapport
+    submit_confirm: Er du sikker på du vil aflevere rapporten?
+    verify: Aa+ Verificeret
+    verify_confirm: Er du sikker på du vil verificerer rapporten?
+    approve: Godkendt Magistrat
+    approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt af Magistrat"?
+    implementation: Under udførsel
+    implementation_confirm: Er du sikker på du vil markere rapporten som "Under udførsel"?
+    operation: Drift
+    operation_confirm: Er du sikker på du vil markere bygningen som i drift?
+  confirmation:
+    verified: Rapport verificeret af Aa+
+    submitted: Rapport afleveret til Aa+
+    approved: Rapport markeret som "Godkendt af Magistrat"
+    implementation: Rapport markeret som "Under udførsel"
+    operation: Bygningen markeret som i drift
   strings:
     belysningtiltag: Belysning
     klimaskaermtiltag: Klimaskærm
@@ -215,6 +232,7 @@ configuration:
   strings:
 
 user:
+  enabled: Aktiv (Kun aktive brugere kan logge ind)
   labels:
     singular: Bruger
     plural: Brugere
@@ -1027,7 +1045,7 @@ appbundle:
     bygninger: Bygninger
     locked: Låst
     email: Email
-    segmenter: Segmentansvarlig for:
+    segmenter: Segmentansvarlig for (Aa+ brugere):
     groups: Grupper
     password: Kodeord
     plainpassword: Kodeord

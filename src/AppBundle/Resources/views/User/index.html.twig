@@ -21,18 +21,18 @@
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.user.firstname' | trans, 'u.firstname') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.user.lastname' | trans, 'u.lastname') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.user.phone' | trans, 'u.phone') }}</th>
-      <th>Actions</th>
+      <th class="text-right">Actions</th>
     </tr>
     </thead>
     <tbody>
     {% for entity in pagination %}
       <tr>
-        <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.username }}</a></td>
+        <td><a href="{{ path('user_edit', { 'id': entity.id }) }}">{{ entity.username }}</a></td>
         <td>{{ entity.email }}</td>
         <td>{{ entity.firstname }}</td>
         <td>{{ entity.lastname }}</td>
         <td>{{ entity.phone }}</td>
-        <td>
+        <td class="text-right">
           {# <a href="{{ path('user_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a> #}
           <a href="{{ path('user_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
         </td>

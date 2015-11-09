@@ -191,12 +191,12 @@
               {% if required %}
           {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
         {% endif %}
-                {% if label is empty %}
+        {% if label is empty %}
           {% set label = name|humanize %}
         {% endif %}
                 <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
                 {{ block('checkbox_widget') }}
-                {{ label }}
+                {{ label|trans({}, translation_domain) }}
                 </label>
             {% else %}
           {{ block('checkbox_widget') }}

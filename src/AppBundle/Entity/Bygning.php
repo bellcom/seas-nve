@@ -1469,6 +1469,15 @@ class Bygning {
   }
 
   /**
+   * Get nummeric status i.e. the first char from the status
+   *
+   * @return string
+   */
+  public function getNummericStatus() {
+    return substr($this->status, 0, 1);
+  }
+
+  /**
    * Set Aa+ Ansvarlig
    *
    * @param \AppBundle\Entity\User user
@@ -1480,7 +1489,7 @@ class Bygning {
       $this->removeUser($this->aaplusAnsvarlig);
     }
 
-    if ($user) {
+    if ($user && !$this->getUsers()->contains($user)) {
       $this->addUser($user);
     }
 
@@ -1510,7 +1519,7 @@ class Bygning {
       $this->removeUser($this->energiRaadgiver);
     }
 
-    if ($user) {
+    if ($user && !$this->getUsers()->contains($user)) {
       $this->addUser($user);
     }
 

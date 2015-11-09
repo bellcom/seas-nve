@@ -49,7 +49,7 @@
       <td>{{ bygning.postnummer }}</td>
       <td>{{ bygning.postBy }}</td>
       <td>{{ bygning.segment }}</td>
-      <td>{{ bygning.status }}</td>
+      <td>{{ bygning.status  | readable }}</td>
       <td class="text-right">
         <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
       </td>

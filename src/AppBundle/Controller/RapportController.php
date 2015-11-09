@@ -6,6 +6,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -64,8 +65,22 @@ class RapportController extends BaseController {
     $this->breadcrumbs->addItem($rapport->getVersion(), $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
 
     $deleteForm = $this->createDeleteForm($rapport->getId())->createView();
-
     $editForm = $this->createEditFormFinansiering($rapport);
+
+    $status = $rapport->getBygning()->getStatus();
+
+    $formArray = array();
+    if($status == BygningStatusType::TILKNYTTET_RAADGIVER) {
+      $formArray['next_status_form'] = $this->createStatusForm($rapport->getId(), 'rapport_submit', 'rapporter.actions.submit')->createView();
+    } else if ($status == BygningStatusType::AFLEVERET_RAADGIVER) {
+      $formArray['next_status_form'] = $this->createStatusForm($rapport->getId(), 'rapport_verify', 'rapporter.actions.verify')->createView();
+    } else if ($status == BygningStatusType::AAPLUS_VERIFICERET) {
+      $formArray['next_status_form'] = $this->createStatusForm($rapport->getId(), 'rapport_approve', 'rapporter.actions.approve')->createView();
+    } else if ($status == BygningStatusType::GODKENDT_AF_MAGISTRAT) {
+      $formArray['next_status_form'] = $this->createStatusForm($rapport->getId(), 'rapport_implementation', 'rapporter.actions.implementation')->createView();
+    } else if ($status == BygningStatusType::UNDER_UDFOERSEL) {
+      $formArray['next_status_form'] = $this->createStatusForm($rapport->getId(), 'rapport_operation', 'rapporter.actions.operation')->createView();
+    }
 
     $tilvalgtFormArray = array();
     $fravalgtFormArray = array();
@@ -83,13 +98,16 @@ class RapportController extends BaseController {
       }
     }
 
-    return array(
+
+    $twigVars = array(
       'entity' => $rapport,
       'tilvalgt_form_array' => $tilvalgtFormArray,
       'fravalgt_form_array' => $fravalgtFormArray,
       'delete_form' => $deleteForm,
       'edit_form' => $editForm ? $editForm->createView() : NULL,
     );
+
+    return array_merge($twigVars, $formArray);
   }
 
   /**
@@ -241,6 +259,21 @@ class RapportController extends BaseController {
   }
 
   /**
+   * Creates a form to delete a Rapport entity by id.
+   *
+   * @param mixed $id The entity id
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createDeleteForm($id) {
+    return $this->createFormBuilder()
+      ->setAction($this->generateUrl('rapport_delete', array('id' => $id)))
+      ->setMethod('DELETE')
+      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->getForm();
+  }
+
+  /**
    * Deletes a Rapport entity.
    *
    * @Route("/{id}", name="rapport_delete")
@@ -265,18 +298,126 @@ class RapportController extends BaseController {
     return $this->redirect($this->generateUrl('rapport'));
   }
 
+  //---------------- Rådgiver aflever -------------------//
+
   /**
-   * Creates a form to delete a Rapport entity by id.
+   * Aaplus verifies a Rapport entity.
+   *
+   * @Route("/{id}/submit", name="rapport_submit")
+   * @Method("PUT")
+   */
+  public function submitAction(Request $request, $id) {
+    $this->statusAction($request, $id, BygningStatusType::AFLEVERET_RAADGIVER, 'rapport_submit', 'rapporter.actions.submit');
+
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    $flash->success('rapporter.confirmation.submitted');
+
+    return $this->redirect($this->generateUrl('dashboard'));
+  }
+
+
+  //---------------- Aa+ Verificeret -------------------//
+
+  /**
+   * Aaplus verifies a Rapport entity.
+   *
+   * @Route("/{id}/verify", name="rapport_verify")
+   * @Method("PUT")
+   */
+  public function verifyAction(Request $request, $id) {
+    $this->statusAction($request, $id, BygningStatusType::AAPLUS_VERIFICERET, 'rapport_verify', 'rapporter.actions.verify');
+
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    $flash->success('rapporter.confirmation.verified');
+
+    return $this->redirect($this->generateUrl('dashboard'));
+  }
+
+  //---------------- Godkendt Magistrat -------------------//
+
+  /**
+   * Magistrat Godkendt
+   *
+   * @Route("/{id}/approve", name="rapport_approve")
+   * @Method("PUT")
+   */
+  public function approvedAction(Request $request, $id) {
+    $this->statusAction($request, $id, BygningStatusType::GODKENDT_AF_MAGISTRAT, 'rapport_approve', 'rapporter.actions.approve');
+
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    $flash->success('rapporter.confirmation.approved');
+
+    return $this->redirect($this->generateUrl('dashboard'));
+  }
+
+  //---------------- Under udførsel -------------------//
+
+  /**
+   * Under udførsel
+   *
+   * @Route("/{id}/implementation", name="rapport_implementation")
+   * @Method("PUT")
+   */
+  public function implementationAction(Request $request, $id) {
+    $this->statusAction($request, $id, BygningStatusType::UNDER_UDFOERSEL, 'rapport_implementation', 'rapporter.actions.implementation');
+
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    $flash->success('rapporter.confirmation.implementation');
+
+    return $this->redirect($this->generateUrl('dashboard'));
+  }
+
+  //---------------- Drift -------------------//
+
+  /**
+   * Drift
+   *
+   * @Route("/{id}/operation", name="rapport_operation")
+   * @Method("PUT")
+   */
+  public function operationAction(Request $request, $id) {
+    $this->statusAction($request, $id, BygningStatusType::DRIFT, 'rapport_operation', 'rapporter.actions.operation');
+
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    $flash->success('rapporter.confirmation.operation');
+
+    return $this->redirect($this->generateUrl('dashboard'));
+  }
+
+  //---------------- Generic Status -------------------//
+
+
+  public function statusAction(Request $request, $id, $status, $route, $label) {
+    $form = $this->createStatusForm($id, $route, $label);
+    $form->handleRequest($request);
+
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $entity = $em->getRepository('AppBundle:Rapport')->find($id);
+
+      if (!$entity) {
+        throw $this->createNotFoundException('Unable to find Rapport entity.');
+      }
+
+      $entity->getBygning()->setStatus($status);
+      $entity->setVersion($entity->getVersion() + 1);
+      $em->flush();
+    }
+
+  }
+
+  /**
+   * Creates a form to verify a Rapport entity by id.
    *
    * @param mixed $id The entity id
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createDeleteForm($id) {
+  private function createStatusForm($id, $route, $label) {
     return $this->createFormBuilder()
-      ->setAction($this->generateUrl('rapport_delete', array('id' => $id)))
-      ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->setAction($this->generateUrl($route, array('id' => $id)))
+      ->setMethod('PUT')
+      ->add('submit', 'submit', array('label' => $label))
       ->getForm();
   }
 
@@ -288,6 +429,8 @@ class RapportController extends BaseController {
    * @Route("/{id}/tiltag/new/{type}", name="tiltag_create")
    * @Method("POST")
    * @Template("AppBundle:Tiltag:new.html.twig")
+   *
+   *
    */
   public function newTiltagAction(Request $request, Rapport $rapport, $type) {
     $em = $this->getDoctrine()->getManager();

@@ -17,7 +17,7 @@
     {% for entity in entities %}
       <tr>
         <td>{{ entity.bygning }}</td>
-        <td>{{ entity.version }}</td>
+        <td>{{ entity.fullVersion }}</td>
         <td>{% if entity.datering %}{{ entity.datering|date('Y-m-d') }}{% endif %}</td>
         <td>{{ entity.elena | b2icon }}</td>
         <td>

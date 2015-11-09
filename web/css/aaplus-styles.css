@@ -9,6 +9,10 @@ span.required {
     font-size: 0.7em;
 }
 
+.form-inline {
+    display: inline;
+}
+
 /**
 * Login
 */

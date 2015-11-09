@@ -81,6 +81,21 @@ class RapportRepository extends EntityRepository {
   }
 
   /**
+   * Check if a User has edit rights to a Rapport
+   *
+   * @param User $user
+   * @param Rapport $rapport
+   * @return bool
+   */
+  public function canEdit(User $user, Rapport $rapport) {
+    if ($this->hasFullAccess($user) && $rapport->getBygning()->getStatus() !== BygningStatusType::TILKNYTTET_RAADGIVER) {
+      return true;
+    }
+
+    return $rapport->getBygning()->getEnergiRaadgiver() == $user && $rapport->getBygning()->getStatus() === BygningStatusType::TILKNYTTET_RAADGIVER;
+  }
+
+  /**
    * The ugly function to check if a user is allowed to do everything …
    *
    * @param $user

@@ -260,6 +260,15 @@ class Rapport {
   }
 
   /**
+   * Get the "full" version with nummeric building status appended
+   *
+   * @return string
+   */
+  public function getFullVersion() {
+    return $this->getBygning()->getNummericStatus().'.'.$this->version;
+  }
+
+  /**
    * Set datering
    *
    * @param \DateTime $datering

@@ -10,30 +10,32 @@
   {% endif %}
 
   <div class="row">
-    <div class="col-md-11">
+    <div class="col-md-8">
       <p>
-        {% if is_granted('ROLE_BYGNING_EDIT') %}
-          <a href="{{ path('bygning_indfoer', { 'id': entity.id }) }}" class="btn btn-default">
-            {{ icon('caret-square-o-right') }} {{ 'bygninger.actions.indfoer' | trans }}
-          </a>
-          <a href="{{ path('bygning_tilknyt', { 'id': entity.id }) }}" class="btn btn-default">
-            {{ icon('caret-square-o-right') }} {{ 'bygninger.actions.tilknyt_raadgiver' | trans }}
-          </a>
-        {% endif %}
+        <h2>{{ 'common.data' | trans }}</h2>
       </p>
     </div>
-    <div class="col-md-1 text-right">
+    <div class="col-md-4 text-right">
       <p>
         {% if is_granted('ROLE_BYGNING_EDIT') %}
           <a href="{{ path('bygning_edit', { 'id': entity.id }) }}" class="btn btn-default">
             {{ icon('edit') }} {{ 'common.edit' | trans }}
           </a>
         {% endif %}
+
+        {% if is_granted('ROLE_BYGNING_EDIT') and entity.status == '1_IS' %}
+          <a href="{{ path('bygning_indfoer', { 'id': entity.id }) }}" class="btn btn-primary">
+            {{ icon('caret-square-o-right') }} {{ 'bygninger.actions.indfoer' | trans }}
+          </a>
+        {% elseif is_granted('ROLE_BYGNING_EDIT') and entity.status == '2_DV' %}
+          <a href="{{ path('bygning_tilknyt', { 'id': entity.id }) }}" class="btn btn-primary">
+            {{ icon('caret-square-o-right') }} {{ 'bygninger.actions.tilknyt_raadgiver' | trans }}
+          </a>
+        {% endif %}
       </p>
     </div>
   </div>
 
-  <h2>{{ 'common.data' | trans }}</h2>
   <div class="row">
     <div class="col-md-6">
       <table class="table table-condensed">
@@ -135,7 +137,7 @@
         <tbody>
         <tr>
           <th>{{ 'appbundle.bygning.status' | trans }}</th>
-          <td>{{ entity.status }}</td>
+          <td>{{ entity.status | readable }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.bygning.aFVInstnr1' | trans }}</th>
