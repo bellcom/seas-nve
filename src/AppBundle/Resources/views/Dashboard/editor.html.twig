@@ -24,8 +24,8 @@
                 <td>{{ r.bygning.adresse }}</td>
                 <td>{{ r.bygning.postBy }}</td>
                 <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
-                <td>
-                  <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-primary btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
+                <td class="text-right">
+                  <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-default btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
                 </td>
               </tr>
             {% endfor %}
@@ -64,7 +64,7 @@
                 <td>{{ r.bygning.adresse }}</td>
                 <td>{{ r.bygning.postBy }}</td>
                 <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
-                <td>
+                <td class="text-right">
                   <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-default btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
                 </td>
               </tr>

@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormInterface;
  * Class BygningType
  * @package AppBundle\Form
  */
-class BygningType extends AbstractType {
+class BygningTilknytRaadgiverType extends AbstractType {
 
   private $doctrine;
 
@@ -29,78 +29,33 @@ class BygningType extends AbstractType {
    * @TODO: Missing description.
    *
    * @param FormBuilderInterface $builder
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    * @param array $options
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('bygId')
-      ->add('ident')
-      ->add('navn')
-      ->add('enhedsys')
-      ->add('enhedskode')
-      ->add('type')
-      ->add('kommentarer')
-      ->add('adresse')
-      ->add('postnummer')
-      ->add('postBy')
-      ->add('ejer')
-      ->add('afdelingsnavn')
-      ->add('ejerA')
-      ->add('anvendelse')
-      ->add('bruttoetageareal')
-      ->add('maalertype')
-      ->add('kundenummer')
-      ->add('kode')
-      ->add('forsyningsvaerkVarme')
-      ->add('kundenr1')
-      ->add('kode1')
-      ->add('maalerskifteAFV')
-      ->add('aFVInstnr1')
-      ->add('forsyningsvaerkEl')
-      ->add('instnr')
-      ->add('kundenrNRGI')
-      ->add('internetkode')
-      ->add('aftagenr')
-      ->add('telefon')
-      ->add('divisionnavn')
-      ->add('omraadenavn')
-      ->add('kommune')
-      ->add('ejerforhold')
-      ->add('magistrat')
-      ->add('segment', 'entity', array(
-        'class' => 'AppBundle:Segment',
-        'required' => false,
-        'empty_value'  => '--',
-      ))
-      ->add('lokation')
-      ->add('lokationsnavn')
-      ->add('lederbetegnelse')
-      ->add('ledersnavn')
-      ->add('ledersmail')
-      ->add('kontaktNotat')
-      ->add('stamdataNotat')
-      ->add('vandNotat')
-      ->add('elNotat')
-      ->add('varmeNotat')
-      ->add('forsyningsvaerkVand')
       ->add('aaplusAnsvarlig', 'entity', array(
         'class' => 'AppBundle:User',
         'choices' => $this->getUsersFromGroup("Aa+"),
-        'required' => false,
-        'empty_value'  => 'common.none',
+        'required' => FALSE,
+        'empty_value' => 'common.none',
       ))
       ->add('energiRaadgiver', 'entity', array(
         'class' => 'AppBundle:User',
         'choices' => $this->getUsersFromGroup("Rådgiver"),
-        'required' => false,
-        'empty_value'  => 'common.none',
+        'required' => FALSE,
+        'empty_value' => 'common.none',
       ))
       ->add('status', 'hidden', array(
-        'read_only' => true
-      ));
-      //->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
+        'read_only' => TRUE
+      ))
+      ->add('rapport', new RapportEmbedType(), array(
+          'by_reference' => TRUE,
+          'data_class' => 'AppBundle\Entity\Rapport'
+        )
+      );
+    //->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
   }
 
   private function getUsersFromGroup($groupname) {
@@ -115,7 +70,7 @@ class BygningType extends AbstractType {
    * @TODO: Missing description.
    *
    * @param OptionsResolver $resolver
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
@@ -125,8 +80,11 @@ class BygningType extends AbstractType {
 
         if (BygningStatusType::DATA_VERIFICERET == $data->getStatus()) {
           return array('Default', 'DATA_VERIFICERET');
-        } else if (BygningStatusType::TILKNYTTET_RAADGIVER == $data->getStatus()) {
-          return array('Default', 'TILKNYTTET_RAADGIVER');
+        }
+        else {
+          if (BygningStatusType::TILKNYTTET_RAADGIVER == $data->getStatus()) {
+            return array('Default', 'TILKNYTTET_RAADGIVER');
+          }
         }
 
         return array('Default');
@@ -138,7 +96,7 @@ class BygningType extends AbstractType {
    * @TODO: Missing description.
    *
    * @return string
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function getName() {
     return 'appbundle_bygning';

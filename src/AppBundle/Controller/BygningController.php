@@ -229,7 +229,7 @@ class BygningController extends BaseController implements InitControllerInterfac
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('bygning_edit', array('id' => $bygning->getId())));
+      return $this->redirectToReferer($request);
     }
 
     return array(
@@ -238,6 +238,8 @@ class BygningController extends BaseController implements InitControllerInterfac
       'delete_form' => $deleteForm->createView(),
     );
   }
+
+
 
   /**
    * Deletes a Bygning entity.
@@ -275,69 +277,4 @@ class BygningController extends BaseController implements InitControllerInterfac
       ->getForm();
   }
 
-  //--------- Rapport ---------------//
-
-  /**
-   * Creates a form to create a Rapport entity.
-   *
-   * @param Rapport $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createRapportCreateForm(Rapport $entity, Bygning $bygning) {
-    $form = $this->createForm(new RapportType($this->get('security.context')), $entity, array(
-      'action' => $this->generateUrl('bygning_rapport_create',array('id' => $bygning->getId())),
-      'method' => 'POST',
-    ));
-
-    $this->addCreate($form, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
-
-    return $form;
-  }
-
-  /**
-   * Displays a form to create a new Rapport entity.
-   *
-   * @Route("/{id}/rapport/new", name="bygning_rapport_new")
-   * @Method("GET")
-   * @Template()
-   * @Security("is_granted('RAPPORT_CREATE') and is_granted('BYGNING_VIEW', bygning)")
-   */
-  public function newRapportAction(Bygning $bygning) {
-    $entity = new Rapport();
-    $form = $this->createRapportCreateForm($entity, $bygning);
-
-    return $this->render('AppBundle:Rapport:new.html.twig', array(
-      'entity' => $entity,
-      'form' => $form->createView(),
-    ));
-  }
-
-  /**
-   * Creates a new Rapport entity.
-   *
-   * @Route("/{id}/rapport", name="bygning_rapport_create")
-   * @Method("POST")
-   * @Template("AppBundle:Rapport:new.html.twig")
-   * @Security("is_granted('RAPPORT_CREATE') and is_granted('BYGNING_VIEW', bygning)")
-   */
-  public function createRapportAction(Request $request, Bygning $bygning) {
-    $entity = new Rapport();
-    $entity->setBygning($bygning);
-    $form = $this->createRapportCreateForm($entity, $bygning);
-    $form->handleRequest($request);
-
-    if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($entity);
-      $em->flush();
-
-      return $this->redirect($this->generateUrl('rapport_show', array('id' => $entity->getId())));
-    }
-
-    return array(
-      'entity' => $entity,
-      'form' => $form->createView(),
-    );
-  }
 }

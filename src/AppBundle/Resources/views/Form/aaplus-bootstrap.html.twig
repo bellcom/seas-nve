@@ -3,7 +3,7 @@
 
 {% block button_row %}
   {% spaceless %}
-  <div class="form-group right">
+  <div class="form-group text-right">
       {{ form_widget(form) }}
   </div>
   {% endspaceless %}
@@ -77,14 +77,14 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title left" id="myModalLabel">{{ 'Delete' | trans({}, translation_domain) }}</h4>
+                <h4 class="modal-title text-left" id="myModalLabel">{{ 'Delete' | trans({}, translation_domain) }}</h4>
               </div>
-              <div class="modal-body left">
+              <div class="modal-body text-left">
                 {{ 'common.confirmDelete' | trans({}, translation_domain) }}
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | trans({}, translation_domain) }}</button>
-                <button type="button" class="btn btn-danger">{{ icon('trash-o') }} {{ 'Delete' | trans({}, translation_domain) }}</button>
+                <button type="submit" class="btn btn-danger">{{ icon('trash-o') }} {{ 'Delete' | trans({}, translation_domain) }}</button>
               </div>
             </div>
           </div>
@@ -191,12 +191,12 @@
               {% if required %}
           {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
         {% endif %}
-                {% if label is empty %}
+        {% if label is empty %}
           {% set label = name|humanize %}
         {% endif %}
                 <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
                 {{ block('checkbox_widget') }}
-                {{ label }}
+                {{ label|trans({}, translation_domain) }}
                 </label>
             {% else %}
           {{ block('checkbox_widget') }}

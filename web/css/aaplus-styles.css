@@ -5,18 +5,12 @@
     padding-left: 2em;
 }
 
-.right {
-    text-align: right;
-}
-
-.left {
-    text-align: left;
-}
-
-
-
 span.required {
     font-size: 0.7em;
+}
+
+.form-inline {
+    display: inline;
 }
 
 /**

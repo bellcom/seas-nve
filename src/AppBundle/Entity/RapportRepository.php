@@ -81,6 +81,21 @@ class RapportRepository extends EntityRepository {
   }
 
   /**
+   * Check if a User has edit rights to a Rapport
+   *
+   * @param User $user
+   * @param Rapport $rapport
+   * @return bool
+   */
+  public function canEdit(User $user, Rapport $rapport) {
+    if ($this->hasFullAccess($user) && $rapport->getBygning()->getStatus() !== BygningStatusType::TILKNYTTET_RAADGIVER) {
+      return true;
+    }
+
+    return $rapport->getBygning()->getEnergiRaadgiver() == $user && $rapport->getBygning()->getStatus() === BygningStatusType::TILKNYTTET_RAADGIVER;
+  }
+
+  /**
    * The ugly function to check if a user is allowed to do everything …
    *
    * @param $user
@@ -97,7 +112,7 @@ class RapportRepository extends EntityRepository {
    * @param \AppBundle\DBAL\Types\BygningStatusType $status
    * @return \Doctrine\ORM\Query
    */
-  public function getByUserAndStatus(User $user, BygningStatusType $status) {
+  public function getByUserAndStatus(User $user, $status) {
     $qb = $this->_em->createQueryBuilder();
 
     $qb->select('r', 'b');
@@ -143,7 +158,7 @@ class RapportRepository extends EntityRepository {
    * @throws \Doctrine\ORM\NoResultException
    * @throws \Doctrine\ORM\NonUniqueResultException
    */
-  public function getSummaryByUserAndStatus(User $user, BygningStatusType $status) {
+  public function getSummaryByUserAndStatus(User $user, $status) {
     $qb = $this->_em->createQueryBuilder();
 
     $qb->select('r', 'b');

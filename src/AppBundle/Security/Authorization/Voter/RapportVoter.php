@@ -78,7 +78,7 @@ class RapportVoter implements VoterInterface {
         break;
 
       case self::EDIT:
-        if ($this->hasRole($token, 'ROLE_RAPPORT_EDIT') && $this->rapportRepository->hasAccess($user, $rapport)) {
+        if ($this->hasRole($token, 'ROLE_RAPPORT_EDIT') && $this->rapportRepository->canEdit($user, $rapport)) {
           return VoterInterface::ACCESS_GRANTED;
         }
         break;

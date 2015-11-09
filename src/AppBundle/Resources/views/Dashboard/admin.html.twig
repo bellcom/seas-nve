@@ -37,7 +37,7 @@
               <td>{{ r.updatedBy }}</td>
               <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
               <td>
-                <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-primary btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
+                <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-default btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
               </td>
             </tr>
           {% endfor %}

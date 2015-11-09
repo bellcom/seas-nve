@@ -36,7 +36,9 @@ Update: Opdater
 Delete: Slet
 Add: Tilføj
 
+
 common:
+  confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
   afleveret_raadgiver: Afleveret af Rådgiver
   select: Tilvælg
@@ -64,6 +66,7 @@ common:
   summary: Opsummering
   finans: Økonomi
   printed: Udskrevet
+  form_error: Fejl: ret venligst de nævnte problemer nedenfor
 
 dashboard:
   current: Igangværende
@@ -91,6 +94,22 @@ rapporter:
     create: Opret Rapport
     show: Vis Rapport
     pdf: Vis PDF
+    submit: Aflever Rapport
+    submit_confirm: Er du sikker på du vil aflevere rapporten?
+    verify: Aa+ Verificeret
+    verify_confirm: Er du sikker på du vil verificerer rapporten?
+    approve: Godkendt Magistrat
+    approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt af Magistrat"?
+    implementation: Under udførsel
+    implementation_confirm: Er du sikker på du vil markere rapporten som "Under udførsel"?
+    operation: Drift
+    operation_confirm: Er du sikker på du vil markere bygningen som i drift?
+  confirmation:
+    verified: Rapport verificeret af Aa+
+    submitted: Rapport afleveret til Aa+
+    approved: Rapport markeret som "Godkendt af Magistrat"
+    implementation: Rapport markeret som "Under udførsel"
+    operation: Bygningen markeret som i drift
   strings:
     belysningtiltag: Belysning
     klimaskaermtiltag: Klimaskærm
@@ -120,8 +139,13 @@ bygninger:
     edit: Rediger Bygning
     create: Opret Bygning
     show: Vis Bygning
+    indfoer: Indfør Bygning
+    tilknyt_raadgiver: Tilknyt Rådgiver
   strings:
     ingen: Ingen bygninger fundet
+  confirmation:
+    bygning_infoert: Bygnings data verificeret
+    raadgiver_tilknyttet: Rådgiver tilknyttet
 
 forsyningsvaerker:
   labels:
@@ -208,6 +232,7 @@ configuration:
   strings:
 
 user:
+  enabled: Aktiv (Kun aktive brugere kan logge ind)
   labels:
     singular: Bruger
     plural: Brugere
@@ -494,6 +519,69 @@ appbundle:
     updatedBy: Opdateret af
     createdBy: Oprettet af
     status: Status
+    rapport:
+      faellesomkostninger: Projektomkostninger
+      faellesomkostninger.unit: Kr.
+      energiscreening: Energiscreening
+      energiscreening.unit: Kr.
+      mtmFaellesomkostninger: MTM Fællesomkostninger
+      mtmFaellesomkostninger.unit: Kr.
+      implementering: Implementering
+      implementering.unit: Kr.
+      interneDriftomkostninger: Interne Driftomkostninger
+      interneDriftomkostninger.unit: Kr.
+      investeringEksFaellesomkostninger: Investering eks. Fællesomkostninger
+      investeringEksFaellesomkostninger.unit: Kr.
+      investeringInklFaellesomkostninger: Investering inkl. Fællesomkostninger
+      investeringInklFaellesomkostninger.unit: Kr.
+      nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Fællesomkostninger
+      nutidsvaerdiInklFaellesomkostninger.unit: Kr.
+      besparelse1aar: Økonomisk besparelse i år 1
+      besparelse1aar.unit: Kr.
+      internRenteInklFaellesomkostninger: Intern rente inkl. Fællesomkostninger
+      internRenteInklFaellesomkostninger.unit: Kr.
+      genopretning: Genopretning
+      genopretning.unit: Kr.
+      modernisering: Modernisering
+      modernisering.unit: Kr.
+      tilvalg: Tilvalg
+      fravalg: Fravalg
+      likviditetsoversigt: Likviditetsoversigt
+      besparelseEl: El
+      besparelseEl.unit: kWh/år
+      besparelseVarmeGAF: Varme GAF
+      besparelseVarmeGAF.unit: kwh/år
+      besparelseVarmeGUF: Varme GUF
+      besparelseVarmeGUF.unit: kwh/år
+      energibesparelser: Energibesparelser
+      co2besparelser: CO2 Besparelser
+      besparelseCO2: Samlet CO2
+      besparelseCO2.unit: t/år
+      besparelseCO2el: El
+      besparelseCO2el.unit: t/år
+      besparelseCO2varme: Varme
+      besparelseCO2varme.unit: t/år
+      bygning: Bygning
+      version: Version
+      datering: Screeningsdato
+      BaselineEl: El
+      BaselineEl.unit: kwh/år
+      BaselineVarmeGUF: Baseline Varme GUF
+      BaselineVarmeGUF.unit: kwh/år
+      BaselineVarmeGAF: Baseline Varme GAF
+      BaselineVarmeGAF.unit: kwh/år
+      varmetotal: ﻿I alt baseline varme
+      BaselineVand: Vand
+      BaselineVand.unit: m3/år
+      BaselineStrafAfkoeling: Strafafkøling
+      BaselineStrafAfkoeling.unit: kr/år
+      faktorPaaVarmebesparelse: Faktor på varmebesparelse
+      Energiscreening: Energiscreening
+      Energiscreening.unit: Kr
+      laanRente: Rente på lån
+      laanLoebetid: Løbetid på lån
+      laanLoebetid.unit: år
+      elena: Elena
   pumpe:
     nuvaerendeType: Nuværende Type
     byggemaal: Byggemål
@@ -957,7 +1045,7 @@ appbundle:
     bygninger: Bygninger
     locked: Låst
     email: Email
-    segmenter: Segmentansvarlig for:
+    segmenter: Segmentansvarlig for (Aa+ brugere):
     groups: Grupper
     password: Kodeord
     plainpassword: Kodeord

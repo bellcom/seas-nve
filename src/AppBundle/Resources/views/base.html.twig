@@ -89,6 +89,8 @@
 <div class="container-fluid">
   {{ wo_render_breadcrumbs() }}
 
+  {% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
+
   {% block body %}{% endblock %}
 </div>
 
