@@ -1,0 +1,62 @@
+<table class="table table-condensed table-header-rotated table-hover">
+  <thead>
+  <tr>
+    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.lokale.navn') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.lokale.type') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.lokale.antal') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.drifttidTAar') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.lyskilde') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.lyskildeStkArmatur') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.lyskildeWLyskilde') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.armaturerStkLokale') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.styring') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.noter') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.belysningstiltag') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.investeringAlleLokalerKr') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header('appbundle.belysningtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+    {{ helper.header() }}
+  </tr>
+  <tr>
+    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.lokale.navn') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.lokale.type') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.lokale.antal') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.drifttidTAar') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.lyskilde') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.lyskildeStkArmatur') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.lyskildeWLyskilde') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.armaturerStkLokale') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.styring') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.noter') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.belysningstiltag') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.investeringAlleLokalerKr') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header_unit('appbundle.belysningtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+    {{ helper.header_unit() }}
+  </tr>
+  </thead>
+  <tbody>
+  {% for detail in entity.details %}
+    <tr>
+      <td>{{ detail.tilvalgt | b2icon }}</td>
+      <td>{{ detail.lokaleNavn }}</td>
+      <td>{{ detail.lokaleType }}</td>
+      <td class="number">{{ detail.lokaleAntal | format_integer }}</td>
+      <td class="number">{{ detail.drifttidTAar | format_decimal(0) }}</td>
+      <td>{{ detail.lyskilde }}</td>
+      <td class="number">{{ detail.lyskildeStkArmatur | format_integer }}</td>
+      <td class="number">{{ detail.lyskildeWLyskilde | format_decimal }}</td>
+      <td class="number">{{ detail.armaturerStkLokale | format_integer }}</td>
+      <td>{{ detail.styring | readable('StyringType') }}</td>
+      <td>{{ detail.noter }}</td>
+      <td>{{ detail.belysningstiltag | readable('TiltagType') }}</td>
+      <td class="number">{{ detail.investeringAlleLokalerKr | format_decimal }}</td>
+      <td class="number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
+      <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+      <td></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

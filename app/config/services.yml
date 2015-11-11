@@ -7,6 +7,7 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
     tiltag_type_extension:
         class: AppBundle\Twig\Extension\TiltagTypeExtension
         tags:

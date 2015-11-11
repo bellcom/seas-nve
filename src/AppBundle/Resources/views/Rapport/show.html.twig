@@ -7,8 +7,8 @@
       <h1>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h1>
     </div>
     <div class="col-md-8 text-right">
-      <a href="{{ path('rapport_show_pdf', { 'id': entity.id }) }}" class="btn btn-default">
-        {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf' | trans }}
+      <a href="{{ path('rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
+        {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf2' | trans }}
       </a>
       {% if is_granted('RAPPORT_EDIT', entity) %}
         <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default">

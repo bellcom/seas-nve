@@ -66,6 +66,7 @@ common:
   summary: Opsummering
   finans: Økonomi
   printed: Udskrevet
+  genereted: Genereret
   form_error: Fejl: ret venligst de nævnte problemer nedenfor
 
 dashboard:
@@ -93,7 +94,8 @@ rapporter:
     edit: Rediger Rapport
     create: Opret Rapport
     show: Vis Rapport
-    pdf: Vis PDF
+    pdf2: Resultatoversigt
+    pdf5: Detailark
     submit: Aflever Rapport
     submit_confirm: Er du sikker på du vil aflevere rapporten?
     verify: Aa+ Verificeret
@@ -260,14 +262,14 @@ appbundle:
     drifttidTAar.help: ﻿Ferieperioder, reduktion af driftstid som følge af eksisterende lysstyring  mv. skal indregnes
     lyskilde: Lyskilde
     lyskildeStkArmatur: Lyskilde
-    lyskildeStkArmatur.unit: stk/armatur
+    lyskildeStkArmatur.unit: stk/arm.
     lyskildeWLyskilde: Lyskilde
-    lyskildeWLyskilde.unit: W/lyskilde
+    lyskildeWLyskilde.unit: W/lysk.
     forkoblingStkArmatur: Forkobling
-    forkoblingStkArmatur.unit: stk/armatur
+    forkoblingStkArmatur.unit: stk/arm.
     forkoblingStkArmatur.help: ﻿Antal af forkoblinger indtastes, kun relevant for belysning med konventionelle- eller HF-forkoblinger. Kan udelades ved øvrige lystyper.
     armaturerStkLokale: Armaturer
-    armaturerStkLokale.unit: stk/lokale
+    armaturerStkLokale.unit: stk/lok.
     armaturerStkLokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
     elforbrugWM2: Elforbrug
     elforbrugWM2.unit: W/m²
@@ -276,7 +278,7 @@ appbundle:
     noter: Noter
     belysningstiltag: Tiltag
     nyeSensorerStkLokale: Nye sensorer
-    nyeSensorerStkLokale.unit: stk/lokale
+    nyeSensorerStkLokale.unit: stk/lok.
     standardinvestSensorKrStk: Standardinvest. sensor
     standardinvestSensorKrStk.unit: kr/stk
     reduktionAfDrifttid: Reduktion af drifttid
@@ -289,21 +291,21 @@ appbundle:
     standardinvestLyskildeKrStk.unit: kr/stk
     nyLyskilde: Ny lyskilde
     nyLyskildeStkArmatur: Ny lyskilde
-    nyLyskildeStkArmatur.unit: stk/armatur
+    nyLyskildeStkArmatur.unit: stk/arm.
     nyLyskildeWLyskilde: Ny lyskilde
-    nyLyskildeWLyskilde.unit: W/lyskilde
+    nyLyskildeWLyskilde.unit: W/lysk.
     nyForkoblingStkArmatur: Ny forkobling
-    nyForkoblingStkArmatur.unit: stk/armatur
+    nyForkoblingStkArmatur.unit: stk/arm.
     nyArmatureffektWStk: Ny armatureffekt
     nyArmatureffektWStk.unit: W/stk
     nyeArmaturerStkLokale: Nye armaturer
-    nyeArmaturerStkLokale.unit: stk/lokale
+    nyeArmaturerStkLokale.unit: stk/lok.
     nyttiggjortVarmeAfElBesparelse: Nyttiggjort varme
     nyttiggjortVarmeAfElBesparelse.unit: % af el-besparelse
     nyttiggjortVarmeAfElBesparelse.help: Nyttigjort varme: procentdel af varmeudledning fra tidligere beslygning der har været nyttigjort, dvs. en varmeudledning der efterfølgende skal udføres af varmeanlægge.
     prisfaktor: Prisfaktor
     prisfaktorTillaegKrLokale: Prisfaktor-tillæg
-    prisfaktorTillaegKrLokale.unit: kr/lokale
+    prisfaktorTillaegKrLokale.unit: kr/lok.
     investeringAlleLokalerKr: Investering, alle lokaler
     investeringAlleLokalerKr.unit: kr
     nytElforbrugWM2: Nyt elforbrug
@@ -521,29 +523,29 @@ appbundle:
     status: Status
     rapport:
       faellesomkostninger: Projektomkostninger
-      faellesomkostninger.unit: Kr.
+      faellesomkostninger.unit: kr
       energiscreening: Energiscreening
-      energiscreening.unit: Kr.
+      energiscreening.unit: kr
       mtmFaellesomkostninger: MTM Fællesomkostninger
-      mtmFaellesomkostninger.unit: Kr.
+      mtmFaellesomkostninger.unit: kr
       implementering: Implementering
-      implementering.unit: Kr.
+      implementering.unit: kr
       interneDriftomkostninger: Interne Driftomkostninger
-      interneDriftomkostninger.unit: Kr.
+      interneDriftomkostninger.unit: kr
       investeringEksFaellesomkostninger: Investering eks. Fællesomkostninger
-      investeringEksFaellesomkostninger.unit: Kr.
+      investeringEksFaellesomkostninger.unit: kr
       investeringInklFaellesomkostninger: Investering inkl. Fællesomkostninger
-      investeringInklFaellesomkostninger.unit: Kr.
+      investeringInklFaellesomkostninger.unit: kr
       nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Fællesomkostninger
-      nutidsvaerdiInklFaellesomkostninger.unit: Kr.
+      nutidsvaerdiInklFaellesomkostninger.unit: kr
       besparelse1aar: Økonomisk besparelse i år 1
-      besparelse1aar.unit: Kr.
+      besparelse1aar.unit: kr
       internRenteInklFaellesomkostninger: Intern rente inkl. Fællesomkostninger
-      internRenteInklFaellesomkostninger.unit: Kr.
+      internRenteInklFaellesomkostninger.unit: %
       genopretning: Genopretning
-      genopretning.unit: Kr.
+      genopretning.unit: kr
       modernisering: Modernisering
-      modernisering.unit: Kr.
+      modernisering.unit: kr
       tilvalg: Tilvalg
       fravalg: Fravalg
       likviditetsoversigt: Likviditetsoversigt
@@ -639,9 +641,9 @@ appbundle:
     pumpetiltag: Pumpetiltag
     pumpe: Pumpe
     pristillaeg: Pristillæg
-    pristillaeg.unit: Kr.
+    pristillaeg.unit: kr
     samletInvesteringInklPristillaeg: Samlet investering inkl. pristillæg
-    samletInvesteringInklPristillaeg.unit: Kr.
+    samletInvesteringInklPristillaeg.unit: kr
     elforbrugVedNyeDriftstidKWhAar: Elforbrug ved nye driftstid
     elforbrugVedNyeDriftstidKWhAar.unit: kWh/år
     elbespKWhAar: El-Besparelse
@@ -651,41 +653,47 @@ appbundle:
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
     simpelTilbagebetalingstidAar.unit: år
     nutidsvaerdiSetOver15AarKr: ﻿Nutidsværdi set over 15 år
-    nutidsvaerdiSetOver15AarKr.unit: Kr.
+    nutidsvaerdiSetOver15AarKr.unit: kr
     kwhBesparelseElFraVaerket: El: kWh-besparelse fra værket
     kwhBesparelseElFraVaerket.unit: ??
     kwhBesparelseVarmeFraVaerket: ﻿Varme: kWh-besparelse fra værket
     kwhBesparelseVarmeFraVaerket.unit: ??
   rapport:
+    besparelseAarEt: Samlet besparelse i kr i år 1
+    besparelseAarEt.unit: kr/år
+    investeringEkslFaelles: Investering eksl. fællesomkostninger
+    investeringEkslFaelles.unit: Kr
     faellesomkostninger: Projektomkostninger
-    faellesomkostninger.unit: Kr.
+    faellesomkostninger.unit: kr
     energiscreening: Energiscreening
-    energiscreening.unit: Kr.
+    energiscreening.unit: kr
     mtmFaellesomkostninger: MTM Fællesomkostninger
-    mtmFaellesomkostninger.unit: Kr.
+    mtmFaellesomkostninger.unit: kr
     implementering: Implementering
-    implementering.unit: Kr.
+    implementering.unit: kr
     interneDriftomkostninger: Interne Driftomkostninger
-    interneDriftomkostninger.unit: Kr.
+    interneDriftomkostninger.unit: kr
     investeringEksFaellesomkostninger: Investering eks. Fællesomkostninger
-    investeringEksFaellesomkostninger.unit: Kr.
+    investeringEksFaellesomkostninger.unit: kr
     investeringInklFaellesomkostninger: Investering inkl. Fællesomkostninger
-    investeringInklFaellesomkostninger.unit: Kr.
+    investeringInklFaellesomkostninger.unit: kr
     nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Fællesomkostninger
-    nutidsvaerdiInklFaellesomkostninger.unit: Kr.
+    nutidsvaerdiInklFaellesomkostninger.unit: kr
     besparelse1aar: Økonomisk besparelse i år 1
-    besparelse1aar.unit: Kr.
+    besparelse1aar.unit: kr
     internRenteInklFaellesomkostninger: Intern rente inkl. Fællesomkostninger
-    internRenteInklFaellesomkostninger.unit: Kr.
+    internRenteInklFaellesomkostninger.unit: ''
     genopretning: Genopretning
-    genopretning.unit: Kr.
+    genopretning.unit: kr
     modernisering: Modernisering
-    modernisering.unit: Kr.
+    modernisering.unit: kr
     tilvalg: Tilvalg
     fravalg: Fravalg
     likviditetsoversigt: Likviditetsoversigt
     besparelseEl: El
     besparelseEl.unit: kWh/år
+    besparelseVarme: Varme
+    besparelseVarme.unit: kwh/år
     besparelseVarmeGAF: Varme GAF
     besparelseVarmeGAF.unit: kwh/år
     besparelseVarmeGUF: Varme GUF
@@ -693,16 +701,29 @@ appbundle:
     energibesparelser: Energibesparelser
     co2besparelser: CO2 Besparelser
     besparelseCO2: Samlet CO2
+    besparelseCO2relative: CO2 besparelse i % ift. baseline
+    besparelseCO2relative.unit: %
     besparelseCO2.unit: t/år
     besparelseCO2el: El
     besparelseCO2el.unit: t/år
     besparelseCO2varme: Varme
     besparelseCO2varme.unit: t/år
+    sum: Sum
+    samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
+    sum.unit: kr
+    genopretningsandel: Genopretningsandel
+    genopretningsandel.unit: kr
+    nutidsvaerdi: Nutidsværdi
+    nutidsvaerdi.unit: kr
+    timeforbrug: Forventet timeforbrug for lokalpersonalet
+    timeforbrug.unit: kr
     bygning: Bygning
     version: Version
     datering: Screeningsdato
     BaselineEl: El
     BaselineEl.unit: kwh/år
+    BaselineVarme: Varme
+    BaselineVarme.unit: kWh/år
     BaselineVarmeGUF: Baseline Varme GUF
     BaselineVarmeGUF.unit: kwh/år
     BaselineVarmeGAF: Baseline Varme GAF
@@ -734,6 +755,8 @@ appbundle:
     kommentar: Kommentar
     title: Title
   tiltag:
+    besparelseAarEt: Energibesparelser i år 1
+    besparelseAarEt.unit: kr/år
     tilvalgtAfRaadgiver: Rådg.
     tilvalgtAfAaPlus: Aa+
     tilvalgtAfMagistrat: Mag.
@@ -778,13 +801,14 @@ appbundle:
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
     simpelTilbagebetalingstidAar.unit: År
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
-    nutidsvaerdiSetOver15AarKr.unit: Kr.
+    nutidsvaerdiSetOver15AarKr.unit: kr
     scrapvaerdi: Scrapværdi
     reinvestering: Reinvestering
     besparelseGAF: Besparelse GAF
     besparelseGUF: Besparelse GUF
     besparelseEl: Besparelse El
     besparelseStrafafkoelingsafgift: Besparelse på Strafafkølingsafgift
+    besparelseStrafafkoelingsafgift.unit: kr
   tiltagdetail:
     tilvalgt: Tilvalgt
   tiltagtilvalgt:
@@ -830,7 +854,7 @@ appbundle:
     standardinvestKrM2EllerKrM.help: For rør indtastes i kr/m, for beholdere i kr/m²
     prisfaktor: Prisfaktor
     investeringKr: Investering
-    investeringKr.unit: Kr.
+    investeringKr.unit: kr
     eksistVarmetabKwh: Eksist. varmetab
     eksistVarmetabKwh.unit: kwh
     nytVarmetabKwh: Nyt varmetab
@@ -840,7 +864,7 @@ appbundle:
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
     simpelTilbagebetalingstidAar.unit: år
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
-    nutidsvaerdiSetOver15AarKr.unit: Kr.
+    nutidsvaerdiSetOver15AarKr.unit: kr
     kwhBesparelseElFraVaerket: kWh-besparelse El fra værket
     kwhBesparelseElFraVaerket.unit: kwh/år
     kwhBesparelseVarmeFraVaerket: kWh-besparelse Varme fra værket
@@ -905,6 +929,7 @@ appbundle:
     orientering: Orientering
 
   vinduetiltagdetail:
+    tilvalgt: Tilvalgt
     add: Tilføj
     laastAfEnergiraadgiver: Låst af energirådgiver
     tiltagsnr: Tiltagsnr.
@@ -1007,7 +1032,7 @@ appbundle:
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
     simpelTilbagebetalingstidAar.unit: år
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
-    nutidsvaerdiSetOver15AarKr.unit: Kr.
+    nutidsvaerdiSetOver15AarKr.unit: kr
 
   solcelle:
     kwp: KWp

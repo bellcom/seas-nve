@@ -41,7 +41,7 @@ class TiltagTypeExtension extends \Twig_Extension {
    */
   public function getTiltagType(Tiltag $object) {
     if (preg_match('/\\\\(?<type>[^\\\\]+)Tiltag$/', get_class($object), $matches)) {
-      return strtolower($matches['type']);
+      return $matches['type'];
     }
 
     throw new \InvalidArgumentException('Cannot get type of non-Tiltag object (' . get_class($object) . ')');
