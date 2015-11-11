@@ -19,6 +19,7 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  * Solcelle controller.
  *
  * @Route("/solcelle")
+ * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
 class SolcelleController extends BaseController {
   /**

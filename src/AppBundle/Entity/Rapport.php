@@ -105,7 +105,7 @@ class Rapport {
    * @Calculated
    * @ORM\Column(name="fravalgtBesparelseVarmeGUF", type="float", scale=4, nullable=true)
    */
-  protected $fravalgtBsparelseVarmeGUF;
+  protected $fravalgtBesparelseVarmeGUF;
 
   /**
    * @var float
@@ -1196,7 +1196,7 @@ class Rapport {
     $rente = $this->getKalkulationsrente();
     $loebetid = $this->getLaanLoebetid();
     $samletAarligYdelseTilLaan = 0;
-    $inflation = $this->getInflation();
+
     foreach ($tilvalgteTiltag as $index => $tiltag) {
       $samletAarligYdelseTilLaan += Calculation::pmt($rente, $loebetid, $tiltag->getAnlaegsinvestering());
     }

@@ -10,11 +10,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Segment;
 use AppBundle\Form\Type\SegmentType;
 use Yavin\Symfony\Controller\InitControllerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Segment controller.
  *
  * @Route("/segment")
+ * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
 class SegmentController extends BaseController implements InitControllerInterface {
 

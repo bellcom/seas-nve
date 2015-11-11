@@ -6,6 +6,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints as RollerworksPassword;
+use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\PasswordRequirements;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\OrderBy;
 use JMS\Serializer\Annotation as JMS;
@@ -49,7 +50,15 @@ class User extends BaseUser {
    *
    * @var string
    *
-   * @RollerworksPassword\PasswordStrength(minLength=7, minStrength=3)
+   * @RollerworksPassword\PasswordStrength(minLength=8, minStrength=3, message="Vælg et stærkere kodeord")
+   * @RollerworksPassword\PasswordRequirements(
+   *  requireLetters=true,
+   *  requireNumbers=true,
+   *  requireCaseDiff=true,
+   *  tooShortMessage="Kodeord skal være på mindst 8 tegn",
+   *  requireCaseDiffMessage="Kodeordet skal indeholde både store og små bogstaver",
+   *  missingNumbersMessage="Kodeordet skal indeholde tal",
+   *  missingSpecialCharacterMessage="Kodeordet skal indeholde bogstaver")
    */
   protected $plainPassword;
 

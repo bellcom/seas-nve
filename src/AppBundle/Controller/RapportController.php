@@ -215,8 +215,6 @@ class RapportController extends BaseController {
    * @return array
    */
   public function showPdfTestAction(Rapport $rapport) {
-    $tilvalgtFormArray = array();
-    $fravalgtFormArray = array();
 
     return array(
       'rapport' => $rapport,

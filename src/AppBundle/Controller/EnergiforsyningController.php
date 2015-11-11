@@ -18,12 +18,14 @@ use AppBundle\Entity\Rapport;
 use AppBundle\Entity\Energiforsyning;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
 use AppBundle\Form\Type\EnergiforsyningType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Energiforsyning controller.
  *
  * @Route("/rapport/{rapport_id}/energiforsyning")
  * @ParamConverter("rapport", class="AppBundle:Rapport", options={"id" = "rapport_id"})
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class EnergiforsyningController extends BaseController {
 

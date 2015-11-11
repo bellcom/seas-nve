@@ -18,6 +18,7 @@ use AppBundle\Form\Type\ConfigurationType;
  * Configuration controller.
  *
  * @Route("/configuration")
+ * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
 class ConfigurationController extends BaseController {
   private $configuration;
