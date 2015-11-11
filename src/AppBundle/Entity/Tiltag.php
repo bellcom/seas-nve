@@ -20,6 +20,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
+use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 
 /**
  * Tiltag
@@ -140,6 +141,14 @@ abstract class Tiltag {
    * @ORM\Column(name="samletCo2besparelse", type="float", nullable=true)
    */
   protected $samletCo2besparelse;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="besparelseAarEt", type="float", scale=4, nullable=true)
+   */
+  protected $besparelseAarEt;
 
   /**
    * @var integer
@@ -489,6 +498,16 @@ abstract class Tiltag {
    */
   public function getPrimaerEnterprise() {
     return $this->primaerEnterprise;
+  }
+
+  /**
+   * Get total besparelseVarme
+   *
+   * @return float
+   */
+  public function getBesparelseAarEt()
+  {
+    return $this->besparelseAarEt;
   }
 
   /**
@@ -1128,6 +1147,7 @@ abstract class Tiltag {
     $this->cashFlow30 = $this->calculateCashFlow(30);
     $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
+    $this->besparelseAarEt = $this->calculateSavingsForYear(1);
   }
 
   protected function calculateCashFlow($numberOfYears) {
@@ -1164,6 +1184,21 @@ abstract class Tiltag {
     }
 
     return $cashFlow;
+  }
+
+  public function calculateSavingsForYear($year) {
+
+    $varmePris = $this->rapport->getVarmeKrKWh($year);
+    if ($this->getForsyningVarme() && $this->getForsyningVarme()->getNavn() == NavnType::TRAEPILLEFYR) {
+      $varmePris = $this->rapport->getTraepillefyr() ? $this->rapport->getTraepillefyr()->getKrKWh(date('Y') - 1 + $year) : 0;
+    }
+    $besparelse = // $this->getIndtaegtSalgAfEnergibesparelse()
+      + ($this->getVarmebesparelseGUF() + $this->getVarmebesparelseGAF()) * $varmePris
+      + $this->getElbesparelse() * $this->rapport->getElKrKWh($year)
+      + $this->getVandbesparelse() * $this->rapport->getVandKrKWh($year)
+      + ($this->getBesparelseStrafafkoelingsafgift() + $this->getBesparelseDriftOgVedligeholdelse()) * pow(1 + $this->rapport->getInflation(), $year);
+
+    return $besparelse;
   }
 
   protected function calculateVarmebesparelseGUF() {

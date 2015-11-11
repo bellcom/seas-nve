@@ -31,7 +31,6 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ->add('hoejdeElLaengdeM')
       ->add('breddeM')
       ->add('antalStk')
-      ->add('arealM2')
       ->add('andelAfArealDerEfterisoleres', 'percent', array('scale' => 2))
       ->add('uEksWM2K')
       ->add('uNyWM2K')

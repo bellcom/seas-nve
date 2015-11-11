@@ -261,6 +261,10 @@ class Rapport {
     return $this;
   }
 
+  public function getTraepillefyr() {
+    return $this->traepillefyr;
+  }
+
   /**
    * @var array
    */
@@ -1160,7 +1164,7 @@ class Rapport {
     $result = 0;
 
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      $result += $this->calculateSavingsForYear($this, $tiltag, 1);
+      $result += $tiltag->getBesparelseAarEt();
     }
 
     return $result;
@@ -1170,7 +1174,7 @@ class Rapport {
     $result = 0;
 
     foreach ($this->getFravalgteTiltag() as $tiltag) {
-      $result += $this->calculateSavingsForYear($this, $tiltag, 1);
+      $result += $tiltag->getBesparelseAarEt();
     }
 
     return $result;
@@ -1203,7 +1207,7 @@ class Rapport {
       $flow['ydelse laan inkl. faellesomkostninger'][$year] = $flow['ydelse laan'][$year] + $flow['laan til faellesomkostninger'][$year];
       $besparelse = 0;
       foreach ($tilvalgteTiltag as $tiltag) {
-        $besparelse += $this->calculateSavingsForYear($this, $tiltag, $year);
+        $besparelse += $tiltag->calculateSavingsForYear($year);
       }
 
       $flow['besparelse'][$year] = $besparelse;
@@ -1217,20 +1221,6 @@ class Rapport {
     }
 
     return $flow;
-  }
-
-  private function calculateSavingsForYear($rapport, $tiltag, $year) {
-    $varmePris = $rapport->getVarmeKrKWh($year);
-    if ($tiltag->getForsyningVarme() && $tiltag->getForsyningVarme()->getNavn() == NavnType::TRAEPILLEFYR) {
-      $varmePris = $rapport->traepillefyr ? $rapport->traepillefyr->getKrKWh(date('Y') - 1 + $year) : 0;
-    }
-    $besparelse = // $tiltag->getIndtaegtSalgAfEnergibesparelse()
-      + ($tiltag->getVarmebesparelseGUF() + $tiltag->getVarmebesparelseGAF()) * $varmePris
-      + $tiltag->getElbesparelse() * $rapport->getElKrKWh($year)
-      + $tiltag->getVandbesparelse() * $rapport->getVandKrKWh($year)
-      + ($tiltag->getBesparelseStrafafkoelingsafgift() + $tiltag->getBesparelseDriftOgVedligeholdelse()) * pow(1 + $rapport->getInflation(), $year);
-
-    return $besparelse;
   }
 
 }
