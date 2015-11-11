@@ -113,16 +113,14 @@ class RapportController extends BaseController {
   /**
    * Finds and displays a Rapport entity.
    *
-   * @Route("/{id}/pdf", name="rapport_show_pdf")
+   * @Route("/{id}/pdf2", name="rapport_show_pdf2")
    * @Method("GET")
    * @Template()
    * @Security("is_granted('RAPPORT_VIEW', rapport)")
    * @param Rapport $rapport
    * @return array
    */
-  public function showPdfAction(Rapport $rapport) {
-
-
+  public function showPdf2Action(Rapport $rapport) {
     $tilvalgtFormArray = array();
     $fravalgtFormArray = array();
 
@@ -139,17 +137,25 @@ class RapportController extends BaseController {
       }
     }
 
-    $html = $this->renderView('AppBundle:Rapport:showPdf.html.twig', array(
+    $html = $this->renderView('AppBundle:Rapport:showPdf2.html.twig', array(
       'entity' => $rapport,
       'tilvalgt_form_array' => $tilvalgtFormArray,
       'fravalgt_form_array' => $fravalgtFormArray,
+    ));
+
+    $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', array(
+      'entity' => $rapport,
     ));
 
     return new Response(
       $this->get('knp_snappy.pdf')->getOutputFromHtml($html,
         array('lowquality' => false,
           'encoding' => 'utf-8',
-          'images' => true)
+          'images' => true,
+          'cover' => $cover,
+          'header-html' => $this->get('request')->getSchemeAndHttpHost().'/html/pdfHeader.html',
+          'footer-left' => $rapport->getBygning(),
+          'footer-right' => "Side [page] af [toPage]")
       ),
       200,
       array(
@@ -157,8 +163,54 @@ class RapportController extends BaseController {
         'Content-Disposition'   => 'attachment; filename="file.pdf"'
       )
     );
+  }
 
 
+  /**
+   * Finds and displays a Rapport entity.
+   *
+   * @Route("/{id}/pdftest", name="rapport_show_pdftest")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Rapport $rapport
+   * @return array
+   */
+  public function showPdfTestAction(Rapport $rapport) {
+    $tilvalgtFormArray = array();
+    $fravalgtFormArray = array();
+
+    if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+      foreach ($rapport->getTiltag() as $tiltag) {
+        if ($tiltag->getTilvalgt()) {
+          $tilvalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
+            ->createView();
+        }
+        else {
+          $fravalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
+            ->createView();
+        }
+      }
+    }
+
+    return array(
+      'entity' => $rapport,
+      'tilvalgt_form_array' => $tilvalgtFormArray,
+      'fravalgt_form_array' => $fravalgtFormArray,
+    );
+
+//    return new Response(
+//      $this->get('knp_snappy.pdf')->getOutputFromHtml($html,
+//        array('lowquality' => false,
+//          'encoding' => 'utf-8',
+//          'images' => true)
+//      ),
+//      200,
+//      array(
+//        'Content-Type'          => 'application/pdf',
+//        'Content-Disposition'   => 'attachment; filename="file.pdf"'
+//      )
+//    );
   }
 
   /**

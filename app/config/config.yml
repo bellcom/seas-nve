@@ -178,3 +178,4 @@ stof_doctrine_extensions:
 knp_snappy:
     pdf:
         enabled:    true
+        options:    {page-size: A4, zoom: 1, footer-font-size: 8, javascript-delay: 300, debug-javascript: true, margin-top: 25, margin-right: 20, margin-bottom: 15, margin-left: 20, footer-spacing: 5, header-spacing: 5}

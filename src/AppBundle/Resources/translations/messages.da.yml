@@ -66,6 +66,7 @@ common:
   summary: Opsummering
   finans: Økonomi
   printed: Udskrevet
+  genereted: Genereret
   form_error: Fejl: ret venligst de nævnte problemer nedenfor
 
 dashboard:
@@ -93,7 +94,8 @@ rapporter:
     edit: Rediger Rapport
     create: Opret Rapport
     show: Vis Rapport
-    pdf: Vis PDF
+    pdf2: Resultatoversigt
+    pdf5: Detailark
     submit: Aflever Rapport
     submit_confirm: Er du sikker på du vil aflevere rapporten?
     verify: Aa+ Verificeret
@@ -539,7 +541,7 @@ appbundle:
       besparelse1aar: Økonomisk besparelse i år 1
       besparelse1aar.unit: Kr.
       internRenteInklFaellesomkostninger: Intern rente inkl. Fællesomkostninger
-      internRenteInklFaellesomkostninger.unit: Kr.
+      internRenteInklFaellesomkostninger.unit: %
       genopretning: Genopretning
       genopretning.unit: Kr.
       modernisering: Modernisering
@@ -657,6 +659,10 @@ appbundle:
     kwhBesparelseVarmeFraVaerket: ﻿Varme: kWh-besparelse fra værket
     kwhBesparelseVarmeFraVaerket.unit: ??
   rapport:
+    besparelseAarEt: Samlet besparelse i kr i år 1
+    besparelseAarEt.unit: kr/år
+    investeringEkslFaelles: Investering eksl. fællesomkostninger
+    investeringEkslFaelles.unit: Kr
     faellesomkostninger: Projektomkostninger
     faellesomkostninger.unit: Kr.
     energiscreening: Energiscreening
@@ -676,7 +682,7 @@ appbundle:
     besparelse1aar: Økonomisk besparelse i år 1
     besparelse1aar.unit: Kr.
     internRenteInklFaellesomkostninger: Intern rente inkl. Fællesomkostninger
-    internRenteInklFaellesomkostninger.unit: Kr.
+    internRenteInklFaellesomkostninger.unit: ''
     genopretning: Genopretning
     genopretning.unit: Kr.
     modernisering: Modernisering
@@ -686,6 +692,8 @@ appbundle:
     likviditetsoversigt: Likviditetsoversigt
     besparelseEl: El
     besparelseEl.unit: kWh/år
+    besparelseVarme: Varme
+    besparelseVarme.unit: kwh/år
     besparelseVarmeGAF: Varme GAF
     besparelseVarmeGAF.unit: kwh/år
     besparelseVarmeGUF: Varme GUF
@@ -693,16 +701,29 @@ appbundle:
     energibesparelser: Energibesparelser
     co2besparelser: CO2 Besparelser
     besparelseCO2: Samlet CO2
+    besparelseCO2relative: CO2 besparelse i % ift. baseline
+    besparelseCO2relative.unit: %
     besparelseCO2.unit: t/år
     besparelseCO2el: El
     besparelseCO2el.unit: t/år
     besparelseCO2varme: Varme
     besparelseCO2varme.unit: t/år
+    sum: Sum
+    samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
+    sum.unit: Kr.
+    genopretningsandel: Genopretningsandel
+    genopretningsandel.unit: Kr.
+    nutidsvaerdi: Nutidsværdi
+    nutidsvaerdi.unit: Kr.
+    timeforbrug: Forventet timeforbrug for lokalpersonalet
+    timeforbrug.unit: Kr.
     bygning: Bygning
     version: Version
     datering: Screeningsdato
     BaselineEl: El
     BaselineEl.unit: kwh/år
+    BaselineVarme: Varme
+    BaselineVarme.unit: kWh/år
     BaselineVarmeGUF: Baseline Varme GUF
     BaselineVarmeGUF.unit: kwh/år
     BaselineVarmeGAF: Baseline Varme GAF
