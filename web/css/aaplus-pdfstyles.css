@@ -61,6 +61,10 @@ hr.pdf-heading {
     page-break-after: always;
 }
 
+.page-break-after:last-child {
+    page-break-after: avoid;
+}
+
 .page-break-before {
     page-break-before: always;
 }
@@ -110,6 +114,33 @@ thead {
 
 .table > tbody + tbody {
     border-top: 2pt solid #ddd;
+}
+
+.table-header-rotated td:last-child {
+    min-width: 4em;
+}
+
+.table-header-rotated td:last-child {
+    min-width: 4em;
+}
+
+.table-header-rotated > thead > tr > th, .table-header-rotated > tbody > tr > th, .table-header-rotated > tfoot > tr > th, .table-header-rotated > thead > tr > td, .table-header-rotated > tbody > tr > td, .table-header-rotated > tfoot > tr > td {
+    font-size: 8pt;
+}
+
+.table-header-rotated th.rotate > div {
+    transform: translate(-15px, 15px) rotate(-45deg);
+    -webkit-transform: translate(-15px, 15px) rotate(-45deg);
+    position: relative;
+    -webkit-transform-origin: 0% 0%;
+    transform-origin: 0% 0%;
+    left: 50%;
+    top: 0;
+    margin-right: -999px;
+}
+
+.table > thead > tr > th.unit {
+    font-size: 6pt
 }
 
 /** Panels **/

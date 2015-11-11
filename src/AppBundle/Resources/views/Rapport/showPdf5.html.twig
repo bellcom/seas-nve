@@ -4,7 +4,7 @@
 
   {% for t in rapport.tiltag %}
 
-    <div class="row">
+    <div class="row page-break-before">
       <div class="col-xs-12">
         <h3>{{ t.title }}</h3>
 
@@ -157,10 +157,13 @@
 
 
     {% if t.details is not empty %}
-      {% set template = 'AppBundle:' ~ tiltag_type(t) ~ 'Tiltag:_detailTable.html' %}
+      {% set template = 'AppBundle:' ~ tiltag_type(t) ~ 'Tiltag:_detailTable.html.twig' %}
 
-      {% include template with {'details': t.details} %}
-
+      <div class="panel panel-default page-break-before">
+        <div class="panel-heading">{{ icon('list') }} Skema til: {{ t.title }}</div>
+          {% include template with {'entity': t} %}
+        </div>
+      </div>
     {% endif %}
 
   {% endfor %}

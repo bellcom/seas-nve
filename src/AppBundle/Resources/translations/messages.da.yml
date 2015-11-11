@@ -262,14 +262,14 @@ appbundle:
     drifttidTAar.help: ﻿Ferieperioder, reduktion af driftstid som følge af eksisterende lysstyring  mv. skal indregnes
     lyskilde: Lyskilde
     lyskildeStkArmatur: Lyskilde
-    lyskildeStkArmatur.unit: stk/armatur
+    lyskildeStkArmatur.unit: stk/arm.
     lyskildeWLyskilde: Lyskilde
-    lyskildeWLyskilde.unit: W/lyskilde
+    lyskildeWLyskilde.unit: W/lysk.
     forkoblingStkArmatur: Forkobling
-    forkoblingStkArmatur.unit: stk/armatur
+    forkoblingStkArmatur.unit: stk/arm.
     forkoblingStkArmatur.help: ﻿Antal af forkoblinger indtastes, kun relevant for belysning med konventionelle- eller HF-forkoblinger. Kan udelades ved øvrige lystyper.
     armaturerStkLokale: Armaturer
-    armaturerStkLokale.unit: stk/lokale
+    armaturerStkLokale.unit: stk/lok.
     armaturerStkLokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
     elforbrugWM2: Elforbrug
     elforbrugWM2.unit: W/m²
@@ -278,7 +278,7 @@ appbundle:
     noter: Noter
     belysningstiltag: Tiltag
     nyeSensorerStkLokale: Nye sensorer
-    nyeSensorerStkLokale.unit: stk/lokale
+    nyeSensorerStkLokale.unit: stk/lok.
     standardinvestSensorKrStk: Standardinvest. sensor
     standardinvestSensorKrStk.unit: kr/stk
     reduktionAfDrifttid: Reduktion af drifttid
@@ -291,21 +291,21 @@ appbundle:
     standardinvestLyskildeKrStk.unit: kr/stk
     nyLyskilde: Ny lyskilde
     nyLyskildeStkArmatur: Ny lyskilde
-    nyLyskildeStkArmatur.unit: stk/armatur
+    nyLyskildeStkArmatur.unit: stk/arm.
     nyLyskildeWLyskilde: Ny lyskilde
-    nyLyskildeWLyskilde.unit: W/lyskilde
+    nyLyskildeWLyskilde.unit: W/lysk.
     nyForkoblingStkArmatur: Ny forkobling
-    nyForkoblingStkArmatur.unit: stk/armatur
+    nyForkoblingStkArmatur.unit: stk/arm.
     nyArmatureffektWStk: Ny armatureffekt
     nyArmatureffektWStk.unit: W/stk
     nyeArmaturerStkLokale: Nye armaturer
-    nyeArmaturerStkLokale.unit: stk/lokale
+    nyeArmaturerStkLokale.unit: stk/lok.
     nyttiggjortVarmeAfElBesparelse: Nyttiggjort varme
     nyttiggjortVarmeAfElBesparelse.unit: % af el-besparelse
     nyttiggjortVarmeAfElBesparelse.help: Nyttigjort varme: procentdel af varmeudledning fra tidligere beslygning der har været nyttigjort, dvs. en varmeudledning der efterfølgende skal udføres af varmeanlægge.
     prisfaktor: Prisfaktor
     prisfaktorTillaegKrLokale: Prisfaktor-tillæg
-    prisfaktorTillaegKrLokale.unit: kr/lokale
+    prisfaktorTillaegKrLokale.unit: kr/lok.
     investeringAlleLokalerKr: Investering, alle lokaler
     investeringAlleLokalerKr.unit: kr
     nytElforbrugWM2: Nyt elforbrug

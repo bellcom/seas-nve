@@ -61,12 +61,8 @@ form.inline-block {
     border-collapse: collapse;
     overflow: hidden;
 }
-.table-header-rotated td {
-    width: 30px;
-}
-.table-header-rotated td {
-    text-align: center;
-    padding: 10px 5px;
+.table-header-rotated td.number {
+    text-align: right;
 }
 .table-header-rotated th.rotate {
     height: 140px;
@@ -75,6 +71,7 @@ form.inline-block {
 }
 .table-header-rotated th.rotate > div {
     transform: translate(-15px, 15px) rotate(-45deg);
+    -webkit-transform: translate(-15px, 15px) rotate(-45deg);
     position: relative;
     transform-origin: 0% 0%;
     left: 50%;

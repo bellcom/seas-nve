@@ -11,6 +11,7 @@
         <table class="table table-condensed table-header-rotated table-hover">
           <thead>
             <tr>
+              {{ helper.header() }}
               {{ helper.header('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
               {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
               {{ helper.header('appbundle.vinduetiltagdetail.orientering') }}
@@ -38,12 +39,46 @@
               {{ helper.header('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
               {{ helper.header('appbundle.vinduetiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
               {{ helper.header('appbundle.vinduetiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
-              {{ helper.header() }}
+
+            </tr>
+            <tr>
+              {{ helper.header_unit() }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
+              {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.orientering') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.eRefEksKWhM2Aar') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.eWEksKWhM2Aar') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.eRefNyKWhM2Aar') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.eWNyKWhM2Aar') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansEks') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansNy') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.klimaskaerm') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.typePlaceringJfPlantegning') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.hoejdeElLaengdeM') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.breddeM') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.antalStk') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.arealM2') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.uEksWM2K') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.uNyWM2K') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.besparelseKWhAar') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.prisfaktor') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.samletInvesteringKr') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.simpelTilbagebetalingstidAar') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.levetidAar') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.faktorForReinvestering') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
+
             </tr>
           </thead>
           <tbody>
             {% for detail in entity.details %}
               <tr>
+                <td>
+                  <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+                </td>
                 <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
                 <td>{{ detail.tilvalgt | b2icon }}</td>
                 <td>{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
@@ -71,9 +106,7 @@
                 <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
                 <td>{{ detail.kWhBesparElvaerkEksternEnergikilde | format_decimal }}</td>
                 <td>{{ detail.kWhBesparVarmevaerkEksternEnergikilde | format_decimal }}</td>
-                <td>
-                  <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-                </td>
+
               </tr>
             {% endfor %}
           </tbody>

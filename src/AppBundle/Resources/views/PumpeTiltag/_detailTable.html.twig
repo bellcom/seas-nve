@@ -1,0 +1,77 @@
+<table class="table table-condensed table-header-rotated">
+  <thead>
+  <tr>
+    {{ helper.header('appbundle.tiltag.tilvalgt') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.pumpeID') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.forsyningsomraade') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.placering') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.applikation') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.isoleringskappe') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.bfaktor') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.noter') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.nyDrifttid') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.prisfaktor') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.pristillaeg') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.elforbrugVedNyeDriftstidKWhAar') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.elbespKWhAar') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.varmebespIsokappeKWh') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.kwhBesparelseElFraVaerket') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.kwhBesparelseVarmeFraVaerket') }}
+    {{ helper.header() }}
+  </tr>
+  <tr>
+    {{ helper.header_unit('appbundle.tiltag.tilvalgt') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.pumpeID') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.forsyningsomraade') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.placering') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.applikation') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.isoleringskappe') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.bfaktor') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.noter') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.nyDrifttid') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.prisfaktor') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.pristillaeg') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.elforbrugVedNyeDriftstidKWhAar') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.elbespKWhAar') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.varmebespIsokappeKWh') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.kwhBesparelseElFraVaerket') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.kwhBesparelseVarmeFraVaerket') }}
+    {{ helper.header_unit() }}
+  </tr>
+  </thead>
+  <tbody>
+  {% for detail in entity.details %}
+    <tr>
+      <td>{{ detail.tilvalgt | b2icon }}</td>
+      <td>{{ detail.pumpeID }}</td>
+      <td>{{ detail.forsyningsomraade }}</td>
+      <td>{{ detail.placering }}</td>
+      <td>{{ detail.applikation }}</td>
+      <td>{{ detail.isoleringskappe | b2icon }}</td>
+      <td>{{ detail.bfaktor | format_decimal }}</td>
+      <td>{{ detail.noter }}</td>
+      <td>{{ detail.eksisterendeDrifttid | format_decimal }}</td>
+      <td>{{ detail.nyDrifttid | format_decimal }}</td>
+      <td>{{ detail.prisfaktor | format_decimal }}</td>
+      <td>{{ detail.pristillaeg | format_decimal }}</td>
+      <td>{{ detail.samletInvesteringInklPristillaeg | format_decimal }}</td>
+      <td>{{ detail.elforbrugVedNyeDriftstidKWhAar | format_decimal }}</td>
+      <td>{{ detail.elbespKWhAar | format_decimal }}</td>
+      <td>{{ detail.varmebespIsokappeKWh | format_decimal }}</td>
+      <td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
+      <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+      <td>{{ detail.kwhBesparelseElFraVaerket | format_decimal }}</td>
+      <td>{{ detail.kwhBesparelseVarmeFraVaerket | format_decimal }}</td>
+      <td></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
