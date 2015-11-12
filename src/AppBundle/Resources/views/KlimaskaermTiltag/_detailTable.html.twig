@@ -60,7 +60,7 @@
   <tbody>
   {% for detail in entity.details %}
     <tr>
-      <td>{{ detail.tilvalgt | b2icon }}</td>
+      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td>{{ detail.klimaskaerm }}</td>
       <td>{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
       <td>{{ detail.typePlaceringJfPlantegning }}</td>

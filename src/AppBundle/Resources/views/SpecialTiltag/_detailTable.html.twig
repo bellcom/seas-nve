@@ -1,7 +1,6 @@
 <table class="table table-condensed table-header-rotated">
   <thead>
   <tr>
-    <th></th>
     <th>{{ 'appbundle.tiltag.tilvalgt' | trans }}</th>
     <th>{{ 'appbundle.specialtiltag.kommentar' | trans }}</th>
     <th>{{ 'appbundle.specialtiltag.filepath' | trans }}</th>
@@ -11,10 +10,7 @@
   <tbody>
   {% for detail in entity.details %}
     <tr>
-      <td>
-        {{ block('tiltag_detail_edit') }}
-      </td>
-      <td>{{ detail.tilvalgt | b2icon }}</td>
+      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td>{{ detail.kommentar }}</td>
       <td>{% if not detail.filepath is empty %}<a target="_blank" href="{{ asset(detail.filepath) }}">{{ detail.filepath }}</a>{% endif %}</td>
       <td></td>

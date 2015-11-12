@@ -26,7 +26,6 @@
     {{ helper.header() }}
   </tr>
   <tr>
-    {{ helper.header_unit() }}
     {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header_unit('appbundle.solcelletiltagdetail.anlaegsstoerrelseKWp') }}
     {{ helper.header_unit('appbundle.solcelletiltagdetail.produktionKWh') }}
@@ -55,10 +54,7 @@
   <tbody>
   {% for detail in entity.details %}
     <tr>
-      <td>
-        {{ block('tiltag_detail_edit') }}
-      </td>
-      <td>{{ detail.tilvalgt | b2icon }}</td>
+      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td>{{ detail.anlaegsstoerrelseKWp | format_decimal }}</td>
       <td>{{ detail.produktionKWh | format_decimal }}</td>
       <td>{{ detail.tilNettetPct | format_percent }}</td>

@@ -40,7 +40,7 @@
   <tbody>
   {% for detail in entity.details %}
     <tr>
-      <td>{{ detail.tilvalgt | b2icon }}</td>
+      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td>{{ detail.lokaleNavn }}</td>
       <td>{{ detail.lokaleType }}</td>
       <td class="number">{{ detail.lokaleAntal | format_integer }}</td>

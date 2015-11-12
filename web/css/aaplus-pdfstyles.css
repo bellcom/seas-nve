@@ -92,28 +92,28 @@ thead {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-    border-top: 1pt solid #ddd;
+    border-top: 1pt solid #444;
     font-size: 10pt;
 }
 
 .table > thead > tr > th {
-    border-bottom: 2pt solid #ddd;
+    border-bottom: 2pt solid #444;
 }
 
 .table > tbody + tbody {
-    border-top: 2pt solid #ddd;
+    border-top: 2pt solid #444;
 }
 
 .table > tfoot > tr > td {
-    border-top: 1pt solid #ddd;
+    border-top: 1pt solid #444;
 }
 
 .table > thead > tr > th {
-    border-bottom: 2pt solid #ddd;
+    border-bottom: 2pt solid #444;
 }
 
 .table > tbody + tbody {
-    border-top: 2pt solid #ddd;
+    border-top: 2pt solid #444;
 }
 
 .table-header-rotated td:last-child {
@@ -143,9 +143,32 @@ thead {
     font-size: 6pt
 }
 
+.table-header-rotated td:nth-child(even) {
+    background: none;
+}
+
+.table-header-rotated tr:nth-child(even) {
+    background-color: #cfcfcf;
+}
+
+th.unit {
+    background-color: #6e95ee;
+}
+
+td.selected {
+    text-align: center;
+    background-color: #5fb859;
+    border-right: 1px solid #444;
+}
+
+td.not-selected {
+    text-align: center;
+    border-right: 1px solid #444;
+}
+
 /** Panels **/
 .panel {
-    border: 1pt solid #ddd;
+    border: 1pt solid #444;
     border-radius: 0pt;
     box-shadow: none;
     -webkit-box-shadow: none;
@@ -153,10 +176,15 @@ thead {
 }
 
 .panel-heading {
-    border-bottom: 1pt solid #ddd;
+    border-bottom: 1pt solid #444;
     border-top-left-radius: 0pt;
     border-top-right-radius: 0pt;
     font-size: 1.1em;
 }
 
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #cfcfcf;
+    border-color: #444;
+}
 
