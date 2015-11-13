@@ -10,6 +10,9 @@
       <a href="{{ path('rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf2' | trans }}
       </a>
+      <a href="{{ path('rapport_show_pdf5', { 'id': entity.id }) }}" class="btn btn-default">
+        {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf5' | trans }}
+      </a>
       {% if is_granted('RAPPORT_EDIT', entity) %}
         <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default">
           {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}

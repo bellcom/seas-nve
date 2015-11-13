@@ -64,6 +64,9 @@ form.inline-block {
 .table-header-rotated td.number {
     text-align: right;
 }
+.table-header-rotated th.number {
+    text-align: right;
+}
 .table-header-rotated th.rotate {
     height: 140px;
     min-width: 30px;

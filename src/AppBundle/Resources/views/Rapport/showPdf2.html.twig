@@ -155,7 +155,7 @@
       <tbody>
       <tr>
         <th>{{ 'appbundle.rapport.investeringEkslFaelles' | trans }}</th>
-        <td class="text-right">xx</td>
+        <td class="text-right">{{ entity.anlaegsinvestering | number_format }}</td>
         <td>{{ 'appbundle.rapport.investeringEkslFaelles.unit' | trans }}</td>
       </tr>
       <tr>
@@ -165,12 +165,13 @@
       </tr>
       <tr>
         <th>{{ 'appbundle.rapport.sum' | trans }}</th>
-        <td class="text-right">xx</td>
+        {% set sum = entity.anlaegsinvestering + entity.fravalgtImplementering %}
+        <td class="text-right">{{ sum | number_format }}</td>
         <td>{{ 'appbundle.rapport.sum.unit' | trans }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.rapport.nutidsvaerdi' | trans }}</th>
-        <td class="text-right">xx</td>
+        <td class="text-right">{{ entity.nutidsvaerdiSetOver15AarKr | number_format }}</td>
         <td>{{ 'appbundle.rapport.nutidsvaerdi.unit' | trans }}</td>
       </tr>
       </tbody>
@@ -225,7 +226,7 @@
       <tbody>
       <tr>
         <th>{{ 'appbundle.rapport.samtidighedsfaktor' | trans }}</th>
-        <td class="text-right">xx</td>
+        <td class="text-right">{{ entity.faktorPaaVarmebesparelse | number_format }}</td>
         <td></td>
       </tr>
       </tbody>

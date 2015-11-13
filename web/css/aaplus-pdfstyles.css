@@ -173,6 +173,7 @@ td.not-selected {
     box-shadow: none;
     -webkit-box-shadow: none;
     page-break-inside: avoid !important;
+    overflow: hidden;
 }
 
 .panel-heading {

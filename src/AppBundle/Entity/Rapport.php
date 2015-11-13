@@ -208,6 +208,22 @@ class Rapport {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="anlaegsinvestering", type="float", nullable=true)
+   */
+  protected $anlaegsinvestering;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float", nullable=true)
+   */
+  protected $nutidsvaerdiSetOver15AarKr;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="mtmFaellesomkostninger", type="float", nullable=true)
    */
   protected $mtmFaellesomkostninger;
@@ -507,7 +523,7 @@ class Rapport {
    */
   public function getFravalgtBesparelseVarme()
   {
-    return $this->fravalgtBsparelseVarmeGUF + $this->fravalgtBesparelseVarmeGAF;
+    return $this->fravalgtBesparelseVarmeGUF + $this->fravalgtBesparelseVarmeGAF;
   }
 
   /**
@@ -568,6 +584,15 @@ class Rapport {
   public function getFravalgtBesparelseCO2()
   {
     return $this->fravalgtBesparelseCO2;
+  }
+
+  /**
+   * Get anlaegsinvestering
+   *
+   * @return string
+   */
+  public function getAnlaegsinvestering() {
+    return $this->anlaegsinvestering;
   }
 
   /**
@@ -782,6 +807,15 @@ class Rapport {
   public function getLaanLoebetid()
   {
     return $this->laanLoebetid;
+  }
+
+  /**
+   * Get nutidsvaerdiSetOver15AarKr.
+   *
+   * @return float
+   */
+  public function getNutidsvaerdiSetOver15AarKr() {
+    return $this->nutidsvaerdiSetOver15AarKr;
   }
 
   /**
@@ -1068,6 +1102,8 @@ class Rapport {
     $this->cashFlow = $this->calculateCashFlow();
     $this->besparelseAarEt = $this->calculateSavingsYearOne();
     $this->fravalgtBesparelseAarEt = $this->calculateFravalgteSavingsYearOne();
+    $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
   }
 
   private function calculateBesparelseVarmeGUF() {
@@ -1175,6 +1211,24 @@ class Rapport {
 
     foreach ($this->getFravalgteTiltag() as $tiltag) {
       $result += $tiltag->getBesparelseAarEt();
+    }
+
+    return $result;
+  }
+
+  protected function calculateAnlaegsinvestering() {
+    $result = 0;
+    foreach($this->getTilvalgteTiltag() as $tiltag) {
+      $result += $tiltag->getAnlaegsinvestering();
+    }
+
+    return $result;
+  }
+
+  protected function calculateNutidsvaerdiSetOver15AarKr() {
+    $result = 0;
+    foreach($this->getTilvalgteTiltag() as $tiltag) {
+      $result += $tiltag->getNutidsvaerdiSetOver15AarKr();
     }
 
     return $result;

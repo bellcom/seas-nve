@@ -29,7 +29,7 @@ class FilterExtension extends \Twig_Extension {
     if($boolean === NULL) {
       return '';
     } else {
-      return $boolean ? '<span class="fa fa-check"></span>' : '';
+      return $boolean ? '<span class="fa fa-check"></span>' : '<span class="fa fa-minus"></span>';
     }
   }
 

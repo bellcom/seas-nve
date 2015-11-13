@@ -218,6 +218,7 @@ class RapportController extends BaseController {
 
     return array(
       'rapport' => $rapport,
+      'entity' => $rapport,
     );
 
   }

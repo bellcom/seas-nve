@@ -38,6 +38,7 @@ Add: Tilføj
 
 
 common:
+  generelt: Generelt
   confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
   afleveret_raadgiver: Afleveret af Rådgiver
@@ -925,8 +926,10 @@ appbundle:
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
     kWhBesparVarmevaerkEksternEnergikilde.unit: ??
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
-    klimaskaerm: Klimaskærm
+    klimaskaerm: Priskategori
     orientering: Orientering
+    enhedsprisEksklMoms: Delpris
+    enhedsprisEksklMoms.unit: kr/m²
 
   vinduetiltagdetail:
     tilvalgt: Tilvalgt
