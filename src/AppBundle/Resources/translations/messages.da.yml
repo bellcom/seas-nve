@@ -39,6 +39,7 @@ Add: Tilføj
 
 common:
   generelt: Generelt
+  oekonomi: Økonomi
   confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
   afleveret_raadgiver: Afleveret af Rådgiver
@@ -248,7 +249,10 @@ user:
 
 appbundle:
   belysningtiltagdetail:
+    eksisterendeBelysning: Eksisterende belysning
+    nyBelysning: Ny belysning
     tilvalgt: Tilvalgt
+    ikkeElenaBerettiget: Ikke Elena Berettiget
     lokale.navn: Lokale, navn
     lokale.type: Lokale, type
     armaturhoejdeM: Armaturhøjde
@@ -284,6 +288,7 @@ appbundle:
     standardinvestSensorKrStk.unit: kr/stk
     reduktionAfDrifttid: Reduktion af drifttid
     reduktionAfDrifttid.unit: %
+    reduktionAfDrifttid.help: Den procentvise reduktion af drifttid
     nyDriftstid: Ny driftstid
     nyDriftstid.unit: t/år
     standardinvestArmaturKrStk: Standardinvest. armatur
@@ -300,6 +305,7 @@ appbundle:
     nyArmatureffektWStk: Ny armatureffekt
     nyArmatureffektWStk.unit: W/stk
     nyeArmaturerStkLokale: Nye armaturer
+    nyeArmaturerStkLokale.help: Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
     nyeArmaturerStkLokale.unit: stk/lok.
     nyttiggjortVarmeAfElBesparelse: Nyttiggjort varme
     nyttiggjortVarmeAfElBesparelse.unit: % af el-besparelse
