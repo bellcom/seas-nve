@@ -460,6 +460,7 @@ appbundle:
     co2y2075: CO2, 2075
 
   bygning:
+    OpfoerselsAar: Opførelsesår
     energiRaadgiver: Energirådgiver
     aaplusAnsvarlig: Aa+ Ansvarlig
     magistrat: Magistrat

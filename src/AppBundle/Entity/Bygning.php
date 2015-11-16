@@ -62,6 +62,13 @@ class Bygning {
   /**
    * @var integer
    *
+   * @ORM\Column(name="OpfoerselsAar", type="integer", nullable=true)
+   */
+  protected $OpfoerselsAar;
+
+  /**
+   * @var integer
+   *
    * @ORM\Column(name="Ident", type="integer", nullable=true)
    */
   protected $ident;
@@ -458,6 +465,27 @@ class Bygning {
    */
   public function getBygId() {
     return $this->bygId;
+  }
+
+  /**
+   * Set OpfoerselsAar
+   *
+   * @param integer OpfoerselsAar
+   * @return Bygning
+   */
+  public function setOpfoerselsAar($OpfoerselsAar) {
+    $this->OpfoerselsAar = $OpfoerselsAar;
+
+    return $this;
+  }
+
+  /**
+   * Get OpfoerselsAar
+   *
+   * @return integer
+   */
+  public function getOpfoerselsAar() {
+    return $this->OpfoerselsAar;
   }
 
   /**
