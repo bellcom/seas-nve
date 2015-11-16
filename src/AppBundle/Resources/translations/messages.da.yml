@@ -203,6 +203,11 @@ belysningtiltagdetail:
     add: Tilføj belysningstiltag
     edit: Rediger belysningstiltag
 
+vinduetiltagdetail:
+  actions:
+    add: Tilføj vinduestiltag
+    edit: Rediger vinduestiltag
+
 specialtiltag:
   actions:
     add: Tilføj specialtiltag
@@ -827,6 +832,7 @@ appbundle:
     tilvalgtAfMagistrat: Tilvalgt af Magistrat
 
   tekniskisoleringtiltagdetail:
+    ikkeElenaBerettiget: Ikke Elena Berettiget
     add: Tilføg
     laastAfEnergiraadgiver: Låst af energirådgiver
     beskrivelseType: Beskrivelse (type)
@@ -881,6 +887,7 @@ appbundle:
   klimaskaermtiltagdetail:
     add: Tilføj
     tilvalgt: Tilvalgt
+    ikkeElenaBerettiget: Ikke Elena Berettiget
     laastAfEnergiraadgiver: Låst af energirådgiver
     tiltagsnr: Tiltagsnr.
     tiltagsnrDelpriser: Tiltagsnr. Delpriser
@@ -918,7 +925,8 @@ appbundle:
     samletInvesteringKr.unit: kr
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
     simpelTilbagebetalingstidAar.unit: år
-    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet.help: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
     tilSortering: Til sortering
     tilSummeringAfDelpriser: Til summering af delpriser
     levetidAar: Levetid
@@ -941,6 +949,8 @@ appbundle:
   vinduetiltagdetail:
     tilvalgt: Tilvalgt
     add: Tilføj
+    vindue: Vindue
+    ikkeElenaBerettiget: Ikke Elena Berettiget
     laastAfEnergiraadgiver: Låst af energirådgiver
     tiltagsnr: Tiltagsnr.
     tiltagsnrDelpriser: Tiltagsnr. Delpriser
@@ -970,7 +980,8 @@ appbundle:
     samletInvesteringKr.unit: Kr
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
     simpelTilbagebetalingstidAar.unit: År
-    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet.help: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
     tilSortering: Til sortering
     tilSummeringAfDelpriser: Til summering af delpriser
     levetidAar: Levetid
@@ -983,7 +994,7 @@ appbundle:
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
-    klimaskaerm: Klimaskærm
+    klimaskaerm: Tiltag
     orientering: Orientering
     eRefEksKWhM2Aar: E_ref
     eRefEksKWhM2Aar.unit: kWh/m²/år
@@ -1000,6 +1011,7 @@ appbundle:
 
   solcelletiltagdetail:
     tilvalgt: Tilvalgt
+    ikkeElenaBerettiget: Ikke Elena Berettiget
     add: Tilføj
     anlaegsstoerrelseKWp: Anlægsstørrelse
     anlaegsstoerrelseKWp.unit: KWp
