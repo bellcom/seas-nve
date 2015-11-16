@@ -124,13 +124,13 @@ abstract class TiltagDetail {
   }
 
   /**
-   * Set ikkeelenaberettiget
+   * Set ikkeElenaBerettiget
    *
-   * @param string $ikkeelenaberettiget
+   * @param string ikkeElenaBerettiget
    * @return Bygning
    */
-  public function setIkkeelenaBerettiget($ikkeelenaberettiget) {
-    $this->ikkeelenaberettiget = $ikkeelenaberettiget;
+  public function setIkkeElenaBerettiget($ikkeElenaBerettiget) {
+    $this->ikkeElenaBerettiget = $ikkeElenaBerettiget;
 
     return $this;
   }
@@ -140,8 +140,8 @@ abstract class TiltagDetail {
    *
    * @return boolean
    */
-  public function getIkkeelenaBerettiget() {
-    return $this->ikkeelenaberettiget;
+  public function getIkkeElenaBerettiget() {
+    return $this->ikkeElenaBerettiget;
   }
 
   /**

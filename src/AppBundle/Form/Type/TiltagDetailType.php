@@ -27,7 +27,9 @@ class TiltagDetailType extends AbstractType {
   }
 
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('tilvalgt');
+    $builder->add('tilvalgt')
+            ->add('ikkeElenaBerettiget');
+
   }
 
   public function configureOptions(OptionsResolver $resolver) {
