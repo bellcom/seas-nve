@@ -39,6 +39,7 @@ Add: Tilføj
 
 common:
   generelt: Generelt
+  tekniske_oplysninger: Tekniske Oplysninger
   oekonomi: Økonomi
   confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
@@ -214,6 +215,11 @@ vinduetiltagdetail:
     add: Tilføj vinduestiltag
     edit: Rediger vinduestiltag
 
+solcelletiltagdetail:
+  actions:
+    add: Tilføj solcelletiltag
+    edit: Rediger solcelletiltag
+
 klimaskaermtiltagdetail:
   actions:
     add: Tilføj klimaskærmstiltag
@@ -242,6 +248,12 @@ klimaskaerm:
     add: Tilføj klimaskærm
     edit: Rediger klimaskærm
     create: Opret klimaskærm
+
+tekniskisoleringtiltagdetail:
+  actions:
+    add: Tilføj teknisk isolering
+    edit: Rediger teknisk isolering
+    create: Opret teknisk isolering
 
 configuration:
   labels:
@@ -846,6 +858,7 @@ appbundle:
 
   tekniskisoleringtiltagdetail:
     ikkeElenaBerettiget: Ikke Elena Berettiget
+    tilvalgt: Tilvalgt
     add: Tilføg
     laastAfEnergiraadgiver: Låst af energirådgiver
     beskrivelseType: Beskrivelse (type)
@@ -896,6 +909,7 @@ appbundle:
     kwhBesparelseElFraVaerket.unit: kwh/år
     kwhBesparelseVarmeFraVaerket: kWh-besparelse Varme fra værket
     kwhBesparelseVarmeFraVaerket.unit: kwh/år
+    roerstoerrelseMmAekvivalent.calculation: …
 
   klimaskaermtiltagdetail:
     add: Tilføj
@@ -913,6 +927,7 @@ appbundle:
     antalStk.unit: stk
     arealM2: Areal
     arealM2.unit: m²
+    arealM2.calculation: …
     andelAfArealDerEfterisoleres: Andel af areal der efterisoleres
     andelAfArealDerEfterisoleres.unit: %
     uEksWM2K: U_eks
@@ -1027,6 +1042,7 @@ appbundle:
     tilvalgt: Tilvalgt
     ikkeElenaBerettiget: Ikke Elena Berettiget
     add: Tilføj
+    inverterskift: Inverterskift
     anlaegsstoerrelseKWp: Anlægsstørrelse
     anlaegsstoerrelseKWp.unit: KWp
     produktionKWh: Produktion
@@ -1176,9 +1192,6 @@ appbundle.belysningtiltagdetail.ny.driftstid.calculation: |
     else {
       return $this->drifttid_t_aar - $this->reduktion_af_drifttid * $this->drifttid_t_aar;
     }
-
-appbundle.tekniskisoleringtiltagdetail.roerstoerrelseMmAekvivalent.calculation: …
-appbundle.klimaskaermtiltagdetail.arealM2.calculation: …
 
 form.laanLoebetid: Løbetid på lån
 
