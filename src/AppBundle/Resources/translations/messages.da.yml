@@ -193,6 +193,12 @@ pumpetiltag:
     edit: Rediger Pumpetiltag
     create: Opret Pumpetiltag
 
+pumpetiltagdetail:
+  actions:
+    add: Tilføj Pumpetiltag
+    edit: Rediger Pumpetiltag
+    create: Opret Pumpetiltag
+
 belysningtiltag:
   actions:
     add: Tilføj belysningstiltag
@@ -207,6 +213,11 @@ vinduetiltagdetail:
   actions:
     add: Tilføj vinduestiltag
     edit: Rediger vinduestiltag
+
+klimaskaermtiltagdetail:
+  actions:
+    add: Tilføj klimaskærmstiltag
+    edit: Rediger klimaskærmstiltag
 
 specialtiltag:
   actions:
@@ -630,6 +641,8 @@ appbundle:
     nyDrifttid: Ny Drifttid
     prisfaktor: Prisfaktor
   pumpetiltagdetail:
+    tilvalgt: Tilvalgt
+    ikkeElenaBerettiget: Ikke Elena Berettiget
     bfaktor: B-Faktor
     add: Tilføj pumpe
     pumpeID: Pumpe ID
@@ -942,6 +955,7 @@ appbundle:
     kWhBesparVarmevaerkEksternEnergikilde.unit: ??
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
     klimaskaerm: Priskategori
+    klimaskaerm_label: Klimaskærm
     orientering: Orientering
     enhedsprisEksklMoms: Delpris
     enhedsprisEksklMoms.unit: kr/m²

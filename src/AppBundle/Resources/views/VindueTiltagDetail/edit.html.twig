@@ -1,33 +1,9 @@
-{% extends 'AppBundle::base.html.twig' %}
+{% extends 'AppBundle:TiltagDetail:edit.html.twig' %}
 
-{% block body -%}
-  {% if calculation_changes %}
-    <div class="alert alert-warning">
-      <p>{{ 'Calculations have changed' | trans }}</p>
-      {% for message in calculation_changes %}
-        <p>
-          {{ message.property | trans }}:
-          {{ message.oldValue | format_decimal }} → {{ message.newValue | format_decimal }}
-          ({{ message.oldValue }} → {{ message.newValue }})
-        </p>
-      {% endfor %}
-    </div>
-  {% endif %}
+{% set heading = 'vinduetiltagdetail.actions.edit' %}
 
-  <div class="row heading">
-    <div class="col-md-8">
-      <h1>{{ 'vinduetiltagdetail.actions.edit' | trans }}</h1>
-    </div>
-    <div class="col-md-4 text-right">
-      {% if is_granted('ROLE_RAPPORT_EDIT') %}
-        {{ form(delete_form) }}
-      {% endif %}
-    </div>
-  </div>
+{% block edit_form %}
 
-  {{ form_start(edit_form, { 'style': '' }) }}
-  {{ form_row(edit_form.tilvalgt) }}
-  {{ form_row(edit_form.ikkeElenaBerettiget) }}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
@@ -37,11 +13,9 @@
         <div class="col-md-6">
           {{ form_row(edit_form.laastAfEnergiraadgiver) }}
           {{ form_row(edit_form.typePlaceringJfPlantegning) }}
-          {{ form_row(edit_form.orientering) }}
         </div>
         <div class="col-md-6">
-          {{ form_row(edit_form.levetidAar) }}
-          {{ form_row(edit_form.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet) }}
+          {{ form_row(edit_form.orientering) }}
         </div>
       </div>
     </div>
@@ -83,19 +57,16 @@
             <div class="col-md-6">
               {{ form_row(edit_form.klimaskaerm) }}
               {{ form_row(edit_form.yderligereBesparelserPct) }}
+              {{ form_row(edit_form.levetidAar) }}
             </div>
             <div class="col-md-6">
               {{ form_row(edit_form.prisfaktor) }}
+              {{ form_row(edit_form.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet) }}
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-
-  {{ form_rest(edit_form) }}
-  {{ form_end(edit_form) }}
-
 
 {% endblock %}

@@ -207,6 +207,7 @@
         {% if inline is defined and inline %}
           {{ checkboxdata|raw }}
         {% else %}
+          {{ block('form_label') }}
           <div class="checkbox">{{ checkboxdata|raw }}</div>
         {% endif %}
 
