@@ -108,6 +108,10 @@ thead {
     border-top: 1pt solid #444;
 }
 
+.table > tfoot > tr > th {
+    border-top: 2pt solid #444;
+}
+
 .table > thead > tr > th {
     border-bottom: 2pt solid #444;
 }

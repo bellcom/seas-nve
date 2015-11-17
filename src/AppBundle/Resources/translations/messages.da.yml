@@ -1029,6 +1029,7 @@ appbundle:
     faktorForReinvesteringer: Faktor for reinvesteringer
     forsyningEl: Forsyning, el
     forsyningVarme: Forsyning, varme
+    ialt: I alt
     indeklima: Indeklima
     levetid: Funktionsdygtig levetid
     levetid.unit: År

@@ -205,6 +205,8 @@ class Rapport {
   protected $energiscreening;
 
   /**
+   * TotalInvestering = sum af alle tiltags anlægsinvesteringer
+   *
    * @var float
    *
    * @Calculated

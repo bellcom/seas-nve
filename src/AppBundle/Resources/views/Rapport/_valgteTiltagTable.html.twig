@@ -46,6 +46,21 @@
       </tr>
     {% endfor %}
     </tbody>
+    <tfoot>
+    <tr>
+      <th>{{ 'appbundle.tiltag.ialt' | trans }}</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th class="text-right">{{ rapport.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</th>
+      {% if is_granted('ROLE_ADMIN') and pdf == false %}
+        <th></th>
+      {% endif %}
+    </tr>
+    </tfoot>
   </table>
 
 </div>
