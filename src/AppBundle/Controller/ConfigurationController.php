@@ -40,6 +40,8 @@ class ConfigurationController extends BaseController {
    * @Template()
    */
   public function indexAction() {
+    $this->breadcrumbs->addItem('configuration.labels.singular', $this->generateUrl('configuration'));
+
     $entity = $this->getConfiguration();
 
     return array(
@@ -56,6 +58,9 @@ class ConfigurationController extends BaseController {
    * @Security("is_granted('CONFIGURATION_EDIT')")
    */
   public function editAction() {
+    $this->breadcrumbs->addItem('configuration.labels.singular', $this->generateUrl('configuration'));
+    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('configuration_edit'));
+
     $entity = $this->getConfiguration();
     $editForm = $this->createEditForm($entity);
 

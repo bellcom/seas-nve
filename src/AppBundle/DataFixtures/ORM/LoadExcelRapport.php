@@ -396,6 +396,9 @@ class LoadExcelRapport extends LoadData {
 
     $this->loadConfiguration($sheet);
 
+    //Faktor er hardcodet til 25000 i excel arket, men skal kunne ændres
+    $this->configuration->setDriftomkostningerfaktor(25000);
+
     $bygning = $this->getEntityReference('bygning', $enhedsys);
     $rapport = new Rapport();
     $rapport

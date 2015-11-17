@@ -69,7 +69,7 @@ abstract class Tiltag {
   /**
    * @var boolean
    *
-   * @ORM\Column(name="tilvalgtAfAaPlaus", type="boolean", nullable=true)
+   * @ORM\Column(name="tilvalgtAfAaPlus", type="boolean", nullable=true)
    */
   protected $tilvalgtAfAaPlus;
 

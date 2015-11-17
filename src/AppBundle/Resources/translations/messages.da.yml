@@ -465,6 +465,8 @@ appbundle:
     vandNotat: Vand notat
     varmeNotat: Varme notat
   configuration:
+    driftomkostningerfaktor: Driftomkostninger Faktor
+    driftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
     elfaktor: El-faktor
     elKrKWh: El (kr/kWh)
     inflation: Inflation
@@ -472,6 +474,7 @@ appbundle:
     kalkulationsrente: Kalkulationsrente
     lobetid: Løbetid
     nominelEnergiprisstigning: Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt
+    procentAfInvestering: Procent af investering
     vandfaktor: Vandfaktor
     varmefaktor: Varmefaktor
     varmeKrKWh: Varme (kr/kWh)
@@ -1029,10 +1032,12 @@ appbundle:
     faktorForReinvesteringer: Faktor for reinvesteringer
     forsyningEl: Forsyning, el
     forsyningVarme: Forsyning, varme
+    genopretning: Genopretning
     ialt: I alt
     indeklima: Indeklima
     levetid: Funktionsdygtig levetid
     levetid.unit: År
+    modernisering: Modernisering
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
     placering: Placering

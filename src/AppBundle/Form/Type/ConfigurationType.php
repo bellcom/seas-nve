@@ -38,6 +38,7 @@ class ConfigurationType extends AbstractType {
     }
 
     $builder
+      ->add('driftomkostningerfaktor')
       ->add('inflation')
       ->add('lobetid')
 
