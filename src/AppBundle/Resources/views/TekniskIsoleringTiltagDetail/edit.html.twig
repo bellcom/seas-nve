@@ -6,11 +6,15 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">{{ 'common.tekniske_oplysninger' | trans }}</h3>
+      <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
     </div>
     <div class="panel-body">
       <div class="row">
         <div class="col-md-6">
+          {{ form_row(edit_form.laastAfEnergiraadgiver) }}
+          {{ form_row(edit_form.type) }}
+          {{ form_row(edit_form.beskrivelseType) }}
+          {{ form_row(edit_form.driftstidTAar) }}
         </div>
         <div class="col-md-6">
         </div>
@@ -22,13 +26,21 @@
     <div class="col-md-12">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">{{ 'appbundle.tekniskisoleringtiltagdetail.inverterskift' | trans }}</h3>
+          <h3 class="panel-title">{{ 'common.tekniske_oplysninger' | trans }}</h3>
         </div>
         <div class="panel-body">
           <div class="row">
             <div class="col-md-6">
+              {{ form_row(edit_form.eksistIsolMm) }}
+              {{ form_row(edit_form.udvDiameterMm) }}
+              {{ form_row(edit_form.tempOmgivelC) }}
+              {{ form_row(edit_form.roerlaengdeEllerHoejdeAfVvbM) }}
+              {{ form_row(edit_form.nyttiggjortVarme) }}
             </div>
             <div class="col-md-6">
+              {{ form_row(edit_form.nyIsolMm) }}
+              {{ form_row(edit_form.tankVolL) }}
+              {{ form_row(edit_form.tempMedieC) }}
             </div>
           </div>
         </div>
@@ -45,8 +57,10 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-md-6">
+              {{ form_row(edit_form.standardinvestKrM2EllerKrM) }}
             </div>
             <div class="col-md-6">
+              {{ form_row(edit_form.prisfaktor) }}
             </div>
           </div>
         </div>
