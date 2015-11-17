@@ -207,6 +207,9 @@
         {% if inline is defined and inline %}
           {{ checkboxdata|raw }}
         {% else %}
+          {% if style != 'horizontal' %}
+            {{ block('form_label') }}
+          {% endif %}
           <div class="checkbox">{{ checkboxdata|raw }}</div>
         {% endif %}
 

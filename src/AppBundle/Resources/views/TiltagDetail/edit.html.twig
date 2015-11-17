@@ -16,7 +16,11 @@
 
   <div class="row heading">
     <div class="col-md-8">
-      <h1>{{ 'tiltagdetail.actions.edit' | trans }}</h1>
+      {% if heading is defined and heading is not empty %}
+        <h1>{{ heading | trans }}</h1>
+      {% else %}
+        <h1>{{ 'tiltagdetail.actions.edit' | trans }}</h1>
+      {% endif %}
     </div>
     <div class="col-md-4 text-right">
       {% if is_granted('ROLE_RAPPORT_EDIT') %}
@@ -25,6 +29,15 @@
     </div>
   </div>
 
-  {% form_theme edit_form 'AppBundle:Form:twocol-form.html.twig' %}
-  {{ form(edit_form, { 'style': 'horizontal' }) }}
+  {{ form_start(edit_form, { 'style': '' }) }}
+  {{ form_row(edit_form.tilvalgt) }}
+  {{ form_row(edit_form.ikkeElenaBerettiget) }}
+
+  {% block edit_form %}
+
+  {% endblock %}
+
+  {{ form_rest(edit_form) }}
+  {{ form_end(edit_form) }}
+
 {% endblock %}

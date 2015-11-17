@@ -1,0 +1,75 @@
+{% extends 'AppBundle:TiltagDetail:edit.html.twig' %}
+
+{% set heading = 'klimaskaermtiltagdetail.actions.edit' %}
+
+{% block edit_form %}
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6">
+          {{ form_row(edit_form.laastAfEnergiraadgiver) }}
+          {{ form_row(edit_form.typePlaceringJfPlantegning) }}
+        </div>
+        <div class="col-md-6">
+          {{ form_row(edit_form.orientering) }}
+          {{ form_row(edit_form.andelAfArealDerEfterisoleres) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'appbundle.klimaskaermtiltagdetail.klimaskaerm_label' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6">
+              {{ form_row(edit_form.antalStk) }}
+              {{ form_row(edit_form.tOpvarmningTimerAar) }}
+              {{ form_row(edit_form.tIndeC) }}
+              {{ form_row(edit_form.uEksWM2K) }}
+            </div>
+            <div class="col-md-6">
+              {{ form_row(edit_form.breddeM) }}
+              {{ form_row(edit_form.hoejdeElLaengdeM) }}
+              {{ form_row(edit_form.tUdeC) }}
+              {{ form_row(edit_form.uNyWM2K) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'common.oekonomi' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6">
+              {{ form_row(edit_form.klimaskaerm) }}
+              {{ form_row(edit_form.yderligereBesparelserPct) }}
+              {{ form_row(edit_form.levetidAar) }}
+            </div>
+            <div class="col-md-6">
+              {{ form_row(edit_form.prisfaktor) }}
+              {{ form_row(edit_form.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+

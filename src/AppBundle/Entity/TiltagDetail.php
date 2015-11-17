@@ -82,6 +82,13 @@ abstract class TiltagDetail {
   protected $data;
 
   /**
+   * @var boolean
+   *
+   * @ORM\Column(name="ikkeElenaBerettiget", type="boolean", nullable=true)
+   */
+  protected $ikkeElenaBerettiget = false;
+
+   /**
    * Get data.
    *
    * @param string $key
@@ -114,6 +121,27 @@ abstract class TiltagDetail {
 
   public function setData($key, $value) {
     return $this->addData($key, $value);
+  }
+
+  /**
+   * Set ikkeElenaBerettiget
+   *
+   * @param string ikkeElenaBerettiget
+   * @return Bygning
+   */
+  public function setIkkeElenaBerettiget($ikkeElenaBerettiget) {
+    $this->ikkeElenaBerettiget = $ikkeElenaBerettiget;
+
+    return $this;
+  }
+
+  /**
+   * Get ikkeelenaberettiget
+   *
+   * @return boolean
+   */
+  public function getIkkeElenaBerettiget() {
+    return $this->ikkeElenaBerettiget;
   }
 
   /**
@@ -224,6 +252,8 @@ abstract class TiltagDetail {
   public function getRapport() {
     return $this->getTiltag()->getRapport();
   }
+
+
 
   /**
    * Handle uploads.

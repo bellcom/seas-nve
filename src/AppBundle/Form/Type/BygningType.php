@@ -38,6 +38,7 @@ class BygningType extends AbstractType {
       ->add('bygId')
       ->add('ident')
       ->add('navn')
+      ->add('OpfoerselsAar')
       ->add('enhedsys')
       ->add('enhedskode')
       ->add('type')

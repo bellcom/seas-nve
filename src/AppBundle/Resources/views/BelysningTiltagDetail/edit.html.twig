@@ -1,42 +1,82 @@
-{% extends 'AppBundle::base.html.twig' %}
+{% extends 'AppBundle:TiltagDetail:edit.html.twig' %}
 
-{% block body -%}
-  {% if calculation_changes %}
-    <div class="alert alert-warning">
-      <p>{{ 'Calculations have changed' | trans }}</p>
-      {% for message in calculation_changes %}
-        <p>
-          {{ message.property | trans }}:
-          {{ message.oldValue | format_decimal }} → {{ message.newValue | format_decimal }}
-          ({{ message.oldValue }} → {{ message.newValue }})
-        </p>
-      {% endfor %}
-    </div>
-  {% endif %}
+{% set heading = 'belysningtiltagdetail.actions.edit' %}
 
-  <div class="row heading">
-    <div class="col-md-8">
-      <h1>{{ 'belysningtiltagdetail.actions.edit' | trans }}</h1>
-    </div>
-    <div class="col-md-4 text-right">
-      {% if is_granted('ROLE_RAPPORT_EDIT') %}
-        {{ form(delete_form) }}
-      {% endif %}
-    </div>
-  </div>
-
-  {{ form_start(edit_form, { 'style': 'horizontal' }) }}
-  {{ form_row(edit_form.tilvalgt) }}
+{% block edit_form %}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
     </div>
     <div class="panel-body">
-
+      <div class="row">
+        <div class="col-md-6">
+          {{ form_row(edit_form.lokale_navn) }}
+          {{ form_row(edit_form.lokale_type) }}
+          {{ form_row(edit_form.lokale_antal) }}
+        </div>
+        <div class="col-md-6">
+          {{ form_row(edit_form.armaturhoejdeM) }}
+          {{ form_row(edit_form.rumstoerrelseM2) }}
+        </div>
+      </div>
     </div>
   </div>
-  {{ form_rest(edit_form) }}
-  {{ form_end(edit_form) }}
 
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'appbundle.belysningtiltagdetail.eksisterendeBelysning' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(edit_form.placering) }}
+          {{ form_row(edit_form.lyskilde) }}
+          {{ form_row(edit_form.drifttidTAar) }}
+          {{ form_row(edit_form.armaturerStkLokale) }}
+          {{ form_row(edit_form.lyskildeStkArmatur) }}
+          {{ form_row(edit_form.lyskildeWLyskilde) }}
+          {{ form_row(edit_form.forkoblingStkArmatur) }}
+          {{ form_row(edit_form.styring) }}
+          {{ form_row(edit_form.noter) }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'appbundle.belysningtiltagdetail.nyBelysning' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(edit_form.belysningstiltag) }}
+          {{ form_row(edit_form.nyLyskilde) }}
+          {{ form_row(edit_form.reduktionAfDrifttid) }}
+          {{ form_row(edit_form.nyeArmaturerStkLokale) }}
+          {{ form_row(edit_form.nyLyskildeStkArmatur) }}
+          {{ form_row(edit_form.nyLyskildeWLyskilde) }}
+          {{ form_row(edit_form.nyForkoblingStkArmatur) }}
+          {{ form_row(edit_form.nyeSensorerStkLokale) }}
+          {{ form_row(edit_form.nyttiggjortVarmeAfElBesparelse) }}
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'common.oekonomi' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(edit_form.standardinvestSensorKrStk) }}
+          {{ form_row(edit_form.standardinvestArmaturKrStk) }}
+          {{ form_row(edit_form.standardinvestLyskildeKrStk) }}
+          {{ form_row(edit_form.prisfaktor) }}
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
