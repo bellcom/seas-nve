@@ -318,7 +318,7 @@ abstract class Tiltag {
    * @var array of float
    *
    * @Calculated
-   * @ ORM\Column(name="cashFlow15", type="array")
+   * @ORM\Column(name="cashFlow15", type="array")
    */
   protected $cashFlow15;
 
@@ -326,7 +326,7 @@ abstract class Tiltag {
    * @var array of float
    *
    * @Calculated
-   * @ ORM\Column(name="cashFlow30", type="array")
+   * @ORM\Column(name="cashFlow30", type="array")
    */
   protected $cashFlow30;
 

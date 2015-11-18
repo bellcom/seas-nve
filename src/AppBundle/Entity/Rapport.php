@@ -20,7 +20,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
-
+use PHPExcel_Calculation_Financial as Excel;
 /**
  * Rapport
  *
@@ -158,6 +158,22 @@ class Rapport {
   /**
    * @var float
    *
+   * @Calculated
+   * @ORM\Column(name="co2BesparelseEl", type="float", nullable=true)
+   */
+  protected $co2BesparelseEl;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="co2BesparelseVarme", type="float", nullable=true)
+   */
+  protected $co2BesparelseVarme;
+
+  /**
+   * @var float
+   *
    * @ORM\Column(name="BaselineEl", type="decimal", scale=4, nullable=true)
    */
   protected $BaselineEl;
@@ -205,7 +221,7 @@ class Rapport {
   protected $energiscreening;
 
   /**
-   * TotalInvestering = sum af alle tiltags anlægsinvesteringer
+   * Tilvalgt TotalInvestering = sum af alle tiltags anlægsinvesteringer
    *
    * @var float
    *
@@ -215,12 +231,30 @@ class Rapport {
   protected $anlaegsinvestering;
 
   /**
+   * Fravlgt TotalInvestering = sum af alle tiltags anlægsinvesteringer
+   *
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="fravalgtAnlaegsinvestering", type="float", nullable=true)
+   */
+  protected $fravalgtAnlaegsinvestering;
+
+  /**
    * @var float
    *
    * @Calculated
    * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float", nullable=true)
    */
   protected $nutidsvaerdiSetOver15AarKr;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="fravalgtNutidsvaerdiSetOver15AarKr", type="float", nullable=true)
+   */
+  protected $fravalgtNutidsvaerdiSetOver15AarKr;
 
   /**
    * @var float
@@ -255,6 +289,14 @@ class Rapport {
   protected $faellesomkostninger;
 
   /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="internRenteInklFaellesomkostninger", type="float", nullable=true)
+   */
+  protected $internRenteInklFaellesomkostninger;
+
+  /**
    * @var integer
    *
    * @ORM\Column(name="laanLoebetid", type="integer", nullable=true)
@@ -267,6 +309,40 @@ class Rapport {
    * @ORM\Column(name="elena", type="boolean", nullable=true)
    */
   protected $elena = FALSE;
+
+  /**
+   * @var array of float
+   *
+   * @Calculated
+   * @ORM\Column(name="cashFlow15", type="array")
+   */
+  protected $cashFlow15;
+
+  /**
+   * @var array of float
+   *
+   * @Calculated
+   * @ORM\Column(name="cashFlow30", type="array")
+   */
+  protected $cashFlow30;
+
+  /**
+   * Get cashFlow15
+   *
+   * @return array of float
+   */
+  public function getCashFlow15() {
+    return $this->cashFlow15;
+  }
+
+  /**
+   * Get cashFlow30
+   *
+   * @return array of float
+   */
+  public function getCashFlow30() {
+    return $this->cashFlow30;
+  }
 
   /**
    * @var Forsyningsvaerk
@@ -588,12 +664,53 @@ class Rapport {
   }
 
   /**
+   * Get anlaegsinvestering
+   *
+   * @return string
+   */
+  public function getFravalgtAnlaegsinvestering() {
+    return $this->fravalgtAnlaegsinvestering;
+  }
+
+  /**
+   * Get Sum af økonomi for tilvalgte tiltag
+   */
+  public function getTilvalgtSum() {
+    return $this->getInvesteringEkslGenopretningOgModernisering() + $this->energiscreening + $this->mtmFaellesomkostninger + $this->implementering;
+  }
+
+  /**
+   * Get Sum af økonomi for fravalgte tiltag
+   */
+  public function getFravalgtSum() {
+    return $this->getFravalgtInvesteringEkslGenopretningOgModernisering() + $this->getFravalgtImplementering();
+  }
+
+  /**
    * Get besparelseEl
    *
    * @return float
    */
   public function getBesparelseEl() {
     return $this->besparelseEl;
+  }
+
+  /**
+   * Get co2besparelseEl
+   *
+   * @return float
+   */
+  public function getCo2BesparelseEl() {
+    return $this->co2BesparelseEl;
+  }
+
+  /**
+   * Get co2besparelseVarme
+   *
+   * @return float
+   */
+  public function getCo2BesparelseVarme() {
+    return $this->co2BesparelseVarme;
   }
 
   /**
@@ -792,6 +909,15 @@ class Rapport {
   }
 
   /**
+   * Get nutidsvaerdiSetOver15AarKr for fravlgte tiltag
+   *
+   * @return float
+   */
+  public function getFravalgtNutidsvaerdiSetOver15AarKr() {
+    return $this->fravalgtNutidsvaerdiSetOver15AarKr;
+  }
+
+  /**
    * Set elena
    *
    * @param string $elena
@@ -801,6 +927,70 @@ class Rapport {
     $this->elena = $elena;
 
     return $this;
+  }
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
+   */
+  protected $genopretning;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
+   */
+  protected $modernisering;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="FravalgtGenopretning", type="decimal", nullable=true)
+   */
+  protected $fravalgtGenopretning;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="FravalgtModernisering", type="decimal", nullable=true)
+   */
+  protected $fravalgtModernisering;
+
+  /**
+   * Get genopretning
+   *
+   * @return string
+   */
+  public function getGenopretning() {
+    return $this->genopretning;
+  }
+
+  /**
+   * Get modernisering
+   *
+   * @return string
+   */
+  public function getModernisering() {
+    return $this->modernisering;
+  }
+
+  /**
+   * Get genopretning for fravalgte tiltag
+   *
+   * @return string
+   */
+  public function getFravalgtGenopretning() {
+    return $this->fravalgtGenopretning;
+  }
+
+  /**
+   * Get moderniseringfor fravalgte tiltag
+   *
+   * @return string
+   */
+  public function getFravalgtModernisering() {
+    return $this->fravalgtModernisering;
   }
 
   /**
@@ -1040,6 +1230,14 @@ class Rapport {
    *
    * @return float
    */
+  public function getInternRenteInklFaellesomkostninger() {
+    return $this->internRenteInklFaellesomkostninger;
+  }
+
+  /**
+   *
+   * @return float
+   */
   public function getFaellesomkostninger() {
     return $this->faellesomkostninger;
   }
@@ -1051,6 +1249,49 @@ class Rapport {
   public function getCashFlow() {
     return $this->cashFlow;
   }
+
+  /**
+   * Get investering eksl. genopretning og modernisering
+   */
+  public function getInvesteringEkslGenopretningOgModernisering() {
+    return $this->anlaegsinvestering - ($this->genopretning + $this->modernisering);
+  }
+
+  /**
+   * Get investering eksl. genopretning og modernisering
+   */
+  public function getFravalgtInvesteringEkslGenopretningOgModernisering() {
+    return $this->fravalgtAnlaegsinvestering - ($this->fravalgtGenopretning + $this->fravalgtModernisering);
+  }
+
+  /**
+   * Get investering eksl. genopretning og modernisering
+   */
+  public function getinvesteringEksFaellesomkostninger() {
+    return $this->getInvesteringEkslGenopretningOgModernisering();
+  }
+
+  /**
+   * Get investering inkl. genopretning og modernisering
+   */
+  public function getinvesteringInklFaellesomkostninger() {
+    return $this->getInvesteringEkslGenopretningOgModernisering() + $this->getSumFaellesOmkostninger();
+  }
+
+  /**
+   * Get investering eksl. genopretning og modernisering for fravalgte tiltag
+   */
+  public function getFravalgtInvesteringEksFaellesomkostninger() {
+    return $this->getFravalgtInvesteringEkslGenopretningOgModernisering();
+  }
+
+  /**
+   * Get sum fællesomkostninger
+   */
+  public function getSumFaellesOmkostninger() {
+    return $this->mtmFaellesomkostninger + $this->implementering;
+  }
+
 
   /**
    * Post load handler.
@@ -1072,6 +1313,8 @@ class Rapport {
 
     $this->besparelseCO2 = $this->calculateBesparelseCO2();
     $this->fravalgtBesparelseCO2 = $this->calculateFravalgtBesparelseCO2();
+    $this->co2BesparelseEl = $this->calculateCo2BesparelseEl();
+    $this->co2BesparelseVarme = $this->calculateCo2BesparelseVarme();
 
     $this->besparelseEl = $this->calculateBesparelseEl();
     $this->fravalgtBesparelseEl = $this->calculateFravalgtBesparelseEl();
@@ -1085,7 +1328,78 @@ class Rapport {
     $this->besparelseAarEt = $this->calculateSavingsYearOne();
     $this->fravalgtBesparelseAarEt = $this->calculateFravalgteSavingsYearOne();
     $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    $this->fravalgtAnlaegsinvestering = $this->calculateFravalgtAnlaegsinvestering();
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
+    $this->fravalgtNutidsvaerdiSetOver15AarKr = $this->calculateFravalgtNutidsvaerdiSetOver15AarKr();
+    $this->genopretning = $this->calculateGenopretning();
+    $this->modernisering = $this->calculateModernisering();
+    $this->fravalgtGenopretning = $this->calculateFravalgtGenopretning();
+    $this->fravalgtModernisering = $this->calculateModernisering();
+
+    $this->cashFlow15 = $this->calculateCashFlow15();
+    $this->cashFlow30 = $this->calculateCashFlow30();
+
+    $this->internRenteInklFaellesomkostninger = $this->calculateInternRenteInklFaellesomkostninger();
+  }
+
+  private function calculateCashFlow15() {
+    $result = array_fill(1, 15, 0);
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      $cashflow = $tiltag->getCashFlow15();
+      if(count($cashflow) == 15) {
+        for($i = 1; $i <= 15; $i++) {
+          $result[$i] += $cashflow[$i];
+        }
+      }
+    }
+
+    return $result;
+  }
+
+  private function calculateCashFlow30() {
+    $result = array_fill(1, 30, 0);
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      $cashflow = $tiltag->getCashFlow15();
+      if(count($cashflow) == 30) {
+        for($i = 1; $i <= 30; $i++) {
+          $result[$i] += $cashflow[$i];
+        }
+      }
+    }
+
+    return $result;
+  }
+
+  private function calculateGenopretning() {
+    $value = 0;
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      $value += $tiltag->getGenopretning();
+    }
+    return $value;
+  }
+
+  private function calculateModernisering() {
+    $value = 0;
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      $value += $tiltag->getModernisering();
+    }
+    return $value;
+  }
+
+  private function calculateFravalgtGenopretning() {
+    $value = 0;
+    foreach ($this->getFravalgteTiltag() as $tiltag) {
+      $value += $tiltag->getGenopretning();
+    }
+    return $value;
+  }
+
+  private function calculateFravalgtModernisering() {
+    $value = 0;
+    foreach ($this->getFravalgteTiltag() as $tiltag) {
+      $value += $tiltag->getModernisering();
+    }
+    return $value;
   }
 
   private function calculateBesparelseVarmeGUF() {
@@ -1139,9 +1453,21 @@ class Rapport {
   private function calculateBesparelseEl() {
     $value = 0;
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      $value += $tiltag->getSamletEnergibesparelse();
+      $value += $tiltag->getElBesparelse();
     }
     return $value;
+  }
+
+  private function calculateCo2BesparelseEl() {
+    $year = $this->datering->format("Y");
+    $ElKgCo2MWh = $this->getBygning()->getForsyningsvaerkEl()->getKgCo2MWh($year);
+    return ($this->besparelseEl / 1000) * ($ElKgCo2MWh / 1000);
+  }
+
+  private function calculateCo2BesparelseVarme() {
+    $year = $this->datering->format("Y");
+    $VarmeKgCo2MWh = $this->getBygning()->getForsyningsvaerkVarme()->getKgCo2MWh($year);
+    return (($this->besparelseVarmeGAF + $this->besparelseVarmeGUF) / 1000) * ($VarmeKgCo2MWh / 1000);
   }
 
   private function calculateFravalgtBesparelseEl() {
@@ -1171,11 +1497,14 @@ class Rapport {
       $sum += $tiltag->getAnlaegsinvestering();
     }
 
+    $sum -= $this->genopretning;
+    $sum -= $this->modernisering;
+
     return $sum * $this->getProcentAfInvestering();
   }
 
   private function calculateFaellesomkostninger() {
-    return $this->energiscreening + $this->mtmFaellesomkostninger + $this->implementering;
+    return $this->mtmFaellesomkostninger + $this->implementering;
   }
 
   private function calculateSavingsYearOne() {
@@ -1207,6 +1536,15 @@ class Rapport {
     return $result;
   }
 
+  protected function calculateFravalgtAnlaegsinvestering() {
+    $result = 0;
+    foreach ($this->getFravalgteTiltag() as $tiltag) {
+      $result += $tiltag->getAnlaegsinvestering();
+    }
+
+    return $result;
+  }
+
   protected function calculateNutidsvaerdiSetOver15AarKr() {
     $result = 0;
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
@@ -1214,6 +1552,19 @@ class Rapport {
     }
 
     return $result;
+  }
+
+  protected function calculateFravalgtNutidsvaerdiSetOver15AarKr() {
+    $result = 0;
+    foreach ($this->getFravalgteTiltag() as $tiltag) {
+      $result += $tiltag->getNutidsvaerdiSetOver15AarKr();
+    }
+
+    return $result;
+  }
+
+  private function calculateInternRenteInklFaellesomkostninger() {
+    return Excel::IRR($this->cashFlow15) * 100;
   }
 
   private function calculateCashFlow() {

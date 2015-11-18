@@ -401,8 +401,8 @@ appbundle:
       BaselineVarmeGAF.unit: kwh/år
       BaselineVarmeGUF: Baseline Varme GUF
       BaselineVarmeGUF.unit: kwh/år
-      besparelse1aar: Økonomisk besparelse i år 1
-      besparelse1aar.unit: kr
+      besparelseAarEt: Økonomisk besparelse i år 1
+      besparelseAarEt.unit: kr
       besparelseCO2: Samlet CO2
       besparelseCO2.unit: t/år
       besparelseCO2el: El
@@ -820,8 +820,8 @@ appbundle:
     BaselineVarmeGAF.unit: kwh/år
     BaselineVarmeGUF: Baseline Varme GUF
     BaselineVarmeGUF.unit: kwh/år
-    besparelse1aar: Økonomisk besparelse i år 1
-    besparelse1aar.unit: kr
+    besparelseAarEt: Økonomisk besparelse i år 1
+    besparelseAarEt.unit: kr
     besparelseAarEt: Samlet besparelse i kr i år 1
     besparelseAarEt.unit: kr/år
     besparelseCO2: Samlet CO2
@@ -861,13 +861,13 @@ appbundle:
     implementering.unit: kr
     interneDriftomkostninger: Interne Driftomkostninger
     interneDriftomkostninger.unit: kr
-    internRenteInklFaellesomkostninger: Intern rente inkl. Fællesomkostninger
-    internRenteInklFaellesomkostninger.unit: ''
-    investeringEksFaellesomkostninger: Investering eks. Fællesomkostninger
+    internRenteInklFaellesomkostninger: Intern rente inkl. Sum Fællesomkostninger
+    internRenteInklFaellesomkostninger.unit: %
+    investeringEksFaellesomkostninger: Investering eks. Sum Fællesomkostninger
     investeringEksFaellesomkostninger.unit: kr
     investeringEkslFaelles: Investering eksl. fællesomkostninger
     investeringEkslFaelles.unit: Kr
-    investeringInklFaellesomkostninger: Investering inkl. Fællesomkostninger
+    investeringInklFaellesomkostninger: Investering inkl. Sum Fællesomkostninger
     investeringInklFaellesomkostninger.unit: kr
     laanLoebetid: Løbetid på lån
     laanLoebetid.unit: år
@@ -879,7 +879,7 @@ appbundle:
     mtmFaellesomkostninger.unit: kr
     nutidsvaerdi: Nutidsværdi
     nutidsvaerdi.unit: kr
-    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Fællesomkostninger
+    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Sum Fællesomkostninger
     nutidsvaerdiInklFaellesomkostninger.unit: kr
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
     sum.unit: kr
