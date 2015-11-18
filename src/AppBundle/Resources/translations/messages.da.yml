@@ -401,8 +401,8 @@ appbundle:
       BaselineVarmeGAF.unit: kwh/år
       BaselineVarmeGUF: Baseline Varme GUF
       BaselineVarmeGUF.unit: kwh/år
-      besparelse1aar: Økonomisk besparelse i år 1
-      besparelse1aar.unit: kr
+      besparelseAarEt: Økonomisk besparelse i år 1
+      besparelseAarEt.unit: kr
       besparelseCO2: Samlet CO2
       besparelseCO2.unit: t/år
       besparelseCO2el: El
@@ -465,6 +465,8 @@ appbundle:
     vandNotat: Vand notat
     varmeNotat: Varme notat
   configuration:
+    driftomkostningerfaktor: Driftomkostninger Faktor
+    driftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
     elfaktor: El-faktor
     elKrKWh: El (kr/kWh)
     inflation: Inflation
@@ -472,6 +474,7 @@ appbundle:
     kalkulationsrente: Kalkulationsrente
     lobetid: Løbetid
     nominelEnergiprisstigning: Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt
+    procentAfInvestering: Procent af investering
     vandfaktor: Vandfaktor
     varmefaktor: Varmefaktor
     varmeKrKWh: Varme (kr/kWh)
@@ -817,8 +820,8 @@ appbundle:
     BaselineVarmeGAF.unit: kwh/år
     BaselineVarmeGUF: Baseline Varme GUF
     BaselineVarmeGUF.unit: kwh/år
-    besparelse1aar: Økonomisk besparelse i år 1
-    besparelse1aar.unit: kr
+    besparelseAarEt: Økonomisk besparelse i år 1
+    besparelseAarEt.unit: kr
     besparelseAarEt: Samlet besparelse i kr i år 1
     besparelseAarEt.unit: kr/år
     besparelseCO2: Samlet CO2
@@ -858,13 +861,13 @@ appbundle:
     implementering.unit: kr
     interneDriftomkostninger: Interne Driftomkostninger
     interneDriftomkostninger.unit: kr
-    internRenteInklFaellesomkostninger: Intern rente inkl. Fællesomkostninger
-    internRenteInklFaellesomkostninger.unit: ''
-    investeringEksFaellesomkostninger: Investering eks. Fællesomkostninger
+    internRenteInklFaellesomkostninger: Intern rente inkl. Sum Fællesomkostninger
+    internRenteInklFaellesomkostninger.unit: %
+    investeringEksFaellesomkostninger: Investering eks. Sum Fællesomkostninger
     investeringEksFaellesomkostninger.unit: kr
     investeringEkslFaelles: Investering eksl. fællesomkostninger
     investeringEkslFaelles.unit: Kr
-    investeringInklFaellesomkostninger: Investering inkl. Fællesomkostninger
+    investeringInklFaellesomkostninger: Investering inkl. Sum Fællesomkostninger
     investeringInklFaellesomkostninger.unit: kr
     laanLoebetid: Løbetid på lån
     laanLoebetid.unit: år
@@ -876,7 +879,7 @@ appbundle:
     mtmFaellesomkostninger.unit: kr
     nutidsvaerdi: Nutidsværdi
     nutidsvaerdi.unit: kr
-    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Fællesomkostninger
+    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Sum Fællesomkostninger
     nutidsvaerdiInklFaellesomkostninger.unit: kr
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
     sum.unit: kr
@@ -1029,9 +1032,12 @@ appbundle:
     faktorForReinvesteringer: Faktor for reinvesteringer
     forsyningEl: Forsyning, el
     forsyningVarme: Forsyning, varme
+    genopretning: Genopretning
+    ialt: I alt
     indeklima: Indeklima
     levetid: Funktionsdygtig levetid
     levetid.unit: År
+    modernisering: Modernisering
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
     placering: Placering

@@ -102,6 +102,10 @@ th.unit {
     background-color: #ddd;
 }
 
+.table>tfoot>tr>th {
+    border-top: 2px solid #ddd;
+}
+
 /**
  * Additional styles for BraincraftedBootstrapBundle
  * (c) 2013 Florian Eckerstorfer (http://braincrafted.com)

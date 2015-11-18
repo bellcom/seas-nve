@@ -15,6 +15,7 @@ use AppBundle\Entity\SpecialTiltag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class TiltagType
@@ -22,46 +23,61 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class TiltagType extends AbstractType {
   protected $tiltag;
+  protected $authorizationChecker;
 
-  public function __construct(Tiltag $tiltag) {
+  public function __construct(Tiltag $tiltag, AuthorizationCheckerInterface $authorizationChecker) {
     $this->tiltag = $tiltag;
+    $this->authorizationChecker = $authorizationChecker;
   }
 
   /**
    * @TODO: Missing description.
    *
    * @param FormBuilderInterface $builder
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    * @param array $options
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder
-      ->add('tilvalgt')
-      ->add('title')
-      ->add('faktorForReinvesteringer')
-      ->add('primaerEnterprise', 'choice',
-        array(
-          'choices'   => array(
-            'el'   => 'El',
-            't/i'  => 'Tømrer/Isolatør',
-            've'   =>  'VE',
-            'vvs'  => 'VVS',
-            'hh'   => 'Hårde hvidevarer',
-            'a'    =>  'Automatik',
-            'ia'   => 'Interne i AAK'
-          )
+    if ($this->authorizationChecker && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+      $builder->add('tilvalgtAfRaadgiver');
+    }
+    else {
+      $builder->add('tilvalgtAfAaPlus')
+        ->add('tilvalgtAfMagistrat')
+        ->add('tilvalgtbegrundelse');
+    }
+    $builder->add('title')
+      ->add('faktorForReinvesteringer');
+
+    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+      $builder
+        ->add('genopretning')
+        ->add('modernisering');
+    }
+
+    $builder->add('primaerEnterprise', 'choice',
+      array(
+        'choices' => array(
+          'el' => 'El',
+          't/i' => 'Tømrer/Isolatør',
+          've' => 'VE',
+          'vvs' => 'VVS',
+          'hh' => 'Hårde hvidevarer',
+          'a' => 'Automatik',
+          'ia' => 'Interne i AAK'
+        )
       ))
       ->add('tiltagskategori')
       ->add('forsyningVarme', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
-        'required' => false,
+        'required' => FALSE,
       ))
       ->add('forsyningEl', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
-        'required' => false,
+        'required' => FALSE,
       ))
       ->add('beskrivelseNuvaerende')
       ->add('beskrivelseForslag')
@@ -98,7 +114,7 @@ class TiltagType extends AbstractType {
    * @TODO: Missing description.
    *
    * @param OptionsResolver $resolver
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
@@ -110,7 +126,7 @@ class TiltagType extends AbstractType {
    * @TODO: Missing description.
    *
    * @return string
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function getName() {
     return 'appbundle_tiltag';
