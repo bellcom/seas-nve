@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\TiltagDetail;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * TiltagDetail controller.
@@ -34,16 +35,18 @@ class TiltagDetailController extends BaseController {
    * @Route("/{id}", name="tiltag_detail_show")
    * @Method("GET")
    * @Template()
-   * @param TiltagDetail $entity
+   * @param TiltagDetail $tiltagdetail
    * @return \Symfony\Component\HttpFoundation\Response
+   *
+   * @Security("is_granted('TILTAGDETAIL_VIEW', tiltagdetail)")
    */
-  public function showAction(TiltagDetail $entity) {
-    $this->setBreadcrumb($entity);
-    $deleteForm = $this->createDeleteForm($entity);
+  public function showAction(TiltagDetail $tiltagdetail) {
+    $this->setBreadcrumb($tiltagdetail);
+    $deleteForm = $this->createDeleteForm($tiltagdetail);
 
-    $template = $this->getTemplate($entity, 'show');
+    $template = $this->getTemplate($tiltagdetail, 'show');
     return $this->render($template, array(
-      'entity' => $entity,
+      'entity' => $tiltagdetail,
       'delete_form' => $deleteForm->createView(),
     ));
   }
@@ -54,18 +57,19 @@ class TiltagDetailController extends BaseController {
    * @Route("/{id}/edit", name="tiltag_detail_edit")
    * @Method("GET")
    * @Template()
-   * @param TiltagDetail $entity
+   * @param TiltagDetail $tiltagdetail
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Security("is_granted('TILTAGDETAIL_EDIT', tiltagdetail)")
    */
-  public function editAction(TiltagDetail $entity) {
-    $this->setBreadcrumb($entity);
-    $editForm = $this->createEditForm($entity);
-    $deleteForm = $this->createDeleteForm($entity);
+  public function editAction(TiltagDetail $tiltagdetail) {
+    $this->setBreadcrumb($tiltagdetail);
+    $editForm = $this->createEditForm($tiltagdetail);
+    $deleteForm = $this->createDeleteForm($tiltagdetail);
 
-    $template = $this->getTemplate($entity, 'edit');
+    $template = $this->getTemplate($tiltagdetail, 'edit');
     return $this->render($template, array(
-      'calculation_changes' => $this->container->get('aaplus.tiltagdetail_calculation')->getChanges($entity),
-      'entity' => $entity,
+      'calculation_changes' => $this->container->get('aaplus.tiltagdetail_calculation')->getChanges($tiltagdetail),
+      'entity' => $tiltagdetail,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     ));
@@ -77,11 +81,12 @@ class TiltagDetailController extends BaseController {
    * @Route("/{id}/copy", name="tiltag_detail_copy")
    * @Method("GET")
    * @Template()
-   * @param TiltagDetail $entity
+   * @param TiltagDetail $tiltagdetail
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Security("is_granted('TILTAGDETAIL_CREATE', tiltagdetail)")
    */
-  public function copyAction(TiltagDetail $entity) {
-    $copy = clone $entity;
+  public function copyAction(TiltagDetail $tiltagdetail) {
+    $copy = clone $tiltagdetail;
     $em = $this->getDoctrine()->getManager();
     $em->persist($copy);
     $em->flush();
@@ -125,24 +130,25 @@ class TiltagDetailController extends BaseController {
    * @Method("PUT")
    * @Template("AppBundle:TiltagDetail:edit.html.twig")
    * @param Request $request
-   * @param TiltagDetail $entity
+   * @param TiltagDetail $tiltagdetail
    * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+   * @Security("is_granted('TILTAGDETAIL_EDIT', tiltagdetail)")
    */
-  public function updateAction(Request $request, TiltagDetail $entity) {
-    $deleteForm = $this->createDeleteForm($entity);
-    $editForm = $this->createEditForm($entity);
+  public function updateAction(Request $request, TiltagDetail $tiltagdetail) {
+    $deleteForm = $this->createDeleteForm($tiltagdetail);
+    $editForm = $this->createEditForm($tiltagdetail);
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
-      $entity->handleUploads($this->get('stof_doctrine_extensions.uploadable.manager'));
+      $tiltagdetail->handleUploads($this->get('stof_doctrine_extensions.uploadable.manager'));
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $entity->getTiltag()->getId())));
+      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltagdetail->getTiltag()->getId())));
     }
 
     return array(
-      'entity' => $entity,
+      'entity' => $tiltagdetail,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
@@ -154,18 +160,19 @@ class TiltagDetailController extends BaseController {
    * @Route("/{id}", name="tiltag_detail_delete")
    * @Method("DELETE")
    * @param Request $request
-   * @param TiltagDetail $detail
+   * @param TiltagDetail $tiltagdetail
    * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   * @Security("is_granted('TILTAGDETAIL_EDIT', tiltagdetail)")
    */
-  public function deleteAction(Request $request, TiltagDetail $detail) {
-    $form = $this->createDeleteForm($detail);
+  public function deleteAction(Request $request, TiltagDetail $tiltagdetail) {
+    $form = $this->createDeleteForm($tiltagdetail);
     $form->handleRequest($request);
-    $tiltag = $detail->getTiltag();
+    $tiltag = $tiltagdetail->getTiltag();
 
     if ($form->isValid()) {
-      $detail->setTiltag(null);
+      $tiltagdetail->setTiltag(null);
       $em = $this->getDoctrine()->getManager();
-      $em->remove($detail);
+      $em->remove($tiltagdetail);
       $em->flush();
     }
 
@@ -186,69 +193,69 @@ class TiltagDetailController extends BaseController {
       ->getForm();
   }
 
-  /**
-   * Creates a new TiltagDetail entity.
-   *
-   * @Route("/{type}", name="tiltag_detail_create")
-   * @Method("POST")
-   * @Template("AppBundle:TiltagDetail:new.html.twig")
-   * @param Request $request
-   * @param string $type
-   * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-   * @throws \Exception
-   */
-  public function createAction(Request $request, $type) {
-    $entity = $this->createTiltagDetail($type);
-    $form = $this->createCreateForm($entity, $type);
-    $form->handleRequest($request);
-
-    if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($entity);
-      $em->flush();
-
-      return $this->redirect($this->generateUrl('tiltag_detail_show', array('id' => $entity->getId())));
-    }
-
-    return array(
-      'entity' => $entity,
-      'form' => $form->createView(),
-    );
-  }
-
-  /**
-   * Creates a form to create a TiltagDetail entity.
-   *
-   * @param TiltagDetail $entity The entity
-   * @param string $type
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createCreateForm(TiltagDetail $entity, $type) {
-    $className = $this->getFormTypeClassName($entity);
-    $form = $this->createForm(new $className($this->get('security.context')), $entity, array(
-      'action' => $this->generateUrl('tiltag_detail_create', array('type' => $type)),
-      'method' => 'POST',
-    ));
-
-    $form->add('submit', 'submit', array('label' => 'Create'));
-
-    return $form;
-  }
-
-  /**
-   * Create a new TiltagDetail
-   *
-   * @param $type
-   * @return TiltagDetail
-   * @throws \Exception
-   */
-  private function createTiltagDetail($type) {
-    $className = 'AppBundle\\Entity\\'.ucwords($type).'TiltagDetail';
-    if (!class_exists($className) || !is_subclass_of($className, 'AppBundle\\Entity\\TiltagDetail')) {
-      throw new \Exception('Invalid type: '.$type);
-    }
-    return new $className();
-  }
+//  /**
+//   * Creates a new TiltagDetail entity.
+//   *
+//   * @Route("/{type}", name="tiltag_detail_create")
+//   * @Method("POST")
+//   * @Template("AppBundle:TiltagDetail:new.html.twig")
+//   * @param Request $request
+//   * @param string $type
+//   * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+//   * @throws \Exception
+//   */
+//  public function createAction(Request $request, $type) {
+//    $entity = $this->createTiltagDetail($type);
+//    $form = $this->createCreateForm($entity, $type);
+//    $form->handleRequest($request);
+//
+//    if ($form->isValid()) {
+//      $em = $this->getDoctrine()->getManager();
+//      $em->persist($entity);
+//      $em->flush();
+//
+//      return $this->redirect($this->generateUrl('tiltag_detail_show', array('id' => $entity->getId())));
+//    }
+//
+//    return array(
+//      'entity' => $entity,
+//      'form' => $form->createView(),
+//    );
+//  }
+//
+//  /**
+//   * Creates a form to create a TiltagDetail entity.
+//   *
+//   * @param TiltagDetail $entity The entity
+//   * @param string $type
+//   * @return \Symfony\Component\Form\Form The form
+//   */
+//  private function createCreateForm(TiltagDetail $entity, $type) {
+//    $className = $this->getFormTypeClassName($entity);
+//    $form = $this->createForm(new $className($this->get('security.context')), $entity, array(
+//      'action' => $this->generateUrl('tiltag_detail_create', array('type' => $type)),
+//      'method' => 'POST',
+//    ));
+//
+//    $form->add('submit', 'submit', array('label' => 'Create'));
+//
+//    return $form;
+//  }
+//
+//  /**
+//   * Create a new TiltagDetail
+//   *
+//   * @param $type
+//   * @return TiltagDetail
+//   * @throws \Exception
+//   */
+//  private function createTiltagDetail($type) {
+//    $className = 'AppBundle\\Entity\\'.ucwords($type).'TiltagDetail';
+//    if (!class_exists($className) || !is_subclass_of($className, 'AppBundle\\Entity\\TiltagDetail')) {
+//      throw new \Exception('Invalid type: '.$type);
+//    }
+//    return new $className();
+//  }
 
   /**
    * @param \AppBundle\Entity\TiltagDetail $entity

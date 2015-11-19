@@ -41,7 +41,7 @@ class BygningVoter implements VoterInterface {
 
   public function vote(TokenInterface $token, $bygning, array $attributes) {
     // check if class of this object is supported by this voter
-    if ($bygning !== null && !$this->supportsClass(get_class($bygning))) {
+    if ($bygning === null || !$this->supportsClass(get_class($bygning))) {
       return VoterInterface::ACCESS_ABSTAIN;
     }
 

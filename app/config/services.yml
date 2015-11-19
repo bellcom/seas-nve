@@ -49,6 +49,20 @@ services:
         tags:
             - { name: security.voter }
 
+    security.access.tiltag_voter:
+        class:      AppBundle\Security\Authorization\Voter\TiltagVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
+    security.access.tiltagdetail_voter:
+        class:      AppBundle\Security\Authorization\Voter\TiltagDetailVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
     security.access.configuration_voter:
         class:      AppBundle\Security\Authorization\Voter\ConfigurationVoter
         public:     false

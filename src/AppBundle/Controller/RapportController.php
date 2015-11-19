@@ -293,6 +293,7 @@ class RapportController extends BaseController {
    * @Route("/{id}", name="rapport_update")
    * @Method("PUT")
    * @Template("AppBundle:Rapport:edit.html.twig")
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function updateAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();
@@ -367,6 +368,7 @@ class RapportController extends BaseController {
    *
    * @Route("/{id}/submit", name="rapport_submit")
    * @Method("PUT")
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function submitAction(Request $request, $id) {
     $this->statusAction($request, $id, BygningStatusType::AFLEVERET_RAADGIVER, 'rapport_submit', 'rapporter.actions.submit');
@@ -385,6 +387,7 @@ class RapportController extends BaseController {
    *
    * @Route("/{id}/verify", name="rapport_verify")
    * @Method("PUT")
+   * @Security("has_role('ROLE_ADMIN')")
    */
   public function verifyAction(Request $request, $id) {
     $this->statusAction($request, $id, BygningStatusType::AAPLUS_VERIFICERET, 'rapport_verify', 'rapporter.actions.verify');
@@ -402,6 +405,7 @@ class RapportController extends BaseController {
    *
    * @Route("/{id}/approve", name="rapport_approve")
    * @Method("PUT")
+   * @Security("has_role('ROLE_ADMIN')")
    */
   public function approvedAction(Request $request, $id) {
     $this->statusAction($request, $id, BygningStatusType::GODKENDT_AF_MAGISTRAT, 'rapport_approve', 'rapporter.actions.approve');
@@ -419,6 +423,7 @@ class RapportController extends BaseController {
    *
    * @Route("/{id}/implementation", name="rapport_implementation")
    * @Method("PUT")
+   * @Security("has_role('ROLE_ADMIN')")
    */
   public function implementationAction(Request $request, $id) {
     $this->statusAction($request, $id, BygningStatusType::UNDER_UDFOERSEL, 'rapport_implementation', 'rapporter.actions.implementation');
@@ -436,6 +441,7 @@ class RapportController extends BaseController {
    *
    * @Route("/{id}/operation", name="rapport_operation")
    * @Method("PUT")
+   * @Security("has_role('ROLE_ADMIN')")
    */
   public function operationAction(Request $request, $id) {
     $this->statusAction($request, $id, BygningStatusType::DRIFT, 'rapport_operation', 'rapporter.actions.operation');
@@ -491,8 +497,7 @@ class RapportController extends BaseController {
    * @Route("/{id}/tiltag/new/{type}", name="tiltag_create")
    * @Method("POST")
    * @Template("AppBundle:Tiltag:new.html.twig")
-   *
-   *
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function newTiltagAction(Request $request, Rapport $rapport, $type) {
     $em = $this->getDoctrine()->getManager();
@@ -502,6 +507,9 @@ class RapportController extends BaseController {
 
     $em->persist($tiltag);
     $em->flush();
+
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    $flash->success( $type.'tiltag.confirmation.created');
 
     return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
   }

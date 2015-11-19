@@ -230,9 +230,11 @@
               <h3>{{ t.title }}</h3>
             </div>
             <div class="col-md-6 text-right">
+              {% if is_granted('RAPPORT_EDIT', entity) %}
               <a href="{{ path('tiltag_edit', { 'id': t.id }) }}" class="btn btn-default">
                 {{ icon('edit') }} {{ 'common.edit' | trans }}: {{ t.title }}
               </a>
+              {% endif %}
               <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
                 {{ icon('list') }} {{ 'rapporter.labels.detailark' | trans }}: {{ t.title }}
               </a>

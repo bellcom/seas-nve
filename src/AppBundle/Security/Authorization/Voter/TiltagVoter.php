@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use AppBundle\Entity\RapportRepository;
 
-class RapportVoter implements VoterInterface {
+class TiltagVoter implements VoterInterface {
   /** @var RapportRepository $rapportRepository */
   private $rapportRepository;
 
@@ -21,9 +21,9 @@ class RapportVoter implements VoterInterface {
     $this->roleHierarchy = $roleHierarchy;
   }
 
-  const VIEW = 'RAPPORT_VIEW';
-  const EDIT = 'RAPPORT_EDIT';
-  const CREATE = 'RAPPORT_CREATE';
+  const VIEW = 'TILTAG_VIEW';
+  const EDIT = 'TILTAG_EDIT';
+  const CREATE = 'TILTAG_CREATE';
 
   public function supportsAttribute($attribute) {
     return in_array($attribute, array(
@@ -34,16 +34,19 @@ class RapportVoter implements VoterInterface {
   }
 
   public function supportsClass($class) {
-    $supportedClass = 'AppBundle\Entity\Rapport';
+    $supportedClass = 'AppBundle\Entity\Tiltag';
 
     return $supportedClass === $class || is_subclass_of($class, $supportedClass);
   }
 
-  public function vote(TokenInterface $token, $rapport, array $attributes) {
+  public function vote(TokenInterface $token, $tiltag, array $attributes) {
     // check if class of this object is supported by this voter
-    if ($rapport === null || !$this->supportsClass(get_class($rapport))) {
+    if ($tiltag === null || !$this->supportsClass(get_class($tiltag))) {
       return VoterInterface::ACCESS_ABSTAIN;
     }
+
+    $rapport = $tiltag ? $tiltag->getRapport() : null;
+
 
     // check if the voter is used correct, only allow one attribute
     // this isn't a requirement, it's just one easy way for you to
@@ -72,19 +75,19 @@ class RapportVoter implements VoterInterface {
 
     switch($attribute) {
       case self::VIEW:
-        if ($this->hasRole($token, 'ROLE_RAPPORT_VIEW') && $this->rapportRepository->hasAccess($user, $rapport)) {
+        if ($this->hasRole($token, 'ROLE_TILTAG_VIEW') && $this->rapportRepository->hasAccess($user, $rapport)) {
           return VoterInterface::ACCESS_GRANTED;
         }
         break;
 
       case self::EDIT:
-        if ($this->hasRole($token, 'ROLE_RAPPORT_EDIT') && $this->rapportRepository->canEdit($user, $rapport)) {
+        if ($this->hasRole($token, 'ROLE_TILTAG_EDIT') && $this->rapportRepository->canEdit($user, $rapport)) {
           return VoterInterface::ACCESS_GRANTED;
         }
         break;
 
       case self::CREATE:
-        if ($this->hasRole($token, 'ROLE_RAPPORT_CREATE')) {
+        if ($this->hasRole($token, 'ROLE_TILTAG_CREATE')) {
           return VoterInterface::ACCESS_GRANTED;
         }
         break;
