@@ -200,9 +200,9 @@ abstract class Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="levetid", type="decimal", nullable=true)
+   * @ORM\Column(name="levetid", type="decimal")
    */
-  protected $levetid;
+  protected $levetid = 10;
 
   /**
    * @var float
