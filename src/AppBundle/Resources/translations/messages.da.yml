@@ -145,7 +145,7 @@ klimaskaerm:
     singular: Klimaskærm
 klimaskaermtiltag:
   confirmation:
-    created: Nyt belysningstiltag oprettet
+    created: Nyt klimaskærmstiltag oprettet
 klimaskaermtiltagdetail:
   actions:
     add: Tilføj klimaskærmstiltag
@@ -159,6 +159,8 @@ pumpetiltag:
     add: Tilføj Pumpetiltag
     create: Opret Pumpetiltag
     edit: Rediger Pumpetiltag
+  confirmation:
+    created: Nyt pumpetiltag oprettet
   labels:
     plural: Pumpetiltag
     singular: Pumpetiltag
@@ -215,6 +217,9 @@ solcelle:
   labels:
     plural: Solceller
     singular: Solcelle
+solcelletiltag:
+  confirmation:
+    created: Nyt solcelletiltag oprettet
 solcelletiltagdetail:
   actions:
     add: Tilføj solcelletiltag
@@ -223,6 +228,9 @@ specialtiltag:
   actions:
     add: Tilføj specialtiltag
     edit: Rediger specialtiltag
+tekniskisoleringtiltag:
+  confirmation:
+    created: Nyt teknisk isoleringstiltag oprettet
 tekniskisoleringtiltagdetail:
   actions:
     add: Tilføj teknisk isolering
@@ -253,6 +261,9 @@ user:
   labels:
     plural: Brugere
     singular: Bruger
+vinduetiltag:
+  confirmation:
+    created: Nyt vinduesstiltag oprettet
 vinduetiltagdetail:
   actions:
     add: Tilføj vinduestiltag
