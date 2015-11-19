@@ -782,8 +782,6 @@ class LoadExcelRapport extends LoadData {
       // 'AE' => '',
       'AF' => array('styring', function($value) {
         switch ($value) {
-          case 1:
-            return StyringType::AFBRYDER_I_RUM;
           case 2:
             return StyringType::PIR_ON_OFF;
           case 3:
@@ -792,10 +790,6 @@ class LoadExcelRapport extends LoadData {
             return StyringType::SKUMRINGSRELAE;
           case 5:
             return StyringType::PIR_I_AFBRYDER;
-          case 6:
-            return StyringType::CENTRAL_AFBRYDER;
-          case 7:
-            return StyringType::URSTYRET;
           case 8:
             return StyringType::ANDET_SE_NOTER;
           default:
@@ -806,14 +800,8 @@ class LoadExcelRapport extends LoadData {
       'AH' => 'noter',
       'AI' => array('belysningstiltag', function($value) {
         switch ($value) {
-          case 1:
-            return TiltagType::PIR_I_AFBRYDER;
-          case 2:
-            return TiltagType::PIR_ON_OFF_CENTRAL;
-          case 3:
-            return TiltagType::PIR_DGS_CENT;
           case 4:
-            return TiltagType::ARM_EVT_PIR_DGS;
+            return TiltagType::ARMATUR;
           case 5:
             return TiltagType::LED_I_EKSIST_ARM;
           case 6:
