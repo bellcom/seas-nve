@@ -4,48 +4,7 @@
 
 {% block edit_form %}
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
-    </div>
-    <div class="panel-body">
-      <div class="row">
-        <div class="col-md-6">
-          {{ form_row(edit_form.pumpeID) }}
-          {{ form_row(edit_form.forsyningsomraade) }}
-        </div>
-        <div class="col-md-6">
-          {{ form_row(edit_form.placering) }}
-          {{ form_row(edit_form.applikation) }}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{ 'appbundle.pumpetiltagdetail.pumpe' | trans }}</h3>
-        </div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-6">
-              {{ form_row(edit_form.pumpe) }}
-              {{ form_row(edit_form.isoleringskappe) }}
-              {{ form_row(edit_form.eksisterendeDrifttid) }}
-              {{ form_row(edit_form.nyDrifttid) }}
-            </div>
-            <div class="col-md-6">
-              {{ form_row(edit_form.b_faktor) }}
-              {{ form_row(edit_form.prisfaktor) }}
-              {{ form_row(edit_form.noter) }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% include 'AppBundle:PumpeTiltagDetail:_form.html.twig' %}
 
 {% endblock %}
 

@@ -13,8 +13,15 @@
   {% include 'AppBundle:Tiltag:show-include.html.twig' %}
 
   {% if is_granted('TILTAG_EDIT', entity) %}
-    {% form_theme create_detail_form 'AppBundle:Form:modal-form.html.twig' %}
-    {{ form(create_detail_form) }}
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        {#{% form_theme create_detail_form 'AppBundle:Form:modal-form.html.twig' %}#}
+        {#{{ form(create_detail_form) }}#}
+        <p>
+          <a href="{{ path('tiltag_detail_new', { 'id': entity.id }) }}" class="btn btn-primary">{{ icon('edit') }} {{ 'common.create' | trans }}</a>
+        </p>
+      </div>
+    </div>
   {% endif %}
 
   {% block detailark -%}...{% endblock %}

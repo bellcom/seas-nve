@@ -1,8 +1,10 @@
-{% extends 'AppBundle::base.html.twig' %}
+{% extends 'AppBundle:TiltagDetail:new.html.twig' %}
 
-{% block body -%}
-  <h1>PumpeDetail creation</h1>
+{% set heading = 'pumpetiltagdetail.actions.add' %}
 
-  {{ form(form) }}
+{% block edit_form %}
+
+  {% include 'AppBundle:PumpeTiltagDetail:_form.html.twig' %}
 
 {% endblock %}
+

@@ -19,11 +19,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @Route("/tiltag_detail")
  */
 class TiltagDetailController extends BaseController {
+  public function init(Request $request) {
+    parent::init($request);
+    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
+  }
+
   private function setBreadcrumb(TiltagDetail $detail) {
     $tiltag = $detail->getTiltag();
     $rapport = $tiltag->getRapport();
     $bygning = $rapport->getBygning();
-    $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
     $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     $this->breadcrumbs->addItem($tiltag, $this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     $this->breadcrumbs->addItem($detail);

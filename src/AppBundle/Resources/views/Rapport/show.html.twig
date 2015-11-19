@@ -22,6 +22,10 @@
         <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">{{ icon('industry') }} Energiforsyninger</a>
       {% endif %}
 
+      {% if prev_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
+        {% form_theme prev_status_form 'AppBundle:Form:singleButtonConfirmModalForm.html.twig' %}
+        {{ form( prev_status_form ) }}
+      {% endif %}
       {% if next_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
         {% form_theme next_status_form 'AppBundle:Form:singleButtonConfirmModalForm.html.twig' %}
         {{ form( next_status_form ) }}
@@ -56,8 +60,8 @@
       <tr>
         <th>{{ 'common.updatedat' | trans }}</th>
         <td>{{ entity.updatedAt | date('Y-m-d  H:i') }}, {{ entity.updatedBy }}</td>
-        <th></th>
-        <td></td>
+        <th>{{ 'appbundle.bygning.status' | trans }}</th>
+        <td>{{ entity.bygning.status | readable  }}</td>
       </tr>
       </tbody>
     </table>

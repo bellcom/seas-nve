@@ -25,6 +25,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @Route("/tiltag")
  */
 class TiltagController extends BaseController {
+  public function init(Request $request) {
+    parent::init($request);
+    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
+  }
+
+  private function setBreadcrumb(Tiltag $tiltag) {
+    $this->breadcrumbs->addItem($tiltag->getRapport(), $this->get('router')->generate('rapport_show', array('id' => $tiltag->getRapport()->getId())));
+    $this->breadcrumbs->addItem($tiltag->getTitle(), $this->get('router')->generate('tiltag_show', array('id' => $tiltag->getId())));
+  }
+
   /**
    * Lists all Tiltag entities.
    *
@@ -46,24 +56,7 @@ class TiltagController extends BaseController {
    * @return \Symfony\Component\HttpFoundation\Response
    */
   public function showAction(Tiltag $tiltag) {
-    $this->breadcrumbs->addItem($tiltag->getRapport()
-      ->getBygning(), $this->get('router')
-      ->generate('bygning_show', array(
-        'id' => $tiltag->getRapport()
-          ->getBygning()
-          ->getId()
-      )));
-    $this->breadcrumbs->addItem($tiltag->getRapport()
-      ->getVersion(), $this->get('router')
-      ->generate('rapport_show', array(
-        'id' => $tiltag->getRapport()
-          ->getId()
-      )));
-    $this->breadcrumbs->addItem($tiltag->getTitle(), $this->get('router')
-      ->generate('rapport_show', array(
-        'id' => $tiltag->getRapport()
-          ->getId()
-      )));
+    $this->setBreadcrumb($tiltag);
 
     $deleteForm = $this->createDeleteForm($tiltag);
     $form = $this->createDetailCreateForm($tiltag);
@@ -87,24 +80,8 @@ class TiltagController extends BaseController {
    * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
   public function editAction(Tiltag $tiltag) {
-    $this->breadcrumbs->addItem($tiltag->getRapport()
-      ->getBygning(), $this->get('router')
-      ->generate('bygning_show', array(
-        'id' => $tiltag->getRapport()
-          ->getBygning()
-          ->getId()
-      )));
-    $this->breadcrumbs->addItem($tiltag->getRapport()
-      ->getVersion(), $this->get('router')
-      ->generate('rapport_show', array(
-        'id' => $tiltag->getRapport()
-          ->getId()
-      )));
-    $this->breadcrumbs->addItem($tiltag->getTitle(), $this->get('router')
-      ->generate('rapport_show', array(
-        'id' => $tiltag->getRapport()
-          ->getId()
-      )));
+    $this->setBreadcrumb($tiltag);
+    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('tiltag_edit', array('id' => $tiltag->getId())));
 
     $editForm = $this->createEditForm($tiltag);
     $deleteForm = $this->createDeleteForm($tiltag);
@@ -171,9 +148,6 @@ class TiltagController extends BaseController {
    * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
   public function updateTilvalgtAction(Request $request, Tiltag $tiltag) {
-    //$editForm = $this->createForm($entity);
-    //$editForm = $this->createForm(new TiltagTilvalgtType($entity), $entity);
-
     $editForm = $this->createForm(new TiltagTilvalgtType($tiltag), $tiltag, array(
       'action' => $this->generateUrl('tiltag_tilvalgt_update', array('id' => $tiltag->getId())),
       'method' => 'PUT',
@@ -239,7 +213,7 @@ class TiltagController extends BaseController {
   }
 
   /**
-   * Get template for an entity and an action.
+   * Get template for an tiltag and an action.
    * If a specific template for the entity does not exist, a fallback template is returned.
    *
    * @param Tiltag $entity
@@ -255,7 +229,47 @@ class TiltagController extends BaseController {
     return $template;
   }
 
+  /**
+   * Get template for an tiltagdetail and an action.
+   * If a specific template for the entity does not exist, a fallback template is returned.
+   *
+   * @param Tiltag $entity
+   * @param string $action
+   * @return string
+   */
+  private function getDetailTemplate(TiltagDetail $entity, $action) {
+    $className = $this->getEntityName($entity);
+    $template = 'AppBundle:' . $className . ':' . $action . '.html.twig';
+    if (!$this->get('templating')->exists($template)) {
+      $template = 'AppBundle:TiltagDetail:' . $action . '.html.twig';
+    }
+    return $template;
+  }
+
   //---------------- TiltagDetail -------------------//
+
+  /**
+   * Displays a form to create a new TiltagDetail entity.
+   *
+   * @Route("/{id}/detailnew", name="tiltag_detail_new")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('TILTAG_CREATE', tiltag)")
+   */
+  public function newDetailAction(Tiltag $tiltag) {
+    $this->setBreadcrumb($tiltag);
+    $type = strtolower($this->getEntityName($tiltag));
+    $this->breadcrumbs->addItem($type.'detail.actions.add', $this->get('router')->generate('tiltag_detail_new', array('id' => $tiltag->getId())));
+
+    $detail = $this->createDetailEntity($tiltag);
+    $form = $this->createDetailCreateForm($tiltag, $detail);
+    $template = $this->getDetailTemplate($detail, 'new');
+
+    return $this->render($template, array(
+      'entity' => $detail,
+      'edit_form' => $form->createView(),
+    ));
+  }
 
   private function createDetailCreateForm(Tiltag $tiltag, TiltagDetail $detail = NULL) {
     if (!$detail) {
@@ -275,7 +289,7 @@ class TiltagController extends BaseController {
   /**
    * Displays a form to create a new Detail entity.
    *
-   * @Route("/{id}/detail", name="tiltag_detail_new")
+   * @Route("/{id}/detail", name="tiltag_detail_create")
    * @Method("POST")
    * @Template()
    * @Security("is_granted('TILTAG_EDIT', tiltag)")

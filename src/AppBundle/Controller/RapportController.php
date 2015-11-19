@@ -58,11 +58,7 @@ class RapportController extends BaseController {
    * @return array
    */
   public function showAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array(
-      'id' => $rapport->getBygning()
-        ->getId()
-    )));
-    $this->breadcrumbs->addItem($rapport->getVersion(), $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('bygning_show', array('id' => $rapport->getBygning()->getId())));
 
     $deleteForm = $this->createDeleteForm($rapport->getId())->createView();
     $editForm = $this->createEditFormFinansiering($rapport);
@@ -71,15 +67,16 @@ class RapportController extends BaseController {
 
     $formArray = array();
     if($status == BygningStatusType::TILKNYTTET_RAADGIVER) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport->getId(), 'rapport_submit', 'rapporter.actions.submit')->createView();
+      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_submit', 'rapporter.actions.submit')->createView();
     } else if ($status == BygningStatusType::AFLEVERET_RAADGIVER) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport->getId(), 'rapport_verify', 'rapporter.actions.verify')->createView();
+      $formArray['prev_status_form'] = $this->createStatusForm($rapport, 'rapport_retur', 'rapporter.actions.retur')->createView();
+      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_verify', 'rapporter.actions.verify')->createView();
     } else if ($status == BygningStatusType::AAPLUS_VERIFICERET) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport->getId(), 'rapport_approve', 'rapporter.actions.approve')->createView();
+      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_approve', 'rapporter.actions.approve')->createView();
     } else if ($status == BygningStatusType::GODKENDT_AF_MAGISTRAT) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport->getId(), 'rapport_implementation', 'rapporter.actions.implementation')->createView();
+      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_implementation', 'rapporter.actions.implementation')->createView();
     } else if ($status == BygningStatusType::UNDER_UDFOERSEL) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport->getId(), 'rapport_operation', 'rapporter.actions.operation')->createView();
+      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_operation', 'rapporter.actions.operation')->createView();
     }
 
     $tilvalgtFormArray = array();
@@ -232,11 +229,7 @@ class RapportController extends BaseController {
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function editAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array(
-      'id' => $rapport->getBygning()
-        ->getId()
-    )));
-    $this->breadcrumbs->addItem($rapport->getVersion(), $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array('id' => $rapport->getBygning()->getId())));
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
 
     $editForm = $this->createEditForm($rapport);
@@ -370,11 +363,29 @@ class RapportController extends BaseController {
    * @Method("PUT")
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
-  public function submitAction(Request $request, $id) {
-    $this->statusAction($request, $id, BygningStatusType::AFLEVERET_RAADGIVER, 'rapport_submit', 'rapporter.actions.submit');
+  public function submitAction(Request $request, Rapport $rapport) {
+    $this->statusAction($request, $rapport, BygningStatusType::AFLEVERET_RAADGIVER, 'rapport_submit', 'rapporter.actions.submit');
 
     $flash = $this->get('braincrafted_bootstrap.flash');
     $flash->success('rapporter.confirmation.submitted');
+
+    return $this->redirect($this->generateUrl('dashboard'));
+  }
+
+  //---------------- Retur til Rådgiver -------------------//
+
+  /**
+   * Aaplus verifies a Rapport entity.
+   *
+   * @Route("/{id}/retur", name="rapport_retur")
+   * @Method("PUT")
+   * @Security("has_role('ROLE_ADMIN')")
+   */
+  public function returAction(Request $request, Rapport $rapport) {
+    $this->statusAction($request, $rapport, BygningStatusType::TILKNYTTET_RAADGIVER, 'rapport_retur', 'rapporter.actions.retur');
+
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    $flash->success('rapporter.confirmation.retur');
 
     return $this->redirect($this->generateUrl('dashboard'));
   }
@@ -389,8 +400,8 @@ class RapportController extends BaseController {
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")
    */
-  public function verifyAction(Request $request, $id) {
-    $this->statusAction($request, $id, BygningStatusType::AAPLUS_VERIFICERET, 'rapport_verify', 'rapporter.actions.verify');
+  public function verifyAction(Request $request, Rapport $rapport) {
+    $this->statusAction($request, $rapport, BygningStatusType::AAPLUS_VERIFICERET, 'rapport_verify', 'rapporter.actions.verify');
 
     $flash = $this->get('braincrafted_bootstrap.flash');
     $flash->success('rapporter.confirmation.verified');
@@ -407,8 +418,8 @@ class RapportController extends BaseController {
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")
    */
-  public function approvedAction(Request $request, $id) {
-    $this->statusAction($request, $id, BygningStatusType::GODKENDT_AF_MAGISTRAT, 'rapport_approve', 'rapporter.actions.approve');
+  public function approvedAction(Request $request, Rapport $rapport) {
+    $this->statusAction($request, $rapport, BygningStatusType::GODKENDT_AF_MAGISTRAT, 'rapport_approve', 'rapporter.actions.approve');
 
     $flash = $this->get('braincrafted_bootstrap.flash');
     $flash->success('rapporter.confirmation.approved');
@@ -425,8 +436,8 @@ class RapportController extends BaseController {
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")
    */
-  public function implementationAction(Request $request, $id) {
-    $this->statusAction($request, $id, BygningStatusType::UNDER_UDFOERSEL, 'rapport_implementation', 'rapporter.actions.implementation');
+  public function implementationAction(Request $request, Rapport $rapport) {
+    $this->statusAction($request, $rapport, BygningStatusType::UNDER_UDFOERSEL, 'rapport_implementation', 'rapporter.actions.implementation');
 
     $flash = $this->get('braincrafted_bootstrap.flash');
     $flash->success('rapporter.confirmation.implementation');
@@ -443,8 +454,8 @@ class RapportController extends BaseController {
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")
    */
-  public function operationAction(Request $request, $id) {
-    $this->statusAction($request, $id, BygningStatusType::DRIFT, 'rapport_operation', 'rapporter.actions.operation');
+  public function operationAction(Request $request, Rapport $rapport) {
+    $this->statusAction($request, $rapport, BygningStatusType::DRIFT, 'rapport_operation', 'rapporter.actions.operation');
 
     $flash = $this->get('braincrafted_bootstrap.flash');
     $flash->success('rapporter.confirmation.operation');
@@ -455,20 +466,20 @@ class RapportController extends BaseController {
   //---------------- Generic Status -------------------//
 
 
-  public function statusAction(Request $request, $id, $status, $route, $label) {
-    $form = $this->createStatusForm($id, $route, $label);
+  private function statusAction(Request $request, Rapport $rapport, $status, $route, $label) {
+    $form = $this->createStatusForm($rapport, $route, $label);
     $form->handleRequest($request);
 
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
-      $entity = $em->getRepository('AppBundle:Rapport')->find($id);
+      $rapport = $em->getRepository('AppBundle:Rapport')->find($rapport->getId());
 
-      if (!$entity) {
+      if (!$rapport) {
         throw $this->createNotFoundException('Unable to find Rapport entity.');
       }
 
-      $entity->getBygning()->setStatus($status);
-      $entity->setVersion($entity->getVersion() + 1);
+      $rapport->getBygning()->setStatus($status);
+      $rapport->setVersion($rapport->getVersion() + 1);
       $em->flush();
     }
 
@@ -481,9 +492,9 @@ class RapportController extends BaseController {
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createStatusForm($id, $route, $label) {
+  private function createStatusForm($rapport, $route, $label) {
     return $this->createFormBuilder()
-      ->setAction($this->generateUrl($route, array('id' => $id)))
+      ->setAction($this->generateUrl($route, array('id' => $rapport->getId())))
       ->setMethod('PUT')
       ->add('submit', 'submit', array('label' => $label))
       ->getForm();

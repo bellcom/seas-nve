@@ -183,6 +183,8 @@ rapporter:
     operation_confirm: Er du sikker på du vil markere bygningen som i drift?
     pdf2: Resultatoversigt
     pdf5: Detailark
+    retur: Retur til rådgiver
+    retur_confirm: Er du sikker på du vil sende repporten retur til rådgiveren?
     show: Vis Rapport
     submit: Aflever Rapport
     submit_confirm: Er du sikker på du vil aflevere rapporten?
@@ -192,6 +194,7 @@ rapporter:
     approved: Rapport markeret som "Godkendt af Magistrat"
     implementation: Rapport markeret som "Under udførsel"
     operation: Bygningen markeret som i drift
+    retur: Rapport returneret til rådgiver
     submitted: Rapport afleveret til Aa+
     verified: Rapport verificeret af Aa+
   labels:
@@ -228,6 +231,10 @@ specialtiltag:
   actions:
     add: Tilføj specialtiltag
     edit: Rediger specialtiltag
+specialtiltagdetail:
+  actions:
+    add: Upload fil til specialtiltag
+    edit: Rediger uploadet fil til specialtiltag
 tekniskisoleringtiltag:
   confirmation:
     created: Nyt teknisk isoleringstiltag oprettet
@@ -251,6 +258,7 @@ tiltag:
     regning: Regning
 tiltagdetail:
   actions:
+    add: Tilføj Detail
     edit: Rediger Detail
 user:
   actions:
@@ -1066,12 +1074,14 @@ appbundle:
     reelAnlaegsinvestering: Reel Anlægsinvestering
     reelAnlaegsinvestering.unit: kr
     reinvestering: Reinvestering
+    reinvestering.unit: kr
     risikovurdering: Risikovurdering
     samletCo2besparelse: Samlet co2-besparelse
     samletCo2besparelse.unit: t/år
     samletEnergibesparelse: Samlet energibesparelse
     samletEnergibesparelse.unit: kr/år
     scrapvaerdi: Scrapværdi
+    scrapvaerdi.unit: kr
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
     simpelTilbagebetalingstidAar.unit: År
     tiltagskategori: Tiltagskategori
