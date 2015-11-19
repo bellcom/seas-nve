@@ -61,6 +61,7 @@ common:
   none: Ingen
   oekonomi: Økonomi
   printed: Udskrevet
+  replace_file: Vælg ny fil
   result_overview: Resultatoversigt
   search: Søg
   select: Tilvælg
@@ -89,6 +90,8 @@ belysningtiltag:
   actions:
     add: Tilføj belysningstiltag
     edit: Rediger belysningstiltag
+  confirmation:
+    created: Nyt belysningstiltag oprettet
 belysningtiltagdetail:
   actions:
     add: Tilføj belysningstiltag
@@ -140,6 +143,9 @@ klimaskaerm:
   labels:
     plural: Klimaskærme
     singular: Klimaskærm
+klimaskaermtiltag:
+  confirmation:
+    created: Nyt klimaskærmstiltag oprettet
 klimaskaermtiltagdetail:
   actions:
     add: Tilføj klimaskærmstiltag
@@ -153,6 +159,8 @@ pumpetiltag:
     add: Tilføj Pumpetiltag
     create: Opret Pumpetiltag
     edit: Rediger Pumpetiltag
+  confirmation:
+    created: Nyt pumpetiltag oprettet
   labels:
     plural: Pumpetiltag
     singular: Pumpetiltag
@@ -209,6 +217,9 @@ solcelle:
   labels:
     plural: Solceller
     singular: Solcelle
+solcelletiltag:
+  confirmation:
+    created: Nyt solcelletiltag oprettet
 solcelletiltagdetail:
   actions:
     add: Tilføj solcelletiltag
@@ -217,6 +228,9 @@ specialtiltag:
   actions:
     add: Tilføj specialtiltag
     edit: Rediger specialtiltag
+tekniskisoleringtiltag:
+  confirmation:
+    created: Nyt teknisk isoleringstiltag oprettet
 tekniskisoleringtiltagdetail:
   actions:
     add: Tilføj teknisk isolering
@@ -247,6 +261,9 @@ user:
   labels:
     plural: Brugere
     singular: Bruger
+vinduetiltag:
+  confirmation:
+    created: Nyt vinduesstiltag oprettet
 vinduetiltagdetail:
   actions:
     add: Tilføj vinduestiltag
@@ -953,7 +970,10 @@ appbundle:
     kommentar: Kommentar
   specialtiltagdetail:
     add: Upload fil
+    filepath: Vælg fil
+    ikkeElenaBerettiget: Ikke Elena Berettiget
     kommentar: Kommentar
+    tilvalgt: Tilvalgt
     title: Title
   tekniskisoleringtiltagdetail:
     add: Tilføg

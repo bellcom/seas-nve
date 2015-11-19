@@ -20,7 +20,7 @@
         {% for detail in entity.details %}
           <tr>
             <td>
-              {{ block('tiltag_detail_edit') }}
+              {{ block('special_tiltag_detail_edit') }}
             </td>
             <td>{{ detail.tilvalgt | b2icon }}</td>
             <td>{{ detail.kommentar }}</td>
@@ -31,8 +31,5 @@
       </table>
     </div>
   </div>
-
-  {% form_theme create_detail_form 'AppBundle:Form:modal-form.html.twig' %}
-  {{ form(create_detail_form) }}
 
 {% endblock %}
