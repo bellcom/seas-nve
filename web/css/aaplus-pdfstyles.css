@@ -120,12 +120,12 @@ thead {
     border-top: 2pt solid #444;
 }
 
-.table-header-rotated td:last-child {
+.table-header-rotated > tbody > tr > td:last-child {
     min-width: 4em;
 }
 
-.table-header-rotated td:last-child {
-    min-width: 4em;
+.table-header-rotated > tbody > tr > td {
+    border-left: 1px solid #444;
 }
 
 .table-header-rotated > thead > tr > th, .table-header-rotated > tbody > tr > th, .table-header-rotated > tfoot > tr > th, .table-header-rotated > thead > tr > td, .table-header-rotated > tbody > tr > td, .table-header-rotated > tfoot > tr > td {
@@ -162,7 +162,6 @@ th.unit {
 td.selected {
     text-align: center;
     background-color: #5fb859;
-    border-right: 1px solid #444;
 }
 
 td.not-selected {

@@ -39,7 +39,7 @@
               {{ helper.header('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
               {{ helper.header('appbundle.vinduetiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
               {{ helper.header('appbundle.vinduetiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
-
+              {{ helper.header() }}
             </tr>
             <tr>
               {{ helper.header_unit() }}
@@ -70,14 +70,14 @@
               {{ helper.header_unit('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
               {{ helper.header_unit('appbundle.vinduetiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
               {{ helper.header_unit('appbundle.vinduetiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
-
+              {{ helper.header_unit() }}
             </tr>
           </thead>
           <tbody>
             {% for detail in entity.details %}
               <tr>
                 <td>
-                  <a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+                  {{ block('tiltag_detail_edit') }}
                 </td>
                 <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
                 <td>{{ detail.tilvalgt | b2icon }}</td>
