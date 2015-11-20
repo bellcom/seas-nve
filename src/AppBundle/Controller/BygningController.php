@@ -99,7 +99,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @Method("POST")
    * @Template("AppBundle:Bygning:new.html.twig")
    *
-   * @Security("is_granted('BYGNING_CREATE')")
+   * @Security("has_role('ROLE_BYGNING_CREATE')")
    */
   public function createAction(Request $request) {
     $entity = new Bygning();
@@ -144,7 +144,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @Route("/new", name="bygning_new")
    * @Method("GET")
    * @Template()
-   * @Security("is_granted('BYGNING_CREATE')")
+   * @Security("has_role('ROLE_BYGNING_CREATE')")
    */
   public function newAction() {
     $entity = new Bygning();

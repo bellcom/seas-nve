@@ -414,7 +414,7 @@ class Bygning {
    * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BygningStatusType")
    * @ORM\Column(name="status", type="BygningStatusType")
    **/
-  protected $status;
+  protected $status = BygningStatusType::IKKE_STARTET;
 
 
   public function __construct() {
