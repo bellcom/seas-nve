@@ -289,7 +289,7 @@ class TiltagController extends BaseController {
   /**
    * Displays a form to create a new Detail entity.
    *
-   * @Route("/{id}/detail", name="tiltag_detail_create")
+   * @Route("/{id}/detailnew", name="tiltag_detail_create")
    * @Method("POST")
    * @Template()
    * @Security("is_granted('TILTAG_EDIT', tiltag)")
