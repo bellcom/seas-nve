@@ -5,31 +5,31 @@
   {% spaceless %}
     {% for child in form %}
 
-          {% set childAttr = {} %}
-          {% if attr.col_size is defined %}
-            {% set childAttr = childAttr|merge({ 'col_size': attr.col_size }) %}
-          {% endif %}
-          {% if attr.widget_col is defined %}
-            {% set childAttr = childAttr|merge({ 'widget_col': attr.widget_col }) %}
-          {% endif %}
-          {% if attr.label_col is defined %}
-            {% set childAttr = childAttr|merge({ 'label_col': attr.label_col }) %}
-          {% endif %}
-          {% if attr.simple_col is defined %}
-            {% set childAttr = childAttr|merge({ 'simple_col': attr.simple_col }) %}
-          {% endif %}
-          {% if attr.style is defined %}
-            {% set childAttr = childAttr|merge({ 'style': attr.style }) %}
-          {% endif %}
-          {% set childAttr = childAttr|merge({ 'row_number': row_number }) %}
-          {{ form_row(child, childAttr, row_number) }}
+      {% set childAttr = {} %}
+      {% if attr.col_size is defined %}
+        {% set childAttr = childAttr|merge({ 'col_size': attr.col_size }) %}
+      {% endif %}
+      {% if attr.widget_col is defined %}
+        {% set childAttr = childAttr|merge({ 'widget_col': attr.widget_col }) %}
+      {% endif %}
+      {% if attr.label_col is defined %}
+        {% set childAttr = childAttr|merge({ 'label_col': attr.label_col }) %}
+      {% endif %}
+      {% if attr.simple_col is defined %}
+        {% set childAttr = childAttr|merge({ 'simple_col': attr.simple_col }) %}
+      {% endif %}
+      {% if attr.style is defined %}
+        {% set childAttr = childAttr|merge({ 'style': attr.style }) %}
+      {% endif %}
+      {% set childAttr = childAttr|merge({ 'row_number': row_number }) %}
+      {{ form_row(child, childAttr, row_number) }}
 
 
       {% if row_number == 0 %}
         {% set row_number = 1 %}
-      {%  else %}
+      {% else %}
         {% set row_number = 0 %}
-      {%  endif %}
+      {% endif %}
     {% endfor %}
   {% endspaceless %}
 {% endblock form_rows %}
@@ -48,14 +48,18 @@
 {% endblock form_row %}
 
 {% block checkbox_row %}
-  {% if row_number == 0 %}
-    <div class="row">
-  {% endif %}
-  <div class="col-md-6">
+  {% if row_number is not defined %}
     {{ parent() }}
-  </div>
-  {% if row_number == 1 %}
+  {% else %}
+    {% if row_number == 0 %}
+      <div class="row">
+    {% endif %}
+    <div class="col-md-6">
+      {{ parent() }}
     </div>
+    {% if row_number == 1 %}
+      </div>
+    {% endif %}
   {% endif %}
 {% endblock checkbox_row %}
 
@@ -64,7 +68,7 @@
   {% if row_number == 1 %}
     </div>
   {% endif %}
-  <div class="row"><div class="col-md-12 right"><div class="form-group">
+  <div class="row"><div class="col-md-12 text-right"><div class="form-group">
       {{ form_widget(form) }}
   </div></div></div>
   {% endspaceless %}

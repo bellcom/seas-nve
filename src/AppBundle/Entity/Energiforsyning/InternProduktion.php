@@ -10,6 +10,8 @@ use AppBundle\Entity\Energiforsyning;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
+use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * InternProduktion
@@ -57,7 +59,8 @@ class InternProduktion {
   /**
    * @var string
    *
-   * @ORM\Column(name="prisgrundlag", type="string", length=255)
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType")
+   * @ORM\Column(name="prisgrundlag", type="PrisgrundlagType", length=255)
    */
   protected $prisgrundlag;
 
@@ -115,4 +118,7 @@ class InternProduktion {
     return $this->prisgrundlag;
   }
 
+  public function __toString() {
+    return Prisgrundlag::getReadableValue($this->prisgrundlag);
+  }
 }

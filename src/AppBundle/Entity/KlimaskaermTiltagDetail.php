@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotations\Calculated;
+use AppBundle\DBAL\Types\CardinalDirectionType;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * KlimaskaermTiltagDetail
@@ -15,16 +17,10 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="type", type="string")
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\CardinalDirectionType")
+   * @ORM\Column(name="orientering", type="CardinalDirectionType", nullable=true)
    */
-  protected $type; // "klimaskaerm" / "vindue"
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="vindue_orientering", type="string", nullable=true)
-   */
-  protected $vindue_orientering; // "nord", "syd", "øst", "vest"
+  protected $orientering;
 
   /**
    * @var Klimaskaerm
@@ -121,7 +117,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet", type="text")
+   * @ORM\Column(name="noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet", type="text", nullable=true)
    */
   protected $noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet;
 
@@ -196,26 +192,6 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    */
   protected $kWhBesparVarmevaerkEksternEnergikilde;
 
-  public function setType($type) {
-    $this->type = $type;
-
-    return $this;
-  }
-
-  public function getType() {
-    return $this->type;
-  }
-
-  public function setOrientering($orientering) {
-    $this->vindue_orientering = $orientering;
-
-    return $this;
-  }
-
-  public function getOrientering() {
-    return $this->vindue_orientering;
-  }
-
   public function setKlimaskaerm($klimaskaerm) {
     $this->klimaskaerm = $klimaskaerm;
 
@@ -224,6 +200,16 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   public function getKlimaskaerm() {
     return $this->klimaskaerm;
+  }
+
+  public function setOrientering($orientering) {
+    $this->orientering = $orientering;
+
+    return $this;
+  }
+
+  public function getOrientering() {
+    return $this->orientering;
   }
 
   /**
@@ -604,7 +590,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     parent::calculate();
   }
 
-  private function calculateArealM2() {
+  protected function calculateArealM2() {
     // "Q": "Areal\n(m²)"
     if (!$this->hoejdeElLaengdeM || !$this->breddeM || !$this->antalStk) {
       return 0;
@@ -614,7 +600,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function calculateBesparelseKWhAar() {
+  protected function calculateBesparelseKWhAar() {
     // "Y": "Besparelse\n(kWh/år)"
     if ($this->arealM2 == 0) {
       return 0;

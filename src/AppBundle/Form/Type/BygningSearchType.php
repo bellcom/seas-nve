@@ -9,8 +9,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use AppBundle\Form\Type\BygningStatusRepository;
-
+use AppBundle\DBAL\Types\BygningStatusType;
 /**
  * Class BygningType
  * @package AppBundle\Form
@@ -31,8 +30,8 @@ class BygningSearchType extends AbstractType {
       ->add('adresse', null, array('label' => false))
       ->add('postnummer', null, array('label' => false, 'max_length' => 4, 'attr' => array('size' => '4')))
       ->add('postBy', null, array('label' => false))
-      ->add('segment', null, array('label' => false))
-      ->add('status', null, array('label' => false))
+      ->add('segment', null, array('label' => false, 'required' => false))
+      ->add('status', null, array('label' => false, 'required' => false))
       ->add('Søg', 'submit');
   }
 
@@ -44,7 +43,8 @@ class BygningSearchType extends AbstractType {
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Bygning'
+      'data_class' => 'AppBundle\Entity\Bygning',
+      'validation_groups' => false
     ));
   }
 

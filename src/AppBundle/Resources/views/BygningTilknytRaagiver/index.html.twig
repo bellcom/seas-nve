@@ -1,0 +1,25 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-8">
+      <h1>{{ 'bygninger.actions.tilknyt_raadgiver' | trans }}</h1>
+    </div>
+    <div class="col-md-4 text-right">
+
+    </div>
+  </div>
+
+
+  {{ form_start(edit_form, { 'style': 'horizontal' }) }}
+  {{ form_errors(edit_form) }}
+
+  {{ form_row(edit_form.aaplusAnsvarlig) }}
+  {{ form_row(edit_form.energiRaadgiver) }}
+  <h3>{{ 'rapporter.labels.singular' | trans }}</h3>
+  {{ form_widget(edit_form.rapport) }}
+
+  {{ form_rest(edit_form) }}
+  {{ form_start(edit_form) }}
+
+{% endblock %}

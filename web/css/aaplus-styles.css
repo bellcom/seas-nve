@@ -1,4 +1,19 @@
 /**
+* Helpers
+*/
+.table-condensed>tbody>tr>th.indent {
+    padding-left: 2em;
+}
+
+span.required {
+    font-size: 0.7em;
+}
+
+.form-inline {
+    display: inline;
+}
+
+/**
 * Login
 */
 
@@ -18,10 +33,6 @@
 
 .navbar-brand--logo {
     max-height: 100%;
-}
-
-.right {
-    text-align: right;
 }
 
 .form-group button:not(:first-child) {
@@ -50,12 +61,11 @@ form.inline-block {
     border-collapse: collapse;
     overflow: hidden;
 }
-.table-header-rotated td {
-    width: 30px;
+.table-header-rotated td.number {
+    text-align: right;
 }
-.table-header-rotated td {
-    text-align: center;
-    padding: 10px 5px;
+.table-header-rotated th.number {
+    text-align: right;
 }
 .table-header-rotated th.rotate {
     height: 140px;
@@ -64,6 +74,7 @@ form.inline-block {
 }
 .table-header-rotated th.rotate > div {
     transform: translate(-15px, 15px) rotate(-45deg);
+    -webkit-transform: translate(-15px, 15px) rotate(-45deg);
     position: relative;
     transform-origin: 0% 0%;
     left: 50%;
@@ -84,6 +95,15 @@ form.inline-block {
 
 div.tab-content div.row:first-child {
     margin-top: 1.5em;
+}
+
+th.unit {
+    text-align: center;
+    background-color: #ddd;
+}
+
+.table>tfoot>tr>th {
+    border-top: 2px solid #ddd;
 }
 
 /**
@@ -423,6 +443,10 @@ form .alert ul {
     padding-left: 0;
 }
 
+.form-inline .form-group .control-label {
+    margin-right: 1em;
+}
+
 .multiline {
 	white-space: pre-line;
 }
@@ -462,4 +486,21 @@ tr.search .form-group {
 div.row.heading .btn {
     margin-top: 20px;
     margin-bottom: 10px;
+}
+
+.finansiering-likviditetsoverblik {
+	margin-top: 20px;
+}
+
+.finansiering-likviditetsoverblik header {
+	text-align: right;
+}
+
+.finansiering-likviditetsoverblik [data-toggle]::after {
+	font-family: FontAwesome;
+	content: '\f0d7';
+}
+
+.finansiering-likviditetsoverblik [data-toggle][aria-expanded = "true"]::after {
+	content: '\f0d8';
 }

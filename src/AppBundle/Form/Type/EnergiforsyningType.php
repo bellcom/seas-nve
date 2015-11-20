@@ -25,14 +25,8 @@ class EnergiforsyningType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('navn', 'choice', array(
-        'choices' => array(
-          'Hovedforsyning El' => 'Hovedforsyning El',
-          'Oliefyr' => 'Oliefyr',
-          'Træpillefyr' => 'Træpillefyr',
-          'Varmepumpe' => 'Varmepumpe',
-        ),
-        'choices_as_values' => true,
+      ->add('navn', NULL, array(
+        'required' => TRUE,
       ))
       ->add('beskrivelse')
       ->add('internProduktioner', 'bootstrap_collection', array(

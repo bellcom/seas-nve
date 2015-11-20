@@ -8,7 +8,7 @@ use Twig_SimpleFilter;
 /**
  * Class FormatExtension
  *
- * Twig extension to help formatting values (mostly numbers)
+ * Twig extension to help formatting $values (mostly numbers)
  *
  * @package AppBundle\Twig\Extension
  */
@@ -19,10 +19,28 @@ class FormatExtension extends \Twig_Extension {
   public function getFilters()
   {
     return array(
+      new Twig_SimpleFilter('format_hundreds', [$this, 'formatToHundreds'], ['is_safe' => ['all']]),
+      new Twig_SimpleFilter('format_tens', [$this, 'formatToTens'], ['is_safe' => ['all']]),
+      new Twig_SimpleFilter('format_zeros', [$this, 'formatToZeros'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_integer', [$this, 'formatInteger'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_decimal', [$this, 'formatDecimal'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_percent', [$this, 'formatPercent'], ['is_safe' => ['all']]),
     );
+  }
+
+  public function formatToHundreds($i) {
+    $rounded = $this->formatRound($i, -2);
+    return number_format($rounded, 0, ',', '.');
+  }
+
+  public function formatToTens($i) {
+    $rounded = $this->formatRound($i, -1);
+    return number_format($rounded, 0, ',', '.');
+  }
+
+  public function formatToZeros($i) {
+    $rounded = $this->formatRound($i, 0);
+    return number_format($rounded, 0, ',', '.');
   }
 
   public function formatInteger($number) {
@@ -47,6 +65,23 @@ class FormatExtension extends \Twig_Extension {
     $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $numberOfDecimals);
     $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $numberOfDecimals);
     return $formatter->format($number);
+  }
+
+  private function formatRound($value, $precision) {
+    if ($precision < -4 || $precision > 15) {
+      throw new \Exception($precision." - Must be and integer between -4 and 15");
+    }
+
+    $value = intval($value);
+
+    if ($precision >= 0) {
+      return round($value, $precision);
+    }
+    else {
+      $precision = intval(pow(10, abs($precision)));
+      $value = $value + (5 * $precision / 10);
+      return round($value - ($value % $precision), 0);
+    }
   }
 
   private function getNumberFormatter($locale, $style) {

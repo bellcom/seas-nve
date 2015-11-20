@@ -18,6 +18,7 @@ use AppBundle\Form\Type\ConfigurationType;
  * Configuration controller.
  *
  * @Route("/configuration")
+ * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
 class ConfigurationController extends BaseController {
   private $configuration;
@@ -39,6 +40,8 @@ class ConfigurationController extends BaseController {
    * @Template()
    */
   public function indexAction() {
+    $this->breadcrumbs->addItem('configuration.labels.singular', $this->generateUrl('configuration'));
+
     $entity = $this->getConfiguration();
 
     return array(
@@ -55,6 +58,9 @@ class ConfigurationController extends BaseController {
    * @Security("is_granted('CONFIGURATION_EDIT')")
    */
   public function editAction() {
+    $this->breadcrumbs->addItem('configuration.labels.singular', $this->generateUrl('configuration'));
+    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('configuration_edit'));
+
     $entity = $this->getConfiguration();
     $editForm = $this->createEditForm($entity);
 
@@ -103,7 +109,7 @@ class ConfigurationController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Configuration $configuration) {
-    $form = $this->createForm(new ConfigurationType(), $configuration, array(
+    $form = $this->createForm(new ConfigurationType($this->get('security.context')), $configuration, array(
       'action' => $this->generateUrl('configuration_update'),
       'method' => 'PUT',
     ));

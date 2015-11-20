@@ -6,7 +6,10 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints as RollerworksPassword;
+use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\PasswordRequirements;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OrderBy;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity
@@ -47,12 +50,20 @@ class User extends BaseUser {
    *
    * @var string
    *
-   * @RollerworksPassword\PasswordStrength(minLength=7, minStrength=3)
+   * @RollerworksPassword\PasswordStrength(minLength=8, minStrength=3, message="Vælg et stærkere kodeord")
+   * @RollerworksPassword\PasswordRequirements(
+   *  requireLetters=true,
+   *  requireNumbers=true,
+   *  requireCaseDiff=true,
+   *  tooShortMessage="Kodeord skal være på mindst 8 tegn",
+   *  requireCaseDiffMessage="Kodeordet skal indeholde både store og små bogstaver",
+   *  missingNumbersMessage="Kodeordet skal indeholde tal",
+   *  missingSpecialCharacterMessage="Kodeordet skal indeholde bogstaver")
    */
   protected $plainPassword;
 
   /**
-   * @ORM\ManyToMany(targetEntity="Group")
+   * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
    * @ORM\JoinTable(name="fos_user_group",
    *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
    *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
@@ -64,6 +75,20 @@ class User extends BaseUser {
    * @OneToMany(targetEntity="Segment", mappedBy="segmentAnsvarlig")
    **/
   protected $segmenter;
+
+  /**
+   * @OneToMany(targetEntity="Bygning", mappedBy="aaplusAnsvarlig")
+   * @OrderBy({"navn" = "ASC"})
+   * @JMS\Exclude
+   **/
+  protected $ansvarlig;
+
+  /**
+   * @OneToMany(targetEntity="Bygning", mappedBy="energiRaadgiver")
+   * @OrderBy({"navn" = "ASC"})
+   * @JMS\Exclude
+   **/
+  protected $energiRaadgiver;
 
 
   public function __construct() {

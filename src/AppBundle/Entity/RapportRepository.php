@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\DBAL\Types\BygningStatusType;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -76,7 +77,22 @@ class RapportRepository extends EntityRepository {
       return true;
     }
 
-    return $rapport->getBygning()->getUsers()->contains($user);
+    return $rapport->getBygning()->getEnergiRaadgiver() == $user || $rapport->getBygning()->getUsers()->contains($user);
+  }
+
+  /**
+   * Check if a User has edit rights to a Rapport
+   *
+   * @param User $user
+   * @param Rapport $rapport
+   * @return bool
+   */
+  public function canEdit(User $user, Rapport $rapport) {
+    if ($this->hasFullAccess($user) && $rapport->getBygning()->getStatus() !== BygningStatusType::TILKNYTTET_RAADGIVER) {
+      return true;
+    }
+
+    return $rapport->getBygning()->getEnergiRaadgiver() == $user && $rapport->getBygning()->getStatus() === BygningStatusType::TILKNYTTET_RAADGIVER;
   }
 
   /**
@@ -93,10 +109,10 @@ class RapportRepository extends EntityRepository {
    * Search for buildings with specific status and user
    *
    * @param \AppBundle\Entity\User $user
-   * @param \AppBundle\Entity\BygningStatus $status
+   * @param \AppBundle\DBAL\Types\BygningStatusType $status
    * @return \Doctrine\ORM\Query
    */
-  public function getByUserAndStatus(User $user, BygningStatus $status) {
+  public function getByUserAndStatus(User $user, $status) {
     $qb = $this->_em->createQueryBuilder();
 
     $qb->select('r', 'b');
@@ -105,7 +121,7 @@ class RapportRepository extends EntityRepository {
 
 
     $qb->where('b.status = :status')->setParameter('status', $status);
-    $qb->orderBy('b.updatedAt', 'DESC');
+    $qb->orderBy('r.updatedAt', 'DESC');
 
     if (!$this->hasFullAccess($user)) {
       $qb->andWhere(':user MEMBER OF b.users');
@@ -116,13 +132,33 @@ class RapportRepository extends EntityRepository {
   }
 
   /**
+   * Search for buildings with specific segment
+   *
+   * @param \AppBundle\Entity\Segment $segment
+   * @return \Doctrine\ORM\Query
+   */
+  public function getBySegment(Segment $segment) {
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('r', 'b');
+    $qb->from('AppBundle:Rapport', 'r');
+    $qb->leftJoin('r.bygning', 'b');
+
+
+    $qb->where('b.segment = :segment')->setParameter('segment', $segment);
+    $qb->orderBy('r.updatedAt', 'DESC');
+
+    return $qb->getQuery();
+  }
+
+  /**
    * @param \AppBundle\Entity\User $user
-   * @param \AppBundle\Entity\BygningStatus $status
+   * @param \AppBundle\DBAL\Types\BygningStatusType $status
    * @return mixed
    * @throws \Doctrine\ORM\NoResultException
    * @throws \Doctrine\ORM\NonUniqueResultException
    */
-  public function getSummaryByUserAndStatus(User $user, BygningStatus $status) {
+  public function getSummaryByUserAndStatus(User $user, $status) {
     $qb = $this->_em->createQueryBuilder();
 
     $qb->select('r', 'b');

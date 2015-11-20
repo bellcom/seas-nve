@@ -20,34 +20,24 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ->add('laastAfEnergiraadgiver', null, array(
         'required' => false,
       ))
-      ->add('type', 'choice', array(
-        'choices' => array(
-          'Klimaskærm' => 'klimaskaerm',
-          'Vindue' => 'vindue',
-        ),
-        'choices_as_values' => true,
+      ->add('klimaskaerm', 'entity', array(
+        'class' => 'AppBundle:Klimaskaerm',
+        'choices' => $this->getKlimaskaerme(),
       ))
-      ->add('orientering', 'choice', array(
-        'choices' => array(
-          'Nord' => 'nord',
-          'Syd' => 'syd',
-          'Øst' => 'oest',
-          'Vest' => 'vest',
-        ),
-        'choices_as_values' => true,
+      ->add('orientering', NULL, array(
+        'required' => TRUE,
       ))
-      ->add('klimaskaerm')
       ->add('typePlaceringJfPlantegning')
       ->add('hoejdeElLaengdeM')
       ->add('breddeM')
       ->add('antalStk')
-      ->add('andelAfArealDerEfterisoleres', 'percent')
+      ->add('andelAfArealDerEfterisoleres', 'percent', array('scale' => 2))
       ->add('uEksWM2K')
       ->add('uNyWM2K')
       ->add('tIndeC')
       ->add('tUdeC')
       ->add('tOpvarmningTimerAar')
-      ->add('yderligereBesparelserPct', 'percent')
+      ->add('yderligereBesparelserPct', 'percent', array('scale' => 2))
       ->add('prisfaktor')
       ->add('noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet', null, array(
         'required' => false,
@@ -64,5 +54,13 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
 
   public function getName() {
     return 'appbundle_klimaskaermtiltagdetail';
+  }
+
+  private function getKlimaskaerme() {
+    $repository = $this->container->get('doctrine')->getRepository('AppBundle:Klimaskaerm');
+
+    $result = $repository->findByType($this instanceof VindueTiltagDetailType ? 'vindue' : 'klimaskaerm');
+
+    return $result;
   }
 }

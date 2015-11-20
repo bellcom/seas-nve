@@ -41,7 +41,7 @@ class RapportVoter implements VoterInterface {
 
   public function vote(TokenInterface $token, $rapport, array $attributes) {
     // check if class of this object is supported by this voter
-    if ($rapport !== null && !$this->supportsClass(get_class($rapport))) {
+    if ($rapport === null || !$this->supportsClass(get_class($rapport))) {
       return VoterInterface::ACCESS_ABSTAIN;
     }
 
@@ -78,7 +78,7 @@ class RapportVoter implements VoterInterface {
         break;
 
       case self::EDIT:
-        if ($this->hasRole($token, 'ROLE_RAPPORT_EDIT') && $this->rapportRepository->hasAccess($user, $rapport)) {
+        if ($this->hasRole($token, 'ROLE_RAPPORT_EDIT') && $this->rapportRepository->canEdit($user, $rapport)) {
           return VoterInterface::ACCESS_GRANTED;
         }
         break;

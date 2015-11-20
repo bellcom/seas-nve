@@ -7,6 +7,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Regning;
+use AppBundle\Form\Type\TiltagTilvalgtType;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\TiltagDetail;
 use Yavin\Symfony\Controller\InitControllerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Tiltag controller.
@@ -23,6 +25,16 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  * @Route("/tiltag")
  */
 class TiltagController extends BaseController {
+  public function init(Request $request) {
+    parent::init($request);
+    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
+  }
+
+  private function setBreadcrumb(Tiltag $tiltag) {
+    $this->breadcrumbs->addItem($tiltag->getRapport(), $this->get('router')->generate('rapport_show', array('id' => $tiltag->getRapport()->getId())));
+    $this->breadcrumbs->addItem($tiltag->getTitle(), $this->get('router')->generate('tiltag_show', array('id' => $tiltag->getId())));
+  }
+
   /**
    * Lists all Tiltag entities.
    *
@@ -31,13 +43,7 @@ class TiltagController extends BaseController {
    * @Template()
    */
   public function indexAction() {
-    $em = $this->getDoctrine()->getManager();
-
-    $entities = $em->getRepository('AppBundle:Tiltag')->findAll();
-
-    return array(
-      'entities' => $entities,
-    );
+    return $this->redirect($this->generateUrl('dashboard'));
   }
 
   /**
@@ -45,22 +51,20 @@ class TiltagController extends BaseController {
    *
    * @Route("/{id}", name="tiltag_show")
    * @Method("GET")
-   * @Template()
-   * @param Tiltag $entity
+   * @Security("is_granted('TILTAG_VIEW', tiltag)")
+   * @param Tiltag $tiltag
    * @return \Symfony\Component\HttpFoundation\Response
    */
-  public function showAction(Tiltag $entity) {
-    $this->breadcrumbs->addItem($entity->getRapport()->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $entity->getRapport()->getBygning()->getId())));
-    $this->breadcrumbs->addItem($entity->getRapport()->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
-    $this->breadcrumbs->addItem($entity->getTitle(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
+  public function showAction(Tiltag $tiltag) {
+    $this->setBreadcrumb($tiltag);
 
-    $deleteForm = $this->createDeleteForm($entity);
-    $form = $this->createDetailCreateForm($entity);
-    $editForm = $this->createEditForm($entity);
+    $deleteForm = $this->createDeleteForm($tiltag);
+    $form = $this->createDetailCreateForm($tiltag);
+    $editForm = $this->createEditForm($tiltag);
 
-    $template = $this->getTemplate($entity, 'show');
+    $template = $this->getTemplate($tiltag, 'show');
     return $this->render($template, array(
-      'entity' => $entity,
+      'entity' => $tiltag,
       'delete_form' => $deleteForm->createView(),
       'create_detail_form' => $form->createView(),
       'edit_form' => $editForm->createView(),
@@ -73,18 +77,18 @@ class TiltagController extends BaseController {
    * @Route("/{id}/edit", name="tiltag_edit")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
-  public function editAction(Tiltag $entity) {
-    $this->breadcrumbs->addItem($entity->getRapport()->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $entity->getRapport()->getBygning()->getId())));
-    $this->breadcrumbs->addItem($entity->getRapport()->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
-    $this->breadcrumbs->addItem($entity->getTitle(), $this->get('router')->generate('rapport_show', array('id' => $entity->getRapport()->getId())));
+  public function editAction(Tiltag $tiltag) {
+    $this->setBreadcrumb($tiltag);
+    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('tiltag_edit', array('id' => $tiltag->getId())));
 
-    $editForm = $this->createEditForm($entity);
-    $deleteForm = $this->createDeleteForm($entity);
+    $editForm = $this->createEditForm($tiltag);
+    $deleteForm = $this->createDeleteForm($tiltag);
 
-    $template = $this->getTemplate($entity, 'edit');
+    $template = $this->getTemplate($tiltag, 'edit');
     return $this->render($template, array(
-      'entity' => $entity,
+      'entity' => $tiltag,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     ));
@@ -93,18 +97,18 @@ class TiltagController extends BaseController {
   /**
    * Creates a form to edit a Tiltag entity.
    *
-   * @param Tiltag $entity The entity
+   * @param Tiltag $tiltag The entity
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createEditForm(Tiltag $entity) {
-    $className = $this->getFormTypeClassName($entity);
-    $form = $this->createForm(new $className($entity), $entity, array(
-      'action' => $this->generateUrl('tiltag_update', array('id' => $entity->getId())),
+  private function createEditForm(Tiltag $tiltag) {
+    $className = $this->getFormTypeClassName($tiltag);
+    $form = $this->createForm(new $className($tiltag, $this->get('security.context')), $tiltag, array(
+      'action' => $this->generateUrl('tiltag_update', array('id' => $tiltag->getId())),
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $entity->getId())));
+    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
 
     return $form;
   }
@@ -115,24 +119,46 @@ class TiltagController extends BaseController {
    * @Route("/{id}", name="tiltag_update")
    * @Method("PUT")
    * @Template("AppBundle:Tiltag:edit.html.twig")
+   * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
-  public function updateAction(Request $request, Tiltag $entity) {
-    $deleteForm = $this->createDeleteForm($entity);
-    $editForm = $this->createEditForm($entity);
+  public function updateAction(Request $request, Tiltag $tiltag) {
+    $deleteForm = $this->createDeleteForm($tiltag);
+    $editForm = $this->createEditForm($tiltag);
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $entity->getId())));
+      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     }
 
     return array(
-      'entity' => $entity,
+      'entity' => $tiltag,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
+  }
+
+  /**
+   * Edits "tilvalgt" for an existing Tiltag entity.
+   *
+   * @Route("/tilvalgt/{id}", name="tiltag_tilvalgt_update")
+   * @Method("PUT")
+   * @Security("is_granted('TILTAG_EDIT', tiltag)")
+   */
+  public function updateTilvalgtAction(Request $request, Tiltag $tiltag) {
+    $editForm = $this->createForm(new TiltagTilvalgtType($tiltag), $tiltag, array(
+      'action' => $this->generateUrl('tiltag_tilvalgt_update', array('id' => $tiltag->getId())),
+      'method' => 'PUT',
+    ));
+
+    $editForm->handleRequest($request);
+
+    $em = $this->getDoctrine()->getManager();
+    $em->flush();
+
+    return $this->redirectToReferer($request);
   }
 
   /**
@@ -140,102 +166,117 @@ class TiltagController extends BaseController {
    *
    * @Route("/{id}", name="tiltag_delete")
    * @Method("DELETE")
+   * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
-  public function deleteAction(Request $request, Tiltag $entity) {
-    $form = $this->createDeleteForm($entity);
+  public function deleteAction(Request $request, Tiltag $tiltag) {
+    $form = $this->createDeleteForm($tiltag);
     $form->handleRequest($request);
+
+    $rapport = $tiltag->getRapport();
 
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
-      $em->remove($entity);
+      $em->remove($tiltag);
       $em->flush();
     }
 
-    return $this->redirect($this->generateUrl('tiltag'));
+    return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
   }
 
   /**
    * Creates a form to delete a Tiltag entity
    *
-   * @param Tiltag $entity
+   * @param Tiltag $tiltag
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createDeleteForm(Tiltag $entity) {
+  private function createDeleteForm(Tiltag $tiltag) {
     return $this->createFormBuilder()
-      ->setAction($this->generateUrl('tiltag_delete', array('id' => $entity->getId())))
+      ->setAction($this->generateUrl('tiltag_delete', array('id' => $tiltag->getId())))
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
       ->getForm();
   }
 
+
   /**
-   * Displays a form to create a new Tiltag entity.
+   * Get name of an entity
    *
-   * @Route("/new/{type}", name="tiltag_new")
+   * @param object $entity
+   * @return string
+   */
+  private function getEntityName($entity) {
+    $className = get_class($entity);
+    if (preg_match('@\\\\([^\\\\]+)$@', $className, $matches)) {
+      return $matches[1];
+    }
+    return $className;
+  }
+
+  /**
+   * Get template for an tiltag and an action.
+   * If a specific template for the entity does not exist, a fallback template is returned.
+   *
+   * @param Tiltag $entity
+   * @param string $action
+   * @return string
+   */
+  private function getTemplate(Tiltag $entity, $action) {
+    $className = $this->getEntityName($entity);
+    $template = 'AppBundle:' . $className . ':' . $action . '.html.twig';
+    if (!$this->get('templating')->exists($template)) {
+      $template = 'AppBundle:Tiltag:' . $action . '.html.twig';
+    }
+    return $template;
+  }
+
+  /**
+   * Get template for an tiltagdetail and an action.
+   * If a specific template for the entity does not exist, a fallback template is returned.
+   *
+   * @param Tiltag $entity
+   * @param string $action
+   * @return string
+   */
+  private function getDetailTemplate(TiltagDetail $entity, $action) {
+    $className = $this->getEntityName($entity);
+    $template = 'AppBundle:' . $className . ':' . $action . '.html.twig';
+    if (!$this->get('templating')->exists($template)) {
+      $template = 'AppBundle:TiltagDetail:' . $action . '.html.twig';
+    }
+    return $template;
+  }
+
+  //---------------- TiltagDetail -------------------//
+
+  /**
+   * Displays a form to create a new TiltagDetail entity.
+   *
+   * @Route("/{id}/detailnew", name="tiltag_detail_new")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('TILTAG_CREATE', tiltag)")
    */
-  public function newAction($type) {
-    $entity = $this->createTiltag($type);
-    $form = $this->createCreateForm($entity, $type);
+  public function newDetailAction(Tiltag $tiltag) {
+    $this->setBreadcrumb($tiltag);
+    $type = strtolower($this->getEntityName($tiltag));
+    $this->breadcrumbs->addItem($type.'detail.actions.add', $this->get('router')->generate('tiltag_detail_new', array('id' => $tiltag->getId())));
 
-    return array(
-      'entity' => $entity,
-      'form' => $form->createView(),
-    );
-  }
+    $detail = $this->createDetailEntity($tiltag);
+    $form = $this->createDetailCreateForm($tiltag, $detail);
+    $template = $this->getDetailTemplate($detail, 'new');
 
-  /**
-   * Creates a new Tiltag entity.
-   *
-   * @Route("/new/{type}", name="x_tiltag_create")
-   * @Method("POST")
-   * @Template("AppBundle:Tiltag:new.html.twig")
-   */
-  public function createAction(Request $request, $type) {
-    $entity = $this->createTiltag($type);
-    $form = $this->createCreateForm($entity, $type);
-    $form->handleRequest($request);
-
-    if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($entity);
-      $em->flush();
-
-      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $entity->getId())));
-    }
-
-    return array(
-      'entity' => $entity,
-      'form' => $form->createView(),
-    );
-  }
-
-  /**
-   * Creates a form to create a Tiltag entity.
-   *
-   * @param Tiltag $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createCreateForm(Tiltag $entity, $type) {
-    $className = $this->getFormTypeClassName($entity);
-    $form = $this->createForm(new $className($entity), $entity, array(
-      'action' => $this->generateUrl('tiltag_create', array('type' => $type)),
-      'method' => 'POST',
+    return $this->render($template, array(
+      'entity' => $detail,
+      'edit_form' => $form->createView(),
     ));
-
-    $form->add('submit', 'submit', array('label' => 'Create'));
-
-    return $form;
   }
 
-  private function createDetailCreateForm(Tiltag $tiltag, TiltagDetail $detail = null) {
+  private function createDetailCreateForm(Tiltag $tiltag, TiltagDetail $detail = NULL) {
     if (!$detail) {
       $detail = $this->createDetailEntity($tiltag);
     }
-    $formClass = $this->getFormTypeClassName($detail, true);
-    $form = $this->createForm(new $formClass($this->get('security.context')), $detail, array(
+    $formClass = $this->getFormTypeClassName($detail, TRUE);
+    $form = $this->createForm(new $formClass($this->container), $detail, array(
       'action' => $this->generateUrl('tiltag_detail_new', array('id' => $tiltag->getId())),
       'method' => 'POST',
     ));
@@ -248,9 +289,10 @@ class TiltagController extends BaseController {
   /**
    * Displays a form to create a new Detail entity.
    *
-   * @Route("/{id}/detail", name="tiltag_detail_new")
+   * @Route("/{id}/detailnew", name="tiltag_detail_create")
    * @Method("POST")
    * @Template()
+   * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
   public function createDetailAction(Request $request, Tiltag $tiltag) {
     $detail = $this->createDetailEntity($tiltag);
@@ -277,74 +319,30 @@ class TiltagController extends BaseController {
   }
 
   /**
-   * @param $type
-   * @return mixed
-   * @throws Exception
-   */
-  private function createTiltag($type) {
-    $className = 'AppBundle\\Entity\\'.ucwords($type).'Tiltag';
-    if (!class_exists($className) || !is_subclass_of($className, 'AppBundle\\Entity\\Tiltag')) {
-      throw new Exception('Invalid type: '.$type);
-    }
-    return new $className();
-  }
-
-  /**
-   * Get name of an entity
-   *
-   * @param object $entity
-   * @return string
-   */
-  private function getEntityName($entity) {
-    $className = get_class($entity);
-    if (preg_match('@\\\\([^\\\\]+)$@', $className, $matches)) {
-      return $matches[1];
-    }
-    return $className;
-  }
-
-  /**
-   * Get template for an entity and an action.
-   * If a specific template for the entity does not exist, a fallback template is returned.
-   *
-   * @param Tiltag $entity
-   * @param string $action
-   * @return string
-   */
-  private function getTemplate(Tiltag $entity, $action) {
-    $className = $this->getEntityName($entity);
-    $template = 'AppBundle:'.$className.':'.$action.'.html.twig';
-    if (!$this->get('templating')->exists($template)) {
-      $template = 'AppBundle:Tiltag:'.$action.'.html.twig';
-    }
-    return $template;
-  }
-
-  /**
    * Get form type class name for a entity
    *
-   * @param Tiltag|TiltagDetail $entity
+   * @param Tiltag|TiltagDetail $tiltag
    * @param boolean $isDetail
    * @return string
    */
-  private function getFormTypeClassName($entity, $isDetail = false) {
-    $className = '\\AppBundle\\Form\\Type\\'.$this->getEntityName($entity).'Type';
+  private function getFormTypeClassName($tiltag, $isDetail = FALSE) {
+    $className = '\\AppBundle\\Form\\Type\\' . $this->getEntityName($tiltag) . 'Type';
     if (!class_exists($className)) {
-      $className = '\\AppBundle\\Form\\Type\\Tiltag'.($isDetail ? 'Detail' : '').'Type';
+      $className = '\\AppBundle\\Form\\Type\\Tiltag' . ($isDetail ? 'Detail' : '') . 'Type';
     }
     return $className;
   }
 
   /**
-   * @param Tiltag $entity
+   * @param Tiltag $tiltag
    * @return string
    * @throws \Exception
    */
-  private function getDetailClassName(Tiltag $entity) {
-    $entityName = $this->getEntityName($entity);
-    $className = '\\AppBundle\\Entity\\'.$entityName.'Detail';
+  private function getDetailClassName(Tiltag $tiltag) {
+    $entityName = $this->getEntityName($tiltag);
+    $className = '\\AppBundle\\Entity\\' . $entityName . 'Detail';
     if (!class_exists($className)) {
-      throw new Exception('Cannot find details entity for: '.$entityName);
+      throw new Exception('Cannot find details entity for: ' . $entityName);
     }
     return $className;
   }
@@ -369,6 +367,7 @@ class TiltagController extends BaseController {
    * @Route("/{id}/regning/new", name="regning_create_x")
    * @Method("POST")
    * @Template("AppBundle:Regning:new.html.twig")
+   * @Security("has_role('ROLE_ADMIN')")
    */
   public function newRegningAction(Request $request, Tiltag $tiltag) {
     $em = $this->getDoctrine()->getManager();

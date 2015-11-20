@@ -1,0 +1,16 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-8">
+      <h1>{{ 'bygninger.actions.indfoer' | trans }}</h1>
+    </div>
+    <div class="col-md-4 text-right">
+
+    </div>
+  </div>
+
+  {% form_theme edit_form 'AppBundle:Form:twocol-form.html.twig' %}
+  {{ form(edit_form, { 'style': 'horizontal' }) }}
+
+{% endblock %}

@@ -44,6 +44,12 @@ class Configuration {
 
   /**
    * @var float
+   * @ORM\Column(name="rapport_driftomkosningerfaktor", type="decimal", scale=4, nullable=true)
+   */
+  protected $rapport_driftomkosningerfaktor;
+
+  /**
+   * @var float
    * @ORM\Column(name="rapport_nominelEnergiprisstigning", type="decimal", scale=4, nullable=true)
    */
   protected $rapport_nominelEnergiprisstigning;
@@ -106,6 +112,16 @@ class Configuration {
     return $this->rapport_lobetid;
   }
 
+  public function setDriftomkostningerfaktor($faktor) {
+    $this->rapport_driftomkosningerfaktor = $faktor;
+
+    return $this;
+  }
+
+  public function getDriftomkostningerfaktor() {
+    return $this->rapport_driftomkosningerfaktor;
+  }
+
   public function setNominelEnergiprisstigning($rapport_nominelEnergiprisstigning) {
     $this->rapport_nominelEnergiprisstigning = $rapport_nominelEnergiprisstigning;
 
@@ -145,6 +161,5 @@ class Configuration {
   public function getVarmeledningsevneNyIsolering() {
     return $this->tekniskisolering_varmeledningsevneNyIsolering;
   }
-
 
 }

@@ -21,11 +21,24 @@ class FilterExtension extends \Twig_Extension {
   {
     return array(
       new Twig_SimpleFilter('b2icon', [$this, 'booleanToIconFilter'], ['is_safe' => ['all']]),
+      new Twig_SimpleFilter('b2class', [$this, 'booleanToClassFilter'], ['is_safe' => ['all']]),
     );
   }
 
   public function booleanToIconFilter($boolean) {
-    return $boolean ? '<span class="fa fa-check-square-o"></span>' : '<span class="fa fa-square-o"></span>';
+    if($boolean === NULL) {
+      return '';
+    } else {
+      return $boolean ? '<span class="fa fa-check"></span>' : '<span class="fa fa-minus"></span>';
+    }
+  }
+
+  public function booleanToClassFilter($boolean) {
+    if($boolean === NULL) {
+      return '';
+    } else {
+      return $boolean ? 'selected' : 'not-selected';
+    }
   }
 
   /**

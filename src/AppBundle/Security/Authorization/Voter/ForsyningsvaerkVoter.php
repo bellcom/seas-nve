@@ -36,7 +36,7 @@ class ForsyningsvaerkVoter implements VoterInterface {
 
   public function vote(TokenInterface $token, $forsyningsvaerk, array $attributes) {
     // check if class of this object is supported by this voter
-    if ($forsyningsvaerk !== null && !$this->supportsClass(get_class($forsyningsvaerk))) {
+    if ($forsyningsvaerk === null || !$this->supportsClass(get_class($forsyningsvaerk))) {
       return VoterInterface::ACCESS_ABSTAIN;
     }
 

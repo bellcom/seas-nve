@@ -28,7 +28,7 @@ class TekniskIsoleringTiltag extends Tiltag {
   }
 
   protected function calculateVarmebesparelseGAF() {
-    return $this->sum('kwhBesparelseVarmeFraVaerket');
+    return $this->sum('kwhBesparelseVarmeFraVaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
   }
 
   protected function calculateElbesparelse() {

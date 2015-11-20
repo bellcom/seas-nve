@@ -1,0 +1,53 @@
+<figure id="chart">
+  <canvas id="chart-canvas" width="400" height="400"></canvas>
+  <figcaption></figcaption>
+</figure>
+
+<script src="{{ absolute_url(asset('js/lib/Chart.js/Chart.min.js')) }}"></script>
+<script>(function() {
+    var formatData = function(data) {
+          var formatted = [], key;
+          for (key in data) {
+            if (key > 0) {
+              formatted[key-1] = data[key] ? data[key].toFixed(2) : null;
+            }
+          }
+          return formatted;
+        },
+        data = {
+          labels: (function(years) {
+            var currentYear = (new Date()).getFullYear();
+            return years.map(function(y) {
+              return y - 1 + currentYear;
+            });
+          }({{ entity.cashFlow['cash flow'] | keys | json_encode | raw }})),
+          datasets: [ {
+            label: {{ 'Besparelse' | trans | json_encode | raw }},
+            fillColor: 'rgba(51,87,105,0.5)',
+            strokeColor: 'rgba(51,87,105,1)',
+            pointColor: 'rgba(51,87,105,1)',
+            pointStrokeColor: '#fff',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(151,187,205,1)',
+            data: formatData({{ entity.cashFlow['besparelse'] | json_encode | raw }})
+          }, {
+            label: {{ 'Ydelse, lån inkl. fællesomkostninger' | trans | json_encode | raw }},
+            fillColor: 'rgba(120,120,120,0.5)',
+            strokeColor: 'rgba(120,120,120,1)',
+            pointColor: 'rgba(120,120,120,1)',
+            pointStrokeColor: '#fff',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(120,120,120,1)',
+            data: formatData({{ entity.cashFlow['ydelse laan'] | json_encode | raw }})
+          } ]
+        },
+        options = {
+          animation: !true,
+          responsive: true,
+          maintainAspectRatio: false,
+          datasetFill: false
+        },
+        ctx = document.querySelector('#chart canvas').getContext('2d'),
+        chart = new Chart(ctx).Line(data, options);
+    document.querySelector('#chart figcaption').innerHTML = chart.generateLegend();
+  }())</script>

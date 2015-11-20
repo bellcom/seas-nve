@@ -6,18 +6,22 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\DBAL\Types\BygningStatusType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\ORM\Mapping\Index;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Bygning
@@ -54,6 +58,13 @@ class Bygning {
    * @ORM\Column(name="BygId", type="integer", nullable=true)
    */
   protected $bygId;
+
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="OpfoerselsAar", type="integer", nullable=true)
+   */
+  protected $OpfoerselsAar;
 
   /**
    * @var integer
@@ -286,13 +297,6 @@ class Bygning {
   /**
    * @var string
    *
-   * @ORM\Column(name="Ansvarlig", type="string", length=255, nullable=true)
-   */
-  protected $ansvarlig;
-
-  /**
-   * @var string
-   *
    * @ORM\Column(name="Magistrat", type="string", length=255, nullable=true)
    */
   protected $magistrat;
@@ -368,11 +372,26 @@ class Bygning {
   protected $varmeNotat;
 
   /**
-   * @OneToMany(targetEntity="Rapport", mappedBy="bygning")
-   * @OrderBy({"datering" = "ASC"})
+   * @OneToone(targetEntity="Rapport", mappedBy="bygning", cascade={"persist"})
    * @JMS\Exclude
    **/
-  protected $rapporter;
+  protected $rapport;
+
+  /**
+   * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
+   *
+   * @ManyToOne(targetEntity="User", inversedBy="ansvarlig")
+   * @JoinColumn(name="aaplusansvarlig_id", referencedColumnName="id")
+   **/
+  protected $aaplusAnsvarlig;
+
+  /**
+   * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
+   *
+   * @ManyToOne(targetEntity="User", inversedBy="energiRaadgiver")
+   * @JoinColumn(name="energiraadgiver_id", referencedColumnName="id")
+   **/
+  protected $energiRaadgiver;
 
   /**
    * @ManyToMany(targetEntity="User", inversedBy="bygninger")
@@ -382,20 +401,23 @@ class Bygning {
   protected $users;
 
   /**
-   * @ManyToOne(targetEntity="Segment", inversedBy="bygninger", fetch="EAGER")
-   * @JoinColumn(name="segment_id", referencedColumnName="id")
+   * @Assert\NotBlank(groups={"DATA_VERIFICERET"})
+   *
+   * @ManyToOne(targetEntity="Segment", inversedBy="bygninger")
+   * @JoinColumn(name="segment_id", referencedColumnName="id", nullable=true)
    **/
   protected $segment;
 
   /**
-   * @ManyToOne(targetEntity="BygningStatus", fetch="EAGER")
-   * @JoinColumn(name="status_id", referencedColumnName="id")
+   * @var string
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BygningStatusType")
+   * @ORM\Column(name="status", type="BygningStatusType")
    **/
-  protected $status;
+  protected $status = BygningStatusType::IKKE_STARTET;
 
 
   public function __construct() {
-    $this->rapporter = new ArrayCollection();
     $this->users = new ArrayCollection();
   }
 
@@ -407,7 +429,8 @@ class Bygning {
   public function __toString() {
     if (!empty($this->navn)) {
       return $this->navn;
-    } else {
+    }
+    else {
       return $this->adresse;
     }
 
@@ -442,6 +465,27 @@ class Bygning {
    */
   public function getBygId() {
     return $this->bygId;
+  }
+
+  /**
+   * Set OpfoerselsAar
+   *
+   * @param integer OpfoerselsAar
+   * @return Bygning
+   */
+  public function setOpfoerselsAar($OpfoerselsAar) {
+    $this->OpfoerselsAar = $OpfoerselsAar;
+
+    return $this;
+  }
+
+  /**
+   * Get OpfoerselsAar
+   *
+   * @return integer
+   */
+  public function getOpfoerselsAar() {
+    return $this->OpfoerselsAar;
   }
 
   /**
@@ -1138,27 +1182,6 @@ class Bygning {
   }
 
   /**
-   * Set ansvarlig
-   *
-   * @param string $ansvarlig
-   * @return Bygning
-   */
-  public function setAnsvarlig($ansvarlig) {
-    $this->ansvarlig = $ansvarlig;
-
-    return $this;
-  }
-
-  /**
-   * Get ansvarlig
-   *
-   * @return string
-   */
-  public function getAnsvarlig() {
-    return $this->ansvarlig;
-  }
-
-  /**
    * Set magistrat
    *
    * @param string $magistrat
@@ -1390,36 +1413,6 @@ class Bygning {
   }
 
   /**
-   * Add rapporter
-   *
-   * @param \AppBundle\Entity\Rapport $rapporter
-   * @return Bygning
-   */
-  public function addRapporter(\AppBundle\Entity\Rapport $rapporter) {
-    $this->rapporter[] = $rapporter;
-
-    return $this;
-  }
-
-  /**
-   * Remove rapporter
-   *
-   * @param \AppBundle\Entity\Rapport $rapporter
-   */
-  public function removeRapporter(\AppBundle\Entity\Rapport $rapporter) {
-    $this->rapporter->removeElement($rapporter);
-  }
-
-  /**
-   * Get rapporter
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getRapporter() {
-    return $this->rapporter;
-  }
-
-  /**
    * Set users
    */
   public function setUsers(\Doctrine\Common\Collections\Collection $users) {
@@ -1444,8 +1437,7 @@ class Bygning {
    *
    * @return Bygning
    */
-  public function addUser(\AppBundle\Entity\User $user)
-  {
+  public function addUser(\AppBundle\Entity\User $user) {
     $this->users[] = $user;
 
     return $this;
@@ -1456,8 +1448,7 @@ class Bygning {
    *
    * @param \AppBundle\Entity\User $user
    */
-  public function removeUser(\AppBundle\Entity\User $user)
-  {
+  public function removeUser(\AppBundle\Entity\User $user) {
     $this->users->removeElement($user);
   }
 
@@ -1468,8 +1459,7 @@ class Bygning {
    *
    * @return Bygning
    */
-  public function setSegment(\AppBundle\Entity\Segment $segment = null)
-  {
+  public function setSegment(\AppBundle\Entity\Segment $segment = NULL) {
     $this->segment = $segment;
 
     return $this;
@@ -1480,8 +1470,7 @@ class Bygning {
    *
    * @return \AppBundle\Entity\Segment
    */
-  public function getSegment()
-  {
+  public function getSegment() {
     return $this->segment;
   }
 
@@ -1492,20 +1481,110 @@ class Bygning {
    *
    * @return Bygning
    */
-  public function setStatus(\AppBundle\Entity\BygningStatus $status = null)
-  {
+  public function setStatus($status = NULL) {
     $this->status = $status;
 
     return $this;
   }
 
   /**
-   * Get segment
+   * Get status
    *
    * @return \AppBundle\Entity\BygningStatus
    */
-  public function getStatus()
-  {
+  public function getStatus() {
     return $this->status;
+  }
+
+  /**
+   * Get nummeric status i.e. the first char from the status
+   *
+   * @return string
+   */
+  public function getNummericStatus() {
+    return substr($this->status, 0, 1);
+  }
+
+  /**
+   * Set Aa+ Ansvarlig
+   *
+   * @param \AppBundle\Entity\User user
+   *
+   * @return Bygning
+   */
+  public function setAaplusAnsvarlig(\AppBundle\Entity\User $user = NULL) {
+    if ($this->aaplusAnsvarlig !== NULL) {
+      $this->removeUser($this->aaplusAnsvarlig);
+    }
+
+    if ($user && !$this->getUsers()->contains($user)) {
+      $this->addUser($user);
+    }
+
+    $this->aaplusAnsvarlig = $user;
+
+    return $this;
+  }
+
+  /**
+   * Get Aa+ Ansvarlig
+   *
+   * @return \AppBundle\Entity\User
+   */
+  public function getAaplusAnsvarlig() {
+    return $this->aaplusAnsvarlig;
+  }
+
+  /**
+   * Set Energirådgiver
+   *
+   * @param \AppBundle\Entity\User user
+   *
+   * @return Bygning
+   */
+  public function setEnergiRaadgiver(\AppBundle\Entity\User $user = NULL) {
+    if ($this->energiRaadgiver) {
+      $this->removeUser($this->energiRaadgiver);
+    }
+
+    if ($user && !$this->getUsers()->contains($user)) {
+      $this->addUser($user);
+    }
+
+    $this->energiRaadgiver = $user;
+
+    return $this;
+  }
+
+  /**
+   * Get Energirådgiver
+   *
+   * @return \AppBundle\Entity\User
+   */
+  public function getEnergiRaadgiver() {
+    return $this->energiRaadgiver;
+  }
+
+  /**
+   * Set rapport
+   *
+   * @param \AppBundle\Entity\Rapport $rapport
+   *
+   * @return Bygning
+   */
+  public function setRapport(\AppBundle\Entity\Rapport $rapport = NULL) {
+    $this->rapport = $rapport;
+    $rapport->setBygning($this);
+
+    return $this;
+  }
+
+  /**
+   * Get rapport
+   *
+   * @return \AppBundle\Entity\Rapport
+   */
+  public function getRapport() {
+    return $this->rapport;
   }
 }

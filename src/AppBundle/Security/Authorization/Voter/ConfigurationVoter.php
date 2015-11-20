@@ -36,7 +36,7 @@ class ConfigurationVoter implements VoterInterface {
 
   public function vote(TokenInterface $token, $configuration, array $attributes) {
     // check if class of this object is supported by this voter
-    if ($configuration !== null && !$this->supportsClass(get_class($configuration))) {
+    if ($configuration === null || !$this->supportsClass(get_class($configuration))) {
       return VoterInterface::ACCESS_ABSTAIN;
     }
 

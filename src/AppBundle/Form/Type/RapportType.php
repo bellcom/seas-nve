@@ -34,62 +34,17 @@ class RapportType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('version')
-      ->add('version')
       ->add('datering')
-      ->add('BaselineEl', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'kwh/år'
-          )
-        )
-      ))
-      ->add('BaselineVarmeGUF', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'kwh/år'
-          )
-        )
-      ))
-      ->add('BaselineVarmeGAF', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'kwh/år'
-          )
-        )
-      ))
-      ->add('BaselineVand', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'm3/år'
-          )
-        )
-      ))
-      ->add('BaselineStrafAfkoeling', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'kr./år'
-          )
-        )
-      ))
-      ->add('faktorPaaVarmebesparelse', 'percent')
-      ->add('Energiscreening', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'kr.'
-          )
-        )
-      ))
-      ->add('laanRente', 'percent')
-      ->add('elena');
+      ->add('BaselineEl')
+      ->add('BaselineVarmeGUF')
+      ->add('BaselineVarmeGAF')
+      ->add('BaselineVand')
+      ->add('BaselineStrafAfkoeling')
+      ->add('faktorPaaVarmebesparelse', 'percent', array('scale' => 2))
+      ->add('Energiscreening');
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-      $builder->add('laanLoebetid', null, array(
-        'attr' => array(
-          'input_group' => array(
-            'append' => 'år'
-          )
-        )
-      ));
+      $builder->add('elena');
     }
   }
 

@@ -1,0 +1,44 @@
+{% extends 'AppBundle::pdf.html.twig' %}
+
+{% block body -%}
+
+  <p class="text-right">
+    <img src="{{ absolute_url(asset('img/aaplus-logo-pdf')) }}" width="217" height="93">
+  </p>
+
+  <hr class="pdf-heading">
+
+  <div class="row">
+    <div class="col-xs-7">
+      <h1>Dokument 5<br>
+        Detailark</h1>
+    </div>
+    <div class="col-xs-5">
+      <h1 class="grey text-right text-uppercase">Energirapport</h1>
+    </div>
+  </div>
+  <div class="row heading">
+    <div class="col-xs-8">
+      <address>
+        {{ icon('home') }} <strong>{{ entity.bygning.navn }}</strong><br>
+        {{ entity.bygning.adresse }}<br>
+        {{ entity.bygning.postnummer }} {{ entity.bygning.postBy }}<br>
+      </address>
+      <strong>Version: {{ entity.fullVersion }}</strong>
+    </div>
+    <div class="col-xs-4 text-right">
+      <p>{{ 'common.genereted'| trans }}: {{ 'now'|date }}</p>
+    </div>
+  </div>
+
+  <hr class="pdf-heading">
+
+  <div class="row">
+    <div class="col-xs-12">
+      <p class="text-right">
+        <img src="{{ absolute_url(asset('img/eu-logo-pdf')) }}" width="150" height="65">
+      </p>
+    </div>
+  </div>
+
+{% endblock %}

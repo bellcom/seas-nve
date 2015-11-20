@@ -19,6 +19,7 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  * Forsyningsvaerk controller.
  *
  * @Route("/forsyningsvaerk")
+ * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
 class ForsyningsvaerkController extends BaseController {
   /**

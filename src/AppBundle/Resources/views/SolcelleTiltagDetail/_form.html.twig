@@ -1,0 +1,67 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{ 'common.tekniske_oplysninger' | trans }}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        {{ form_row( edit_form.anlaegsstoerrelseKWp) }}
+        {{ form_row( edit_form.tilNettetPct) }}
+      </div>
+      <div class="col-md-6">
+        {{ form_row( edit_form.produktionKWh) }}
+        {% if is_granted('ROLE_ADMIN') %}
+          {{ form_row( edit_form.forringetYdeevnePrAar) }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'appbundle.solcelletiltagdetail.inverterskift' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            {{ form_row( edit_form.inverterskift1Aar) }}
+          </div>
+          <div class="col-md-6">
+            {{ form_row( edit_form.inverterskift2Aar) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'common.oekonomi' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            {{ form_row( edit_form.investeringKr) }}
+            {{ form_row( edit_form.omkostningTilMaalerKr) }}
+            {% if is_granted('ROLE_ADMIN') %}
+              {{ form_row( edit_form.energiprisstigningPctPrAar) }}
+            {% endif %}
+          </div>
+          <div class="col-md-6">
+            {{ form_row( edit_form.screeningOgProjekteringKr) }}
+            {% if is_granted('ROLE_ADMIN') %}
+              {{ form_row( edit_form.salgsprisFoerste10AarKrKWh) }}
+              {{ form_row( edit_form.salgsprisEfter10AarKrKWh) }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

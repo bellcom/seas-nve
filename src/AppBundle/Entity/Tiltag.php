@@ -20,6 +20,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
+use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 
 /**
  * Tiltag
@@ -32,6 +33,7 @@ use JMS\Serializer\Annotation as JMS;
  *    "special" = "SpecialTiltag",
  *    "belysning" = "BelysningTiltag",
  *    "klimaskærm" = "KlimaskaermTiltag",
+ *    "vindue" = "VindueTiltag",
  *    "tekniskisolering" = "TekniskIsoleringTiltag",
  *    "solcelle" = "SolcelleTiltag",
  * })
@@ -60,9 +62,30 @@ abstract class Tiltag {
   /**
    * @var boolean
    *
-   * @ORM\Column(name="tilvalgt", type="boolean", nullable=true)
+   * @ORM\Column(name="tilvalgtAfRaadgiver", type="boolean")
    */
-  protected $tilvalgt = false;
+  protected $tilvalgtAfRaadgiver = TRUE;
+
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="tilvalgtAfAaPlus", type="boolean", nullable=true)
+   */
+  protected $tilvalgtAfAaPlus;
+
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="tilvalgtAfMagistrat", type="boolean", nullable=true)
+   */
+  protected $tilvalgtAfMagistrat;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="tilvalgtbegrundelse", type="text", nullable=true)
+   */
+  protected $tilvalgtbegrundelse;
 
   /**
    * @var string
@@ -120,6 +143,14 @@ abstract class Tiltag {
   protected $samletCo2besparelse;
 
   /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="besparelseAarEt", type="float", scale=4, nullable=true)
+   */
+  protected $besparelseAarEt;
+
+  /**
    * @var integer
    *
    * @Calculated
@@ -169,9 +200,9 @@ abstract class Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="levetid", type="decimal", nullable=true)
+   * @ORM\Column(name="levetid", type="decimal")
    */
-  protected $levetid;
+  protected $levetid = 10;
 
   /**
    * @var float
@@ -213,10 +244,9 @@ abstract class Tiltag {
   protected $primaerEnterprise;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="tiltagskategori", type="string", length=50, nullable=true)
-   */
+   * @ManyToOne(targetEntity="TiltagsKategori")
+   * @JoinColumn(name="kategori_id", referencedColumnName="id")
+   **/
   protected $tiltagskategori;
 
   /**
@@ -288,7 +318,7 @@ abstract class Tiltag {
    * @var array of float
    *
    * @Calculated
-   * @ ORM\Column(name="cashFlow15", type="array")
+   * @ORM\Column(name="cashFlow15", type="array")
    */
   protected $cashFlow15;
 
@@ -296,7 +326,7 @@ abstract class Tiltag {
    * @var array of float
    *
    * @Calculated
-   * @ ORM\Column(name="cashFlow30", type="array")
+   * @ORM\Column(name="cashFlow30", type="array")
    */
   protected $cashFlow30;
 
@@ -317,6 +347,12 @@ abstract class Tiltag {
    */
   protected $details;
 
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="elena", type="boolean", nullable=true)
+   */
+  protected $elena = FALSE;
 
   //----- Økonomi ----- //
 
@@ -375,14 +411,27 @@ abstract class Tiltag {
     return $this->id;
   }
 
-  public function setTilvalgt($tilvalgt) {
-    $this->tilvalgt = $tilvalgt;
-
-    return $this;
-  }
-
+  /**
+   * Get "Tilvalgt"
+   *
+   * Magistrat takes presedence over AaPlus which takes presedence over Rådgiver.
+   *
+   * @return bool
+   */
   public function getTilvalgt() {
-    return $this->tilvalgt;
+    if ($this->tilvalgtAfMagistrat !== NULL) {
+      return $this->tilvalgtAfMagistrat;
+    }
+
+    if ($this->tilvalgtAfAaPlus !== NULL) {
+      return $this->tilvalgtAfAaPlus;
+    }
+
+    if ($this->tilvalgtAfRaadgiver !== NULL) {
+      return $this->tilvalgtAfRaadgiver;
+    }
+
+    return FALSE;
   }
 
   /**
@@ -458,9 +507,18 @@ abstract class Tiltag {
   }
 
   /**
+   * Get total besparelseVarme
+   *
+   * @return float
+   */
+  public function getBesparelseAarEt() {
+    return $this->besparelseAarEt;
+  }
+
+  /**
    * Set tiltagskategori
    *
-   * @param string $tiltagskategori
+   * @param \AppBundle\Entity\TiltagsKategori tiltagskategori
    * @return Tiltag
    */
   public function setTiltagskategori($tiltagskategori) {
@@ -472,7 +530,7 @@ abstract class Tiltag {
   /**
    * Get tiltagskategori
    *
-   * @return string
+   * @return \AppBundle\Entity\TiltagsKategori
    */
   public function getTiltagskategori() {
     return $this->tiltagskategori;
@@ -930,8 +988,7 @@ abstract class Tiltag {
    *
    * @return Tiltag
    */
-  public function addRegning(\AppBundle\Entity\Regning $regning)
-  {
+  public function addRegning(\AppBundle\Entity\Regning $regning) {
     $this->regning[] = $regning;
 
     return $this;
@@ -942,8 +999,7 @@ abstract class Tiltag {
    *
    * @param \AppBundle\Entity\Regning $regning
    */
-  public function removeRegning(\AppBundle\Entity\Regning $regning)
-  {
+  public function removeRegning(\AppBundle\Entity\Regning $regning) {
     $this->regning->removeElement($regning);
   }
 
@@ -952,8 +1008,7 @@ abstract class Tiltag {
    *
    * @return \Doctrine\Common\Collections\Collection
    */
-  public function getRegning()
-  {
+  public function getRegning() {
     return $this->regning;
   }
 
@@ -964,8 +1019,7 @@ abstract class Tiltag {
    *
    * @return Tiltag
    */
-  public function setEstimeredeUdgifter($estimeredeUdgifter)
-  {
+  public function setEstimeredeUdgifter($estimeredeUdgifter) {
     $this->estimeredeUdgifter = $estimeredeUdgifter;
 
     return $this;
@@ -976,8 +1030,7 @@ abstract class Tiltag {
    *
    * @return string
    */
-  public function getEstimeredeUdgifter()
-  {
+  public function getEstimeredeUdgifter() {
     return $this->estimeredeUdgifter;
   }
 
@@ -988,8 +1041,7 @@ abstract class Tiltag {
    *
    * @return Tiltag
    */
-  public function setBudgetteredeUdgifter($budgetteredeUdgifter)
-  {
+  public function setBudgetteredeUdgifter($budgetteredeUdgifter) {
     $this->budgetteredeUdgifter = $budgetteredeUdgifter;
 
     return $this;
@@ -1000,8 +1052,7 @@ abstract class Tiltag {
    *
    * @return string
    */
-  public function getBudgetteredeUdgifter()
-  {
+  public function getBudgetteredeUdgifter() {
     return $this->budgetteredeUdgifter;
   }
 
@@ -1012,8 +1063,7 @@ abstract class Tiltag {
    *
    * @return Tiltag
    */
-  public function setGenopretning($genopretning)
-  {
+  public function setGenopretning($genopretning) {
     $this->genopretning = $genopretning;
 
     return $this;
@@ -1024,8 +1074,7 @@ abstract class Tiltag {
    *
    * @return string
    */
-  public function getGenopretning()
-  {
+  public function getGenopretning() {
     return $this->genopretning;
   }
 
@@ -1036,8 +1085,7 @@ abstract class Tiltag {
    *
    * @return Tiltag
    */
-  public function setModernisering($modernisering)
-  {
+  public function setModernisering($modernisering) {
     $this->modernisering = $modernisering;
 
     return $this;
@@ -1048,8 +1096,7 @@ abstract class Tiltag {
    *
    * @return string
    */
-  public function getModernisering()
-  {
+  public function getModernisering() {
     return $this->modernisering;
   }
 
@@ -1060,7 +1107,7 @@ abstract class Tiltag {
    *   The list of selected TiltagDetails.
    */
   protected function getTilvalgteDetails() {
-    return $this->getDetails()->filter(function($detail) {
+    return $this->getDetails()->filter(function ($detail) {
       return $detail->getTilvalgt();
     });
   }
@@ -1094,6 +1141,7 @@ abstract class Tiltag {
     $this->cashFlow30 = $this->calculateCashFlow(30);
     $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
+    $this->besparelseAarEt = $this->calculateSavingsForYear(1);
   }
 
   protected function calculateCashFlow($numberOfYears) {
@@ -1111,10 +1159,11 @@ abstract class Tiltag {
     $cashFlow = array_fill(1, $numberOfYears, 0);
 
     for ($year = 1; $year <= $numberOfYears; $year++) {
-      $value = ($varmebesparelseGUF + $varmebesparelseGAF) * $this->getRapport()->getVarmeKrKWh($year)
-             + $elbesparelse * $this->getRapport()->getElKrKWh($year)
-             + $vandbesparelse * $this->getRapport()->getVandKrKWh($year)
-             + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
+      $value = ($varmebesparelseGUF + $varmebesparelseGAF) * $this->getRapport()
+          ->getVarmeKrKWh($year)
+        + $elbesparelse * $this->getRapport()->getElKrKWh($year)
+        + $vandbesparelse * $this->getRapport()->getVandKrKWh($year)
+        + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
       if ($year == 1) {
         $value -= $anlaegsinvestering;
       }
@@ -1130,6 +1179,24 @@ abstract class Tiltag {
     }
 
     return $cashFlow;
+  }
+
+  public function calculateSavingsForYear($year) {
+
+    $varmePris = $this->rapport->getVarmeKrKWh($year);
+    if ($this->getForsyningVarme() && $this->getForsyningVarme()
+        ->getNavn() == NavnType::TRAEPILLEFYR
+    ) {
+      $varmePris = $this->rapport->getTraepillefyr() ? $this->rapport->getTraepillefyr()
+        ->getKrKWh(date('Y') - 1 + $year) : 0;
+    }
+    $besparelse = // $this->getIndtaegtSalgAfEnergibesparelse()
+      +($this->getVarmebesparelseGUF() + $this->getVarmebesparelseGAF()) * $varmePris
+      + $this->getElbesparelse() * $this->rapport->getElKrKWh($year)
+      + $this->getVandbesparelse() * $this->rapport->getVandKrKWh($year)
+      + ($this->getBesparelseStrafafkoelingsafgift() + $this->getBesparelseDriftOgVedligeholdelse()) * pow(1 + $this->rapport->getInflation(), $year);
+
+    return $besparelse;
   }
 
   protected function calculateVarmebesparelseGUF() {
@@ -1183,23 +1250,26 @@ abstract class Tiltag {
 
   protected function calculateSimpelTilbagebetalingstidAar() {
     return $this->divide($this->anlaegsinvestering,
-                         $this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift);
+      $this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift);
   }
 
   protected function calculateNutidsvaerdiSetOver15AarKr() {
-    return Calculation::npv($this->getRapport()->getKalkulationsrente(), $this->cashFlow15);
+    return Calculation::npv($this->getRapport()
+      ->getKalkulationsrente(), $this->cashFlow15);
   }
 
   protected function calculateScrapvaerdi() {
     $cutoff = 15;
     if ($this->levetid > $cutoff) {
-      return (1 - ($cutoff / $this->levetid)) * pow(1 + $this->getRapport()->getInflation(), $cutoff) * $this->anlaegsinvestering;
+      return (1 - ($cutoff / $this->levetid)) * pow(1 + $this->getRapport()
+          ->getInflation(), $cutoff) * $this->anlaegsinvestering;
     }
     elseif ($cutoff - $this->antalReinvesteringer * $this->levetid == 0) {
       return 0;
     }
     else {
-      return (1 - ($this->levetid == 0 ? 0 : ($cutoff - $this->antalReinvesteringer * $this->levetid) / $this->levetid)) * $this->reinvestering * pow(1 + $this->getRapport()->getInflation(), $cutoff);
+      return (1 - ($this->levetid == 0 ? 0 : ($cutoff - $this->antalReinvesteringer * $this->levetid) / $this->levetid)) * $this->reinvestering * pow(1 + $this->getRapport()
+          ->getInflation(), $cutoff);
     }
   }
 
@@ -1230,9 +1300,9 @@ abstract class Tiltag {
    *   The sum af results from calling $f on each tilvalgt detail.
    */
   protected function sum($f) {
-    return $this->accumulate(function($detail, $value) use ($f) {
-        return $value + (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
-      });
+    return $this->accumulate(function ($detail, $value) use ($f) {
+      return $value + (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
+    });
   }
 
   public function __construct() {
@@ -1259,4 +1329,114 @@ abstract class Tiltag {
     return Calculation::fordelbesparelse($BesparKwh, $kilde, $type);
   }
 
+
+  /**
+   * Set tilvalgtbegrundelse
+   *
+   * @param string $tilvalgtbegrundelse
+   *
+   * @return Tiltag
+   */
+  public function setTilvalgtbegrundelse($tilvalgtbegrundelse) {
+    $this->tilvalgtbegrundelse = $tilvalgtbegrundelse;
+
+    return $this;
+  }
+
+  /**
+   * Get tilvalgtbegrundelse
+   *
+   * @return string
+   */
+  public function getTilvalgtbegrundelse() {
+    return $this->tilvalgtbegrundelse;
+  }
+
+  /**
+   * Set tilvalgtAfMagistrat
+   *
+   * @param boolean $tilvalgtAfMagistrat
+   *
+   * @return Tiltag
+   */
+  public function setTilvalgtAfMagistrat($tilvalgtAfMagistrat) {
+    $this->tilvalgtAfMagistrat = $tilvalgtAfMagistrat;
+
+    return $this;
+  }
+
+  /**
+   * Get tilvalgtAfMagistrat
+   *
+   * @return boolean
+   */
+  public function getTilvalgtAfMagistrat() {
+    return $this->tilvalgtAfMagistrat;
+  }
+
+
+  /**
+   * Set tilvalgtAfRaadgiver
+   *
+   * @param boolean $tilvalgtAfRaadgiver
+   *
+   * @return Tiltag
+   */
+  public function setTilvalgtAfRaadgiver($tilvalgtAfRaadgiver) {
+    $this->tilvalgtAfRaadgiver = $tilvalgtAfRaadgiver;
+
+    return $this;
+  }
+
+  /**
+   * Get tilvalgtAfRaadgiver
+   *
+   * @return boolean
+   */
+  public function getTilvalgtAfRaadgiver() {
+    return $this->tilvalgtAfRaadgiver;
+  }
+
+  /**
+   * Set tilvalgtAfAaPlus
+   *
+   * @param boolean $tilvalgtAfAaPlus
+   *
+   * @return Tiltag
+   */
+  public function setTilvalgtAfAaPlus($tilvalgtAfAaPlus) {
+    $this->tilvalgtAfAaPlus = $tilvalgtAfAaPlus;
+
+    return $this;
+  }
+
+  /**
+   * Get tilvalgtAfAaPlus
+   *
+   * @return boolean
+   */
+  public function getTilvalgtAfAaPlus() {
+    return $this->tilvalgtAfAaPlus;
+  }
+
+  /**
+   * Set elena
+   *
+   * @param string $elena
+   * @return Bygning
+   */
+  public function setElena($elena) {
+    $this->elena = $elena;
+
+    return $this;
+  }
+
+  /**
+   * Get elena
+   *
+   * @return boolean
+   */
+  public function getElena() {
+    return $this->elena;
+  }
 }

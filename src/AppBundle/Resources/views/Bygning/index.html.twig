@@ -2,72 +2,78 @@
 
 {% block body %}
 
-    <div class="row">
-      <div class="col-md-9">
-        <h1>
-          {{ 'bygninger.labels.plural' | trans }}
-          {% if search['is_search'] %}
-            : {{ 'common.a_search' | trans }}
-          {% endif %}
-        </h1>
-      </div>
-      <div class="col-md-3 right">
-
-      </div>
+  <div class="row">
+    <div class="col-md-9">
+      <h1>
+        {{ 'bygninger.labels.plural' | trans }}
+        {% if search['is_search'] %}
+          : {{ 'common.a_search' | trans }}
+        {% endif %}
+      </h1>
+    </div>
+    <div class="col-md-3 text-right">
 
     </div>
-  {{ form_start(form) }}
+
+  </div>
+  {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
   {{ form_errors(form) }}
-    <table class="table table-condensed table-hover">
+  <table class="table table-condensed table-hover">
+    <tr>
+      <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.segment'|trans, 'b.segment') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.status'|trans, 'b.status') }}</th>
+      <th></th>
+    </tr>
+
+    <tr class="search">
+      <th>{{ form_row(form.bygId) }}</th>
+      <th>{{ form_row(form.navn) }}</th>
+      <th>{{ form_row(form.adresse) }}</th>
+      <th>{{ form_row(form.postnummer) }}</th>
+      <th>{{ form_row(form.postBy) }}</th>
+      <th>{{ form_row(form.segment) }}</th>
+      <th>{{ form_row(form.status) }}</th>
+      <th>{{ form_row(form.Søg) }}</th>
+    </tr>
+
+    {% for bygning in pagination %}
+    <tr>
+      <td>{{ bygning.bygId }}</td>
+      <td>{{ bygning.navn }}</td>
+      <td>{{ bygning.adresse }}</td>
+      <td>{{ bygning.postnummer }}</td>
+      <td>{{ bygning.postBy }}</td>
+      <td>{{ bygning.segment }}</td>
+      <td>{{ bygning.status  | readable }}</td>
+      <td class="text-right">
+        <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
+      </td>
+    </tr>
+    {% else %}
       <tr>
-        <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.segment'|trans, 'b.segment') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.status'|trans, 'b.status') }}</th>
-        <th></th>
+        <td colspan="8">
+          <div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
+        </td>
       </tr>
-
-      <tr class="search">
-        <th>{{ form_row(form.bygId) }}</th>
-        <th>{{ form_row(form.navn) }}</th>
-        <th>{{ form_row(form.adresse) }}</th>
-        <th>{{ form_row(form.postnummer) }}</th>
-        <th>{{ form_row(form.postBy) }}</th>
-        <th>{{ form_row(form.segment) }}</th>
-        <th>{{ form_row(form.status) }}</th>
-        <th>{{ form_row(form.Søg) }}</th>
-      </tr>
-
-      {% for bygning in pagination %}
-        <tr>
-          <td>{{ bygning.bygId }}</td>
-          <td>{{ bygning.navn }}</td>
-          <td>{{ bygning.adresse }}</td>
-          <td>{{ bygning.postnummer }}</td>
-          <td>{{ bygning.postBy }}</td>
-          <td>{{ bygning.segment }}</td>
-          <td>{{ bygning.status }}</td>
-          <td>
-            <a href="{{ path('bygning_edit', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-          </td>
-        </tr>
-      {% else %}
-        <tr><td colspan="8"><div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div></td></tr>
-      {% endfor %}
-    </table>
+    {% endfor %}
+  </table>
   {{ form_end(form) }}
 
 
   <div class="row">
     <div class="col-md-4">
+      {% if is_granted('ROLE_ADMIN') %}
       <a href="{{ path('bygning_new') }}" class="btn btn-default">
         {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
       </a>
     </div>
-    <div class="col-md-8 right">
+    {% endif %}
+    <div class="col-md-8 text-right">
       {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
     </div>
   </div>

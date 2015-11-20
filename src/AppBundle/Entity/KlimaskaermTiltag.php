@@ -27,7 +27,7 @@ class KlimaskaermTiltag extends Tiltag {
   }
 
   protected function calculateVarmebesparelseGAF() {
-    return $this->sum('kWhBesparVarmevaerkEksternEnergikilde');
+    return $this->sum('kWhBesparVarmevaerkEksternEnergikilde') * $this->getRapport()->getFaktorPaaVarmebesparelse();
   }
 
   protected function calculateElbesparelse() {

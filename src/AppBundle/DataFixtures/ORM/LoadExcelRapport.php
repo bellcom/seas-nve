@@ -6,6 +6,7 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\DBAL\Types\BygningStatusType;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use AppBundle\Entity\Forsyningsvaerk;
@@ -13,11 +14,16 @@ use AppBundle\Entity\Solcelle;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\Energiforsyning;
+use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
+use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\TiltagDetail;
 use AppBundle\Entity\BelysningTiltag;
 use AppBundle\Entity\BelysningTiltagDetail;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\Entity\Klimaskaerm;
 use AppBundle\Entity\KlimaskaermTiltag;
@@ -37,7 +43,7 @@ use AppBundle\Entity\SpecialTiltagDetail;
  * @package AppBundle\DataFixtures\ORM
  */
 class LoadExcelRapport extends LoadData {
-  protected $order = 2;
+  protected $order = 10;
 
   private $manager;
   private $workbook;
@@ -210,18 +216,6 @@ class LoadExcelRapport extends LoadData {
   }
 
   /**
-   * Set a reference to an entity for later retrieval.
-   *
-   * @param string $type
-   * @param string $id
-   * @param object $entity
-   */
-  private function setEntityReference($type, $id, $entity) {
-    $key = $type . ':' . $id;
-    $this->setReference($key, $entity);
-  }
-
-  /**
    * Get an entity by type and id.
    *
    * @param string $type
@@ -346,7 +340,7 @@ class LoadExcelRapport extends LoadData {
       ), $values);
 
       $this->setEntityReference('bygning', $bygning->getEnhedsys(), $bygning);
-      $bygning->setStatus($this->getReference('bygningstatus_1'));
+      $bygning->setStatus(BygningStatusType::IKKE_STARTET);
 
       $this->persist($bygning);
     }
@@ -402,6 +396,9 @@ class LoadExcelRapport extends LoadData {
 
     $this->loadConfiguration($sheet);
 
+    //Faktor er hardcodet til 25000 i excel arket, men skal kunne ændres
+    $this->configuration->setDriftomkostningerfaktor(25000);
+
     $bygning = $this->getEntityReference('bygning', $enhedsys);
     $rapport = new Rapport();
     $rapport
@@ -410,7 +407,6 @@ class LoadExcelRapport extends LoadData {
       ->setDatering($this->getDateTime($sheet->getCell('F23')))
       ->setFaktorPaaVarmebesparelse($this->getCellValue($sheet->getCell('F21')))
       ->setLaanLoebetid($this->getCellValue($this->getCell('TiltagslisteBruger', 'Q108')))
-      ->setLaanRente($this->getCellValue($this->getCell('TiltagslisteBruger', 'P108')))
       ->setConfiguration($this->configuration);
 
     $this->setCalculatedValues($rapport, array(
@@ -452,7 +448,16 @@ class LoadExcelRapport extends LoadData {
     foreach ($data as $rowId => $row) {
       if ($row['A']) {
         $energiforsyning = $this->loadEntity(new Energiforsyning(), array(
-          'A' => 'navn',
+          'A' => array('navn', function($value) {
+            switch ($value) {
+              case 'Hovedforsyning El':
+                return NavnType::HOVEDFORSYNING_EL;
+              case 'Fjernvarme':
+                return NavnType::FJERNVARME;
+              default:
+                return NavnType::NONE;
+            }
+          }),
           'B' => 'beskrivelse',
         ), $row);
 
@@ -464,7 +469,18 @@ class LoadExcelRapport extends LoadData {
             $columnMapping[chr($index-1)] = array('navn', function($value) { return $value ? $value : ''; });
             $columnMapping[chr($index)] = 'fordeling';
             $columnMapping[chr($index+1)] = 'effektivitet';
-            $columnMapping[chr($index+2)] = 'prisgrundlag';
+            $columnMapping[chr($index+2)] = array('prisgrundlag', function($value) {
+              switch ($value) {
+                case 'EL':
+                  return PrisgrundlagType::EL;
+                case 'VAND':
+                  return PrisgrundlagType::VAND;
+                case 'VARME':
+                  return PrisgrundlagType::VARME;
+                default:
+                  return PrisgrundlagType::NONE;
+              }
+            });
 
             $internProduktion = $this->loadEntity(new InternProduktion(), $columnMapping, $row);
             $energiforsyning->addInternProduktion($internProduktion);
@@ -522,7 +538,7 @@ class LoadExcelRapport extends LoadData {
       ->setForsyningVarme($this->getEntityReference('energiforsyning', $sheet->getCell('C13')->getValue()))
       ->setForsyningEl($this->getEntityReference('energiforsyning', $sheet->getCell('F13')->getValue()))
       ->setFaktorForReinvesteringer($this->getCellValue($sheet->getCell('C11')))
-      ->setTiltagskategori($this->getCellValue($sheet->getCell('D12')))
+      ->setTiltagskategori($this->getEntityReference('tiltagskategori', $sheet->getCell('D12')->getValue()))
       ->setPrimaerEnterprise($this->getCellValue($sheet->getCell('B12')))
       ->setRisikovurdering($this->getCellValue($sheet->getCell('C17')))
       ->setPlacering($this->getCellValue($sheet->getCell('C19')))
@@ -554,7 +570,7 @@ class LoadExcelRapport extends LoadData {
     if ($tiltagNumber) {
       foreach ($tilvalgtData as $rowId => $row) {
         if ($row['B'] == $tiltagNumber) {
-          $tiltag->setTilvalgt($row['D'] == 'TILVALGT');
+          $tiltag->setTilvalgtAfRaadgiver($row['D'] == 'TILVALGT');
         }
       }
     }
@@ -747,17 +763,60 @@ class LoadExcelRapport extends LoadData {
       'AA' => 'armaturerStkLokale',
       // 'AB' => ''
       // 'AC' => ''
-      'AD' => 'placeringId',
+      'AD' => array('placering', function($value) {
+        switch ($value) {
+          case 1:
+            return PlaceringType::NEDHAENGT;
+          case 2:
+            return PlaceringType::INDBYGGET;
+          case 3:
+            return PlaceringType::PAABYGGET;
+          case 4:
+            return PlaceringType::STAAENDE;
+          case 5:
+            return PlaceringType::ANDET_SE_NOTER;
+          default:
+            return PlaceringType::NONE;
+        }
+      }),
       // 'AE' => '',
-      'AF' => 'styringId',
+      'AF' => array('styring', function($value) {
+        switch ($value) {
+          case 2:
+            return StyringType::PIR_ON_OFF;
+          case 3:
+            return StyringType::PIR_DGS;
+          case 4:
+            return StyringType::SKUMRINGSRELAE;
+          case 5:
+            return StyringType::PIR_I_AFBRYDER;
+          case 8:
+            return StyringType::ANDET_SE_NOTER;
+          default:
+            return StyringType::NONE;
+        }
+      }),
       // 'AG' => '',
       'AH' => 'noter',
-      'AI' => 'belysningstiltagId',
+      'AI' => array('belysningstiltag', function($value) {
+        switch ($value) {
+          case 4:
+            return TiltagType::ARMATUR;
+          case 5:
+            return TiltagType::LED_I_EKSIST_ARM;
+          case 6:
+            return TiltagType::NY_INDSATS_I_ARM;
+          case 7:
+            return TiltagType::ANDET_SE_NOTER;
+          default:
+            return TiltagType::NONE;
+        }
+      }),
       // 'AJ' => '',
       'AK' => 'nyeSensorerStkLokale',
       'AL' => 'standardinvestSensorKrStk',
       'AM' => 'reduktionAfDrifttid',
-      'AO' => 'standardinvestArmaturElLyskildeKrStk',
+      'AO' => 'standardinvestArmaturKrStk',
       'AP' => 'standardinvestLyskildeKrStk',
       'AQ' => array('nyLyskilde', function($value) { return $this->getEntityReference('lyskilde', $value); }),
       // 'AR' => ''
@@ -945,6 +1004,7 @@ class LoadExcelRapport extends LoadData {
       'L' => 'forsyningsomraade',
       'M' => 'placering',
       'N' => 'applikation',
+      'N' => array('applikation', function($value, $row) { return $this->getEntityReference('PumpeTiltagDetailApplikation', $value); }),
       'O' => 'isoleringskappe',
       'P' => 'bFaktor',
       'Q' => 'noter',

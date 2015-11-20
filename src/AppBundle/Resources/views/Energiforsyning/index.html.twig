@@ -5,7 +5,7 @@
     <div class="col-md-10">
       <h1>{{ 'energiforsyninger.labels.plural' | trans }}</h1>
     </div>
-    <div class="col-md-2 right">
+    <div class="col-md-2 text-right">
       <a href="{{ path('energiforsyning_new', { 'rapport_id': rapport.id }) }}" class="btn btn-default">
         {{ icon('plus') }} {{ 'energiforsyninger.actions.add' | trans }}
       </a>
@@ -25,7 +25,7 @@
     <tbody>
     {% for entity in entities %}
       <tr>
-        <td>{{ entity.navn }}</td>
+        <td>{{ entity.navn | readable('NavnType') | trans }}</td>
         <td>{{ entity.beskrivelse }}</td>
         <td>{{ entity.samletVarmeeffektivitet | format_decimal }}</td>
         <td>{{ entity.samletEleffektivitet | format_decimal }}</td>

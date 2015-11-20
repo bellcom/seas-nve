@@ -22,7 +22,7 @@
 
   <!-- Modal -->
 {{ parent() }}
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade text-left" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -111,7 +111,6 @@
     <div class="row">
   {% endif %}
   <div class="col-md-6">
-    {{ block('form_label') }}
   {{ parent() }}
   </div>
   {% if row_number == 1 %}

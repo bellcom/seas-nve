@@ -7,6 +7,7 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
     tiltag_type_extension:
         class: AppBundle\Twig\Extension\TiltagTypeExtension
         tags:
@@ -30,6 +31,10 @@ services:
         tags:
             - { name: twig.extension }
 
+    twig.extension.text:
+         class: Twig_Extensions_Extension_Text
+         tags: [{ name: twig.extension }]
+
     security.access.bygning_voter:
         class:      AppBundle\Security\Authorization\Voter\BygningVoter
         public:     false
@@ -39,6 +44,20 @@ services:
 
     security.access.rapport_voter:
         class:      AppBundle\Security\Authorization\Voter\RapportVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
+    security.access.tiltag_voter:
+        class:      AppBundle\Security\Authorization\Voter\TiltagVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
+    security.access.tiltagdetail_voter:
+        class:      AppBundle\Security\Authorization\Voter\TiltagDetailVoter
         public:     false
         arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
         tags:
@@ -85,6 +104,7 @@ services:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: onFlush }
 
     aaplus.tiltag_calculation:
         class: AppBundle\Calculation\TiltagCalculation
@@ -108,3 +128,7 @@ services:
         class: AppBundle\Form\Type\ProfileFormType
         tags:
             - { name: form.type, alias: appbundle_user_profile }
+
+    aaplus.form.bygningtype:
+        class:        AppBundle\Form\BygningType
+        arguments:    [doctrine]

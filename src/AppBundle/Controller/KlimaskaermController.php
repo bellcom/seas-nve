@@ -19,6 +19,7 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  * Klimaskaerm controller.
  *
  * @Route("/klimaskaerm")
+ * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
 class KlimaskaermController extends BaseController {
   /**

@@ -5,9 +5,10 @@ namespace AppBundle\Entity;
 use AppBundle\Annotations\Calculated;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
-use AppBundle\Entity\BelysningTiltagDetail\Placering as BelysningTiltagDetailPlacering;
-use AppBundle\Entity\BelysningTiltagDetail\Styring as BelysningTiltagDetailStyring;
-use AppBundle\Entity\BelysningTiltagDetail\Tiltag as BelysningTiltagDetailTiltag;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * BelysningTiltagDetail
@@ -105,30 +106,33 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="placering_id", type="string", length=255)
-   */
-  protected $placeringId;
-
-  /**
-   * @var integer
-   *
-   * @ORM\Column(name="styring_id", type="string", length=255)
-   */
-  protected $styringId;
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType")
+   * @ORM\Column(name="placering", type="PlaceringType")
+   **/
+  protected $placering;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="noter", type="text")
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType")
+   * @ORM\Column(name="styring", type="StyringType")
+   **/
+  protected $styring;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="noter", type="text", nullable=true)
    */
   protected $noter;
 
   /**
-   * @var integer
+   * @var string
    *
-   * @ORM\Column(name="belysningstiltag_id", type="string", length=255)
-   **/
-  protected $belysningstiltagId;
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType")
+   * @ORM\Column(name="belysningstiltag", type="TiltagType")
+   */
+  protected $belysningstiltag;
 
   /**
    * @var integer
@@ -162,9 +166,9 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestArmaturElLyskildeKrStk", type="decimal", scale=4)
+   * @ORM\Column(name="standardinvestArmaturKrStk", type="decimal", scale=4)
    */
-  protected $standardinvestArmaturElLyskildeKrStk;
+  protected $standardinvestArmaturKrStk;
 
   /**
    * @var float
@@ -548,62 +552,47 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set placeringId
+   * Set placering
    *
-   * @param string $placeringId
+   * @param string $placering
    * @return BelysningTiltagDetail
    */
-  public function setPlaceringId($placeringId) {
-    $this->placeringId = $placeringId;
+  public function setPlacering($placering) {
+    $this->placering = $placering;
 
     return $this;
   }
 
   /**
-   * Get placeringId
+   * Get placering
    *
    * @return string
    */
-  public function getPlaceringId() {
-    return $this->placeringId;
+  public function getPlacering() {
+    return $this->placering;
   }
-
-  // /**
-  //  * Get placering
-  //  *
-  //  * @return BelysningTiltagDetailPlacering
-  //  */
-  // public function getPlacering() {
-  // }
 
   /**
    * Set styring
    *
-   * @param string $styringId
+   * @param string $styring
    * @return BelysningTiltagDetail
    */
-  public function setStyringId($styringId) {
-    $this->styringId = $styringId;
+  public function setStyring($styring) {
+    $this->styring = $styring;
 
     return $this;
-  }
-
-  /**
-   * Get styringId
-   *
-   * @return string
-   */
-  public function getStyringId() {
-    return $this->styringId;
   }
 
   /**
    * Get styring
    *
-   * @return BelysningTiltagDetailStyring
+   * @return string
    */
   public function getStyring() {
+    return $this->styring;
   }
+
 
   /**
    * Set noter
@@ -629,30 +618,22 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Set tiltag
    *
-   * @param string $belysningstiltagId
+   * @param string $belysningstiltag
    * @return BelysningTiltagDetail
    */
-  public function setBelysningstiltagId($belysningstiltagId) {
-    $this->belysningstiltagId = $belysningstiltagId;
+  public function setBelysningstiltag($belysningstiltag) {
+    $this->belysningstiltag = $belysningstiltag;
 
     return $this;
   }
 
   /**
-   * Get belysningtiltagId
+   * Get belysningtiltag
    *
    * @return string
    */
-  public function getBelysningstiltagId() {
-    return $this->belysningstiltagId;
-  }
-
-  /**
-   * Get belysningtiltag
-   *
-   * @return BelysningTiltagDetailTiltag
-   */
   public function getBelysningstiltag() {
+    return $this->belysningstiltag;
   }
 
   /**
@@ -728,24 +709,24 @@ class BelysningTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set standardinvestArmaturElLyskildeKrStk
+   * Set standardinvestArmaturKrStk
    *
-   * @param string $standardinvestArmaturElLyskildeKrStk
+   * @param string $standardinvestArmaturKrStk
    * @return BelysningTiltagDetail
    */
-  public function setStandardinvestArmaturElLyskildeKrStk($standardinvestArmaturElLyskildeKrStk) {
-    $this->standardinvestArmaturElLyskildeKrStk = $standardinvestArmaturElLyskildeKrStk;
+  public function setStandardinvestArmaturKrStk($standardinvestArmaturKrStk) {
+    $this->standardinvestArmaturKrStk = $standardinvestArmaturKrStk;
 
     return $this;
   }
 
   /**
-   * Get standardinvestArmaturElLyskildeKrStk
+   * Get standardinvestArmaturKrStk
    *
    * @return float
    */
-  public function getStandardinvestArmaturElLyskildeKrStk() {
-    return $this->standardinvestArmaturElLyskildeKrStk;
+  public function getStandardinvestArmaturKrStk() {
+    return $this->standardinvestArmaturKrStk;
   }
 
   /**
@@ -1040,7 +1021,7 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function calculateNyDriftstid() {
     // AN
-    if ($this->drifttidTAar == 0 || $this->belysningstiltagId == null) {
+    if ($this->drifttidTAar == 0 || $this->belysningstiltag == TiltagType::NONE) {
       return 0;
     }
     else {
@@ -1060,7 +1041,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
     else {
       return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
-              + $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale
+              + $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale
               + $this->standardinvestLyskildeKrStk * $this->nyLyskildeStkArmatur)
         * ($this->prisfaktor - 1);
     }
@@ -1074,12 +1055,12 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
     elseif ($nyLyskilde->getType() == 'LED-arm.') {
       return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
-              + $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale * $this->nyLyskildeStkArmatur
+              + $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale * $this->nyLyskildeStkArmatur
               + $this->prisfaktorTillaegKrLokale) * $this->lokale_antal;
     }
     else {
       return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
-              + $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale
+              + $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale
               + $this->standardinvestLyskildeKrStk * $this->nyLyskildeStkArmatur * $this->nyeArmaturerStkLokale
               + $this->prisfaktorTillaegKrLokale) * $this->lokale_antal;
     }
@@ -1253,11 +1234,11 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function _computeUdgiftArmatur() {
     // BO
-    if ($this->standardinvestArmaturElLyskildeKrStk == 0) {
+    if ($this->standardinvestArmaturKrStk == 0) {
       return 0;
     }
     else {
-      return $this->standardinvestArmaturElLyskildeKrStk * $this->nyeArmaturerStkLokale * $this->lokale_antal * $this->prisfaktor;
+      return $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale * $this->lokale_antal * $this->prisfaktor;
     }
   }
 

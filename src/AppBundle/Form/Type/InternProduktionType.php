@@ -26,16 +26,9 @@ class InternProduktionType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('navn')
-      ->add('fordeling', 'percent')
-      ->add('effektivitet', 'percent')
-      ->add('prisgrundlag', 'choice', array(
-        'choices' => array(
-          'El' => 'EL',
-          'Vand' => 'VAND',
-          'Varme' => 'VARME',
-        ),
-        'choices_as_values' => true,
-      ));
+      ->add('fordeling', 'percent', array('scale' => 2))
+      ->add('effektivitet', 'percent', array('scale' => 2))
+      ->add('prisgrundlag');
   }
 
   /**

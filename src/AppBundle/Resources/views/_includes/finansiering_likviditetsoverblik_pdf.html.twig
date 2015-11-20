@@ -1,0 +1,38 @@
+{% set slices = [
+entity.cashFlow['cash flow'] | keys | slice(0, 10),
+entity.cashFlow['cash flow'] | keys | slice(10, 10),
+entity.cashFlow['cash flow'] | keys | slice(20, 10)
+] %}
+
+    {% for years in slices %}
+      <table class="table table-condensed">
+        <thead>
+        <tr>
+          <th scope="row">
+            {{ 'År' | trans }}
+          </th>
+          {% for year in years %}
+            <th scope="col">
+              {{ year }}
+            </th>
+          {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for name, key in {
+        'Ydelse, lån [kr]': 'ydelse laan',
+        'Energibesp. [kr]': 'besparelse',
+        'Overskud [kr]': 'cash flow',
+        } %}
+          <tr>
+            <th scope="row">{{ name | trans }}</th>
+            {% for year in years %}
+              <td>
+                {{ entity.cashFlow[key][year] | format_decimal }}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
