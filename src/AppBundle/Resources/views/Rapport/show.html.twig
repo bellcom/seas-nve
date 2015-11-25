@@ -14,12 +14,12 @@
         {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf5' | trans }}
       </a>
       {% if is_granted('RAPPORT_EDIT', entity) %}
+        <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">
+          {{ icon('industry') }} Energiforsyninger
+        </a>
         <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default">
           {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}
         </a>
-      {% endif %}
-      {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">{{ icon('industry') }} Energiforsyninger</a>
       {% endif %}
 
       {% if prev_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
