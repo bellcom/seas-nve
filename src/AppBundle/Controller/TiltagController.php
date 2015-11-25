@@ -254,7 +254,7 @@ class TiltagController extends BaseController {
    * @Route("/{id}/detailnew", name="tiltag_detail_new")
    * @Method("GET")
    * @Template()
-   * @Security("is_granted('TILTAG_CREATE', tiltag)")
+   * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
   public function newDetailAction(Tiltag $tiltag) {
     $this->setBreadcrumb($tiltag);
