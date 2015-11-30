@@ -1058,8 +1058,11 @@ appbundle:
     besparelseDriftOgVedligeholdelse: Besparelse på D & V
     besparelseDriftOgVedligeholdelse.unit: kr/år
     besparelseEl: Besparelse El
+    besparelseEl.unit: kWh/år
     besparelseGAF: Besparelse GAF
+    besparelseGAF.unit: kWh/år
     besparelseGUF: Besparelse GUF
+    besparelseGUF.unit: kWh/år
     besparelseStrafafkoelingsafgift: Besparelse på Strafafkølingsafgift
     besparelseStrafafkoelingsafgift.unit: kr
     elbesparelse: Elbesparelse
