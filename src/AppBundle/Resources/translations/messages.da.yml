@@ -95,6 +95,7 @@ belysningtiltag:
 belysningtiltagdetail:
   actions:
     add: Tilføj belysningstiltag
+    copy: Kopier belysningstiltag
     edit: Rediger belysningstiltag
 bygninger:
   actions:
@@ -149,6 +150,7 @@ klimaskaermtiltag:
 klimaskaermtiltagdetail:
   actions:
     add: Tilføj klimaskærmstiltag
+    copy: Kopier klimaskærmstiltag
     edit: Rediger klimaskærmstiltag
 pumper:
   labels:
@@ -168,6 +170,7 @@ pumpetiltag:
 pumpetiltagdetail:
   actions:
     add: Tilføj Pumpetiltag
+    copy: Kopier Pumpetiltag
     create: Opret Pumpetiltag
     edit: Rediger Pumpetiltag
 rapporter:
@@ -226,6 +229,7 @@ solcelletiltag:
 solcelletiltagdetail:
   actions:
     add: Tilføj solcelletiltag
+    copy: Kopier solcelletiltag
     edit: Rediger solcelletiltag
 specialtiltag:
   actions:
@@ -241,6 +245,7 @@ tekniskisoleringtiltag:
 tekniskisoleringtiltagdetail:
   actions:
     add: Tilføj teknisk isolering
+    copy: Kopier teknisk isolering
     create: Opret teknisk isolering
     edit: Rediger teknisk isolering
 tiltag:
@@ -259,6 +264,7 @@ tiltag:
 tiltagdetail:
   actions:
     add: Tilføj Detail
+    copy: Kopier Detail
     edit: Rediger Detail
 user:
   actions:
@@ -275,6 +281,7 @@ vinduetiltag:
 vinduetiltagdetail:
   actions:
     add: Tilføj vinduestiltag
+    copy: Kopier vinduestiltag
     edit: Rediger vinduestiltag
 
 

@@ -87,7 +87,7 @@ class TiltagDetailController extends BaseController {
    * @Template()
    * @param TiltagDetail $tiltagdetail
    * @return \Symfony\Component\HttpFoundation\Response
-   * @Security("is_granted('TILTAGDETAIL_CREATE', tiltagdetail)")
+   * @Security("is_granted('TILTAGDETAIL_EDIT', tiltagdetail)")
    */
   public function copyAction(TiltagDetail $tiltagdetail) {
     $copy = clone $tiltagdetail;
@@ -99,7 +99,7 @@ class TiltagDetailController extends BaseController {
     $editForm = $this->createEditForm($copy);
     $deleteForm = $this->createDeleteForm($copy);
 
-    $template = $this->getTemplate($copy, 'edit');
+    $template = $this->getTemplate($copy, 'copy');
     return $this->render($template, array(
       'calculation_changes' => $this->container->get('aaplus.tiltagdetail_calculation')->getChanges($copy),
       'entity' => $copy,
