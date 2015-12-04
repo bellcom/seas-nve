@@ -40,7 +40,7 @@ class RapportType extends AbstractType {
       ->add('BaselineVarmeGAF')
       ->add('BaselineVand')
       ->add('BaselineStrafAfkoeling')
-      ->add('faktorPaaVarmebesparelse', 'percent', array('scale' => 2))
+      ->add('faktorPaaVarmebesparelse')
       ->add('Energiscreening');
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
