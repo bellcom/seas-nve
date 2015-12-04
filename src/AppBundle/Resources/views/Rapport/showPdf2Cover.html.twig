@@ -20,11 +20,11 @@
   <div class="row heading">
     <div class="col-xs-8">
       <address>
-        {{ icon('home') }} <strong>{{ entity.bygning.navn }}</strong><br>
-        {{ entity.bygning.adresse }}<br>
-        {{ entity.bygning.postnummer }} {{ entity.bygning.postBy }}<br>
+        {{ icon('home') }} <strong>{{ rapport.bygning.navn }}</strong><br>
+        {{ rapport.bygning.adresse }}<br>
+        {{ rapport.bygning.postnummer }} {{ rapport.bygning.postBy }}<br>
       </address>
-      <strong>Version: {{ entity.fullVersion }}</strong>
+      <strong>Version: {{ rapport.fullVersion }}</strong>
     </div>
     <div class="col-xs-4 text-right">
       <p>{{ 'common.genereted'| trans }}: {{ 'now'|date }}</p>

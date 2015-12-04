@@ -135,13 +135,13 @@ class RapportController extends BaseController {
     }
 
     $html = $this->renderView('AppBundle:Rapport:showPdf2.html.twig', array(
-      'entity' => $rapport,
+      'rapport' => $rapport,
       'tilvalgt_form_array' => $tilvalgtFormArray,
       'fravalgt_form_array' => $fravalgtFormArray,
     ));
 
     $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', array(
-      'entity' => $rapport,
+      'rapport' => $rapport,
     ));
 
     return new Response(
@@ -179,7 +179,7 @@ class RapportController extends BaseController {
     ));
 
     $cover = $this->renderView('AppBundle:Rapport:showPdf5Cover.html.twig', array(
-      'entity' => $rapport,
+      'rapport' => $rapport,
     ));
 
     return new Response(
