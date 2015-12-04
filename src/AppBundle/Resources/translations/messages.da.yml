@@ -786,7 +786,7 @@ appbundle:
     vvsnr: VVS Nr.
   pumpetiltag:
     applikation: Applikation
-    bfaktor: B-Faktor
+    bFaktor: B-Faktor
     eksisterendeDrifttid: Eksisterende Drifttid
     forsyningsomraade: Forsyningsomraade
     isoleringskappe: Isoleringskappe
@@ -798,7 +798,7 @@ appbundle:
   pumpetiltagdetail:
     add: Tilføj pumpe
     applikation: Applikation
-    bfaktor: B-Faktor
+    bFaktor: B-Faktor
     eksisterendeDrifttid: Eksisterende drifttid
     eksisterendeDrifttid.unit: Timer/år
     eksisterendeDrifttid.help: ﻿Eksisterende driftstid indtastes i timer/år
