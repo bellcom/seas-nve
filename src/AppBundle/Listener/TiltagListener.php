@@ -26,7 +26,7 @@ class TiltagListener {
     foreach ($entities as $entity) {
       if ($entity instanceof Tiltag) {
         $targets[] = $entity;
-        $targets[] = $entity->getRapport();;
+        $targets[] = $entity->getRapport();
       }
       elseif ($entity instanceof TiltagDetail) {
         $targets[] = $entity;
