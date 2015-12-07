@@ -17,6 +17,7 @@ class TiltagListener {
     $uow = $em->getUnitOfWork();
 
     $entities = array_merge(
+      $uow->getScheduledEntityInsertions(),
       $uow->getScheduledEntityUpdates()
     );
 

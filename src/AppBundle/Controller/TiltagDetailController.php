@@ -174,7 +174,7 @@ class TiltagDetailController extends BaseController {
     $tiltag = $tiltagdetail->getTiltag();
 
     if ($form->isValid()) {
-      $tiltagdetail->setTiltag(null);
+      $tiltag->removeDetail($tiltagdetail)->calculate();
       $em = $this->getDoctrine()->getManager();
       $em->remove($tiltagdetail);
       $em->flush();
