@@ -12,7 +12,7 @@ entity.cashFlow['cash flow'] | keys | slice(20, 10)
             {{ 'År' | trans }}
           </th>
           {% for year in years %}
-            <th scope="col">
+            <th scope="col" class="text-right">
               {{ year }}
             </th>
           {% endfor %}
@@ -27,7 +27,7 @@ entity.cashFlow['cash flow'] | keys | slice(20, 10)
           <tr>
             <th scope="row">{{ name | trans }}</th>
             {% for year in years %}
-              <td>
+              <td class="text-right">
                 {{ entity.cashFlow[key][year] | format_decimal }}
               </td>
             {% endfor %}
