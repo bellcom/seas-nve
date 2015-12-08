@@ -24,11 +24,11 @@ class SolcelleTiltagDetailType extends TiltagDetailType {
       ->add('inverterskift2Aar')
       ->add('investeringKr')
       ->add('screeningOgProjekteringKr')
-      ->add('omkostningTilMaalerKr');
+      ->add('omkostningTilMaalerKr')
+      ->add('forringetYdeevnePrAar', 'percent', array('scale' => 2));
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder
-        ->add('forringetYdeevnePrAar', 'percent', array('scale' => 2))
         ->add('energiprisstigningPctPrAar', 'percent', array('scale' => 2))
         ->add('salgsprisFoerste10AarKrKWh')
         ->add('salgsprisEfter10AarKrKWh');
