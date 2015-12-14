@@ -132,3 +132,7 @@ services:
     aaplus.form.bygningtype:
         class:        AppBundle\Form\BygningType
         arguments:    [doctrine]
+
+    aaplus.form.segmenttype:
+        class:        AppBundle\Form\SegmentType
+        arguments:    [doctrine]

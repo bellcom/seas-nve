@@ -928,6 +928,7 @@ appbundle:
     magistrat: Magistrat
     navn: Navn
     plural: Segmenter
+    segmentAnsvarlig: Aa+ Segment Ansvarlig
   solcelle:
     drift: Drift
     inverterpris: Inverterpris
