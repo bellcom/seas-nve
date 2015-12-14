@@ -81,7 +81,7 @@ class SegmentController extends BaseController implements InitControllerInterfac
    */
   private function createCreateForm(Segment $entity)
   {
-    $form = $this->createForm(new SegmentType(), $entity, array(
+    $form = $this->createForm(new SegmentType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('segment_create'),
       'method' => 'POST',
     ));
@@ -173,7 +173,7 @@ class SegmentController extends BaseController implements InitControllerInterfac
    */
   private function createEditForm(Segment $entity)
   {
-    $form = $this->createForm(new SegmentType(), $entity, array(
+    $form = $this->createForm(new SegmentType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('segment_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));

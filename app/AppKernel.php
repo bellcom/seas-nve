@@ -27,6 +27,7 @@ class AppKernel extends Kernel
       new Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPasswordStrengthBundle(),
       new Fresh\DoctrineEnumBundle\FreshDoctrineEnumBundle(),
       new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+      new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {
