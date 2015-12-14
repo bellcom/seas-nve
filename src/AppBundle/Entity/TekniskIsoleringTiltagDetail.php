@@ -90,6 +90,8 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    */
   protected $nyttiggjortVarme;
 
+
+
   /**
    * @var float
    *

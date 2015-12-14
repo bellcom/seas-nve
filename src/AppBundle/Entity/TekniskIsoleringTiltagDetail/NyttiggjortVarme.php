@@ -1,13 +1,13 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\TekniskIsoleringTiltagDetail;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * NyttiggjortVarme
  *
- * @ORM\Table(name="TI_NyttiggjortVarme")
+ * @ORM\Table()
  * @ORM\Entity
  */
 class NyttiggjortVarme {

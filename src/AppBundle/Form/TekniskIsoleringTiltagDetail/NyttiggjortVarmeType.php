@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\TekniskIsoleringTiltagDetail;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,7 +26,7 @@ class NyttiggjortVarmeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\NyttiggjortVarme'
+            'data_class' => 'AppBundle\Entity\TekniskIsoleringTiltagDetail\NyttiggjortVarme'
         ));
     }
 
@@ -35,6 +35,6 @@ class NyttiggjortVarmeType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_nyttiggjortvarme';
+        return 'appbundle_tekniskisoleringtiltagdetail_nyttiggjortvarme';
     }
 }

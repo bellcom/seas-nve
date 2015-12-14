@@ -1,18 +1,19 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\TekniskIsoleringTiltagDetail;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\NyttiggjortVarme;
-use AppBundle\Form\NyttiggjortVarmeType;
+use AppBundle\Entity\TekniskIsoleringTiltagDetail\NyttiggjortVarme;
+use AppBundle\Form\TekniskIsoleringTiltagDetail\NyttiggjortVarmeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+
 /**
- * NyttiggjortVarme controller.
+ * TekniskIsoleringTiltagDetail\NyttiggjortVarme controller.
  *
  * @Route("/nyttiggjortvarme")
  * @Security("has_role('ROLE_SUPER_ADMIN')")
@@ -21,9 +22,9 @@ class NyttiggjortVarmeController extends Controller
 {
 
     /**
-     * Lists all NyttiggjortVarme entities.
+     * Lists all TekniskIsoleringTiltagDetail\NyttiggjortVarme entities.
      *
-     * @Route("/", name="nyttiggjortvarme")
+     * @Route("/", name="tekniskisoleringtiltagdetail_nyttiggjortvarme")
      * @Method("GET")
      * @Template()
      */
@@ -31,18 +32,18 @@ class NyttiggjortVarmeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:NyttiggjortVarme')->findAll();
+        $entities = $em->getRepository('AppBundle:TekniskIsoleringTiltagDetail\NyttiggjortVarme')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new NyttiggjortVarme entity.
+     * Creates a new TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.
      *
-     * @Route("/", name="nyttiggjortvarme_create")
+     * @Route("/", name="tekniskisoleringtiltagdetail_nyttiggjortvarme_create")
      * @Method("POST")
-     * @Template("AppBundle:NyttiggjortVarme:new.html.twig")
+     * @Template("AppBundle:TekniskIsoleringTiltagDetail\NyttiggjortVarme:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -55,7 +56,7 @@ class NyttiggjortVarmeController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('nyttiggjortvarme_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('tekniskisoleringtiltagdetail_nyttiggjortvarme_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -65,7 +66,7 @@ class NyttiggjortVarmeController extends Controller
     }
 
     /**
-     * Creates a form to create a NyttiggjortVarme entity.
+     * Creates a form to create a TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.
      *
      * @param NyttiggjortVarme $entity The entity
      *
@@ -74,7 +75,7 @@ class NyttiggjortVarmeController extends Controller
     private function createCreateForm(NyttiggjortVarme $entity)
     {
         $form = $this->createForm(new NyttiggjortVarmeType(), $entity, array(
-            'action' => $this->generateUrl('nyttiggjortvarme_create'),
+            'action' => $this->generateUrl('tekniskisoleringtiltagdetail_nyttiggjortvarme_create'),
             'method' => 'POST',
         ));
 
@@ -84,9 +85,9 @@ class NyttiggjortVarmeController extends Controller
     }
 
     /**
-     * Displays a form to create a new NyttiggjortVarme entity.
+     * Displays a form to create a new TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.
      *
-     * @Route("/new", name="nyttiggjortvarme_new")
+     * @Route("/new", name="tekniskisoleringtiltagdetail_nyttiggjortvarme_new")
      * @Method("GET")
      * @Template()
      */
@@ -102,9 +103,9 @@ class NyttiggjortVarmeController extends Controller
     }
 
     /**
-     * Finds and displays a NyttiggjortVarme entity.
+     * Finds and displays a TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.
      *
-     * @Route("/{id}", name="nyttiggjortvarme_show")
+     * @Route("/{id}", name="tekniskisoleringtiltagdetail_nyttiggjortvarme_show")
      * @Method("GET")
      * @Template()
      */
@@ -112,10 +113,10 @@ class NyttiggjortVarmeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:NyttiggjortVarme')->find($id);
+        $entity = $em->getRepository('AppBundle:TekniskIsoleringTiltagDetail\NyttiggjortVarme')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find NyttiggjortVarme entity.');
+            throw $this->createNotFoundException('Unable to find TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -127,9 +128,9 @@ class NyttiggjortVarmeController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing NyttiggjortVarme entity.
+     * Displays a form to edit an existing TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.
      *
-     * @Route("/{id}/edit", name="nyttiggjortvarme_edit")
+     * @Route("/{id}/edit", name="tekniskisoleringtiltagdetail_nyttiggjortvarme_edit")
      * @Method("GET")
      * @Template()
      */
@@ -137,10 +138,10 @@ class NyttiggjortVarmeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:NyttiggjortVarme')->find($id);
+        $entity = $em->getRepository('AppBundle:TekniskIsoleringTiltagDetail\NyttiggjortVarme')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find NyttiggjortVarme entity.');
+            throw $this->createNotFoundException('Unable to find TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -154,7 +155,7 @@ class NyttiggjortVarmeController extends Controller
     }
 
     /**
-    * Creates a form to edit a NyttiggjortVarme entity.
+    * Creates a form to edit a TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.
     *
     * @param NyttiggjortVarme $entity The entity
     *
@@ -163,7 +164,7 @@ class NyttiggjortVarmeController extends Controller
     private function createEditForm(NyttiggjortVarme $entity)
     {
         $form = $this->createForm(new NyttiggjortVarmeType(), $entity, array(
-            'action' => $this->generateUrl('nyttiggjortvarme_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('tekniskisoleringtiltagdetail_nyttiggjortvarme_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -172,20 +173,20 @@ class NyttiggjortVarmeController extends Controller
         return $form;
     }
     /**
-     * Edits an existing NyttiggjortVarme entity.
+     * Edits an existing TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.
      *
-     * @Route("/{id}", name="nyttiggjortvarme_update")
+     * @Route("/{id}", name="tekniskisoleringtiltagdetail_nyttiggjortvarme_update")
      * @Method("PUT")
-     * @Template("AppBundle:NyttiggjortVarme:edit.html.twig")
+     * @Template("AppBundle:TekniskIsoleringTiltagDetail\NyttiggjortVarme:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:NyttiggjortVarme')->find($id);
+        $entity = $em->getRepository('AppBundle:TekniskIsoleringTiltagDetail\NyttiggjortVarme')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find NyttiggjortVarme entity.');
+            throw $this->createNotFoundException('Unable to find TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -195,7 +196,7 @@ class NyttiggjortVarmeController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('nyttiggjortvarme_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('tekniskisoleringtiltagdetail_nyttiggjortvarme_edit', array('id' => $id)));
         }
 
         return array(
@@ -205,9 +206,9 @@ class NyttiggjortVarmeController extends Controller
         );
     }
     /**
-     * Deletes a NyttiggjortVarme entity.
+     * Deletes a TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.
      *
-     * @Route("/{id}", name="nyttiggjortvarme_delete")
+     * @Route("/{id}", name="tekniskisoleringtiltagdetail_nyttiggjortvarme_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -217,21 +218,21 @@ class NyttiggjortVarmeController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:NyttiggjortVarme')->find($id);
+            $entity = $em->getRepository('AppBundle:TekniskIsoleringTiltagDetail\NyttiggjortVarme')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find NyttiggjortVarme entity.');
+                throw $this->createNotFoundException('Unable to find TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('nyttiggjortvarme'));
+        return $this->redirect($this->generateUrl('tekniskisoleringtiltagdetail_nyttiggjortvarme'));
     }
 
     /**
-     * Creates a form to delete a NyttiggjortVarme entity by id.
+     * Creates a form to delete a TekniskIsoleringTiltagDetail\NyttiggjortVarme entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -240,7 +241,7 @@ class NyttiggjortVarmeController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('nyttiggjortvarme_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('tekniskisoleringtiltagdetail_nyttiggjortvarme_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
