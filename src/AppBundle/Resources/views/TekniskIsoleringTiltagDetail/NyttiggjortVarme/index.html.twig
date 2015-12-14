@@ -1,43 +1,36 @@
-{% extends '::base.html.twig' %}
+{% extends 'AppBundle:TiltagDetail:edit.html.twig' %}
 
 {% block body -%}
-    <h1>TekniskIsoleringTiltagDetail\NyttiggjortVarme list</h1>
+  <div class="row">
+    <div class="col-md-10">
+      <h1>{{ 'nyttiggjortvarme.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-2 text-right">
+      <a href="{{ path('nyttiggjortvarme_new') }}" class="btn btn-default">
+        {{ icon('plus') }} {{ 'nyttiggjortvarme.actions.add' | trans }}
+      </a>
+    </div>
+  </div>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Faktor</th>
-                <th>Titel</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('tekniskisoleringtiltagdetail_nyttiggjortvarme_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.faktor }}</td>
-                <td>{{ entity.titel }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('tekniskisoleringtiltagdetail_nyttiggjortvarme_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('tekniskisoleringtiltagdetail_nyttiggjortvarme_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr>
+      <th>Faktor</th>
+      <th>Titel</th>
+      <th class="text-right">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+      <tr>
+        <td>{{ entity.faktor }}</td>
+        <td>{{ entity.titel }}</td>
+        <td class="text-right">
+          <a href="{{ path('nyttiggjortvarme_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('tekniskisoleringtiltagdetail_nyttiggjortvarme_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+{% endblock %}

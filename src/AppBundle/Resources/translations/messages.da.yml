@@ -152,6 +152,13 @@ klimaskaermtiltagdetail:
     add: Tilføj klimaskærmstiltag
     copy: Kopier klimaskærmstiltag
     edit: Rediger klimaskærmstiltag
+nyttiggjortvarme:
+  actions:
+    add: Tilføj faktor
+    new: Ny faktor
+    edit: Rediger faktor
+  labels:
+    plural: Faktorer for nyttiggjort varme (Teknisk Iso.)
 pumper:
   labels:
     plural: Pumper
@@ -1015,8 +1022,11 @@ appbundle:
     nutidsvaerdiSetOver15AarKr.unit: kr
     nyIsolMm: Ny isol.
     nyIsolMm.unit: mm
-    nyttiggjortVarme: Nyttiggjort varme
+    nyttiggjortVarme: Faktor for nyttiggjort varme
     nyttiggjortVarme.unit: B-faktor
+    nyttiggjortvarme.faktor: Faktor for nyttiggjort varme
+    nyttiggjortvarme.faktor.unit: B-faktor
+    nyttiggjortvarme.titel: Beskrivelse for nyttiggjort varme
     nytVarmetabKwh: Nyt varmetab
     nytVarmetabKwh.unit: kwh
     prisfaktor: Prisfaktor

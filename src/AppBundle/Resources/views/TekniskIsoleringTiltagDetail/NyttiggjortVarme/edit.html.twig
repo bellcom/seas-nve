@@ -1,16 +1,15 @@
-{% extends '::base.html.twig' %}
+{% extends 'AppBundle:TiltagDetail:edit.html.twig' %}
 
 {% block body -%}
-    <h1>TekniskIsoleringTiltagDetail\NyttiggjortVarme edit</h1>
+  <div class="row">
+    <div class="col-md-10">
+      <h1>{{ 'nyttiggjortvarme.actions.edit' | trans }}</h1>
+    </div>
+    <div class="col-md-2 text-right">
 
-    {{ form(edit_form) }}
+    </div>
+  </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('tekniskisoleringtiltagdetail_nyttiggjortvarme') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+  {{ form(edit_form) }}
+
 {% endblock %}
