@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * NyttiggjortVarme
  *
- * @ORM\Table()
+ * @ORM\Table(name="TI_NyttiggjortVarme")
  * @ORM\Entity
  */
 class NyttiggjortVarme {
