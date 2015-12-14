@@ -20,6 +20,17 @@ use Doctrine\ORM\Mapping\JoinColumn;
  */
 class SolcelleTiltagDetail extends TiltagDetail {
   /**
+   * @inheritdoc
+   */
+  public function init(Tiltag $tiltag) {
+    $configuration = $tiltag->getRapport()->getConfiguration();
+
+    $this->energiprisstigningPctPrAar = $configuration->getSolcelletiltagdetailEnergiprisstigningPctPrAar();
+    $this->salgsprisFoerste10AarKrKWh = $configuration->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+    $this->salgsprisEfter10AarKrKWh = $configuration->getSolcelletiltagdetailSalgsprisEfter10AarKrKWh();
+  }
+
+  /**
    * @var float
    *
    * @ORM\Column(name="anlaegsstoerrelseKWp", type="decimal", scale=4)

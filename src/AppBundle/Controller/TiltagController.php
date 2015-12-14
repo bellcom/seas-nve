@@ -262,6 +262,7 @@ class TiltagController extends BaseController {
     $this->breadcrumbs->addItem($type.'detail.actions.add', $this->get('router')->generate('tiltag_detail_new', array('id' => $tiltag->getId())));
 
     $detail = $this->createDetailEntity($tiltag);
+    $detail->init($tiltag);
     $form = $this->createDetailCreateForm($tiltag, $detail);
     $template = $this->getDetailTemplate($detail, 'new');
 

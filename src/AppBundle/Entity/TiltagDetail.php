@@ -47,6 +47,13 @@ abstract class TiltagDetail {
   use TimestampableEntity;
 
   /**
+   * Initialize a new TiltagDetail.
+   *
+   * Can be used for setting default values, say.
+   */
+  public function init(Tiltag $tiltag) {}
+
+  /**
    * @var integer
    *
    * @ORM\Column(name="id", type="integer")
