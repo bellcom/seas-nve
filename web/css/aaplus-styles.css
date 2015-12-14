@@ -504,3 +504,11 @@ div.row.heading .btn {
 .finansiering-likviditetsoverblik [data-toggle][aria-expanded = "true"]::after {
 	content: '\f0d8';
 }
+
+table.configuration-settings td:first-child {
+	width: 50%;
+}
+table.configuration-settings td:nth-child(2) {
+	width: 25%;
+	text-align: right;
+}

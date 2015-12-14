@@ -55,13 +55,17 @@ class ConfigurationController extends BaseController {
    * @Route("/edit", name="configuration_edit")
    * @Method("GET")
    * @Template()
-   * @Security("is_granted('CONFIGURATION_EDIT')")
    */
   public function editAction() {
     $this->breadcrumbs->addItem('configuration.labels.singular', $this->generateUrl('configuration'));
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('configuration_edit'));
 
     $entity = $this->getConfiguration();
+
+    if (!$this->container->get('security.context')->isGranted('CONFIGURATION_EDIT', $entity)) {
+      throw $this->createAccessDeniedException('You are not allowed to do this');
+    }
+
     $editForm = $this->createEditForm($entity);
 
     return array(
@@ -76,13 +80,16 @@ class ConfigurationController extends BaseController {
    * @Route("/", name="configuration_update")
    * @Method("PUT")
    * @Template("AppBundle:Configuration:edit.html.twig")
-   * @Security("is_granted('CONFIGURATION_EDIT')")
    */
   public function updateAction(Request $request) {
     $entity = $this->getConfiguration();
 
     if (!$entity) {
       throw $this->createNotFoundException('Unable to find Configuration entity.');
+    }
+
+    if (!$this->container->get('security.context')->isGranted('CONFIGURATION_EDIT', $entity)) {
+      throw $this->createAccessDeniedException('You are not allowed to do this');
     }
 
     $editForm = $this->createEditForm($entity);

@@ -497,21 +497,33 @@ appbundle:
     vandNotat: Vand notat
     varmeNotat: Varme notat
   configuration:
-    driftomkostningerfaktor: Driftomkostninger Faktor
-    driftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
+    rapportDriftomkostningerfaktor: Driftomkostninger Faktor
+    rapportDriftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
     elfaktor: El-faktor
     elKrKWh: El (kr/kWh)
-    inflation: Inflation
+    rapportInflation: Inflation
+    rapportInflation.unit: %
     inflationsfaktor: Inflationsfaktor
-    kalkulationsrente: Kalkulationsrente
-    lobetid: Løbetid
-    nominelEnergiprisstigning: Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt
-    procentAfInvestering: Procent af investering
+    rapportKalkulationsrente: Kalkulationsrente
+    rapportKalkulationsrente.unit: %
+    rapportLobetid: Løbetid
+    rapportLobetid.unit: år
+    rapportNominelEnergiprisstigning: Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt
+    rapportProcentAfInvestering: Procent af investering
+    rapportProcentAfInvestering.unit: %
     vandfaktor: Vandfaktor
     varmefaktor: Varmefaktor
     varmeKrKWh: Varme (kr/kWh)
-    varmeledningsevneEksistLamelmaatter: Varmeledningsevne (W/m·K), eksist. lamelmåtter
-    varmeledningsevneNyIsolering: Varmeledningsevne (W/m·K), ny isolering
+    tekniskIsoleringVarmeledningsevneEksistLamelmaatter: Varmeledningsevne, eksist. lamelmåtter
+    tekniskIsoleringVarmeledningsevneEksistLamelmaatter.unit: W/m·K
+    tekniskIsoleringVarmeledningsevneNyIsolering: Varmeledningsevne, ny isolering
+    tekniskIsoleringVarmeledningsevneNyIsolering.unit: W/m·K
+    solcelletiltagdetailEnergiprisstigningPctPrAar: Energiprisstigning
+    solcelletiltagdetailEnergiprisstigningPctPrAar.unit: %/år
+    solcelletiltagdetailSalgsprisFoerste10AarKrKWh: Salgspris (Første 10 år)
+    solcelletiltagdetailSalgsprisFoerste10AarKrKWh.unit: Kr/KWh
+    solcelletiltagdetailSalgsprisEfter10AarKrKWh: Salgspris (Efter 10 år)
+    solcelletiltagdetailSalgsprisEfter10AarKrKWh.unit: Kr/KWh
   energiforsyning:
     beskrivelse: Beskrivelse
     internproduktion:

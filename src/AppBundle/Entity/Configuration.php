@@ -28,138 +28,180 @@ class Configuration {
    * @var float
    * @ORM\Column(name="rapport_kalkulationsrente", type="decimal", scale=4, nullable=true)
    */
-  protected $rapport_kalkulationsrente;
+  protected $rapportKalkulationsrente;
 
   /**
    * @var float
    * @ORM\Column(name="rapport_inflation", type="decimal", scale=4, nullable=true)
    */
-  protected $rapport_inflation;
+  protected $rapportInflation;
 
   /**
    * @var float
    * @ORM\Column(name="rapport_lobetid", type="decimal", scale=4, nullable=true)
    */
-  protected $rapport_lobetid;
+  protected $rapportLobetid;
 
   /**
    * @var float
    * @ORM\Column(name="rapport_driftomkosningerfaktor", type="decimal", scale=4, nullable=true)
    */
-  protected $rapport_driftomkosningerfaktor;
+  protected $rapportDriftomkosningerfaktor;
 
   /**
    * @var float
    * @ORM\Column(name="rapport_nominelEnergiprisstigning", type="decimal", scale=4, nullable=true)
    */
-  protected $rapport_nominelEnergiprisstigning;
+  protected $rapportNominelEnergiprisstigning;
 
   /**
    * @var float
    * @ORM\Column(name="rapport_procentAfInvestering", type="decimal", scale=4, nullable=true)
    */
-  protected $rapport_procentAfInvestering = 0.1;
+  protected $rapportProcentAfInvestering = 0.1;
 
   /**
    * @var float
    * @ORM\Column(name="tekniskisolering_varmeledningsevneEksistLamelmaatter", type="decimal", scale=4, nullable=true)
    */
-  protected $tekniskisolering_varmeledningsevneEksistLamelmaatter;
+  protected $tekniskisoleringVarmeledningsevneEksistLamelmaatter;
 
   /**
    * @var float
    * @ORM\Column(name="tekniskisolering_varmeledningsevneNyIsolering", type="decimal", scale=4, nullable=true)
    */
-  protected $tekniskisolering_varmeledningsevneNyIsolering;
+  protected $tekniskisoleringVarmeledningsevneNyIsolering;
 
   /**
    * @var float
-   * @ORM\Column(name="solcelle_forringetYdeevnePrAar", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="solcelletiltagdetail_energiprisstigningPctPrAar", type="decimal", scale=4, nullable=true)
    */
-  protected $solcelle_forringetYdeevnePrAar;
+  protected $solcelletiltagdetailEnergiprisstigningPctPrAar;
+
+	/**
+   * @var float
+   * @ORM\Column(name="solcelletiltagdetail_salgsprisFoerste10AarKrKWh", type="decimal", scale=4, nullable=true)
+   */
+  protected $solcelletiltagdetailSalgsprisFoerste10AarKrKWh;
+
+	/**
+   * @var float
+   * @ORM\Column(name="solcelletiltagdetail_salgsprisEfter10AarKrKWh", type="decimal", scale=4, nullable=true)
+   */
+  protected $solcelletiltagdetailSalgsprisEfter10AarKrKWh;
 
   public function setId($id) {
     $this->id = $id;
   }
 
-  public function setKalkulationsrente($kalkulationsrente) {
-    $this->rapport_kalkulationsrente = $kalkulationsrente;
+  public function setRapportKalkulationsrente($kalkulationsrente) {
+    $this->rapportKalkulationsrente = $kalkulationsrente;
 
     return $this;
   }
 
-  public function getKalkulationsrente() {
-    return $this->rapport_kalkulationsrente;
+  public function getRapportKalkulationsrente() {
+    return $this->rapportKalkulationsrente;
   }
 
-  public function setInflation($inflation) {
-    $this->rapport_inflation = $inflation;
+  public function setRapportInflation($inflation) {
+    $this->rapportInflation = $inflation;
 
     return $this;
   }
 
-  public function getInflation() {
-    return $this->rapport_inflation;
+  public function getRapportInflation() {
+    return $this->rapportInflation;
   }
 
-  public function setLobetid($lobetid) {
-    $this->rapport_lobetid = $lobetid;
+  public function setRapportLobetid($lobetid) {
+    $this->rapportLobetid = $lobetid;
 
     return $this;
   }
 
-  public function getLobetid() {
-    return $this->rapport_lobetid;
+  public function getRapportLobetid() {
+    return $this->rapportLobetid;
   }
 
-  public function setDriftomkostningerfaktor($faktor) {
-    $this->rapport_driftomkosningerfaktor = $faktor;
+  public function setRapportDriftomkostningerfaktor($faktor) {
+    $this->rapportDriftomkosningerfaktor = $faktor;
 
     return $this;
   }
 
-  public function getDriftomkostningerfaktor() {
-    return $this->rapport_driftomkosningerfaktor;
+  public function getRapportDriftomkostningerfaktor() {
+    return $this->rapportDriftomkosningerfaktor;
   }
 
-  public function setNominelEnergiprisstigning($rapport_nominelEnergiprisstigning) {
-    $this->rapport_nominelEnergiprisstigning = $rapport_nominelEnergiprisstigning;
+  public function setRapportNominelEnergiprisstigning($rapport_nominelEnergiprisstigning) {
+    $this->rapportNominelEnergiprisstigning = $rapport_nominelEnergiprisstigning;
 
     return $this;
   }
 
-  public function getNominelEnergiprisstigning() {
-    return $this->rapport_nominelEnergiprisstigning;
+  public function getRapportNominelEnergiprisstigning() {
+    return $this->rapportNominelEnergiprisstigning;
   }
 
-  public function setProcentAfInvestering($rapport_procentAfInvestering) {
-    $this->rapport_procentAfInvestering = $rapport_procentAfInvestering;
+  public function setRapportProcentAfInvestering($rapport_procentAfInvestering) {
+    $this->rapportProcentAfInvestering = $rapport_procentAfInvestering;
 
     return $this;
   }
 
-  public function getProcentAfInvestering() {
-    return $this->rapport_procentAfInvestering;
+  public function getRapportProcentAfInvestering() {
+    return $this->rapportProcentAfInvestering;
   }
 
-  public function setVarmeledningsevneEksistLamelmaatter($varmeledningsevneEksistLamelmaatter) {
-    $this->tekniskisolering_varmeledningsevneEksistLamelmaatter = $varmeledningsevneEksistLamelmaatter;
+  public function setTekniskIsoleringVarmeledningsevneEksistLamelmaatter($varmeledningsevneEksistLamelmaatter) {
+    $this->tekniskisoleringVarmeledningsevneEksistLamelmaatter = $varmeledningsevneEksistLamelmaatter;
 
     return $this;
   }
 
-  public function getVarmeledningsevneEksistLamelmaatter() {
-    return $this->tekniskisolering_varmeledningsevneEksistLamelmaatter;
+  public function getTekniskIsoleringVarmeledningsevneEksistLamelmaatter() {
+    return $this->tekniskisoleringVarmeledningsevneEksistLamelmaatter;
   }
 
-  public function setVarmeledningsevneNyIsolering($varmeledningsevneNyIsolering) {
-    $this->tekniskisolering_varmeledningsevneNyIsolering = $varmeledningsevneNyIsolering;
+  public function setTekniskIsoleringVarmeledningsevneNyIsolering($varmeledningsevneNyIsolering) {
+    $this->tekniskisoleringVarmeledningsevneNyIsolering = $varmeledningsevneNyIsolering;
 
     return $this;
   }
 
-  public function getVarmeledningsevneNyIsolering() {
-    return $this->tekniskisolering_varmeledningsevneNyIsolering;
+  public function getTekniskIsoleringVarmeledningsevneNyIsolering() {
+    return $this->tekniskisoleringVarmeledningsevneNyIsolering;
+  }
+
+  public function setSolcelletiltagdetailEnergiprisstigningPctPrAar($solcelletiltagdetailEnergiprisstigningPctPrAar) {
+    $this->solcelletiltagdetailEnergiprisstigningPctPrAar = $solcelletiltagdetailEnergiprisstigningPctPrAar;
+
+    return $this;
+  }
+
+  public function getSolcelletiltagdetailEnergiprisstigningPctPrAar() {
+    return $this->solcelletiltagdetailEnergiprisstigningPctPrAar;
+  }
+
+  public function setSolcelletiltagdetailSalgsprisFoerste10AarKrKWh($solcelletiltagdetailSalgsprisFoerste10AarKrKWh) {
+    $this->solcelletiltagdetailSalgsprisFoerste10AarKrKWh = $solcelletiltagdetailSalgsprisFoerste10AarKrKWh;
+
+    return $this;
+  }
+
+  public function getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {
+    return $this->solcelletiltagdetailSalgsprisFoerste10AarKrKWh;
+  }
+
+  public function setSolcelletiltagdetailSalgsprisEfter10AarKrKWh($solcelletiltagdetailSalgsprisEfter10AarKrKWh) {
+    $this->solcelletiltagdetailSalgsprisEfter10AarKrKWh = $solcelletiltagdetailSalgsprisEfter10AarKrKWh;
+
+    return $this;
+  }
+
+  public function getSolcelletiltagdetailSalgsprisEfter10AarKrKWh() {
+    return $this->solcelletiltagdetailSalgsprisEfter10AarKrKWh;
   }
 
 }

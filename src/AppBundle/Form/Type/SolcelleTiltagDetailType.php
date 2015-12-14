@@ -32,6 +32,12 @@ class SolcelleTiltagDetailType extends TiltagDetailType {
         ->add('energiprisstigningPctPrAar', 'percent', array('scale' => 2))
         ->add('salgsprisFoerste10AarKrKWh')
         ->add('salgsprisEfter10AarKrKWh');
+    } else {
+      // We need these hidden fields to persist default values.
+      $builder
+        ->add('energiprisstigningPctPrAar', 'hidden')
+        ->add('salgsprisFoerste10AarKrKWh', 'hidden')
+        ->add('salgsprisEfter10AarKrKWh', 'hidden');
     }
   }
 
