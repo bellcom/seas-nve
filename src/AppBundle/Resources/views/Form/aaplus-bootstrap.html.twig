@@ -281,7 +281,12 @@
 
       {{ block('form_widget') }}
       {% if attachment_url is defined and attachment_url is not null %}
-        <a id="{{ id }}-display" class="form-control" href="{{ asset(attachment_url) }}">{{ attachment_url }}</a>
+        {% set href = asset(attachment_url) %}
+        {% set filename = attachment_url | split('/') | slice(-1) | join %}
+        {% if form.vars.id == 'appbundle_specialtiltagdetail_filepath' %}
+          {% set href = path('tiltag_detail_download', { 'id': form.parent.vars.value.id }) %}
+        {% endif %}
+        <a id="{{ id }}-display" class="form-control" href="{{ href }}">{{ filename }}</a>
         <label><input type="checkbox" id="{{ id }}-replace"/> {{ 'common.replace_file' | trans }}</label>
         <script>(function () {
             var target = document.getElementById('{{id}}'),

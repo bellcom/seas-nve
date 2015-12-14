@@ -12,6 +12,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\TiltagDetail;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
  * TiltagDetail controller.
@@ -195,6 +198,27 @@ class TiltagDetailController extends BaseController {
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
       ->getForm();
+  }
+
+  /**
+   * Sends a file to the client.
+   *
+   * @Route("/{id}/download", name="tiltag_detail_download")
+   * @Method("GET")
+   * @param TiltagDetail $tiltagdetail
+   * @return \Symfony\Component\HttpFoundation\Response
+   *
+   * @Security("is_granted('TILTAGDETAIL_VIEW', tiltagdetail)")
+   */
+  public function downloadAction(TiltagDetail $tiltagdetail) {
+    $path = $tiltagdetail->getFilepath();
+    $file = new File($path);
+    $response = new BinaryFileResponse($file->getRealPath());
+    $response->setContentDisposition(
+      ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+      $file->getFilename()
+    );
+    return $response;
   }
 
   /**
