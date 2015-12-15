@@ -227,8 +227,16 @@ rapporter:
     tiltag: Tiltag
     tilvalgt: Tilvalgt
     vinduetiltag: Vindue
-solcelle:
+segment:
   actions:
+    add: Tilføj segment
+    create: Opret segment
+    edit: Rediger segment
+  confirmation:
+    created: Segment oprettet
+    updated: Segment opdateret
+    deleted: Segment slettet
+solcelle:
   actions:
     add: Tilføj solcelle
     create: Opret solcelle
