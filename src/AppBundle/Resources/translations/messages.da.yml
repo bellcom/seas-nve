@@ -285,6 +285,10 @@ tiltagdetail:
     add: Tilføj Detail
     copy: Kopier Detail
     edit: Rediger Detail
+  confirmation:
+    created: Detail oprettet
+    updated: Detail opdateret
+    deleted: Detail slettet
 user:
   actions:
     add: Tilføj bruger
