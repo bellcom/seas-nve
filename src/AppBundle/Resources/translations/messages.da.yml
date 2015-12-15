@@ -165,8 +165,18 @@ nyttiggjortvarme:
     edit: Rediger faktor
   labels:
     plural: Faktorer for nyttiggjort varme (Teknisk Iso.)
-pumper:
+pumpe:
+  actions:
+    add: Tilføj Pumpe
+    create: Opret Pumpe
+    edit: Rediger Pumpe
+  confirmation:
+    created: Pumpe oprettet
+    updated: Pumpe opdateret
+    deleted: Pumpe slettet
   labels:
+    nuvaerende: Nuværende pumpe
+    ny: Ny pumpe
     plural: Pumper
     singular: Pumpe
 pumpetiltag:

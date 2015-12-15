@@ -3,48 +3,45 @@
 {% block body -%}
   <div class="row">
     <div class="col-md-10">
-      <h1>{{ 'pumper.labels.plural' | trans }}</h1>
+      <h1>{{ 'pumpe.labels.plural' | trans }}</h1>
     </div>
     <div class="col-md-2 text-right">
-      {#
-      <a href="{{ path('pumpe_new') }}" class="btn btn-default">
-        {{ icon('plus') }} {{ 'pumpe.actions.add' | trans }}
-      </a>
-      #}
+      
     </div>
   </div>
 
-  <table class="table table-condensed">
+  <table class="table table-condensed table-header-rotated table-hover">
     <thead>
     <tr>
-      <th>#</th>
-      <th>{{ 'appbundle.pumpe.nuvaerendeType' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.byggemaal' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.tilslutning' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.indst' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.forbrug' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.q' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.h' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.aarsforbrug' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.nyPumpe' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.nyByggemaal' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.nyTilslutning' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.vvsnr' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.nytAarsforbrug' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.elbesparelse' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.udligningssaet' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.kommentarer' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.standInvestering' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.fabrikant' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.roerlaengde' | trans }}</th>
-      <th>{{ 'appbundle.pumpe.roerstoerrelse' | trans }}</th>
-      <th></th>
+      {{ helper.header() }}
+      {{ helper.header('appbundle.pumpe.nuvaerendeType') }}
+      {{ helper.header('appbundle.pumpe.byggemaal') }}
+      {{ helper.header('appbundle.pumpe.tilslutning') }}
+      {{ helper.header('appbundle.pumpe.indst') }}
+      {{ helper.header('appbundle.pumpe.forbrug') }}
+      {{ helper.header('appbundle.pumpe.q') }}
+      {{ helper.header('appbundle.pumpe.h') }}
+      {{ helper.header('appbundle.pumpe.aarsforbrug') }}
+      {{ helper.header('appbundle.pumpe.nyPumpe') }}
+      {{ helper.header('appbundle.pumpe.nyByggemaal') }}
+      {{ helper.header('appbundle.pumpe.nyTilslutning') }}
+      {{ helper.header('appbundle.pumpe.vvsnr') }}
+      {{ helper.header('appbundle.pumpe.nytAarsforbrug') }}
+      {{ helper.header('appbundle.pumpe.elbesparelse') }}
+      {{ helper.header('appbundle.pumpe.udligningssaet') }}
+      {{ helper.header('appbundle.pumpe.kommentarer') }}
+      {{ helper.header('appbundle.pumpe.standInvestering') }}
+      {{ helper.header('appbundle.pumpe.fabrikant') }}
+      {{ helper.header('appbundle.pumpe.roerlaengde') }}
+      {{ helper.header('appbundle.pumpe.roerstoerrelse') }}
     </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
       <tr>
-        <td><a href="{{ path('pumpe_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+        <td>
+          <a href="{{ path('pumpe_edit', { 'id': entity.id }) }}" class="btn btn-xs btn-default">edit</a>
+        </td>
         <td>{{ entity.nuvaerendeType }}</td>
         <td>{{ entity.byggemaal }}</td>
         <td>{{ entity.tilslutning }}</td>
@@ -65,10 +62,6 @@
         <td>{{ entity.fabrikant }}</td>
         <td>{{ entity.roerlaengde }}</td>
         <td>{{ entity.roerstoerrelse }}</td>
-        <td>
-          <a href="{{ path('pumpe_show', { 'id': entity.id }) }}" class="btn btn-xs btn-primary">show</a>
-          <a href="{{ path('pumpe_edit', { 'id': entity.id }) }}" class="btn btn-xs btn-default">edit</a>
-        </td>
       </tr>
     {% endfor %}
     </tbody>

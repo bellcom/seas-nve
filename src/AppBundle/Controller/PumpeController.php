@@ -21,6 +21,13 @@ use AppBundle\Form\Type\PumpeType;
  * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
 class PumpeController extends BaseController {
+
+  public function init(Request $request)
+  {
+    parent::init($request);
+    $this->breadcrumbs->addItem('pumpe.labels.plural', $this->generateUrl('pumpe'));
+  }
+
   /**
    * Lists all Pumpe entities.
    *
@@ -39,22 +46,6 @@ class PumpeController extends BaseController {
   }
 
   /**
-   * Finds and displays a Pumpe entity.
-   *
-   * @Route("/{id}", name="pumpe_show")
-   * @Method("GET")
-   * @Template()
-   * @param Pumpe $pumpe
-   * @return array
-   */
-  public function showAction(Pumpe $pumpe) {
-    return array(
-      'entity' => $pumpe,
-      'delete_form' => $this->createDeleteForm($pumpe)->createView(),
-    );
-  }
-
-  /**
    * Finds and edits a Pumpe entity.
    *
    * @Route("/{id}/edit", name="pumpe_edit")
@@ -64,6 +55,8 @@ class PumpeController extends BaseController {
    * @return array
    */
   public function editAction(Pumpe $pumpe) {
+    $this->breadcrumbs->addItem('pumpe.actions.edit', $this->generateUrl('pumpe_edit', array('id' => $pumpe->getId())));
+
     $editForm = $this->createEditForm($pumpe);
 
     return array(
@@ -91,7 +84,10 @@ class PumpeController extends BaseController {
       $em->persist($pumpe);
       $em->flush();
 
-      return $this->redirect($this->generateUrl('pumpe_edit', array('id' => $pumpe->getId())));
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('pumpe.confirmation.updated');
+
+      return $this->redirect($this->generateUrl('pumpe'));
     }
 
     return $this->editAction($pumpe);
@@ -110,7 +106,7 @@ class PumpeController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('pumpe_show', array('id' => $pumpe->getId())));
+    $this->addUpdate($form, $this->generateUrl('pumpe'));
 
     return $form;
   }
@@ -133,6 +129,9 @@ class PumpeController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->remove($pumpe);
       $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('pumpe.confirmation.deleted');
     }
 
     return $this->redirectToRoute('pumpe');
