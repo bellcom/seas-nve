@@ -272,6 +272,11 @@ tiltag:
     add: Tilføj Tiltag
     create: Opret Tiltag
     edit: Rediger Tiltag
+  confirmation:
+    created: Tiltag oprettet
+    tilfravalgtupdated: Til/Fravalgt af opdateret
+    updated: Tiltag opdateret
+    deleted: Tiltag slettet
   labels:
     plural: Tiltag
     singular: Tiltag

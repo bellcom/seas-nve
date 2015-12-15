@@ -130,6 +130,9 @@ class TiltagController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('tiltag.confirmation.updated');
+
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     }
 
@@ -155,6 +158,9 @@ class TiltagController extends BaseController {
 
     $editForm->handleRequest($request);
 
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    $flash->success('tiltag.confirmation.tilfravalgtupdated');
+
     $em = $this->getDoctrine()->getManager();
     $em->flush();
 
@@ -178,6 +184,9 @@ class TiltagController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->remove($tiltag);
       $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('tiltag.confirmation.deleted');
     }
 
     return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
@@ -306,6 +315,9 @@ class TiltagController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->persist($detail);
       $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('tiltagdetail.confirmation.created');
 
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     }
