@@ -41,6 +41,8 @@ common:
   a_search: Søgning
   afleveret_raadgiver: Afleveret af Rådgiver
   all: Alle
+  beskrivelsesamtforudsætninger: Beskrivelse samt forudsætninger
+  besparelse: Besparelse
   cancel: Annuller
   confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
@@ -145,6 +147,10 @@ klimaskaerm:
     plural: Klimaskærme
     singular: Klimaskærm
 klimaskaermtiltag:
+  actions:
+    add: Tilføj klimaskærmstiltag
+    copy: Kopier klimaskærmstiltag
+    edit: Rediger klimaskærmstiltag
   confirmation:
     created: Nyt klimaskærmstiltag oprettet
 klimaskaermtiltagdetail:
@@ -231,6 +237,10 @@ solcelle:
     plural: Solceller
     singular: Solcelle
 solcelletiltag:
+  actions:
+    add: Tilføj solcelletiltag
+    copy: Kopier solcelletiltag
+    edit: Rediger solcelletiltag
   confirmation:
     created: Nyt solcelletiltag oprettet
 solcelletiltagdetail:
@@ -247,6 +257,8 @@ specialtiltagdetail:
     add: Upload fil til specialtiltag
     edit: Rediger uploadet fil til specialtiltag
 tekniskisoleringtiltag:
+  actions:
+    edit: Rediger teknisk isolering
   confirmation:
     created: Nyt teknisk isoleringstiltag oprettet
 tekniskisoleringtiltagdetail:
@@ -283,6 +295,8 @@ user:
     plural: Brugere
     singular: Bruger
 vinduetiltag:
+  actions:
+    edit: Rediger vinduestiltag
   confirmation:
     created: Nyt vinduesstiltag oprettet
 vinduetiltagdetail:
@@ -1072,6 +1086,7 @@ appbundle:
     anlaegsInvestering.unit: kr
     antalReinvesteringer: Antal reinvesteringer
     antalReinvesteringer.unit: stk.
+    beskrivelse: Beskrivelse
     beskrivelseDriftOgVedligeholdelse: ﻿Beskrivelse af ændringer til D & V udgifter samt fremtidigt timeforbrug for driftspersonale
     beskrivelseForslag: Forslag
     beskrivelseNuvaerende: Nuværende forhold
@@ -1086,21 +1101,27 @@ appbundle:
     besparelseGAF.unit: kWh/år
     besparelseGUF: Besparelse GUF
     besparelseGUF.unit: kWh/år
+    besparelsesoverblik: Besparelsesoverblik
     besparelseStrafafkoelingsafgift: Besparelse på Strafafkølingsafgift
     besparelseStrafafkoelingsafgift.unit: kr
     elbesparelse: Elbesparelse
     elbesparelse.unit: kWh/år
     faktorForReinvesteringer: Faktor for reinvesteringer
     forsyningEl: Forsyning, el
+    forsyningsoverblik: Forsyningsoverblik
     forsyningVarme: Forsyning, varme
     genopretning: Genopretning
+    genopretning.unit: kr.
     ialt: I alt
     indeklima: Indeklima
+    information: Information
     levetid: Funktionsdygtig levetid
     levetid.unit: År
     modernisering: Modernisering
+    modernisering.unit: kr.
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
+    oekonomioverblik: Økonomioverblik
     placering: Placering
     primaerEnterprise: Primær entreprise
     rapport: Rapport

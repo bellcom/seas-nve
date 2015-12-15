@@ -35,7 +35,7 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">{{ icon('home') }} {{ 'common.data' | trans }}</div>
+    <div class="panel-heading"><h3 class="panel-title">{{ icon('home') }} {{ 'common.data' | trans }}</h3></div>
 
     <table class="table table-condensed">
       <tbody>
@@ -69,7 +69,7 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">{{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}</div>
+    <div class="panel-heading"><h3 class="panel-title">{{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}</h3></div>
 
     <table class="table table-condensed">
       <tbody>
@@ -111,7 +111,7 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">{{ icon('line-chart') }} {{ 'appbundle.rapport.likviditetsoversigt' | trans }}</div>
+    <div class="panel-heading"><h3 class="panel-title">{{ icon('line-chart') }} {{ 'appbundle.rapport.likviditetsoversigt' | trans }}</h3></div>
 
     <div class="panel-body">
       {% include('AppBundle::_includes/finansiering_graf.html.twig') %}
@@ -138,7 +138,7 @@
   {% endif %}
 
   <div class="panel panel-default">
-    <div class="panel-heading">{{ icon('dollar') }} {{ 'common.finans' | trans }}</div>
+    <div class="panel-heading"><h3 class="panel-title">{{ icon('dollar') }} {{ 'common.finans' | trans }}</h3></div>
 
     <table class="table table-condensed">
       <tbody>
@@ -221,7 +221,11 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       {% for key, t in entity.tiltag %}
-        <li role="presentation" {% if key == 0 %} class="active" {% endif %}><a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">{{ key + 1 }}. {{ t.title }}</a></li>
+        <li role="presentation" {% if key == 0 %} class="active" {% endif %}>
+          <a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">
+            {{ key + 1 }}. {{ t.title | slice(0, 15)}}{% if t.title | length > 15 %}...{% endif %}
+          </a>
+        </li>
       {% endfor %}
     </ul>
 

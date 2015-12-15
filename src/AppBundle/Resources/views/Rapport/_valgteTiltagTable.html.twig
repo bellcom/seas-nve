@@ -1,8 +1,8 @@
 <div class="panel panel-default">
   {% if type == 'tilvalg' %}
-    <div class="panel-heading">{{ icon('thumbs-up') }} {{ 'appbundle.rapport.tilvalg' | trans }}</div>
+    <div class="panel-heading"><h3 class="panel-title">{{ icon('thumbs-up') }} {{ 'appbundle.rapport.tilvalg' | trans }}</h3></div>
   {% else %}
-    <div class="panel-heading">{{ icon('thumbs-down') }} {{ 'appbundle.rapport.fravalg' | trans }}</div>
+    <div class="panel-heading"><h3 class="panel-title">{{ icon('thumbs-down') }} {{ 'appbundle.rapport.fravalg' | trans }}</h3></div>
   {% endif %}
 
   <table class="table table-condensed">

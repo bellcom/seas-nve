@@ -27,7 +27,7 @@ class FilterExtension extends \Twig_Extension {
 
   public function booleanToIconFilter($boolean) {
     if($boolean === NULL) {
-      return '';
+      return '<span class="fa fa-circle-thin"></span>';
     } else {
       return $boolean ? '<span class="fa fa-check"></span>' : '<span class="fa fa-minus"></span>';
     }

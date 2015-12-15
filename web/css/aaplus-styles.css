@@ -1,7 +1,7 @@
 /**
 * Helpers
 */
-.table-condensed>tbody>tr>th.indent {
+.table>tbody>tr>.indent {
     padding-left: 2em;
 }
 
@@ -12,6 +12,7 @@ span.required {
 .form-inline {
     display: inline;
 }
+
 
 /**
 * Login
