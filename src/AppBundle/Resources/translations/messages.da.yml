@@ -233,6 +233,10 @@ solcelle:
     add: Tilføj solcelle
     create: Opret solcelle
     edit: Rediger solcelle
+  confirmation:
+    created: Solcelle oprettet
+    updated: Solcelle opdateret
+    deleted: Solcelle slettet
   labels:
     plural: Solceller
     singular: Solcelle
