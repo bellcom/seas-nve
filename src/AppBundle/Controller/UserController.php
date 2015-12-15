@@ -16,8 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  *
  * @Route("/user")
  */
-class UserController extends BaseController
-{
+class UserController extends BaseController {
   public function init(Request $request) {
     parent::init($request);
     $this->breadcrumbs->addItem('user.labels.plural', $this->generateUrl('user'));
@@ -34,7 +33,7 @@ class UserController extends BaseController
   public function indexAction(Request $request) {
     $em = $this->getDoctrine()->getManager();
 
-    $dql   = "SELECT u FROM AppBundle:User u";
+    $dql = "SELECT u FROM AppBundle:User u";
     $query = $em->createQuery($dql);
 
     $paginator = $this->get('knp_paginator');
@@ -55,12 +54,11 @@ class UserController extends BaseController
    * @Template("AppBundle:User:new.html.twig")
    * @Security("has_role('ROLE_ADMIN')")
    */
-  public function createAction(Request $request)
-  {
+  public function createAction(Request $request) {
     $userManager = $this->get('fos_user.user_manager');
 
     $user = $userManager->createUser();
-    $user->setEnabled(true);
+    $user->setEnabled(TRUE);
 
     $form = $this->createCreateForm($user);
     $form->handleRequest($request);
@@ -76,7 +74,7 @@ class UserController extends BaseController
 
     return array(
       'entity' => $user,
-      'form'   => $form->createView(),
+      'form' => $form->createView(),
     );
   }
 
@@ -87,8 +85,7 @@ class UserController extends BaseController
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createCreateForm(User $entity)
-  {
+  private function createCreateForm(User $entity) {
     $form = $this->createForm(new UserType(), $entity, array(
       'action' => $this->generateUrl('user_create'),
       'method' => 'POST',
@@ -107,38 +104,15 @@ class UserController extends BaseController
    * @Template()
    * @Security("has_role('ROLE_ADMIN')")
    */
-  public function newAction()
-  {
-    $entity = new User();
-    $form   = $this->createCreateForm($entity);
+  public function newAction() {
     $this->breadcrumbs->addItem('user.actions.create', $this->generateUrl('user_new'));
+
+    $entity = new User();
+    $form = $this->createCreateForm($entity);
 
     return array(
       'entity' => $entity,
-      'form'   => $form->createView(),
-    );
-  }
-
-  /**
-   * Finds and displays a User entity.
-   *
-   * @Route("/{id}", name="user_show")
-   * @Method("GET")
-   * @Template()
-   * @Security("has_role('ROLE_ADMIN')")
-   */
-  public function showAction($id)
-  {
-    $em = $this->getDoctrine()->getManager();
-
-    $entity = $em->getRepository('AppBundle:User')->find($id);
-
-    if (!$entity) {
-      throw $this->createNotFoundException('Unable to find User entity.');
-    }
-
-    return array(
-      'entity'      => $entity,
+      'edit_form' => $form->createView(),
     );
   }
 
@@ -150,8 +124,8 @@ class UserController extends BaseController
    * @Template()
    * @Security("has_role('ROLE_ADMIN')")
    */
-  public function editAction($id)
-  {
+  public function editAction($id) {
+    $this->breadcrumbs->addItem('user.actions.edit', $this->generateUrl('user_edit', array('id' => $id)));
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:User')->find($id);
@@ -163,8 +137,8 @@ class UserController extends BaseController
     $editForm = $this->createEditForm($entity);
 
     return array(
-      'entity'      => $entity,
-      'edit_form'   => $editForm->createView(),
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
     );
   }
 
@@ -175,8 +149,7 @@ class UserController extends BaseController
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createEditForm(User $entity)
-  {
+  private function createEditForm(User $entity) {
     $form = $this->createForm(new UserType(), $entity, array(
       'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
       'method' => 'PUT',
@@ -186,6 +159,7 @@ class UserController extends BaseController
 
     return $form;
   }
+
   /**
    * Edits an existing User entity.
    *
@@ -194,8 +168,7 @@ class UserController extends BaseController
    * @Template("AppBundle:User:edit.html.twig")
    * @Security("has_role('ROLE_ADMIN')")
    */
-  public function updateAction(Request $request, $id)
-  {
+  public function updateAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:User')->find($id);
@@ -213,12 +186,12 @@ class UserController extends BaseController
       $flash = $this->get('braincrafted_bootstrap.flash');
       $flash->success('user.confirmation.updated');
 
-      return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
+      return $this->redirect($this->generateUrl('user'));
     }
 
     return array(
-      'entity'      => $entity,
-      'edit_form'   => $editForm->createView(),
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
     );
   }
 

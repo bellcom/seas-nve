@@ -297,6 +297,8 @@ user:
   labels:
     plural: Brugere
     singular: Bruger
+  strings:
+    segmenteroggrupper: Segmenter / Grupper
 vinduetiltag:
   actions:
     edit: Rediger vinduestiltag
