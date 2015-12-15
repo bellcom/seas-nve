@@ -290,6 +290,9 @@ user:
     add: Tilføj bruger
     create: Opret bruger
     edit: Rediger bruger
+  confirmation:
+    created: Ny bruger oprettet
+    updated: Bruger oplysninger opdateret
   enabled: Aktiv (Kun aktive brugere kan logge ind)
   labels:
     plural: Brugere
