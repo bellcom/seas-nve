@@ -515,7 +515,7 @@ class RapportController extends BaseController {
     $flash = $this->get('braincrafted_bootstrap.flash');
     $flash->success( $type.'tiltag.confirmation.created');
 
-    return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+    return $this->redirect($this->generateUrl('tiltag_edit', array('id' => $tiltag->getId())));
   }
 
   //---------------- Regninger -------------------//

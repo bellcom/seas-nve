@@ -103,6 +103,9 @@
       </div>
       <div class="col-xs-12 col-md-6">
         {{ form_row(edit_form.reelAnlaegsinvestering) }}
+        {% if edit_form.anlaegsInvestering is defined %}
+          {{ form_row(edit_form.anlaegsInvestering) }}
+        {% endif %}
         {% if edit_form.modernisering is defined %}
           {{ form_row(edit_form.modernisering) }}
         {% endif %}
