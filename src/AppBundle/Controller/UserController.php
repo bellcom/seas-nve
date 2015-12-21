@@ -74,7 +74,7 @@ class UserController extends BaseController {
 
     return array(
       'entity' => $user,
-      'form' => $form->createView(),
+      'edit_form' => $form->createView(),
     );
   }
 
