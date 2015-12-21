@@ -72,6 +72,8 @@ class UserController extends BaseController {
       return $this->redirect($this->generateUrl('user'));
     }
 
+    $this->reportErrors($form);
+
     return array(
       'entity' => $user,
       'edit_form' => $form->createView(),
@@ -189,10 +191,19 @@ class UserController extends BaseController {
       return $this->redirect($this->generateUrl('user'));
     }
 
+    $this->reportErrors($editForm);
+
     return array(
       'entity' => $entity,
       'edit_form' => $editForm->createView(),
     );
+  }
+
+  private function reportErrors($form) {
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    foreach ($form->getErrors() as $error) {
+      $flash->error($error->getMessage());
+    }
   }
 
 }
