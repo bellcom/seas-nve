@@ -5,32 +5,31 @@
     <div class="col-md-6"><h1>{% if entity.title is empty %}{{ 'tiltag.title.missing' | trans }}{% else %}{{ entity.title }}{% endif %}</h1></div>
     <div class="col-md-6 text-right">
       {% if is_granted('TILTAG_EDIT', entity) %}
-        <a class="btn btn-default" href="{{ path('tiltag_edit', { 'id': entity.id }) }}">{{ 'Edit' | trans }}</a>
+        <a class="btn btn-default" href="{{ path('tiltag_edit', { 'id': entity.id }) }}">{{ icon('edit') }} {{ 'tiltag.actions.edit' | trans }}</a>
+        <a href="{{ path('tiltag_detail_new', { 'id': entity.id }) }}" class="btn btn-primary">{{ icon('plus') }} {{ 'tiltagdetail.actions.add' | trans }}</a>
       {% endif %}
     </div>
   </div>
 
-  {% include 'AppBundle:Tiltag:show-include.html.twig' %}
+  <div>
 
-  {% if is_granted('TILTAG_EDIT', entity) %}
-    <div class="row">
-      <div class="col-xs-12 text-right">
-        {#{% form_theme create_detail_form 'AppBundle:Form:modal-form.html.twig' %}#}
-        {#{{ form(create_detail_form) }}#}
-        <p>
-          <a href="{{ path('tiltag_detail_new', { 'id': entity.id }) }}" class="btn btn-primary">{{ icon('edit') }} {{ 'common.create' | trans }}</a>
-        </p>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation"><a href="#oversigt" aria-controls="{{ 'tiltag.strings.oversigt' | trans }}" role="tab" data-toggle="tab">{{ 'tiltag.strings.oversigt' | trans }}</a></li>
+      <li role="presentation" class="active"><a href="#detailark" aria-controls="{{ 'tiltag.strings.oversigt' | trans }}" role="tab" data-toggle="tab">{{ 'tiltag.strings.detailark' | trans }}</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane" id="oversigt">
+        {% include 'AppBundle:Tiltag:show-include.html.twig' %}
+      </div>
+      <div role="tabpanel" class="tab-pane active" id="detailark">
+        {% block detailark -%}...{% endblock %}
       </div>
     </div>
-  {% endif %}
 
-  {% block detailark -%}...{% endblock %}
-
-  {#{% if is_granted('ROLE_ADMIN') %}#}
-    {#<form method="POST" action="{{ path('regning_create', { 'id': entity.id}) }}" class="inline-block">#}
-      {#<button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('tiltag.strings.regning') | trans }}</button>#}
-    {#</form>#}
-  {#{% endif %}#}
+  </div>
 
 {% endblock %}
 

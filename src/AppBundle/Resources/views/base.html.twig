@@ -51,6 +51,7 @@
               'pumpe': 'Pumper',
               'forsyningsvaerk': 'Forsyningsværker',
               'segment': 'Segmenter',
+              'nyttiggjortvarme': 'Nyttiggjort varme',
               } %}
                 <li><a href="{{ path(route) }}">{{ name | trans }}</a></li>
               {% endfor %}
@@ -126,6 +127,13 @@
   <script src="{{ absolute_url(asset('js/lib/jquery-1.11.2.min.js')) }}"></script>
   <script src="{{ absolute_url(asset('js/lib/bootstrap.min.js')) }}"></script>
   <script src="{{ absolute_url(asset('js/lib/bc-bootstrap-collection.js')) }}"></script>
+  <script src="{{ absolute_url(asset('js/lib/jquery.autogrowtextarea.min.js')) }}"></script>
+
+  <script>
+    $(document).ready(function() {
+      $("textarea").autoGrow();
+    });
+  </script>
 {% endblock %}
 </body>
 </html>

@@ -4176,7 +4176,7 @@ class Forsyningsvaerk {
 
     $faktor = 0;
     for ($year = 1; $year <= $numberOfYears; $year++) {
-      $faktor += $this->getKrKWh($startYear + $year - 1) / pow(1 + $configuration->getKalkulationsrente(), $year);
+      $faktor += $this->getKrKWh($startYear + $year - 1) / pow(1 + $configuration->getRapportKalkulationsrente(), $year);
     }
     return $faktor;
   }

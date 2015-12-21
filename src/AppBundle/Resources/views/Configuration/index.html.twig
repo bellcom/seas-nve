@@ -5,50 +5,77 @@
 
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-condensed">
+      <table class="table table-condensed configuration-settings">
         <tr>
-          <th>{{ 'appbundle.configuration.kalkulationsrente' | trans }}</th>
-          <td>{{ entity.kalkulationsrente | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.rapportKalkulationsrente' | trans }}</td>
+          <td>{{ entity.rapportKalkulationsrente | format_percent_nounit }}</td>
+          <td>{{ 'appbundle.configuration.rapportKalkulationsrente' | get_unit }}</td>
         </tr>
         <tr>
-          <th>{{ 'appbundle.configuration.driftomkostningerfaktor' | trans }}</th>
-          <td>{{ entity.driftomkostningerfaktor | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.rapportDriftomkostningerfaktor' | trans }}</td>
+          <td>{{ entity.rapportDriftomkostningerfaktor | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.rapportDriftomkostningerfaktor' | get_unit }}</td>
         </tr>
         <tr>
-          <th>{{ 'appbundle.configuration.inflation' | trans }}</th>
-          <td>{{ entity.inflation | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.rapportInflation' | trans }}</td>
+          <td>{{ entity.rapportInflation | format_percent_nounit }}</td>
+          <td>{{ 'appbundle.configuration.rapportInflation' | get_unit }}</td>
         </tr>
         <tr>
-          <th>{{ 'appbundle.configuration.lobetid' | trans }}</th>
-          <td>{{ entity.lobetid | format_integer }}</td>
+          <td>{{ 'appbundle.configuration.rapportLobetid' | trans }}</td>
+          <td>{{ entity.rapportLobetid | format_integer }}</td>
+          <td>{{ 'appbundle.configuration.rapportLobetid' | get_unit }}</td>
         </tr>
         <tr>
-          <th>{{ 'appbundle.configuration.nominelEnergiprisstigning' | trans }}</th>
-          <td>{{ entity.nominelEnergiprisstigning | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.rapportNominelEnergiprisstigning' | trans }}</td>
+          <td>{{ entity.rapportNominelEnergiprisstigning | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.rapportNominelEnergiprisstigning' | get_unit }}</td>
         </tr>
         <tr>
-          <th>{{ 'appbundle.configuration.procentAfInvestering' | trans }}</th>
-          <td>{{ entity.procentAfInvestering | format_percent }}</td>
+          <td>{{ 'appbundle.configuration.rapportProcentAfInvestering' | trans }}</td>
+          <td>{{ entity.rapportProcentAfInvestering | format_percent }}</td>
+          <td>{{ 'appbundle.configuration.rapportProcentAfInvestering' | get_unit }}</td>
         </tr>
       </table>
 
       <h2>Teknisk isolering</h2>
-          <table class="table table-condensed">
+      <table class="table table-condensed configuration-settings">
         <tr>
-          <th>{{ 'appbundle.configuration.varmeledningsevneEksistLamelmaatter' | trans }}</th>
-          <td>{{ entity.varmeledningsevneEksistLamelmaatter | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.tekniskIsoleringVarmeledningsevneEksistLamelmaatter' | trans }}</td>
+          <td>{{ entity.tekniskIsoleringVarmeledningsevneEksistLamelmaatter | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.tekniskIsoleringVarmeledningsevneEksistLamelmaatter' | get_unit }}</td>
         </tr>
         <tr>
-          <th>{{ 'appbundle.configuration.varmeledningsevneNyIsolering' | trans }}</th>
-          <td>{{ entity.varmeledningsevneNyIsolering | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.tekniskIsoleringVarmeledningsevneNyIsolering' | trans }}</td>
+          <td>{{ entity.tekniskIsoleringVarmeledningsevneNyIsolering | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.tekniskIsoleringVarmeledningsevneNyIsolering' | get_unit }}</td>
         </tr>
       </table>
-</div>
+
+      <h2>Solcelletiltag</h2>
+      <table class="table table-condensed configuration-settings">
+        <tr>
+          <td>{{ 'appbundle.configuration.solcelletiltagdetailEnergiprisstigningPctPrAar' | trans }}</td>
+          <td>{{ entity.solcelletiltagdetailEnergiprisstigningPctPrAar | format_percent_nounit }}</td>
+          <td>{{ 'appbundle.configuration.solcelletiltagdetailEnergiprisstigningPctPrAar' | get_unit }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'appbundle.configuration.solcelletiltagdetailSalgsprisFoerste10AarKrKWh' | trans }}</td>
+          <td>{{ entity.solcelletiltagdetailSalgsprisFoerste10AarKrKWh | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.solcelletiltagdetailSalgsprisFoerste10AarKrKWh' | get_unit }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'appbundle.configuration.solcelletiltagdetailSalgsprisEfter10AarKrKWh' | trans }}</td>
+          <td>{{ entity.solcelletiltagdetailSalgsprisEfter10AarKrKWh | format_decimal }}</td>
+          <td>{{ 'appbundle.configuration.solcelletiltagdetailSalgsprisEfter10AarKrKWh' | get_unit }}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 
   <hr/>
 
-  <a href="{{ path('configuration_edit') }}"  class="btn btn-default">
+  <a href="{{ path('configuration_edit') }}" class="btn btn-default">
     {{ 'common.edit' | trans }}
   </a>
 {% endblock %}

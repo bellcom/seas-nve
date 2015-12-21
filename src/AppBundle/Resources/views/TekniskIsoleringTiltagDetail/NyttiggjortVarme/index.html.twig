@@ -1,0 +1,36 @@
+{% extends 'AppBundle:TiltagDetail:edit.html.twig' %}
+
+{% block body -%}
+  <div class="row">
+    <div class="col-md-10">
+      <h1>{{ 'nyttiggjortvarme.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-2 text-right">
+      <a href="{{ path('nyttiggjortvarme_new') }}" class="btn btn-default">
+        {{ icon('plus') }} {{ 'nyttiggjortvarme.actions.add' | trans }}
+      </a>
+    </div>
+  </div>
+
+  <table class="table table-condensed table-hover">
+    <thead>
+    <tr>
+      <th>Faktor</th>
+      <th>Titel</th>
+      <th class="text-right">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+      <tr>
+        <td>{{ entity.faktor }}</td>
+        <td>{{ entity.titel }}</td>
+        <td class="text-right">
+          <a href="{{ path('nyttiggjortvarme_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

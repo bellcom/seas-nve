@@ -10,9 +10,7 @@
       </div>
       <div class="col-md-6">
         {{ form_row( edit_form.produktionKWh) }}
-        {% if is_granted('ROLE_ADMIN') %}
-          {{ form_row( edit_form.forringetYdeevnePrAar) }}
-        {% endif %}
+        {{ form_row( edit_form.forringetYdeevnePrAar) }}
       </div>
     </div>
   </div>

@@ -3,6 +3,38 @@
 {% block body -%}
   <h1>{{ icon('gears') }} {{ 'configuration.labels.singular' | trans }}</h1>
 
-  {{ form(edit_form, { 'style': 'horizontal' }) }}
+  {{ form_start(edit_form) }}
 
+  <div class="row">
+    <div class="col-md-12">
+      {{ form_row(edit_form.rapportKalkulationsrente) }}
+      {{ form_row(edit_form.rapportDriftomkostningerfaktor) }}
+      {{ form_row(edit_form.rapportInflation) }}
+      {{ form_row(edit_form.rapportLobetid) }}
+      {{ form_row(edit_form.rapportProcentAfInvestering) }}
+      {{ form_row(edit_form.rapportNominelEnergiprisstigning) }}
+    </div>
+  </div>
+
+  <h2>Teknisk isolering</h2>
+
+  <div class="row">
+    <div class="col-md-12">
+      {{ form_row(edit_form.tekniskIsoleringVarmeledningsevneEksistLamelmaatter) }}
+      {{ form_row(edit_form.tekniskIsoleringVarmeledningsevneNyIsolering) }}
+    </div>
+  </div>
+
+  <h2>Solcelletiltag</h2>
+
+  <div class="row">
+    <div class="col-md-12">
+      {{ form_row(edit_form.solcelletiltagdetailEnergiprisstigningPctPrAar) }}
+      {{ form_row(edit_form.solcelletiltagdetailSalgsprisFoerste10AarKrKWh) }}
+      {{ form_row(edit_form.solcelletiltagdetailSalgsprisEfter10AarKrKWh) }}
+    </div>
+  </div>
+
+  {{ form_rest(edit_form) }}
+  {{ form_end(edit_form) }}
 {% endblock %}

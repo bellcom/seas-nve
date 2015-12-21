@@ -22,7 +22,6 @@
         <td>{{ entity.elena | b2icon }}</td>
         <td>
           <a href="{{ path('rapport_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
-          <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
         </td>
       </tr>
     {% endfor %}

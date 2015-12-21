@@ -130,6 +130,9 @@ class TiltagController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('tiltag.confirmation.updated');
+
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     }
 
@@ -155,6 +158,9 @@ class TiltagController extends BaseController {
 
     $editForm->handleRequest($request);
 
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    $flash->success('tiltag.confirmation.tilfravalgtupdated');
+
     $em = $this->getDoctrine()->getManager();
     $em->flush();
 
@@ -178,6 +184,9 @@ class TiltagController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->remove($tiltag);
       $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('tiltag.confirmation.deleted');
     }
 
     return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
@@ -254,7 +263,7 @@ class TiltagController extends BaseController {
    * @Route("/{id}/detailnew", name="tiltag_detail_new")
    * @Method("GET")
    * @Template()
-   * @Security("is_granted('TILTAG_CREATE', tiltag)")
+   * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
   public function newDetailAction(Tiltag $tiltag) {
     $this->setBreadcrumb($tiltag);
@@ -262,6 +271,7 @@ class TiltagController extends BaseController {
     $this->breadcrumbs->addItem($type.'detail.actions.add', $this->get('router')->generate('tiltag_detail_new', array('id' => $tiltag->getId())));
 
     $detail = $this->createDetailEntity($tiltag);
+    $detail->init($tiltag);
     $form = $this->createDetailCreateForm($tiltag, $detail);
     $template = $this->getDetailTemplate($detail, 'new');
 
@@ -305,6 +315,9 @@ class TiltagController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->persist($detail);
       $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('tiltagdetail.confirmation.created');
 
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     }

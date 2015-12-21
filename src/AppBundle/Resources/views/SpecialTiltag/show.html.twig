@@ -24,7 +24,7 @@
             </td>
             <td>{{ detail.tilvalgt | b2icon }}</td>
             <td>{{ detail.kommentar }}</td>
-            <td>{% if not detail.filepath is empty %}<a target="_blank" href="{{ asset(detail.filepath) }}">{{ detail.filepath }}</a>{% endif %}</td>
+            <td>{% if not detail.filepath is empty %}<a target="_blank" href="{{ path('tiltag_detail_download', { 'id': detail.id }) }}">{{ detail.filename }}</a>{% endif %}</td>
           </tr>
         {% endfor %}
         </tbody>

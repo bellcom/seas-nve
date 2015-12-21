@@ -1,4 +1,5 @@
-/web/uploads/
+/web/uploads/*
+!web/uploads/.htaccess
 /web/bundles/
 /app/bootstrap.php.cache
 /app/cache/*

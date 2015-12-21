@@ -63,6 +63,9 @@ class SegmentController extends BaseController implements InitControllerInterfac
       $em->persist($entity);
       $em->flush();
 
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('segment.confirmation.created');
+
       return $this->redirect($this->generateUrl('segment_show', array('id' => $entity->getId())));
     }
 
@@ -81,7 +84,7 @@ class SegmentController extends BaseController implements InitControllerInterfac
    */
   private function createCreateForm(Segment $entity)
   {
-    $form = $this->createForm(new SegmentType(), $entity, array(
+    $form = $this->createForm(new SegmentType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('segment_create'),
       'method' => 'POST',
     ));
@@ -173,7 +176,7 @@ class SegmentController extends BaseController implements InitControllerInterfac
    */
   private function createEditForm(Segment $entity)
   {
-    $form = $this->createForm(new SegmentType(), $entity, array(
+    $form = $this->createForm(new SegmentType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('segment_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));
@@ -206,7 +209,10 @@ class SegmentController extends BaseController implements InitControllerInterfac
     if ($editForm->isValid()) {
       $em->flush();
 
-      return $this->redirect($this->generateUrl('segment_edit', array('id' => $id)));
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('segment.confirmation.updated');
+
+      return $this->redirect($this->generateUrl('segment'));
     }
 
     return array(
@@ -236,6 +242,9 @@ class SegmentController extends BaseController implements InitControllerInterfac
 
       $em->remove($entity);
       $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('segment.confirmation.deleted');
     }
 
     return $this->redirect($this->generateUrl('segment'));

@@ -53,7 +53,7 @@ class PumpeTiltagDetail extends TiltagDetail {
   protected $isoleringskappe = false;
 
   /**
-   * @var string
+   * @var float
    *
    * @ORM\Column(name="bFaktor", type="decimal", scale=4)
    */
@@ -81,9 +81,9 @@ class PumpeTiltagDetail extends TiltagDetail {
   protected $nyDrifttid;
 
   /**
-   * @var string
+   * @var float
    *
-   * @ORM\Column(name="Prisfaktor", type="decimal")
+   * @ORM\Column(name="Prisfaktor", type="decimal", scale=4)
    */
   protected $prisfaktor;
 

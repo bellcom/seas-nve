@@ -1,0 +1,37 @@
+{{ form_start(edit_form) }}
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'common.data' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        {{ form_row(edit_form.enabled) }}
+        {{ form_row(edit_form.email) }}
+        {{ form_row(edit_form.plainpassword) }}
+        {{ form_row(edit_form.firstname) }}
+        {{ form_row(edit_form.lastname) }}
+        {{ form_row(edit_form.phone) }}
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-6">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'user.strings.segmenteroggrupper' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        {{ form_row(edit_form.segmenter) }}
+        {{ form_row(edit_form.groups) }}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    {{ form_rest(edit_form) }}
+    {{ form_start(edit_form) }}
+  </div>
+</div>

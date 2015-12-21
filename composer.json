@@ -35,7 +35,8 @@
     "rollerworks/password-strength-bundle": "^1.3",
     "fortawesome/font-awesome": "^4.4",
     "knplabs/knp-snappy-bundle": "dev-master",
-    "fresh/doctrine-enum-bundle": "~3.2"
+    "fresh/doctrine-enum-bundle": "~3.2",
+    "doctrine/doctrine-migrations-bundle": "^1.0"
   },
   "require-dev": {
     "sensio/generator-bundle": "~2.3"

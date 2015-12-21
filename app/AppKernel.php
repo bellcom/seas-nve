@@ -27,6 +27,7 @@ class AppKernel extends Kernel
       new Rollerworks\Bundle\PasswordStrengthBundle\RollerworksPasswordStrengthBundle(),
       new Fresh\DoctrineEnumBundle\FreshDoctrineEnumBundle(),
       new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+      new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -45,26 +46,5 @@ class AppKernel extends Kernel
   {
     $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
   }
-
-  //--------  DEV / Vagrant speed-up ----------------//
-
-  //http://www.whitewashing.de/2013/08/19/speedup_symfony2_on_vagrant_boxes.html
-
-  public function getCacheDir()
-  {
-    if (in_array($this->environment, array('dev', 'test'))) {
-      return '/dev/shm/aaplus/cache/' .  $this->environment;
-    }
-
-    return parent::getCacheDir();
-  }
-
-  public function getLogDir()
-  {
-    if (in_array($this->environment, array('dev', 'test'))) {
-      return '/dev/shm/aaplus/logs';
-    }
-
-    return parent::getLogDir();
-  }
+  
 }
