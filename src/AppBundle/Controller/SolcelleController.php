@@ -58,6 +58,9 @@ class SolcelleController extends BaseController {
       $em->persist($entity);
       $em->flush();
 
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('solcelle.confirmation.created');
+
       return $this->redirect($this->generateUrl('solcelle_show', array('id' => $entity->getId())));
     }
 
@@ -174,6 +177,9 @@ class SolcelleController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('solcelle.confirmation.updated');
+
       return $this->redirect($this->generateUrl('solcelle_edit', array('id' => $solcelle->getId())));
     }
 
@@ -199,6 +205,9 @@ class SolcelleController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->remove($solcelle);
       $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('solcelle.confirmation.deleted');
     }
 
     return $this->redirect($this->generateUrl('solcelle'));

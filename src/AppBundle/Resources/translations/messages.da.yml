@@ -41,6 +41,8 @@ common:
   a_search: Søgning
   afleveret_raadgiver: Afleveret af Rådgiver
   all: Alle
+  beskrivelsesamtforudsætninger: Beskrivelse samt forudsætninger
+  besparelse: Besparelse
   cancel: Annuller
   confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
@@ -95,6 +97,7 @@ belysningtiltag:
 belysningtiltagdetail:
   actions:
     add: Tilføj belysningstiltag
+    copy: Kopier belysningstiltag
     edit: Rediger belysningstiltag
 bygninger:
   actions:
@@ -144,14 +147,36 @@ klimaskaerm:
     plural: Klimaskærme
     singular: Klimaskærm
 klimaskaermtiltag:
+  actions:
+    add: Tilføj klimaskærmstiltag
+    copy: Kopier klimaskærmstiltag
+    edit: Rediger klimaskærmstiltag
   confirmation:
     created: Nyt klimaskærmstiltag oprettet
 klimaskaermtiltagdetail:
   actions:
     add: Tilføj klimaskærmstiltag
+    copy: Kopier klimaskærmstiltag
     edit: Rediger klimaskærmstiltag
-pumper:
+nyttiggjortvarme:
+  actions:
+    add: Tilføj faktor
+    new: Ny faktor
+    edit: Rediger faktor
   labels:
+    plural: Faktorer for nyttiggjort varme (Teknisk Iso.)
+pumpe:
+  actions:
+    add: Tilføj Pumpe
+    create: Opret Pumpe
+    edit: Rediger Pumpe
+  confirmation:
+    created: Pumpe oprettet
+    updated: Pumpe opdateret
+    deleted: Pumpe slettet
+  labels:
+    nuvaerende: Nuværende pumpe
+    ny: Ny pumpe
     plural: Pumper
     singular: Pumpe
 pumpetiltag:
@@ -168,6 +193,7 @@ pumpetiltag:
 pumpetiltagdetail:
   actions:
     add: Tilføj Pumpetiltag
+    copy: Kopier Pumpetiltag
     create: Opret Pumpetiltag
     edit: Rediger Pumpetiltag
 rapporter:
@@ -211,21 +237,38 @@ rapporter:
     tiltag: Tiltag
     tilvalgt: Tilvalgt
     vinduetiltag: Vindue
-solcelle:
+segment:
   actions:
+    add: Tilføj segment
+    create: Opret segment
+    edit: Rediger segment
+  confirmation:
+    created: Segment oprettet
+    updated: Segment opdateret
+    deleted: Segment slettet
+solcelle:
   actions:
     add: Tilføj solcelle
     create: Opret solcelle
     edit: Rediger solcelle
+  confirmation:
+    created: Solcelle oprettet
+    updated: Solcelle opdateret
+    deleted: Solcelle slettet
   labels:
     plural: Solceller
     singular: Solcelle
 solcelletiltag:
+  actions:
+    add: Tilføj solcelletiltag
+    copy: Kopier solcelletiltag
+    edit: Rediger solcelletiltag
   confirmation:
     created: Nyt solcelletiltag oprettet
 solcelletiltagdetail:
   actions:
     add: Tilføj solcelletiltag
+    copy: Kopier solcelletiltag
     edit: Rediger solcelletiltag
 specialtiltag:
   actions:
@@ -236,11 +279,14 @@ specialtiltagdetail:
     add: Upload fil til specialtiltag
     edit: Rediger uploadet fil til specialtiltag
 tekniskisoleringtiltag:
+  actions:
+    edit: Rediger teknisk isolering
   confirmation:
     created: Nyt teknisk isoleringstiltag oprettet
 tekniskisoleringtiltagdetail:
   actions:
     add: Tilføj teknisk isolering
+    copy: Kopier teknisk isolering
     create: Opret teknisk isolering
     edit: Rediger teknisk isolering
 tiltag:
@@ -248,6 +294,11 @@ tiltag:
     add: Tilføj Tiltag
     create: Opret Tiltag
     edit: Rediger Tiltag
+  confirmation:
+    created: Tiltag oprettet
+    tilfravalgtupdated: Til/Fravalgt af opdateret
+    updated: Tiltag opdateret
+    deleted: Tiltag slettet
   labels:
     plural: Tiltag
     singular: Tiltag
@@ -259,22 +310,35 @@ tiltag:
 tiltagdetail:
   actions:
     add: Tilføj Detail
+    copy: Kopier Detail
     edit: Rediger Detail
+  confirmation:
+    created: Detail oprettet
+    updated: Detail opdateret
+    deleted: Detail slettet
 user:
   actions:
     add: Tilføj bruger
     create: Opret bruger
     edit: Rediger bruger
+  confirmation:
+    created: Ny bruger oprettet
+    updated: Bruger oplysninger opdateret
   enabled: Aktiv (Kun aktive brugere kan logge ind)
   labels:
     plural: Brugere
     singular: Bruger
+  strings:
+    segmenteroggrupper: Segmenter / Grupper
 vinduetiltag:
+  actions:
+    edit: Rediger vinduestiltag
   confirmation:
     created: Nyt vinduesstiltag oprettet
 vinduetiltagdetail:
   actions:
     add: Tilføj vinduestiltag
+    copy: Kopier vinduestiltag
     edit: Rediger vinduestiltag
 
 
@@ -490,21 +554,33 @@ appbundle:
     vandNotat: Vand notat
     varmeNotat: Varme notat
   configuration:
-    driftomkostningerfaktor: Driftomkostninger Faktor
-    driftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
+    rapportDriftomkostningerfaktor: Driftomkostninger Faktor
+    rapportDriftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
     elfaktor: El-faktor
     elKrKWh: El (kr/kWh)
-    inflation: Inflation
+    rapportInflation: Inflation
+    rapportInflation.unit: %
     inflationsfaktor: Inflationsfaktor
-    kalkulationsrente: Kalkulationsrente
-    lobetid: Løbetid
-    nominelEnergiprisstigning: Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt
-    procentAfInvestering: Procent af investering
+    rapportKalkulationsrente: Kalkulationsrente
+    rapportKalkulationsrente.unit: %
+    rapportLobetid: Løbetid
+    rapportLobetid.unit: år
+    rapportNominelEnergiprisstigning: Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt
+    rapportProcentAfInvestering: Procent af investering
+    rapportProcentAfInvestering.unit: %
     vandfaktor: Vandfaktor
     varmefaktor: Varmefaktor
     varmeKrKWh: Varme (kr/kWh)
-    varmeledningsevneEksistLamelmaatter: Varmeledningsevne (W/m·K), eksist. lamelmåtter
-    varmeledningsevneNyIsolering: Varmeledningsevne (W/m·K), ny isolering
+    tekniskIsoleringVarmeledningsevneEksistLamelmaatter: Varmeledningsevne, eksist. lamelmåtter
+    tekniskIsoleringVarmeledningsevneEksistLamelmaatter.unit: W/m·K
+    tekniskIsoleringVarmeledningsevneNyIsolering: Varmeledningsevne, ny isolering
+    tekniskIsoleringVarmeledningsevneNyIsolering.unit: W/m·K
+    solcelletiltagdetailEnergiprisstigningPctPrAar: Energiprisstigning
+    solcelletiltagdetailEnergiprisstigningPctPrAar.unit: %/år
+    solcelletiltagdetailSalgsprisFoerste10AarKrKWh: Salgspris (Første 10 år)
+    solcelletiltagdetailSalgsprisFoerste10AarKrKWh.unit: Kr/KWh
+    solcelletiltagdetailSalgsprisEfter10AarKrKWh: Salgspris (Efter 10 år)
+    solcelletiltagdetailSalgsprisEfter10AarKrKWh.unit: Kr/KWh
   energiforsyning:
     beskrivelse: Beskrivelse
     internproduktion:
@@ -779,7 +855,7 @@ appbundle:
     vvsnr: VVS Nr.
   pumpetiltag:
     applikation: Applikation
-    bfaktor: B-Faktor
+    bFaktor: B-Faktor
     eksisterendeDrifttid: Eksisterende Drifttid
     forsyningsomraade: Forsyningsomraade
     isoleringskappe: Isoleringskappe
@@ -791,7 +867,7 @@ appbundle:
   pumpetiltagdetail:
     add: Tilføj pumpe
     applikation: Applikation
-    bfaktor: B-Faktor
+    bFaktor: B-Faktor
     eksisterendeDrifttid: Eksisterende drifttid
     eksisterendeDrifttid.unit: Timer/år
     eksisterendeDrifttid.help: ﻿Eksisterende driftstid indtastes i timer/år
@@ -921,6 +997,7 @@ appbundle:
     magistrat: Magistrat
     navn: Navn
     plural: Segmenter
+    segmentAnsvarlig: Aa+ Segment Ansvarlig
   solcelle:
     drift: Drift
     inverterpris: Inverterpris
@@ -1007,8 +1084,11 @@ appbundle:
     nutidsvaerdiSetOver15AarKr.unit: kr
     nyIsolMm: Ny isol.
     nyIsolMm.unit: mm
-    nyttiggjortVarme: Nyttiggjort varme
+    nyttiggjortVarme: Faktor for nyttiggjort varme
     nyttiggjortVarme.unit: B-faktor
+    nyttiggjortvarme.faktor: Faktor for nyttiggjort varme
+    nyttiggjortvarme.faktor.unit: B-faktor
+    nyttiggjortvarme.titel: Beskrivelse for nyttiggjort varme
     nytVarmetabKwh: Nyt varmetab
     nytVarmetabKwh.unit: kwh
     prisfaktor: Prisfaktor
@@ -1042,6 +1122,7 @@ appbundle:
     anlaegsInvestering.unit: kr
     antalReinvesteringer: Antal reinvesteringer
     antalReinvesteringer.unit: stk.
+    beskrivelse: Beskrivelse
     beskrivelseDriftOgVedligeholdelse: ﻿Beskrivelse af ændringer til D & V udgifter samt fremtidigt timeforbrug for driftspersonale
     beskrivelseForslag: Forslag
     beskrivelseNuvaerende: Nuværende forhold
@@ -1051,23 +1132,32 @@ appbundle:
     besparelseDriftOgVedligeholdelse: Besparelse på D & V
     besparelseDriftOgVedligeholdelse.unit: kr/år
     besparelseEl: Besparelse El
+    besparelseEl.unit: kWh/år
     besparelseGAF: Besparelse GAF
+    besparelseGAF.unit: kWh/år
     besparelseGUF: Besparelse GUF
+    besparelseGUF.unit: kWh/år
+    besparelsesoverblik: Besparelsesoverblik
     besparelseStrafafkoelingsafgift: Besparelse på Strafafkølingsafgift
     besparelseStrafafkoelingsafgift.unit: kr
     elbesparelse: Elbesparelse
     elbesparelse.unit: kWh/år
     faktorForReinvesteringer: Faktor for reinvesteringer
     forsyningEl: Forsyning, el
+    forsyningsoverblik: Forsyningsoverblik
     forsyningVarme: Forsyning, varme
     genopretning: Genopretning
+    genopretning.unit: kr.
     ialt: I alt
     indeklima: Indeklima
+    information: Information
     levetid: Funktionsdygtig levetid
     levetid.unit: År
     modernisering: Modernisering
+    modernisering.unit: kr.
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
+    oekonomioverblik: Økonomioverblik
     placering: Placering
     primaerEnterprise: Primær entreprise
     rapport: Rapport

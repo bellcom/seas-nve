@@ -1016,7 +1016,7 @@ class Rapport {
    * @return float
    */
   public function getKalkulationsrente() {
-    return $this->configuration->getKalkulationsrente();
+    return $this->configuration->getRapportKalkulationsrente();
   }
 
   /**
@@ -1024,7 +1024,7 @@ class Rapport {
    * @return float
    */
   public function getDriftomkostningerfaktor() {
-    return $this->configuration->getDriftomkostningerfaktor();
+    return $this->configuration->getRapportDriftomkostningerfaktor();
   }
 
   /**
@@ -1058,7 +1058,7 @@ class Rapport {
    * @return float
    */
   public function getInflation() {
-    return $this->configuration->getInflation();
+    return $this->configuration->getRapportInflation();
   }
 
   /**
@@ -1066,7 +1066,7 @@ class Rapport {
    * @return float
    */
   public function getLobetid() {
-    return $this->configuration->getLobetid();
+    return $this->configuration->getRapportLobetid();
   }
 
   /**
@@ -1074,7 +1074,7 @@ class Rapport {
    * @return float
    */
   public function getProcentAfInvestering() {
-    return $this->configuration->getProcentAfInvestering();
+    return $this->configuration->getRapportProcentAfInvestering();
   }
 
   /**

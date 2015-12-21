@@ -12,6 +12,7 @@ use AppBundle\Entity\SolcelleTiltag;
 use AppBundle\Entity\TekniskIsoleringTiltag;
 use AppBundle\Entity\KlimaskaermTiltag;
 use AppBundle\Entity\SpecialTiltag;
+use AppBundle\Entity\VindueTiltag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -56,24 +57,11 @@ class TiltagType extends AbstractType {
         ->add('modernisering');
     }
 
-    $builder->add('primaerEnterprise', 'choice',
-      array(
-        'choices' => array(
-          'el' => 'El',
-          't/i' => 'Tømrer/Isolatør',
-          've' => 'VE',
-          'vvs' => 'VVS',
-          'hh' => 'Hårde hvidevarer',
-          'a' => 'Automatik',
-          'ia' => 'Interne i AAK'
-        )
-      ))
-      ->add('tiltagskategori')
-      ->add('forsyningVarme', 'entity', array(
-        'class' => 'AppBundle:Energiforsyning',
-        'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
-        'required' => FALSE,
-      ))
+    $builder->add('forsyningVarme', 'entity', array(
+      'class' => 'AppBundle:Energiforsyning',
+      'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
+      'required' => FALSE,
+    ))
       ->add('forsyningEl', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
@@ -88,10 +76,20 @@ class TiltagType extends AbstractType {
       ->add('indeklima')
       ->add('reelAnlaegsinvestering');
 
-    if ($this->tiltag instanceof TekniskIsoleringTiltag || $this->tiltag instanceof PumpeTiltag) {
+    if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
         ->add('besparelseStrafafkoelingsafgift')
+        ->add('levetid');
+    }
+    if ($this->tiltag instanceof PumpeTiltag) {
+      $builder
+        ->add('besparelseDriftOgVedligeholdelse')
+        ->add('levetid');
+    }
+    if ($this->tiltag instanceof VindueTiltag) {
+      $builder
+        ->add('besparelseDriftOgVedligeholdelse')
         ->add('levetid');
     }
     elseif ($this->tiltag instanceof SolcelleTiltag) {
@@ -104,9 +102,26 @@ class TiltagType extends AbstractType {
     }
     elseif ($this->tiltag instanceof SpecialTiltag) {
       $builder
+        ->add('anlaegsInvestering')
         ->add('besparelseGUF')
         ->add('besparelseGAF')
-        ->add('besparelseEl');
+        ->add('besparelseEl')
+        ->add('besparelseDriftOgVedligeholdelse')
+        ->add('levetid');
+
+      $builder->add('primaerEnterprise', 'choice',
+        array(
+          'choices' => array(
+            'el' => 'El',
+            't/i' => 'Tømrer/Isolatør',
+            've' => 'VE',
+            'vvs' => 'VVS',
+            'hh' => 'Hårde hvidevarer',
+            'a' => 'Automatik',
+            'ia' => 'Interne i AAK'
+          )
+        ))
+        ->add('tiltagskategori');
     }
   }
 

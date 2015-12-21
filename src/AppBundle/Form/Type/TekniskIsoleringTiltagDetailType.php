@@ -34,7 +34,9 @@ class TekniskIsoleringTiltagDetailType extends TiltagDetailType {
       ->add('tempOmgivelC')
       ->add('tempMedieC')
       ->add('roerlaengdeEllerHoejdeAfVvbM')
-      ->add('nyttiggjortVarme')
+      ->add('nyttiggjortVarme', null, array(
+        'required' => true,
+      ))
       ->add('nyIsolMm')
       ->add('standardinvestKrM2EllerKrM')
       ->add('prisfaktor');

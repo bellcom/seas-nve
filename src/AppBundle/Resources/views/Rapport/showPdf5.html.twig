@@ -12,7 +12,7 @@
     </div>
 
     <div class="panel panel-default">
-      <div class="panel-heading">{{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}</div>
+      <div class="panel-heading"><h3 class="panel-title">{{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}</h3></div>
 
       <table class="table table-condensed results">
         <tbody>
@@ -160,7 +160,7 @@
       {% set template = 'AppBundle:' ~ tiltag_type(t) ~ 'Tiltag:_detailTable.html.twig' %}
 
       <div class="panel panel-default page-break-before">
-        <div class="panel-heading">{{ icon('list') }} Skema til: {{ t.title }}</div>
+        <div class="panel-heading"><h3 class="panel-title">{{ icon('list') }} Skema til: {{ t.title }}</h3></div>
           {% include template with {'entity': t} %}
         </div>
       </div>

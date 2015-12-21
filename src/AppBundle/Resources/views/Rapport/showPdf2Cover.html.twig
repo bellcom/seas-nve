@@ -3,7 +3,7 @@
 {% block body -%}
 
   <p class="text-right">
-    <img src="{{ absolute_url(asset('img/aaplus-logo-pdf')) }}" width="217" height="93">
+    <img src="{{ absolute_url(asset('img/aaplus-logo-pdf.jpg')) }}" width="217" height="93">
   </p>
 
   <hr class="pdf-heading">
@@ -20,11 +20,11 @@
   <div class="row heading">
     <div class="col-xs-8">
       <address>
-        {{ icon('home') }} <strong>{{ entity.bygning.navn }}</strong><br>
-        {{ entity.bygning.adresse }}<br>
-        {{ entity.bygning.postnummer }} {{ entity.bygning.postBy }}<br>
+        {{ icon('home') }} <strong>{{ rapport.bygning.navn }}</strong><br>
+        {{ rapport.bygning.adresse }}<br>
+        {{ rapport.bygning.postnummer }} {{ rapport.bygning.postBy }}<br>
       </address>
-      <strong>Version: {{ entity.fullVersion }}</strong>
+      <strong>Version: {{ rapport.fullVersion }}</strong>
     </div>
     <div class="col-xs-4 text-right">
       <p>{{ 'common.genereted'| trans }}: {{ 'now'|date }}</p>
@@ -55,7 +55,7 @@
       <p>Alle beløb er ekskl. moms.</p>
 
       <p class="text-right">
-        <img src="{{ absolute_url(asset('img/eu-logo-pdf')) }}" width="150" height="65">
+        <img src="{{ absolute_url(asset('img/eu-logo-pdf.jpg')) }}" width="150" height="65">
       </p>
     </div>
   </div>

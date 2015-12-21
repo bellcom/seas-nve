@@ -5,9 +5,16 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class SegmentType extends AbstractType
 {
+  private $doctrine;
+
+  public function __construct(RegistryInterface $doctrine) {
+    $this->doctrine = $doctrine;
+  }
+
   /**
    * @param FormBuilderInterface $builder
    * @param array $options
@@ -18,8 +25,21 @@ class SegmentType extends AbstractType
       ->add('navn')
       ->add('forkortelse')
       ->add('magistrat')
-      ->add('segmentAnsvarlig')
+      ->add('segmentAnsvarlig', 'entity', array(
+        'class' => 'AppBundle:User',
+        'choices' => $this->getUsersFromGroup("Aa+"),
+        'required' => false,
+        'empty_value'  => 'common.none',
+      ))
     ;
+  }
+
+  private function getUsersFromGroup($groupname) {
+    $em = $this->doctrine->getRepository('AppBundle:Group');
+
+    $group = $em->findOneByName($groupname);
+
+    return $group->getUsers();
   }
 
   /**

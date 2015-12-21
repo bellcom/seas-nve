@@ -14,12 +14,12 @@
         {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf5' | trans }}
       </a>
       {% if is_granted('RAPPORT_EDIT', entity) %}
+        <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">
+          {{ icon('industry') }} Energiforsyninger
+        </a>
         <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default">
           {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}
         </a>
-      {% endif %}
-      {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">{{ icon('industry') }} Energiforsyninger</a>
       {% endif %}
 
       {% if prev_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
@@ -35,7 +35,7 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">{{ icon('home') }} {{ 'common.data' | trans }}</div>
+    <div class="panel-heading"><h3 class="panel-title">{{ icon('home') }} {{ 'common.data' | trans }}</h3></div>
 
     <table class="table table-condensed">
       <tbody>
@@ -69,7 +69,7 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">{{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}</div>
+    <div class="panel-heading"><h3 class="panel-title">{{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}</h3></div>
 
     <table class="table table-condensed">
       <tbody>
@@ -111,7 +111,7 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">{{ icon('line-chart') }} {{ 'appbundle.rapport.likviditetsoversigt' | trans }}</div>
+    <div class="panel-heading"><h3 class="panel-title">{{ icon('line-chart') }} {{ 'appbundle.rapport.likviditetsoversigt' | trans }}</h3></div>
 
     <div class="panel-body">
       {% include('AppBundle::_includes/finansiering_graf.html.twig') %}
@@ -138,7 +138,7 @@
   {% endif %}
 
   <div class="panel panel-default">
-    <div class="panel-heading">{{ icon('dollar') }} {{ 'common.finans' | trans }}</div>
+    <div class="panel-heading"><h3 class="panel-title">{{ icon('dollar') }} {{ 'common.finans' | trans }}</h3></div>
 
     <table class="table table-condensed">
       <tbody>
@@ -221,7 +221,11 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       {% for key, t in entity.tiltag %}
-        <li role="presentation" {% if key == 0 %} class="active" {% endif %}><a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">{{ key + 1 }}. {{ t.title }}</a></li>
+        <li role="presentation" {% if key == 0 %} class="active" {% endif %}>
+          <a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">
+            {{ key + 1 }}. {{ t.title | slice(0, 15)}}{% if t.title | length > 15 %}...{% endif %}
+          </a>
+        </li>
       {% endfor %}
     </ul>
 
@@ -236,11 +240,11 @@
             <div class="col-md-6 text-right">
               {% if is_granted('RAPPORT_EDIT', entity) %}
               <a href="{{ path('tiltag_edit', { 'id': t.id }) }}" class="btn btn-default">
-                {{ icon('edit') }} {{ 'common.edit' | trans }}: {{ t.title }}
+                {{ icon('edit') }} {{ 'common.edit' | trans }}: {{ t.title | slice(0, 15)}}{% if t.title | length > 15 %}...{% endif %}
               </a>
               {% endif %}
               <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
-                {{ icon('list') }} {{ 'rapporter.labels.detailark' | trans }}: {{ t.title }}
+                {{ icon('list') }} {{ 'rapporter.labels.detailark' | trans }}: {{ t.title | slice(0, 15)}}{% if t.title | length > 15 %}...{% endif %}
               </a>
             </div>
           </div>

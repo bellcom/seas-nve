@@ -8,7 +8,7 @@
     <dd>{{ entity.id }}</dd>
 
     <dt>{{ 'tiltag_detail.special.filepath' | trans }}</dt>
-    <dd>{% if not entity.filepath is empty %}<a target="_blank" href="{{ asset(entity.filepath) }}">{{ entity.filepath }}</a>{% endif %}</dd>
+    <dd>{% if not entity.filepath is empty %}<a target="_blank" href="{{ path('tiltag_detail_download', { 'id': entity.id }) }}">{{ entity.filename }}</a>{% endif %}</dd>
   </dl>
 
 {% endblock %}

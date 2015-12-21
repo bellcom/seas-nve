@@ -25,7 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  *
  * @Route("/rapport/{rapport_id}/energiforsyning")
  * @ParamConverter("rapport", class="AppBundle:Rapport", options={"id" = "rapport_id"})
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("is_granted('RAPPORT_EDIT', rapport)")
  */
 class EnergiforsyningController extends BaseController {
 

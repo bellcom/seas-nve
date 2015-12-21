@@ -12,6 +12,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\TiltagDetail;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
  * TiltagDetail controller.
@@ -87,7 +90,7 @@ class TiltagDetailController extends BaseController {
    * @Template()
    * @param TiltagDetail $tiltagdetail
    * @return \Symfony\Component\HttpFoundation\Response
-   * @Security("is_granted('TILTAGDETAIL_CREATE', tiltagdetail)")
+   * @Security("is_granted('TILTAGDETAIL_EDIT', tiltagdetail)")
    */
   public function copyAction(TiltagDetail $tiltagdetail) {
     $copy = clone $tiltagdetail;
@@ -99,7 +102,7 @@ class TiltagDetailController extends BaseController {
     $editForm = $this->createEditForm($copy);
     $deleteForm = $this->createDeleteForm($copy);
 
-    $template = $this->getTemplate($copy, 'edit');
+    $template = $this->getTemplate($copy, 'copy');
     return $this->render($template, array(
       'calculation_changes' => $this->container->get('aaplus.tiltagdetail_calculation')->getChanges($copy),
       'entity' => $copy,
@@ -148,6 +151,9 @@ class TiltagDetailController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('tiltagdetail.confirmation.updated');
+
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltagdetail->getTiltag()->getId())));
     }
 
@@ -174,10 +180,13 @@ class TiltagDetailController extends BaseController {
     $tiltag = $tiltagdetail->getTiltag();
 
     if ($form->isValid()) {
-      $tiltagdetail->setTiltag(null);
+      $tiltag->removeDetail($tiltagdetail)->calculate();
       $em = $this->getDoctrine()->getManager();
       $em->remove($tiltagdetail);
       $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('tiltagdetail.confirmation.deleted');
     }
 
     return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
@@ -195,6 +204,27 @@ class TiltagDetailController extends BaseController {
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
       ->getForm();
+  }
+
+  /**
+   * Sends a file to the client.
+   *
+   * @Route("/{id}/download", name="tiltag_detail_download")
+   * @Method("GET")
+   * @param TiltagDetail $tiltagdetail
+   * @return \Symfony\Component\HttpFoundation\Response
+   *
+   * @Security("is_granted('TILTAGDETAIL_VIEW', tiltagdetail)")
+   */
+  public function downloadAction(TiltagDetail $tiltagdetail) {
+    $path = $tiltagdetail->getFilepath();
+    $file = new File($path);
+    $response = new BinaryFileResponse($file->getRealPath());
+    $response->setContentDisposition(
+      ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+      $file->getFilename()
+    );
+    return $response;
   }
 
   /**

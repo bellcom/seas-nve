@@ -34,20 +34,22 @@ class ConfigurationType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder
-        ->add('kalkulationsrente');
+        ->add('rapportKalkulationsrente', 'percent', array('scale' => 2));
     }
 
     $builder
-      ->add('driftomkostningerfaktor')
-      ->add('inflation')
-      ->add('lobetid')
+      ->add('rapportDriftomkostningerfaktor')
+      ->add('rapportInflation')
+      ->add('rapportLobetid')
+      ->add('rapportProcentAfInvestering', 'percent', array('scale' => 2))
+      ->add('rapportNominelEnergiprisstigning')
 
-      ->add('procentAfInvestering', 'percent', array('scale' => 2))
+      ->add('tekniskIsoleringVarmeledningsevneEksistLamelmaatter')
+      ->add('tekniskIsoleringVarmeledningsevneNyIsolering')
 
-      ->add('nominelEnergiprisstigning')
-
-      ->add('varmeledningsevneEksistLamelmaatter')
-      ->add('varmeledningsevneNyIsolering');
+      ->add('solcelletiltagdetailEnergiprisstigningPctPrAar', 'percent', array('scale' => 2))
+      ->add('solcelletiltagdetailSalgsprisFoerste10AarKrKWh')
+      ->add('solcelletiltagdetailSalgsprisEfter10AarKrKWh');
   }
 
   /**

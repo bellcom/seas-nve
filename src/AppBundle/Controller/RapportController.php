@@ -135,13 +135,13 @@ class RapportController extends BaseController {
     }
 
     $html = $this->renderView('AppBundle:Rapport:showPdf2.html.twig', array(
-      'entity' => $rapport,
+      'rapport' => $rapport,
       'tilvalgt_form_array' => $tilvalgtFormArray,
       'fravalgt_form_array' => $fravalgtFormArray,
     ));
 
     $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', array(
-      'entity' => $rapport,
+      'rapport' => $rapport,
     ));
 
     return new Response(
@@ -179,7 +179,7 @@ class RapportController extends BaseController {
     ));
 
     $cover = $this->renderView('AppBundle:Rapport:showPdf5Cover.html.twig', array(
-      'entity' => $rapport,
+      'rapport' => $rapport,
     ));
 
     return new Response(
@@ -288,27 +288,20 @@ class RapportController extends BaseController {
    * @Template("AppBundle:Rapport:edit.html.twig")
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
-  public function updateAction(Request $request, $id) {
-    $em = $this->getDoctrine()->getManager();
-
-    $entity = $em->getRepository('AppBundle:Rapport')->find($id);
-
-    if (!$entity) {
-      throw $this->createNotFoundException('Unable to find Rapport entity.');
-    }
-
-    $deleteForm = $this->createDeleteForm($id);
-    $editForm = $this->createEditForm($entity);
+  public function updateAction(Request $request, Rapport $rapport) {
+    $deleteForm = $this->createDeleteForm($rapport->getId());
+    $editForm = $this->createEditForm($rapport);
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
+      $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('rapport_show', array('id' => $id)));
+      return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     }
 
     return array(
-      'entity' => $entity,
+      'entity' => $rapport,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
@@ -522,7 +515,7 @@ class RapportController extends BaseController {
     $flash = $this->get('braincrafted_bootstrap.flash');
     $flash->success( $type.'tiltag.confirmation.created');
 
-    return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+    return $this->redirect($this->generateUrl('tiltag_edit', array('id' => $tiltag->getId())));
   }
 
   //---------------- Regninger -------------------//
