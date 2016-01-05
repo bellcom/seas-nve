@@ -127,7 +127,7 @@ class BygningRepository extends EntityRepository {
    * @return bool
    */
   private function hasFullAccess($user) {
-    return $user && $user->hasRole('ROLE_SUPER_ADMIN');
+    return $user && $user->hasRole('ROLE_ADMIN');
   }
 
 
