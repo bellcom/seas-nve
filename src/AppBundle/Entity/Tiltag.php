@@ -1188,7 +1188,7 @@ abstract class Tiltag {
         ->getNavn() == NavnType::TRAEPILLEFYR
     ) {
       $varmePris = $this->rapport->getTraepillefyr() ? $this->rapport->getTraepillefyr()
-        ->getKrKWh(date('Y') - 1 + $year) : 0;
+                 ->getKrKWh($this->rapport->getDatering()->format('Y') - 1 + $year) : 0;
     }
     $besparelse = // $this->getIndtaegtSalgAfEnergibesparelse()
       +($this->getVarmebesparelseGUF() + $this->getVarmebesparelseGAF()) * $varmePris
