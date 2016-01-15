@@ -72,6 +72,7 @@ form.inline-block {
     height: 140px;
     min-width: 30px;
     white-space: nowrap;
+    background-color: white;
 }
 .table-header-rotated th.rotate > div {
     transform: translate(-15px, 15px) rotate(-45deg);
