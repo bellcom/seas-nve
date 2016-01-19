@@ -89,8 +89,7 @@ class TiltagType extends AbstractType {
     }
     if ($this->tiltag instanceof VindueTiltag) {
       $builder
-        ->add('besparelseDriftOgVedligeholdelse')
-        ->add('levetid');
+        ->add('besparelseDriftOgVedligeholdelse');
     }
     elseif ($this->tiltag instanceof SolcelleTiltag) {
       $builder
