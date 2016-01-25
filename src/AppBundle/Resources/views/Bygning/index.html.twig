@@ -18,6 +18,7 @@
   </div>
   {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
   {{ form_errors(form) }}
+
   <table class="table table-condensed table-hover">
     <tr>
       <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
@@ -38,7 +39,7 @@
       <th>{{ form_row(form.postBy) }}</th>
       <th>{{ form_row(form.segment) }}</th>
       <th>{{ form_row(form.status) }}</th>
-      <th>{{ form_row(form.Søg) }}</th>
+      <th>{{ form_row(form.Excel) }} {{ form_row(form.Søg) }}</th>
     </tr>
 
     {% for bygning in pagination %}

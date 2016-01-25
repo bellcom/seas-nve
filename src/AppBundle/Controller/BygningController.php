@@ -17,6 +17,8 @@ use AppBundle\Form\Type\BygningSearchType;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
 use Yavin\Symfony\Controller\InitControllerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Bygning controller.
@@ -49,6 +51,12 @@ class BygningController extends BaseController implements InitControllerInterfac
     $form = $this->createSearchForm($entity);
     $form->handleRequest($request);
 
+    // If this is an excel submit, return an excel response.
+    $isExcel = $form->get('Excel')->isClicked();
+    if ($isExcel) {
+      return $this->generateExcelResponse($request);
+    }
+
     $em = $this->getDoctrine()->getManager();
 
     $search = array();
@@ -73,6 +81,75 @@ class BygningController extends BaseController implements InitControllerInterfac
     );
 
     return $this->render('AppBundle:Bygning:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'form' => $form->createView()));
+  }
+
+  private function generateExcelResponse(Request $request) {
+    $entity = new Bygning();
+    $form = $this->createSearchForm($entity);
+    $form->handleRequest($request);
+
+    $accessor = PropertyAccess::createPropertyAccessor();
+    $em = $this->getDoctrine()->getManager();
+
+    $search = array();
+
+    $search['is_search'] = $request->get('is_search');
+    $search['bygId'] = $entity->getBygId();
+    $search['navn'] = $entity->getNavn();
+    $search['adresse'] = $entity->getAdresse();
+    $search['postnummer'] = $entity->getPostnummer();
+    $search['postBy'] = $entity->getPostBy();
+    $search['segment'] = $entity->getSegment();
+    $search['status'] = $entity->getStatus();
+
+    $user = $this->get('security.context')->getToken()->getUser();
+    $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
+
+    $results = $query->getResult();
+
+    // Instantiate a new PHPExcel object
+    $objPHPExcel = new \PHPExcel();
+    $objPHPExcel->setActiveSheetIndex(0);
+    $rowCount = 1;
+    $columnCount = 0;
+
+    // Get column titles
+    $columnNames = $em->getClassMetadata('AppBundle:Bygning')->getColumnNames();
+
+    // Set titles row
+    foreach ($columnNames as $columnName) {
+      $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($columnCount, $rowCount)->getFont()->setBold(true);
+      $objPHPExcel->getActiveSheet()->SetCellValueByColumnAndRow($columnCount, $rowCount, $columnName);
+      $columnCount++;
+    }
+    $rowCount++;
+
+    // Set data rows
+    foreach ($results as $row){
+      $columnCount = 0;
+      foreach ($columnNames as $columnName) {
+        $objPHPExcel->getActiveSheet()->SetCellValueByColumnAndRow($columnCount, $rowCount, $accessor->getValue($row, $columnName));
+        $columnCount++;
+      }
+      $rowCount++;
+    }
+
+    $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+
+    ob_start();
+    $objWriter->save('php://output');
+
+    $filename = 'bygninger--' . date('d-m-Y_Hi') . '.xlsx';
+
+    return new Response(
+      ob_get_clean(),  // read from output buffer
+      200,
+      array(
+        'Content-Type' => 'application/vnd.ms-excel',
+        'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        'Cache-Control' => 'max-age=0',
+      )
+    );
   }
 
   /**
