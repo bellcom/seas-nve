@@ -316,6 +316,9 @@ tiltagdetail:
     created: Detail oprettet
     updated: Detail opdateret
     deleted: Detail slettet
+udtraek:
+  labels:
+    plural: Udtræk
 user:
   actions:
     add: Tilføj bruger

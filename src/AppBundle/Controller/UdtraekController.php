@@ -24,7 +24,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
   public function init(Request $request) {
     parent::init($request);
-    $this->breadcrumbs->addItem('Eksport', $this->generateUrl('eksport'));
+    $this->breadcrumbs->addItem('Udtræk', $this->generateUrl('udtraek'));
   }
 
   /**
