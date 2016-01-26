@@ -121,6 +121,63 @@ class BygningRepository extends EntityRepository {
   }
 
   /**
+   * Search all Bygning that a User has access to with attached report
+   *
+   * @param User $user
+   * @param array $search
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function searchByUserWithReport(User $user, $search) {
+    $qb = $this->_em->createQueryBuilder();
+    $qb->select('b', 'r')
+      ->from('AppBundle:Bygning', 'b')
+      ->leftJoin('b.rapport', 'r');
+
+    if (!empty($search['navn'])) {
+      $qb->andWhere('b.navn LIKE :navn')
+        ->setParameter('navn', '%' . $search['navn'] . '%');
+    }
+
+    if (!empty($search['adresse'])) {
+      $qb->andWhere('b.adresse LIKE :adresse')
+        ->setParameter('adresse', '%' . $search['adresse'] . '%');
+    }
+
+    if (!empty($search['postBy'])) {
+      $qb->andWhere('b.postBy LIKE :postBy')
+        ->setParameter('postBy', '%' . $search['postBy'] . '%');
+    }
+
+    if (!empty($search['bygId'])) {
+      $qb->andWhere('b.bygId = :bygId')
+        ->setParameter('bygId', $search['bygId']);
+    }
+
+    if (!empty($search['postnummer'])) {
+      $qb->andWhere('b.postnummer = :postnummer')
+        ->setParameter('postnummer', $search['postnummer']);
+    }
+
+    if (!empty($search['status'])) {
+      $qb->andWhere('b.status = :status')
+        ->setParameter('status', $search['status']);
+    }
+
+    if (!empty($search['segment'])) {
+      $qb->andWhere('b.segment = :segment')
+        ->setParameter('segment', $search['segment']);
+    }
+
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF b.users');
+      $qb->setParameter('user', $user);
+    }
+
+    return $qb->getQuery();
+  }
+
+
+  /**
    * The ugly function to check if a user is allowed to do everything …
    *
    * @param $user

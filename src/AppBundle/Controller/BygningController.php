@@ -63,21 +63,36 @@ class BygningController extends BaseController implements InitControllerInterfac
     $search['status'] = $entity->getStatus();
 
     $user = $this->get('security.context')->getToken()->getUser();
-    $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
 
     // If this is an excel submit, return an excel response.
     if ($form->get('Excel')->isClicked()) {
-      // Get the results.
-      $results = $query->getResult();
+      $query = $em->getRepository('AppBundle:Bygning')->searchByUserWithReport($user, $search);
 
-      // Get column titles
-      $columnNames = $em->getClassMetadata('AppBundle:Bygning')->getColumnNames();
+      // Get the results.
+      $results = $query->getArrayResult();
+
+      // Flatten the rapport array into top array layer, with "rapport-" prefix
+      foreach ($results as $resultsKey => $result) {
+        $report = $result['rapport'];
+
+        if (isset($report)) {
+          // Insert each rapport entry.
+          foreach ($report as $key => $value) {
+            $results[$resultsKey]['rapport-' . $key] = $value;
+          }
+        }
+
+        // Remove "rapport" entry.
+        unset($results[$resultsKey]['rapport']);
+      }
 
       // Generate filename.
       $filename = 'bygninger--' . date('d-m-Y_Hi') . '.xlsx';
 
-      return ExcelExport::generateExcelResponse($results, $columnNames, $filename);
+      return ExcelExport::generateExcelResponse($results, $filename);
     }
+
+    $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(

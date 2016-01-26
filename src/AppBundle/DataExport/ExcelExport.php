@@ -7,16 +7,15 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class ExcelExport {
   /**
-   * Return a file response.
+   * Return an Excel 2007 file response.
    *
    * @param array $results
-   * @param $columnNames
    * @param $filename
    * @return Response
    * @throws \PHPExcel_Exception
    * @throws \PHPExcel_Reader_Exception
    */
-  public static function generateExcelResponse($results, $columnNames, $filename) {
+  public static function generateExcelResponse($results, $filename) {
     $accessor = PropertyAccess::createPropertyAccessor();
 
     // Instantiate a new PHPExcel object
@@ -25,19 +24,29 @@ class ExcelExport {
     $rowCount = 1;
     $columnCount = 0;
 
-    // Set titles row with bold text.
-    foreach ($columnNames as $columnName) {
-      $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($columnCount, $rowCount)->getFont()->setBold(TRUE);
-      $objPHPExcel->getActiveSheet()->SetCellValueByColumnAndRow($columnCount, $rowCount, $columnName);
-      $columnCount++;
+    if (count($results) > 0) {
+      $columnNames = array_keys($results[0]);
+
+      // Set titles row with bold text.
+      foreach ($columnNames as $columnName) {
+        $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($columnCount, $rowCount)->getFont()->setBold(TRUE);
+        $objPHPExcel->getActiveSheet()->SetCellValueByColumnAndRow($columnCount, $rowCount, $columnName);
+        $columnCount++;
+      }
+      $rowCount++;
     }
-    $rowCount++;
 
     // Set data rows
     foreach ($results as $row) {
       $columnCount = 0;
-      foreach ($columnNames as $columnName) {
-        $objPHPExcel->getActiveSheet()->SetCellValueByColumnAndRow($columnCount, $rowCount, $accessor->getValue($row, $columnName));
+      foreach ($row as $cell) {
+        // Make sure we are not trying to insert array into a cell.
+        if (!is_array($cell)) {
+          $objPHPExcel->getActiveSheet()->SetCellValueByColumnAndRow($columnCount, $rowCount, $cell);
+        }
+        else {
+          $objPHPExcel->getActiveSheet()->SetCellValueByColumnAndRow($columnCount, $rowCount, "Array");
+        }
         $columnCount++;
       }
       $rowCount++;
