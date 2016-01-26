@@ -1265,10 +1265,10 @@ class Rapport {
   }
 
   /**
-   * Get investering eksl. genopretning og modernisering
+   * Get investering eksl. øvrige omkostninger
    */
   public function getinvesteringEksFaellesomkostninger() {
-    return $this->getInvesteringEkslGenopretningOgModernisering();
+    return $this->getInvesteringEkslGenopretningOgModernisering() + $this->getEnergiscreening();
   }
 
   /**

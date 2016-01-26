@@ -1,5 +1,6 @@
 fos:
   user:
+
     profile:
       form:
         username: Email
@@ -523,11 +524,11 @@ appbundle:
       implementering.unit: kr
       interneDriftomkostninger: Interne Driftomkostninger
       interneDriftomkostninger.unit: kr
-      internRenteInklFaellesomkostninger: Intern rente inkl. Fællesomkostninger
+      internRenteInklFaellesomkostninger: Intern rente inkl. Øvrige omkostninger
       internRenteInklFaellesomkostninger.unit: %
-      investeringEksFaellesomkostninger: Investering eks. Fællesomkostninger
+      investeringEksFaellesomkostninger: Investering eks. Øvrige omkostninger
       investeringEksFaellesomkostninger.unit: kr
-      investeringInklFaellesomkostninger: Investering inkl. Fællesomkostninger
+      investeringInklFaellesomkostninger: Investering inkl. Øvrige omkostninger
       investeringInklFaellesomkostninger.unit: kr
       laanLoebetid: Løbetid på lån
       laanLoebetid.unit: år
@@ -535,9 +536,9 @@ appbundle:
       likviditetsoversigt: Likviditetsoversigt
       modernisering: Modernisering
       modernisering.unit: kr
-      mtmFaellesomkostninger: MTM Fællesomkostninger
+      mtmFaellesomkostninger: MTM Øvrige omkostninger
       mtmFaellesomkostninger.unit: kr
-      nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Fællesomkostninger
+      nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Øvrige omkostninger
       nutidsvaerdiInklFaellesomkostninger.unit: kr
       tilvalg: Tilvalg
       varmetotal: ﻿I alt baseline varme
@@ -962,13 +963,13 @@ appbundle:
     implementering.unit: kr
     interneDriftomkostninger: Interne Driftomkostninger
     interneDriftomkostninger.unit: kr
-    internRenteInklFaellesomkostninger: Intern rente inkl. Sum Fællesomkostninger
+    internRenteInklFaellesomkostninger: Intern rente inkl. Sum Øvrige omkostninger
     internRenteInklFaellesomkostninger.unit: %
-    investeringEksFaellesomkostninger: Investering eks. Sum Fællesomkostninger
+    investeringEksFaellesomkostninger: Investering eks. Sum Øvrige omkostninger
     investeringEksFaellesomkostninger.unit: kr
-    investeringEkslFaelles: Investering eksl. fællesomkostninger
+    investeringEkslFaelles: Investering eksl. Øvrige omkostninger
     investeringEkslFaelles.unit: Kr
-    investeringInklFaellesomkostninger: Investering inkl. Sum Fællesomkostninger
+    investeringInklFaellesomkostninger: Investering inkl. Sum Øvrige omkostninger
     investeringInklFaellesomkostninger.unit: kr
     laanLoebetid: Løbetid på lån
     laanLoebetid.unit: år
@@ -976,11 +977,11 @@ appbundle:
     likviditetsoversigt: Likviditetsoversigt
     modernisering: Modernisering
     modernisering.unit: kr
-    mtmFaellesomkostninger: MTM Fællesomkostninger
+    mtmFaellesomkostninger: MTM Øvrige omkostninger
     mtmFaellesomkostninger.unit: kr
     nutidsvaerdi: Nutidsværdi
     nutidsvaerdi.unit: kr
-    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Sum Fællesomkostninger
+    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Sum Øvrige omkostninger
     nutidsvaerdiInklFaellesomkostninger.unit: kr
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
     sum.unit: kr
@@ -1205,6 +1206,9 @@ appbundle:
     password: Kodeord
     phone: Telefon
     plainpassword: Kodeord
+    plainPassword: Kodeord
+    plainPassword.first: Kodeord
+    plainPassword.second: Gentag kodeord
     profile: Profil
     segmenter: Segmentansvarlig for (Aa+ brugere):
   vinduetiltagdetail:
