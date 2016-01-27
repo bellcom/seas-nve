@@ -179,7 +179,13 @@
         <td class="text-right"></td>
         <td></td>
         <th>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger' | trans }}</th>
-        <td class="text-right">{{ entity.internRenteInklFaellesomkostninger | number_format }}</td>
+        <td class="text-right">
+          {% if entity.internRenteInklFaellesomkostninger < 100 %}
+            {{ entity.internRenteInklFaellesomkostninger | number_format }}
+          {% else %}
+            --
+          {% endif %}
+        </td>
         <td>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger.unit' | trans }}</td>
       </tr>
       <tr>
