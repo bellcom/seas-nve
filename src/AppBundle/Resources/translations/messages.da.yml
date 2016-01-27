@@ -319,6 +319,9 @@ tiltagdetail:
 udtraek:
   labels:
     plural: Udtræk
+    besparelse_varme_guf_pr_aar: Besparelse varme GUF pr. år
+    besparelse_varme_gaf_pr_aar: Besparelse varme GAF pr. år
+    besparelse_el_pr_aar: Besparelse el pr. år
 user:
   actions:
     add: Tilføj bruger

@@ -177,20 +177,26 @@ class BygningRepository extends EntityRepository {
   }
 
   /**
-   * Varmebesparelse
+   * Field sum
    *
    * @param User $user
    * @return array|\Doctrine\ORM\Query
    */
-  public function getVarmeBesparelseForSegment(User $user, $search) {
+  public function getFieldSum(User $user, $field, $search) {
     $qb = $this->_em->createQueryBuilder();
-    $qb->select('sum(r.besparelseVarmeGUF)')
+    $qb->select('sum(r.' . $field . ')')
       ->from('AppBundle:Bygning', 'b')
-      ->leftJoin('b.rapport', 'r');
+      ->leftJoin('b.rapport', 'r')
+      ->leftJoin('b.segment', 's');
 
     if (!empty($search['segment'])) {
       $qb->andWhere('b.segment = :segment')
         ->setParameter('segment', $search['segment']);
+    }
+
+    if (!empty($search['forkortelse'])) {
+      $qb->andWhere('s.forkortelse = :forkortelse')
+        ->setParameter('forkortelse', $search['forkortelse']);
     }
 
     if (!empty($search['year'])) {

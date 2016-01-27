@@ -1,5 +1,9 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body %}
-  <a href="/udtraek/varme_pr_aar">{{ icon('fire') }} {{ 'udtraek.labels.varme_pr_aar' | trans }}</a>
+  <ul>
+    <li><a href="/udtraek/field_sum_pr_year/besparelseVarmeGUF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_guf_pr_aar' | trans }}</a></li>
+    <li><a href="/udtraek/field_sum_pr_year/besparelseVarmeGAF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_gaf_pr_aar' | trans }}</a></li>
+    <li><a href="/udtraek/field_sum_pr_year/besparelseEl">{{ icon('bolt') }} {{ 'udtraek.labels.besparelse_el_pr_aar' | trans }}</a></li>
+  </ul>
 {% endblock %}
