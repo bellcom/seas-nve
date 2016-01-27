@@ -192,6 +192,8 @@ class Bygning {
   protected $kode;
 
   /**
+   * @Assert\NotBlank(groups={"DATA_VERIFICERET"})
+   *
    * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
    * @ORM\JoinColumn(name="varme_forsyningsvaerk_id", referencedColumnName="id")
    **/
@@ -226,6 +228,8 @@ class Bygning {
   protected $aFVInstnr1;
 
   /**
+   * @Assert\NotBlank(groups={"DATA_VERIFICERET"})
+   *
    * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
    * @ORM\JoinColumn(name="el_forsyningsvaerk_id", referencedColumnName="id")
    **/

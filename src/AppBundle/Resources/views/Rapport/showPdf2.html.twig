@@ -87,7 +87,13 @@
       </tr>
       <tr>
         <th>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger' | trans }}</th>
-        <td class="text-right">{{ rapport.internRenteInklFaellesomkostninger | number_format }}</td>
+        <td class="text-right">
+          {% if entity.internRenteInklFaellesomkostninger < 100 %}
+            {{ entity.internRenteInklFaellesomkostninger | number_format }}
+          {% else %}
+            --
+          {% endif %}
+        </td>
         <td>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger.unit' | trans }}</td>
       </tr>
       </tbody>
@@ -267,7 +273,7 @@
       </tr>
       <tr class="no-border">
         <th>{{ 'appbundle.rapport.BaselineVarme' | trans }}</th>
-        <td class="text-right">{{ rapport.BaselineEl | format_zeros }}</td>
+        <td class="text-right">{{ rapport.BaselineVarmeGAF | format_zeros }}</td>
         <td>{{ 'appbundle.rapport.BaselineVarme.unit' | trans }}</td>
       </tr>
       <tr>
