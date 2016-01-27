@@ -199,6 +199,55 @@ class BygningRepository extends EntityRepository {
         ->setParameter('forkortelse', $search['forkortelse']);
     }
 
+    if (!empty($search['type'])) {
+      $qb->andWhere('b.type = :type')
+        ->setParameter('type', $search['type']);
+    }
+
+    if (!empty($search['year'])) {
+      $qb->andWhere('YEAR(r.datering) = :year')
+        ->setParameter('year', $search['year']);
+    }
+
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF b.users');
+      $qb->setParameter('user', $user);
+    }
+
+    return $qb->getQuery();
+  }
+
+
+  /**
+   * Field sum
+   *
+   * @param User $user
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function getFieldAvgDiff(User $user, $field, $baseline, $search) {
+    $qb = $this->_em->createQueryBuilder();
+    $qb->select('(sum(r.' . $field . ') / sum(r.' . $baseline . ')) * (-100)')
+      ->where('r.' . $field . ' IS NOT NULL')
+      ->where('r.' . $baseline . ' IS NOT NULL')
+      ->from('AppBundle:Bygning', 'b')
+      ->leftJoin('b.rapport', 'r')
+      ->leftJoin('b.segment', 's');
+
+    if (!empty($search['segment'])) {
+      $qb->andWhere('b.segment = :segment')
+        ->setParameter('segment', $search['segment']);
+    }
+
+    if (!empty($search['forkortelse'])) {
+      $qb->andWhere('s.forkortelse = :forkortelse')
+        ->setParameter('forkortelse', $search['forkortelse']);
+    }
+
+    if (!empty($search['type'])) {
+      $qb->andWhere('b.type = :type')
+        ->setParameter('type', $search['type']);
+    }
+
     if (!empty($search['year'])) {
       $qb->andWhere('YEAR(r.datering) = :year')
         ->setParameter('year', $search['year']);
@@ -268,5 +317,19 @@ class BygningRepository extends EntityRepository {
     }
 
     return $qb->getQuery()->getSingleResult();
+  }
+
+  /**
+   * Get all building types.
+   * @return array
+   */
+  public function getBuildingTypes() {
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('b.type')
+      ->distinct(TRUE)
+      ->from('AppBundle:Bygning', 'b');
+
+    return $qb->getQuery()->getResult();
   }
 }
