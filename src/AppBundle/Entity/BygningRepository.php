@@ -176,6 +176,35 @@ class BygningRepository extends EntityRepository {
     return $qb->getQuery();
   }
 
+  /**
+   * Varmebesparelse
+   *
+   * @param User $user
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function getVarmeBesparelseForSegment(User $user, $search) {
+    $qb = $this->_em->createQueryBuilder();
+    $qb->select('sum(r.besparelseVarmeGUF)')
+      ->from('AppBundle:Bygning', 'b')
+      ->leftJoin('b.rapport', 'r');
+
+    if (!empty($search['segment'])) {
+      $qb->andWhere('b.segment = :segment')
+        ->setParameter('segment', $search['segment']);
+    }
+
+    if (!empty($search['year'])) {
+      $qb->andWhere('YEAR(r.datering) = :year')
+        ->setParameter('year', $search['year']);
+    }
+
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF b.users');
+      $qb->setParameter('user', $user);
+    }
+
+    return $qb->getQuery();
+  }
 
   /**
    * The ugly function to check if a user is allowed to do everything …

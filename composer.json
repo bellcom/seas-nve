@@ -36,7 +36,8 @@
     "fortawesome/font-awesome": "^4.4",
     "knplabs/knp-snappy-bundle": "dev-master",
     "fresh/doctrine-enum-bundle": "~3.2",
-    "doctrine/doctrine-migrations-bundle": "^1.0"
+    "doctrine/doctrine-migrations-bundle": "^1.0",
+    "beberlei/DoctrineExtensions": "^1.0"
   },
   "require-dev": {
     "sensio/generator-bundle": "~2.3"

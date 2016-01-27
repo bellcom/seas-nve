@@ -35,7 +35,46 @@ class UdtraekController extends BaseController implements InitControllerInterfac
    * @Template()
    */
   public function indexAction(Request $request) {
-
     return $this->render('AppBundle:Udtraek:index.html.twig', array());
+  }
+
+  /**
+   * Get varme_pr_aar excel export.
+   *
+   * @Route("/varme_pr_aar", name="udtraek_varme_pr_aar")
+   * @Method("GET")
+   * @Template()
+   */
+  public function varmePrAarAction(Request $request) {
+    $user = $this->get('security.context')->getToken()->getUser();
+    $em = $this->getDoctrine()->getManager();
+
+    $search = array();
+
+    $results = array();
+
+    $segments = $em->getRepository('AppBundle:Segment')->findAll();
+    $segments[] = null;
+
+    for ($year = 2015; $year <= 2018; $year++) {
+      $search['year'] = $year;
+
+      foreach ($segments as $segment) {
+        $search['segment'] = $segment;
+        $query = $em->getRepository('AppBundle:Bygning')->getVarmeBesparelseForSegment($user, $search);
+
+        // Get the results.
+        $result = $query->getSingleScalarResult();
+
+        if (is_null($segment)) {
+          $results[$year]['Hele portefølje'] = $result;
+        }
+        else {
+          $results[$year][$segment->getForkortelse() . " " . $segment->getNavn()] = $result;
+        }
+      }
+    }
+
+    return ExcelExport::generateTwoDimensionalExcelResponse($results, 'udtraek--varme-pr-aar--' . date('d-m-Y_Hi') . '.xlsx');
   }
 }
