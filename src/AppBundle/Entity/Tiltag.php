@@ -1182,6 +1182,9 @@ abstract class Tiltag {
   }
 
   public function calculateSavingsForYear($year) {
+    if ($year > $this->levetid) {
+      return 0;
+    }
 
     $varmePris = $this->rapport->getVarmeKrKWh($year);
     if ($this->getForsyningVarme() && $this->getForsyningVarme()
