@@ -32,6 +32,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - AppBundle:Form:aaplus-bootstrap.html.twig
+        - LexikFormFilterBundle:Form:form_div_layout.html.twig
     number_format:
         decimals: 2
         decimal_point: ','
@@ -95,7 +96,6 @@ braincrafted_bootstrap:
     output_dir:
     assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
     jquery_path: %kernel.root_dir%/../vendor/components/jquery/jquery.min.js
-    less_filter: none # "less", "lessphp", "sass" or "none"
     fonts_dir: %kernel.root_dir%/../web/fonts
     auto_configure:
         assetic: false

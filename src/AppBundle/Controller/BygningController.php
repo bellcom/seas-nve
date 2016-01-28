@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\BygningType;
-use AppBundle\Form\Type\BygningSearchType;
+use AppBundle\Form\Type\BygningFilterType;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
 use Yavin\Symfony\Controller\InitControllerInterface;
@@ -27,8 +27,7 @@ class BygningController extends BaseController implements InitControllerInterfac
 
   protected $breadcrumbs;
 
-  public function init(Request $request)
-  {
+  public function init(Request $request) {
     parent::init($request);
     $this->breadcrumbs->addItem('Bygninger', $this->generateUrl('bygning'));
   }
@@ -41,38 +40,71 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @Template()
    */
   public function indexAction(Request $request) {
-    if($request->get('is_search')) {
-      $this->breadcrumbs->addItem('Søg', $this->generateUrl('bygning'));
-    }
+    // initialize a query builder
+    $filterBuilder = $this->get('doctrine.orm.entity_manager')
+      ->getRepository('AppBundle:Bygning')
+      ->createQueryBuilder('e');
+
+//    $form = $this->get('form.factory')->create(new BygningFilterType());
 
     $entity = new Bygning();
     $form = $this->createSearchForm($entity);
-    $form->handleRequest($request);
 
-    $em = $this->getDoctrine()->getManager();
+    if ($request->query->has($form->getName())) {
+      // manually bind values from the request
+      $form->submit($request->query->get($form->getName()));
 
-    $search = array();
+      // build the query from the given form object
+      $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
+    }
 
-    $search['is_search'] = $request->get('is_search');
-    $search['bygId'] = $entity->getBygId();
-    $search['navn'] = $entity->getNavn();
-    $search['adresse'] = $entity->getAdresse();
-    $search['postnummer'] = $entity->getPostnummer();
-    $search['postBy'] = $entity->getPostBy();
-    $search['segment'] = $entity->getSegment();
-    $search['status'] = $entity->getStatus();
-
-    $user = $this->get('security.context')->getToken()->getUser();
-    $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
+    $query = $filterBuilder->getQuery();
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
       $query,
-      $request->query->get('page', 1),
-      20
+      $request->query->get('page', 1) /*page number*/,
+      20 /*limit per page*/
     );
 
+    $search = array();
+    $search['is_search'] = $request->get('is_search');
+
     return $this->render('AppBundle:Bygning:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'form' => $form->createView()));
+
+
+//    if($request->get('is_search')) {
+//      $this->breadcrumbs->addItem('Søg', $this->generateUrl('bygning'));
+//    }
+//
+//    $entity = new Bygning();
+//    $form = $this->createSearchForm($entity);
+//    $form->handleRequest($request);
+//
+//    $em = $this->getDoctrine()->getManager();
+//
+//    $search = array();
+//
+//    $search['is_search'] = $request->get('is_search');
+//    $search['bygId'] = $entity->getBygId();
+//    $search['navn'] = $entity->getNavn();
+//    $search['adresse'] = $entity->getAdresse();
+//    $search['postnummer'] = $entity->getPostnummer();
+//    $search['postBy'] = $entity->getPostBy();
+//    $search['segment'] = $entity->getSegment();
+//    $search['status'] = $entity->getStatus();
+//
+//    $user = $this->get('security.context')->getToken()->getUser();
+//    $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
+//
+//    $paginator = $this->get('knp_paginator');
+//    $pagination = $paginator->paginate(
+//      $query,
+//      $request->query->get('page', 1),
+//      20
+//    );
+//
+//    return $this->render('AppBundle:Bygning:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'form' => $form->createView()));
   }
 
   /**
@@ -83,7 +115,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createSearchForm(Bygning $entity) {
-    $form = $this->createForm(new BygningSearchType(), $entity, array(
+    $form = $this->createForm(new BygningFilterType(), $entity, array(
       'action' => $this->generateUrl('bygning'),
       'method' => 'GET',
     ));
@@ -238,7 +270,6 @@ class BygningController extends BaseController implements InitControllerInterfac
       'delete_form' => $deleteForm->createView(),
     );
   }
-
 
 
   /**

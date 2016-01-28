@@ -31,14 +31,7 @@
     </tr>
 
     <tr class="search">
-      <th>{{ form_row(form.bygId) }}</th>
-      <th>{{ form_row(form.navn) }}</th>
-      <th>{{ form_row(form.adresse) }}</th>
-      <th>{{ form_row(form.postnummer) }}</th>
-      <th>{{ form_row(form.postBy) }}</th>
-      <th>{{ form_row(form.segment) }}</th>
-      <th>{{ form_row(form.status) }}</th>
-      <th>{{ form_row(form.Søg) }}</th>
+      <th colspan="8">{{ form_rest(form) }}</th>
     </tr>
 
     {% for bygning in pagination %}
