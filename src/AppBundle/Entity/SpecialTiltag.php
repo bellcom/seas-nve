@@ -120,7 +120,7 @@ class SpecialTiltag extends Tiltag {
   }
 
   protected function calculateSamletEnergibesparelse() {
-    return $this->varmebesparelseGAF * $this->getRapport()->getVarmeKrKWh()
+    return ($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->getRapport()->getVarmeKrKWh()
       + $this->elbesparelse * $this->getRapport()->getElKrKWh();
   }
 
