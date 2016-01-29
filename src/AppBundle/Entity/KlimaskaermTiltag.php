@@ -35,7 +35,7 @@ class KlimaskaermTiltag extends Tiltag {
   }
 
   protected function calculateSamletEnergibesparelse() {
-    return $this->varmebesparelseGAF * $this->getRapport()->getVarmeKrKWh()
+    return $this->varmebesparelseGAF * $this->calculateVarmepris()
       + $this->elbesparelse * $this->getRapport()->getElKrKWh();
   }
 
