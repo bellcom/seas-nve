@@ -1186,20 +1186,26 @@ abstract class Tiltag {
       return 0;
     }
 
-    $varmePris = $this->rapport->getVarmeKrKWh($year);
+    $varmepris = $this->calculateVarmepris($year);
+    $besparelse = // $this->getIndtaegtSalgAfEnergibesparelse()
+                +($this->getVarmebesparelseGUF() + $this->getVarmebesparelseGAF()) * $varmepris
+                + $this->getElbesparelse() * $this->rapport->getElKrKWh($year)
+                + $this->getVandbesparelse() * $this->rapport->getVandKrKWh($year)
+                + ($this->getBesparelseStrafafkoelingsafgift() + $this->getBesparelseDriftOgVedligeholdelse()) * pow(1 + $this->rapport->getInflation(), $year)
+                ;
+
+    return $besparelse;
+  }
+
+  protected function calculateVarmepris($year = 1) {
+    $varmepris = $this->rapport->getVarmeKrKWh($year);
     if ($this->getForsyningVarme() && $this->getForsyningVarme()
         ->getNavn() == NavnType::TRAEPILLEFYR
     ) {
-      $varmePris = $this->rapport->getTraepillefyr() ? $this->rapport->getTraepillefyr()
+      $varmepris = $this->rapport->getTraepillefyr() ? $this->rapport->getTraepillefyr()
                  ->getKrKWh($this->rapport->getDatering()->format('Y') - 1 + $year) : 0;
     }
-    $besparelse = // $this->getIndtaegtSalgAfEnergibesparelse()
-      +($this->getVarmebesparelseGUF() + $this->getVarmebesparelseGAF()) * $varmePris
-      + $this->getElbesparelse() * $this->rapport->getElKrKWh($year)
-      + $this->getVandbesparelse() * $this->rapport->getVandKrKWh($year)
-      + ($this->getBesparelseStrafafkoelingsafgift() + $this->getBesparelseDriftOgVedligeholdelse()) * pow(1 + $this->rapport->getInflation(), $year);
-
-    return $besparelse;
+    return $varmepris;
   }
 
   protected function calculateVarmebesparelseGUF() {
