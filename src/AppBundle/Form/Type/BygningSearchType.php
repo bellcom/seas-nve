@@ -31,7 +31,7 @@ class BygningSearchType extends AbstractType {
       ->add('postnummer', null, array('label' => false, 'max_length' => 4, 'attr' => array('size' => '4')))
       ->add('postBy', null, array('label' => false))
       ->add('segment', null, array('label' => false, 'required' => false))
-      ->add('status', null, array('label' => false, 'required' => false))
+      ->add('status', null, array('label' => false, 'required' => false, 'data' => null))
       ->add('Søg', 'submit');
   }
 
