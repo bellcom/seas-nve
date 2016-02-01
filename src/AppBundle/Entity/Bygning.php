@@ -376,7 +376,7 @@ class Bygning {
   protected $varmeNotat;
 
   /**
-   * @OneToone(targetEntity="Rapport", mappedBy="bygning", cascade={"persist"})
+   * @OneToOne(targetEntity="Rapport", mappedBy="bygning", cascade={"persist"})
    * @JMS\Exclude
    **/
   protected $rapport;

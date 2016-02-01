@@ -317,6 +317,16 @@ tiltagdetail:
     created: Detail oprettet
     updated: Detail opdateret
     deleted: Detail slettet
+udtraek:
+  labels:
+    plural: Udtræk
+    besparelse_varme_guf_pr_aar: Besparelse varme GUF pr. år
+    besparelse_varme_guf_percent_pr_aar: Besparelse varme GUF pr. år i procent
+    besparelse_varme_gaf_pr_aar: Besparelse varme GAF pr. år
+    besparelse_varme_gaf_percent_pr_aar: Besparelse varme GAF pr. år i procent
+    besparelse_el_pr_aar: Besparelse el pr. år
+    besparelse_el_percent_pr_aar: Besparelse el pr. år i procent
+    besparelse_co2_ton_pr_aar: Besparelse CO2 i ton pr. år
 user:
   actions:
     add: Tilføj bruger
