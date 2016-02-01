@@ -1581,6 +1581,9 @@ class Rapport {
 
   private function calculateCashFlow() {
     $numberOfYears = 30;
+    $maxTiltagLevetid = $this->accumulate(function($tiltag, $value) {
+      return $tiltag->getLevetid() > $value ? $tiltag->getLevetid() : $value;
+    }, 0);
 
     $flow = array(
       'ydelse laan' => array_fill(0, $numberOfYears + 1, 0),
@@ -1604,10 +1607,9 @@ class Rapport {
       $flow['ydelse laan'][$year] = ($year <= $loebetid) ? -$samletAarligYdelseTilLaan : NULL;
       $flow['laan til faellesomkostninger'][$year] = ($year <= $loebetid) ? -Calculation::pmt($rente, $loebetid, $this->faellesomkostninger) : NULL;
       $flow['ydelse laan inkl. faellesomkostninger'][$year] = $flow['ydelse laan'][$year] + $flow['laan til faellesomkostninger'][$year];
-      $besparelse = 0;
-      foreach ($tilvalgteTiltag as $tiltag) {
-        $besparelse += $tiltag->calculateSavingsForYear($year);
-      }
+      $besparelse = $year > $maxTiltagLevetid ? NULL : $this->accumulate(function($tiltag, $value) use ($year) {
+        return $value + $tiltag->calculateSavingsForYear($year);
+      }, 0);
 
       $flow['besparelse'][$year] = $besparelse;
       $flow['cash flow'][$year] = -$flow['ydelse laan'][$year] + $flow['besparelse'][$year];
@@ -1620,6 +1622,25 @@ class Rapport {
     }
 
     return $flow;
+  }
+
+  /**
+   * Accumulate over all tilvalgte Tiltag in this Rapport.
+   *
+   * @param callable $accumulator
+   *   The accumulator.
+   * @param mixed $start
+   *   The start value.
+   *
+   * @return mixed
+   *   The accumulated value.
+   */
+  protected function accumulate(callable $accumulator, $start = 0) {
+    $value = $start;
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      $value = $accumulator($tiltag, $value);
+    }
+    return $value;
   }
 
 }
