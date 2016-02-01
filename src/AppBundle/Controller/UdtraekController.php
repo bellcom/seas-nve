@@ -13,11 +13,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Yavin\Symfony\Controller\InitControllerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use AppBundle\Entity\Bygning;
+use AppBundle\Form\Type\BygningType;
+use AppBundle\Form\Type\BygningFilterType;
 
 /**
  * Udtraek controller.
  *
  * @Route("/udtraek")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class UdtraekController extends BaseController implements InitControllerInterface {
 
@@ -35,8 +40,64 @@ class UdtraekController extends BaseController implements InitControllerInterfac
    * @Method("GET")
    * @Template()
    */
-  public function indexAction() {
-    return $this->render('AppBundle:Udtraek:index.html.twig', array());
+  public function indexAction(Request $request) {
+    // initialize a query builder
+    $filterBuilder = $this->get('doctrine.orm.entity_manager')
+      ->getRepository('AppBundle:Bygning')
+      ->createQueryBuilder('e');
+
+    $entity = new Bygning();
+    $form = $this->createSearchForm($entity);
+
+    if ($request->query->has($form->getName())) {
+      // manually bind values from the request
+      $form->submit($request->query->get($form->getName()));
+
+      // build the query from the given form object
+      $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
+    }
+
+    $query = $filterBuilder->getQuery();
+
+    // If this is an excel submit, return an excel response.
+    if ($form->get('Excel')->isClicked()) {
+
+      // Get the results.
+      $results = $query->getArrayResult();
+
+      // Generate filename.
+      $filename = 'bygninger--' . date('d-m-Y_Hi') . '.xlsx';
+
+      return ExcelExport::generateExcelResponse($results, $filename);
+    }
+
+    $paginator = $this->get('knp_paginator');
+    $pagination = $paginator->paginate(
+      $query,
+      $request->query->get('page', 1) /*page number*/,
+      10 /*limit per page*/
+    );
+
+    $search = array();
+    $search['is_search'] = $request->get('is_search');
+
+    return $this->render('AppBundle:Udtraek:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'form' => $form->createView()));
+  }
+
+  /**
+   * Creates a form to search Bygning entities.
+   *
+   * @param Bygning $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createSearchForm(Bygning $entity) {
+    $form = $this->createForm(new BygningFilterType(), $entity, array(
+      'action' => $this->generateUrl('udtraek'),
+      'method' => 'GET',
+    ));
+
+    return $form;
   }
 
   /**

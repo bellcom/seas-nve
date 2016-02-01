@@ -16,6 +16,7 @@
     </div>
 
   </div>
+
   {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
   {{ form_errors(form) }}
 
@@ -39,7 +40,7 @@
       <th>{{ form_row(form.postBy) }}</th>
       <th>{{ form_row(form.segment) }}</th>
       <th>{{ form_row(form.status) }}</th>
-      <th>{{ form_row(form.Excel) }} {{ form_row(form.Søg) }}</th>
+      <th>{{ form_row(form.Søg) }}</th>
     </tr>
 
     {% for bygning in pagination %}
@@ -72,8 +73,8 @@
       <a href="{{ path('bygning_new') }}" class="btn btn-default">
         {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
       </a>
+      {% endif %}
     </div>
-    {% endif %}
     <div class="col-md-8 text-right">
       {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
     </div>

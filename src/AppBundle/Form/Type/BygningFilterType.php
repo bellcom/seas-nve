@@ -33,6 +33,7 @@ class BygningFilterType extends AbstractType {
       ->add('postBy', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
       ->add('segment', 'filter_entity', array('class' => 'AppBundle\Entity\Segment', 'label' => false, 'required' => false))
       ->add('status', null, array('label' => false, 'required' => false))
+      ->add('Excel', 'submit', array('label' => 'Hent som excel'))
       ->add('Søg', 'submit');
   }
 

@@ -20,8 +20,8 @@
         <td>{{ entity.fullVersion }}</td>
         <td>{% if entity.datering %}{{ entity.datering|date('Y-m-d') }}{% endif %}</td>
         <td>{{ entity.elena | b2icon }}</td>
-        <td>
-          <a href="{{ path('rapport_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+        <td class="text-right">
+          <a href="{{ path('rapport_show', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
         </td>
       </tr>
     {% endfor %}

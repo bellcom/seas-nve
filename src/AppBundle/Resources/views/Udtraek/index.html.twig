@@ -1,6 +1,63 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body %}
+
+  {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+  {{ form_errors(form) }}
+
+  {{ form_row(form.Excel) }}
+  <table class="table table-condensed table-hover">
+    <tr>
+      <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.segment'|trans, 'b.segment') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.status'|trans, 'b.status') }}</th>
+      <th></th>
+    </tr>
+
+    <tr class="search">
+      <th>{{ form_row(form.bygId) }}</th>
+      <th>{{ form_row(form.navn) }}</th>
+      <th>{{ form_row(form.adresse) }}</th>
+      <th>{{ form_row(form.postnummer) }}</th>
+      <th>{{ form_row(form.postBy) }}</th>
+      <th>{{ form_row(form.segment) }}</th>
+      <th>{{ form_row(form.status) }}</th>
+      <th>{{ form_row(form.Søg) }}</th>
+    </tr>
+
+    {% for bygning in pagination %}
+    <tr>
+      <td>{{ bygning.bygId }}</td>
+      <td>{{ bygning.navn }}</td>
+      <td>{{ bygning.adresse }}</td>
+      <td>{{ bygning.postnummer }}</td>
+      <td>{{ bygning.postBy }}</td>
+      <td>{{ bygning.segment }}</td>
+      <td>{{ bygning.status  | readable }}</td>
+      <td class="text-right">
+        <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
+      </td>
+    </tr>
+    {% else %}
+      <tr>
+        <td colspan="8">
+          <div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+  {{ form_end(form) }}
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
+    </div>
+  </div>
+
   <ul>
     <li><a href="/udtraek/field_sum_pr_year/besparelseVarmeGUF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_guf_pr_aar' | trans }}</a></li>
     <li><a href="/udtraek/field_avg_diff_pr_year/besparelseVarmeGUF/BaselineVarmeGUF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_guf_percent_pr_aar' | trans }}</a></li>
