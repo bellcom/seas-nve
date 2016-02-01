@@ -46,8 +46,13 @@ class UdtraekController extends BaseController implements InitControllerInterfac
       ->getRepository('AppBundle:Bygning')
       ->createQueryBuilder('e');
 
-    $entity = new Bygning();
-    $form = $this->createSearchForm($entity);
+//    $entity = new Bygning();
+//    $form = $this->createSearchForm();
+
+    $form = $this->get('form.factory')->create(new BygningFilterType(), null, array(
+      'action' => $this->generateUrl('udtraek'),
+      'method' => 'GET',
+    ));
 
     if ($request->query->has($form->getName())) {
       // manually bind values from the request
@@ -82,22 +87,6 @@ class UdtraekController extends BaseController implements InitControllerInterfac
     $search['is_search'] = $request->get('is_search');
 
     return $this->render('AppBundle:Udtraek:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'form' => $form->createView()));
-  }
-
-  /**
-   * Creates a form to search Bygning entities.
-   *
-   * @param Bygning $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createSearchForm(Bygning $entity) {
-    $form = $this->createForm(new BygningFilterType(), $entity, array(
-      'action' => $this->generateUrl('udtraek'),
-      'method' => 'GET',
-    ));
-
-    return $form;
   }
 
   /**

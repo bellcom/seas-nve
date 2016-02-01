@@ -11,6 +11,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\DBAL\Types\BygningStatusType;
+
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\QueryBuilder;
+
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderExecuterInterface;
+
 /**
  * Class BygningType
  * @package AppBundle\Form
@@ -26,13 +32,27 @@ class BygningFilterType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('bygId', 'filter_number', array('label' => false))
-      ->add('navn', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
-      ->add('adresse', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
-      ->add('postnummer', 'filter_text', array('condition_pattern' => FilterOperands::STRING_STARTS, 'label' => false))
-      ->add('postBy', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
-      ->add('segment', 'filter_entity', array('class' => 'AppBundle\Entity\Segment', 'label' => false, 'required' => false))
-      ->add('status', null, array('label' => false, 'required' => false))
+      ->add('bygId', 'filter_number')
+      ->add('navn', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH))
+      ->add('adresse', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH))
+      ->add('postnummer', 'filter_text', array('condition_pattern' => FilterOperands::STRING_STARTS))
+      ->add('postBy', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH))
+      ->add('segment', 'filter_entity', array('class' => 'AppBundle\Entity\Segment', 'required' => false))
+      ->add('status', null, array('required' => false));
+
+//    $builder->add('rapport', new RapportFilterType());
+
+    $builder->add('rapport', new RapportFilterType(), array(
+      'add_shared' => function (FilterBuilderExecuterInterface $qbe) {
+        $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
+          $filterBuilder->leftJoin($alias . '.rapport', $joinAlias);
+        };
+
+        $qbe->addOnce($qbe->getAlias().'.rapport', 'r', $closure);
+      }
+    ));
+
+    $builder
       ->add('Excel', 'submit', array('label' => 'Hent som excel'))
       ->add('Søg', 'submit');
   }

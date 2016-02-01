@@ -5,7 +5,7 @@
   {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
   {{ form_errors(form) }}
 
-  {{ form_row(form.Excel) }}
+  {{ form_end(form) }}
   <table class="table table-condensed table-hover">
     <tr>
       <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
@@ -16,17 +16,6 @@
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.segment'|trans, 'b.segment') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.status'|trans, 'b.status') }}</th>
       <th></th>
-    </tr>
-
-    <tr class="search">
-      <th>{{ form_row(form.bygId) }}</th>
-      <th>{{ form_row(form.navn) }}</th>
-      <th>{{ form_row(form.adresse) }}</th>
-      <th>{{ form_row(form.postnummer) }}</th>
-      <th>{{ form_row(form.postBy) }}</th>
-      <th>{{ form_row(form.segment) }}</th>
-      <th>{{ form_row(form.status) }}</th>
-      <th>{{ form_row(form.Søg) }}</th>
     </tr>
 
     {% for bygning in pagination %}
@@ -50,7 +39,7 @@
       </tr>
     {% endfor %}
   </table>
-  {{ form_end(form) }}
+
 
   <div class="row">
     <div class="col-md-12 text-right">
