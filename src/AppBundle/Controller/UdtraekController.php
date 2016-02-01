@@ -13,11 +13,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Yavin\Symfony\Controller\InitControllerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Udtraek controller.
  *
  * @Route("/udtraek")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class UdtraekController extends BaseController implements InitControllerInterface {
 
