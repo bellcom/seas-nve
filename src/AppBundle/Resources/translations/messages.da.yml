@@ -54,6 +54,7 @@ common:
   data: Data
   deselect: Fravælg
   downloadExcel: Hent som Excel
+  downloadCsv: Hent som csv
   edit: Rediger
   empty: Blank
   finans: Økonomi

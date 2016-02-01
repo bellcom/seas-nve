@@ -1,0 +1,12 @@
+{% xlsdocument %}
+  {% xlssheet 'Bygninger' %}
+    {% xlsrow %}
+      {% xlscell { style: { font: { size: '18' } } } %}Values{% endxlscell %}
+    {% endxlsrow %}
+    {% for bygning in bygninger %}
+      {% xlsrow %}
+        {% xlscell %}{{ bygning.id }}{% endxlscell %}
+      {% endxlsrow %}
+    {% endfor %}
+  {% endxlssheet %}
+{% endxlsdocument %}
