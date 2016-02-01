@@ -76,7 +76,8 @@ doctrine:
             StyringType: AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType
             TiltagType: AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType
             PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
-
+        logging: false
+        profiling: false
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         entity_managers:

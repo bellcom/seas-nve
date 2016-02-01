@@ -7,6 +7,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\DataExport\ExcelExport;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -72,9 +73,9 @@ class BygningController extends BaseController implements InitControllerInterfac
 
     $user = $this->get('security.context')->getToken()->getUser();
 
-    $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
-
     if ($_format != 'html') {
+      $query = $em->getRepository('AppBundle:Bygning')->searchByUserWithReport($user, $search);
+
       $filename = 'bygninger--' . date('d-m-Y_Hi') . '.' . $_format;
 
       $response = new Response();
@@ -82,10 +83,14 @@ class BygningController extends BaseController implements InitControllerInterfac
       $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
       $response->headers->set('Cache-Control', 'max-age=0');
 
+      $result = $query->getResult();
+
       return $this->render('AppBundle:Bygning:index.' . $_format . '.twig',
-                           array('bygninger' => $query->getResult()),
-                           $response);
+        array('bygninger' => $result),
+        $response);
     }
+
+    $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
