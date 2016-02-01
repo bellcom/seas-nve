@@ -204,6 +204,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
       // Get segments.
       foreach ($types as $type) {
+        $type = $type['type'];
         $search['type'] = $type;
         $query = $em->getRepository('AppBundle:Bygning')->getFieldAvgDiff($user, $field, $baseline, $search);
 
