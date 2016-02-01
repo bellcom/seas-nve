@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2751129aa0e1c689e6bff401e1e0796b",
+    "hash": "a22fb251c148b3928bb37825e0868c0e",
+    "content-hash": "32754f736b2c3ae5b86867354821de6c",
     "packages": [
         {
             "name": "beberlei/DoctrineExtensions",
@@ -1405,7 +1406,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/587bcaefbd50167336032ac6ed047ad326250212",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/8f1fc2273b37c61ddcc1620abf4500320a23763e",
                 "reference": "6ccff96434c0ac7fee077d1dce90966341dfd278",
                 "shasum": ""
             },
@@ -2198,6 +2199,67 @@
                 "minification"
             ],
             "time": "2015-11-12 13:51:40"
+        },
+        {
+            "name": "mewesk/twig-excel-bundle",
+            "version": "1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MewesK/TwigExcelBundle.git",
+                "reference": "24ab58ec1991f1afe3b32799d8c88f8bf50e85e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MewesK/TwigExcelBundle/zipball/24ab58ec1991f1afe3b32799d8c88f8bf50e85e1",
+                "reference": "24ab58ec1991f1afe3b32799d8c88f8bf50e85e1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "phpoffice/phpexcel": "~1.8.1",
+                "symfony/framework-bundle": "~2.0|~3.0",
+                "symfony/symfony": "~2.0|~3.0"
+            },
+            "require-dev": {
+                "mpdf/mpdf": "~6.0",
+                "phpunit/phpunit": "~4.8",
+                "sensio/framework-extra-bundle": "~2.0|~3.0"
+            },
+            "suggest": {
+                "mpdf/mpdf": "~6.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MewesK\\TwigExcelBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mewes Kochheim",
+                    "email": "mewes@kochheim.de"
+                }
+            ],
+            "description": "This Symfony2 bundle provides a PhpExcel integration for Twig",
+            "homepage": "https://github.com/MewesK/TwigExcelBundle",
+            "keywords": [
+                "PHPExcel",
+                "Symfony2",
+                "excel",
+                "symfony",
+                "symfony3",
+                "twig"
+            ],
+            "time": "2015-12-03 00:13:36"
         },
         {
             "name": "monolog/monolog",

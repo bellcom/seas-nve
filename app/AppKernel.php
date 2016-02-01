@@ -28,6 +28,7 @@ class AppKernel extends Kernel
       new Fresh\DoctrineEnumBundle\FreshDoctrineEnumBundle(),
       new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
       new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+      new MewesK\TwigExcelBundle\MewesKTwigExcelBundle(),
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {
