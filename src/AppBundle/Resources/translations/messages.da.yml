@@ -53,6 +53,7 @@ common:
   current_buildings: Igangværende bygninger
   data: Data
   deselect: Fravælg
+  downloadExcel: Hent som Excel
   edit: Rediger
   empty: Blank
   finans: Økonomi

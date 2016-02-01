@@ -39,7 +39,7 @@
       <th>{{ form_row(form.postBy) }}</th>
       <th>{{ form_row(form.segment) }}</th>
       <th>{{ form_row(form.status) }}</th>
-      <th>{{ form_row(form.Excel) }} {{ form_row(form.Søg) }}</th>
+      <th>{{ form_row(form.Søg) }}</th>
     </tr>
 
     {% for bygning in pagination %}
@@ -63,20 +63,26 @@
       </tr>
     {% endfor %}
   </table>
-  {{ form_end(form) }}
+
 
 
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
       {% if is_granted('ROLE_ADMIN') %}
       <a href="{{ path('bygning_new') }}" class="btn btn-default">
         {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
       </a>
     </div>
     {% endif %}
-    <div class="col-md-8 text-right">
+    <div class="col-md-6 text-center">
       {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
     </div>
+    <div class="col-md-3">
+      {% if is_granted('ROLE_ADMIN') %}
+        {{ form_row(form.Excel) }}
+      {% endif %}
+    </div>
   </div>
+  {{ form_end(form) }}
 
 {% endblock %}
