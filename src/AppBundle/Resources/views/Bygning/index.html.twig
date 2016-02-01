@@ -77,17 +77,13 @@
     <div class="col-md-6 text-center">
       {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 text-right">
       {% if is_granted('ROLE_ADMIN') %}
-        {{ form_row(form.Excel) }}
+        <a icon="download" class="btn btn-default" href="{{ path('bygning', app.request.query.all | merge({ '_format': 'xlsx' })) }}" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadExcel' | trans }}</a>
+        <a icon="download" class="btn btn-default" href="{{ path('bygning', app.request.query.all | merge({ '_format': 'csv' })) }}" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadCsv' | trans }}</a>
       {% endif %}
     </div>
   </div>
   {{ form_end(form) }}
-
-  <div>
-    <a icon="download" class="btn btn-default" href="{{ path('bygning', { '_format': 'xlsx' }) }}" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadExcel' | trans }}</a>
-    <a icon="download" class="btn btn-default" href="{{ path('bygning', { '_format': 'csv' }) }}" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadCsv' | trans }}</a>
-  </div>
 
 {% endblock %}
