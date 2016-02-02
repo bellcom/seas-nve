@@ -54,12 +54,20 @@ class BygningType extends AbstractType {
       ->add('maalertype')
       ->add('kundenummer')
       ->add('kode')
-      ->add('forsyningsvaerkVarme')
+      ->add('forsyningsvaerkVarme', 'entity', array(
+        'class' => 'AppBundle:Forsyningsvaerk',
+        'required' => false,
+        'empty_value'  => '--',
+      ))
       ->add('kundenr1')
       ->add('kode1')
       ->add('maalerskifteAFV')
       ->add('aFVInstnr1')
-      ->add('forsyningsvaerkEl')
+      ->add('forsyningsvaerkEl', 'entity', array(
+        'class' => 'AppBundle:Forsyningsvaerk',
+        'required' => false,
+        'empty_value'  => '--',
+      ))
       ->add('instnr')
       ->add('kundenrNRGI')
       ->add('internetkode')
@@ -85,7 +93,7 @@ class BygningType extends AbstractType {
       ->add('vandNotat')
       ->add('elNotat')
       ->add('varmeNotat')
-      ->add('forsyningsvaerkVand')
+      //->add('forsyningsvaerkVand')
       ->add('aaplusAnsvarlig', 'entity', array(
         'class' => 'AppBundle:User',
         'choices' => $this->getUsersFromGroup("Aa+"),

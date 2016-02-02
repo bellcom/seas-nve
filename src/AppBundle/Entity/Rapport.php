@@ -1460,14 +1460,26 @@ class Rapport {
 
   private function calculateCo2BesparelseEl() {
     $year = $this->datering->format("Y");
-    $ElKgCo2MWh = $this->getBygning()->getForsyningsvaerkEl()->getKgCo2MWh($year);
-    return ($this->besparelseEl / 1000) * ($ElKgCo2MWh / 1000);
+    $vaerk = $this->getBygning()->getForsyningsvaerkEl();
+
+    if($vaerk) {
+      $ElKgCo2MWh = $this->getBygning()->getForsyningsvaerkEl()->getKgCo2MWh($year);
+      return ($this->besparelseEl / 1000) * ($ElKgCo2MWh / 1000);
+    } else {
+      return 0;
+    }
   }
 
   private function calculateCo2BesparelseVarme() {
     $year = $this->datering->format("Y");
-    $VarmeKgCo2MWh = $this->getBygning()->getForsyningsvaerkVarme()->getKgCo2MWh($year);
-    return (($this->besparelseVarmeGAF + $this->besparelseVarmeGUF) / 1000) * ($VarmeKgCo2MWh / 1000);
+
+    $vaerk = $this->getBygning()->getForsyningsvaerkVarme();
+    if($vaerk) {
+      $VarmeKgCo2MWh = $this->getBygning()->getForsyningsvaerkVarme()->getKgCo2MWh($year);
+      return (($this->besparelseVarmeGAF + $this->besparelseVarmeGUF) / 1000) * ($VarmeKgCo2MWh / 1000);
+    } else {
+      return 0;
+    }
   }
 
   private function calculateFravalgtBesparelseEl() {
