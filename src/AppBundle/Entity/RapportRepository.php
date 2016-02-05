@@ -98,11 +98,13 @@ class RapportRepository extends EntityRepository {
   /**
    * The ugly function to check if a user is allowed to do everything …
    *
+   * ROLE_ADMIN == Aa+
+   *
    * @param $user
    * @return bool
    */
   private function hasFullAccess($user) {
-    return $user && $user->hasRole('ROLE_SUPER_ADMIN');
+    return $user && $user->hasRole('ROLE_ADMIN');
   }
 
   /**
