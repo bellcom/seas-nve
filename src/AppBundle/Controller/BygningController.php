@@ -27,8 +27,7 @@ class BygningController extends BaseController implements InitControllerInterfac
 
   protected $breadcrumbs;
 
-  public function init(Request $request)
-  {
+  public function init(Request $request) {
     parent::init($request);
     $this->breadcrumbs->addItem('Bygninger', $this->generateUrl('bygning'));
   }
@@ -41,7 +40,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @Template()
    */
   public function indexAction(Request $request) {
-    if($request->get('is_search')) {
+    if ($request->get('is_search')) {
       $this->breadcrumbs->addItem('Søg', $this->generateUrl('bygning'));
     }
 
@@ -63,7 +62,8 @@ class BygningController extends BaseController implements InitControllerInterfac
     $search['status'] = $entity->getStatus();
 
     $user = $this->get('security.context')->getToken()->getUser();
-    $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
+    $query = $em->getRepository('AppBundle:Bygning')
+      ->searchByUser($user, $search);
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
@@ -72,7 +72,11 @@ class BygningController extends BaseController implements InitControllerInterfac
       20
     );
 
-    return $this->render('AppBundle:Bygning:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'form' => $form->createView()));
+    return $this->render('AppBundle:Bygning:index.html.twig', array(
+      'pagination' => $pagination,
+      'search' => $search,
+      'form' => $form->createView()
+    ));
   }
 
   /**
@@ -238,7 +242,6 @@ class BygningController extends BaseController implements InitControllerInterfac
       'delete_form' => $deleteForm->createView(),
     );
   }
-
 
 
   /**
