@@ -77,8 +77,13 @@ form.inline-block {
 .table-header-rotated th.rotate > div {
     transform: translate(-15px, 15px) rotate(-45deg);
     -webkit-transform: translate(-15px, 15px) rotate(-45deg);
+    -ms-transform: translate(-15px, 15px) rotate(-45deg);
+    -moz-transform: translate(-15px, 15px) rotate(-45deg);
     position: relative;
     transform-origin: 0% 0%;
+    -webkit-transform-origin: 0% 0%;
+    -ms-transform-origin: 0% 0%;
+    -moz-transform-origin: 0% 0%;
     left: 50%;
     top: 0;
     margin-right: -999px;
