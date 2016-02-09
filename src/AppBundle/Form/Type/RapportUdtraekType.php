@@ -29,8 +29,8 @@ class RapportUdtraekType extends AbstractType implements EmbeddedFilterTypeInter
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('datering', 'filter_date_range')
-      ->add('elena', 'filter_checkbox');
+      ->add('datering', 'filter_date_range', array('label' => false))
+      ->add('elena', 'filter_checkbox', array('label' => false));
   }
 
   /**

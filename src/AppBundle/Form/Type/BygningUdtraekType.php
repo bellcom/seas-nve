@@ -32,9 +32,9 @@ class BygningUdtraekType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('navn', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH))
-      ->add('postnummer', 'filter_text', array('condition_pattern' => FilterOperands::STRING_STARTS))
-      ->add('status', null, array('required' => false));
+      ->add('navn', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
+      ->add('postnummer', 'filter_text', array('condition_pattern' => FilterOperands::STRING_STARTS, 'label' => false))
+      ->add('status', null, array('required' => false, 'label' => false));
 
     $builder->add('segment', new SegmentUdtraekType(), array('label' => false,
       'add_shared' => function (FilterBuilderExecuterInterface $qbe) {
@@ -56,9 +56,7 @@ class BygningUdtraekType extends AbstractType {
       }
     ));
 
-    $builder
-      ->add('Søg', 'submit')
-      ->add('Excel', 'submit', array('label' => 'Hent som excel'));
+    $builder->add('Søg', 'submit');
   }
 
   /**

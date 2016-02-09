@@ -2,30 +2,56 @@
 
 {% block body %}
 
+  <div class="row">
+    <div class="col-md-9">
+      <h1>
+        {{ 'bygninger.labels.plural' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
+      </h1>
+    </div>
+    <div class="col-md-3 text-right">
+      <h2><small>{% include 'AppBundle:_includes:pagination_count.html.twig' %}</small></h2>
+    </div>
+
+  </div>
+
   {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
   {{ form_errors(form) }}
 
-  {{ form_end(form) }}
   <table class="table table-condensed table-hover">
     <tr>
-      <th>{{ knp_pagination_sortable(pagination, '#', 'b.bygId') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.segment'|trans, 'b.segment') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.status'|trans, 'b.status') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.navn'|trans, 'b.navn') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.postnummer'|trans, 'b.postnummer') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 'b.segment') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.rapport.datering'|trans, 'b.rapport.datering') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.rapport.elena'|trans, 'b.rapport.elena') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.status'|trans, 'b.status') }}</th>
       <th></th>
+    </tr>
+
+    <tr class="search">
+      <th>{{ form_row(form.navn) }}</th>
+      <th>{{ form_row(form.postnummer) }}</th>
+      <th>{{ form_row(form.segment) }}</th>
+      <th class="text-center">{{ form_row(form.rapport.datering) }}</th>
+      <th>{{ form_row(form.rapport.elena) }}</th>
+      <th>{{ form_row(form.status) }}</th>
+      <th>{{ form_row(form.Søg) }}</th>
     </tr>
 
     {% for bygning in pagination %}
     <tr>
-      <td>{{ bygning.bygId }}</td>
       <td>{{ bygning.navn }}</td>
-      <td>{{ bygning.adresse }}</td>
       <td>{{ bygning.postnummer }}</td>
-      <td>{{ bygning.postBy }}</td>
-      <td>{{ bygning.segment }}</td>
+      <td>{{ bygning.segment.forkortelse }}</td>
+      <td class="text-center">
+        {% if bygning.rapport is not empty %}
+          {{ bygning.rapport.datering | date('Y-m-d') }}</td>
+        {% endif %}
+      <td>
+        {% if bygning.rapport is not empty %}
+          {{ bygning.rapport.elena | b2icon }}
+        {% endif %}
+      </td>
       <td>{{ bygning.status  | readable }}</td>
       <td class="text-right">
         <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
@@ -41,19 +67,25 @@
   </table>
 
 
+
   <div class="row">
-    <div class="col-md-12 text-right">
+    <div class="col-md-3">
+      {% if is_granted('ROLE_ADMIN') %}
+      <a href="{{ path('bygning_new') }}" class="btn btn-default">
+        {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
+      </a>
+    </div>
+    {% endif %}
+    <div class="col-md-6 text-center">
       {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
     </div>
+    <div class="col-md-3 text-right">
+      {% if is_granted('ROLE_ADMIN') %}
+        <a icon="download" class="btn btn-default" href="{{ path('bygning', app.request.query.all | merge({ '_format': 'xlsx' })) }}" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadExcel' | trans }}</a>
+        <a icon="download" class="btn btn-default" href="{{ path('bygning', app.request.query.all | merge({ '_format': 'csv' })) }}" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadCsv' | trans }}</a>
+      {% endif %}
+    </div>
   </div>
+  {{ form_end(form) }}
 
-  <ul>
-    <li><a href="/udtraek/field_sum_pr_year/besparelseVarmeGUF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_guf_pr_aar' | trans }}</a></li>
-    <li><a href="/udtraek/field_avg_diff_pr_year/besparelseVarmeGUF/BaselineVarmeGUF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_guf_percent_pr_aar' | trans }}</a></li>
-    <li><a href="/udtraek/field_sum_pr_year/besparelseVarmeGAF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_gaf_pr_aar' | trans }}</a></li>
-    <li><a href="/udtraek/field_avg_diff_pr_year/besparelseVarmeGAF/BaselineVarmeGAF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_gaf_percent_pr_aar' | trans }}</a></li>
-    <li><a href="/udtraek/field_sum_pr_year/besparelseEl">{{ icon('bolt') }} {{ 'udtraek.labels.besparelse_el_pr_aar' | trans }}</a></li>
-    <li><a href="/udtraek/field_avg_diff_pr_year/besparelseEl/BaselineEl">{{ icon('bolt') }} {{ 'udtraek.labels.besparelse_el_percent_pr_aar' | trans }}</a></li>
-    <li><a href="/udtraek/field_sum_pr_year/besparelseCO2">{{ icon('trash') }} {{ 'udtraek.labels.besparelse_co2_ton_pr_aar' | trans }}</a></li>
-  </ul>
 {% endblock %}

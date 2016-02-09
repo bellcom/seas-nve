@@ -72,6 +72,7 @@ common:
   search: Søg
   select: Tilvælg
   show: Vis
+  showing: Viser
   summary: Opsummering
   tekniske_oplysninger: Tekniske Oplysninger
   update: Opdater
@@ -360,7 +361,6 @@ vinduetiltagdetail:
 appbundle:
   belysningtiltagdetail:
     add: Tilføj
-    tiltag.id: Tiltag, input
     armaturerStkLokale: Armaturer
     armaturerStkLokale.unit: stk/lok.
     armaturerStkLokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
@@ -437,6 +437,7 @@ appbundle:
     standardinvestSensorKrStk: Standardinvest. sensor
     standardinvestSensorKrStk.unit: kr/stk
     styring: Styring
+    tiltag.id: Tiltag, input
     tilvalgt: Tilvalgt
     vaegtetLevetidAar: Vægtet Levetid
     vaegtetLevetidAar.unit: år

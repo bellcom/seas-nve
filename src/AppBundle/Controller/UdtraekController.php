@@ -44,9 +44,6 @@ class UdtraekController extends BaseController implements InitControllerInterfac
       ->getRepository('AppBundle:Bygning')
       ->createQueryBuilder('e');
 
-//    $entity = new Bygning();
-//    $form = $this->createSearchForm();
-
     $form = $this->get('form.factory')->create(new BygningUdtraekType(), null, array(
       'action' => $this->generateUrl('udtraek'),
       'method' => 'GET',
@@ -62,18 +59,6 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
     $query = $filterBuilder->getQuery();
 
-    // If this is an excel submit, return an excel response.
-    if ($form->get('Excel')->isClicked()) {
-
-      // Get the results.
-      $results = $query->getArrayResult();
-
-      // Generate filename.
-      $filename = 'bygninger--' . date('d-m-Y_Hi') . '.xlsx';
-
-      return ExcelExport::generateExcelResponse($results, $filename);
-    }
-
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
       $query,
@@ -81,10 +66,18 @@ class UdtraekController extends BaseController implements InitControllerInterfac
       10 /*limit per page*/
     );
 
-    $search = array();
-    $search['is_search'] = $request->get('is_search');
+    return $this->render('AppBundle:Udtraek:index.html.twig', array('pagination' => $pagination, 'form' => $form->createView()));
+  }
 
-    return $this->render('AppBundle:Udtraek:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'form' => $form->createView()));
+  /**
+   * Get predefined udtraek page.
+   *
+   * @Route("/predefineret", name="udtraek_predefined")
+   * @Method("GET")
+   * @Template()
+   */
+  public function predefinedAction() {
+    return $this->render('AppBundle:Udtraek:predefined.html.twig', array());
   }
 
   /**

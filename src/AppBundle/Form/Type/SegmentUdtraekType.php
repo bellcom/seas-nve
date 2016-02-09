@@ -30,7 +30,7 @@ class SegmentUdtraekType extends AbstractType implements EmbeddedFilterTypeInter
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('forkortelse', 'filter_choice', array('choices' => array(
+      ->add('forkortelse', 'filter_choice', array('label' => false, 'choices' => array(
         'MBU' => 'MBU - Børn og Unge',
         'MKB' => 'MKB - Kultur og borgerservice',
         'MSO' => 'MSO - Sundhed og omsorg',
