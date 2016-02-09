@@ -16,7 +16,7 @@ use Yavin\Symfony\Controller\InitControllerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\BygningType;
-use AppBundle\Form\Type\BygningFilterType;
+use AppBundle\Form\Type\BygningUdtraekType;
 
 /**
  * Udtraek controller.
@@ -49,7 +49,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 //    $entity = new Bygning();
 //    $form = $this->createSearchForm();
 
-    $form = $this->get('form.factory')->create(new BygningFilterType(), null, array(
+    $form = $this->get('form.factory')->create(new BygningUdtraekType(), null, array(
       'action' => $this->generateUrl('udtraek'),
       'method' => 'GET',
     ));

@@ -21,7 +21,7 @@ use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderExecuterInterface;
  * Class BygningType
  * @package AppBundle\Form
  */
-class BygningFilterType extends AbstractType {
+class BygningUdtraekType extends AbstractType {
   /**
    * @TODO: Missing description.
    *
@@ -32,17 +32,21 @@ class BygningFilterType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('bygId', 'filter_number')
       ->add('navn', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH))
-      ->add('adresse', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH))
       ->add('postnummer', 'filter_text', array('condition_pattern' => FilterOperands::STRING_STARTS))
-      ->add('postBy', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH))
-      ->add('segment', 'filter_entity', array('class' => 'AppBundle\Entity\Segment', 'required' => false))
       ->add('status', null, array('required' => false));
 
-//    $builder->add('rapport', new RapportFilterType());
+    $builder->add('segment', new SegmentUdtraekType(), array('label' => false,
+      'add_shared' => function (FilterBuilderExecuterInterface $qbe) {
+        $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
+          $filterBuilder->leftJoin($alias . '.segment', $joinAlias);
+        };
 
-    $builder->add('rapport', new RapportFilterType(), array(
+        $qbe->addOnce($qbe->getAlias().'.segment', 's', $closure);
+      }
+    ));
+
+    $builder->add('rapport', new RapportUdtraekType(), array('label' => false,
       'add_shared' => function (FilterBuilderExecuterInterface $qbe) {
         $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
           $filterBuilder->leftJoin($alias . '.rapport', $joinAlias);
@@ -53,8 +57,8 @@ class BygningFilterType extends AbstractType {
     ));
 
     $builder
-      ->add('Excel', 'submit', array('label' => 'Hent som excel'))
-      ->add('Søg', 'submit');
+      ->add('Søg', 'submit')
+      ->add('Excel', 'submit', array('label' => 'Hent som excel'));
   }
 
   /**
@@ -78,6 +82,6 @@ class BygningFilterType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'bygning_filter';
+    return 'udtraek_bygning';
   }
 }

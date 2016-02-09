@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  * Class RapportType
  * @package AppBundle\Form
  */
-class RapportFilterType extends AbstractType implements EmbeddedFilterTypeInterface {
+class RapportUdtraekType extends AbstractType implements EmbeddedFilterTypeInterface {
 
 
   /**
@@ -29,15 +29,8 @@ class RapportFilterType extends AbstractType implements EmbeddedFilterTypeInterf
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-//      ->add('version')
-//      ->add('datering')
-      ->add('BaselineEl', 'filter_number')
-      ->add('BaselineVarmeGUF', 'filter_number')
-      ->add('BaselineVarmeGAF', 'filter_number')
-      ->add('BaselineVand', 'filter_number')
-      ->add('BaselineStrafAfkoeling', 'filter_number')
-      ->add('faktorPaaVarmebesparelse', 'filter_number')
-      ->add('Energiscreening', 'filter_number');
+      ->add('datering', 'filter_date_range')
+      ->add('elena', 'filter_checkbox');
   }
 
   /**

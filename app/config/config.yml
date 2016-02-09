@@ -32,7 +32,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - AppBundle:Form:aaplus-bootstrap.html.twig
-        - LexikFormFilterBundle:Form:form_div_layout.html.twig
+        - AppBundle:Form:form_div_layout.html.twig
     number_format:
         decimals: 2
         decimal_point: ','

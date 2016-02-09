@@ -52,6 +52,7 @@ common:
   createdby: Oprettet af
   current_buildings: Igangværende bygninger
   data: Data
+  date: Dato
   deselect: Fravælg
   edit: Rediger
   empty: Blank
@@ -554,6 +555,7 @@ appbundle:
       varmetotal: ﻿I alt baseline varme
       version: Version
     segment: Segment
+    segment.forkortelse: Magistrat (Forkortelse)
     singular: Bygning
     stamdataNotat: Stamdata notat
     status: Status
@@ -1284,6 +1286,14 @@ appbundle:
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
 
+# Dataudtræk
+udtraek.bygning:
+  navn: Navn indholder
+  postnummer: Postnummer starter med
+  rapport.datering: Datering mellem
+  rapport.elena: Elena
+  status: Status
+  segment.forkortelse: Magistrat
 
 # Calculations
 appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |

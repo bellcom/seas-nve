@@ -128,7 +128,10 @@ th.unit {
 .bootstrap-date {
     width: 100%;
 }
-.bootstrap-date select {
+.bootstrap-date-range {
+    display: inline-block;
+}
+.bootstrap-date select, .bootstrap-date-range select {
     display: inline-block;
     width: auto;
     margin-right: 5px;
