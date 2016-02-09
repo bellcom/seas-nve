@@ -43,6 +43,54 @@ class Bilag {
   protected $filepath;
 
   /**
+   * @var string
+   *
+   * @ORM\Column(name="kommentar", type="text", nullable=true)
+   */
+  protected $kommentar;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="titel", type="text", nullable=true)
+   */
+  protected $titel;
+
+  /**
+   * @ORM\ManyToOne(targetEntity="Rapport", inversedBy="bilag", fetch="EAGER")
+   * @ORM\JoinColumn(name="rapport_id", referencedColumnName="id")
+   **/
+  protected $rapport;
+
+  /**
+   * @return string
+   */
+  public function getKommentar() {
+    return $this->kommentar;
+  }
+
+  /**
+   * @param string $kommentar
+   */
+  public function setKommentar($kommentar) {
+    $this->kommentar = $kommentar;
+  }
+
+  /**
+   * @return string
+   */
+  public function getTitel() {
+    return $this->titel;
+  }
+
+  /**
+   * @param string $titel
+   */
+  public function setTitel($titel) {
+    $this->titel = $titel;
+  }
+
+  /**
    * @return mixed
    */
   public function getId() {
@@ -55,12 +103,6 @@ class Bilag {
   public function setId($id) {
     $this->id = $id;
   }
-
-  /**
-   * @ORM\ManyToOne(targetEntity="Rapport", inversedBy="bilag", fetch="EAGER")
-   * @ORM\JoinColumn(name="rapport_id", referencedColumnName="id")
-   **/
-  protected $rapport;
 
   /**
    * Set rapport

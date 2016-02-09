@@ -10,14 +10,24 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\Bilag;
+use Symfony\Component\Form\AbstractType;
 
 /**
  * Class BilagType
  * @package AppBundle\Form
  */
-class BilagType {
+class BilagType extends AbstractType {
+  protected $bilag;
+
+  public function __construct(Bilag $bilag) {
+    $this->bilag = $bilag;
+  }
+
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
+      ->add('titel')
+      ->add('kommentar')
       ->add('filepath', 'file', array(
         'data_class' => null,
         'attachment_path' => 'filepath',

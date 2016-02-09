@@ -427,6 +427,10 @@ appbundle:
     tilvalgt: Tilvalgt
     vaegtetLevetidAar: Vægtet Levetid
     vaegtetLevetidAar.unit: år
+  bilag:
+    filepath: Fil
+    kommentar: Kommentar
+    titel: Titel
   bygning:
     aaplusAnsvarlig: Aa+ Ansvarlig
     adresse: Adresse
