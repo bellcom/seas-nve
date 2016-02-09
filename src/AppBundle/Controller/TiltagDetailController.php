@@ -167,7 +167,7 @@ class TiltagDetailController extends BaseController {
   /**
    * Deletes a TiltagDetail entity.
    *
-   * @Route("/{id}", name="tiltag_detail_delete")
+   * @Route("/{id}", name="tiltag_detail_delete"),
    * @Method("DELETE")
    * @param Request $request
    * @param TiltagDetail $tiltagdetail

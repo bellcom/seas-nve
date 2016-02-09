@@ -7,6 +7,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\Form\Type\BilagType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -17,6 +18,7 @@ use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\Bilag;
 
 /**
  * Rapport controller.
@@ -633,4 +635,30 @@ class RapportController extends BaseController {
     );
   }
 
+  /**
+   * Creates a new Bilag entity.
+   *
+   * @Route("/{id}/bilag/new", name="rapport_bilag_create")
+   * @Method("GET")
+   * @Template("AppBundle:Bilag:new.html.twig")
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
+   *
+   * @param Rapport $rapport
+   *
+   * @return Response
+   */
+  public function newBilagAction(Rapport $rapport) {
+    $em = $this->getDoctrine()->getManager();
+    $bilag = new Bilag();
+
+    $bilag->setRapport($rapport);
+
+    $em->persist($bilag);
+    $em->flush();
+
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    $flash->success('bilag.confirmation.created');
+
+    return $this->redirect($this->generateUrl('bilag_edit', array('id' => $bilag->getId())));
+  }
 }
