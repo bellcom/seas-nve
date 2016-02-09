@@ -7,7 +7,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\DataExport\ExcelExport;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -36,11 +38,18 @@ class BygningController extends BaseController implements InitControllerInterfac
   /**
    * Lists all Bygning entities.
    *
-   * @Route("/", name="bygning")
+   * @Route(
+   *   ".{_format}",
+   *   name="bygning",
+   *   defaults={"_format": "html"},
+   *   requirements={
+   *     "_format": "html|xlsx|csv",
+   *   }
+   * )
    * @Method("GET")
    * @Template()
    */
-  public function indexAction(Request $request) {
+  public function indexAction(Request $request, $_format) {
     if($request->get('is_search')) {
       $this->breadcrumbs->addItem('Søg', $this->generateUrl('bygning'));
     }
@@ -63,6 +72,23 @@ class BygningController extends BaseController implements InitControllerInterfac
     $search['status'] = $entity->getStatus();
 
     $user = $this->get('security.context')->getToken()->getUser();
+
+    if ($_format != 'html') {
+      $query = $em->getRepository('AppBundle:Bygning')->searchByUserWithReport($user, $search);
+
+      $filename = 'bygninger--' . date('d-m-Y_Hi') . '.' . $_format;
+
+      $response = new Response();
+      $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+      $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
+      $response->headers->set('Cache-Control', 'max-age=0');
+
+      $result = $query->getResult();
+
+      return $this->render('AppBundle:Bygning:index.' . $_format . '.twig',
+        array('bygninger' => $result),
+        $response);
+    }
 
     $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
 
@@ -128,7 +154,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createCreateForm(Bygning $entity) {
-    $form = $this->createForm(new BygningType($this->getDoctrine(), $this->get('security.authorization_checker')), $entity, array(
+    $form = $this->createForm(new BygningType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('bygning_create'),
       'method' => 'POST',
     ));
@@ -202,7 +228,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Bygning $entity) {
-    $form = $this->createForm(new BygningType($this->getDoctrine(), $this->get('security.authorization_checker')), $entity, array(
+    $form = $this->createForm(new BygningType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('bygning_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));

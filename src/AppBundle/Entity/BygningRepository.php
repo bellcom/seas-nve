@@ -131,7 +131,8 @@ class BygningRepository extends EntityRepository {
     $qb = $this->_em->createQueryBuilder();
     $qb->select('b', 'r')
       ->from('AppBundle:Bygning', 'b')
-      ->leftJoin('b.rapport', 'r');
+      ->leftJoin('b.rapport', 'r')
+      ->leftJoin('b.segment', 's');
 
     if (!empty($search['navn'])) {
       $qb->andWhere('b.navn LIKE :navn')
@@ -219,7 +220,7 @@ class BygningRepository extends EntityRepository {
 
 
   /**
-   * Field sum
+   * Field avg diff
    *
    * @param User $user
    * @return array|\Doctrine\ORM\Query
@@ -228,7 +229,8 @@ class BygningRepository extends EntityRepository {
     $qb = $this->_em->createQueryBuilder();
     $qb->select('(sum(r.' . $field . ') / sum(r.' . $baseline . ')) * (-100)')
       ->where('r.' . $field . ' IS NOT NULL')
-      ->where('r.' . $baseline . ' IS NOT NULL')
+      ->andWhere('r.' . $baseline . ' IS NOT NULL')
+      ->andWhere('r.' . $baseline . ' != 0')
       ->from('AppBundle:Bygning', 'b')
       ->leftJoin('b.rapport', 'r')
       ->leftJoin('b.segment', 's');

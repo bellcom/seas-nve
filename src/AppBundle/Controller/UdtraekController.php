@@ -14,8 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use AppBundle\Entity\Bygning;
-use AppBundle\Form\Type\BygningType;
 use AppBundle\Form\Type\BygningUdtraekType;
 
 /**
@@ -252,6 +250,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
       // Get segments.
       foreach ($types as $type) {
+        $type = $type['type'];
         $search['type'] = $type;
         $query = $em->getRepository('AppBundle:Bygning')->getFieldAvgDiff($user, $field, $baseline, $search);
 
