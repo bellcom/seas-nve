@@ -39,12 +39,13 @@ class BilagController extends BaseController {
     // @TODO: Breadcrumb
 
     $editForm = $this->createEditForm($bilag);
-    // @TODO: Delete form
+    $deleteForm = $this->createDeleteForm($bilag);
 
     $template = $this->getTemplate($bilag, 'edit');
     return $this->render($template, array(
       'entity' => $bilag,
       'edit_form' => $editForm->createView(),
+      'delete_form' => $deleteForm->createView(),
     ));
   }
 
@@ -64,6 +65,21 @@ class BilagController extends BaseController {
     $this->addUpdate($form, $this->generateUrl('bilag_edit', array('id' => $bilag->getId())));
 
     return $form;
+  }
+
+  /**
+   * Creates a form to delete a Bilag entity
+   *
+   * @param Bilag $bilag
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createDeleteForm(Bilag $tiltag) {
+    return $this->createFormBuilder()
+      ->setAction($this->generateUrl('bilag_delete', array('id' => $tiltag->getId())))
+      ->setMethod('DELETE')
+      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->getForm();
   }
 
   /**
@@ -97,6 +113,7 @@ class BilagController extends BaseController {
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
+      $bilag->handleUploads($this->get('stof_doctrine_extensions.uploadable.manager'));
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
@@ -110,5 +127,85 @@ class BilagController extends BaseController {
       'entity' => $bilag,
       'edit_form' => $editForm->createView()
     );
+  }
+
+  /**
+   * Creates a new Bilag entity.
+   *
+   * @Route("/{id}", name="bilag_create")
+   * @Method("POST")
+   * @Template("AppBundle:Bilag:new.html.twig")
+   * @TODO Security("is_granted('BILAG_CREATE', bilag)")
+   */
+  public function newAction(Request $request, Bilag $bilag) {
+    //$this->setBreadcrumb($bilag);
+
+    $deleteForm = $this->createDeleteForm($bilag);
+    $editForm = $this->createEditForm($bilag);
+    $editForm->handleRequest($request);
+
+    if ($editForm->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('bilag.confirmation.updated');
+
+      return $this->redirect($this->generateUrl('bilag_edit', array('id' => $bilag->getId())));
+    }
+
+    return array(
+      'entity' => $bilag,
+      'edit_form' => $editForm->createView(),
+      'delete_form' => $deleteForm->createView(),
+    );
+  }
+
+  /**
+   * Deletes a Bilag entity.
+   *
+   * @Route("/{id}", name="bilag_delete")
+   * @Method("DELETE")
+   * @TODO Security("is_granted('BILAG_EDIT', tiltag)")
+   */
+  public function deleteAction(Request $request, Bilag $bilag) {
+    $form = $this->createDeleteForm($bilag);
+    $form->handleRequest($request);
+
+    $rapport = $bilag->getRapport();
+
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $em->remove($bilag);
+      $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('bilag.confirmation.deleted');
+    }
+
+    return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+  }
+
+  /**
+   * Finds and displays a Bilag entity.
+   *
+   * @Route("/{id}", name="bilag_show")
+   * @Method("GET")
+   * @TODO Security("is_granted('BILAG_VIEW', bilag)")
+   * @param Bilag $bilag
+   * @return \Symfony\Component\HttpFoundation\Response
+   */
+  public function showAction(Bilag $bilag) {
+    //$this->setBreadcrumb($bilag);
+
+    $deleteForm = $this->createDeleteForm($bilag);
+    $editForm = $this->createEditForm($bilag);
+
+    $template = $this->getTemplate($bilag, 'show');
+    return $this->render($template, array(
+      'entity' => $bilag,
+      'delete_form' => $deleteForm->createView(),
+      'edit_form' => $editForm->createView(),
+    ));
   }
 }

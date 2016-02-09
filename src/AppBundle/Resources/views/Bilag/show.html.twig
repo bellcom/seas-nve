@@ -2,4 +2,25 @@
 
 {% block body -%}
 
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-condensed">
+        <tbody>
+        <tr>
+          <th>{{ 'appbundle.bilag.titel' | trans }}</th>
+          <td>{{ entity.titel }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.bilag.kommentar' | trans }}</th>
+          <td>{{ entity.kommentar }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.bilag.filepath' | trans }}</th>
+          <td>{{ entity.filepath }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 {% endblock %}

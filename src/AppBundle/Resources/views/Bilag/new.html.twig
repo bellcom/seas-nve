@@ -1,0 +1,10 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% if heading is not defined %}
+  {% set heading = 'bilag.actions.edit' %}
+{% endif %}
+
+{% block body -%}
+  {% include 'AppBundle:Bilag:_form.html.twig' %}
+
+{% endblock %}
