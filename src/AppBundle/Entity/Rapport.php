@@ -10,6 +10,8 @@ use AppBundle\Annotations\Calculated;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
+use AppBundle\Entity\Energiforsyning\InternProduktion;
+use AppBundle\Entity\Energiforsyning;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -21,6 +23,7 @@ use JMS\Serializer\Annotation as JMS;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use PHPExcel_Calculation_Financial as Excel;
+
 /**
  * Rapport
  *
@@ -1303,6 +1306,46 @@ class Rapport {
     $repository = $event->getEntityManager()
       ->getRepository('AppBundle:Configuration');
     $this->setConfiguration($repository->getConfiguration());
+  }
+
+  /**
+   * Post persist handler.
+   *
+   * @ORM\PostPersist
+   * @param LifecycleEventArgs $event
+   */
+  public function postPersist(LifecycleEventArgs $event) {
+    // Init with preset energiforsyning El
+    $forsyningEl = new Energiforsyning();
+    $forsyningEl
+      ->setNavn(NavnType::HOVEDFORSYNING_EL)
+      ->setBeskrivelse("El");
+    $internProduktionEl = new InternProduktion();
+    $internProduktionEl
+      ->setNavn("El")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::EL);
+    $forsyningEl->addInternProduktion($internProduktionEl);
+    $forsyningEl->calculate();
+
+    // Init with preset energiforsyning Varme
+    $forsyningVarme = new Energiforsyning();
+    $forsyningVarme
+      ->setNavn(NavnType::FJERNVARME)
+      ->setBeskrivelse("Fjernvarme");
+    $internProduktionVarme = new InternProduktion();
+    $internProduktionVarme
+      ->setNavn("Varme")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::VARME);
+    $forsyningVarme->addInternProduktion($internProduktionVarme);
+    $forsyningVarme->calculate();
+
+    $this->addEnergiforsyning($forsyningEl);
+    $this->addEnergiforsyning($forsyningVarme);
+    $event->getEntityManager()->flush();
   }
 
   public function calculate() {
