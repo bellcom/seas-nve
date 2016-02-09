@@ -8,6 +8,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\DataExport\ExcelExport;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -34,17 +35,24 @@ class UdtraekController extends BaseController implements InitControllerInterfac
   /**
    * Get udtraek page.
    *
-   * @Route("/", name="udtraek")
+   * @Route(
+   *   ".{_format}",
+   *   name="udtraek",
+   *   defaults={"_format": "html"},
+   *   requirements={
+   *     "_format": "html|xlsx|csv",
+   *   }
+   * )
    * @Method("GET")
    * @Template()
    */
-  public function indexAction(Request $request) {
+  public function indexAction(Request $request, $_format) {
     // initialize a query builder
     $filterBuilder = $this->get('doctrine.orm.entity_manager')
       ->getRepository('AppBundle:Bygning')
       ->createQueryBuilder('e');
 
-    $form = $this->get('form.factory')->create(new BygningUdtraekType(), null, array(
+    $form = $this->get('form.factory')->create(new BygningUdtraekType(), NULL, array(
       'action' => $this->generateUrl('udtraek'),
       'method' => 'GET',
     ));
@@ -59,14 +67,31 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
     $query = $filterBuilder->getQuery();
 
-    $paginator = $this->get('knp_paginator');
-    $pagination = $paginator->paginate(
-      $query,
-      $request->query->get('page', 1) /*page number*/,
-      10 /*limit per page*/
-    );
+    if ($_format != 'html') {
+      $filename = 'bygninger--' . date('d-m-Y_Hi') . '.' . $_format;
 
-    return $this->render('AppBundle:Udtraek:index.html.twig', array('pagination' => $pagination, 'form' => $form->createView()));
+      $response = new Response();
+      $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+      $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
+      $response->headers->set('Cache-Control', 'max-age=0');
+
+      $result = $query->getResult();
+
+      $d = 1;
+
+      return $this->render('AppBundle:Bygning:index.' . $_format . '.twig',
+        array('bygninger' => $result),
+        $response);
+    } else {
+      $paginator = $this->get('knp_paginator');
+      $pagination = $paginator->paginate(
+        $query,
+        $request->query->get('page', 1) /*page number*/,
+        10 /*limit per page*/
+      );
+
+      return $this->render('AppBundle:Udtraek:index.html.twig', array('pagination' => $pagination, 'form' => $form->createView()));
+    }
   }
 
   /**
@@ -121,7 +146,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
       $result = $query->getSingleScalarResult();
       $results[$year]['Hele portefølje'] = $result;
 
-      $results[$year]['--- Magistrater ---'] = null;
+      $results[$year]['--- Magistrater ---'] = NULL;
 
       foreach ($forkortelser as $forkortelse) {
         $search['forkortelse'] = $forkortelse;
@@ -135,7 +160,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
       unset($search['forkortelse']);
 
-      $results[$year]['---- Segmenter ----'] = null;
+      $results[$year]['---- Segmenter ----'] = NULL;
 
       // Get segments.
       foreach ($segments as $segment) {
@@ -149,7 +174,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
       unset($search['segment']);
 
-      $results[$year]['---- Bygningstyper ----'] = null;
+      $results[$year]['---- Bygningstyper ----'] = NULL;
 
       // Get segments.
       foreach ($types as $type) {
@@ -167,7 +192,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
       }
     }
 
-    return ExcelExport::generateTwoDimensionalExcelResponse($results, 'udtraek--' . $field .'-pr-aar--' . date('d-m-Y_Hi') . '.xlsx');
+    return ExcelExport::generateTwoDimensionalExcelResponse($results, 'udtraek--' . $field . '-pr-aar--' . date('d-m-Y_Hi') . '.xlsx');
   }
 
   /**
@@ -211,7 +236,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
       $result = $query->getSingleScalarResult();
       $results[$year]['Hele portefølje'] = $result;
 
-      $results[$year]['--- Magistrater ---'] = null;
+      $results[$year]['--- Magistrater ---'] = NULL;
 
       foreach ($forkortelser as $forkortelse) {
         $search['forkortelse'] = $forkortelse;
@@ -225,7 +250,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
       unset($search['forkortelse']);
 
-      $results[$year]['---- Segmenter ----'] = null;
+      $results[$year]['---- Segmenter ----'] = NULL;
 
       // Get segments.
       foreach ($segments as $segment) {
@@ -239,7 +264,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
       unset($search['segment']);
 
-      $results[$year]['---- Bygningstyper ----'] = null;
+      $results[$year]['---- Bygningstyper ----'] = NULL;
 
       // Get segments.
       foreach ($types as $type) {
@@ -253,6 +278,6 @@ class UdtraekController extends BaseController implements InitControllerInterfac
       }
     }
 
-    return ExcelExport::generateTwoDimensionalExcelResponse($results, 'udtraek--' . $field .'-' . $baseline .'-diff-pr-aar--' . date('d-m-Y_Hi') . '.xlsx');
+    return ExcelExport::generateTwoDimensionalExcelResponse($results, 'udtraek--' . $field . '-' . $baseline . '-diff-pr-aar--' . date('d-m-Y_Hi') . '.xlsx');
   }
 }

@@ -38,57 +38,33 @@ class BygningController extends BaseController implements InitControllerInterfac
   /**
    * Lists all Bygning entities.
    *
-   * @Route(
-   *   ".{_format}",
-   *   name="bygning",
-   *   defaults={"_format": "html"},
-   *   requirements={
-   *     "_format": "html|xlsx|csv",
-   *   }
-   * )
+   * @Route(name="bygning")
    * @Method("GET")
    * @Template()
    */
-  public function indexAction(Request $request, $_format) {
-    if($request->get('is_search')) {
+  public function indexAction(Request $request) {
+    $bygning = new Bygning();
+    $bygning->setStatus(null);
+    $form = $this->createSearchForm($bygning);
+    $form->handleRequest($request);
+
+    if($form->isSubmitted()) {
       $this->breadcrumbs->addItem('Søg', $this->generateUrl('bygning'));
     }
-
-    $entity = new Bygning();
-    $form = $this->createSearchForm($entity);
-    $form->handleRequest($request);
 
     $em = $this->getDoctrine()->getManager();
 
     $search = array();
 
-    $search['is_search'] = $request->get('is_search');
-    $search['bygId'] = $entity->getBygId();
-    $search['navn'] = $entity->getNavn();
-    $search['adresse'] = $entity->getAdresse();
-    $search['postnummer'] = $entity->getPostnummer();
-    $search['postBy'] = $entity->getPostBy();
-    $search['segment'] = $entity->getSegment();
-    $search['status'] = $entity->getStatus();
+    $search['bygId'] = $bygning->getBygId();
+    $search['navn'] = $bygning->getNavn();
+    $search['adresse'] = $bygning->getAdresse();
+    $search['postnummer'] = $bygning->getPostnummer();
+    $search['postBy'] = $bygning->getPostBy();
+    $search['segment'] = $bygning->getSegment();
+    $search['status'] = $bygning->getStatus();
 
     $user = $this->get('security.context')->getToken()->getUser();
-
-    if ($_format != 'html') {
-      $query = $em->getRepository('AppBundle:Bygning')->searchByUserWithReport($user, $search);
-
-      $filename = 'bygninger--' . date('d-m-Y_Hi') . '.' . $_format;
-
-      $response = new Response();
-      $response->headers->set('Content-Type', 'application/vnd.ms-excel');
-      $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-      $response->headers->set('Cache-Control', 'max-age=0');
-
-      $result = $query->getResult();
-
-      return $this->render('AppBundle:Bygning:index.' . $_format . '.twig',
-        array('bygninger' => $result),
-        $response);
-    }
 
     $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
 
