@@ -58,6 +58,13 @@ class Rapport {
   protected $energiforsyninger;
 
   /**
+   * @OneToMany(targetEntity="Bilag", mappedBy="rapport")
+   * @OrderBy({"id" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Bilag>")
+   */
+  protected $bilag;
+
+  /**
    * @OneToMany(targetEntity="Tiltag", mappedBy="rapport", cascade={"persist", "remove"})
    * @OrderBy({"title" = "ASC"})
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Tiltag>")
@@ -373,6 +380,7 @@ class Rapport {
   public function __construct() {
     $this->tiltag = new \Doctrine\Common\Collections\ArrayCollection();
     $this->energiforsyninger = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->bilag = new \Doctrine\Common\Collections\ArrayCollection();
     $this->datering = new \DateTime();
     $this->version = 1;
   }
@@ -510,6 +518,50 @@ class Rapport {
   public function getEnergiforsyninger() {
     return $this->energiforsyninger;
   }
+
+  /**
+   * Add bilag
+   *
+   * @param \AppBundle\Entity\Bilag $bilag
+   * @return Rapport
+   */
+  public function addBilag(\AppBundle\Entity\Bilag $bilag) {
+    $this->bilag[] = $bilag;
+
+    $bilag->setRapport($this);
+
+    return $this;
+  }
+
+  /**
+   * Remove bilag
+   *
+   * @param \AppBundle\Entity\Bilag $bilag
+   */
+  public function removeBilag(\AppBundle\Entity\Bilag $bilag) {
+    $this->bilag->removeElement($bilag);
+  }
+
+  /**
+   * Set bilag
+   *
+   * @return Rapport
+   */
+  public function setBilag($bilag) {
+    $this->bilag = $bilag;
+
+    return $this;
+  }
+
+  /**
+   * Get bilag
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getBilag() {
+    return $this->bilag;
+  }
+
 
   /**
    * Add tiltag
