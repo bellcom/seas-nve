@@ -528,7 +528,7 @@ appbundle:
       Energiscreening.unit: Kr
       energiscreening: Energiscreening
       energiscreening.unit: kr
-      faellesomkostninger: Projektomkostninger
+      faellesomkostninger: Øvrige omkostninger
       faellesomkostninger.unit: kr
       faktorPaaVarmebesparelse: Faktor på varmebesparelse
       fravalg: Fravalg
@@ -966,7 +966,7 @@ appbundle:
     Energiscreening.unit: Kr
     energiscreening: Energiscreening
     energiscreening.unit: kr
-    faellesomkostninger: Projektomkostninger
+    faellesomkostninger: Øvrige omkostninger
     faellesomkostninger.unit: kr
     faktorPaaVarmebesparelse: Faktor på varmebesparelse
     fravalg: Fravalg
@@ -978,13 +978,13 @@ appbundle:
     implementering.unit: kr
     interneDriftomkostninger: Interne Driftomkostninger
     interneDriftomkostninger.unit: kr
-    internRenteInklFaellesomkostninger: Intern rente inkl. Sum Øvrige omkostninger
+    internRenteInklFaellesomkostninger: Intern rente inkl. øvrige omkostninger
     internRenteInklFaellesomkostninger.unit: %
-    investeringEksFaellesomkostninger: Investering eks. Sum Øvrige omkostninger
+    investeringEksFaellesomkostninger: Aa+ Investering eksl. øvrige omkostninger
     investeringEksFaellesomkostninger.unit: kr
-    investeringEkslFaelles: Investering eksl. Øvrige omkostninger
+    investeringEkslFaelles: Investering eksl. øvrige omkostninger
     investeringEkslFaelles.unit: Kr
-    investeringInklFaellesomkostninger: Investering inkl. Sum Øvrige omkostninger
+    investeringInklFaellesomkostninger: Aa+ Investering inkl. øvrige omkostninger
     investeringInklFaellesomkostninger.unit: kr
     laanLoebetid: Løbetid på lån
     laanLoebetid.unit: år
@@ -996,7 +996,7 @@ appbundle:
     mtmFaellesomkostninger.unit: kr
     nutidsvaerdi: Nutidsværdi
     nutidsvaerdi.unit: kr
-    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Sum Øvrige omkostninger
+    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. øvrige omkostninger
     nutidsvaerdiInklFaellesomkostninger.unit: kr
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
     sum.unit: kr
@@ -1004,6 +1004,8 @@ appbundle:
     tilvalg: Tilvalg
     timeforbrug: Forventet timeforbrug for lokalpersonalet
     timeforbrug.unit: kr
+    totalEntreprisesum: Total Entreprisesum
+    totalEntreprisesum.unit: kr
     varmetotal: ﻿I alt baseline varme
     version: Version
   segment:

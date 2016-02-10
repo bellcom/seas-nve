@@ -16,7 +16,7 @@
       <th class="text-right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
-      {% if is_granted('ROLE_ADMIN') and pdf == false %}
+      {% if is_granted('RAPPORT_EDIT', entity) and is_granted('ROLE_ADMIN') and pdf == false %}
         <th></th>
       {% endif %}
     </tr>
@@ -32,7 +32,7 @@
         <td class="text-right">{{ t.levetid | number_format }} {{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
         <td class="text-right">{{ t.simpelTilbagebetalingstidAar | number_format }} {{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
         <td class="text-right">{{ t.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
-        {% if is_granted('ROLE_ADMIN') and pdf == false %}
+        {% if is_granted('RAPPORT_EDIT', entity) and is_granted('ROLE_ADMIN') and pdf == false %}
           <td class="text-right">
             <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
               {% if type == 'tilvalg' %}
@@ -55,8 +55,14 @@
       <th></th>
       <th></th>
       <th></th>
-      <th class="text-right">{{ rapport.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</th>
-      {% if is_granted('ROLE_ADMIN') and pdf == false %}
+      <th class="text-right">
+        {% if type == 'tilvalg' %}
+          {{ rapport.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}
+        {% else %}
+          {{ rapport.fravalgtAnlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}
+        {% endif %}
+      </th>
+      {% if is_granted('RAPPORT_EDIT', entity) and is_granted('ROLE_ADMIN') and pdf == false %}
         <th></th>
       {% endif %}
     </tr>

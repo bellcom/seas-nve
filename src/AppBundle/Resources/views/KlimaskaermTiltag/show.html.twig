@@ -73,9 +73,7 @@
         {% for detail in entity.details %}
           <tr>
             <td>
-              <p><a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('edit') }} {{ 'common.edit' | trans }}</a></p>
-
-              <p><a href="{{ path('tiltag_detail_copy', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('clone') }} {{ 'common.copy' | trans }}</a></p>
+              {{ block('tiltag_detail_edit') }}
             </td>
             <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
             <td>{{ detail.tilvalgt | b2icon }}</td>

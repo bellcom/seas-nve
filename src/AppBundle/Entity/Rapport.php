@@ -1269,23 +1269,27 @@ class Rapport {
 
   /**
    * Get investering eksl. øvrige omkostninger
+   *
+   * (Aa+ Investering eks. Øvrige omkostninger)
    */
   public function getinvesteringEksFaellesomkostninger() {
-    return $this->getInvesteringEkslGenopretningOgModernisering() + $this->getEnergiscreening();
+    return $this->getAnlaegsinvestering() - ($this->getModernisering() + $this->getGenopretning());
   }
 
   /**
    * Get investering inkl. genopretning og modernisering
+   *
+   * (Aa+ Investering inkl. Øvrige omkostninger)
    */
   public function getinvesteringInklFaellesomkostninger() {
-    return $this->getInvesteringEkslGenopretningOgModernisering() + $this->getSumFaellesOmkostninger();
+    return $this->getInvesteringEksFaellesomkostninger() - ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering());
   }
 
   /**
    * Get investering eksl. genopretning og modernisering for fravalgte tiltag
    */
   public function getFravalgtInvesteringEksFaellesomkostninger() {
-    return $this->getFravalgtInvesteringEkslGenopretningOgModernisering();
+    return $this->getFravalgtInvesteringEksFaellesomkostninger() - ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering());
   }
 
   /**
