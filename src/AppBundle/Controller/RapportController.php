@@ -19,6 +19,8 @@ use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\Bilag;
+use Doctrine\ORM\Mapping\Entity;
 
 /**
  * Rapport controller.
@@ -680,5 +682,4 @@ class RapportController extends BaseController {
       'edit_form' => $editForm->createView(),
     );
   }
-
 }

@@ -394,6 +394,13 @@ abstract class Tiltag {
   protected $modernisering;
 
   /**
+   * @OneToMany(targetEntity="Bilag", mappedBy="tiltag")
+   * @OrderBy({"id" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Bilag>")
+   */
+  protected $bilag;
+
+  /**
    * Get Name
    *
    * @return string
@@ -1316,6 +1323,7 @@ abstract class Tiltag {
 
   public function __construct() {
     $this->details = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->bilag = new \Doctrine\Common\Collections\ArrayCollection();
   }
 
   /**
@@ -1447,5 +1455,48 @@ abstract class Tiltag {
    */
   public function getElena() {
     return $this->elena;
+  }
+
+  /**
+   * Add bilag
+   *
+   * @param \AppBundle\Entity\Bilag $bilag
+   * @return Tiltag
+   */
+  public function addBilag(\AppBundle\Entity\Bilag $bilag) {
+    $this->bilag[] = $bilag;
+
+    $bilag->setTiltag($this);
+
+    return $this;
+  }
+
+  /**
+   * Remove bilag
+   *
+   * @param \AppBundle\Entity\Bilag $bilag
+   */
+  public function removeBilag(\AppBundle\Entity\Bilag $bilag) {
+    $this->bilag->removeElement($bilag);
+  }
+
+  /**
+   * Set bilag
+   *
+   * @return Tiltag
+   */
+  public function setBilag($bilag) {
+    $this->bilag = $bilag;
+
+    return $this;
+  }
+
+  /**
+   * Get bilag
+   *
+   * @return Tiltag
+   */
+  public function getBilag() {
+    return $this->bilag;
   }
 }

@@ -104,6 +104,16 @@ belysningtiltagdetail:
     add: Tilføj belysningstiltag
     copy: Kopier belysningstiltag
     edit: Rediger belysningstiltag
+bilag:
+  actions:
+    create: Opret bilag
+    list: Bilag
+    new: Opret bilag
+    edit: Rediger bilag
+  confirmation:
+    created: Bilag oprettet
+    updated: Bilag opdateret
+    deleted: Bilag slettet
 bygninger:
   actions:
     add: Tilføj Bygning
@@ -441,6 +451,12 @@ appbundle:
     tilvalgt: Tilvalgt
     vaegtetLevetidAar: Vægtet Levetid
     vaegtetLevetidAar.unit: år
+  bilag:
+    updated_by: Redigeret af
+    updated_at: Redigeringstidspunkt
+    filepath: Fil
+    kommentar: Kommentar
+    titel: Titel
   bygning:
     aaplusAnsvarlig: Aa+ Ansvarlig
     adresse: Adresse
@@ -957,6 +973,12 @@ appbundle:
     besparelseVarmeGAF.unit: kwh/år
     besparelseVarmeGUF: Varme GUF
     besparelseVarmeGUF.unit: kwh/år
+    bilag:
+      updated_by: Redigeret af
+      updated_at: Redigeringstidspunkt
+      filepath: Fil
+      kommentar: Kommentar
+      titel: Titel
     bygning: Bygning
     co2besparelser: CO2 Besparelser
     datering: Screeningsdato
@@ -1156,6 +1178,12 @@ appbundle:
     besparelsesoverblik: Besparelsesoverblik
     besparelseStrafafkoelingsafgift: Besparelse på Strafafkølingsafgift
     besparelseStrafafkoelingsafgift.unit: kr
+    bilag:
+      updated_by: Redigeret af
+      updated_at: Redigeringstidspunkt
+      filepath: Fil
+      kommentar: Kommentar
+      titel: Titel
     elbesparelse: Elbesparelse
     elbesparelse.unit: kWh/år
     faktorForReinvesteringer: Faktor for reinvesteringer
