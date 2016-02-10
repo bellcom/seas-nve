@@ -102,8 +102,14 @@ belysningtiltagdetail:
     edit: Rediger belysningstiltag
 bilag:
   actions:
+    create: Opret bilag
     list: Bilag
-    create: Opret Bilag
+    new: Opret bilag
+    edit: Rediger bilag
+  confirmation:
+    created: Bilag oprettet
+    updated: Bilag opdateret
+    deleted: Bilag slettet
 bygninger:
   actions:
     add: Tilføj Bygning
