@@ -45,7 +45,9 @@
           animation: false,
           responsive: false,
           maintainAspectRatio: false,
-          datasetFill: false
+          datasetFill: true,
+          bezierCurve : true,
+          bezierCurveTension : 0.2
         },
         ctx = document.querySelector('#chart canvas').getContext('2d'),
         chart = new Chart(ctx).Line(data, options);

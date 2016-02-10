@@ -23,7 +23,7 @@
           }({{ entity.cashFlow['cash flow'] | keys | json_encode | raw }})),
           datasets: [ {
             label: {{ 'Besparelse' | trans | json_encode | raw }},
-            fillColor: 'rgba(51,87,105,0.5)',
+            fillColor: 'rgba(51,87,105,0.2)',
             strokeColor: 'rgba(51,87,105,1)',
             pointColor: 'rgba(51,87,105,1)',
             pointStrokeColor: '#fff',
@@ -32,7 +32,7 @@
             data: formatData({{ entity.cashFlow['besparelse'] | json_encode | raw }})
           }, {
             label: {{ 'Ydelse, lån inkl. fællesomkostninger' | trans | json_encode | raw }},
-            fillColor: 'rgba(120,120,120,0.5)',
+            fillColor: 'rgba(120,120,120,0.2)',
             strokeColor: 'rgba(120,120,120,1)',
             pointColor: 'rgba(120,120,120,1)',
             pointStrokeColor: '#fff',
@@ -45,7 +45,9 @@
           animation: !true,
           responsive: true,
           maintainAspectRatio: false,
-          datasetFill: false
+          datasetFill: true,
+          bezierCurve : true,
+          bezierCurveTension : 0.2
         },
         ctx = document.querySelector('#chart canvas').getContext('2d'),
         chart = new Chart(ctx).Line(data, options);
