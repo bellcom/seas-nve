@@ -12,6 +12,9 @@ use Gedmo\Uploadable\Uploadable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Blameable\Traits\BlameableEntity;
+
 
 /**
  * Bilag
@@ -26,6 +29,10 @@ use Doctrine\ORM\Mapping as ORM;
  * )
  */
 class Bilag {
+
+  use BlameableEntity;
+  use TimestampableEntity;
+
   /**
    * @var integer
    *
