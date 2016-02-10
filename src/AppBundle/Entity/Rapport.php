@@ -1341,7 +1341,7 @@ class Rapport {
    * Get investering eksl. genopretning og modernisering for fravalgte tiltag
    */
   public function getFravalgtInvesteringEksFaellesomkostninger() {
-    return $this->getFravalgtInvesteringEksFaellesomkostninger() - ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering());
+    return $this->getFravalgtAnlaegsinvestering();
   }
 
   /**
