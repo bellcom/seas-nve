@@ -14,10 +14,10 @@ use AppBundle\Entity\Bilag;
 use Symfony\Component\Form\AbstractType;
 
 /**
- * Class BilagType
+ * Class TiltagBilagType
  * @package AppBundle\Form
  */
-class BilagType extends AbstractType {
+class TiltagBilagType extends AbstractType {
   protected $bilag;
 
   public function __construct(Bilag $bilag) {
@@ -28,8 +28,8 @@ class BilagType extends AbstractType {
     $builder
       ->add('titel')
       ->add('kommentar')
-      ->add('rapport', 'entity', array(
-        'class' => 'AppBundle:Rapport',
+      ->add('tiltag', 'entity', array(
+        'class' => 'AppBundle:Tiltag',
         'label' => false,
         'attr' => array(
           'class' => 'hidden'
@@ -60,6 +60,6 @@ class BilagType extends AbstractType {
   }
 
   public function getName() {
-    return 'appbundle_bilag';
+    return 'appbundle_tiltag_bilag';
   }
 }

@@ -543,9 +543,9 @@ class Rapport {
   }
 
   /**
-   * Set bilager
+   * Set bilag
    *
-   * @return \Doctrine\Common\Collections\Collection
+   * @return Rapport
    */
   public function setBilag($bilag) {
     $this->bilag = $bilag;

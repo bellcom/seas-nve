@@ -70,6 +70,12 @@ class Bilag {
   protected $rapport;
 
   /**
+   * @ORM\ManyToOne(targetEntity="Tiltag", inversedBy="bilag", fetch="EAGER")
+   * @ORM\JoinColumn(name="tiltag_id", referencedColumnName="id")
+   **/
+  protected $tiltag;
+
+  /**
    * @return string
    */
   public function getKommentar() {
@@ -125,6 +131,22 @@ class Bilag {
 
   public function getRapport() {
     return $this->rapport;
+  }
+
+  /**
+   * Set tiltag
+   *
+   * @param \AppBundle\Entity\Tiltag $tiltag
+   * @return Bilag
+   */
+  public function setTiltag(Tiltag $tiltag = NULL) {
+    $this->tiltag = $tiltag;
+
+    return $this;
+  }
+
+  public function getTiltag() {
+    return $this->tiltag;
   }
 
   /**

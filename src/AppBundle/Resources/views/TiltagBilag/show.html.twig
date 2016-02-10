@@ -1,0 +1,34 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-condensed">
+        <tbody>
+        <tr>
+          <th>{{ 'appbundle.bilag.titel' | trans }}</th>
+          <td>{{ entity.titel }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.bilag.kommentar' | trans }}</th>
+          <td>{{ entity.kommentar }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.bilag.filepath' | trans }}</th>
+          <td>{{ entity.filepath }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.bilag.updated_by' | trans }}</th>
+          <td>{{ entity.updatedBy }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.bilag.updated_at' | trans }}</th>
+          <td>{{ entity.updatedAt | date('F j, Y H:i') }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}

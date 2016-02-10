@@ -958,6 +958,12 @@ appbundle:
     besparelseVarmeGAF.unit: kwh/år
     besparelseVarmeGUF: Varme GUF
     besparelseVarmeGUF.unit: kwh/år
+    bilag:
+      updated_by: Redigeret af
+      updated_at: Redigeringstidspunkt
+      filepath: Fil
+      kommentar: Kommentar
+      titel: Titel
     bygning: Bygning
     co2besparelser: CO2 Besparelser
     datering: Screeningsdato
@@ -1157,6 +1163,12 @@ appbundle:
     besparelsesoverblik: Besparelsesoverblik
     besparelseStrafafkoelingsafgift: Besparelse på Strafafkølingsafgift
     besparelseStrafafkoelingsafgift.unit: kr
+    bilag:
+      updated_by: Redigeret af
+      updated_at: Redigeringstidspunkt
+      filepath: Fil
+      kommentar: Kommentar
+      titel: Titel
     elbesparelse: Elbesparelse
     elbesparelse.unit: kWh/år
     faktorForReinvesteringer: Faktor for reinvesteringer

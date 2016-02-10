@@ -248,6 +248,9 @@
             </div>
             <div class="col-md-6 text-right">
               {% if is_granted('RAPPORT_EDIT', entity) %}
+              <a class="btn btn-default" href="{{ path('tiltag_bilag_get', { 'tiltag_id': t.id }) }}">
+                {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
+              </a>
               <a href="{{ path('tiltag_edit', { 'id': t.id }) }}" class="btn btn-default">
                 {{ icon('edit') }} {{ 'common.edit' | trans }}: {{ t.title | slice(0, 15)}}{% if t.title | length > 15 %}...{% endif %}
               </a>
