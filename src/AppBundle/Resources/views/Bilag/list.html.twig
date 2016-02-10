@@ -1,0 +1,32 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-condensed">
+        <tbody>
+          <tr>
+            <th>{{ 'appbundle.bilag.titel' | trans }}</th>
+            <th>{{ 'appbundle.bilag.kommentar' | trans }}</th>
+            <th>{{ 'appbundle.bilag.filepath' | trans }}</th>
+          </tr>
+        {% for bilag in entity.bilag %}
+          <tr>
+            <td>{{ bilag.titel }}</td>
+            <td>{{ bilag.kommentar }}</td>
+            <td>{{ bilag.filepath }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+      {% if is_granted('ROLE_BYGNING_EDIT') %}
+        <a class="btn btn-default" href="{{ path('rapport_bilag_create', { 'id': entity.id }) }}">
+          {{ icon('factory') }} {{ 'rapporter.actions.bilag.create' | trans }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use AppBundle\Entity\Bilag;
 use AppBundle\Form\Type\BilagType;
+use AppBundle\Entity\Rapport;
 
 /**
  * Bilag controller.
@@ -50,6 +51,28 @@ class BilagController extends BaseController {
   }
 
   /**
+   * Displays a form to edit an existing Bilag entity.
+   *
+   * @Route("/new/rapport/{id}", name="bilag_rapport_create")
+   * @Method("GET")
+   * @Template()
+   */
+  public function createForRapportAction(Rapport $rapport) {
+    // @TODO: Breadcrumb
+
+    $bilag = new Bilag();
+    $bilag->setRapport($rapport);
+
+    $editForm = $this->createNewForm($bilag);
+
+    $template = $this->getTemplate($bilag, 'new');
+    return $this->render($template, array(
+      'entity' => $bilag,
+      'edit_form' => $editForm->createView()
+    ));
+  }
+
+  /**
    * Creates a form to edit a Bilag entity.
    *
    * @param Bilag $bilag The entity
@@ -63,6 +86,24 @@ class BilagController extends BaseController {
     ));
 
     $this->addUpdate($form, $this->generateUrl('bilag_edit', array('id' => $bilag->getId())));
+
+    return $form;
+  }
+
+  /**
+   * Creates a form to create a Bilag entity.
+   *
+   * @param Bilag $bilag The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createNewForm(Bilag $bilag) {
+    $form = $this->createForm(new BilagType($bilag), $bilag, array(
+      'action' => $this->generateUrl('bilag_create', array()),
+      'method' => 'POST',
+    ));
+
+    $this->addCreate($form, $this->generateUrl('bilag_create'));
 
     return $form;
   }
@@ -132,24 +173,26 @@ class BilagController extends BaseController {
   /**
    * Creates a new Bilag entity.
    *
-   * @Route("/{id}", name="bilag_create")
+   * @Route("", name="bilag_create")
    * @Method("POST")
    * @Template("AppBundle:Bilag:new.html.twig")
    * @TODO Security("is_granted('BILAG_CREATE', bilag)")
+   * @
    */
-  public function newAction(Request $request, Bilag $bilag) {
-    //$this->setBreadcrumb($bilag);
+  public function newBilagAction(Request $request) {
+    $bilag = new Bilag();
 
-    $deleteForm = $this->createDeleteForm($bilag);
-    $editForm = $this->createEditForm($bilag);
+    $editForm = $this->createNewForm($bilag);
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
+      $bilag->handleUploads($this->get('stof_doctrine_extensions.uploadable.manager'));
       $em = $this->getDoctrine()->getManager();
+      $em->persist($bilag);
       $em->flush();
 
       $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('bilag.confirmation.updated');
+      $flash->success('bilag.confirmation.created');
 
       return $this->redirect($this->generateUrl('bilag_edit', array('id' => $bilag->getId())));
     }
@@ -157,7 +200,6 @@ class BilagController extends BaseController {
     return array(
       'entity' => $bilag,
       'edit_form' => $editForm->createView(),
-      'delete_form' => $deleteForm->createView(),
     );
   }
 
@@ -196,8 +238,6 @@ class BilagController extends BaseController {
    * @return \Symfony\Component\HttpFoundation\Response
    */
   public function showAction(Bilag $bilag) {
-    //$this->setBreadcrumb($bilag);
-
     $deleteForm = $this->createDeleteForm($bilag);
     $editForm = $this->createEditForm($bilag);
 

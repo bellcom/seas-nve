@@ -2,15 +2,14 @@
 
 {% block body -%}
 
-  <a class="btn btn-default" href="{{ path('rapport_bilag_create', { 'id': entity.id }) }}">
-    {{ icon('industry') }} Bilag
-  </a>
-
   <div class="row heading">
     <div class="col-md-4">
       <h1>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h1>
     </div>
     <div class="col-md-8 text-right">
+      <a class="btn btn-default" href="{{ path('rapport_bilag_get', { 'id': entity.id }) }}">
+        {{ icon('file') }} {{ 'rapporter.actions.bilag' | trans }}
+      </a>
       <a href="{{ path('rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf2' | trans }}
       </a>

@@ -19,6 +19,7 @@ use AppBundle\Form\Type\RapportType;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Bilag;
+use Doctrine\ORM\Mapping\Entity;
 
 /**
  * Rapport controller.
@@ -648,17 +649,26 @@ class RapportController extends BaseController {
    * @return Response
    */
   public function newBilagAction(Rapport $rapport) {
-    $em = $this->getDoctrine()->getManager();
-    $bilag = new Bilag();
+    return $this->redirect($this->generateUrl('bilag_rapport_create', array('id' => $rapport->getId())));
+  }
 
-    $bilag->setRapport($rapport);
+  /**
+   * Get Bilag.
+   *
+   * @Route("/{id}/bilag", name="rapport_bilag_get")
+   * @Method("GET")
+   * @Template("AppBundle:Bilag:list.html.twig")
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   *
+   * @param Rapport $rapport
+   *
+   * @return Response
+   */
+  public function listBilagAction(Rapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_bilag_get', array('id' => $rapport->getId())));
 
-    $em->persist($bilag);
-    $em->flush();
-
-    $flash = $this->get('braincrafted_bootstrap.flash');
-    $flash->success('bilag.confirmation.created');
-
-    return $this->redirect($this->generateUrl('bilag_edit', array('id' => $bilag->getId())));
+    return array(
+      'entity' => $rapport
+    );
   }
 }
