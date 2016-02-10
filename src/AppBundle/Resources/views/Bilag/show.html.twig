@@ -18,6 +18,14 @@
           <th>{{ 'appbundle.bilag.filepath' | trans }}</th>
           <td>{{ entity.filepath }}</td>
         </tr>
+        <tr>
+          <th>{{ 'appbundle.bilag.updated_by' | trans }}</th>
+          <td>{{ entity.updatedBy }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.bilag.updated_at' | trans }}</th>
+          <td>{{ entity.updatedAt | date('F j, Y H:i') }}</td>
+        </tr>
         </tbody>
       </table>
     </div>

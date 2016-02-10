@@ -10,6 +10,8 @@
             <th>{{ 'appbundle.bilag.titel' | trans }}</th>
             <th>{{ 'appbundle.bilag.kommentar' | trans }}</th>
             <th>{{ 'appbundle.bilag.filepath' | trans }}</th>
+            <th>{{ 'appbundle.bilag.updated_by' | trans }}</th>
+            <th>{{ 'appbundle.bilag.updated_at' | trans }}</th>
           </tr>
         {% for bilag in entity.bilag %}
           <tr>
@@ -20,6 +22,8 @@
                 <a target="_blank" href="{{ path('rapport_bilag_download', { 'rapport_id': entity.id, 'bilag_id': bilag.id }) }}">{{ bilag.filename }}</a>
               {% endif %}
             </td>
+            <td>{{ bilag.updatedBy }}</td>
+            <td>{{ bilag.updatedAt | date('F j, Y H:i') }}</td>
           </tr>
         {% endfor %}
         </tbody>

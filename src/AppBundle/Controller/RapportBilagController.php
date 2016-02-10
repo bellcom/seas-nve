@@ -93,7 +93,8 @@ class RapportBilagController extends BaseController {
    * @Template()
    */
   public function createForRapportAction(Rapport $rapport) {
-    // @TODO: Breadcrumb
+    $this->setBreadcrumb($rapport);
+    $this->breadcrumbs->addItem("Opret");
 
     $bilag = new Bilag();
     $bilag->setRapport($rapport);

@@ -438,6 +438,8 @@ appbundle:
     vaegtetLevetidAar: Vægtet Levetid
     vaegtetLevetidAar.unit: år
   bilag:
+    updated_by: Redigeret af
+    updated_at: Redigeringstidspunkt
     filepath: Fil
     kommentar: Kommentar
     titel: Titel
