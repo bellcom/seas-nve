@@ -13,9 +13,9 @@
           </tr>
         {% for bilag in entity.bilag %}
           <tr>
-            <td>{{ bilag.titel }}</td>
+            <td><a href="{{ path('bilag_edit', { 'id': bilag.id }) }}">{{ bilag.titel }}</a></td>
             <td>{{ bilag.kommentar }}</td>
-            <td>{{ bilag.filepath }}</td>
+            <td>{% if not bilag.filepath is empty %}<a target="_blank" href="{{ path('bilag_download', { 'id': bilag.id }) }}">{{ bilag.filename }}</a>{% endif %}</td>
           </tr>
         {% endfor %}
         </tbody>

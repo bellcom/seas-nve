@@ -7,12 +7,16 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use Yavin\Symfony\Controller\InitControllerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use AppBundle\Entity\Bilag;
 use AppBundle\Form\Type\BilagType;
@@ -26,7 +30,6 @@ use AppBundle\Entity\Rapport;
 class BilagController extends BaseController {
   public function init(Request $request) {
     parent::init($request);
-//    $this->breadcrumbs->addItem('Bilag', $this->generateUrl('bilag'));
   }
 
   /**
@@ -34,6 +37,7 @@ class BilagController extends BaseController {
    *
    * @Route("/{id}/edit", name="bilag_edit")
    * @Method("GET")
+   * @TODO Security("is_granted('BILAG_EDIT', bilag)")
    * @Template()
    */
   public function editAction(Bilag $bilag) {
@@ -42,7 +46,7 @@ class BilagController extends BaseController {
     $editForm = $this->createEditForm($bilag);
     $deleteForm = $this->createDeleteForm($bilag);
 
-    $template = $this->getTemplate($bilag, 'edit');
+    $template = $this->getTemplate('edit');
     return $this->render($template, array(
       'entity' => $bilag,
       'edit_form' => $editForm->createView(),
@@ -56,6 +60,7 @@ class BilagController extends BaseController {
    * @Route("/new/rapport/{id}", name="bilag_rapport_create")
    * @Method("GET")
    * @Template()
+   * @TODO Security("is_granted('RAPPORT_EDIT')")
    */
   public function createForRapportAction(Rapport $rapport) {
     // @TODO: Breadcrumb
@@ -65,7 +70,7 @@ class BilagController extends BaseController {
 
     $editForm = $this->createNewForm($bilag);
 
-    $template = $this->getTemplate($bilag, 'new');
+    $template = $this->getTemplate('new');
     return $this->render($template, array(
       'entity' => $bilag,
       'edit_form' => $editForm->createView()
@@ -115,9 +120,9 @@ class BilagController extends BaseController {
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createDeleteForm(Bilag $tiltag) {
+  private function createDeleteForm(Bilag $bilag) {
     return $this->createFormBuilder()
-      ->setAction($this->generateUrl('bilag_delete', array('id' => $tiltag->getId())))
+      ->setAction($this->generateUrl('bilag_delete', array('id' => $bilag->getId())))
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
       ->getForm();
@@ -131,7 +136,7 @@ class BilagController extends BaseController {
    * @param string $action
    * @return string
    */
-  private function getTemplate(Bilag $entity, $action) {
+  private function getTemplate($action) {
     $className = 'Bilag';
     $template = 'AppBundle:' . $className . ':' . $action . '.html.twig';
     if (!$this->get('templating')->exists($template)) {
@@ -149,7 +154,7 @@ class BilagController extends BaseController {
    * @TODO Security("is_granted('BILAG_EDIT', bilag)")
    */
   public function updateAction(Request $request, Bilag $bilag) {
-    //$deleteForm = $this->createDeleteForm($bilag);
+    $deleteForm = $this->createDeleteForm($bilag);
     $editForm = $this->createEditForm($bilag);
     $editForm->handleRequest($request);
 
@@ -166,7 +171,8 @@ class BilagController extends BaseController {
 
     return array(
       'entity' => $bilag,
-      'edit_form' => $editForm->createView()
+      'edit_form' => $editForm->createView(),
+      'delete_form' => $deleteForm->createView(),
     );
   }
 
@@ -176,8 +182,7 @@ class BilagController extends BaseController {
    * @Route("", name="bilag_create")
    * @Method("POST")
    * @Template("AppBundle:Bilag:new.html.twig")
-   * @TODO Security("is_granted('BILAG_CREATE', bilag)")
-   * @
+   * @TODO Security("is_granted('RAPPORT_EDIT')")
    */
   public function newBilagAction(Request $request) {
     $bilag = new Bilag();
@@ -208,7 +213,7 @@ class BilagController extends BaseController {
    *
    * @Route("/{id}", name="bilag_delete")
    * @Method("DELETE")
-   * @TODO Security("is_granted('BILAG_EDIT', tiltag)")
+   * @TODO Security("is_granted('BILAG_EDIT', bilag)")
    */
   public function deleteAction(Request $request, Bilag $bilag) {
     $form = $this->createDeleteForm($bilag);
@@ -241,11 +246,33 @@ class BilagController extends BaseController {
     $deleteForm = $this->createDeleteForm($bilag);
     $editForm = $this->createEditForm($bilag);
 
-    $template = $this->getTemplate($bilag, 'show');
+    $template = $this->getTemplate('show');
     return $this->render($template, array(
       'entity' => $bilag,
       'delete_form' => $deleteForm->createView(),
       'edit_form' => $editForm->createView(),
     ));
   }
+
+  /**
+   * Sends a file to the client.
+   *
+   * @Route("/{id}/download", name="bilag_download")
+   * @Method("GET")
+   * @param Bilag $bilag
+   * @return \Symfony\Component\HttpFoundation\Response
+   *
+   * @TODO Security("is_granted('BILAG_VIEW', bilag)")
+   */
+  public function downloadAction(Bilag $bilag) {
+    $path = $bilag->getFilepath();
+    $file = new File($path);
+    $response = new BinaryFileResponse($file->getRealPath());
+    $response->setContentDisposition(
+      ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+      $file->getFilename()
+    );
+    return $response;
+  }
 }
+
