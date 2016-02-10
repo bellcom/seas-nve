@@ -40,9 +40,9 @@
         <li><a href="/rapport">{{ icon('file') }} {{ 'rapporter.labels.plural' | trans }}</a></li>
         {% if is_granted('ROLE_ADMIN') %}
           <li><a href="/udtraek">{{ icon('file-excel-o') }} {{ 'udtraek.labels.plural' | trans }}</a></li>
-          <li><a href="/user">{{ icon('user') }} {{ 'user.labels.plural' | trans }}</a></li>
         {% endif %}
         {% if is_granted('ROLE_SUPER_ADMIN') %}
+          <li><a href="/user">{{ icon('user') }} {{ 'user.labels.plural' | trans }}</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('gears') }} Indstillinger <span class="caret"></span></a>
             <ul class="dropdown-menu">

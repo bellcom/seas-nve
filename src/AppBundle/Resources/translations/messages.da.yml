@@ -1215,6 +1215,7 @@ appbundle:
     bygninger: Bygninger
     email: Email
     firstname: Fornavn
+    group: Gruppe
     groups: Grupper
     lastname: Efternavn
     locked: Låst

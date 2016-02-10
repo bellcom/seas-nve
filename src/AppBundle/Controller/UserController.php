@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\Type\UserFilterType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -15,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * User controller.
  *
  * @Route("/user")
+ * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
 class UserController extends BaseController {
   public function init(Request $request) {
@@ -28,13 +30,29 @@ class UserController extends BaseController {
    * @Route("/", name="user")
    * @Method("GET")
    * @Template()
-   * @Security("has_role('ROLE_ADMIN')")
    */
   public function indexAction(Request $request) {
-    $em = $this->getDoctrine()->getManager();
+    // initialize a query builder
+    $filterBuilder = $this->get('doctrine.orm.entity_manager')
+      ->getRepository('AppBundle:User')
+      ->createQueryBuilder('u');
 
-    $dql = "SELECT u FROM AppBundle:User u";
-    $query = $em->createQuery($dql);
+    $form = $this->get('form.factory')->create(new UserFilterType(), NULL, array(
+      'action' => $this->generateUrl('user'),
+      'method' => 'GET',
+    ));
+
+    if ($request->query->has($form->getName())) {
+      $this->breadcrumbs->addItem('Søg', $this->generateUrl('user'));
+
+      // manually bind values from the request
+      $form->submit($request->query->get($form->getName()));
+
+      // build the query from the given form object
+      $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
+    }
+
+    $query = $filterBuilder->getQuery();
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
@@ -43,7 +61,7 @@ class UserController extends BaseController {
       20
     );
 
-    return $this->render('AppBundle:User:index.html.twig', array('pagination' => $pagination));
+    return $this->render('AppBundle:User:index.html.twig', array('pagination' => $pagination, 'form' => $form->createView()));
   }
 
   /**
@@ -52,7 +70,6 @@ class UserController extends BaseController {
    * @Route("/", name="user_create")
    * @Method("POST")
    * @Template("AppBundle:User:new.html.twig")
-   * @Security("has_role('ROLE_ADMIN')")
    */
   public function createAction(Request $request) {
     $userManager = $this->get('fos_user.user_manager');
@@ -104,7 +121,6 @@ class UserController extends BaseController {
    * @Route("/new", name="user_new")
    * @Method("GET")
    * @Template()
-   * @Security("has_role('ROLE_ADMIN')")
    */
   public function newAction() {
     $this->breadcrumbs->addItem('user.actions.create', $this->generateUrl('user_new'));
@@ -124,7 +140,6 @@ class UserController extends BaseController {
    * @Route("/{id}/edit", name="user_edit")
    * @Method("GET")
    * @Template()
-   * @Security("has_role('ROLE_ADMIN')")
    */
   public function editAction($id) {
     $this->breadcrumbs->addItem('user.actions.edit', $this->generateUrl('user_edit', array('id' => $id)));
@@ -168,7 +183,6 @@ class UserController extends BaseController {
    * @Route("/{id}", name="user_update")
    * @Method("PUT")
    * @Template("AppBundle:User:edit.html.twig")
-   * @Security("has_role('ROLE_ADMIN')")
    */
   public function updateAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();
