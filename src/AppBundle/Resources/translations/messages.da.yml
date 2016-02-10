@@ -52,7 +52,10 @@ common:
   createdby: Oprettet af
   current_buildings: Igangværende bygninger
   data: Data
+  date: Dato
   deselect: Fravælg
+  downloadExcel: Hent som Excel
+  downloadCsv: Hent som csv
   edit: Rediger
   empty: Blank
   finans: Økonomi
@@ -69,6 +72,7 @@ common:
   search: Søg
   select: Tilvælg
   show: Vis
+  showing: Viser
   summary: Opsummering
   tekniske_oplysninger: Tekniske Oplysninger
   update: Opdater
@@ -317,6 +321,16 @@ tiltagdetail:
     created: Detail oprettet
     updated: Detail opdateret
     deleted: Detail slettet
+udtraek:
+  labels:
+    plural: Udtræk
+    besparelse_varme_guf_pr_aar: Besparelse varme GUF pr. år
+    besparelse_varme_guf_percent_pr_aar: Besparelse varme GUF pr. år i procent
+    besparelse_varme_gaf_pr_aar: Besparelse varme GAF pr. år
+    besparelse_varme_gaf_percent_pr_aar: Besparelse varme GAF pr. år i procent
+    besparelse_el_pr_aar: Besparelse el pr. år
+    besparelse_el_percent_pr_aar: Besparelse el pr. år i procent
+    besparelse_co2_ton_pr_aar: Besparelse CO2 i ton pr. år
 user:
   actions:
     add: Tilføj bruger
@@ -347,7 +361,6 @@ vinduetiltagdetail:
 appbundle:
   belysningtiltagdetail:
     add: Tilføj
-    tiltag.id: Tiltag, input
     armaturerStkLokale: Armaturer
     armaturerStkLokale.unit: stk/lok.
     armaturerStkLokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
@@ -424,6 +437,7 @@ appbundle:
     standardinvestSensorKrStk: Standardinvest. sensor
     standardinvestSensorKrStk.unit: kr/stk
     styring: Styring
+    tiltag.id: Tiltag, input
     tilvalgt: Tilvalgt
     vaegtetLevetidAar: Vægtet Levetid
     vaegtetLevetidAar.unit: år
@@ -544,6 +558,7 @@ appbundle:
       varmetotal: ﻿I alt baseline varme
       version: Version
     segment: Segment
+    segment.forkortelse: Magistrat (Forkortelse)
     singular: Bygning
     stamdataNotat: Stamdata notat
     status: Status
@@ -1200,6 +1215,7 @@ appbundle:
     bygninger: Bygninger
     email: Email
     firstname: Fornavn
+    group: Gruppe
     groups: Grupper
     lastname: Efternavn
     locked: Låst
@@ -1274,6 +1290,14 @@ appbundle:
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
 
+# Dataudtræk
+udtraek.bygning:
+  navn: Navn indholder
+  postnummer: Postnummer starter med
+  rapport.datering: Datering mellem
+  rapport.elena: Elena
+  status: Status
+  segment.forkortelse: Magistrat
 
 # Calculations
 appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |

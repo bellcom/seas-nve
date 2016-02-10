@@ -7,6 +7,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\Entity\Bygning;
+use AppBundle\Form\Type\RapportSearchType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -36,15 +38,61 @@ class RapportController extends BaseController {
    * @Method("GET")
    * @Template()
    */
-  public function indexAction() {
+  public function indexAction(Request $request) {
+    $rapport = new Rapport();
+    $rapport->setDatering(null);
+    $bygning = new Bygning();
+    $bygning->setStatus(null);
+    $rapport->setBygning($bygning);
+
+    $form = $this->createSearchForm($rapport);
+    $form->handleRequest($request);
+
+    if($form->isSubmitted()) {
+      $this->breadcrumbs->addItem('Søg', $this->generateUrl('rapport'));
+    }
+
     $em = $this->getDoctrine()->getManager();
+
+    $search = array();
+
+    $search['navn'] = $rapport->getBygning()->getNavn();
+    $search['adresse'] = $rapport->getBygning()->getAdresse();
+    $search['postnummer'] = $rapport->getBygning()->getPostnummer();
+    $search['segment'] = $rapport->getBygning()->getSegment();
+    $search['status'] = $rapport->getBygning()->getStatus();
+    $search['datering'] = $rapport->getDatering();
+
+    $search['elena'] = $rapport->getElena();
+
     $user = $this->get('security.context')->getToken()->getUser();
 
-    $entities = $em->getRepository('AppBundle:Rapport')->findByUser($user);
+    $query = $em->getRepository('AppBundle:Rapport')->searchByUser($user, $search);
 
-    return array(
-      'entities' => $entities,
+    $paginator = $this->get('knp_paginator');
+    $pagination = $paginator->paginate(
+      $query,
+      $request->query->get('page', 1),
+      20
     );
+
+    return $this->render('AppBundle:Rapport:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'form' => $form->createView()));
+  }
+
+  /**
+   * Creates a form to search Rapport entities.
+   *
+   * @param Bygning $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createSearchForm(Rapport $entity) {
+    $form = $this->createForm(new RapportSearchType($this->get('security.context')), $entity, array(
+      'action' => $this->generateUrl('rapport'),
+      'method' => 'GET',
+    ));
+
+    return $form;
   }
 
   /**

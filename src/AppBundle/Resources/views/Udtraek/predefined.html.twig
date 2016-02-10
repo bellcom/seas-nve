@@ -1,0 +1,14 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+
+  <ul>
+    <li><a href="/udtraek/field_sum_pr_year/besparelseVarmeGUF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_guf_pr_aar' | trans }}</a></li>
+    <li><a href="/udtraek/field_avg_diff_pr_year/besparelseVarmeGUF/BaselineVarmeGUF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_guf_percent_pr_aar' | trans }}</a></li>
+    <li><a href="/udtraek/field_sum_pr_year/besparelseVarmeGAF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_gaf_pr_aar' | trans }}</a></li>
+    <li><a href="/udtraek/field_avg_diff_pr_year/besparelseVarmeGAF/BaselineVarmeGAF">{{ icon('fire') }} {{ 'udtraek.labels.besparelse_varme_gaf_percent_pr_aar' | trans }}</a></li>
+    <li><a href="/udtraek/field_sum_pr_year/besparelseEl">{{ icon('bolt') }} {{ 'udtraek.labels.besparelse_el_pr_aar' | trans }}</a></li>
+    <li><a href="/udtraek/field_avg_diff_pr_year/besparelseEl/BaselineEl">{{ icon('bolt') }} {{ 'udtraek.labels.besparelse_el_percent_pr_aar' | trans }}</a></li>
+    <li><a href="/udtraek/field_sum_pr_year/besparelseCO2">{{ icon('trash') }} {{ 'udtraek.labels.besparelse_co2_ton_pr_aar' | trans }}</a></li>
+  </ul>
+{% endblock %}

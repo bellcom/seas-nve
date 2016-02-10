@@ -6,15 +6,20 @@
 
 namespace AppBundle\Form\Type;
 
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use AppBundle\DBAL\Types\BygningStatusType;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
+
 /**
- * Class BygningType
+ * Class RapportType
  * @package AppBundle\Form
  */
-class BygningSearchType extends AbstractType {
+class SegmentUdtraekType extends AbstractType implements EmbeddedFilterTypeInterface {
+
+
   /**
    * @TODO: Missing description.
    *
@@ -25,14 +30,13 @@ class BygningSearchType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('bygId', 'text', array('label' => false, 'max_length' => 4, 'attr' => array('size' => '4')))
-      ->add('navn', null, array('label' => false))
-      ->add('adresse', null, array('label' => false))
-      ->add('postnummer', null, array('label' => false, 'max_length' => 4, 'attr' => array('size' => '4')))
-      ->add('postBy', null, array('label' => false))
-      ->add('segment', null, array('label' => false, 'required' => false))
-      ->add('status', null, array('label' => false, 'required' => false, 'data' => null))
-      ->add('Søg', 'submit');
+      ->add('forkortelse', 'filter_choice', array('label' => false, 'choices' => array(
+        'MBU' => 'MBU - Børn og Unge',
+        'MKB' => 'MKB - Kultur og borgerservice',
+        'MSO' => 'MSO - Sundhed og omsorg',
+        'MSB' => 'MSB - Social og beskæftigelse',
+        'MTM' => 'MTM - Teknik og Miljø'
+      )));
   }
 
   /**
@@ -43,9 +47,13 @@ class BygningSearchType extends AbstractType {
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Bygning',
-      'validation_groups' => false
+      'data_class' => 'AppBundle\Entity\Segment'
     ));
+  }
+
+  public function getParent()
+  {
+    return 'filter_sharedable'; // this allow us to use the "add_shared" option
   }
 
   /**
@@ -55,6 +63,6 @@ class BygningSearchType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'bygning';
+    return 'filter_segment';
   }
 }
