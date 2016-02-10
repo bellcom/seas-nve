@@ -88,7 +88,7 @@ class RapportBilagController extends BaseController {
   /**
    * Displays a form to create a new Bilag entity.
    *
-   * @Route("/new", name="bilag_rapport_create")
+   * @Route("/new", name="bilag_rapport_new")
    * @Method("GET")
    * @Template()
    */
@@ -98,7 +98,7 @@ class RapportBilagController extends BaseController {
     $bilag = new Bilag();
     $bilag->setRapport($rapport);
 
-    $editForm = $this->createNewForm($bilag);
+    $editForm = $this->createNewForm($rapport, $bilag);
 
     $template = $this->getTemplate('new');
     return $this->render($template, array(
@@ -132,13 +132,13 @@ class RapportBilagController extends BaseController {
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createNewForm(Bilag $bilag) {
+  private function createNewForm(Rapport $rapport, Bilag $bilag) {
     $form = $this->createForm(new BilagType($bilag), $bilag, array(
-      'action' => $this->generateUrl('rapport_bilag_create', array()),
+      'action' => $this->generateUrl('rapport_bilag_create', array('rapport_id' => $rapport->getId())),
       'method' => 'POST',
     ));
 
-    $this->addCreate($form, $this->generateUrl('rapport_bilag_create'));
+    $this->addCreate($form, $this->generateUrl('rapport_bilag_create', array('rapport_id' => $rapport->getId())));
 
     return $form;
   }
@@ -216,7 +216,7 @@ class RapportBilagController extends BaseController {
   public function newBilagAction(Request $request, Rapport $rapport) {
     $bilag = new Bilag();
 
-    $editForm = $this->createNewForm($bilag);
+    $editForm = $this->createNewForm($rapport, $bilag);
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {

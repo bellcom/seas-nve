@@ -100,6 +100,10 @@ belysningtiltagdetail:
     add: Tilføj belysningstiltag
     copy: Kopier belysningstiltag
     edit: Rediger belysningstiltag
+bilag:
+  actions:
+    list: Bilag
+    create: Opret Bilag
 bygninger:
   actions:
     add: Tilføj Bygning

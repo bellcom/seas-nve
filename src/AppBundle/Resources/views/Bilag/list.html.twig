@@ -26,8 +26,8 @@
       </table>
 
       {% if is_granted('ROLE_BYGNING_EDIT') %}
-        <a class="btn btn-default" href="{{ path('rapport_bilag_create', { 'rapport_id': entity.id }) }}">
-          {{ icon('factory') }} {{ 'rapporter.actions.bilag.create' | trans }}
+        <a class="btn btn-primary" href="{{ path('bilag_rapport_new', { 'rapport_id': entity.id }) }}">
+          {{ icon('plus') }} {{ 'bilag.actions.create' | trans }}
         </a>
       {% endif %}
     </div>

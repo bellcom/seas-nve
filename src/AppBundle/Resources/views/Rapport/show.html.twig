@@ -8,7 +8,7 @@
     </div>
     <div class="col-md-8 text-right">
       <a class="btn btn-default" href="{{ path('rapport_bilag_get', { 'rapport_id': entity.id }) }}">
-        {{ icon('file') }} {{ 'rapporter.actions.bilag' | trans }}
+        {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
       </a>
       <a href="{{ path('rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf2' | trans }}
