@@ -10,11 +10,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\Response;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use Yavin\Symfony\Controller\InitControllerInterface;
 
@@ -23,28 +25,57 @@ use AppBundle\Form\Type\BilagType;
 use AppBundle\Entity\Rapport;
 
 /**
- * Bilag controller.
+ * RapportBilag controller.
  *
- * @Route("/bilag")
+ * @Route("/rapport/{rapport_id}/bilag")
+ * @ParamConverter("rapport", class="AppBundle:Rapport", options={"id" = "rapport_id"})
+ * @Security("is_granted('RAPPORT_EDIT', rapport)")
  */
-class BilagController extends BaseController {
+class RapportBilagController extends BaseController {
   public function init(Request $request) {
     parent::init($request);
+    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
+  }
+
+  private function setBreadcrumb(Rapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('Bilag', $this->generateUrl('rapport_bilag_get', array('rapport_id' => $rapport->getId())));
+  }
+
+  /**
+   * Get Bilag.
+   *
+   * @Route("", name="rapport_bilag_get")
+   * @Method("GET")
+   * @Template("AppBundle:Bilag:list.html.twig")
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   *
+   * @param Rapport $rapport
+   *
+   * @return Response
+   */
+  public function listBilagAction(Rapport $rapport) {
+    $this->setBreadcrumb($rapport);
+
+    return array(
+      'entity' => $rapport
+    );
   }
 
   /**
    * Displays a form to edit an existing Bilag entity.
    *
-   * @Route("/{id}/edit", name="bilag_edit")
+   * @Route("/{bilag_id}/edit", name="rapport_bilag_edit")
    * @Method("GET")
-   * @TODO Security("is_granted('BILAG_EDIT', bilag)")
    * @Template()
+   * @ParamConverter("bilag", class="AppBundle:Bilag", options={"id" = "bilag_id"})
    */
-  public function editAction(Bilag $bilag) {
-    // @TODO: Breadcrumb
+  public function editAction(Rapport $rapport, Bilag $bilag) {
+    $this->setBreadcrumb($rapport);
+    $this->breadcrumbs->addItem($bilag->getTitel() ? $bilag->getTitel() : $bilag->getId(), $this->generateUrl('rapport_bilag_edit', array('rapport_id' => $rapport->getId(), 'bilag_id' => $bilag->getId())));
 
-    $editForm = $this->createEditForm($bilag);
-    $deleteForm = $this->createDeleteForm($bilag);
+    $editForm = $this->createEditForm($rapport, $bilag);
+    $deleteForm = $this->createDeleteForm($rapport, $bilag);
 
     $template = $this->getTemplate('edit');
     return $this->render($template, array(
@@ -55,12 +86,11 @@ class BilagController extends BaseController {
   }
 
   /**
-   * Displays a form to edit an existing Bilag entity.
+   * Displays a form to create a new Bilag entity.
    *
-   * @Route("/new/rapport/{id}", name="bilag_rapport_create")
+   * @Route("/new", name="bilag_rapport_create")
    * @Method("GET")
    * @Template()
-   * @TODO Security("is_granted('RAPPORT_EDIT')")
    */
   public function createForRapportAction(Rapport $rapport) {
     // @TODO: Breadcrumb
@@ -84,13 +114,13 @@ class BilagController extends BaseController {
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createEditForm(Bilag $bilag) {
+  private function createEditForm(Rapport $rapport, Bilag $bilag) {
     $form = $this->createForm(new BilagType($bilag), $bilag, array(
-      'action' => $this->generateUrl('bilag_update', array('id' => $bilag->getId())),
+      'action' => $this->generateUrl('rapport_bilag_update', array('rapport_id' => $rapport->getId(), 'bilag_id' => $bilag->getId())),
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('bilag_edit', array('id' => $bilag->getId())));
+    $this->addUpdate($form, $this->generateUrl('rapport_bilag_edit', array('rapport_id' => $rapport->getId(), 'bilag_id' => $bilag->getId())));
 
     return $form;
   }
@@ -104,11 +134,11 @@ class BilagController extends BaseController {
    */
   private function createNewForm(Bilag $bilag) {
     $form = $this->createForm(new BilagType($bilag), $bilag, array(
-      'action' => $this->generateUrl('bilag_create', array()),
+      'action' => $this->generateUrl('rapport_bilag_create', array()),
       'method' => 'POST',
     ));
 
-    $this->addCreate($form, $this->generateUrl('bilag_create'));
+    $this->addCreate($form, $this->generateUrl('rapport_bilag_create'));
 
     return $form;
   }
@@ -120,9 +150,9 @@ class BilagController extends BaseController {
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createDeleteForm(Bilag $bilag) {
+  private function createDeleteForm(Rapport $rapport, Bilag $bilag) {
     return $this->createFormBuilder()
-      ->setAction($this->generateUrl('bilag_delete', array('id' => $bilag->getId())))
+      ->setAction($this->generateUrl('rapport_bilag_delete', array('rapport_id' => $rapport->getId(), 'bilag_id' => $bilag->getId())))
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
       ->getForm();
@@ -148,14 +178,14 @@ class BilagController extends BaseController {
   /**
    * Edits an existing Bilag entity.
    *
-   * @Route("/{id}", name="bilag_update")
+   * @Route("/{bilag_id}", name="rapport_bilag_update")
    * @Method("PUT")
    * @Template("AppBundle:Bilag:edit.html.twig")
-   * @TODO Security("is_granted('BILAG_EDIT', bilag)")
+   * @ParamConverter("bilag", class="AppBundle:Bilag", options={"id" = "bilag_id"})
    */
-  public function updateAction(Request $request, Bilag $bilag) {
-    $deleteForm = $this->createDeleteForm($bilag);
-    $editForm = $this->createEditForm($bilag);
+  public function updateAction(Request $request, Rapport $rapport, Bilag $bilag) {
+    $deleteForm = $this->createDeleteForm($rapport, $bilag);
+    $editForm = $this->createEditForm($rapport, $bilag);
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
@@ -166,7 +196,7 @@ class BilagController extends BaseController {
       $flash = $this->get('braincrafted_bootstrap.flash');
       $flash->success('bilag.confirmation.updated');
 
-      return $this->redirect($this->generateUrl('bilag_edit', array('id' => $bilag->getId())));
+      return $this->redirect($this->generateUrl('rapport_bilag_get', array('rapport_id' => $rapport->getId())));
     }
 
     return array(
@@ -179,12 +209,11 @@ class BilagController extends BaseController {
   /**
    * Creates a new Bilag entity.
    *
-   * @Route("", name="bilag_create")
+   * @Route("", name="rapport_bilag_create")
    * @Method("POST")
    * @Template("AppBundle:Bilag:new.html.twig")
-   * @TODO Security("is_granted('RAPPORT_EDIT')")
    */
-  public function newBilagAction(Request $request) {
+  public function newBilagAction(Request $request, Rapport $rapport) {
     $bilag = new Bilag();
 
     $editForm = $this->createNewForm($bilag);
@@ -199,7 +228,7 @@ class BilagController extends BaseController {
       $flash = $this->get('braincrafted_bootstrap.flash');
       $flash->success('bilag.confirmation.created');
 
-      return $this->redirect($this->generateUrl('bilag_edit', array('id' => $bilag->getId())));
+      return $this->redirect($this->generateUrl('rapport_bilag_get', array('rapport_id' => $rapport->getId())));
     }
 
     return array(
@@ -211,12 +240,12 @@ class BilagController extends BaseController {
   /**
    * Deletes a Bilag entity.
    *
-   * @Route("/{id}", name="bilag_delete")
+   * @Route("/{bilag_id}", name="rapport_bilag_delete")
    * @Method("DELETE")
-   * @TODO Security("is_granted('BILAG_EDIT', bilag)")
+   * @ParamConverter("bilag", class="AppBundle:Bilag", options={"id" = "bilag_id"})
    */
-  public function deleteAction(Request $request, Bilag $bilag) {
-    $form = $this->createDeleteForm($bilag);
+  public function deleteAction(Request $request, Rapport $rapport, Bilag $bilag) {
+    $form = $this->createDeleteForm($rapport, $bilag);
     $form->handleRequest($request);
 
     $rapport = $bilag->getRapport();
@@ -230,21 +259,24 @@ class BilagController extends BaseController {
       $flash->success('bilag.confirmation.deleted');
     }
 
-    return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    return $this->redirect($this->generateUrl('rapport_bilag_get', array('rapport_id' => $rapport->getId())));
   }
 
   /**
    * Finds and displays a Bilag entity.
    *
-   * @Route("/{id}", name="bilag_show")
+   * @Route("/{bilag_id}", name="rapport_bilag_show")
    * @Method("GET")
-   * @TODO Security("is_granted('BILAG_VIEW', bilag)")
    * @param Bilag $bilag
+   * @ParamConverter("bilag", class="AppBundle:Bilag", options={"id" = "bilag_id"})
    * @return \Symfony\Component\HttpFoundation\Response
    */
-  public function showAction(Bilag $bilag) {
-    $deleteForm = $this->createDeleteForm($bilag);
-    $editForm = $this->createEditForm($bilag);
+  public function showAction(Rapport $rapport, Bilag $bilag) {
+    $this->setBreadcrumb($rapport);
+    $this->breadcrumbs->addItem($bilag->getTitel() ? $bilag->getTitel() : $bilag->getId(), $this->generateUrl('rapport_bilag_show', array('rapport_id' => $rapport->getId(), 'bilag_id' => $bilag->getId())));
+
+    $deleteForm = $this->createDeleteForm($rapport, $bilag);
+    $editForm = $this->createEditForm($rapport, $bilag);
 
     $template = $this->getTemplate('show');
     return $this->render($template, array(
@@ -257,12 +289,11 @@ class BilagController extends BaseController {
   /**
    * Sends a file to the client.
    *
-   * @Route("/{id}/download", name="bilag_download")
+   * @Route("/{bilag_id}/download", name="rapport_bilag_download")
    * @Method("GET")
+   * @ParamConverter("bilag", class="AppBundle:Bilag", options={"id" = "bilag_id"})
    * @param Bilag $bilag
    * @return \Symfony\Component\HttpFoundation\Response
-   *
-   * @TODO Security("is_granted('BILAG_VIEW', bilag)")
    */
   public function downloadAction(Bilag $bilag) {
     $path = $bilag->getFilepath();

@@ -635,40 +635,4 @@ class RapportController extends BaseController {
       'edit_form' => $editForm->createView(),
     );
   }
-
-  /**
-   * Creates a new Bilag entity.
-   *
-   * @Route("/{id}/bilag/new", name="rapport_bilag_create")
-   * @Method("GET")
-   * @Template("AppBundle:Bilag:new.html.twig")
-   * @Security("is_granted('RAPPORT_EDIT', rapport)")
-   *
-   * @param Rapport $rapport
-   *
-   * @return Response
-   */
-  public function newBilagAction(Rapport $rapport) {
-    return $this->redirect($this->generateUrl('bilag_rapport_create', array('id' => $rapport->getId())));
-  }
-
-  /**
-   * Get Bilag.
-   *
-   * @Route("/{id}/bilag", name="rapport_bilag_get")
-   * @Method("GET")
-   * @Template("AppBundle:Bilag:list.html.twig")
-   * @Security("is_granted('RAPPORT_VIEW', rapport)")
-   *
-   * @param Rapport $rapport
-   *
-   * @return Response
-   */
-  public function listBilagAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_bilag_get', array('id' => $rapport->getId())));
-
-    return array(
-      'entity' => $rapport
-    );
-  }
 }

@@ -7,7 +7,7 @@
       <h1>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h1>
     </div>
     <div class="col-md-8 text-right">
-      <a class="btn btn-default" href="{{ path('rapport_bilag_get', { 'id': entity.id }) }}">
+      <a class="btn btn-default" href="{{ path('rapport_bilag_get', { 'rapport_id': entity.id }) }}">
         {{ icon('file') }} {{ 'rapporter.actions.bilag' | trans }}
       </a>
       <a href="{{ path('rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">

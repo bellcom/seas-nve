@@ -13,16 +13,20 @@
           </tr>
         {% for bilag in entity.bilag %}
           <tr>
-            <td><a href="{{ path('bilag_edit', { 'id': bilag.id }) }}">{{ bilag.titel }}</a></td>
+            <td><a href="{{ path('rapport_bilag_edit', { 'rapport_id': entity.id, 'bilag_id': bilag.id }) }}">{{ bilag.titel }}</a></td>
             <td>{{ bilag.kommentar }}</td>
-            <td>{% if not bilag.filepath is empty %}<a target="_blank" href="{{ path('bilag_download', { 'id': bilag.id }) }}">{{ bilag.filename }}</a>{% endif %}</td>
+            <td>
+              {% if not bilag.filepath is empty %}
+                <a target="_blank" href="{{ path('rapport_bilag_download', { 'rapport_id': entity.id, 'bilag_id': bilag.id }) }}">{{ bilag.filename }}</a>
+              {% endif %}
+            </td>
           </tr>
         {% endfor %}
         </tbody>
       </table>
 
       {% if is_granted('ROLE_BYGNING_EDIT') %}
-        <a class="btn btn-default" href="{{ path('rapport_bilag_create', { 'id': entity.id }) }}">
+        <a class="btn btn-default" href="{{ path('rapport_bilag_create', { 'rapport_id': entity.id }) }}">
           {{ icon('factory') }} {{ 'rapporter.actions.bilag.create' | trans }}
         </a>
       {% endif %}
