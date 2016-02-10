@@ -105,7 +105,7 @@ class TiltagType extends AbstractType {
         ->add('besparelseGUF')
         ->add('besparelseGAF')
         ->add('besparelseEl')
-        ->add('besparelseDriftOgVedligeholdelse')
+        ->add('yderligereBesparelse')
         ->add('levetid');
 
       $builder->add('primaerEnterprise', 'choice',

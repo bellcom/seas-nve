@@ -35,11 +35,13 @@
           <td class="text-right">{{ entity.elbesparelse | number_format }}</td>
           <td>{{ 'appbundle.tiltag.elbesparelse.unit' | trans }}</td>
         </tr>
+        {% if entity.yderligereBesparelse is defined %}
         <tr>
-          <td>{{ 'appbundle.tiltag.vandbesparelse' | trans }}</td>
-          <td class="text-right">{{ entity.vandbesparelse | number_format }}</td>
-          <td>{{ 'appbundle.tiltag.vandbesparelse.unit' | trans }}</td>
+          <td>{{ 'appbundle.tiltag.yderligereBesparelse' | trans }}</td>
+          <td class="text-right">{{ entity.yderligereBesparelse | number_format }}</td>
+          <td>{{ 'appbundle.tiltag.yderligereBesparelse.unit' | trans }}</td>
         </tr>
+        {% endif %}
         </tbody>
         <tfoot>
         <tr>

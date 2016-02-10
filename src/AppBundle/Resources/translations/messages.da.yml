@@ -1175,6 +1175,8 @@ appbundle:
     besparelseGAF.unit: kWh/år
     besparelseGUF: Besparelse GUF
     besparelseGUF.unit: kWh/år
+    yderligereBesparelse: Yderligere besparelse
+    yderligereBesparelse.unit: kr/år
     besparelsesoverblik: Besparelsesoverblik
     besparelseStrafafkoelingsafgift: Besparelse på Strafafkølingsafgift
     besparelseStrafafkoelingsafgift.unit: kr

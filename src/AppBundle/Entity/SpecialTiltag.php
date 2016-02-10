@@ -47,6 +47,27 @@ class SpecialTiltag extends Tiltag {
    */
   protected $besparelseEl;
 
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="yderligereBesparelse", type="decimal", scale=4)
+   */
+  protected $yderligereBesparelse;
+
+  /**
+   * @return float
+   */
+  public function getYderligereBesparelse() {
+    return $this->yderligereBesparelse;
+  }
+
+  /**
+   * @param float $yderligereBesparelse
+   */
+  public function setYderligereBesparelse($yderligereBesparelse) {
+    $this->yderligereBesparelse = $yderligereBesparelse;
+  }
+
   public function setBesparelseGUF($besparelseGUF) {
     $this->besparelseGUF = $besparelseGUF;
 
@@ -121,7 +142,7 @@ class SpecialTiltag extends Tiltag {
 
   protected function calculateSamletEnergibesparelse() {
     return ($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh();
+      + $this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->yderligereBesparelse;
   }
 
   protected function calculateSamletCo2besparelse() {
