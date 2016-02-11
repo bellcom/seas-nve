@@ -50,8 +50,10 @@ class KlimaskaermTiltag extends Tiltag {
 
   protected function calculateLevetid() {
     $denominator = $this->sum(function($detail) {
+      $pris = $detail->getKlimaskaermOverskrevetPris() ? $detail->getKlimaskaermOverskrevetPris() : $detail->getKlimaskaerm()->getEnhedsprisEksklMoms();
+
       // AI
-      return $detail->getKlimaskaerm()->getEnhedsprisEksklMoms() * $detail->getArealM2();
+      return $pris * $detail->getArealM2();
     });
     if ($denominator == 0) {
       return 1;
@@ -61,7 +63,9 @@ class KlimaskaermTiltag extends Tiltag {
       $this->sum(function($detail) {
         // AK
         if ($detail->getLevetidAar() > 0) {
-          return $detail->getLevetidAar() * $detail->getKlimaskaerm()->getEnhedsprisEksklMoms() * $detail->getArealM2();
+          $pris = $detail->getKlimaskaermOverskrevetPris() ? $detail->getKlimaskaermOverskrevetPris() : $detail->getKlimaskaerm()->getEnhedsprisEksklMoms();
+
+          return $detail->getLevetidAar() * $pris * $detail->getArealM2();
         }
         else {
           return 0;

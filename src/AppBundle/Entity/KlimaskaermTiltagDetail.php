@@ -31,6 +31,13 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   protected $klimaskaerm;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="klimaskaermOverskrevetPris", type="decimal", scale=4, nullable=true)
+   */
+  protected $klimaskaermOverskrevetPris;
+
+  /**
    * @var string
    *
    * @ORM\Column(name="typePlaceringJfPlantegning", type="string")
@@ -200,6 +207,20 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   public function getKlimaskaerm() {
     return $this->klimaskaerm;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getKlimaskaermOverskrevetPris() {
+    return $this->klimaskaermOverskrevetPris;
+  }
+
+  /**
+   * @param mixed $klimaskaermOverskrevetPris
+   */
+  public function setKlimaskaermOverskrevetPris($klimaskaermOverskrevetPris) {
+    $this->klimaskaermOverskrevetPris = $klimaskaermOverskrevetPris;
   }
 
   public function setOrientering($orientering) {
