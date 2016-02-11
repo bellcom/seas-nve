@@ -401,7 +401,8 @@ appbundle:
     lyskildeStkArmatur.unit: stk/arm.
     lyskildeWLyskilde: Lyskilde
     lyskildeWLyskilde.unit: W/lysk.
-    noter: Noter
+    noter: Noter for eksisterende belysning
+    noterForNyBelysning: Noter for ny belysning
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
     nyArmatureffektWStk: Ny armatureffekt

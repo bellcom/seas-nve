@@ -37,6 +37,7 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       ->add('placering')
       ->add('styring')
       ->add('noter')
+      ->add('noterForNyBelysning')
       ->add('belysningstiltag')
       ->add('nyeSensorerStkLokale')
       ->add('standardinvestSensorKrStk')
