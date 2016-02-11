@@ -1246,7 +1246,8 @@ appbundle:
     tilvalgtAfAaPlus: Tilvalgt af Aa+
     tilvalgtAfMagistrat: Tilvalgt af Magistrat
     tilvalgtAfRaadgiver: Tilvalgt af Rådgiver
-    tilvalgtbegrundelse: Bemærkning
+    tilvalgtbegrundelse: Bemærkning Aa+
+    tilvalgtBegrundelseMagistrat: Bemærkning Magistrat
   user:
     bygninger: Bygninger
     email: Email

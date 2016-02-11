@@ -83,9 +83,18 @@ abstract class Tiltag {
   /**
    * @var string
    *
+   * This is: Begrundelse Aa+
+   *
    * @ORM\Column(name="tilvalgtbegrundelse", type="text", nullable=true)
    */
   protected $tilvalgtbegrundelse;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="tilvalgtBegrundelseMagistrat", type="text", nullable=true)
+   */
+  protected $tilvalgtBegrundelseMagistrat;
 
   /**
    * @var string
@@ -416,6 +425,20 @@ abstract class Tiltag {
    */
   public function getId() {
     return $this->id;
+  }
+
+  /**
+   * @return string
+   */
+  public function getTilvalgtBegrundelseMagistrat() {
+    return $this->tilvalgtBegrundelseMagistrat;
+  }
+
+  /**
+   * @param string $tilvalgtBegrundelseMagistrat
+   */
+  public function setTilvalgtBegrundelseMagistrat($tilvalgtBegrundelseMagistrat) {
+    $this->tilvalgtBegrundelseMagistrat = $tilvalgtBegrundelseMagistrat;
   }
 
   /**
