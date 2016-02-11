@@ -33,6 +33,7 @@
           {{ helper.header('appbundle.belysningtiltagdetail.reduktionAfDrifttid') }}
           {{ helper.header('appbundle.belysningtiltagdetail.nyDriftstid') }}
           {{ helper.header('appbundle.belysningtiltagdetail.standardinvestArmaturKrStk') }}
+          {{ helper.header('appbundle.belysningtiltagdetail.noterForNyBelysning') }}
           {{ helper.header('appbundle.belysningtiltagdetail.nyLyskilde') }}
           {{ helper.header('appbundle.belysningtiltagdetail.nyLyskildeStkArmatur') }}
           {{ helper.header('appbundle.belysningtiltagdetail.nyLyskildeWLyskilde') }}
@@ -75,6 +76,7 @@
           {{ helper.header_unit('appbundle.belysningtiltagdetail.reduktionAfDrifttid') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.nyDriftstid') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.standardinvestArmaturKrStk') }}
+          {{ helper.header_unit('appbundle.belysningtiltagdetail.noterForNyBelysning') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.nyLyskilde') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.nyLyskildeStkArmatur') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.nyLyskildeWLyskilde') }}
@@ -122,6 +124,7 @@
             <td class="number">{{ detail.reduktionAfDrifttid | format_percent }}</td>
             <td class="number">{{ detail.nyDriftstid | format_decimal }}</td>
             <td class="number">{{ detail.standardinvestArmaturKrStk | format_decimal }}</td>
+            <td>{{ detail.noterForNyBelysning }}</td>
             <td>{{ detail.nyLyskilde }}</td>
             <td class="number">{{ detail.nyLyskildeStkArmatur | format_integer }}</td>
             <td class="number">{{ detail.nyLyskildeWLyskilde | format_decimal }}</td>

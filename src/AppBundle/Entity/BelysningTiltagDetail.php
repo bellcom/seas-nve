@@ -122,9 +122,18 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
+   * This is: noterForEksisterendeBelysning
+   *
    * @ORM\Column(name="noter", type="text", nullable=true)
    */
   protected $noter;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="noterForNyBelysning", type="text", nullable=true)
+   */
+  protected $noterForNyBelysning;
 
   /**
    * @var string
@@ -306,6 +315,20 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @ORM\Column(name="kWhBesparelseVarmeFraVarmevaerket", type="float")
    */
   protected $kWhBesparelseVarmeFraVarmevaerket;
+
+  /**
+   * @return string
+   */
+  public function getNoterForNyBelysning() {
+    return $this->noterForNyBelysning;
+  }
+
+  /**
+   * @param string $noterForNyBelysning
+   */
+  public function setNoterForNyBelysning($noterForNyBelysning) {
+    $this->noterForNyBelysning = $noterForNyBelysning;
+  }
 
   /**
    * Set lokale_navn
