@@ -66,7 +66,7 @@ class Rapport {
 
   /**
    * @OneToMany(targetEntity="Tiltag", mappedBy="rapport", cascade={"persist", "remove"})
-   * @OrderBy({"title" = "ASC"})
+   * @OrderBy({"id" = "ASC"})
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Tiltag>")
    */
   protected $tiltag;
