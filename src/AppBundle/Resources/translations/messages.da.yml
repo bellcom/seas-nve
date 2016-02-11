@@ -1027,6 +1027,7 @@ appbundle:
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
     sum.unit: kr
     sum: Sum
+    tiltag: Tiltag
     tilvalg: Tilvalg
     timeforbrug: Forventet timeforbrug for lokalpersonalet
     timeforbrug.unit: kr

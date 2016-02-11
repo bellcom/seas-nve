@@ -1,0 +1,60 @@
+<div class="pdf-tiltagsliste-wrapper">
+  <div class="panel panel-default pdf-tiltagsliste">
+    <div class="panel-heading"><h3 class="panel-title">{{ 'appbundle.rapport.tiltag' | trans }}</h3></div>
+
+    <table class="table table-condensed table-header-rotated table-hover pdf-tiltagsliste">
+      <thead>
+      <tr>
+        {{ helper.header( 'appbundle.tiltag.title') }}
+        {{ helper.header( 'appbundle.tiltag.tilvalgt') }}
+        {{ helper.header( 'appbundle.tiltag.varmebesparelseGUF') }}
+        {{ helper.header( 'appbundle.tiltag.varmebesparelseGAF') }}
+        {{ helper.header( 'appbundle.tiltag.elbesparelse') }}
+        {{ helper.header( 'appbundle.tiltag.samletEnergibesparelse') }}
+        {{ helper.header( 'appbundle.tiltag.besparelseStrafafkoelingsafgift') }}
+        {{ helper.header( 'appbundle.tiltag.besparelseDriftOgVedligeholdelse') }}
+        {{ helper.header( 'appbundle.tiltag.anlaegsInvestering') }}
+        {{ helper.header( 'appbundle.tiltag.simpelTilbagebetalingstidAar') }}
+        {{ helper.header( 'appbundle.tiltag.levetid') }}
+        {{ helper.header( 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr') }}
+        {{ helper.header( ) }}
+      </tr>
+      <tr>
+        {{ helper.header_unit( ) }}
+        {{ helper.header_unit( ) }}
+        {{ helper.header_unit( 'appbundle.tiltag.varmebesparelseGUF') }}
+        {{ helper.header_unit( 'appbundle.tiltag.varmebesparelseGAF') }}
+        {{ helper.header_unit( 'appbundle.tiltag.elbesparelse') }}
+        {{ helper.header_unit( 'appbundle.tiltag.samletEnergibesparelse') }}
+        {{ helper.header_unit( 'appbundle.tiltag.besparelseStrafafkoelingsafgift') }}
+        {{ helper.header_unit( 'appbundle.tiltag.besparelseDriftOgVedligeholdelse') }}
+        {{ helper.header_unit( 'appbundle.tiltag.anlaegsInvestering') }}
+        {{ helper.header_unit( 'appbundle.tiltag.simpelTilbagebetalingstidAar') }}
+        {{ helper.header_unit( 'appbundle.tiltag.levetid') }}
+        {{ helper.header_unit( 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr') }}
+        {{ helper.header_unit( ) }}
+      </tr>
+      </thead>
+      <tbody>
+      {% for t in tiltag %}
+        <tr>
+          <td>{{ t.title }}</td>
+          <td>{{ t.tilvalgt | b2icon }}</td>
+          <td class="text-right">{{ t.varmebesparelseGUF | format_zeros }}</td>
+          <td class="text-right">{{ t.varmebesparelseGAF | format_zeros }}</td>
+          <td class="text-right">{{ t.elbesparelse | format_zeros }}</td>
+          <td class="text-right">{{ t.samletEnergibesparelse | format_zeros }}</td>
+          <td class="text-right">{{ t.besparelseStrafafkoelingsafgift | format_zeros }}</td>
+          <td class="text-right">{{ t.besparelseDriftOgVedligeholdelse | format_zeros }}</td>
+          <td class="text-right">{{ t.anlaegsinvestering | format_zeros }}</td>
+          <td class="text-right">{{ t.simpelTilbagebetalingstidAar | format_one_decimal }}</td>
+          <td class="text-right">{{ t.levetid | format_zeros }}</td>
+          <td class="text-right">{{ t.nutidsvaerdiSetOver15AarKr | format_zeros }}</td>
+          <td></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
