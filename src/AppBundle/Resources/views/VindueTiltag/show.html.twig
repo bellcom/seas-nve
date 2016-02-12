@@ -13,6 +13,7 @@
           {{ helper.header() }}
           {{ helper.header('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header('appbundle.vinduetiltagdetail.orientering') }}
           {{ helper.header('appbundle.vinduetiltagdetail.eRefEksKWhM2Aar') }}
           {{ helper.header('appbundle.vinduetiltagdetail.eWEksKWhM2Aar') }}
@@ -32,7 +33,6 @@
           {{ helper.header('appbundle.vinduetiltagdetail.prisfaktor') }}
           {{ helper.header('appbundle.vinduetiltagdetail.samletInvesteringKr') }}
           {{ helper.header('appbundle.vinduetiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header('appbundle.vinduetiltagdetail.levetidAar') }}
           {{ helper.header('appbundle.vinduetiltagdetail.faktorForReinvestering') }}
           {{ helper.header('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
@@ -44,6 +44,7 @@
           {{ helper.header_unit() }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header_unit('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.orientering') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.eRefEksKWhM2Aar') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.eWEksKWhM2Aar') }}
@@ -63,7 +64,6 @@
           {{ helper.header_unit('appbundle.vinduetiltagdetail.prisfaktor') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.samletInvesteringKr') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.levetidAar') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.faktorForReinvestering') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
@@ -80,6 +80,7 @@
             </td>
             <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
             <td>{{ detail.tilvalgt | b2icon }}</td>
+            <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
             <td>{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
             <td>{{ detail.eRefEksKWhM2Aar | format_decimal }}</td>
             <td>{{ detail.eWEksKWhM2Aar | format_decimal }}</td>
@@ -99,7 +100,6 @@
             <td>{{ detail.prisfaktor | format_decimal }}</td>
             <td>{{ detail.samletInvesteringKr | format_decimal }}</td>
             <td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
-            <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
             <td>{{ detail.levetidAar | format_decimal }}</td>
             <td>{{ detail.faktorForReinvestering | format_decimal }}</td>
             <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>

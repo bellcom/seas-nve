@@ -14,6 +14,7 @@
           {{ helper.header() }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.klimaskaerm') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.orientering') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.typePlaceringJfPlantegning') }}
@@ -32,7 +33,6 @@
           {{ helper.header('appbundle.klimaskaermtiltagdetail.prisfaktor') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.samletInvesteringKr') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.levetidAar') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.faktorForReinvestering') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
@@ -43,6 +43,7 @@
           {{ helper.header_unit() }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.orientering') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.klimaskaerm') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.typePlaceringJfPlantegning') }}
@@ -61,7 +62,6 @@
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.prisfaktor') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.samletInvesteringKr') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.levetidAar') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.faktorForReinvestering') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
@@ -77,6 +77,7 @@
             </td>
             <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
             <td>{{ detail.tilvalgt | b2icon }}</td>
+            <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
             <td>{{ detail.klimaskaerm }}</td>
             <td>{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
             <td>{{ detail.typePlaceringJfPlantegning }}</td>
@@ -95,7 +96,6 @@
             <td>{{ detail.prisfaktor | format_decimal }}</td>
             <td>{{ detail.samletInvesteringKr | format_decimal }}</td>
             <td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
-            <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
             <td>{{ detail.levetidAar | format_decimal }}</td>
             <td>{{ detail.faktorForReinvestering | format_decimal }}</td>
             <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
