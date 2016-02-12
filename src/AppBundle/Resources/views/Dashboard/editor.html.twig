@@ -16,7 +16,6 @@
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.updatedAt'|trans, 'b.updatedAt') }}</th>
-              <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.energiRaadgiver' | trans, 'b.energiRaadgiver') }}</th>
               <th></th>
             </tr>
             {% for r in current_buildings %}
@@ -25,7 +24,6 @@
                 <td>{{ r.bygning.adresse }}</td>
                 <td>{{ r.bygning.postBy }}</td>
                 <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
-                <td>{{ r.bygning.energiRaadgiver }}</td>
                 <td class="text-right">
                   <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-default btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
                 </td>
@@ -58,7 +56,6 @@
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.updatedAt'|trans, 'b.updatedAt') }}</th>
-              <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.energiRaadgiver' | trans, 'b.energiRaadgiver') }}</th>
               <th></th>
             </tr>
             {% for r in finished_buildings %}
@@ -67,7 +64,6 @@
                 <td>{{ r.bygning.adresse }}</td>
                 <td>{{ r.bygning.postBy }}</td>
                 <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
-                <td>{{ r.bygning.energiRaadgiver }}</td>
                 <td class="text-right">
                   <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-default btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
                 </td>
