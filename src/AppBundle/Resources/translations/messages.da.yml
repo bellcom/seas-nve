@@ -1291,6 +1291,9 @@ appbundle:
     hoejdeElLaengdeM.unit: m
     ikkeElenaBerettiget: Ikke Elena Berettiget
     klimaskaerm: Tiltag
+    klimaskaermOverskrevetPris: Vinduestiltag overskrevet pris
+    klimaskaermOverskrevetPris.unit: kr/m²
+    klimaskaermOverskrevetPris.help: Indtast pris kr/m² for at overskrive valg i priskategori
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
     laastAfEnergiraadgiver: Låst af energirådgiver

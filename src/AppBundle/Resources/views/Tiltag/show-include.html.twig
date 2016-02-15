@@ -126,6 +126,35 @@
   <div class="col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
+        <h3 class="panel-title">{{ 'appbundle.tiltag.beskrivelse' | trans }}</h3>
+      </div>
+      <table class="table">
+        <tbody>
+        <tr>
+          <th>{{ 'appbundle.tiltag.beskrivelseNuvaerende' | trans }}</th>
+          <td class="multiline">{{ entity.beskrivelseNuvaerende }}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.tiltag.beskrivelseForslag' | trans }}</th>
+          <td class="multiline">{{ entity.beskrivelseForslag }}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.tiltag.beskrivelseOevrige' | trans }}</th>
+          <td class="multiline">{{ entity.beskrivelseOevrige }}</td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
         <h3 class="panel-title">{{ 'appbundle.tiltag.forsyningsoverblik' | trans }}</h3>
       </div>
       <div class="panel-body">
@@ -179,35 +208,6 @@
         <tr>
           <th>{{ 'appbundle.tiltag.indeklima' | trans }}</th>
           <td>{{ entity.indeklima }}</td>
-          <td></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">{{ 'appbundle.tiltag.beskrivelse' | trans }}</h3>
-      </div>
-      <table class="table">
-        <tbody>
-        <tr>
-          <th>{{ 'appbundle.tiltag.beskrivelseNuvaerende' | trans }}</th>
-          <td class="multiline">{{ entity.beskrivelseNuvaerende }}</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.tiltag.beskrivelseForslag' | trans }}</th>
-          <td class="multiline">{{ entity.beskrivelseForslag }}</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.tiltag.beskrivelseOevrige' | trans }}</th>
-          <td class="multiline">{{ entity.beskrivelseOevrige }}</td>
           <td></td>
         </tr>
         </tbody>
