@@ -599,6 +599,18 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     return $this->kWhBesparVarmevaerkEksternEnergikilde;
   }
 
+
+  /**
+   * Get pris pr. m2 for klimaskærm
+   *
+   * If klimaskaermOverskrevetPris is set, this price takes precedence. Otherwise use default price klimaskaerm table
+   *
+   * @return float
+   */
+  public function getEnhedsprisEksklMoms() {
+    return $this->klimaskaermOverskrevetPris ? $this->klimaskaermOverskrevetPris : $this->klimaskaerm->getEnhedsprisEksklMoms();
+  }
+
   public function calculate() {
     $this->arealM2 = $this->calculateArealM2();
     $this->besparelseKWhAar = $this->calculateBesparelseKWhAar();
@@ -633,7 +645,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   private function calculateSamletInvesteringKr() {
     // "AE": "Samlet investering (kr)"
-    return $this->klimaskaerm->getEnhedsprisEksklMoms() * $this->prisfaktor * $this->arealM2;
+    return $this->getEnhedsprisEksklMoms() * $this->prisfaktor * $this->arealM2;
   }
 
   private function calculateSimpelTilbagebetalingstidAar() {
