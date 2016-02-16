@@ -67,7 +67,7 @@ class BygningTilknytRaagiverController extends BaseController implements InitCon
    *
    * @Route("/", name="bygning_tilknyt_update")
    * @Method("PUT")
-   * @Template("AppBundle:BygningIndfoer:index.html.twig")
+   * @Template("AppBundle:BygningTilknytRaagiver:index.html.twig")
    */
   public function updateAction(Request $request, Bygning $bygning) {
     if(!$bygning->getRapport()) {
