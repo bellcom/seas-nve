@@ -1701,27 +1701,42 @@ class Rapport {
   }
 
   private function calculateBaselineCO2El() {
-    $this->getBaselineEl() * $this->getElKgCo2MWh(2009) / 1000;
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
+    $elKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
+
+    return $this->BaselineEl * $elKgCo2MWh / 1000;
   }
 
   private function calculateBaselineCO2Varme() {
-    // @TODO
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
+    $varmeKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
+
+    return ($this->BaselineVarmeGUF + $this->BaselineVarmeGAF) * $varmeKgCo2MWh / 1000;
   }
 
   private function calculateBaselineCO2Samlet() {
-    // @TODO
+    return $this->BaselineCO2El + $this->BaselineCO2Varme;
   }
 
   private function calculateCO2BesparelseElProcent() {
-    // @TODO
+    if ($this->BaselineCO2El != 0) {
+      return ($this->BaselineCO2El - $this->co2BesparelseEl) / $this->BaselineCO2El * 100;
+    }
+    return null;
   }
 
   private function calculateCO2BesparelseVarmeProcent() {
-    // @TODO
+    if ($this->BaselineCO2Varme != 0) {
+      return ($this->BaselineCO2Varme - $this->co2BesparelseVarme) / $this->BaselineCO2Varme * 100;
+    }
+    return null;
   }
 
   private function calculateCO2BesparelseSamletProcent() {
-    // @TODO
+    if ($this->BaselineCO2Samlet != 0) {
+      return ($this->BaselineCO2Samlet - $this->besparelseCO2) / $this->BaselineCO2Samlet * 100;
+    }
+    return null;
   }
 
   private function calculateCo2BesparelseEl() {
