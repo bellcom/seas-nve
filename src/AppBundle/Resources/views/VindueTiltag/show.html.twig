@@ -7,12 +7,15 @@
 {% block detailark -%}
   <div class="row">
     <div class="col-md-12">
+
+      {{ form_start(edit_form) }}
+
       <table class="table table-condensed table-header-rotated table-hover">
         <thead>
         <tr>
           {{ helper.header() }}
-          {{ helper.header('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header('appbundle.vinduetiltagdetail.orientering') }}
           {{ helper.header('appbundle.vinduetiltagdetail.eRefEksKWhM2Aar') }}
@@ -42,8 +45,8 @@
         </tr>
         <tr>
           {{ helper.header_unit() }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header_unit('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.orientering') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.eRefEksKWhM2Aar') }}
@@ -73,13 +76,16 @@
         </tr>
         </thead>
         <tbody>
-        {% for detail in entity.details %}
+        {% for form_detail in edit_form.details %}
+          {% set detail = details[form_detail.vars['value'].id] %}
           <tr>
             <td>
               {{ block('tiltag_detail_edit') }}
             </td>
+            <td>
+              {{ form_row(form_detail.tilvalgt) }}
+            </td>
             <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
-            <td>{{ detail.tilvalgt | b2icon }}</td>
             <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
             <td>{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
             <td>{{ detail.eRefEksKWhM2Aar | format_decimal }}</td>
@@ -110,6 +116,9 @@
         {% endfor %}
         </tbody>
       </table>
+
+      {{ form_rest(edit_form) }}
+      {{ form_end(edit_form) }}
     </div>
   </div>
 

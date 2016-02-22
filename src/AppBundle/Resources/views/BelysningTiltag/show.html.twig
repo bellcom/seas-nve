@@ -7,6 +7,9 @@
 {% block detailark -%}
   <div class="row">
     <div class="col-md-12">
+
+      {{ form_start(edit_form) }}
+
       <table class="table table-condensed table-header-rotated table-hover">
         <thead>
         <tr>
@@ -97,12 +100,15 @@
         </tr>
         </thead>
         <tbody>
-        {% for detail in entity.details %}
+        {% for form_detail in edit_form.details %}
+          {% set detail = details[form_detail.vars['value'].id] %}
           <tr>
             <td>
               {{ block('tiltag_detail_edit') }}
             </td>
-            <td>{{ detail.tilvalgt | b2icon }}</td>
+            <td>
+              {{ form_row(form_detail.tilvalgt) }}
+            </td>
             <td>{{ detail.noter }}</td>
             <td>{{ detail.noterForNyBelysning }}</td>
             <td>{{ detail.lokaleNavn }}</td>
@@ -146,6 +152,9 @@
         {% endfor %}
         </tbody>
       </table>
+
+      {{ form_end(edit_form) }}
+
     </div>
   </div>
 

@@ -100,7 +100,7 @@ form.inline-block {
     background-color: #f1f1f1;
 }
 
-div.tab-content div.row:first-child {
+div.tab-content div.row div.panel {
     margin-top: 1.5em;
 }
 
@@ -112,6 +112,13 @@ th.unit {
 .table>tfoot>tr>th {
     border-top: 2px solid #ddd;
 }
+
+table .checkbox input[type=checkbox], table .checkbox-inline input[type=checkbox], table .radio input[type=radio], table .radio-inline input[type=radio] {
+    position: absolute;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
 
 /**
  * Additional styles for BraincraftedBootstrapBundle
