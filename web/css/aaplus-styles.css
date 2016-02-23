@@ -100,8 +100,12 @@ form.inline-block {
     background-color: #f1f1f1;
 }
 
-div.tab-content div.row div.panel {
+div.tab-content div.row:first-child {
     margin-top: 1.5em;
+}
+
+div.tab-content div.details-overview:first-child {
+    margin-top: 0;
 }
 
 th.unit {
