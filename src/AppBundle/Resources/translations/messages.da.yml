@@ -824,10 +824,12 @@ appbundle:
     hoejdeElLaengdeM.unit: m
     ikkeElenaBerettiget: Ikke Elena Berettiget
     klimaskaerm: Priskategori
+    klimaskaerm.empty: Andet (oplys pris)
     klimaskaerm_label: Klimaskærm
     klimaskaermOverskrevetPris: Klimaskærm overskrevet pris
-    klimaskaermOverskrevetPris.unit: kr/m²
     klimaskaermOverskrevetPris.help: Indtast pris kr/m² for at overskrive valg i priskategori
+    klimaskaermOverskrevetPris.unit: kr/m²
+    klimaskaermOverskrevetPris.validation: Klimaskærm overskrevet pris skal udfyldes hvis der er ikke er valgt tiltag
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
     kWhBesparElvaerkEksternEnergikilde.unit: ??
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)

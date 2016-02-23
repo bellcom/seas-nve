@@ -19,6 +19,31 @@
   {% endspaceless %}
 {% endblock form_help %}
 
+{% block form_errors %}
+  {% spaceless %}
+    {% set global_errors = global_errors|default(false) %}
+    {% set style = style|default(bootstrap_get_style()) %}
+
+    {% if attr.style is defined and attr.style is not empty %}
+      {% set style = attr.style %}
+    {% endif %}
+
+    {% if errors|length > 0 %}
+      {% if global_errors %}
+        <div class="alert alert-danger">
+      {% endif %}
+      <ul{% if not global_errors %} class="help-block"{% endif %}>
+        {% for error in errors %}
+          <li>{{ error.message | trans({}, translation_domain) }}</li>
+        {% endfor %}
+      </ul>
+      {% if global_errors == true %}
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endspaceless %}
+{% endblock form_errors %}
+
 {% block form_input_group %}
   {% set unit_text = id|get_unit %}
 
