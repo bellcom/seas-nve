@@ -1540,6 +1540,10 @@ class Rapport {
   }
 
   public function calculate() {
+    $this->BaselineCO2El = $this->calculateBaselineCO2El();
+    $this->BaselineCO2Varme = $this->calculateBaselineCO2Varme();
+    $this->BaselineCO2Samlet = $this->calculateBaselineCO2Samlet();
+
     $this->besparelseVarmeGUF = $this->calculateBesparelseVarmeGUF();
     $this->fravalgtBesparelseVarmeGUF = $this->calculateFravalgtBesparelseVarmeGUF();
     $this->besparelseVarmeGAF = $this->calculateBesparelseVarmeGAF();
@@ -1549,10 +1553,6 @@ class Rapport {
     $this->fravalgtBesparelseCO2 = $this->calculateFravalgtBesparelseCO2();
     $this->co2BesparelseEl = $this->calculateCo2BesparelseEl();
     $this->co2BesparelseVarme = $this->calculateCo2BesparelseVarme();
-
-    $this->BaselineCO2El = $this->calculateBaselineCO2El();
-    $this->BaselineCO2Varme = $this->calculateBaselineCO2Varme();
-    $this->BaselineCO2Samlet = $this->calculateBaselineCO2Samlet();
 
     $this->co2BesparelseElFaktor = $this->calculateCO2BesparelseElFaktor();
     $this->co2BesparelseVarmeFaktor = $this->calculateCO2BesparelseVarmeFaktor();
@@ -1677,11 +1677,7 @@ class Rapport {
   }
 
   private function calculateBesparelseCO2() {
-    $value = 0;
-    foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      $value += $tiltag->getSamletCo2besparelse();
-    }
-    return $value;
+    return $this->co2BesparelseEl + $this->co2BesparelseVarme;
   }
 
   private function calculateFravalgtBesparelseCO2() {
