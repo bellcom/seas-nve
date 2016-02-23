@@ -1757,7 +1757,12 @@ class Rapport {
     $vaerk = $this->getBygning()->getForsyningsvaerkVarme();
     if($vaerk) {
       $VarmeKgCo2MWh = $this->getBygning()->getForsyningsvaerkVarme()->getKgCo2MWh($year);
-      return (($this->besparelseVarmeGAF + $this->besparelseVarmeGUF) / 1000) * ($VarmeKgCo2MWh / 1000);
+
+      $baselineMWh = $this->BaselineVarmeGAF + $this->BaselineVarmeGUF;
+      $newMwh = $baselineMWh - ($this->besparelseVarmeGAF + $this->besparelseVarmeGUF);
+      $newCO2 = ($newMwh / 1000) * ($VarmeKgCo2MWh / 1000);
+
+      return $this->BaselineCO2Varme - $newCO2;
     } else {
       return 0;
     }
