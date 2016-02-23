@@ -1,6 +1,5 @@
 {% extends 'BraincraftedBootstrapBundle:Form:bootstrap.html.twig' %}
 
-
 {% block button_row %}
   {% spaceless %}
   <div class="form-group text-right">
@@ -100,7 +99,7 @@
       {% if as_link is defined and as_link == true %}
         <a {{ block('button_attributes') }}>{% if attr.icon is defined and attr.icon != '' %}{{ icon(attr.icon) }}{% endif %}{{ label|trans({}, translation_domain) }}</a>
       {% else %}
-        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{% if attr.icon is defined and attr.icon != '' %}{{ icon(attr.icon) }}{% endif %}{{ label|trans({}, translation_domain) }}</button>
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{% if attr.icon is defined and attr.icon != '' %}{{ icon(attr.icon) }} {% endif %}{{ label|trans({}, translation_domain) }}</button>
       {% endif %}
     {% endif %}
 

@@ -77,8 +77,13 @@ form.inline-block {
 .table-header-rotated th.rotate > div {
     transform: translate(-15px, 15px) rotate(-45deg);
     -webkit-transform: translate(-15px, 15px) rotate(-45deg);
+    -ms-transform: translate(-15px, 15px) rotate(-45deg);
+    -moz-transform: translate(-15px, 15px) rotate(-45deg);
     position: relative;
     transform-origin: 0% 0%;
+    -webkit-transform-origin: 0% 0%;
+    -ms-transform-origin: 0% 0%;
+    -moz-transform-origin: 0% 0%;
     left: 50%;
     top: 0;
     margin-right: -999px;
@@ -123,7 +128,10 @@ th.unit {
 .bootstrap-date {
     width: 100%;
 }
-.bootstrap-date select {
+.bootstrap-date-range {
+    display: inline-block;
+}
+.bootstrap-date select, .bootstrap-date-range select {
     display: inline-block;
     width: auto;
     margin-right: 5px;
@@ -483,6 +491,10 @@ tr.search {
 
 tr.search .form-group {
     margin-bottom: 0;
+}
+
+tr.search .checkbox input[type=checkbox], tr.search .checkbox-inline input[type=checkbox], tr.search .radio input[type=radio], tr.search .radio-inline input[type=radio] {
+    margin-left: 0;
 }
 
 div.row.heading .btn {

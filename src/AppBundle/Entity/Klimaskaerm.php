@@ -131,7 +131,7 @@ class Klimaskaerm {
   }
 
   public function __toString() {
-    return $this->post . ': ' . $this->klimaskaerm . ($this->arbejdeOmfang ? ' – ' . $this->arbejdeOmfang : '');
+    return $this->post . ': ' . $this->klimaskaerm . ($this->arbejdeOmfang ? ' – ' . $this->arbejdeOmfang : '') . ($this->enhedsprisEksklMoms ? ' - ' . round($this->enhedsprisEksklMoms, 2) . ' ' . $this->enhed  : '');
   }
 
 }

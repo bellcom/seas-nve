@@ -31,6 +31,13 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   protected $klimaskaerm;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="klimaskaermOverskrevetPris", type="decimal", scale=4, nullable=true)
+   */
+  protected $klimaskaermOverskrevetPris;
+
+  /**
    * @var string
    *
    * @ORM\Column(name="typePlaceringJfPlantegning", type="string")
@@ -200,6 +207,20 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   public function getKlimaskaerm() {
     return $this->klimaskaerm;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getKlimaskaermOverskrevetPris() {
+    return $this->klimaskaermOverskrevetPris;
+  }
+
+  /**
+   * @param mixed $klimaskaermOverskrevetPris
+   */
+  public function setKlimaskaermOverskrevetPris($klimaskaermOverskrevetPris) {
+    $this->klimaskaermOverskrevetPris = $klimaskaermOverskrevetPris;
   }
 
   public function setOrientering($orientering) {
@@ -578,6 +599,18 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     return $this->kWhBesparVarmevaerkEksternEnergikilde;
   }
 
+
+  /**
+   * Get pris pr. m2 for klimaskærm
+   *
+   * If klimaskaermOverskrevetPris is set, this price takes precedence. Otherwise use default price klimaskaerm table
+   *
+   * @return float
+   */
+  public function getEnhedsprisEksklMoms() {
+    return $this->klimaskaermOverskrevetPris ? $this->klimaskaermOverskrevetPris : $this->klimaskaerm->getEnhedsprisEksklMoms();
+  }
+
   public function calculate() {
     $this->arealM2 = $this->calculateArealM2();
     $this->besparelseKWhAar = $this->calculateBesparelseKWhAar();
@@ -612,7 +645,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
   private function calculateSamletInvesteringKr() {
     // "AE": "Samlet investering (kr)"
-    return $this->klimaskaerm->getEnhedsprisEksklMoms() * $this->prisfaktor * $this->arealM2;
+    return $this->getEnhedsprisEksklMoms() * $this->prisfaktor * $this->arealM2;
   }
 
   private function calculateSimpelTilbagebetalingstidAar() {

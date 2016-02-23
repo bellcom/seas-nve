@@ -1,0 +1,40 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-condensed">
+        <tbody>
+          <tr>
+            <th>{{ 'appbundle.bilag.titel' | trans }}</th>
+            <th>{{ 'appbundle.bilag.kommentar' | trans }}</th>
+            <th>{{ 'appbundle.bilag.filepath' | trans }}</th>
+            <th>{{ 'appbundle.bilag.updated_by' | trans }}</th>
+            <th>{{ 'appbundle.bilag.updated_at' | trans }}</th>
+          </tr>
+        {% for bilag in entity.bilag %}
+          <tr>
+            <td><a href="{{ path('rapport_bilag_edit', { 'rapport_id': entity.id, 'bilag_id': bilag.id }) }}">{{ bilag.titel }}</a></td>
+            <td>{{ bilag.kommentar }}</td>
+            <td>
+              {% if not bilag.filepath is empty %}
+                <a target="_blank" href="{{ path('rapport_bilag_download', { 'rapport_id': entity.id, 'bilag_id': bilag.id }) }}">{{ bilag.filename }}</a>
+              {% endif %}
+            </td>
+            <td>{{ bilag.updatedBy }}</td>
+            <td>{{ bilag.updatedAt | date('F j, Y H:i') }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+      {% if is_granted('ROLE_BYGNING_EDIT') %}
+        <a class="btn btn-primary" href="{{ path('bilag_rapport_new', { 'rapport_id': entity.id }) }}">
+          {{ icon('plus') }} {{ 'bilag.actions.create' | trans }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

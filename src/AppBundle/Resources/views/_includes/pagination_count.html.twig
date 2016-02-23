@@ -1,0 +1,16 @@
+{% if pagination is defined %}
+  {% set startNumber = (pagination.getCurrentPageNumber - 1) * pagination.getItemNumberPerPage + 1 %}
+  {% if startNumber > pagination.getTotalItemCount %}
+    {% set startNumber = pagination.getTotalItemCount %}
+  {% endif %}
+
+  {% set endNumber =  pagination.getCurrentPageNumber * pagination.getItemNumberPerPage%}
+  {% if endNumber > pagination.getTotalItemCount %}
+    {% set endNumber =  pagination.getTotalItemCount %}
+  {% endif %}
+
+  {{ 'common.showing' | trans }}: {{ startNumber }} - {{ endNumber }} / {{ pagination.getTotalItemCount }}
+
+{% else %}
+  Error: pagination not defined!
+{% endif %}

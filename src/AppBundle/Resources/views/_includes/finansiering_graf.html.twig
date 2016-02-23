@@ -23,21 +23,21 @@
           }({{ entity.cashFlow['cash flow'] | keys | json_encode | raw }})),
           datasets: [ {
             label: {{ 'Besparelse' | trans | json_encode | raw }},
-            fillColor: 'rgba(51,87,105,0.5)',
-            strokeColor: 'rgba(51,87,105,1)',
-            pointColor: 'rgba(51,87,105,1)',
+            fillColor: 'rgba(195,75,68,0.2)',
+            strokeColor: 'rgba(195,75,68,1)',
+            pointColor: 'rgba(195,75,68,1)',
             pointStrokeColor: '#fff',
             pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(151,187,205,1)',
+            pointHighlightStroke: 'rgba(195,75,68,1)',
             data: formatData({{ entity.cashFlow['besparelse'] | json_encode | raw }})
           }, {
             label: {{ 'Ydelse, lån inkl. fællesomkostninger' | trans | json_encode | raw }},
-            fillColor: 'rgba(120,120,120,0.5)',
-            strokeColor: 'rgba(120,120,120,1)',
-            pointColor: 'rgba(120,120,120,1)',
+            fillColor: 'rgba(70,123,190,0.2)',
+            strokeColor: 'rgba(70,123,190,1)',
+            pointColor: 'rgba(70,123,190,1)',
             pointStrokeColor: '#fff',
             pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(120,120,120,1)',
+            pointHighlightStroke: 'rgba(70,123,190,1)',
             data: formatData({{ entity.cashFlow['ydelse laan'] | json_encode | raw }})
           } ]
         },
@@ -45,7 +45,9 @@
           animation: !true,
           responsive: true,
           maintainAspectRatio: false,
-          datasetFill: false
+          datasetFill: true,
+          bezierCurve : true,
+          bezierCurveTension : 0.2
         },
         ctx = document.querySelector('#chart canvas').getContext('2d'),
         chart = new Chart(ctx).Line(data, options);

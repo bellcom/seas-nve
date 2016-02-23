@@ -12,6 +12,8 @@
         <tr>
           {{ helper.header() }}
           {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header('appbundle.belysningtiltagdetail.noter') }}
+          {{ helper.header('appbundle.belysningtiltagdetail.noterForNyBelysning') }}
           {{ helper.header('appbundle.belysningtiltagdetail.lokale.navn') }}
           {{ helper.header('appbundle.belysningtiltagdetail.lokale.type') }}
           {{ helper.header('appbundle.belysningtiltagdetail.armaturhoejdeM') }}
@@ -26,7 +28,6 @@
           {{ helper.header('appbundle.belysningtiltagdetail.elforbrugWM2') }}
           {{ helper.header('appbundle.belysningtiltagdetail.placering') }}
           {{ helper.header('appbundle.belysningtiltagdetail.styring') }}
-          {{ helper.header('appbundle.belysningtiltagdetail.noter') }}
           {{ helper.header('appbundle.belysningtiltagdetail.belysningstiltag') }}
           {{ helper.header('appbundle.belysningtiltagdetail.nyeSensorerStkLokale') }}
           {{ helper.header('appbundle.belysningtiltagdetail.standardinvestSensorKrStk') }}
@@ -54,6 +55,8 @@
         <tr>
           {{ helper.header_unit() }}
           {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header_unit('appbundle.belysningtiltagdetail.noter') }}
+          {{ helper.header_unit('appbundle.belysningtiltagdetail.noterForNyBelysning') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.lokale.navn') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.lokale.type') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.armaturhoejdeM') }}
@@ -68,7 +71,6 @@
           {{ helper.header_unit('appbundle.belysningtiltagdetail.elforbrugWM2') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.placering') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.styring') }}
-          {{ helper.header_unit('appbundle.belysningtiltagdetail.noter') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.belysningstiltag') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.nyeSensorerStkLokale') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.standardinvestSensorKrStk') }}
@@ -101,6 +103,8 @@
               {{ block('tiltag_detail_edit') }}
             </td>
             <td>{{ detail.tilvalgt | b2icon }}</td>
+            <td>{{ detail.noter }}</td>
+            <td>{{ detail.noterForNyBelysning }}</td>
             <td>{{ detail.lokaleNavn }}</td>
             <td>{{ detail.lokaleType }}</td>
             <td class="number">{{ detail.armaturhoejdeM | format_decimal(3) }}</td>
@@ -115,7 +119,6 @@
             <td class="number">{{ detail.elforbrugWM2 | format_decimal }}</td>
             <td>{{ detail.placering | readable('PlaceringType') }}</td>
             <td>{{ detail.styring | readable('StyringType') }}</td>
-            <td>{{ detail.noter }}</td>
             <td>{{ detail.belysningstiltag | readable('TiltagType') }}</td>
             <td class="number">{{ detail.nyeSensorerStkLokale | format_integer }}</td>
             <td class="number">{{ detail.standardinvestSensorKrStk | format_decimal }}</td>

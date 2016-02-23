@@ -6,7 +6,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\DataExport\ExcelExport;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -27,8 +30,7 @@ class BygningController extends BaseController implements InitControllerInterfac
 
   protected $breadcrumbs;
 
-  public function init(Request $request)
-  {
+  public function init(Request $request) {
     parent::init($request);
     $this->breadcrumbs->addItem('Bygninger', $this->generateUrl('bygning'));
   }
@@ -36,33 +38,34 @@ class BygningController extends BaseController implements InitControllerInterfac
   /**
    * Lists all Bygning entities.
    *
-   * @Route("/", name="bygning")
+   * @Route(name="bygning")
    * @Method("GET")
    * @Template()
    */
   public function indexAction(Request $request) {
-    if($request->get('is_search')) {
+    $bygning = new Bygning();
+    $bygning->setStatus(null);
+    $form = $this->createSearchForm($bygning);
+    $form->handleRequest($request);
+
+    if($form->isSubmitted()) {
       $this->breadcrumbs->addItem('Søg', $this->generateUrl('bygning'));
     }
-
-    $entity = new Bygning();
-    $form = $this->createSearchForm($entity);
-    $form->handleRequest($request);
 
     $em = $this->getDoctrine()->getManager();
 
     $search = array();
 
-    $search['is_search'] = $request->get('is_search');
-    $search['bygId'] = $entity->getBygId();
-    $search['navn'] = $entity->getNavn();
-    $search['adresse'] = $entity->getAdresse();
-    $search['postnummer'] = $entity->getPostnummer();
-    $search['postBy'] = $entity->getPostBy();
-    $search['segment'] = $entity->getSegment();
-    $search['status'] = $entity->getStatus();
+    $search['bygId'] = $bygning->getBygId();
+    $search['navn'] = $bygning->getNavn();
+    $search['adresse'] = $bygning->getAdresse();
+    $search['postnummer'] = $bygning->getPostnummer();
+    $search['postBy'] = $bygning->getPostBy();
+    $search['segment'] = $bygning->getSegment();
+    $search['status'] = $bygning->getStatus();
 
     $user = $this->get('security.context')->getToken()->getUser();
+
     $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
 
     $paginator = $this->get('knp_paginator');
@@ -90,7 +93,6 @@ class BygningController extends BaseController implements InitControllerInterfac
 
     return $form;
   }
-
 
   /**
    * Creates a new Bygning entity.
@@ -128,7 +130,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createCreateForm(Bygning $entity) {
-    $form = $this->createForm(new BygningType($this->getDoctrine()), $entity, array(
+    $form = $this->createForm(new BygningType($this->getDoctrine(), $this->get('security.authorization_checker')), $entity, array(
       'action' => $this->generateUrl('bygning_create'),
       'method' => 'POST',
     ));
@@ -202,7 +204,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Bygning $entity) {
-    $form = $this->createForm(new BygningType($this->getDoctrine()), $entity, array(
+    $form = $this->createForm(new BygningType($this->getDoctrine(), $this->get('security.authorization_checker')), $entity, array(
       'action' => $this->generateUrl('bygning_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));

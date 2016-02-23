@@ -10,6 +10,8 @@ use AppBundle\Annotations\Calculated;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
+use AppBundle\Entity\Energiforsyning\InternProduktion;
+use AppBundle\Entity\Energiforsyning;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -21,6 +23,7 @@ use JMS\Serializer\Annotation as JMS;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use PHPExcel_Calculation_Financial as Excel;
+
 /**
  * Rapport
  *
@@ -55,8 +58,15 @@ class Rapport {
   protected $energiforsyninger;
 
   /**
+   * @OneToMany(targetEntity="Bilag", mappedBy="rapport")
+   * @OrderBy({"id" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Bilag>")
+   */
+  protected $bilag;
+
+  /**
    * @OneToMany(targetEntity="Tiltag", mappedBy="rapport", cascade={"persist", "remove"})
-   * @OrderBy({"title" = "ASC"})
+   * @OrderBy({"id" = "ASC"})
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Tiltag>")
    */
   protected $tiltag;
@@ -370,6 +380,7 @@ class Rapport {
   public function __construct() {
     $this->tiltag = new \Doctrine\Common\Collections\ArrayCollection();
     $this->energiforsyninger = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->bilag = new \Doctrine\Common\Collections\ArrayCollection();
     $this->datering = new \DateTime();
     $this->version = 1;
   }
@@ -507,6 +518,50 @@ class Rapport {
   public function getEnergiforsyninger() {
     return $this->energiforsyninger;
   }
+
+  /**
+   * Add bilag
+   *
+   * @param \AppBundle\Entity\Bilag $bilag
+   * @return Rapport
+   */
+  public function addBilag(\AppBundle\Entity\Bilag $bilag) {
+    $this->bilag[] = $bilag;
+
+    $bilag->setRapport($this);
+
+    return $this;
+  }
+
+  /**
+   * Remove bilag
+   *
+   * @param \AppBundle\Entity\Bilag $bilag
+   */
+  public function removeBilag(\AppBundle\Entity\Bilag $bilag) {
+    $this->bilag->removeElement($bilag);
+  }
+
+  /**
+   * Set bilag
+   *
+   * @return Rapport
+   */
+  public function setBilag($bilag) {
+    $this->bilag = $bilag;
+
+    return $this;
+  }
+
+  /**
+   * Get bilag
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getBilag() {
+    return $this->bilag;
+  }
+
 
   /**
    * Add tiltag
@@ -1266,23 +1321,27 @@ class Rapport {
 
   /**
    * Get investering eksl. øvrige omkostninger
+   *
+   * (Aa+ Investering eks. Øvrige omkostninger)
    */
   public function getinvesteringEksFaellesomkostninger() {
-    return $this->getInvesteringEkslGenopretningOgModernisering() + $this->getEnergiscreening();
+    return $this->getAnlaegsinvestering() - ($this->getModernisering() + $this->getGenopretning());
   }
 
   /**
    * Get investering inkl. genopretning og modernisering
+   *
+   * (Aa+ Investering inkl. Øvrige omkostninger)
    */
   public function getinvesteringInklFaellesomkostninger() {
-    return $this->getInvesteringEkslGenopretningOgModernisering() + $this->getSumFaellesOmkostninger();
+    return $this->getInvesteringEksFaellesomkostninger() - ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering());
   }
 
   /**
    * Get investering eksl. genopretning og modernisering for fravalgte tiltag
    */
   public function getFravalgtInvesteringEksFaellesomkostninger() {
-    return $this->getFravalgtInvesteringEkslGenopretningOgModernisering();
+    return $this->getFravalgtAnlaegsinvestering();
   }
 
   /**
@@ -1303,6 +1362,46 @@ class Rapport {
     $repository = $event->getEntityManager()
       ->getRepository('AppBundle:Configuration');
     $this->setConfiguration($repository->getConfiguration());
+  }
+
+  /**
+   * Post persist handler.
+   *
+   * @ORM\PostPersist
+   * @param LifecycleEventArgs $event
+   */
+  public function postPersist(LifecycleEventArgs $event) {
+    // Init with preset energiforsyning El
+    $forsyningEl = new Energiforsyning();
+    $forsyningEl
+      ->setNavn(NavnType::HOVEDFORSYNING_EL)
+      ->setBeskrivelse("El");
+    $internProduktionEl = new InternProduktion();
+    $internProduktionEl
+      ->setNavn("El")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::EL);
+    $forsyningEl->addInternProduktion($internProduktionEl);
+    $forsyningEl->calculate();
+
+    // Init with preset energiforsyning Varme
+    $forsyningVarme = new Energiforsyning();
+    $forsyningVarme
+      ->setNavn(NavnType::FJERNVARME)
+      ->setBeskrivelse("Fjernvarme");
+    $internProduktionVarme = new InternProduktion();
+    $internProduktionVarme
+      ->setNavn("Varme")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::VARME);
+    $forsyningVarme->addInternProduktion($internProduktionVarme);
+    $forsyningVarme->calculate();
+
+    $this->addEnergiforsyning($forsyningEl);
+    $this->addEnergiforsyning($forsyningVarme);
+    $event->getEntityManager()->flush();
   }
 
   public function calculate() {

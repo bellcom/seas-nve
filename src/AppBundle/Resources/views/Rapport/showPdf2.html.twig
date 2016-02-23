@@ -87,7 +87,13 @@
       </tr>
       <tr>
         <th>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger' | trans }}</th>
-        <td class="text-right">{{ rapport.internRenteInklFaellesomkostninger | number_format }}</td>
+        <td class="text-right">
+          {% if rapport.internRenteInklFaellesomkostninger < 100 %}
+            {{ rapport.internRenteInklFaellesomkostninger | number_format }}
+          {% else %}
+            --
+          {% endif %}
+        </td>
         <td>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger.unit' | trans }}</td>
       </tr>
       </tbody>
@@ -289,19 +295,14 @@
   </div>
 
 
-  <div class="row">
+  <div class="row page-break-before">
     <div class="col-xs-12">
       <h3>4. Tiltagsliste</h3>
     </div>
   </div>
 
-  {% if rapport.tilvalgteTiltag is not empty %}
-    {% include 'AppBundle::Rapport/_valgteTiltagTable.html.twig' with {'tiltag': rapport.tilvalgteTiltag, 'pdf': true, 'type': 'tilvalg' } %}
-  {% endif %}
-
-
-  {% if rapport.fravalgteTiltag is not empty %}
-    {% include 'AppBundle::Rapport/_valgteTiltagTable.html.twig' with {'tiltag': rapport.fravalgteTiltag, 'pdf': true, 'type': 'fravalg' } %}
+  {% if rapport.tiltag is not empty %}
+    {% include 'AppBundle::Rapport/_valgteTiltagTablePdf2.html.twig' with {'tiltag': rapport.tiltag, 'pdf': true, 'type': 'tilvalg' } %}
   {% endif %}
 
   <div class="row page-break-before">

@@ -24,6 +24,7 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
         'class' => 'AppBundle:Klimaskaerm',
         'choices' => $this->getKlimaskaerme(),
       ))
+      ->add('klimaskaermOverskrevetPris')
       ->add('orientering', NULL, array(
         'required' => TRUE,
       ))

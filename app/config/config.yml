@@ -32,6 +32,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - AppBundle:Form:aaplus-bootstrap.html.twig
+        - AppBundle:Form:form_div_layout.html.twig
     number_format:
         decimals: 2
         decimal_point: ','
@@ -76,10 +77,16 @@ doctrine:
             StyringType: AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType
             TiltagType: AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType
             PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
-
+        logging: false
+        profiling: false
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
+        entity_managers:
+            default:
+              auto_mapping: true
+              dql:
+                datetime_functions:
+                  YEAR: DoctrineExtensions\Query\Mysql\Year
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -127,6 +134,7 @@ fos_user:
 simple_things_entity_audit:
     audited_entities:
         - AppBundle\Entity\Forsyningsvaerk
+        - AppBundle\Entity\Bilag
         - AppBundle\Entity\Bygning
         - AppBundle\Entity\Configuration
         - AppBundle\Entity\Forsyningsvaerk
@@ -179,3 +187,8 @@ knp_snappy:
     pdf:
         enabled:    true
         options:    {page-size: A4, zoom: 1, footer-font-size: 8, javascript-delay: 300, debug-javascript: true, margin-top: 25, margin-right: 20, margin-bottom: 15, margin-left: 20, footer-spacing: 5, header-spacing: 5}
+
+# https://twigexcelbundle.readthedocs.org/en/latest/installation.html#step-3-configure-the-bundle-optional
+mewes_k_twig_excel:
+    pre_calculate_formulas: false
+    disk_caching_directory: "%kernel.cache_dir%/phpexcel"
