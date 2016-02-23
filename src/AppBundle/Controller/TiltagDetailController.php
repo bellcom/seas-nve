@@ -146,8 +146,6 @@ class TiltagDetailController extends BaseController {
     $editForm = $this->createEditForm($tiltagdetail);
     $editForm->handleRequest($request);
 
-    $d = 1;
-
     if ($editForm->isValid()) {
       $tiltagdetail->handleUploads($this->get('stof_doctrine_extensions.uploadable.manager'));
       $em = $this->getDoctrine()->getManager();
