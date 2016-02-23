@@ -651,7 +651,7 @@ abstract class Tiltag {
   /**
    * Set forsyningVarme
    *
-   * @param string $forsyningVarme
+   * @param \AppBundle\Entity\Energiforsyning $forsyningVarme
    * @return Tiltag
    */
   public function setForsyningVarme($forsyningVarme) {

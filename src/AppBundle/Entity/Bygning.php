@@ -1578,7 +1578,9 @@ class Bygning {
    */
   public function setRapport(\AppBundle\Entity\Rapport $rapport = NULL) {
     $this->rapport = $rapport;
-    $rapport->setBygning($this);
+    if($rapport !== null) {
+      $rapport->setBygning($this);
+    }
 
     return $this;
   }
