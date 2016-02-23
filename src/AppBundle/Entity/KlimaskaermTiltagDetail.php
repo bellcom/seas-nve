@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotations\Calculated;
 use AppBundle\DBAL\Types\CardinalDirectionType;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * KlimaskaermTiltagDetail
@@ -25,8 +26,8 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var Klimaskaerm
    *
-   * @ORM\ManyToOne(targetEntity="Klimaskaerm")
-   * @ORM\JoinColumn(name="klimaskaerm_id", referencedColumnName="id")
+   * @ORM\ManyToOne(targetEntity="Klimaskaerm", fetch="EAGER")
+   * @ORM\JoinColumn(name="klimaskaerm_id", referencedColumnName="id", nullable=true)
    **/
   protected $klimaskaerm;
 
@@ -34,6 +35,11 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @var float
    *
    * @ORM\Column(name="klimaskaermOverskrevetPris", type="decimal", scale=4, nullable=true)
+   *
+   * @Assert\Expression(
+   *  "this.getKlimaskaerm() !== null || this.getKlimaskaermOverskrevetPris() !== null",
+   *  message="appbundle.klimaskaermtiltagdetail.klimaskaermOverskrevetPris.validation"
+   * )
    */
   protected $klimaskaermOverskrevetPris;
 
@@ -608,7 +614,13 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @return float
    */
   public function getEnhedsprisEksklMoms() {
-    return $this->klimaskaermOverskrevetPris ? $this->klimaskaermOverskrevetPris : $this->klimaskaerm->getEnhedsprisEksklMoms();
+    if($this->klimaskaermOverskrevetPris !== null) {
+      return $this->klimaskaermOverskrevetPris;
+    } else if ($this->klimaskaerm !== null) {
+      $this->klimaskaerm->getEnhedsprisEksklMoms();
+    }
+
+    return 0;
   }
 
   public function calculate() {
@@ -651,7 +663,8 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   private function calculateSimpelTilbagebetalingstidAar() {
     // "AF": "Simpel tilbagebetalingstid (år)"
     return $this->divide($this->samletInvesteringKr,
-                         $this->kWhBesparElvaerkEksternEnergikilde * $this->getRapport()->getElKrKWh() + $this->kWhBesparVarmevaerkEksternEnergikilde * $this->getRapport()->getVarmeKrKWh());
+      $this->kWhBesparElvaerkEksternEnergikilde * $this->getRapport()->getElKrKWh() + $this->kWhBesparVarmevaerkEksternEnergikilde * $this->getRapport()
+        ->getVarmeKrKWh());
   }
 
   private function calculateFaktorForReinvestering() {
