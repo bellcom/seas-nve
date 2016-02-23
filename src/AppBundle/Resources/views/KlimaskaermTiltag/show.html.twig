@@ -83,7 +83,13 @@
             </td>
             <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
             <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
-            <td>{{ detail.klimaskaerm }}</td>
+            <td>
+              {% if detail.klimaskaerm is not empty %}
+                {{ detail.klimaskaerm }}
+              {% else %}
+                {{ 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.show' | trans }}
+              {% endif %}
+            </td>
             <td>{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
             <td>{{ detail.typePlaceringJfPlantegning }}</td>
             <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>

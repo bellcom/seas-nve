@@ -824,7 +824,8 @@ appbundle:
     hoejdeElLaengdeM.unit: m
     ikkeElenaBerettiget: Ikke Elena Berettiget
     klimaskaerm: Priskategori
-    klimaskaerm.empty: Andet (oplys pris)
+    klimaskaerm.empty.edit: Andet (oplys pris)
+    klimaskaerm.empty.show: Andet - se noter
     klimaskaerm_label: Klimaskærm
     klimaskaermOverskrevetPris: Klimaskærm overskrevet pris
     klimaskaermOverskrevetPris.help: Indtast pris kr/m² for at overskrive valg i priskategori

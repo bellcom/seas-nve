@@ -94,7 +94,13 @@
             <td>{{ detail.eWNyKWhM2Aar | format_decimal }}</td>
             <td>{{ detail.solenergitransmittansEks | format_percent }}</td>
             <td>{{ detail.solenergitransmittansNy | format_percent }}</td>
-            <td>{{ detail.klimaskaerm }}</td>
+            <td>
+              {% if detail.klimaskaerm is not empty %}
+                {{ detail.klimaskaerm }}
+              {% else %}
+                {{ 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.show' | trans }}
+              {% endif %}
+            </td>
             <td>{{ detail.typePlaceringJfPlantegning }}</td>
             <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
             <td>{{ detail.breddeM | format_decimal }}</td>

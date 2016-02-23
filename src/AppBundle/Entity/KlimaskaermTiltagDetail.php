@@ -37,7 +37,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @ORM\Column(name="klimaskaermOverskrevetPris", type="decimal", scale=4, nullable=true)
    *
    * @Assert\Expression(
-   *  "this.getKlimaskaerm() == null",
+   *  "this.getKlimaskaerm() !== null || this.getKlimaskaermOverskrevetPris() !== null",
    *  message="appbundle.klimaskaermtiltagdetail.klimaskaermOverskrevetPris.validation"
    * )
    */
