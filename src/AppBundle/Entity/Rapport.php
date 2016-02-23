@@ -210,25 +210,25 @@ class Rapport {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="co2BesparelseElProcent", type="float", nullable=true)
+   * @ORM\Column(name="co2BesparelseElFaktor", type="float", nullable=true)
    */
-  protected $co2BesparelseElProcent;
+  protected $co2BesparelseElFaktor;
 
   /**
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="co2BesparelseVarmeProcent", type="float", nullable=true)
+   * @ORM\Column(name="co2BesparelseVarmeFaktor", type="float", nullable=true)
    */
-  protected $co2BesparelseVarmeProcent;
+  protected $co2BesparelseVarmeFaktor;
 
   /**
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="besparelseCO2Procent", type="float", nullable=true)
+   * @ORM\Column(name="co2BesparelseSamletFaktor", type="float", nullable=true)
    */
-  protected $besparelseCO2Procent;
+  protected $co2BesparelseSamletFaktor;
 
   /**
    * @var float
@@ -430,43 +430,43 @@ class Rapport {
   /**
    * @return float
    */
-  public function getCo2BesparelseElProcent() {
-    return $this->co2BesparelseElProcent;
+  public function getCo2BesparelseElFaktor() {
+    return $this->co2BesparelseElFaktor;
   }
 
   /**
-   * @param float $co2BesparelseElProcent
+   * @param float $co2BesparelseElFaktor
    */
-  public function setCo2BesparelseElProcent($co2BesparelseElProcent) {
-    $this->co2BesparelseElProcent = $co2BesparelseElProcent;
-  }
-
-  /**
-   * @return float
-   */
-  public function getCo2BesparelseVarmeProcent() {
-    return $this->co2BesparelseVarmeProcent;
-  }
-
-  /**
-   * @param float $co2BesparelseVarmeProcent
-   */
-  public function setCo2BesparelseVarmeProcent($co2BesparelseVarmeProcent) {
-    $this->co2BesparelseVarmeProcent = $co2BesparelseVarmeProcent;
+  public function setCo2BesparelseElFaktor($co2BesparelseElFaktor) {
+    $this->co2BesparelseElFaktor = $co2BesparelseElFaktor;
   }
 
   /**
    * @return float
    */
-  public function getBesparelseCO2Procent() {
-    return $this->besparelseCO2Procent;
+  public function getCo2BesparelseVarmeFaktor() {
+    return $this->co2BesparelseVarmeFaktor;
   }
 
   /**
-   * @param float $besparelseCO2Procent
+   * @param float $co2BesparelseVarmeFaktor
    */
-  public function setBesparelseCO2Procent($besparelseCO2Procent) {
-    $this->besparelseCO2Procent = $besparelseCO2Procent;
+  public function setCo2BesparelseVarmeFaktor($co2BesparelseVarmeFaktor) {
+    $this->co2BesparelseVarmeFaktor = $co2BesparelseVarmeFaktor;
+  }
+
+  /**
+   * @return float
+   */
+  public function getCo2BesparelseSamletFaktor() {
+    return $this->co2BesparelseSamletFaktor;
+  }
+
+  /**
+   * @param float $co2BesparelseSamletFaktor
+   */
+  public function setCo2BesparelseSamletFaktor($co2BesparelseSamletFaktor) {
+    $this->co2BesparelseSamletFaktor = $co2BesparelseSamletFaktor;
   }
 
 
@@ -1554,9 +1554,9 @@ class Rapport {
     $this->BaselineCO2Varme = $this->calculateBaselineCO2Varme();
     $this->BaselineCO2Samlet = $this->calculateBaselineCO2Samlet();
 
-    $this->co2BesparelseElProcent = $this->calculateCO2BesparelseElProcent();
-    $this->co2BesparelseVarmeProcent = $this->calculateCO2BesparelseVarmeProcent();
-    $this->co2BesparelseSamletProcent = $this->calculateCO2BesparelseSamletProcent();
+    $this->co2BesparelseElFaktor = $this->calculateCO2BesparelseElFaktor();
+    $this->co2BesparelseVarmeFaktor = $this->calculateCO2BesparelseVarmeFaktor();
+    $this->co2BesparelseSamletFaktor = $this->calculateCO2BesparelseSamletFaktor();
 
     $this->besparelseEl = $this->calculateBesparelseEl();
     $this->fravalgtBesparelseEl = $this->calculateFravalgtBesparelseEl();
@@ -1704,37 +1704,37 @@ class Rapport {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
     $elKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
 
-    return $this->BaselineEl * $elKgCo2MWh / 1000;
+    return ($this->BaselineEl / 1000) * ($elKgCo2MWh / 1000);
   }
 
   private function calculateBaselineCO2Varme() {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
     $varmeKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
 
-    return ($this->BaselineVarmeGUF + $this->BaselineVarmeGAF) * $varmeKgCo2MWh / 1000;
+    return (($this->BaselineVarmeGUF + $this->BaselineVarmeGAF) / 1000) * $varmeKgCo2MWh / 1000;
   }
 
   private function calculateBaselineCO2Samlet() {
     return $this->BaselineCO2El + $this->BaselineCO2Varme;
   }
 
-  private function calculateCO2BesparelseElProcent() {
+  private function calculateCO2BesparelseElFaktor() {
     if ($this->BaselineCO2El != 0) {
-      return ($this->BaselineCO2El - $this->co2BesparelseEl) / $this->BaselineCO2El * 100;
+      return $this->co2BesparelseEl / $this->BaselineCO2El;
     }
     return null;
   }
 
-  private function calculateCO2BesparelseVarmeProcent() {
+  private function calculateCO2BesparelseVarmeFaktor() {
     if ($this->BaselineCO2Varme != 0) {
-      return ($this->BaselineCO2Varme - $this->co2BesparelseVarme) / $this->BaselineCO2Varme * 100;
+      return $this->co2BesparelseVarme / $this->BaselineCO2Varme;
     }
     return null;
   }
 
-  private function calculateCO2BesparelseSamletProcent() {
+  private function calculateCO2BesparelseSamletFaktor() {
     if ($this->BaselineCO2Samlet != 0) {
-      return ($this->BaselineCO2Samlet - $this->besparelseCO2) / $this->BaselineCO2Samlet * 100;
+      return $this->besparelseCO2 / $this->BaselineCO2Samlet;
     }
     return null;
   }

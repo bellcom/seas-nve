@@ -993,6 +993,10 @@ appbundle:
       titel: Titel
     bygning: Bygning
     co2besparelser: CO2 Besparelser
+    co2BesparelseFaktor: Samlede CO2 Besparelser (%)
+    co2BesparelseElFaktor: El
+    co2BesparelseSamletFaktor: Samlet CO2
+    co2BesparelseVarmeFaktor: Varme
     datering: Screeningsdato
     elena: Elena
     energibesparelser: Energibesparelser

@@ -80,7 +80,7 @@
         <th>{{ 'appbundle.rapport.energibesparelser' | trans }}:</th>
         <td></td>
         <td></td>
-        <th>{{ 'appbundle.rapport.co2BesparelseProcent' | trans }}:</th>
+        <th>{{ 'appbundle.rapport.co2BesparelseFaktor' | trans }}:</th>
         <td></td>
         <td></td>
       </tr>
@@ -89,27 +89,27 @@
         <td class="text-right">{{ entity.besparelseEl | number_format }}</td>
         <td>{{ 'appbundle.rapport.besparelseEl.unit' | trans }}</td>
 
-        <th class="indent">{{ 'appbundle.rapport.co2BesparelseVarmeProcent' | trans }}</th>
-        <td class="text-right">{{ entity.co2BesparelseVarmeProcent | number_format }}</td>
-        <td>{{ 'appbundle.rapport.co2BesparelseVarmeProcent.unit' | trans }}</td>
+        <th class="indent">{{ 'appbundle.rapport.co2BesparelseVarmeFaktor' | trans }}</th>
+        <td class="text-right">{{ entity.co2BesparelseVarmeFaktor | format_percent }}</td>
+        <td></td>
       </tr>
       <tr>
         <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGAF' | trans }}</th>
         <td class="text-right">{{ entity.besparelseVarmeGAF | number_format }}</td>
         <td>{{ 'appbundle.rapport.besparelseVarmeGAF.unit' | trans }}</td>
 
-        <th class="indent">{{ 'appbundle.rapport.co2BesparelseElProcent' | trans }}</th>
-        <td class="text-right">{{ entity.co2BesparelseElProcent | number_format }}</td>
-        <td>{{ 'appbundle.rapport.co2BesparelseElProcent.unit' | trans }}</td>
+        <th class="indent">{{ 'appbundle.rapport.co2BesparelseElFaktor' | trans }}</th>
+        <td class="text-right">{{ entity.co2BesparelseElFaktor | format_percent }}</td>
+        <td></td>
       </tr>
       <tr>
         <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGUF' | trans }}</th>
         <td class="text-right">{{ entity.besparelseVarmeGUF | number_format }}</td>
         <td>{{ 'appbundle.rapport.besparelseVarmeGUF.unit' | trans }}</td>
 
-        <th class="indent">{{ 'appbundle.rapport.co2BesparelseSamletProcent' | trans }}</th>
-        <td class="text-right">{{ entity.co2BesparelseSamletProcent | number_format }}</td>
-        <td>{{ 'appbundle.rapport.co2BesparelseSamletProcent.unit' | trans }}</td>
+        <th class="indent">{{ 'appbundle.rapport.co2BesparelseSamletFaktor' | trans }}</th>
+        <td class="text-right">{{ entity.co2BesparelseSamletFaktor | format_percent }}</td>
+        <td></td>
       </tr>
       <tr>
         <td></td>
