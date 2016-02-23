@@ -1,3 +1,18 @@
+# Release
+
+The project follows git flow for development and releases. To finish a release, first finish and tag the release-branch. Then on the server: 
+
+```
+git pull
+git checkout tags/vX.X.X
+composer install
+php app/console doctrine:migrations:migrate
+php app/console cache:clear --env=prod 
+
+```
+
+
+
 # Setting up Symfony
 
 ```
