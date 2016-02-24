@@ -7,7 +7,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\Energiforsyning\NavnType;
-use AppBundle\DBAL\Types\RisikovurderingEnumType;
+use AppBundle\DBAL\Types\RisikovurderingType;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Calculation\Calculation;
 
@@ -310,8 +310,8 @@ abstract class Tiltag {
    *
    * Tekniske forhold / kompleksitet
    *
-   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingEnumType")
-   * @ORM\Column(name="risikovurderingTeknisk", type="RisikovurderingEnumType", nullable=true)
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
+   * @ORM\Column(name="risikovurderingTeknisk", type="RisikovurderingType", nullable=true)
    */
   protected $risikovurderingTeknisk;
 
@@ -320,8 +320,8 @@ abstract class Tiltag {
    *
    * Brugsmønster
    *
-   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingEnumType")
-   * @ORM\Column(name="risikovurderingBrugsmoenster", type="RisikovurderingEnumType", nullable=true)
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
+   * @ORM\Column(name="risikovurderingBrugsmoenster", type="RisikovurderingType", nullable=true)
    */
   protected $risikovurderingBrugsmoenster;
 
@@ -330,8 +330,8 @@ abstract class Tiltag {
    *
    * Datagrundlag
    *
-   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingEnumType")
-   * @ORM\Column(name="risikovurderingDatagrundlag", type="RisikovurderingEnumType", nullable=true)
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
+   * @ORM\Column(name="risikovurderingDatagrundlag", type="RisikovurderingType", nullable=true)
    */
   protected $risikovurderingDatagrundlag;
 
@@ -340,22 +340,26 @@ abstract class Tiltag {
    *
    * Div. (Beskrives i noter.)
    *
-   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingEnumType")
-   * @ORM\Column(name="risikovurderingDiverse", type="RisikovurderingEnumType", nullable=true)
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
+   * @ORM\Column(name="risikovurderingDiverse", type="RisikovurderingType", nullable=true)
    */
   protected $risikovurderingDiverse;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="risikovurderingAendringIBesparelseFaktor", type="decimal", nullable=true)
+   * Ændring i besparelse
+   *
+   * @ORM\Column(name="risikovurderingAendringIBesparelseFaktor", type="float", nullable=true)
    */
   protected $risikovurderingAendringIBesparelseFaktor;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="risikovurderingOekonomiskKompenseringIftInvesteringFaktor", type="decimal", nullable=true)
+   * Økonomisk kompensering ift. investering
+   *
+   * @ORM\Column(name="risikovurderingOekonomiskKompenseringIftInvesteringFaktor", type="float", nullable=true)
    */
   protected $risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
 

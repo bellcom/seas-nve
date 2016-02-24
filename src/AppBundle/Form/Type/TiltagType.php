@@ -82,8 +82,8 @@ class TiltagType extends AbstractType {
     $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
     $builder->add('risikovurderingDatagrundlag', new RisikovurderingType(), array());
     $builder->add('risikovurderingDiverse', new RisikovurderingType(), array());
-    $builder->add('risikovurderingAendringIBesparelseFaktor')
-            ->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor');
+    $builder->add('risikovurderingAendringIBesparelseFaktor', 'percent')
+            ->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor', 'percent');
 
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder

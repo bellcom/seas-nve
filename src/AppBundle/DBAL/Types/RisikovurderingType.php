@@ -4,7 +4,7 @@ namespace AppBundle\DBAL\Types;
 
 use Fresh\DoctrineEnumBundle\DBAL\Types\AbstractEnumType;
 
-class RisikovurderingEnumType extends AbstractEnumType {
+class RisikovurderingType extends AbstractEnumType {
   const LAV = 'lav';
   const MELLEM = 'mellem';
   const HOEJ = 'hoej';

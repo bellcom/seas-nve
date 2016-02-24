@@ -77,7 +77,7 @@ doctrine:
             StyringType: AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType
             TiltagType: AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType
             PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
-            RisikovurderingEnumType: AppBundle\DBAL\Types\RisikovurderingEnumType
+            RisikovurderingType: AppBundle\DBAL\Types\RisikovurderingType
         logging: false
         profiling: false
     orm:
