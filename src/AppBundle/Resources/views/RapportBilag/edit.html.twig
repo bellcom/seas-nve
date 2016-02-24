@@ -10,7 +10,7 @@
       <h1>{{ 'bilag.actions.edit' | trans }}</h1>
     </div>
     <div class="col-md-4 text-right">
-      {% if is_granted('ROLE_BILAG_EDIT') %}
+      {% if is_granted('RAPPORT_EDIT', rapport) %}
         {{ form(delete_form) }}
       {% endif %}
     </div>

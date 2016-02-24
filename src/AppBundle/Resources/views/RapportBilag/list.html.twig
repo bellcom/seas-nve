@@ -29,7 +29,7 @@
         </tbody>
       </table>
 
-      {% if is_granted('ROLE_BYGNING_EDIT') %}
+      {% if is_granted('RAPPORT_EDIT', entity) %}
         <a class="btn btn-primary" href="{{ path('bilag_rapport_new', { 'rapport_id': entity.id }) }}">
           {{ icon('plus') }} {{ 'bilag.actions.create' | trans }}
         </a>
