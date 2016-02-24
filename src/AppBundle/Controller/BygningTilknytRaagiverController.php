@@ -45,7 +45,7 @@ class BygningTilknytRaagiverController extends BaseController implements InitCon
    */
   public function indexAction(Bygning $bygning) {
     $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
-    $this->breadcrumbs->addItem('bygninger.actions.indfoer');
+    $this->breadcrumbs->addItem('bygninger.actions.tilknyt_raadgiver');
 
     //Set next status to trigger validation group
     $bygning->setStatus(BygningStatusType::TILKNYTTET_RAADGIVER);
@@ -70,6 +70,9 @@ class BygningTilknytRaagiverController extends BaseController implements InitCon
    * @Template("AppBundle:BygningTilknytRaagiver:index.html.twig")
    */
   public function updateAction(Request $request, Bygning $bygning) {
+    $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+    $this->breadcrumbs->addItem('bygninger.actions.tilknyt_raadgiver');
+
     if(!$bygning->getRapport()) {
       $rapport = new Rapport();
       $rapport->setBygning($bygning);
