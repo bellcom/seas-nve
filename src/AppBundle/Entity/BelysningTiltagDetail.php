@@ -115,7 +115,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @var string
    *
    * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType")
-   * @ORM\Column(name="styring", type="StyringType")
+   * @ORM\Column(name="styring", type="StyringType", nullable=true)
    **/
   protected $styring;
 
@@ -139,28 +139,28 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @var string
    *
    * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType")
-   * @ORM\Column(name="belysningstiltag", type="TiltagType")
+   * @ORM\Column(name="belysningstiltag", type="TiltagType", nullable=true)
    */
   protected $belysningstiltag;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="nyeSensorerStkLokale", type="integer")
+   * @ORM\Column(name="nyeSensorerStkLokale", type="integer", nullable=true)
    */
   protected $nyeSensorerStkLokale;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestSensorKrStk", type="decimal", scale=4)
+   * @ORM\Column(name="standardinvestSensorKrStk", type="decimal", scale=4, nullable=true)
    */
   protected $standardinvestSensorKrStk;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="reduktionAfDrifttid", type="decimal", scale=4)
+   * @ORM\Column(name="reduktionAfDrifttid", type="decimal", scale=4, nullable=true)
    */
   protected $reduktionAfDrifttid;
 
@@ -175,14 +175,14 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestArmaturKrStk", type="decimal", scale=4)
+   * @ORM\Column(name="standardinvestArmaturKrStk", type="decimal", scale=4, nullable=true)
    */
   protected $standardinvestArmaturKrStk;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestLyskildeKrStk", type="decimal", scale=4)
+   * @ORM\Column(name="standardinvestLyskildeKrStk", type="decimal", scale=4, nullable=true)
    */
   protected $standardinvestLyskildeKrStk;
 
@@ -197,21 +197,21 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var integer
    *
-   * @ORM\Column(name="nyLyskildeStkArmatur", type="integer")
+   * @ORM\Column(name="nyLyskildeStkArmatur", type="integer", nullable=true)
    */
   protected $nyLyskildeStkArmatur;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="nyLyskildeWLyskilde", type="integer")
+   * @ORM\Column(name="nyLyskildeWLyskilde", type="integer", nullable=true)
    */
   protected $nyLyskildeWLyskilde;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="nyForkoblingStkArmatur", type="integer")
+   * @ORM\Column(name="nyForkoblingStkArmatur", type="integer", nullable=true)
    */
   protected $nyForkoblingStkArmatur;
 
@@ -226,21 +226,21 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var integer
    *
-   * @ORM\Column(name="nyeArmaturerStkLokale", type="integer")
+   * @ORM\Column(name="nyeArmaturerStkLokale", type="integer", nullable=true)
    */
   protected $nyeArmaturerStkLokale;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="nyttiggjortVarmeAfElBesparelse", type="decimal", scale=4)
+   * @ORM\Column(name="nyttiggjortVarmeAfElBesparelse", type="decimal", scale=4, nullable=true)
    */
   protected $nyttiggjortVarmeAfElBesparelse;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="prisfaktor", type="decimal", scale=4)
+   * @ORM\Column(name="prisfaktor", type="decimal", scale=4, nullable=true)
    */
   protected $prisfaktor;
 

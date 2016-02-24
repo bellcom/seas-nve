@@ -46,7 +46,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="typePlaceringJfPlantegning", type="string")
+   * @ORM\Column(name="typePlaceringJfPlantegning", type="string", nullable=true)
    */
   protected $typePlaceringJfPlantegning;
 
@@ -74,7 +74,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="andelAfArealDerEfterisoleres", type="decimal", scale=4)
+   * @ORM\Column(name="andelAfArealDerEfterisoleres", type="decimal", scale=4, nullable=true)
    */
   protected $andelAfArealDerEfterisoleres;
 
@@ -88,42 +88,42 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="uNyWM2K", type="decimal", scale=4)
+   * @ORM\Column(name="uNyWM2K", type="decimal", scale=4, nullable=true)
    */
   protected $uNyWM2K;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="tIndeC", type="decimal", scale=4)
+   * @ORM\Column(name="tIndeC", type="decimal", scale=4, nullable=true)
    */
   protected $tIndeC;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="tUdeC", type="decimal", scale=4)
+   * @ORM\Column(name="tUdeC", type="decimal", scale=4, nullable=true)
    */
   protected $tUdeC;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="tOpvarmningTimerAar", type="decimal", scale=4)
+   * @ORM\Column(name="tOpvarmningTimerAar", type="decimal", scale=4, nullable=true)
    */
   protected $tOpvarmningTimerAar;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="yderligereBesparelserPct", type="decimal", scale=4)
+   * @ORM\Column(name="yderligereBesparelserPct", type="decimal", scale=4, nullable=true)
    */
   protected $yderligereBesparelserPct;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="prisfaktor", type="decimal", scale=4)
+   * @ORM\Column(name="prisfaktor", type="decimal", scale=4, nullable=true)
    */
   protected $prisfaktor;
 
@@ -137,7 +137,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var integer
    *
-   * @ORM\Column(name="levetidAar", type="integer")
+   * @ORM\Column(name="levetidAar", type="integer", nullable=true)
    */
   protected $levetidAar;
 
