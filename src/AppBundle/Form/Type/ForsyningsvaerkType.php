@@ -29,18 +29,17 @@ class ForsyningsvaerkType extends AbstractType {
       ->add('energiform')
       ->add('noter');
 
-    $startYear = intval(date('Y'));
-    $endYear = min($startYear + 30, 2075);
+    $startYear = 2009;
+    $endYear = 2045;
 
     for ($year = $startYear; $year <= $endYear; $year++) {
       $builder->add('pris' . $year);
     }
 
+    $endYear = 2039;
+
     $builder
       ->add('co2noter');
-
-    $startYear = intval(date('Y'));
-    $endYear = min($startYear + 25, 2075);
 
     for ($year = $startYear; $year <= $endYear; $year++) {
       $builder->add('co2y' . $year);

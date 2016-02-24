@@ -666,6 +666,10 @@ appbundle:
     co2: CO2
     co2noter: Noter (CO2)
     co2y2009: CO2, 2009
+    co2y2010: CO2, 2010
+    co2y2011: CO2, 2011
+    co2y2012: CO2, 2012
+    co2y2013: CO2, 2013
     co2y2014: CO2, 2014
     co2y2015: CO2, 2015
     co2y2016: CO2, 2016
@@ -732,6 +736,10 @@ appbundle:
     navn: Navn
     noter: Noter
     pris2009: Pris, 2009
+    pris2010: Pris, 2010
+    pris2011: Pris, 2011
+    pris2012: Pris, 2012
+    pris2013: Pris, 2013
     pris2014: Pris, 2014
     pris2015: Pris, 2015
     pris2016: Pris, 2016
@@ -988,6 +996,10 @@ appbundle:
       titel: Titel
     bygning: Bygning
     co2besparelser: CO2 Besparelser
+    co2BesparelseFaktor: Samlede CO2 Besparelser (%)
+    co2BesparelseElFaktor: El
+    co2BesparelseSamletFaktor: Samlet CO2
+    co2BesparelseVarmeFaktor: Varme
     datering: Screeningsdato
     elena: Elena
     energibesparelser: Energibesparelser
