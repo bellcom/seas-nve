@@ -49,7 +49,9 @@ class SolcelleTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering() {
-    return $this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr');
+    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
+
+    return ($this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr')) * (1 - $kompensering);
   }
 
   protected function calculateSimpelTilbagebetalingstidAar() {

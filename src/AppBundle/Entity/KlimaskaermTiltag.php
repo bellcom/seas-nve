@@ -45,7 +45,9 @@ class KlimaskaermTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering() {
-    return $this->sum('samletInvesteringKr');
+    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
+
+    return $this->sum('samletInvesteringKr') * (1 - $kompensering);
   }
 
   protected function calculateLevetid() {

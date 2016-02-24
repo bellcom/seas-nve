@@ -50,7 +50,9 @@ class PumpeTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering() {
-    return $this->sum('samletInvesteringInklPristillaeg');
+    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
+
+    return $this->sum('samletInvesteringInklPristillaeg') * (1 - $kompensering);
   }
 
 }

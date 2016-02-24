@@ -45,7 +45,9 @@ class BelysningTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering() {
-    return $this->sum('investeringAlleLokalerKr');
+    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
+
+    return $this->sum('investeringAlleLokalerKr') * (1 - $kompensering);
   }
 
   protected function calculateReinvestering() {

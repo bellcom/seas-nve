@@ -46,7 +46,9 @@ class TekniskIsoleringTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering() {
-    return $this->sum('investeringKr');
+    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
+
+    return $this->sum('investeringKr') * (1 - $kompensering);
   }
 
 }
