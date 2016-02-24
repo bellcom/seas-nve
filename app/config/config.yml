@@ -37,6 +37,9 @@ twig:
         decimals: 2
         decimal_point: ','
         thousands_separator: '.'
+    globals:
+        aaplus_release_ver: %aaplus_release_ver%
+
 
 # Assetic Configuration
 assetic:

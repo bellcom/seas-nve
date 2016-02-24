@@ -1,6 +1,11 @@
 # Release
 
-The project follows git flow for development and releases. To finish a release, first finish and tag the release-branch. Then on the server: 
+The project follows git flow for development and releases. To finish a release, first:
+
+1. Update aaplus-release-ver field in parameters.yml to the correct number. 
+2. Finish and tag the release-branch with the same release number. 
+
+Then on the server: 
 
 ```
 git pull
