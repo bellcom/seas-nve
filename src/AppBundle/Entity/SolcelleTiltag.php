@@ -37,10 +37,12 @@ class SolcelleTiltag extends Tiltag {
   }
 
   protected function calculateSamletEnergibesparelse() {
-    return $this->elbesparelse * $this->getRapport()->getElKrKWh()
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
+
+    return ($this->elbesparelse * $this->getRapport()->getElKrKWh()
       + $this->sum(function($detail) {
         return $detail->getCashFlow()['Salg til nettet'][1];
-      });
+      })) * (1 - $besparelse);
   }
 
   protected function calculateSamletCo2besparelse() {
@@ -51,7 +53,7 @@ class SolcelleTiltag extends Tiltag {
   protected function calculateAnlaegsinvestering() {
     $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
 
-    return ($this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr')) * (1 - $kompensering);
+    return ($this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr')) * (1 + $kompensering);
   }
 
   protected function calculateSimpelTilbagebetalingstidAar() {
