@@ -8,8 +8,8 @@ The project follows git flow for development and releases. To finish a release, 
 Then on the server: 
 
 ```
-git pull
-git checkout tags/vX.X.X
+git fetch
+git checkout vX.X.X
 composer install
 php app/console doctrine:migrations:migrate
 php app/console cache:clear --env=prod 
