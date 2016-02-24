@@ -382,6 +382,12 @@ class Bygning {
   protected $rapport;
 
   /**
+   * @OneToOne(targetEntity="Baseline", mappedBy="bygning", cascade={"persist"})
+   * @JMS\Exclude
+   **/
+  protected $bygning;
+
+  /**
    * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
    *
    * @ManyToOne(targetEntity="User", inversedBy="ansvarlig")
