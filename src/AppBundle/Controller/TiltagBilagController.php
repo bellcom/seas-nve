@@ -82,6 +82,7 @@ class TiltagBilagController extends BaseController {
     $template = $this->getTemplate('edit');
     return $this->render($template, array(
       'entity' => $bilag,
+      'tiltag' => $tiltag,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     ));

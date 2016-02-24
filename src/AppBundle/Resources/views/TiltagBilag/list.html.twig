@@ -29,7 +29,7 @@
         </tbody>
       </table>
 
-      {% if is_granted('ROLE_BYGNING_EDIT') %}
+      {% if is_granted('TILTAG_EDIT', entity) %}
         <a class="btn btn-primary" href="{{ path('bilag_tiltag_new', { 'tiltag_id': entity.id }) }}">
           {{ icon('plus') }} {{ 'bilag.actions.create' | trans }}
         </a>
