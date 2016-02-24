@@ -1544,6 +1544,8 @@ class Rapport {
     $this->BaselineCO2Varme = $this->calculateBaselineCO2Varme();
     $this->BaselineCO2Samlet = $this->calculateBaselineCO2Samlet();
 
+    $this->besparelseEl = $this->calculateBesparelseEl();
+    $this->fravalgtBesparelseEl = $this->calculateFravalgtBesparelseEl();
     $this->besparelseVarmeGUF = $this->calculateBesparelseVarmeGUF();
     $this->fravalgtBesparelseVarmeGUF = $this->calculateFravalgtBesparelseVarmeGUF();
     $this->besparelseVarmeGAF = $this->calculateBesparelseVarmeGAF();
@@ -1557,9 +1559,6 @@ class Rapport {
     $this->co2BesparelseElFaktor = $this->calculateCO2BesparelseElFaktor();
     $this->co2BesparelseVarmeFaktor = $this->calculateCO2BesparelseVarmeFaktor();
     $this->co2BesparelseSamletFaktor = $this->calculateCO2BesparelseSamletFaktor();
-
-    $this->besparelseEl = $this->calculateBesparelseEl();
-    $this->fravalgtBesparelseEl = $this->calculateFravalgtBesparelseEl();
 
     $this->mtmFaellesomkostninger = $this->calculateMtmFaellesomkostninger();
     $this->implementering = $this->calculateImplementering();
