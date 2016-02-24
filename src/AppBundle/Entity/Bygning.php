@@ -69,23 +69,9 @@ class Bygning {
   /**
    * @var integer
    *
-   * @ORM\Column(name="Ident", type="integer", nullable=true)
-   */
-  protected $ident;
-
-  /**
-   * @var integer
-   *
    * @ORM\Column(name="Enhedsys", type="integer", nullable=true)
    */
   protected $enhedsys;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Enhedskode", type="string", length=255, nullable=true)
-   */
-  protected $enhedskode;
 
   /**
    * @var string
@@ -132,13 +118,6 @@ class Bygning {
   /**
    * @var string
    *
-   * @ORM\Column(name="Ejer", type="string", length=255, nullable=true)
-   */
-  protected $ejer;
-
-  /**
-   * @var string
-   *
    * @ORM\Column(name="Afdelingsnavn", type="string", length=255, nullable=true)
    */
   protected $afdelingsnavn;
@@ -165,31 +144,10 @@ class Bygning {
   protected $bruttoetageareal;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="Maalertype", type="string", length=255, nullable=true)
-   */
-  protected $maalertype;
-
-  /**
    * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
    * @ORM\JoinColumn(name="vand_forsyningsvaerk_id", referencedColumnName="id")
    **/
   protected $forsyningsvaerkVand;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Kundenummer", type="string", length=255, nullable=true)
-   */
-  protected $kundenummer;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Kode", type="string", length=255, nullable=true)
-   */
-  protected $kode;
 
   /**
    * @Assert\NotBlank(groups={"DATA_VERIFICERET"})
@@ -200,75 +158,12 @@ class Bygning {
   protected $forsyningsvaerkVarme;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="Kundenr_1", type="string", length=255, nullable=true)
-   */
-  protected $kundenr1;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Kode_1", type="string", length=255, nullable=true)
-   */
-  protected $kode1;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="MaalerskifteAFV", type="string", length=255, nullable=true)
-   */
-  protected $maalerskifteAFV;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="AFVInstnr_1", type="string", length=255, nullable=true)
-   */
-  protected $aFVInstnr1;
-
-  /**
    * @Assert\NotBlank(groups={"DATA_VERIFICERET"})
    *
    * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
    * @ORM\JoinColumn(name="el_forsyningsvaerk_id", referencedColumnName="id")
    **/
   protected $forsyningsvaerkEl;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Instnr", type="string", length=255, nullable=true)
-   */
-  protected $instnr;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Kundenr_NRGI", type="string", length=255, nullable=true)
-   */
-  protected $kundenrNRGI;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="internetkode", type="string", length=255, nullable=true)
-   */
-  protected $internetkode;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Aftagenr", type="string", length=255, nullable=true)
-   */
-  protected $aftagenr;
-
-  /**
-   * @var integer
-   *
-   * @ORM\Column(name="Telefon", type="integer", nullable=true)
-   */
-  protected $telefon;
 
   /**
    * @var string
@@ -287,93 +182,9 @@ class Bygning {
   /**
    * @var integer
    *
-   * @ORM\Column(name="Kommune", type="integer", nullable=true)
-   */
-  protected $kommune;
-
-  /**
-   * @var integer
-   *
    * @ORM\Column(name="Ejerforhold", type="integer", nullable=true)
    */
   protected $ejerforhold;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Magistrat", type="string", length=255, nullable=true)
-   */
-  protected $magistrat;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Lokation", type="string", length=255, nullable=true)
-   */
-  protected $lokation;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Lokationsnavn", type="string", length=255, nullable=true)
-   */
-  protected $lokationsnavn;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Lederbetegnelse", type="string", length=255, nullable=true)
-   */
-  protected $lederbetegnelse;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Ledersnavn", type="string", length=255, nullable=true)
-   */
-  protected $ledersnavn;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Ledersmail", type="string", length=255, nullable=true)
-   */
-  protected $ledersmail;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Kontakt_Notat", type="string", length=255, nullable=true)
-   */
-  protected $kontaktNotat;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Stamdata_Notat", type="string", length=255, nullable=true)
-   */
-  protected $stamdataNotat;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Vand_Notat", type="string", length=255, nullable=true)
-   */
-  protected $vandNotat;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="El_Notat", type="string", length=255, nullable=true)
-   */
-  protected $elNotat;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Varme_Notat", type="string", length=255, nullable=true)
-   */
-  protected $varmeNotat;
 
   /**
    * @OneToOne(targetEntity="Rapport", mappedBy="bygning", cascade={"persist"})
@@ -493,27 +304,6 @@ class Bygning {
   }
 
   /**
-   * Set ident
-   *
-   * @param integer $ident
-   * @return Bygning
-   */
-  public function setIdent($ident) {
-    $this->ident = $ident;
-
-    return $this;
-  }
-
-  /**
-   * Get ident
-   *
-   * @return integer
-   */
-  public function getIdent() {
-    return $this->ident;
-  }
-
-  /**
    * Set enhedsys
    *
    * @param integer $enhedsys
@@ -535,27 +325,6 @@ class Bygning {
   }
 
   /**
-   * Set enhedskode
-   *
-   * @param string $enhedskode
-   * @return Bygning
-   */
-  public function setEnhedskode($enhedskode) {
-    $this->enhedskode = $enhedskode;
-
-    return $this;
-  }
-
-  /**
-   * Get enhedskode
-   *
-   * @return string
-   */
-  public function getEnhedskode() {
-    return $this->enhedskode;
-  }
-
-  /**
    * Set type
    *
    * @param string $type
@@ -574,27 +343,6 @@ class Bygning {
    */
   public function getType() {
     return $this->type;
-  }
-
-  /**
-   * Set kommentarer
-   *
-   * @param string $kommentarer
-   * @return Bygning
-   */
-  public function setKommentarer($kommentarer) {
-    $this->kommentarer = $kommentarer;
-
-    return $this;
-  }
-
-  /**
-   * Get kommentarer
-   *
-   * @return string
-   */
-  public function getKommentarer() {
-    return $this->kommentarer;
   }
 
   /**
@@ -682,27 +430,6 @@ class Bygning {
   }
 
   /**
-   * Set ejer
-   *
-   * @param string $ejer
-   * @return Bygning
-   */
-  public function setEjer($ejer) {
-    $this->ejer = $ejer;
-
-    return $this;
-  }
-
-  /**
-   * Get ejer
-   *
-   * @return string
-   */
-  public function getEjer() {
-    return $this->ejer;
-  }
-
-  /**
    * Set afdelingsnavn
    *
    * @param string $afdelingsnavn
@@ -787,27 +514,6 @@ class Bygning {
   }
 
   /**
-   * Set maalertype
-   *
-   * @param string $maalertype
-   * @return Bygning
-   */
-  public function setMaalertype($maalertype) {
-    $this->maalertype = $maalertype;
-
-    return $this;
-  }
-
-  /**
-   * Get maalertype
-   *
-   * @return string
-   */
-  public function getMaalertype() {
-    return $this->maalertype;
-  }
-
-  /**
    * Set forsyningsvaerkVand
    *
    * @param Forsyningsvaerk $forsyningsvaerkVand
@@ -826,48 +532,6 @@ class Bygning {
    */
   public function getForsyningsvaerkVand() {
     return $this->forsyningsvaerkVand;
-  }
-
-  /**
-   * Set kundenummer
-   *
-   * @param string $kundenummer
-   * @return Bygning
-   */
-  public function setKundenummer($kundenummer) {
-    $this->kundenummer = $kundenummer;
-
-    return $this;
-  }
-
-  /**
-   * Get kundenummer
-   *
-   * @return string
-   */
-  public function getKundenummer() {
-    return $this->kundenummer;
-  }
-
-  /**
-   * Set kode
-   *
-   * @param string $kode
-   * @return Bygning
-   */
-  public function setKode($kode) {
-    $this->kode = $kode;
-
-    return $this;
-  }
-
-  /**
-   * Get kode
-   *
-   * @return string
-   */
-  public function getKode() {
-    return $this->kode;
   }
 
   /**
@@ -892,90 +556,6 @@ class Bygning {
   }
 
   /**
-   * Set kundenr1
-   *
-   * @param string $kundenr1
-   * @return Bygning
-   */
-  public function setKundenr1($kundenr1) {
-    $this->kundenr1 = $kundenr1;
-
-    return $this;
-  }
-
-  /**
-   * Get kundenr1
-   *
-   * @return string
-   */
-  public function getKundenr1() {
-    return $this->kundenr1;
-  }
-
-  /**
-   * Set kode1
-   *
-   * @param string $kode1
-   * @return Bygning
-   */
-  public function setKode1($kode1) {
-    $this->kode1 = $kode1;
-
-    return $this;
-  }
-
-  /**
-   * Get kode1
-   *
-   * @return string
-   */
-  public function getKode1() {
-    return $this->kode1;
-  }
-
-  /**
-   * Set maalerskifteAFV
-   *
-   * @param string $maalerskifteAFV
-   * @return Bygning
-   */
-  public function setMaalerskifteAFV($maalerskifteAFV) {
-    $this->maalerskifteAFV = $maalerskifteAFV;
-
-    return $this;
-  }
-
-  /**
-   * Get maalerskifteAFV
-   *
-   * @return string
-   */
-  public function getMaalerskifteAFV() {
-    return $this->maalerskifteAFV;
-  }
-
-  /**
-   * Set aFVInstnr1
-   *
-   * @param string $aFVInstnr1
-   * @return Bygning
-   */
-  public function setAFVInstnr1($aFVInstnr1) {
-    $this->aFVInstnr1 = $aFVInstnr1;
-
-    return $this;
-  }
-
-  /**
-   * Get aFVInstnr1
-   *
-   * @return string
-   */
-  public function getAFVInstnr1() {
-    return $this->aFVInstnr1;
-  }
-
-  /**
    * Set forsyningsvaerkEl
    *
    * @param Forsyningsvaerk $forsyningsvaerkEl
@@ -994,111 +574,6 @@ class Bygning {
    */
   public function getForsyningsvaerkEl() {
     return $this->forsyningsvaerkEl;
-  }
-
-  /**
-   * Set instnr
-   *
-   * @param string $instnr
-   * @return Bygning
-   */
-  public function setInstnr($instnr) {
-    $this->instnr = $instnr;
-
-    return $this;
-  }
-
-  /**
-   * Get instnr
-   *
-   * @return string
-   */
-  public function getInstnr() {
-    return $this->instnr;
-  }
-
-  /**
-   * Set kundenrNRGI
-   *
-   * @param string $kundenrNRGI
-   * @return Bygning
-   */
-  public function setKundenrNRGI($kundenrNRGI) {
-    $this->kundenrNRGI = $kundenrNRGI;
-
-    return $this;
-  }
-
-  /**
-   * Get kundenrNRGI
-   *
-   * @return string
-   */
-  public function getKundenrNRGI() {
-    return $this->kundenrNRGI;
-  }
-
-  /**
-   * Set internetkode
-   *
-   * @param string $internetkode
-   * @return Bygning
-   */
-  public function setInternetkode($internetkode) {
-    $this->internetkode = $internetkode;
-
-    return $this;
-  }
-
-  /**
-   * Get internetkode
-   *
-   * @return string
-   */
-  public function getInternetkode() {
-    return $this->internetkode;
-  }
-
-  /**
-   * Set aftagenr
-   *
-   * @param string $aftagenr
-   * @return Bygning
-   */
-  public function setAftagenr($aftagenr) {
-    $this->aftagenr = $aftagenr;
-
-    return $this;
-  }
-
-  /**
-   * Get aftagenr
-   *
-   * @return string
-   */
-  public function getAftagenr() {
-    return $this->aftagenr;
-  }
-
-  /**
-   * Set telefon
-   *
-   * @param integer $telefon
-   * @return Bygning
-   */
-  public function setTelefon($telefon) {
-    $this->telefon = $telefon;
-
-    return $this;
-  }
-
-  /**
-   * Get telefon
-   *
-   * @return integer
-   */
-  public function getTelefon() {
-    return $this->telefon;
   }
 
   /**
@@ -1144,27 +619,6 @@ class Bygning {
   }
 
   /**
-   * Set kommune
-   *
-   * @param integer $kommune
-   * @return Bygning
-   */
-  public function setKommune($kommune) {
-    $this->kommune = $kommune;
-
-    return $this;
-  }
-
-  /**
-   * Get kommune
-   *
-   * @return integer
-   */
-  public function getKommune() {
-    return $this->kommune;
-  }
-
-  /**
    * Set ejerforhold
    *
    * @param integer $ejerforhold
@@ -1183,237 +637,6 @@ class Bygning {
    */
   public function getEjerforhold() {
     return $this->ejerforhold;
-  }
-
-  /**
-   * Set magistrat
-   *
-   * @param string $magistrat
-   * @return Bygning
-   */
-  public function setMagistrat($magistrat) {
-    $this->magistrat = $magistrat;
-
-    return $this;
-  }
-
-  /**
-   * Get magistrat
-   *
-   * @return string
-   */
-  public function getMagistrat() {
-    return $this->magistrat;
-  }
-
-  /**
-   * Set lokation
-   *
-   * @param string $lokation
-   * @return Bygning
-   */
-  public function setLokation($lokation) {
-    $this->lokation = $lokation;
-
-    return $this;
-  }
-
-  /**
-   * Get lokation
-   *
-   * @return string
-   */
-  public function getLokation() {
-    return $this->lokation;
-  }
-
-  /**
-   * Set lokationsnavn
-   *
-   * @param string $lokationsnavn
-   * @return Bygning
-   */
-  public function setLokationsnavn($lokationsnavn) {
-    $this->lokationsnavn = $lokationsnavn;
-
-    return $this;
-  }
-
-  /**
-   * Get lokationsnavn
-   *
-   * @return string
-   */
-  public function getLokationsnavn() {
-    return $this->lokationsnavn;
-  }
-
-  /**
-   * Set lederbetegnelse
-   *
-   * @param string $lederbetegnelse
-   * @return Bygning
-   */
-  public function setLederbetegnelse($lederbetegnelse) {
-    $this->lederbetegnelse = $lederbetegnelse;
-
-    return $this;
-  }
-
-  /**
-   * Get lederbetegnelse
-   *
-   * @return string
-   */
-  public function getLederbetegnelse() {
-    return $this->lederbetegnelse;
-  }
-
-  /**
-   * Set ledersnavn
-   *
-   * @param string $ledersnavn
-   * @return Bygning
-   */
-  public function setLedersnavn($ledersnavn) {
-    $this->ledersnavn = $ledersnavn;
-
-    return $this;
-  }
-
-  /**
-   * Get ledersnavn
-   *
-   * @return string
-   */
-  public function getLedersnavn() {
-    return $this->ledersnavn;
-  }
-
-  /**
-   * Set ledersmail
-   *
-   * @param string $ledersmail
-   * @return Bygning
-   */
-  public function setLedersmail($ledersmail) {
-    $this->ledersmail = $ledersmail;
-
-    return $this;
-  }
-
-  /**
-   * Get ledersmail
-   *
-   * @return string
-   */
-  public function getLedersmail() {
-    return $this->ledersmail;
-  }
-
-  /**
-   * Set kontaktNotat
-   *
-   * @param string $kontaktNotat
-   * @return Bygning
-   */
-  public function setKontaktNotat($kontaktNotat) {
-    $this->kontaktNotat = $kontaktNotat;
-
-    return $this;
-  }
-
-  /**
-   * Get kontaktNotat
-   *
-   * @return string
-   */
-  public function getKontaktNotat() {
-    return $this->kontaktNotat;
-  }
-
-  /**
-   * Set stamdataNotat
-   *
-   * @param string $stamdataNotat
-   * @return Bygning
-   */
-  public function setStamdataNotat($stamdataNotat) {
-    $this->stamdataNotat = $stamdataNotat;
-
-    return $this;
-  }
-
-  /**
-   * Get stamdataNotat
-   *
-   * @return string
-   */
-  public function getStamdataNotat() {
-    return $this->stamdataNotat;
-  }
-
-  /**
-   * Set vandNotat
-   *
-   * @param string $vandNotat
-   * @return Bygning
-   */
-  public function setVandNotat($vandNotat) {
-    $this->vandNotat = $vandNotat;
-
-    return $this;
-  }
-
-  /**
-   * Get vandNotat
-   *
-   * @return string
-   */
-  public function getVandNotat() {
-    return $this->vandNotat;
-  }
-
-  /**
-   * Set elNotat
-   *
-   * @param string $elNotat
-   * @return Bygning
-   */
-  public function setElNotat($elNotat) {
-    $this->elNotat = $elNotat;
-
-    return $this;
-  }
-
-  /**
-   * Get elNotat
-   *
-   * @return string
-   */
-  public function getElNotat() {
-    return $this->elNotat;
-  }
-
-  /**
-   * Set varmeNotat
-   *
-   * @param string $varmeNotat
-   * @return Bygning
-   */
-  public function setVarmeNotat($varmeNotat) {
-    $this->varmeNotat = $varmeNotat;
-
-    return $this;
-  }
-
-  /**
-   * Get varmeNotat
-   *
-   * @return string
-   */
-  public function getVarmeNotat() {
-    return $this->varmeNotat;
   }
 
   /**
