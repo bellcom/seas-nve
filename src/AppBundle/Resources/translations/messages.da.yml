@@ -66,6 +66,7 @@ common:
   genereted: Genereret
   none: Ingen
   oekonomi: Økonomi
+  personer: Personer
   printed: Udskrevet
   replace_file: Vælg ny fil
   result_overview: Resultatoversigt
@@ -75,6 +76,7 @@ common:
   showing: Viser
   summary: Opsummering
   tekniske_oplysninger: Tekniske Oplysninger
+  tilknytning: Tilknytning
   update: Opdater
   updatedat: Opdateret
   updatedby: Opdateret af
@@ -461,10 +463,7 @@ appbundle:
   bygning:
     aaplusAnsvarlig: Aa+ Ansvarlig
     adresse: Adresse
-    adresse: Adresse
     afdelingsnavn: Afdelingsnavn
-    aftagenr: Aftagenr.
-    aFVInstnr1: AFV inst. nr. 1
     ansvarlig: Ansvarlig
     anvendelse: Anvendelse
     bruttoetageareal: Bruttoetageareal
@@ -473,37 +472,14 @@ appbundle:
     createdAt: Oprettet
     createdBy: Oprettet af
     divisionnavn: Divisionnavn
-    ejer: Ejer
     ejerA: Ejer A
     ejerforhold: Ejerforhold
-    elNotat: El notat
     energiRaadgiver: Energirådgiver
-    enhedskode: Enhedskode
     enhedsys: Enhedsys
     forsyningsvaerkEl: El
     forsyningsvaerkVand: Vand
     forsyningsvaerkVand: Vand
     forsyningsvaerkVarme: Varme
-    ident: Ident
-    instnr: Instnr.
-    internetkode: Internetkode
-    kode: Kode
-    kode1: Kode 1
-    kommentarer: Kommentarer
-    kommune: Kommune
-    kontaktNotat: Kontakt Notat
-    kundenr1: Kundenr 1
-    kundenrNRGI: Kundenr. NRGI
-    kundenummer: Kundenummer
-    lederbetegnelse: Lederbetegnelse
-    ledersmail: Leders mail
-    ledersnavn: Leders navn
-    lokation: Lokation
-    lokationsnavn: Lokationsnavn
-    maalerskifteAFV: ﻿Målerskifte AFV
-    maalertype: Målertype
-    magistrat: Magistrat
-    magistrat: Magistrat
     navn: Navn
     omraadenavn: Områdenavn
     OpfoerselsAar: Opførelsesår
@@ -577,15 +553,11 @@ appbundle:
     segment: Segment
     segment.forkortelse: Magistrat (Forkortelse)
     singular: Bygning
-    stamdataNotat: Stamdata notat
     status: Status
-    telefon: Telefon
     type: Type
     updatedAt: Opdateret
     updatedBy: Opdateret af
     users: Brugere
-    vandNotat: Vand notat
-    varmeNotat: Varme notat
   configuration:
     rapportDriftomkostningerfaktor: Driftomkostninger Faktor
     rapportDriftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
@@ -1244,9 +1216,12 @@ appbundle:
     simpelTilbagebetalingstidAar.unit: År
     tiltagskategori: Tiltagskategori
     tilvalgt: Tilvalgt
-    tilvalgtAfAaPlus: Aa+
-    tilvalgtAfMagistrat: Mag.
-    tilvalgtAfRaadgiver: Rådg.
+    tilvalgtAfAaPlus: Tilvalgt Aa+
+    tilvalgtAfAaPlus.th: Aa+
+    tilvalgtAfMagistrat: Tilvalgt Mag.
+    tilvalgtAfMagistrat.th: Mag.
+    tilvalgtAfRaadgiver: Tilvalgt Rådg.
+    tilvalgtAfRaadgiver.th: Rådg.
     tilvalgtbegrundelse: Bemærkning Aa+
     tilvalgtBegrundelseMagistrat: Bemærkning Magistrat
     title: Titel
