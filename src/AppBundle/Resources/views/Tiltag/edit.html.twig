@@ -127,6 +127,23 @@
       <div class="col-xs-12 col-md-6">
         {{ form_row(edit_form.beskrivelseNuvaerende) }}
         {{ form_row(edit_form.beskrivelseOevrige) }}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ 'common.risikovurdering' | trans }}</h3>
+          </div>
+          <div class="panel-body">
+            <div class="col-xs-12 col-md-6">
+              {{ form_row(edit_form.risikovurderingTeknisk) }}
+              {{ form_row(edit_form.risikovurderingBrugsmoenster) }}
+              {{ form_row(edit_form.risikovurderingDatagrundlag) }}
+              {{ form_row(edit_form.risikovurderingDiverse) }}
+            </div>
+            <div class="col-xs-12 col-md-6">
+              {{ form_row(edit_form.risikovurderingAendringIBesparelseFaktor) }}
+              {{ form_row(edit_form.risikovurderingOekonomiskKompenseringIftInvesteringFaktor) }}
+            </div>
+          </div>
+        </div>
         {{ form_row(edit_form.risikovurdering) }}
         {{ form_row(edit_form.indeklima) }}
       </div>

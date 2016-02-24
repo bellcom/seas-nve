@@ -6,8 +6,11 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\DBAL\Types\Energiforsyning\NavnType;
+use AppBundle\DBAL\Types\RisikovurderingEnumType;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Calculation\Calculation;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -20,7 +23,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
-use AppBundle\DBAL\Types\Energiforsyning\NavnType;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * Tiltag
@@ -305,6 +308,60 @@ abstract class Tiltag {
   /**
    * @var string
    *
+   * Tekniske forhold / kompleksitet
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingEnumType")
+   * @ORM\Column(name="risikovurderingTeknisk", type="RisikovurderingEnumType", nullable=true)
+   */
+  protected $risikovurderingTeknisk;
+
+  /**
+   * @var string
+   *
+   * Brugsmønster
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingEnumType")
+   * @ORM\Column(name="risikovurderingBrugsmoenster", type="RisikovurderingEnumType", nullable=true)
+   */
+  protected $risikovurderingBrugsmoenster;
+
+  /**
+   * @var string
+   *
+   * Datagrundlag
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingEnumType")
+   * @ORM\Column(name="risikovurderingDatagrundlag", type="RisikovurderingEnumType", nullable=true)
+   */
+  protected $risikovurderingDatagrundlag;
+
+  /**
+   * @var string
+   *
+   * Div. (Beskrives i noter.)
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingEnumType")
+   * @ORM\Column(name="risikovurderingDiverse", type="RisikovurderingEnumType", nullable=true)
+   */
+  protected $risikovurderingDiverse;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="risikovurderingAendringIBesparelseFaktor", type="decimal", nullable=true)
+   */
+  protected $risikovurderingAendringIBesparelseFaktor;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="risikovurderingOekonomiskKompenseringIftInvesteringFaktor", type="decimal", nullable=true)
+   */
+  protected $risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
+
+  /**
+   * @var string
+   *
    * @ORM\Column(name="placering", type="string", length=255, nullable=true)
    */
   protected $placering;
@@ -425,6 +482,90 @@ abstract class Tiltag {
    */
   public function getId() {
     return $this->id;
+  }
+
+  /**
+   * @return string
+   */
+  public function getRisikovurderingTeknisk() {
+    return $this->risikovurderingTeknisk;
+  }
+
+  /**
+   * @param string $risikovurderingTeknisk
+   */
+  public function setRisikovurderingTeknisk($risikovurderingTeknisk) {
+    $this->risikovurderingTeknisk = $risikovurderingTeknisk;
+  }
+
+  /**
+   * @return string
+   */
+  public function getRisikovurderingBrugsmoenster() {
+    return $this->risikovurderingBrugsmoenster;
+  }
+
+  /**
+   * @param string $risikovurderingBrugsmoenster
+   */
+  public function setRisikovurderingBrugsmoenster($risikovurderingBrugsmoenster) {
+    $this->risikovurderingBrugsmoenster = $risikovurderingBrugsmoenster;
+  }
+
+  /**
+   * @return string
+   */
+  public function getRisikovurderingDatagrundlag() {
+    return $this->risikovurderingDatagrundlag;
+  }
+
+  /**
+   * @param string $risikovurderingDatagrundlag
+   */
+  public function setRisikovurderingDatagrundlag($risikovurderingDatagrundlag) {
+    $this->risikovurderingDatagrundlag = $risikovurderingDatagrundlag;
+  }
+
+  /**
+   * @return string
+   */
+  public function getRisikovurderingDiverse() {
+    return $this->risikovurderingDiverse;
+  }
+
+  /**
+   * @param string $risikovurderingDiverse
+   */
+  public function setRisikovurderingDiverse($risikovurderingDiverse) {
+    $this->risikovurderingDiverse = $risikovurderingDiverse;
+  }
+
+  /**
+   * @return float
+   */
+  public function getRisikovurderingAendringIBesparelseFaktor() {
+    return $this->risikovurderingAendringIBesparelseFaktor;
+  }
+
+  /**
+   * @param float $risikovurderingAendringIBesparelseFaktor
+   */
+  public function setRisikovurderingAendringIBesparelseFaktor($risikovurderingAendringIBesparelseFaktor) {
+    $this->risikovurderingAendringIBesparelseFaktor = $risikovurderingAendringIBesparelseFaktor;
+  }
+
+  /**
+   * @return float
+   */
+  public function getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() {
+    return $this->risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
+  }
+
+  /**
+   * @param float $risikovurderingOekonomiskKompenseringIftInvesteringFaktor
+   */
+  public function setRisikovurderingOekonomiskKompenseringIftInvesteringFaktor($risikovurderingOekonomiskKompenseringIftInvesteringFaktor) {
+    $this->risikovurderingOekonomiskKompenseringIftInvesteringFaktor = $risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
   }
 
   /**
