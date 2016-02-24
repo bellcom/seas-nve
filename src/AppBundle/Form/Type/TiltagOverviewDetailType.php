@@ -6,55 +6,44 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\Tiltag;
+use AppBundle\Entity\PumpeTiltag;
+use AppBundle\Entity\SolcelleTiltag;
+use AppBundle\Entity\TekniskIsoleringTiltag;
+use AppBundle\Entity\KlimaskaermTiltag;
+use AppBundle\Entity\SpecialTiltag;
+use AppBundle\Entity\VindueTiltag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ForsyningsvaerkType
+ * Class TiltagOverviewDetailType
  * @package AppBundle\Form
  */
-class ForsyningsvaerkType extends AbstractType {
+class TiltagOverviewDetailType extends AbstractType {
+
   /**
    * @TODO: Missing description.
    *
    * @param FormBuilderInterface $builder
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    * @param array $options
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder
-      ->add('navn')
-      ->add('energiform')
-      ->add('noter');
-
-    $startYear = 2009;
-    $endYear = 2045;
-
-    for ($year = $startYear; $year <= $endYear; $year++) {
-      $builder->add('pris' . $year);
-    }
-
-    $endYear = 2039;
-
-    $builder
-      ->add('co2noter');
-
-    for ($year = $startYear; $year <= $endYear; $year++) {
-      $builder->add('co2y' . $year);
-    }
+    $builder->add('details', 'collection', array('type' => new TiltagDetailEmbeddedType(), 'label' => FALSE));
   }
 
   /**
    * @TODO: Missing description.
    *
    * @param OptionsResolver $resolver
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Forsyningsvaerk'
+      'data_class' => 'AppBundle\Entity\Tiltag'
     ));
   }
 
@@ -62,9 +51,9 @@ class ForsyningsvaerkType extends AbstractType {
    * @TODO: Missing description.
    *
    * @return string
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function getName() {
-    return 'appbundle_forsyningsvaerk';
+    return 'appbundle_tiltag_detail_index';
   }
 }

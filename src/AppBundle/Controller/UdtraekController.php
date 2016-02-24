@@ -77,8 +77,6 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
       $result = $query->getResult();
 
-      $d = 1;
-
       return $this->render('AppBundle:Bygning:index.' . $_format . '.twig',
         array('bygninger' => $result),
         $response);

@@ -39,64 +39,35 @@ class BygningType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('bygId')
-      ->add('ident')
       ->add('navn')
       ->add('OpfoerselsAar')
       ->add('enhedsys')
-      ->add('enhedskode')
       ->add('type')
-      ->add('kommentarer')
       ->add('adresse')
       ->add('postnummer')
       ->add('postBy')
-      ->add('ejer')
       ->add('afdelingsnavn')
       ->add('ejerA')
       ->add('anvendelse')
       ->add('bruttoetageareal')
-      ->add('maalertype')
-      ->add('kundenummer')
-      ->add('kode')
       ->add('forsyningsvaerkVarme', 'entity', array(
         'class' => 'AppBundle:Forsyningsvaerk',
         'required' => FALSE,
         'empty_value' => '--',
       ))
-      ->add('kundenr1')
-      ->add('kode1')
-      ->add('maalerskifteAFV')
-      ->add('aFVInstnr1')
       ->add('forsyningsvaerkEl', 'entity', array(
         'class' => 'AppBundle:Forsyningsvaerk',
         'required' => FALSE,
         'empty_value' => '--',
       ))
-      ->add('instnr')
-      ->add('kundenrNRGI')
-      ->add('internetkode')
-      ->add('aftagenr')
-      ->add('telefon')
       ->add('divisionnavn')
       ->add('omraadenavn')
-      ->add('kommune')
       ->add('ejerforhold')
-      ->add('magistrat')
       ->add('segment', 'entity', array(
         'class' => 'AppBundle:Segment',
         'required' => FALSE,
         'empty_value' => '--',
       ))
-      ->add('lokation')
-      ->add('lokationsnavn')
-      ->add('lederbetegnelse')
-      ->add('ledersnavn')
-      ->add('ledersmail')
-      ->add('kontaktNotat')
-      ->add('stamdataNotat')
-      ->add('vandNotat')
-      ->add('elNotat')
-      ->add('varmeNotat')
-      //->add('forsyningsvaerkVand')
       ->add('aaplusAnsvarlig', 'entity', array(
         'class' => 'AppBundle:User',
         'choices' => $this->getUsersFromGroup("Aa+"),

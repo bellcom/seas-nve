@@ -104,6 +104,10 @@ div.tab-content div.row:first-child {
     margin-top: 1.5em;
 }
 
+div.tab-content div.details-overview:first-child {
+    margin-top: 0;
+}
+
 th.unit {
     text-align: center;
     background-color: #ddd;
@@ -112,6 +116,13 @@ th.unit {
 .table>tfoot>tr>th {
     border-top: 2px solid #ddd;
 }
+
+table .checkbox input[type=checkbox], table .checkbox-inline input[type=checkbox], table .radio input[type=radio], table .radio-inline input[type=radio] {
+    position: absolute;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
 
 /**
  * Additional styles for BraincraftedBootstrapBundle

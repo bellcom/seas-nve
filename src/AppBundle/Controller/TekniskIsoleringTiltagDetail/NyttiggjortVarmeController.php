@@ -166,7 +166,6 @@ class NyttiggjortVarmeController extends BaseController {
       throw $this->createNotFoundException('Unable to find TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.');
     }
 
-    $deleteForm = $this->createDeleteForm($id);
     $editForm = $this->createEditForm($entity);
     $editForm->handleRequest($request);
 
@@ -179,7 +178,6 @@ class NyttiggjortVarmeController extends BaseController {
     return array(
       'entity' => $entity,
       'edit_form' => $editForm->createView(),
-      'delete_form' => $deleteForm->createView(),
     );
   }
 

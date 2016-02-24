@@ -5,14 +5,17 @@
 {% endblock %}
 
 {% block detailark -%}
-  <div class="row">
+  <div class="row details-overview">
     <div class="col-md-12">
+
+      {{ form_start(edit_form) }}
+
       <table class="table table-condensed table-header-rotated table-hover">
         <thead>
         <tr>
           {{ helper.header() }}
-          {{ helper.header('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header('appbundle.vinduetiltagdetail.orientering') }}
           {{ helper.header('appbundle.vinduetiltagdetail.eRefEksKWhM2Aar') }}
@@ -42,8 +45,8 @@
         </tr>
         <tr>
           {{ helper.header_unit() }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header_unit('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.orientering') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.eRefEksKWhM2Aar') }}
@@ -73,13 +76,16 @@
         </tr>
         </thead>
         <tbody>
-        {% for detail in entity.details %}
+        {% for form_detail in edit_form.details %}
+          {% set detail = details[form_detail.vars['value'].id] %}
           <tr>
             <td>
               {{ block('tiltag_detail_edit') }}
             </td>
+            <td>
+              {{ form_row(form_detail.tilvalgt) }}
+            </td>
             <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
-            <td>{{ detail.tilvalgt | b2icon }}</td>
             <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
             <td>{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
             <td>{{ detail.eRefEksKWhM2Aar | format_decimal }}</td>
@@ -88,7 +94,13 @@
             <td>{{ detail.eWNyKWhM2Aar | format_decimal }}</td>
             <td>{{ detail.solenergitransmittansEks | format_percent }}</td>
             <td>{{ detail.solenergitransmittansNy | format_percent }}</td>
-            <td>{{ detail.klimaskaerm }}</td>
+            <td>
+              {% if detail.klimaskaerm is not empty %}
+                {{ detail.klimaskaerm }}
+              {% else %}
+                {{ 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.show' | trans }}
+              {% endif %}
+            </td>
             <td>{{ detail.typePlaceringJfPlantegning }}</td>
             <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
             <td>{{ detail.breddeM | format_decimal }}</td>
@@ -110,6 +122,9 @@
         {% endfor %}
         </tbody>
       </table>
+
+      {{ form_rest(edit_form) }}
+      {{ form_end(edit_form) }}
     </div>
   </div>
 

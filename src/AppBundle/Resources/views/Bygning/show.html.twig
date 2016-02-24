@@ -1,19 +1,17 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  {% if entity.navn %}
-    <h1>{{ icon('home') }} {{ entity.navn }}
-      <small>{{ entity.adresse }}, {{ entity.postnummer }} {{ entity.postBy }}</small>
-    </h1>
-  {% else %}
-    <h1>{{ icon('home') }} {{ entity.adresse }}, {{ entity.postnummer }} {{ entity.postBy }}</h1>
-  {% endif %}
 
-  <div class="row">
+
+  <div class="row heading">
     <div class="col-md-8">
-      <p>
-        <h2>{{ 'common.data' | trans }}</h2>
-      </p>
+      {% if entity.navn %}
+        <h1>{{ icon('home') }} {{ entity.navn }}
+          <small>{{ entity.adresse }}, {{ entity.postnummer }} {{ entity.postBy }}</small>
+        </h1>
+      {% else %}
+        <h1>{{ icon('home') }} {{ entity.adresse }}, {{ entity.postnummer }} {{ entity.postBy }}</h1>
+      {% endif %}
     </div>
     <div class="col-md-4 text-right">
       <p>
@@ -33,210 +31,135 @@
           </a>
         {% endif %}
       </p>
+
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-6">
-      <table class="table table-condensed">
-        <tbody>
-        <tr>
-          <th>{{ 'appbundle.bygning.bygId' | trans }}</th>
-          <td>{{ entity.bygId }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.ident' | trans }}</th>
-          <td>{{ entity.ident }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.enhedsys' | trans }}</th>
-          <td>{{ entity.enhedsys }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.enhedskode' | trans }}</th>
-          <td>{{ entity.enhedskode }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.type' | trans }}</th>
-          <td>{{ entity.type }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.kommentarer' | trans }}</th>
-          <td>{{ entity.kommentarer }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.adresse' | trans }}</th>
-          <td>{{ entity.adresse }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.postnummer' | trans }}</th>
-          <td>{{ entity.postnummer }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.postBy' | trans }}</th>
-          <td>{{ entity.postBy }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.navn' | trans }}</th>
-          <td>{{ entity.navn }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.OpfoerselsAar' | trans }}</th>
-          <td>{{ entity.OpfoerselsAar }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.ejer' | trans }}</th>
-          <td>{{ entity.ejer }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.afdelingsnavn' | trans }}</th>
-          <td>{{ entity.afdelingsnavn }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.ejerA' | trans }}</th>
-          <td>{{ entity.ejerA }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.anvendelse' | trans }}</th>
-          <td>{{ entity.anvendelse }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.bruttoetageareal' | trans }}</th>
-          <td>{{ entity.bruttoetageareal }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.maalertype' | trans }}</th>
-          <td>{{ entity.maalertype }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.kundenummer' | trans }}</th>
-          <td>{{ entity.kundenummer }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.kode' | trans }}</th>
-          <td>{{ entity.kode }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.forsyningsvaerkVarme' | trans }}</th>
-          <td>{{ entity.forsyningsvaerkVarme }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.kundenr1' | trans }}</th>
-          <td>{{ entity.kundenr1 }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.kode1' | trans }}</th>
-          <td>{{ entity.kode1 }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.maalerskifteAFV' | trans }}</th>
-          <td>{{ entity.maalerskifteAFV }}</td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.bygning.navn' | trans }} / {{ 'appbundle.bygning.adresse' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+          <tr>
+            <th>{{ 'appbundle.bygning.navn' | trans }}</th>
+            <td>{{ entity.navn }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.adresse' | trans }}</th>
+            <td>{{ entity.adresse }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.postnummer' | trans }}</th>
+            <td>{{ entity.postnummer }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.postBy' | trans }}</th>
+            <td>{{ entity.postBy }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('users') }} {{ 'common.personer' | trans }} / {{ 'common.tilknytning' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+          <tr>
+            <th>{{ 'appbundle.bygning.aaplusAnsvarlig' | trans }}</th>
+            <td>{{ entity.aaplusAnsvarlig }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.energiRaadgiver' | trans }}</th>
+            <td>{{ entity.energiRaadgiver }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.afdelingsnavn' | trans }}</th>
+            <td>{{ entity.afdelingsnavn }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.ejerA' | trans }}</th>
+            <td>{{ entity.ejerA }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.divisionnavn' | trans }}</th>
+            <td>{{ entity.divisionnavn }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.omraadenavn' | trans }}</th>
+            <td>{{ entity.omraadenavn }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.ejerforhold' | trans }}</th>
+            <td>{{ entity.ejerforhold }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="col-md-6">
-      <table class="table table-condensed">
-        <tbody>
-        <tr>
-          <th>{{ 'appbundle.bygning.status' | trans }}</th>
-          <td>{{ entity.status | readable }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.aFVInstnr1' | trans }}</th>
-          <td>{{ entity.aFVInstnr1 }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.forsyningsvaerkEl' | trans }}</th>
-          <td>{{ entity.forsyningsvaerkEl }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.instnr' | trans }}</th>
-          <td>{{ entity.instnr }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.kundenrNRGI' | trans }}</th>
-          <td>{{ entity.kundenrNRGI }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.internetkode' | trans }}</th>
-          <td>{{ entity.internetkode }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.aftagenr' | trans }}</th>
-          <td>{{ entity.aftagenr }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.telefon' | trans }}</th>
-          <td>{{ entity.telefon }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.divisionnavn' | trans }}</th>
-          <td>{{ entity.divisionnavn }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.omraadenavn' | trans }}</th>
-          <td>{{ entity.omraadenavn }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.kommune' | trans }}</th>
-          <td>{{ entity.kommune }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.ejerforhold' | trans }}</th>
-          <td>{{ entity.ejerforhold }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.aaplusAnsvarlig' | trans }}</th>
-          <td>{{ entity.aaplusAnsvarlig }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.magistrat' | trans }}</th>
-          <td>{{ entity.magistrat }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.lokation' | trans }}</th>
-          <td>{{ entity.lokation }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.lokationsnavn' | trans }}</th>
-          <td>{{ entity.lokationsnavn }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.lederbetegnelse' | trans }}</th>
-          <td>{{ entity.lederbetegnelse }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.ledersnavn' | trans }}</th>
-          <td>{{ entity.ledersnavn }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.ledersmail' | trans }}</th>
-          <td>{{ entity.ledersmail }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.kontaktNotat' | trans }}</th>
-          <td>{{ entity.kontaktNotat }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.stamdataNotat' | trans }}</th>
-          <td>{{ entity.stamdataNotat }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.vandNotat' | trans }}</th>
-          <td>{{ entity.vandNotat }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.elNotat' | trans }}</th>
-          <td>{{ entity.elNotat }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.bygning.varmeNotat' | trans }}</th>
-          <td>{{ entity.varmeNotat }}</td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('info-circle') }} {{ 'common.data' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+          <tr>
+            <th>{{ 'appbundle.bygning.bygId' | trans }}</th>
+            <td>{{ entity.bygId }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.enhedsys' | trans }}</th>
+            <td>{{ entity.enhedsys }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.type' | trans }}</th>
+            <td>{{ entity.type }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.OpfoerselsAar' | trans }}</th>
+            <td>{{ entity.OpfoerselsAar }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.anvendelse' | trans }}</th>
+            <td>{{ entity.anvendelse }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.bruttoetageareal' | trans }}</th>
+            <td>{{ entity.bruttoetageareal }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.status' | trans }}</th>
+            <td>{{ entity.status | readable }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'rapporter.labels.singular' | trans }}</th>
+            <td>
+              {% if entity.rapport %}
+              <a href="{{ path('rapport_show', { 'id': entity.rapport.id }) }}">{{ entity.rapport }} - {{ 'appbundle.rapport.version' | trans }} {{ entity.rapport.version }}</a></td>
+              {% endif %}
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('industry') }} {{ 'forsyningsvaerker.labels.plural' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+          <tr>
+            <th>{{ 'appbundle.bygning.forsyningsvaerkEl' | trans }}</th>
+            <td>{{ entity.forsyningsvaerkEl }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.forsyningsvaerkVarme' | trans }}</th>
+            <td>{{ entity.forsyningsvaerkVarme }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </div>
