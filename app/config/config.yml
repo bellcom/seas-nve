@@ -80,6 +80,8 @@ doctrine:
             StyringType: AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType
             TiltagType: AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType
             PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
+            ArealKildePrimaerType: AppBundle\DBAL\Types\Baseline\ArealKildePrimaerType
+            ArealKildeSekundaerType: AppBundle\DBAL\Types\Baseline\ArealKildeSekundaerType
         logging: false
         profiling: false
     orm:

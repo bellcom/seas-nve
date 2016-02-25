@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use AppBundle\Entity\ELOKategori;
+use AppBundle\DBAL\Types\Baseline\ArealKildePrimaerType;
+use AppBundle\DBAL\Types\Baseline\ArealKildeSekundaerType;
 
 /**
  * Baseline.
@@ -46,6 +48,55 @@ class Baseline {
    * @ORM\JoinColumn(name="elo_kategori_id", referencedColumnName="id")
    **/
   protected $eloKategori;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="arealdataPrimaerKilde", type="ArealKildePrimaerType", nullable=true)
+   */
+  protected $arealdataPrimaerKilde;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="arealdataPrimaerAreal", type="float", nullable=true)
+   */
+  protected $arealdataPrimaerAreal;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="arealdataPrimaerNoter", type="text", nullable=true)
+   */
+  protected $arealdataPrimaerNoter;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="arealdataSekundaerKilde", type="ArealKildeSekundaerType", nullable=true)
+   */
+  protected $arealdataSekundaerKilde;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="arealdataSekundaerAreal", type="float", nullable=true)
+   */
+  protected $arealdataSekundaerAreal;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="arealdataSekundaerNoter", type="text", nullable=true)
+   */
+  protected $arealdataSekundaerNoter;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="arealTilNoegletalsanalyse", type="float", nullable=true)
+   */
+  protected $arealTilNoegletalsanalyse;
 
   /**
    * Get id
