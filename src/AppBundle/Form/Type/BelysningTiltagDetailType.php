@@ -35,6 +35,8 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       ->add('armaturerStkLokale')
       ->add('placering')
       ->add('styring')
+      ->add('nyStyring')
+      ->add('nytArmatur')
       ->add('noter')
       ->add('noterForNyBelysning')
       ->add('belysningstiltag')

@@ -377,13 +377,13 @@ vinduetiltagdetail:
 appbundle:
   belysningtiltagdetail:
     add: Tilføj
-    armaturerStkLokale: Armaturer
+    armaturerStkLokale: Armaturer antal
     armaturerStkLokale.unit: stk/lok.
     armaturerStkLokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
     armaturhoejdeM: Armaturhøjde
     armaturhoejdeM.unit: m
     armaturhoejdeM.help: ﻿Monteringshøjden for armaturene i rummet indtastes
-    belysningstiltag: Tiltag
+    belysningstiltag: Nyt tiltag
     driftsbesparelseTilLyskilderKrAar: Driftsbesparelse til lyskilder Alle lokaler
     driftsbesparelseTilLyskilderKrAar.unit: kr/år
     drifttidTAar: Drifttid
@@ -402,10 +402,10 @@ appbundle:
     investeringAlleLokalerKr.unit: kr
     kwhBesparelseEl: kWh-besparelse El
     kwhBesparelseVarmeFraVarmevaerket: kWh-besparelse Varme fra varmeværket
-    lyskilde: Lyskilde
-    lyskildeStkArmatur: Lyskilde
+    lyskilde: Belysningstype
+    lyskildeStkArmatur: Lyskilde antal
     lyskildeStkArmatur.unit: stk/arm.
-    lyskildeWLyskilde: Lyskilde
+    lyskildeWLyskilde: Wattage
     lyskildeWLyskilde.unit: W/lysk.
     noter: Noter for eksisterende belysning
     noterForNyBelysning: Noter for ny belysning
@@ -423,11 +423,13 @@ appbundle:
     nyeSensorerStkLokale.unit: stk/lok.
     nyForkoblingStkArmatur: Ny forkobling
     nyForkoblingStkArmatur.unit: stk/arm.
-    nyLyskilde: Ny lyskilde
-    nyLyskildeStkArmatur: Ny lyskilde
+    nyLyskilde: Belysningstype
+    nyLyskildeStkArmatur: Ny lyskilde antal
     nyLyskildeStkArmatur.unit: stk/arm.
-    nyLyskildeWLyskilde: Ny lyskilde
+    nyLyskildeWLyskilde: Ny wattage
     nyLyskildeWLyskilde.unit: W/lysk.
+    nyStyring: Ny styring
+    nytArmatur: Nyt armatur
     nytElforbrugWM2: Nyt elforbrug
     nytElforbrugWM2.unit: W/m²
     nyttiggjortVarmeAfElBesparelse: Nyttiggjort varme

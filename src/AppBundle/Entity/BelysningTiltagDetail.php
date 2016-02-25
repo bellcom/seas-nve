@@ -231,6 +231,22 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $nyeArmaturerStkLokale;
 
   /**
+   * @var BelysningTiltagDetailNyStyring
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NyStyring")
+   * ORM\JoinColumn(name="nyStyring_id", referencedColumnName="id", nullable=true)
+   **/
+  protected $nyStyring;
+
+  /**
+   * @var BelysningTiltagDetailNytArmatur
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NytArmatur")
+   * ORM\JoinColumn(name="nytArmatur_id", referencedColumnName="id", nullable=true)
+   **/
+  protected $nytArmatur;
+
+  /**
    * @var float
    *
    * @ORM\Column(name="nyttiggjortVarmeAfElBesparelse", type="decimal", scale=4, nullable=true)
@@ -1012,6 +1028,34 @@ class BelysningTiltagDetail extends TiltagDetail {
    */
   public function getKwhBesparelseVarmeFraVarmevaerket() {
     return $this->kWhBesparelseVarmeFraVarmevaerket;
+  }
+
+  /**
+   * @return BelysningTiltagDetailNyStyring
+   */
+  public function getNyStyring() {
+    return $this->nyStyring;
+  }
+
+  /**
+   * @param BelysningTiltagDetailNyStyring $nyStyring
+   */
+  public function setNyStyring($nyStyring) {
+    $this->nyStyring = $nyStyring;
+  }
+
+  /**
+   * @return BelysningTiltagDetailNytArmatur
+   */
+  public function getNytArmatur() {
+    return $this->nytArmatur;
+  }
+
+  /**
+   * @param BelysningTiltagDetailNytArmatur $nytArmatur
+   */
+  public function setNytArmatur($nytArmatur) {
+    $this->nytArmatur = $nytArmatur;
   }
 
   public function calculate() {
