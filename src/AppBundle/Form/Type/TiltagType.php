@@ -118,7 +118,9 @@ class TiltagType extends AbstractType {
             'hh' => 'Hårde hvidevarer',
             'a' => 'Automatik',
             'ia' => 'Interne i AAK'
-          )
+          ),
+          'required' => false,
+          'empty_value' => '--'
         ))
         ->add('tiltagskategori');
     }

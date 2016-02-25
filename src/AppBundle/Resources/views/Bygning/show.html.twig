@@ -132,6 +132,13 @@
             <th>{{ 'appbundle.bygning.status' | trans }}</th>
             <td>{{ entity.status | readable }}</td>
           </tr>
+          <tr>
+            <th>{{ 'rapporter.labels.singular' | trans }}</th>
+            <td>
+              {% if entity.rapport %}
+              <a href="{{ path('rapport_show', { 'id': entity.rapport.id }) }}">{{ entity.rapport }} - {{ 'appbundle.rapport.version' | trans }} {{ entity.rapport.version }}</a></td>
+              {% endif %}
+          </tr>
           </tbody>
         </table>
       </div>

@@ -370,12 +370,10 @@ class TiltagController extends BaseController {
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     }
 
-    // @FIXME: How do we handle form errors in modal?
-
-    $template = $this->getTemplate($tiltag, 'new');
+    $template = $this->getDetailTemplate($detail, 'new');
     return $this->render($template, array(
       'entity' => $detail,
-      'form' => $form->createView(),
+      'edit_form' => $form->createView(),
     ));
   }
 

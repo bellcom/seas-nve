@@ -65,6 +65,9 @@ class BygningIndfoerController extends BaseController implements InitControllerI
    * @Template("AppBundle:BygningIndfoer:index.html.twig")
    */
   public function updateAction(Request $request, Bygning $bygning) {
+    $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+    $this->breadcrumbs->addItem('bygninger.actions.indfoer');
+
     $editForm = $this->createEditForm($bygning);
     $editForm->handleRequest($request);
     $flash = $this->get('braincrafted_bootstrap.flash');
