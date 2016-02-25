@@ -822,4 +822,32 @@ class Bygning {
   public function getRapport() {
     return $this->rapport;
   }
+
+  /**
+   * @return string
+   */
+  public function getKommentarer() {
+    return $this->kommentarer;
+  }
+
+  /**
+   * @param string $kommentarer
+   */
+  public function setKommentarer($kommentarer) {
+    $this->kommentarer = $kommentarer;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getBaseline() {
+    return $this->baseline;
+  }
+
+  /**
+   * @param mixed $baseline
+   */
+  public function setBaseline($baseline) {
+    $this->baseline = $baseline;
+  }
 }
