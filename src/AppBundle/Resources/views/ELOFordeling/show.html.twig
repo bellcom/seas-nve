@@ -1,0 +1,76 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>ELOFordeling</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Januar</th>
+                <td>{{ entity.januar }}</td>
+            </tr>
+            <tr>
+                <th>Februar</th>
+                <td>{{ entity.februar }}</td>
+            </tr>
+            <tr>
+                <th>Marts</th>
+                <td>{{ entity.marts }}</td>
+            </tr>
+            <tr>
+                <th>April</th>
+                <td>{{ entity.april }}</td>
+            </tr>
+            <tr>
+                <th>Maj</th>
+                <td>{{ entity.maj }}</td>
+            </tr>
+            <tr>
+                <th>Juni</th>
+                <td>{{ entity.juni }}</td>
+            </tr>
+            <tr>
+                <th>Juli</th>
+                <td>{{ entity.juli }}</td>
+            </tr>
+            <tr>
+                <th>August</th>
+                <td>{{ entity.august }}</td>
+            </tr>
+            <tr>
+                <th>September</th>
+                <td>{{ entity.september }}</td>
+            </tr>
+            <tr>
+                <th>Oktober</th>
+                <td>{{ entity.oktober }}</td>
+            </tr>
+            <tr>
+                <th>November</th>
+                <td>{{ entity.november }}</td>
+            </tr>
+            <tr>
+                <th>December</th>
+                <td>{{ entity.december }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('elofordeling') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('elofordeling_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
