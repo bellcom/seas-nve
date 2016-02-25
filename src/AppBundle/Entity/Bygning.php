@@ -704,7 +704,7 @@ class Bygning {
   /**
    * Set status
    *
-   * @param \AppBundle\Entity\BygningStatus status
+   * @param \AppBundle\DBAL\Types\BygningStatusType status
    *
    * @return Bygning
    */
@@ -717,7 +717,7 @@ class Bygning {
   /**
    * Get status
    *
-   * @return \AppBundle\Entity\BygningStatus
+   * @return \AppBundle\DBAL\Types\BygningStatusType
    */
   public function getStatus() {
     return $this->status;
