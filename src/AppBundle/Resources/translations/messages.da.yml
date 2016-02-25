@@ -70,6 +70,10 @@ common:
   printed: Udskrevet
   replace_file: Vælg ny fil
   result_overview: Resultatoversigt
+  risikovurdering: Risikovurdering
+  risikovurdering.lav: Lav
+  risikovurdering.mellem: Mellem
+  risikovurdering.hoej: Høj
   search: Søg
   select: Tilvælg
   show: Vis
@@ -1205,7 +1209,15 @@ appbundle:
     reelAnlaegsinvestering.unit: kr
     reinvestering: Reinvestering
     reinvestering.unit: kr
-    risikovurdering: Risikovurdering
+    risikovurdering: Noter til risikovurdering
+    risikovurderingTeknisk: Tekniske forhold / kompleksitet
+    risikovurderingBrugsmoenster: Brugsmønster
+    risikovurderingDatagrundlag: Datagrundlag
+    risikovurderingDiverse: Div. (Beskrives i noter.)
+    risikovurderingAendringIBesparelseFaktor: Ændring i besparelse
+    risikovurderingAendringIBesparelseFaktor.unit: %
+    risikovurderingOekonomiskKompenseringIftInvesteringFaktor: Økonomisk kompensering ift. investering
+    risikovurderingOekonomiskKompenseringIftInvesteringFaktor.unit: %
     samletCo2besparelse: Samlet co2-besparelse
     samletCo2besparelse.unit: t/år
     samletEnergibesparelse: Samlet energibesparelse

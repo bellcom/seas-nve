@@ -40,8 +40,10 @@ class PumpeTiltag extends Tiltag {
   }
 
   protected function calculateSamletEnergibesparelse() {
-    return $this->varmebesparelseGAF * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh();
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
+
+    return ($this->varmebesparelseGAF * $this->calculateVarmepris()
+      + $this->elbesparelse * $this->getRapport()->getElKrKWh()) * (1 - $besparelse);
   }
 
   protected function calculateSamletCo2besparelse() {
@@ -50,7 +52,9 @@ class PumpeTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering() {
-    return $this->sum('samletInvesteringInklPristillaeg');
+    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
+
+    return $this->sum('samletInvesteringInklPristillaeg') * (1 + $kompensering);
   }
 
 }

@@ -132,6 +132,27 @@
   {% endspaceless %}
 {% endblock button_widget %}
 
+{% block app_risikovurdering_row %}
+  <tr>
+    <th>{{ block('form_label') }}</th>
+    {{ block('app_risikovurdering_widget') }}
+  </tr>
+{% endblock %}
+
+{% block app_risikovurdering_widget %}
+  {% spaceless %}
+    {% if expanded %}
+      {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' list-inline')|trim }) %}
+        {% for child in form %}
+            <td class="text-center">{{ form_widget(child) }}</td>
+        {% endfor %}
+    {% else %}
+      {# just let the choice widget render the select tag #}
+      {{ block('choice_widget') }}
+    {% endif %}
+  {% endspaceless %}
+{% endblock %}
+
 {% block choice_widget_options %}
   {% spaceless %}
     {% for group_label, choice in options %}

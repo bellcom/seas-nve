@@ -35,8 +35,10 @@ class BelysningTiltag extends Tiltag {
   }
 
   protected function calculateSamletEnergibesparelse() {
-    return $this->varmebesparelseGUF * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh();
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
+
+    return ($this->varmebesparelseGUF * $this->calculateVarmepris()
+      + $this->elbesparelse * $this->getRapport()->getElKrKWh()) * (1 - $besparelse);
   }
 
   protected function calculateSamletCo2besparelse() {
@@ -45,7 +47,9 @@ class BelysningTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering() {
-    return $this->sum('investeringAlleLokalerKr');
+    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
+
+    return $this->sum('investeringAlleLokalerKr') * (1 + $kompensering);
   }
 
   protected function calculateReinvestering() {

@@ -36,8 +36,10 @@ class TekniskIsoleringTiltag extends Tiltag {
   }
 
   protected function calculateSamletEnergibesparelse() {
-    return $this->varmebesparelseGAF * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh();
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
+
+    return ($this->varmebesparelseGAF * $this->calculateVarmepris()
+      + $this->elbesparelse * $this->getRapport()->getElKrKWh()) * (1 - $besparelse);
   }
 
   protected function calculateSamletCo2besparelse() {
@@ -46,7 +48,9 @@ class TekniskIsoleringTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering() {
-    return $this->sum('investeringKr');
+    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
+
+    return $this->sum('investeringKr') * (1 + $kompensering);
   }
 
 }
