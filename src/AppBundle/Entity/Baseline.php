@@ -15,6 +15,9 @@ use AppBundle\DBAL\Types\Baseline\ArealKildePrimaerType;
 use AppBundle\DBAL\Types\Baseline\ArealKildeSekundaerType;
 use AppBundle\DBAL\Types\Baseline\ElKildePrimaerType;
 use AppBundle\DBAL\Types\Baseline\ElKildeSekundaerType;
+use AppBundle\DBAL\Types\Baseline\VarmeKildePrimaerType;
+use AppBundle\DBAL\Types\Baseline\VarmeKildeSekundaerType;
+use AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType;
 use AppBundle\Annotations\Calculated;
 
 /**
@@ -266,6 +269,517 @@ class Baseline {
    * @ORM\Column(name="elBaselineNoter", type="float", nullable=true)
    */
   protected $elBaselineNoter;
+
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaerKilde", type="VarmeKildePrimaerType", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaerKilde;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer1Aarstal", type="text", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer1Aarstal;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer1Forbrug", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer1Forbrug;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer2Aarstal", type="text", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer2Aarstal;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer2Forbrug", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer2Forbrug;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer3Aarstal", type="text", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer3Aarstal;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer3Forbrug", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer3Forbrug;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter", type="GUFFastsaettesEfterType", nullable=true)
+   */
+  protected $varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer1GUFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer1GUFRegAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer2GUFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer2GUFRegAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer3GUFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer3GUFRegAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer1GAFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer1GAFRegAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer2GAFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer2GAFRegAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer3GAFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer3GAFRegAar;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer1GDPeriode", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer1GDPeriode;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer2GDPeriode", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer2GDPeriode;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaer3GDPeriode", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer3GDPeriode;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer1GAFnormal", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer1GAFnormal;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer2GAFnormal", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer2GAFnormal;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer3GAFnormal", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer3GAFnormal;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaerGAFGennemsnit", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaerGAFGennemsnit;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaerGUFGennemsnit", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaerGUFGennemsnit;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataPrimaerNoegletal", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaerNoegletal;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrugsdataPrimaerNoter", type="text", nullable=true)
+   */
+  protected $varmeForbrugsdataPrimaerNoter;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaerKilde", type="VarmeKildeSekundaerType", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaerKilde;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer1Aarstal", type="text", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer1Aarstal;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer1Forbrug", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer1Forbrug;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer2Aarstal", type="text", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer2Aarstal;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer2Forbrug", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer2Forbrug;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer3Aarstal", type="text", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer3Aarstal;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer3Forbrug", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer3Forbrug;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter", type="GUFFastsaettesEfterType", nullable=true)
+   */
+  protected $varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer1GUFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer1GUFRegAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer2GUFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer2GUFRegAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer3GUFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer3GUFRegAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer1GAFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer1GAFRegAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer2GAFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer2GAFRegAar;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer3GAFRegAar", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer3GAFRegAar;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer1GDPeriode", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer1GDPeriode;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer2GDPeriode", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer2GDPeriode;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaer3GDPeriode", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer3GDPeriode;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer1GAFnormal", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer1GAFnormal;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer2GAFnormal", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer2GAFnormal;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer3GAFnormal", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer3GAFnormal;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaerGAFGennemsnit", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaerGAFGennemsnit;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaerGUFGennemsnit", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaerGUFGennemsnit;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeForbrugsdataSekundaerNoegletal", type="float", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaerNoegletal;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeForbrugsdataSekundaerNoter", type="text", nullable=true)
+   */
+  protected $varmeForbrugsdataSekundaerNoter;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeGAFForbrug", type="float", nullable=true)
+   */
+  protected $varmeGAFForbrug;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeGUFForbrug", type="float", nullable=true)
+   */
+  protected $varmeGUFForbrug;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeBaselineFastsatForEjendom", type="float", nullable=true)
+   */
+  protected $varmeBaselineFastsatForEjendom;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeBaselineNoegletalForEjendom", type="float", nullable=true)
+   */
+  protected $varmeBaselineNoegletalForEjendom;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeStrafafkoelingsafgift", type="float", nullable=true)
+   */
+  protected $varmeStrafafkoelingsafgift;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmeBaselineNoter", type="text", nullable=true)
+   */
+  protected $varmeBaselineNoter;
 
   /**
    * Get id
@@ -722,5 +1236,957 @@ class Baseline {
    */
   public function setElBaselineNoter($elBaselineNoter) {
     $this->elBaselineNoter = $elBaselineNoter;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrugsdataPrimaerKilde() {
+    return $this->varmeForbrugsdataPrimaerKilde;
+  }
+
+  /**
+   * @param string $varmeForbrugsdataPrimaerKilde
+   */
+  public function setVarmeForbrugsdataPrimaerKilde($varmeForbrugsdataPrimaerKilde) {
+    $this->varmeForbrugsdataPrimaerKilde = $varmeForbrugsdataPrimaerKilde;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrugsdataPrimaer1Aarstal() {
+    return $this->varmeForbrugsdataPrimaer1Aarstal;
+  }
+
+  /**
+   * @param string $varmeForbrugsdataPrimaer1Aarstal
+   */
+  public function setVarmeForbrugsdataPrimaer1Aarstal($varmeForbrugsdataPrimaer1Aarstal) {
+    $this->varmeForbrugsdataPrimaer1Aarstal = $varmeForbrugsdataPrimaer1Aarstal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer1Forbrug() {
+    return $this->varmeForbrugsdataPrimaer1Forbrug;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer1Forbrug
+   */
+  public function setVarmeForbrugsdataPrimaer1Forbrug($varmeForbrugsdataPrimaer1Forbrug) {
+    $this->varmeForbrugsdataPrimaer1Forbrug = $varmeForbrugsdataPrimaer1Forbrug;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrugsdataPrimaer2Aarstal() {
+    return $this->varmeForbrugsdataPrimaer2Aarstal;
+  }
+
+  /**
+   * @param string $varmeForbrugsdataPrimaer2Aarstal
+   */
+  public function setVarmeForbrugsdataPrimaer2Aarstal($varmeForbrugsdataPrimaer2Aarstal) {
+    $this->varmeForbrugsdataPrimaer2Aarstal = $varmeForbrugsdataPrimaer2Aarstal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer2Forbrug() {
+    return $this->varmeForbrugsdataPrimaer2Forbrug;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer2Forbrug
+   */
+  public function setVarmeForbrugsdataPrimaer2Forbrug($varmeForbrugsdataPrimaer2Forbrug) {
+    $this->varmeForbrugsdataPrimaer2Forbrug = $varmeForbrugsdataPrimaer2Forbrug;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrugsdataPrimaer3Aarstal() {
+    return $this->varmeForbrugsdataPrimaer3Aarstal;
+  }
+
+  /**
+   * @param string $varmeForbrugsdataPrimaer3Aarstal
+   */
+  public function setVarmeForbrugsdataPrimaer3Aarstal($varmeForbrugsdataPrimaer3Aarstal) {
+    $this->varmeForbrugsdataPrimaer3Aarstal = $varmeForbrugsdataPrimaer3Aarstal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer3Forbrug() {
+    return $this->varmeForbrugsdataPrimaer3Forbrug;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer3Forbrug
+   */
+  public function setVarmeForbrugsdataPrimaer3Forbrug($varmeForbrugsdataPrimaer3Forbrug) {
+    $this->varmeForbrugsdataPrimaer3Forbrug = $varmeForbrugsdataPrimaer3Forbrug;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter() {
+    return $this->varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter;
+  }
+
+  /**
+   * @param string $varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter
+   */
+  public function setVarmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter($varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter) {
+    $this->varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter = $varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust() {
+    return $this->varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust
+   */
+  public function setVarmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust($varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust) {
+    $this->varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust = $varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust() {
+    return $this->varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust
+   */
+  public function setVarmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust($varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust) {
+    $this->varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust = $varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust() {
+    return $this->varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust
+   */
+  public function setVarmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust($varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust) {
+    $this->varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust = $varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer1GUFRegAar() {
+    return $this->varmeForbrugsdataPrimaer1GUFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer1GUFRegAar
+   */
+  public function setVarmeForbrugsdataPrimaer1GUFRegAar($varmeForbrugsdataPrimaer1GUFRegAar) {
+    $this->varmeForbrugsdataPrimaer1GUFRegAar = $varmeForbrugsdataPrimaer1GUFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer2GUFRegAar() {
+    return $this->varmeForbrugsdataPrimaer2GUFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer2GUFRegAar
+   */
+  public function setVarmeForbrugsdataPrimaer2GUFRegAar($varmeForbrugsdataPrimaer2GUFRegAar) {
+    $this->varmeForbrugsdataPrimaer2GUFRegAar = $varmeForbrugsdataPrimaer2GUFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer3GUFRegAar() {
+    return $this->varmeForbrugsdataPrimaer3GUFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer3GUFRegAar
+   */
+  public function setVarmeForbrugsdataPrimaer3GUFRegAar($varmeForbrugsdataPrimaer3GUFRegAar) {
+    $this->varmeForbrugsdataPrimaer3GUFRegAar = $varmeForbrugsdataPrimaer3GUFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer1GAFRegAar() {
+    return $this->varmeForbrugsdataPrimaer1GAFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer1GAFRegAar
+   */
+  public function setVarmeForbrugsdataPrimaer1GAFRegAar($varmeForbrugsdataPrimaer1GAFRegAar) {
+    $this->varmeForbrugsdataPrimaer1GAFRegAar = $varmeForbrugsdataPrimaer1GAFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer2GAFRegAar() {
+    return $this->varmeForbrugsdataPrimaer2GAFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer2GAFRegAar
+   */
+  public function setVarmeForbrugsdataPrimaer2GAFRegAar($varmeForbrugsdataPrimaer2GAFRegAar) {
+    $this->varmeForbrugsdataPrimaer2GAFRegAar = $varmeForbrugsdataPrimaer2GAFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer3GAFRegAar() {
+    return $this->varmeForbrugsdataPrimaer3GAFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer3GAFRegAar
+   */
+  public function setVarmeForbrugsdataPrimaer3GAFRegAar($varmeForbrugsdataPrimaer3GAFRegAar) {
+    $this->varmeForbrugsdataPrimaer3GAFRegAar = $varmeForbrugsdataPrimaer3GAFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer1GDPeriode() {
+    return $this->varmeForbrugsdataPrimaer1GDPeriode;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer1GDPeriode
+   */
+  public function setVarmeForbrugsdataPrimaer1GDPeriode($varmeForbrugsdataPrimaer1GDPeriode) {
+    $this->varmeForbrugsdataPrimaer1GDPeriode = $varmeForbrugsdataPrimaer1GDPeriode;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer2GDPeriode() {
+    return $this->varmeForbrugsdataPrimaer2GDPeriode;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer2GDPeriode
+   */
+  public function setVarmeForbrugsdataPrimaer2GDPeriode($varmeForbrugsdataPrimaer2GDPeriode) {
+    $this->varmeForbrugsdataPrimaer2GDPeriode = $varmeForbrugsdataPrimaer2GDPeriode;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer3GDPeriode() {
+    return $this->varmeForbrugsdataPrimaer3GDPeriode;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer3GDPeriode
+   */
+  public function setVarmeForbrugsdataPrimaer3GDPeriode($varmeForbrugsdataPrimaer3GDPeriode) {
+    $this->varmeForbrugsdataPrimaer3GDPeriode = $varmeForbrugsdataPrimaer3GDPeriode;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer1GAFnormal() {
+    return $this->varmeForbrugsdataPrimaer1GAFnormal;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer1GAFnormal
+   */
+  public function setVarmeForbrugsdataPrimaer1GAFnormal($varmeForbrugsdataPrimaer1GAFnormal) {
+    $this->varmeForbrugsdataPrimaer1GAFnormal = $varmeForbrugsdataPrimaer1GAFnormal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer2GAFnormal() {
+    return $this->varmeForbrugsdataPrimaer2GAFnormal;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer2GAFnormal
+   */
+  public function setVarmeForbrugsdataPrimaer2GAFnormal($varmeForbrugsdataPrimaer2GAFnormal) {
+    $this->varmeForbrugsdataPrimaer2GAFnormal = $varmeForbrugsdataPrimaer2GAFnormal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer3GAFnormal() {
+    return $this->varmeForbrugsdataPrimaer3GAFnormal;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer3GAFnormal
+   */
+  public function setVarmeForbrugsdataPrimaer3GAFnormal($varmeForbrugsdataPrimaer3GAFnormal) {
+    $this->varmeForbrugsdataPrimaer3GAFnormal = $varmeForbrugsdataPrimaer3GAFnormal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer1ForbrugKlimakorrigeret() {
+    return $this->varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret
+   */
+  public function setVarmeForbrugsdataPrimaer1ForbrugKlimakorrigeret($varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret) {
+    $this->varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret = $varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer2ForbrugKlimakorrigeret() {
+    return $this->varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret
+   */
+  public function setVarmeForbrugsdataPrimaer2ForbrugKlimakorrigeret($varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret) {
+    $this->varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret = $varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaer3ForbrugKlimakorrigeret() {
+    return $this->varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret
+   */
+  public function setVarmeForbrugsdataPrimaer3ForbrugKlimakorrigeret($varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret) {
+    $this->varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret = $varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaerGAFGennemsnit() {
+    return $this->varmeForbrugsdataPrimaerGAFGennemsnit;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaerGAFGennemsnit
+   */
+  public function setVarmeForbrugsdataPrimaerGAFGennemsnit($varmeForbrugsdataPrimaerGAFGennemsnit) {
+    $this->varmeForbrugsdataPrimaerGAFGennemsnit = $varmeForbrugsdataPrimaerGAFGennemsnit;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaerGUFGennemsnit() {
+    return $this->varmeForbrugsdataPrimaerGUFGennemsnit;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaerGUFGennemsnit
+   */
+  public function setVarmeForbrugsdataPrimaerGUFGennemsnit($varmeForbrugsdataPrimaerGUFGennemsnit) {
+    $this->varmeForbrugsdataPrimaerGUFGennemsnit = $varmeForbrugsdataPrimaerGUFGennemsnit;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaerGennemsnitKlimakorrigeret() {
+    return $this->varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret
+   */
+  public function setVarmeForbrugsdataPrimaerGennemsnitKlimakorrigeret($varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret) {
+    $this->varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret = $varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataPrimaerNoegletal() {
+    return $this->varmeForbrugsdataPrimaerNoegletal;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataPrimaerNoegletal
+   */
+  public function setVarmeForbrugsdataPrimaerNoegletal($varmeForbrugsdataPrimaerNoegletal) {
+    $this->varmeForbrugsdataPrimaerNoegletal = $varmeForbrugsdataPrimaerNoegletal;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrugsdataPrimaerNoter() {
+    return $this->varmeForbrugsdataPrimaerNoter;
+  }
+
+  /**
+   * @param string $varmeForbrugsdataPrimaerNoter
+   */
+  public function setVarmeForbrugsdataPrimaerNoter($varmeForbrugsdataPrimaerNoter) {
+    $this->varmeForbrugsdataPrimaerNoter = $varmeForbrugsdataPrimaerNoter;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrugsdataSekundaerKilde() {
+    return $this->varmeForbrugsdataSekundaerKilde;
+  }
+
+  /**
+   * @param string $varmeForbrugsdataSekundaerKilde
+   */
+  public function setVarmeForbrugsdataSekundaerKilde($varmeForbrugsdataSekundaerKilde) {
+    $this->varmeForbrugsdataSekundaerKilde = $varmeForbrugsdataSekundaerKilde;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrugsdataSekundaer1Aarstal() {
+    return $this->varmeForbrugsdataSekundaer1Aarstal;
+  }
+
+  /**
+   * @param string $varmeForbrugsdataSekundaer1Aarstal
+   */
+  public function setVarmeForbrugsdataSekundaer1Aarstal($varmeForbrugsdataSekundaer1Aarstal) {
+    $this->varmeForbrugsdataSekundaer1Aarstal = $varmeForbrugsdataSekundaer1Aarstal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer1Forbrug() {
+    return $this->varmeForbrugsdataSekundaer1Forbrug;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer1Forbrug
+   */
+  public function setVarmeForbrugsdataSekundaer1Forbrug($varmeForbrugsdataSekundaer1Forbrug) {
+    $this->varmeForbrugsdataSekundaer1Forbrug = $varmeForbrugsdataSekundaer1Forbrug;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrugsdataSekundaer2Aarstal() {
+    return $this->varmeForbrugsdataSekundaer2Aarstal;
+  }
+
+  /**
+   * @param string $varmeForbrugsdataSekundaer2Aarstal
+   */
+  public function setVarmeForbrugsdataSekundaer2Aarstal($varmeForbrugsdataSekundaer2Aarstal) {
+    $this->varmeForbrugsdataSekundaer2Aarstal = $varmeForbrugsdataSekundaer2Aarstal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer2Forbrug() {
+    return $this->varmeForbrugsdataSekundaer2Forbrug;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer2Forbrug
+   */
+  public function setVarmeForbrugsdataSekundaer2Forbrug($varmeForbrugsdataSekundaer2Forbrug) {
+    $this->varmeForbrugsdataSekundaer2Forbrug = $varmeForbrugsdataSekundaer2Forbrug;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrugsdataSekundaer3Aarstal() {
+    return $this->varmeForbrugsdataSekundaer3Aarstal;
+  }
+
+  /**
+   * @param string $varmeForbrugsdataSekundaer3Aarstal
+   */
+  public function setVarmeForbrugsdataSekundaer3Aarstal($varmeForbrugsdataSekundaer3Aarstal) {
+    $this->varmeForbrugsdataSekundaer3Aarstal = $varmeForbrugsdataSekundaer3Aarstal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer3Forbrug() {
+    return $this->varmeForbrugsdataSekundaer3Forbrug;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer3Forbrug
+   */
+  public function setVarmeForbrugsdataSekundaer3Forbrug($varmeForbrugsdataSekundaer3Forbrug) {
+    $this->varmeForbrugsdataSekundaer3Forbrug = $varmeForbrugsdataSekundaer3Forbrug;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter() {
+    return $this->varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter;
+  }
+
+  /**
+   * @param string $varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter
+   */
+  public function setVarmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter($varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter) {
+    $this->varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter = $varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust() {
+    return $this->varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust
+   */
+  public function setVarmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust($varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust) {
+    $this->varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust = $varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust() {
+    return $this->varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust
+   */
+  public function setVarmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust($varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust) {
+    $this->varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust = $varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust() {
+    return $this->varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust
+   */
+  public function setVarmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust($varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust) {
+    $this->varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust = $varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer1GUFRegAar() {
+    return $this->varmeForbrugsdataSekundaer1GUFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer1GUFRegAar
+   */
+  public function setVarmeForbrugsdataSekundaer1GUFRegAar($varmeForbrugsdataSekundaer1GUFRegAar) {
+    $this->varmeForbrugsdataSekundaer1GUFRegAar = $varmeForbrugsdataSekundaer1GUFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer2GUFRegAar() {
+    return $this->varmeForbrugsdataSekundaer2GUFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer2GUFRegAar
+   */
+  public function setVarmeForbrugsdataSekundaer2GUFRegAar($varmeForbrugsdataSekundaer2GUFRegAar) {
+    $this->varmeForbrugsdataSekundaer2GUFRegAar = $varmeForbrugsdataSekundaer2GUFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer3GUFRegAar() {
+    return $this->varmeForbrugsdataSekundaer3GUFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer3GUFRegAar
+   */
+  public function setVarmeForbrugsdataSekundaer3GUFRegAar($varmeForbrugsdataSekundaer3GUFRegAar) {
+    $this->varmeForbrugsdataSekundaer3GUFRegAar = $varmeForbrugsdataSekundaer3GUFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer1GAFRegAar() {
+    return $this->varmeForbrugsdataSekundaer1GAFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer1GAFRegAar
+   */
+  public function setVarmeForbrugsdataSekundaer1GAFRegAar($varmeForbrugsdataSekundaer1GAFRegAar) {
+    $this->varmeForbrugsdataSekundaer1GAFRegAar = $varmeForbrugsdataSekundaer1GAFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer2GAFRegAar() {
+    return $this->varmeForbrugsdataSekundaer2GAFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer2GAFRegAar
+   */
+  public function setVarmeForbrugsdataSekundaer2GAFRegAar($varmeForbrugsdataSekundaer2GAFRegAar) {
+    $this->varmeForbrugsdataSekundaer2GAFRegAar = $varmeForbrugsdataSekundaer2GAFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer3GAFRegAar() {
+    return $this->varmeForbrugsdataSekundaer3GAFRegAar;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer3GAFRegAar
+   */
+  public function setVarmeForbrugsdataSekundaer3GAFRegAar($varmeForbrugsdataSekundaer3GAFRegAar) {
+    $this->varmeForbrugsdataSekundaer3GAFRegAar = $varmeForbrugsdataSekundaer3GAFRegAar;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer1GDPeriode() {
+    return $this->varmeForbrugsdataSekundaer1GDPeriode;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer1GDPeriode
+   */
+  public function setVarmeForbrugsdataSekundaer1GDPeriode($varmeForbrugsdataSekundaer1GDPeriode) {
+    $this->varmeForbrugsdataSekundaer1GDPeriode = $varmeForbrugsdataSekundaer1GDPeriode;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer2GDPeriode() {
+    return $this->varmeForbrugsdataSekundaer2GDPeriode;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer2GDPeriode
+   */
+  public function setVarmeForbrugsdataSekundaer2GDPeriode($varmeForbrugsdataSekundaer2GDPeriode) {
+    $this->varmeForbrugsdataSekundaer2GDPeriode = $varmeForbrugsdataSekundaer2GDPeriode;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer3GDPeriode() {
+    return $this->varmeForbrugsdataSekundaer3GDPeriode;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer3GDPeriode
+   */
+  public function setVarmeForbrugsdataSekundaer3GDPeriode($varmeForbrugsdataSekundaer3GDPeriode) {
+    $this->varmeForbrugsdataSekundaer3GDPeriode = $varmeForbrugsdataSekundaer3GDPeriode;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer1GAFnormal() {
+    return $this->varmeForbrugsdataSekundaer1GAFnormal;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer1GAFnormal
+   */
+  public function setVarmeForbrugsdataSekundaer1GAFnormal($varmeForbrugsdataSekundaer1GAFnormal) {
+    $this->varmeForbrugsdataSekundaer1GAFnormal = $varmeForbrugsdataSekundaer1GAFnormal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer2GAFnormal() {
+    return $this->varmeForbrugsdataSekundaer2GAFnormal;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer2GAFnormal
+   */
+  public function setVarmeForbrugsdataSekundaer2GAFnormal($varmeForbrugsdataSekundaer2GAFnormal) {
+    $this->varmeForbrugsdataSekundaer2GAFnormal = $varmeForbrugsdataSekundaer2GAFnormal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer3GAFnormal() {
+    return $this->varmeForbrugsdataSekundaer3GAFnormal;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer3GAFnormal
+   */
+  public function setVarmeForbrugsdataSekundaer3GAFnormal($varmeForbrugsdataSekundaer3GAFnormal) {
+    $this->varmeForbrugsdataSekundaer3GAFnormal = $varmeForbrugsdataSekundaer3GAFnormal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer1ForbrugKlimakorrigeret() {
+    return $this->varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret
+   */
+  public function setVarmeForbrugsdataSekundaer1ForbrugKlimakorrigeret($varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret) {
+    $this->varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret = $varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer2ForbrugKlimakorrigeret() {
+    return $this->varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret
+   */
+  public function setVarmeForbrugsdataSekundaer2ForbrugKlimakorrigeret($varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret) {
+    $this->varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret = $varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaer3ForbrugKlimakorrigeret() {
+    return $this->varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret
+   */
+  public function setVarmeForbrugsdataSekundaer3ForbrugKlimakorrigeret($varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret) {
+    $this->varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret = $varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaerGAFGennemsnit() {
+    return $this->varmeForbrugsdataSekundaerGAFGennemsnit;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaerGAFGennemsnit
+   */
+  public function setVarmeForbrugsdataSekundaerGAFGennemsnit($varmeForbrugsdataSekundaerGAFGennemsnit) {
+    $this->varmeForbrugsdataSekundaerGAFGennemsnit = $varmeForbrugsdataSekundaerGAFGennemsnit;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaerGUFGennemsnit() {
+    return $this->varmeForbrugsdataSekundaerGUFGennemsnit;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaerGUFGennemsnit
+   */
+  public function setVarmeForbrugsdataSekundaerGUFGennemsnit($varmeForbrugsdataSekundaerGUFGennemsnit) {
+    $this->varmeForbrugsdataSekundaerGUFGennemsnit = $varmeForbrugsdataSekundaerGUFGennemsnit;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaerGennemsnitKlimakorrigeret() {
+    return $this->varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret
+   */
+  public function setVarmeForbrugsdataSekundaerGennemsnitKlimakorrigeret($varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret) {
+    $this->varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret = $varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeForbrugsdataSekundaerNoegletal() {
+    return $this->varmeForbrugsdataSekundaerNoegletal;
+  }
+
+  /**
+   * @param float $varmeForbrugsdataSekundaerNoegletal
+   */
+  public function setVarmeForbrugsdataSekundaerNoegletal($varmeForbrugsdataSekundaerNoegletal) {
+    $this->varmeForbrugsdataSekundaerNoegletal = $varmeForbrugsdataSekundaerNoegletal;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeForbrugsdataSekundaerNoter() {
+    return $this->varmeForbrugsdataSekundaerNoter;
+  }
+
+  /**
+   * @param string $varmeForbrugsdataSekundaerNoter
+   */
+  public function setVarmeForbrugsdataSekundaerNoter($varmeForbrugsdataSekundaerNoter) {
+    $this->varmeForbrugsdataSekundaerNoter = $varmeForbrugsdataSekundaerNoter;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeGAFForbrug() {
+    return $this->varmeGAFForbrug;
+  }
+
+  /**
+   * @param float $varmeGAFForbrug
+   */
+  public function setVarmeGAFForbrug($varmeGAFForbrug) {
+    $this->varmeGAFForbrug = $varmeGAFForbrug;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeGUFForbrug() {
+    return $this->varmeGUFForbrug;
+  }
+
+  /**
+   * @param float $varmeGUFForbrug
+   */
+  public function setVarmeGUFForbrug($varmeGUFForbrug) {
+    $this->varmeGUFForbrug = $varmeGUFForbrug;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeBaselineFastsatForEjendom() {
+    return $this->varmeBaselineFastsatForEjendom;
+  }
+
+  /**
+   * @param float $varmeBaselineFastsatForEjendom
+   */
+  public function setVarmeBaselineFastsatForEjendom($varmeBaselineFastsatForEjendom) {
+    $this->varmeBaselineFastsatForEjendom = $varmeBaselineFastsatForEjendom;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeBaselineNoegletalForEjendom() {
+    return $this->varmeBaselineNoegletalForEjendom;
+  }
+
+  /**
+   * @param float $varmeBaselineNoegletalForEjendom
+   */
+  public function setVarmeBaselineNoegletalForEjendom($varmeBaselineNoegletalForEjendom) {
+    $this->varmeBaselineNoegletalForEjendom = $varmeBaselineNoegletalForEjendom;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeStrafafkoelingsafgift() {
+    return $this->varmeStrafafkoelingsafgift;
+  }
+
+  /**
+   * @param float $varmeStrafafkoelingsafgift
+   */
+  public function setVarmeStrafafkoelingsafgift($varmeStrafafkoelingsafgift) {
+    $this->varmeStrafafkoelingsafgift = $varmeStrafafkoelingsafgift;
+  }
+
+  /**
+   * @return string
+   */
+  public function getVarmeBaselineNoter() {
+    return $this->varmeBaselineNoter;
+  }
+
+  /**
+   * @param string $varmeBaselineNoter
+   */
+  public function setVarmeBaselineNoter($varmeBaselineNoter) {
+    $this->varmeBaselineNoter = $varmeBaselineNoter;
   }
 }

@@ -84,6 +84,9 @@ doctrine:
             ArealKildeSekundaerType: AppBundle\DBAL\Types\Baseline\ArealKildeSekundaerType
             ElKildePrimaerType: AppBundle\DBAL\Types\Baseline\ElKildePrimaerType
             ElKildeSekundaerType: AppBundle\DBAL\Types\Baseline\ElKildeSekundaerType
+            VarmeKildePrimaerType: AppBundle\DBAL\Types\Baseline\VarmeKildePrimaerType
+            VarmeKildeSekundaerType: AppBundle\DBAL\Types\Baseline\VarmeKildeSekundaerType
+            GUFFastsaettesEfterType: AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType
         logging: false
         profiling: false
     orm:
