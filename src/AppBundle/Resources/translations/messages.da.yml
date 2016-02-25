@@ -71,6 +71,9 @@ common:
   replace_file: Vælg ny fil
   result_overview: Resultatoversigt
   risikovurdering: Risikovurdering
+  risikovurdering.lav: Lav
+  risikovurdering.mellem: Mellem
+  risikovurdering.hoej: Høj
   search: Søg
   select: Tilvælg
   show: Vis
