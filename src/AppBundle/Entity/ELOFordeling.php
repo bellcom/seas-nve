@@ -366,4 +366,53 @@ class ELOFordeling {
   public function setDecember($december) {
     $this->december = $december;
   }
+
+  /**
+   * @return int
+   */
+  public function getId() {
+    return $this->id;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getEloKategoriFordelingVarmeGUF() {
+    return $this->eloKategoriFordelingVarmeGUF;
+  }
+
+  /**
+   * @param mixed $eloKategoriFordelingVarmeGUF
+   */
+  public function setEloKategoriFordelingVarmeGUF($eloKategoriFordelingVarmeGUF) {
+    $this->eloKategoriFordelingVarmeGUF = $eloKategoriFordelingVarmeGUF;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getEloKategoriFordelingVarmeGAF() {
+    return $this->eloKategoriFordelingVarmeGAF;
+  }
+
+  /**
+   * @param mixed $eloKategoriFordelingVarmeGAF
+   */
+  public function setEloKategoriFordelingVarmeGAF($eloKategoriFordelingVarmeGAF) {
+    $this->eloKategoriFordelingVarmeGAF = $eloKategoriFordelingVarmeGAF;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getEloKategoriFordelingEl() {
+    return $this->eloKategoriFordelingEl;
+  }
+
+  /**
+   * @param mixed $eloKategoriFordelingEl
+   */
+  public function setEloKategoriFordelingEl($eloKategoriFordelingEl) {
+    $this->eloKategoriFordelingEl = $eloKategoriFordelingEl;
+  }
 }
