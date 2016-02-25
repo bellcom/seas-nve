@@ -134,4 +134,102 @@ class Baseline {
   public function setEloKategori($eloKategori) {
     $this->eloKategori = $eloKategori;
   }
+
+  /**
+   * @return string
+   */
+  public function getArealdataPrimaerKilde() {
+    return $this->arealdataPrimaerKilde;
+  }
+
+  /**
+   * @param string $arealdataPrimaerKilde
+   */
+  public function setArealdataPrimaerKilde($arealdataPrimaerKilde) {
+    $this->arealdataPrimaerKilde = $arealdataPrimaerKilde;
+  }
+
+  /**
+   * @return float
+   */
+  public function getArealdataPrimaerAreal() {
+    return $this->arealdataPrimaerAreal;
+  }
+
+  /**
+   * @param float $arealdataPrimaerAreal
+   */
+  public function setArealdataPrimaerAreal($arealdataPrimaerAreal) {
+    $this->arealdataPrimaerAreal = $arealdataPrimaerAreal;
+  }
+
+  /**
+   * @return string
+   */
+  public function getArealdataPrimaerNoter() {
+    return $this->arealdataPrimaerNoter;
+  }
+
+  /**
+   * @param string $arealdataPrimaerNoter
+   */
+  public function setArealdataPrimaerNoter($arealdataPrimaerNoter) {
+    $this->arealdataPrimaerNoter = $arealdataPrimaerNoter;
+  }
+
+  /**
+   * @return string
+   */
+  public function getArealdataSekundaerKilde() {
+    return $this->arealdataSekundaerKilde;
+  }
+
+  /**
+   * @param string $arealdataSekundaerKilde
+   */
+  public function setArealdataSekundaerKilde($arealdataSekundaerKilde) {
+    $this->arealdataSekundaerKilde = $arealdataSekundaerKilde;
+  }
+
+  /**
+   * @return float
+   */
+  public function getArealdataSekundaerAreal() {
+    return $this->arealdataSekundaerAreal;
+  }
+
+  /**
+   * @param float $arealdataSekundaerAreal
+   */
+  public function setArealdataSekundaerAreal($arealdataSekundaerAreal) {
+    $this->arealdataSekundaerAreal = $arealdataSekundaerAreal;
+  }
+
+  /**
+   * @return float
+   */
+  public function getArealdataSekundaerNoter() {
+    return $this->arealdataSekundaerNoter;
+  }
+
+  /**
+   * @param float $arealdataSekundaerNoter
+   */
+  public function setArealdataSekundaerNoter($arealdataSekundaerNoter) {
+    $this->arealdataSekundaerNoter = $arealdataSekundaerNoter;
+  }
+
+  /**
+   * @return float
+   */
+  public function getArealTilNoegletalsanalyse() {
+    return $this->arealTilNoegletalsanalyse;
+  }
+
+  /**
+   * @param float $arealTilNoegletalsanalyse
+   */
+  public function setArealTilNoegletalsanalyse($arealTilNoegletalsanalyse) {
+    $this->arealTilNoegletalsanalyse = $arealTilNoegletalsanalyse;
+  }
 }
