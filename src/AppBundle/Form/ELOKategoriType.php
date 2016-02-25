@@ -1,0 +1,49 @@
+<?php
+
+namespace AppBundle\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+class ELOKategoriType extends AbstractType
+{
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('navn')
+            ->add('totalVarmeforbrug')
+            ->add('totalElforbrug')
+            ->add('andelVarmeGUFFaktor')
+            ->add('createdBy')
+            ->add('updatedBy')
+            ->add('createdAt')
+            ->add('updatedAt')
+            ->add('fordelingVarmeGUF')
+            ->add('fordelingVarmeGAF')
+            ->add('fordelingEl')
+        ;
+    }
+    
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\ELOKategori'
+        ));
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'appbundle_elokategori';
+    }
+}

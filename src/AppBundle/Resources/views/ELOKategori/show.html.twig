@@ -1,0 +1,60 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>ELOKategori</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Navn</th>
+                <td>{{ entity.navn }}</td>
+            </tr>
+            <tr>
+                <th>Totalvarmeforbrug</th>
+                <td>{{ entity.totalVarmeforbrug }}</td>
+            </tr>
+            <tr>
+                <th>Totalelforbrug</th>
+                <td>{{ entity.totalElforbrug }}</td>
+            </tr>
+            <tr>
+                <th>Andelvarmeguffaktor</th>
+                <td>{{ entity.andelVarmeGUFFaktor }}</td>
+            </tr>
+            <tr>
+                <th>Createdby</th>
+                <td>{{ entity.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>Updatedby</th>
+                <td>{{ entity.updatedBy }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('elokategori') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('elokategori_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
