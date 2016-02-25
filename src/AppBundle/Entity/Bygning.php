@@ -196,7 +196,7 @@ class Bygning {
    * @OneToOne(targetEntity="Baseline", mappedBy="bygning", cascade={"persist"})
    * @JMS\Exclude
    **/
-  protected $bygning;
+  protected $baseline;
 
   /**
    * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
