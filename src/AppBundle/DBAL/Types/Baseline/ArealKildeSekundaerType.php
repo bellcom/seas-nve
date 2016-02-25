@@ -4,7 +4,7 @@ namespace AppBundle\DBAL\Types\Baseline;
 use Fresh\DoctrineEnumBundle\DBAL\Types\AbstractEnumType;
 
 class ArealKildeSekundaerType extends AbstractEnumType {
-  const INGEN_SEKUNDAER_KILDE_VURDERES_NOEDVENDIG = 'Ingen sekundær kilde vurderes nødvendig';
+  const INGEN_SEKUNDAER_KILDE_VURDERES_NOEDVENDIG = 'ingen_sekundaer_kilde_vurderes_noedvendig';
   const CARETAKER = 'caretaker';
   const TEGNINGSFILER_I_KONTAINER = 'tegningsfiler_i_kontainer';
   const BBR_MEDDELELSE = 'bbr_meddelelse';
