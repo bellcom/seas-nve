@@ -3,10 +3,9 @@ namespace AppBundle\DBAL\Types\Baseline;
 
 use Fresh\DoctrineEnumBundle\DBAL\Types\AbstractEnumType;
 
-class ElKildeSekundaerType extends AbstractEnumType {
+class VarmeKildeSekundaerType extends AbstractEnumType {
   const INGEN_SEKUNDAER_KILDE_VURDERES_NOEDVENDIG = 'ingen_sekundaer_kilde_vurderes_noedvendig';
   const FORSYNINGSSELSKAB = 'forsyningsselskab';
-  const SE_ELFORBRUG = 'se_elforbrug';
   const KEEPFOCUS_FJERNAFLAESNING = 'keepfocus_fjernaflaesning';
   const KEEPFOCUS_MANUEL_AFLAESNING = 'keepfocus_manuel_aflaesning';
   const SERVICELEDERE_DRIFTSPERSONALE = 'serviceledere_driftspersonale';
@@ -16,7 +15,6 @@ class ElKildeSekundaerType extends AbstractEnumType {
   protected static $choices = [
     self::INGEN_SEKUNDAER_KILDE_VURDERES_NOEDVENDIG => 'Ingen sekundær kilde vurderes nødvendig',
     self::FORSYNINGSSELSKAB => 'Forsyningsselskab',
-    self::SE_ELFORBRUG => 'Se Elforbrug',
     self::KEEPFOCUS_FJERNAFLAESNING => 'KeepFocus (fjernaflæsning)',
     self::KEEPFOCUS_MANUEL_AFLAESNING => 'KeepFocus (manuel aflæsning)',
     self::SERVICELEDERE_DRIFTSPERSONALE => 'Serviceledere / driftspersonale',
