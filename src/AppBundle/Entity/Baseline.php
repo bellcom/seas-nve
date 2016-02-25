@@ -37,7 +37,7 @@ class Baseline {
   protected $id;
 
   /**
-   * @ORM\OneToOne(targetEntity="Bygning", inversedBy="baseline", fetch="EAGER")
+   * @ORM\OneToOne(targetEntity="Bygning", mappedBy="baseline")
    **/
   protected $bygning;
 
