@@ -16,6 +16,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * ELOKategori.
  *
  * @ORM\Table()
+ * @ORM\Entity()
  */
 class ELOKategori {
   use BlameableEntity;
@@ -38,24 +39,23 @@ class ELOKategori {
   protected $id;
 
   /**
-   * @ORM\OneToMany(targetEntity="Baseline", mappedBy="eloKategori", cascade={"persist", "remove"})
-   * @ORM\OrderBy({"id" = "ASC"})
+   * @ORM\OneToMany(targetEntity="Baseline", mappedBy="eloKategori")
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Baseline>")
    */
   protected $baselines;
 
   /**
-   * @ORM\OneToOne(targetEntity="ELOFordeling", inversedBy="eloKategoriFordelingVarmeGUF", fetch="EAGER")
+   * @ORM\OneToOne(targetEntity="ELOFordeling", mappedBy="eloKategoriFordelingVarmeGUF", fetch="EAGER")
    **/
   protected $fordelingVarmeGUF;
 
   /**
-   * @ORM\OneToOne(targetEntity="ELOFordeling", inversedBy="eloKategoriFordelingVarmeGAF", fetch="EAGER")
+   * @ORM\OneToOne(targetEntity="ELOFordeling", mappedBy="eloKategoriFordelingVarmeGAF", fetch="EAGER")
    **/
   protected $fordelingVarmeGAF;
 
   /**
-   * @ORM\OneToOne(targetEntity="ELOFordeling", inversedBy="eloKategoriFordelingEl", fetch="EAGER")
+   * @ORM\OneToOne(targetEntity="ELOFordeling", mappedBy="eloKategoriFordelingEl", fetch="EAGER")
    **/
   protected $fordelingEl;
 

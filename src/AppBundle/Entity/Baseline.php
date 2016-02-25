@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use AppBundle\Entity\ELOKategori;
 
 /**
  * Baseline.
@@ -41,7 +42,7 @@ class Baseline {
   protected $bygning;
 
   /**
-   * @ORM\ManyToOne(targetEntity="ELOKategori")
+   * @ORM\ManyToOne(targetEntity="ELOKategori", inversedBy="baselines")
    * @ORM\JoinColumn(name="elo_kategori_id", referencedColumnName="id")
    **/
   protected $eloKategori;

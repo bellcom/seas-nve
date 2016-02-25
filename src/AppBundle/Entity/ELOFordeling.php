@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ELOFordeling.
  *
  * @ORM\Table()
+ * @ORM\Entity()
  */
 class ELOFordeling {
   /**
