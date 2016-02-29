@@ -6,6 +6,7 @@
 
 namespace AppBundle\Form\Type;
 
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +19,15 @@ use AppBundle\Entity\BelysningTiltagDetail\TiltagRepository;
  * @package AppBundle\Form
  */
 class BelysningTiltagDetailType extends TiltagDetailType {
+
+  private $doctrine;
+
+  public function __construct(Container $container) {
+    $this->doctrine = $container->get('doctrine');
+  }
+
   public function buildForm(FormBuilderInterface $builder, array $options) {
+
     parent::buildForm($builder, $options);
     $builder
       //->add('tilvalgt')
@@ -35,7 +44,12 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       ->add('armaturerStkLokale')
       ->add('placering')
       ->add('styring')
-      ->add('nyStyring')
+      ->add('nyStyring', 'entity', array(
+        'class' => 'AppBundle:BelysningTiltagDetail\NyStyring',
+        'choices' => $this->getAktuelNyStyring(),
+        'required' => FALSE,
+        'empty_value' => 'common.none',
+      ))
       ->add('nytArmatur')
       ->add('noter')
       ->add('noterForNyBelysning')
@@ -53,6 +67,13 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       ->add('nyttiggjortVarmeAfElBesparelse', 'percent', array('scale' => 2, 'required' => false))
       ->add('prisfaktor')
       ;
+
+  }
+
+  private function getAktuelNyStyring() {
+    $em = $this->doctrine->getRepository('AppBundle:BelysningTiltagDetail\NyStyring');
+
+    return $em->findNotDeleted();
   }
 
   public function configureOptions(OptionsResolver $resolver) {

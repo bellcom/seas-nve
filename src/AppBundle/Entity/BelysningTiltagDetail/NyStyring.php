@@ -3,12 +3,14 @@
 namespace AppBundle\Entity\BelysningTiltagDetail;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Styring
  *
  * @ORM\Table(name="BelysningTiltagDetail_NyStyring")
- * @ORM\Entity
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\BelysningTiltagDetail\NyStyringRepository")
  */
 class NyStyring {
   /**
@@ -74,7 +76,15 @@ class NyStyring {
   }
 
   public function __toString() {
-    return $this->titel.' - '.$this->pris.' kr. - '.$this->noter;
+    $result = $this->titel;
+
+    if($this->pris) {
+      $result .= ' - '.$this->pris.' kr';
+    }
+    if($this->noter) {
+      $result .= ' - '.$this->noter;
+    }
+    return $result;
   }
 
   /**
@@ -104,6 +114,13 @@ class NyStyring {
   public function setNoter($noter) {
     $this->noter = $noter;
   }
+
+  /**
+   * @var \DateTime $deletedAt
+   *
+   * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+   */
+  private $deletedAt;
 
 }
 

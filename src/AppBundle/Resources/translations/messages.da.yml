@@ -416,10 +416,10 @@ appbundle:
     nyBelysning: Ny belysning
     nyDriftstid: Ny driftstid
     nyDriftstid.unit: t/år
-    nyeArmaturerStkLokale: Nye armaturer
+    nyeArmaturerStkLokale: Nyt armatur antal
     nyeArmaturerStkLokale.help: Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
     nyeArmaturerStkLokale.unit: stk/lok.
-    nyeSensorerStkLokale: Nye sensorer
+    nyeSensorerStkLokale: Ny sensor antal
     nyeSensorerStkLokale.unit: stk/lok.
     nyForkoblingStkArmatur: Ny forkobling
     nyForkoblingStkArmatur.unit: stk/arm.
