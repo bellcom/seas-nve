@@ -1,12 +1,3 @@
 
-                <ul>
+  <a class="btn btn-default btn-xs" href="{{ "{{ path('" ~ route_name_prefix ~ "_edit', { 'id': entity."~ identifier ~" }) }}" }}">{{ "{{ 'common.edit' | trans }}"  }}</a>
 
-                {%- for action in record_actions %}
-
-                    <li>
-                        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': entity."~ identifier ~" }) }}" }}">{{ action }}</a>
-                    </li>
-
-                {%- endfor %}
-
-                </ul>

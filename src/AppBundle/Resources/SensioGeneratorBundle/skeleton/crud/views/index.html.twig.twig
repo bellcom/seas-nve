@@ -5,28 +5,42 @@
 {% block body %}
   {{ "{% block body -%}" }}
 
-  <div class="row">
+  <div class="row heading">
     <div class="col-md-9">
-      <h1>
-        <h1>{{ entity }} list</h1>
-      </h1>
+        <h1>{{ "{{ '" }}{{ entity | replace({'\\' : "."}) | lower }}{{ ".labels.plural' | trans }}" }}</h1>
     </div>
     <div class="col-md-3 text-right">
-      <h2><small>{{ "{% include 'AppBundle:_includes:pagination_count.html.twig' %} " }}</small></h2>
+      {% if 'new' in actions %}
+        <a class="btn btn-default" href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}">
+          {{ "{{ icon('plus') }}" }} {{ "{{ '" }}{{ entity | replace({'\\' : "."}) | lower }}{{ ".actions.add' | trans }}" }}
+        </a>
+      {% endif %}
     </div>
 
   </div>
 
-  <table class="table table-condensed">
+
+  <table class="table table-condensed table-header-rotated">
     <thead>
     <tr>
+
       {%- for field, metadata in fields %}
 
-        <th>{{ field|capitalize }}</th>
+        {{ "{{ helper.header('appbundle." }}{{ entity | replace({'\\' : "."}) | lower }}{{ "." }}{{ field }}{{ "') }}" }}
 
       {%- endfor %}
 
-      <th>Actions</th>
+      {{ "{{ helper.header() }}" }}
+    </tr>
+    <tr>
+
+      {%- for field, metadata in fields %}
+
+        {{ "{{ helper.header_unit('appbundle." }}{{ entity | replace({'\\' : "."}) | lower }}{{ "." }}{{ field }}{{ "') }}" }}
+
+      {%- endfor %}
+
+      {{ "{{ helper.header_unit() }}" }}
     </tr>
     </thead>
     <tbody>
@@ -34,23 +48,12 @@
     <tr>
 
       {%- for field, metadata in fields %}
-        {%- if loop.first and ('show' in actions) %}
 
-          <td><a href="{{ "{{ path('" ~ route_name_prefix ~ "_show', { 'id': entity."~ identifier ~" }) }}" }}">{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</a></td>
-
-        {%- elseif metadata.type in ['date', 'datetime'] %}
-
-          <td>{{ '{% if entity.' ~ field|replace({'_': ''}) ~ ' %}{{ entity.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d H:i:s\') }}{% endif %}' }}</td>
-
-        {%- else %}
-
-          <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
-
-        {%- endif %}
+        <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
 
         {%- if loop.last %}
 
-          <td>
+          <td class="text-right">
             {%- include "crud/views/others/actions.html.twig.twig" %}
           </td>
 
@@ -62,14 +65,5 @@
     </tbody>
   </table>
 
-  {% if 'new' in actions %}
-    <ul>
-      <li>
-        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}">
-          Create a new entry
-        </a>
-      </li>
-    </ul>
-  {% endif %}
   {{ "{% endblock %}" }}
 {% endblock body %}

@@ -1,0 +1,52 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>BelysningTiltagDetail\ErstatningsLyskilde</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Arbejdeomfang</th>
+                <td>{{ entity.arbejdeOmfang }}</td>
+            </tr>
+            <tr>
+                <th>Antal</th>
+                <td>{{ entity.antal }}</td>
+            </tr>
+            <tr>
+                <th>Wattage</th>
+                <td>{{ entity.wattage }}</td>
+            </tr>
+            <tr>
+                <th>Nyeforkoblinger</th>
+                <td>{{ entity.nyeForkoblinger }}</td>
+            </tr>
+            <tr>
+                <th>Pris</th>
+                <td>{{ entity.pris }}</td>
+            </tr>
+            <tr>
+                <th>Noter</th>
+                <td>{{ entity.noter }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('belysningtiltagdetail_erstatningslyskilde') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('belysningtiltagdetail_erstatningslyskilde_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
