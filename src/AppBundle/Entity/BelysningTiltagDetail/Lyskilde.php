@@ -13,6 +13,8 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * BelysningTiltagDetail\Lyskilde
  *
+ * Belysningstype
+ *
  * @ORM\Table(name="BelysningTiltagDetail_Lyskilde")
  * @ORM\Entity
  */

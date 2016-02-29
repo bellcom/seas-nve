@@ -62,6 +62,8 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var BelysningTiltagDetailLyskilde
    *
+   * Belysningstype
+   *
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Lyskilde")
    * ORM\JoinColumn(name="lyskilde_id", referencedColumnName="id")
    **/
@@ -187,7 +189,17 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $standardinvestLyskildeKrStk;
 
   /**
+   * @var BelysningTiltagDetailErstatningsLyskilde
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\ErstatningsLyskilde")
+   * ORM\JoinColumn(name="ny_erstatningslyskilde_id", referencedColumnName="id")
+   */
+  protected $erstatningsLyskilde;
+
+  /**
    * @var BelysningTiltagDetailLyskilde
+   *
+   * Belysningstype
    *
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Lyskilde")
    * ORM\JoinColumn(name="ny_lyskilde_id", referencedColumnName="id")
@@ -229,6 +241,22 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @ORM\Column(name="nyeArmaturerStkLokale", type="integer", nullable=true)
    */
   protected $nyeArmaturerStkLokale;
+
+  /**
+   * @var BelysningTiltagDetailNyStyring
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NyStyring")
+   * ORM\JoinColumn(name="nyStyring_id", referencedColumnName="id", nullable=true)
+   **/
+  protected $nyStyring;
+
+  /**
+   * @var BelysningTiltagDetailNytArmatur
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NytArmatur")
+   * ORM\JoinColumn(name="nytArmatur_id", referencedColumnName="id", nullable=true)
+   **/
+  protected $nytArmatur;
 
   /**
    * @var float
@@ -1012,6 +1040,48 @@ class BelysningTiltagDetail extends TiltagDetail {
    */
   public function getKwhBesparelseVarmeFraVarmevaerket() {
     return $this->kWhBesparelseVarmeFraVarmevaerket;
+  }
+
+  /**
+   * @return BelysningTiltagDetailNyStyring
+   */
+  public function getNyStyring() {
+    return $this->nyStyring;
+  }
+
+  /**
+   * @param BelysningTiltagDetailNyStyring $nyStyring
+   */
+  public function setNyStyring($nyStyring) {
+    $this->nyStyring = $nyStyring;
+  }
+
+  /**
+   * @return BelysningTiltagDetailNytArmatur
+   */
+  public function getNytArmatur() {
+    return $this->nytArmatur;
+  }
+
+  /**
+   * @param BelysningTiltagDetailNytArmatur $nytArmatur
+   */
+  public function setNytArmatur($nytArmatur) {
+    $this->nytArmatur = $nytArmatur;
+  }
+
+  /**
+   * @return BelysningTiltagDetailErstatningsLyskilde
+   */
+  public function getErstatningsLyskilde() {
+    return $this->erstatningsLyskilde;
+  }
+
+  /**
+   * @param BelysningTiltagDetailErstatningsLyskilde $erstatningsLyskilde
+   */
+  public function setErstatningsLyskilde($erstatningsLyskilde) {
+    $this->erstatningsLyskilde = $erstatningsLyskilde;
   }
 
   public function calculate() {
