@@ -15,8 +15,13 @@
   </div>
 
   {{ form_start(edit_form, { 'style': '' }) }}
-  {{ form_row(edit_form.tilvalgt) }}
-  {{ form_row(edit_form.ikkeElenaBerettiget) }}
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      {{ form_row(edit_form.tilvalgt) }}
+      {{ form_row(edit_form.ikkeElenaBerettiget) }}
+    </div>
+  </div>
 
   {% block edit_form %}
 

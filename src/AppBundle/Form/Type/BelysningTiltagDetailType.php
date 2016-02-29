@@ -50,6 +50,7 @@ class BelysningTiltagDetailType extends TiltagDetailType {
         'required' => FALSE,
         'empty_value' => 'common.none',
       ))
+      ->add('erstatningsLyskilde')
       ->add('nytArmatur')
       ->add('noter')
       ->add('noterForNyBelysning')

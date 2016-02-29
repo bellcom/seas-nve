@@ -62,6 +62,8 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var BelysningTiltagDetailLyskilde
    *
+   * Belysningstype
+   *
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Lyskilde")
    * ORM\JoinColumn(name="lyskilde_id", referencedColumnName="id")
    **/
@@ -187,7 +189,17 @@ class BelysningTiltagDetail extends TiltagDetail {
   protected $standardinvestLyskildeKrStk;
 
   /**
+   * @var BelysningTiltagDetailErstatningsLyskilde
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\ErstatningsLyskilde")
+   * ORM\JoinColumn(name="ny_erstatningslyskilde_id", referencedColumnName="id")
+   */
+  protected $erstatningsLyskilde;
+
+  /**
    * @var BelysningTiltagDetailLyskilde
+   *
+   * Belysningstype
    *
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Lyskilde")
    * ORM\JoinColumn(name="ny_lyskilde_id", referencedColumnName="id")
@@ -1056,6 +1068,20 @@ class BelysningTiltagDetail extends TiltagDetail {
    */
   public function setNytArmatur($nytArmatur) {
     $this->nytArmatur = $nytArmatur;
+  }
+
+  /**
+   * @return BelysningTiltagDetailErstatningsLyskilde
+   */
+  public function getErstatningsLyskilde() {
+    return $this->erstatningsLyskilde;
+  }
+
+  /**
+   * @param BelysningTiltagDetailErstatningsLyskilde $erstatningsLyskilde
+   */
+  public function setErstatningsLyskilde($erstatningsLyskilde) {
+    $this->erstatningsLyskilde = $erstatningsLyskilde;
   }
 
   public function calculate() {

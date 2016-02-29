@@ -25,7 +25,7 @@
       {% endif %}
     </div>
     <div class="col-md-4 text-right">
-      {% if is_granted('ROLE_RAPPORT_EDIT') %}
+      {% if is_granted('ROLE_RAPPORT_EDIT') and delete_form is defined %}
         {{ form(delete_form) }}
       {% endif %}
     </div>

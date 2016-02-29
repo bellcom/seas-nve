@@ -392,6 +392,7 @@ appbundle:
     eksisterendeBelysning: Eksisterende belysning
     elforbrugWM2: Elforbrug
     elforbrugWM2.unit: W/m²
+    erstatningsLyskilde: Erstatnings lyskilde
     forkoblingStkArmatur: Forkobling
     forkoblingStkArmatur.unit: stk/arm.
     forkoblingStkArmatur.help: ﻿Antal af forkoblinger indtastes, kun relevant for belysning med konventionelle- eller HF-forkoblinger. Kan udelades ved øvrige lystyper.
