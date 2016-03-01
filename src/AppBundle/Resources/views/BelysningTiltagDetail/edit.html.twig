@@ -11,6 +11,6 @@
 {% block documentReady %}
   {{ parent() }}
 
-  {% include 'AppBundle:BelysningTiltagDetail:_documentReady.js.twig' %}
+  {% include 'AppBundle:BelysningTiltagDetail:_documentReady.js.twig' with {'choices' : edit_form.erstatningsLyskilde.vars.choices }%}
 {% endblock documentReady %}
 
