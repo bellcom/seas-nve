@@ -5,8 +5,31 @@ $('#appbundle_belysningtiltagdetail_erstatningsLyskilde').change(function () {
     {% for c in choices %} "{{c.data.id}}": { "id": "{{ c.data.id }}", "antal": "{{ c.data.antal }}", "wattage": "{{ c.data.wattage }}", "nyeForkoblinger": "{{ c.data.nyeForkoblinger }}" }{% if not loop.last %},{% endif %} {% endfor %}
     };
 
-    $('#appbundle_belysningtiltagdetail_nyLyskildeStkArmatur').val(erstatningsvalues[selected_val].antal);
-    $('#appbundle_belysningtiltagdetail_nyLyskildeWLyskilde').val(erstatningsvalues[selected_val].wattage);
-    $('#appbundle_belysningtiltagdetail_nyForkoblingStkArmatur').val(erstatningsvalues[selected_val].nyeForkoblinger);
+    antal = $('#appbundle_belysningtiltagdetail_nyLyskildeStkArmatur');
+    if(antal.val() != erstatningsvalues[selected_val].antal) {
+      antal.val(erstatningsvalues[selected_val].antal);
+      antal.parent().addClass('has-info');
+      antal.focusout(function() {
+        antal.parent().removeClass('has-info');
+      });
+    }
+
+    wattage = $('#appbundle_belysningtiltagdetail_nyLyskildeWLyskilde');
+    if(wattage.val() != erstatningsvalues[selected_val].wattage) {
+      wattage.val(erstatningsvalues[selected_val].wattage);
+      wattage.parent().addClass('has-info');
+      wattage.focusout(function() {
+        wattage.parent().removeClass('has-info');
+      });
+    }
+
+    nyeForkoblinger = $('#appbundle_belysningtiltagdetail_nyForkoblingStkArmatur');
+    if(nyeForkoblinger.val() != erstatningsvalues[selected_val].nyeForkoblinger) {
+      nyeForkoblinger.val(erstatningsvalues[selected_val].nyeForkoblinger);
+      nyeForkoblinger.parent().addClass('has-info');
+      nyeForkoblinger.focusout(function() {
+        nyeForkoblinger.parent().removeClass('has-info');
+      });
+    }
 
 });
