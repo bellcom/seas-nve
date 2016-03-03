@@ -110,6 +110,8 @@ class TiltagType extends AbstractType {
     }
     elseif ($this->tiltag instanceof SpecialTiltag) {
       $builder
+        ->add('besparelseDriftOgVedligeholdelse')
+        ->add('besparelseStrafafkoelingsafgift')
         ->add('anlaegsInvestering')
         ->add('besparelseGUF')
         ->add('besparelseGAF')
