@@ -1455,7 +1455,7 @@ class Rapport {
   }
 
   /**
-   * Get investering eksl. øvrige omkostninger
+   * Get investering eksl. genopretning og modernisering
    *
    * (Aa+ Investering eks. Øvrige omkostninger)
    */
@@ -1464,12 +1464,12 @@ class Rapport {
   }
 
   /**
-   * Get investering inkl. genopretning og modernisering
+   * Get investering inkl.  øvrige omkostninger
    *
    * (Aa+ Investering inkl. Øvrige omkostninger)
    */
   public function getinvesteringInklFaellesomkostninger() {
-    return $this->getInvesteringEksFaellesomkostninger() - ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering());
+    return $this->getInvesteringEksFaellesomkostninger() + ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering());
   }
 
   /**
