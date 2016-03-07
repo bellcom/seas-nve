@@ -54,6 +54,9 @@ security:
                 lifetime: 604800
                 path:     /
                 user_provider: fos_userbundle
+            switch_user:
+              role: ROLE_SUPER_ADMIN
+              parameter: _switch_user
 
         default:
             anonymous: ~
