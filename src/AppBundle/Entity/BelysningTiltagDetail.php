@@ -27,14 +27,14 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="lokale_type", type="string", length=255)
+   * @ORM\Column(name="lokale_type", type="string", length=255, nullable=true)
    */
   protected $lokale_type;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="armaturhoejdeM", type="decimal", scale=4)
+   * @ORM\Column(name="armaturhoejdeM", type="decimal", scale=4, nullable=true)
    */
   protected $armaturhoejdeM;
 
@@ -343,6 +343,16 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @ORM\Column(name="kWhBesparelseVarmeFraVarmevaerket", type="float")
    */
   protected $kWhBesparelseVarmeFraVarmevaerket;
+
+  /**
+   * Constructor
+   */
+  public function __construct() {
+    parent::__construct();
+
+    $this->setLokaleAntal(1);
+  }
+
 
   /**
    * @return string
