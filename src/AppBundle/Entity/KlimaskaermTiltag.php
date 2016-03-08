@@ -27,18 +27,19 @@ class KlimaskaermTiltag extends Tiltag {
   }
 
   protected function calculateVarmebesparelseGAF() {
-    return $this->sum('kWhBesparVarmevaerkEksternEnergikilde') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+
+    return $this->sum('kWhBesparVarmevaerkEksternEnergikilde') * $this->getRapport()->getFaktorPaaVarmebesparelse() * $besparelse;
   }
 
   protected function calculateElbesparelse() {
-    return $this->sum('kWhBesparElvaerkEksternEnergikilde');
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+
+    return $this->sum('kWhBesparElvaerkEksternEnergikilde') * $besparelse;
   }
 
   protected function calculateSamletEnergibesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
-
-    return ($this->varmebesparelseGAF * $this->calculateVarmepris()
-    + $this->elbesparelse * $this->getRapport()->getElKrKWh()) * (1 - $besparelse);
+    return ($this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapport()->getElKrKWh());
   }
 
   protected function calculateSamletCo2besparelse() {

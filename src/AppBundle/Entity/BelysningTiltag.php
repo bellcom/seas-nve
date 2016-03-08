@@ -27,18 +27,19 @@ class BelysningTiltag extends Tiltag {
   }
 
   protected function calculateVarmebesparelseGUF() {
-    return $this->sum('kWhBesparelseVarmeFraVarmevaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+
+    return $this->sum('kWhBesparelseVarmeFraVarmevaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse() * $besparelse;
   }
 
   protected function calculateElbesparelse() {
-    return $this->sum('kwhBesparelseEl');
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+
+    return $this->sum('kwhBesparelseEl') * $besparelse;
   }
 
   protected function calculateSamletEnergibesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
-
-    return ($this->varmebesparelseGUF * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh()) * (1 - $besparelse);
+    return ($this->varmebesparelseGUF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapport()->getElKrKWh());
   }
 
   protected function calculateSamletCo2besparelse() {

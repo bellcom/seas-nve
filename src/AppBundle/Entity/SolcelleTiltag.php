@@ -33,16 +33,13 @@ class SolcelleTiltag extends Tiltag {
   }
 
   protected function calculateElbesparelse() {
-    return $this->sum('egetForbrugAfProduktionenKWh');
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+
+    return $this->sum('egetForbrugAfProduktionenKWh') * $besparelse;
   }
 
   protected function calculateSamletEnergibesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
-
-    return ($this->elbesparelse * $this->getRapport()->getElKrKWh()
-      + $this->sum(function($detail) {
-        return $detail->getCashFlow()['Salg til nettet'][1];
-      })) * (1 - $besparelse);
+    return ($this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }));
   }
 
   protected function calculateSamletCo2besparelse() {

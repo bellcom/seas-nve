@@ -112,39 +112,43 @@ class SpecialTiltag extends Tiltag {
   }
 
   protected function calculateVarmebesparelseGUF() {
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+
     if ($this->rapport->getStandardForsyning()) {
-      return $this->besparelseGUF;
+      return $this->besparelseGUF * $besparelse;
     }
     else {
-      return $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse();
+      return $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse() * $besparelse;
     }
   }
 
   protected function calculateVarmebesparelseGAF() {
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+
     if ($this->rapport->getStandardForsyning()) {
-      return $this->besparelseGAF;
+      return $this->besparelseGAF * $besparelse;
     }
     else {
-      return $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse();
+      return $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse() * $besparelse;
     }
   }
 
   protected function calculateElbesparelse() {
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+
     if ($this->rapport->getStandardForsyning()) {
-      return $this->besparelseEl;
+      return $this->besparelseEl * $besparelse;
     }
     else {
-      return $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'EL')
+      return ($this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'EL')
         + $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'EL')
-        + $this->besparelseEl;
+        + $this->besparelseEl) * $besparelse;
     }
   }
 
   protected function calculateSamletEnergibesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
-
     return (($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->yderligereBesparelse) * (1 - $besparelse);
+      + $this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->yderligereBesparelse);
   }
 
   protected function calculateSamletCo2besparelse() {
