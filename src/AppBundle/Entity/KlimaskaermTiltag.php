@@ -47,10 +47,12 @@ class KlimaskaermTiltag extends Tiltag {
       + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
   }
 
-  protected function calculateAnlaegsinvestering() {
+  protected function calculateAnlaegsinvestering($value = NULL) {
     $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
 
-    return $this->sum('samletInvesteringKr') * (1 + $kompensering);
+    $value = $this->sum('samletInvesteringKr') * (1 + $kompensering);
+
+    return parent::calculateAnlaegsinvestering($value);
   }
 
   protected function calculateLevetid() {

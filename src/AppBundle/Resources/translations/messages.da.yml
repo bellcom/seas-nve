@@ -1157,8 +1157,10 @@ appbundle:
     varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering
     varmeledningsevnePaaNyIsoleringWMK.unit: W/m·K
   tiltag:
-    anlaegsInvestering: ﻿Anlægsinvestering
+    anlaegsInvestering: ﻿Anlægsinvestering incl. risikov.
     anlaegsInvestering.unit: kr
+    anlaegsinvesteringExRisiko: ﻿Anlægsinvestering
+    anlaegsinvesteringExRisiko.unit: kr
     antalReinvesteringer: Antal reinvesteringer
     antalReinvesteringer.unit: stk.
     beskrivelse: Beskrivelse

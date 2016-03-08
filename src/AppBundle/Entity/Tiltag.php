@@ -189,6 +189,14 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="anlaegsinvesteringExRisiko", type="float", nullable=true)
+   */
+  protected $anlaegsinvesteringExRisiko;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="reelAnlaegsinvestering", type="float", nullable=true)
    */
   protected $reelAnlaegsinvestering;
@@ -718,6 +726,14 @@ abstract class Tiltag {
    */
   public function getAnlaegsinvestering() {
     return $this->anlaegsinvestering;
+  }
+
+
+  /**
+   * @return float
+   */
+  public function getAnlaegsinvesteringExRisiko() {
+    return $this->anlaegsinvesteringExRisiko;
   }
 
   /**
@@ -1306,10 +1322,7 @@ abstract class Tiltag {
       $this->levetid = $value;
     }
     $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
-    // This may be computed, may be an input
-    if (($value = $this->calculateAnlaegsinvestering()) !== NULL) {
-      $this->anlaegsinvestering = $value;
-    }
+    $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
     $this->reinvestering = $this->calculateReinvestering();
     $this->scrapvaerdi = $this->calculateScrapvaerdi();
     $this->cashFlow15 = $this->calculateCashFlow(15);
@@ -1424,8 +1437,14 @@ abstract class Tiltag {
     return 0;
   }
 
-  protected function calculateAnlaegsinvestering() {
-    return NULL;
+  protected function calculateAnlaegsinvestering($value = NULL) {
+    if($value === NULL) {
+      return NULL;
+    } else {
+      $faktor = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 1;
+
+      return $value * $faktor;
+    }
   }
 
   protected function calculateLevetid() {

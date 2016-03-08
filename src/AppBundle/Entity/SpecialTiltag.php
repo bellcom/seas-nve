@@ -99,16 +99,10 @@ class SpecialTiltag extends Tiltag {
   }
 
   /**
-   * Set anlaegsinvestering
-   *
-   * @param float
-   *
-   * @return SpecialTiltag
+   * @param float $anlaegsinvesteringExRisiko
    */
-  public function setAnlaegsinvestering($anlaegsinvestering) {
-    $this->anlaegsinvestering = $anlaegsinvestering;
-
-    return $this;
+  public function setAnlaegsinvesteringExRisiko($anlaegsinvesteringExRisiko) {
+    $this->anlaegsinvesteringExRisiko = $anlaegsinvesteringExRisiko;
   }
 
   protected function calculateVarmebesparelseGUF() {
@@ -162,6 +156,10 @@ class SpecialTiltag extends Tiltag {
 
   public function calculateSavingsForYear($year) {
     return parent::calculateSavingsForYear($year) + $this->getYderligereBesparelse();
+  }
+
+  protected function calculateAnlaegsinvestering($value = NULL) {
+    return parent::calculateAnlaegsinvestering($this->getAnlaegsinvesteringExRisiko());
   }
 
 }

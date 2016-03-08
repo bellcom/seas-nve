@@ -112,7 +112,7 @@ class TiltagType extends AbstractType {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
         ->add('besparelseStrafafkoelingsafgift')
-        ->add('anlaegsInvestering')
+        ->add('anlaegsinvesteringExRisiko')
         ->add('besparelseGUF')
         ->add('besparelseGAF')
         ->add('besparelseEl')
