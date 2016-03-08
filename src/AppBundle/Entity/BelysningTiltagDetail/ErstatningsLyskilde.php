@@ -212,10 +212,7 @@ class ErstatningsLyskilde {
     }
 
     if($this->pris) {
-      $result .= ' - '.$this->pris.' kr';
-    }
-    if($this->noter) {
-      $result .= ' - '.$this->noter;
+      $result .= ' - '.number_format($this->pris, 2, ',', '.').' kr';
     }
     return $result;
   }

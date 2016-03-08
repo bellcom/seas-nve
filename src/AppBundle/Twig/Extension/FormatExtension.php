@@ -19,6 +19,7 @@ class FormatExtension extends \Twig_Extension {
   public function getFilters()
   {
     return array(
+      new Twig_SimpleFilter('format_json', [$this, 'formatToJSON'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_hundreds', [$this, 'formatToHundreds'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_tens', [$this, 'formatToTens'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_zeros', [$this, 'formatToZeros'], ['is_safe' => ['all']]),
@@ -28,6 +29,10 @@ class FormatExtension extends \Twig_Extension {
       new Twig_SimpleFilter('format_percent', [$this, 'formatPercent'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_percent_nounit', [$this, 'formatPercentNoUnit'], ['is_safe' => ['all']]),
     );
+  }
+
+  public function formatToJSON($i) {
+    return number_format($i, 2, ',', '');
   }
 
   public function formatToHundreds($i) {
