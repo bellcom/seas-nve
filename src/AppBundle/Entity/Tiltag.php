@@ -301,7 +301,7 @@ abstract class Tiltag {
   /**
    * @var string
    *
-   * @ORM\Column(name="risikovurdering", type="string", length=10, nullable=true)
+   * @ORM\Column(name="risikovurdering", type="text", nullable=true)
    */
   protected $risikovurdering;
 
