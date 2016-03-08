@@ -29,28 +29,28 @@ class SpecialTiltag extends Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="besparelseGUF", type="decimal", scale=4)
+   * @ORM\Column(name="besparelseGUF", type="decimal", scale=4, precision=14)
    */
   protected $besparelseGUF;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="besparelseGAF", type="decimal", scale=4)
+   * @ORM\Column(name="besparelseGAF", type="decimal", scale=4, precision=14)
    */
   protected $besparelseGAF;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="besparelseEl", type="decimal", scale=4)
+   * @ORM\Column(name="besparelseEl", type="decimal", scale=4, precision=14)
    */
   protected $besparelseEl;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="yderligereBesparelse", type="decimal", scale=4)
+   * @ORM\Column(name="yderligereBesparelse", type="decimal", scale=4, precision=14)
    */
   protected $yderligereBesparelse;
 
@@ -154,6 +154,14 @@ class SpecialTiltag extends Tiltag {
   protected function calculateSamletCo2besparelse() {
     return (($this->varmebesparelseGAF / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
             + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
+  }
+
+  protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
+    return parent::calculateCashFlow($numberOfYears, $this->getYderligereBesparelse());
+  }
+
+  public function calculateSavingsForYear($year) {
+    return parent::calculateSavingsForYear($year) + $this->getYderligereBesparelse();
   }
 
 }

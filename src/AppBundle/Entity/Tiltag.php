@@ -1319,7 +1319,7 @@ abstract class Tiltag {
     $this->besparelseAarEt = $this->calculateSavingsForYear(1);
   }
 
-  protected function calculateCashFlow($numberOfYears) {
+  protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
     $inflation = $this->getRapport()->getInflation();
 
     $anlaegsinvestering = floatval($this->anlaegsinvestering);
@@ -1350,7 +1350,7 @@ abstract class Tiltag {
           $value += $scrapvaerdi;
         }
       }
-      $cashFlow[$year] = $value;
+      $cashFlow[$year] = $value + $yderligereBesparelseKrAar;
     }
 
     return $cashFlow;

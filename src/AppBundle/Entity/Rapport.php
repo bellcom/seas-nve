@@ -1575,7 +1575,7 @@ class Rapport {
     $this->genopretning = $this->calculateGenopretning();
     $this->modernisering = $this->calculateModernisering();
     $this->fravalgtGenopretning = $this->calculateFravalgtGenopretning();
-    $this->fravalgtModernisering = $this->calculateModernisering();
+    $this->fravalgtModernisering = $this->calculateFravalgtModernisering();
 
     $this->cashFlow15 = $this->calculateCashFlow15();
     $this->cashFlow30 = $this->calculateCashFlow30();
