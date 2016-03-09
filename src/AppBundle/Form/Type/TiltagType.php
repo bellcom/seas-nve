@@ -71,7 +71,8 @@ class TiltagType extends AbstractType {
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder
         ->add('genopretning')
-        ->add('modernisering');
+        ->add('modernisering')
+        ->add('reelAnlaegsinvestering');
     }
 
     $builder->add('forsyningVarme', 'entity', array(
@@ -90,8 +91,7 @@ class TiltagType extends AbstractType {
       ->add('risikovurdering')
       ->add('placering')
       ->add('beskrivelseDriftOgVedligeholdelse')
-      ->add('indeklima')
-      ->add('reelAnlaegsinvestering');
+      ->add('indeklima');
 
     $builder->add('risikovurderingTeknisk', new RisikovurderingType(), array());
     $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());

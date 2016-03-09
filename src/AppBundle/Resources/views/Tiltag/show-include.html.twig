@@ -91,10 +91,22 @@
           <td class="text-right">{{ entity.risikovurderingOekonomiskKompenseringIftInvesteringFaktor | format_percent }}</td>
           <td></td>
         </tr>
+        {% if is_granted('ROLE_ADMIN') %}
         <tr>
           <td>{{ 'appbundle.tiltag.reelAnlaegsinvestering' | trans }}</td>
           <td class="text-right">{{ entity.reelAnlaegsinvestering | number_format }}</td>
           <td>{{ 'appbundle.tiltag.reelAnlaegsinvestering.unit' | trans }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+          <td>{{ 'appbundle.tiltag.genopretning' | trans }}</td>
+          <td class="text-right">{{ entity.genopretning | number_format }}</td>
+          <td>{{ 'appbundle.tiltag.genopretning.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'appbundle.tiltag.modernisering' | trans }}</td>
+          <td class="text-right">{{ entity.modernisering | number_format }}</td>
+          <td>{{ 'appbundle.tiltag.modernisering.unit' | trans }}</td>
         </tr>
         <tr>
           <td>{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</td>
@@ -105,26 +117,6 @@
           <td>{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr' | trans }}</td>
           <td class="text-right">{{ entity.nutidsvaerdiSetOver15AarKr | number_format }}</td>
           <td>{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <td>{{ 'appbundle.tiltag.scrapvaerdi' | trans }}</td>
-          <td class="text-right">{{ entity.scrapvaerdi | number_format }}</td>
-          <td>{{ 'appbundle.tiltag.scrapvaerdi.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <td>{{ 'appbundle.tiltag.reinvestering' | trans }}</td>
-          <td class="text-right">{{ entity.reinvestering | number_format }}</td>
-          <td>{{ 'appbundle.tiltag.reinvestering.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <td class="indent">{{ 'appbundle.tiltag.antalReinvesteringer' | trans }}</td>
-          <td class="text-right">{{ entity.antalReinvesteringer | format_integer }}</td>
-          <td>{{ 'appbundle.tiltag.antalReinvesteringer.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <td class="indent">{{ 'appbundle.tiltag.faktorForReinvesteringer' | trans }}</td>
-          <td class="text-right">{{ entity.faktorForReinvesteringer | number_format }}</td>
-          <td></td>
         </tr>
         </tbody>
       </table>
