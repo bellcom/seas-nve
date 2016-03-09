@@ -32,10 +32,10 @@ class SolcelleTiltag extends Tiltag {
     $this->setTitle('Solceller');
   }
 
-  protected function calculateElbesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+  protected function calculateElbesparelse($value = null) {
+    $value = $this->sum('egetForbrugAfProduktionenKWh');
 
-    return $this->sum('egetForbrugAfProduktionenKWh') * $besparelse;
+    return parent::calculateElbesparelse($value);
   }
 
   protected function calculateSamletEnergibesparelse() {
@@ -48,9 +48,7 @@ class SolcelleTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering($value = NULL) {
-    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
-
-    $value = ($this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr')) * (1 + $kompensering);
+    $value = ($this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr'));
 
     return parent::calculateAnlaegsinvestering($value);
   }

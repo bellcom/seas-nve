@@ -1428,18 +1428,6 @@ abstract class Tiltag {
     return $varmepris;
   }
 
-  protected function calculateVarmebesparelseGUF() {
-    return NULL;
-  }
-
-  protected function calculateVarmebesparelseGAF() {
-    return NULL;
-  }
-
-  protected function calculateElbesparelse() {
-    return NULL;
-  }
-
   protected function calculateVandbesparelse() {
     return NULL;
   }
@@ -1473,9 +1461,31 @@ abstract class Tiltag {
     if($value === NULL) {
       return NULL;
     } else {
-      $faktor = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 1;
+      $faktor = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() + 1 : 1;
 
       return $value * $faktor;
+    }
+  }
+
+  protected function calculateVarmebesparelseGUF($value = NULL) {
+    return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
+  }
+
+  protected function calculateVarmebesparelseGAF($value = null) {
+    return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
+  }
+
+  protected function calculateElbesparelse($value = null) {
+    return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
+  }
+
+  private function calculateBesparelseFromAendringIBesparelseFaktor($value) {
+    if($value === NULL) {
+      return NULL;
+    } else {
+      $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? 1 - $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+
+      return $value * $besparelse;
     }
   }
 

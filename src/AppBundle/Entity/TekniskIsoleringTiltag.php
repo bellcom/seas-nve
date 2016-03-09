@@ -27,16 +27,16 @@ class TekniskIsoleringTiltag extends Tiltag {
     $this->setTitle('Teknisk isolering');
   }
 
-  protected function calculateVarmebesparelseGAF() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+  protected function calculateVarmebesparelseGAF($value = null) {
+    $value = $this->sum('kwhBesparelseVarmeFraVaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
 
-    return $this->sum('kwhBesparelseVarmeFraVaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse() * $besparelse;
+    return parent::calculateVarmebesparelseGAF($value);
   }
 
-  protected function calculateElbesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+  protected function calculateElbesparelse($value = null) {
+    $value = $this->sum('kwhBesparelseElFraVaerket');
 
-    return $this->sum('kwhBesparelseElFraVaerket') * $besparelse;
+    return parent::calculateElbesparelse($value);
   }
 
   protected function calculateSamletEnergibesparelse() {
@@ -49,9 +49,7 @@ class TekniskIsoleringTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering($value = NULL) {
-    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
-
-    $value = $this->sum('investeringKr') * (1 + $kompensering);
+    $value = $this->sum('investeringKr');
 
     return parent::calculateAnlaegsinvestering($value);
   }

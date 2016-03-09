@@ -50,9 +50,9 @@
           <th>{{ 'appbundle.tiltag.samletEnergibesparelse.unit' | trans }}</th>
         </tr>
         <tr>
-          <td>{{ 'common.risikovurdering' | trans }} {{ 'appbundle.tiltag.risikovurderingAendringIBesparelseFaktor' | trans }}</td>
-          <td class="text-right">{{ entity.risikovurderingAendringIBesparelseFaktor | format_percent }}</td>
-          <td></td>
+          <td>{{ 'common.risikovurdering' | trans }}: {{ 'appbundle.tiltag.risikovurderingAendringIBesparelseFaktor' | trans }}</td>
+          <td class="text-right">{{ entity.risikovurderingAendringIBesparelseFaktor | format_percent_nounit }}</td>
+          <td>{{ 'appbundle.tiltag.risikovurderingAendringIBesparelseFaktor.unit' | trans }}</td>
         </tr>
         <tr>
           <td>
@@ -87,9 +87,9 @@
           <td>{{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
         </tr>
         <tr>
-          <td>{{ 'common.risikovurdering' | trans }} {{ 'appbundle.tiltag.risikovurderingOekonomiskKompenseringIftInvesteringFaktor' | trans }}</td>
-          <td class="text-right">{{ entity.risikovurderingOekonomiskKompenseringIftInvesteringFaktor | format_percent }}</td>
-          <td></td>
+          <td>{{ 'common.risikovurdering' | trans }}: {{ 'appbundle.tiltag.risikovurderingOekonomiskKompenseringIftInvesteringFaktor' | trans }}</td>
+          <td class="text-right">{{ entity.risikovurderingOekonomiskKompenseringIftInvesteringFaktor | format_percent_nounit }}</td>
+          <td>{{ 'appbundle.tiltag.risikovurderingOekonomiskKompenseringIftInvesteringFaktor.unit' | trans }}</td>
         </tr>
         {% if is_granted('ROLE_ADMIN') %}
         <tr>

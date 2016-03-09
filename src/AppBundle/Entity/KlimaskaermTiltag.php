@@ -26,16 +26,16 @@ class KlimaskaermTiltag extends Tiltag {
     $this->setTitle('Klimaskærm');
   }
 
-  protected function calculateVarmebesparelseGAF() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+  protected function calculateVarmebesparelseGAF($value = null) {
+    $value = $this->sum('kWhBesparVarmevaerkEksternEnergikilde') * $this->getRapport()->getFaktorPaaVarmebesparelse();
 
-    return $this->sum('kWhBesparVarmevaerkEksternEnergikilde') * $this->getRapport()->getFaktorPaaVarmebesparelse() * $besparelse;
+    return parent::calculateVarmebesparelseGAF($value);
   }
 
-  protected function calculateElbesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+  protected function calculateElbesparelse($value = null) {
+    $value = $this->sum('kWhBesparElvaerkEksternEnergikilde');
 
-    return $this->sum('kWhBesparElvaerkEksternEnergikilde') * $besparelse;
+    return parent::calculateElbesparelse($value);
   }
 
   protected function calculateSamletEnergibesparelse() {
@@ -48,9 +48,7 @@ class KlimaskaermTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering($value = NULL) {
-    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
-
-    $value = $this->sum('samletInvesteringKr') * (1 + $kompensering);
+    $value = $this->sum('samletInvesteringKr');
 
     return parent::calculateAnlaegsinvestering($value);
   }

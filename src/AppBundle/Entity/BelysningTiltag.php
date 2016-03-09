@@ -26,16 +26,16 @@ class BelysningTiltag extends Tiltag {
     $this->setTitle('Belysning');
   }
 
-  protected function calculateVarmebesparelseGUF() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+  protected function calculateVarmebesparelseGUF($value = null) {
+    $value = $this->sum('kWhBesparelseVarmeFraVarmevaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
 
-    return $this->sum('kWhBesparelseVarmeFraVarmevaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse() * $besparelse;
+    return parent::calculateVarmebesparelseGUF($value);
   }
 
-  protected function calculateElbesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+  protected function calculateElbesparelse($value = null) {
+    $value = $this->sum('kwhBesparelseEl');
 
-    return $this->sum('kwhBesparelseEl') * $besparelse;
+    return parent::calculateElbesparelse($value);
   }
 
   protected function calculateSamletEnergibesparelse() {
@@ -48,9 +48,7 @@ class BelysningTiltag extends Tiltag {
   }
 
   protected function calculateAnlaegsinvestering($value = NULL) {
-    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
-
-    $value = $this->sum('investeringAlleLokalerKr') * (1 + $kompensering);
+    $value = $this->sum('investeringAlleLokalerKr');
 
     return parent::calculateAnlaegsinvestering($value);
   }
