@@ -178,6 +178,8 @@ abstract class Tiltag {
   protected $faktorForReinvesteringer;
 
   /**
+   * Enterprisesum
+   *
    * @var float
    *
    * @Calculated
@@ -186,6 +188,8 @@ abstract class Tiltag {
   protected $anlaegsinvestering;
 
   /**
+   * Enterprisesum ex. risiko
+   *
    * @var float
    *
    * @Calculated
@@ -247,6 +251,14 @@ abstract class Tiltag {
    * @ORM\Column(name="scrapvaerdi", type="float", nullable=true)
    */
   protected $scrapvaerdi;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="aaplusInvestering", type="float", nullable=true)
+   */
+  protected $aaplusInvestering;
 
   /**
    * @var float
@@ -1304,6 +1316,21 @@ abstract class Tiltag {
   }
 
   /**
+   * @return float
+   */
+  public function getAaplusInvestering() {
+    return $this->aaplusInvestering;
+  }
+
+  /**
+   * @param float $aaplusInvestering
+   */
+  public function setAaplusInvestering($aaplusInvestering) {
+    $this->aaplusInvestering = $aaplusInvestering;
+  }
+
+
+  /**
    * Calculate values in this Tiltag
    */
   public function calculate() {
@@ -1323,6 +1350,7 @@ abstract class Tiltag {
     }
     $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
     $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    $this->aaplusInvestering = $this->calculateAaplusInvestering();
     $this->reinvestering = $this->calculateReinvestering();
     $this->scrapvaerdi = $this->calculateScrapvaerdi();
     $this->cashFlow15 = $this->calculateCashFlow(15);
@@ -1330,6 +1358,10 @@ abstract class Tiltag {
     $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->besparelseAarEt = $this->calculateSavingsForYear(1);
+  }
+
+  protected function calculateAaplusInvestering() {
+    return $this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering());
   }
 
   protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {

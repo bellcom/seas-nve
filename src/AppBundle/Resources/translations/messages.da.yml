@@ -1157,9 +1157,9 @@ appbundle:
     varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering
     varmeledningsevnePaaNyIsoleringWMK.unit: W/m·K
   tiltag:
-    anlaegsInvestering: ﻿Anlægsinvestering incl. risikov.
+    anlaegsInvestering: ﻿Entreprisesum
     anlaegsInvestering.unit: kr
-    anlaegsinvesteringExRisiko: ﻿Anlægsinvestering
+    anlaegsinvesteringExRisiko: ﻿Entreprisesum (eksl. risikovurdering)
     anlaegsinvesteringExRisiko.unit: kr
     antalReinvesteringer: Antal reinvesteringer
     antalReinvesteringer.unit: stk.
@@ -1210,7 +1210,7 @@ appbundle:
     placering: Placering
     primaerEnterprise: Primær entreprise
     rapport: Rapport
-    reelAnlaegsinvestering: Reel Anlægsinvestering
+    reelAnlaegsinvestering: Reel Entreprisesum
     reelAnlaegsinvestering.unit: kr
     reinvestering: Reinvestering
     reinvestering.unit: kr
