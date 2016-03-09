@@ -1210,7 +1210,7 @@ appbundle:
     placering: Placering
     primaerEnterprise: Primær entreprise
     rapport: Rapport
-    reelAnlaegsinvestering: Reel Entreprisesum
+    reelAnlaegsinvestering: Faktisk Entreprisesum
     reelAnlaegsinvestering.unit: kr
     reinvestering: Reinvestering
     reinvestering.unit: kr
