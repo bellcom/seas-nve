@@ -58,7 +58,7 @@ class BelysningTiltag extends Tiltag {
       return 0;
     }
     else {
-      return $this->faktorForReinvesteringer * $this->anlaegsinvestering;
+      return $this->faktorForReinvesteringer * $this->getAaplusInvestering();
     }
   }
 

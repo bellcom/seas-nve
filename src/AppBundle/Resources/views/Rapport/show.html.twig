@@ -157,7 +157,7 @@
     <div class="panel-body">
       {% include('AppBundle::_includes/finansiering_graf.html.twig') %}
 
-      {% if is_granted('ROLE_RAPPORT_EDIT') and edit_form %}
+      {% if is_granted('RAPPORT_EDIT', entity) and edit_form %}
         {% form_theme edit_form 'AppBundle:Form:aaplus-bootstrap.html.twig' %}
         {{ form(edit_form, { 'style': 'inline' }) }}
       {% else %}

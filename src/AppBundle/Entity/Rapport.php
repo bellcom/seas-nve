@@ -1778,7 +1778,7 @@ class Rapport {
   private function calculateImplementering() {
     $sum = 0;
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      $sum += $tiltag->getAnlaegsinvestering();
+      $sum += $tiltag->getAaplusInvestering();
     }
 
     return $sum * $this->getProcentAfInvestering();
@@ -1787,7 +1787,7 @@ class Rapport {
   private function calculateFravalgtImplementering() {
     $sum = 0;
     foreach ($this->getFravalgteTiltag() as $tiltag) {
-      $sum += $tiltag->getAnlaegsinvestering();
+      $sum += $tiltag->getAaplusInvestering();
     }
 
     $sum -= $this->genopretning;
@@ -1881,7 +1881,7 @@ class Rapport {
     $samletAarligYdelseTilLaan = 0;
 
     foreach ($tilvalgteTiltag as $index => $tiltag) {
-      $samletAarligYdelseTilLaan += Calculation::pmt($rente, $loebetid, $tiltag->getAnlaegsinvestering());
+      $samletAarligYdelseTilLaan += Calculation::pmt($rente, $loebetid, $tiltag->getAaplusInvestering());
     }
 
     for ($year = 1; $year <= $numberOfYears; $year++) {
