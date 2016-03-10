@@ -21,11 +21,11 @@
 * AAPLUS-449: Tilvælg/fravalg på rapportniveau
 * AAPLUS-450: Rediger rapport: ”Faktor” sættes til 1 som Aa+, vises efterfølgende som 0,01 når rådgiver ser den!!!
   NB! Could not be reproduced.
-  + Fixed number format bug in Rapport edit forms
 * SUPPORT-527: Aa+ / Indtastningsfelter mangler på Specialtiltag
 * Bugfix: Calculation for investeringInklFaellesomkostninger corrected
 * Cleaned up legacy BygningStatus code
 * Fixed issues reported by Scrutinizer
+* Fixed number format bug in Rapport edit forms
 
 ## v1.2.3
 SUPPORT-527: Re-added Missing fields to Specialtiltag edit screen
