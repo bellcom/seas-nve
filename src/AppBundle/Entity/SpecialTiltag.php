@@ -141,8 +141,10 @@ class SpecialTiltag extends Tiltag {
   }
 
   protected function calculateSamletEnergibesparelse() {
-    return ($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->yderligereBesparelse;
+    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
+
+    return (($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris()
+      + $this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->yderligereBesparelse) * (1 - $besparelse);
   }
 
   protected function calculateSamletCo2besparelse() {

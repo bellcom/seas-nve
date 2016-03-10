@@ -1,0 +1,12 @@
+$('#appbundle_belysningtiltagdetail_erstatningsLyskilde').change(function () {
+    selected_val = $('#appbundle_belysningtiltagdetail_erstatningsLyskilde :selected').attr('value');
+
+    erstatningsvalues = {
+    {% for c in choices %} "{{c.data.id}}": { "id": "{{ c.data.id }}", "antal": "{{ c.data.antal }}", "wattage": "{{ c.data.wattage }}", "nyeForkoblinger": "{{ c.data.nyeForkoblinger }}" }{% if not loop.last %},{% endif %} {% endfor %}
+    };
+
+    $('#appbundle_belysningtiltagdetail_nyLyskildeStkArmatur').val(erstatningsvalues[selected_val].antal);
+    $('#appbundle_belysningtiltagdetail_nyLyskildeWLyskilde').val(erstatningsvalues[selected_val].wattage);
+    $('#appbundle_belysningtiltagdetail_nyForkoblingStkArmatur').val(erstatningsvalues[selected_val].nyeForkoblinger);
+
+});

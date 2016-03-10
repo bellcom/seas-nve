@@ -6,6 +6,8 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\AppBundle;
+use AppBundle\Form\Type\RisikovurderingType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\SolcelleTiltag;
@@ -76,6 +78,13 @@ class TiltagType extends AbstractType {
       ->add('indeklima')
       ->add('reelAnlaegsinvestering');
 
+    $builder->add('risikovurderingTeknisk', new RisikovurderingType(), array());
+    $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
+    $builder->add('risikovurderingDatagrundlag', new RisikovurderingType(), array());
+    $builder->add('risikovurderingDiverse', new RisikovurderingType(), array());
+    $builder->add('risikovurderingAendringIBesparelseFaktor', 'percent', array('required' => FALSE))
+            ->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor', 'percent', array('required' => FALSE));
+
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
@@ -101,6 +110,8 @@ class TiltagType extends AbstractType {
     }
     elseif ($this->tiltag instanceof SpecialTiltag) {
       $builder
+        ->add('besparelseDriftOgVedligeholdelse')
+        ->add('besparelseStrafafkoelingsafgift')
         ->add('anlaegsInvestering')
         ->add('besparelseGUF')
         ->add('besparelseGAF')
