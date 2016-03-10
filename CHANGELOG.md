@@ -27,6 +27,17 @@
 * Cleaned up legacy BygningStatus code
 * Fixed issues reported by Scrutinizer
 
+## v1.2.3
+SUPPORT-527: Re-added Missing fields to Specialtiltag edit screen
+
+## v1.2.2
+Issue #AAPLUS-434 by tuj: Changed colours for graphs
+
+## v1.2.1
+Issue #AAPLUS-433 by tuj: Fixed bilag permissions.
+
+## v1.2.0
+
 ## 2016-01-18 v1.1.0
 
 * Fixed scroll in TiltagDetail table and added fixed table headers
