@@ -36,10 +36,6 @@
 ## v1.2.1
 * Issue #AAPLUS-433 by tuj: Fixed bilag permissions.
 
-## v1.2.0
-
-
-
 ## 2016-01-18 v1.1.0
 
 * Fixed scroll in TiltagDetail table and added fixed table headers
