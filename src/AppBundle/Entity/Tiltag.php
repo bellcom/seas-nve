@@ -1367,7 +1367,7 @@ abstract class Tiltag {
   protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
     $inflation = $this->getRapport()->getInflation();
 
-    $anlaegsinvestering = floatval($this->anlaegsinvestering);
+    $aaplusinvestering = floatval($this->aaplusInvestering);
     $varmebesparelseGUF = floatval($this->varmebesparelseGUF);
     $varmebesparelseGAF = floatval($this->varmebesparelseGAF);
     $elbesparelse = floatval($this->elbesparelse);
@@ -1385,11 +1385,11 @@ abstract class Tiltag {
         + $vandbesparelse * $this->getRapport()->getVandKrKWh($year)
         + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
       if ($year == 1) {
-        $value -= $anlaegsinvestering;
+        $value -= $aaplusinvestering;
       }
       else {
         if ($this->levetid + 1 == $year) {
-          $value -= $this->anlaegsinvestering * $this->faktorForReinvesteringer * pow(1 + $inflation, $year);
+          $value -= $this->aaplusInvestering * $this->faktorForReinvesteringer * pow(1 + $inflation, $year);
         }
         if ($numberOfYears == 15 && $year == $numberOfYears) {
           $value += $scrapvaerdi;
@@ -1494,7 +1494,7 @@ abstract class Tiltag {
   }
 
   protected function calculateSimpelTilbagebetalingstidAar() {
-    return $this->divide($this->anlaegsinvestering,
+    return $this->divide($this->aaplusInvestering,
       $this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift);
   }
 
@@ -1507,7 +1507,7 @@ abstract class Tiltag {
     $cutoff = 15;
     if ($this->levetid > $cutoff) {
       return (1 - ($cutoff / $this->levetid)) * pow(1 + $this->getRapport()
-          ->getInflation(), $cutoff) * $this->anlaegsinvestering;
+          ->getInflation(), $cutoff) * $this->aaplusInvestering;
     }
     elseif ($cutoff - $this->antalReinvesteringer * $this->levetid == 0) {
       return 0;
@@ -1523,7 +1523,7 @@ abstract class Tiltag {
       return 0;
     }
     else {
-      return $this->faktorForReinvesteringer * $this->anlaegsinvestering;
+      return $this->faktorForReinvesteringer * $this->aaplusInvestering;
     }
   }
 
