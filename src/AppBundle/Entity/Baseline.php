@@ -2213,19 +2213,19 @@ class Baseline {
    */
   public function calculateElForbrugsdataPrimaerGennemsnit() {
     $sum = 0.0;
-    $number = 0.0;
+    $number = 0;
 
     if (isset($this->elForbrugsdataPrimaer1Forbrug)) {
       $number++;
-      $sum =+ $this->elForbrugsdataPrimaer1Forbrug;
+      $sum += $this->elForbrugsdataPrimaer1Forbrug;
     }
     if (isset($this->elForbrugsdataPrimaer2Forbrug)) {
       $number++;
-      $sum =+ $this->elForbrugsdataPrimaer2Forbrug;
+      $sum += $this->elForbrugsdataPrimaer2Forbrug;
     }
     if (isset($this->elForbrugsdataPrimaer3Forbrug)) {
       $number++;
-      $sum =+ $this->elForbrugsdataPrimaer3Forbrug;
+      $sum += $this->elForbrugsdataPrimaer3Forbrug;
     }
 
     if ($number == 0) {
@@ -2257,19 +2257,19 @@ class Baseline {
    */
   public function calculateElForbrugsdataSekundaerGennemsnit() {
     $sum = 0.0;
-    $number = 0.0;
+    $number = 0;
 
     if (isset($this->elForbrugsdataSekundaer1Forbrug)) {
       $number++;
-      $sum =+ $this->elForbrugsdataSekundaer1Forbrug;
+      $sum += $this->elForbrugsdataSekundaer1Forbrug;
     }
     if (isset($this->elForbrugsdataSekundaer2Forbrug)) {
       $number++;
-      $sum =+ $this->elForbrugsdataSekundaer2Forbrug;
+      $sum += $this->elForbrugsdataSekundaer2Forbrug;
     }
     if (isset($this->elForbrugsdataSekundaer3Forbrug)) {
       $number++;
-      $sum =+ $this->elForbrugsdataSekundaer3Forbrug;
+      $sum += $this->elForbrugsdataSekundaer3Forbrug;
     }
 
     if ($number == 0) {
