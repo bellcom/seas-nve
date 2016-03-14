@@ -304,7 +304,7 @@ abstract class Tiltag {
    * @ORM\Column(name="beskrivelseNuvaerende", type="text", nullable=true)
    *
    * @Assert\Length(
-   *  max = 10,
+   *  max = 800,
    *  maxMessage = "maxLength"
    * )
    */
