@@ -4,14 +4,13 @@
   {% block body -%}
   <div class="row heading">
     <div class="col-md-9">
-      <h1>{{ 'pumpe.actions.edit' | trans }}</h1>
+      <h1>{{ 'pumpe.actions.add' | trans }}</h1>
     </div>
     <div class="col-md-3 text-right">
-       {{ form(delete_form) }} 
     </div>
 
   </div>
 
-  {{ form(edit_form) }}
+  {{ form(form) }}
 
     {% endblock %}
