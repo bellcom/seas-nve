@@ -2201,6 +2201,7 @@ class Baseline {
     $this->elForbrugsdataPrimaerNoegetal = $this->calculateElForbrugsdataPrimaerNoegetal();
     $this->elForbrugsdataSekundaerGennemsnit = $this->calculateElForbrugsdataSekundaerGennemsnit();
     $this->elForbrugsdataSekundaerNoegetal = $this->calculateElForbrugsdataSekundaerNoegetal();
+    $this->elBaselineNoegletalForEjendom = $this->calculateElBaselineNoegletalForEjendom();
   }
 
   /**
@@ -2214,15 +2215,15 @@ class Baseline {
     $sum = 0.0;
     $number = 0.0;
 
-    if (!is_null($this->elForbrugsdataPrimaer1Forbrug)) {
+    if (isset($this->elForbrugsdataPrimaer1Forbrug)) {
       $number++;
       $sum =+ $this->elForbrugsdataPrimaer1Forbrug;
     }
-    if (!is_null($this->elForbrugsdataPrimaer2Forbrug)) {
+    if (isset($this->elForbrugsdataPrimaer2Forbrug)) {
       $number++;
       $sum =+ $this->elForbrugsdataPrimaer2Forbrug;
     }
-    if (!is_null($this->elForbrugsdataPrimaer3Forbrug)) {
+    if (isset($this->elForbrugsdataPrimaer3Forbrug)) {
       $number++;
       $sum =+ $this->elForbrugsdataPrimaer3Forbrug;
     }
@@ -2241,7 +2242,7 @@ class Baseline {
    * @return float|null
    */
   public function calculateElForbrugsdataPrimaerNoegetal() {
-    if ($this->arealTilNoegletalsanalyse) {
+    if (isset($this->elForbrugsdataPrimaerGennemsnit) && !empty($this->arealTilNoegletalsanalyse)) {
       return $this->elForbrugsdataPrimaerGennemsnit / $this->arealTilNoegletalsanalyse;
     }
     return null;
@@ -2258,15 +2259,15 @@ class Baseline {
     $sum = 0.0;
     $number = 0.0;
 
-    if (!is_null($this->elForbrugsdataSekundaer1Forbrug)) {
+    if (isset($this->elForbrugsdataSekundaer1Forbrug)) {
       $number++;
       $sum =+ $this->elForbrugsdataSekundaer1Forbrug;
     }
-    if (!is_null($this->elForbrugsdataSekundaer2Forbrug)) {
+    if (isset($this->elForbrugsdataSekundaer2Forbrug)) {
       $number++;
       $sum =+ $this->elForbrugsdataSekundaer2Forbrug;
     }
-    if (!is_null($this->elForbrugsdataSekundaer3Forbrug)) {
+    if (isset($this->elForbrugsdataSekundaer3Forbrug)) {
       $number++;
       $sum =+ $this->elForbrugsdataSekundaer3Forbrug;
     }
@@ -2285,8 +2286,22 @@ class Baseline {
    * @return float|null
    */
   public function calculateElForbrugsdataSekundaerNoegetal() {
-    if ($this->arealTilNoegletalsanalyse) {
+    if (isset($this->elForbrugsdataSekundaerGennemsnit) && !empty($this->arealTilNoegletalsanalyse)) {
       return $this->elForbrugsdataSekundaerGennemsnit / $this->arealTilNoegletalsanalyse;
+    }
+    return null;
+  }
+
+  /**
+   * Calculate ElBaselineNoegletalForEjendom
+   *
+   * =IF('1. Areal'!D18="";"Indtast areal";IF(C39="";"";C39/'1. Areal'!D18))
+   *
+   * @return float|null
+   */
+  public function calculateElBaselineNoegletalForEjendom() {
+    if (isset($this->elBaselineFastsatForEjendom) && !empty($this->arealTilNoegletalsanalyse)) {
+      return $this->elBaselineFastsatForEjendom / $this->arealTilNoegletalsanalyse;
     }
     return null;
   }
