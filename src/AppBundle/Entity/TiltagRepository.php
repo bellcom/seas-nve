@@ -22,12 +22,47 @@ class TiltagRepository extends EntityRepository {
    * @return Tiltag
    */
   public function create($type) {
-    $className = '\\AppBundle\\Entity\\'.ucwords($type).'Tiltag';
+    $type = ucwords($type);
+    $className = '\\AppBundle\\Entity\\' . $type .'Tiltag';
 
     if (!class_exists($className)) {
-        throw new \InvalidArgumentException('Unknown tiltag type: '.$type);
+      throw new \InvalidArgumentException('Unknown tiltag type: '.$type);
     }
 
-    return new $className();
+    $tiltag = new $className();
+
+    switch ($type) {
+      case 'Solcelle':
+        $tiltag->setPrimaerEnterprise('ve');
+        $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Solceller'));
+        break;
+      case 'Tekniskisolering':
+        $tiltag->setPrimaerEnterprise('vvs');
+        $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Varmeanlæg – generelt'));
+        break;
+      case 'Belysning':
+        $tiltag->setPrimaerEnterprise('el');
+        $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Belysning'));
+        break;
+      case 'Klimaskaerm':
+        $tiltag->setPrimaerEnterprise('t/i');
+        $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Klimaskærm'));
+        break;
+      case 'Pumpe':
+        $tiltag->setPrimaerEnterprise('vvs');
+        $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Pumper'));
+        break;
+      case 'Vindue':
+        $tiltag->setPrimaerEnterprise('Tømrer');
+        $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Vinduer'));
+        break;
+    }
+
+    return $tiltag;
   }
+
+  private function getTiltagskategoriByName($name) {
+    return $this->_em->getRepository('AppBundle:Tiltagskategori')->findOneBy(array('navn' => $name));
+  }
+
 }
