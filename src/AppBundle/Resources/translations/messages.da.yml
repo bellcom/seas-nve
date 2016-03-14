@@ -336,6 +336,7 @@ tiltag:
     forhold: Forhold
     oversigt: Oversigt
     regning: Regning
+    ingen: Ingen tiltag fundet
   validation:
     error: Fejl i tiltaget - ret venligst de nævnte fejl
 tiltagdetail:
@@ -1094,7 +1095,7 @@ appbundle:
     investeringKr.unit: Kr
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
-    omkostningTilMaalerKr: Omkostning til måler
+    omkostningTilMaalerKr: Omkostning til måler pr. år
     omkostningTilMaalerKr.unit: Kr
     prisForNyInverterKr: Pris for ny inverter
     prisForNyInverterKr.unit: Kr
