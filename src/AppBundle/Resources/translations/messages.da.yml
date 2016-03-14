@@ -611,10 +611,10 @@ appbundle:
     vandfaktor: Vandfaktor
     varmefaktor: Varmefaktor
     varmeKrKWh: Varme (kr/kWh)
-    tekniskIsoleringVarmeledningsevneEksistLamelmaatter: Varmeledningsevne, eksist. lamelmåtter
-    tekniskIsoleringVarmeledningsevneEksistLamelmaatter.unit: W/m·K
-    tekniskIsoleringVarmeledningsevneNyIsolering: Varmeledningsevne, ny isolering
-    tekniskIsoleringVarmeledningsevneNyIsolering.unit: W/m·K
+    tekniskisoleringVarmeledningsevneEksistLamelmaatter: Varmeledningsevne, eksist. lamelmåtter
+    tekniskisoleringVarmeledningsevneEksistLamelmaatter.unit: W/m·K
+    tekniskisoleringVarmeledningsevneNyIsolering: Varmeledningsevne, ny isolering
+    tekniskisoleringVarmeledningsevneNyIsolering.unit: W/m·K
     solcelletiltagdetailEnergiprisstigningPctPrAar: Energiprisstigning
     solcelletiltagdetailEnergiprisstigningPctPrAar.unit: %/år
     solcelletiltagdetailSalgsprisFoerste10AarKrKWh: Salgspris (Første 10 år)
