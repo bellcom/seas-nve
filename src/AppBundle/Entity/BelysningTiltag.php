@@ -26,19 +26,20 @@ class BelysningTiltag extends Tiltag {
     $this->setTitle('Belysning');
   }
 
-  protected function calculateVarmebesparelseGUF() {
-    return $this->sum('kWhBesparelseVarmeFraVarmevaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+  protected function calculateVarmebesparelseGUF($value = null) {
+    $value = $this->sum('kWhBesparelseVarmeFraVarmevaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+
+    return parent::calculateVarmebesparelseGUF($value);
   }
 
-  protected function calculateElbesparelse() {
-    return $this->sum('kwhBesparelseEl');
+  protected function calculateElbesparelse($value = null) {
+    $value = $this->sum('kwhBesparelseEl');
+
+    return parent::calculateElbesparelse($value);
   }
 
   protected function calculateSamletEnergibesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
-
-    return ($this->varmebesparelseGUF * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh()) * (1 - $besparelse);
+    return ($this->varmebesparelseGUF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapport()->getElKrKWh());
   }
 
   protected function calculateSamletCo2besparelse() {
@@ -46,10 +47,10 @@ class BelysningTiltag extends Tiltag {
             + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
   }
 
-  protected function calculateAnlaegsinvestering() {
-    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
+  protected function calculateAnlaegsinvestering($value = NULL) {
+    $value = $this->sum('investeringAlleLokalerKr');
 
-    return $this->sum('investeringAlleLokalerKr') * (1 + $kompensering);
+    return parent::calculateAnlaegsinvestering($value);
   }
 
   protected function calculateReinvestering() {
@@ -57,7 +58,7 @@ class BelysningTiltag extends Tiltag {
       return 0;
     }
     else {
-      return $this->faktorForReinvesteringer * $this->anlaegsinvestering;
+      return $this->faktorForReinvesteringer * $this->getAaplusInvestering();
     }
   }
 

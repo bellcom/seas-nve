@@ -3,10 +3,10 @@
 {% block body -%}
 
   <div class="row heading">
-    <div class="col-md-4">
-      <h1>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h1>
+    <div class="col-md-2">
+      <h1><nobr>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</nobr></h1>
     </div>
-    <div class="col-md-8 text-right">
+    <div class="col-md-10 text-right">
       <a class="btn btn-default" href="{{ path('rapport_bilag_get', { 'rapport_id': entity.id }) }}">
         {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
       </a>
@@ -157,7 +157,7 @@
     <div class="panel-body">
       {% include('AppBundle::_includes/finansiering_graf.html.twig') %}
 
-      {% if is_granted('ROLE_RAPPORT_EDIT') and edit_form %}
+      {% if is_granted('RAPPORT_EDIT', entity) and edit_form %}
         {% form_theme edit_form 'AppBundle:Form:aaplus-bootstrap.html.twig' %}
         {{ form(edit_form, { 'style': 'inline' }) }}
       {% else %}

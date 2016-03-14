@@ -73,7 +73,7 @@ class NytArmatur {
   }
 
   public function __toString() {
-    return $this->arbejdeOmfang.' - '.$this->pris.' kr. - '.$this->noter;
+    return $this->arbejdeOmfang.' - '.number_format($this->pris, 2, ',', '.').' kr.';
   }
 
   /**

@@ -1455,7 +1455,7 @@ class Rapport {
   }
 
   /**
-   * Get investering eksl. øvrige omkostninger
+   * Get investering eksl. genopretning og modernisering
    *
    * (Aa+ Investering eks. Øvrige omkostninger)
    */
@@ -1464,12 +1464,12 @@ class Rapport {
   }
 
   /**
-   * Get investering inkl. genopretning og modernisering
+   * Get investering inkl.  øvrige omkostninger
    *
    * (Aa+ Investering inkl. Øvrige omkostninger)
    */
   public function getinvesteringInklFaellesomkostninger() {
-    return $this->getInvesteringEksFaellesomkostninger() - ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering());
+    return $this->getInvesteringEksFaellesomkostninger() + ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering());
   }
 
   /**
@@ -1575,7 +1575,7 @@ class Rapport {
     $this->genopretning = $this->calculateGenopretning();
     $this->modernisering = $this->calculateModernisering();
     $this->fravalgtGenopretning = $this->calculateFravalgtGenopretning();
-    $this->fravalgtModernisering = $this->calculateModernisering();
+    $this->fravalgtModernisering = $this->calculateFravalgtModernisering();
 
     $this->cashFlow15 = $this->calculateCashFlow15();
     $this->cashFlow30 = $this->calculateCashFlow30();
@@ -1778,7 +1778,7 @@ class Rapport {
   private function calculateImplementering() {
     $sum = 0;
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      $sum += $tiltag->getAnlaegsinvestering();
+      $sum += $tiltag->getAaplusInvestering();
     }
 
     return $sum * $this->getProcentAfInvestering();
@@ -1787,7 +1787,7 @@ class Rapport {
   private function calculateFravalgtImplementering() {
     $sum = 0;
     foreach ($this->getFravalgteTiltag() as $tiltag) {
-      $sum += $tiltag->getAnlaegsinvestering();
+      $sum += $tiltag->getAaplusInvestering();
     }
 
     $sum -= $this->genopretning;
@@ -1881,7 +1881,7 @@ class Rapport {
     $samletAarligYdelseTilLaan = 0;
 
     foreach ($tilvalgteTiltag as $index => $tiltag) {
-      $samletAarligYdelseTilLaan += Calculation::pmt($rente, $loebetid, $tiltag->getAnlaegsinvestering());
+      $samletAarligYdelseTilLaan += Calculation::pmt($rente, $loebetid, $tiltag->getAaplusInvestering());
     }
 
     for ($year = 1; $year <= $numberOfYears; $year++) {
