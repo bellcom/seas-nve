@@ -100,6 +100,8 @@ class Baseline {
   /**
    * @var float
    *
+   * Areal, der skal benyttes til nøgletalsanalyse
+   *
    * @ORM\Column(name="arealTilNoegletalsanalyse", type="float", nullable=true)
    */
   protected $arealTilNoegletalsanalyse;
@@ -2188,5 +2190,104 @@ class Baseline {
    */
   public function setVarmeBaselineNoter($varmeBaselineNoter) {
     $this->varmeBaselineNoter = $varmeBaselineNoter;
+  }
+
+  ///
+  // Calculations
+  ///
+
+  public function calculate() {
+    $this->elForbrugsdataPrimaerGennemsnit = $this->calculateElForbrugsdataPrimaerGennemsnit();
+    $this->elForbrugsdataPrimaerNoegetal = $this->calculateElForbrugsdataPrimaerNoegetal();
+    $this->elForbrugsdataSekundaerGennemsnit = $this->calculateElForbrugsdataSekundaerGennemsnit();
+    $this->elForbrugsdataSekundaerNoegetal = $this->calculateElForbrugsdataSekundaerNoegetal();
+  }
+
+  /**
+   * Calculate ElForbrugsdataPrimaerGennemsnit
+   *
+   * =IF(AND(C21="";D21="";E21="");"";AVERAGE(C21:E21))
+   *
+   * @return float|null
+   */
+  public function calculateElForbrugsdataPrimaerGennemsnit() {
+    $sum = 0.0;
+    $number = 0.0;
+
+    if (!is_null($this->elForbrugsdataPrimaer1Forbrug)) {
+      $number++;
+      $sum =+ $this->elForbrugsdataPrimaer1Forbrug;
+    }
+    if (!is_null($this->elForbrugsdataPrimaer2Forbrug)) {
+      $number++;
+      $sum =+ $this->elForbrugsdataPrimaer2Forbrug;
+    }
+    if (!is_null($this->elForbrugsdataPrimaer3Forbrug)) {
+      $number++;
+      $sum =+ $this->elForbrugsdataPrimaer3Forbrug;
+    }
+
+    if ($number == 0) {
+      return null;
+    }
+    return $sum / $number;
+  }
+
+  /**
+   * Calculate ElForbrugsdataPrimaerNoegetal
+   *
+   * =IF('1. Areal'!D18="";"Indtast areal";IF(AND(C21="";D21="";E21="");"";C23/'1. Areal'!D18))
+   *
+   * @return float|null
+   */
+  public function calculateElForbrugsdataPrimaerNoegetal() {
+    if ($this->arealTilNoegletalsanalyse) {
+      return $this->elForbrugsdataPrimaerGennemsnit / $this->arealTilNoegletalsanalyse;
+    }
+    return null;
+  }
+
+  /**
+   * Calculate ElForbrugsdataSekundaerGennemsnit
+   *
+   * =IF(AND(C31="";D31="";E31="");"";AVERAGE(C31:E31))
+   *
+   * @return float|null
+   */
+  public function calculateElForbrugsdataSekundaerGennemsnit() {
+    $sum = 0.0;
+    $number = 0.0;
+
+    if (!is_null($this->elForbrugsdataSekundaer1Forbrug)) {
+      $number++;
+      $sum =+ $this->elForbrugsdataSekundaer1Forbrug;
+    }
+    if (!is_null($this->elForbrugsdataSekundaer2Forbrug)) {
+      $number++;
+      $sum =+ $this->elForbrugsdataSekundaer2Forbrug;
+    }
+    if (!is_null($this->elForbrugsdataSekundaer3Forbrug)) {
+      $number++;
+      $sum =+ $this->elForbrugsdataSekundaer3Forbrug;
+    }
+
+    if ($number == 0) {
+      return null;
+    }
+    return $sum / $number;
+  }
+
+  /**
+   * Calculate ElForbrugsdataSekundaerNoegetal
+   *
+   * =IF('1. Areal'!D18="";"Indtast areal";IF(AND(C31="";D31="";E31="");"";C33/'1. Areal'!D18))
+   *
+   * @return float|null
+   */
+  public function calculateElForbrugsdataSekundaerNoegetal() {
+    if ($this->arealTilNoegletalsanalyse) {
+      return $this->elForbrugsdataSekundaerGennemsnit / $this->arealTilNoegletalsanalyse;
+    }
+    return null;
   }
 }
