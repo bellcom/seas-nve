@@ -41,14 +41,14 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="rumstoerrelseM2", type="decimal", scale=4)
+   * @ORM\Column(name="rumstoerrelseM2", type="decimal", scale=4, nullable=true)
    */
   protected $rumstoerrelseM2;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="lokale_antal", type="integer")
+   * @ORM\Column(name="lokale_antal", type="integer", nullable=true)
    */
   protected $lokale_antal;
 
@@ -349,8 +349,6 @@ class BelysningTiltagDetail extends TiltagDetail {
    */
   public function __construct() {
     parent::__construct();
-
-    $this->setLokaleAntal(1);
   }
 
 
@@ -1114,7 +1112,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     // AC
     $armaturEffekt = $this->_computeArmaturEffekt($this->getLyskilde(true));
 
-    if ($this->rumstoerrelseM2 == 0 || $armaturEffekt == 0 || $this->armaturerStkLokale == 0) {
+    if ($this->rumstoerrelseM2 === null || $this->rumstoerrelseM2 == 0 || $armaturEffekt == 0 || $this->armaturerStkLokale == 0) {
       return 0;
     }
     else {
@@ -1153,7 +1151,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   private function calculateInvesteringAlleLokalerKr() {
     // BB
     $nyLyskilde = $this->getNyLyskilde(true);
-    if (!$nyLyskilde) {
+    if (!$nyLyskilde || !$this->lokale_antal) {
       return 0;
     }
     elseif ($nyLyskilde->getType() == 'LED-arm.') {
@@ -1171,7 +1169,7 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function calculateNytElforbrugWM2() {
     // BD
-    if ($this->rumstoerrelseM2 == 0) {
+    if ($this->rumstoerrelseM2 === null || $this->rumstoerrelseM2 == 0) {
       return 0;
     }
     else {
@@ -1200,7 +1198,7 @@ class BelysningTiltagDetail extends TiltagDetail {
       $nyLyskildeUdgift = $lyskilde->getUdgift();
     }
 
-    if (!$lyskilde || $lyskilde->getLevetid() == 0 || $nyLyskildeLevetid == 0) {
+    if (!$this->lokale_antal || !$lyskilde || $lyskilde->getLevetid() == 0 || $nyLyskildeLevetid == 0) {
       return 0;
     }
     else {
@@ -1256,7 +1254,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     $elforbrug = $computeElforbrugPrLokale();
     $nytElforbrug = $computeNytElforbrugPrLokale();
 
-    if ($elforbrug == 0 || $nytElforbrug == 0 || $this->lokale_antal == 0) {
+    if ($elforbrug == 0 || $nytElforbrug == 0 || $this->lokale_antal == 0 || $this->lokale_antal === null) {
       return 0;
     }
     else {
@@ -1323,7 +1321,7 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function _computeUdgiftSensorer() {
     // BN
-    if ($this->nyeSensorerStkLokale == 0) {
+    if ($this->nyeSensorerStkLokale == 0 || $this->lokale_antal === NULL) {
       return 0;
     }
     else {
@@ -1337,7 +1335,7 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function _computeUdgiftArmatur() {
     // BO
-    if ($this->standardinvestArmaturKrStk == 0) {
+    if ($this->standardinvestArmaturKrStk == 0 || $this->lokale_antal === NULL) {
       return 0;
     }
     else {
