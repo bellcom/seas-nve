@@ -2,17 +2,19 @@
   {{ "{% extends 'AppBundle::base.html.twig' %}" }}
 {% endblock extends %}
 
+{% set class = entity | split('\\') | last | lower %}
+
 {% block body %}
   {{ "{% block body -%}" }}
 
   <div class="row heading">
     <div class="col-md-9">
-        <h1>{{ "{{ '" }}{{ entity | replace({'\\' : "."}) | lower }}{{ ".labels.plural' | trans }}" }}</h1>
+        <h1>{{ "{{ '" }}{{ class }}{{ ".labels.plural' | trans }}" }}</h1>
     </div>
     <div class="col-md-3 text-right">
       {% if 'new' in actions %}
         <a class="btn btn-default" href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}">
-          {{ "{{ icon('plus') }}" }} {{ "{{ '" }}{{ entity | replace({'\\' : "."}) | lower }}{{ ".actions.add' | trans }}" }}
+          {{ "{{ icon('plus') }}" }} {{ "{{ '" }}{{ class }}{{ ".actions.add' | trans }}" }}
         </a>
       {% endif %}
     </div>
@@ -24,9 +26,9 @@
     <thead>
     <tr>
 
-      {%- for field, metadata in fields %}
+      {%- for field, metadata in fields if field != 'id' %}
 
-        {{ "{{ helper.header('appbundle." }}{{ entity | replace({'\\' : "."}) | lower }}{{ "." }}{{ field }}{{ "') }}" }}
+        {{ "{{ helper.header('appbundle." }}{{ class }}{{ "." }}{{ field }}{{ "') }}" }}
 
       {%- endfor %}
 
@@ -34,9 +36,9 @@
     </tr>
     <tr>
 
-      {%- for field, metadata in fields %}
+      {%- for field, metadata in fields if field != 'id' %}
 
-        {{ "{{ helper.header_unit('appbundle." }}{{ entity | replace({'\\' : "."}) | lower }}{{ "." }}{{ field }}{{ "') }}" }}
+        {{ "{{ helper.header_unit('appbundle." }}{{ class }}{{ "." }}{{ field }}{{ "') }}" }}
 
       {%- endfor %}
 
@@ -47,18 +49,15 @@
     {{ '{% for entity in entities %}' }}
     <tr>
 
-      {%- for field, metadata in fields %}
+      {%- for field, metadata in fields if field != 'id' %}
 
         <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
 
-        {%- if loop.last %}
-
-          <td class="text-right">
-            {%- include "crud/views/others/actions.html.twig.twig" %}
-          </td>
-
-        {%- endif %}
       {%- endfor %}
+
+      <td class="text-right">
+        {%- include "crud/views/others/actions_xs.html.twig" %}
+      </td>
 
     </tr>
     {{ '{% endfor %}' }}

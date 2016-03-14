@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 {%- endif %}
 
 use {{ namespace }}\Entity\{{ entity }};
@@ -29,6 +30,7 @@ use AppBundle\Controller\BaseController;
 {% block phpdoc_class_annotations %}
 {% if 'annotation' == format %}
  * @Route("/{{ route_prefix }}")
+ * @Security("has_role('ROLE_SUPER_ADMIN')")
 {% endif %}
 {% endblock phpdoc_class_annotations %}
  */
@@ -39,7 +41,7 @@ class {{ entity_class }}Controller extends BaseController
 
   public function init(Request $request) {
     parent::init($request);
-    $this->breadcrumbs->addItem('{{ entity_class }}', $this->generateUrl('{{ route_prefix }}'));
+    $this->breadcrumbs->addItem('{{ entity_class | lower }}.labels.singular', $this->generateUrl('{{ route_prefix }}'));
 }
 
 {% block class_body %}

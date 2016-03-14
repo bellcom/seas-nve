@@ -25,7 +25,7 @@
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($entity);
+        $deleteForm = $this->createDeleteForm($entity->getId());
 {% endblock method_body %}
 
 {% block method_return %}

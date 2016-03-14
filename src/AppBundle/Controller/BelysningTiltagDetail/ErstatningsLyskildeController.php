@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\BelysningTiltagDetail\ErstatningsLyskilde;
 use AppBundle\Form\BelysningTiltagDetail\ErstatningsLyskildeType;
 use AppBundle\Controller\BaseController;
@@ -15,13 +16,14 @@ use AppBundle\Controller\BaseController;
  * BelysningTiltagDetail\ErstatningsLyskilde controller.
  *
  * @Route("/belysningtiltagdetail_erstatningslyskilde")
+ * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
 class ErstatningsLyskildeController extends BaseController
 {
 
   public function init(Request $request) {
     parent::init($request);
-    $this->breadcrumbs->addItem('ErstatningsLyskilde', $this->generateUrl('belysningtiltagdetail_erstatningslyskilde'));
+    $this->breadcrumbs->addItem('erstatningslyskilde.labels.singular', $this->generateUrl('belysningtiltagdetail_erstatningslyskilde'));
 }
 
 
@@ -59,7 +61,7 @@ class ErstatningsLyskildeController extends BaseController
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-  
+
             return $this->redirect($this->generateUrl('belysningtiltagdetail_erstatningslyskilde'));
 
         }
@@ -118,9 +120,11 @@ class ErstatningsLyskildeController extends BaseController
      */
     public function showAction($id)
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:BelysningTiltagDetail\ErstatningsLyskilde')->find($id);
+        $this->breadcrumbs->addItem($entity, $this->generateUrl('belysningtiltagdetail_erstatningslyskilde_show', array('id' => $entity->getId())));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find BelysningTiltagDetail\ErstatningsLyskilde entity.');
@@ -151,7 +155,7 @@ class ErstatningsLyskildeController extends BaseController
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($entity);
+        $deleteForm = $this->createDeleteForm($entity->getId());
 
         return array(
             'entity'      => $entity,

@@ -111,13 +111,6 @@ belysningtiltagdetail:
     add: Tilføj belysningstiltag
     copy: Kopier belysningstiltag
     edit: Rediger belysningstiltag
-  erstatningslyskilde:
-    actions:
-      add: Tilføj erstatnings lyskilde
-      edit: Rediger erstatnings lyskilde
-    labels:
-      plural: Erstatnings lyskilder
-      singular:
 bilag:
   actions:
     create: Opret bilag
@@ -159,6 +152,13 @@ energiforsyninger:
   labels:
     plural: Energiforsyninger
     singular: Energiforsyning
+erstatningslyskilde:
+  actions:
+    add: Tilføj erstatnings lyskilde
+    edit: Rediger erstatnings lyskilde
+  labels:
+    plural: Erstatnings lyskilder
+    singular: Erstatnings lyskilde
 forsyningsvaerker:
   actions:
     add: Tilføj forsyningsværk
@@ -658,6 +658,17 @@ appbundle:
     navn: Navn
     samletEleffektivitet: Samlet eleffektivitet:
     samletVarmeeffektivitet: Samlet varmeeffektivitet:
+  erstatningslyskilde:
+    antal: Antal
+    arbejdeOmfang: Arbejde / Omfang
+    id: id
+    nyeForkoblinger: Nye forkoblinger
+    nyeForkoblinger.unit: Stk./arm.
+    noter: Noter
+    pris: Pris
+    pris.unit: kr
+    wattage: Wattage
+    wattage.unit: W/Lysk.
   forsyningsvaerk:
     co2: CO2
     co2noter: Noter (CO2)

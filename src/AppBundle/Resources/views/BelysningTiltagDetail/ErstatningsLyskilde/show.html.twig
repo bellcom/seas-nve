@@ -1,52 +1,49 @@
-{% extends 'AppBundle::base.html.twig' %}
+  {% extends 'AppBundle::base.html.twig' %}
+
 
 {% block body -%}
-    <h1>BelysningTiltagDetail\ErstatningsLyskilde</h1>
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ entity }}</h1>
+    </div>
+    <div class="col-md-3 text-right">    <a class="btn btn-default btn-default" href="{{ path('belysningtiltagdetail_erstatningslyskilde_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
 
-    <table class="record_properties">
-        <tbody>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('chevron-right') }} {{ 'erstatningslyskilde.labels.singular' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Arbejdeomfang</th>
+              <th>{{ 'appbundle.erstatningslyskilde.arbejdeOmfang' | trans }}</th>
                 <td>{{ entity.arbejdeOmfang }}</td>
             </tr>
             <tr>
-                <th>Antal</th>
+              <th>{{ 'appbundle.erstatningslyskilde.antal' | trans }}</th>
                 <td>{{ entity.antal }}</td>
             </tr>
             <tr>
-                <th>Wattage</th>
+              <th>{{ 'appbundle.erstatningslyskilde.wattage' | trans }}</th>
                 <td>{{ entity.wattage }}</td>
             </tr>
             <tr>
-                <th>Nyeforkoblinger</th>
+              <th>{{ 'appbundle.erstatningslyskilde.nyeForkoblinger' | trans }}</th>
                 <td>{{ entity.nyeForkoblinger }}</td>
             </tr>
             <tr>
-                <th>Pris</th>
+              <th>{{ 'appbundle.erstatningslyskilde.pris' | trans }}</th>
                 <td>{{ entity.pris }}</td>
             </tr>
             <tr>
-                <th>Noter</th>
+              <th>{{ 'appbundle.erstatningslyskilde.noter' | trans }}</th>
                 <td>{{ entity.noter }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('belysningtiltagdetail_erstatningslyskilde') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('belysningtiltagdetail_erstatningslyskilde_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            </tr>          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 {% endblock %}
