@@ -123,6 +123,17 @@ table .checkbox input[type=checkbox], table .checkbox-inline input[type=checkbox
     margin-left: 5px;
 }
 
+.table-details th {
+    text-align: center;
+}
+
+.table-details td:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+.table-details td.number {
+    text-align: right;
+}
 
 /**
  * Additional styles for BraincraftedBootstrapBundle

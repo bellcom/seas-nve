@@ -1,35 +1,46 @@
 {% extends 'AppBundle::base.html.twig' %}
 
-{% block body %}
-  <div class="row">
-    <div class="col-md-10">
-      <h1>{{ 'solcelle.labels.plural' | trans }}</h1>
-    </div>
-    <div class="col-md-2 text-right">
-      <a href="{{ path('solcelle_new') }}" class="btn btn-default">
-        {{ icon('plus') }} {{ 'solcelle.actions.add' | trans }}
-      </a>
-    </div>
-  </div>
 
-  <table class="table table-condensed table-hover">
-    <tr>
-      <th>{{ 'appbundle.solcelle.kwp' | trans }}</th>
-      <th>{{ 'appbundle.solcelle.inverterpris' | trans }}</th>
-      <th>{{ 'appbundle.solcelle.drift' | trans }}</th>
-      <th></th>
-    </tr>
-    {% for solcelle in entities %}
+  {% block body -%}
+
+    <div class="row heading">
+      <div class="col-md-9">
+        <h1>{{ 'solcelle.labels.plural' | trans }}</h1>
+      </div>
+      <div class="col-md-3 text-right">
+        <a class="btn btn-default" href="{{ path('solcelle_new') }}">
+          {{ icon('plus') }} {{ 'solcelle.actions.add' | trans }}
+        </a>
+      </div>
+
+    </div>
+
+
+    <table class="table table-condensed table-details">
+      <thead>
       <tr>
-        <td>{{ solcelle.kwp | format_decimal }}</td>
-        <td>{{ solcelle.inverterpris | format_decimal }}</td>
-        <td>{{ solcelle.drift | format_decimal }}</td>
-        <td>
-          <a href="{{ path('solcelle_show', { 'id': solcelle.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
-          <a href="{{ path('solcelle_edit', { 'id': solcelle.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-        </td>
+        {{ helper.header('appbundle.solcelle.KWp') }}
+        {{ helper.header('appbundle.solcelle.inverterpris') }}
+        {{ helper.header('appbundle.solcelle.drift') }}
+        {{ helper.header() }}
       </tr>
-    {% endfor %}
-  </table>
+      <tr>
+        {{ helper.header_unit('appbundle.solcelle.KWp') }}
+        {{ helper.header_unit('appbundle.solcelle.inverterpris') }}
+        {{ helper.header_unit('appbundle.solcelle.drift') }}
+        {{ helper.header_unit() }}
+      </tr>
+      </thead>
+      <tbody>
+      {% for entity in entities %}
+        <tr>
+          <td class="number">{{ entity.KWp }}</td>
+          <td class="number">{{ entity.inverterpris }}</td>
+          <td class="number">{{ entity.drift }}</td>
+          <td class="text-right"><a class="btn btn-default btn-xs" href="{{ path('solcelle_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
 
-{% endblock %}
+  {% endblock %}
