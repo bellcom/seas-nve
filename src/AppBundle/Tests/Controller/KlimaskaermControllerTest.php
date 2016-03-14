@@ -1,10 +1,10 @@
 <?php
 
-namespace AppBundle\Tests\Controller\TekniskIsoleringTiltagDetail;
+namespace AppBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class NyttiggjortVarmeControllerTest extends WebTestCase
+class KlimaskaermControllerTest extends WebTestCase
 {
     /*
     public function testCompleteScenario()
@@ -13,13 +13,13 @@ class NyttiggjortVarmeControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/nyttiggjortvarme/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /nyttiggjortvarme/");
+        $crawler = $client->request('GET', '/klimaskaerm/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /klimaskaerm/");
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'appbundle_tekniskisoleringtiltagdetail_nyttiggjortvarme[field_name]'  => 'Test',
+            'appbundle_klimaskaerm[field_name]'  => 'Test',
             // ... other fields to fill
         ));
 
@@ -33,7 +33,7 @@ class NyttiggjortVarmeControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Update')->form(array(
-            'appbundle_tekniskisoleringtiltagdetail_nyttiggjortvarme[field_name]'  => 'Foo',
+            'appbundle_klimaskaerm[field_name]'  => 'Foo',
             // ... other fields to fill
         ));
 

@@ -1,51 +1,16 @@
-{% extends 'AppBundle::base.html.twig' %}
+  {% extends 'AppBundle::base.html.twig' %}
 
-{% block body -%}
-  <h1>{{ entity }}</h1>
 
-  {{ form_start(edit_form) }}
-
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{ 'pumpe.labels.nuvaerende' | trans }}</h3>
-        </div>
-        <div class="panel-body">
-          {{ form_row(edit_form.nuvaerendeType) }}
-          {{ form_row(edit_form.byggemaal) }}
-          {{ form_row(edit_form.tilslutning) }}
-          {{ form_row(edit_form.indst) }}
-          {{ form_row(edit_form.forbrug) }}
-          {{ form_row(edit_form.q) }}
-          {{ form_row(edit_form.h) }}
-          {{ form_row(edit_form.aarsforbrug) }}
-        </div>
-      </div>
+  {% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'pumpe.actions.edit' | trans }}</h1>
     </div>
-    <div class="col-xs-12 col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{ 'pumpe.labels.ny' | trans }}</h3>
-        </div>
-        <div class="panel-body">
-          {{ form_row(edit_form.nyPumpe) }}
-          {{ form_row(edit_form.nyByggemaal) }}
-          {{ form_row(edit_form.nyTilslutning) }}
-          {{ form_row(edit_form.vvsnr) }}
-          {{ form_row(edit_form.nytAarsforbrug) }}
-          {{ form_row(edit_form.elbesparelse) }}
-          {{ form_row(edit_form.udligningssaet) }}
-          {{ form_row(edit_form.kommentarer) }}
-          {{ form_row(edit_form.standInvestering) }}
-          {{ form_row(edit_form.fabrikant) }}
-          {{ form_row(edit_form.roerlaengde) }}
-          {{ form_row(edit_form.roerstoerrelse) }}
-        </div>
-      </div>
+    <div class="col-md-3 text-right">
     </div>
+
   </div>
 
-  {{ form_rest(edit_form) }}
-  {{ form_end(edit_form) }}
-{% endblock %}
+  {{ form(edit_form) }}
+
+    {% endblock %}

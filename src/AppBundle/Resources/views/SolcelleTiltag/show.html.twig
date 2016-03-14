@@ -70,14 +70,14 @@
           {% set detail = details[form_detail.vars['value'].id] %}
           <tr>
             <td>
+              {{ block('tiltag_detail_edit') }}
+            </td>
+            <td>
               {% if is_granted('TILTAG_EDIT', entity) %}
                 {{ form_row(form_detail.tilvalgt) }}
               {% else %}
                 {{ detail.tilvalgt | b2icon }}
               {% endif %}
-            </td>
-            <td>
-              {{ form_row(form_detail.tilvalgt) }}
             </td>
             <td>{{ detail.anlaegsstoerrelseKWp | format_decimal }}</td>
             <td>{{ detail.produktionKWh | format_decimal }}</td>

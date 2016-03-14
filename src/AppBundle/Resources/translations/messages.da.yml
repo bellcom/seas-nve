@@ -163,7 +163,7 @@ erstatningslyskilde:
   labels:
     plural: Erstatnings lyskilder
     singular: Erstatnings lyskilde
-forsyningsvaerker:
+forsyningsvaerk:
   actions:
     add: Tilføj forsyningsværk
     create: Opret forsyningsværk
@@ -198,6 +198,7 @@ nyttiggjortvarme:
     edit: Rediger faktor
   labels:
     plural: Faktorer for nyttiggjort varme (Teknisk Iso.)
+    singular: Faktor for nyttiggjort varme (Teknisk Iso.)
 pumpe:
   actions:
     add: Tilføj Pumpe
@@ -279,6 +280,9 @@ segment:
     created: Segment oprettet
     updated: Segment opdateret
     deleted: Segment slettet
+  labels:
+    plural: Segmenter
+    singular: Segment
 solcelle:
   actions:
     add: Tilføj solcelle
@@ -607,10 +611,10 @@ appbundle:
     vandfaktor: Vandfaktor
     varmefaktor: Varmefaktor
     varmeKrKWh: Varme (kr/kWh)
-    tekniskIsoleringVarmeledningsevneEksistLamelmaatter: Varmeledningsevne, eksist. lamelmåtter
-    tekniskIsoleringVarmeledningsevneEksistLamelmaatter.unit: W/m·K
-    tekniskIsoleringVarmeledningsevneNyIsolering: Varmeledningsevne, ny isolering
-    tekniskIsoleringVarmeledningsevneNyIsolering.unit: W/m·K
+    tekniskisoleringVarmeledningsevneEksistLamelmaatter: Varmeledningsevne, eksist. lamelmåtter
+    tekniskisoleringVarmeledningsevneEksistLamelmaatter.unit: W/m·K
+    tekniskisoleringVarmeledningsevneNyIsolering: Varmeledningsevne, ny isolering
+    tekniskisoleringVarmeledningsevneNyIsolering.unit: W/m·K
     solcelletiltagdetailEnergiprisstigningPctPrAar: Energiprisstigning
     solcelletiltagdetailEnergiprisstigningPctPrAar.unit: %/år
     solcelletiltagdetailSalgsprisFoerste10AarKrKWh: Salgspris (Første 10 år)
@@ -678,7 +682,7 @@ appbundle:
     wattage.unit: W/Lysk.
   forsyningsvaerk:
     co2: CO2
-    co2noter: Noter (CO2)
+    co2Noter: Noter (CO2)
     co2y2009: CO2, 2009
     co2y2010: CO2, 2010
     co2y2011: CO2, 2011
@@ -749,6 +753,8 @@ appbundle:
     energiform: Energiform
     navn: Navn
     noter: Noter
+    noterTBeregningAfRabat: Noter til rabat
+    pris: Pris
     pris2009: Pris, 2009
     pris2010: Pris, 2010
     pris2011: Pris, 2011
@@ -817,6 +823,7 @@ appbundle:
     pris2074: Pris, 2074
     pris2075: Pris, 2075
     priser: Priser
+    vedForbrugOverKWh: Ved forbrug over
   klimaskaerm:
     arbejdeOmfang: Arbejde/omfang
     enhed: Enhed
@@ -893,6 +900,9 @@ appbundle:
     vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
+  nyttiggjortvarme:
+    faktor: Faktor for nyttiggjort varme
+    titel: Titel
   pumpe:
     aarsforbrug: Årsforbrug
     byggemaal: Byggemål
