@@ -2197,11 +2197,17 @@ class Baseline {
   ///
 
   public function calculate() {
+    // El
     $this->elForbrugsdataPrimaerGennemsnit = $this->calculateElForbrugsdataPrimaerGennemsnit();
     $this->elForbrugsdataPrimaerNoegetal = $this->calculateElForbrugsdataPrimaerNoegetal();
     $this->elForbrugsdataSekundaerGennemsnit = $this->calculateElForbrugsdataSekundaerGennemsnit();
     $this->elForbrugsdataSekundaerNoegetal = $this->calculateElForbrugsdataSekundaerNoegetal();
     $this->elBaselineNoegletalForEjendom = $this->calculateElBaselineNoegletalForEjendom();
+
+    // Varme
+    $this->varmeForbrugsdataPrimaer1GUFRegAar = $this->calculateVarmeForbrugsdataGUFRegAar($this->varmeForbrugsdataPrimaer1Forbrug, $this->varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust, $this->varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter);
+    $this->varmeForbrugsdataPrimaer2GUFRegAar = $this->calculateVarmeForbrugsdataGUFRegAar($this->varmeForbrugsdataPrimaer2Forbrug, $this->varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust, $this->varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter);
+    $this->varmeForbrugsdataPrimaer3GUFRegAar = $this->calculateVarmeForbrugsdataGUFRegAar($this->varmeForbrugsdataPrimaer3Forbrug, $this->varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust, $this->varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter);
   }
 
   /**
@@ -2295,7 +2301,13 @@ class Baseline {
   /**
    * Calculate ElBaselineNoegletalForEjendom
    *
-   * =IF('1. Areal'!D18="";"Indtast areal";IF(C39="";"";C39/'1. Areal'!D18))
+   * =IF('1. Areal'!D18="";
+   *    "Indtast areal";
+   *    IF(C39="";
+   *      "";
+   *      C39/'1. Areal'!D18
+   *    )
+   *  )
    *
    * @return float|null
    */
@@ -2304,5 +2316,42 @@ class Baseline {
       return $this->elBaselineFastsatForEjendom / $this->arealTilNoegletalsanalyse;
     }
     return null;
+  }
+
+  /**
+   * Calculate VarmeForbrugsdataGUFRegAar
+   *
+   * =IF(C22="";                                                         // If !$forbrugUkorrigeret
+   *    "";                                                              //   return null
+   *                                                                     // Else
+   *    IF(C24="";                                                       //   If !$samletVarmeforbrugJuniJuliAugust
+   *      VLOOKUP(C13;'Nøgletal og GUF-andel'!$A$2:$E$19;5;FALSE)*C22;   //     return EloKategori->getGUFAndel() * $forbrugUkorrigeret
+   *                                                                     //   Else
+   *      IF(C23=Lopslag!M2;                                             //     If $GUFFastsaettesEfterType === "GUF-andel i procent pba ELO-nøgletal"
+   *        VLOOKUP(C13;'Nøgletal og GUF-andel'!$A$2:$E$19;5;FALSE)*C22; //       return EloKategori->getGUFAndel() * $forbrugUkorrigeret
+   *                                                                     //     Else
+   *        ('3. Baseline til udbud, VARME'!C24/3)*12                    //       return $samletVarmeforbrugJuniJuliAugust / 3 * 12
+   *      )
+   *    )
+   *  )
+   *
+   * @param $forbrugUkorrigeret
+   * @param $samletVarmeforbrugJuniJuliAugust
+   * @param $GUFFastsaettesEfterType
+   *
+   * @return float|null
+   */
+  public function calculateVarmeForbrugsdataGUFRegAar($forbrugUkorrigeret, $samletVarmeforbrugJuniJuliAugust, $GUFFastsaettesEfterType) {
+    if (!isset($forbrugUkorrigeret)) {
+      return null;
+    }
+    else {
+      if (!isset($samletVarmeforbrugJuniJuliAugust) || $GUFFastsaettesEfterType == GUFFastsaettesEfterType::GUF_ANDEL_I_PROCENT_PBA_ELO_NOEGLETAL) {
+        return $this->getEloKategori()->getAndelVarmeGUFFaktor() * $forbrugUkorrigeret;
+      }
+      else {
+        return $samletVarmeforbrugJuniJuliAugust / 3 * 12;
+      }
+    }
   }
 }

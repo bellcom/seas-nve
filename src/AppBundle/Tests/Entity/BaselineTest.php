@@ -1,6 +1,14 @@
 <?php
+/**
+ * @file
+ * Contains BaselineTest - test cases for Baseline entity.
+ */
+
 namespace AppBundle\Tests\Entity;
 
+use AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType;
+use AppBundle\DBAL\Types\Baseline\VarmeKildePrimaerType;
+use AppBundle\Entity\ELOKategori;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use AppBundle\Entity\Baseline;
 
@@ -65,5 +73,33 @@ class BaselineTest extends KernelTestCase {
     $baseline->setArealTilNoegletalsanalyse(160.0);
     $baseline->calculate();
     $this->assertEquals(null, $baseline->getElBaselineNoegletalForEjendom());
+  }
+
+  public function testCalculateGUFRegAar() {
+    $eloKategori = new ELOKategori();
+    $eloKategori->setAndelVarmeGUFFaktor(.2);
+
+    $baseline = new Baseline();
+    $baseline->setEloKategori($eloKategori);
+    $baseline->calculate();
+
+    $this->assertNull($baseline->getVarmeForbrugsdataPrimaer1GUFRegAar());
+    $this->assertInstanceOf(ELOKategori::class, $baseline->getEloKategori());
+
+    $baseline->setVarmeForbrugsdataPrimaer1Forbrug(50.0);
+    $baseline->setVarmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter(GUFFastsaettesEfterType::GUF_ANDEL_I_PROCENT_PBA_ELO_NOEGLETAL);
+    $baseline->calculate();
+
+    $this->assertEquals(10.0, $baseline->getVarmeForbrugsdataPrimaer1GUFRegAar());
+
+    $baseline->setVarmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust(12.0);
+    $baseline->calculate();
+
+    $this->assertEquals(10.0, $baseline->getVarmeForbrugsdataPrimaer1GUFRegAar());
+
+    $baseline->setVarmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter(GUFFastsaettesEfterType::SAMLET_MAANEDSFORBRUG_FOR_JUNI_JULI_AUGUST);
+    $baseline->calculate();
+
+    $this->assertEquals(48.0, $baseline->getVarmeForbrugsdataPrimaer1GUFRegAar());
   }
 }
