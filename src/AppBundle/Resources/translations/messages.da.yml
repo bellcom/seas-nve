@@ -163,7 +163,7 @@ erstatningslyskilde:
   labels:
     plural: Erstatnings lyskilder
     singular: Erstatnings lyskilde
-forsyningsvaerker:
+forsyningsvaerk:
   actions:
     add: Tilføj forsyningsværk
     create: Opret forsyningsværk
@@ -678,7 +678,7 @@ appbundle:
     wattage.unit: W/Lysk.
   forsyningsvaerk:
     co2: CO2
-    co2noter: Noter (CO2)
+    co2Noter: Noter (CO2)
     co2y2009: CO2, 2009
     co2y2010: CO2, 2010
     co2y2011: CO2, 2011
@@ -749,6 +749,8 @@ appbundle:
     energiform: Energiform
     navn: Navn
     noter: Noter
+    noterTBeregningAfRabat: Noter til rabat
+    pris: Pris
     pris2009: Pris, 2009
     pris2010: Pris, 2010
     pris2011: Pris, 2011
@@ -817,6 +819,7 @@ appbundle:
     pris2074: Pris, 2074
     pris2075: Pris, 2075
     priser: Priser
+    vedForbrugOverKWh: Ved forbrug over
   klimaskaerm:
     arbejdeOmfang: Arbejde/omfang
     enhed: Enhed

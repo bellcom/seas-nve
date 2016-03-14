@@ -100,6 +100,14 @@ form.inline-block {
     background-color: #f1f1f1;
 }
 
+.table-header-rotated .in-rowspan td:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.table-header-rotated .in-rowspan td:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
 div.tab-content div.row:first-child {
     margin-top: 1.5em;
 }
