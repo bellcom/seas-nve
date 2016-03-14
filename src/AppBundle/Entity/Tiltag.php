@@ -24,6 +24,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tiltag
@@ -301,6 +302,11 @@ abstract class Tiltag {
    * @var string
    *
    * @ORM\Column(name="beskrivelseNuvaerende", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 10,
+   *  maxMessage = "maxLength"
+   * )
    */
   protected $beskrivelseNuvaerende;
 

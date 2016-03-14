@@ -570,3 +570,12 @@ table.configuration-settings td:nth-child(2) {
 .has-info .form-control-feedback {
     color: #31708f;
 }
+
+.textarea-countdown {
+    position: absolute;
+    right: 20px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    color: #777;
+}

@@ -179,3 +179,9 @@
 
 
 {% endblock %}
+
+{% block documentReady %}
+  {{ parent() }}
+
+  {% include 'AppBundle:Tiltag:_documentReady.js.twig' %}
+{% endblock documentReady %}

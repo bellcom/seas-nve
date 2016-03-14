@@ -336,6 +336,8 @@ tiltag:
     forhold: Forhold
     oversigt: Oversigt
     regning: Regning
+  validation:
+    error: Fejl i tiltaget - ret venligst de nævnte fejl
 tiltagdetail:
   actions:
     add: Tilføj Detail

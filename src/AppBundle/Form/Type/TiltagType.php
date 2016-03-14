@@ -85,13 +85,13 @@ class TiltagType extends AbstractType {
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
         'required' => FALSE,
       ))
-      ->add('beskrivelseNuvaerende')
-      ->add('beskrivelseForslag')
-      ->add('beskrivelseOevrige')
-      ->add('risikovurdering')
+      ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
+      ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
+      ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
+      ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
       ->add('placering')
-      ->add('beskrivelseDriftOgVedligeholdelse')
-      ->add('indeklima');
+      ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
+      ->add('indeklima', 'textarea', array('attr' => array('maxlength' => 800), 'required' => false));
 
     $builder->add('risikovurderingTeknisk', new RisikovurderingType(), array());
     $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
