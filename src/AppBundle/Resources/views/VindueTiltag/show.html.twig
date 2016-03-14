@@ -8,7 +8,9 @@
   <div class="row details-overview">
     <div class="col-md-12">
 
-      {{ form_start(edit_form) }}
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_start(edit_form) }}
+      {% endif %}
 
       <table class="table table-condensed table-header-rotated table-hover">
         <thead>
@@ -80,7 +82,11 @@
           {% set detail = details[form_detail.vars['value'].id] %}
           <tr>
             <td>
-              {{ block('tiltag_detail_edit') }}
+              {% if is_granted('TILTAG_EDIT', entity) %}
+                {{ form_row(form_detail.tilvalgt) }}
+              {% else %}
+                {{ detail.tilvalgt | b2icon }}
+              {% endif %}
             </td>
             <td>
               {{ form_row(form_detail.tilvalgt) }}
@@ -123,8 +129,11 @@
         </tbody>
       </table>
 
-      {{ form_rest(edit_form) }}
-      {{ form_end(edit_form) }}
+
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+      {% endif %}
     </div>
   </div>
 

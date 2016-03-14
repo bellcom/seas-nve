@@ -8,7 +8,9 @@
   <div class="row details-overview">
     <div class="col-md-12">
 
-      {{ form_start(edit_form) }}
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_start(edit_form) }}
+      {% endif %}
 
       <table class="table table-condensed table-header-rotated table-hover">
         <thead>
@@ -79,7 +81,11 @@
               {{ block('tiltag_detail_edit') }}
             </td>
             <td>
-              {{ form_row(form_detail.tilvalgt) }}
+              {% if is_granted('TILTAG_EDIT', entity) %}
+                {{ form_row(form_detail.tilvalgt) }}
+              {% else %}
+                {{ detail.tilvalgt | b2icon }}
+              {% endif %}
             </td>
             <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
             <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
@@ -117,7 +123,10 @@
         </tbody>
       </table>
 
-      {{ form_end(edit_form) }}
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+      {% endif %}
 
     </div>
   </div>
