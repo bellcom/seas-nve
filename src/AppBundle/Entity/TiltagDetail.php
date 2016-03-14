@@ -47,6 +47,13 @@ abstract class TiltagDetail {
   use TimestampableEntity;
 
   /**
+   * Constructor
+   */
+  public function __construct() {
+
+  }
+
+  /**
    * Initialize a new TiltagDetail.
    *
    * Can be used for setting default values, say.

@@ -45,8 +45,6 @@ class ForsyningsvaerkController extends BaseController {
    * @Route("/", name="forsyningsvaerk_create")
    * @Method("POST")
    * @Template("AppBundle:Forsyningsvaerk:new.html.twig")
-   *
-   * @Security("is_granted('FORSYNINGSVAERK_CREATE')")
    */
   public function createAction(Request $request) {
     $entity = new Forsyningsvaerk();
@@ -91,7 +89,6 @@ class ForsyningsvaerkController extends BaseController {
    * @Route("/new", name="forsyningsvaerk_new")
    * @Method("GET")
    * @Template()
-   * @Security("is_granted('FORSYNINGSVAERK_CREATE')")
    */
   public function newAction() {
     $entity = new Forsyningsvaerk();
@@ -109,7 +106,6 @@ class ForsyningsvaerkController extends BaseController {
    * @Route("/{id}", name="forsyningsvaerk_show")
    * @Method("GET")
    * @Template()
-   * @ Security("is_granted('FORSYNINGSVAERK_VIEW', forsyningsvaerk)")
    */
   public function showAction(Forsyningsvaerk $forsyningsvaerk) {
     $deleteForm = $this->createDeleteForm($forsyningsvaerk->getId());
@@ -126,7 +122,6 @@ class ForsyningsvaerkController extends BaseController {
    * @Route("/{id}/edit", name="forsyningsvaerk_edit")
    * @Method("GET")
    * @Template()
-   * @ Security("is_granted('FORSYNINGSVAERK_EDIT', forsyningsvaerk)")
    */
   public function editAction(Forsyningsvaerk $forsyningsvaerk) {
     $editForm = $this->createEditForm($forsyningsvaerk);
@@ -163,7 +158,6 @@ class ForsyningsvaerkController extends BaseController {
    * @Route("/{id}", name="forsyningsvaerk_update")
    * @Method("PUT")
    * @Template("AppBundle:Forsyningsvaerk:edit.html.twig")
-   * @ Security("is_granted('FORSYNINGSVAERK_EDIT', forsyningsvaerk)")
    */
   public function updateAction(Request $request, Forsyningsvaerk $forsyningsvaerk) {
     $deleteForm = $this->createDeleteForm($forsyningsvaerk->getId());
@@ -189,7 +183,6 @@ class ForsyningsvaerkController extends BaseController {
    *
    * @Route("/{id}", name="forsyningsvaerk_delete")
    * @Method("DELETE")
-   * @Security("is_granted('FORSYNINGSVAERK_EDIT', forsyningsvaerk)")
    */
   public function deleteAction(Request $request, Forsyningsvaerk $forsyningsvaerk) {
     $form = $this->createDeleteForm($forsyningsvaerk->getId());

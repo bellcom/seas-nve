@@ -413,7 +413,6 @@ appbundle:
     erstatningslyskilde.wattage.unit: W/Lysk.
     forkoblingStkArmatur: Forkobling
     forkoblingStkArmatur.unit: stk/arm.
-    forkoblingStkArmatur.help: ﻿Antal af forkoblinger indtastes, kun relevant for belysning med konventionelle- eller HF-forkoblinger. Kan udelades ved øvrige lystyper.
     ikkeElenaBerettiget: Ikke Elena Berettiget
     lokale.navn: Lokale, navn
     lokale.type: Lokale, type
@@ -1175,8 +1174,10 @@ appbundle:
     varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering
     varmeledningsevnePaaNyIsoleringWMK.unit: W/m·K
   tiltag:
-    anlaegsInvestering: ﻿Anlægsinvestering
+    anlaegsInvestering: ﻿Entreprisesum
     anlaegsInvestering.unit: kr
+    anlaegsinvesteringExRisiko: ﻿Entreprisesum (eksl. risikovurdering)
+    anlaegsinvesteringExRisiko.unit: kr
     antalReinvesteringer: Antal reinvesteringer
     antalReinvesteringer.unit: stk.
     beskrivelse: Beskrivelse
@@ -1226,7 +1227,7 @@ appbundle:
     placering: Placering
     primaerEnterprise: Primær entreprise
     rapport: Rapport
-    reelAnlaegsinvestering: Reel Anlægsinvestering
+    reelAnlaegsinvestering: Faktisk Entreprisesum
     reelAnlaegsinvestering.unit: kr
     reinvestering: Reinvestering
     reinvestering.unit: kr

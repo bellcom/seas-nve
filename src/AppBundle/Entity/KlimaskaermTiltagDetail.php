@@ -81,7 +81,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="uEksWM2K", type="decimal", scale=4)
+   * @ORM\Column(name="uEksWM2K", type="decimal", scale=4, precision=14)
    */
   protected $uEksWM2K;
 

@@ -27,19 +27,20 @@ class TekniskIsoleringTiltag extends Tiltag {
     $this->setTitle('Teknisk isolering');
   }
 
-  protected function calculateVarmebesparelseGAF() {
-    return $this->sum('kwhBesparelseVarmeFraVaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+  protected function calculateVarmebesparelseGAF($value = null) {
+    $value = $this->sum('kwhBesparelseVarmeFraVaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+
+    return parent::calculateVarmebesparelseGAF($value);
   }
 
-  protected function calculateElbesparelse() {
-    return $this->sum('kwhBesparelseElFraVaerket');
+  protected function calculateElbesparelse($value = null) {
+    $value = $this->sum('kwhBesparelseElFraVaerket');
+
+    return parent::calculateElbesparelse($value);
   }
 
   protected function calculateSamletEnergibesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
-
-    return ($this->varmebesparelseGAF * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh()) * (1 - $besparelse);
+    return $this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapport()->getElKrKWh();
   }
 
   protected function calculateSamletCo2besparelse() {
@@ -47,10 +48,10 @@ class TekniskIsoleringTiltag extends Tiltag {
             + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
   }
 
-  protected function calculateAnlaegsinvestering() {
-    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
+  protected function calculateAnlaegsinvestering($value = NULL) {
+    $value = $this->sum('investeringKr');
 
-    return $this->sum('investeringKr') * (1 + $kompensering);
+    return parent::calculateAnlaegsinvestering($value);
   }
 
 }
