@@ -198,6 +198,7 @@ nyttiggjortvarme:
     edit: Rediger faktor
   labels:
     plural: Faktorer for nyttiggjort varme (Teknisk Iso.)
+    singular: Faktor for nyttiggjort varme (Teknisk Iso.)
 pumpe:
   actions:
     add: Tilføj Pumpe
@@ -899,6 +900,9 @@ appbundle:
     vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
+  nyttiggjortvarme:
+    faktor: Faktor for nyttiggjort varme
+    titel: Titel
   pumpe:
     aarsforbrug: Årsforbrug
     byggemaal: Byggemål
