@@ -305,8 +305,8 @@ specialtiltag:
     edit: Rediger specialtiltag
 specialtiltagdetail:
   actions:
-    add: Upload fil til specialtiltag
-    edit: Rediger uploadet fil til specialtiltag
+    add: Upload bilag
+    edit: Rediger bilag til specialtiltag
 tekniskisoleringtiltag:
   actions:
     edit: Rediger teknisk isolering

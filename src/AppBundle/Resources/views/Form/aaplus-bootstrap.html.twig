@@ -299,7 +299,7 @@
     {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' form-control')|trim }) %}
 
     <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
-    <span class="textarea-countdown">test</span>
+    <span class="textarea-countdown"></span>
 
     {% if simple_col is defined %}
       </div>
