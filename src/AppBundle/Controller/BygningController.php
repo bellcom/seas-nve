@@ -189,7 +189,7 @@ class BygningController extends BaseController implements InitControllerInterfac
     $editForm = $this->createEditForm($bygning);
     $deleteForm = $this->createDeleteForm($bygning);
 
-    $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning'));
+    $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('bygning'));
 
     return array(

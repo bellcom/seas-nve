@@ -48,7 +48,7 @@ class Klimaskaerm {
   /**
    * @var float
    *
-   * @ORM\Column(name="enhedsprisEksklMoms", type="decimal", scale=4)
+   * @ORM\Column(name="enhedsprisEksklMoms", type="decimal", scale=4, precision=14)
    */
   protected $enhedsprisEksklMoms;
 

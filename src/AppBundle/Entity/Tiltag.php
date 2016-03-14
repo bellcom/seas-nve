@@ -178,12 +178,24 @@ abstract class Tiltag {
   protected $faktorForReinvesteringer;
 
   /**
+   * Enterprisesum
+   *
    * @var float
    *
    * @Calculated
    * @ORM\Column(name="anlaegsinvestering", type="float", nullable=true)
    */
   protected $anlaegsinvestering;
+
+  /**
+   * Enterprisesum ex. risiko
+   *
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="anlaegsinvesteringExRisiko", type="float", nullable=true)
+   */
+  protected $anlaegsinvesteringExRisiko;
 
   /**
    * @var float
@@ -239,6 +251,14 @@ abstract class Tiltag {
    * @ORM\Column(name="scrapvaerdi", type="float", nullable=true)
    */
   protected $scrapvaerdi;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="aaplusInvestering", type="float", nullable=true)
+   */
+  protected $aaplusInvestering;
 
   /**
    * @var float
@@ -301,7 +321,7 @@ abstract class Tiltag {
   /**
    * @var string
    *
-   * @ORM\Column(name="risikovurdering", type="string", length=10, nullable=true)
+   * @ORM\Column(name="risikovurdering", type="text", nullable=true)
    */
   protected $risikovurdering;
 
@@ -718,6 +738,14 @@ abstract class Tiltag {
    */
   public function getAnlaegsinvestering() {
     return $this->anlaegsinvestering;
+  }
+
+
+  /**
+   * @return float
+   */
+  public function getAnlaegsinvesteringExRisiko() {
+    return $this->anlaegsinvesteringExRisiko;
   }
 
   /**
@@ -1288,6 +1316,21 @@ abstract class Tiltag {
   }
 
   /**
+   * @return float
+   */
+  public function getAaplusInvestering() {
+    return $this->aaplusInvestering;
+  }
+
+  /**
+   * @param float $aaplusInvestering
+   */
+  public function setAaplusInvestering($aaplusInvestering) {
+    $this->aaplusInvestering = $aaplusInvestering;
+  }
+
+
+  /**
    * Calculate values in this Tiltag
    */
   public function calculate() {
@@ -1306,10 +1349,8 @@ abstract class Tiltag {
       $this->levetid = $value;
     }
     $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
-    // This may be computed, may be an input
-    if (($value = $this->calculateAnlaegsinvestering()) !== NULL) {
-      $this->anlaegsinvestering = $value;
-    }
+    $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    $this->aaplusInvestering = $this->calculateAaplusInvestering();
     $this->reinvestering = $this->calculateReinvestering();
     $this->scrapvaerdi = $this->calculateScrapvaerdi();
     $this->cashFlow15 = $this->calculateCashFlow(15);
@@ -1319,10 +1360,14 @@ abstract class Tiltag {
     $this->besparelseAarEt = $this->calculateSavingsForYear(1);
   }
 
-  protected function calculateCashFlow($numberOfYears) {
+  protected function calculateAaplusInvestering() {
+    return $this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering());
+  }
+
+  protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
     $inflation = $this->getRapport()->getInflation();
 
-    $anlaegsinvestering = floatval($this->anlaegsinvestering);
+    $aaplusinvestering = floatval($this->aaplusInvestering);
     $varmebesparelseGUF = floatval($this->varmebesparelseGUF);
     $varmebesparelseGAF = floatval($this->varmebesparelseGAF);
     $elbesparelse = floatval($this->elbesparelse);
@@ -1340,17 +1385,17 @@ abstract class Tiltag {
         + $vandbesparelse * $this->getRapport()->getVandKrKWh($year)
         + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
       if ($year == 1) {
-        $value -= $anlaegsinvestering;
+        $value -= $aaplusinvestering;
       }
       else {
         if ($this->levetid + 1 == $year) {
-          $value -= $this->anlaegsinvestering * $this->faktorForReinvesteringer * pow(1 + $inflation, $year);
+          $value -= $this->aaplusInvestering * $this->faktorForReinvesteringer * pow(1 + $inflation, $year);
         }
         if ($numberOfYears == 15 && $year == $numberOfYears) {
           $value += $scrapvaerdi;
         }
       }
-      $cashFlow[$year] = $value;
+      $cashFlow[$year] = $value + $yderligereBesparelseKrAar;
     }
 
     return $cashFlow;
@@ -1383,18 +1428,6 @@ abstract class Tiltag {
     return $varmepris;
   }
 
-  protected function calculateVarmebesparelseGUF() {
-    return NULL;
-  }
-
-  protected function calculateVarmebesparelseGAF() {
-    return NULL;
-  }
-
-  protected function calculateElbesparelse() {
-    return NULL;
-  }
-
   protected function calculateVandbesparelse() {
     return NULL;
   }
@@ -1424,8 +1457,36 @@ abstract class Tiltag {
     return 0;
   }
 
-  protected function calculateAnlaegsinvestering() {
-    return NULL;
+  protected function calculateAnlaegsinvestering($value = NULL) {
+    if($value === NULL) {
+      return NULL;
+    } else {
+      $faktor = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() + 1 : 1;
+
+      return $value * $faktor;
+    }
+  }
+
+  protected function calculateVarmebesparelseGUF($value = NULL) {
+    return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
+  }
+
+  protected function calculateVarmebesparelseGAF($value = null) {
+    return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
+  }
+
+  protected function calculateElbesparelse($value = null) {
+    return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
+  }
+
+  private function calculateBesparelseFromAendringIBesparelseFaktor($value) {
+    if($value === NULL) {
+      return NULL;
+    } else {
+      $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? 1 - $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+
+      return $value * $besparelse;
+    }
   }
 
   protected function calculateLevetid() {
@@ -1433,7 +1494,7 @@ abstract class Tiltag {
   }
 
   protected function calculateSimpelTilbagebetalingstidAar() {
-    return $this->divide($this->anlaegsinvestering,
+    return $this->divide($this->aaplusInvestering,
       $this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift);
   }
 
@@ -1446,7 +1507,7 @@ abstract class Tiltag {
     $cutoff = 15;
     if ($this->levetid > $cutoff) {
       return (1 - ($cutoff / $this->levetid)) * pow(1 + $this->getRapport()
-          ->getInflation(), $cutoff) * $this->anlaegsinvestering;
+          ->getInflation(), $cutoff) * $this->aaplusInvestering;
     }
     elseif ($cutoff - $this->antalReinvesteringer * $this->levetid == 0) {
       return 0;
@@ -1462,7 +1523,7 @@ abstract class Tiltag {
       return 0;
     }
     else {
-      return $this->faktorForReinvesteringer * $this->anlaegsinvestering;
+      return $this->faktorForReinvesteringer * $this->aaplusInvestering;
     }
   }
 

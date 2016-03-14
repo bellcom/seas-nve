@@ -32,17 +32,14 @@ class SolcelleTiltag extends Tiltag {
     $this->setTitle('Solceller');
   }
 
-  protected function calculateElbesparelse() {
-    return $this->sum('egetForbrugAfProduktionenKWh');
+  protected function calculateElbesparelse($value = null) {
+    $value = $this->sum('egetForbrugAfProduktionenKWh');
+
+    return parent::calculateElbesparelse($value);
   }
 
   protected function calculateSamletEnergibesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
-
-    return ($this->elbesparelse * $this->getRapport()->getElKrKWh()
-      + $this->sum(function($detail) {
-        return $detail->getCashFlow()['Salg til nettet'][1];
-      })) * (1 - $besparelse);
+    return ($this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }));
   }
 
   protected function calculateSamletCo2besparelse() {
@@ -50,10 +47,10 @@ class SolcelleTiltag extends Tiltag {
             + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
   }
 
-  protected function calculateAnlaegsinvestering() {
-    $kompensering = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() : 0;
+  protected function calculateAnlaegsinvestering($value = NULL) {
+    $value = ($this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr'));
 
-    return ($this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr')) * (1 + $kompensering);
+    return parent::calculateAnlaegsinvestering($value);
   }
 
   protected function calculateSimpelTilbagebetalingstidAar() {

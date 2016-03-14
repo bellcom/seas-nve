@@ -1,0 +1,58 @@
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+        <h1>{{ 'erstatningslyskilde.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+              <a class="btn btn-default" href="{{ path('belysningtiltagdetail_erstatningslyskilde_new') }}">
+          {{ icon('plus') }} {{ 'erstatningslyskilde.actions.add' | trans }}
+        </a>
+          </div>
+
+  </div>
+
+
+  <table class="table table-condensed table-header-rotated">
+    <thead>
+    <tr>
+        {{ helper.header('appbundle.erstatningslyskilde.arbejdeOmfang') }}
+        {{ helper.header('appbundle.erstatningslyskilde.antal') }}
+        {{ helper.header('appbundle.erstatningslyskilde.wattage') }}
+        {{ helper.header('appbundle.erstatningslyskilde.nyeForkoblinger') }}
+        {{ helper.header('appbundle.erstatningslyskilde.pris') }}
+        {{ helper.header('appbundle.erstatningslyskilde.noter') }}
+      {{ helper.header() }}
+    </tr>
+    <tr>
+        {{ helper.header_unit('appbundle.erstatningslyskilde.arbejdeOmfang') }}
+        {{ helper.header_unit('appbundle.erstatningslyskilde.antal') }}
+        {{ helper.header_unit('appbundle.erstatningslyskilde.wattage') }}
+        {{ helper.header_unit('appbundle.erstatningslyskilde.nyeForkoblinger') }}
+        {{ helper.header_unit('appbundle.erstatningslyskilde.pris') }}
+        {{ helper.header_unit('appbundle.erstatningslyskilde.noter') }}
+      {{ helper.header_unit() }}
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+    <tr>
+        <td>{{ entity.arbejdeOmfang }}</td>
+        <td>{{ entity.antal }}</td>
+        <td>{{ entity.wattage }}</td>
+        <td>{{ entity.nyeForkoblinger }}</td>
+        <td>{{ entity.pris }}</td>
+        <td>{{ entity.noter }}</td>
+      <td class="text-right">    <a class="btn btn-default btn-xs" href="{{ path('belysningtiltagdetail_erstatningslyskilde_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+      </td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% endblock %}

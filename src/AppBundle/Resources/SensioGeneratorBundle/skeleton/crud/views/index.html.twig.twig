@@ -1,0 +1,68 @@
+{% block extends %}
+  {{ "{% extends 'AppBundle::base.html.twig' %}" }}
+{% endblock extends %}
+
+{% set class = entity | split('\\') | last | lower %}
+
+{% block body %}
+  {{ "{% block body -%}" }}
+
+  <div class="row heading">
+    <div class="col-md-9">
+        <h1>{{ "{{ '" }}{{ class }}{{ ".labels.plural' | trans }}" }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+      {% if 'new' in actions %}
+        <a class="btn btn-default" href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}">
+          {{ "{{ icon('plus') }}" }} {{ "{{ '" }}{{ class }}{{ ".actions.add' | trans }}" }}
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+
+
+  <table class="table table-condensed table-header-rotated">
+    <thead>
+    <tr>
+
+      {%- for field, metadata in fields if field != 'id' %}
+
+        {{ "{{ helper.header('appbundle." }}{{ class }}{{ "." }}{{ field }}{{ "') }}" }}
+
+      {%- endfor %}
+
+      {{ "{{ helper.header() }}" }}
+    </tr>
+    <tr>
+
+      {%- for field, metadata in fields if field != 'id' %}
+
+        {{ "{{ helper.header_unit('appbundle." }}{{ class }}{{ "." }}{{ field }}{{ "') }}" }}
+
+      {%- endfor %}
+
+      {{ "{{ helper.header_unit() }}" }}
+    </tr>
+    </thead>
+    <tbody>
+    {{ '{% for entity in entities %}' }}
+    <tr>
+
+      {%- for field, metadata in fields if field != 'id' %}
+
+        <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+
+      {%- endfor %}
+
+      <td class="text-right">
+        {%- include "crud/views/others/actions_xs.html.twig" %}
+      </td>
+
+    </tr>
+    {{ '{% endfor %}' }}
+    </tbody>
+  </table>
+
+  {{ "{% endblock %}" }}
+{% endblock body %}

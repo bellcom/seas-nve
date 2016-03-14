@@ -537,3 +537,36 @@ table.configuration-settings td:nth-child(2) {
 	width: 25%;
 	text-align: right;
 }
+
+/* Ekstra form validation classes */
+
+.has-info .help-block,
+.has-info .control-label,
+.has-info .radio,
+.has-info .checkbox,
+.has-info .radio-inline,
+.has-info .checkbox-inline,
+.has-info.radio label,
+.has-info.checkbox label,
+.has-info.radio-inline label,
+.has-info.checkbox-inline label {
+    color: #31708f;
+}
+.has-info .form-control {
+    border-color: #31708f;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.has-info .form-control:focus {
+    border-color: #843534;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+}
+.has-info .input-group-addon {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #31708f;
+}
+.has-info .form-control-feedback {
+    color: #31708f;
+}

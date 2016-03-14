@@ -1,0 +1,22 @@
+{% block extends %}
+  {{ "{% extends 'AppBundle::base.html.twig' %}" }}
+{% endblock extends %}
+
+{% set class = entity | split('\\') | last | lower %}
+
+{% block body %}
+  {{ "{% block body -%}" }}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ "{{ '" }}{{ class }}{{ ".actions.add' | trans }}" }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+    </div>
+
+  </div>
+
+  {{ '{{ form(form) }}' }}
+
+  {% set hide_edit, hide_delete = true, false %}
+  {{ "{% endblock %}" }}
+{% endblock body %}

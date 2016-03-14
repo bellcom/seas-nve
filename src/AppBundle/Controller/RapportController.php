@@ -636,7 +636,7 @@ class RapportController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditFormFinansiering(Rapport $rapport) {
-    if (!$this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+    if (!$this->container->get('security.context')->isGranted('RAPPORT_EDIT', $rapport)) {
       return NULL;
     }
 
@@ -663,7 +663,7 @@ class RapportController extends BaseController {
    *
    * @Route("/{id}/finansiering", name="rapport_finansiering_update")
    * @Method("PUT")
-   * @Security("has_role('ROLE_ADMIN')")
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function updateActionFinansiering(Request $request, Rapport $rapport) {
     $em = $this->getDoctrine()->getManager();

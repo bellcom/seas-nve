@@ -29,28 +29,28 @@ class SpecialTiltag extends Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="besparelseGUF", type="decimal", scale=4)
+   * @ORM\Column(name="besparelseGUF", type="decimal", scale=4, precision=14)
    */
   protected $besparelseGUF;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="besparelseGAF", type="decimal", scale=4)
+   * @ORM\Column(name="besparelseGAF", type="decimal", scale=4, precision=14)
    */
   protected $besparelseGAF;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="besparelseEl", type="decimal", scale=4)
+   * @ORM\Column(name="besparelseEl", type="decimal", scale=4, precision=14)
    */
   protected $besparelseEl;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="yderligereBesparelse", type="decimal", scale=4)
+   * @ORM\Column(name="yderligereBesparelse", type="decimal", scale=4, precision=14)
    */
   protected $yderligereBesparelse;
 
@@ -99,57 +99,67 @@ class SpecialTiltag extends Tiltag {
   }
 
   /**
-   * Set anlaegsinvestering
-   *
-   * @param float
-   *
-   * @return SpecialTiltag
+   * @param float $anlaegsinvesteringExRisiko
    */
-  public function setAnlaegsinvestering($anlaegsinvestering) {
-    $this->anlaegsinvestering = $anlaegsinvestering;
-
-    return $this;
+  public function setAnlaegsinvesteringExRisiko($anlaegsinvesteringExRisiko) {
+    $this->anlaegsinvesteringExRisiko = $anlaegsinvesteringExRisiko;
   }
 
-  protected function calculateVarmebesparelseGUF() {
+  protected function calculateVarmebesparelseGUF($value = null) {
     if ($this->rapport->getStandardForsyning()) {
-      return $this->besparelseGUF;
+      $value = $this->besparelseGUF;
     }
     else {
-      return $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse();
+      $value = $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse();
     }
+
+    return parent::calculateVarmebesparelseGUF($value);
   }
 
-  protected function calculateVarmebesparelseGAF() {
+  protected function calculateVarmebesparelseGAF($value = null) {
     if ($this->rapport->getStandardForsyning()) {
-      return $this->besparelseGAF;
+      $value = $this->besparelseGAF;
     }
     else {
-      return $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse();
+      $value = $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse() * $besparelse;
     }
+
+    return parent::calculateVarmebesparelseGAF($value);
   }
 
-  protected function calculateElbesparelse() {
+  protected function calculateElbesparelse($value = null) {
     if ($this->rapport->getStandardForsyning()) {
-      return $this->besparelseEl;
+      $value = $this->besparelseEl;
     }
     else {
-      return $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'EL')
+      $value = ($this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'EL')
         + $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'EL')
-        + $this->besparelseEl;
+        + $this->besparelseEl);
     }
+
+    return parent::calculateElbesparelse($value);
   }
 
   protected function calculateSamletEnergibesparelse() {
-    $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? $this->getRisikovurderingAendringIBesparelseFaktor() : 0;
-
     return (($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->yderligereBesparelse) * (1 - $besparelse);
+      + $this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->yderligereBesparelse);
   }
 
   protected function calculateSamletCo2besparelse() {
     return (($this->varmebesparelseGAF / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
             + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
+  }
+
+  protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
+    return parent::calculateCashFlow($numberOfYears, $this->getYderligereBesparelse());
+  }
+
+  public function calculateSavingsForYear($year) {
+    return parent::calculateSavingsForYear($year) + $this->getYderligereBesparelse();
+  }
+
+  protected function calculateAnlaegsinvestering($value = NULL) {
+    return parent::calculateAnlaegsinvestering($this->getAnlaegsinvesteringExRisiko());
   }
 
 }
