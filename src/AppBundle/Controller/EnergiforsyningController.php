@@ -36,8 +36,8 @@ class EnergiforsyningController extends BaseController {
     parent::init($request);
 
     $rapport = $this->getRapport();
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $rapport->getBygning()->getId())));
-    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     $this->breadcrumbs->addItem('Energiforsyninger', $this->get('router')->generate('energiforsyning', array('rapport_id' => $this->getRapport()->getId())));
   }
 
