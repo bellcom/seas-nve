@@ -149,6 +149,10 @@ energiforsyninger:
     add: Tilføj energiforsyning
     create: Opret energiforsyning
     edit: Rediger energiforsyning
+  confirmation:
+    deleted: Energiforsyning slettet
+  error:
+    cannot_delete: Energiforsyning kan ikke slettes
   labels:
     plural: Energiforsyninger
     singular: Energiforsyning
