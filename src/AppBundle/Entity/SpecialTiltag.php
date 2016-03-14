@@ -121,7 +121,7 @@ class SpecialTiltag extends Tiltag {
       $value = $this->besparelseGAF;
     }
     else {
-      $value = $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse() * $besparelse;
+      $value = $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse();
     }
 
     return parent::calculateVarmebesparelseGAF($value);
