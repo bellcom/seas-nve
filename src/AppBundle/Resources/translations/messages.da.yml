@@ -279,6 +279,9 @@ segment:
     created: Segment oprettet
     updated: Segment opdateret
     deleted: Segment slettet
+  labels:
+    plural: Segmenter
+    singular: Segment
 solcelle:
   actions:
     add: Tilføj solcelle
