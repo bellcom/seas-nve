@@ -18,10 +18,10 @@ class GraddageFordeling extends AarsFordeling {
   /**
    * Constructor
    */
-  public function __construct($title, $januar = NULL, $februar = NULL, $marts = NULL, $april = NULL, $maj = NULL, $juni = NULL,
+  public function __construct($titel, $januar = NULL, $februar = NULL, $marts = NULL, $april = NULL, $maj = NULL, $juni = NULL,
                               $juli = NULL, $august = NULL, $september = NULL, $oktober = NULL, $november = NULL, $december = NULL) {
     parent::__construct($januar, $februar, $marts, $april, $maj, $juni, $juli, $august, $september, $oktober, $november, $december);
-    $this->title = $title;
+    $this->titel = $titel;
   }
 
   /**
@@ -36,9 +36,9 @@ class GraddageFordeling extends AarsFordeling {
   /**
    * @var string
    *
-   * @ORM\Column(name="title", type="string", length=255, nullable=true)
+   * @ORM\Column(name="titel", type="string", length=255, nullable=true)
    */
-  protected $title;
+  protected $titel;
 
   /**
    * @return int
