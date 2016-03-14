@@ -2208,6 +2208,9 @@ class Baseline {
     $this->varmeForbrugsdataPrimaer1GUFRegAar = $this->calculateVarmeForbrugsdataGUFRegAar($this->varmeForbrugsdataPrimaer1Forbrug, $this->varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust, $this->varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter);
     $this->varmeForbrugsdataPrimaer2GUFRegAar = $this->calculateVarmeForbrugsdataGUFRegAar($this->varmeForbrugsdataPrimaer2Forbrug, $this->varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust, $this->varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter);
     $this->varmeForbrugsdataPrimaer3GUFRegAar = $this->calculateVarmeForbrugsdataGUFRegAar($this->varmeForbrugsdataPrimaer3Forbrug, $this->varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust, $this->varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter);
+    $this->varmeForbrugsdataPrimaer1GAFRegAar = $this->calculateVarmeForbrugsdataGAFRegAar($this->varmeForbrugsdataPrimaer1Forbrug, $this->varmeForbrugsdataPrimaer1GUFRegAar);
+    $this->varmeForbrugsdataPrimaer2GAFRegAar = $this->calculateVarmeForbrugsdataGAFRegAar($this->varmeForbrugsdataPrimaer2Forbrug, $this->varmeForbrugsdataPrimaer2GUFRegAar);
+    $this->varmeForbrugsdataPrimaer3GAFRegAar = $this->calculateVarmeForbrugsdataGAFRegAar($this->varmeForbrugsdataPrimaer3Forbrug, $this->varmeForbrugsdataPrimaer3GUFRegAar);
   }
 
   /**
@@ -2353,5 +2356,17 @@ class Baseline {
         return $samletVarmeforbrugJuniJuliAugust / 3 * 12;
       }
     }
+  }
+
+  /**
+   * Calculate VarmeForbrugsdataGAFRegAar
+   *
+   * =IF(C22="";"";C22-C25)                  // Forbrug, (kWh/år), ukorrigeret - GUFreg.år
+   */
+  public function calculateVarmeForbrugsdataGAFRegAar($forbrugUkorrigeret, $GUFRegAar) {
+    if (isset($forbrugUkorrigeret) && isset($GUFRegAar)) {
+      return $forbrugUkorrigeret - $GUFRegAar;
+    }
+    return null;
   }
 }
