@@ -176,14 +176,20 @@ class EnergiforsyningController extends BaseController {
   public function deleteAction(Request $request, Energiforsyning $entity) {
     $form = $this->createDeleteForm($entity);
     $form->handleRequest($request);
+    $flash = $this->get('braincrafted_bootstrap.flash');
 
     if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->remove($entity);
-      $em->flush();
+      try {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($entity);
+        $em->flush();
+        $flash->success('energiforsyninger.confirmation.deleted');
+      } catch (\Exception $e) {
+        $flash->error('energiforsyninger.error.cannot_delete');
+      }
     }
 
-    return $this->redirect($this->generateUrl('energiforsyning'));
+    return $this->redirect($this->generateUrl('energiforsyning', array('rapport_id' => $entity->getRapport()->getId())));
   }
 
   /**
