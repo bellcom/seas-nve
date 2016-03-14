@@ -34,9 +34,9 @@
       <tbody>
       {% for entity in entities %}
         <tr>
-          <td class="number">{{ entity.KWp }}</td>
-          <td class="number">{{ entity.inverterpris }}</td>
-          <td class="number">{{ entity.drift }}</td>
+          <td class="number">{{ entity.KWp | number_format}}</td>
+          <td class="number">{{ entity.inverterpris | number_format }}</td>
+          <td class="number">{{ entity.drift | number_format }}</td>
           <td class="text-right"><a class="btn btn-default btn-xs" href="{{ path('solcelle_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a></td>
         </tr>
       {% endfor %}
