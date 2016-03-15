@@ -1204,6 +1204,8 @@ appbundle:
   tiltag:
     anlaegsInvestering: ﻿Entreprisesum
     anlaegsInvestering.unit: kr
+    opstartsomkostninger: Opstartsomkostninger
+    opstartsomkostninger.unit: kr
     anlaegsinvesteringExRisiko: ﻿Entreprisesum (eksl. risikovurdering)
     anlaegsinvesteringExRisiko.unit: kr
     antalReinvesteringer: Antal reinvesteringer

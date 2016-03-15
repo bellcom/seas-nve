@@ -201,6 +201,13 @@ abstract class Tiltag {
   /**
    * @var float
    *
+   * @ORM\Column(name="opstartsomkostninger", type="decimal", nullable=true)
+   */
+  protected $opstartsomkostninger;
+
+  /**
+   * @var float
+   *
    * @Calculated
    * @ORM\Column(name="reelAnlaegsinvestering", type="float", nullable=true)
    */
@@ -752,6 +759,28 @@ abstract class Tiltag {
    */
   public function getAnlaegsinvesteringExRisiko() {
     return $this->anlaegsinvesteringExRisiko;
+  }
+
+  /**
+   * Set opstartsomkostninger
+   *
+   * @param float $opstartsomkostninger
+   *
+   * @return Tiltag
+   */
+  public function setOpstartsomkostninger($opstartsomkostninger) {
+    $this->opstartsomkostninger = $opstartsomkostninger;
+
+    return $this;
+  }
+
+  /**
+   * Get opstartsomkostninger
+   *
+   * @return float
+   */
+  public function getOpstartsomkostninger() {
+    return $this->opstartsomkostninger;
   }
 
   /**
@@ -1356,6 +1385,9 @@ abstract class Tiltag {
     }
     $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
     $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    if ($this->opstartsomkostninger > 0) {
+      $this->anlaegsinvestering += $this->opstartsomkostninger;
+    }
     $this->aaplusInvestering = $this->calculateAaplusInvestering();
     $this->reinvestering = $this->calculateReinvestering();
     $this->scrapvaerdi = $this->calculateScrapvaerdi();
