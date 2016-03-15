@@ -16,7 +16,16 @@
 
   </div>
 
-  {{ '{{ form(edit_form) }}' }}
+  {{ '{{ form_start(edit_form) }}' }}
+  {%- for field in fields %}
+    {{ '
+    {{ form_row(edit_form.' }}{{ field | first }}{{ ')}}' }}
+  {%- endfor %}
+  {{ '
+  
+    {{ form_rest(edit_form) }}' }}
+  {{ '
+  {{ form_end(edit_form) }}' }}
 
   {% set hide_edit, hide_delete = true, false %}
   {{ "{% endblock %}" }}

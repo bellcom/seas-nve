@@ -1,0 +1,123 @@
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'baseline.actions.edit' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+       {{ form(delete_form) }} 
+    </div>
+
+  </div>
+
+  {{ form_start(edit_form) }}    
+    {{ form_row(edit_form.id)}}    
+    {{ form_row(edit_form.arealdataPrimaerKilde)}}    
+    {{ form_row(edit_form.arealdataPrimaerAreal)}}    
+    {{ form_row(edit_form.arealdataPrimaerNoter)}}    
+    {{ form_row(edit_form.arealdataSekundaerKilde)}}    
+    {{ form_row(edit_form.arealdataSekundaerAreal)}}    
+    {{ form_row(edit_form.arealdataSekundaerNoter)}}    
+    {{ form_row(edit_form.arealTilNoegletalsanalyse)}}    
+    {{ form_row(edit_form.elForbrugsdataPrimaerKilde)}}    
+    {{ form_row(edit_form.elForbrugsdataPrimaer1Aarstal)}}    
+    {{ form_row(edit_form.elForbrugsdataPrimaer1Forbrug)}}    
+    {{ form_row(edit_form.elForbrugsdataPrimaer2Aarstal)}}    
+    {{ form_row(edit_form.elForbrugsdataPrimaer2Forbrug)}}    
+    {{ form_row(edit_form.elForbrugsdataPrimaer3Aarstal)}}    
+    {{ form_row(edit_form.elForbrugsdataPrimaer3Forbrug)}}    
+    {{ form_row(edit_form.elForbrugsdataPrimaerGennemsnit)}}    
+    {{ form_row(edit_form.elForbrugsdataPrimaerNoegetal)}}    
+    {{ form_row(edit_form.elForbrugsdataPrimaerNoter)}}    
+    {{ form_row(edit_form.elForbrugsdataSekundaerKilde)}}    
+    {{ form_row(edit_form.elForbrugsdataSekundaer1Aarstal)}}    
+    {{ form_row(edit_form.elForbrugsdataSekundaer1Forbrug)}}    
+    {{ form_row(edit_form.elForbrugsdataSekundaer2Aarstal)}}    
+    {{ form_row(edit_form.elForbrugsdataSekundaer2Forbrug)}}    
+    {{ form_row(edit_form.elForbrugsdataSekundaer3Aarstal)}}    
+    {{ form_row(edit_form.elForbrugsdataSekundaer3Forbrug)}}    
+    {{ form_row(edit_form.elForbrugsdataSekundaerGennemsnit)}}    
+    {{ form_row(edit_form.elForbrugsdataSekundaerNoegetal)}}    
+    {{ form_row(edit_form.elForbrugsdataSekundaerNoter)}}    
+    {{ form_row(edit_form.elBaselineFastsatForEjendom)}}    
+    {{ form_row(edit_form.elBaselineNoegletalForEjendom)}}    
+    {{ form_row(edit_form.elBaselineNoter)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaerKilde)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer1Aarstal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer1Forbrug)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer2Aarstal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer2Forbrug)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer3Aarstal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer3Forbrug)}}    
+    {{ form_row(edit_form.varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer1GUFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer2GUFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer3GUFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer1GAFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer2GAFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer3GAFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer1GDPeriode)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer2GDPeriode)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer3GDPeriode)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer1GAFnormal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer2GAFnormal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer3GAFnormal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaerGAFGennemsnit)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaerGUFGennemsnit)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaerNoegletal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataPrimaerNoter)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaerKilde)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer1Aarstal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer1Forbrug)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer2Aarstal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer2Forbrug)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer3Aarstal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer3Forbrug)}}    
+    {{ form_row(edit_form.varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer1GUFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer2GUFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer3GUFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer1GAFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer2GAFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer3GAFRegAar)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer1GDPeriode)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer2GDPeriode)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer3GDPeriode)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer1GAFnormal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer2GAFnormal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer3GAFnormal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaerGAFGennemsnit)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaerGUFGennemsnit)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaerNoegletal)}}    
+    {{ form_row(edit_form.varmeForbrugsdataSekundaerNoter)}}    
+    {{ form_row(edit_form.varmeGAFForbrug)}}    
+    {{ form_row(edit_form.varmeGUFForbrug)}}    
+    {{ form_row(edit_form.varmeBaselineFastsatForEjendom)}}    
+    {{ form_row(edit_form.varmeBaselineNoegletalForEjendom)}}    
+    {{ form_row(edit_form.varmeStrafafkoelingsafgift)}}    
+    {{ form_row(edit_form.varmeBaselineNoter)}}    
+    {{ form_row(edit_form.createdBy)}}    
+    {{ form_row(edit_form.updatedBy)}}    
+    {{ form_row(edit_form.createdAt)}}    
+    {{ form_row(edit_form.updatedAt)}}  
+    {{ form_rest(edit_form) }}
+  
+  {{ form_end(edit_form) }}
+
+    {% endblock %}
