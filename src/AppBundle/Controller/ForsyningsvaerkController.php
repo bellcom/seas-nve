@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Forsyningsvaerk;
-use AppBundle\Form\ForsyningsvaerkType;
+use AppBundle\Form\Type\ForsyningsvaerkType;
 use AppBundle\Controller\BaseController;
 
 /**
