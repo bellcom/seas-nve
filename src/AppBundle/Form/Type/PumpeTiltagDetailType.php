@@ -23,7 +23,9 @@ class PumpeTiltagDetailType extends TiltagDetailType {
       ->add('placering')
       ->add('applikation')
       ->add('isoleringskappe', null, array('required' => false))
-      ->add('bFaktor')
+      ->add('nyttiggjortVarme', null, array(
+        'required' => true,
+      ))
       ->add('noter', null, array('required' => false))
       ->add('eksisterendeDrifttid')
       ->add('nyDrifttid')
