@@ -891,7 +891,8 @@ appbundle:
     tOpvarmningTimerAar.unit: timer/år
     tUdeC: T_ude
     tUdeC.unit: °C
-    typePlaceringJfPlantegning: Type/placering jf. plantegning
+    type: Type
+    placering: Placering
     uEksWM2K: U_eks
     uEksWM2K.unit: W/m²K
     uNyWM2K: U_ny
@@ -1375,7 +1376,8 @@ appbundle:
     tiltagsnrDelpriser: Tiltagsnr. Delpriser
     tilvalgt: Tilvalgt
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
-    typePlaceringJfPlantegning: Type/placering jf. plantegning
+    type: Type
+    placering: Placering
     uEksWM2K: U_eks
     uEksWM2K.unit: W/m²K
     uNyWM2K: U_ny
