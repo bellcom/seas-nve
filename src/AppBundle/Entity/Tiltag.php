@@ -10,6 +10,7 @@ use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 use AppBundle\DBAL\Types\RisikovurderingType;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Calculation\Calculation;
+use AppBundle\DBAL\Types\PrimaerEnterpriseType;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -279,9 +280,10 @@ abstract class Tiltag {
   /**
    * @var string
    *
-   * @ORM\Column(name="primaerEnterprise", type="string", length=50, nullable=true)
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\PrimaerEnterpriseType")
+   * @ORM\Column(name="primaerEnterprise", type="PrimaerEnterpriseType")
    */
-  protected $primaerEnterprise;
+  protected $primaerEnterprise = PrimaerEnterpriseType::NONE;
 
   /**
    * @ManyToOne(targetEntity="TiltagsKategori")
@@ -696,7 +698,8 @@ abstract class Tiltag {
   /**
    * Set primaerEnterprise
    *
-   * @param string $primaerEnterprise
+   * @param \AppBundle\DBAL\Types\PrimaerenterpriseType $primaerEnterprise
+   *
    * @return Tiltag
    */
   public function setPrimaerEnterprise($primaerEnterprise) {
@@ -708,7 +711,7 @@ abstract class Tiltag {
   /**
    * Get primaerEnterprise
    *
-   * @return string
+   * @return \AppBundle\DBAL\Types\PrimaerenterpriseType
    */
   public function getPrimaerEnterprise() {
     return $this->primaerEnterprise;

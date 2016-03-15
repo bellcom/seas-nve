@@ -7,6 +7,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use AppBundle\DBAL\Types\PrimaerEnterpriseType;
 
 /**
  * TiltagRepository
@@ -33,27 +34,27 @@ class TiltagRepository extends EntityRepository {
 
     switch ($type) {
       case 'Solcelle':
-        $tiltag->setPrimaerEnterprise('ve');
+        $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::VE);
         $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Solceller'));
         break;
       case 'Tekniskisolering':
-        $tiltag->setPrimaerEnterprise('vvs');
+        $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::VVS);
         $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Varmeanlæg – generelt'));
         break;
       case 'Belysning':
-        $tiltag->setPrimaerEnterprise('el');
+        $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::EL);
         $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Belysning'));
         break;
       case 'Klimaskaerm':
-        $tiltag->setPrimaerEnterprise('t/i');
+        $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::TOEMRER_ISOLATOER);
         $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Klimaskærm'));
         break;
       case 'Pumpe':
-        $tiltag->setPrimaerEnterprise('vvs');
+        $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::VVS);
         $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Pumper'));
         break;
       case 'Vindue':
-        $tiltag->setPrimaerEnterprise('Tømrer');
+        $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::TOEMRER);
         $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Vinduer'));
         break;
     }
