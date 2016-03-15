@@ -2226,6 +2226,25 @@ class Baseline {
     $this->varmeForbrugsdataPrimaerGUFGennemsnit = $this->calculateAverageOfThree($this->varmeForbrugsdataPrimaer1GUFRegAar, $this->varmeForbrugsdataPrimaer2GUFRegAar, $this->varmeForbrugsdataPrimaer3GUFRegAar);
     $this->varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret = $this->calculateAverageOfThree($this->varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret, $this->varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret, $this->varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret);
     $this->varmeForbrugsdataPrimaerNoegletal = $this->calculateVarmeForbrugsdataNoegletal($this->getVarmeForbrugsdataPrimaerGennemsnitKlimakorrigeret());
+
+    $this->varmeForbrugsdataSekundaer1GUFRegAar = $this->calculateVarmeForbrugsdataGUFRegAar($this->varmeForbrugsdataSekundaer1Forbrug, $this->varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust, $this->varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter);
+    $this->varmeForbrugsdataSekundaer2GUFRegAar = $this->calculateVarmeForbrugsdataGUFRegAar($this->varmeForbrugsdataSekundaer2Forbrug, $this->varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust, $this->varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter);
+    $this->varmeForbrugsdataSekundaer3GUFRegAar = $this->calculateVarmeForbrugsdataGUFRegAar($this->varmeForbrugsdataSekundaer3Forbrug, $this->varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust, $this->varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter);
+    $this->varmeForbrugsdataSekundaer1GAFRegAar = $this->calculateVarmeForbrugsdataGAFRegAar($this->varmeForbrugsdataSekundaer1Forbrug, $this->varmeForbrugsdataSekundaer1GUFRegAar);
+    $this->varmeForbrugsdataSekundaer2GAFRegAar = $this->calculateVarmeForbrugsdataGAFRegAar($this->varmeForbrugsdataSekundaer2Forbrug, $this->varmeForbrugsdataSekundaer2GUFRegAar);
+    $this->varmeForbrugsdataSekundaer3GAFRegAar = $this->calculateVarmeForbrugsdataGAFRegAar($this->varmeForbrugsdataSekundaer3Forbrug, $this->varmeForbrugsdataSekundaer3GUFRegAar);
+    $this->varmeForbrugsdataSekundaer1GAFnormal = $this->calculateVarmeForbrugsdataGAFNormal($this->varmeForbrugsdataSekundaer1GAFRegAar, $GDNormalAar, $this->varmeForbrugsdataSekundaer1GDPeriode);
+    $this->varmeForbrugsdataSekundaer2GAFnormal = $this->calculateVarmeForbrugsdataGAFNormal($this->varmeForbrugsdataSekundaer2GAFRegAar, $GDNormalAar, $this->varmeForbrugsdataSekundaer2GDPeriode);
+    $this->varmeForbrugsdataSekundaer3GAFnormal = $this->calculateVarmeForbrugsdataGAFNormal($this->varmeForbrugsdataSekundaer3GAFRegAar, $GDNormalAar, $this->varmeForbrugsdataSekundaer3GDPeriode);
+    $this->varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret = $this->calculateVarmeForbrugsdataForbrugKlimakorrigeret($this->varmeForbrugsdataSekundaer1GUFRegAar, $this->varmeForbrugsdataSekundaer1GAFnormal);
+    $this->varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret = $this->calculateVarmeForbrugsdataForbrugKlimakorrigeret($this->varmeForbrugsdataSekundaer2GUFRegAar, $this->varmeForbrugsdataSekundaer2GAFnormal);
+    $this->varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret = $this->calculateVarmeForbrugsdataForbrugKlimakorrigeret($this->varmeForbrugsdataSekundaer3GUFRegAar, $this->varmeForbrugsdataSekundaer3GAFnormal);
+    $this->varmeForbrugsdataSekundaerGAFGennemsnit = $this->calculateAverageOfThree($this->varmeForbrugsdataSekundaer1GAFnormal, $this->varmeForbrugsdataSekundaer2GAFnormal, $this->varmeForbrugsdataSekundaer3GAFnormal);
+    $this->varmeForbrugsdataSekundaerGUFGennemsnit = $this->calculateAverageOfThree($this->varmeForbrugsdataSekundaer1GUFRegAar, $this->varmeForbrugsdataSekundaer2GUFRegAar, $this->varmeForbrugsdataSekundaer3GUFRegAar);
+    $this->varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret = $this->calculateAverageOfThree($this->varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret, $this->varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret, $this->varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret);
+    $this->varmeForbrugsdataSekundaerNoegletal = $this->calculateVarmeForbrugsdataNoegletal($this->getVarmeForbrugsdataSekundaerGennemsnitKlimakorrigeret());
+
+
   }
 
   /**
