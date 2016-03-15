@@ -235,4 +235,8 @@ class ELOKategori {
   public function setAndelVarmeGUFFaktor($andelVarmeGUFFaktor) {
     $this->andelVarmeGUFFaktor = $andelVarmeGUFFaktor;
   }
+
+  public function __toString() {
+    return $this->navn;
+  }
 }
