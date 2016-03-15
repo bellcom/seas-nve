@@ -266,9 +266,9 @@ class Baseline {
   protected $elBaselineNoegletalForEjendom;
 
   /**
-   * @var float
+   * @var string
    *
-   * @ORM\Column(name="elBaselineNoter", type="float", nullable=true)
+   * @ORM\Column(name="elBaselineNoter", type="text", nullable=true)
    */
   protected $elBaselineNoter;
 

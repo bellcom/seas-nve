@@ -113,10 +113,6 @@ class BaselineType extends AbstractType
             ->add('varmeBaselineNoegletalForEjendom')
             ->add('varmeStrafafkoelingsafgift')
             ->add('varmeBaselineNoter')
-            ->add('createdBy')
-            ->add('updatedBy')
-            ->add('createdAt')
-            ->add('updatedAt')
             ->add('bygning')
             ->add('eloKategori')
         ;

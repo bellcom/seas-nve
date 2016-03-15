@@ -410,6 +410,7 @@ vinduetiltagdetail:
 # Forms - We follow the formbuilders form id format
 appbundle:
   baseline:
+    areal: Areal
     arealdataPrimaerKilde: Primær kilde
     arealdataPrimaerKilde.help: Vælg fra liste
     arealdataPrimaerAreal: Areal
@@ -460,7 +461,11 @@ appbundle:
     elForbrugsdataSekundaerNoter: Evt. bemærkninger
     elPrimaer: Primær kilde
     elSekundaer: Sekundær kilde
+    generelt: Generelt
     varme: Varme
+    varmeBaselineFastsatForEjendom: Fastsat baseline for ejendom
+    varmeBaselineNoegletalForEjendom: Nøgletal for ejendom - baseline
+    varmeBaselineNoter: Baggrund for valg af baseline (beskrivelse)
     varmeForbrugsdataPrimaerKilde: Primær kilde til forbrugsdata
     varmeForbrugsdataPrimaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
     varmeForbrugsdataPrimaer1Forbrug: Forbrug, (kWh/år), ukorrigeret
@@ -525,10 +530,9 @@ appbundle:
     varmeForbrugsdataSekundaerNoter: Evt. bemærkninger
     varmeGAFForbrug: GAF-forbrug
     varmeGUFForbrug: GUF-forbrug
-    varmeBaselineFastsatForEjendom: Fastsat baseline for ejendom
-    varmeBaselineNoegletalForEjendom: Nøgletal for ejendom - baseline
+    varmePrimaer: Primær kilde
+    varmeSekundaer: Sekundær kilde
     varmeStrafafkoelingsafgift: Evt. strafafkølingsafgift
-    varmeBaselineNoter: Baggrund for valg af baseline (beskrivelse):
     createdBy: Oprettet af
     updatedBy: Opdateret af
     createdAt: Oprettet
