@@ -210,4 +210,15 @@ class BaselineTest extends KernelTestCase {
 
     $this->assertEquals(1.0, $baseline->getVarmeForbrugsdataSekundaerNoegletal());
   }
+
+  public function testCalculateVarmeBaselineFastsatForEjendomAndCalculateVarmeBaselineNoegletalForEjendom() {
+    $baseline = new Baseline();
+    $baseline->setArealTilNoegletalsanalyse(200.0);
+    $baseline->setVarmeGAFForbrug(50.0);
+    $baseline->setVarmeGUFForbrug(50.0);
+    $baseline->calculate();
+
+    $this->assertEquals(100.0, $baseline->getVarmeBaselineFastsatForEjendom());
+    $this->assertEquals(0.5, $baseline->getVarmeBaselineNoegletalForEjendom());
+  }
 }

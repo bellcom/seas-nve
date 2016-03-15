@@ -2244,7 +2244,8 @@ class Baseline {
     $this->varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret = $this->calculateAverageOfThree($this->varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret, $this->varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret, $this->varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret);
     $this->varmeForbrugsdataSekundaerNoegletal = $this->calculateVarmeForbrugsdataNoegletal($this->getVarmeForbrugsdataSekundaerGennemsnitKlimakorrigeret());
 
-
+    $this->varmeBaselineFastsatForEjendom = $this->calculateVarmeBaselineFastsatForEjendom();
+    $this->varmeBaselineNoegletalForEjendom = $this->calculateVarmeBaselineNoegletalForEjendom();
   }
 
   /**
@@ -2336,6 +2337,8 @@ class Baseline {
    * Calculate VarmeForbrugsdataGAFRegAar
    *
    * =IF(C22="";"";C22-C25)                  // Forbrug, (kWh/år), ukorrigeret - GUFreg.år
+   *
+   * @return float|null
    */
   public function calculateVarmeForbrugsdataGAFRegAar($forbrugUkorrigeret, $GUFRegAar) {
     if (isset($forbrugUkorrigeret) && isset($GUFRegAar)) {
@@ -2348,6 +2351,8 @@ class Baseline {
    * Calculate VarmeForbrugsdataGAFNormal
    *
    * =IF(C22="";"";C26*(C27/C28))           // GAFreg.år * (GDnormal.år / GDperiode)
+   *
+   * @return float|null
    */
   public function calculateVarmeForbrugsdataGAFNormal($GAFRegAar, $GDNormalAar, $GDPeriode) {
     if (!empty($GDPeriode) && isset($GAFRegAar) && isset($GDNormalAar)) {
@@ -2357,8 +2362,12 @@ class Baseline {
   }
 
   /**
+   * Calculate VarmeForbrugsdataForbrugKlimakorrigeret
+   *
    * =IF(C22="";"";C25+C26*(C27/C28))       // If !Forbrug,(kWh/år),ukorrigeret   return NULL
    *                                        // Else return  GUFreg.år + GAFreg.år * (GDnormal.år / GDperiode)
+   *
+   * @return float|null
    */
   public function calculateVarmeForbrugsdataForbrugKlimakorrigeret($GUFRegAar, $varmeForbrugsdataGAFNormal) {
     if (isset($GUFRegAar) && isset($varmeForbrugsdataGAFNormal)) {
@@ -2371,10 +2380,40 @@ class Baseline {
    * Calculate VarmeForbrugsdataNoegletal
    *
    * =IF('1. Areal'!D18="";"Indtast areal";IF(C35="";"";C35/'1. Areal'!D18))
+   *
+   * @return float|null
    */
   public function calculateVarmeForbrugsdataNoegletal($varmeForbrugsdataGennemsnitKlimakorrigeret) {
     if (isset($varmeForbrugsdataGennemsnitKlimakorrigeret) && !empty($this->arealTilNoegletalsanalyse)) {
       return $varmeForbrugsdataGennemsnitKlimakorrigeret / $this->arealTilNoegletalsanalyse;
+    }
+    return null;
+  }
+
+  /**
+   * Calculate VarmeBaselineFastsatForEjendom
+   *
+   * =IF(OR(C62="";C63="");"[C62] eller [C63] mangler";C62+C63)
+   *
+   * @return float|null
+   */
+  public function calculateVarmeBaselineFastsatForEjendom() {
+    if (isset($this->varmeGAFForbrug) && isset($this->varmeGUFForbrug)) {
+      return $this->varmeGAFForbrug + $this->varmeGUFForbrug;
+    }
+    return null;
+  }
+
+  /**
+   * Calculate VarmeBaselineNoegletalForEjendom
+   *
+   * =IF('1. Areal'!D18="";"Indtast areal";+C64/'1. Areal'!D18)
+   *
+   * @return float|null
+   */
+  public function calculateVarmeBaselineNoegletalForEjendom() {
+    if (isset($this->varmeBaselineFastsatForEjendom) && !empty($this->arealTilNoegletalsanalyse)) {
+      return $this->varmeBaselineFastsatForEjendom / $this->arealTilNoegletalsanalyse;
     }
     return null;
   }
