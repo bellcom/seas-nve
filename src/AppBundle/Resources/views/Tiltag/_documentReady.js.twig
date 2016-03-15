@@ -1,0 +1,12 @@
+$('textarea[maxlength]').on("load propertychange keyup input paste",
+    function () {
+        var limit = parseInt($(this).attr('maxlength'));
+        var remainingChars = limit - $(this).val().length;
+        if (remainingChars <= 0) {
+            $(this).val($(this).val().substring(0, limit));
+        }
+        $(this).siblings(".textarea-countdown").text(remainingChars <= 0 ? 0 : remainingChars + '/' + limit);
+        //.siblings( ".selected" )
+    });
+
+$('textarea[maxlength]').trigger('load');

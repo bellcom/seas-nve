@@ -88,6 +88,7 @@ doctrine:
             VarmeKildeSekundaerType: AppBundle\DBAL\Types\Baseline\VarmeKildeSekundaerType
             GUFFastsaettesEfterType: AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType
             RisikovurderingType: AppBundle\DBAL\Types\RisikovurderingType
+            PrimaerEnterpriseType: AppBundle\DBAL\Types\PrimaerEnterpriseType
         logging: false
         profiling: false
     orm:

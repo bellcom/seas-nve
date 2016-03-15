@@ -1,19 +1,16 @@
 <?php
-/**
- * @file
- * @TODO: Missing description.
- */
 
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Solcelle;
-use AppBundle\Form\Type\SolcelleType;
-use Yavin\Symfony\Controller\InitControllerInterface;
+use AppBundle\Form\SolcelleType;
+use AppBundle\Controller\BaseController;
 
 /**
  * Solcelle controller.
@@ -22,6 +19,13 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
 class SolcelleController extends BaseController {
+
+  public function init(Request $request) {
+    parent::init($request);
+    $this->breadcrumbs->addItem('solcelle.labels.singular', $this->generateUrl('solcelle'));
+  }
+
+
   /**
    * Lists all Solcelle entities.
    *
@@ -29,7 +33,7 @@ class SolcelleController extends BaseController {
    * @Method("GET")
    * @Template()
    */
-  public function indexAction(Request $request) {
+  public function indexAction() {
     $em = $this->getDoctrine()->getManager();
 
     $entities = $em->getRepository('AppBundle:Solcelle')->findAll();
@@ -45,8 +49,6 @@ class SolcelleController extends BaseController {
    * @Route("/", name="solcelle_create")
    * @Method("POST")
    * @Template("AppBundle:Solcelle:new.html.twig")
-   *
-   * @Security("has_role('ROLE_SOLCELLE_CREATE')")
    */
   public function createAction(Request $request) {
     $entity = new Solcelle();
@@ -58,10 +60,8 @@ class SolcelleController extends BaseController {
       $em->persist($entity);
       $em->flush();
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('solcelle.confirmation.created');
+      return $this->redirect($this->generateUrl('solcelle'));
 
-      return $this->redirect($this->generateUrl('solcelle_show', array('id' => $entity->getId())));
     }
 
     return array(
@@ -83,7 +83,7 @@ class SolcelleController extends BaseController {
       'method' => 'POST',
     ));
 
-    $this->addCreate($form, $this->generateUrl('solcelle'));
+    $this->addUpdate($form, $this->generateUrl('solcelle'));
 
     return $form;
   }
@@ -94,9 +94,10 @@ class SolcelleController extends BaseController {
    * @Route("/new", name="solcelle_new")
    * @Method("GET")
    * @Template()
-   * @Security("has_role('ROLE_SOLCELLE_CREATE')")
    */
   public function newAction() {
+    $this->breadcrumbs->addItem('common.add', $this->generateUrl('solcelle'));
+
     $entity = new Solcelle();
     $form = $this->createCreateForm($entity);
 
@@ -112,13 +113,22 @@ class SolcelleController extends BaseController {
    * @Route("/{id}", name="solcelle_show")
    * @Method("GET")
    * @Template()
-   * @ Security("is_granted('SOLCELLE_VIEW', solcelle)")
    */
-  public function showAction(Solcelle $solcelle) {
-    $deleteForm = $this->createDeleteForm($solcelle->getId());
+  public function showAction($id) {
+
+    $em = $this->getDoctrine()->getManager();
+
+    $entity = $em->getRepository('AppBundle:Solcelle')->find($id);
+    $this->breadcrumbs->addItem($entity, $this->generateUrl('solcelle_show', array('id' => $entity->getId())));
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Solcelle entity.');
+    }
+
+    $deleteForm = $this->createDeleteForm($id);
 
     return array(
-      'entity' => $solcelle,
+      'entity' => $entity,
       'delete_form' => $deleteForm->createView(),
     );
   }
@@ -129,14 +139,20 @@ class SolcelleController extends BaseController {
    * @Route("/{id}/edit", name="solcelle_edit")
    * @Method("GET")
    * @Template()
-   * @ Security("is_granted('SOLCELLE_EDIT', solcelle)")
    */
-  public function editAction(Solcelle $solcelle) {
-    $editForm = $this->createEditForm($solcelle);
-    $deleteForm = $this->createDeleteForm($solcelle->getId());
+  public function editAction(Solcelle $entity) {
+    $this->breadcrumbs->addItem($entity, $this->generateUrl('solcelle_show', array('id' => $entity->getId())));
+    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('solcelle_show', array('id' => $entity->getId())));
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Solcelle entity.');
+    }
+
+    $editForm = $this->createEditForm($entity);
+    $deleteForm = $this->createDeleteForm($id);
 
     return array(
-      'entity' => $solcelle,
+      'entity' => $entity,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
@@ -155,7 +171,7 @@ class SolcelleController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('solcelle'));
+    $this->addUpdate($form, $this->generateUrl('solcelle_show', array('id' => $entity->getId())));
 
     return $form;
   }
@@ -166,25 +182,28 @@ class SolcelleController extends BaseController {
    * @Route("/{id}", name="solcelle_update")
    * @Method("PUT")
    * @Template("AppBundle:Solcelle:edit.html.twig")
-   * @ Security("is_granted('SOLCELLE_EDIT', solcelle)")
    */
-  public function updateAction(Request $request, Solcelle $solcelle) {
-    $deleteForm = $this->createDeleteForm($solcelle->getId());
-    $editForm = $this->createEditForm($solcelle);
+  public function updateAction(Request $request, $id) {
+    $em = $this->getDoctrine()->getManager();
+
+    $entity = $em->getRepository('AppBundle:Solcelle')->find($id);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find Solcelle entity.');
+    }
+
+    $deleteForm = $this->createDeleteForm($id);
+    $editForm = $this->createEditForm($entity);
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
-      $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('solcelle.confirmation.updated');
-
-      return $this->redirect($this->generateUrl('solcelle_edit', array('id' => $solcelle->getId())));
+      return $this->redirect($this->generateUrl('solcelle'));
     }
 
     return array(
-      'entity' => $solcelle,
+      'entity' => $entity,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
@@ -195,19 +214,21 @@ class SolcelleController extends BaseController {
    *
    * @Route("/{id}", name="solcelle_delete")
    * @Method("DELETE")
-   * @Security("is_granted('SOLCELLE_EDIT', solcelle)")
    */
-  public function deleteAction(Request $request, Solcelle $solcelle) {
-    $form = $this->createDeleteForm($solcelle->getId());
+  public function deleteAction(Request $request, $id) {
+    $form = $this->createDeleteForm($id);
     $form->handleRequest($request);
 
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
-      $em->remove($solcelle);
-      $em->flush();
+      $entity = $em->getRepository('AppBundle:Solcelle')->find($id);
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('solcelle.confirmation.deleted');
+      if (!$entity) {
+        throw $this->createNotFoundException('Unable to find Solcelle entity.');
+      }
+
+      $em->remove($entity);
+      $em->flush();
     }
 
     return $this->redirect($this->generateUrl('solcelle'));
@@ -227,5 +248,4 @@ class SolcelleController extends BaseController {
       ->add('submit', 'submit', array('label' => 'Delete'))
       ->getForm();
   }
-
 }

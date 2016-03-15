@@ -10,6 +10,7 @@ use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 use AppBundle\DBAL\Types\RisikovurderingType;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Calculation\Calculation;
+use AppBundle\DBAL\Types\PrimaerEnterpriseType;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,6 +25,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tiltag
@@ -200,6 +202,13 @@ abstract class Tiltag {
   /**
    * @var float
    *
+   * @ORM\Column(name="opstartsomkostninger", type="decimal", nullable=true)
+   */
+  protected $opstartsomkostninger;
+
+  /**
+   * @var float
+   *
    * @Calculated
    * @ORM\Column(name="reelAnlaegsinvestering", type="float", nullable=true)
    */
@@ -271,9 +280,10 @@ abstract class Tiltag {
   /**
    * @var string
    *
-   * @ORM\Column(name="primaerEnterprise", type="string", length=50, nullable=true)
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\PrimaerEnterpriseType")
+   * @ORM\Column(name="primaerEnterprise", type="PrimaerEnterpriseType")
    */
-  protected $primaerEnterprise;
+  protected $primaerEnterprise = PrimaerEnterpriseType::NONE;
 
   /**
    * @ManyToOne(targetEntity="TiltagsKategori")
@@ -301,6 +311,11 @@ abstract class Tiltag {
    * @var string
    *
    * @ORM\Column(name="beskrivelseNuvaerende", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 800,
+   *  maxMessage = "maxLength"
+   * )
    */
   protected $beskrivelseNuvaerende;
 
@@ -683,7 +698,8 @@ abstract class Tiltag {
   /**
    * Set primaerEnterprise
    *
-   * @param string $primaerEnterprise
+   * @param \AppBundle\DBAL\Types\PrimaerenterpriseType $primaerEnterprise
+   *
    * @return Tiltag
    */
   public function setPrimaerEnterprise($primaerEnterprise) {
@@ -695,7 +711,7 @@ abstract class Tiltag {
   /**
    * Get primaerEnterprise
    *
-   * @return string
+   * @return \AppBundle\DBAL\Types\PrimaerenterpriseType
    */
   public function getPrimaerEnterprise() {
     return $this->primaerEnterprise;
@@ -746,6 +762,28 @@ abstract class Tiltag {
    */
   public function getAnlaegsinvesteringExRisiko() {
     return $this->anlaegsinvesteringExRisiko;
+  }
+
+  /**
+   * Set opstartsomkostninger
+   *
+   * @param float $opstartsomkostninger
+   *
+   * @return Tiltag
+   */
+  public function setOpstartsomkostninger($opstartsomkostninger) {
+    $this->opstartsomkostninger = $opstartsomkostninger;
+
+    return $this;
+  }
+
+  /**
+   * Get opstartsomkostninger
+   *
+   * @return float
+   */
+  public function getOpstartsomkostninger() {
+    return $this->opstartsomkostninger;
   }
 
   /**
@@ -1350,6 +1388,9 @@ abstract class Tiltag {
     }
     $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
     $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    if ($this->opstartsomkostninger > 0) {
+      $this->anlaegsinvestering += $this->opstartsomkostninger;
+    }
     $this->aaplusInvestering = $this->calculateAaplusInvestering();
     $this->reinvestering = $this->calculateReinvestering();
     $this->scrapvaerdi = $this->calculateScrapvaerdi();

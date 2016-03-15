@@ -156,6 +156,9 @@ class TiltagController extends BaseController {
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     }
 
+    $flash = $this->get('braincrafted_bootstrap.flash');
+    $flash->error('tiltag.validation.error');
+
     return array(
       'entity' => $tiltag,
       'edit_form' => $editForm->createView(),

@@ -107,6 +107,9 @@
         {% if edit_form.besparelseDriftOgVedligeholdelse is defined %}
           {{ form_row(edit_form.besparelseDriftOgVedligeholdelse) }}
         {% endif %}
+        {% if edit_form.opstartsomkostninger is defined %}
+          {{ form_row(edit_form.opstartsomkostninger) }}
+        {% endif %}
       </div>
       <div class="col-xs-12 col-md-6">
         {% if edit_form.reelAnlaegsinvestering is defined %}
@@ -179,3 +182,9 @@
 
 
 {% endblock %}
+
+{% block documentReady %}
+  {{ parent() }}
+
+  {% include 'AppBundle:Tiltag:_documentReady.js.twig' %}
+{% endblock documentReady %}

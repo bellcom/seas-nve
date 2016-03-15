@@ -40,6 +40,7 @@ Add: Tilføj
 
 common:
   a_search: Søgning
+  add: Tilføj
   afleveret_raadgiver: Afleveret af Rådgiver
   all: Alle
   beskrivelsesamtforudsætninger: Beskrivelse samt forudsætninger
@@ -148,10 +149,21 @@ energiforsyninger:
     add: Tilføj energiforsyning
     create: Opret energiforsyning
     edit: Rediger energiforsyning
+  confirmation:
+    deleted: Energiforsyning slettet
+  error:
+    cannot_delete: Energiforsyning kan ikke slettes
   labels:
     plural: Energiforsyninger
     singular: Energiforsyning
-forsyningsvaerker:
+erstatningslyskilde:
+  actions:
+    add: Tilføj erstatnings lyskilde
+    edit: Rediger erstatnings lyskilde
+  labels:
+    plural: Erstatnings lyskilder
+    singular: Erstatnings lyskilde
+forsyningsvaerk:
   actions:
     add: Tilføj forsyningsværk
     create: Opret forsyningsværk
@@ -186,6 +198,7 @@ nyttiggjortvarme:
     edit: Rediger faktor
   labels:
     plural: Faktorer for nyttiggjort varme (Teknisk Iso.)
+    singular: Faktor for nyttiggjort varme (Teknisk Iso.)
 pumpe:
   actions:
     add: Tilføj Pumpe
@@ -267,6 +280,9 @@ segment:
     created: Segment oprettet
     updated: Segment opdateret
     deleted: Segment slettet
+  labels:
+    plural: Segmenter
+    singular: Segment
 solcelle:
   actions:
     add: Tilføj solcelle
@@ -297,8 +313,8 @@ specialtiltag:
     edit: Rediger specialtiltag
 specialtiltagdetail:
   actions:
-    add: Upload fil til specialtiltag
-    edit: Rediger uploadet fil til specialtiltag
+    add: Upload bilag
+    edit: Rediger bilag til specialtiltag
 tekniskisoleringtiltag:
   actions:
     edit: Rediger teknisk isolering
@@ -328,6 +344,9 @@ tiltag:
     forhold: Forhold
     oversigt: Oversigt
     regning: Regning
+    ingen: Ingen tiltag fundet
+  validation:
+    error: Fejl i tiltaget - ret venligst de nævnte fejl
 tiltagdetail:
   actions:
     add: Tilføj Detail
@@ -393,6 +412,16 @@ appbundle:
     elforbrugWM2: Elforbrug
     elforbrugWM2.unit: W/m²
     erstatningsLyskilde: Erstatnings lyskilde
+    erstatningslyskilde.antal: Antal
+    erstatningslyskilde.arbejdeOmfang: Arbejde / Omfang
+    erstatningslyskilde.id: id
+    erstatningslyskilde.nyeForkoblinger: Nye forkoblinger
+    erstatningslyskilde.nyeForkoblinger.unit: Stk./arm.
+    erstatningslyskilde.noter: Noter
+    erstatningslyskilde.pris: Pris
+    erstatningslyskilde.pris.unit: kr
+    erstatningslyskilde.wattage: Wattage
+    erstatningslyskilde.wattage.unit: W/Lysk.
     forkoblingStkArmatur: Forkobling
     forkoblingStkArmatur.unit: stk/arm.
     ikkeElenaBerettiget: Ikke Elena Berettiget
@@ -582,10 +611,10 @@ appbundle:
     vandfaktor: Vandfaktor
     varmefaktor: Varmefaktor
     varmeKrKWh: Varme (kr/kWh)
-    tekniskIsoleringVarmeledningsevneEksistLamelmaatter: Varmeledningsevne, eksist. lamelmåtter
-    tekniskIsoleringVarmeledningsevneEksistLamelmaatter.unit: W/m·K
-    tekniskIsoleringVarmeledningsevneNyIsolering: Varmeledningsevne, ny isolering
-    tekniskIsoleringVarmeledningsevneNyIsolering.unit: W/m·K
+    tekniskisoleringVarmeledningsevneEksistLamelmaatter: Varmeledningsevne, eksist. lamelmåtter
+    tekniskisoleringVarmeledningsevneEksistLamelmaatter.unit: W/m·K
+    tekniskisoleringVarmeledningsevneNyIsolering: Varmeledningsevne, ny isolering
+    tekniskisoleringVarmeledningsevneNyIsolering.unit: W/m·K
     solcelletiltagdetailEnergiprisstigningPctPrAar: Energiprisstigning
     solcelletiltagdetailEnergiprisstigningPctPrAar.unit: %/år
     solcelletiltagdetailSalgsprisFoerste10AarKrKWh: Salgspris (Første 10 år)
@@ -640,9 +669,20 @@ appbundle:
     navn: Navn
     samletEleffektivitet: Samlet eleffektivitet:
     samletVarmeeffektivitet: Samlet varmeeffektivitet:
+  erstatningslyskilde:
+    antal: Antal
+    arbejdeOmfang: Arbejde / Omfang
+    id: id
+    nyeForkoblinger: Nye forkoblinger
+    nyeForkoblinger.unit: Stk./arm.
+    noter: Noter
+    pris: Pris
+    pris.unit: kr
+    wattage: Wattage
+    wattage.unit: W/Lysk.
   forsyningsvaerk:
     co2: CO2
-    co2noter: Noter (CO2)
+    co2Noter: Noter (CO2)
     co2y2009: CO2, 2009
     co2y2010: CO2, 2010
     co2y2011: CO2, 2011
@@ -713,6 +753,8 @@ appbundle:
     energiform: Energiform
     navn: Navn
     noter: Noter
+    noterTBeregningAfRabat: Noter til rabat
+    pris: Pris
     pris2009: Pris, 2009
     pris2010: Pris, 2010
     pris2011: Pris, 2011
@@ -781,6 +823,7 @@ appbundle:
     pris2074: Pris, 2074
     pris2075: Pris, 2075
     priser: Priser
+    vedForbrugOverKWh: Ved forbrug over
   klimaskaerm:
     arbejdeOmfang: Arbejde/omfang
     enhed: Enhed
@@ -848,7 +891,8 @@ appbundle:
     tOpvarmningTimerAar.unit: timer/år
     tUdeC: T_ude
     tUdeC.unit: °C
-    typePlaceringJfPlantegning: Type/placering jf. plantegning
+    type: Type
+    placering: Placering
     uEksWM2K: U_eks
     uEksWM2K.unit: W/m²K
     uNyWM2K: U_ny
@@ -857,6 +901,9 @@ appbundle:
     vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
+  nyttiggjortvarme:
+    faktor: Faktor for nyttiggjort varme
+    titel: Titel
   pumpe:
     aarsforbrug: Årsforbrug
     byggemaal: Byggemål
@@ -1063,7 +1110,7 @@ appbundle:
     investeringKr.unit: Kr
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
-    omkostningTilMaalerKr: Omkostning til måler
+    omkostningTilMaalerKr: Omkostning til måler pr. år
     omkostningTilMaalerKr.unit: Kr
     prisForNyInverterKr: Pris for ny inverter
     prisForNyInverterKr.unit: Kr
@@ -1158,12 +1205,14 @@ appbundle:
   tiltag:
     anlaegsInvestering: ﻿Entreprisesum
     anlaegsInvestering.unit: kr
+    opstartsomkostninger: Opstartsomkostninger
+    opstartsomkostninger.unit: kr
     anlaegsinvesteringExRisiko: ﻿Entreprisesum (eksl. risikovurdering)
     anlaegsinvesteringExRisiko.unit: kr
     antalReinvesteringer: Antal reinvesteringer
     antalReinvesteringer.unit: stk.
     beskrivelse: Beskrivelse
-    beskrivelseDriftOgVedligeholdelse: ﻿Beskrivelse af ændringer til D & V udgifter samt fremtidigt timeforbrug for driftspersonale
+    beskrivelseDriftOgVedligeholdelse: ﻿Beskrivelse af ændringer til D & V
     beskrivelseForslag: Forslag
     beskrivelseNuvaerende: Nuværende forhold
     beskrivelseOevrige: Øvrige bemærkninger
@@ -1327,7 +1376,8 @@ appbundle:
     tiltagsnrDelpriser: Tiltagsnr. Delpriser
     tilvalgt: Tilvalgt
     tilvalgteDeltiltag: Tilvalgte (deltiltag)
-    typePlaceringJfPlantegning: Type/placering jf. plantegning
+    type: Type
+    placering: Placering
     uEksWM2K: U_eks
     uEksWM2K.unit: W/m²K
     uNyWM2K: U_ny

@@ -1924,4 +1924,13 @@ class Rapport {
     return $value;
   }
 
+  public function canDeleteEnergiforsyning(Energiforsyning $energiforsyning) {
+    foreach ($this->getTiltag() as $tiltag) {
+      if ($tiltag->getForsyningVarme() == $energiforsyning || $tiltag->getForsyningEl() == $energiforsyning) {
+        return FALSE;
+      }
+    }
+    return TRUE;
+  }
+
 }

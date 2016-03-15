@@ -46,7 +46,7 @@ class Configuration {
    * @var float
    * @ORM\Column(name="rapport_driftomkosningerfaktor", type="decimal", scale=4, nullable=true)
    */
-  protected $rapportDriftomkosningerfaktor;
+  protected $rapportDriftomkostningerfaktor;
 
   /**
    * @var float
@@ -125,13 +125,13 @@ class Configuration {
   }
 
   public function setRapportDriftomkostningerfaktor($faktor) {
-    $this->rapportDriftomkosningerfaktor = $faktor;
+    $this->rapportDriftomkostningerfaktor = $faktor;
 
     return $this;
   }
 
   public function getRapportDriftomkostningerfaktor() {
-    return $this->rapportDriftomkosningerfaktor;
+    return $this->rapportDriftomkostningerfaktor;
   }
 
   public function setRapportNominelEnergiprisstigning($rapport_nominelEnergiprisstigning) {

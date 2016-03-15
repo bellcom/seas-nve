@@ -13,8 +13,8 @@ class NyttiggjortVarmeControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/tekniskisoleringtiltagdetail_nyttiggjortvarme/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /tekniskisoleringtiltagdetail_nyttiggjortvarme/");
+        $crawler = $client->request('GET', '/nyttiggjortvarme/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /nyttiggjortvarme/");
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Fill in the form and submit it

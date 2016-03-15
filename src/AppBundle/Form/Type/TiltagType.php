@@ -66,7 +66,9 @@ class TiltagType extends AbstractType {
       $builder->add('tilvalgtbegrundelse', null, array('required' => false));
       $builder->add('tilvalgtBegrundelseMagistrat', null, array('required' => false));
     }
-    $builder->add('title')->add('faktorForReinvesteringer');
+    $builder->add('title')
+      ->add('faktorForReinvesteringer')
+      ->add('opstartsomkostninger');
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder
@@ -85,13 +87,13 @@ class TiltagType extends AbstractType {
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
         'required' => FALSE,
       ))
-      ->add('beskrivelseNuvaerende')
-      ->add('beskrivelseForslag')
-      ->add('beskrivelseOevrige')
-      ->add('risikovurdering')
+      ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
+      ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
+      ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
+      ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
       ->add('placering')
-      ->add('beskrivelseDriftOgVedligeholdelse')
-      ->add('indeklima');
+      ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
+      ->add('indeklima', 'textarea', array('attr' => array('maxlength' => 800), 'required' => false));
 
     $builder->add('risikovurderingTeknisk', new RisikovurderingType(), array());
     $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
@@ -134,20 +136,7 @@ class TiltagType extends AbstractType {
         ->add('yderligereBesparelse')
         ->add('levetid');
 
-      $builder->add('primaerEnterprise', 'choice',
-        array(
-          'choices' => array(
-            'el' => 'El',
-            't/i' => 'Tømrer/Isolatør',
-            've' => 'VE',
-            'vvs' => 'VVS',
-            'hh' => 'Hårde hvidevarer',
-            'a' => 'Automatik',
-            'ia' => 'Interne i AAK'
-          ),
-          'required' => FALSE,
-          'empty_value' => '--'
-        ))
+      $builder->add('primaerEnterprise')
         ->add('tiltagskategori');
     }
   }
