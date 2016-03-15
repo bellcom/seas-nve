@@ -27,7 +27,8 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
         'empty_value' => 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.edit',
       ))
       ->add('klimaskaermOverskrevetPris')
-      ->add('typePlaceringJfPlantegning')
+      ->add('type')
+      ->add('placering')
       ->add('hoejdeElLaengdeM')
       ->add('breddeM')
       ->add('antalStk')
