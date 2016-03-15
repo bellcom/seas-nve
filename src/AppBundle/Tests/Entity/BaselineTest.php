@@ -7,7 +7,6 @@
 namespace AppBundle\Tests\Entity;
 
 use AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType;
-use AppBundle\DBAL\Types\Baseline\VarmeKildePrimaerType;
 use AppBundle\Entity\ELOKategori;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use AppBundle\Entity\Baseline;
@@ -99,5 +98,23 @@ class BaselineTest extends KernelTestCase {
     $baseline->calculate();
 
     $this->assertEquals(40.0, $baseline->getVarmeForbrugsdataPrimaer1GAFRegAar());
+  }
+
+  public function testCalculateVarmeForbrugsdataGAFNormal() {
+    $eloKategori = new ELOKategori();
+    $eloKategori->setAndelVarmeGUFFaktor(.2);
+
+    $baseline = new Baseline();
+    $baseline->setEloKategori($eloKategori);
+    $baseline->calculate();
+
+    $baseline->setVarmeForbrugsdataPrimaer1Forbrug(50.0);
+    $baseline->setVarmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter(GUFFastsaettesEfterType::GUF_ANDEL_I_PROCENT_PBA_ELO_NOEGLETAL);
+
+    $baseline->setVarmeForbrugsdataPrimaer1GDPeriode(1500.0);
+
+    $baseline->calculate(3000.0);
+
+    $this->assertEquals(80.0, $baseline->getVarmeForbrugsdataPrimaer1GAFNormal());
   }
 }

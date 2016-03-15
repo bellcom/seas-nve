@@ -2196,7 +2196,12 @@ class Baseline {
   // Calculations
   ///
 
-  public function calculate() {
+  /**
+   * Calculate the entity.
+   *
+   * @param float|NULL $GDNormalAar
+   */
+  public function calculate($GDNormalAar = NULL) {
     // El
     $this->elForbrugsdataPrimaerGennemsnit = $this->calculateElForbrugsdataPrimaerGennemsnit();
     $this->elForbrugsdataPrimaerNoegetal = $this->calculateElForbrugsdataPrimaerNoegetal();
@@ -2211,6 +2216,9 @@ class Baseline {
     $this->varmeForbrugsdataPrimaer1GAFRegAar = $this->calculateVarmeForbrugsdataGAFRegAar($this->varmeForbrugsdataPrimaer1Forbrug, $this->varmeForbrugsdataPrimaer1GUFRegAar);
     $this->varmeForbrugsdataPrimaer2GAFRegAar = $this->calculateVarmeForbrugsdataGAFRegAar($this->varmeForbrugsdataPrimaer2Forbrug, $this->varmeForbrugsdataPrimaer2GUFRegAar);
     $this->varmeForbrugsdataPrimaer3GAFRegAar = $this->calculateVarmeForbrugsdataGAFRegAar($this->varmeForbrugsdataPrimaer3Forbrug, $this->varmeForbrugsdataPrimaer3GUFRegAar);
+    $this->varmeForbrugsdataPrimaer1GAFnormal = $this->calculateVarmeForbrugsdataGAFNormal($this->varmeForbrugsdataPrimaer1GAFRegAar, $GDNormalAar, $this->varmeForbrugsdataPrimaer1GDPeriode);
+    $this->varmeForbrugsdataPrimaer2GAFnormal = $this->calculateVarmeForbrugsdataGAFNormal($this->varmeForbrugsdataPrimaer2GAFRegAar, $GDNormalAar, $this->varmeForbrugsdataPrimaer2GDPeriode);
+    $this->varmeForbrugsdataPrimaer3GAFnormal = $this->calculateVarmeForbrugsdataGAFNormal($this->varmeForbrugsdataPrimaer3GAFRegAar, $GDNormalAar, $this->varmeForbrugsdataPrimaer3GDPeriode);
   }
 
   /**
@@ -2366,6 +2374,18 @@ class Baseline {
   public function calculateVarmeForbrugsdataGAFRegAar($forbrugUkorrigeret, $GUFRegAar) {
     if (isset($forbrugUkorrigeret) && isset($GUFRegAar)) {
       return $forbrugUkorrigeret - $GUFRegAar;
+    }
+    return null;
+  }
+
+  /**
+   * Calculate VarmeForbrugsdataGAFNormal
+   *
+   * =IF(C22="";"";C26*(C27/C28))           // GAFreg.år * (GDnormal.år / GDperiode)
+   */
+  public function calculateVarmeForbrugsdataGAFNormal($GAFRegAar, $GDNormalAar, $GDPeriode) {
+    if (!empty($GDPeriode) && isset($GAFRegAar) && isset($GDNormalAar)) {
+      return $GAFRegAar * ($GDNormalAar / $GDPeriode);
     }
     return null;
   }
