@@ -27,7 +27,8 @@
           {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansEks') }}
           {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansNy') }}
           {{ helper.header('appbundle.vinduetiltagdetail.klimaskaerm') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.typePlaceringJfPlantegning') }}
+          {{ helper.header('appbundle.vinduetiltagdetail.type') }}
+          {{ helper.header('appbundle.vinduetiltagdetail.placering') }}
           {{ helper.header('appbundle.vinduetiltagdetail.hoejdeElLaengdeM') }}
           {{ helper.header('appbundle.vinduetiltagdetail.breddeM') }}
           {{ helper.header('appbundle.vinduetiltagdetail.antalStk') }}
@@ -58,7 +59,8 @@
           {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansEks') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansNy') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.klimaskaerm') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.typePlaceringJfPlantegning') }}
+          {{ helper.header_unit('appbundle.vinduetiltagdetail.type') }}
+          {{ helper.header_unit('appbundle.vinduetiltagdetail.placering') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.hoejdeElLaengdeM') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.breddeM') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.antalStk') }}
@@ -107,7 +109,8 @@
                 {{ 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.show' | trans }}
               {% endif %}
             </td>
-            <td>{{ detail.typePlaceringJfPlantegning }}</td>
+            <td>{{ detail.type }}</td>
+            <td>{{ detail.placering }}</td>
             <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
             <td>{{ detail.breddeM | format_decimal }}</td>
             <td>{{ detail.antalStk | format_integer }}</td>
