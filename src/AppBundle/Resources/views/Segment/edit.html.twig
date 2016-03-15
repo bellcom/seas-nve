@@ -1,8 +1,16 @@
-{% extends 'AppBundle::base.html.twig' %}
+  {% extends 'AppBundle::base.html.twig' %}
 
-{% block body -%}
-    <h1>{{ 'appbundle.segment.edit' | trans }}</h1>
 
-    {{ form(edit_form) }}
+  {% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'segment.actions.edit' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+    </div>
 
-{% endblock %}
+  </div>
+
+  {{ form(edit_form) }}
+
+    {% endblock %}

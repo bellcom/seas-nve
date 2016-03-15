@@ -108,7 +108,7 @@ class RapportController extends BaseController {
    * @return array
    */
   public function showAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport, $this->generateUrl('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
 
     $deleteForm = $this->createDeleteForm($rapport->getId())->createView();
     $editForm = $this->createEditFormFinansiering($rapport);
@@ -283,7 +283,7 @@ class RapportController extends BaseController {
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function editAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
 
     $editForm = $this->createEditForm($rapport);
@@ -343,6 +343,9 @@ class RapportController extends BaseController {
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function updateAction(Request $request, Rapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
+
     $deleteForm = $this->createDeleteForm($rapport->getId());
     $editForm = $this->createEditForm($rapport);
     $editForm->handleRequest($request);

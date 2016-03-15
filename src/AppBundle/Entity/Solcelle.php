@@ -45,6 +45,10 @@ class Solcelle {
    */
   protected $drift;
 
+  public function __toString() {
+    return $this->getKWp().' - '.$this->getInverterpris().' - '.$this->getDrift();
+  }
+
   public function getId() {
     return $this->id;
   }

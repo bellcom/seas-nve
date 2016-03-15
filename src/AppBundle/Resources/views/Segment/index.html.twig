@@ -1,40 +1,49 @@
-{% extends 'AppBundle::base.html.twig' %}
+  {% extends 'AppBundle::base.html.twig' %}
 
-{% block body -%}
-  <h1>{{ 'appbundle.segment.plural' | trans }}</h1>
 
-  <table class="table table-condensed table-hover">
+  {% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+        <h1>{{ 'segment.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+              <a class="btn btn-default" href="{{ path('segment_new') }}">
+          {{ icon('plus') }} {{ 'segment.actions.add' | trans }}
+        </a>
+          </div>
+
+  </div>
+
+
+  <table class="table table-condensed table-details">
     <thead>
     <tr>
-      <th>Navn</th>
-      <th>Forkortelse</th>
-      <th>Magistrat</th>
-      <th>Actions</th>
+        {{ helper.header('appbundle.segment.navn') }}
+        {{ helper.header('appbundle.segment.forkortelse') }}
+        {{ helper.header('appbundle.segment.magistrat') }}
+      {{ helper.header() }}
+    </tr>
+    <tr>
+        {{ helper.header_unit('appbundle.segment.navn') }}
+        {{ helper.header_unit('appbundle.segment.forkortelse') }}
+        {{ helper.header_unit('appbundle.segment.magistrat') }}
+      {{ helper.header_unit() }}
     </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
-      <tr>
-        <td><a href="{{ path('segment_show', { 'id': entity.id }) }}">{{ entity.navn }}</a></td>
+    <tr>
+        <td>{{ entity.navn }}</td>
         <td>{{ entity.forkortelse }}</td>
         <td>{{ entity.magistrat }}</td>
-        <td>
-          <a href="{{ path('segment_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-        </td>
-      </tr>
+      <td class="text-right">    <a class="btn btn-default btn-xs" href="{{ path('segment_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+      </td>
+
+    </tr>
     {% endfor %}
     </tbody>
   </table>
 
-  <div class="row">
-    <div class="col-md-4">
-      <a href="{{ path('segment_new') }}" class="btn btn-default">
-        {{ icon('plus') }} {{ 'segment.actions.add' | trans }}
-      </a>
-    </div>
-    <div class="col-md-8 text-right">
-
-    </div>
-  </div>
-
-{% endblock %}
+  {% endblock %}
