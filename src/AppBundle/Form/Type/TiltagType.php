@@ -66,7 +66,9 @@ class TiltagType extends AbstractType {
       $builder->add('tilvalgtbegrundelse', null, array('required' => false));
       $builder->add('tilvalgtBegrundelseMagistrat', null, array('required' => false));
     }
-    $builder->add('title')->add('faktorForReinvesteringer');
+    $builder->add('title')
+      ->add('faktorForReinvesteringer')
+      ->add('opstartsomkostninger');
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder
