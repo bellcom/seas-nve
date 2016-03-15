@@ -18,13 +18,14 @@
     </div>
     <div class="panel-body">
       <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.datering) }}
         {% if edit_form.elena is defined %}
           {{ form_row(edit_form.elena) }}
+          {{ form_row(edit_form.ava) }}
         {% endif %}
-        {{ form_row(edit_form.energiscreening) }}
       </div>
       <div class="col-xs-12 col-md-6">
-        {{ form_row(edit_form.datering) }}
+        {{ form_row(edit_form.energiscreening) }}
         {{ form_row(edit_form.faktorPaaVarmebesparelse) }}
       </div>
     </div>

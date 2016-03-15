@@ -9,6 +9,7 @@ namespace AppBundle\Controller;
 use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\RapportSearchType;
+use AppBundle\Form\Type\RapportStatusType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -43,6 +44,8 @@ class RapportController extends BaseController {
   public function indexAction(Request $request) {
     $rapport = new Rapport();
     $rapport->setDatering(null);
+    $rapport->setElena(null);
+    $rapport->setAva(null);
     $bygning = new Bygning();
     $bygning->setStatus(null);
     $rapport->setBygning($bygning);
@@ -66,6 +69,7 @@ class RapportController extends BaseController {
     $search['datering'] = $rapport->getDatering();
 
     $search['elena'] = $rapport->getElena();
+    $search['ava'] = $rapport->getAva();
 
     $user = $this->get('security.context')->getToken()->getUser();
 
@@ -297,44 +301,6 @@ class RapportController extends BaseController {
   }
 
   /**
-   * Creates a form to edit a Rapport entity.
-   *
-   * @param Rapport $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createEditForm(Rapport $entity) {
-    $form = $this->createForm(new RapportType($this->get('security.context')), $entity, array(
-      'action' => $this->generateUrl('rapport_update', array('id' => $entity->getId())),
-      'method' => 'PUT',
-    ));
-
-    $this->addUpdate($form, $this->generateUrl('rapport_show', array('id' => $entity->getId())));
-
-    return $form;
-  }
-
-  /**
-   * Creates a form to edit a Tiltag entity.
-   *
-   * @param Tiltag $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createEditTilvalgTilvalgtForm($entity, Rapport $rapport) {
-
-    $form = $this->createForm(new TiltagTilvalgtType($entity), $entity, array(
-      'action' => $this->generateUrl('tiltag_tilvalgt_update', array('id' => $entity->getId())),
-      'method' => 'PUT',
-    ));
-
-    $this->addUpdate($form);
-    //$form->add('submit', 'submit', array('label' => 'Create'));
-
-    return $form;
-  }
-
-  /**
    * Edits an existing Rapport entity.
    *
    * @Route("/{id}", name="rapport_update")
@@ -402,6 +368,44 @@ class RapportController extends BaseController {
     }
 
     return $this->redirect($this->generateUrl('rapport'));
+  }
+
+  /**
+   * Creates a form to edit a Rapport entity.
+   *
+   * @param Rapport $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditForm(Rapport $entity) {
+    $form = $this->createForm(new RapportType($this->get('security.context')), $entity, array(
+      'action' => $this->generateUrl('rapport_update', array('id' => $entity->getId())),
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form, $this->generateUrl('rapport_show', array('id' => $entity->getId())));
+
+    return $form;
+  }
+
+  /**
+   * Creates a form to edit a Tiltag entity.
+   *
+   * @param Tiltag $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditTilvalgTilvalgtForm($entity, Rapport $rapport) {
+
+    $form = $this->createForm(new TiltagTilvalgtType($entity), $entity, array(
+      'action' => $this->generateUrl('tiltag_tilvalgt_update', array('id' => $entity->getId())),
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form);
+    //$form->add('submit', 'submit', array('label' => 'Create'));
+
+    return $form;
   }
 
   //---------------- Rådgiver aflever -------------------//
@@ -542,12 +546,23 @@ class RapportController extends BaseController {
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createStatusForm($rapport, $route, $label) {
-    return $this->createFormBuilder()
-      ->setAction($this->generateUrl($route, array('id' => $rapport->getId())))
-      ->setMethod('PUT')
-      ->add('submit', 'submit', array('label' => $label))
-      ->getForm();
+  private function createStatusForm(Rapport $entity, $route, $label) {
+    $status = $entity->getBygning()->getStatus();
+
+    $form = $this->createForm(new RapportStatusType($this->get('security.context'), $status), $entity, array(
+      'action' => $this->generateUrl($route, array('id' => $entity->getId())),
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form, null, $label);
+
+    return $form;
+
+//    return $this->createFormBuilder(new RapportStatusType($this->get('security.context'), $entity))
+//      ->setAction($this->generateUrl($route, array('id' => $entity->getId())))
+//      ->setMethod('PUT')
+//      ->add('submit', 'submit', array('label' => $label))
+//      ->getForm();
   }
 
   //---------------- Tiltag -------------------//

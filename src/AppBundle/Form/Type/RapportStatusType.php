@@ -6,6 +6,8 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\Entity\Rapport;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,12 +17,14 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  * Class RapportType
  * @package AppBundle\Form
  */
-class RapportSearchType extends AbstractType {
+class RapportStatusType extends AbstractType {
   protected $authorizationChecker;
+  protected $status;
 
-  public function __construct(AuthorizationCheckerInterface $authorizationChecker)
+  public function __construct(AuthorizationCheckerInterface $authorizationChecker, $status)
   {
     $this->authorizationChecker = $authorizationChecker;
+    $this->status = $status;
   }
 
   /**
@@ -32,33 +36,22 @@ class RapportSearchType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder
-      ->add('bygning', new RapportSearchBygningEmbedType(), array('label' => false))
-      ->add('datering', 'text' , array('label' => false));
+//    $builder->add('ava');
 
-
-    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-      $builder->add('elena', 'choice', array(
-        'choices' => array(
-          '0' => 'Nej',
-          '1' => 'Ja',
-        ),
-        'empty_value' => '--',
-        'required' => FALSE,
-        'label' => FALSE
-      ));
+    if($this->status === BygningStatusType::UNDER_UDFOERSEL) {
       $builder->add('ava', 'choice', array(
         'choices' => array(
-          '0' => 'Nej',
-          '1' => 'Ja',
+          '0' => 'Ikke ansøgt AVA-støtte',
+          '1' => 'Ansøgt om AVA-støtte ',
         ),
         'empty_value' => '--',
-        'required' => FALSE,
-        'label' => FALSE
+        'required' => TRUE
       ));
     }
-
-    $builder->add('Søg', 'submit');
+//    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+//      $builder->add('elena');
+//      $builder->add('ava');
+//    }
   }
 
   /**
@@ -80,6 +73,6 @@ class RapportSearchType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'appbundle_rapport';
+    return 'appbundle_rapport_status';
   }
 }

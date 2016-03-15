@@ -370,6 +370,13 @@ class Rapport {
   protected $elena = FALSE;
 
   /**
+   * @var boolean
+   *
+   * @ORM\Column(name="ava", type="boolean", nullable=true)
+   */
+  protected $ava = FALSE;
+
+  /**
    * @var array of float
    *
    * @Calculated
@@ -1337,6 +1344,20 @@ class Rapport {
   public function getElKgCo2MWh($yearNumber = 1) {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
     return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh($this->getDatering()->format('Y') - 1 + $yearNumber);
+  }
+
+  /**
+   * @return boolean
+   */
+  public function getAva() {
+    return $this->ava;
+  }
+
+  /**
+   * @param boolean $ava
+   */
+  public function setAva($ava) {
+    $this->ava = $ava;
   }
 
   /**

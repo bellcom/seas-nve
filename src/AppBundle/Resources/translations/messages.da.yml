@@ -982,6 +982,7 @@ appbundle:
     varmebespIsokappeKWh: Varmebesp. iso.kappe
     varmebespIsokappeKWh.unit: kWh
   rapport:
+    ava: AVA
     BaselineEl: El
     BaselineEl.unit: kwh/år
     BaselineStrafAfkoeling: Strafafkøling
@@ -1066,6 +1067,7 @@ appbundle:
     nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. øvrige omkostninger
     nutidsvaerdiInklFaellesomkostninger.unit: kr
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
+    status.ava: AVA-støtte
     sum.unit: kr
     sum: Sum
     tiltag: Tiltag

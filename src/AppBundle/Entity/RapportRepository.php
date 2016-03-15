@@ -65,6 +65,11 @@ class RapportRepository extends EntityRepository {
         ->setParameter('elena', $search['elena']);
     }
 
+    if ($search['ava'] !== null) {
+      $qb->andWhere('r.ava = :ava')
+        ->setParameter('ava', $search['ava']);
+    }
+
     if (!empty($search['datering'])) {
       $qb->andWhere('r.datering LIKE :datering')
         ->setParameter('datering', $search['datering'] . '%');
