@@ -136,20 +136,7 @@ class TiltagType extends AbstractType {
         ->add('yderligereBesparelse')
         ->add('levetid');
 
-      $builder->add('primaerEnterprise', 'choice',
-        array(
-          'choices' => array(
-            'el' => 'El',
-            't/i' => 'Tømrer/Isolatør',
-            've' => 'VE',
-            'vvs' => 'VVS',
-            'hh' => 'Hårde hvidevarer',
-            'a' => 'Automatik',
-            'ia' => 'Interne i AAK'
-          ),
-          'required' => FALSE,
-          'empty_value' => '--'
-        ))
+      $builder->add('primaerEnterprise')
         ->add('tiltagskategori');
     }
   }

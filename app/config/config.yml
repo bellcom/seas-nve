@@ -81,6 +81,7 @@ doctrine:
             TiltagType: AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType
             PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
             RisikovurderingType: AppBundle\DBAL\Types\RisikovurderingType
+            PrimaerEnterpriseType: AppBundle\DBAL\Types\PrimaerEnterpriseType
         logging: false
         profiling: false
     orm:
