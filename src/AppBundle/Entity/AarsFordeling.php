@@ -43,84 +43,84 @@ class AarsFordeling {
   /**
    * @var float
    *
-   * @ORM\Column(name="januar", type="float", nullable=false)
+   * @ORM\Column(name="januar", type="float", nullable=true)
    */
   protected $januar;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="februar", type="float", nullable=false)
+   * @ORM\Column(name="februar", type="float", nullable=true)
    */
   protected $februar;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="marts", type="float", nullable=false)
+   * @ORM\Column(name="marts", type="float", nullable=true)
    */
   protected $marts;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="april", type="float", nullable=false)
+   * @ORM\Column(name="april", type="float", nullable=true)
    */
   protected $april;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="maj", type="float", nullable=false)
+   * @ORM\Column(name="maj", type="float", nullable=true)
    */
   protected $maj;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="juni", type="float", nullable=false)
+   * @ORM\Column(name="juni", type="float", nullable=true)
    */
   protected $juni;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="juli", type="float", nullable=false)
+   * @ORM\Column(name="juli", type="float", nullable=true)
    */
   protected $juli;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="august", type="float", nullable=false)
+   * @ORM\Column(name="august", type="float", nullable=true)
    */
   protected $august;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="september", type="float", nullable=false)
+   * @ORM\Column(name="september", type="float", nullable=true)
    */
   protected $september;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="oktober", type="float", nullable=false)
+   * @ORM\Column(name="oktober", type="float", nullable=true)
    */
   protected $oktober;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="november", type="float", nullable=false)
+   * @ORM\Column(name="november", type="float", nullable=true)
    */
   protected $november;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="december", type="float", nullable=false)
+   * @ORM\Column(name="december", type="float", nullable=true)
    */
   protected $december;
 
