@@ -2225,6 +2225,7 @@ class Baseline {
     $this->varmeForbrugsdataPrimaerGAFGennemsnit = $this->calculateAverageOfThree($this->varmeForbrugsdataPrimaer1GAFnormal, $this->varmeForbrugsdataPrimaer2GAFnormal, $this->varmeForbrugsdataPrimaer3GAFnormal);
     $this->varmeForbrugsdataPrimaerGUFGennemsnit = $this->calculateAverageOfThree($this->varmeForbrugsdataPrimaer1GUFRegAar, $this->varmeForbrugsdataPrimaer2GUFRegAar, $this->varmeForbrugsdataPrimaer3GUFRegAar);
     $this->varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret = $this->calculateAverageOfThree($this->varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret, $this->varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret, $this->varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret);
+    $this->varmeForbrugsdataPrimaerNoegletal = $this->calculateVarmeForbrugsdataNoegletal($this->getVarmeForbrugsdataPrimaerGennemsnitKlimakorrigeret());
   }
 
   /**
@@ -2343,6 +2344,18 @@ class Baseline {
   public function calculateVarmeForbrugsdataForbrugKlimakorrigeret($GUFRegAar, $varmeForbrugsdataGAFNormal) {
     if (isset($GUFRegAar) && isset($varmeForbrugsdataGAFNormal)) {
       return $GUFRegAar + $varmeForbrugsdataGAFNormal;
+    }
+    return null;
+  }
+
+  /**
+   * Calculate VarmeForbrugsdataNoegletal
+   *
+   * =IF('1. Areal'!D18="";"Indtast areal";IF(C35="";"";C35/'1. Areal'!D18))
+   */
+  public function calculateVarmeForbrugsdataNoegletal($varmeForbrugsdataGennemsnitKlimakorrigeret) {
+    if (isset($varmeForbrugsdataGennemsnitKlimakorrigeret) && !empty($this->arealTilNoegletalsanalyse)) {
+      return $varmeForbrugsdataGennemsnitKlimakorrigeret / $this->arealTilNoegletalsanalyse;
     }
     return null;
   }

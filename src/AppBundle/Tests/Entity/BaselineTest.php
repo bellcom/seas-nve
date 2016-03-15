@@ -108,6 +108,8 @@ class BaselineTest extends KernelTestCase {
     $baseline->setEloKategori($eloKategori);
     $baseline->calculate();
 
+    $baseline->setArealTilNoegletalsanalyse(95.0);
+
     $baseline->setVarmeForbrugsdataPrimaer1Forbrug(50.0);
     $baseline->setVarmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter(GUFFastsaettesEfterType::GUF_ANDEL_I_PROCENT_PBA_ELO_NOEGLETAL);
     $baseline->setVarmeForbrugsdataPrimaer1GDPeriode(1500.0);
@@ -127,5 +129,7 @@ class BaselineTest extends KernelTestCase {
     $this->assertEquals(80.0, $baseline->getVarmeForbrugsdataPrimaerGAFGennemsnit());
     $this->assertEquals(15.0, $baseline->getVarmeForbrugsdataPrimaerGUFGennemsnit());
     $this->assertEquals(95.0, $baseline->getVarmeForbrugsdataPrimaerGennemsnitKlimakorrigeret());
+
+    $this->assertEquals(1.0, $baseline->getVarmeForbrugsdataPrimaerNoegletal());
   }
 }
