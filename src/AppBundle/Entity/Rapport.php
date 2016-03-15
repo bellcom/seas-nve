@@ -1308,8 +1308,22 @@ class Rapport {
    * @return float
    */
   public function getVarmeKrKWh($yearNumber = 1) {
+    $value = 0;
+    $prisfaktor = 1;
+
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh($this->getDatering()->format('Y') - 1 + $yearNumber);
+    if ($forsyningsvaerk) {
+      $value = $forsyningsvaerk->getKrKWh($this->getDatering()->format('Y') - 1 + $yearNumber);
+    }
+    // Get prisfaktor from energiforsyning associated with bygnings forsyningsvaerk.
+    foreach ($this->getEnergiforsyninger() as $energiforsyning) {
+      if ($energiforsyning->getForsyningsvaerk() == $this->bygning->getForsyningsvaerkVarme()) {
+        $prisfaktor = $energiforsyning->getPrisfaktor();
+        break;
+      }
+    }
+
+    return $value * $prisfaktor;
   }
 
   /**
@@ -1317,8 +1331,22 @@ class Rapport {
    * @return float
    */
   public function getElKrKWh($yearNumber = 1) {
+    $value = 0;
+    $prisfaktor = 1;
+
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh($this->getDatering()->format('Y') - 1 + $yearNumber);
+    if ($forsyningsvaerk) {
+      $value = $forsyningsvaerk->getKrKWh($this->getDatering()->format('Y') - 1 + $yearNumber);
+    }
+    // Get prisfaktor from energiforsyning associated with bygnings forsyningsvaerk.
+    foreach ($this->getEnergiforsyninger() as $energiforsyning) {
+      if ($energiforsyning->getForsyningsvaerk() == $this->bygning->getForsyningsvaerkEl()) {
+        $prisfaktor = $energiforsyning->getPrisfaktor();
+        break;
+      }
+    }
+
+    return $value * $prisfaktor;
   }
 
   /**

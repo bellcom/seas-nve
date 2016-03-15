@@ -623,6 +623,11 @@ appbundle:
     solcelletiltagdetailSalgsprisEfter10AarKrKWh: Salgspris (Efter 10 år)
     solcelletiltagdetailSalgsprisEfter10AarKrKWh.unit: Kr/KWh
   energiforsyning:
+    forsyningsvaerk: Forsyningsværk
+    enhedspris: Enhedspris
+    prisfaktor: Prisfaktor
+    nyEnhedspris: Ny enhedspris
+    forsyningsvaerk: Forsyningsværk
     beskrivelse: Beskrivelse
     internproduktion:
       effektivitet: Effektivitet
