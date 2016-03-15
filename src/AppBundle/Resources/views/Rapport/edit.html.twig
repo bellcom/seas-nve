@@ -1,9 +1,53 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  <h1>{{ 'rapporter.actions.edit' | trans }}</h1>
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'rapporter.actions.edit' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+    </div>
 
+  </div>
 
-  {{ form(edit_form, { 'style': 'horizontal', 'align_with_widget': true }) }}
+  {{ form_start(edit_form) }}
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-12 col-md-6">
+        {% if edit_form.elena is defined %}
+          {{ form_row(edit_form.elena) }}
+        {% endif %}
+        {{ form_row(edit_form.energiscreening) }}
+      </div>
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.datering) }}
+        {{ form_row(edit_form.faktorPaaVarmebesparelse) }}
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ 'common.baseline' | trans }}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.BaselineEl) }}
+        {{ form_row(edit_form.BaselineVarmeGUF) }}
+        {{ form_row(edit_form.BaselineVarmeGAF) }}
+      </div>
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.BaselineVand) }}
+        {{ form_row(edit_form.BaselineStrafAfkoeling) }}
+      </div>
+    </div>
+  </div>
+
+  {{ form_rest(edit_form) }}
+  {{ form_end(edit_form) }}
 
 {% endblock %}

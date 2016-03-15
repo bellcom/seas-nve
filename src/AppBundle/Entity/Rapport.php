@@ -526,7 +526,7 @@ class Rapport {
    * @return string
    */
   public function __toString() {
-    return $this->getBygning()->getAdresse() . ", " . $this->version;
+    return $this->getBygning()->getAdresse() . ", v." . $this->getFullVersion();
   }
 
   /**
