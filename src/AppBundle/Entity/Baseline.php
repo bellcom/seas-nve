@@ -2203,9 +2203,9 @@ class Baseline {
    */
   public function calculate($GDNormalAar = NULL) {
     // El
-    $this->elForbrugsdataPrimaerGennemsnit = $this->calculateElForbrugsdataPrimaerGennemsnit();
+    $this->elForbrugsdataPrimaerGennemsnit = $this->calculateAverageOfThree($this->elForbrugsdataPrimaer1Forbrug, $this->elForbrugsdataPrimaer2Forbrug, $this->elForbrugsdataPrimaer3Forbrug);
     $this->elForbrugsdataPrimaerNoegetal = $this->calculateElForbrugsdataPrimaerNoegetal();
-    $this->elForbrugsdataSekundaerGennemsnit = $this->calculateElForbrugsdataSekundaerGennemsnit();
+    $this->elForbrugsdataSekundaerGennemsnit = $this->calculateAverageOfThree($this->elForbrugsdataSekundaer1Forbrug, $this->elForbrugsdataSekundaer2Forbrug, $this->elForbrugsdataSekundaer3Forbrug);
     $this->elForbrugsdataSekundaerNoegetal = $this->calculateElForbrugsdataSekundaerNoegetal();
     $this->elBaselineNoegletalForEjendom = $this->calculateElBaselineNoegletalForEjendom();
 
@@ -2222,36 +2222,9 @@ class Baseline {
     $this->varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret = $this->calculateVarmeForbrugsdataForbrugKlimakorrigeret($this->varmeForbrugsdataPrimaer1GUFRegAar, $this->varmeForbrugsdataPrimaer1GAFnormal);
     $this->varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret = $this->calculateVarmeForbrugsdataForbrugKlimakorrigeret($this->varmeForbrugsdataPrimaer2GUFRegAar, $this->varmeForbrugsdataPrimaer2GAFnormal);
     $this->varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret = $this->calculateVarmeForbrugsdataForbrugKlimakorrigeret($this->varmeForbrugsdataPrimaer3GUFRegAar, $this->varmeForbrugsdataPrimaer3GAFnormal);
-  }
-
-  /**
-   * Calculate ElForbrugsdataPrimaerGennemsnit
-   *
-   * =IF(AND(C21="";D21="";E21="");"";AVERAGE(C21:E21))
-   *
-   * @return float|null
-   */
-  public function calculateElForbrugsdataPrimaerGennemsnit() {
-    $sum = 0.0;
-    $number = 0;
-
-    if (isset($this->elForbrugsdataPrimaer1Forbrug)) {
-      $number++;
-      $sum += $this->elForbrugsdataPrimaer1Forbrug;
-    }
-    if (isset($this->elForbrugsdataPrimaer2Forbrug)) {
-      $number++;
-      $sum += $this->elForbrugsdataPrimaer2Forbrug;
-    }
-    if (isset($this->elForbrugsdataPrimaer3Forbrug)) {
-      $number++;
-      $sum += $this->elForbrugsdataPrimaer3Forbrug;
-    }
-
-    if ($number == 0) {
-      return null;
-    }
-    return $sum / $number;
+    $this->varmeForbrugsdataPrimaerGAFGennemsnit = $this->calculateAverageOfThree($this->varmeForbrugsdataPrimaer1GAFnormal, $this->varmeForbrugsdataPrimaer2GAFnormal, $this->varmeForbrugsdataPrimaer3GAFnormal);
+    $this->varmeForbrugsdataPrimaerGUFGennemsnit = $this->calculateAverageOfThree($this->varmeForbrugsdataPrimaer1GUFRegAar, $this->varmeForbrugsdataPrimaer2GUFRegAar, $this->varmeForbrugsdataPrimaer3GUFRegAar);
+    $this->varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret = $this->calculateAverageOfThree($this->varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret, $this->varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret, $this->varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret);
   }
 
   /**
@@ -2266,36 +2239,6 @@ class Baseline {
       return $this->elForbrugsdataPrimaerGennemsnit / $this->arealTilNoegletalsanalyse;
     }
     return null;
-  }
-
-  /**
-   * Calculate ElForbrugsdataSekundaerGennemsnit
-   *
-   * =IF(AND(C31="";D31="";E31="");"";AVERAGE(C31:E31))
-   *
-   * @return float|null
-   */
-  public function calculateElForbrugsdataSekundaerGennemsnit() {
-    $sum = 0.0;
-    $number = 0;
-
-    if (isset($this->elForbrugsdataSekundaer1Forbrug)) {
-      $number++;
-      $sum += $this->elForbrugsdataSekundaer1Forbrug;
-    }
-    if (isset($this->elForbrugsdataSekundaer2Forbrug)) {
-      $number++;
-      $sum += $this->elForbrugsdataSekundaer2Forbrug;
-    }
-    if (isset($this->elForbrugsdataSekundaer3Forbrug)) {
-      $number++;
-      $sum += $this->elForbrugsdataSekundaer3Forbrug;
-    }
-
-    if ($number == 0) {
-      return null;
-    }
-    return $sum / $number;
   }
 
   /**
@@ -2402,5 +2345,36 @@ class Baseline {
       return $GUFRegAar + $varmeForbrugsdataGAFNormal;
     }
     return null;
+  }
+
+  /**
+   * Calculates the average of three values if set.
+   *
+   * @param float $value1
+   * @param float $value2
+   * @param float $value3
+   * @return float|null
+   */
+  public function calculateAverageOfThree($value1, $value2, $value3) {
+    $sum = 0.0;
+    $number = 0;
+
+    if (isset($value1)) {
+      $number++;
+      $sum += $value1;
+    }
+    if (isset($value2)) {
+      $number++;
+      $sum += $value2;
+    }
+    if (isset($value3)) {
+      $number++;
+      $sum += $value3;
+    }
+
+    if ($number == 0) {
+      return null;
+    }
+    return $sum / $number;
   }
 }
