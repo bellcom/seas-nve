@@ -2219,6 +2219,9 @@ class Baseline {
     $this->varmeForbrugsdataPrimaer1GAFnormal = $this->calculateVarmeForbrugsdataGAFNormal($this->varmeForbrugsdataPrimaer1GAFRegAar, $GDNormalAar, $this->varmeForbrugsdataPrimaer1GDPeriode);
     $this->varmeForbrugsdataPrimaer2GAFnormal = $this->calculateVarmeForbrugsdataGAFNormal($this->varmeForbrugsdataPrimaer2GAFRegAar, $GDNormalAar, $this->varmeForbrugsdataPrimaer2GDPeriode);
     $this->varmeForbrugsdataPrimaer3GAFnormal = $this->calculateVarmeForbrugsdataGAFNormal($this->varmeForbrugsdataPrimaer3GAFRegAar, $GDNormalAar, $this->varmeForbrugsdataPrimaer3GDPeriode);
+    $this->varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret = $this->calculateVarmeForbrugsdataForbrugKlimakorrigeret($this->varmeForbrugsdataPrimaer1GUFRegAar, $this->varmeForbrugsdataPrimaer1GAFnormal);
+    $this->varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret = $this->calculateVarmeForbrugsdataForbrugKlimakorrigeret($this->varmeForbrugsdataPrimaer2GUFRegAar, $this->varmeForbrugsdataPrimaer2GAFnormal);
+    $this->varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret = $this->calculateVarmeForbrugsdataForbrugKlimakorrigeret($this->varmeForbrugsdataPrimaer3GUFRegAar, $this->varmeForbrugsdataPrimaer3GAFnormal);
   }
 
   /**
@@ -2386,6 +2389,17 @@ class Baseline {
   public function calculateVarmeForbrugsdataGAFNormal($GAFRegAar, $GDNormalAar, $GDPeriode) {
     if (!empty($GDPeriode) && isset($GAFRegAar) && isset($GDNormalAar)) {
       return $GAFRegAar * ($GDNormalAar / $GDPeriode);
+    }
+    return null;
+  }
+
+  /**
+   * =IF(C22="";"";C25+C26*(C27/C28))       // If !Forbrug,(kWh/år),ukorrigeret   return NULL
+   *                                        // Else return  GUFreg.år + GAFreg.år * (GDnormal.år / GDperiode)
+   */
+  public function calculateVarmeForbrugsdataForbrugKlimakorrigeret($GUFRegAar, $varmeForbrugsdataGAFNormal) {
+    if (isset($GUFRegAar) && isset($varmeForbrugsdataGAFNormal)) {
+      return $GUFRegAar + $varmeForbrugsdataGAFNormal;
     }
     return null;
   }

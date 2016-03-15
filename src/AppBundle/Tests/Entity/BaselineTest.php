@@ -100,7 +100,7 @@ class BaselineTest extends KernelTestCase {
     $this->assertEquals(40.0, $baseline->getVarmeForbrugsdataPrimaer1GAFRegAar());
   }
 
-  public function testCalculateVarmeForbrugsdataGAFNormal() {
+  public function testCalculateVarmeForbrugsdataGAFNormalAndCalculateVarmeForbrugsdataForbrugKlimakorrigeret() {
     $eloKategori = new ELOKategori();
     $eloKategori->setAndelVarmeGUFFaktor(.2);
 
@@ -116,5 +116,6 @@ class BaselineTest extends KernelTestCase {
     $baseline->calculate(3000.0);
 
     $this->assertEquals(80.0, $baseline->getVarmeForbrugsdataPrimaer1GAFNormal());
+    $this->assertEquals(90.0, $baseline->getVarmeForbrugsdataPrimaer1ForbrugKlimakorrigeret());
   }
 }
