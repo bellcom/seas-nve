@@ -50,15 +50,15 @@ class GraddageFordeling extends AarsFordeling {
   /**
    * @return string
    */
-  public function getTitle() {
-    return $this->title;
+  public function getTitel() {
+    return $this->titel;
   }
 
   /**
-   * @param string $title
+   * @param string $titel
    */
-  public function setTitle($title) {
-    $this->title = $title;
+  public function setTitel($titel) {
+    $this->titel = $titel;
   }
 
   /**
@@ -72,5 +72,9 @@ class GraddageFordeling extends AarsFordeling {
       $this->april + $this->maj + $this->juni +
       $this->juli + $this->august + $this->september +
       $this->oktober + $this->november + $this->december;
+  }
+
+  public function __toString() {
+    return $this->titel;
   }
 }

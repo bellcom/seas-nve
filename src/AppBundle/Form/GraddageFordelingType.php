@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ELOKategoriType extends AbstractType
+class GraddageFordelingType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,13 +15,19 @@ class ELOKategoriType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('navn')
-            ->add('totalVarmeforbrug')
-            ->add('totalElforbrug')
-            ->add('andelVarmeGUFFaktor')
-            ->add('fordelingVarmeGUF')
-            ->add('fordelingVarmeGAF')
-            ->add('fordelingEl')
+            ->add('titel')
+            ->add('januar')
+            ->add('februar')
+            ->add('marts')
+            ->add('april')
+            ->add('maj')
+            ->add('juni')
+            ->add('juli')
+            ->add('august')
+            ->add('september')
+            ->add('oktober')
+            ->add('november')
+            ->add('december')
         ;
     }
     
@@ -31,7 +37,7 @@ class ELOKategoriType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ELOKategori'
+            'data_class' => 'AppBundle\Entity\GraddageFordeling'
         ));
     }
 
@@ -40,6 +46,6 @@ class ELOKategoriType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_elokategori';
+        return 'appbundle_graddagefordeling';
     }
 }

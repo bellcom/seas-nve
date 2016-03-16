@@ -87,4 +87,8 @@ class ELOFordeling extends AarsFordeling {
   public function setEloKategoriFordelingEl($eloKategoriFordelingEl) {
     $this->eloKategoriFordelingEl = $eloKategoriFordelingEl;
   }
+
+  public function __toString() {
+    return "" . $this->getId();
+  }
 }

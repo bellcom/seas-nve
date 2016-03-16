@@ -7,16 +7,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\ELOKategori;
 use AppBundle\Form\ELOKategoriType;
+use AppBundle\Controller\BaseController;
 
 /**
  * ELOKategori controller.
  *
  * @Route("/elokategori")
+ * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
-class ELOKategoriController extends Controller
+class ELOKategoriController extends BaseController
 {
+
+  public function init(Request $request) {
+    parent::init($request);
+    $this->breadcrumbs->addItem('elokategori.labels.singular', $this->generateUrl('elokategori'));
+}
+
 
     /**
      * Lists all ELOKategori entities.
@@ -53,7 +62,8 @@ class ELOKategoriController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('elokategori_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('elokategori'));
+
         }
 
         return array(
@@ -76,7 +86,7 @@ class ELOKategoriController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $this->addUpdate($form, $this->generateUrl('elokategori'));
 
         return $form;
     }
@@ -90,6 +100,8 @@ class ELOKategoriController extends Controller
      */
     public function newAction()
     {
+        $this->breadcrumbs->addItem('common.add', $this->generateUrl('elokategori'));
+
         $entity = new ELOKategori();
         $form   = $this->createCreateForm($entity);
 
@@ -108,9 +120,11 @@ class ELOKategoriController extends Controller
      */
     public function showAction($id)
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:ELOKategori')->find($id);
+        $this->breadcrumbs->addItem($entity, $this->generateUrl('elokategori_show', array('id' => $entity->getId())));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ELOKategori entity.');
@@ -131,18 +145,17 @@ class ELOKategoriController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(ELOKategori $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:ELOKategori')->find($id);
+        $this->breadcrumbs->addItem($entity, $this->generateUrl('elokategori_show', array('id' => $entity->getId())));
+        $this->breadcrumbs->addItem('common.edit', $this->generateUrl('elokategori_show', array('id' => $entity->getId())));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ELOKategori entity.');
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($entity->getId());
 
         return array(
             'entity'      => $entity,
@@ -165,7 +178,7 @@ class ELOKategoriController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $this->addUpdate($form, $this->generateUrl('elokategori_show', array('id' => $entity->getId())));
 
         return $form;
     }
@@ -193,7 +206,7 @@ class ELOKategoriController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('elokategori_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('elokategori'));
         }
 
         return array(

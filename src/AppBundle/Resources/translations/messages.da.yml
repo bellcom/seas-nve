@@ -159,6 +159,34 @@ configuration:
     plural: Indstillinger
     singular: Indstillinger
   strings:
+elofordeling:
+  actions:
+    add: Tilføj ELO-fordeling
+    create: Opret ELO-fordeling
+    edit: Rediger ELO-fordeling
+    indfoer: Indfør ELO-fordeling
+    show: Vis ELO-fordeling
+  confirmation:
+    baseline_infoert: ELO-fordeling data verificeret
+  labels:
+    plural: ELO-fordelinger
+    singular: ELO-fordeling
+  strings:
+    ingen: Ingen ELO-fordeling fundet
+elokategori:
+  actions:
+    add: Tilføj ELO-kategori
+    create: Opret ELO-kategori
+    edit: Rediger ELO-kategori
+    indfoer: Indfør ELO-kategori
+    show: Vis ELO-kategori
+  confirmation:
+    baseline_infoert: ELO-kategori data verificeret
+  labels:
+    plural: ELO-kategorier
+    singular: ELO-kategori
+  strings:
+    ingen: Ingen ELO-kategori fundet
 energiforsyninger:
   actions:
     add: Tilføj energiforsyning
@@ -186,6 +214,20 @@ forsyningsvaerk:
   labels:
     plural: Forsyningsværker
     singular: Forsyningsværk
+graddagefordeling:
+  actions:
+    add: Tilføj Graddage-fordeling
+    create: Opret Graddage-fordeling
+    edit: Rediger Graddage-fordeling
+    indfoer: Indfør Graddage-fordeling
+    show: Vis Graddage-fordeling
+  confirmation:
+    baseline_infoert: Graddage-fordeling data verificeret
+  labels:
+    plural: Graddage-fordelinger
+    singular: Graddage-fordeling
+  strings:
+    ingen: Ingen Graddage-fordeling fundet
 klimaskaerm:
   actions:
     add: Tilføj klimaskærm
@@ -766,6 +808,34 @@ appbundle:
     solcelletiltagdetailSalgsprisFoerste10AarKrKWh.unit: Kr/KWh
     solcelletiltagdetailSalgsprisEfter10AarKrKWh: Salgspris (Efter 10 år)
     solcelletiltagdetailSalgsprisEfter10AarKrKWh.unit: Kr/KWh
+  elofordeling:
+    januar: Januar
+    februar: Februar
+    marts: Marts
+    april: April
+    maj: Maj
+    juni: Juni
+    juli: Juli
+    august: August
+    september: September
+    oktober: Oktober
+    november: November
+    december: December
+    eloKategoriFordelingVarmeGUF: ELO-kategori VarmeGUF
+    eloKategoriFordelingVarmeGAF: ELO-kategori VarmeGAF
+    eloKategoriFordelingEl: ELO-kategori El
+  elokategori:
+    navn: Navn
+    totalVarmeforbrug: Total varmeforbrug
+    totalElforbrug: Total elforbrug
+    andelVarmeGUFFaktor: Andel varme GUF
+    createdBy: Oprettet af
+    updatedBy: Opdateret af
+    createdAt: Oprettet
+    updatedAt: Opdateret
+    fordelingVarmeGUF: ELO-fordeling VarmeGUF
+    fordelingVarmeGAF: ELO-fordeling VarmeGAF
+    fordelingEl: ELO-fordeling El
   energiforsyning:
     beskrivelse: Beskrivelse
     internproduktion:
@@ -969,6 +1039,20 @@ appbundle:
     pris2075: Pris, 2075
     priser: Priser
     vedForbrugOverKWh: Ved forbrug over
+  graddagefordeling:
+    januar: Januar
+    februar: Februar
+    marts: Marts
+    april: April
+    maj: Maj
+    juni: Juni
+    juli: Juli
+    august: August
+    september: September
+    oktober: Oktober
+    november: November
+    december: December
+    titel: Titel
   klimaskaerm:
     arbejdeOmfang: Arbejde/omfang
     enhed: Enhed

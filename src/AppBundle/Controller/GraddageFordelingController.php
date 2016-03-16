@@ -8,29 +8,29 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use AppBundle\Entity\ELOFordeling;
-use AppBundle\Form\ELOFordelingType;
+use AppBundle\Entity\GraddageFordeling;
+use AppBundle\Form\GraddageFordelingType;
 use AppBundle\Controller\BaseController;
 
 /**
- * ELOFordeling controller.
+ * GraddageFordeling controller.
  *
- * @Route("/elofordeling")
+ * @Route("/graddage")
  * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
-class ELOFordelingController extends BaseController
+class GraddageFordelingController extends BaseController
 {
 
   public function init(Request $request) {
     parent::init($request);
-    $this->breadcrumbs->addItem('elofordeling.labels.singular', $this->generateUrl('elofordeling'));
+    $this->breadcrumbs->addItem('graddagefordeling.labels.singular', $this->generateUrl('graddage'));
 }
 
 
     /**
-     * Lists all ELOFordeling entities.
+     * Lists all GraddageFordeling entities.
      *
-     * @Route("/", name="elofordeling")
+     * @Route("/", name="graddage")
      * @Method("GET")
      * @Template()
      */
@@ -38,22 +38,22 @@ class ELOFordelingController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:ELOFordeling')->findAll();
+        $entities = $em->getRepository('AppBundle:GraddageFordeling')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new ELOFordeling entity.
+     * Creates a new GraddageFordeling entity.
      *
-     * @Route("/", name="elofordeling_create")
+     * @Route("/", name="graddage_create")
      * @Method("POST")
-     * @Template("AppBundle:ELOFordeling:new.html.twig")
+     * @Template("AppBundle:GraddageFordeling:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new ELOFordeling();
+        $entity = new GraddageFordeling();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -62,7 +62,7 @@ class ELOFordelingController extends BaseController
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('elofordeling'));
+            return $this->redirect($this->generateUrl('graddage'));
 
         }
 
@@ -73,36 +73,36 @@ class ELOFordelingController extends BaseController
     }
 
     /**
-     * Creates a form to create a ELOFordeling entity.
+     * Creates a form to create a GraddageFordeling entity.
      *
-     * @param ELOFordeling $entity The entity
+     * @param GraddageFordeling $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(ELOFordeling $entity)
+    private function createCreateForm(GraddageFordeling $entity)
     {
-        $form = $this->createForm(new ELOFordelingType(), $entity, array(
-            'action' => $this->generateUrl('elofordeling_create'),
+        $form = $this->createForm(new GraddageFordelingType(), $entity, array(
+            'action' => $this->generateUrl('graddage_create'),
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('elofordeling'));
+        $this->addUpdate($form, $this->generateUrl('graddage'));
 
         return $form;
     }
 
     /**
-     * Displays a form to create a new ELOFordeling entity.
+     * Displays a form to create a new GraddageFordeling entity.
      *
-     * @Route("/new", name="elofordeling_new")
+     * @Route("/new", name="graddage_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $this->breadcrumbs->addItem('common.add', $this->generateUrl('elofordeling'));
+        $this->breadcrumbs->addItem('common.add', $this->generateUrl('graddage'));
 
-        $entity = new ELOFordeling();
+        $entity = new GraddageFordeling();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -112,9 +112,9 @@ class ELOFordelingController extends BaseController
     }
 
     /**
-     * Finds and displays a ELOFordeling entity.
+     * Finds and displays a GraddageFordeling entity.
      *
-     * @Route("/{id}", name="elofordeling_show")
+     * @Route("/{id}", name="graddage_show")
      * @Method("GET")
      * @Template()
      */
@@ -123,11 +123,11 @@ class ELOFordelingController extends BaseController
 
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:ELOFordeling')->find($id);
-        $this->breadcrumbs->addItem($entity, $this->generateUrl('elofordeling_show', array('id' => $entity->getId())));
+        $entity = $em->getRepository('AppBundle:GraddageFordeling')->find($id);
+        $this->breadcrumbs->addItem($entity, $this->generateUrl('graddage_show', array('id' => $entity->getId())));
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ELOFordeling entity.');
+            throw $this->createNotFoundException('Unable to find GraddageFordeling entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -139,19 +139,19 @@ class ELOFordelingController extends BaseController
     }
 
     /**
-     * Displays a form to edit an existing ELOFordeling entity.
+     * Displays a form to edit an existing GraddageFordeling entity.
      *
-     * @Route("/{id}/edit", name="elofordeling_edit")
+     * @Route("/{id}/edit", name="graddage_edit")
      * @Method("GET")
      * @Template()
      */
-    public function editAction(ELOFordeling $entity)
+    public function editAction(GraddageFordeling $entity)
     {
-        $this->breadcrumbs->addItem($entity, $this->generateUrl('elofordeling_show', array('id' => $entity->getId())));
-        $this->breadcrumbs->addItem('common.edit', $this->generateUrl('elofordeling_show', array('id' => $entity->getId())));
+        $this->breadcrumbs->addItem($entity, $this->generateUrl('graddage_show', array('id' => $entity->getId())));
+        $this->breadcrumbs->addItem('common.edit', $this->generateUrl('graddage_show', array('id' => $entity->getId())));
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ELOFordeling entity.');
+            throw $this->createNotFoundException('Unable to find GraddageFordeling entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -165,38 +165,38 @@ class ELOFordelingController extends BaseController
     }
 
     /**
-    * Creates a form to edit a ELOFordeling entity.
+    * Creates a form to edit a GraddageFordeling entity.
     *
-    * @param ELOFordeling $entity The entity
+    * @param GraddageFordeling $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(ELOFordeling $entity)
+    private function createEditForm(GraddageFordeling $entity)
     {
-        $form = $this->createForm(new ELOFordelingType(), $entity, array(
-            'action' => $this->generateUrl('elofordeling_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new GraddageFordelingType(), $entity, array(
+            'action' => $this->generateUrl('graddage_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('elofordeling_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('graddage_show', array('id' => $entity->getId())));
 
         return $form;
     }
     /**
-     * Edits an existing ELOFordeling entity.
+     * Edits an existing GraddageFordeling entity.
      *
-     * @Route("/{id}", name="elofordeling_update")
+     * @Route("/{id}", name="graddage_update")
      * @Method("PUT")
-     * @Template("AppBundle:ELOFordeling:edit.html.twig")
+     * @Template("AppBundle:GraddageFordeling:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:ELOFordeling')->find($id);
+        $entity = $em->getRepository('AppBundle:GraddageFordeling')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ELOFordeling entity.');
+            throw $this->createNotFoundException('Unable to find GraddageFordeling entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -206,7 +206,7 @@ class ELOFordelingController extends BaseController
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('elofordeling'));
+            return $this->redirect($this->generateUrl('graddage'));
         }
 
         return array(
@@ -216,9 +216,9 @@ class ELOFordelingController extends BaseController
         );
     }
     /**
-     * Deletes a ELOFordeling entity.
+     * Deletes a GraddageFordeling entity.
      *
-     * @Route("/{id}", name="elofordeling_delete")
+     * @Route("/{id}", name="graddage_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -228,21 +228,21 @@ class ELOFordelingController extends BaseController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:ELOFordeling')->find($id);
+            $entity = $em->getRepository('AppBundle:GraddageFordeling')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find ELOFordeling entity.');
+                throw $this->createNotFoundException('Unable to find GraddageFordeling entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('elofordeling'));
+        return $this->redirect($this->generateUrl('graddage'));
     }
 
     /**
-     * Creates a form to delete a ELOFordeling entity by id.
+     * Creates a form to delete a GraddageFordeling entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -251,7 +251,7 @@ class ELOFordelingController extends BaseController
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('elofordeling_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('graddage_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

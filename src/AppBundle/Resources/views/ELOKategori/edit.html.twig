@@ -1,16 +1,24 @@
-{% extends '::base.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
 
-{% block body -%}
-    <h1>ELOKategori edit</h1>
+  {% block body -%}
+    <div class="row heading">
+      <div class="col-md-9">
+        <h1>{{ 'elokategori.actions.edit' | trans }}</h1>
+      </div>
+      <div class="col-md-3 text-right">
+        {{ form(delete_form) }}
+      </div>
 
-    {{ form(edit_form) }}
+    </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('elokategori') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
-{% endblock %}
+    {{ form_start(edit_form) }}
+    {{ form_row(edit_form.navn) }}
+    {{ form_row(edit_form.totalVarmeforbrug) }}
+    {{ form_row(edit_form.totalElforbrug) }}
+    {{ form_row(edit_form.andelVarmeGUFFaktor) }}
+
+    {{ form_rest(edit_form) }}
+
+    {{ form_end(edit_form) }}
+
+  {% endblock %}
