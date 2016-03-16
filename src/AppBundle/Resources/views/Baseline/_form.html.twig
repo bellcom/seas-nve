@@ -88,6 +88,13 @@
           </tbody>
         </table>
         {{ form_row(edit_form.elForbrugsdataPrimaerGennemsnit) }}
+        <div class="form-group">
+          <label class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
+          <div class="input-group">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalElforbrug }}">
+            <span class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
+          </div>
+        </div>
         {{ form_row(edit_form.elForbrugsdataPrimaerNoegetal) }}
         {{ form_row(edit_form.elForbrugsdataPrimaerNoter) }}
       </div>
@@ -127,6 +134,13 @@
           </tbody>
         </table>
         {{ form_row(edit_form.elForbrugsdataSekundaerGennemsnit) }}
+        <div class="form-group">
+          <label class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
+          <div class="input-group">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalElforbrug }}">
+            <span class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
+          </div>
+        </div>
         {{ form_row(edit_form.elForbrugsdataSekundaerNoegetal) }}
         {{ form_row(edit_form.elForbrugsdataSekundaerNoter) }}
       </div>
@@ -140,6 +154,13 @@
         class="panel-heading">{{ icon('flash') }} {{ 'appbundle.baseline.elGenerelt' | trans }}</div>
       <div class="panel-body">
         {{ form_row(edit_form.elBaselineFastsatForEjendom) }}
+        <div class="form-group">
+          <label class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
+          <div class="input-group">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalElforbrug }}">
+            <span class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
+          </div>
+        </div>
         {{ form_row(edit_form.elBaselineNoegletalForEjendom) }}
         {{ form_row(edit_form.elBaselineNoter) }}
       </div>
@@ -200,6 +221,12 @@
             <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GAFRegAar) }}</td>
           </tr>
           <tr>
+            <td><label class="control-label">{{ 'appbundle.baseline.gdNormal' | trans }}</label></td>
+            <td><input type="text" disabled="disabled" class="form-control" value="{{ graddage_normal }}"></td>
+            <td><input type="text" disabled="disabled" class="form-control" value="{{ graddage_normal }}"></td>
+            <td><input type="text" disabled="disabled" class="form-control" value="{{ graddage_normal }}"></td>
+          </tr>
+          <tr>
             <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GDPeriode) }}</td>
             <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GDPeriode) }}</td>
             <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GDPeriode) }}</td>
@@ -222,6 +249,13 @@
         {{ form_row(edit_form.varmeForbrugsdataPrimaerGAFGennemsnit) }}
         {{ form_row(edit_form.varmeForbrugsdataPrimaerGUFGennemsnit) }}
         {{ form_row(edit_form.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret) }}
+        <div class="form-group">
+          <label class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
+          <div class="input-group">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalVarmeforbrug }}">
+            <span class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
+          </div>
+        </div>
         {{ form_row(edit_form.varmeForbrugsdataPrimaerNoegletal) }}
         {{ form_row(edit_form.varmeForbrugsdataPrimaerNoter) }}
       </div>
@@ -278,6 +312,12 @@
             <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GAFRegAar) }}</td>
           </tr>
           <tr>
+            <td><label class="control-label">{{ 'appbundle.baseline.gdNormal' | trans }}</label></td>
+            <td><input type="text" disabled="disabled" class="form-control" value="{{ graddage_normal }}"></td>
+            <td><input type="text" disabled="disabled" class="form-control" value="{{ graddage_normal }}"></td>
+            <td><input type="text" disabled="disabled" class="form-control" value="{{ graddage_normal }}"></td>
+          </tr>
+          <tr>
             <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GDPeriode) }}</td>
             <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GDPeriode) }}</td>
             <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GDPeriode) }}</td>
@@ -300,6 +340,13 @@
         {{ form_row(edit_form.varmeForbrugsdataSekundaerGAFGennemsnit) }}
         {{ form_row(edit_form.varmeForbrugsdataSekundaerGUFGennemsnit) }}
         {{ form_row(edit_form.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret) }}
+        <div class="form-group">
+          <label class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
+          <div class="input-group">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalVarmeforbrug }}">
+            <span class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
+          </div>
+        </div>
         {{ form_row(edit_form.varmeForbrugsdataSekundaerNoegletal) }}
         {{ form_row(edit_form.varmeForbrugsdataSekundaerNoter) }}
       </div>
@@ -315,6 +362,13 @@
         {{ form_row(edit_form.varmeGAFForbrug) }}
         {{ form_row(edit_form.varmeGUFForbrug) }}
         {{ form_row(edit_form.varmeBaselineFastsatForEjendom) }}
+        <div class="form-group">
+          <label class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
+          <div class="input-group">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalVarmeforbrug }}">
+            <span class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
+          </div>
+        </div>
         {{ form_row(edit_form.varmeBaselineNoegletalForEjendom) }}
         {{ form_row(edit_form.varmeStrafafkoelingsafgift) }}
         {{ form_row(edit_form.varmeBaselineNoter) }}

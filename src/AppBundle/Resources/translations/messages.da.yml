@@ -463,7 +463,7 @@ appbundle:
     arealdataSekundaerAreal: Areal
     arealdataSekundaerAreal.unit: m²
     arealdataSekundaerNoter: Evt. bemærkninger
-    arealGenerelt: Konklusioner (Areal)
+    arealGenerelt: Konklusion (Areal)
     arealPrimaer: Primær kilde
     arealSekundaer: Sekundær kilde
     arealTilNoegletalsanalyse: Areal, der skal benyttes til nøgletalsanalyse
@@ -490,10 +490,15 @@ appbundle:
     elForbrugsdataSekundaerNoegetal: Nøgletal for sekundær kilde
     elForbrugsdataSekundaerNoegetal.unit: kWh/m² pr år
     elForbrugsdataSekundaerNoter: Evt. bemærkninger
-    elGenerelt: Konklusioner (El)
-    elPrimaer: Primær kilde
-    elSekundaer: Sekundær kilde
+    elGenerelt: Baseline til udbudsmateriale, årlig (El)
+    elPrimaer: Primær kilde (El)
+    elSekundaer: Sekundær kilde (El)
+    eloElTotalForbrug: ELO-nøgletal for valgt kategori
+    eloElTotalForbrug.unit: kWh/m² pr år
+    eloVarmeTotalForbrug: ELO-nøgletal for valgt kategori
+    eloVarmeTotalForbrug.unit: kWh/m² pr år
     generelt: Generelt
+    gdNormal: GDnormal.år
     varme: Varme
     varmeBaselineFastsatForEjendom: Fastsat baseline for ejendom
     varmeBaselineFastsatForEjendom.unit: kWh/år
@@ -540,11 +545,11 @@ appbundle:
     varmeForbrugsdataSekundaerNoter: Evt. bemærkninger
     varmeGAFForbrug: GAF-forbrug
     varmeGAFForbrug.unit: kWh/år
-    varmeGenerelt: Konklusioner (Varme)
+    varmeGenerelt: Baseline til udbudsmateriale, årlig (Varme)
     varmeGUFForbrug: GUF-forbrug
     varmeGUFForbrug.unit: kWh/år
-    varmePrimaer: Primær kilde
-    varmeSekundaer: Sekundær kilde
+    varmePrimaer: Primær kilde (Varme)
+    varmeSekundaer: Sekundær kilde (Varme)
     varmeStrafafkoelingsafgift: Evt. strafafkølingsafgift
     varmeStrafafkoelingsafgift.unit: kr/år
     year1: År 1

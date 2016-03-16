@@ -143,6 +143,12 @@ class BaselineController extends BaseController {
     $this->breadcrumbs->addItem($entity, $this->generateUrl('baseline_show', array('id' => $entity->getId())));
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('baseline_show', array('id' => $entity->getId())));
 
+    $GDNormalAar = null;
+    $normtal = $this->container->get('doctrine')->getRepository('AppBundle:GraddageFordeling')->findOneByTitel('Normtal');
+    if ($normtal) {
+      $GDNormalAar = $normtal->getSumAar();
+    }
+
     if (!$entity) {
       throw $this->createNotFoundException('Unable to find Baseline entity.');
     }
@@ -154,6 +160,7 @@ class BaselineController extends BaseController {
       'entity' => $entity,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
+      'graddage_normal' => $GDNormalAar
     );
   }
 
