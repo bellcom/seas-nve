@@ -7,6 +7,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\Entity\Bygning;
+use AppBundle\Form\Type\RapportSearchType;
+use AppBundle\Form\Type\RapportStatusType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -17,6 +20,8 @@ use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\Bilag;
+use Doctrine\ORM\Mapping\Entity;
 
 /**
  * Rapport controller.
@@ -36,15 +41,64 @@ class RapportController extends BaseController {
    * @Method("GET")
    * @Template()
    */
-  public function indexAction() {
+  public function indexAction(Request $request) {
+    $rapport = new Rapport();
+    $rapport->setDatering(null);
+    $rapport->setElena(null);
+    $rapport->setAva(null);
+    $bygning = new Bygning();
+    $bygning->setStatus(null);
+    $rapport->setBygning($bygning);
+
+    $form = $this->createSearchForm($rapport);
+    $form->handleRequest($request);
+
+    if($form->isSubmitted()) {
+      $this->breadcrumbs->addItem('Søg', $this->generateUrl('rapport'));
+    }
+
     $em = $this->getDoctrine()->getManager();
+
+    $search = array();
+
+    $search['navn'] = $rapport->getBygning()->getNavn();
+    $search['adresse'] = $rapport->getBygning()->getAdresse();
+    $search['postnummer'] = $rapport->getBygning()->getPostnummer();
+    $search['segment'] = $rapport->getBygning()->getSegment();
+    $search['status'] = $rapport->getBygning()->getStatus();
+    $search['datering'] = $rapport->getDatering();
+
+    $search['elena'] = $rapport->getElena();
+    $search['ava'] = $rapport->getAva();
+
     $user = $this->get('security.context')->getToken()->getUser();
 
-    $entities = $em->getRepository('AppBundle:Rapport')->findByUser($user);
+    $query = $em->getRepository('AppBundle:Rapport')->searchByUser($user, $search);
 
-    return array(
-      'entities' => $entities,
+    $paginator = $this->get('knp_paginator');
+    $pagination = $paginator->paginate(
+      $query,
+      $request->query->get('page', 1),
+      20
     );
+
+    return $this->render('AppBundle:Rapport:index.html.twig', array('pagination' => $pagination, 'search' => $search, 'form' => $form->createView()));
+  }
+
+  /**
+   * Creates a form to search Rapport entities.
+   *
+   * @param Bygning $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createSearchForm(Rapport $entity) {
+    $form = $this->createForm(new RapportSearchType($this->get('security.context')), $entity, array(
+      'action' => $this->generateUrl('rapport'),
+      'method' => 'GET',
+    ));
+
+    return $form;
   }
 
   /**
@@ -58,7 +112,7 @@ class RapportController extends BaseController {
    * @return array
    */
   public function showAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport, $this->generateUrl('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
 
     $deleteForm = $this->createDeleteForm($rapport->getId())->createView();
     $editForm = $this->createEditFormFinansiering($rapport);
@@ -144,6 +198,8 @@ class RapportController extends BaseController {
       'rapport' => $rapport,
     ));
 
+    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d');
+
     return new Response(
       $this->get('knp_snappy.pdf')->getOutputFromHtml($html,
         array('lowquality' => false,
@@ -157,7 +213,7 @@ class RapportController extends BaseController {
       200,
       array(
         'Content-Type'          => 'application/pdf',
-        'Content-Disposition'   => 'attachment; filename="file.pdf"'
+        'Content-Disposition'   => 'attachment; filename="' . $pdfName . '.pdf"'
       )
     );
   }
@@ -182,6 +238,8 @@ class RapportController extends BaseController {
       'rapport' => $rapport,
     ));
 
+    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d');
+
     return new Response(
       $this->get('knp_snappy.pdf')->getOutputFromHtml($html,
         array('lowquality' => false,
@@ -195,7 +253,7 @@ class RapportController extends BaseController {
       200,
       array(
         'Content-Type'          => 'application/pdf',
-        'Content-Disposition'   => 'attachment; filename="file.pdf"'
+        'Content-Disposition'   => 'attachment; filename="' . $pdfName .'.pdf"'
       )
     );
   }
@@ -229,7 +287,7 @@ class RapportController extends BaseController {
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function editAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->generateUrl('bygning_show', array('id' => $rapport->getBygning()->getId())));
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
 
     $editForm = $this->createEditForm($rapport);
@@ -243,44 +301,6 @@ class RapportController extends BaseController {
   }
 
   /**
-   * Creates a form to edit a Rapport entity.
-   *
-   * @param Rapport $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createEditForm(Rapport $entity) {
-    $form = $this->createForm(new RapportType($this->get('security.context')), $entity, array(
-      'action' => $this->generateUrl('rapport_update', array('id' => $entity->getId())),
-      'method' => 'PUT',
-    ));
-
-    $this->addUpdate($form, $this->generateUrl('rapport_show', array('id' => $entity->getId())));
-
-    return $form;
-  }
-
-  /**
-   * Creates a form to edit a Tiltag entity.
-   *
-   * @param Tiltag $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createEditTilvalgTilvalgtForm($entity, Rapport $rapport) {
-
-    $form = $this->createForm(new TiltagTilvalgtType($entity), $entity, array(
-      'action' => $this->generateUrl('tiltag_tilvalgt_update', array('id' => $entity->getId())),
-      'method' => 'PUT',
-    ));
-
-    $this->addUpdate($form);
-    //$form->add('submit', 'submit', array('label' => 'Create'));
-
-    return $form;
-  }
-
-  /**
    * Edits an existing Rapport entity.
    *
    * @Route("/{id}", name="rapport_update")
@@ -289,6 +309,9 @@ class RapportController extends BaseController {
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function updateAction(Request $request, Rapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
+
     $deleteForm = $this->createDeleteForm($rapport->getId());
     $editForm = $this->createEditForm($rapport);
     $editForm->handleRequest($request);
@@ -345,6 +368,44 @@ class RapportController extends BaseController {
     }
 
     return $this->redirect($this->generateUrl('rapport'));
+  }
+
+  /**
+   * Creates a form to edit a Rapport entity.
+   *
+   * @param Rapport $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditForm(Rapport $entity) {
+    $form = $this->createForm(new RapportType($this->get('security.context')), $entity, array(
+      'action' => $this->generateUrl('rapport_update', array('id' => $entity->getId())),
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form, $this->generateUrl('rapport_show', array('id' => $entity->getId())));
+
+    return $form;
+  }
+
+  /**
+   * Creates a form to edit a Tiltag entity.
+   *
+   * @param Tiltag $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditTilvalgTilvalgtForm($entity, Rapport $rapport) {
+
+    $form = $this->createForm(new TiltagTilvalgtType($entity), $entity, array(
+      'action' => $this->generateUrl('tiltag_tilvalgt_update', array('id' => $entity->getId())),
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form);
+    //$form->add('submit', 'submit', array('label' => 'Create'));
+
+    return $form;
   }
 
   //---------------- Rådgiver aflever -------------------//
@@ -485,12 +546,23 @@ class RapportController extends BaseController {
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createStatusForm($rapport, $route, $label) {
-    return $this->createFormBuilder()
-      ->setAction($this->generateUrl($route, array('id' => $rapport->getId())))
-      ->setMethod('PUT')
-      ->add('submit', 'submit', array('label' => $label))
-      ->getForm();
+  private function createStatusForm(Rapport $entity, $route, $label) {
+    $status = $entity->getBygning()->getStatus();
+
+    $form = $this->createForm(new RapportStatusType($this->get('security.context'), $status), $entity, array(
+      'action' => $this->generateUrl($route, array('id' => $entity->getId())),
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form, null, $label);
+
+    return $form;
+
+//    return $this->createFormBuilder(new RapportStatusType($this->get('security.context'), $entity))
+//      ->setAction($this->generateUrl($route, array('id' => $entity->getId())))
+//      ->setMethod('PUT')
+//      ->add('submit', 'submit', array('label' => $label))
+//      ->getForm();
   }
 
   //---------------- Tiltag -------------------//
@@ -582,7 +654,7 @@ class RapportController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditFormFinansiering(Rapport $rapport) {
-    if (!$this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+    if (!$this->container->get('security.context')->isGranted('RAPPORT_EDIT', $rapport)) {
       return NULL;
     }
 
@@ -609,7 +681,7 @@ class RapportController extends BaseController {
    *
    * @Route("/{id}/finansiering", name="rapport_finansiering_update")
    * @Method("PUT")
-   * @Security("has_role('ROLE_ADMIN')")
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function updateActionFinansiering(Request $request, Rapport $rapport) {
     $em = $this->getDoctrine()->getManager();
@@ -628,5 +700,4 @@ class RapportController extends BaseController {
       'edit_form' => $editForm->createView(),
     );
   }
-
 }

@@ -1,0 +1,58 @@
+{% block filter_text_widget %}
+  {% if compound %}
+    <div class="filter-pattern-selector">
+      {{ form_widget(form.condition_pattern, {'attr': {'class': 'pattern-selector'} }) }}
+      {{ form_widget(form.text, {'attr': attr}) }}
+    </div>
+  {% else %}
+    {{ block('form_widget_simple') }}
+  {% endif %}
+{% endblock filter_text_widget %}
+
+{% block filter_number_widget %}
+  {% if compound %}
+    <div class="filter-operator-selector">
+      {{ form_widget(form.condition_operator, {'attr': {'class': 'operator-selector'} }) }}
+      {{ form_widget(form.text, {'attr': attr}) }}
+    </div>
+  {% else %}
+    {{ block('form_widget_simple') }}
+  {% endif %}
+{% endblock filter_number_widget %}
+
+{% block filter_number_range_widget %}
+  <div class="filter-number-range">
+    {{ form_widget(form.left_number, {'attr': attr}) }}
+    {{ form_widget(form.right_number, {'attr': attr}) }}
+  </div>
+{% endblock filter_number_range_widget %}
+
+{% block date_widget %}
+  {% spaceless %}
+    {% if widget == 'single_text' %}
+      {{ block('form_widget_simple') }}
+    {% else %}
+      {% set attr = attr|merge({ 'class': 'bootstrap-date-range' }) %}
+      <div {{ block('widget_container_attributes') }}>
+        {{ date_pattern|replace({
+          '{{ year }}':  form_widget(form.year),
+          '{{ month }}': form_widget(form.month),
+          '{{ day }}':   form_widget(form.day),
+        })|raw }}
+      </div>
+    {% endif %}
+  {% endspaceless %}
+{% endblock date_widget %}
+
+{% block filter_date_range_widget %}
+  <div class="filter-date-range">
+    {{ form_widget(form.left_date, {'attr': attr}) }}
+    {{ icon('chevron-left')}} {{ 'common.date' | trans }} {{ icon('chevron-right')}}&nbsp;
+    {{ form_widget(form.right_date, {'attr': attr}) }}
+  </div>
+{% endblock filter_date_range_widget %}
+
+{% block filter_collection_adapter_widget %}
+  {# only display the first element #}
+  {{ form_widget(form[0]) }}
+{% endblock filter_collection_adapter_widget %}

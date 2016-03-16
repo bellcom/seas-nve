@@ -1,0 +1,40 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-condensed">
+        <tbody>
+          <tr>
+            <th>{{ 'appbundle.bilag.titel' | trans }}</th>
+            <th>{{ 'appbundle.bilag.kommentar' | trans }}</th>
+            <th>{{ 'appbundle.bilag.filepath' | trans }}</th>
+            <th>{{ 'appbundle.bilag.updated_by' | trans }}</th>
+            <th>{{ 'appbundle.bilag.updated_at' | trans }}</th>
+          </tr>
+        {% for bilag in entity.bilag %}
+          <tr>
+            <td><a href="{{ path('tiltag_bilag_edit', { 'tiltag_id': entity.id, 'bilag_id': bilag.id }) }}">{{ bilag.titel }}</a></td>
+            <td>{{ bilag.kommentar }}</td>
+            <td>
+              {% if not bilag.filepath is empty %}
+                <a target="_blank" href="{{ path('tiltag_bilag_download', { 'tiltag_id': entity.id, 'bilag_id': bilag.id }) }}">{{ bilag.filename }}</a>
+              {% endif %}
+            </td>
+            <td>{{ bilag.updatedBy }}</td>
+            <td>{{ bilag.updatedAt | date('F j, Y H:i') }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        <a class="btn btn-primary" href="{{ path('bilag_tiltag_new', { 'tiltag_id': entity.id }) }}">
+          {{ icon('plus') }} {{ 'bilag.actions.create' | trans }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

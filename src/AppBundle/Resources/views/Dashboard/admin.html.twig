@@ -7,7 +7,7 @@
 
       <h2>{{ 'common.afleveret_raadgiver' | trans }}</h2>
       {% if byg_pagination is empty %}
-        <div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
+        <div class="alert alert-info" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
       {% else %}
         <table class="table table-condensed table-hover">
           <tr>
@@ -15,6 +15,7 @@
             <th>{{ knp_pagination_sortable(byg_pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
             <th>{{ knp_pagination_sortable(byg_pagination, 'appbundle.bygning.updatedAt'|trans, 'r.updatedAt') }}</th>
             <th>{{ knp_pagination_sortable(byg_pagination, 'appbundle.bygning.updatedBy'|trans, 'r.updatedBy') }}</th>
+            <th>{{ knp_pagination_sortable(byg_pagination, 'appbundle.bygning.energiRaadgiver' | trans, 'b.energiRaadgiver') }}</th>
             <th></th>
           </tr>
           {% for r in byg_pagination %}
@@ -23,6 +24,7 @@
               <td>{{ r.bygning.postBy }}</td>
               <td>{{ r.updatedBy }}</td>
               <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
+              <td>{{ r.bygning.energiRaadgiver }}</td>
               <td>
                 <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-default btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
               </td>
@@ -47,7 +49,7 @@
 
         {% if seg_byg_pagination is empty %}
           <h2>{{ seg }}</h2>
-          <div class="alert alert-warning" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
+          <div class="alert alert-info" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
         {% else %}
           <h2>{{ seg }}</h2>
           <table class="table table-condensed table-hover">
@@ -56,6 +58,7 @@
               <th>{{ knp_pagination_sortable(byg_pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
               <th>{{ knp_pagination_sortable(byg_pagination, 'appbundle.bygning.updatedAt'|trans, 'r.updatedAt') }}</th>
               <th>{{ knp_pagination_sortable(byg_pagination, 'appbundle.bygning.updatedBy'|trans, 'r.updatedBy') }}</th>
+              <th>{{ knp_pagination_sortable(byg_pagination, 'appbundle.bygning.energiRaadgiver' | trans, 'b.energiRaadgiver') }}</th>
               <th></th>
             </tr>
             {% for r in seg_byg_pagination %}
@@ -64,6 +67,7 @@
                 <td>{{ r.bygning.postBy }}</td>
                 <td>{{ r.updatedBy }}</td>
                 <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
+                <td>{{ r.bygning.energiRaadgiver }}</td>
                 <td>
                   <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-primary btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
                 </td>

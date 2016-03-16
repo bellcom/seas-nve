@@ -5,8 +5,13 @@
 {% endblock %}
 
 {% block detailark -%}
-  <div class="row">
+  <div class="row details-overview">
     <div class="col-md-12">
+
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_start(edit_form) }}
+      {% endif %}
+
       <table class="table table-condensed table-header-rotated table-hover">
         <thead>
         <tr>
@@ -61,12 +66,19 @@
         </tr>
         </thead>
         <tbody>
-        {% for detail in entity.details %}
+        {% for form_detail in edit_form.details %}
+          {% set detail = details[form_detail.vars['value'].id] %}
           <tr>
             <td>
               {{ block('tiltag_detail_edit') }}
             </td>
-            <td>{{ detail.tilvalgt | b2icon }}</td>
+            <td>
+              {% if is_granted('TILTAG_EDIT', entity) %}
+                {{ form_row(form_detail.tilvalgt) }}
+              {% else %}
+                {{ detail.tilvalgt | b2icon }}
+              {% endif %}
+            </td>
             <td>{{ detail.anlaegsstoerrelseKWp | format_decimal }}</td>
             <td>{{ detail.produktionKWh | format_decimal }}</td>
             <td>{{ detail.tilNettetPct | format_percent }}</td>
@@ -92,6 +104,12 @@
         {% endfor %}
         </tbody>
       </table>
+
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+      {% endif %}
+
     </div>
   </div>
 

@@ -6,6 +6,7 @@
 
 namespace AppBundle\Form\Type;
 
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +19,15 @@ use AppBundle\Entity\BelysningTiltagDetail\TiltagRepository;
  * @package AppBundle\Form
  */
 class BelysningTiltagDetailType extends TiltagDetailType {
+
+  private $doctrine;
+
+  public function __construct(Container $container) {
+    $this->doctrine = $container->get('doctrine');
+  }
+
   public function buildForm(FormBuilderInterface $builder, array $options) {
+
     parent::buildForm($builder, $options);
     $builder
       //->add('tilvalgt')
@@ -33,35 +42,39 @@ class BelysningTiltagDetailType extends TiltagDetailType {
       ->add('lyskildeWLyskilde')
       ->add('forkoblingStkArmatur')
       ->add('armaturerStkLokale')
-      // ->add('elforbrugWM2', null, array( 'disabled' => true, ))
       ->add('placering')
       ->add('styring')
+      ->add('nyStyring', 'entity', array(
+        'class' => 'AppBundle:BelysningTiltagDetail\NyStyring',
+        'choices' => $this->getAktuelNyStyring(),
+        'required' => FALSE,
+        'empty_value' => 'common.none',
+      ))
+      ->add('erstatningsLyskilde')
+      ->add('nytArmatur')
       ->add('noter')
+      ->add('noterForNyBelysning')
       ->add('belysningstiltag')
       ->add('nyeSensorerStkLokale')
       ->add('standardinvestSensorKrStk')
-      ->add('reduktionAfDrifttid', 'percent', array('scale' => 2))
-      // ->add('nyDriftstid', null, array( 'disabled' => true ))
+      ->add('reduktionAfDrifttid', 'percent', array('scale' => 2, 'required' => false))
       ->add('standardinvestArmaturKrStk')
       ->add('standardinvestLyskildeKrStk')
       ->add('nyLyskilde')
       ->add('nyLyskildeStkArmatur')
       ->add('nyLyskildeWLyskilde')
       ->add('nyForkoblingStkArmatur')
-      // ->add('nyArmatureffektWStk', null, array( 'disabled' => true, ))
       ->add('nyeArmaturerStkLokale')
-      ->add('nyttiggjortVarmeAfElBesparelse', 'percent', array('scale' => 2))
+      ->add('nyttiggjortVarmeAfElBesparelse', 'percent', array('scale' => 2, 'required' => false))
       ->add('prisfaktor')
-      // ->add('prisfaktorTillaegKrLokale', null, array( 'disabled' => true, ))
-      // ->add('investeringAlleLokalerKr', null, array( 'disabled' => true, ))
-      // ->add('nytElforbrugWM2', null, array( 'disabled' => true, ))
-      // ->add('driftsbesparelseTilLyskilderKrAar', null, array( 'disabled' => true, ))
-      // ->add('simpelTilbagebetalingstidAar', null, array( 'disabled' => true, ))
-      // ->add('vaegtetLevetidAar', null, array( 'disabled' => true, ))
-      // ->add('nutidsvaerdiSetOver15AarKr', null, array( 'disabled' => true, ))
-      // ->add('kwhBesparelseEl', null, array( 'disabled' => true, ))
-      // ->add('kwhBesparelseVarmeFraVarmevaerket', null, array( 'disabled' => true, ))
       ;
+
+  }
+
+  private function getAktuelNyStyring() {
+    $em = $this->doctrine->getRepository('AppBundle:BelysningTiltagDetail\NyStyring');
+
+    return $em->findNotDeleted();
   }
 
   public function configureOptions(OptionsResolver $resolver) {

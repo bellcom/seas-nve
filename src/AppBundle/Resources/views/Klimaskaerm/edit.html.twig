@@ -1,19 +1,16 @@
-{% extends 'AppBundle::base.html.twig' %}
+  {% extends 'AppBundle::base.html.twig' %}
 
-{% block body -%}
 
+  {% block body -%}
   <div class="row heading">
-    <div class="col-md-8">
+    <div class="col-md-9">
       <h1>{{ 'klimaskaerm.actions.edit' | trans }}</h1>
     </div>
-    <div class="col-md-4 text-right">
-      {% if is_granted('ROLE_RAPPORT_EDIT') %}
-        {{ form(delete_form) }}
-      {% endif %}
+    <div class="col-md-3 text-right">
     </div>
+
   </div>
 
-  {% form_theme edit_form 'AppBundle:Form:twocol-form.html.twig' %}
-  {{ form(edit_form, { 'style': 'horizontal' }) }}
+  {{ form(edit_form) }}
 
-{% endblock %}
+    {% endblock %}

@@ -5,20 +5,25 @@
 {% endblock %}
 
 {% block detailark -%}
-  <div class="row">
+  <div class="row details-overview">
     <div class="col-md-12">
+
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_start(edit_form) }}
+      {% endif %}
+
       <table class="table table-condensed table-header-rotated">
         <thead>
         <tr>
           {{ helper.header() }}
           {{ helper.header('appbundle.tiltag.tilvalgt') }}
+          {{ helper.header('appbundle.pumpetiltagdetail.noter') }}
           {{ helper.header('appbundle.pumpetiltagdetail.pumpeID') }}
           {{ helper.header('appbundle.pumpetiltagdetail.forsyningsomraade') }}
           {{ helper.header('appbundle.pumpetiltagdetail.placering') }}
           {{ helper.header('appbundle.pumpetiltagdetail.applikation') }}
           {{ helper.header('appbundle.pumpetiltagdetail.isoleringskappe') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.bFaktor') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.noter') }}
+          {{ helper.header('appbundle.pumpetiltagdetail.nyttiggjortVarme') }}
           {{ helper.header('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
           {{ helper.header('appbundle.pumpetiltagdetail.nyDrifttid') }}
           {{ helper.header('appbundle.pumpetiltagdetail.prisfaktor') }}
@@ -35,13 +40,13 @@
         <tr>
           {{ helper.header_unit() }}
           {{ helper.header_unit('appbundle.tiltag.tilvalgt') }}
+          {{ helper.header_unit('appbundle.pumpetiltagdetail.noter') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.pumpeID') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.forsyningsomraade') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.placering') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.applikation') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.isoleringskappe') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.bFaktor') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.noter') }}
+          {{ helper.header_unit('appbundle.pumpetiltagdetail.nyttiggjortVarme') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.nyDrifttid') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.prisfaktor') }}
@@ -57,19 +62,26 @@
         </tr>
         </thead>
         <tbody>
-        {% for detail in entity.details %}
+        {% for form_detail in edit_form.details %}
+          {% set detail = details[form_detail.vars['value'].id] %}
           <tr>
             <td>
               {{ block('tiltag_detail_edit') }}
             </td>
-            <td>{{ detail.tilvalgt | b2icon }}</td>
+            <td>
+              {% if is_granted('TILTAG_EDIT', entity) %}
+                {{ form_row(form_detail.tilvalgt) }}
+              {% else %}
+                {{ detail.tilvalgt | b2icon }}
+              {% endif %}
+            </td>
+            <td>{{ detail.noter }}</td>
             <td>{{ detail.pumpeID }}</td>
             <td>{{ detail.forsyningsomraade }}</td>
             <td>{{ detail.placering }}</td>
             <td>{{ detail.applikation }}</td>
             <td>{{ detail.isoleringskappe | b2icon }}</td>
-            <td>{{ detail.bFaktor | format_decimal }}</td>
-            <td>{{ detail.noter }}</td>
+            <td>{{ detail.nyttiggjortVarme.faktor | format_decimal }}</td>
             <td>{{ detail.eksisterendeDrifttid | format_decimal }}</td>
             <td>{{ detail.nyDrifttid | format_decimal }}</td>
             <td>{{ detail.prisfaktor | format_decimal }}</td>
@@ -86,6 +98,12 @@
         {% endfor %}
         </tbody>
       </table>
+
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+      {% endif %}
+
     </div>
   </div>
 

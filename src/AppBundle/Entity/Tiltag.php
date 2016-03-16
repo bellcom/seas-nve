@@ -6,8 +6,12 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\DBAL\Types\Energiforsyning\NavnType;
+use AppBundle\DBAL\Types\RisikovurderingType;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Calculation\Calculation;
+use AppBundle\DBAL\Types\PrimaerEnterpriseType;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -20,7 +24,8 @@ use Doctrine\ORM\Mapping\InheritanceType;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
-use AppBundle\DBAL\Types\Energiforsyning\NavnType;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tiltag
@@ -83,9 +88,18 @@ abstract class Tiltag {
   /**
    * @var string
    *
+   * This is: Begrundelse Aa+
+   *
    * @ORM\Column(name="tilvalgtbegrundelse", type="text", nullable=true)
    */
   protected $tilvalgtbegrundelse;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="tilvalgtBegrundelseMagistrat", type="text", nullable=true)
+   */
+  protected $tilvalgtBegrundelseMagistrat;
 
   /**
    * @var string
@@ -166,12 +180,31 @@ abstract class Tiltag {
   protected $faktorForReinvesteringer;
 
   /**
+   * Enterprisesum
+   *
    * @var float
    *
    * @Calculated
    * @ORM\Column(name="anlaegsinvestering", type="float", nullable=true)
    */
   protected $anlaegsinvestering;
+
+  /**
+   * Enterprisesum ex. risiko
+   *
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="anlaegsinvesteringExRisiko", type="float", nullable=true)
+   */
+  protected $anlaegsinvesteringExRisiko;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="opstartsomkostninger", type="decimal", nullable=true)
+   */
+  protected $opstartsomkostninger;
 
   /**
    * @var float
@@ -232,6 +265,14 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="aaplusInvestering", type="float", nullable=true)
+   */
+  protected $aaplusInvestering;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="reinvestering", type="float", nullable=true)
    */
   protected $reinvestering;
@@ -239,9 +280,10 @@ abstract class Tiltag {
   /**
    * @var string
    *
-   * @ORM\Column(name="primaerEnterprise", type="string", length=50, nullable=true)
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\PrimaerEnterpriseType")
+   * @ORM\Column(name="primaerEnterprise", type="PrimaerEnterpriseType")
    */
-  protected $primaerEnterprise;
+  protected $primaerEnterprise = PrimaerEnterpriseType::NONE;
 
   /**
    * @ManyToOne(targetEntity="TiltagsKategori")
@@ -269,6 +311,11 @@ abstract class Tiltag {
    * @var string
    *
    * @ORM\Column(name="beskrivelseNuvaerende", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 800,
+   *  maxMessage = "maxLength"
+   * )
    */
   protected $beskrivelseNuvaerende;
 
@@ -289,9 +336,67 @@ abstract class Tiltag {
   /**
    * @var string
    *
-   * @ORM\Column(name="risikovurdering", type="string", length=10, nullable=true)
+   * @ORM\Column(name="risikovurdering", type="text", nullable=true)
    */
   protected $risikovurdering;
+
+  /**
+   * @var string
+   *
+   * Tekniske forhold / kompleksitet
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
+   * @ORM\Column(name="risikovurderingTeknisk", type="RisikovurderingType", nullable=true)
+   */
+  protected $risikovurderingTeknisk;
+
+  /**
+   * @var string
+   *
+   * Brugsmønster
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
+   * @ORM\Column(name="risikovurderingBrugsmoenster", type="RisikovurderingType", nullable=true)
+   */
+  protected $risikovurderingBrugsmoenster;
+
+  /**
+   * @var string
+   *
+   * Datagrundlag
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
+   * @ORM\Column(name="risikovurderingDatagrundlag", type="RisikovurderingType", nullable=true)
+   */
+  protected $risikovurderingDatagrundlag;
+
+  /**
+   * @var string
+   *
+   * Div. (Beskrives i noter.)
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
+   * @ORM\Column(name="risikovurderingDiverse", type="RisikovurderingType", nullable=true)
+   */
+  protected $risikovurderingDiverse;
+
+  /**
+   * @var float
+   *
+   * Ændring i besparelse
+   *
+   * @ORM\Column(name="risikovurderingAendringIBesparelseFaktor", type="float", nullable=true)
+   */
+  protected $risikovurderingAendringIBesparelseFaktor;
+
+  /**
+   * @var float
+   *
+   * Økonomisk kompensering ift. investering
+   *
+   * @ORM\Column(name="risikovurderingOekonomiskKompenseringIftInvesteringFaktor", type="float", nullable=true)
+   */
+  protected $risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
 
   /**
    * @var string
@@ -394,6 +499,13 @@ abstract class Tiltag {
   protected $modernisering;
 
   /**
+   * @OneToMany(targetEntity="Bilag", mappedBy="tiltag")
+   * @OrderBy({"id" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Bilag>")
+   */
+  protected $bilag;
+
+  /**
    * Get Name
    *
    * @return string
@@ -409,6 +521,104 @@ abstract class Tiltag {
    */
   public function getId() {
     return $this->id;
+  }
+
+  /**
+   * @return string
+   */
+  public function getRisikovurderingTeknisk() {
+    return $this->risikovurderingTeknisk;
+  }
+
+  /**
+   * @param string $risikovurderingTeknisk
+   */
+  public function setRisikovurderingTeknisk($risikovurderingTeknisk) {
+    $this->risikovurderingTeknisk = $risikovurderingTeknisk;
+  }
+
+  /**
+   * @return string
+   */
+  public function getRisikovurderingBrugsmoenster() {
+    return $this->risikovurderingBrugsmoenster;
+  }
+
+  /**
+   * @param string $risikovurderingBrugsmoenster
+   */
+  public function setRisikovurderingBrugsmoenster($risikovurderingBrugsmoenster) {
+    $this->risikovurderingBrugsmoenster = $risikovurderingBrugsmoenster;
+  }
+
+  /**
+   * @return string
+   */
+  public function getRisikovurderingDatagrundlag() {
+    return $this->risikovurderingDatagrundlag;
+  }
+
+  /**
+   * @param string $risikovurderingDatagrundlag
+   */
+  public function setRisikovurderingDatagrundlag($risikovurderingDatagrundlag) {
+    $this->risikovurderingDatagrundlag = $risikovurderingDatagrundlag;
+  }
+
+  /**
+   * @return string
+   */
+  public function getRisikovurderingDiverse() {
+    return $this->risikovurderingDiverse;
+  }
+
+  /**
+   * @param string $risikovurderingDiverse
+   */
+  public function setRisikovurderingDiverse($risikovurderingDiverse) {
+    $this->risikovurderingDiverse = $risikovurderingDiverse;
+  }
+
+  /**
+   * @return float
+   */
+  public function getRisikovurderingAendringIBesparelseFaktor() {
+    return $this->risikovurderingAendringIBesparelseFaktor;
+  }
+
+  /**
+   * @param float $risikovurderingAendringIBesparelseFaktor
+   */
+  public function setRisikovurderingAendringIBesparelseFaktor($risikovurderingAendringIBesparelseFaktor) {
+    $this->risikovurderingAendringIBesparelseFaktor = $risikovurderingAendringIBesparelseFaktor;
+  }
+
+  /**
+   * @return float
+   */
+  public function getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() {
+    return $this->risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
+  }
+
+  /**
+   * @param float $risikovurderingOekonomiskKompenseringIftInvesteringFaktor
+   */
+  public function setRisikovurderingOekonomiskKompenseringIftInvesteringFaktor($risikovurderingOekonomiskKompenseringIftInvesteringFaktor) {
+    $this->risikovurderingOekonomiskKompenseringIftInvesteringFaktor = $risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
+  }
+
+  /**
+   * @return string
+   */
+  public function getTilvalgtBegrundelseMagistrat() {
+    return $this->tilvalgtBegrundelseMagistrat;
+  }
+
+  /**
+   * @param string $tilvalgtBegrundelseMagistrat
+   */
+  public function setTilvalgtBegrundelseMagistrat($tilvalgtBegrundelseMagistrat) {
+    $this->tilvalgtBegrundelseMagistrat = $tilvalgtBegrundelseMagistrat;
   }
 
   /**
@@ -488,7 +698,8 @@ abstract class Tiltag {
   /**
    * Set primaerEnterprise
    *
-   * @param string $primaerEnterprise
+   * @param \AppBundle\DBAL\Types\PrimaerenterpriseType $primaerEnterprise
+   *
    * @return Tiltag
    */
   public function setPrimaerEnterprise($primaerEnterprise) {
@@ -500,7 +711,7 @@ abstract class Tiltag {
   /**
    * Get primaerEnterprise
    *
-   * @return string
+   * @return \AppBundle\DBAL\Types\PrimaerenterpriseType
    */
   public function getPrimaerEnterprise() {
     return $this->primaerEnterprise;
@@ -543,6 +754,36 @@ abstract class Tiltag {
    */
   public function getAnlaegsinvestering() {
     return $this->anlaegsinvestering;
+  }
+
+
+  /**
+   * @return float
+   */
+  public function getAnlaegsinvesteringExRisiko() {
+    return $this->anlaegsinvesteringExRisiko;
+  }
+
+  /**
+   * Set opstartsomkostninger
+   *
+   * @param float $opstartsomkostninger
+   *
+   * @return Tiltag
+   */
+  public function setOpstartsomkostninger($opstartsomkostninger) {
+    $this->opstartsomkostninger = $opstartsomkostninger;
+
+    return $this;
+  }
+
+  /**
+   * Get opstartsomkostninger
+   *
+   * @return float
+   */
+  public function getOpstartsomkostninger() {
+    return $this->opstartsomkostninger;
   }
 
   /**
@@ -621,7 +862,7 @@ abstract class Tiltag {
   /**
    * Set forsyningVarme
    *
-   * @param string $forsyningVarme
+   * @param \AppBundle\Entity\Energiforsyning $forsyningVarme
    * @return Tiltag
    */
   public function setForsyningVarme($forsyningVarme) {
@@ -1113,6 +1354,21 @@ abstract class Tiltag {
   }
 
   /**
+   * @return float
+   */
+  public function getAaplusInvestering() {
+    return $this->aaplusInvestering;
+  }
+
+  /**
+   * @param float $aaplusInvestering
+   */
+  public function setAaplusInvestering($aaplusInvestering) {
+    $this->aaplusInvestering = $aaplusInvestering;
+  }
+
+
+  /**
    * Calculate values in this Tiltag
    */
   public function calculate() {
@@ -1131,10 +1387,11 @@ abstract class Tiltag {
       $this->levetid = $value;
     }
     $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
-    // This may be computed, may be an input
-    if (($value = $this->calculateAnlaegsinvestering()) !== NULL) {
-      $this->anlaegsinvestering = $value;
+    $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    if ($this->opstartsomkostninger > 0) {
+      $this->anlaegsinvestering += $this->opstartsomkostninger;
     }
+    $this->aaplusInvestering = $this->calculateAaplusInvestering();
     $this->reinvestering = $this->calculateReinvestering();
     $this->scrapvaerdi = $this->calculateScrapvaerdi();
     $this->cashFlow15 = $this->calculateCashFlow(15);
@@ -1144,10 +1401,14 @@ abstract class Tiltag {
     $this->besparelseAarEt = $this->calculateSavingsForYear(1);
   }
 
-  protected function calculateCashFlow($numberOfYears) {
+  protected function calculateAaplusInvestering() {
+    return $this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering());
+  }
+
+  protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
     $inflation = $this->getRapport()->getInflation();
 
-    $anlaegsinvestering = floatval($this->anlaegsinvestering);
+    $aaplusinvestering = floatval($this->aaplusInvestering);
     $varmebesparelseGUF = floatval($this->varmebesparelseGUF);
     $varmebesparelseGAF = floatval($this->varmebesparelseGAF);
     $elbesparelse = floatval($this->elbesparelse);
@@ -1165,17 +1426,17 @@ abstract class Tiltag {
         + $vandbesparelse * $this->getRapport()->getVandKrKWh($year)
         + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
       if ($year == 1) {
-        $value -= $anlaegsinvestering;
+        $value -= $aaplusinvestering;
       }
       else {
         if ($this->levetid + 1 == $year) {
-          $value -= $this->anlaegsinvestering * $this->faktorForReinvesteringer * pow(1 + $inflation, $year);
+          $value -= $this->aaplusInvestering * $this->faktorForReinvesteringer * pow(1 + $inflation, $year);
         }
         if ($numberOfYears == 15 && $year == $numberOfYears) {
           $value += $scrapvaerdi;
         }
       }
-      $cashFlow[$year] = $value;
+      $cashFlow[$year] = $value + $yderligereBesparelseKrAar;
     }
 
     return $cashFlow;
@@ -1208,18 +1469,6 @@ abstract class Tiltag {
     return $varmepris;
   }
 
-  protected function calculateVarmebesparelseGUF() {
-    return NULL;
-  }
-
-  protected function calculateVarmebesparelseGAF() {
-    return NULL;
-  }
-
-  protected function calculateElbesparelse() {
-    return NULL;
-  }
-
   protected function calculateVandbesparelse() {
     return NULL;
   }
@@ -1249,8 +1498,36 @@ abstract class Tiltag {
     return 0;
   }
 
-  protected function calculateAnlaegsinvestering() {
-    return NULL;
+  protected function calculateAnlaegsinvestering($value = NULL) {
+    if($value === NULL) {
+      return NULL;
+    } else {
+      $faktor = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() + 1 : 1;
+
+      return $value * $faktor;
+    }
+  }
+
+  protected function calculateVarmebesparelseGUF($value = NULL) {
+    return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
+  }
+
+  protected function calculateVarmebesparelseGAF($value = null) {
+    return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
+  }
+
+  protected function calculateElbesparelse($value = null) {
+    return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
+  }
+
+  private function calculateBesparelseFromAendringIBesparelseFaktor($value) {
+    if($value === NULL) {
+      return NULL;
+    } else {
+      $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? 1 - $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+
+      return $value * $besparelse;
+    }
   }
 
   protected function calculateLevetid() {
@@ -1258,7 +1535,7 @@ abstract class Tiltag {
   }
 
   protected function calculateSimpelTilbagebetalingstidAar() {
-    return $this->divide($this->anlaegsinvestering,
+    return $this->divide($this->aaplusInvestering,
       $this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift);
   }
 
@@ -1271,7 +1548,7 @@ abstract class Tiltag {
     $cutoff = 15;
     if ($this->levetid > $cutoff) {
       return (1 - ($cutoff / $this->levetid)) * pow(1 + $this->getRapport()
-          ->getInflation(), $cutoff) * $this->anlaegsinvestering;
+          ->getInflation(), $cutoff) * $this->aaplusInvestering;
     }
     elseif ($cutoff - $this->antalReinvesteringer * $this->levetid == 0) {
       return 0;
@@ -1287,7 +1564,7 @@ abstract class Tiltag {
       return 0;
     }
     else {
-      return $this->faktorForReinvesteringer * $this->anlaegsinvestering;
+      return $this->faktorForReinvesteringer * $this->aaplusInvestering;
     }
   }
 
@@ -1316,6 +1593,7 @@ abstract class Tiltag {
 
   public function __construct() {
     $this->details = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->bilag = new \Doctrine\Common\Collections\ArrayCollection();
   }
 
   /**
@@ -1447,5 +1725,48 @@ abstract class Tiltag {
    */
   public function getElena() {
     return $this->elena;
+  }
+
+  /**
+   * Add bilag
+   *
+   * @param \AppBundle\Entity\Bilag $bilag
+   * @return Tiltag
+   */
+  public function addBilag(\AppBundle\Entity\Bilag $bilag) {
+    $this->bilag[] = $bilag;
+
+    $bilag->setTiltag($this);
+
+    return $this;
+  }
+
+  /**
+   * Remove bilag
+   *
+   * @param \AppBundle\Entity\Bilag $bilag
+   */
+  public function removeBilag(\AppBundle\Entity\Bilag $bilag) {
+    $this->bilag->removeElement($bilag);
+  }
+
+  /**
+   * Set bilag
+   *
+   * @return Tiltag
+   */
+  public function setBilag($bilag) {
+    $this->bilag = $bilag;
+
+    return $this;
+  }
+
+  /**
+   * Get bilag
+   *
+   * @return Tiltag
+   */
+  public function getBilag() {
+    return $this->bilag;
   }
 }

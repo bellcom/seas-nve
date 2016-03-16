@@ -33,7 +33,7 @@ class RapportType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('version')
+//      ->add('version')
       ->add('datering')
       ->add('BaselineEl')
       ->add('BaselineVarmeGUF')
@@ -41,10 +41,11 @@ class RapportType extends AbstractType {
       ->add('BaselineVand')
       ->add('BaselineStrafAfkoeling')
       ->add('faktorPaaVarmebesparelse')
-      ->add('Energiscreening');
+      ->add('energiscreening');
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder->add('elena');
+      $builder->add('ava');
     }
   }
 

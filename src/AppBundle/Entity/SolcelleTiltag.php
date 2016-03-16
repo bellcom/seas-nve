@@ -32,15 +32,14 @@ class SolcelleTiltag extends Tiltag {
     $this->setTitle('Solceller');
   }
 
-  protected function calculateElbesparelse() {
-    return $this->sum('egetForbrugAfProduktionenKWh');
+  protected function calculateElbesparelse($value = null) {
+    $value = $this->sum('egetForbrugAfProduktionenKWh');
+
+    return parent::calculateElbesparelse($value);
   }
 
   protected function calculateSamletEnergibesparelse() {
-    return $this->elbesparelse * $this->getRapport()->getElKrKWh()
-      + $this->sum(function($detail) {
-        return $detail->getCashFlow()['Salg til nettet'][1];
-      });
+    return ($this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }));
   }
 
   protected function calculateSamletCo2besparelse() {
@@ -48,8 +47,10 @@ class SolcelleTiltag extends Tiltag {
             + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
   }
 
-  protected function calculateAnlaegsinvestering() {
-    return $this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr');
+  protected function calculateAnlaegsinvestering($value = NULL) {
+    $value = ($this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr'));
+
+    return parent::calculateAnlaegsinvestering($value);
   }
 
   protected function calculateSimpelTilbagebetalingstidAar() {

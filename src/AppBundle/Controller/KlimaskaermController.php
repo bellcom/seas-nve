@@ -1,19 +1,16 @@
 <?php
-/**
- * @file
- * @TODO: Missing description.
- */
 
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Klimaskaerm;
 use AppBundle\Form\Type\KlimaskaermType;
-use Yavin\Symfony\Controller\InitControllerInterface;
+use AppBundle\Controller\BaseController;
 
 /**
  * Klimaskaerm controller.
@@ -21,202 +18,243 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  * @Route("/klimaskaerm")
  * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
-class KlimaskaermController extends BaseController {
-  /**
-   * Lists all Klimaskaerm entities.
-   *
-   * @Route("/", name="klimaskaerm")
-   * @Method("GET")
-   * @Template()
-   */
-  public function indexAction(Request $request) {
-    $em = $this->getDoctrine()->getManager();
+class KlimaskaermController extends BaseController
+{
 
-    $entities = $em->getRepository('AppBundle:Klimaskaerm')->findAll();
+  public function init(Request $request) {
+    parent::init($request);
+    $this->breadcrumbs->addItem('klimaskaerm.labels.singular', $this->generateUrl('klimaskaerm'));
+}
 
-    return array(
-      'entities' => $entities,
-    );
-  }
 
-  /**
-   * Creates a new Klimaskaerm entity.
-   *
-   * @Route("/", name="klimaskaerm_create")
-   * @Method("POST")
-   * @Template("AppBundle:Klimaskaerm:new.html.twig")
-   *
-   * @Security("has_role('ROLE_KLIMASKAERM_CREATE')")
-   */
-  public function createAction(Request $request) {
-    $entity = new Klimaskaerm();
-    $form = $this->createCreateForm($entity);
-    $form->handleRequest($request);
+    /**
+     * Lists all Klimaskaerm entities.
+     *
+     * @Route("/", name="klimaskaerm")
+     * @Method("GET")
+     * @Template()
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
 
-    if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($entity);
-      $em->flush();
+        $entities = $em->getRepository('AppBundle:Klimaskaerm')->findAll();
 
-      return $this->redirect($this->generateUrl('klimaskaerm_show', array('id' => $entity->getId())));
+        return array(
+            'entities' => $entities,
+        );
+    }
+    /**
+     * Creates a new Klimaskaerm entity.
+     *
+     * @Route("/", name="klimaskaerm_create")
+     * @Method("POST")
+     * @Template("AppBundle:Klimaskaerm:new.html.twig")
+     */
+    public function createAction(Request $request)
+    {
+        $entity = new Klimaskaerm();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('klimaskaerm'));
+
+        }
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
     }
 
-    return array(
-      'entity' => $entity,
-      'form' => $form->createView(),
-    );
-  }
+    /**
+     * Creates a form to create a Klimaskaerm entity.
+     *
+     * @param Klimaskaerm $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Klimaskaerm $entity)
+    {
+        $form = $this->createForm(new KlimaskaermType(), $entity, array(
+            'action' => $this->generateUrl('klimaskaerm_create'),
+            'method' => 'POST',
+        ));
 
-  /**
-   * Creates a form to create a Klimaskaerm entity.
-   *
-   * @param Klimaskaerm $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createCreateForm(Klimaskaerm $entity) {
-    $form = $this->createForm(new KlimaskaermType(), $entity, array(
-      'action' => $this->generateUrl('klimaskaerm_create'),
-      'method' => 'POST',
-    ));
+        $this->addUpdate($form, $this->generateUrl('klimaskaerm'));
 
-    $this->addCreate($form, $this->generateUrl('klimaskaerm'));
-
-    return $form;
-  }
-
-  /**
-   * Displays a form to create a new Klimaskaerm entity.
-   *
-   * @Route("/new", name="klimaskaerm_new")
-   * @Method("GET")
-   * @Template()
-   * @Security("has_role('ROLE_KLIMASKAERM_CREATE')")
-   */
-  public function newAction() {
-    $entity = new Klimaskaerm();
-    $form = $this->createCreateForm($entity);
-
-    return array(
-      'entity' => $entity,
-      'form' => $form->createView(),
-    );
-  }
-
-  /**
-   * Finds and displays a Klimaskaerm entity.
-   *
-   * @Route("/{id}", name="klimaskaerm_show")
-   * @Method("GET")
-   * @Template()
-   * @ Security("is_granted('KLIMASKAERM_VIEW', klimaskaerm)")
-   */
-  public function showAction(Klimaskaerm $klimaskaerm) {
-    $deleteForm = $this->createDeleteForm($klimaskaerm->getId());
-
-    return array(
-      'entity' => $klimaskaerm,
-      'delete_form' => $deleteForm->createView(),
-    );
-  }
-
-  /**
-   * Displays a form to edit an existing Klimaskaerm entity.
-   *
-   * @Route("/{id}/edit", name="klimaskaerm_edit")
-   * @Method("GET")
-   * @Template()
-   * @ Security("is_granted('KLIMASKAERM_EDIT', klimaskaerm)")
-   */
-  public function editAction(Klimaskaerm $klimaskaerm) {
-    $editForm = $this->createEditForm($klimaskaerm);
-    $deleteForm = $this->createDeleteForm($klimaskaerm->getId());
-
-    return array(
-      'entity' => $klimaskaerm,
-      'edit_form' => $editForm->createView(),
-      'delete_form' => $deleteForm->createView(),
-    );
-  }
-
-  /**
-   * Creates a form to edit a Klimaskaerm entity.
-   *
-   * @param Klimaskaerm $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createEditForm(Klimaskaerm $entity) {
-    $form = $this->createForm(new KlimaskaermType(), $entity, array(
-      'action' => $this->generateUrl('klimaskaerm_update', array('id' => $entity->getId())),
-      'method' => 'PUT',
-    ));
-
-    $this->addUpdate($form, $this->generateUrl('klimaskaerm_show', array('id' => $entity->getId())));
-
-    return $form;
-  }
-
-  /**
-   * Edits an existing Klimaskaerm entity.
-   *
-   * @Route("/{id}", name="klimaskaerm_update")
-   * @Method("PUT")
-   * @Template("AppBundle:Klimaskaerm:edit.html.twig")
-   * @ Security("is_granted('KLIMASKAERM_EDIT', klimaskaerm)")
-   */
-  public function updateAction(Request $request, Klimaskaerm $klimaskaerm) {
-    $deleteForm = $this->createDeleteForm($klimaskaerm->getId());
-    $editForm = $this->createEditForm($klimaskaerm);
-    $editForm->handleRequest($request);
-
-    if ($editForm->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->flush();
-
-      return $this->redirect($this->generateUrl('klimaskaerm_edit', array('id' => $klimaskaerm->getId())));
+        return $form;
     }
 
-    return array(
-      'entity' => $klimaskaerm,
-      'edit_form' => $editForm->createView(),
-      'delete_form' => $deleteForm->createView(),
-    );
-  }
+    /**
+     * Displays a form to create a new Klimaskaerm entity.
+     *
+     * @Route("/new", name="klimaskaerm_new")
+     * @Method("GET")
+     * @Template()
+     */
+    public function newAction()
+    {
+        $this->breadcrumbs->addItem('common.add', $this->generateUrl('klimaskaerm'));
 
-  /**
-   * Deletes a Klimaskaerm entity.
-   *
-   * @Route("/{id}", name="klimaskaerm_delete")
-   * @Method("DELETE")
-   * @Security("has_role('ROLE_KLIMASKAERM_EDIT', klimaskaerm)")
-   */
-  public function deleteAction(Request $request, Klimaskaerm $klimaskaerm) {
-    $form = $this->createDeleteForm($klimaskaerm->getId());
-    $form->handleRequest($request);
+        $entity = new Klimaskaerm();
+        $form   = $this->createCreateForm($entity);
 
-    if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->remove($klimaskaerm);
-      $em->flush();
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
     }
 
-    return $this->redirect($this->generateUrl('klimaskaerm'));
-  }
+    /**
+     * Finds and displays a Klimaskaerm entity.
+     *
+     * @Route("/{id}", name="klimaskaerm_show")
+     * @Method("GET")
+     * @Template()
+     */
+    public function showAction($id)
+    {
 
-  /**
-   * Creates a form to delete a Klimaskaerm entity by id.
-   *
-   * @param mixed $id The entity id
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createDeleteForm($id) {
-    return $this->createFormBuilder()
-      ->setAction($this->generateUrl('klimaskaerm_delete', array('id' => $id)))
-      ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
-      ->getForm();
-  }
+        $em = $this->getDoctrine()->getManager();
 
+        $entity = $em->getRepository('AppBundle:Klimaskaerm')->find($id);
+        $this->breadcrumbs->addItem($entity, $this->generateUrl('klimaskaerm_show', array('id' => $entity->getId())));
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Klimaskaerm entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+
+    /**
+     * Displays a form to edit an existing Klimaskaerm entity.
+     *
+     * @Route("/{id}/edit", name="klimaskaerm_edit")
+     * @Method("GET")
+     * @Template()
+     */
+    public function editAction(Klimaskaerm $entity)
+    {
+        $this->breadcrumbs->addItem($entity, $this->generateUrl('klimaskaerm_show', array('id' => $entity->getId())));
+        $this->breadcrumbs->addItem('common.edit', $this->generateUrl('klimaskaerm_show', array('id' => $entity->getId())));
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Klimaskaerm entity.');
+        }
+
+        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($entity->getId());
+
+        return array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+
+    /**
+    * Creates a form to edit a Klimaskaerm entity.
+    *
+    * @param Klimaskaerm $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Klimaskaerm $entity)
+    {
+        $form = $this->createForm(new KlimaskaermType(), $entity, array(
+            'action' => $this->generateUrl('klimaskaerm_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $this->addUpdate($form, $this->generateUrl('klimaskaerm_show', array('id' => $entity->getId())));
+
+        return $form;
+    }
+    /**
+     * Edits an existing Klimaskaerm entity.
+     *
+     * @Route("/{id}", name="klimaskaerm_update")
+     * @Method("PUT")
+     * @Template("AppBundle:Klimaskaerm:edit.html.twig")
+     */
+    public function updateAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Klimaskaerm')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Klimaskaerm entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('klimaskaerm'));
+        }
+
+        return array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+    /**
+     * Deletes a Klimaskaerm entity.
+     *
+     * @Route("/{id}", name="klimaskaerm_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $form = $this->createDeleteForm($id);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('AppBundle:Klimaskaerm')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Klimaskaerm entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('klimaskaerm'));
+    }
+
+    /**
+     * Creates a form to delete a Klimaskaerm entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('klimaskaerm_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm()
+        ;
+    }
 }

@@ -99,10 +99,18 @@ class User extends BaseUser {
     $this->username = 'username';
   }
 
-  public function setGroups(ArrayCollection $groups) {
-    $this->groups = $groups;
+  public function setGroups($groups) {
+    if(is_a($groups, 'Doctrine\Common\Collections\ArrayCollection')) {
+      $this->groups = $groups;
+    } else {
+      $this->groups->add($groups);
+    }
 
     return $this;
+  }
+
+  public function getGroup() {
+    return implode(", ", $this->getGroupNames());
   }
 
   /**

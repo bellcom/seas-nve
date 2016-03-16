@@ -39,19 +39,21 @@
         <li><a href="/bygning">{{ icon('home') }} {{ 'bygninger.labels.plural' | trans }}</a></li>
         <li><a href="/rapport">{{ icon('file') }} {{ 'rapporter.labels.plural' | trans }}</a></li>
         {% if is_granted('ROLE_ADMIN') %}
-          <li><a href="/user">{{ icon('user') }} {{ 'user.labels.plural' | trans }}</a></li>
+          <li><a href="/udtraek">{{ icon('file-excel-o') }} {{ 'udtraek.labels.plural' | trans }}</a></li>
         {% endif %}
         {% if is_granted('ROLE_SUPER_ADMIN') %}
+          <li><a href="/user">{{ icon('user') }} {{ 'user.labels.plural' | trans }}</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('gears') }} Indstillinger <span class="caret"></span></a>
             <ul class="dropdown-menu">
               {% for route, name in {
-              'solcelle': 'Solceller',
-              'klimaskaerm': 'Klimaskærme',
-              'pumpe': 'Pumper',
-              'forsyningsvaerk': 'Forsyningsværker',
-              'segment': 'Segmenter',
-              'nyttiggjortvarme': 'Nyttiggjort varme',
+                'solcelle': 'Solceller',
+                'klimaskaerm': 'Klimaskærme',
+                'pumpe': 'Pumper',
+                'forsyningsvaerk': 'Forsyningsværker',
+                'segment': 'Segmenter',
+                'nyttiggjortvarme': 'Nyttiggjort varme',
+                'belysningtiltagdetail_erstatningslyskilde': 'Erstatnings lyskilder'
               } %}
                 <li><a href="{{ path(route) }}">{{ name | trans }}</a></li>
               {% endfor %}
@@ -115,7 +117,10 @@
 
 <footer class="footer">
   <div class="container-fluid">
-    <p class="text-muted">{{ 'footer.navn' | trans }}, {{ icon('map-marker') }} {{ 'footer.adresse' | trans }} - {{ icon('envelope') }} {{ 'footer.email' | trans }}</p>
+    <div class="row">
+      <div class="col-xs-12 col-md-9"><p class="text-muted">{{ 'footer.navn' | trans }}, {{ icon('map-marker') }} {{ 'footer.adresse' | trans }} - {{ icon('envelope') }} {{ 'footer.email' | trans }}</p></div>
+      <div class="col-xs-12 col-md-3"><p class="text-muted text-right">{{ aaplus_release_ver }}</p></div>
+    </div>
   </div>
 </footer>
 
@@ -133,10 +138,14 @@
   <script>
     $(document).ready(function() {
       $("textarea").autoGrow();
+
       $(".table-header-rotated").floatThead({
         position: 'fixed',
         top: 50
       });
+
+      {% block documentReady %}{% endblock documentReady %}
+
     });
   </script>
 {% endblock %}

@@ -136,3 +136,7 @@ services:
     aaplus.form.segmenttype:
         class:        AppBundle\Form\SegmentType
         arguments:    [doctrine]
+
+    # https://github.com/FriendsOfSymfony/FOSUserBundle/issues/2048
+    fos_user.doctrine_registry:
+        alias: doctrine

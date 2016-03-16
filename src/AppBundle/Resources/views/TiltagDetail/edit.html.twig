@@ -1,17 +1,19 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  {% if calculation_changes %}
-    <div class="alert alert-warning">
-      <p>{{ 'Calculations have changed' | trans }}</p>
-      {% for message in calculation_changes %}
-        <p>
-          {{ message.property | trans }}:
-          {{ message.oldValue | format_decimal }} → {{ message.newValue | format_decimal }}
-          ({{ message.oldValue }} → {{ message.newValue }})
-        </p>
-      {% endfor %}
-    </div>
+  {% if calculation_changes is defined %}
+    {% if calculation_changes %}
+      <div class="alert alert-warning">
+        <p>{{ 'Calculations have changed' | trans }}</p>
+        {% for message in calculation_changes %}
+          <p>
+            {{ message.property | trans }}:
+            {{ message.oldValue | format_decimal }} → {{ message.newValue | format_decimal }}
+            ({{ message.oldValue }} → {{ message.newValue }})
+          </p>
+        {% endfor %}
+      </div>
+    {% endif %}
   {% endif %}
 
   <div class="row heading">
@@ -23,15 +25,21 @@
       {% endif %}
     </div>
     <div class="col-md-4 text-right">
-      {% if is_granted('ROLE_RAPPORT_EDIT') %}
+      {% if is_granted('ROLE_RAPPORT_EDIT') and delete_form is defined %}
         {{ form(delete_form) }}
       {% endif %}
     </div>
   </div>
 
   {{ form_start(edit_form, { 'style': '' }) }}
-  {{ form_row(edit_form.tilvalgt) }}
-  {{ form_row(edit_form.ikkeElenaBerettiget) }}
+  {{ form_errors(edit_form) }}
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      {{ form_row(edit_form.tilvalgt) }}
+      {{ form_row(edit_form.ikkeElenaBerettiget) }}
+    </div>
+  </div>
 
   {% block edit_form %}
 

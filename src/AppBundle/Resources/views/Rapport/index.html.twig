@@ -1,31 +1,91 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  <h1>{{ 'rapporter.labels.plural' | trans }}</h1>
+  <div class="row">
+    <div class="col-md-9">
+      <h1>
+        {{ 'rapporter.labels.plural' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
+      </h1>
+    </div>
+    <div class="col-md-3 text-right">
+      <h2>
+        <small>{% include 'AppBundle:_includes:pagination_count.html.twig' %}</small>
+      </h2>
+    </div>
+
+  </div>
+
+  {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+  {{ form_errors(form) }}
 
   <table class="table table-condensed table-hover">
-    <thead>
     <tr>
-      <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.segment'|trans, 'b.segment') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.status'|trans, 'b.status') }}</th>
       <th>{{ 'appbundle.rapport.version' | trans }}</th>
-      <th>{{ 'appbundle.rapport.datering' | trans }}</th>
-      <th>{{ 'appbundle.rapport.elena' | trans }}</th>
+      {% if form.elena is defined %}
+        <th>{{ knp_pagination_sortable(pagination, 'appbundle.rapport.elena'|trans, 'r.elena') }}</th>
+      {% endif %}
+      {% if form.ava is defined %}
+        <th>{{ knp_pagination_sortable(pagination, 'appbundle.rapport.ava'|trans, 'r.ava') }}</th>
+      {% endif %}
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.rapport.datering'|trans, 'r.datering') }}</th>
       <th></th>
     </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
+
+    <tr class="search">
+      <th>{{ form_row(form.bygning.navn) }}</th>
+      <th>{{ form_row(form.bygning.segment) }}</th>
+      <th>{{ form_row(form.bygning.status) }}</th>
+      <th></th>
+      {% if form.elena is defined %}
+        <th>{{ form_row(form.elena) }}</th>
+      {% endif %}
+      {% if form.ava is defined %}
+        <th>{{ form_row(form.ava) }}</th>
+      {% endif %}
+      <th>{{ form_row(form.datering) }}</th>
+      <th>{{ form_row(form.Søg) }}</th>
+    </tr>
+
+    {% for rapport in pagination %}
+    <tr>
+      <td>{{ rapport.bygning.navn }}</td>
+      <td>{{ rapport.bygning.segment }}</td>
+      <td>{{ rapport.bygning.status  | readable }}</td>
+      <td>{{ rapport.fullVersion }}</td>
+      {% if form.elena is defined %}
+        <td>{{ rapport.elena | b2icon }}</td>
+      {% endif %}
+      {% if form.ava is defined %}
+        <td>{{ rapport.ava | b2icon }}</td>
+      {% endif %}
+      <td>{{ rapport.datering | date('Y-m-d') }}</td>
+      <td class="text-right">
+        <a href="{{ path('rapport_show', { 'id': rapport.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
+      </td>
+    </tr>
+    {% else %}
       <tr>
-        <td>{{ entity.bygning }}</td>
-        <td>{{ entity.fullVersion }}</td>
-        <td>{% if entity.datering %}{{ entity.datering|date('Y-m-d') }}{% endif %}</td>
-        <td>{{ entity.elena | b2icon }}</td>
-        <td>
-          <a href="{{ path('rapport_show', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+        <td colspan="8">
+          <div class="alert alert-info" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
         </td>
       </tr>
     {% endfor %}
-    </tbody>
   </table>
+
+
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6 text-center">
+      {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
+    </div>
+    <div class="col-md-3 text-right">
+    </div>
+  </div>
+  {{ form_end(form) }}
 
 {% endblock %}

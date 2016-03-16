@@ -1,11 +1,13 @@
 {% extends 'AppBundle:Tiltag:show.html.twig' %}
 
+{% set add_action = 'specialtiltagdetail.actions.add' %}
+
 {% block body -%}
   {{ parent() }}
 {% endblock %}
 
 {% block detailark -%}
-  <div class="row">
+  <div class="row details-overview">
     <div class="col-md-12">
       <table class="table table-condensed table-header-rotated">
         <thead>
@@ -20,7 +22,9 @@
         {% for detail in entity.details %}
           <tr>
             <td>
-              {{ block('special_tiltag_detail_edit') }}
+              {% if is_granted('TILTAG_EDIT', entity) %}
+                {{ block('special_tiltag_detail_edit') }}
+              {% endif %}
             </td>
             <td>{{ detail.tilvalgt | b2icon }}</td>
             <td>{{ detail.kommentar }}</td>

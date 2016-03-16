@@ -65,6 +65,9 @@ class BygningIndfoerController extends BaseController implements InitControllerI
    * @Template("AppBundle:BygningIndfoer:index.html.twig")
    */
   public function updateAction(Request $request, Bygning $bygning) {
+    $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+    $this->breadcrumbs->addItem('bygninger.actions.indfoer');
+
     $editForm = $this->createEditForm($bygning);
     $editForm->handleRequest($request);
     $flash = $this->get('braincrafted_bootstrap.flash');
@@ -94,7 +97,7 @@ class BygningIndfoerController extends BaseController implements InitControllerI
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Bygning $entity) {
-    $form = $this->createForm(new BygningType($this->getDoctrine()), $entity, array(
+    $form = $this->createForm(new BygningType($this->getDoctrine(), $this->get('security.authorization_checker')), $entity, array(
       'action' => $this->generateUrl('bygning_indfoer_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));

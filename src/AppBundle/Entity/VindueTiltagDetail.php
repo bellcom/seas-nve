@@ -23,7 +23,7 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="solenergitransmittansNy", type="decimal", scale=4)
+   * @ORM\Column(name="solenergitransmittansNy", type="decimal", scale=4, nullable=true)
    */
   protected $solenergitransmittansNy;
 

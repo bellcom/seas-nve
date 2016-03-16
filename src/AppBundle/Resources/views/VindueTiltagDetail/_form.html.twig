@@ -6,7 +6,8 @@
     <div class="row">
       <div class="col-md-6">
         {{ form_row(edit_form.laastAfEnergiraadgiver) }}
-        {{ form_row(edit_form.typePlaceringJfPlantegning) }}
+        {{ form_row(edit_form.type) }}
+        {{ form_row(edit_form.placering) }}
       </div>
       <div class="col-md-6">
         {{ form_row(edit_form.orientering) }}
@@ -23,8 +24,11 @@
       </div>
       <div class="panel-body">
         <div class="row">
+          <div class="col-md-6">{{ form_row(edit_form.antalStk) }}</div>
+          <div class="col-md-6"></div>
+        </div>
+        <div class="row">
           <div class="col-md-6">
-            {{ form_row(edit_form.antalStk) }}
             {{ form_row(edit_form.hoejdeElLaengdeM) }}
             {{ form_row(edit_form.uEksWM2K) }}
             {{ form_row(edit_form.solenergitransmittansEks) }}
@@ -54,6 +58,7 @@
             {{ form_row(edit_form.levetidAar) }}
           </div>
           <div class="col-md-6">
+            {{ form_row(edit_form.klimaskaermOverskrevetPris) }}
             {{ form_row(edit_form.prisfaktor) }}
             {{ form_row(edit_form.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet) }}
           </div>

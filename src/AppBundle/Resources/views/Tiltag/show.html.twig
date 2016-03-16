@@ -1,12 +1,16 @@
 {% extends 'AppBundle::base.html.twig' %}
 
+{% if add_action is not defined %}
+  {% set add_action = 'tiltagdetail.actions.add' %}
+{% endif %}
+
 {% block body -%}
   <div class="row heading">
     <div class="col-md-6"><h1>{% if entity.title is empty %}{{ 'tiltag.title.missing' | trans }}{% else %}{{ entity.title }}{% endif %}</h1></div>
     <div class="col-md-6 text-right">
       {% if is_granted('TILTAG_EDIT', entity) %}
         <a class="btn btn-default" href="{{ path('tiltag_edit', { 'id': entity.id }) }}">{{ icon('edit') }} {{ 'tiltag.actions.edit' | trans }}</a>
-        <a href="{{ path('tiltag_detail_new', { 'id': entity.id }) }}" class="btn btn-primary">{{ icon('plus') }} {{ 'tiltagdetail.actions.add' | trans }}</a>
+        <a href="{{ path('tiltag_detail_new', { 'id': entity.id }) }}" class="btn btn-primary">{{ icon('plus') }} {{ add_action | trans }}</a>
       {% endif %}
     </div>
   </div>

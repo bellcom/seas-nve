@@ -1,1 +1,37 @@
-{{ dump() }}
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ entity }}</h1>
+    </div>
+    <div class="col-md-3 text-right">    <a class="btn btn-default btn-default" href="{{ path('solcelle_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('chevron-right') }} {{ 'solcelle.labels.singular' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+            <tr>
+              <th>{{ 'appbundle.solcelle.KWp' | trans }}</th>
+                <td>{{ entity.KWp }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.solcelle.inverterpris' | trans }}</th>
+                <td>{{ entity.inverterpris }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.solcelle.drift' | trans }}</th>
+                <td>{{ entity.drift }}</td>
+            </tr>          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

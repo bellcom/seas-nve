@@ -1,48 +1,58 @@
-{% extends 'AppBundle::base.html.twig' %}
+  {% extends 'AppBundle::base.html.twig' %}
 
-{% block body %}
-  <div class="row">
-    <div class="col-md-10">
-      <h1>{{ 'klimaskaerm.labels.plural' | trans }}</h1>
+
+  {% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+        <h1>{{ 'klimaskaerm.labels.plural' | trans }}</h1>
     </div>
-    <div class="col-md-2 text-right">
-      <a href="{{ path('klimaskaerm_new') }}" class="btn btn-default">
-        {{ icon('plus') }} {{ 'klimaskaerm.actions.add' | trans }}
-      </a>
-    </div>
+    <div class="col-md-3 text-right">
+              <a class="btn btn-default" href="{{ path('klimaskaerm_new') }}">
+          {{ icon('plus') }} {{ 'klimaskaerm.actions.add' | trans }}
+        </a>
+          </div>
 
   </div>
 
-  <table class="table table-condensed table-hover">
-	<thead>
-      <tr>
-        <th>{{ 'appbundle.klimaskaerm.post' | trans }}</th>
-        <th>{{ 'appbundle.klimaskaerm.klimaskaerm' | trans }}</th>
-        <th>{{ 'appbundle.klimaskaerm.arbejdeOmfang' | trans }}</th>
-        <th>{{ 'appbundle.klimaskaerm.enhedsprisEksklMoms' | trans }}</th>
-        <th>{{ 'appbundle.klimaskaerm.enhed' | trans }}</th>
-        <th>{{ 'appbundle.klimaskaerm.noter' | trans }}</th>
-        <th></th>
-      </tr>
-	</thead>
-	<tbody>
-      {% for klimaskaerm in entities %}
-        <tr>
-          <td>{{ klimaskaerm.post }}</td>
-          <td>{{ klimaskaerm.klimaskaerm }}</td>
-          <td>{{ klimaskaerm.arbejdeOmfang }}</td>
-          <td>{{ klimaskaerm.enhedsprisEksklMoms | format_decimal }}</td>
-          <td>{{ klimaskaerm.enhed }}</td>
-          <td>{{ klimaskaerm.noter }}</td>
-          <td>
-            <a href="{{ path('klimaskaerm_show', { 'id': klimaskaerm.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
-            <a href="{{ path('klimaskaerm_edit', { 'id': klimaskaerm.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-          </td>
-        </tr>
-	</tbody>
-  {% else %}
-    {{ 'klimaskaerm.strings.ingen' | trans }}
-  {% endfor %}
+
+  <table class="table table-condensed table-details">
+    <thead>
+    <tr>
+        {{ helper.header('appbundle.klimaskaerm.post') }}
+        {{ helper.header('appbundle.klimaskaerm.klimaskaerm') }}
+        {{ helper.header('appbundle.klimaskaerm.arbejdeOmfang') }}
+        {{ helper.header('appbundle.klimaskaerm.enhedsprisEksklMoms') }}
+        {{ helper.header('appbundle.klimaskaerm.enhed') }}
+        {{ helper.header('appbundle.klimaskaerm.noter') }}
+      {{ helper.header() }}
+    </tr>
+    <tr>
+        {{ helper.header_unit('appbundle.klimaskaerm.post') }}
+        {{ helper.header_unit('appbundle.klimaskaerm.klimaskaerm') }}
+        {{ helper.header_unit('appbundle.klimaskaerm.arbejdeOmfang') }}
+        {{ helper.header_unit('appbundle.klimaskaerm.enhedsprisEksklMoms') }}
+        {{ helper.header_unit('appbundle.klimaskaerm.enhed') }}
+        {{ helper.header_unit('appbundle.klimaskaerm.noter') }}
+      {{ helper.header_unit() }}
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+    <tr>
+        <td>{{ entity.post }}</td>
+        <td>{{ entity.klimaskaerm }}</td>
+        <td>{{ entity.arbejdeOmfang }}</td>
+        <td class="number">{{ entity.enhedsprisEksklMoms | number_format }}</td>
+        <td>{{ entity.enhed }}</td>
+        <td>{{ entity.noter }}</td>
+      <td class="text-right">    <a class="btn btn-default btn-xs" href="{{ path('klimaskaerm_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+      </td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
   </table>
 
-{% endblock %}
+  {% endblock %}

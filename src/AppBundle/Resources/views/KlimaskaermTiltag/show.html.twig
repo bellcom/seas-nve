@@ -5,18 +5,24 @@
 {% endblock %}
 
 {% block detailark -%}
-  <div class="row">
+  <div class="row details-overview">
     <div class="col-md-12">
+
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_start(edit_form) }}
+      {% endif %}
 
       <table class="table table-condensed table-header-rotated table-hover">
         <thead>
         <tr>
           {{ helper.header() }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
+          {{ helper.header('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.klimaskaerm') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.orientering') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.typePlaceringJfPlantegning') }}
+          {{ helper.header('appbundle.klimaskaermtiltagdetail.type') }}
+          {{ helper.header('appbundle.klimaskaermtiltagdetail.placering') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.hoejdeElLaengdeM') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.breddeM') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.antalStk') }}
@@ -32,7 +38,6 @@
           {{ helper.header('appbundle.klimaskaermtiltagdetail.prisfaktor') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.samletInvesteringKr') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.levetidAar') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.faktorForReinvestering') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
@@ -41,11 +46,13 @@
         </tr>
         <tr>
           {{ helper.header_unit() }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
           {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
+          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.orientering') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.klimaskaerm') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.typePlaceringJfPlantegning') }}
+          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.type') }}
+          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.placering') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.hoejdeElLaengdeM') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.breddeM') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.antalStk') }}
@@ -61,7 +68,6 @@
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.prisfaktor') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.samletInvesteringKr') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.levetidAar') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.faktorForReinvestering') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
@@ -70,18 +76,31 @@
         </tr>
         </thead>
         <tbody>
-        {% for detail in entity.details %}
+        {% for form_detail in edit_form.details %}
+          {% set detail = details[form_detail.vars['value'].id] %}
           <tr>
             <td>
-              <p><a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('edit') }} {{ 'common.edit' | trans }}</a></p>
-
-              <p><a href="{{ path('tiltag_detail_copy', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('clone') }} {{ 'common.copy' | trans }}</a></p>
+              {{ block('tiltag_detail_edit') }}
+            </td>
+            <td>
+              {% if is_granted('TILTAG_EDIT', entity) %}
+                {{ form_row(form_detail.tilvalgt) }}
+              {% else %}
+                {{ detail.tilvalgt | b2icon }}
+              {% endif %}
             </td>
             <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
-            <td>{{ detail.tilvalgt | b2icon }}</td>
-            <td>{{ detail.klimaskaerm }}</td>
+            <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
+            <td>
+              {% if detail.klimaskaerm is not empty %}
+                {{ detail.klimaskaerm }}
+              {% else %}
+                {{ 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.show' | trans }}
+              {% endif %}
+            </td>
             <td>{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
-            <td>{{ detail.typePlaceringJfPlantegning }}</td>
+            <td>{{ detail.type }}</td>
+            <td>{{ detail.placering }}</td>
             <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
             <td>{{ detail.breddeM | format_decimal }}</td>
             <td>{{ detail.antalStk | format_integer }}</td>
@@ -97,7 +116,6 @@
             <td>{{ detail.prisfaktor | format_decimal }}</td>
             <td>{{ detail.samletInvesteringKr | format_decimal }}</td>
             <td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
-            <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
             <td>{{ detail.levetidAar | format_decimal }}</td>
             <td>{{ detail.faktorForReinvestering | format_decimal }}</td>
             <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
@@ -107,6 +125,12 @@
         {% endfor %}
         </tbody>
       </table>
+
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+      {% endif %}
+
     </div>
   </div>
 

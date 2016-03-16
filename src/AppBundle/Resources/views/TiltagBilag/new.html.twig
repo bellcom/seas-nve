@@ -1,0 +1,16 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% if heading is not defined %}
+  {% set heading = 'bilag.actions.edit' %}
+{% endif %}
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-8">
+      <h1>{{ 'bilag.actions.new' | trans }}</h1>
+    </div>
+  </div>
+
+  {% include 'AppBundle:TiltagBilag:_form.html.twig' %}
+
+{% endblock %}

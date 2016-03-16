@@ -59,7 +59,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="tankVolL", type="decimal", scale=4)
+   * @ORM\Column(name="tankVolL", type="decimal", scale=4, nullable=true)
    */
   protected $tankVolL;
 
@@ -103,7 +103,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="nyIsolMm", type="decimal", scale=4)
+   * @ORM\Column(name="nyIsolMm", type="decimal", scale=4, nullable=true)
    */
   protected $nyIsolMm;
 
@@ -134,14 +134,14 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestKrM2EllerKrM", type="decimal", scale=4)
+   * @ORM\Column(name="standardinvestKrM2EllerKrM", type="decimal", scale=4, nullable=true)
    */
   protected $standardinvestKrM2EllerKrM;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="prisfaktor", type="decimal", scale=4)
+   * @ORM\Column(name="prisfaktor", type="decimal", scale=4, nullable=true)
    */
   protected $prisfaktor;
 

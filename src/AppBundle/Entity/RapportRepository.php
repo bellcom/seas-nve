@@ -46,6 +46,71 @@ class RapportRepository extends EntityRepository {
   }
 
   /**
+   * Search all Rapport that a User has access to
+   *
+   * @param User $user
+   * @param bool $returnQuery
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function searchByUser(User $user, $search) {
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('r', 'b')
+      ->from('AppBundle:Rapport', 'r')
+      ->leftJoin('r.bygning', 'b')
+      ->leftJoin('b.segment', 's');
+
+    if (!empty($search['elena'])) {
+      $qb->andWhere('r.elena = :elena')
+        ->setParameter('elena', $search['elena']);
+    }
+
+    if ($search['ava'] !== null) {
+      $qb->andWhere('r.ava = :ava')
+        ->setParameter('ava', $search['ava']);
+    }
+
+    if (!empty($search['datering'])) {
+      $qb->andWhere('r.datering LIKE :datering')
+        ->setParameter('datering', $search['datering'] . '%');
+    }
+
+    if (!empty($search['navn'])) {
+      $qb->andWhere('b.navn LIKE :navn')
+        ->setParameter('navn', '%' . $search['navn'] . '%');
+    }
+
+    if (!empty($search['adresse'])) {
+      $qb->andWhere('b.adresse LIKE :adresse')
+        ->setParameter('adresse', '%' . $search['adresse'] . '%');
+    }
+
+    if (!empty($search['postnummer'])) {
+      $qb->andWhere('b.postnummer = :postnummer')
+        ->setParameter('postnummer', $search['postnummer']);
+    }
+
+    if (!empty($search['status'])) {
+      $qb->andWhere('b.status = :status')
+        ->setParameter('status', $search['status']);
+    }
+
+    if (!empty($search['segment'])) {
+      $qb->andWhere('b.segment = :segment')
+        ->setParameter('segment', $search['segment']);
+    }
+
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF b.users');
+      $qb->setParameter('user', $user);
+    }
+
+    $qb->addOrderBy('b.navn');
+
+    return $qb->getQuery();
+  }
+
+  /**
    * Get the Pumpetiltag for the rapport
    *
    * @param $rapport
@@ -98,11 +163,13 @@ class RapportRepository extends EntityRepository {
   /**
    * The ugly function to check if a user is allowed to do everything …
    *
+   * ROLE_ADMIN == Aa+
+   *
    * @param $user
    * @return bool
    */
   private function hasFullAccess($user) {
-    return $user && $user->hasRole('ROLE_SUPER_ADMIN');
+    return $user && $user->hasRole('ROLE_ADMIN');
   }
 
   /**

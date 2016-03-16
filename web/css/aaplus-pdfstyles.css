@@ -70,6 +70,10 @@ hr.pdf-heading {
 }
 
 /** Tables **/
+table {
+    width: 1000px;
+}
+
 table, tr, td, th, tbody, thead, tfoot {
     page-break-inside: avoid !important;
 }
@@ -186,9 +190,10 @@ td.not-selected {
     font-size: 1.1em;
 }
 
-.panel-default>.panel-heading {
+.panel-default > .panel-heading {
     color: #333;
     background-color: #cfcfcf;
     border-color: #444;
 }
+
 
