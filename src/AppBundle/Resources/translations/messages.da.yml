@@ -87,6 +87,7 @@ common:
   updatedat: Opdateret
   updatedby: Opdateret af
   your_buildings: Dine bygninger
+  calculated_value: Beregnet værdi
 dashboard:
   besparelseCO2: CO2 Besparelse
   besparelseEl: El Besparelse

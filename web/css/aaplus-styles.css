@@ -598,3 +598,16 @@ table.configuration-settings td:nth-child(2) {
     font-size: 0.9em;
     color: #777;
 }
+
+.aaplus-overwritten-value .aaplus-note-marker::before {
+	font-family: FontAwesome;
+	content: '\f05a';
+}
+
+.aaplus-overwritten-value .aaplus-calculated-value {
+	visibility: hidden;
+}
+
+.aaplus-overwritten-value:hover .aaplus-calculated-value {
+	visibility: visible;
+}

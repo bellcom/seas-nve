@@ -190,6 +190,16 @@ abstract class Tiltag {
   protected $anlaegsinvestering;
 
   /**
+   * Enterprisesum (beregnet)
+   *
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="anlaegsinvestering_beregnet", type="float", nullable=true)
+   */
+  protected $anlaegsinvestering_beregnet;
+
+  /**
    * Enterprisesum ex. risiko
    *
    * @var float
@@ -756,6 +766,14 @@ abstract class Tiltag {
     return $this->anlaegsinvestering;
   }
 
+  /**
+   * Get anlaegsinvestering (beregnet)
+   *
+   * @return string
+   */
+  public function getAnlaegsinvesteringBeregnet() {
+    return $this->anlaegsinvestering_beregnet;
+  }
 
   /**
    * @return float
@@ -1387,7 +1405,11 @@ abstract class Tiltag {
       $this->levetid = $value;
     }
     $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
-    $this->anlaegsinvestering = $this->calculateAnlaegsinvestering();
+    $this->anlaegsinvestering_beregnet = $this->calculateAnlaegsinvestering();
+    $this->anlaegsinvestering = $this->anlaegsinvestering_beregnet;
+    if ($this->reelAnlaegsinvestering > 0) {
+      $this->anlaegsinvestering = $this->reelAnlaegsinvestering;
+    }
     if ($this->opstartsomkostninger > 0) {
       $this->anlaegsinvestering += $this->opstartsomkostninger;
     }

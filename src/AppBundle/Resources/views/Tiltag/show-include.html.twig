@@ -83,7 +83,15 @@
         <tbody>
         <tr>
           <td>{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</td>
-          <td class="text-right">{{ entity.anlaegsInvestering | number_format }}</td>
+          <td class="text-right">
+            {% if entity.anlaegsInvesteringBeregnet != null and entity.anlaegsInvesteringBeregnet != entity.anlaegsInvestering %}
+              <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">({{ 'common.calculated_value' | trans}}: {{ entity.anlaegsInvesteringBeregnet | number_format }})</span> <span class="aaplus-note-marker"></span>
+                {{ entity.anlaegsInvestering | number_format }}
+              </span>
+            {% else %}
+              {{ entity.anlaegsInvestering | number_format }}
+            {% endif %}
+          </td>
           <td>{{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
         </tr>
         <tr>
@@ -96,13 +104,6 @@
           <td class="text-right">{{ entity.risikovurderingOekonomiskKompenseringIftInvesteringFaktor | format_percent_nounit }}</td>
           <td>{{ 'appbundle.tiltag.risikovurderingOekonomiskKompenseringIftInvesteringFaktor.unit' | trans }}</td>
         </tr>
-        {% if is_granted('ROLE_ADMIN') %}
-        <tr>
-          <td>{{ 'appbundle.tiltag.reelAnlaegsinvestering' | trans }}</td>
-          <td class="text-right">{{ entity.reelAnlaegsinvestering | number_format }}</td>
-          <td>{{ 'appbundle.tiltag.reelAnlaegsinvestering.unit' | trans }}</td>
-        </tr>
-        {% endif %}
         <tr>
           <td>{{ 'appbundle.tiltag.genopretning' | trans }}</td>
           <td class="text-right">{{ entity.genopretning | number_format }}</td>
