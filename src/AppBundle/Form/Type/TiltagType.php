@@ -73,15 +73,15 @@ class TiltagType extends AbstractType {
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder
         ->add('genopretning')
-        ->add('modernisering')
-        ->add('reelAnlaegsinvestering');
+        ->add('modernisering');
     }
 
-    $builder->add('forsyningVarme', 'entity', array(
-      'class' => 'AppBundle:Energiforsyning',
-      'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
-      'required' => FALSE,
-    ))
+    $builder->add('reelAnlaegsinvestering')
+      ->add('forsyningVarme', 'entity', array(
+        'class' => 'AppBundle:Energiforsyning',
+        'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
+        'required' => FALSE,
+      ))
       ->add('forsyningEl', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
