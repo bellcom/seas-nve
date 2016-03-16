@@ -20,7 +20,7 @@ class Version20160315140934 extends AbstractMigration
 
         // Add initial graddage data.
         $this->addSql("
-        INSERT INTO 'ELOKategori' ('id', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'navn', 'totalVarmeforbrug', 'totalElforbrug', 'andelVarmeGUFFaktor') VALUES
+        INSERT INTO ELOKategori (id, createdBy, updatedBy, createdAt, updatedAt, navn, totalVarmeforbrug, totalElforbrug, andelVarmeGUFFaktor) VALUES
           (1,'migration','migration','2016-03-15 15:14:00','2016-03-15 15:14:00','Administration - nyere (kontor. m.m.)',74,8,0.2),
           (2,'migration','migration','2016-03-15 15:14:00','2016-03-15 15:14:00','Administration - median (kontor. m.m.)',96,36.3,0.18),
           (3,'migration','migration','2016-03-15 15:14:00','2016-03-15 15:14:00','Administration - ældre (kontor. m.m.)',120,57.6,0.18),
@@ -42,7 +42,7 @@ class Version20160315140934 extends AbstractMigration
         ");
 
         $this->addSql("
-        INSERT INTO 'ELOFordeling' ('id', 'januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december', 'eloKategoriFordelingVarmeGUF_id', 'eloKategoriFordelingVarmeGAF_id', 'eloKategoriFordelingEl_id') VALUES
+        INSERT INTO ELOFordeling (id, januar, februar, marts, april, maj, juni, juli, august, september, oktober, november, december, eloKategoriFordelingVarmeGUF_id, eloKategoriFordelingVarmeGAF_id, eloKategoriFordelingEl_id) VALUES
           (1,0.1,0.095,0.08,0.075,0.075,0.06,0.06,0.08,0.085,0.095,0.095,0.1,NULL,NULL,1),
           (2,0.1,0.095,0.08,0.075,0.075,0.06,0.06,0.08,0.085,0.095,0.095,0.1,NULL,NULL,2),
           (3,0.1,0.095,0.08,0.075,0.075,0.06,0.06,0.08,0.085,0.095,0.095,0.1,NULL,NULL,3),
