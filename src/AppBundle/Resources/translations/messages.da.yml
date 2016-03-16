@@ -1160,6 +1160,8 @@ appbundle:
     anlaegsInvestering.unit: kr
     anlaegsinvesteringExRisiko: ﻿Entreprisesum (eksl. risikovurdering)
     anlaegsinvesteringExRisiko.unit: kr
+    aaplusInvestering: Aa+ investering
+    aaplusInvestering.unit: kr
     antalReinvesteringer: Antal reinvesteringer
     antalReinvesteringer.unit: stk.
     beskrivelse: Beskrivelse
