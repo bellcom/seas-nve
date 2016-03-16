@@ -332,8 +332,8 @@
         <td>{{ entity.varmeBaselineNoter }}</td>
         <td>{{ entity.createdBy }}</td>
         <td>{{ entity.updatedBy }}</td>
-        <td>{{ entity.createdAt }}</td>
-        <td>{{ entity.updatedAt }}</td>
+        <td>{{ entity.createdAt | date('Y-m-d') }}</td>
+        <td>{{ entity.updatedAt | date('Y-m-d') }}</td>
       <td class="text-right">    <a class="btn btn-default btn-xs" href="{{ path('baseline_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
 
       </td>

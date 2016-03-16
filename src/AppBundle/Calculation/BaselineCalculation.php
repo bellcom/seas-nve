@@ -28,9 +28,18 @@ class BaselineCalculation extends Calculation {
     $this->calculate($entity);
   }
 
+  /**
+   * Calculate baseline before a persist.
+   *
+   * @param LifecycleEventArgs $args
+   */
+  public function prePersist(LifecycleEventArgs $args) {
+    $this->preUpdate($args);
+  }
+
   public function calculate(Baseline $baseline) {
-    $GDNormalAar = NULL;
-    $normtal = $this->container->getRepository('GraddageFordeling')->getOneByTitle('Normtal');
+    $GDNormalAar = null;
+    $normtal = $this->container->get('doctrine')->getRepository('AppBundle:GraddageFordeling')->findOneByTitel('Normtal');
     if ($normtal) {
       $GDNormalAar = $normtal->getSumAar();
     }

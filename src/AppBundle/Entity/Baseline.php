@@ -799,11 +799,21 @@ class Baseline {
     return $this->bygning;
   }
 
+
   /**
-   * @param mixed $bygning
+   * Set bygning
+   *
+   * @param \AppBundle\Entity\Bygning $bygning
+   *
+   * @return Baseline
    */
-  public function setBygning($bygning) {
+  public function setBygning(\AppBundle\Entity\Bygning $bygning = NULL) {
     $this->bygning = $bygning;
+    if($bygning !== null) {
+      $bygning->setBaseline($this);
+    }
+
+    return $this;
   }
 
   /**
@@ -2447,5 +2457,9 @@ class Baseline {
       return null;
     }
     return $sum / $number;
+  }
+
+  public function __toString() {
+    return "" . $this->getId();
   }
 }

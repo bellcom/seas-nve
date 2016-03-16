@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * GraddageFordeling.
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\GraddageFordelingRepository")
  */
 class GraddageFordeling extends AarsFordeling {
   /**
