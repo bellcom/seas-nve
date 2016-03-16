@@ -63,17 +63,15 @@ class TiltagType extends AbstractType {
         'empty_value' => '--',
         'required' => FALSE
       ));
-      $builder->add('tilvalgtbegrundelse', null, array('required' => false));
-      $builder->add('tilvalgtBegrundelseMagistrat', null, array('required' => false));
+      $builder->add('tilvalgtbegrundelse', NULL, array('required' => FALSE));
+      $builder->add('tilvalgtBegrundelseMagistrat', NULL, array('required' => FALSE));
     }
     $builder->add('title')->add('faktorForReinvesteringer');
 
-    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-      $builder
-        ->add('genopretning')
-        ->add('modernisering')
-        ->add('reelAnlaegsinvestering');
-    }
+    $builder
+      ->add('genopretning')
+      ->add('modernisering')
+      ->add('reelAnlaegsinvestering');
 
     $builder->add('forsyningVarme', 'entity', array(
       'class' => 'AppBundle:Energiforsyning',
