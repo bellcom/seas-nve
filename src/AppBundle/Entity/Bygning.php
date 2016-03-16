@@ -194,6 +194,7 @@ class Bygning {
 
   /**
    * @OneToOne(targetEntity="Baseline", mappedBy="bygning")
+   * @JoinColumn(name="baseline_id", referencedColumnName="bygning_id", nullable=true)
    * @JMS\Exclude
    **/
   protected $baseline;
