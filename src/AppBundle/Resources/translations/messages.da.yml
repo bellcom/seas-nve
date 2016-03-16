@@ -976,8 +976,11 @@ appbundle:
     co2besparelser: CO2 Besparelser
     co2BesparelseFaktor: Samlede CO2 Besparelser (%)
     co2BesparelseElFaktor: El
+    co2BesparelseElFaktor.unit: %
     co2BesparelseSamletFaktor: Samlet CO2
+    co2BesparelseSamletFaktor.unit: %
     co2BesparelseVarmeFaktor: Varme
+    co2BesparelseVarmeFaktor.unit: %
     datering: Screeningsdato
     elena: Elena
     energibesparelser: Energibesparelser
