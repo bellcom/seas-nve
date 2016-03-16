@@ -1,10 +1,16 @@
 {{ form_start(edit_form) }}
 
-<h2>{{ icon('cogs') }} {{ 'appbundle.baseline.generelt' | trans }}</h2>
+<h2>{{ icon('cog') }} {{ 'appbundle.baseline.generelt' | trans }}</h2>
 <div class="row">
   <div class="col-xs-12 col-md-6">
-    {{ form_row(edit_form.bygning) }}
-    {{ form_row(edit_form.eloKategori) }}
+    <div class="panel panel-default">
+      <div
+        class="panel-heading">{{ icon('cog') }} {{ 'appbundle.baseline.generelt' | trans }}</div>
+      <div class="panel-body">
+        {{ form_row(edit_form.bygning) }}
+        {{ form_row(edit_form.eloKategori) }}
+      </div>
+    </div>
   </div>
 </div>
 
@@ -89,7 +95,7 @@
   <div class="col-xs-12 col-md-6">
     <div class="panel panel-default">
       <div
-        class="panel-heading">{{ icon('fire') }} {{ 'appbundle.baseline.elGenerelt' | trans }}</div>
+        class="panel-heading">{{ icon('flash') }} {{ 'appbundle.baseline.elGenerelt' | trans }}</div>
       <div class="panel-body">
         {{ form_row(edit_form.elBaselineFastsatForEjendom) }}
         {{ form_row(edit_form.elBaselineNoegletalForEjendom) }}
