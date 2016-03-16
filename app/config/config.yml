@@ -91,7 +91,7 @@ doctrine:
               filters:
                 softdeleteable:
                   class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-                  enabled: false
+                  enabled: true
               dql:
                 datetime_functions:
                   YEAR: DoctrineExtensions\Query\Mysql\Year
