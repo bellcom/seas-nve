@@ -91,7 +91,7 @@
         <div class="form-group">
           <label class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
           <div class="input-group">
-            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalElforbrug }}">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori ? entity.eloKategori.totalElforbrug : "" }}">
             <span class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
           </div>
         </div>
@@ -137,7 +137,7 @@
         <div class="form-group">
           <label class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
           <div class="input-group">
-            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalElforbrug }}">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori ? entity.eloKategori.totalElforbrug : "" }}">
             <span class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
           </div>
         </div>
@@ -157,7 +157,7 @@
         <div class="form-group">
           <label class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
           <div class="input-group">
-            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalElforbrug }}">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori ? entity.eloKategori.totalElforbrug : "" }}">
             <span class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
           </div>
         </div>
@@ -252,7 +252,7 @@
         <div class="form-group">
           <label class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
           <div class="input-group">
-            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalVarmeforbrug }}">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : "" }}">
             <span class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
           </div>
         </div>
@@ -343,7 +343,7 @@
         <div class="form-group">
           <label class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
           <div class="input-group">
-            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalVarmeforbrug }}">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : ""  }}">
             <span class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
           </div>
         </div>
@@ -365,13 +365,30 @@
         <div class="form-group">
           <label class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
           <div class="input-group">
-            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori.totalVarmeforbrug }}">
+            <input type="text" disabled="disabled" class="form-control" value="{{ entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : "" }}">
             <span class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
           </div>
         </div>
         {{ form_row(edit_form.varmeBaselineNoegletalForEjendom) }}
         {{ form_row(edit_form.varmeStrafafkoelingsafgift) }}
         {{ form_row(edit_form.varmeBaselineNoter) }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>{{ icon('cog') }} {{ 'appbundle.baseline.opsummering' | trans }}</h2>
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <div class="panel panel-default">
+      <div
+        class="panel-heading">{{ icon('cog') }} {{ 'appbundle.baseline.opsummering' | trans }}</div>
+      <div class="panel-body">
+        {{ entity.elBaselineFastsatForEjendom }}
+        {{ entity.varmeGAFForbrug }}
+        {{ entity.varmeGUFForbrug }}
+        {{ entity.varmeBaselineFastsatForEjendom }}
+        {{ entity.varmeStrafafkoelingsafgift }}
       </div>
     </div>
   </div>

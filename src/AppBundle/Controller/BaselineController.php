@@ -100,9 +100,16 @@ class BaselineController extends BaseController {
     $entity = new Baseline();
     $form = $this->createCreateForm($entity);
 
+    $GDNormalAar = "";
+    $normtal = $this->container->get('doctrine')->getRepository('AppBundle:GraddageFordeling')->findOneByTitel('Normtal');
+    if ($normtal) {
+      $GDNormalAar = $normtal->getSumAar();
+    }
+
     return array(
       'entity' => $entity,
       'edit_form' => $form->createView(),
+      'graddage_normal' => $GDNormalAar,
     );
   }
 
@@ -143,7 +150,7 @@ class BaselineController extends BaseController {
     $this->breadcrumbs->addItem($entity, $this->generateUrl('baseline_show', array('id' => $entity->getId())));
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('baseline_show', array('id' => $entity->getId())));
 
-    $GDNormalAar = null;
+    $GDNormalAar = "";
     $normtal = $this->container->get('doctrine')->getRepository('AppBundle:GraddageFordeling')->findOneByTitel('Normtal');
     if ($normtal) {
       $GDNormalAar = $normtal->getSumAar();
@@ -160,7 +167,7 @@ class BaselineController extends BaseController {
       'entity' => $entity,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
-      'graddage_normal' => $GDNormalAar
+      'graddage_normal' => $GDNormalAar,
     );
   }
 
