@@ -470,39 +470,25 @@ appbundle:
     arealTilNoegletalsanalyse.unit: m²
     el: El
     elBaselineFastsatForEjendom: Fastsat baseline for ejendom
+    elBaselineFastsatForEjendom.unit: kWh/år
     elBaselineNoegletalForEjendom: Nøgletal for ejendom - baseline
+    elBaselineNoegletalForEjendom.unit: kWh/m² pr år
     elBaselineNoter: Baggrund for valg af baseline
     elForbrugsdataPrimaerKilde: Primær kilde for forbrugsdata
-    elForbrugsdataPrimaer1Aarstal: År
-    elForbrugsdataPrimaer1Aarstal.help: Perioden som indtastes skal ikke nødvendigvis dække et kalenderår
-    elForbrugsdataPrimaer1Forbrug: Forbrug
-    elForbrugsdataPrimaer1Forbrug.unit: kWh/år
-    elForbrugsdataPrimaer2Aarstal: År
-    elForbrugsdataPrimaer2Aarstal.help: Perioden som indtastes skal ikke nødvendigvis dække et kalenderår
-    elForbrugsdataPrimaer2Forbrug: Forbrug
-    elForbrugsdataPrimaer2Forbrug.unit: kWh/år
-    elForbrugsdataPrimaer3Aarstal: År
-    elForbrugsdataPrimaer3Aarstal.help: Perioden som indtastes skal ikke nødvendigvis dække et kalenderår
-    elForbrugsdataPrimaer3Forbrug: Forbrug
-    elForbrugsdataPrimaer3Forbrug.unit: kWh/år
+    elForbrugsdataPrimaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
+    elForbrugsdataPrimaer1Forbrug: Forbrug (kWh/år)
     elForbrugsdataPrimaerGennemsnit: Gennemsnit for årene
+    elForbrugsdataPrimaerGennemsnit.unit: kWh/år
     elForbrugsdataPrimaerNoegetal: Nøgletal for primær kilde
+    elForbrugsdataPrimaerNoegetal.unit: kWh/m² pr år
     elForbrugsdataPrimaerNoter: Evt. bemærkninger
     elForbrugsdataSekundaerKilde: Sekundær kilde for forbrugsdata
-    elForbrugsdataSekundaer1Aarstal: År
-    elForbrugsdataSekundaer1Aarstal.help: Perioden som indtastes skal ikke nødvendigvis dække et kalenderår
-    elForbrugsdataSekundaer1Forbrug: Forbrug
-    elForbrugsdataSekundaer1Forbrug.unit: kWh/år
-    elForbrugsdataSekundaer2Aarstal: År
-    elForbrugsdataSekundaer2Aarstal.help: Perioden som indtastes skal ikke nødvendigvis dække et kalenderår
-    elForbrugsdataSekundaer2Forbrug: Forbrug
-    elForbrugsdataSekundaer2Forbrug.unit: kWh/år
-    elForbrugsdataSekundaer3Aarstal: År
-    elForbrugsdataSekundaer3Aarstal.help: Perioden som indtastes skal ikke nødvendigvis dække et kalenderår
-    elForbrugsdataSekundaer3Forbrug: Forbrug
-    elForbrugsdataSekundaer3Forbrug.unit: kWh/år
+    elForbrugsdataSekundaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
+    elForbrugsdataSekundaer1Forbrug: Forbrug (kWh/år)
     elForbrugsdataSekundaerGennemsnit: Gennemsnit for årene
+    elForbrugsdataSekundaerGennemsnit.unit: kWh/år
     elForbrugsdataSekundaerNoegetal: Nøgletal for sekundær kilde
+    elForbrugsdataSekundaerNoegetal.unit: kWh/m² pr år
     elForbrugsdataSekundaerNoter: Evt. bemærkninger
     elGenerelt: Konklusioner (El)
     elPrimaer: Primær kilde
@@ -510,76 +496,60 @@ appbundle:
     generelt: Generelt
     varme: Varme
     varmeBaselineFastsatForEjendom: Fastsat baseline for ejendom
+    varmeBaselineFastsatForEjendom.unit: kWh/år
     varmeBaselineNoegletalForEjendom: Nøgletal for ejendom - baseline
+    varmeBaselineNoegletalForEjendom.unit: kWh/m² pr år
     varmeBaselineNoter: Baggrund for valg af baseline (beskrivelse)
     varmeForbrugsdataPrimaerKilde: Primær kilde til forbrugsdata
     varmeForbrugsdataPrimaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
-    varmeForbrugsdataPrimaer1Forbrug: Forbrug, (kWh/år), ukorrigeret
-    varmeForbrugsdataPrimaer2Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
-    varmeForbrugsdataPrimaer2Forbrug: Forbrug, (kWh/år), ukorrigeret
-    varmeForbrugsdataPrimaer3Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
-    varmeForbrugsdataPrimaer3Forbrug: Forbrug, (kWh/år), ukorrigeret
+    varmeForbrugsdataPrimaer1Forbrug: Forbrug (kWh/år), ukorrigeret
     varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter: GUF-forbruget fastsættes ud fra:
     varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust: Samlet Varmeforbrug for juni, juli, august
-    varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust: Samlet Varmeforbrug for juni, juli, august
-    varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust: Samlet Varmeforbrug for juni, juli, august
     varmeForbrugsdataPrimaer1GUFRegAar: GUFreg.år
-    varmeForbrugsdataPrimaer2GUFRegAar: GUFreg.år
-    varmeForbrugsdataPrimaer3GUFRegAar: GUFreg.år
     varmeForbrugsdataPrimaer1GAFRegAar: GAFreg.år
-    varmeForbrugsdataPrimaer2GAFRegAar: GAFreg.år
-    varmeForbrugsdataPrimaer3GAFRegAar: GAFreg.år
     varmeForbrugsdataPrimaer1GDPeriode: GDperiode
-    varmeForbrugsdataPrimaer2GDPeriode: GDperiode
-    varmeForbrugsdataPrimaer3GDPeriode: GDperiode
     varmeForbrugsdataPrimaer1GAFnormal: GAFnormal
-    varmeForbrugsdataPrimaer2GAFnormal: GAFnormal
-    varmeForbrugsdataPrimaer3GAFnormal: GAFnormal
     varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret: Forbrug (kWh), klimakorrigeret
-    varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret: Forbrug (kWh), klimakorrigeret
-    varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret: Forbrug (kWh), klimakorrigeret
     varmeForbrugsdataPrimaerGAFGennemsnit: GAF, Gennemsnit, årene
+    varmeForbrugsdataPrimaerGAFGennemsnit.unit: kWh/år
     varmeForbrugsdataPrimaerGUFGennemsnit: GUF, Gennemsnit, årene
+    varmeForbrugsdataPrimaerGUFGennemsnit.unit: kWh/år
     varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret: Gennemsnit for årene, klimakorr.
+    varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret.unit: kWh/år
     varmeForbrugsdataPrimaerNoegletal: Nøgletal med primær kilde
+    varmeForbrugsdataPrimaerNoegletal.unit: kWh/m² pr år
     varmeForbrugsdataPrimaerNoter: Evt. bemærkninger
     varmeForbrugsdataSekundaerKilde: Sekundær kilde til forbrugsdata
     varmeForbrugsdataSekundaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
-    varmeForbrugsdataSekundaer1Forbrug: Forbrug, (kWh/år), ukorrigeret
-    varmeForbrugsdataSekundaer2Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
-    varmeForbrugsdataSekundaer2Forbrug: Forbrug, (kWh/år), ukorrigeret
-    varmeForbrugsdataSekundaer3Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
-    varmeForbrugsdataSekundaer3Forbrug: Forbrug, (kWh/år), ukorrigeret
+    varmeForbrugsdataSekundaer1Forbrug: Forbrug (kWh/år), ukorrigeret
     varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter: GUF-forbruget fastsættes ud fra:
     varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust: Samlet Varmeforbrug for juni, juli, august
-    varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust: Samlet Varmeforbrug for juni, juli, august
-    varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust: Samlet Varmeforbrug for juni, juli, august
     varmeForbrugsdataSekundaer1GUFRegAar: GUFreg.år
-    varmeForbrugsdataSekundaer2GUFRegAar: GUFreg.år
-    varmeForbrugsdataSekundaer3GUFRegAar: GUFreg.år
     varmeForbrugsdataSekundaer1GAFRegAar: GAFreg.år
-    varmeForbrugsdataSekundaer2GAFRegAar: GAFreg.år
-    varmeForbrugsdataSekundaer3GAFRegAar: GAFreg.år
     varmeForbrugsdataSekundaer1GDPeriode: GDperiode
-    varmeForbrugsdataSekundaer2GDPeriode: GDperiode
-    varmeForbrugsdataSekundaer3GDPeriode: GDperiode
     varmeForbrugsdataSekundaer1GAFnormal: GAFnormal
-    varmeForbrugsdataSekundaer2GAFnormal: GAFnormal
-    varmeForbrugsdataSekundaer3GAFnormal: GAFnormal
     varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret: Forbrug (kWh), klimakorrigeret
-    varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret: Forbrug (kWh), klimakorrigeret
-    varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret: Forbrug (kWh), klimakorrigeret
     varmeForbrugsdataSekundaerGAFGennemsnit: GAF, Gennemsnit, årene
+    varmeForbrugsdataSekundaerGAFGennemsnit.unit: kWh/år
     varmeForbrugsdataSekundaerGUFGennemsnit: GUF, Gennemsnit, årene
+    varmeForbrugsdataSekundaerGUFGennemsnit.unit: kWh/år
     varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret: Gennemsnit for årene, klimakorr.
+    varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret.unit: kWh/år
     varmeForbrugsdataSekundaerNoegletal: Nøgletal med primær kilde
+    varmeForbrugsdataSekundaerNoegletal.unit: kWh/m² pr år
     varmeForbrugsdataSekundaerNoter: Evt. bemærkninger
     varmeGAFForbrug: GAF-forbrug
+    varmeGAFForbrug.unit: kWh/år
     varmeGenerelt: Konklusioner (Varme)
     varmeGUFForbrug: GUF-forbrug
+    varmeGUFForbrug.unit: kWh/år
     varmePrimaer: Primær kilde
     varmeSekundaer: Sekundær kilde
     varmeStrafafkoelingsafgift: Evt. strafafkølingsafgift
+    varmeStrafafkoelingsafgift.unit: kr/år
+    year1: År 1
+    year2: År 2
+    year3: År 3
     createdBy: Oprettet af
     updatedBy: Opdateret af
     createdAt: Oprettet

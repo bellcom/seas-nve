@@ -60,12 +60,33 @@
         class="panel-heading">{{ icon('flash') }} {{ 'appbundle.baseline.elPrimaer' | trans }}</div>
       <div class="panel-body">
         {{ form_row(edit_form.elForbrugsdataPrimaerKilde) }}
-        {{ form_row(edit_form.elForbrugsdataPrimaer1Aarstal) }}
-        {{ form_row(edit_form.elForbrugsdataPrimaer1Forbrug) }}
-        {{ form_row(edit_form.elForbrugsdataPrimaer2Aarstal) }}
-        {{ form_row(edit_form.elForbrugsdataPrimaer2Forbrug) }}
-        {{ form_row(edit_form.elForbrugsdataPrimaer3Aarstal) }}
-        {{ form_row(edit_form.elForbrugsdataPrimaer3Forbrug) }}
+        <table class="table">
+          <thead>
+          <tr>
+            <th></th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year1' | trans }}</th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year2' | trans }}</th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year3' | trans }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{ form_label(edit_form.elForbrugsdataPrimaer1Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataPrimaer1Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataPrimaer2Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataPrimaer3Aarstal) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.elForbrugsdataPrimaer1Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataPrimaer1Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataPrimaer2Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataPrimaer3Forbrug) }}</td>
+          </tr>
+          </tbody>
+        </table>
         {{ form_row(edit_form.elForbrugsdataPrimaerGennemsnit) }}
         {{ form_row(edit_form.elForbrugsdataPrimaerNoegetal) }}
         {{ form_row(edit_form.elForbrugsdataPrimaerNoter) }}
@@ -78,12 +99,33 @@
         class="panel-heading">{{ icon('flash') }} {{ 'appbundle.baseline.elSekundaer' | trans }}</div>
       <div class="panel-body">
         {{ form_row(edit_form.elForbrugsdataSekundaerKilde) }}
-        {{ form_row(edit_form.elForbrugsdataSekundaer1Aarstal) }}
-        {{ form_row(edit_form.elForbrugsdataSekundaer1Forbrug) }}
-        {{ form_row(edit_form.elForbrugsdataSekundaer2Aarstal) }}
-        {{ form_row(edit_form.elForbrugsdataSekundaer2Forbrug) }}
-        {{ form_row(edit_form.elForbrugsdataSekundaer3Aarstal) }}
-        {{ form_row(edit_form.elForbrugsdataSekundaer3Forbrug) }}
+        <table class="table">
+          <thead>
+          <tr>
+            <th></th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year1' | trans }}</th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year2' | trans }}</th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year3' | trans }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{ form_label(edit_form.elForbrugsdataSekundaer1Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataSekundaer1Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataSekundaer2Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataSekundaer3Aarstal) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.elForbrugsdataSekundaer1Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataSekundaer1Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataSekundaer2Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.elForbrugsdataSekundaer3Forbrug) }}</td>
+          </tr>
+          </tbody>
+        </table>
         {{ form_row(edit_form.elForbrugsdataSekundaerGennemsnit) }}
         {{ form_row(edit_form.elForbrugsdataSekundaerNoegetal) }}
         {{ form_row(edit_form.elForbrugsdataSekundaerNoter) }}
@@ -113,31 +155,70 @@
         class="panel-heading">{{ icon('fire') }} {{ 'appbundle.baseline.varmePrimaer' | trans }}</div>
       <div class="panel-body">
         {{ form_row(edit_form.varmeForbrugsdataPrimaerKilde) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer1Aarstal) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer1Forbrug) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer2Aarstal) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer2Forbrug) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer3Aarstal) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer3Forbrug) }}
         {{ form_row(edit_form.varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer1GUFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer2GUFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer3GUFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer1GAFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer2GAFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer3GAFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer1GDPeriode) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer2GDPeriode) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer3GDPeriode) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer1GAFnormal) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer2GAFnormal) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer3GAFnormal) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret) }}
-        {{ form_row(edit_form.varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret) }}
+        <table class="table">
+          <thead>
+          <tr>
+            <th></th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year1' | trans }}</th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year2' | trans }}</th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year3' | trans }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3Aarstal) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3Forbrug) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GUFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GUFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GUFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GUFRegAar) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GAFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GAFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GAFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GAFRegAar) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GDPeriode) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GDPeriode) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GDPeriode) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GDPeriode) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GAFnormal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GAFnormal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GAFnormal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GAFnormal) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret) }}</td>
+          </tr>
+          </tbody>
+        </table>
         {{ form_row(edit_form.varmeForbrugsdataPrimaerGAFGennemsnit) }}
         {{ form_row(edit_form.varmeForbrugsdataPrimaerGUFGennemsnit) }}
         {{ form_row(edit_form.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret) }}
@@ -152,31 +233,70 @@
         class="panel-heading">{{ icon('fire') }} {{ 'appbundle.baseline.varmeSekundaer' | trans }}</div>
       <div class="panel-body">
         {{ form_row(edit_form.varmeForbrugsdataSekundaerKilde) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer1Aarstal) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer1Forbrug) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer2Aarstal) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer2Forbrug) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer3Aarstal) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer3Forbrug) }}
         {{ form_row(edit_form.varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer1GUFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer2GUFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer3GUFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer1GAFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer2GAFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer3GAFRegAar) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer1GDPeriode) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer2GDPeriode) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer3GDPeriode) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer1GAFnormal) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer2GAFnormal) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer3GAFnormal) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret) }}
-        {{ form_row(edit_form.varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret) }}
+        <table class="table">
+          <thead>
+          <tr>
+            <th></th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year1' | trans }}</th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year2' | trans }}</th>
+            <th
+              class="text-center">{{ 'appbundle.baseline.year3' | trans }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2Aarstal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3Aarstal) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2Forbrug) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3Forbrug) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GUFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GUFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GUFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GUFRegAar) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GAFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GAFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GAFRegAar) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GAFRegAar) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GDPeriode) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GDPeriode) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GDPeriode) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GDPeriode) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GAFnormal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GAFnormal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GAFnormal) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GAFnormal) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret) }}</td>
+            <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret) }}</td>
+          </tr>
+          </tbody>
+        </table>
         {{ form_row(edit_form.varmeForbrugsdataSekundaerGAFGennemsnit) }}
         {{ form_row(edit_form.varmeForbrugsdataSekundaerGUFGennemsnit) }}
         {{ form_row(edit_form.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret) }}
