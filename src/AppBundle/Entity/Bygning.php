@@ -193,7 +193,7 @@ class Bygning {
   protected $rapport;
 
   /**
-   * @OneToOne(targetEntity="Baseline", inversedBy="bygning", fetch="EAGER")
+   * @OneToOne(targetEntity="Baseline", mappedBy="bygning")
    * @JMS\Exclude
    **/
   protected $baseline;
