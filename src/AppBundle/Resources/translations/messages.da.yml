@@ -463,6 +463,9 @@ appbundle:
     arealdataSekundaerAreal: Areal
     arealdataSekundaerAreal.unit: m²
     arealdataSekundaerNoter: Evt. bemærkninger
+    arealGenerelt: Konklusioner (Areal)
+    arealPrimaer: Primær kilde
+    arealSekundaer: Sekundær kilde
     arealTilNoegletalsanalyse: Areal, der skal benyttes til nøgletalsanalyse
     arealTilNoegletalsanalyse.unit: m²
     el: El
@@ -501,6 +504,7 @@ appbundle:
     elForbrugsdataSekundaerGennemsnit: Gennemsnit for årene
     elForbrugsdataSekundaerNoegetal: Nøgletal for sekundær kilde
     elForbrugsdataSekundaerNoter: Evt. bemærkninger
+    elGenerelt: Konklusioner (El)
     elPrimaer: Primær kilde
     elSekundaer: Sekundær kilde
     generelt: Generelt
@@ -571,6 +575,7 @@ appbundle:
     varmeForbrugsdataSekundaerNoegletal: Nøgletal med primær kilde
     varmeForbrugsdataSekundaerNoter: Evt. bemærkninger
     varmeGAFForbrug: GAF-forbrug
+    varmeGenerelt: Konklusioner (Varme)
     varmeGUFForbrug: GUF-forbrug
     varmePrimaer: Primær kilde
     varmeSekundaer: Sekundær kilde
