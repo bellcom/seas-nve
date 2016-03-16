@@ -16,7 +16,10 @@
     <thead>
     <tr>
       <th>{{ 'appbundle.energiforsyning.navn' | trans }}</th>
-      <th>{{ 'appbundle.energiforsyning.beskrivelse' | trans }}</th>
+      <th>{{ 'appbundle.energiforsyning.forsyningsvaerk' | trans }}</th>
+      <th>{{ 'appbundle.energiforsyning.enhedspris' | trans }}</th>
+      <th>{{ 'appbundle.energiforsyning.prisfaktor' | trans }}</th>
+      <th>{{ 'appbundle.energiforsyning.nyEnhedspris' | trans }}</th>
       <th>{{ 'appbundle.energiforsyning.samletVarmeeffektivitet' | trans }}</th>
       <th>{{ 'appbundle.energiforsyning.samletEleffektivitet' | trans }}</th>
       <th></th>
@@ -26,7 +29,10 @@
     {% for entity in entities %}
       <tr>
         <td>{{ entity.navn | readable('NavnType') | trans }}</td>
-        <td>{{ entity.beskrivelse }}</td>
+        <td>{{ entity.forsyningsvaerk }}</td>
+        <td>{{ entity.enhedspris | format_decimal }}</td>
+        <td>{{ entity.prisfaktor | format_decimal }}</td>
+        <td>{{ entity.nyEnhedspris | format_decimal }}</td>
         <td>{{ entity.samletVarmeeffektivitet | format_decimal }}</td>
         <td>{{ entity.samletEleffektivitet | format_decimal }}</td>
         <td>

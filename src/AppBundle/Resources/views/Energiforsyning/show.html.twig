@@ -14,6 +14,22 @@
         <td>{{ entity.beskrivelse }}</td>
       </tr>
       <tr>
+        <th>{{ 'appbundle.energiforsyning.forsyningsvaerk' | trans }}</th>
+        <td>{{ entity.forsyningsvaerk }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.energiforsyning.enhedspris' | trans }}</th>
+        <td>{{ entity.enhedspris | format_decimal }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.energiforsyning.prisfaktor' | trans }}</th>
+        <td>{{ entity.prisfaktor | format_decimal }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.energiforsyning.nyEnhedspris' | trans }}</th>
+        <td>{{ entity.nyEnhedspris | format_decimal }}</td>
+      </tr>
+      <tr>
         <th>{{ 'appbundle.energiforsyning.samletVarmeeffektivitet' | trans }}</th>
         <td>{{ entity.samletVarmeeffektivitet | format_decimal }}</td>
       </tr>

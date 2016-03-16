@@ -27,17 +27,30 @@
         </a>
       {% endif %}
 
+      {# BUTTONS #}
       {% if prev_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
-        {% form_theme prev_status_form 'AppBundle:Form:singleButtonConfirmModalForm.html.twig' %}
-        {{ form( prev_status_form ) }}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ prev_status_form.vars.action | replace({'/': ''}) }}">
+          {{ icon('caret-square-o-right') }} {{ prev_status_form.children.buttons.submit.vars.label | trans }}
+        </button>
       {% endif %}
       {% if next_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
-        {% form_theme next_status_form 'AppBundle:Form:singleButtonConfirmModalForm.html.twig' %}
-        {{ form( next_status_form ) }}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ next_status_form.vars.action | replace({'/': ''}) }}">
+        {{ icon('caret-square-o-right') }} {{ next_status_form.children.buttons.submit.vars.label | trans }}
+        </button>
       {% endif %}
 
     </div>
   </div>
+
+  {# MODALS #}
+  {% if prev_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
+    {% form_theme prev_status_form 'AppBundle:Form:status-modal-form.html.twig' %}
+    {{ form( prev_status_form ) }}
+  {% endif %}
+  {% if next_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
+    {% form_theme next_status_form 'AppBundle:Form:status-modal-form.html.twig' %}
+    {{ form( next_status_form ) }}
+  {% endif %}
 
   <div class="panel panel-default">
     <div class="panel-heading"><h3 class="panel-title">{{ icon('home') }} {{ 'common.data' | trans }}</h3></div>
@@ -59,14 +72,20 @@
       <tr>
         <th>{{ 'appbundle.rapport.datering' | trans }}</th>
         <td>{{ entity.datering | date('Y-m-d') }}</td>
-        <th>{{ 'appbundle.rapport.elena' | trans }}</th>
-        <td>{{ entity.elena | b2icon }}</td>
-      </tr>
-      <tr>
-        <th>{{ 'common.updatedat' | trans }}</th>
-        <td>{{ entity.updatedAt | date('Y-m-d  H:i') }}, {{ entity.updatedBy }}</td>
         <th>{{ 'appbundle.bygning.status' | trans }}</th>
         <td>{{ entity.bygning.status | readable }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.rapport.elena' | trans }}</th>
+        <td>{{ entity.elena | b2icon }}</td>
+        <th>{{ 'common.updatedat' | trans }}</th>
+        <td>{{ entity.updatedAt | date('Y-m-d  H:i') }}, {{ entity.updatedBy }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.rapport.ava' | trans }}</th>
+        <td>{{ entity.ava | b2icon }}</td>
+        <th></th>
+        <td></td>
       </tr>
       </tbody>
     </table>

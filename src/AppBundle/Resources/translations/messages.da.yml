@@ -87,6 +87,7 @@ common:
   updatedat: Opdateret
   updatedby: Opdateret af
   your_buildings: Dine bygninger
+  calculated_value: Beregnet værdi
 dashboard:
   besparelseCO2: CO2 Besparelse
   besparelseEl: El Besparelse
@@ -817,6 +818,11 @@ appbundle:
     fordelingVarmeGAF: ELO-fordeling VarmeGAF
     fordelingEl: ELO-fordeling El
   energiforsyning:
+    forsyningsvaerk: Forsyningsværk
+    enhedspris: Enhedspris
+    prisfaktor: Prisfaktor
+    nyEnhedspris: Ny enhedspris
+    forsyningsvaerk: Forsyningsværk
     beskrivelse: Beskrivelse
     internproduktion:
       effektivitet: Effektivitet
@@ -1136,7 +1142,7 @@ appbundle:
     vvsnr: VVS Nr.
   pumpetiltag:
     applikation: Applikation
-    bFaktor: B-Faktor
+    nyttiggjortVarme: Nyttiggjort varme
     eksisterendeDrifttid: Eksisterende Drifttid
     forsyningsomraade: Forsyningsområde
     isoleringskappe: Isoleringskappe
@@ -1148,7 +1154,7 @@ appbundle:
   pumpetiltagdetail:
     add: Tilføj pumpe
     applikation: Applikation
-    bFaktor: B-Faktor
+    nyttiggjortVarme: Nyttiggjort varme
     eksisterendeDrifttid: Eksisterende drifttid
     eksisterendeDrifttid.unit: Timer/år
     eksisterendeDrifttid.help: ﻿Eksisterende driftstid indtastes i timer/år
@@ -1190,6 +1196,7 @@ appbundle:
     varmebespIsokappeKWh: Varmebesp. iso.kappe
     varmebespIsokappeKWh.unit: kWh
   rapport:
+    ava: AVA
     BaselineEl: El
     BaselineEl.unit: kwh/år
     BaselineStrafAfkoeling: Strafafkøling
@@ -1274,6 +1281,7 @@ appbundle:
     nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. øvrige omkostninger
     nutidsvaerdiInklFaellesomkostninger.unit: kr
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
+    status.ava: AVA-støtte
     sum.unit: kr
     sum: Sum
     tiltag: Tiltag

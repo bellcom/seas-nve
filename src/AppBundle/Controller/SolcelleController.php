@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Solcelle;
-use AppBundle\Form\SolcelleType;
+use AppBundle\Form\Type\SolcelleType;
 use AppBundle\Controller\BaseController;
 
 /**
@@ -149,7 +149,7 @@ class SolcelleController extends BaseController {
     }
 
     $editForm = $this->createEditForm($entity);
-    $deleteForm = $this->createDeleteForm($id);
+    $deleteForm = $this->createDeleteForm($entity->getId());
 
     return array(
       'entity' => $entity,

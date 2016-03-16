@@ -23,7 +23,7 @@
           {{ helper.header('appbundle.pumpetiltagdetail.placering') }}
           {{ helper.header('appbundle.pumpetiltagdetail.applikation') }}
           {{ helper.header('appbundle.pumpetiltagdetail.isoleringskappe') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.bFaktor') }}
+          {{ helper.header('appbundle.pumpetiltagdetail.nyttiggjortVarme') }}
           {{ helper.header('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
           {{ helper.header('appbundle.pumpetiltagdetail.nyDrifttid') }}
           {{ helper.header('appbundle.pumpetiltagdetail.prisfaktor') }}
@@ -46,7 +46,7 @@
           {{ helper.header_unit('appbundle.pumpetiltagdetail.placering') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.applikation') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.isoleringskappe') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.bFaktor') }}
+          {{ helper.header_unit('appbundle.pumpetiltagdetail.nyttiggjortVarme') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.nyDrifttid') }}
           {{ helper.header_unit('appbundle.pumpetiltagdetail.prisfaktor') }}
@@ -81,7 +81,7 @@
             <td>{{ detail.placering }}</td>
             <td>{{ detail.applikation }}</td>
             <td>{{ detail.isoleringskappe | b2icon }}</td>
-            <td>{{ detail.bFaktor | format_decimal }}</td>
+            <td>{{ detail.nyttiggjortVarme.faktor | format_decimal }}</td>
             <td>{{ detail.eksisterendeDrifttid | format_decimal }}</td>
             <td>{{ detail.nyDrifttid | format_decimal }}</td>
             <td>{{ detail.prisfaktor | format_decimal }}</td>

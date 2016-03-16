@@ -74,6 +74,9 @@
             <li><a href="{{ path('fos_user_change_password') }}">{{ icon('key') }} {{ 'change_password.submit'|trans({}, 'FOSUserBundle') }}</a></li>
           </ul>
         </li>
+        {% if app.environment == 'dev' %}
+        <li>{% include 'AppBundle:_includes:impersonation.html.twig' %}</li>
+        {% endif %}
         <li><a href="{{ path('fos_user_security_logout') }}">{{ icon('sign-out') }} {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
       </ul>
       {% endif %}
@@ -149,5 +152,6 @@
     });
   </script>
 {% endblock %}
+
 </body>
 </html>

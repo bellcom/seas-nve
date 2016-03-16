@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Klimaskaerm;
-use AppBundle\Form\KlimaskaermType;
+use AppBundle\Form\Type\KlimaskaermType;
 use AppBundle\Controller\BaseController;
 
 /**

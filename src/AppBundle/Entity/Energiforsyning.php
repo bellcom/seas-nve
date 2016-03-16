@@ -58,6 +58,13 @@ class Energiforsyning {
   protected $beskrivelse;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="prisfaktor", type="decimal", scale=4, nullable=true)
+   */
+  protected $prisfaktor;
+
+  /**
    * @OneToMany(targetEntity="AppBundle\Entity\Energiforsyning\InternProduktion", mappedBy="energiforsyning", cascade={"persist", "remove"})
    * @OrderBy({"id" = "ASC"})
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Energiforsyning\InternProduktion>")
@@ -125,6 +132,43 @@ class Energiforsyning {
 
   public function getBeskrivelse() {
     return $this->beskrivelse;
+  }
+
+  public function getForsyningsvaerk() {
+    if (!$this->getRapport() || !$this->getRapport()->getBygning()) {
+      return NULL;
+    }
+
+    switch ($this->getNavn()) {
+      case NavnType::FJERNVARME:
+      case NavnType::OLIEFYR:
+      case NavnType::TRAEPILLEFYR:
+        return $this->getRapport()->getBygning()->getForsyningsvaerkVarme();
+      case NavnType::HOVEDFORSYNING_EL:
+      case NavnType::VARMEPUMPE:
+        return $this->getRapport()->getBygning()->getForsyningsvaerkEl();
+    }
+
+    return NULL;
+  }
+
+  public function getEnhedspris() {
+    $forsyningsvaerk = $this->getForsyningsvaerk();
+    return $forsyningsvaerk ? $forsyningsvaerk->getKrKWh($this->getRapport()->getDatering()->format('Y')) : NULL;
+  }
+
+  public function setPrisfaktor($prisfaktor) {
+    $this->prisfaktor = $prisfaktor;
+
+    return $this;
+  }
+
+  public function getPrisfaktor() {
+    return $this->prisfaktor ? $this->prisfaktor : 1;
+  }
+
+  public function getNyEnhedspris() {
+    return $this->getEnhedspris() * $this->getPrisfaktor();
   }
 
   public function setInternProduktioner($internProduktioner) {
