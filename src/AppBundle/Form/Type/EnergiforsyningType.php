@@ -29,6 +29,10 @@ class EnergiforsyningType extends AbstractType {
         'required' => TRUE,
       ))
       ->add('beskrivelse')
+      ->add('forsyningsvaerk', NULL, array('disabled' => TRUE))
+      ->add('enhedspris', NULL, array('disabled' => TRUE))
+      ->add('prisfaktor')
+      ->add('nyEnhedspris', NULL, array('disabled' => TRUE))
       ->add('internProduktioner', 'bootstrap_collection', array(
         'property_path' => 'internProduktions',
         'type' => new InternProduktionType(),
