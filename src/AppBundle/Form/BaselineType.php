@@ -115,6 +115,7 @@ class BaselineType extends AbstractType
             ->add('varmeBaselineNoter')
             ->add('bygning', 'text', array('disabled' => 'disabled', 'required' => false))
             ->add('eloKategori')
+            ->add('save_changed', 'submit', array('label' => 'appbundle.baseline.changed_submit'))
         ;
     }
     

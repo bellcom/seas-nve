@@ -469,6 +469,9 @@ appbundle:
     arealSekundaer: Sekundær kilde
     arealTilNoegletalsanalyse: Areal, der skal benyttes til nøgletalsanalyse
     arealTilNoegletalsanalyse.unit: m²
+    changed: Beregn
+    changed_message: Du har ændret i Baseline. Gem for at få foretaget nye beregninger.
+    changed_submit: Beregn Baseline
     el: El
     elBaselineFastsatForEjendom: Fastsat baseline for ejendom
     elBaselineFastsatForEjendom.unit: kWh/år

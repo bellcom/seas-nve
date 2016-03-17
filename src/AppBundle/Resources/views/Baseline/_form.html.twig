@@ -452,6 +452,22 @@
 </div>
 
 
+<div class="js-changed-actions baseline--changed-actions">
+  <div class="row">
+    <div class="col-xs-12 col-md-4">
+      <div class="panel panel-default">
+        <div
+          class="panel-heading">{{ icon('save') }} {{ 'appbundle.baseline.changed' | trans }}</div>
+        <div class="panel-body">
+          {{ 'appbundle.baseline.changed_message' | trans }}
+
+          {{ form_row(edit_form.save_changed) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{ form_rest(edit_form) }}
 
 {{ form_end(edit_form) }}
