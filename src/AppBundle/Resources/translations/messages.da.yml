@@ -155,6 +155,7 @@ energiforsyninger:
     deleted: Energiforsyning slettet
   error:
     cannot_delete: Energiforsyning kan ikke slettes
+    in_use: Kan ikke slettes. Bruges af tiltag.
   labels:
     plural: Energiforsyninger
     singular: Energiforsyning
@@ -641,38 +642,10 @@ appbundle:
     internProduktioner.0:
       effektivitet: Effektivitet
       effektivitet.unit: %
-      effektivitet: Effektivitet
-      effektivitet.unit: %
-      effektivitet: Effektivitet
-      effektivitet.unit: %
-      effektivitet: Effektivitet
-      effektivitet.unit: %
-      effektivitet: Effektivitet
-      effektivitet.unit: %
-      fordeling: Fordeling
-      fordeling.unit: %
-      fordeling: Fordeling
-      fordeling.unit: %
-      fordeling: Fordeling
-      fordeling.unit: %
-      fordeling: Fordeling
-      fordeling.unit: %
       fordeling: Fordeling
       fordeling.unit: %
       navn: Navn
-      navn: Navn
-      navn: Navn
-      navn: Navn
-      navn: Navn
       prisgrundlag: Prisgrundlag
-      prisgrundlag: Prisgrundlag
-    internProduktioner.1:
-      prisgrundlag: Prisgrundlag
-    internProduktioner.2:
-      prisgrundlag: Prisgrundlag
-    internProduktioner.3:
-      prisgrundlag: Prisgrundlag
-    internProduktioner.4:
     navn: Navn
     samletEleffektivitet: Samlet eleffektivitet:
     samletVarmeeffektivitet: Samlet varmeeffektivitet:
@@ -946,7 +919,6 @@ appbundle:
   pumpetiltagdetail:
     add: Tilføj pumpe
     applikation: Applikation
-    nyttiggjortVarme: Nyttiggjort varme
     eksisterendeDrifttid: Eksisterende drifttid
     eksisterendeDrifttid.unit: Timer/år
     eksisterendeDrifttid.help: ﻿Eksisterende driftstid indtastes i timer/år
@@ -971,6 +943,8 @@ appbundle:
     nutidsvaerdiSetOver15AarKr.unit: kr
     nyDrifttid: Ny drifttid
     nyDrifttid.unit: Timer/år
+    nyttiggjortVarme: Nyttiggjort varme
+    nyttiggjortVarme.unit: B-faktor
     placering: Placering
     placering.help: ﻿Rum nr. og eventuel note for placering  fx. "rum 20, under isoleringskappe til varmtvandsbeholder"
     prisfaktor: Prisfaktor
