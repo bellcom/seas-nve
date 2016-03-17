@@ -500,6 +500,7 @@ appbundle:
     eloVarmeTotalForbrug.unit: kWh/m² pr år
     generelt: Generelt
     gdNormal: GDnormal.år
+    opsummering: Opsummering
     varme: Varme
     varmeBaselineFastsatForEjendom: Fastsat baseline for ejendom
     varmeBaselineFastsatForEjendom.unit: kWh/år
