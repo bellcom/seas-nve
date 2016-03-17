@@ -1072,10 +1072,13 @@ appbundle:
     nutidsvaerdi.unit: kr
     nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. øvrige omkostninger
     nutidsvaerdiInklFaellesomkostninger.unit: kr
+    oevrigeOmkostninger: Øvrige omkostninger
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
     status.ava: AVA-støtte
-    sum.unit: kr
     sum: Sum
+    sum.unit: kr
+    sumOevrige: Sum, Aa+ investering inkl. øvrige omkostninger
+    sumOevrige.unit: kr
     tiltag: Tiltag
     tilvalg: Tilvalg
     timeforbrug: Forventet timeforbrug for lokalpersonalet
