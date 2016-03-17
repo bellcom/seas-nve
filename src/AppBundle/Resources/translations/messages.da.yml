@@ -1215,6 +1215,8 @@ appbundle:
     varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering
     varmeledningsevnePaaNyIsoleringWMK.unit: W/m·K
   tiltag:
+    aaplusInvestering: Aa+ investering eksl. øvrige omkostninger
+    aaplusInvestering.kr: kr
     anlaegsInvestering: ﻿Entreprisesum
     anlaegsInvestering.unit: kr
     opstartsomkostninger: Opstartsomkostninger
@@ -1264,6 +1266,7 @@ appbundle:
     levetid.unit: År
     modernisering: Modernisering
     modernisering.unit: kr.
+    nr: Tiltags nr.
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
     oekonomioverblik: Økonomioverblik
@@ -1301,6 +1304,7 @@ appbundle:
     tilvalgtAfRaadgiver.th: Rådg.
     tilvalgtbegrundelse: Bemærkning Aa+
     tilvalgtBegrundelseMagistrat: Bemærkning Magistrat
+    tilvalgtFravalgt: Tilvalgt / Fravalgt
     title: Titel
     vandbesparelse: Vandbesparelse
     vandbesparelse.unit: m³/år
