@@ -63,7 +63,7 @@ class FormatExtension extends \Twig_Extension {
       return '–';
     }
     // if number is smaller then what we can display with the given decimals
-    if ($number < (1/pow(10, $numberOfDecimals))) {
+    if ($number < (1/pow(10, $numberOfDecimals) && $number > (-1/pow(10, $numberOfDecimals)))) {
       $number = 0;
     }
     $formatter = $this->getNumberFormatter(null, \NumberFormatter::DECIMAL);
