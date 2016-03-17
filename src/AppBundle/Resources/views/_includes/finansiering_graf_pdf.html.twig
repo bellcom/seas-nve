@@ -38,7 +38,7 @@
             pointStrokeColor: '#fff',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(195,75,68,1)',
-            data: formatData({{ entity.cashFlow['ydelse laan'] | json_encode | raw }})
+            data: formatData({{ entity.cashFlow['ydelse laan inkl. faellesomkostninger'] | json_encode | raw }})
           } ]
         },
         options = {
