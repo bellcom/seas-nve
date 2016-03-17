@@ -1072,10 +1072,13 @@ appbundle:
     nutidsvaerdi.unit: kr
     nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. øvrige omkostninger
     nutidsvaerdiInklFaellesomkostninger.unit: kr
+    oevrigeOmkostninger: Øvrige omkostninger
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
     status.ava: AVA-støtte
-    sum.unit: kr
     sum: Sum
+    sum.unit: kr
+    sumOevrige: Sum, Aa+ investering inkl. øvrige omkostninger
+    sumOevrige.unit: kr
     tiltag: Tiltag
     tilvalg: Tilvalg
     timeforbrug: Forventet timeforbrug for lokalpersonalet
@@ -1212,6 +1215,8 @@ appbundle:
     varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering
     varmeledningsevnePaaNyIsoleringWMK.unit: W/m·K
   tiltag:
+    aaplusInvestering: Aa+ investering eksl. øvrige omkostninger
+    aaplusInvestering.kr: kr
     anlaegsInvestering: ﻿Entreprisesum
     anlaegsInvestering.unit: kr
     opstartsomkostninger: Opstartsomkostninger
@@ -1261,6 +1266,7 @@ appbundle:
     levetid.unit: År
     modernisering: Modernisering
     modernisering.unit: kr.
+    nr: Tiltags nr.
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
     oekonomioverblik: Økonomioverblik
@@ -1298,6 +1304,7 @@ appbundle:
     tilvalgtAfRaadgiver.th: Rådg.
     tilvalgtbegrundelse: Bemærkning Aa+
     tilvalgtBegrundelseMagistrat: Bemærkning Magistrat
+    tilvalgtFravalgt: Tilvalgt / Fravalgt
     title: Titel
     vandbesparelse: Vandbesparelse
     vandbesparelse.unit: m³/år
