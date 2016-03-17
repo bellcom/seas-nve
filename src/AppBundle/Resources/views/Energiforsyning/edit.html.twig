@@ -19,9 +19,13 @@
     <div class="col-md-8">
       <h1>{{ 'energiforsyninger.actions.edit' | trans }}</h1>
     </div>
-    <div class="col-md-4 text-right">
+    <div class="col-md-4 text-right ">
       {% if is_granted('ROLE_RAPPORT_EDIT') and entity.rapport.canDeleteEnergiforsyning(entity) %}
         {{ form(delete_form) }}
+      {% else %}
+        <div class="tooltip-wrapper disabled" data-toggle="tooltip" data-placement="left" title="{{ 'energiforsyninger.error.in_use' | trans }}">
+          <a href="#" class="btn btn-danger disabled" role="button">{{ 'Delete' | trans }}</a>
+        </div>
       {% endif %}
     </div>
   </div>
@@ -59,25 +63,30 @@
   {{ form_end(edit_form) }}
 {% endblock %}
 
-{% block javascripts %}
+{% block documentReady %}
+  {{ parent() }}
+
+  {# Activate tooltip #}
+  $(function() {
+  $('.tooltip-wrapper').tooltip({position: "bottom"});
+  });
+
   {##
   # Translate field labels in prototype.
   # @FIXME: There must be a better way to do this!
   #}
-  <script>window.addEventListener('load', function() {
-    var translations = {};
-    {% for key in [ 'navn', 'fordeling', 'effektivitet', 'prisgrundlag' ] %}
-      translations['appbundle.energiforsyning.internProduktioner...name...' + {{ key | json_encode | raw }}] = {{ ('appbundle.energiforsyning.internProduktioner.0.' ~ key) | trans | json_encode | raw }};
-    {% endfor %}
 
-    var collections = document.querySelectorAll('[data-prototype]'), i, collection;
-    for (i = 0; collection = collections[i]; i++) {
-    var content = collection.getAttribute('data-prototype');
-    for (var key in translations) {
-    content = content.replace(key, translations[key]);
-    }
-    collection.setAttribute('data-prototype', content);
-    }
-    })</script>
-  {{ parent() }}
-{% endblock %}
+  var translations = {};
+  {% for key in [ 'navn', 'fordeling', 'effektivitet', 'prisgrundlag' ] %}
+    translations['appbundle.energiforsyning.internProduktioner...name...' + {{ key | json_encode | raw }}] = {{ ('appbundle.energiforsyning.internProduktioner.0.' ~ key) | trans | json_encode | raw }};
+  {% endfor %}
+
+  var collections = document.querySelectorAll('[data-prototype]'), i, collection;
+  for (i = 0; collection = collections[i]; i++) {
+  var content = collection.getAttribute('data-prototype');
+  for (var key in translations) {
+  content = content.replace(key, translations[key]);
+  }
+  collection.setAttribute('data-prototype', content);
+  }
+{% endblock documentReady %}
