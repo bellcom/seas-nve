@@ -1,19 +1,5 @@
 {% extends 'AppBundle::base.html.twig' %}
 
-{% block stylesheets %}
-  {{ parent() }}
-  <style>
-    .price-stuff {
-      margin-bottom: 4em;
-    }
-
-    .price-stuff .control-label {
-      width: 100%;
-    }
-  </style>
-{% endblock %}
-
-
 {% block body -%}
   <div class="row heading">
     <div class="col-md-8">
@@ -31,36 +17,47 @@
   </div>
 
   {{ form_start(edit_form, { 'style': 'horizontal' }) }}
-  {{ form_row(edit_form.navn) }}
-  {{ form_row(edit_form.beskrivelse) }}
-  {{ form_row(edit_form.forsyningsvaerk) }}
-  <div class="form-group price-stuff">
-    <div class="col-lg-10 col-lg-offset-2">
-      <div class="row">
-        <div class="col-md-2">
-          {{ form_label(edit_form.enhedspris) }}
-        </div>
-        <div class="col-md-2">
-          {{ form_widget(edit_form.enhedspris, { 'attr': { 'readonly': 'readonly' } }) }}
-        </div>
 
-        <div class="col-md-2">
-          {{ form_label(edit_form.prisfaktor) }}
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'energiforsyninger.labels.singular' | trans }}</h3>
         </div>
-        <div class="col-md-2">
-          {{ form_widget(edit_form.prisfaktor) }}
+        <div class="panel-body">
+          {{ form_row(edit_form.navn) }}
+          {{ form_row(edit_form.beskrivelse) }}
         </div>
-
-        <div class="col-md-2">
-          {{ form_label(edit_form.nyEnhedspris) }}
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'appbundle.energiforsyning.forsyningsvaerk' | trans }}</h3>
         </div>
-        <div class="col-md-2">
-          {{ form_widget(edit_form.nyEnhedspris) }}
+        <div class="panel-body">
+          {{ form_row(edit_form.forsyningsvaerk) }}
+          {{ form_row(edit_form.enhedspris) }}
+          {{ form_row(edit_form.prisfaktor) }}
+          {{ form_row(edit_form.nyEnhedspris) }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'appbundle.energiforsyning.internProduktioner' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(edit_form.internProduktioner) }}
         </div>
       </div>
     </div>
   </div>
   {{ form_end(edit_form) }}
+
 {% endblock %}
 
 {% block documentReady %}

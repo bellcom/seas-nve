@@ -627,8 +627,10 @@ appbundle:
   energiforsyning:
     forsyningsvaerk: Forsyningsværk
     enhedspris: Enhedspris
+    enhedspris.unit: Kr/kWh
     prisfaktor: Prisfaktor
-    nyEnhedspris: Ny enhedspris
+    nyEnhedspris: Ny enhedsp.
+    nyEnhedspris.unit: Kr/kWh
     forsyningsvaerk: Forsyningsværk
     beskrivelse: Beskrivelse
     internproduktion:
