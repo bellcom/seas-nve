@@ -617,7 +617,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     if($this->klimaskaermOverskrevetPris !== null) {
       return $this->klimaskaermOverskrevetPris;
     } else if ($this->klimaskaerm !== null) {
-      $this->klimaskaerm->getEnhedsprisEksklMoms();
+      return $this->klimaskaerm->getEnhedsprisEksklMoms();
     }
 
     return 0;
