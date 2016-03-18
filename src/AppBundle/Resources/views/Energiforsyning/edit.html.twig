@@ -16,74 +16,12 @@
     </div>
   </div>
 
-  {{ form_start(edit_form, { 'style': 'horizontal' }) }}
-
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{ 'energiforsyninger.labels.singular' | trans }}</h3>
-        </div>
-        <div class="panel-body">
-          {{ form_row(edit_form.navn) }}
-          {{ form_row(edit_form.beskrivelse) }}
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{ 'appbundle.energiforsyning.forsyningsvaerk' | trans }}</h3>
-        </div>
-        <div class="panel-body">
-          {{ form_row(edit_form.forsyningsvaerk) }}
-          {{ form_row(edit_form.enhedspris) }}
-          {{ form_row(edit_form.prisfaktor) }}
-          {{ form_row(edit_form.nyEnhedspris) }}
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{ 'appbundle.energiforsyning.internProduktioner' | trans }}</h3>
-        </div>
-        <div class="panel-body">
-          {{ form_row(edit_form.internProduktioner) }}
-        </div>
-      </div>
-    </div>
-  </div>
-  {{ form_end(edit_form) }}
+  {% include 'AppBundle:Energiforsyning:_form.html.twig' %}
 
 {% endblock %}
 
 {% block documentReady %}
   {{ parent() }}
 
-  {# Activate tooltip #}
-  $(function() {
-  $('.tooltip-wrapper').tooltip({position: "bottom"});
-  });
-
-  {##
-  # Translate field labels in prototype.
-  # @FIXME: There must be a better way to do this!
-  #}
-
-  var translations = {};
-  {% for key in [ 'navn', 'fordeling', 'effektivitet', 'prisgrundlag' ] %}
-    translations['appbundle.energiforsyning.internProduktioner...name...' + {{ key | json_encode | raw }}] = {{ ('appbundle.energiforsyning.internProduktioner.0.' ~ key) | trans | json_encode | raw }};
-  {% endfor %}
-
-  var collections = document.querySelectorAll('[data-prototype]'), i, collection;
-  for (i = 0; collection = collections[i]; i++) {
-  var content = collection.getAttribute('data-prototype');
-  for (var key in translations) {
-  content = content.replace(key, translations[key]);
-  }
-  collection.setAttribute('data-prototype', content);
-  }
+  {% include 'AppBundle:Energiforsyning:_documentReady.js.twig' %}
 {% endblock documentReady %}
