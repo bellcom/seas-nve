@@ -148,6 +148,13 @@ table .checkbox input[type=checkbox], table .checkbox-inline input[type=checkbox
     text-align: right;
 }
 
+.table-tiltag td:first-child {
+    max-width: 150px;
+    min-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /**
  * Additional styles for BraincraftedBootstrapBundle
  * (c) 2013 Florian Eckerstorfer (http://braincrafted.com)

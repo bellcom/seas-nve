@@ -62,9 +62,14 @@ class FormatExtension extends \Twig_Extension {
     if ($number === NULL) {
       return '–';
     }
+    // if number is smaller then what we can display with the given decimals
+    if ($number < (1/pow(10, $numberOfDecimals) && $number > (-1/pow(10, $numberOfDecimals)))) {
+      $number = 0;
+    }
     $formatter = $this->getNumberFormatter(null, \NumberFormatter::DECIMAL);
     $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $numberOfDecimals);
     $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $numberOfDecimals);
+
     return $formatter->format($number);
   }
 
@@ -90,13 +95,16 @@ class FormatExtension extends \Twig_Extension {
     $value = intval($value);
 
     if ($precision >= 0) {
-      return round($value, $precision);
+      $rounded = round($value, $precision);
     }
     else {
       $precision = intval(pow(10, abs($precision)));
       $value = $value + (5 * $precision / 10);
-      return round($value - ($value % $precision), 0);
+      $rounded = round($value - ($value % $precision), 0);
     }
+
+    // +0 to avoid "-0" output
+    return $rounded + 0;
   }
 
   private function getNumberFormatter($locale, $style) {

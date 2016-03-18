@@ -1007,8 +1007,11 @@ appbundle:
     co2besparelser: CO2 Besparelser
     co2BesparelseFaktor: Samlede CO2 Besparelser (%)
     co2BesparelseElFaktor: El
+    co2BesparelseElFaktor.unit: %
     co2BesparelseSamletFaktor: Samlet CO2
+    co2BesparelseSamletFaktor.unit: %
     co2BesparelseVarmeFaktor: Varme
+    co2BesparelseVarmeFaktor.unit: %
     datering: Screeningsdato
     elena: Elena
     energibesparelser: Energibesparelser
@@ -1199,6 +1202,8 @@ appbundle:
     opstartsomkostninger.unit: kr
     anlaegsinvesteringExRisiko: ﻿Entreprisesum (eksl. risikovurdering)
     anlaegsinvesteringExRisiko.unit: kr
+    aaplusInvestering: Aa+ investering
+    aaplusInvestering.unit: kr
     antalReinvesteringer: Antal reinvesteringer
     antalReinvesteringer.unit: stk.
     beskrivelse: Beskrivelse
