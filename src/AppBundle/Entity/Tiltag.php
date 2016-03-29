@@ -332,7 +332,7 @@ abstract class Tiltag {
    * @ORM\Column(name="beskrivelseNuvaerende", type="text", nullable=true)
    *
    * @Assert\Length(
-   *  max = 800,
+   *  max = 850,
    *  maxMessage = "maxLength"
    * )
    */
@@ -342,6 +342,11 @@ abstract class Tiltag {
    * @var string
    *
    * @ORM\Column(name="beskrivelseForslag", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 1000,
+   *  maxMessage = "maxLength"
+   * )
    */
   protected $beskrivelseForslag;
 
@@ -349,6 +354,11 @@ abstract class Tiltag {
    * @var string
    *
    * @ORM\Column(name="beskrivelseOevrige", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 1100,
+   *  maxMessage = "maxLength"
+   * )
    */
   protected $beskrivelseOevrige;
 
@@ -356,6 +366,11 @@ abstract class Tiltag {
    * @var string
    *
    * @ORM\Column(name="risikovurdering", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 360,
+   *  maxMessage = "maxLength"
+   * )
    */
   protected $risikovurdering;
 
@@ -428,6 +443,11 @@ abstract class Tiltag {
    * @var string
    *
    * @ORM\Column(name="beskrivelseDriftOgVedligeholdelse", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 360,
+   *  maxMessage = "maxLength"
+   * )
    */
   protected $beskrivelseDriftOgVedligeholdelse;
 
@@ -435,6 +455,11 @@ abstract class Tiltag {
    * @var string
    *
    * @ORM\Column(name="indeklima", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 360,
+   *  maxMessage = "maxLength"
+   * )
    */
   protected $indeklima;
 
