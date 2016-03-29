@@ -86,13 +86,13 @@ class TiltagType extends AbstractType {
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
         'required' => FALSE,
       ))
-      ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
-      ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
-      ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
-      ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
-      ->add('placering')
-      ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 800), 'required' => FALSE))
-      ->add('indeklima', 'textarea', array('attr' => array('maxlength' => 800), 'required' => false));
+      ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 720), 'required' => FALSE))
+      ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 720), 'required' => FALSE))
+      ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 960), 'required' => FALSE))
+      ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
+      ->add('placering', 'textarea', array('attr' => array('maxlength' => 120), 'required' => FALSE))
+      ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
+      ->add('indeklima', 'textarea', array('attr' => array('maxlength' => 360), 'required' => false));
 
     $builder->add('risikovurderingTeknisk', new RisikovurderingType(), array());
     $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
