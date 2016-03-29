@@ -27,17 +27,20 @@ class TekniskIsoleringTiltag extends Tiltag {
     $this->setTitle('Teknisk isolering');
   }
 
-  protected function calculateVarmebesparelseGAF() {
-    return $this->sum('kwhBesparelseVarmeFraVaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+  protected function calculateVarmebesparelseGAF($value = null) {
+    $value = $this->sum('kwhBesparelseVarmeFraVaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+
+    return parent::calculateVarmebesparelseGAF($value);
   }
 
-  protected function calculateElbesparelse() {
-    return $this->sum('kwhBesparelseElFraVaerket');
+  protected function calculateElbesparelse($value = null) {
+    $value = $this->sum('kwhBesparelseElFraVaerket');
+
+    return parent::calculateElbesparelse($value);
   }
 
   protected function calculateSamletEnergibesparelse() {
-    return $this->varmebesparelseGAF * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh();
+    return $this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapport()->getElKrKWh();
   }
 
   protected function calculateSamletCo2besparelse() {
@@ -45,8 +48,10 @@ class TekniskIsoleringTiltag extends Tiltag {
             + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
   }
 
-  protected function calculateAnlaegsinvestering() {
-    return $this->sum('investeringKr');
+  protected function calculateAnlaegsinvestering($value = NULL) {
+    $value = $this->sum('investeringKr');
+
+    return parent::calculateAnlaegsinvestering($value);
   }
 
 }

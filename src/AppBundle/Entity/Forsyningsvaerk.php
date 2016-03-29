@@ -63,6 +63,48 @@ class Forsyningsvaerk {
   /**
    * @var float
    *
+   * @ORM\Column(name="pris2009", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2009;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2010", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2010;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2011", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2011;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2012", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2012;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2013", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2013;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="pris2014", type="decimal", scale=4, nullable=true)
+   */
+  protected $pris2014;
+
+  /**
+   * @var float
+   *
    * @ORM\Column(name="pris2015", type="decimal", scale=4, nullable=true)
    */
   protected $pris2015;
@@ -493,6 +535,48 @@ class Forsyningsvaerk {
    * @ORM\Column(name="co2noter", type="text", nullable=true)
    */
   protected $co2Noter;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2009", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2009;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2010", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2010;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2011", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2011;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2012", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2012;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2013", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2013;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="co2y2014", type="decimal", scale=4, nullable=true)
+   */
+  protected $co2y2014;
 
   /**
    * @var float
@@ -4138,6 +4222,175 @@ class Forsyningsvaerk {
   public function getCo2y2075() {
     return $this->co2y2075;
   }
+
+  /**
+   * @return float
+   */
+  public function getPris2009() {
+    return $this->pris2009;
+  }
+
+  /**
+   * @param float $pris2009
+   */
+  public function setPris2009($pris2009) {
+    $this->pris2009 = $pris2009;
+  }
+
+  /**
+   * @return float
+   */
+  public function getPris2010() {
+    return $this->pris2010;
+  }
+
+  /**
+   * @param float $pris2010
+   */
+  public function setPris2010($pris2010) {
+    $this->pris2010 = $pris2010;
+  }
+
+  /**
+   * @return float
+   */
+  public function getPris2011() {
+    return $this->pris2011;
+  }
+
+  /**
+   * @param float $pris2011
+   */
+  public function setPris2011($pris2011) {
+    $this->pris2011 = $pris2011;
+  }
+
+  /**
+   * @return float
+   */
+  public function getPris2012() {
+    return $this->pris2012;
+  }
+
+  /**
+   * @param float $pris2012
+   */
+  public function setPris2012($pris2012) {
+    $this->pris2012 = $pris2012;
+  }
+
+  /**
+   * @return float
+   */
+  public function getPris2013() {
+    return $this->pris2013;
+  }
+
+  /**
+   * @param float $pris2013
+   */
+  public function setPris2013($pris2013) {
+    $this->pris2013 = $pris2013;
+  }
+
+  /**
+   * @return float
+   */
+  public function getPris2014() {
+    return $this->pris2014;
+  }
+
+  /**
+   * @param float $pris2014
+   */
+  public function setPris2014($pris2014) {
+    $this->pris2014 = $pris2014;
+  }
+
+  /**
+   * @return float
+   */
+  public function getCo2y2009() {
+    return $this->co2y2009;
+  }
+
+  /**
+   * @param float $co2y2009
+   */
+  public function setCo2y2009($co2y2009) {
+    $this->co2y2009 = $co2y2009;
+  }
+
+  /**
+   * @return float
+   */
+  public function getCo2y2010() {
+    return $this->co2y2010;
+  }
+
+  /**
+   * @param float $co2y2010
+   */
+  public function setCo2y2010($co2y2010) {
+    $this->co2y2010 = $co2y2010;
+  }
+
+  /**
+   * @return float
+   */
+  public function getCo2y2011() {
+    return $this->co2y2011;
+  }
+
+  /**
+   * @param float $co2y2011
+   */
+  public function setCo2y2011($co2y2011) {
+    $this->co2y2011 = $co2y2011;
+  }
+
+  /**
+   * @return float
+   */
+  public function getCo2y2012() {
+    return $this->co2y2012;
+  }
+
+  /**
+   * @param float $co2y2012
+   */
+  public function setCo2y2012($co2y2012) {
+    $this->co2y2012 = $co2y2012;
+  }
+
+  /**
+   * @return float
+   */
+  public function getCo2y2013() {
+    return $this->co2y2013;
+  }
+
+  /**
+   * @param float $co2y2013
+   */
+  public function setCo2y2013($co2y2013) {
+    $this->co2y2013 = $co2y2013;
+  }
+
+  /**
+   * @return float
+   */
+  public function getCo2y2014() {
+    return $this->co2y2014;
+  }
+
+  /**
+   * @param float $co2y2014
+   */
+  public function setCo2y2014($co2y2014) {
+    $this->co2y2014 = $co2y2014;
+  }
+
 
   /**
    * Return price in a given year. Defaults to the current year.

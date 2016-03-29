@@ -19,6 +19,7 @@ class FormatExtension extends \Twig_Extension {
   public function getFilters()
   {
     return array(
+      new Twig_SimpleFilter('format_json', [$this, 'formatToJSON'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_hundreds', [$this, 'formatToHundreds'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_tens', [$this, 'formatToTens'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_zeros', [$this, 'formatToZeros'], ['is_safe' => ['all']]),
@@ -28,6 +29,10 @@ class FormatExtension extends \Twig_Extension {
       new Twig_SimpleFilter('format_percent', [$this, 'formatPercent'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_percent_nounit', [$this, 'formatPercentNoUnit'], ['is_safe' => ['all']]),
     );
+  }
+
+  public function formatToJSON($i) {
+    return number_format($i, 2, ',', '');
   }
 
   public function formatToHundreds($i) {
@@ -57,13 +62,18 @@ class FormatExtension extends \Twig_Extension {
     if ($number === NULL) {
       return '–';
     }
+    // if number is smaller then what we can display with the given decimals
+    if ($number < (1/pow(10, $numberOfDecimals) && $number > (-1/pow(10, $numberOfDecimals)))) {
+      $number = 0;
+    }
     $formatter = $this->getNumberFormatter(null, \NumberFormatter::DECIMAL);
     $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $numberOfDecimals);
     $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $numberOfDecimals);
+
     return $formatter->format($number);
   }
 
-  public function formatPercent($number, $numberOfDecimals = 0) {
+  public function formatPercent($number, $numberOfDecimals = 2) {
     if ($number === NULL) {
       return '–';
     }
@@ -73,7 +83,7 @@ class FormatExtension extends \Twig_Extension {
     return $formatter->format($number);
   }
 
-  public function formatPercentNoUnit($number, $numberOfDecimals = 0) {
+  public function formatPercentNoUnit($number, $numberOfDecimals = 2) {
     return $this->formatDecimal(100 * $number, $numberOfDecimals);
   }
 
@@ -85,13 +95,16 @@ class FormatExtension extends \Twig_Extension {
     $value = intval($value);
 
     if ($precision >= 0) {
-      return round($value, $precision);
+      $rounded = round($value, $precision);
     }
     else {
       $precision = intval(pow(10, abs($precision)));
       $value = $value + (5 * $precision / 10);
-      return round($value - ($value % $precision), 0);
+      $rounded = round($value - ($value % $precision), 0);
     }
+
+    // +0 to avoid "-0" output
+    return $rounded + 0;
   }
 
   private function getNumberFormatter($locale, $style) {

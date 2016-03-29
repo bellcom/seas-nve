@@ -37,6 +37,9 @@ twig:
         decimals: 2
         decimal_point: ','
         thousands_separator: '.'
+    globals:
+        aaplus_release_ver: %aaplus_release_ver%
+
 
 # Assetic Configuration
 assetic:
@@ -77,6 +80,7 @@ doctrine:
             StyringType: AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType
             TiltagType: AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType
             PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
+            RisikovurderingType: AppBundle\DBAL\Types\RisikovurderingType
         logging: false
         profiling: false
     orm:
@@ -84,6 +88,10 @@ doctrine:
         entity_managers:
             default:
               auto_mapping: true
+              filters:
+                softdeleteable:
+                  class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                  enabled: true
               dql:
                 datetime_functions:
                   YEAR: DoctrineExtensions\Query\Mysql\Year
@@ -182,6 +190,7 @@ stof_doctrine_extensions:
             uploadable: true
             timestampable: true
             blameable: true
+            softdeleteable: true
 
 knp_snappy:
     pdf:

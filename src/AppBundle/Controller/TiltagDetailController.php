@@ -157,11 +157,12 @@ class TiltagDetailController extends BaseController {
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltagdetail->getTiltag()->getId())));
     }
 
-    return array(
+    $template = $this->getTemplate($tiltagdetail, 'edit');
+    return $this->render($template, array(
       'entity' => $tiltagdetail,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
-    );
+    ));
   }
 
   /**

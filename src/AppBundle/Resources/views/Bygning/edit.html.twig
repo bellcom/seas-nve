@@ -12,7 +12,6 @@
     </div>
   </div>
 
-  {% form_theme edit_form 'AppBundle:Form:twocol-form.html.twig' %}
-  {{ form(edit_form, { 'style': 'horizontal' }) }}
+  {% include 'AppBundle:Bygning:_editForm.html.twig' %}
 
 {% endblock %}

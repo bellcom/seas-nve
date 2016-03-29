@@ -27,28 +27,28 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="lokale_type", type="string", length=255)
+   * @ORM\Column(name="lokale_type", type="string", length=255, nullable=true)
    */
   protected $lokale_type;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="armaturhoejdeM", type="decimal", scale=4)
+   * @ORM\Column(name="armaturhoejdeM", type="decimal", scale=4, nullable=true)
    */
   protected $armaturhoejdeM;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="rumstoerrelseM2", type="decimal", scale=4)
+   * @ORM\Column(name="rumstoerrelseM2", type="decimal", scale=4, nullable=true)
    */
   protected $rumstoerrelseM2;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="lokale_antal", type="integer")
+   * @ORM\Column(name="lokale_antal", type="integer", nullable=true)
    */
   protected $lokale_antal;
 
@@ -61,6 +61,8 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   /**
    * @var BelysningTiltagDetailLyskilde
+   *
+   * Belysningstype
    *
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Lyskilde")
    * ORM\JoinColumn(name="lyskilde_id", referencedColumnName="id")
@@ -115,7 +117,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @var string
    *
    * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType")
-   * @ORM\Column(name="styring", type="StyringType")
+   * @ORM\Column(name="styring", type="StyringType", nullable=true)
    **/
   protected $styring;
 
@@ -139,28 +141,28 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @var string
    *
    * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType")
-   * @ORM\Column(name="belysningstiltag", type="TiltagType")
+   * @ORM\Column(name="belysningstiltag", type="TiltagType", nullable=true)
    */
   protected $belysningstiltag;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="nyeSensorerStkLokale", type="integer")
+   * @ORM\Column(name="nyeSensorerStkLokale", type="integer", nullable=true)
    */
   protected $nyeSensorerStkLokale;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestSensorKrStk", type="decimal", scale=4)
+   * @ORM\Column(name="standardinvestSensorKrStk", type="decimal", scale=4, nullable=true)
    */
   protected $standardinvestSensorKrStk;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="reduktionAfDrifttid", type="decimal", scale=4)
+   * @ORM\Column(name="reduktionAfDrifttid", type="decimal", scale=4, nullable=true)
    */
   protected $reduktionAfDrifttid;
 
@@ -175,19 +177,29 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestArmaturKrStk", type="decimal", scale=4)
+   * @ORM\Column(name="standardinvestArmaturKrStk", type="decimal", scale=4, nullable=true)
    */
   protected $standardinvestArmaturKrStk;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="standardinvestLyskildeKrStk", type="decimal", scale=4)
+   * @ORM\Column(name="standardinvestLyskildeKrStk", type="decimal", scale=4, nullable=true)
    */
   protected $standardinvestLyskildeKrStk;
 
   /**
+   * @var BelysningTiltagDetailErstatningsLyskilde
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\ErstatningsLyskilde")
+   * ORM\JoinColumn(name="ny_erstatningslyskilde_id", referencedColumnName="id")
+   */
+  protected $erstatningsLyskilde;
+
+  /**
    * @var BelysningTiltagDetailLyskilde
+   *
+   * Belysningstype
    *
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\Lyskilde")
    * ORM\JoinColumn(name="ny_lyskilde_id", referencedColumnName="id")
@@ -197,21 +209,21 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var integer
    *
-   * @ORM\Column(name="nyLyskildeStkArmatur", type="integer")
+   * @ORM\Column(name="nyLyskildeStkArmatur", type="integer", nullable=true)
    */
   protected $nyLyskildeStkArmatur;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="nyLyskildeWLyskilde", type="integer")
+   * @ORM\Column(name="nyLyskildeWLyskilde", type="integer", nullable=true)
    */
   protected $nyLyskildeWLyskilde;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="nyForkoblingStkArmatur", type="integer")
+   * @ORM\Column(name="nyForkoblingStkArmatur", type="integer", nullable=true)
    */
   protected $nyForkoblingStkArmatur;
 
@@ -226,21 +238,37 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var integer
    *
-   * @ORM\Column(name="nyeArmaturerStkLokale", type="integer")
+   * @ORM\Column(name="nyeArmaturerStkLokale", type="integer", nullable=true)
    */
   protected $nyeArmaturerStkLokale;
 
   /**
+   * @var BelysningTiltagDetailNyStyring
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NyStyring")
+   * ORM\JoinColumn(name="nyStyring_id", referencedColumnName="id", nullable=true)
+   **/
+  protected $nyStyring;
+
+  /**
+   * @var BelysningTiltagDetailNytArmatur
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NytArmatur")
+   * ORM\JoinColumn(name="nytArmatur_id", referencedColumnName="id", nullable=true)
+   **/
+  protected $nytArmatur;
+
+  /**
    * @var float
    *
-   * @ORM\Column(name="nyttiggjortVarmeAfElBesparelse", type="decimal", scale=4)
+   * @ORM\Column(name="nyttiggjortVarmeAfElBesparelse", type="decimal", scale=4, nullable=true)
    */
   protected $nyttiggjortVarmeAfElBesparelse;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="prisfaktor", type="decimal", scale=4)
+   * @ORM\Column(name="prisfaktor", type="decimal", scale=4, nullable=true)
    */
   protected $prisfaktor;
 
@@ -315,6 +343,14 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @ORM\Column(name="kWhBesparelseVarmeFraVarmevaerket", type="float")
    */
   protected $kWhBesparelseVarmeFraVarmevaerket;
+
+  /**
+   * Constructor
+   */
+  public function __construct() {
+    parent::__construct();
+  }
+
 
   /**
    * @return string
@@ -1014,6 +1050,48 @@ class BelysningTiltagDetail extends TiltagDetail {
     return $this->kWhBesparelseVarmeFraVarmevaerket;
   }
 
+  /**
+   * @return BelysningTiltagDetailNyStyring
+   */
+  public function getNyStyring() {
+    return $this->nyStyring;
+  }
+
+  /**
+   * @param BelysningTiltagDetailNyStyring $nyStyring
+   */
+  public function setNyStyring($nyStyring) {
+    $this->nyStyring = $nyStyring;
+  }
+
+  /**
+   * @return BelysningTiltagDetailNytArmatur
+   */
+  public function getNytArmatur() {
+    return $this->nytArmatur;
+  }
+
+  /**
+   * @param BelysningTiltagDetailNytArmatur $nytArmatur
+   */
+  public function setNytArmatur($nytArmatur) {
+    $this->nytArmatur = $nytArmatur;
+  }
+
+  /**
+   * @return BelysningTiltagDetailErstatningsLyskilde
+   */
+  public function getErstatningsLyskilde() {
+    return $this->erstatningsLyskilde;
+  }
+
+  /**
+   * @param BelysningTiltagDetailErstatningsLyskilde $erstatningsLyskilde
+   */
+  public function setErstatningsLyskilde($erstatningsLyskilde) {
+    $this->erstatningsLyskilde = $erstatningsLyskilde;
+  }
+
   public function calculate() {
     $this->elforbrugWM2 = $this->calculateElforbrugWM2();
     $this->nyDriftstid = $this->calculateNyDriftstid();
@@ -1034,7 +1112,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     // AC
     $armaturEffekt = $this->_computeArmaturEffekt($this->getLyskilde(true));
 
-    if ($this->rumstoerrelseM2 == 0 || $armaturEffekt == 0 || $this->armaturerStkLokale == 0) {
+    if ($this->rumstoerrelseM2 === null || $this->rumstoerrelseM2 == 0 || $armaturEffekt == 0 || $this->armaturerStkLokale == 0) {
       return 0;
     }
     else {
@@ -1073,7 +1151,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   private function calculateInvesteringAlleLokalerKr() {
     // BB
     $nyLyskilde = $this->getNyLyskilde(true);
-    if (!$nyLyskilde) {
+    if (!$nyLyskilde || !$this->lokale_antal) {
       return 0;
     }
     elseif ($nyLyskilde->getType() == 'LED-arm.') {
@@ -1091,7 +1169,7 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function calculateNytElforbrugWM2() {
     // BD
-    if ($this->rumstoerrelseM2 == 0) {
+    if ($this->rumstoerrelseM2 === null || $this->rumstoerrelseM2 == 0) {
       return 0;
     }
     else {
@@ -1120,7 +1198,7 @@ class BelysningTiltagDetail extends TiltagDetail {
       $nyLyskildeUdgift = $lyskilde->getUdgift();
     }
 
-    if (!$lyskilde || $lyskilde->getLevetid() == 0 || $nyLyskildeLevetid == 0) {
+    if (!$this->lokale_antal || !$lyskilde || $lyskilde->getLevetid() == 0 || $nyLyskildeLevetid == 0) {
       return 0;
     }
     else {
@@ -1176,7 +1254,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     $elforbrug = $computeElforbrugPrLokale();
     $nytElforbrug = $computeNytElforbrugPrLokale();
 
-    if ($elforbrug == 0 || $nytElforbrug == 0 || $this->lokale_antal == 0) {
+    if ($elforbrug == 0 || $nytElforbrug == 0 || $this->lokale_antal == 0 || $this->lokale_antal === null) {
       return 0;
     }
     else {
@@ -1243,7 +1321,7 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function _computeUdgiftSensorer() {
     // BN
-    if ($this->nyeSensorerStkLokale == 0) {
+    if ($this->nyeSensorerStkLokale == 0 || $this->lokale_antal === NULL) {
       return 0;
     }
     else {
@@ -1257,7 +1335,7 @@ class BelysningTiltagDetail extends TiltagDetail {
 
   private function _computeUdgiftArmatur() {
     // BO
-    if ($this->standardinvestArmaturKrStk == 0) {
+    if ($this->standardinvestArmaturKrStk == 0 || $this->lokale_antal === NULL) {
       return 0;
     }
     else {

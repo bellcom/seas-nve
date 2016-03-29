@@ -7,6 +7,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Regning;
+use AppBundle\Form\Type\TiltagOverviewDetailType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,15 +59,16 @@ class TiltagController extends BaseController {
   public function showAction(Tiltag $tiltag) {
     $this->setBreadcrumb($tiltag);
 
-    $deleteForm = $this->createDeleteForm($tiltag);
-    $form = $this->createDetailCreateForm($tiltag);
-    $editForm = $this->createEditForm($tiltag);
+    $editForm = $this->createOverviewForm($tiltag);
+    $details = array();
+    foreach($tiltag->getDetails() as $detail) {
+      $details[$detail->getId()] = $detail;
+    }
 
     $template = $this->getTemplate($tiltag, 'show');
     return $this->render($template, array(
       'entity' => $tiltag,
-      'delete_form' => $deleteForm->createView(),
-      'create_detail_form' => $form->createView(),
+      'details' => $details,
       'edit_form' => $editForm->createView(),
     ));
   }
@@ -114,6 +116,24 @@ class TiltagController extends BaseController {
   }
 
   /**
+   * Creates a form to select/deselect TiltagDetail entities.
+   *
+   * @param Tiltag $tiltag The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createOverviewForm(Tiltag $tiltag) {
+    $form = $this->createForm(new TiltagOverviewDetailType(), $tiltag, array(
+      'action' => $this->generateUrl('tiltag_overview_update', array('id' => $tiltag->getId())),
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+
+    return $form;
+  }
+
+  /**
    * Edits an existing Tiltag entity.
    *
    * @Route("/{id}", name="tiltag_update")
@@ -140,6 +160,34 @@ class TiltagController extends BaseController {
       'entity' => $tiltag,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
+    );
+  }
+
+  /**
+   * Edits an existing Tiltag entity.
+   *
+   * @Route("/{id}/overview", name="tiltag_overview_update")
+   * @Method("PUT")
+   * @Template("AppBundle:Tiltag:show.html.twig")
+   * @Security("is_granted('TILTAG_EDIT', tiltag)")
+   */
+  public function updateOverviewAction(Request $request, Tiltag $tiltag) {
+    $editForm = $this->createOverviewForm($tiltag);
+    $editForm->handleRequest($request);
+
+    if ($editForm->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success('tiltag.confirmation.updated');
+
+      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+    }
+
+    return array(
+      'entity' => $tiltag,
+      'edit_form' => $editForm->createView(),
     );
   }
 
@@ -322,12 +370,10 @@ class TiltagController extends BaseController {
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     }
 
-    // @FIXME: How do we handle form errors in modal?
-
-    $template = $this->getTemplate($tiltag, 'new');
+    $template = $this->getDetailTemplate($detail, 'new');
     return $this->render($template, array(
       'entity' => $detail,
-      'form' => $form->createView(),
+      'edit_form' => $form->createView(),
     ));
   }
 

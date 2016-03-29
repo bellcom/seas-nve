@@ -6,6 +6,8 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\AppBundle;
+use AppBundle\Form\Type\RisikovurderingType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\SolcelleTiltag;
@@ -17,6 +19,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Validator\Constraints\False;
 
 /**
  * Class TiltagType
@@ -44,18 +47,31 @@ class TiltagType extends AbstractType {
       $builder->add('tilvalgtAfRaadgiver');
     }
     else {
-      $builder->add('tilvalgtAfAaPlus')
-        ->add('tilvalgtAfMagistrat')
-        ->add('tilvalgtbegrundelse');
+      $builder->add('tilvalgtAfAaPlus', 'choice', array(
+        'choices' => array(
+          '0' => 'Fravalgt',
+          '1' => 'Tilvalgt',
+        ),
+        'empty_value' => '--',
+        'required' => FALSE
+      ));
+      $builder->add('tilvalgtAfMagistrat', 'choice', array(
+        'choices' => array(
+          '0' => 'Fravalgt',
+          '1' => 'Tilvalgt',
+        ),
+        'empty_value' => '--',
+        'required' => FALSE
+      ));
+      $builder->add('tilvalgtbegrundelse', NULL, array('required' => FALSE));
+      $builder->add('tilvalgtBegrundelseMagistrat', NULL, array('required' => FALSE));
     }
-    $builder->add('title')
-      ->add('faktorForReinvesteringer');
+    $builder->add('title')->add('faktorForReinvesteringer');
 
-    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-      $builder
-        ->add('genopretning')
-        ->add('modernisering');
-    }
+    $builder
+      ->add('genopretning')
+      ->add('modernisering')
+      ->add('reelAnlaegsinvestering');
 
     $builder->add('forsyningVarme', 'entity', array(
       'class' => 'AppBundle:Energiforsyning',
@@ -73,8 +89,14 @@ class TiltagType extends AbstractType {
       ->add('risikovurdering')
       ->add('placering')
       ->add('beskrivelseDriftOgVedligeholdelse')
-      ->add('indeklima')
-      ->add('reelAnlaegsinvestering');
+      ->add('indeklima');
+
+    $builder->add('risikovurderingTeknisk', new RisikovurderingType(), array());
+    $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
+    $builder->add('risikovurderingDatagrundlag', new RisikovurderingType(), array());
+    $builder->add('risikovurderingDiverse', new RisikovurderingType(), array());
+    $builder->add('risikovurderingAendringIBesparelseFaktor', 'percent', array('required' => FALSE))
+      ->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor', 'percent', array('required' => FALSE));
 
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder
@@ -103,7 +125,7 @@ class TiltagType extends AbstractType {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
         ->add('besparelseStrafafkoelingsafgift')
-        ->add('anlaegsInvestering')
+        ->add('anlaegsinvesteringExRisiko')
         ->add('besparelseGUF')
         ->add('besparelseGAF')
         ->add('besparelseEl')
@@ -120,7 +142,9 @@ class TiltagType extends AbstractType {
             'hh' => 'Hårde hvidevarer',
             'a' => 'Automatik',
             'ia' => 'Interne i AAK'
-          )
+          ),
+          'required' => FALSE,
+          'empty_value' => '--'
         ))
         ->add('tiltagskategori');
     }

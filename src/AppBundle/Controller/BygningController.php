@@ -169,7 +169,7 @@ class BygningController extends BaseController implements InitControllerInterfac
   public function showAction(Bygning $bygning) {
     $deleteForm = $this->createDeleteForm($bygning);
 
-    $this->breadcrumbs->addItem($bygning);
+    $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning'));
 
     return array(
       'entity' => $bygning,
@@ -188,6 +188,9 @@ class BygningController extends BaseController implements InitControllerInterfac
   public function editAction(Bygning $bygning) {
     $editForm = $this->createEditForm($bygning);
     $deleteForm = $this->createDeleteForm($bygning);
+
+    $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning'));
+    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('bygning'));
 
     return array(
       'entity' => $bygning,
@@ -231,7 +234,7 @@ class BygningController extends BaseController implements InitControllerInterfac
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirectToReferer($request);
+      return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
     }
 
     return array(

@@ -34,7 +34,7 @@ class RapportEmbedType extends AbstractType {
       ->add('BaselineVand')
       ->add('BaselineStrafAfkoeling')
       ->add('faktorPaaVarmebesparelse')
-      ->add('Energiscreening')
+      ->add('energiscreening')
       ->add('elena');
   }
 

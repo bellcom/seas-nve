@@ -1,0 +1,143 @@
+function changeErstatningslyskilde() {
+  selected_val = $('#appbundle_belysningtiltagdetail_erstatningsLyskilde :selected').attr('value');
+
+  erstatningsvalues = {
+  {% for c in erstatningsLyskildeChoices %} "{{c.data.id}}": { "id": "{{ c.data.id }}", "antal": "{{ c.data.antal }}", "wattage": "{{ c.data.wattage }}", "nyeForkoblinger": "{{ c.data.nyeForkoblinger }}", "noter": "{{ c.data.noter | json_encode }}", "pris": "{{ c.data.pris | format_json }}" }{% if not loop.last %},{% endif %} {% endfor %}
+  };
+
+  if (selected_val) {
+    antal = $('#appbundle_belysningtiltagdetail_nyLyskildeStkArmatur');
+    if(antal.val() != erstatningsvalues[selected_val].antal) {
+      antal.val(erstatningsvalues[selected_val].antal);
+      antal.parent().addClass('has-info');
+      antal.focusout(function() {
+        antal.parent().removeClass('has-info');
+      });
+    }
+
+    wattage = $('#appbundle_belysningtiltagdetail_nyLyskildeWLyskilde');
+    if(wattage.val() != erstatningsvalues[selected_val].wattage) {
+      wattage.val(erstatningsvalues[selected_val].wattage);
+      wattage.parent().addClass('has-info');
+      wattage.focusout(function() {
+        wattage.parent().removeClass('has-info');
+      });
+    }
+
+    nyeForkoblinger = $('#appbundle_belysningtiltagdetail_nyForkoblingStkArmatur');
+    if(nyeForkoblinger.val() != erstatningsvalues[selected_val].nyeForkoblinger) {
+      nyeForkoblinger.val(erstatningsvalues[selected_val].nyeForkoblinger);
+      nyeForkoblinger.parent().addClass('has-info');
+      nyeForkoblinger.focusout(function() {
+        nyeForkoblinger.parent().removeClass('has-info');
+      });
+    }
+
+    noter = $('#appbundle_belysningtiltagdetail_noterForNyBelysning');
+    noter.val(JSON.parse(erstatningsvalues[selected_val].noter));
+    noter.parent().addClass('has-info');
+    noter.focusout(function() {
+      noter.parent().removeClass('has-info');
+    });
+
+    standardInvestLyskilde = $('#appbundle_belysningtiltagdetail_standardinvestLyskildeKrStk');
+    standardInvestLyskilde.val(erstatningsvalues[selected_val].pris);
+    standardInvestLyskilde.parent().addClass('has-info');
+    standardInvestLyskilde.focusout(function() {
+      standardInvestLyskilde.parent().removeClass('has-info');
+    });
+  }
+}
+
+function changeNytArmatur() {
+    selected_val = $('#appbundle_belysningtiltagdetail_nytArmatur :selected').attr('value');
+
+    erstatningsvalues = {
+    {% for c in nytArmaturChoices %} "{{c.data.id}}": { "id": "{{ c.data.id }}", "antal": "{{ c.data.nyLyskildeAntal }}", "wattage": "{{ c.data.wattage }}", "nyeForkoblinger": "{{ c.data.nyeForkoblingerAntal }}", "noter": "{{ c.data.noter | json_encode }}", "pris": "{{ c.data.pris | format_json }}" }{% if not loop.last %},{% endif %} {% endfor %}
+    };
+
+    if (selected_val) {
+      antal = $('#appbundle_belysningtiltagdetail_nyLyskildeStkArmatur');
+      if(antal.val() != erstatningsvalues[selected_val].antal) {
+        antal.val(erstatningsvalues[selected_val].antal);
+        antal.parent().addClass('has-info');
+        antal.focusout(function() {
+          antal.parent().removeClass('has-info');
+        });
+      }
+
+      wattage = $('#appbundle_belysningtiltagdetail_nyLyskildeWLyskilde');
+      if(wattage.val() != erstatningsvalues[selected_val].wattage) {
+        wattage.val(erstatningsvalues[selected_val].wattage);
+        wattage.parent().addClass('has-info');
+        wattage.focusout(function() {
+          wattage.parent().removeClass('has-info');
+        });
+      }
+
+      nyeForkoblinger = $('#appbundle_belysningtiltagdetail_nyForkoblingStkArmatur');
+      if(nyeForkoblinger.val() != erstatningsvalues[selected_val].nyeForkoblinger) {
+        nyeForkoblinger.val(erstatningsvalues[selected_val].nyeForkoblinger);
+        nyeForkoblinger.parent().addClass('has-info');
+        nyeForkoblinger.focusout(function() {
+          nyeForkoblinger.parent().removeClass('has-info');
+        });
+      }
+
+      noter = $('#appbundle_belysningtiltagdetail_noterForNyBelysning');
+      noter.val(JSON.parse(erstatningsvalues[selected_val].noter));
+      noter.parent().addClass('has-info');
+      noter.focusout(function() {
+        noter.parent().removeClass('has-info');
+      });
+
+      standardInvestArmatur = $('#appbundle_belysningtiltagdetail_standardinvestArmaturKrStk');
+      standardInvestArmatur.val(erstatningsvalues[selected_val].pris);
+      standardInvestArmatur.parent().addClass('has-info');
+      standardInvestArmatur.focusout(function() {
+        standardInvestArmatur.parent().removeClass('has-info');
+      });
+    }
+}
+
+function changeNyStyring() {
+  selected_val = $('#appbundle_belysningtiltagdetail_nyStyring :selected').attr('value');
+
+  erstatningsvalues = {
+  {% for c in nyStyringChoices %} "{{c.data.id}}": { "id": "{{ c.data.id }}", "noter": "{{ c.data.noter | json_encode }}", "pris": "{{ c.data.pris | format_json }}" }{% if not loop.last %},{% endif %} {% endfor %}
+  };
+
+  if (selected_val) {
+    standardInvestSensor = $('#appbundle_belysningtiltagdetail_standardinvestSensorKrStk');
+    standardInvestSensor.val(erstatningsvalues[selected_val].pris);
+    standardInvestSensor.parent().addClass('has-info');
+    standardInvestSensor.focusout(function() {
+      standardInvestSensor.parent().removeClass('has-info');
+    });
+  }
+}
+
+function changeBelysningstiltag() {
+  $selected_val =  $('#appbundle_belysningtiltagdetail_belysningstiltag :selected').attr('value');
+
+  if($selected_val == 'armatur') {
+    $('#appbundle_belysningtiltagdetail_erstatningsLyskilde').attr('disabled', 'disabled').val('');
+  } else {
+    $('#appbundle_belysningtiltagdetail_erstatningsLyskilde').removeAttr('disabled');
+  }
+
+  if ($selected_val == 'led_i_eksisterende_armatur') {
+    $('#appbundle_belysningtiltagdetail_nytArmatur').attr('disabled', 'disabled').val('');
+  } else {
+    $('#appbundle_belysningtiltagdetail_nytArmatur').removeAttr('disabled');
+  }
+}
+
+// Register listeners
+$('#appbundle_belysningtiltagdetail_nytArmatur').change(changeNytArmatur);
+$('#appbundle_belysningtiltagdetail_nyStyring').change(changeNyStyring);
+$('#appbundle_belysningtiltagdetail_belysningstiltag').change(changeBelysningstiltag);
+$('#appbundle_belysningtiltagdetail_erstatningsLyskilde').change(changeErstatningslyskilde);
+
+// On ready calls
+changeBelysningstiltag();

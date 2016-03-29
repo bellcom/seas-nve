@@ -23,22 +23,21 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ->add('klimaskaerm', 'entity', array(
         'class' => 'AppBundle:Klimaskaerm',
         'choices' => $this->getKlimaskaerme(),
+        'required' => FALSE,
+        'empty_value' => 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.edit',
       ))
       ->add('klimaskaermOverskrevetPris')
-      ->add('orientering', NULL, array(
-        'required' => TRUE,
-      ))
       ->add('typePlaceringJfPlantegning')
       ->add('hoejdeElLaengdeM')
       ->add('breddeM')
       ->add('antalStk')
-      ->add('andelAfArealDerEfterisoleres', 'percent', array('scale' => 2))
+      ->add('andelAfArealDerEfterisoleres', 'percent', array('scale' => 2, 'required' => false))
       ->add('uEksWM2K')
       ->add('uNyWM2K')
       ->add('tIndeC')
       ->add('tUdeC')
       ->add('tOpvarmningTimerAar')
-      ->add('yderligereBesparelserPct', 'percent', array('scale' => 2))
+      ->add('yderligereBesparelserPct', 'percent', array('scale' => 2, 'required' => false))
       ->add('prisfaktor')
       ->add('noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet', null, array(
         'required' => false,

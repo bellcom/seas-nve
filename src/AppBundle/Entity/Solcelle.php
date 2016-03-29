@@ -27,21 +27,21 @@ class Solcelle {
   /**
    * @var float
    *
-   * @ORM\Column(name="KWp", type="decimal", scale=4)
+   * @ORM\Column(name="KWp", type="decimal", scale=4, precision=14)
    */
   protected $KWp;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="inverterpris", type="decimal", scale=4)
+   * @ORM\Column(name="inverterpris", type="decimal", scale=4, precision=14)
    */
   protected $inverterpris;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="drift", type="decimal", scale=4)
+   * @ORM\Column(name="drift", type="decimal", scale=4, precision=14)
    */
   protected $drift;
 

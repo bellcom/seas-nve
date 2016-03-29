@@ -24,14 +24,17 @@
         <h3 class="panel-title">{{ 'appbundle.belysningtiltagdetail.eksisterendeBelysning' | trans }}</h3>
       </div>
       <div class="panel-body">
-        {{ form_row(edit_form.noter) }}
-        {{ form_row(edit_form.placering) }}
         {{ form_row(edit_form.lyskilde) }}
+        {{ form_row(edit_form.placering) }}
         {{ form_row(edit_form.drifttidTAar) }}
+        <div class="row">
+          <div class="col-md-4">{{ form_row(edit_form.lyskildeStkArmatur) }}</div>
+          <div class="col-md-4">{{ form_row(edit_form.lyskildeWLyskilde) }}</div>
+          <div class="col-md-4">{{ form_row(edit_form.forkoblingStkArmatur) }}</div>
+        </div>
         {{ form_row(edit_form.armaturerStkLokale) }}
-        {{ form_row(edit_form.lyskildeStkArmatur) }}
-        {{ form_row(edit_form.lyskildeWLyskilde) }}
-        {{ form_row(edit_form.forkoblingStkArmatur) }}
+        {{ form_row(edit_form.styring) }}
+        {{ form_row(edit_form.noter) }}
       </div>
     </div>
   </div>
@@ -41,17 +44,21 @@
         <h3 class="panel-title">{{ 'appbundle.belysningtiltagdetail.nyBelysning' | trans }}</h3>
       </div>
       <div class="panel-body">
-        {{ form_row(edit_form.noterForNyBelysning) }}
         {{ form_row(edit_form.belysningstiltag) }}
-        {{ form_row(edit_form.styring) }}
         {{ form_row(edit_form.nyLyskilde) }}
         {{ form_row(edit_form.reduktionAfDrifttid) }}
+        {{ form_row(edit_form.erstatningsLyskilde) }}
+        <div class="row">
+          <div class="col-md-4">{{ form_row(edit_form.nyLyskildeStkArmatur) }}</div>
+          <div class="col-md-4">{{ form_row(edit_form.nyLyskildeWLyskilde) }}</div>
+          <div class="col-md-4">{{ form_row(edit_form.nyForkoblingStkArmatur) }}</div>
+        </div>
+        {{ form_row(edit_form.nytArmatur) }}
         {{ form_row(edit_form.nyeArmaturerStkLokale) }}
-        {{ form_row(edit_form.nyLyskildeStkArmatur) }}
-        {{ form_row(edit_form.nyLyskildeWLyskilde) }}
-        {{ form_row(edit_form.nyForkoblingStkArmatur) }}
+        {{ form_row(edit_form.nyStyring) }}
         {{ form_row(edit_form.nyeSensorerStkLokale) }}
         {{ form_row(edit_form.nyttiggjortVarmeAfElBesparelse) }}
+        {{ form_row(edit_form.noterForNyBelysning) }}
       </div>
     </div>
   </div>
