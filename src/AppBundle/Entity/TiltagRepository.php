@@ -39,7 +39,7 @@ class TiltagRepository extends EntityRepository {
         break;
       case 'Tekniskisolering':
         $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::VVS);
-        $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Varmeanlæg – generelt'));
+        $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Varmeanlæg - generelt'));
         break;
       case 'Belysning':
         $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::EL);
@@ -55,7 +55,7 @@ class TiltagRepository extends EntityRepository {
         break;
       case 'Vindue':
         $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::TOEMRER);
-        $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Vinduer'));
+        $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Vinduer, ovenlys, døre'));
         break;
     }
 
