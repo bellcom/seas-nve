@@ -208,7 +208,7 @@ erstatningslyskilde:
   labels:
     plural: Erstatnings lyskilder
     singular: Erstatnings lyskilde
-forsyningsvaerk:
+forsyningsvaerker:
   actions:
     add: Tilføj forsyningsværk
     create: Opret forsyningsværk

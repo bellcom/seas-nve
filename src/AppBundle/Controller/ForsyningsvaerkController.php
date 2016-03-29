@@ -23,7 +23,7 @@ class ForsyningsvaerkController extends BaseController
 
   public function init(Request $request) {
     parent::init($request);
-    $this->breadcrumbs->addItem('forsyningsvaerk.labels.singular', $this->generateUrl('forsyningsvaerk'));
+    $this->breadcrumbs->addItem('forsyningsvaerker.labels.singular', $this->generateUrl('forsyningsvaerk'));
 }
 
 
