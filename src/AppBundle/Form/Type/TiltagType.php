@@ -86,9 +86,9 @@ class TiltagType extends AbstractType {
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
         'required' => FALSE,
       ))
-      ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 720), 'required' => FALSE))
-      ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 720), 'required' => FALSE))
-      ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 960), 'required' => FALSE))
+      ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 850), 'required' => FALSE))
+      ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 1000), 'required' => FALSE))
+      ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 1100), 'required' => FALSE))
       ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
       ->add('placering', 'textarea', array('attr' => array('maxlength' => 120), 'required' => FALSE))
       ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))

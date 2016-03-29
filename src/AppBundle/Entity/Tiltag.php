@@ -332,7 +332,7 @@ abstract class Tiltag {
    * @ORM\Column(name="beskrivelseNuvaerende", type="text", nullable=true)
    *
    * @Assert\Length(
-   *  max = 720,
+   *  max = 850,
    *  maxMessage = "maxLength"
    * )
    */
@@ -344,7 +344,7 @@ abstract class Tiltag {
    * @ORM\Column(name="beskrivelseForslag", type="text", nullable=true)
    *
    * @Assert\Length(
-   *  max = 720,
+   *  max = 1000,
    *  maxMessage = "maxLength"
    * )
    */
@@ -356,7 +356,7 @@ abstract class Tiltag {
    * @ORM\Column(name="beskrivelseOevrige", type="text", nullable=true)
    *
    * @Assert\Length(
-   *  max = 960,
+   *  max = 1100,
    *  maxMessage = "maxLength"
    * )
    */
