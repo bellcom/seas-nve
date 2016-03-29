@@ -73,7 +73,7 @@ class FormatExtension extends \Twig_Extension {
     return $formatter->format($number);
   }
 
-  public function formatPercent($number, $numberOfDecimals = 0) {
+  public function formatPercent($number, $numberOfDecimals = 2) {
     if ($number === NULL) {
       return '–';
     }
@@ -83,7 +83,7 @@ class FormatExtension extends \Twig_Extension {
     return $formatter->format($number);
   }
 
-  public function formatPercentNoUnit($number, $numberOfDecimals = 0) {
+  public function formatPercentNoUnit($number, $numberOfDecimals = 2) {
     return $this->formatDecimal(100 * $number, $numberOfDecimals);
   }
 
