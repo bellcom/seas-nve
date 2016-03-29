@@ -1801,7 +1801,7 @@ class Rapport {
   }
 
   private function calculateFaellesomkostninger() {
-    return $this->mtmFaellesomkostninger + $this->implementering;
+    return $this->energiscreening + $this->mtmFaellesomkostninger + $this->implementering;
   }
 
   private function calculateSavingsYearOne() {
@@ -1897,7 +1897,7 @@ class Rapport {
       }, 0);
 
       $flow['besparelse'][$year] = $besparelse;
-      $flow['cash flow'][$year] = -$flow['ydelse laan'][$year] + $flow['besparelse'][$year];
+      $flow['cash flow'][$year] = -$flow['ydelse laan inkl. faellesomkostninger'][$year] + $flow['besparelse'][$year];
       $flow['akkumuleret'][$year] = $flow['akkumuleret'][$year - 1] + $flow['cash flow'][$year];
     }
 
