@@ -107,30 +107,30 @@
       </tr>
       <tr>
         <th class="indent">{{ 'appbundle.rapport.besparelseEl' | trans }}</th>
-        <td class="text-right">{{ entity.besparelseEl | number_format }}</td>
+        <td class="text-right">{{ entity.besparelseEl | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseEl.unit' | trans }}</td>
 
         <th class="indent">{{ 'appbundle.rapport.co2BesparelseSamletFaktor' | trans }}</th>
-        <td class="text-right">{{ entity.co2BesparelseSamletFaktor | format_percent }}</td>
-        <td></td>
+        <td class="text-right">{{ entity.co2BesparelseSamletFaktor | format_percent_nounit }}</td>
+        <td>{{ 'appbundle.rapport.co2BesparelseSamletFaktor.unit' | trans }}</td>
       </tr>
       <tr>
         <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGAF' | trans }}</th>
-        <td class="text-right">{{ entity.besparelseVarmeGAF | number_format }}</td>
+        <td class="text-right">{{ entity.besparelseVarmeGAF | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseVarmeGAF.unit' | trans }}</td>
 
         <th class="indent">{{ 'appbundle.rapport.co2BesparelseElFaktor' | trans }}</th>
-        <td class="text-right">{{ entity.co2BesparelseElFaktor | format_percent }}</td>
-        <td></td>
+        <td class="text-right">{{ entity.co2BesparelseElFaktor | format_percent_nounit }}</td>
+        <td>{{ 'appbundle.rapport.co2BesparelseElFaktor.unit' | trans }}</td>
       </tr>
       <tr>
         <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGUF' | trans }}</th>
-        <td class="text-right">{{ entity.besparelseVarmeGUF | number_format }}</td>
+        <td class="text-right">{{ entity.besparelseVarmeGUF | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseVarmeGUF.unit' | trans }}</td>
 
         <th class="indent">{{ 'appbundle.rapport.co2BesparelseVarmeFaktor' | trans }}</th>
-        <td class="text-right">{{ entity.co2BesparelseVarmeFaktor | format_percent }}</td>
-        <td></td>
+        <td class="text-right">{{ entity.co2BesparelseVarmeFaktor | format_percent_nounit }}</td>
+        <td>{{ 'appbundle.rapport.co2BesparelseVarmeFaktor.unit' | trans }}</td>
       </tr>
       <tr>
         <td></td>
@@ -146,7 +146,7 @@
         <td></td>
 
         <th class="indent">{{ 'appbundle.rapport.besparelseCO2' | trans }}</th>
-        <td class="text-right">{{ entity.besparelseCO2 | number_format }}</td>
+        <td class="text-right">{{ entity.besparelseCO2 | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2.unit' | trans }}</td>
       </tr>
       <tr>
@@ -155,7 +155,7 @@
         <td></td>
 
         <th class="indent">{{ 'appbundle.rapport.besparelseCO2el' | trans }}</th>
-        <td class="text-right">{{ entity.co2BesparelseEl | number_format }}</td>
+        <td class="text-right">{{ entity.co2BesparelseEl | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2el.unit' | trans }}</td>
       </tr>
       <tr>
@@ -164,7 +164,7 @@
         <td></td>
 
         <th class="indent">{{ 'appbundle.rapport.besparelseCO2varme' | trans }}</th>
-        <td class="text-right">{{ entity.co2BesparelseVarme | number_format }}</td>
+        <td class="text-right">{{ entity.co2BesparelseVarme | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2varme.unit' | trans }}</td>
       </tr>
       </tbody>
@@ -317,9 +317,11 @@
               </div>
               <div class="col-md-6 text-right">
                 {% if is_granted('RAPPORT_EDIT', entity) %}
-                  <a class="btn btn-default" href="{{ path('tiltag_bilag_get', { 'tiltag_id': t.id }) }}">
-                    {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
-                  </a>
+                  {% if tiltag_type(t) != 'Special' %}
+                    <a class="btn btn-default" href="{{ path('tiltag_bilag_get', { 'tiltag_id': t.id }) }}">
+                      {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
+                    </a>
+                  {% endif %}
                   <a href="{{ path('tiltag_edit', { 'id': t.id }) }}" class="btn btn-default">
                     {{ icon('edit') }} {{ 'common.edit' | trans }}: {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
                   </a>

@@ -1,0 +1,23 @@
+{# Activate tooltip #}
+$(function() {
+    $('.tooltip-wrapper').tooltip({position: "bottom"});
+});
+
+{##
+# Translate field labels in prototype.
+  # @FIXME: There must be a better way to do this!
+  #}
+
+var translations = {};
+{% for key in [ 'navn', 'fordeling', 'effektivitet', 'prisgrundlag' ] %}
+    translations['appbundle.energiforsyning.internProduktioner...name...' + {{ key | json_encode | raw }}] = {{ ('appbundle.energiforsyning.internProduktioner.0.' ~ key) | trans | json_encode | raw }};
+{% endfor %}
+
+var collections = document.querySelectorAll('[data-prototype]'), i, collection;
+for (i = 0; collection = collections[i]; i++) {
+    var content = collection.getAttribute('data-prototype');
+    for (var key in translations) {
+        content = content.replace(key, translations[key]);
+    }
+    collection.setAttribute('data-prototype', content);
+}

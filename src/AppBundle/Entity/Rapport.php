@@ -205,6 +205,13 @@ class Rapport {
    */
   protected $BaselineCO2Samlet;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="fravalgtBaselineCO2Samlet", type="float", nullable=true)
+   */
+  protected $fravalgtBaselineCO2Samlet;
 
   /**
    * @var float
@@ -229,6 +236,14 @@ class Rapport {
    * @ORM\Column(name="co2BesparelseSamletFaktor", type="float", nullable=true)
    */
   protected $co2BesparelseSamletFaktor;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="fravalgtCo2BesparelseSamletFaktor", type="float", nullable=true)
+   */
+  protected $fravalgtCo2BesparelseSamletFaktor;
 
   /**
    * @var float
@@ -476,7 +491,19 @@ class Rapport {
     $this->co2BesparelseSamletFaktor = $co2BesparelseSamletFaktor;
   }
 
+  /**
+   * @return float
+   */
+  public function getFravalgtCo2BesparelseSamletFaktor() {
+    return $this->fravalgtCo2BesparelseSamletFaktor;
+  }
 
+  /**
+   * @param float $fravalgtCo2BesparelseSamletFaktor
+   */
+  public function setFravalgtCo2BesparelseSamletFaktor($fravalgtCo2BesparelseSamletFaktor) {
+    $this->fravalgtCo2BesparelseSamletFaktor = $fravalgtCo2BesparelseSamletFaktor;
+  }
 
   /**
    * Get cashFlow15
@@ -1600,14 +1627,15 @@ class Rapport {
     $this->besparelseVarmeGAF = $this->calculateBesparelseVarmeGAF();
     $this->fravalgtBesparelseVarmeGAF = $this->calculateFravalgtBesparelseVarmeGAF();
 
-    $this->besparelseCO2 = $this->calculateBesparelseCO2();
-    $this->fravalgtBesparelseCO2 = $this->calculateFravalgtBesparelseCO2();
     $this->co2BesparelseEl = $this->calculateCo2BesparelseEl();
     $this->co2BesparelseVarme = $this->calculateCo2BesparelseVarme();
+    $this->besparelseCO2 = $this->calculateBesparelseCO2();
+    $this->fravalgtBesparelseCO2 = $this->calculateFravalgtBesparelseCO2();
 
     $this->co2BesparelseElFaktor = $this->calculateCO2BesparelseElFaktor();
     $this->co2BesparelseVarmeFaktor = $this->calculateCO2BesparelseVarmeFaktor();
     $this->co2BesparelseSamletFaktor = $this->calculateCO2BesparelseSamletFaktor();
+    $this->fravalgtCo2BesparelseSamletFaktor = $this->calculateFravalgtCO2BesparelseSamletFaktor();
 
     $this->mtmFaellesomkostninger = $this->calculateMtmFaellesomkostninger();
     $this->implementering = $this->calculateImplementering();
@@ -1763,22 +1791,29 @@ class Rapport {
   }
 
   private function calculateCO2BesparelseElFaktor() {
-    if ($this->BaselineCO2El != 0) {
+    if (!empty($this->BaselineCO2El)) {
       return $this->co2BesparelseEl / $this->BaselineCO2El;
     }
     return null;
   }
 
   private function calculateCO2BesparelseVarmeFaktor() {
-    if ($this->BaselineCO2Varme != 0) {
+    if (!empty($this->BaselineCO2Varme)) {
       return $this->co2BesparelseVarme / $this->BaselineCO2Varme;
     }
     return null;
   }
 
   private function calculateCO2BesparelseSamletFaktor() {
-    if ($this->BaselineCO2Samlet != 0) {
+    if (!empty($this->BaselineCO2Samlet)) {
       return $this->besparelseCO2 / $this->BaselineCO2Samlet;
+    }
+    return null;
+  }
+
+  private function calculateFravalgtCO2BesparelseSamletFaktor() {
+    if ($this->BaselineCO2Samlet != 0) {
+      return $this->fravalgtBesparelseCO2 / $this->BaselineCO2Samlet;
     }
     return null;
   }
@@ -1789,7 +1824,11 @@ class Rapport {
 
     if($vaerk) {
       $ElKgCo2MWh = $this->getBygning()->getForsyningsvaerkEl()->getKgCo2MWh($year);
-      return ($this->besparelseEl / 1000) * ($ElKgCo2MWh / 1000);
+
+      $newMwh = $this->BaselineEl - $this->besparelseEl;
+      $newCO2 = ($newMwh / 1000) * ($ElKgCo2MWh / 1000);
+
+      return $this->BaselineCO2El - $newCO2;
     } else {
       return 0;
     }
@@ -1846,7 +1885,7 @@ class Rapport {
   }
 
   private function calculateFaellesomkostninger() {
-    return $this->mtmFaellesomkostninger + $this->implementering;
+    return $this->energiscreening + $this->mtmFaellesomkostninger + $this->implementering;
   }
 
   private function calculateSavingsYearOne() {
@@ -1942,7 +1981,7 @@ class Rapport {
       }, 0);
 
       $flow['besparelse'][$year] = $besparelse;
-      $flow['cash flow'][$year] = -$flow['ydelse laan'][$year] + $flow['besparelse'][$year];
+      $flow['cash flow'][$year] = -$flow['ydelse laan inkl. faellesomkostninger'][$year] + $flow['besparelse'][$year];
       $flow['akkumuleret'][$year] = $flow['akkumuleret'][$year - 1] + $flow['cash flow'][$year];
     }
 

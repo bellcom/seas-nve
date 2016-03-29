@@ -197,6 +197,7 @@ energiforsyninger:
     deleted: Energiforsyning slettet
   error:
     cannot_delete: Energiforsyning kan ikke slettes
+    in_use: Kan ikke slettes. Bruges af tiltag.
   labels:
     plural: Energiforsyninger
     singular: Energiforsyning
@@ -824,8 +825,10 @@ appbundle:
   energiforsyning:
     forsyningsvaerk: Forsyningsværk
     enhedspris: Enhedspris
+    enhedspris.unit: Kr/kWh
     prisfaktor: Prisfaktor
-    nyEnhedspris: Ny enhedspris
+    nyEnhedspris: Ny enhedsp.
+    nyEnhedspris.unit: Kr/kWh
     forsyningsvaerk: Forsyningsværk
     beskrivelse: Beskrivelse
     internproduktion:
@@ -839,38 +842,10 @@ appbundle:
     internProduktioner.0:
       effektivitet: Effektivitet
       effektivitet.unit: %
-      effektivitet: Effektivitet
-      effektivitet.unit: %
-      effektivitet: Effektivitet
-      effektivitet.unit: %
-      effektivitet: Effektivitet
-      effektivitet.unit: %
-      effektivitet: Effektivitet
-      effektivitet.unit: %
-      fordeling: Fordeling
-      fordeling.unit: %
-      fordeling: Fordeling
-      fordeling.unit: %
-      fordeling: Fordeling
-      fordeling.unit: %
-      fordeling: Fordeling
-      fordeling.unit: %
       fordeling: Fordeling
       fordeling.unit: %
       navn: Navn
-      navn: Navn
-      navn: Navn
-      navn: Navn
-      navn: Navn
       prisgrundlag: Prisgrundlag
-      prisgrundlag: Prisgrundlag
-    internProduktioner.1:
-      prisgrundlag: Prisgrundlag
-    internProduktioner.2:
-      prisgrundlag: Prisgrundlag
-    internProduktioner.3:
-      prisgrundlag: Prisgrundlag
-    internProduktioner.4:
     navn: Navn
     samletEleffektivitet: Samlet eleffektivitet:
     samletVarmeeffektivitet: Samlet varmeeffektivitet:
@@ -1158,7 +1133,6 @@ appbundle:
   pumpetiltagdetail:
     add: Tilføj pumpe
     applikation: Applikation
-    nyttiggjortVarme: Nyttiggjort varme
     eksisterendeDrifttid: Eksisterende drifttid
     eksisterendeDrifttid.unit: Timer/år
     eksisterendeDrifttid.help: ﻿Eksisterende driftstid indtastes i timer/år
@@ -1183,6 +1157,8 @@ appbundle:
     nutidsvaerdiSetOver15AarKr.unit: kr
     nyDrifttid: Ny drifttid
     nyDrifttid.unit: Timer/år
+    nyttiggjortVarme: Nyttiggjort varme
+    nyttiggjortVarme.unit: B-faktor
     placering: Placering
     placering.help: ﻿Rum nr. og eventuel note for placering  fx. "rum 20, under isoleringskappe til varmtvandsbeholder"
     prisfaktor: Prisfaktor
@@ -1243,8 +1219,11 @@ appbundle:
     co2besparelser: CO2 Besparelser
     co2BesparelseFaktor: Samlede CO2 Besparelser (%)
     co2BesparelseElFaktor: El
+    co2BesparelseElFaktor.unit: %
     co2BesparelseSamletFaktor: Samlet CO2
+    co2BesparelseSamletFaktor.unit: %
     co2BesparelseVarmeFaktor: Varme
+    co2BesparelseVarmeFaktor.unit: %
     datering: Screeningsdato
     elena: Elena
     energibesparelser: Energibesparelser
@@ -1284,10 +1263,13 @@ appbundle:
     nutidsvaerdi.unit: kr
     nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. øvrige omkostninger
     nutidsvaerdiInklFaellesomkostninger.unit: kr
+    oevrigeOmkostninger: Øvrige omkostninger
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
     status.ava: AVA-støtte
-    sum.unit: kr
     sum: Sum
+    sum.unit: kr
+    sumOevrige: Sum, Aa+ investering inkl. øvrige omkostninger
+    sumOevrige.unit: kr
     tiltag: Tiltag
     tilvalg: Tilvalg
     timeforbrug: Forventet timeforbrug for lokalpersonalet
@@ -1424,12 +1406,16 @@ appbundle:
     varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering
     varmeledningsevnePaaNyIsoleringWMK.unit: W/m·K
   tiltag:
+    aaplusInvestering: Aa+ investering eksl. øvrige omkostninger
+    aaplusInvestering.kr: kr
     anlaegsInvestering: ﻿Entreprisesum
     anlaegsInvestering.unit: kr
     opstartsomkostninger: Opstartsomkostninger
     opstartsomkostninger.unit: kr
     anlaegsinvesteringExRisiko: ﻿Entreprisesum (eksl. risikovurdering)
     anlaegsinvesteringExRisiko.unit: kr
+    aaplusInvestering: Aa+ investering
+    aaplusInvestering.unit: kr
     antalReinvesteringer: Antal reinvesteringer
     antalReinvesteringer.unit: stk.
     beskrivelse: Beskrivelse
@@ -1473,6 +1459,7 @@ appbundle:
     levetid.unit: År
     modernisering: Modernisering
     modernisering.unit: kr.
+    nr: Tiltags nr.
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
     oekonomioverblik: Økonomioverblik
@@ -1510,6 +1497,7 @@ appbundle:
     tilvalgtAfRaadgiver.th: Rådg.
     tilvalgtbegrundelse: Bemærkning Aa+
     tilvalgtBegrundelseMagistrat: Bemærkning Magistrat
+    tilvalgtFravalgt: Tilvalgt / Fravalgt
     title: Titel
     vandbesparelse: Vandbesparelse
     vandbesparelse.unit: m³/år

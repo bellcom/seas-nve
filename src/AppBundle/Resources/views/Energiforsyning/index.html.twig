@@ -35,9 +35,9 @@
         <td>{{ entity.nyEnhedspris | format_decimal }}</td>
         <td>{{ entity.samletVarmeeffektivitet | format_decimal }}</td>
         <td>{{ entity.samletEleffektivitet | format_decimal }}</td>
-        <td>
-          <a href="{{ path('energiforsyning_show', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+        <td class="text-right">
           <a href="{{ path('energiforsyning_edit', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+          <a href="{{ path('energiforsyning_show', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
         </td>
       </tr>
     {% endfor %}

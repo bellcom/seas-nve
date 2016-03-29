@@ -6,7 +6,9 @@
 
 namespace AppBundle\Entity\BelysningTiltagDetail;
 
+
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping;
 
 /**
  * BelysningTiltagRepository.
@@ -15,6 +17,18 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class NyStyringRepository extends EntityRepository {
+
+  /**
+   * Initializes a new <tt>EntityRepository</tt>.
+   *
+   * @param EntityManager         $em    The EntityManager to use.
+   * @param Mapping\ClassMetadata $class The class descriptor.
+   */
+  public function __construct($em, Mapping\ClassMetadata $class)
+  {
+    parent::__construct($em, $class);
+    $em->getFilters()->disable('softdeleteable');
+  }
 
   public function findNotDeleted() {
 
