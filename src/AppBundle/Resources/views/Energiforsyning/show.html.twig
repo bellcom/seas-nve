@@ -1,54 +1,101 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  <h1>{{ icon('file') }} {{ 'energiforsyninger.labels.singular' | trans }}</h1>
+  <div class="row heading">
+    <div class="col-md-8">
+      <h1>{{ icon('file') }} {{ 'energiforsyninger.labels.singular' | trans }}</h1>
+    </div>
+    <div class="col-md-4 text-right ">
+      <a href="{{ path('energiforsyning_edit', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-default">
+        {{ 'Edit' | trans }}
+      </a>
+    </div>
+  </div>
 
-  <table class="table table-condensed">
-    <tbody>
-      <tr>
-        <th>{{ 'appbundle.energiforsyning.navn' | trans }}</th>
-        <td>{{ entity.navn | readable('NavnType') | trans }}</td>
-      </tr>
-      <tr>
-        <th>{{ 'appbundle.energiforsyning.beskrivelse' | trans }}</th>
-        <td>{{ entity.beskrivelse }}</td>
-      </tr>
-      <tr>
-        <th>{{ 'appbundle.energiforsyning.samletVarmeeffektivitet' | trans }}</th>
-        <td>{{ entity.samletVarmeeffektivitet | format_decimal }}</td>
-      </tr>
-      <tr>
-        <th>{{ 'appbundle.energiforsyning.samletEleffektivitet' | trans }}</th>
-        <td>{{ entity.samletEleffektivitet | format_decimal }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h2>Interne produktioner</h2>
-
-  <table class="table table-condensed">
-    <thead>
-      <tr>
-        <th>{{ 'appbundle.energiforsyning.internproduktion.navn' | trans }}</th>
-        <th>{{ 'appbundle.energiforsyning.internproduktion.fordeling' | trans }}</th>
-        <th>{{ 'appbundle.energiforsyning.internproduktion.effektivitet' | trans }}</th>
-        <th>{{ 'appbundle.energiforsyning.internproduktion.prisgrundlag' | trans }}</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for p in entity.internProduktioner %}
-      <tr>
-        <td>{{ p.navn }}</td>
-        <td>{{ p.fordeling | format_percent }}</td>
-        <td>{{ p.effektivitet | format_percent }}</td>
-        <td>{{ p.prisgrundlag | readable('PrisgrundlagType') | trans }}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-
-  <a href="{{ path('energiforsyning_edit', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}"  class="btn btn-default">
-    {{ 'Edit' | trans }}
-  </a>
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'energiforsyninger.labels.singular' | trans }}</h3>
+        </div>
+          <table class="table">
+            <tbody>
+            <tr>
+              <th>{{ 'appbundle.energiforsyning.navn' | trans }}</th>
+              <td>{{ entity.navn | readable('NavnType') | trans }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.energiforsyning.beskrivelse' | trans }}</th>
+              <td>{{ entity.beskrivelse }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'appbundle.energiforsyning.forsyningsvaerk' | trans }}</h3>
+        </div>
+          <table class="table">
+            <tbody>
+            <tr>
+              <th>{{ 'appbundle.energiforsyning.forsyningsvaerk' | trans }}</th>
+              <td>{{ entity.forsyningsvaerk }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.energiforsyning.enhedspris' | trans }}</th>
+              <td>{{ entity.enhedspris | format_decimal }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.energiforsyning.prisfaktor' | trans }}</th>
+              <td>{{ entity.prisfaktor | format_decimal }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.energiforsyning.nyEnhedspris' | trans }}</th>
+              <td>{{ entity.nyEnhedspris | format_decimal }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.energiforsyning.samletVarmeeffektivitet' | trans }}</th>
+              <td>{{ entity.samletVarmeeffektivitet | format_decimal }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.energiforsyning.samletEleffektivitet' | trans }}</th>
+              <td>{{ entity.samletEleffektivitet | format_decimal }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'appbundle.energiforsyning.internProduktioner' | trans }}</h3>
+        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>{{ 'appbundle.energiforsyning.internproduktion.navn' | trans }}</th>
+            <th>{{ 'appbundle.energiforsyning.internproduktion.fordeling' | trans }}</th>
+            <th>{{ 'appbundle.energiforsyning.internproduktion.effektivitet' | trans }}</th>
+            <th>{{ 'appbundle.energiforsyning.internproduktion.prisgrundlag' | trans }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for p in entity.internProduktioner %}
+            <tr>
+              <td>{{ p.navn }}</td>
+              <td>{{ p.fordeling | format_percent }}</td>
+              <td>{{ p.effektivitet | format_percent }}</td>
+              <td>{{ p.prisgrundlag | readable('PrisgrundlagType') | trans }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

@@ -36,8 +36,8 @@ class EnergiforsyningController extends BaseController {
     parent::init($request);
 
     $rapport = $this->getRapport();
-    $this->breadcrumbs->addItem($rapport->getBygning(), $this->get('router')->generate('bygning_show', array('id' => $rapport->getBygning()->getId())));
-    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')->generate('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     $this->breadcrumbs->addItem('Energiforsyninger', $this->get('router')->generate('energiforsyning', array('rapport_id' => $this->getRapport()->getId())));
   }
 
@@ -72,7 +72,7 @@ class EnergiforsyningController extends BaseController {
 
     return array(
       'entity' => $entity,
-      'form' => $form->createView(),
+      'edit_form' => $form->createView(),
     );
   }
 
@@ -176,14 +176,20 @@ class EnergiforsyningController extends BaseController {
   public function deleteAction(Request $request, Energiforsyning $entity) {
     $form = $this->createDeleteForm($entity);
     $form->handleRequest($request);
+    $flash = $this->get('braincrafted_bootstrap.flash');
 
     if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->remove($entity);
-      $em->flush();
+      try {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($entity);
+        $em->flush();
+        $flash->success('energiforsyninger.confirmation.deleted');
+      } catch (\Exception $e) {
+        $flash->error('energiforsyninger.error.cannot_delete');
+      }
     }
 
-    return $this->redirect($this->generateUrl('energiforsyning'));
+    return $this->redirect($this->generateUrl('energiforsyning', array('rapport_id' => $entity->getRapport()->getId())));
   }
 
   /**

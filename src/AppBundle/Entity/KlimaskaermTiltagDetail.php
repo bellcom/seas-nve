@@ -46,9 +46,16 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *
-   * @ORM\Column(name="typePlaceringJfPlantegning", type="string", nullable=true)
+   * @ORM\Column(name="type", type="string", length=255)
    */
-  protected $typePlaceringJfPlantegning;
+  protected $type;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="placering", type="string", length=255)
+   */
+  protected $placering;
 
   /**
    * @var float
@@ -240,24 +247,45 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   /**
-   * Set typePlaceringJfPlantegning
+   * Set type
    *
-   * @param string $typePlaceringJfPlantegning
+   * @param string $type
    * @return KlimaskaermTiltagDetail
    */
-  public function setTypePlaceringJfPlantegning($typePlaceringJfPlantegning) {
-    $this->typePlaceringJfPlantegning = $typePlaceringJfPlantegning;
+  public function setType($type) {
+    $this->type = $type;
 
     return $this;
   }
 
   /**
-   * Get typePlaceringJfPlantegning
+   * Get type
    *
    * @return string
    */
-  public function getTypePlaceringJfPlantegning() {
-    return $this->typePlaceringJfPlantegning;
+  public function getType() {
+    return $this->type;
+  }
+
+  /**
+   * Set placering
+   *
+   * @param string $placering
+   * @return KlimaskaermTiltagDetail
+   */
+  public function setPlacering($placering) {
+    $this->placering = $placering;
+
+    return $this;
+  }
+
+  /**
+   * Get placering
+   *
+   * @return string
+   */
+  public function getPlacering() {
+    return $this->placering;
   }
 
   /**

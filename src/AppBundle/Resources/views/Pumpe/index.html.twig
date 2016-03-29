@@ -1,47 +1,73 @@
-{% extends 'AppBundle::base.html.twig' %}
+  {% extends 'AppBundle::base.html.twig' %}
 
-{% block body -%}
-  <div class="row">
-    <div class="col-md-10">
-      <h1>{{ 'pumpe.labels.plural' | trans }}</h1>
+
+  {% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+        <h1>{{ 'pumpe.labels.plural' | trans }}</h1>
     </div>
-    <div class="col-md-2 text-right">
-      
-    </div>
+    <div class="col-md-3 text-right">
+              <a class="btn btn-default" href="{{ path('pumpe_new') }}">
+          {{ icon('plus') }} {{ 'pumpe.actions.add' | trans }}
+        </a>
+          </div>
+
   </div>
 
-  <table class="table table-condensed table-header-rotated table-hover">
+
+  <table class="table table-condensed table-header-rotated">
     <thead>
     <tr>
+        {{ helper.header('appbundle.pumpe.nuvaerendeType') }}
+        {{ helper.header('appbundle.pumpe.byggemaal') }}
+        {{ helper.header('appbundle.pumpe.tilslutning') }}
+        {{ helper.header('appbundle.pumpe.indst') }}
+        {{ helper.header('appbundle.pumpe.forbrug') }}
+        {{ helper.header('appbundle.pumpe.q') }}
+        {{ helper.header('appbundle.pumpe.h') }}
+        {{ helper.header('appbundle.pumpe.aarsforbrug') }}
+        {{ helper.header('appbundle.pumpe.nyPumpe') }}
+        {{ helper.header('appbundle.pumpe.nyByggemaal') }}
+        {{ helper.header('appbundle.pumpe.nyTilslutning') }}
+        {{ helper.header('appbundle.pumpe.vvsnr') }}
+        {{ helper.header('appbundle.pumpe.nytAarsforbrug') }}
+        {{ helper.header('appbundle.pumpe.elbesparelse') }}
+        {{ helper.header('appbundle.pumpe.udligningssaet') }}
+        {{ helper.header('appbundle.pumpe.kommentarer') }}
+        {{ helper.header('appbundle.pumpe.standInvestering') }}
+        {{ helper.header('appbundle.pumpe.fabrikant') }}
+        {{ helper.header('appbundle.pumpe.roerlaengde') }}
+        {{ helper.header('appbundle.pumpe.roerstoerrelse') }}
       {{ helper.header() }}
-      {{ helper.header('appbundle.pumpe.nuvaerendeType') }}
-      {{ helper.header('appbundle.pumpe.byggemaal') }}
-      {{ helper.header('appbundle.pumpe.tilslutning') }}
-      {{ helper.header('appbundle.pumpe.indst') }}
-      {{ helper.header('appbundle.pumpe.forbrug') }}
-      {{ helper.header('appbundle.pumpe.q') }}
-      {{ helper.header('appbundle.pumpe.h') }}
-      {{ helper.header('appbundle.pumpe.aarsforbrug') }}
-      {{ helper.header('appbundle.pumpe.nyPumpe') }}
-      {{ helper.header('appbundle.pumpe.nyByggemaal') }}
-      {{ helper.header('appbundle.pumpe.nyTilslutning') }}
-      {{ helper.header('appbundle.pumpe.vvsnr') }}
-      {{ helper.header('appbundle.pumpe.nytAarsforbrug') }}
-      {{ helper.header('appbundle.pumpe.elbesparelse') }}
-      {{ helper.header('appbundle.pumpe.udligningssaet') }}
-      {{ helper.header('appbundle.pumpe.kommentarer') }}
-      {{ helper.header('appbundle.pumpe.standInvestering') }}
-      {{ helper.header('appbundle.pumpe.fabrikant') }}
-      {{ helper.header('appbundle.pumpe.roerlaengde') }}
-      {{ helper.header('appbundle.pumpe.roerstoerrelse') }}
+    </tr>
+    <tr>
+        {{ helper.header_unit('appbundle.pumpe.nuvaerendeType') }}
+        {{ helper.header_unit('appbundle.pumpe.byggemaal') }}
+        {{ helper.header_unit('appbundle.pumpe.tilslutning') }}
+        {{ helper.header_unit('appbundle.pumpe.indst') }}
+        {{ helper.header_unit('appbundle.pumpe.forbrug') }}
+        {{ helper.header_unit('appbundle.pumpe.q') }}
+        {{ helper.header_unit('appbundle.pumpe.h') }}
+        {{ helper.header_unit('appbundle.pumpe.aarsforbrug') }}
+        {{ helper.header_unit('appbundle.pumpe.nyPumpe') }}
+        {{ helper.header_unit('appbundle.pumpe.nyByggemaal') }}
+        {{ helper.header_unit('appbundle.pumpe.nyTilslutning') }}
+        {{ helper.header_unit('appbundle.pumpe.vvsnr') }}
+        {{ helper.header_unit('appbundle.pumpe.nytAarsforbrug') }}
+        {{ helper.header_unit('appbundle.pumpe.elbesparelse') }}
+        {{ helper.header_unit('appbundle.pumpe.udligningssaet') }}
+        {{ helper.header_unit('appbundle.pumpe.kommentarer') }}
+        {{ helper.header_unit('appbundle.pumpe.standInvestering') }}
+        {{ helper.header_unit('appbundle.pumpe.fabrikant') }}
+        {{ helper.header_unit('appbundle.pumpe.roerlaengde') }}
+        {{ helper.header_unit('appbundle.pumpe.roerstoerrelse') }}
+      {{ helper.header_unit() }}
     </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
-      <tr>
-        <td>
-          <a href="{{ path('pumpe_edit', { 'id': entity.id }) }}" class="btn btn-xs btn-default">edit</a>
-        </td>
+    <tr>
         <td>{{ entity.nuvaerendeType }}</td>
         <td>{{ entity.byggemaal }}</td>
         <td>{{ entity.tilslutning }}</td>
@@ -62,9 +88,13 @@
         <td>{{ entity.fabrikant }}</td>
         <td>{{ entity.roerlaengde }}</td>
         <td>{{ entity.roerstoerrelse }}</td>
-      </tr>
+      <td class="text-right">    <a class="btn btn-default btn-xs" href="{{ path('pumpe_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+      </td>
+
+    </tr>
     {% endfor %}
     </tbody>
   </table>
 
-{% endblock %}
+  {% endblock %}

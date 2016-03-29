@@ -38,7 +38,24 @@ class RapportSearchType extends AbstractType {
 
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-      $builder->add('elena', null, array('label' => false));
+      $builder->add('elena', 'choice', array(
+        'choices' => array(
+          '0' => 'Nej',
+          '1' => 'Ja',
+        ),
+        'empty_value' => '--',
+        'required' => FALSE,
+        'label' => FALSE
+      ));
+      $builder->add('ava', 'choice', array(
+        'choices' => array(
+          '0' => 'Nej',
+          '1' => 'Ja',
+        ),
+        'empty_value' => '--',
+        'required' => FALSE,
+        'label' => FALSE
+      ));
     }
 
     $builder->add('Søg', 'submit');

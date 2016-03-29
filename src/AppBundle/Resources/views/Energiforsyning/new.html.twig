@@ -1,30 +1,22 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-  <h1>{{ 'energiforsyninger.actions.create' | trans }}</h1>
+  <div class="row heading">
+    <div class="col-md-8">
+      <h1>{{ 'energiforsyninger.actions.add' | trans }}</h1>
+    </div>
+    <div class="col-md-4 text-right ">
 
-  {{ form(form, { 'style': 'horizontal' }) }}
+    </div>
+  </div>
+
+  {% include 'AppBundle:Energiforsyning:_form.html.twig' %}
+
 {% endblock %}
 
-{% block javascripts %}
-  {##
-  # Translate field labels in prototype.
-  # @FIXME: There must be a better way to do this!
-  #}
-  <script>window.addEventListener('load', function() {
-    var translations = {};
-    {% for key in [ 'navn', 'fordeling', 'effektivitet', 'prisgrundlag' ] %}
-      translations['appbundle.energiforsyning.internProduktioner...name...' + {{ key | json_encode | raw }}] = {{ ('appbundle.energiforsyning.internProduktioner.0.' ~ key) | trans | json_encode | raw }};
-    {% endfor %}
-
-    var collections = document.querySelectorAll('[data-prototype]'), i, collection;
-    for (i = 0; collection = collections[i]; i++) {
-    var content = collection.getAttribute('data-prototype');
-    for (var key in translations) {
-    content = content.replace(key, translations[key]);
-    }
-    collection.setAttribute('data-prototype', content);
-    }
-    })</script>
+{% block documentReady %}
   {{ parent() }}
-{% endblock %}
+
+  {% include 'AppBundle:Energiforsyning:_documentReady.js.twig' %}
+
+{% endblock documentReady %}

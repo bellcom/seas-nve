@@ -1,15 +1,16 @@
-{% extends 'AppBundle:TiltagDetail:edit.html.twig' %}
+  {% extends 'AppBundle::base.html.twig' %}
 
-{% block body -%}
-  <div class="row">
-    <div class="col-md-10">
+
+  {% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
       <h1>{{ 'nyttiggjortvarme.actions.edit' | trans }}</h1>
     </div>
-    <div class="col-md-2 text-right">
-
+    <div class="col-md-3 text-right">
     </div>
+
   </div>
 
   {{ form(edit_form) }}
 
-{% endblock %}
+    {% endblock %}

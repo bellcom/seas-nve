@@ -4,7 +4,9 @@
 
   <div class="row heading">
     <div class="col-md-2">
-      <h1><nobr>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</nobr></h1>
+      <h1>
+        <nobr>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</nobr>
+      </h1>
     </div>
     <div class="col-md-10 text-right">
       <a class="btn btn-default" href="{{ path('rapport_bilag_get', { 'rapport_id': entity.id }) }}">
@@ -25,17 +27,30 @@
         </a>
       {% endif %}
 
+      {# BUTTONS #}
       {% if prev_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
-        {% form_theme prev_status_form 'AppBundle:Form:singleButtonConfirmModalForm.html.twig' %}
-        {{ form( prev_status_form ) }}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ prev_status_form.vars.action | replace({'/': ''}) }}">
+          {{ icon('caret-square-o-right') }} {{ prev_status_form.children.buttons.submit.vars.label | trans }}
+        </button>
       {% endif %}
       {% if next_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
-        {% form_theme next_status_form 'AppBundle:Form:singleButtonConfirmModalForm.html.twig' %}
-        {{ form( next_status_form ) }}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ next_status_form.vars.action | replace({'/': ''}) }}">
+        {{ icon('caret-square-o-right') }} {{ next_status_form.children.buttons.submit.vars.label | trans }}
+        </button>
       {% endif %}
 
     </div>
   </div>
+
+  {# MODALS #}
+  {% if prev_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
+    {% form_theme prev_status_form 'AppBundle:Form:status-modal-form.html.twig' %}
+    {{ form( prev_status_form ) }}
+  {% endif %}
+  {% if next_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
+    {% form_theme next_status_form 'AppBundle:Form:status-modal-form.html.twig' %}
+    {{ form( next_status_form ) }}
+  {% endif %}
 
   <div class="panel panel-default">
     <div class="panel-heading"><h3 class="panel-title">{{ icon('home') }} {{ 'common.data' | trans }}</h3></div>
@@ -57,14 +72,20 @@
       <tr>
         <th>{{ 'appbundle.rapport.datering' | trans }}</th>
         <td>{{ entity.datering | date('Y-m-d') }}</td>
-        <th>{{ 'appbundle.rapport.elena' | trans }}</th>
-        <td>{{ entity.elena | b2icon }}</td>
+        <th>{{ 'appbundle.bygning.status' | trans }}</th>
+        <td>{{ entity.bygning.status | readable }}</td>
       </tr>
       <tr>
+        <th>{{ 'appbundle.rapport.elena' | trans }}</th>
+        <td>{{ entity.elena | b2icon }}</td>
         <th>{{ 'common.updatedat' | trans }}</th>
         <td>{{ entity.updatedAt | date('Y-m-d  H:i') }}, {{ entity.updatedBy }}</td>
-        <th>{{ 'appbundle.bygning.status' | trans }}</th>
-        <td>{{ entity.bygning.status | readable  }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.rapport.ava' | trans }}</th>
+        <td>{{ entity.ava | b2icon }}</td>
+        <th></th>
+        <td></td>
       </tr>
       </tbody>
     </table>
@@ -271,46 +292,56 @@
     </div>
   </div>
 
-  <div role="tabpanel">
+  {% if entity.tiltag is not empty %}
 
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-      {% for key, t in entity.tiltag %}
-        <li role="presentation" {% if key == 0 %} class="active" {% endif %}>
-          <a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">
-            {{ key + 1 }}. {{ t.title | slice(0, 15)}}{% if t.title | length > 15 %}...{% endif %}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
+    <div role="tabpanel">
 
-    <!-- Tab panes -->
-    <div class="tab-content">
-      {% for key, t in entity.tiltag %}
-        <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
-          <div class="row">
-            <div class="col-md-6">
-              <h3>{{ t.title }}</h3>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        {% for key, t in entity.tiltag %}
+          <li role="presentation" {% if key == 0 %} class="active" {% endif %}>
+            <a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">
+              {{ key + 1 }}. {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        {% for key, t in entity.tiltag %}
+          <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
+            <div class="row">
+              <div class="col-md-6">
+                <h3>{{ t.title }}</h3>
+              </div>
+              <div class="col-md-6 text-right">
+                {% if is_granted('RAPPORT_EDIT', entity) %}
+                  {% if tiltag_type(t) != 'Special' %}
+                    <a class="btn btn-default" href="{{ path('tiltag_bilag_get', { 'tiltag_id': t.id }) }}">
+                      {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
+                    </a>
+                  {% endif %}
+                  <a href="{{ path('tiltag_edit', { 'id': t.id }) }}" class="btn btn-default">
+                    {{ icon('edit') }} {{ 'common.edit' | trans }}: {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
+                  </a>
+                {% endif %}
+                <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
+                  {{ icon('list') }} {{ 'rapporter.labels.detailark' | trans }}: {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
+                </a>
+              </div>
             </div>
-            <div class="col-md-6 text-right">
-              {% if is_granted('RAPPORT_EDIT', entity) %}
-              <a class="btn btn-default" href="{{ path('tiltag_bilag_get', { 'tiltag_id': t.id }) }}">
-                {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
-              </a>
-              <a href="{{ path('tiltag_edit', { 'id': t.id }) }}" class="btn btn-default">
-                {{ icon('edit') }} {{ 'common.edit' | trans }}: {{ t.title | slice(0, 15)}}{% if t.title | length > 15 %}...{% endif %}
-              </a>
-              {% endif %}
-              <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
-                {{ icon('list') }} {{ 'rapporter.labels.detailark' | trans }}: {{ t.title | slice(0, 15)}}{% if t.title | length > 15 %}...{% endif %}
-              </a>
-            </div>
+            {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
           </div>
-          {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
+
     </div>
 
-  </div>
+  {% else %}
+
+    <div class="alert alert-info" role="alert">{{ 'tiltag.strings.ingen' | trans }}</div>
+
+  {% endif %}
 
 {% endblock %}

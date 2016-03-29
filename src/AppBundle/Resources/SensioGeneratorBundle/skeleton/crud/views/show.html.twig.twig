@@ -1,0 +1,49 @@
+{% block extends %}
+  {{ "{% extends 'AppBundle::base.html.twig' %}" }}
+{% endblock extends %}
+
+{% set class = entity | split('\\') | last | lower %}
+
+{% block body %}
+{{ "{% block body -%}" }}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ "{{ entity }}" }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+      {%- include "crud/views/others/actions_default.html.twig" %}
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ "{{ icon('chevron-right') }}" }} {{ "{{ '" }}{{ class }}{{ ".labels.singular' | trans }}" }}</div>
+        <table class="table table-condensed">
+          <tbody>
+          {%- for field, metadata in fields if field != 'id' %}
+
+            <tr>
+              <th>{{ "{{ 'appbundle." }}{{ class }}{{ "." }}{{ field }}{{ "' | trans }}" }}</th>
+
+              {%- if metadata.type in ['date', 'datetime'] %}
+
+                <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d H:i:s\') }}' }}</td>
+
+              {%- else %}
+
+                <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+
+              {%- endif %}
+
+            </tr>
+
+          {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{{ "{% endblock %}" }}
+{% endblock body %}

@@ -173,6 +173,11 @@ td.not-selected {
     border-right: 1px solid #444;
 }
 
+td.tiltag-title, th.tiltag-title {
+    max-width: 1%;
+    overflow: hidden;
+}
+
 /** Panels **/
 .panel {
     border: 1pt solid #444;

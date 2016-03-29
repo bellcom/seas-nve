@@ -8,7 +8,9 @@
   <div class="row details-overview">
     <div class="col-md-12">
 
-      {{ form_start(edit_form) }}
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_start(edit_form) }}
+      {% endif %}
 
       <table class="table table-condensed table-header-rotated table-hover">
         <thead>
@@ -25,7 +27,8 @@
           {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansEks') }}
           {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansNy') }}
           {{ helper.header('appbundle.vinduetiltagdetail.klimaskaerm') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.typePlaceringJfPlantegning') }}
+          {{ helper.header('appbundle.vinduetiltagdetail.type') }}
+          {{ helper.header('appbundle.vinduetiltagdetail.placering') }}
           {{ helper.header('appbundle.vinduetiltagdetail.hoejdeElLaengdeM') }}
           {{ helper.header('appbundle.vinduetiltagdetail.breddeM') }}
           {{ helper.header('appbundle.vinduetiltagdetail.antalStk') }}
@@ -56,7 +59,8 @@
           {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansEks') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansNy') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.klimaskaerm') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.typePlaceringJfPlantegning') }}
+          {{ helper.header_unit('appbundle.vinduetiltagdetail.type') }}
+          {{ helper.header_unit('appbundle.vinduetiltagdetail.placering') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.hoejdeElLaengdeM') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.breddeM') }}
           {{ helper.header_unit('appbundle.vinduetiltagdetail.antalStk') }}
@@ -83,7 +87,11 @@
               {{ block('tiltag_detail_edit') }}
             </td>
             <td>
-              {{ form_row(form_detail.tilvalgt) }}
+              {% if is_granted('TILTAG_EDIT', entity) %}
+                {{ form_row(form_detail.tilvalgt) }}
+              {% else %}
+                {{ detail.tilvalgt | b2icon }}
+              {% endif %}
             </td>
             <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
             <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
@@ -101,7 +109,8 @@
                 {{ 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.show' | trans }}
               {% endif %}
             </td>
-            <td>{{ detail.typePlaceringJfPlantegning }}</td>
+            <td>{{ detail.type }}</td>
+            <td>{{ detail.placering }}</td>
             <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
             <td>{{ detail.breddeM | format_decimal }}</td>
             <td>{{ detail.antalStk | format_integer }}</td>
@@ -123,8 +132,11 @@
         </tbody>
       </table>
 
-      {{ form_rest(edit_form) }}
-      {{ form_end(edit_form) }}
+
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+      {% endif %}
     </div>
   </div>
 

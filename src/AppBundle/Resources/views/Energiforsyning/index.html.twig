@@ -16,7 +16,10 @@
     <thead>
     <tr>
       <th>{{ 'appbundle.energiforsyning.navn' | trans }}</th>
-      <th>{{ 'appbundle.energiforsyning.beskrivelse' | trans }}</th>
+      <th>{{ 'appbundle.energiforsyning.forsyningsvaerk' | trans }}</th>
+      <th>{{ 'appbundle.energiforsyning.enhedspris' | trans }}</th>
+      <th>{{ 'appbundle.energiforsyning.prisfaktor' | trans }}</th>
+      <th>{{ 'appbundle.energiforsyning.nyEnhedspris' | trans }}</th>
       <th>{{ 'appbundle.energiforsyning.samletVarmeeffektivitet' | trans }}</th>
       <th>{{ 'appbundle.energiforsyning.samletEleffektivitet' | trans }}</th>
       <th></th>
@@ -26,12 +29,15 @@
     {% for entity in entities %}
       <tr>
         <td>{{ entity.navn | readable('NavnType') | trans }}</td>
-        <td>{{ entity.beskrivelse }}</td>
+        <td>{{ entity.forsyningsvaerk }}</td>
+        <td>{{ entity.enhedspris | format_decimal }}</td>
+        <td>{{ entity.prisfaktor | format_decimal }}</td>
+        <td>{{ entity.nyEnhedspris | format_decimal }}</td>
         <td>{{ entity.samletVarmeeffektivitet | format_decimal }}</td>
         <td>{{ entity.samletEleffektivitet | format_decimal }}</td>
-        <td>
-          <a href="{{ path('energiforsyning_show', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+        <td class="text-right">
           <a href="{{ path('energiforsyning_edit', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+          <a href="{{ path('energiforsyning_show', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
         </td>
       </tr>
     {% endfor %}

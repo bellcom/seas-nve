@@ -42,6 +42,12 @@ class TransKeyExtension extends \Twig_Extension {
       $trans = $this->translator->trans($key);
     }
 
+    // Reset ".1++." to ".0." for collections
+    if($key === $trans) {
+      $key = preg_replace('/\.\d+\./', '.0.', $key);
+      $trans = $this->translator->trans($key);
+    }
+
     return $trans;
   }
 

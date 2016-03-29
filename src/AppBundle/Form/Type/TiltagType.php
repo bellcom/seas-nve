@@ -66,30 +66,33 @@ class TiltagType extends AbstractType {
       $builder->add('tilvalgtbegrundelse', NULL, array('required' => FALSE));
       $builder->add('tilvalgtBegrundelseMagistrat', NULL, array('required' => FALSE));
     }
-    $builder->add('title')->add('faktorForReinvesteringer');
+    $builder->add('title')
+      ->add('faktorForReinvesteringer')
+      ->add('opstartsomkostninger');
 
     $builder
       ->add('genopretning')
       ->add('modernisering')
       ->add('reelAnlaegsinvestering');
 
-    $builder->add('forsyningVarme', 'entity', array(
-      'class' => 'AppBundle:Energiforsyning',
-      'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
-      'required' => FALSE,
-    ))
+    $builder->add('reelAnlaegsinvestering')
+      ->add('forsyningVarme', 'entity', array(
+        'class' => 'AppBundle:Energiforsyning',
+        'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
+        'required' => FALSE,
+      ))
       ->add('forsyningEl', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
         'required' => FALSE,
       ))
-      ->add('beskrivelseNuvaerende')
-      ->add('beskrivelseForslag')
-      ->add('beskrivelseOevrige')
-      ->add('risikovurdering')
-      ->add('placering')
-      ->add('beskrivelseDriftOgVedligeholdelse')
-      ->add('indeklima');
+      ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 850), 'required' => FALSE))
+      ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 1000), 'required' => FALSE))
+      ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 1100), 'required' => FALSE))
+      ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
+      ->add('placering', 'textarea', array('attr' => array('maxlength' => 120), 'required' => FALSE))
+      ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
+      ->add('indeklima', 'textarea', array('attr' => array('maxlength' => 360), 'required' => false));
 
     $builder->add('risikovurderingTeknisk', new RisikovurderingType(), array());
     $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
@@ -132,20 +135,7 @@ class TiltagType extends AbstractType {
         ->add('yderligereBesparelse')
         ->add('levetid');
 
-      $builder->add('primaerEnterprise', 'choice',
-        array(
-          'choices' => array(
-            'el' => 'El',
-            't/i' => 'Tømrer/Isolatør',
-            've' => 'VE',
-            'vvs' => 'VVS',
-            'hh' => 'Hårde hvidevarer',
-            'a' => 'Automatik',
-            'ia' => 'Interne i AAK'
-          ),
-          'required' => FALSE,
-          'empty_value' => '--'
-        ))
+      $builder->add('primaerEnterprise')
         ->add('tiltagskategori');
     }
   }

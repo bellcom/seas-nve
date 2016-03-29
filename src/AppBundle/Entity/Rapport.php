@@ -205,6 +205,13 @@ class Rapport {
    */
   protected $BaselineCO2Samlet;
 
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="fravalgtBaselineCO2Samlet", type="float", nullable=true)
+   */
+  protected $fravalgtBaselineCO2Samlet;
 
   /**
    * @var float
@@ -229,6 +236,14 @@ class Rapport {
    * @ORM\Column(name="co2BesparelseSamletFaktor", type="float", nullable=true)
    */
   protected $co2BesparelseSamletFaktor;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="fravalgtCo2BesparelseSamletFaktor", type="float", nullable=true)
+   */
+  protected $fravalgtCo2BesparelseSamletFaktor;
 
   /**
    * @var float
@@ -370,6 +385,13 @@ class Rapport {
   protected $elena = FALSE;
 
   /**
+   * @var boolean
+   *
+   * @ORM\Column(name="ava", type="boolean", nullable=true)
+   */
+  protected $ava = FALSE;
+
+  /**
    * @var array of float
    *
    * @Calculated
@@ -469,7 +491,19 @@ class Rapport {
     $this->co2BesparelseSamletFaktor = $co2BesparelseSamletFaktor;
   }
 
+  /**
+   * @return float
+   */
+  public function getFravalgtCo2BesparelseSamletFaktor() {
+    return $this->fravalgtCo2BesparelseSamletFaktor;
+  }
 
+  /**
+   * @param float $fravalgtCo2BesparelseSamletFaktor
+   */
+  public function setFravalgtCo2BesparelseSamletFaktor($fravalgtCo2BesparelseSamletFaktor) {
+    $this->fravalgtCo2BesparelseSamletFaktor = $fravalgtCo2BesparelseSamletFaktor;
+  }
 
   /**
    * Get cashFlow15
@@ -526,7 +560,7 @@ class Rapport {
    * @return string
    */
   public function __toString() {
-    return $this->getBygning()->getAdresse() . ", " . $this->version;
+    return $this->getBygning()->getAdresse() . ", v." . $this->getFullVersion();
   }
 
   /**
@@ -1308,8 +1342,22 @@ class Rapport {
    * @return float
    */
   public function getVarmeKrKWh($yearNumber = 1) {
+    $value = 0;
+    $prisfaktor = 1;
+
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh($this->getDatering()->format('Y') - 1 + $yearNumber);
+    if ($forsyningsvaerk) {
+      $value = $forsyningsvaerk->getKrKWh($this->getDatering()->format('Y') - 1 + $yearNumber);
+    }
+    // Get prisfaktor from energiforsyning associated with bygnings forsyningsvaerk.
+    foreach ($this->getEnergiforsyninger() as $energiforsyning) {
+      if ($energiforsyning->getForsyningsvaerk() == $this->bygning->getForsyningsvaerkVarme()) {
+        $prisfaktor = $energiforsyning->getPrisfaktor();
+        break;
+      }
+    }
+
+    return $value * $prisfaktor;
   }
 
   /**
@@ -1317,8 +1365,22 @@ class Rapport {
    * @return float
    */
   public function getElKrKWh($yearNumber = 1) {
+    $value = 0;
+    $prisfaktor = 1;
+
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh($this->getDatering()->format('Y') - 1 + $yearNumber);
+    if ($forsyningsvaerk) {
+      $value = $forsyningsvaerk->getKrKWh($this->getDatering()->format('Y') - 1 + $yearNumber);
+    }
+    // Get prisfaktor from energiforsyning associated with bygnings forsyningsvaerk.
+    foreach ($this->getEnergiforsyninger() as $energiforsyning) {
+      if ($energiforsyning->getForsyningsvaerk() == $this->bygning->getForsyningsvaerkEl()) {
+        $prisfaktor = $energiforsyning->getPrisfaktor();
+        break;
+      }
+    }
+
+    return $value * $prisfaktor;
   }
 
   /**
@@ -1337,6 +1399,20 @@ class Rapport {
   public function getElKgCo2MWh($yearNumber = 1) {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
     return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh($this->getDatering()->format('Y') - 1 + $yearNumber);
+  }
+
+  /**
+   * @return boolean
+   */
+  public function getAva() {
+    return $this->ava;
+  }
+
+  /**
+   * @param boolean $ava
+   */
+  public function setAva($ava) {
+    $this->ava = $ava;
   }
 
   /**
@@ -1559,6 +1635,7 @@ class Rapport {
     $this->co2BesparelseElFaktor = $this->calculateCO2BesparelseElFaktor();
     $this->co2BesparelseVarmeFaktor = $this->calculateCO2BesparelseVarmeFaktor();
     $this->co2BesparelseSamletFaktor = $this->calculateCO2BesparelseSamletFaktor();
+    $this->fravalgtCo2BesparelseSamletFaktor = $this->calculateFravalgtCO2BesparelseSamletFaktor();
 
     $this->mtmFaellesomkostninger = $this->calculateMtmFaellesomkostninger();
     $this->implementering = $this->calculateImplementering();
@@ -1730,6 +1807,13 @@ class Rapport {
   private function calculateCO2BesparelseSamletFaktor() {
     if (!empty($this->BaselineCO2Samlet)) {
       return $this->besparelseCO2 / $this->BaselineCO2Samlet;
+    }
+    return null;
+  }
+
+  private function calculateFravalgtCO2BesparelseSamletFaktor() {
+    if ($this->BaselineCO2Samlet != 0) {
+      return $this->fravalgtBesparelseCO2 / $this->BaselineCO2Samlet;
     }
     return null;
   }
@@ -1926,6 +2010,15 @@ class Rapport {
       $value = $accumulator($tiltag, $value);
     }
     return $value;
+  }
+
+  public function canDeleteEnergiforsyning(Energiforsyning $energiforsyning) {
+    foreach ($this->getTiltag() as $tiltag) {
+      if ($tiltag->getForsyningVarme() == $energiforsyning || $tiltag->getForsyningEl() == $energiforsyning) {
+        return FALSE;
+      }
+    }
+    return TRUE;
   }
 
 }

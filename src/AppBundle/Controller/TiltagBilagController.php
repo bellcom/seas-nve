@@ -23,6 +23,7 @@ use Yavin\Symfony\Controller\InitControllerInterface;
 use AppBundle\Entity\Bilag;
 use AppBundle\Form\Type\TiltagBilagType;
 use AppBundle\Entity\Tiltag;
+use AppBundle\Entity\SpecialTiltag;
 
 /**
  * TiltagBilag controller.
@@ -57,6 +58,11 @@ class TiltagBilagController extends BaseController {
    * @return Response
    */
   public function listBilagAction(Tiltag $tiltag) {
+    if ($tiltag instanceof SpecialTiltag) {
+      $editURL = $this->generateUrl('tiltag_show', array('id' => $tiltag->getId()));
+      return $this->redirect($editURL);
+    }
+
     $this->setBreadcrumb($tiltag);
 
     return array(
@@ -74,7 +80,10 @@ class TiltagBilagController extends BaseController {
    */
   public function editAction(Tiltag $tiltag, Bilag $bilag) {
     $this->setBreadcrumb($tiltag);
-    $this->breadcrumbs->addItem($bilag->getTitel() ? $bilag->getTitel() : $bilag->getId(), $this->generateUrl('tiltag_bilag_edit', array('tiltag_id' => $tiltag->getId(), 'bilag_id' => $bilag->getId())));
+    $this->breadcrumbs->addItem($bilag->getTitel() ? $bilag->getTitel() : $bilag->getId(), $this->generateUrl('tiltag_bilag_edit', array(
+      'tiltag_id' => $tiltag->getId(),
+      'bilag_id' => $bilag->getId()
+    )));
 
     $editForm = $this->createEditForm($tiltag, $bilag);
     $deleteForm = $this->createDeleteForm($tiltag, $bilag);
@@ -96,6 +105,11 @@ class TiltagBilagController extends BaseController {
    * @Template()
    */
   public function createForTiltagAction(Tiltag $tiltag) {
+    if ($tiltag instanceof SpecialTiltag) {
+      $editURL = $this->generateUrl('tiltag_detail_new', array('id' => $tiltag->getId()));
+      return $this->redirect($editURL);
+    }
+
     $this->setBreadcrumb($tiltag);
     $this->breadcrumbs->addItem("Opret");
 
@@ -270,7 +284,10 @@ class TiltagBilagController extends BaseController {
    */
   public function showAction(Tiltag $tiltag, Bilag $bilag) {
     $this->setBreadcrumb($tiltag);
-    $this->breadcrumbs->addItem($bilag->getTitel() ? $bilag->getTitel() : $bilag->getId(), $this->generateUrl('tiltag_bilag_show', array('tiltag_id' => $tiltag->getId(), 'bilag_id' => $bilag->getId())));
+    $this->breadcrumbs->addItem($bilag->getTitel() ? $bilag->getTitel() : $bilag->getId(), $this->generateUrl('tiltag_bilag_show', array(
+      'tiltag_id' => $tiltag->getId(),
+      'bilag_id' => $bilag->getId()
+    )));
 
     $deleteForm = $this->createDeleteForm($tiltag, $bilag);
     $editForm = $this->createEditForm($tiltag, $bilag);
@@ -302,5 +319,6 @@ class TiltagBilagController extends BaseController {
     );
     return $response;
   }
+
 }
 

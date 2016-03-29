@@ -7,10 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Segment;
 use AppBundle\Form\Type\SegmentType;
-use Yavin\Symfony\Controller\InitControllerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use AppBundle\Controller\BaseController;
 
 /**
  * Segment controller.
@@ -18,14 +18,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @Route("/segment")
  * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
-class SegmentController extends BaseController implements InitControllerInterface {
+class SegmentController extends BaseController {
 
-  protected $breadcrumbs;
-
-  public function init(Request $request)
-  {
+  public function init(Request $request) {
     parent::init($request);
-    $this->breadcrumbs->addItem('Segmenter', $this->generateUrl('segment'));
+    $this->breadcrumbs->addItem('segment.labels.singular', $this->generateUrl('segment'));
   }
 
   /**
@@ -35,8 +32,7 @@ class SegmentController extends BaseController implements InitControllerInterfac
    * @Method("GET")
    * @Template()
    */
-  public function indexAction()
-  {
+  public function indexAction() {
     $em = $this->getDoctrine()->getManager();
 
     $entities = $em->getRepository('AppBundle:Segment')->findAll();
@@ -45,6 +41,7 @@ class SegmentController extends BaseController implements InitControllerInterfac
       'entities' => $entities,
     );
   }
+
   /**
    * Creates a new Segment entity.
    *
@@ -52,8 +49,7 @@ class SegmentController extends BaseController implements InitControllerInterfac
    * @Method("POST")
    * @Template("AppBundle:Segment:new.html.twig")
    */
-  public function createAction(Request $request)
-  {
+  public function createAction(Request $request) {
     $entity = new Segment();
     $form = $this->createCreateForm($entity);
     $form->handleRequest($request);
@@ -63,15 +59,13 @@ class SegmentController extends BaseController implements InitControllerInterfac
       $em->persist($entity);
       $em->flush();
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('segment.confirmation.created');
+      return $this->redirect($this->generateUrl('segment'));
 
-      return $this->redirect($this->generateUrl('segment_show', array('id' => $entity->getId())));
     }
 
     return array(
       'entity' => $entity,
-      'form'   => $form->createView(),
+      'form' => $form->createView(),
     );
   }
 
@@ -82,14 +76,13 @@ class SegmentController extends BaseController implements InitControllerInterfac
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createCreateForm(Segment $entity)
-  {
+  private function createCreateForm(Segment $entity) {
     $form = $this->createForm(new SegmentType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('segment_create'),
       'method' => 'POST',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Create'));
+    $this->addUpdate($form, $this->generateUrl('segment'));
 
     return $form;
   }
@@ -101,14 +94,15 @@ class SegmentController extends BaseController implements InitControllerInterfac
    * @Method("GET")
    * @Template()
    */
-  public function newAction()
-  {
+  public function newAction() {
+    $this->breadcrumbs->addItem('common.add', $this->generateUrl('segment'));
+
     $entity = new Segment();
-    $form   = $this->createCreateForm($entity);
+    $form = $this->createCreateForm($entity);
 
     return array(
       'entity' => $entity,
-      'form'   => $form->createView(),
+      'form' => $form->createView(),
     );
   }
 
@@ -119,22 +113,21 @@ class SegmentController extends BaseController implements InitControllerInterfac
    * @Method("GET")
    * @Template()
    */
-  public function showAction($id)
-  {
+  public function showAction($id) {
+
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:Segment')->find($id);
+    $this->breadcrumbs->addItem($entity, $this->generateUrl('segment_show', array('id' => $entity->getId())));
 
     if (!$entity) {
       throw $this->createNotFoundException('Unable to find Segment entity.');
     }
 
-    $this->breadcrumbs->addItem('Vis', $this->generateUrl('segment'));
-
     $deleteForm = $this->createDeleteForm($id);
 
     return array(
-      'entity'      => $entity,
+      'entity' => $entity,
       'delete_form' => $deleteForm->createView(),
     );
   }
@@ -146,23 +139,20 @@ class SegmentController extends BaseController implements InitControllerInterfac
    * @Method("GET")
    * @Template()
    */
-  public function editAction($id)
-  {
-    $em = $this->getDoctrine()->getManager();
-    $this->breadcrumbs->addItem('Rediger', $this->generateUrl('segment'));
-
-    $entity = $em->getRepository('AppBundle:Segment')->find($id);
+  public function editAction(Segment $entity) {
+    $this->breadcrumbs->addItem($entity, $this->generateUrl('segment_show', array('id' => $entity->getId())));
+    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('segment_show', array('id' => $entity->getId())));
 
     if (!$entity) {
       throw $this->createNotFoundException('Unable to find Segment entity.');
     }
 
     $editForm = $this->createEditForm($entity);
-    $deleteForm = $this->createDeleteForm($id);
+    $deleteForm = $this->createDeleteForm($entity->getId());
 
     return array(
-      'entity'      => $entity,
-      'edit_form'   => $editForm->createView(),
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
   }
@@ -174,17 +164,17 @@ class SegmentController extends BaseController implements InitControllerInterfac
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createEditForm(Segment $entity)
-  {
+  private function createEditForm(Segment $entity) {
     $form = $this->createForm(new SegmentType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('segment_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Update'));
+    $this->addUpdate($form, $this->generateUrl('segment_show', array('id' => $entity->getId())));
 
     return $form;
   }
+
   /**
    * Edits an existing Segment entity.
    *
@@ -192,8 +182,7 @@ class SegmentController extends BaseController implements InitControllerInterfac
    * @Method("PUT")
    * @Template("AppBundle:Segment:edit.html.twig")
    */
-  public function updateAction(Request $request, $id)
-  {
+  public function updateAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();
 
     $entity = $em->getRepository('AppBundle:Segment')->find($id);
@@ -209,26 +198,23 @@ class SegmentController extends BaseController implements InitControllerInterfac
     if ($editForm->isValid()) {
       $em->flush();
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('segment.confirmation.updated');
-
       return $this->redirect($this->generateUrl('segment'));
     }
 
     return array(
-      'entity'      => $entity,
-      'edit_form'   => $editForm->createView(),
+      'entity' => $entity,
+      'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
   }
+
   /**
    * Deletes a Segment entity.
    *
    * @Route("/{id}", name="segment_delete")
    * @Method("DELETE")
    */
-  public function deleteAction(Request $request, $id)
-  {
+  public function deleteAction(Request $request, $id) {
     $form = $this->createDeleteForm($id);
     $form->handleRequest($request);
 
@@ -242,9 +228,6 @@ class SegmentController extends BaseController implements InitControllerInterfac
 
       $em->remove($entity);
       $em->flush();
-
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('segment.confirmation.deleted');
     }
 
     return $this->redirect($this->generateUrl('segment'));
@@ -257,13 +240,11 @@ class SegmentController extends BaseController implements InitControllerInterfac
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createDeleteForm($id)
-  {
+  private function createDeleteForm($id) {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('segment_delete', array('id' => $id)))
       ->setMethod('DELETE')
       ->add('submit', 'submit', array('label' => 'Delete'))
-      ->getForm()
-      ;
+      ->getForm();
   }
 }
