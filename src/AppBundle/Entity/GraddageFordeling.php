@@ -18,7 +18,7 @@ class GraddageFordeling extends AarsFordeling {
   /**
    * Constructor
    */
-  public function __construct($titel, $januar = NULL, $februar = NULL, $marts = NULL, $april = NULL, $maj = NULL, $juni = NULL,
+  public function __construct($titel = NULL, $januar = NULL, $februar = NULL, $marts = NULL, $april = NULL, $maj = NULL, $juni = NULL,
                               $juli = NULL, $august = NULL, $september = NULL, $oktober = NULL, $november = NULL, $december = NULL) {
     parent::__construct($januar, $februar, $marts, $april, $maj, $juni, $juli, $august, $september, $oktober, $november, $december);
     $this->titel = $titel;
@@ -58,7 +58,13 @@ class GraddageFordeling extends AarsFordeling {
    * @param string $titel
    */
   public function setTitel($titel) {
-    $this->titel = $titel;
+    if($this->titel != 'Normtal') {
+      $this->titel = $titel;
+    }
+  }
+
+  public function isNormAar() {
+    return $this->titel == 'Normtal';
   }
 
   /**

@@ -230,6 +230,7 @@ graddagefordeling:
     singular: Graddage-fordeling
   strings:
     ingen: Ingen Graddage-fordeling fundet
+    bemaerk: "* Bemærk: Normtal skal opdateres manuelt"
 klimaskaerm:
   actions:
     add: Tilføj klimaskærm
@@ -1013,11 +1014,12 @@ appbundle:
     juni: Juni
     juli: Juli
     august: August
+    maaneder: Måneder
     september: September
     oktober: Oktober
     november: November
     december: December
-    titel: Titel
+    titel: År
   klimaskaerm:
     arbejdeOmfang: Arbejde/omfang
     enhed: Enhed

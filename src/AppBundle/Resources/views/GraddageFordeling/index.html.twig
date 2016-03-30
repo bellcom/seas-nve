@@ -15,7 +15,6 @@
 
     </div>
 
-
     <table class="table table-condensed table-header-rotated">
       <thead>
       <tr>
@@ -52,29 +51,53 @@
       </tr>
       </thead>
       <tbody>
-      {% for entity in entities %}
+      {% for entity in entities | slice(0,1) %}
+        <tr>
+          <th>{{ entity.titel }}</th>
+          <th class="number">{{ entity.januar  | number_format }}</th>
+          <th class="number">{{ entity.februar  | number_format }}</th>
+          <th class="number">{{ entity.marts  | number_format }}</th>
+          <th class="number">{{ entity.april  | number_format }}</th>
+          <th class="number">{{ entity.maj  | number_format }}</th>
+          <th class="number">{{ entity.juni  | number_format }}</th>
+          <th class="number">{{ entity.juli  | number_format }}</th>
+          <th class="number">{{ entity.august  | number_format }}</th>
+          <th class="number">{{ entity.september  | number_format }}</th>
+          <th class="number">{{ entity.oktober  | number_format }}</th>
+          <th class="number">{{ entity.november  | number_format }}</th>
+          <th class="number">{{ entity.december  | number_format }}</th>
+          <th class="text-right">
+            <a class="btn btn-default btn-xs" href="{{ path('graddage_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+          </th>
+        </tr>
+      {% endfor %}
+
+      {% for entity in entities | slice(1) %}
         <tr>
           <td>{{ entity.titel }}</td>
-          <td>{{ entity.januar }}</td>
-          <td>{{ entity.februar }}</td>
-          <td>{{ entity.marts }}</td>
-          <td>{{ entity.april }}</td>
-          <td>{{ entity.maj }}</td>
-          <td>{{ entity.juni }}</td>
-          <td>{{ entity.juli }}</td>
-          <td>{{ entity.august }}</td>
-          <td>{{ entity.september }}</td>
-          <td>{{ entity.oktober }}</td>
-          <td>{{ entity.november }}</td>
-          <td>{{ entity.december }}</td>
-          <td class="text-right"><a class="btn btn-default btn-xs"
-                                    href="{{ path('graddage_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
-
+          <td class="number">{{ entity.januar  | number_format }}</td>
+          <td class="number">{{ entity.februar  | number_format }}</td>
+          <td class="number">{{ entity.marts  | number_format }}</td>
+          <td class="number">{{ entity.april  | number_format }}</td>
+          <td class="number">{{ entity.maj  | number_format }}</td>
+          <td class="number">{{ entity.juni  | number_format }}</td>
+          <td class="number">{{ entity.juli  | number_format }}</td>
+          <td class="number">{{ entity.august  | number_format }}</td>
+          <td class="number">{{ entity.september  | number_format }}</td>
+          <td class="number">{{ entity.oktober  | number_format }}</td>
+          <td class="number">{{ entity.november  | number_format }}</td>
+          <td class="number">{{ entity.december  | number_format }}</td>
+          <td class="text-right">
+            <a class="btn btn-default btn-xs" href="{{ path('graddage_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
           </td>
-
         </tr>
       {% endfor %}
       </tbody>
+      <tfoot>
+      <tr>
+        <th colspan="14">{{ 'graddagefordeling.strings.bemaerk' | trans }}</th>
+      </tr>
+      </tfoot>
     </table>
 
   {% endblock %}

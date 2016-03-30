@@ -68,7 +68,7 @@ class GraddageFordelingController extends BaseController
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'edit_form'   => $form->createView(),
         );
     }
 
@@ -81,7 +81,7 @@ class GraddageFordelingController extends BaseController
      */
     private function createCreateForm(GraddageFordeling $entity)
     {
-        $form = $this->createForm(new GraddageFordelingType(), $entity, array(
+        $form = $this->createForm(new GraddageFordelingType($entity), $entity, array(
             'action' => $this->generateUrl('graddage_create'),
             'method' => 'POST',
         ));
@@ -107,7 +107,7 @@ class GraddageFordelingController extends BaseController
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'edit_form'   => $form->createView(),
         );
     }
 
@@ -130,11 +130,8 @@ class GraddageFordelingController extends BaseController
             throw $this->createNotFoundException('Unable to find GraddageFordeling entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
@@ -155,12 +152,10 @@ class GraddageFordelingController extends BaseController
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($entity->getId());
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
@@ -173,7 +168,7 @@ class GraddageFordelingController extends BaseController
     */
     private function createEditForm(GraddageFordeling $entity)
     {
-        $form = $this->createForm(new GraddageFordelingType(), $entity, array(
+        $form = $this->createForm(new GraddageFordelingType($entity), $entity, array(
             'action' => $this->generateUrl('graddage_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -199,7 +194,6 @@ class GraddageFordelingController extends BaseController
             throw $this->createNotFoundException('Unable to find GraddageFordeling entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -212,49 +206,7 @@ class GraddageFordelingController extends BaseController
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
-    /**
-     * Deletes a GraddageFordeling entity.
-     *
-     * @Route("/{id}", name="graddage_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:GraddageFordeling')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find GraddageFordeling entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('graddage'));
-    }
-
-    /**
-     * Creates a form to delete a GraddageFordeling entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('graddage_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
 }
