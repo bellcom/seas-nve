@@ -15,6 +15,16 @@
     </div>
     <div class="col-md-4 text-right">
       <p>
+        {% if is_granted('ROLE_BYGNING_EDIT') and entity.status > '1_IS' %}
+          <a href="{{ path('bygning_baseline_edit', { 'id': entity.id }) }}" class="btn btn-default">
+            {% if entity.baseline is null %}
+              {{ icon('plus') }} {{ 'baseline.actions.singular' | trans }}
+            {% else %}
+              {{ icon('edit') }} {{ 'baseline.actions.singular' | trans }}
+            {% endif %}
+          </a>
+        {% endif %}
+
         {% if is_granted('ROLE_BYGNING_EDIT') %}
           <a href="{{ path('bygning_edit', { 'id': entity.id }) }}" class="btn btn-default">
             {{ icon('edit') }} {{ 'common.edit' | trans }}
@@ -137,7 +147,7 @@
             <td>
               {% if entity.rapport %}
               <a href="{{ path('rapport_show', { 'id': entity.rapport.id }) }}">{{ entity.rapport }} - {{ 'appbundle.rapport.version' | trans }} {{ entity.rapport.version }}</a></td>
-              {% endif %}
+            {% endif %}
           </tr>
           </tbody>
         </table>

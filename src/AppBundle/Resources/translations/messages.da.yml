@@ -675,6 +675,7 @@ appbundle:
     afdelingsnavn: Afdelingsnavn
     ansvarlig: Ansvarlig
     anvendelse: Anvendelse
+    baseline: Baseline
     bruttoetageareal: Bruttoetageareal
     by: By
     bygId: ID

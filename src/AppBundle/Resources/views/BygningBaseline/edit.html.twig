@@ -7,12 +7,11 @@
         <h1>{{ 'baseline.actions.edit' | trans }}</h1>
       </div>
       <div class="col-md-3 text-right">
-        {{ form(delete_form) }}
       </div>
 
     </div>
 
-    {% include 'AppBundle:Baseline:_form.html.twig' %}
+    {% include 'AppBundle:BygningBaseline:_form.html.twig' %}
 
   {% endblock %}
 
@@ -20,5 +19,5 @@
 {% block documentReady %}
   {{ parent() }}
 
-  {% include 'AppBundle:Baseline:_documentReady.js.twig' %}
+  {% include 'AppBundle:BygningBaseline:_documentReady.js.twig' %}
 {% endblock documentReady %}

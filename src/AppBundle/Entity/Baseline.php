@@ -809,9 +809,6 @@ class Baseline {
    */
   public function setBygning(\AppBundle\Entity\Bygning $bygning = NULL) {
     $this->bygning = $bygning;
-    if($bygning !== null) {
-      $bygning->setBaseline($this);
-    }
 
     return $this;
   }

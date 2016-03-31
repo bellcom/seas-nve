@@ -22,6 +22,7 @@ use JMS\Serializer\Annotation as JMS;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Bygning
@@ -36,6 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      @Index(name="bygning_idx_postby", columns={"PostBy"}),
  *    }
  * )
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\BygningRepository")
  */
 class Bygning {
@@ -51,6 +53,13 @@ class Bygning {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
+
+  /**
+   * @var \DateTime $deletedAt
+   *
+   * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+   */
+  private $deletedAt;
 
   /**
    * @var integer
@@ -193,8 +202,8 @@ class Bygning {
   protected $rapport;
 
   /**
-   * @OneToOne(targetEntity="Baseline", mappedBy="bygning")
-   * @JoinColumn(name="baseline_id", referencedColumnName="bygning_id", nullable=true)
+   * @OneToOne(targetEntity="Baseline", mappedBy="bygning", cascade={"persist"})
+   * @JoinColumn(name="baseline_id", referencedColumnName="id", nullable=true)
    * @JMS\Exclude
    **/
   protected $baseline;
@@ -850,5 +859,6 @@ class Bygning {
    */
   public function setBaseline($baseline) {
     $this->baseline = $baseline;
+    $baseline->setBygning($this);
   }
 }
