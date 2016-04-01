@@ -13,8 +13,8 @@ $('textarea[maxlength]').trigger('load');
 
 // Show/Hide changed actions field
 $('.js-changed-actions').css('display', 'none');
-$('input, textarea').change(
+$('input, textarea, select').change(
   function() {
-    $('.js-changed-actions').css('display', 'block');
+    $('#appbundle_baseline_save_changed').prop( "disabled", false );
   }
 );

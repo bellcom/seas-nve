@@ -101,7 +101,7 @@ class BygningBaselineController extends BaseController {
    *
    * @Route("/", name="bygning_baseline_update")
    * @Method("PUT")
-   * @Template("AppBundle:Baseline:edit.html.twig")
+   * @Template()
    */
   public function updateAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();

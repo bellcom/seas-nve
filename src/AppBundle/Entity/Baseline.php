@@ -2253,6 +2253,17 @@ class Baseline {
 
     $this->varmeBaselineFastsatForEjendom = $this->calculateVarmeBaselineFastsatForEjendom();
     $this->varmeBaselineNoegletalForEjendom = $this->calculateVarmeBaselineNoegletalForEjendom();
+
+    //Update Rapport Baseline
+    if($this->getBygning()->getRapport()) {
+      $rapport = $this->getBygning()->getRapport();
+
+      $rapport->setBaselineEl($this->getElBaselineFastsatForEjendom());
+      $rapport->setBaselineVarmeGAF($this->getVarmeGAFForbrug());
+      $rapport->setBaselineVarmeGUF($this->getVarmeGUFForbrug());
+      $rapport->setBaselineStrafAfkoeling($this->getVarmeStrafafkoelingsafgift());
+    }
+
   }
 
   /**

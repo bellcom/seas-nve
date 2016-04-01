@@ -66,7 +66,9 @@ common:
   forside: Forside
   generelt: Generelt
   genereted: Genereret
+  linked: Tilknyttet
   none: Ingen
+  notLinked: Ikke tilknyttet
   oekonomi: Økonomi
   personer: Personer
   printed: Udskrevet
@@ -475,7 +477,7 @@ appbundle:
     changed_message: Du har ændret i Baseline. Gem for at få foretaget nye beregninger.
     changed_submit: Beregn Baseline
     el: El
-    elBaselineFastsatForEjendom: Fastsat baseline for ejendom
+    elBaselineFastsatForEjendom: Fastsat baseline for ejendom (El)
     elBaselineFastsatForEjendom.unit: kWh/år
     elBaselineNoegletalForEjendom: Nøgletal for ejendom - baseline
     elBaselineNoegletalForEjendom.unit: kWh/m² pr år
@@ -507,7 +509,7 @@ appbundle:
     gdNormal: GDnormal.år
     opsummering: Opsummering
     varme: Varme
-    varmeBaselineFastsatForEjendom: Fastsat baseline for ejendom
+    varmeBaselineFastsatForEjendom: Fastsat baseline for ejendom (Varme)
     varmeBaselineFastsatForEjendom.unit: kWh/år
     varmeBaselineNoegletalForEjendom: Nøgletal for ejendom - baseline
     varmeBaselineNoegletalForEjendom.unit: kWh/m² pr år

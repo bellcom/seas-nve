@@ -16,11 +16,11 @@
     <div class="col-md-4 text-right">
       <p>
         {% if is_granted('ROLE_BYGNING_EDIT') and entity.status > '1_IS' %}
-          <a href="{{ path('bygning_baseline_edit', { 'id': entity.id }) }}" class="btn btn-default">
+          <a href="{{ path('bygning_baseline_edit', { 'id': entity.id }) }}" class="btn btn-primary">
             {% if entity.baseline is null %}
-              {{ icon('plus') }} {{ 'baseline.actions.singular' | trans }}
+              {{ icon('plus') }} {{ 'baseline.labels.singular' | trans }}
             {% else %}
-              {{ icon('edit') }} {{ 'baseline.actions.singular' | trans }}
+              {{ icon('edit') }} {{ 'baseline.labels.singular' | trans }}
             {% endif %}
           </a>
         {% endif %}
@@ -49,7 +49,7 @@
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.bygning.navn' | trans }} / {{ 'appbundle.bygning.adresse' | trans }}</div>
-        <table class="table table-condensed">
+        <table class="table table-condensed th-vertical">
           <tbody>
           <tr>
             <th>{{ 'appbundle.bygning.navn' | trans }}</th>
@@ -74,7 +74,7 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">{{ icon('users') }} {{ 'common.personer' | trans }} / {{ 'common.tilknytning' | trans }}</div>
-        <table class="table table-condensed">
+        <table class="table table-condensed th-vertical">
           <tbody>
           <tr>
             <th>{{ 'appbundle.bygning.aaplusAnsvarlig' | trans }}</th>
@@ -112,7 +112,7 @@
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">{{ icon('info-circle') }} {{ 'common.data' | trans }}</div>
-        <table class="table table-condensed">
+        <table class="table table-condensed th-vertical">
           <tbody>
           <tr>
             <th>{{ 'appbundle.bygning.bygId' | trans }}</th>
@@ -146,8 +146,19 @@
             <th>{{ 'rapporter.labels.singular' | trans }}</th>
             <td>
               {% if entity.rapport %}
-              <a href="{{ path('rapport_show', { 'id': entity.rapport.id }) }}">{{ entity.rapport }} - {{ 'appbundle.rapport.version' | trans }} {{ entity.rapport.version }}</a></td>
-            {% endif %}
+                <a href="{{ path('rapport_show', { 'id': entity.rapport.id }) }}">{{ entity.rapport }} - {{ 'appbundle.rapport.version' | trans }} {{ entity.rapport.version }}</a>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>{{ 'baseline.labels.singular' | trans }}</th>
+            <td>
+              {% if entity.baseline %}
+                <a href="{{ path('bygning_baseline_edit', { 'id': entity.baseline.id }) }}">{{ 'common.linked' | trans }}</a>
+              {% else %}
+                {{ 'common.notLinked' | trans }}
+              {% endif %}
+            </td>
           </tr>
           </tbody>
         </table>
@@ -157,7 +168,7 @@
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">{{ icon('industry') }} {{ 'forsyningsvaerker.labels.plural' | trans }}</div>
-        <table class="table table-condensed">
+        <table class="table table-condensed th-vertical">
           <tbody>
           <tr>
             <th>{{ 'appbundle.bygning.forsyningsvaerkEl' | trans }}</th>
