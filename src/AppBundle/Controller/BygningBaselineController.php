@@ -106,12 +106,13 @@ class BygningBaselineController extends BaseController {
   public function updateAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();
     $bygning = $em->getRepository('AppBundle:Bygning')->find($id);
-    if(!$bygning->getBaseline()) {
-      $bygning->setBaseline(new Baseline());
-    }
 
     if (!$bygning) {
       throw $this->createNotFoundException('Unable to find Bygning entity.');
+    }
+
+    if(!$bygning->getBaseline()) {
+      $bygning->setBaseline(new Baseline());
     }
 
     $editForm = $this->createEditForm($bygning->getBaseline());
@@ -120,7 +121,10 @@ class BygningBaselineController extends BaseController {
     if ($editForm->isValid()) {
       $em->flush();
 
-      return $this->redirect($this->generateUrl('bygning_baseline_edit', array('id' => $bygning->getId())));
+      if (!$editForm->get('save_changed')->isClicked()) {
+        return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+      }
+
     }
 
     return array(
