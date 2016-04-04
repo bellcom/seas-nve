@@ -154,7 +154,7 @@
             <th>{{ 'baseline.labels.singular' | trans }}</th>
             <td>
               {% if entity.baseline %}
-                <a href="{{ path('bygning_baseline_edit', { 'id': entity.baseline.id }) }}">{{ 'common.linked' | trans }}</a>
+                <a href="{{ path('bygning_baseline_edit', { 'id': entity.id }) }}">{{ 'common.linked' | trans }}</a>
               {% else %}
                 {{ 'common.notLinked' | trans }}
               {% endif %}

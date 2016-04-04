@@ -101,7 +101,7 @@ class BygningBaselineController extends BaseController {
    *
    * @Route("/", name="bygning_baseline_update")
    * @Method("PUT")
-   * @Template()
+   * @Template("AppBundle:BygningBaseline:edit.html.twig")
    */
   public function updateAction(Request $request, $id) {
     $em = $this->getDoctrine()->getManager();
@@ -127,9 +127,16 @@ class BygningBaselineController extends BaseController {
 
     }
 
+    $GDNormalAar = "";
+    $normtal = $this->container->get('doctrine')->getRepository('AppBundle:GraddageFordeling')->findOneByTitel('Normtal');
+    if ($normtal) {
+      $GDNormalAar = $normtal->getSumAar();
+    }
+
     return array(
-      'entity' => $bygning,
+      'entity' => $bygning->getBaseline(),
       'edit_form' => $editForm->createView(),
+      'graddage_normal' => $GDNormalAar,
     );
   }
 
