@@ -6,6 +6,8 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\DBAL\Types\KlimaskaermType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -60,7 +62,7 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
   private function getKlimaskaerme() {
     $repository = $this->container->get('doctrine')->getRepository('AppBundle:Klimaskaerm');
 
-    $result = $repository->findByType($this instanceof VindueTiltagDetailType ? 'vindue' : 'klimaskaerm');
+    $result = $repository->findByType($this instanceof VindueTiltagDetailType ? KlimaskaermType::WINDOW : KlimaskaermType::KLIMASKAERM);
 
     return $result;
   }

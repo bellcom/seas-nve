@@ -19,6 +19,7 @@
   <table class="table table-condensed table-details">
     <thead>
     <tr>
+        {{ helper.header('appbundle.klimaskaerm.type') }}
         {{ helper.header('appbundle.klimaskaerm.post') }}
         {{ helper.header('appbundle.klimaskaerm.klimaskaerm') }}
         {{ helper.header('appbundle.klimaskaerm.arbejdeOmfang') }}
@@ -27,19 +28,11 @@
         {{ helper.header('appbundle.klimaskaerm.noter') }}
       {{ helper.header() }}
     </tr>
-    <tr>
-        {{ helper.header_unit('appbundle.klimaskaerm.post') }}
-        {{ helper.header_unit('appbundle.klimaskaerm.klimaskaerm') }}
-        {{ helper.header_unit('appbundle.klimaskaerm.arbejdeOmfang') }}
-        {{ helper.header_unit('appbundle.klimaskaerm.enhedsprisEksklMoms') }}
-        {{ helper.header_unit('appbundle.klimaskaerm.enhed') }}
-        {{ helper.header_unit('appbundle.klimaskaerm.noter') }}
-      {{ helper.header_unit() }}
-    </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
     <tr>
+        <td>{{ entity.type | readable('KlimaskaermType') | trans }}</td>
         <td>{{ entity.post }}</td>
         <td>{{ entity.klimaskaerm }}</td>
         <td>{{ entity.arbejdeOmfang }}</td>

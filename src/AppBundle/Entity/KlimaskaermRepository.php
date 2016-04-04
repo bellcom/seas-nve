@@ -16,7 +16,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class KlimaskaermRepository extends EntityRepository {
   public function findByType($type) {
-    $query = $this->_em->createQuery('SELECT k FROM AppBundle:Klimaskaerm k WHERE k.post ' . ($type == 'vindue' ? '<' : '>') . ' 5');
+    $query = $this->_em->createQuery('SELECT k FROM AppBundle:Klimaskaerm k WHERE k.type = :type')
+           ->setParameter('type', $type);
     return $query->getResult();
   }
 }
