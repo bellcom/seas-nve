@@ -177,7 +177,7 @@
       </thead>
       <tbody>
       {% for entity in entities %}
-        <tr>
+        <tr id="{{ entity.id }}">
           <td rowspan="2">
             <a class="btn btn-default btn-xs" href="{{ path('forsyningsvaerk_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
           </td>
