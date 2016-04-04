@@ -1432,3 +1432,7 @@ Hovedforsyning El: Hovedforsyning El
 Oliefyr: Oliefyr
 Træpillefyr: Træpillefyr
 Varmepumpe: Varmepumpe
+
+# Enum: KlimaskaermType
+Klimaskaerm: Klimaskærm
+Window: Vindue
