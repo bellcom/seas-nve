@@ -84,8 +84,8 @@ common:
   tekniske_oplysninger: Tekniske Oplysninger
   tilknytning: Tilknytning
   update: Opdater
-  updatedat: Opdateret
-  updatedby: Opdateret af
+  updatedAt: Opdateret
+  updatedBy: Opdateret af
   your_buildings: Dine bygninger
   calculated_value: Beregnet værdi
 dashboard:
