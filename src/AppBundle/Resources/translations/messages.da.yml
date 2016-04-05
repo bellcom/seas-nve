@@ -813,6 +813,7 @@ appbundle:
     klimaskaerm: Klimaskærm
     noter: Noter
     post: Post
+    type: Type
   klimaskaermtiltagdetail:
     add: Tilføj
     andelAfArealDerEfterisoleres: Andel af areal der efterisoleres
@@ -1432,3 +1433,7 @@ Hovedforsyning El: Hovedforsyning El
 Oliefyr: Oliefyr
 Træpillefyr: Træpillefyr
 Varmepumpe: Varmepumpe
+
+# Enum: KlimaskaermType
+Klimaskaerm: Klimaskærm
+Window: Vindue

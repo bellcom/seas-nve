@@ -82,6 +82,7 @@ doctrine:
             PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
             RisikovurderingType: AppBundle\DBAL\Types\RisikovurderingType
             PrimaerEnterpriseType: AppBundle\DBAL\Types\PrimaerEnterpriseType
+            KlimaskaermType: AppBundle\DBAL\Types\KlimaskaermType
         logging: false
         profiling: false
     orm:
