@@ -193,6 +193,9 @@ class RapportRepository extends EntityRepository {
     if (!$this->hasFullAccess($user)) {
       $qb->andWhere(':user MEMBER OF b.users');
       $qb->setParameter('user', $user);
+    } else {
+      $qb->andWhere(':aaplusAnsvarlig = b.aaplusAnsvarlig');
+      $qb->setParameter('aaplusAnsvarlig', $user);
     }
 
     return $qb->getQuery();
