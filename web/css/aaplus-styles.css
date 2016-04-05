@@ -130,6 +130,10 @@ th.unit {
     border-top: 2px solid #ddd;
 }
 
+td.last {
+    min-width: 50px;
+}
+
 table .checkbox input[type=checkbox], table .checkbox-inline input[type=checkbox], table .radio input[type=radio], table .radio-inline input[type=radio] {
     position: absolute;
     margin-top: -5px;
