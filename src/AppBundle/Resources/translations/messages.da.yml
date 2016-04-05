@@ -844,9 +844,9 @@ appbundle:
     klimaskaermOverskrevetPris.unit: kr/m²
     klimaskaermOverskrevetPris.validation: Klimaskærm overskrevet pris skal udfyldes hvis der er ikke er valgt tiltag
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
-    kWhBesparElvaerkEksternEnergikilde.unit: ??
+    kWhBesparElvaerkEksternEnergikilde.unit: kWh/år
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
-    kWhBesparVarmevaerkEksternEnergikilde.unit: ??
+    kWhBesparVarmevaerkEksternEnergikilde.unit: kWh/år
     laastAfEnergiraadgiver: Låst af energirådgiver
     levetidAar: Levetid
     levetidAar.unit: år
@@ -937,9 +937,9 @@ appbundle:
     b.faktor: B-Faktor
     b.faktor.help: ﻿B-faktor for pumpens placering indtastes, undlades såfremt eksisterende pumpe har isoleringskappe. B-faktor jf. håndbog for energikonsulenter.
     kwhBesparelseElFraVaerket: El: kWh-besparelse fra værket
-    kwhBesparelseElFraVaerket.unit: ??
+    kwhBesparelseElFraVaerket.unit: kWh/år
     kwhBesparelseVarmeFraVaerket: ﻿Varme: kWh-besparelse fra værket
-    kwhBesparelseVarmeFraVaerket.unit: ??
+    kwhBesparelseVarmeFraVaerket.unit: kWh/år
     noter: Noter
     noter.help: ﻿Rådgivers noter til pumpeudskiftning indtastes her. Krav til de punkter rådgiver skal tage stilling til er angivet i kolonnens overskrift
     nutidsvaerdiSetOver15AarKr: ﻿Nutidsværdi set over 15 år
