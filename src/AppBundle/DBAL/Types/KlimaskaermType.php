@@ -7,11 +7,11 @@ class KlimaskaermType extends AbstractEnumType
 {
   const NONE = '';
   const KLIMASKAERM = 'klimaskaerm';
-  const WINDOW = 'window';
+  const VINDUE = 'vindue';
 
   protected static $choices = [
     self::NONE => '',
     self::KLIMASKAERM => 'Klimaskaerm',
-    self::WINDOW => 'Window',
+    self::VINDUE => 'Vindue',
   ];
 }

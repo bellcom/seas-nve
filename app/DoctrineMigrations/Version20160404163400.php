@@ -18,9 +18,9 @@ class Version20160404163400 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE Klimaskaerm ADD type ENUM(\'\', \'klimaskaerm\', \'window\') NOT NULL COMMENT \'(DC2Type:KlimaskaermType)\'');
+        $this->addSql('ALTER TABLE Klimaskaerm ADD type ENUM(\'\', \'klimaskaerm\', \'vindue\') NOT NULL COMMENT \'(DC2Type:KlimaskaermType)\'');
         $this->addSql('UPDATE Klimaskaerm SET type = \'klimaskaerm\'');
-        $this->addSql('UPDATE Klimaskaerm SET type = \'window\' where post < 5');
+        $this->addSql('UPDATE Klimaskaerm SET type = \'vindue\' where post < 6');
     }
 
     /**

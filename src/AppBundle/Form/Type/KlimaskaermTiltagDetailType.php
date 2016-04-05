@@ -62,7 +62,7 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
   private function getKlimaskaerme() {
     $repository = $this->container->get('doctrine')->getRepository('AppBundle:Klimaskaerm');
 
-    $result = $repository->findByType($this instanceof VindueTiltagDetailType ? KlimaskaermType::WINDOW : KlimaskaermType::KLIMASKAERM);
+    $result = $repository->findByType($this instanceof VindueTiltagDetailType ? KlimaskaermType::VINDUE : KlimaskaermType::KLIMASKAERM);
 
     return $result;
   }
