@@ -1340,6 +1340,8 @@ appbundle:
     eWNyKWhM2Aar: E_w,ny
     eWNyKWhM2Aar.unit: kWh/år
     faktorForReinvestering: Faktor for reinvestering
+    glasandel: Glasandel
+    glasandel.unit: %
     hoejdeElLaengdeM: Højde el. Længde
     hoejdeElLaengdeM.unit: m
     ikkeElenaBerettiget: Ikke Elena Berettiget

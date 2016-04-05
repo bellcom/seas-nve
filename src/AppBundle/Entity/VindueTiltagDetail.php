@@ -30,6 +30,13 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
   /**
    * @var float
    *
+   * @ORM\Column(name="glasandel", type="decimal", scale=4, nullable=true)
+   */
+  protected $glasandel = 1;
+
+  /**
+   * @var float
+   *
    * @Calculated
    * @ORM\Column(name="eRefEksKWhM2Aar", type="float")
    */
@@ -79,6 +86,16 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
     return $this->solenergitransmittansNy;
   }
 
+  public function setGlasandel($glasandel) {
+    $this->glasandel = $glasandel;
+
+    return $this;
+  }
+
+  public function getGlasandel() {
+    return $this->glasandel;
+  }
+
   public function getERefEksKWhM2Aar() {
     return $this->eRefEksKWhM2Aar;
   }
@@ -102,6 +119,10 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
     $this->eRefNyKWhM2Aar = $this->calculateERefNyKWhM2Aar();
     $this->eWNyKWhM2Aar = $this->calculateEWNyKWhM2Aar();
     parent::calculate();
+  }
+
+  protected function calculateArealM2() {
+    return $this->glasandel * parent::calculateArealM2();
   }
 
   protected function calculateERefEksKWhM2Aar() {
