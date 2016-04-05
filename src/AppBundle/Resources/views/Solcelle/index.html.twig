@@ -33,7 +33,7 @@
       </thead>
       <tbody>
       {% for entity in entities %}
-        <tr>
+        <tr id="{{ entity.id }}">
           <td class="number">{{ entity.KWp | number_format}}</td>
           <td class="number">{{ entity.inverterpris | number_format }}</td>
           <td class="number">{{ entity.drift | number_format }}</td>
