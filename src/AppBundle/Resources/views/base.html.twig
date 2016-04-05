@@ -141,15 +141,7 @@
 
   <script>
     $(document).ready(function() {
-      $("textarea").autoGrow();
-
-      $(".table-header-rotated").floatThead({
-        position: 'fixed',
-        top: 50
-      });
-
       {% block documentReady %}{% endblock documentReady %}
-
     });
   </script>
 {% endblock %}

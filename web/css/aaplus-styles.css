@@ -656,3 +656,7 @@ table.configuration-settings td:nth-child(2) {
     /* OPTIONAL pointer-events setting above blocks cursor setting, so set it here */
     cursor: not-allowed;
 }
+
+tr:target td {
+	background-color: #ffc;
+}
