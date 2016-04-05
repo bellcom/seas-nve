@@ -65,10 +65,13 @@
         if (!offset) {
           offset = 0;
         }
-        // @see http://stackoverflow.com/a/2906009
-        var container = $('html');
-        var header = $('.navbar-fixed-top');
-        container.scrollTop($(el).offset().top - header.height() - offset);
+        setTimeout(function() {
+          // @see http://stackoverflow.com/a/2906009
+          var container = $('html');
+          var header = $('.navbar-fixed-top');
+          // container.scrollTop(0);
+          container.scrollTop($(el).offset().top - header.height() - offset);
+        }, 100);
       },
 
       /**
