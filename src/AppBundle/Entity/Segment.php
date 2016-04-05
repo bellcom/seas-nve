@@ -151,7 +151,7 @@ class Segment
    * @return string
    */
   public function __toString() {
-    return $this->getForkortelse()." - ".$this->getNavn();
+    return $this->getNavn()." / ".$this->getForkortelse();
   }
 
 

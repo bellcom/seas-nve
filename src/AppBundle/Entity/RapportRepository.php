@@ -182,10 +182,10 @@ class RapportRepository extends EntityRepository {
   public function getByUserAndStatus(User $user, $status) {
     $qb = $this->_em->createQueryBuilder();
 
-    $qb->select('r', 'b');
+    $qb->select('r', 'b', 's');
     $qb->from('AppBundle:Rapport', 'r');
     $qb->leftJoin('r.bygning', 'b');
-
+    $qb->leftJoin('b.segment', 's');
 
     $qb->where('b.status = :status')->setParameter('status', $status);
     $qb->orderBy('r.updatedAt', 'DESC');
