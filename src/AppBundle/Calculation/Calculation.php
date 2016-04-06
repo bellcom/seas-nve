@@ -2,8 +2,16 @@
 
 namespace AppBundle\Calculation;
 
+use Symfony\Component\DependencyInjection\Container;
+
 abstract class Calculation {
   private static $allowedDeviance = 0.0001;
+
+  protected $container = null;
+
+  public function __construct(Container $container) {
+    $this->container = $container;
+  }
 
   /**
    * Check if two numeric values are equals within some deviance.

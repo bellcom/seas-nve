@@ -7,10 +7,8 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\Rapport;
 
 class RapportCalculation extends Calculation {
-  protected $container = null;
-
   public function __construct(Container $container) {
-    $this->container = $container;
+    parent::__construct($container);
   }
 
   /**

@@ -9,10 +9,8 @@ use AppBundle\Entity\Energiforsyning;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
 
 class EnergiforsyningCalculation extends Calculation {
-  protected $container = null;
-
   public function __construct(Container $container) {
-    $this->container = $container;
+    parent::__construct($container);
   }
 
   public function prePersist(LifecycleEventArgs $args) {
