@@ -28,12 +28,15 @@
       </h1>
     </div>
     <div class="col-md-10 text-right">
-      <div style="display: inline-block">
-        {% if calculate_form and is_granted('RAPPORT_EDIT', entity) %}
+      {% if calculate_form and is_granted('RAPPORT_EDIT', entity) %}
+        <div style="display: inline-block">
           {{ form(calculate_form) }}
+        </div>
+
+        {% if calculation_changes is defined and calculation_changes %}
+          <span style="cursor: pointer" class="fa fa-info-circle" aria-hidden="true" data-toggle="modal" data-target="#calculation-changes" title="{{ 'Show calculation changes' | trans }}"></span>
         {% endif %}
-      </div>
-      <span class="fa fa-info-circle" aria-hidden="true" data-toggle="modal" data-target="#calculation-changes" title="{{ 'Show calculation changes' | trans }}"></span>
+      {% endif %}
 
       <a class="btn btn-default" href="{{ path('rapport_bilag_get', { 'rapport_id': entity.id }) }}">
         {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
