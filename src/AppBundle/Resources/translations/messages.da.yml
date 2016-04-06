@@ -1046,7 +1046,7 @@ appbundle:
     likviditetsoversigt: Likviditetsoversigt
     modernisering: Modernisering
     modernisering.unit: kr
-    mtmFaellesomkostninger: MTM Øvrige omkostninger
+    mtmFaellesomkostninger: MTM Fællesomkostninger
     mtmFaellesomkostninger.unit: kr
     nutidsvaerdi: Nutidsværdi
     nutidsvaerdi.unit: kr
