@@ -6,6 +6,8 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\TiltagDetail;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,11 +21,13 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class TiltagDetailType extends AbstractType {
   protected $container;
   protected $authorizationChecker;
+  protected $detail;
 
-  public function __construct(ContainerInterface $container)
+  public function __construct(ContainerInterface $container, TiltagDetail $detail)
   {
     $this->container = $container;
     $this->authorizationChecker = $this->container->get('security.context');
+    $this->detail = $detail;
   }
 
   public function buildForm(FormBuilderInterface $builder, array $options) {
