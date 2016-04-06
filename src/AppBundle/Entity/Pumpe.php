@@ -178,7 +178,7 @@ class Pumpe {
    * @return string
    */
   public function __toString() {
-    return $this->id.'. '.$this->nuvaerendeType . ' / ' . $this->nyPumpe;
+    return $this->id.'. '.$this->nuvaerendeType . ' / ' . $this->nyPumpe . ' - Stand.inv: ' .number_format($this->standInvestering, 0, ',', '.') . ' Kr / Indst: ' . $this->indst;
   }
 
 
