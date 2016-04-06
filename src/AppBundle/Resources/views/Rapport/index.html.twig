@@ -21,6 +21,8 @@
   <table class="table table-condensed table-hover">
     <tr>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.adresse') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.segment'|trans, 's.navn') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.status'|trans, 'b.status') }}</th>
       <th>{{ 'appbundle.rapport.version' | trans }}</th>
@@ -36,6 +38,8 @@
 
     <tr class="search">
       <th>{{ form_row(form.bygning.navn) }}</th>
+      <th>{{ form_row(form.bygning.adresse) }}</th>
+      <th>{{ form_row(form.bygning.postnummer) }}</th>
       <th>{{ form_row(form.bygning.segment) }}</th>
       <th>{{ form_row(form.bygning.status) }}</th>
       <th></th>
@@ -52,6 +56,8 @@
     {% for rapport in pagination %}
     <tr>
       <td>{{ rapport.bygning.navn }}</td>
+      <td>{{ rapport.bygning.adresse }}</td>
+      <td>{{ rapport.bygning.postnummer }}</td>
       <td>{{ rapport.bygning.segment }}</td>
       <td>{{ rapport.bygning.status  | readable }}</td>
       <td>{{ rapport.fullVersion }}</td>

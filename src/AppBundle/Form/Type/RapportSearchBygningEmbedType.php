@@ -26,6 +26,8 @@ class RapportSearchBygningEmbedType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('navn', null, array('label' => false))
+      ->add('adresse', null, array('label' => false))
+      ->add('postnummer', null, array('label' => false))
       ->add('segment', null, array('label' => false, 'required' => false))
       ->add('status', null, array('label' => false, 'required' => false, 'data' => null));
   }
