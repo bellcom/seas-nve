@@ -53,6 +53,15 @@ class PumpeTiltagDetail extends TiltagDetail {
   protected $isoleringskappe = false;
 
   /**
+   * @var float
+   *
+   * @deprecated
+   *
+   * @ORM\Column(name="bFaktor", type="decimal", scale=4)
+   */
+  protected $bFaktor;
+
+  /**
    * @var NyttiggjortVarme
    *
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\TekniskIsoleringTiltagDetail\NyttiggjortVarme", fetch="EAGER")
@@ -272,12 +281,23 @@ class PumpeTiltagDetail extends TiltagDetail {
   }
 
   /**
+   * Get bFaktor
+   *
+   * @deprecated
+   *
+   * @return string
+   */
+  public function getBFaktor() {
+    return $this->bFaktor;
+  }
+
+  /**
    * Set nyttiggjortVarme
    *
    * @param \AppBundle\Entity\TekniskIsoleringTiltagDetail\NyttiggjortVarme $nyttiggjortVarme
-   *
+    *
    * @return TekniskIsoleringTiltagDetail
-   */
+    */
   public function setNyttiggjortVarme(\AppBundle\Entity\TekniskIsoleringTiltagDetail\NyttiggjortVarme $nyttiggjortVarme = null) {
     $this->nyttiggjortVarme = $nyttiggjortVarme;
 
@@ -479,6 +499,9 @@ class PumpeTiltagDetail extends TiltagDetail {
       return 0;
     }
     else {
+      if (!$this->nyttiggjortVarme) {
+        return $this->bFaktor * $this->pumpe->getBesparelseVedIsoleringskappe();
+      }
       return $this->nyttiggjortVarme->getFaktor() * $this->pumpe->getBesparelseVedIsoleringskappe();
     }
   }
