@@ -1,0 +1,6 @@
+{% if calculation_changes is defined and calculation_changes %}
+  <div class="alert alert-warning">
+    <p>{{ 'Calculations have changed' | trans }}</p>
+    {% include 'AppBundle:_includes:calculation_changes_show.html.twig' %}
+  </div>
+{% endif %}
