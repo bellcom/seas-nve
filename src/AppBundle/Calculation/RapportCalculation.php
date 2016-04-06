@@ -11,21 +11,6 @@ class RapportCalculation extends Calculation {
     parent::__construct($container);
   }
 
-  /**
-   * Calculate rapport after loading from data store.
-   *
-   * @param LifecycleEventArgs $args
-   */
-  public function postLoad(LifecycleEventArgs $args) {
-    $entity = $args->getEntity();
-
-    if (!$entity instanceof Rapport) {
-      return;
-    }
-
-    $this->calculate($entity);
-  }
-
   /*
    * Calculate rapport by dispatching to appropriate calculation service.
    *
