@@ -107,6 +107,8 @@
       top: 50
     });
 
+    $('.tooltip-wrapper').tooltip({position: "bottom"});
+
     $('a.btn').on('click', function(event) {
       var id = this.id ? this.id : $(this).closest('[id]').attr('id');
       if (id) {
