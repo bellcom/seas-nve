@@ -120,10 +120,15 @@ class TiltagDetailController extends BaseController {
    */
   private function createEditForm(TiltagDetail $entity) {
     $className = $this->getFormTypeClassName($entity);
-    $form = $this->createForm(new $className($this->container), $entity, array(
+    $form = $this->createForm(new $className($this->container, $entity), $entity, array(
       'action' => $this->generateUrl('tiltag_detail_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));
+
+    // @FIXME: Workaround for the field "B-Faktor" being deprecated.
+    if ($entity instanceof \AppBundle\Entity\PumpeTiltagDetail && !$entity->getNyttiggjortVarme() && $form->has('nyttiggjortVarme')) {
+      $form->get('nyttiggjortVarme')->addError(new \Symfony\Component\Form\FormError(''));
+    }
 
     $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $entity->getTiltag()->getId())));
 

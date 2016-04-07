@@ -38,7 +38,7 @@ twig:
         decimal_point: ','
         thousands_separator: '.'
     globals:
-        aaplus_release_ver: %aaplus_release_ver%
+        aaplus_release_ver: Release 1.4.3
 
 
 # Assetic Configuration
@@ -89,6 +89,7 @@ doctrine:
             GUFFastsaettesEfterType: AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType
             RisikovurderingType: AppBundle\DBAL\Types\RisikovurderingType
             PrimaerEnterpriseType: AppBundle\DBAL\Types\PrimaerEnterpriseType
+            KlimaskaermType: AppBundle\DBAL\Types\KlimaskaermType
         logging: false
         profiling: false
     orm:

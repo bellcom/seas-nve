@@ -5,6 +5,10 @@
     padding-left: 2em;
 }
 
+tr:target td {
+    background-color: #ffc;
+}
+
 span.required {
     font-size: 0.7em;
 }
@@ -139,6 +143,10 @@ th.unit {
 
 .table > tfoot > tr > th {
     border-top: 2px solid #ddd;
+}
+
+td.last {
+    min-width: 50px;
 }
 
 table .checkbox input[type=checkbox], table .checkbox-inline input[type=checkbox], table .radio input[type=radio], table .radio-inline input[type=radio] {
@@ -671,5 +679,3 @@ form .alert ul {
     margin-top: 0px;
     margin-left: 15px;
 }
-
-

@@ -74,8 +74,9 @@ class BygningRepository extends EntityRepository {
    */
   public function searchByUser(User $user, $search) {
     $qb = $this->_em->createQueryBuilder();
-    $qb->select('b')
-      ->from('AppBundle:Bygning', 'b');
+    $qb->select('b', 's')
+      ->from('AppBundle:Bygning', 'b')
+      ->leftJoin('b.segment', 's');
 
     if (!empty($search['navn'])) {
       $qb->andWhere('b.navn LIKE :navn')

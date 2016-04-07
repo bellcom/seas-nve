@@ -86,8 +86,8 @@ common:
   tekniske_oplysninger: Tekniske Oplysninger
   tilknytning: Tilknytning
   update: Opdater
-  updatedat: Opdateret
-  updatedby: Opdateret af
+  updatedAt: Opdateret
+  updatedBy: Opdateret af
   your_buildings: Dine bygninger
   calculated_value: Beregnet værdi
 dashboard:
@@ -1030,6 +1030,7 @@ appbundle:
     klimaskaerm: Klimaskærm
     noter: Noter
     post: Post
+    type: Type
   klimaskaermtiltagdetail:
     add: Tilføj
     andelAfArealDerEfterisoleres: Andel af areal der efterisoleres
@@ -1060,9 +1061,9 @@ appbundle:
     klimaskaermOverskrevetPris.unit: kr/m²
     klimaskaermOverskrevetPris.validation: Klimaskærm overskrevet pris skal udfyldes hvis der er ikke er valgt tiltag
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
-    kWhBesparElvaerkEksternEnergikilde.unit: ??
+    kWhBesparElvaerkEksternEnergikilde.unit: kWh/år
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
-    kWhBesparVarmevaerkEksternEnergikilde.unit: ??
+    kWhBesparVarmevaerkEksternEnergikilde.unit: kWh/år
     laastAfEnergiraadgiver: Låst af energirådgiver
     levetidAar: Levetid
     levetidAar.unit: år
@@ -1138,6 +1139,8 @@ appbundle:
   pumpetiltagdetail:
     add: Tilføj pumpe
     applikation: Applikation
+    bFaktor: B-Faktor
+    nyttiggjortVarme: Nyttiggjort varme
     eksisterendeDrifttid: Eksisterende drifttid
     eksisterendeDrifttid.unit: Timer/år
     eksisterendeDrifttid.help: ﻿Eksisterende driftstid indtastes i timer/år
@@ -1153,9 +1156,9 @@ appbundle:
     b.faktor: B-Faktor
     b.faktor.help: ﻿B-faktor for pumpens placering indtastes, undlades såfremt eksisterende pumpe har isoleringskappe. B-faktor jf. håndbog for energikonsulenter.
     kwhBesparelseElFraVaerket: El: kWh-besparelse fra værket
-    kwhBesparelseElFraVaerket.unit: ??
+    kwhBesparelseElFraVaerket.unit: kWh/år
     kwhBesparelseVarmeFraVaerket: ﻿Varme: kWh-besparelse fra værket
-    kwhBesparelseVarmeFraVaerket.unit: ??
+    kwhBesparelseVarmeFraVaerket.unit: kWh/år
     noter: Noter
     noter.help: ﻿Rådgivers noter til pumpeudskiftning indtastes her. Krav til de punkter rådgiver skal tage stilling til er angivet i kolonnens overskrift
     nutidsvaerdiSetOver15AarKr: ﻿Nutidsværdi set over 15 år
@@ -1262,7 +1265,7 @@ appbundle:
     likviditetsoversigt: Likviditetsoversigt
     modernisering: Modernisering
     modernisering.unit: kr
-    mtmFaellesomkostninger: MTM Øvrige omkostninger
+    mtmFaellesomkostninger: MTM Fællesomkostninger
     mtmFaellesomkostninger.unit: kr
     nutidsvaerdi: Nutidsværdi
     nutidsvaerdi.unit: kr
@@ -1556,6 +1559,8 @@ appbundle:
     eWNyKWhM2Aar: E_w,ny
     eWNyKWhM2Aar.unit: kWh/år
     faktorForReinvestering: Faktor for reinvestering
+    glasandel: Glasandel
+    glasandel.unit: %
     hoejdeElLaengdeM: Højde el. Længde
     hoejdeElLaengdeM.unit: m
     ikkeElenaBerettiget: Ikke Elena Berettiget
@@ -1568,6 +1573,7 @@ appbundle:
     laastAfEnergiraadgiver: Låst af energirådgiver
     levetidAar: Levetid
     levetidAar.unit: År
+    noteGenerelt: Noter
     noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter
     noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet.help: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
@@ -1649,3 +1655,7 @@ Hovedforsyning El: Hovedforsyning El
 Oliefyr: Oliefyr
 Træpillefyr: Træpillefyr
 Varmepumpe: Varmepumpe
+
+# Enum: KlimaskaermType
+Klimaskaerm: Klimaskærm
+Window: Vindue

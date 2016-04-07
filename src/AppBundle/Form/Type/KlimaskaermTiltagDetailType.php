@@ -6,6 +6,8 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\DBAL\Types\KlimaskaermType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -40,8 +42,8 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ->add('tOpvarmningTimerAar')
       ->add('yderligereBesparelserPct', 'percent', array('scale' => 2, 'required' => false))
       ->add('prisfaktor')
-      ->add('noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet', null, array(
-        'required' => false,
+      ->add('noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet', 'textarea', array(
+        'attr' => array('maxlength' => 360), 'required' => false,
       ))
       ->add('levetidAar')
       ;
@@ -60,7 +62,7 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
   private function getKlimaskaerme() {
     $repository = $this->container->get('doctrine')->getRepository('AppBundle:Klimaskaerm');
 
-    $result = $repository->findByType($this instanceof VindueTiltagDetailType ? 'vindue' : 'klimaskaerm');
+    $result = $repository->findByType($this instanceof VindueTiltagDetailType ? KlimaskaermType::VINDUE : KlimaskaermType::KLIMASKAERM);
 
     return $result;
   }

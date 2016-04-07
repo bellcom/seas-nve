@@ -7,3 +7,9 @@
   {% include 'AppBundle:VindueTiltagDetail:_form.html.twig' %}
 
 {% endblock %}
+
+{% block documentReady %}
+  {{ parent() }}
+
+  {% include 'AppBundle:_includes:textAreaCountdown.js.twig' %}
+{% endblock documentReady %}

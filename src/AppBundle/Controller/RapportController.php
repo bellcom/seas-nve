@@ -198,7 +198,7 @@ class RapportController extends BaseController {
       'rapport' => $rapport,
     ));
 
-    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d');
+    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion();
 
     return new Response(
       $this->get('knp_snappy.pdf')->getOutputFromHtml($html,
@@ -238,7 +238,7 @@ class RapportController extends BaseController {
       'rapport' => $rapport,
     ));
 
-    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d');
+    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion();
 
     return new Response(
       $this->get('knp_snappy.pdf')->getOutputFromHtml($html,

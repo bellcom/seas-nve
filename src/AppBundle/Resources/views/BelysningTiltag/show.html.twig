@@ -56,6 +56,7 @@
           {{ helper.header('appbundle.belysningtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
           {{ helper.header('appbundle.belysningtiltagdetail.kwhBesparelseEl') }}
           {{ helper.header('appbundle.belysningtiltagdetail.kwhBesparelseVarmeFraVarmevaerket') }}
+          {{ helper.header() }}
         </tr>
         <tr>
           {{ helper.header_unit() }}
@@ -99,6 +100,7 @@
           {{ helper.header_unit('appbundle.belysningtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.kwhBesparelseEl') }}
           {{ helper.header_unit('appbundle.belysningtiltagdetail.kwhBesparelseVarmeFraVarmevaerket') }}
+          {{ helper.header_unit() }}
         </tr>
         </thead>
         <tbody>
@@ -154,6 +156,7 @@
             <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
             <td class="number">{{ detail.kwhBesparelseEl | format_decimal }}</td>
             <td class="number">{{ detail.kwhBesparelseVarmeFraVarmevaerket | format_decimal }}</td>
+            <td class="last"></td>
           </tr>
         {% endfor %}
         </tbody>
