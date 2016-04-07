@@ -93,7 +93,7 @@
       {# Set a random id to namespace the form so that two delete forms on the same page doesn't conflict modals#}
       {% set form_id = random() %}
       {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' btn btn-'~button_class|default('danger'))|trim }) %}
-      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{ form_id }}">{{ icon('trash-o') }} {{ label|trans({}, translation_domain) }}</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{ form_id }}" {{ block('button_attributes') }}>{{ icon('trash-o') }} {{ label|trans({}, translation_domain) }}</button>
       {% if form_id is defined %}
         <!-- Modal -->
         <div class="modal fade" id="modal-{{ form_id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
