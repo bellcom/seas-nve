@@ -5,7 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotations\Calculated;
 use AppBundle\DBAL\Types\CardinalDirectionType;
-
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * VindueTiltagDetail
  *
@@ -59,6 +60,18 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
   protected $eRefNyKWhM2Aar;
 
   /**
+   * @var string
+   *
+   * @ORM\Column(name="noteGenerelt", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 360,
+   *  maxMessage = "maxLength"
+   * )
+   */
+  protected $noteGenerelt;
+
+  /**
    * @var float
    *
    * @Calculated
@@ -92,6 +105,12 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
     return $this;
   }
 
+  public function setNoteGenerelt($noteGenerelt) {
+    $this->noteGenerelt = $noteGenerelt;
+
+    return $this;
+  }
+
   public function getGlasandel() {
     return $this->glasandel;
   }
@@ -110,6 +129,10 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
 
   public function getEWNyKWhM2Aar() {
     return $this->eWNyKWhM2Aar;
+  }
+
+  public function getNoteGenerelt() {
+    return $this->noteGenerelt;
   }
 
   public function calculate() {

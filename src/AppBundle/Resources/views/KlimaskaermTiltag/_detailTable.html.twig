@@ -13,7 +13,6 @@
     {{ helper.header('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
     {{ helper.header('appbundle.klimaskaermtiltagdetail.levetidAar') }}
     {{ helper.header('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
-
     {{ helper.header() }}
   </tr>
   <tr>
@@ -29,7 +28,6 @@
     {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
     {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.levetidAar') }}
     {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
-
     {{ helper.header_unit() }}
   </tr>
   </thead>
@@ -48,8 +46,7 @@
       <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
       <td class="number">{{ detail.levetidAar | format_decimal }}</td>
       <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
-
-      <td></td>
+      <td class="last"></td>
     </tr>
   {% endfor %}
   </tbody>

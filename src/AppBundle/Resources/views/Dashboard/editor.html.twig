@@ -15,6 +15,8 @@
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
+              <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.segment'|trans, 's.navn') }}</th>
+              <th>{{ 'appbundle.bygning.aaplusAnsvarlig'|trans }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.updatedAt'|trans, 'b.updatedAt') }}</th>
               <th></th>
             </tr>
@@ -23,6 +25,8 @@
                 <td>{{ r.bygning.navn }}</td>
                 <td>{{ r.bygning.adresse }}</td>
                 <td>{{ r.bygning.postBy }}</td>
+                <td>{{ r.bygning.segment }}</td>
+                <td>{{ r.bygning.aaplusAnsvarlig }}</td>
                 <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
                 <td class="text-right">
                   <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-default btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
@@ -55,6 +59,8 @@
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
+              <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.segment'|trans, 's.navn') }}</th>
+              <th>{{ 'appbundle.bygning.aaplusAnsvarlig'|trans }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.updatedAt'|trans, 'b.updatedAt') }}</th>
               <th></th>
             </tr>
@@ -63,6 +69,8 @@
                 <td>{{ r.bygning.navn }}</td>
                 <td>{{ r.bygning.adresse }}</td>
                 <td>{{ r.bygning.postBy }}</td>
+                <td>{{ r.bygning.segment }}</td>
+                <td>{{ r.bygning.aaplusAnsvarlig }}</td>
                 <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
                 <td class="text-right">
                   <a href="{{ path('rapport_show', { 'id': r.id }) }}" class="btn btn-default btn-xs">{{ 'rapporter.actions.show' | trans }}</a>

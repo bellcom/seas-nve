@@ -36,11 +36,11 @@
           <td>{{ 'appbundle.tiltag.elbesparelse.unit' | trans }}</td>
         </tr>
         {% if entity.yderligereBesparelse is defined %}
-        <tr>
-          <td>{{ 'appbundle.tiltag.yderligereBesparelse' | trans }}</td>
-          <td class="text-right">{{ entity.yderligereBesparelse | number_format }}</td>
-          <td>{{ 'appbundle.tiltag.yderligereBesparelse.unit' | trans }}</td>
-        </tr>
+          <tr>
+            <td>{{ 'appbundle.tiltag.yderligereBesparelse' | trans }}</td>
+            <td class="text-right">{{ entity.yderligereBesparelse | number_format }}</td>
+            <td>{{ 'appbundle.tiltag.yderligereBesparelse.unit' | trans }}</td>
+          </tr>
         {% endif %}
         </tbody>
         <tfoot>
@@ -85,7 +85,8 @@
           <td>{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</td>
           <td class="text-right">
             {% if entity.anlaegsInvesteringBeregnet != null and entity.anlaegsInvesteringBeregnet != entity.anlaegsInvestering %}
-              <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">({{ 'common.calculated_value' | trans}}: {{ entity.anlaegsInvesteringBeregnet | number_format }})</span> <span class="aaplus-note-marker"></span>
+              <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">({{ 'common.calculated_value' | trans }}: {{ entity.anlaegsInvesteringBeregnet | number_format }})</span> <span
+                    class="aaplus-note-marker"></span>
                 {{ entity.anlaegsInvestering | number_format }}
               </span>
             {% else %}
@@ -129,6 +130,18 @@
           <td class="text-right">{{ entity.nutidsvaerdiSetOver15AarKr | number_format }}</td>
           <td>{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr.unit' | trans }}</td>
         </tr>
+        {% if extended is defined and extended %}
+          <tr>
+            <td>{{ 'appbundle.tiltag.scrapvaerdi' | trans }}</td>
+            <td class="text-right">{{ entity.scrapvaerdi | number_format }}</td>
+            <td>{{ 'appbundle.tiltag.scrapvaerdi.unit' | trans }}</td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.tiltag.reinvestering' | trans }}</td>
+            <td class="text-right">{{ entity.reinvestering | number_format }}</td>
+            <td>{{ 'appbundle.tiltag.reinvestering.unit' | trans }}</td>
+          </tr>
+        {% endif %}
         </tbody>
       </table>
     </div>
