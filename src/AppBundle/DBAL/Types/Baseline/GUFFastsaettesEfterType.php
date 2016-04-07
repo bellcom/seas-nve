@@ -4,7 +4,7 @@ namespace AppBundle\DBAL\Types\Baseline;
 use Fresh\DoctrineEnumBundle\DBAL\Types\AbstractEnumType;
 
 class GUFFastsaettesEfterType extends AbstractEnumType {
-  const GUF_ANDEL_I_PROCENT_PBA_ELO_NOEGLETAL = 'guf_andel_i_procent_pba_elo_noegletal';
+  const GUF_ANDEL_I_PROCENT_PBA_ELO_NOEGLETAL = 'guf_andel';
   const SAMLET_MAANEDSFORBRUG_FOR_JUNI_JULI_AUGUST = 'samlet_maanedsforbrug_for_juni_juli_august';
 
   protected static $choices = [

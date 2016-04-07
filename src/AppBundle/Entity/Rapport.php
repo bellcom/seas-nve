@@ -633,6 +633,13 @@ class Rapport {
   public function setBygning(\AppBundle\Entity\Bygning $bygning = NULL) {
     $this->bygning = $bygning;
 
+    if($bygning && $bygning->getBaseline()) {
+      $this->setBaselineEl($bygning->getBaseline()->getElBaselineFastsatForEjendom());
+      $this->setBaselineVarmeGAF($bygning->getBaseline()->getVarmeGAFForbrug());
+      $this->setBaselineVarmeGUF($bygning->getBaseline()->getVarmeGUFForbrug());
+      $this->setBaselineStrafAfkoeling($bygning->getBaseline()->getVarmeStrafafkoelingsafgift());
+    }
+
     return $this;
   }
 

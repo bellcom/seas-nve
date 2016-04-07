@@ -6,6 +6,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\Rapport;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,10 +18,12 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class RapportType extends AbstractType {
   protected $authorizationChecker;
+  protected $rapport;
 
-  public function __construct(AuthorizationCheckerInterface $authorizationChecker)
+  public function __construct(AuthorizationCheckerInterface $authorizationChecker, Rapport $rapport)
   {
     $this->authorizationChecker = $authorizationChecker;
+    $this->rapport = $rapport;
   }
 
   /**
@@ -33,7 +36,6 @@ class RapportType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-//      ->add('version')
       ->add('datering')
       ->add('BaselineEl')
       ->add('BaselineVarmeGUF')
