@@ -10,7 +10,7 @@
 
 {% block form_help %}
   {% spaceless %}
-    {% set help_text = id|get_help %}
+    {% set help_text = attr.help_text is defined and attr.help_text is not empty ? attr.help_text : id|get_help %}
 
     {% if help_text is not empty %}
       <span class="help-block">{{ help_text }}</span>

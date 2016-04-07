@@ -30,6 +30,20 @@ class PumpeTiltagDetailType extends TiltagDetailType {
       ->add('eksisterendeDrifttid')
       ->add('nyDrifttid')
       ->add('prisfaktor');
+
+    // @FIXME: Workaround for the field "B-Faktor" being deprecated.
+    if (!$this->detail->getNyttiggjortVarme()) {
+      $builder
+        ->remove('nyttiggjortVarme')
+        ->add('nyttiggjortVarme', null, array(
+          'required' => true,
+          'empty_value' => '*** Gammel B-Faktor: ' . number_format($this->detail->getBFaktor(), 2, ',', '.') . ' ***',
+          'attr' => array(
+            'help_text' => 'Bemærk: Feltet "B-Faktor" er blevet erstattet af "Nyttiggjort varme". Vælg venligst "Nyttiggjort varme" ovenfor.',
+            'class' => 'aaplus-deprecated',
+          ),
+        ));
+    }
   }
 
   public function configureOptions(OptionsResolver $resolver) {
