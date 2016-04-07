@@ -35,9 +35,9 @@
         }
         var locations = getLocations();
         var id = locations[url];
-        // if (!keep) {
-        //  setLocation(null, url);
-        // }
+        if (!keep) {
+          setLocation(null, url);
+        }
         return id;
       },
 
