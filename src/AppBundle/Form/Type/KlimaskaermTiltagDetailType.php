@@ -42,8 +42,8 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ->add('tOpvarmningTimerAar')
       ->add('yderligereBesparelserPct', 'percent', array('scale' => 2, 'required' => false))
       ->add('prisfaktor')
-      ->add('noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet', null, array(
-        'required' => false,
+      ->add('noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet', 'textarea', array(
+        'attr' => array('maxlength' => 360), 'required' => false,
       ))
       ->add('levetidAar')
       ;

@@ -1354,6 +1354,7 @@ appbundle:
     laastAfEnergiraadgiver: Låst af energirådgiver
     levetidAar: Levetid
     levetidAar.unit: År
+    noteGenerelt: Noter
     noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter
     noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet.help: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år

@@ -26,6 +26,7 @@ class VindueTiltagDetailType extends KlimaskaermTiltagDetailType {
         'required' => TRUE,
       ))
       ->add('glasandel', 'percent', array('scale' => 2))
+      ->add('noteGenerelt', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
       ;
 
     $this->insertAfter($builder, $builder->get('uNyWM2K'), array(
