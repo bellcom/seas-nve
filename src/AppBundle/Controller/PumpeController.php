@@ -250,10 +250,20 @@ class PumpeController extends BaseController
      */
     private function createDeleteForm($id)
     {
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Pumpe');
+        $pumpe = $repository->find($id);
+        $message = $repository->getRemoveErrorMessage($pumpe);
+
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('pumpe_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array(
+                'label' => 'Delete',
+                'disabled' => $message,
+                'attr' => array(
+                    'disabled_message' => $message,
+                ),
+            ))
             ->getForm()
         ;
     }

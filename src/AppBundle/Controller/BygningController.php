@@ -275,10 +275,19 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createDeleteForm(Bygning $bygning) {
+    $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bygning');
+    $message = $repository->getRemoveErrorMessage($bygning);
+
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('bygning_delete', array('id' => $bygning->getId())))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'disabled' => $message,
+        'attr' => array(
+          'disabled_message' => $message,
+        ),
+      ))
       ->getForm();
   }
 

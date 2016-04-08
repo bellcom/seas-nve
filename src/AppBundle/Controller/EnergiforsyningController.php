@@ -198,10 +198,19 @@ class EnergiforsyningController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createDeleteForm(Energiforsyning $entity) {
+    $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Energiforsyning');
+    $message = $repository->getRemoveErrorMessage($entity);
+
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('energiforsyning_delete', array('rapport_id' => $entity->getRapport()->getId(), 'id' => $entity->getId())))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'disabled' => $message,
+        'attr' => array(
+          'disabled_message' => $message,
+        ),
+      ))
       ->getForm();
   }
 

@@ -250,10 +250,20 @@ class ErstatningsLyskildeController extends BaseController
      */
     private function createDeleteForm($id)
     {
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:BelysningTiltagDetail\ErstatningsLyskilde');
+        $erstatningslyskilde = $repository->find($id);
+        $message = $repository->getRemoveErrorMessage($erstatningslyskilde);
+
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('belysningtiltagdetail_erstatningslyskilde_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array(
+                'label' => 'Delete',
+                'disabled' => $message,
+                'attr' => array(
+                    'disabled_message' => $message,
+                ),
+            ))
             ->getForm()
         ;
     }
