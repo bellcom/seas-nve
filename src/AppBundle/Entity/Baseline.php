@@ -19,6 +19,7 @@ use AppBundle\DBAL\Types\Baseline\VarmeKildePrimaerType;
 use AppBundle\DBAL\Types\Baseline\VarmeKildeSekundaerType;
 use AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType;
 use AppBundle\Annotations\Calculated;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Baseline.
@@ -33,7 +34,9 @@ class Baseline {
   /**
    * Constructor
    */
-  public function __construct() {}
+  public function __construct() {
+    $this->korrektioner = new ArrayCollection();
+  }
 
   /**
    * @var integer
@@ -48,6 +51,12 @@ class Baseline {
    * @ORM\OneToOne(targetEntity="Bygning", inversedBy="baseline", fetch="EAGER")
    **/
   protected $bygning;
+
+  /**
+   * @ORM\OneToMany(targetEntity="BaselineKorrektion", mappedBy="baseline")
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\BaselineKorrektion>")
+   */
+  protected $korrektioner;
 
   /**
    * @ORM\ManyToOne(targetEntity="ELOKategori", inversedBy="baselines")
@@ -809,6 +818,26 @@ class Baseline {
    */
   public function setBygning(\AppBundle\Entity\Bygning $bygning = NULL) {
     $this->bygning = $bygning;
+
+    return $this;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getKorrektioner() {
+    return $this->korrektioner;
+  }
+
+  /**
+   * Add user
+   *
+   * @param \AppBundle\Entity\BaselineKorrektion $korrektion
+   *
+   * @return Bygning
+   */
+  public function addKorrektioner(\AppBundle\Entity\BaselineKorrektion $korrektion) {
+    $this->korrektioner[] = $korrektion;
 
     return $this;
   }
