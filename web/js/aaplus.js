@@ -127,6 +127,22 @@
     var hash = location.hash ? location.hash : getLocation();
     if (hash) {
       setHash(hash);
+      // Make any flashed "fixed" if not visible on screen.
+      setTimeout(function() {
+        // http://stackoverflow.com/a/488073
+        var $elem = $('.aaplus-flashes');
+        var $window = $(window);
+
+        var docViewTop = $window.scrollTop();
+        var docViewBottom = docViewTop + $window.height();
+
+        var elemTop = $elem.offset().top;
+        var elemBottom = elemTop + $elem.height();
+
+        if (!((elemBottom <= docViewBottom) && (elemTop >= docViewTop))) {
+          $elem.addClass('fixed');
+        }
+      }, 150);
     }
   });
 }(jQuery));

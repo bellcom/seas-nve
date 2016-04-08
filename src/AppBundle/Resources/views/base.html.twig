@@ -113,7 +113,9 @@
 <div class="container-fluid">
   {{ wo_render_breadcrumbs() }}
 
-  {% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
+  <div class="aaplus-flashes">
+    {% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
+  </div>
 
   {% block body %}{% endblock %}
 </div>
