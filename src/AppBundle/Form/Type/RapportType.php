@@ -35,13 +35,16 @@ class RapportType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
+
+    // If there is a Baseline attached disable editing of baseline fields
+    $disabled = $this->rapport->getBygning()->getBaseline() ? 'disabeld' : '';
+
     $builder
       ->add('datering')
-      ->add('BaselineEl')
-      ->add('BaselineVarmeGUF')
-      ->add('BaselineVarmeGAF')
-      ->add('BaselineVand')
-      ->add('BaselineStrafAfkoeling')
+      ->add('BaselineEl', null, array('disabled' => $disabled))
+      ->add('BaselineVarmeGUF', null, array('disabled' => $disabled))
+      ->add('BaselineVarmeGAF', null, array('disabled' => $disabled))
+      ->add('BaselineStrafAfkoeling', null, array('disabled' => $disabled))
       ->add('faktorPaaVarmebesparelse')
       ->add('energiscreening');
 

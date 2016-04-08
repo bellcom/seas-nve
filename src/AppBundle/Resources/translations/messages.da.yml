@@ -298,7 +298,7 @@ rapporter:
     approve: Godkendt Magistrat
     approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt af Magistrat"?
     create: Opret Rapport
-    edit: Rediger Rapport
+    edit: Rediger Baseline
     implementation: Under udførsel
     implementation_confirm: Er du sikker på du vil markere rapporten som "Under udførsel"?
     operation: Drift
