@@ -31,6 +31,7 @@ class BygningBaselineController extends BaseController {
    * @Route("/", name="bygning_baseline_show")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('BYGNING_VIEW', bygning)")
    */
   public function showAction(Bygning $bygning) {
     $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
@@ -50,6 +51,7 @@ class BygningBaselineController extends BaseController {
    * @Route("/edit", name="bygning_baseline_edit")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('BYGNING_EDIT', bygning)")
    */
   public function editAction(Bygning $bygning) {
     $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
@@ -102,11 +104,9 @@ class BygningBaselineController extends BaseController {
    * @Route("/", name="bygning_baseline_update")
    * @Method("PUT")
    * @Template("AppBundle:BygningBaseline:edit.html.twig")
+   * @Security("is_granted('BYGNING_EDIT', bygning)")
    */
-  public function updateAction(Request $request, $id) {
-    $em = $this->getDoctrine()->getManager();
-    $bygning = $em->getRepository('AppBundle:Bygning')->find($id);
-
+  public function updateAction(Request $request, Bygning $bygning) {
     if (!$bygning) {
       throw $this->createNotFoundException('Unable to find Bygning entity.');
     }
