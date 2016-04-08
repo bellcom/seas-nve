@@ -420,8 +420,7 @@ class RapportController extends BaseController {
   public function submitAction(Request $request, Rapport $rapport) {
     $this->statusAction($request, $rapport, BygningStatusType::AFLEVERET_RAADGIVER, 'rapport_submit', 'rapporter.actions.submit');
 
-    $flash = $this->get('braincrafted_bootstrap.flash');
-    $flash->success('rapporter.confirmation.submitted');
+    $this->flash->success('rapporter.confirmation.submitted');
 
     return $this->redirect($this->generateUrl('dashboard'));
   }
@@ -438,8 +437,7 @@ class RapportController extends BaseController {
   public function returAction(Request $request, Rapport $rapport) {
     $this->statusAction($request, $rapport, BygningStatusType::TILKNYTTET_RAADGIVER, 'rapport_retur', 'rapporter.actions.retur');
 
-    $flash = $this->get('braincrafted_bootstrap.flash');
-    $flash->success('rapporter.confirmation.retur');
+    $this->flash->success('rapporter.confirmation.retur');
 
     return $this->redirect($this->generateUrl('dashboard'));
   }
@@ -457,8 +455,7 @@ class RapportController extends BaseController {
   public function verifyAction(Request $request, Rapport $rapport) {
     $this->statusAction($request, $rapport, BygningStatusType::AAPLUS_VERIFICERET, 'rapport_verify', 'rapporter.actions.verify');
 
-    $flash = $this->get('braincrafted_bootstrap.flash');
-    $flash->success('rapporter.confirmation.verified');
+    $this->flash->success('rapporter.confirmation.verified');
 
     return $this->redirect($this->generateUrl('dashboard'));
   }
@@ -475,8 +472,7 @@ class RapportController extends BaseController {
   public function approvedAction(Request $request, Rapport $rapport) {
     $this->statusAction($request, $rapport, BygningStatusType::GODKENDT_AF_MAGISTRAT, 'rapport_approve', 'rapporter.actions.approve');
 
-    $flash = $this->get('braincrafted_bootstrap.flash');
-    $flash->success('rapporter.confirmation.approved');
+    $this->flash->success('rapporter.confirmation.approved');
 
     return $this->redirect($this->generateUrl('dashboard'));
   }
@@ -493,8 +489,7 @@ class RapportController extends BaseController {
   public function implementationAction(Request $request, Rapport $rapport) {
     $this->statusAction($request, $rapport, BygningStatusType::UNDER_UDFOERSEL, 'rapport_implementation', 'rapporter.actions.implementation');
 
-    $flash = $this->get('braincrafted_bootstrap.flash');
-    $flash->success('rapporter.confirmation.implementation');
+    $this->flash->success('rapporter.confirmation.implementation');
 
     return $this->redirect($this->generateUrl('dashboard'));
   }
@@ -511,8 +506,7 @@ class RapportController extends BaseController {
   public function operationAction(Request $request, Rapport $rapport) {
     $this->statusAction($request, $rapport, BygningStatusType::DRIFT, 'rapport_operation', 'rapporter.actions.operation');
 
-    $flash = $this->get('braincrafted_bootstrap.flash');
-    $flash->success('rapporter.confirmation.operation');
+    $this->flash->success('rapporter.confirmation.operation');
 
     return $this->redirect($this->generateUrl('dashboard'));
   }
@@ -584,8 +578,7 @@ class RapportController extends BaseController {
     $em->persist($tiltag);
     $em->flush();
 
-    $flash = $this->get('braincrafted_bootstrap.flash');
-    $flash->success( $type.'tiltag.confirmation.created');
+    $this->flash->success( $type.'tiltag.confirmation.created');
 
     return $this->redirect($this->generateUrl('tiltag_edit', array('id' => $tiltag->getId())));
   }

@@ -43,4 +43,13 @@ class SolcelleRepository extends EntityRepository {
     return NULL;
   }
 
+  /**
+   * Check if entity can be removed (deleted). If not, return an error message.
+   *
+   * @return string|null
+   */
+  public function getRemoveErrorMessage(Solcelle $solcelle) {
+    return null;
+  }
+
 }

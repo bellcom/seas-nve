@@ -20,4 +20,22 @@ class KlimaskaermRepository extends EntityRepository {
            ->setParameter('type', $type);
     return $query->getResult();
   }
+
+  /**
+   * Check if entity can be removed (deleted). If not, return an error message.
+   *
+   * @return string|null
+   */
+  public function getRemoveErrorMessage(Klimaskaerm $klimaskaerm) {
+    $query = $this->_em->createQuery('SELECT d FROM AppBundle:KlimaskaermTiltagDetail d WHERE d.klimaskaerm = :klimaskaerm');
+    $query->setParameter('klimaskaerm', $klimaskaerm);
+    $result = $query->getResult();
+
+    if ($result) {
+      return 'klimaskaerm.error.in_use';
+    }
+
+    return null;
+  }
+
 }

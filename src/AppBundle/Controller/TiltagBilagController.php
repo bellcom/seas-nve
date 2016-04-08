@@ -204,8 +204,7 @@ class TiltagBilagController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('bilag.confirmation.updated');
+      $this->flash->success('bilag.confirmation.updated');
 
       return $this->redirect($this->generateUrl('tiltag_bilag_get', array('tiltag_id' => $tiltag->getId())));
     }
@@ -236,8 +235,7 @@ class TiltagBilagController extends BaseController {
       $em->persist($bilag);
       $em->flush();
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('bilag.confirmation.created');
+      $this->flash->success('bilag.confirmation.created');
 
       return $this->redirect($this->generateUrl('tiltag_bilag_get', array('tiltag_id' => $tiltag->getId())));
     }
@@ -266,8 +264,7 @@ class TiltagBilagController extends BaseController {
       $em->remove($bilag);
       $em->flush();
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('bilag.confirmation.deleted');
+      $this->flash->success('bilag.confirmation.deleted');
     }
 
     return $this->redirect($this->generateUrl('tiltag_bilag_get', array('tiltag_id' => $tiltag->getId())));

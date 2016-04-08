@@ -281,4 +281,16 @@ class BygningRepository extends EntityRepository {
 
     return $qb->getQuery()->getResult();
   }
+
+  public function getRemoveErrorMessage(Bygning $bygning) {
+    $query = $this->_em->createQuery('SELECT r FROM AppBundle:Rapport r WHERE r.bygning = :bygning');
+    $query->setParameter('bygning', $bygning);
+    $result = $query->getResult();
+
+    if ($result) {
+      return 'bygning.error.in_use';
+    }
+
+    return null;
+  }
 }
