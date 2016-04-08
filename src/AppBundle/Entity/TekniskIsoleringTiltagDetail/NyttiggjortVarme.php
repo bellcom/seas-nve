@@ -11,7 +11,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
  *
  * @ORM\Table()
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\TekniskIsoleringTiltagDetail\NyttiggjortVarmeRepository")
  */
 class NyttiggjortVarme {
   use SoftDeleteableEntity;
