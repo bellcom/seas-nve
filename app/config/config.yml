@@ -176,6 +176,7 @@ simple_things_entity_audit:
         - AppBundle\Entity\TiltagDetail
         - AppBundle\Entity\Segment
         - AppBundle\Entity\TekniskIsoleringTiltagDetail\NyttiggjortVarme
+        - AppBundle\Entity\Baseline
 
 white_october_breadcrumbs:
   separator:
