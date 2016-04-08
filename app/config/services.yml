@@ -87,6 +87,11 @@ services:
         tags:
             - { name: form.type_extension, alias: file }
 
+    aaplus.remove_listener:
+        class: AppBundle\Listener\RemoveListener
+        tags:
+            - { name: doctrine.event_listener, event: preRemove }
+
     aaplus.tiltag_listener:
         class: AppBundle\Listener\TiltagListener
         tags:
