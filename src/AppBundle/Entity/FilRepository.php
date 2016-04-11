@@ -7,6 +7,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\File;
  * repository methods below.
  */
 class FilRepository extends EntityRepository {
-  public function saveContent($content, Fil $fil, $container) {
+  public function saveContent($content, Fil $fil, ContainerInterface $container) {
     $dir = $container->getParameter('app.pdf_export.default_file_path');
     $filepath = $dir . '/' . uniqid();
     $fil->setFilepath($filepath);
