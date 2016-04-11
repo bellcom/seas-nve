@@ -18,6 +18,9 @@
       <a href="{{ path('rapport_show_pdf5', { 'id': entity.id }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf5' | trans }}
       </a>
+      <a class="btn btn-default" href="{{ path('rapport_filer', { 'id': entity.id }) }}">
+        {{ icon('file') }} {{ 'rapporter.actions.filer' | trans }}
+      </a>
       {% if is_granted('RAPPORT_EDIT', entity) %}
         <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">
           {{ icon('industry') }} Energiforsyninger

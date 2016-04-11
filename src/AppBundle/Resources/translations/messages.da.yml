@@ -251,6 +251,7 @@ rapporter:
     approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt af Magistrat"?
     create: Opret Rapport
     edit: Rediger Rapport
+    filer: Filer
     implementation: Under udførsel
     implementation_confirm: Er du sikker på du vil markere rapporten som "Under udførsel"?
     operation: Drift
@@ -1403,6 +1404,11 @@ appbundle:
     vindue: Vindue
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
+  fil:
+    createdAt: Oprettet
+    createdBy: Oprettet af
+    type: Type
+    navn: Navn
 
 # Dataudtræk
 udtraek.bygning:

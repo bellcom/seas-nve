@@ -11,6 +11,8 @@ use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\RapportSearchType;
 use AppBundle\Form\Type\RapportStatusType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Bilag;
@@ -663,5 +666,48 @@ class RapportController extends BaseController {
       'entity' => $rapport,
       'edit_form' => $editForm->createView(),
     );
+  }
+
+  /**
+   * Lists all files for the Rapport.
+   *
+   * @Route("/{id}/filer", name="rapport_filer")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   */
+  public function showFilerAction(Request $request, Rapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('filer', $this->generateUrl('rapport_filer', array('id' => $rapport->getId())));
+
+    $em = $this->getDoctrine()->getManager();
+    $filRepository = $em->getRepository('AppBundle:Fil');
+
+    $filer = $filRepository->findByEntity($rapport);
+
+    return array(
+      'entity' => $rapport,
+      'filer' => $filer,
+    );
+  }
+
+  /**
+   * Lists all files for the Rapport.
+   *
+   * @Route("/{id}/fil/{fil}", name="rapport_fil")
+   * @Method("GET")
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   */
+  public function filAction(Request $request, Rapport $rapport, Fil $fil) {
+    $path = $fil->getFilepath();
+    $file = new File($path);
+    $response = new BinaryFileResponse($file->getRealPath());
+    if ($request->query->getBoolean('download', false)) {
+      $response->setContentDisposition(
+        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        $fil->getNavn()
+      );
+    }
+    return $response;
   }
 }
