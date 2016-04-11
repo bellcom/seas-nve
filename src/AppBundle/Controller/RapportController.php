@@ -11,6 +11,8 @@ use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\RapportSearchType;
 use AppBundle\Form\Type\RapportStatusType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,9 +20,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Bilag;
+use AppBundle\Entity\Fil;
 use Doctrine\ORM\Mapping\Entity;
 
 /**
@@ -172,50 +176,15 @@ class RapportController extends BaseController {
    * @return array
    */
   public function showPdf2Action(Rapport $rapport) {
-    $tilvalgtFormArray = array();
-    $fravalgtFormArray = array();
-
-    if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
-      foreach ($rapport->getTiltag() as $tiltag) {
-        if ($tiltag->getTilvalgt()) {
-          $tilvalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
-            ->createView();
-        }
-        else {
-          $fravalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
-            ->createView();
-        }
-      }
-    }
-
-    $html = $this->renderView('AppBundle:Rapport:showPdf2.html.twig', array(
-      'rapport' => $rapport,
-      'tilvalgt_form_array' => $tilvalgtFormArray,
-      'fravalgt_form_array' => $fravalgtFormArray,
-    ));
-
-    $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', array(
-      'rapport' => $rapport,
-    ));
+    $exporter = $this->get('aaplus.pdf_export');
+    $pdf = $exporter->export2($rapport);
 
     $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion();
 
-    return new Response(
-      $this->get('knp_snappy.pdf')->getOutputFromHtml($html,
-        array('lowquality' => false,
-          'encoding' => 'utf-8',
-          'images' => true,
-          'cover' => $cover,
-          'header-html' => $this->get('request')->getSchemeAndHttpHost().'/html/pdf2Header.html',
-          'footer-left' => $rapport->getBygning(),
-          'footer-right' => "Side [page] af [toPage]")
-      ),
-      200,
-      array(
-        'Content-Type'          => 'application/pdf',
-        'Content-Disposition'   => 'attachment; filename="' . $pdfName . '.pdf"'
-      )
-    );
+    return new Response($pdf, 200, array(
+      'Content-Type'          => 'application/pdf',
+      'Content-Disposition'   => 'attachment; filename="' . $pdfName . '.pdf"'
+    ));
   }
 
   /**
@@ -229,33 +198,15 @@ class RapportController extends BaseController {
    * @return array
    */
   public function showPdf5Action(Rapport $rapport) {
-
-    $html = $this->renderView('AppBundle:Rapport:showPdf5.html.twig', array(
-      'rapport' => $rapport,
-    ));
-
-    $cover = $this->renderView('AppBundle:Rapport:showPdf5Cover.html.twig', array(
-      'rapport' => $rapport,
-    ));
+    $exporter = $this->get('aaplus.pdf_export');
+    $pdf = $exporter->export5($rapport);
 
     $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion();
 
-    return new Response(
-      $this->get('knp_snappy.pdf')->getOutputFromHtml($html,
-        array('lowquality' => false,
-          'encoding' => 'utf-8',
-          'images' => true,
-          'cover' => $cover,
-          'header-html' => $this->get('request')->getSchemeAndHttpHost().'/html/pdf5Header.html',
-          'footer-left' => $rapport->getBygning(),
-          'footer-right' => "Side [page] af [toPage]")
-      ),
-      200,
-      array(
-        'Content-Type'          => 'application/pdf',
-        'Content-Disposition'   => 'attachment; filename="' . $pdfName .'.pdf"'
-      )
-    );
+    return new Response($pdf, 200, array(
+      'Content-Type'          => 'application/pdf',
+      'Content-Disposition'   => 'attachment; filename="' . $pdfName .'.pdf"'
+    ));
   }
 
 
@@ -526,6 +477,29 @@ class RapportController extends BaseController {
         throw $this->createNotFoundException('Unable to find Rapport entity.');
       }
 
+      $exporter = $this->get('aaplus.pdf_export');
+      $filRepository = $em->getRepository('AppBundle:Fil');
+
+      $pdf = $exporter->export2($rapport);
+      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion() . '.pdf';
+
+      $fil = new Fil();
+      $fil
+        ->setNavn($pdfName)
+        ->setEntity($rapport);
+      $filRepository->saveContent($pdf, $fil, $this->container);
+      $em->persist($fil);
+
+      $pdf = $exporter->export5($rapport);
+      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion() . '.pdf';
+
+      $fil = new Fil();
+      $fil
+        ->setNavn($pdfName)
+        ->setEntity($rapport);
+      $filRepository->saveContent($pdf, $fil, $this->container);
+      $em->persist($fil);
+
       $rapport->getBygning()->setStatus($status);
       $rapport->setVersion($rapport->getVersion() + 1);
       $em->flush();
@@ -692,5 +666,48 @@ class RapportController extends BaseController {
       'entity' => $rapport,
       'edit_form' => $editForm->createView(),
     );
+  }
+
+  /**
+   * Lists all files for the Rapport.
+   *
+   * @Route("/{id}/filer", name="rapport_filer")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   */
+  public function showFilerAction(Request $request, Rapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('filer', $this->generateUrl('rapport_filer', array('id' => $rapport->getId())));
+
+    $em = $this->getDoctrine()->getManager();
+    $filRepository = $em->getRepository('AppBundle:Fil');
+
+    $filer = $filRepository->findByEntity($rapport);
+
+    return array(
+      'entity' => $rapport,
+      'filer' => $filer,
+    );
+  }
+
+  /**
+   * Lists all files for the Rapport.
+   *
+   * @Route("/{id}/fil/{fil}", name="rapport_fil")
+   * @Method("GET")
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   */
+  public function filAction(Request $request, Rapport $rapport, Fil $fil) {
+    $path = $fil->getFilepath();
+    $file = new File($path);
+    $response = new BinaryFileResponse($file->getRealPath());
+    if ($request->query->getBoolean('download', false)) {
+      $response->setContentDisposition(
+        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        $fil->getNavn()
+      );
+    }
+    return $response;
   }
 }
