@@ -203,3 +203,8 @@ knp_snappy:
 mewes_k_twig_excel:
     pre_calculate_formulas: false
     disk_caching_directory: "%kernel.cache_dir%/phpexcel"
+
+app:
+  pdf_export:
+    base_url: %app.pdf_export.base_url%
+    default_file_path: %app.pdf_export.default_file_path

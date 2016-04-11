@@ -21,6 +21,7 @@ use AppBundle\Form\Type\RapportType;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Bilag;
+use AppBundle\Entity\Fil;
 use Doctrine\ORM\Mapping\Entity;
 
 /**
@@ -472,6 +473,29 @@ class RapportController extends BaseController {
       if (!$rapport) {
         throw $this->createNotFoundException('Unable to find Rapport entity.');
       }
+
+      $exporter = $this->get('aaplus.pdf_export');
+      $filRepository = $em->getRepository('AppBundle:Fil');
+
+      $pdf = $exporter->export2($rapport);
+      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion() . '.pdf';
+
+      $fil = new Fil();
+      $fil
+        ->setNavn($pdfName)
+        ->setEntity($rapport);
+      $filRepository->saveContent($pdf, $fil, $this->container);
+      $em->persist($fil);
+
+      $pdf = $exporter->export5($rapport);
+      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion() . '.pdf';
+
+      $fil = new Fil();
+      $fil
+        ->setNavn($pdfName)
+        ->setEntity($rapport);
+      $filRepository->saveContent($pdf, $fil, $this->container);
+      $em->persist($fil);
 
       $rapport->getBygning()->setStatus($status);
       $rapport->setVersion($rapport->getVersion() + 1);
