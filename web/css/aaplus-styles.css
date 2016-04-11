@@ -75,7 +75,7 @@ form.inline-block {
     overflow: hidden;
 }
 
-.table-header-rotated td.number {
+td.number {
     text-align: right;
 }
 
@@ -134,6 +134,10 @@ form.inline-block {
 
 .th-vertical>tbody>tr>th, .th-vertical>tfoot>tr>th, .th-vertical>thead>tr>th {
     width: 40%;
+}
+
+tr.text-center th {
+    text-align: center;
 }
 
 th.unit {

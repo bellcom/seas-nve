@@ -6,6 +6,7 @@
       <h1>{{ 'rapporter.actions.edit' | trans }}</h1>
     </div>
     <div class="col-md-3 text-right">
+      <a href="{{ path('bygning_baseline_show', { 'id': entity.bygning.id }) }}" class="btn btn-default">{{ icon('sliders') }} {{ 'baseline.korrektioner' }}</a>
     </div>
 
   </div>

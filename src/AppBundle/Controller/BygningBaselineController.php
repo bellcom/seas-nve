@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\BaselineKorrektion;
 use AppBundle\Entity\Bygning;
+use AppBundle\Form\BaselineEmbedKorrektionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -35,8 +37,9 @@ class BygningBaselineController extends BaseController {
    */
   public function showAction(Bygning $bygning) {
     $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('bygning_baseline_show', array('id' => $bygning->getId())));
 
-    if (!$bygning) {
+    if (!$bygning && !$bygning->getBaseline()) {
       throw $this->createNotFoundException('Unable to find Baseline entity.');
     }
 
@@ -55,7 +58,8 @@ class BygningBaselineController extends BaseController {
    */
   public function editAction(Bygning $bygning) {
     $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
-    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('bygning_baseline_show', array('id' => $bygning->getId())));
+    $this->breadcrumbs->addItem('common.edit');
 
     if(!$bygning->getBaseline()) {
       $bygning->setBaseline(new Baseline());
@@ -107,6 +111,10 @@ class BygningBaselineController extends BaseController {
    * @Security("is_granted('BYGNING_EDIT', bygning)")
    */
   public function updateAction(Request $request, Bygning $bygning) {
+    $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('bygning_baseline_show', array('id' => $bygning->getId())));
+    $this->breadcrumbs->addItem('common.edit');
+
     if (!$bygning) {
       throw $this->createNotFoundException('Unable to find Bygning entity.');
     }
@@ -119,6 +127,7 @@ class BygningBaselineController extends BaseController {
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
+      $em = $this->getDoctrine()->getManager();
       $em->flush();
 
       if (!$editForm->get('save_changed')->isClicked()) {
@@ -138,6 +147,35 @@ class BygningBaselineController extends BaseController {
       'edit_form' => $editForm->createView(),
       'graddage_normal' => $GDNormalAar,
     );
+  }
+
+  //---------------- Baseline Korrektion -------------------//
+
+  /**
+   * Creates a new BaselineKorrektion entity.
+   *
+   * @Route("/new", name="baseline_korrektion_create")
+   * @Method("POST")
+   * @Template("AppBundle:BaselineKorrektion:new.html.twig")
+   * @Security("is_granted('BYGNING_EDIT', bygning)")
+   */
+  public function newBaselineKorrektionAction(Request $request, Bygning $bygning) {
+    if($bygning && $bygning->getBaseline()) {
+      $em = $this->getDoctrine()->getManager();
+
+      $baselineKorrektion = new BaselineKorrektion();
+      $baselineKorrektion->setBaseline($bygning->getBaseline());
+
+      $em->persist($baselineKorrektion);
+      $em->flush();
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success( 'baselinekorrektion.confirmation.created');
+
+      return $this->redirect($this->generateUrl('baselinekorrektion_edit', array('id' => $baselineKorrektion->getId())));
+    } else {
+      throw $this->createNotFoundException('Unable to find Bygning/Baseline entity.');
+    }
   }
 
 }

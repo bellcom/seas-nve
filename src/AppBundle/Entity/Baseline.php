@@ -20,6 +20,7 @@ use AppBundle\DBAL\Types\Baseline\VarmeKildeSekundaerType;
 use AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType;
 use AppBundle\Annotations\Calculated;
 use JMS\Serializer\Annotation as JMS;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Baseline.

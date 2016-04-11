@@ -149,7 +149,6 @@ class RapportController extends BaseController {
       }
     }
 
-
     $twigVars = array(
       'entity' => $rapport,
       'tilvalgt_form_array' => $tilvalgtFormArray,
@@ -558,11 +557,6 @@ class RapportController extends BaseController {
 
     return $form;
 
-//    return $this->createFormBuilder(new RapportStatusType($this->get('security.context'), $entity))
-//      ->setAction($this->generateUrl($route, array('id' => $entity->getId())))
-//      ->setMethod('PUT')
-//      ->add('submit', 'submit', array('label' => $label))
-//      ->getForm();
   }
 
   //---------------- Tiltag -------------------//

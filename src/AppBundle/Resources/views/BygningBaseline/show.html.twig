@@ -1,433 +1,138 @@
-  {% extends 'AppBundle::base.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
 
 
 {% block body -%}
   <div class="row heading">
     <div class="col-md-9">
-      <h1>{{ entity }}</h1>
+      <h1>{{ 'baseline.labels.singular' | trans }}</h1>
     </div>
-    <div class="col-md-3 text-right">    <a class="btn btn-default btn-default" href="{{ path('bygning_baseline_edit', { 'id': entity.bygning.id }) }}">{{ 'common.edit' | trans }}</a>
-
+    <div class="col-md-3 text-right">
+      <a class="btn btn-default btn-default" href="{{ path('bygning_baseline_edit', { 'id': entity.bygning.id }) }}">{{ icon('edit') }} {{ 'baseline.actions.edit' | trans }}</a>
     </div>
-
   </div>
 
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">
-        <div class="panel-heading">{{ icon('chevron-right') }} {{ 'baseline.labels.singular' | trans }}</div>
+        <div class="panel-heading">{{ icon('cube') }} {{ 'appbundle.baseline.opsummering' | trans }}</div>
         <table class="table table-condensed">
+          <thead>
+          <tr class="text-center">
+            <th></th>
+            <th>{{ 'appbundle.baseline.baselineFraUdbud' | trans }}</th>
+            <th>{{ 'appbundle.baseline.korrektionFraBesigtigelse' | trans }}</th>
+            <th>{{ 'appbundle.baseline.baselineTilRaadgiver' | trans }}</th>
+            <th></th>
+          </tr>
+          </thead>
           <tbody>
-            <tr>
-              <th>{{ 'appbundle.baseline.arealdataPrimaerKilde' | trans }}</th>
-                <td>{{ entity.arealdataPrimaerKilde }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.arealdataPrimaerAreal' | trans }}</th>
-                <td>{{ entity.arealdataPrimaerAreal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.arealdataPrimaerNoter' | trans }}</th>
-                <td>{{ entity.arealdataPrimaerNoter }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.arealdataSekundaerKilde' | trans }}</th>
-                <td>{{ entity.arealdataSekundaerKilde }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.arealdataSekundaerAreal' | trans }}</th>
-                <td>{{ entity.arealdataSekundaerAreal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.arealdataSekundaerNoter' | trans }}</th>
-                <td>{{ entity.arealdataSekundaerNoter }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.arealTilNoegletalsanalyse' | trans }}</th>
-                <td>{{ entity.arealTilNoegletalsanalyse }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataPrimaerKilde' | trans }}</th>
-                <td>{{ entity.elForbrugsdataPrimaerKilde }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataPrimaer1Aarstal' | trans }}</th>
-                <td>{{ entity.elForbrugsdataPrimaer1Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataPrimaer1Forbrug' | trans }}</th>
-                <td>{{ entity.elForbrugsdataPrimaer1Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataPrimaer2Aarstal' | trans }}</th>
-                <td>{{ entity.elForbrugsdataPrimaer2Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataPrimaer2Forbrug' | trans }}</th>
-                <td>{{ entity.elForbrugsdataPrimaer2Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataPrimaer3Aarstal' | trans }}</th>
-                <td>{{ entity.elForbrugsdataPrimaer3Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataPrimaer3Forbrug' | trans }}</th>
-                <td>{{ entity.elForbrugsdataPrimaer3Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataPrimaerGennemsnit' | trans }}</th>
-                <td>{{ entity.elForbrugsdataPrimaerGennemsnit }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataPrimaerNoegetal' | trans }}</th>
-                <td>{{ entity.elForbrugsdataPrimaerNoegetal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataPrimaerNoter' | trans }}</th>
-                <td>{{ entity.elForbrugsdataPrimaerNoter }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataSekundaerKilde' | trans }}</th>
-                <td>{{ entity.elForbrugsdataSekundaerKilde }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataSekundaer1Aarstal' | trans }}</th>
-                <td>{{ entity.elForbrugsdataSekundaer1Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataSekundaer1Forbrug' | trans }}</th>
-                <td>{{ entity.elForbrugsdataSekundaer1Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataSekundaer2Aarstal' | trans }}</th>
-                <td>{{ entity.elForbrugsdataSekundaer2Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataSekundaer2Forbrug' | trans }}</th>
-                <td>{{ entity.elForbrugsdataSekundaer2Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataSekundaer3Aarstal' | trans }}</th>
-                <td>{{ entity.elForbrugsdataSekundaer3Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataSekundaer3Forbrug' | trans }}</th>
-                <td>{{ entity.elForbrugsdataSekundaer3Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataSekundaerGennemsnit' | trans }}</th>
-                <td>{{ entity.elForbrugsdataSekundaerGennemsnit }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataSekundaerNoegetal' | trans }}</th>
-                <td>{{ entity.elForbrugsdataSekundaerNoegetal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elForbrugsdataSekundaerNoter' | trans }}</th>
-                <td>{{ entity.elForbrugsdataSekundaerNoter }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elBaselineFastsatForEjendom' | trans }}</th>
-                <td>{{ entity.elBaselineFastsatForEjendom }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elBaselineNoegletalForEjendom' | trans }}</th>
-                <td>{{ entity.elBaselineNoegletalForEjendom }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.elBaselineNoter' | trans }}</th>
-                <td>{{ entity.elBaselineNoter }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaerKilde' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaerKilde }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer1Aarstal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer1Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer1Forbrug' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer1Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer2Aarstal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer2Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer2Forbrug' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer2Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer3Aarstal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer3Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer3Forbrug' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer3Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter' | trans }}</th>
-                <td>{{ entity.varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer1GUFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer1GUFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer2GUFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer2GUFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer3GUFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer3GUFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer1GAFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer1GAFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer2GAFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer2GAFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer3GAFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer3GAFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer1GDPeriode' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer1GDPeriode }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer2GDPeriode' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer2GDPeriode }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer3GDPeriode' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer3GDPeriode }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer1GAFnormal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer1GAFnormal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer2GAFnormal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer2GAFnormal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer3GAFnormal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer3GAFnormal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaerGAFGennemsnit' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaerGAFGennemsnit }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaerGUFGennemsnit' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaerGUFGennemsnit }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaerNoegletal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaerNoegletal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataPrimaerNoter' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataPrimaerNoter }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaerKilde' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaerKilde }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer1Aarstal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer1Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer1Forbrug' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer1Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer2Aarstal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer2Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer2Forbrug' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer2Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer3Aarstal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer3Aarstal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer3Forbrug' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer3Forbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter' | trans }}</th>
-                <td>{{ entity.varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer1GUFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer1GUFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer2GUFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer2GUFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer3GUFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer3GUFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer1GAFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer1GAFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer2GAFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer2GAFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer3GAFRegAar' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer3GAFRegAar }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer1GDPeriode' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer1GDPeriode }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer2GDPeriode' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer2GDPeriode }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer3GDPeriode' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer3GDPeriode }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer1GAFnormal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer1GAFnormal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer2GAFnormal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer2GAFnormal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer3GAFnormal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer3GAFnormal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaerGAFGennemsnit' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaerGAFGennemsnit }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaerGUFGennemsnit' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaerGUFGennemsnit }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaerNoegletal' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaerNoegletal }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeForbrugsdataSekundaerNoter' | trans }}</th>
-                <td>{{ entity.varmeForbrugsdataSekundaerNoter }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeGAFForbrug' | trans }}</th>
-                <td>{{ entity.varmeGAFForbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeGUFForbrug' | trans }}</th>
-                <td>{{ entity.varmeGUFForbrug }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeBaselineFastsatForEjendom' | trans }}</th>
-                <td>{{ entity.varmeBaselineFastsatForEjendom }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeBaselineNoegletalForEjendom' | trans }}</th>
-                <td>{{ entity.varmeBaselineNoegletalForEjendom }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeStrafafkoelingsafgift' | trans }}</th>
-                <td>{{ entity.varmeStrafafkoelingsafgift }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.varmeBaselineNoter' | trans }}</th>
-                <td>{{ entity.varmeBaselineNoter }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.createdBy' | trans }}</th>
-                <td>{{ entity.createdBy }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.updatedBy' | trans }}</th>
-                <td>{{ entity.updatedBy }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.createdAt' | trans }}</th>
-                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.baseline.updatedAt' | trans }}</th>
-                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
-            </tr>          </tbody>
+          <tr>
+            <th>{{ 'appbundle.baseline.el' | trans }}</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{ 'appbundle.baseline.elBaselineFastsatForEjendom.unit' | trans }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.baseline.varmeGAFForbrug' | trans }}</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{ 'appbundle.baseline.varmeGAFForbrug.unit' | trans }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.baseline.varmeGUFForbrug' | trans }}</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{ 'appbundle.baseline.varmeGUFForbrug.unit' | trans }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.baseline.varmeStrafafkoelingsafgift' | trans }}</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{ 'appbundle.baseline.varmeStrafafkoelingsafgift.unit' | trans }}</td>
+          </tr>
+          </tbody>
         </table>
       </div>
     </div>
   </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      {% if entity.korrektioner is not empty %}
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('sliders') }} {{ 'appbundle.baseline.korrektioner' | trans }}</div>
+          <table class="table table-condensed">
+            <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th colspan="3" class="text-center">{{ 'appbundle.baselinekorrektion.aarligkorrektion' | trans }}</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+            <tr class="text-center">
+              {{ helper.header('appbundle.baselinekorrektion.indvirkning') }}
+              {{ helper.header('appbundle.baselinekorrektion.datoForImplementering') }}
+              {{ helper.header('appbundle.baselinekorrektion.beskrivelse') }}
+              {{ helper.header('appbundle.baselinekorrektion.korrektionEl') }}
+              {{ helper.header('appbundle.baselinekorrektion.korrektionGAF') }}
+              {{ helper.header('appbundle.baselinekorrektion.korrektionGUF') }}
+              {{ helper.header('appbundle.baselinekorrektion.kilde') }}
+              {{ helper.header() }}
+            </tr>
+            <tr>
+              {{ helper.header_unit('appbundle.baselinekorrektion.indvirkning') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.datoForImplementering') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.beskrivelse') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.korrektionEl') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.korrektionGAF') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.korrektionGUF') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.kilde') }}
+              {{ helper.header_unit() }}
+            </tr>
+            </thead>
+            <tbody>
+            {% for k in entity.korrektioner %}
+              <tr>
+                <td>{{ k.indvirkning | b2icon }}</td>
+                <td>
+                  {% if k.datoForImplementering is not empty %}
+                    {{ k.datoForImplementering | date('Y-m-d') }}
+                  {% endif %}
+                </td>
+                <td>{{ k.beskrivelse }}</td>
+                <td class="number">{{ k.korrektionEl }}</td>
+                <td class="number">{{ k.korrektionGAF }}</td>
+                <td class="number">{{ k.korrektionGUF }}</td>
+                <td>{{ k.kilde }}</td>
+                <td class="text-right">
+                  <a class="btn btn-default btn-xs" href="{{ path('baselinekorrektion_edit', { 'id': k.id }) }}">{{ 'common.edit' | trans }}</a>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="alert alert-info" role="alert">{{ 'baselinekorrektioner.strings.ingen' | trans }}</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 text-right">
+      <form method="POST" action="{{ path('baseline_korrektion_create', { 'id': entity.bygning.id }) }}" class="inline-block">
+        <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('baselinekorrektioner.actions.add') | trans }}</button>
+      </form>
+    </div>
+  </div>
+
+
 {% endblock %}
+

@@ -15,122 +15,13 @@ use AppBundle\Controller\BaseController;
 /**
  * BaselineKorrektion controller.
  *
- * @Route("/baselinekorrektion")
- * @Security("has_role('ROLE_SUPER_ADMIN')")
+ * @Route("baselinekorrektion")
  */
 class BaselineKorrektionController extends BaseController {
 
   public function init(Request $request) {
     parent::init($request);
-    $this->breadcrumbs->addItem('baselinekorrektion.labels.singular', $this->generateUrl('baselinekorrektion'));
-  }
-
-
-  /**
-   * Lists all BaselineKorrektion entities.
-   *
-   * @Route("/", name="baselinekorrektion")
-   * @Method("GET")
-   * @Template()
-   */
-  public function indexAction() {
-    $em = $this->getDoctrine()->getManager();
-
-    $entities = $em->getRepository('AppBundle:BaselineKorrektion')->findAll();
-
-    return array(
-      'entities' => $entities,
-    );
-  }
-
-  /**
-   * Creates a new BaselineKorrektion entity.
-   *
-   * @Route("/", name="baselinekorrektion_create")
-   * @Method("POST")
-   * @Template("AppBundle:BaselineKorrektion:new.html.twig")
-   */
-  public function createAction(Request $request) {
-    $entity = new BaselineKorrektion();
-    $form = $this->createCreateForm($entity);
-    $form->handleRequest($request);
-
-    if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->persist($entity);
-      $em->flush();
-
-      return $this->redirect($this->generateUrl('baselinekorrektion'));
-
-    }
-
-    return array(
-      'entity' => $entity,
-      'form' => $form->createView(),
-    );
-  }
-
-  /**
-   * Creates a form to create a BaselineKorrektion entity.
-   *
-   * @param BaselineKorrektion $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createCreateForm(BaselineKorrektion $entity) {
-    $form = $this->createForm(new BaselineKorrektionType(), $entity, array(
-      'action' => $this->generateUrl('baselinekorrektion_create'),
-      'method' => 'POST',
-    ));
-
-    $this->addUpdate($form, $this->generateUrl('baselinekorrektion'));
-
-    return $form;
-  }
-
-  /**
-   * Displays a form to create a new BaselineKorrektion entity.
-   *
-   * @Route("/new", name="baselinekorrektion_new")
-   * @Method("GET")
-   * @Template()
-   */
-  public function newAction() {
-    $this->breadcrumbs->addItem('common.add', $this->generateUrl('baselinekorrektion'));
-
-    $entity = new BaselineKorrektion();
-    $form = $this->createCreateForm($entity);
-
-    return array(
-      'entity' => $entity,
-      'form' => $form->createView(),
-    );
-  }
-
-  /**
-   * Finds and displays a BaselineKorrektion entity.
-   *
-   * @Route("/{id}", name="baselinekorrektion_show")
-   * @Method("GET")
-   * @Template()
-   */
-  public function showAction($id) {
-
-    $em = $this->getDoctrine()->getManager();
-
-    $entity = $em->getRepository('AppBundle:BaselineKorrektion')->find($id);
-    $this->breadcrumbs->addItem($entity, $this->generateUrl('baselinekorrektion_show', array('id' => $entity->getId())));
-
-    if (!$entity) {
-      throw $this->createNotFoundException('Unable to find BaselineKorrektion entity.');
-    }
-
-    $deleteForm = $this->createDeleteForm($id);
-
-    return array(
-      'entity' => $entity,
-      'delete_form' => $deleteForm->createView(),
-    );
+    $this->breadcrumbs->addItem('Bygninger', $this->generateUrl('bygning'));
   }
 
   /**
@@ -141,8 +32,9 @@ class BaselineKorrektionController extends BaseController {
    * @Template()
    */
   public function editAction(BaselineKorrektion $entity) {
-    $this->breadcrumbs->addItem($entity, $this->generateUrl('baselinekorrektion_show', array('id' => $entity->getId())));
-    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('baselinekorrektion_show', array('id' => $entity->getId())));
+    $this->breadcrumbs->addItem($entity->getBaseline()->getBygning(), $this->generateUrl('bygning_show', array('id' => $entity->getBaseline()->getBygning()->getId())));
+    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('bygning_baseline_show', array('id' => $entity->getBaseline()->getBygning()->getId())));
+    $this->breadcrumbs->addItem('baselinekorrektioner.actions.edit');
 
     if (!$entity) {
       throw $this->createNotFoundException('Unable to find BaselineKorrektion entity.');
@@ -171,7 +63,7 @@ class BaselineKorrektionController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('baselinekorrektion_show', array('id' => $entity->getId())));
+    $this->addUpdate($form, $this->generateUrl('bygning_baseline_show', array('id' => $entity->getBaseline()->getBygning()->getId())));
 
     return $form;
   }
@@ -199,7 +91,7 @@ class BaselineKorrektionController extends BaseController {
     if ($editForm->isValid()) {
       $em->flush();
 
-      return $this->redirect($this->generateUrl('baselinekorrektion'));
+      return $this->redirect($this->generateUrl('bygning_baseline_show', array('id' => $entity->getBaseline()->getBygning()->getId())));
     }
 
     return array(

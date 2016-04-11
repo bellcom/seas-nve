@@ -36,49 +36,49 @@ class BaselineKorrektion {
   /**
    * @var \DateTime
    *
-   * @ORM\Column(name="datoForImplementering", type="date")
+   * @ORM\Column(name="datoForImplementering", type="date", nullable=true)
    */
   private $datoForImplementering;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="beskrivelse", type="text")
+   * @ORM\Column(name="beskrivelse", type="text", nullable=true)
    */
   private $beskrivelse;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="korrektionEl", type="decimal")
+   * @ORM\Column(name="korrektionEl", type="decimal", nullable=true)
    */
   private $korrektionEl;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="korrektionGAF", type="decimal")
+   * @ORM\Column(name="korrektionGAF", type="decimal", nullable=true)
    */
   private $korrektionGAF;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="korrektionGUF", type="decimal")
+   * @ORM\Column(name="korrektionGUF", type="decimal", nullable=true)
    */
   private $korrektionGUF;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="kilde", type="string", length=255)
+   * @ORM\Column(name="kilde", type="string", length=255, nullable=true)
    */
   private $kilde;
 
   /**
    * @var boolean
    *
-   * @ORM\Column(name="indvirkning", type="boolean")
+   * @ORM\Column(name="indvirkning", type="boolean", nullable=true)
    */
   private $indvirkning;
 
@@ -104,6 +104,9 @@ class BaselineKorrektion {
    */
   public function setBaseline($baseline) {
     $this->baseline = $baseline;
+    if($baseline) {
+      $baseline->addKorrektioner($this);
+    }
   }
 
   /**

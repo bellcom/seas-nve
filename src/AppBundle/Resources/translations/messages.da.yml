@@ -118,6 +118,14 @@ baseline:
     singular: Baseline
   strings:
     ingen: Ingen baseline fundet
+baselinekorrektioner:
+  actions:
+    add: Tilføj Korrektion
+    edit: Rediger Korrektion
+  labels:
+    singular: Korrektion
+  strings:
+    ingen: Ingen baseline korrektioner
 belysningtiltag:
   actions:
     add: Tilføj belysningstiltag
@@ -298,7 +306,7 @@ rapporter:
     approve: Godkendt Magistrat
     approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt af Magistrat"?
     create: Opret Rapport
-    edit: Rediger Baseline
+    edit: Baseline
     implementation: Under udførsel
     implementation_confirm: Er du sikker på du vil markere rapporten som "Under udførsel"?
     operation: Drift
@@ -473,6 +481,8 @@ appbundle:
     arealSekundaer: Sekundær kilde
     arealTilNoegletalsanalyse: Areal, der skal benyttes til nøgletalsanalyse
     arealTilNoegletalsanalyse.unit: m²
+    baselineFraUdbud: Baseline fra Rådg. udbud
+    baselineTilRaadgiver: Baseline til Energirådg.
     changed: Beregn
     changed_message: Du har ændret i Baseline. Gem for at få foretaget nye beregninger.
     changed_submit: Beregn Baseline
@@ -507,6 +517,8 @@ appbundle:
     eloVarmeTotalForbrug.unit: kWh/m² pr år
     generelt: Generelt
     gdNormal: GDnormal.år
+    korrektioner: Baseline Korrektioner
+    korrektionFraBesigtigelse: Korr. fra besigtigelse
     opsummering: Opsummering
     varme: Varme
     varmeBaselineFastsatForEjendom: Fastsat baseline for ejendom (Varme)
@@ -570,6 +582,20 @@ appbundle:
     updatedAt: Opdateret
     bygning: Bygning
     eloKategori: ELO-kategori
+  baselinekorrektion:
+    aarligkorrektion: Årlig korremtion af forbrug +/-
+    beskrivelse: Beskrivelse
+    datoForImplementering: Dato for implementering
+    datoKilde: Dato / Kilde
+    indvirkning: Indvirkning
+    kilde: Kilde
+    korrektionEl: El
+    korrektionEl.unit: kWh/år
+    korrektioner: Korrektioner (+/-)
+    korrektionGAF: GAF
+    korrektionGAF.unit: kWh/år
+    korrektionGUF: GUF
+    korrektionGUF.unit: kWh/år
   belysningtiltagdetail:
     add: Tilføj
     armaturerStkLokale: Armaturer antal
