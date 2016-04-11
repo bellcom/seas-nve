@@ -145,3 +145,7 @@ services:
     # https://github.com/FriendsOfSymfony/FOSUserBundle/issues/2048
     fos_user.doctrine_registry:
         alias: doctrine
+
+    aaplus.pdf_export:
+        class: AppBundle\PdfExport\PdfExport
+        arguments: [ @service_container ]
