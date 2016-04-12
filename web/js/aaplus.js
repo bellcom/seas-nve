@@ -35,9 +35,9 @@
         }
         var locations = getLocations();
         var id = locations[url];
-        // if (!keep) {
-        //  setLocation(null, url);
-        // }
+        if (!keep) {
+          setLocation(null, url);
+        }
         return id;
       },
 
@@ -107,6 +107,8 @@
       top: 50
     });
 
+    $('.tooltip-wrapper').tooltip({position: "bottom"});
+
     $('a.btn').on('click', function(event) {
       var id = this.id ? this.id : $(this).closest('[id]').attr('id');
       if (id) {
@@ -125,6 +127,22 @@
     var hash = location.hash ? location.hash : getLocation();
     if (hash) {
       setHash(hash);
+      // Make any flashed "fixed" if not visible on screen.
+      setTimeout(function() {
+        // http://stackoverflow.com/a/488073
+        var $elem = $('.aaplus-flashes');
+        var $window = $(window);
+
+        var docViewTop = $window.scrollTop();
+        var docViewBottom = docViewTop + $window.height();
+
+        var elemTop = $elem.offset().top;
+        var elemBottom = elemTop + $elem.height();
+
+        if (!((elemBottom <= docViewBottom) && (elemTop >= docViewTop))) {
+          $elem.addClass('fixed');
+        }
+      }, 150);
     }
   });
 }(jQuery));

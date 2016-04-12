@@ -16,11 +16,13 @@ use Yavin\Symfony\Controller\InitControllerInterface;
  */
 abstract class BaseController extends Controller implements InitControllerInterface {
   protected $breadcrumbs;
+  protected $flash;
 
   public function init(Request $request)
   {
     $this->breadcrumbs = $this->get('white_october_breadcrumbs');
     $this->breadcrumbs->addItem('common.forside', $this->get('router')->generate('dashboard'));
+    $this->flash = $this->get('braincrafted_bootstrap.flash');
   }
 
   /**

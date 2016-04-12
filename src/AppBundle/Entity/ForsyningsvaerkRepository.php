@@ -15,4 +15,20 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class ForsyningsvaerkRepository extends EntityRepository {
+  /**
+   * Check if entity can be removed (deleted). If not, return an error message.
+   *
+   * @return string|null
+   */
+  public function getRemoveErrorMessage(Forsyningsvaerk $forsyningsvaerk) {
+    $query = $this->_em->createQuery('SELECT b FROM AppBundle:Bygning b WHERE b.forsyningsvaerkVand = :forsyningvaerk OR b.forsyningsvaerkVarme = :forsyningvaerk OR b.forsyningsvaerkEl = :forsyningvaerk');
+    $query->setParameter('forsyningvaerk', $forsyningsvaerk);
+    $result = $query->getResult();
+
+    if ($result) {
+      return 'forsyningsvaerk.error.in_use';
+    }
+
+    return null;
+  }
 }

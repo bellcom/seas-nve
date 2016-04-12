@@ -15,7 +15,7 @@ use AppBundle\Form\Type\RegningType;
  *
  * @Route("/regning")
  */
-class RegningController extends Controller
+class RegningController extends BaseController
 {
 
     /**

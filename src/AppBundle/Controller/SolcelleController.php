@@ -242,10 +242,20 @@ class SolcelleController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createDeleteForm($id) {
+    $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Solcelle');
+    $solcelle = $repository->find($id);
+    $message = $repository->getRemoveErrorMessage($solcelle);
+
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('solcelle_delete', array('id' => $id)))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'disabled' => $message,
+        'attr' => array(
+          'disabled_message' => $message,
+        ),
+      ))
       ->getForm();
   }
 }

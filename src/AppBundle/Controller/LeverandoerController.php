@@ -15,7 +15,7 @@ use AppBundle\Form\Type\LeverandoerType;
  *
  * @Route("/leverandoer")
  */
-class LeverandoerController extends Controller
+class LeverandoerController extends BaseController
 {
 
     /**

@@ -26,6 +26,18 @@ div.tab-content div.details-overview:first-child {
     margin-top: 0;
 }
 
+.aaplus-flashes.fixed {
+    position: fixed;
+    z-index: 9999;
+    top: 60px;
+    left: 10px;
+    right: 10px;
+}
+
+tr:target td {
+    background-color: #ffc;
+}
+
 /**
 * Login
 */

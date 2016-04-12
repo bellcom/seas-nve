@@ -215,6 +215,8 @@ erstatningslyskilde:
   actions:
     add: Tilføj erstatnings lyskilde
     edit: Rediger erstatnings lyskilde
+  error:
+    in_use: Kan ikke slettes. Bruges af belysningstiltag.
   labels:
     plural: Erstatnings lyskilder
     singular: Erstatnings lyskilde
@@ -223,6 +225,9 @@ forsyningsvaerker:
     add: Tilføj forsyningsværk
     create: Opret forsyningsværk
     edit: Rediger forsyningsværk
+  error:
+    cannot_delete: Forsyningsværk kan ikke slettes
+    in_use: Kan ikke slettes. Bruges af bygning.
   labels:
     plural: Forsyningsværker
     singular: Forsyningsværk
@@ -246,6 +251,8 @@ klimaskaerm:
     add: Tilføj klimaskærm
     create: Opret klimaskærm
     edit: Rediger klimaskærm
+  error:
+    in_use: Kan ikke slettes. Bruges af klimaskærmstiltag.
   labels:
     plural: Klimaskærme
     singular: Klimaskærm
@@ -266,6 +273,8 @@ nyttiggjortvarme:
     add: Tilføj faktor
     new: Ny faktor
     edit: Rediger faktor
+  error:
+    in_use: Kan ikke slettes. Bruges af pumpe- eller tekniskisoleringtiltag.
   labels:
     plural: Faktorer for nyttiggjort varme (Teknisk Iso.)
     singular: Faktor for nyttiggjort varme (Teknisk Iso.)
@@ -278,6 +287,8 @@ pumpe:
     created: Pumpe oprettet
     updated: Pumpe opdateret
     deleted: Pumpe slettet
+  error:
+    in_use: Kan ikke slettes. Bruges af pumpetiltag.
   labels:
     nuvaerende: Nuværende pumpe
     ny: Ny pumpe
@@ -307,6 +318,7 @@ rapporter:
     approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt af Magistrat"?
     create: Opret Rapport
     edit: Baseline
+    filer: Filer
     implementation: Under udførsel
     implementation_confirm: Er du sikker på du vil markere rapporten som "Under udførsel"?
     operation: Drift
@@ -350,6 +362,8 @@ segment:
     created: Segment oprettet
     updated: Segment opdateret
     deleted: Segment slettet
+  error:
+    in_use: Kan ikke slettes. Bruges af bygning.
   labels:
     plural: Segmenter
     singular: Segment
@@ -1633,6 +1647,11 @@ appbundle:
     vindue: Vindue
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
+  fil:
+    createdAt: Oprettet
+    createdBy: Oprettet af
+    type: Type
+    navn: Navn
 
 # Dataudtræk
 udtraek.bygning:
