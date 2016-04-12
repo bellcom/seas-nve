@@ -19,3 +19,6 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
 
+    #Pdf export
+    app.pdf_export.base_url: http://aaplusdata.dk
+    app.pdf_export.default_file_path: filer/
