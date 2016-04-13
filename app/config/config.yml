@@ -80,6 +80,13 @@ doctrine:
             StyringType: AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType
             TiltagType: AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType
             PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
+            ArealKildePrimaerType: AppBundle\DBAL\Types\Baseline\ArealKildePrimaerType
+            ArealKildeSekundaerType: AppBundle\DBAL\Types\Baseline\ArealKildeSekundaerType
+            ElKildePrimaerType: AppBundle\DBAL\Types\Baseline\ElKildePrimaerType
+            ElKildeSekundaerType: AppBundle\DBAL\Types\Baseline\ElKildeSekundaerType
+            VarmeKildePrimaerType: AppBundle\DBAL\Types\Baseline\VarmeKildePrimaerType
+            VarmeKildeSekundaerType: AppBundle\DBAL\Types\Baseline\VarmeKildeSekundaerType
+            GUFFastsaettesEfterType: AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType
             RisikovurderingType: AppBundle\DBAL\Types\RisikovurderingType
             PrimaerEnterpriseType: AppBundle\DBAL\Types\PrimaerEnterpriseType
             KlimaskaermType: AppBundle\DBAL\Types\KlimaskaermType
@@ -169,6 +176,8 @@ simple_things_entity_audit:
         - AppBundle\Entity\TiltagDetail
         - AppBundle\Entity\Segment
         - AppBundle\Entity\TekniskIsoleringTiltagDetail\NyttiggjortVarme
+        - AppBundle\Entity\Baseline
+        - AppBundle\Entity\BaselineKorrektion
 
 white_october_breadcrumbs:
   separator:

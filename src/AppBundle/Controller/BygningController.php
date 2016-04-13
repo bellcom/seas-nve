@@ -7,6 +7,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\DataExport\ExcelExport;
+use AppBundle\Entity\Baseline;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -289,6 +290,37 @@ class BygningController extends BaseController implements InitControllerInterfac
         ),
       ))
       ->getForm();
+  }
+
+  //---------------- Baseline -------------------//
+
+  /**
+   * Creates a new Baseline entity.
+   *
+   * @Route("/{id}/new", name="baseline_create")
+   * @Method("POST")
+   * @Template("AppBundle:Baseline:new.html.twig")
+   * @Security("is_granted('BYGNING_EDIT', bygning)")
+   */
+  public function newBaselineAction(Request $request, Bygning $bygning) {
+    if($bygning) {
+      if(!$bygning->getBaseline()) {
+        $em = $this->getDoctrine()->getManager();
+
+        $baseline = new Baseline();
+        $bygning->setBaseline($baseline);
+
+        $em->persist($baseline);
+        $em->flush();
+      }
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success( 'baseline.confirmation.created');
+
+      return $this->redirect($this->generateUrl('baseline_edit', array('id' => $baseline->getId())));
+    } else {
+      throw $this->createNotFoundException('Unable to find Bygning entity.');
+    }
   }
 
 }

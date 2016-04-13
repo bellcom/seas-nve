@@ -42,6 +42,13 @@ services:
         tags:
             - { name: security.voter }
 
+    security.access.baseline_voter:
+        class:      AppBundle\Security\Authorization\Voter\BaselineVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
     security.access.rapport_voter:
         class:      AppBundle\Security\Authorization\Voter\RapportVoter
         public:     false
@@ -128,6 +135,20 @@ services:
     aaplus.solcelletiltagdetail_calculation:
         class: AppBundle\Calculation\SolcelleTiltagDetailCalculation
         arguments: [ @service_container ]
+
+    aaplus.baseline_calculation:
+        class: AppBundle\Calculation\BaselineCalculation
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist }
+
+    aaplus.baselinekorrektion_calculation:
+        class: AppBundle\Calculation\BaselineKorrektionCalculation
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist }
 
     appbundle.profile.form.type:
         class: AppBundle\Form\Type\ProfileFormType

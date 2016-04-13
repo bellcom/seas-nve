@@ -1,0 +1,484 @@
+{{ form_start(edit_form) }}
+
+<div class="row heading">
+  <div class="col-md-9">
+    <h1>{{ 'baseline.actions.edit' | trans }}</h1>
+  </div>
+  <div class="col-md-3 text-right">
+    {{ form_row(edit_form.save_changed) }}
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <div class="panel panel-default">
+      <div
+          class="panel-heading">{{ icon('home') }} {{ 'appbundle.baseline.generelt' | trans }}</div>
+      <div class="panel-body">
+        {{ form_row(edit_form.bygning) }}
+        {{ form_row(edit_form.eloKategori) }}
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <div class="panel panel-default">
+      <div
+          class="panel-heading">{{ icon('cube') }} {{ 'appbundle.baseline.opsummering' | trans }}</div>
+      <table class="table">
+        <tbody>
+        <tr>
+          <th>{{ 'appbundle.baseline.elBaselineFastsatForEjendom' | trans }}</th>
+          <td class="text-right">{{ entity.elBaselineFastsatForEjendom }}</td>
+          <td>{{ 'appbundle.baseline.elBaselineFastsatForEjendom.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.baseline.varmeGAFForbrug' | trans }}</th>
+          <td class="text-right">{{ entity.varmeGAFForbrug }}</td>
+          <td>{{ 'appbundle.baseline.varmeGAFForbrug.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.baseline.varmeGUFForbrug' | trans }}</th>
+          <td class="text-right">{{ entity.varmeGUFForbrug }}</td>
+          <td>{{ 'appbundle.baseline.varmeGUFForbrug.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.baseline.varmeBaselineFastsatForEjendom' | trans }}</th>
+          <td
+              class="text-right">{{ entity.varmeBaselineFastsatForEjendom }}</td>
+          <td>{{ 'appbundle.baseline.varmeBaselineFastsatForEjendom.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.baseline.varmeStrafafkoelingsafgift' | trans }}</th>
+          <td class="text-right">{{ entity.varmeStrafafkoelingsafgift }}</td>
+          <td>{{ 'appbundle.baseline.varmeStrafafkoelingsafgift.unit' | trans }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#areal" aria-controls="areal" role="tab" data-toggle="tab">{{ icon('map-o') }} {{ 'appbundle.baseline.areal' | trans }}</a></li>
+    <li role="presentation"><a href="#el" aria-controls="el" role="tab" data-toggle="tab">{{ icon('flash') }} {{ 'appbundle.baseline.el' | trans }}</a></li>
+    <li role="presentation"><a href="#varme" aria-controls="varme" role="tab" data-toggle="tab">{{ icon('fire') }} {{ 'appbundle.baseline.varme' | trans }}</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <!-- Areal -->
+    <div role="tabpanel" class="tab-pane active" id="areal">
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div
+                class="panel-heading">{{ icon('map-o') }} {{ 'appbundle.baseline.arealPrimaer' | trans }}</div>
+            <div class="panel-body">
+              {{ form_row(edit_form.arealdataPrimaerKilde) }}
+              {{ form_row(edit_form.arealdataPrimaerAreal) }}
+              {{ form_row(edit_form.arealdataPrimaerNoter) }}
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div
+                class="panel-heading">{{ icon('map-o') }} {{ 'appbundle.baseline.arealSekundaer' | trans }}</div>
+            <div class="panel-body">
+              {{ form_row(edit_form.arealdataSekundaerKilde) }}
+              {{ form_row(edit_form.arealdataSekundaerAreal) }}
+              {{ form_row(edit_form.arealdataSekundaerNoter) }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div
+                class="panel-heading">{{ icon('map-o') }} {{ 'appbundle.baseline.arealGenerelt' | trans }}</div>
+            <div class="panel-body">
+              {{ form_row(edit_form.arealTilNoegletalsanalyse) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- El -->
+    <div role="tabpanel" class="tab-pane" id="el">
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('flash') }} {{ 'appbundle.baseline.elPrimaer' | trans }}</div>
+            <div class="panel-body">
+              {{ form_row(edit_form.elForbrugsdataPrimaerKilde) }}
+              <table class="table">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year1' | trans }}</th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year2' | trans }}</th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year3' | trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>{{ form_label(edit_form.elForbrugsdataPrimaer1Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataPrimaer1Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataPrimaer2Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataPrimaer3Aarstal) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.elForbrugsdataPrimaer1Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataPrimaer1Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataPrimaer2Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataPrimaer3Forbrug) }}</td>
+                </tr>
+                </tbody>
+              </table>
+              {{ form_row(edit_form.elForbrugsdataPrimaerGennemsnit) }}
+              <div class="form-group">
+                <label
+                    class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
+
+                <div class="input-group">
+                  <input type="text" disabled="disabled" class="form-control"
+                         value="{{ entity.eloKategori ? entity.eloKategori.totalElforbrug : "" }}">
+            <span
+                class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
+                </div>
+              </div>
+              {{ form_row(edit_form.elForbrugsdataPrimaerNoegetal) }}
+              {{ form_row(edit_form.elForbrugsdataPrimaerNoter) }}
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div
+                class="panel-heading">{{ icon('flash') }} {{ 'appbundle.baseline.elSekundaer' | trans }}</div>
+            <div class="panel-body">
+              {{ form_row(edit_form.elForbrugsdataSekundaerKilde) }}
+              <table class="table">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year1' | trans }}</th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year2' | trans }}</th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year3' | trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>{{ form_label(edit_form.elForbrugsdataSekundaer1Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataSekundaer1Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataSekundaer2Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataSekundaer3Aarstal) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.elForbrugsdataSekundaer1Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataSekundaer1Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataSekundaer2Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.elForbrugsdataSekundaer3Forbrug) }}</td>
+                </tr>
+                </tbody>
+              </table>
+              {{ form_row(edit_form.elForbrugsdataSekundaerGennemsnit) }}
+              <div class="form-group">
+                <label
+                    class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
+
+                <div class="input-group">
+                  <input type="text" disabled="disabled" class="form-control"
+                         value="{{ entity.eloKategori ? entity.eloKategori.totalElforbrug : "" }}">
+            <span
+                class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
+                </div>
+              </div>
+              {{ form_row(edit_form.elForbrugsdataSekundaerNoegetal) }}
+              {{ form_row(edit_form.elForbrugsdataSekundaerNoter) }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div
+                class="panel-heading">{{ icon('flash') }} {{ 'appbundle.baseline.elGenerelt' | trans }}</div>
+            <div class="panel-body">
+              {{ form_row(edit_form.elBaselineFastsatForEjendom) }}
+              <div class="form-group">
+                <label
+                    class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
+
+                <div class="input-group">
+                  <input type="text" disabled="disabled" class="form-control"
+                         value="{{ entity.eloKategori ? entity.eloKategori.totalElforbrug : "" }}">
+            <span
+                class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
+                </div>
+              </div>
+              {{ form_row(edit_form.elBaselineNoegletalForEjendom) }}
+              {{ form_row(edit_form.elBaselineNoter) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Varme -->
+    <div role="tabpanel" class="tab-pane" id="varme">
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div
+                class="panel-heading">{{ icon('fire') }} {{ 'appbundle.baseline.varmePrimaer' | trans }}</div>
+            <div class="panel-body">
+              {{ form_row(edit_form.varmeForbrugsdataPrimaerKilde) }}
+              {{ form_row(edit_form.varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter) }}
+              <table class="table">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year1' | trans }}</th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year2' | trans }}</th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year3' | trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3Aarstal) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3Forbrug) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GUFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GUFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GUFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GUFRegAar) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GAFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GAFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GAFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GAFRegAar) }}</td>
+                </tr>
+                <tr>
+                  <td><label
+                        class="control-label">{{ 'appbundle.baseline.gdNormal' | trans }}</label>
+                  </td>
+                  <td><input type="text" disabled="disabled" class="form-control"
+                             value="{{ graddage_normal }}"></td>
+                  <td><input type="text" disabled="disabled" class="form-control"
+                             value="{{ graddage_normal }}"></td>
+                  <td><input type="text" disabled="disabled" class="form-control"
+                             value="{{ graddage_normal }}"></td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GDPeriode) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GDPeriode) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GDPeriode) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GDPeriode) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GAFnormal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GAFnormal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GAFnormal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GAFnormal) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret) }}</td>
+                </tr>
+                </tbody>
+              </table>
+              {{ form_row(edit_form.varmeForbrugsdataPrimaerGAFGennemsnit) }}
+              {{ form_row(edit_form.varmeForbrugsdataPrimaerGUFGennemsnit) }}
+              {{ form_row(edit_form.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret) }}
+              <div class="form-group">
+                <label
+                    class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
+
+                <div class="input-group">
+                  <input type="text" disabled="disabled" class="form-control"
+                         value="{{ entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : "" }}">
+            <span
+                class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
+                </div>
+              </div>
+              {{ form_row(edit_form.varmeForbrugsdataPrimaerNoegletal) }}
+              {{ form_row(edit_form.varmeForbrugsdataPrimaerNoter) }}
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div
+                class="panel-heading">{{ icon('fire') }} {{ 'appbundle.baseline.varmeSekundaer' | trans }}</div>
+            <div class="panel-body">
+              {{ form_row(edit_form.varmeForbrugsdataSekundaerKilde) }}
+              {{ form_row(edit_form.varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter) }}
+              <table class="table">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year1' | trans }}</th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year2' | trans }}</th>
+                  <th
+                      class="text-center">{{ 'appbundle.baseline.year3' | trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2Aarstal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3Aarstal) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2Forbrug) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3Forbrug) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GUFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GUFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GUFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GUFRegAar) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GAFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GAFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GAFRegAar) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GAFRegAar) }}</td>
+                </tr>
+                <tr>
+                  <td><label
+                        class="control-label">{{ 'appbundle.baseline.gdNormal' | trans }}</label>
+                  </td>
+                  <td><input type="text" disabled="disabled" class="form-control"
+                             value="{{ graddage_normal }}"></td>
+                  <td><input type="text" disabled="disabled" class="form-control"
+                             value="{{ graddage_normal }}"></td>
+                  <td><input type="text" disabled="disabled" class="form-control"
+                             value="{{ graddage_normal }}"></td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GDPeriode) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GDPeriode) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GDPeriode) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GDPeriode) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GAFnormal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GAFnormal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GAFnormal) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GAFnormal) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret) }}</td>
+                </tr>
+                </tbody>
+              </table>
+              {{ form_row(edit_form.varmeForbrugsdataSekundaerGAFGennemsnit) }}
+              {{ form_row(edit_form.varmeForbrugsdataSekundaerGUFGennemsnit) }}
+              {{ form_row(edit_form.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret) }}
+              <div class="form-group">
+                <label
+                    class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
+
+                <div class="input-group">
+                  <input type="text" disabled="disabled" class="form-control"
+                         value="{{ entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : "" }}">
+            <span
+                class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
+                </div>
+              </div>
+              {{ form_row(edit_form.varmeForbrugsdataSekundaerNoegletal) }}
+              {{ form_row(edit_form.varmeForbrugsdataSekundaerNoter) }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('calendar') }} {{ 'appbundle.graddagefordeling.graddageVedForskelligeAar' | trans }}</div>
+            {% include 'AppBundle:GraddageFordeling:_index_table.html.twig' with { 'entities':graddage } %}
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('fire') }} {{ 'appbundle.baseline.varmeGenerelt' | trans }}</div>
+            <div class="panel-body">
+              {{ form_row(edit_form.varmeGAFForbrug) }}
+              {{ form_row(edit_form.varmeGUFForbrug) }}
+              {{ form_row(edit_form.varmeBaselineFastsatForEjendom) }}
+              <div class="form-group">
+                <label
+                    class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
+
+                <div class="input-group">
+                  <input type="text" disabled="disabled" class="form-control"
+                         value="{{ entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : "" }}">
+            <span
+                class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
+                </div>
+              </div>
+              {{ form_row(edit_form.varmeBaselineNoegletalForEjendom) }}
+              {{ form_row(edit_form.varmeStrafafkoelingsafgift) }}
+              {{ form_row(edit_form.varmeBaselineNoter) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{{ form_rest(edit_form) }}
+
+{{ form_end(edit_form) }}

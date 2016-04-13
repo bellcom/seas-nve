@@ -1,0 +1,59 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+
+    <div class="row heading">
+      <div class="col-md-9">
+        <h1>{{ 'elokategori.labels.plural' | trans }}</h1>
+      </div>
+      <div class="col-md-3 text-right">
+        <a class="btn btn-default" href="{{ path('elokategori_new') }}">
+          {{ icon('plus') }} {{ 'elokategori.actions.add' | trans }}
+        </a>
+      </div>
+
+    </div>
+
+
+    <table class="table table-condensed table-header-rotated">
+      <thead>
+      <tr>
+        {{ helper.header('appbundle.elokategori.navn') }}
+        {{ helper.header('appbundle.elokategori.totalVarmeforbrug') }}
+        {{ helper.header('appbundle.elokategori.totalElforbrug') }}
+        {{ helper.header('appbundle.elokategori.andelVarmeGUFFaktor') }}
+        {{ helper.header('appbundle.elokategori.updatedBy') }}
+        {{ helper.header('appbundle.elokategori.updatedAt') }}
+        {{ helper.header() }}
+      </tr>
+      <tr>
+        {{ helper.header_unit('appbundle.elokategori.navn') }}
+        {{ helper.header_unit('appbundle.elokategori.totalVarmeforbrug') }}
+        {{ helper.header_unit('appbundle.elokategori.totalElforbrug') }}
+        {{ helper.header_unit('appbundle.elokategori.andelVarmeGUFFaktor') }}
+        {{ helper.header_unit('appbundle.elokategori.updatedBy') }}
+        {{ helper.header_unit('appbundle.elokategori.updatedAt') }}
+        {{ helper.header_unit() }}
+      </tr>
+      </thead>
+      <tbody>
+      {% for entity in entities %}
+        <tr>
+          <td>{{ entity.navn }}</td>
+          <td>{{ entity.totalVarmeforbrug }}</td>
+          <td>{{ entity.totalElforbrug }}</td>
+          <td>{{ entity.andelVarmeGUFFaktor | format_percent }}</td>
+          <td>{{ entity.updatedBy }}</td>
+          <td>{{ entity.updatedAt | date('Y-m-d') }}</td>
+          <td class="text-right"><a class="btn btn-default btn-xs"
+                                    href="{{ path('elokategori_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+          </td>
+
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+  {% endblock %}

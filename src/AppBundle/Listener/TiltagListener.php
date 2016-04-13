@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Listener;
 
+use AppBundle\Entity\BaselineKorrektion;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -27,6 +28,18 @@ class TiltagListener {
     $targets = array();
 
     foreach ($entities as $entity) {
+      if ($entity instanceof Baseline) {
+        $targets[] = $entity;
+        if ($entity->getBygning()->getRapport()) {
+          $targets[] = $entity->getBygning()->getRapport();
+        }
+      }
+      if ($entity instanceof BaselineKorrektion) {
+        $targets[] = $entity->getBaseline();
+        if ($entity->getBaseline()->getBygning()->getRapport()) {
+          $targets[] = $entity->getBaseline()->getBygning()->getRapport();
+        }
+      }
       if ($entity instanceof Tiltag) {
         $targets[] = $entity;
         $targets[] = $entity->getRapport();

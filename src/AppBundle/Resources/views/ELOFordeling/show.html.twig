@@ -1,0 +1,76 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ entity }}</h1>
+    </div>
+    <div class="col-md-3 text-right"><a class="btn btn-default btn-default"
+                                        href="{{ path('elofordeling_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div
+          class="panel-heading">{{ icon('chevron-right') }} {{ 'elofordeling.labels.singular' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.januar' | trans }}</th>
+            <td>{{ entity.januar }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.februar' | trans }}</th>
+            <td>{{ entity.februar }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.marts' | trans }}</th>
+            <td>{{ entity.marts }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.april' | trans }}</th>
+            <td>{{ entity.april }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.maj' | trans }}</th>
+            <td>{{ entity.maj }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.juni' | trans }}</th>
+            <td>{{ entity.juni }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.juli' | trans }}</th>
+            <td>{{ entity.juli }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.august' | trans }}</th>
+            <td>{{ entity.august }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.september' | trans }}</th>
+            <td>{{ entity.september }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.oktober' | trans }}</th>
+            <td>{{ entity.oktober }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.november' | trans }}</th>
+            <td>{{ entity.november }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elofordeling.december' | trans }}</th>
+            <td>{{ entity.december }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
