@@ -136,13 +136,12 @@ class BaselineController extends BaseController {
       $GDNormalAar = $normtal->getSumAar();
     }
 
-    if (!$baseline) {
-      throw $this->createNotFoundException('Unable to find Bygning entity.');
-    }
-
+    $em = $this->getDoctrine()->getManager();
+    $graddage = $em->getRepository('AppBundle:GraddageFordeling')->findAll();
     $editForm = $this->createEditForm($baseline);
 
     return array(
+      'graddage' => $graddage,
       'entity' => $baseline,
       'edit_form' => $editForm->createView(),
       'graddage_normal' => $GDNormalAar,
@@ -203,7 +202,11 @@ class BaselineController extends BaseController {
       $GDNormalAar = $normtal->getSumAar();
     }
 
+    $em = $this->getDoctrine()->getManager();
+    $graddage = $em->getRepository('AppBundle:GraddageFordeling')->findAll();
+
     return array(
+      'graddage' => $graddage,
       'entity' => $baseline,
       'edit_form' => $editForm->createView(),
       'graddage_normal' => $GDNormalAar,
