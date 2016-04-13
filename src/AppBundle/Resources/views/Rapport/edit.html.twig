@@ -6,7 +6,9 @@
       <h1>{{ 'rapporter.actions.edit' | trans }}</h1>
     </div>
     <div class="col-md-3 text-right">
-      <a href="{{ path('bygning_baseline_show', { 'id': entity.bygning.id }) }}" class="btn btn-default">{{ icon('sliders') }} {{ 'baseline.korrektioner' }}</a>
+      {% if entity.bygning.baseline %}
+        <a href="{{ path('baseline_show', { 'id': entity.bygning.baseline.id }) }}" class="btn btn-default">{{ icon('sliders') }} {{ 'baseline.actions.korriger' | trans }}</a>
+      {% endif %}
     </div>
 
   </div>

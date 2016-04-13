@@ -7,7 +7,9 @@
       <h1>{{ 'baseline.labels.singular' | trans }}</h1>
     </div>
     <div class="col-md-3 text-right">
-      <a class="btn btn-default btn-default" href="{{ path('baseline_edit', { 'id': entity.id }) }}">{{ icon('edit') }} {{ 'baseline.actions.edit' | trans }}</a>
+      {% if is_granted('BASELINE_EDIT', entity) %}
+        <a class="btn btn-default btn-default" href="{{ path('baseline_edit', { 'id': entity.id }) }}">{{ icon('edit') }} {{ 'baseline.actions.edit' | trans }}</a>
+      {% endif %}
     </div>
   </div>
 
@@ -17,41 +19,41 @@
         <div class="panel-heading">{{ icon('cube') }} {{ 'appbundle.baseline.opsummering' | trans }}</div>
         <table class="table table-condensed">
           <thead>
-          <tr class="text-center">
-            <th></th>
-            <th>{{ 'appbundle.baseline.baselineFraUdbud' | trans }}</th>
-            <th>{{ 'appbundle.baseline.korrektionFraBesigtigelse' | trans }}</th>
-            <th>{{ 'appbundle.baseline.baselineTilRaadgiver' | trans }}</th>
-            <th></th>
+          <tr class="text-right">
+            {{ helper.header() }}
+            {{ helper.header('appbundle.baseline.baselineFraUdbud') }}
+            {{ helper.header('appbundle.baseline.korrektionFraBesigtigelse') }}
+            {{ helper.header('appbundle.baseline.baselineTilRaadgiver') }}
+            {{ helper.header() }}
           </tr>
           </thead>
           <tbody>
           <tr>
             <th>{{ 'appbundle.baseline.el' | trans }}</th>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="number">{{ entity.elBaselineFastsatForEjendom }}</td>
+            <td class="number">{{ entity.elBaselineFastsatForEjendomKorrektion }}</td>
+            <td class="number">{{ entity.elBaselineFastsatForEjendomKorrigeret }}</td>
             <td>{{ 'appbundle.baseline.elBaselineFastsatForEjendom.unit' | trans }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.baseline.varmeGAFForbrug' | trans }}</th>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="number">{{ entity.varmeGAFForbrug }}</td>
+            <td class="number">{{ entity.varmeGAFForbrugKorrektion }}</td>
+            <td class="number">{{ entity.varmeGAFForbrugKorrigeret }}</td>
             <td>{{ 'appbundle.baseline.varmeGAFForbrug.unit' | trans }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.baseline.varmeGUFForbrug' | trans }}</th>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="number">{{ entity.varmeGUFForbrug }}</td>
+            <td class="number">{{ entity.varmeGUFForbrugKorrektion }}</td>
+            <td class="number">{{ entity.varmeGUFForbrugKorrigeret }}</td>
             <td>{{ 'appbundle.baseline.varmeGUFForbrug.unit' | trans }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.baseline.varmeStrafafkoelingsafgift' | trans }}</th>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="number">{{ entity.varmeStrafafkoelingsafgift }}</td>
+            <td class="number">{{ entity.varmeStrafafkoelingsafgiftKorrektion }}</td>
+            <td class="number">{{ entity.varmeStrafafkoelingsafgiftKorrigeret }}</td>
             <td>{{ 'appbundle.baseline.varmeStrafafkoelingsafgift.unit' | trans }}</td>
           </tr>
           </tbody>
@@ -60,21 +62,36 @@
     </div>
   </div>
 
-  <div class="row heading">
-    <div class="col-md-12 text-right">
-      <form method="POST" action="{{ path('baseline_korrektion_create', { 'id': entity.id }) }}" class="inline-block">
-        <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('baselinekorrektioner.actions.add') | trans }}</button>
-      </form>
+  {% if is_granted('BASELINE_EDIT', entity) %}
+    {{ form_start(edit_form) }}
+  {% endif %}
+
+  {% if is_granted('BASELINE_EDIT', entity) %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('sliders') }} {{ 'appbundle.baseline.varmeStrafafkoelingsafgiftKorrektion' | trans }}</div>
+          <div class="panel-body">
+            {{ form_row(edit_form.varmeStrafafkoelingsafgiftKorrektion) }}
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  {% endif %}
+
+  {% if is_granted('BASELINE_EDIT', entity) %}
+    <div class="row heading">
+      <div class="col-md-12 text-right">
+        <form method="POST" action="{{ path('baseline_korrektion_create', { 'id': entity.id }) }}" class="inline-block">
+          <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('baselinekorrektioner.actions.add') | trans }}</button>
+        </form>
+      </div>
+    </div>
+  {% endif %}
 
   <div class="row">
     <div class="col-md-12">
       {% if entity.korrektioner is not empty %}
-
-        {% if is_granted('BASELINE_EDIT', entity) %}
-          {{ form_start(edit_form) }}
-        {% endif %}
 
         <div class="panel panel-default">
           <div class="panel-heading">{{ icon('sliders') }} {{ 'appbundle.baseline.korrektioner' | trans }}</div>
@@ -131,7 +148,9 @@
                 <td class="number">{{ k.korrektionGUF }}</td>
                 <td>{{ k.kilde }}</td>
                 <td class="text-right">
+                  {% if is_granted('BASELINE_EDIT', entity) %}
                   <a class="btn btn-default btn-xs" href="{{ path('baselinekorrektion_edit', { 'id': k.id }) }}">{{ 'common.edit' | trans }}</a>
+                  {% endif %}
                 </td>
               </tr>
             {% endfor %}
@@ -139,16 +158,16 @@
           </table>
         </div>
 
-        {% if is_granted('BASELINE_EDIT', entity) %}
-          {{ form_rest(edit_form) }}
-          {{ form_end(edit_form) }}
-        {% endif %}
-
       {% else %}
         <div class="alert alert-info" role="alert">{{ 'baselinekorrektioner.strings.ingen' | trans }}</div>
       {% endif %}
     </div>
   </div>
+
+  {% if is_granted('BASELINE_EDIT', entity) %}
+    {{ form_rest(edit_form) }}
+    {{ form_end(edit_form) }}
+  {% endif %}
 
 {% endblock %}
 

@@ -110,6 +110,7 @@ baseline:
     create: Opret Baseline
     edit: Rediger Baseline
     indfoer: Indfør Baseline
+    korriger: Korriger Baseline
     show: Vis Baseline
   confirmation:
     baseline_infoert: Baseline data verificeret
@@ -535,6 +536,8 @@ appbundle:
     eloVarmeTotalForbrug.unit: kWh/m² pr år
     generelt: Generelt
     gdNormal: GDnormal.år
+    korrektion.index.varmeStrafafkoelingsafgiftKorrektion: Strafafkølingsafgift korrektion (+/-)
+    korrektion.index.varmeStrafafkoelingsafgiftKorrektion.unit: kr/år
     korrektioner: Baseline Korrektioner
     korrektionFraBesigtigelse: Korr. fra besigtigelse
     opsummering: Opsummering
@@ -591,6 +594,7 @@ appbundle:
     varmeSekundaer: Sekundær kilde (Varme)
     varmeStrafafkoelingsafgift: Evt. strafafkølingsafgift
     varmeStrafafkoelingsafgift.unit: kr/år
+    varmeStrafafkoelingsafgiftKorrektion: Strafafkølingsafgift korrektion
     year1: År 1
     year2: År 2
     year3: År 3
@@ -601,7 +605,7 @@ appbundle:
     bygning: Bygning
     eloKategori: ELO-kategori
   baselinekorrektion:
-    aarligkorrektion: Årlig korremtion af forbrug +/-
+    aarligkorrektion: Årlig korrektion af forbrug +/-
     beskrivelse: Beskrivelse
     datoForImplementering: Dato for implementering
     datoKilde: Dato / Kilde

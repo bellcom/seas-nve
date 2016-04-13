@@ -634,10 +634,10 @@ class Rapport {
     $this->bygning = $bygning;
 
     if($bygning && $bygning->getBaseline()) {
-      $this->setBaselineEl($bygning->getBaseline()->getElBaselineFastsatForEjendom());
-      $this->setBaselineVarmeGAF($bygning->getBaseline()->getVarmeGAFForbrug());
-      $this->setBaselineVarmeGUF($bygning->getBaseline()->getVarmeGUFForbrug());
-      $this->setBaselineStrafAfkoeling($bygning->getBaseline()->getVarmeStrafafkoelingsafgift());
+      $this->setBaselineEl($bygning->getBaseline()->getElBaselineFastsatForEjendomKorrigeret());
+      $this->setBaselineVarmeGAF($bygning->getBaseline()->getVarmeGAFForbrugKorrigeret());
+      $this->setBaselineVarmeGUF($bygning->getBaseline()->getVarmeGUFForbrugKorrigeret());
+      $this->setBaselineStrafAfkoeling($bygning->getBaseline()->getVarmeStrafafkoelingsafgiftKorrigeret());
     }
 
     return $this;

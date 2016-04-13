@@ -7,11 +7,107 @@
 namespace AppBundle\Tests\Entity;
 
 use AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType;
+use AppBundle\Entity\BaselineKorrektion;
 use AppBundle\Entity\ELOKategori;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use AppBundle\Entity\Baseline;
 
 class BaselineTest extends KernelTestCase {
+  public function testCalculateVarmeStrafafkoelingsafgiftKorrigeret() {
+    $baseline = new Baseline();
+
+    $baseline->setVarmeStrafafkoelingsafgift(100.0);
+    $baseline->setVarmeStrafafkoelingsafgiftKorrektion(-10.0);
+
+    $baseline->calculate();
+    $this->assertEquals(90.0, $baseline->getVarmeStrafafkoelingsafgiftKorrigeret());
+  }
+
+  public function testCalculateElBaselineFastsatForEjendomKorrigeret() {
+    $baseline = new Baseline();
+
+    $k1 = new BaselineKorrektion();
+    $k1->setKorrektionEl(-20.0);
+    $k1->setIndvirkning(true);
+    $baseline->addKorrektioner($k1);
+
+    $k2 = new BaselineKorrektion();
+    $k2->setKorrektionEl(10.0);
+    $k2->setIndvirkning(true);
+    $baseline->addKorrektioner($k2);
+
+    $k3 = new BaselineKorrektion();
+    $k3->setKorrektionEl(10.0);
+    $k3->setIndvirkning(false);
+    $baseline->addKorrektioner($k3);
+
+    $baseline->calculate();
+    $this->assertEquals(-10.0, $baseline->getElBaselineFastsatForEjendomKorrektion());
+    $this->assertEquals(-10.0, $baseline->getElBaselineFastsatForEjendomKorrigeret());
+
+
+    $baseline->setElBaselineFastsatForEjendom(100.0);
+    $baseline->calculate();
+    $this->assertEquals(90.0, $baseline->getElBaselineFastsatForEjendomKorrigeret());
+  }
+
+  public function testCalculateVarmeGAFForbrugKorrigeret() {
+    $baseline = new Baseline();
+
+    $k1 = new BaselineKorrektion();
+    $k1->setKorrektionGAF(-30.0);
+    $k1->setIndvirkning(true);
+    $baseline->addKorrektioner($k1);
+
+    $k2 = new BaselineKorrektion();
+    $k2->setKorrektionGAF(10.0);
+    $k2->setIndvirkning(true);
+    $baseline->addKorrektioner($k2);
+
+    $k3 = new BaselineKorrektion();
+    $k3->setKorrektionGAF(10.0);
+    $k3->setIndvirkning(false);
+    $baseline->addKorrektioner($k3);
+
+    $baseline->calculate();
+    $this->assertEquals(-20.0, $baseline->getVarmeGAFForbrugKorrektion());
+    $this->assertEquals(-20.0, $baseline->getVarmeGAFForbrugKorrigeret());
+
+
+    $baseline->setVarmeGAFForbrug(100.0);
+    $baseline->calculate();
+    $this->assertEquals(80.0, $baseline->getVarmeGAFForbrugKorrigeret());
+  }
+
+
+  public function testCalculateVarmeGUFForbrugKorrigeret() {
+    $baseline = new Baseline();
+
+    $k1 = new BaselineKorrektion();
+    $k1->setKorrektionGUF(-40.0);
+    $k1->setIndvirkning(true);
+    $baseline->addKorrektioner($k1);
+
+    $k2 = new BaselineKorrektion();
+    $k2->setKorrektionGUF(10.0);
+    $k2->setIndvirkning(true);
+    $baseline->addKorrektioner($k2);
+
+    $k3 = new BaselineKorrektion();
+    $k3->setKorrektionGUF(10.0);
+    $k3->setIndvirkning(false);
+    $baseline->addKorrektioner($k3);
+
+    $baseline->calculate();
+    $this->assertEquals(-30.0, $baseline->getVarmeGUFForbrugKorrektion());
+    $this->assertEquals(-30.0, $baseline->getVarmeGUFForbrugKorrigeret());
+
+
+    $baseline->setVarmeGUFForbrug(100.0);
+    $baseline->calculate();
+    $this->assertEquals(70.0, $baseline->getVarmeGUFForbrugKorrigeret());
+  }
+
   public function testCalculateElPrimaer() {
     $baseline = new Baseline();
     $baseline->setElForbrugsdataPrimaer1Forbrug(32.0);

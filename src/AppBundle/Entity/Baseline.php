@@ -271,6 +271,22 @@ class Baseline {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="elBaselineFastsatForEjendomKorrektion", type="float", nullable=true)
+   */
+  protected $elBaselineFastsatForEjendomKorrektion;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="elBaselineFastsatForEjendomKorrigeret", type="float", nullable=true)
+   */
+  protected $elBaselineFastsatForEjendomKorrigeret;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="elBaselineNoegletalForEjendom", type="float", nullable=true)
    */
   protected $elBaselineNoegletalForEjendom;
@@ -759,6 +775,22 @@ class Baseline {
   /**
    * @var float
    *
+   * @Calculated
+   * @ORM\Column(name="varmeGAFForbrugKorrektion", type="float", nullable=true)
+   */
+  protected $varmeGAFForbrugKorrektion;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeGAFForbrugKorrigeret", type="float", nullable=true)
+   */
+  protected $varmeGAFForbrugKorrigeret;
+
+  /**
+   * @var float
+   *
    * @ORM\Column(name="varmeGUFForbrug", type="float", nullable=true)
    */
   protected $varmeGUFForbrug;
@@ -767,9 +799,33 @@ class Baseline {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="varmeGUFForbrugKorrektion", type="float", nullable=true)
+   */
+  protected $varmeGUFForbrugKorrektion;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeGUFForbrugKorrigeret", type="float", nullable=true)
+   */
+  protected $varmeGUFForbrugKorrigeret;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="varmeBaselineFastsatForEjendom", type="float", nullable=true)
    */
   protected $varmeBaselineFastsatForEjendom;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeBaselineFastsatForEjendomKorrigeret", type="float", nullable=true)
+   */
+  protected $varmeBaselineFastsatForEjendomKorrigeret;
 
   /**
    * @var float
@@ -785,6 +841,22 @@ class Baseline {
    * @ORM\Column(name="varmeStrafafkoelingsafgift", type="float", nullable=true)
    */
   protected $varmeStrafafkoelingsafgift;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="varmeStrafafkoelingsafgiftKorrektion", type="float", nullable=true)
+   */
+  protected $varmeStrafafkoelingsafgiftKorrektion;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="varmeStrafafkoelingsafgiftKorrigeret", type="float", nullable=true)
+   */
+  protected $varmeStrafafkoelingsafgiftKorrigeret;
+
 
   /**
    * @var string
@@ -2229,6 +2301,111 @@ class Baseline {
     $this->varmeBaselineNoter = $varmeBaselineNoter;
   }
 
+  /**
+   * @return float
+   */
+  public function getElBaselineFastsatForEjendomKorrigeret() {
+    return $this->elBaselineFastsatForEjendomKorrigeret;
+  }
+
+  /**
+   * @param float $elBaselineFastsatForEjendomKorrigeret
+   */
+  private function setElBaselineFastsatForEjendomKorrigeret($elBaselineFastsatForEjendomKorrigeret) {
+    $this->elBaselineFastsatForEjendomKorrigeret = $elBaselineFastsatForEjendomKorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeGAFForbrugKorrigeret() {
+    return $this->varmeGAFForbrugKorrigeret;
+  }
+
+  /**
+   * @param float $varmeGAFForbrugKorrigeret
+   */
+  private function setVarmeGAFForbrugKorrigeret($varmeGAFForbrugKorrigeret) {
+    $this->varmeGAFForbrugKorrigeret = $varmeGAFForbrugKorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeGUFForbrugKorrigeret() {
+    return $this->varmeGUFForbrugKorrigeret;
+  }
+
+  /**
+   * @param float $varmeGUFForbrugKorrigeret
+   */
+  private function setVarmeGUFForbrugKorrigeret($varmeGUFForbrugKorrigeret) {
+    $this->varmeGUFForbrugKorrigeret = $varmeGUFForbrugKorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeBaselineFastsatForEjendomKorrigeret() {
+    return $this->varmeBaselineFastsatForEjendomKorrigeret;
+  }
+
+  /**
+   * @param float $varmeBaselineFastsatForEjendomKorrigeret
+   */
+  private function setVarmeBaselineFastsatForEjendomKorrigeret($varmeBaselineFastsatForEjendomKorrigeret) {
+    $this->varmeBaselineFastsatForEjendomKorrigeret = $varmeBaselineFastsatForEjendomKorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeStrafafkoelingsafgiftKorrektion() {
+    return $this->varmeStrafafkoelingsafgiftKorrektion;
+  }
+
+  /**
+   * @param float $varmeStrafafkoelingsafgiftKorrektion
+   */
+  public function setVarmeStrafafkoelingsafgiftKorrektion($varmeStrafafkoelingsafgiftKorrektion) {
+    $this->varmeStrafafkoelingsafgiftKorrektion = $varmeStrafafkoelingsafgiftKorrektion;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeStrafafkoelingsafgiftKorrigeret() {
+    return $this->varmeStrafafkoelingsafgiftKorrigeret;
+  }
+
+  /**
+   * @param float $varmeStrafafkoelingsafgiftKorrigeret
+   */
+  private function setVarmeStrafafkoelingsafgiftKorrigeret($varmeStrafafkoelingsafgiftKorrigeret) {
+    $this->varmeStrafafkoelingsafgiftKorrigeret = $varmeStrafafkoelingsafgiftKorrigeret;
+  }
+
+  /**
+   * @return float
+   */
+  public function getElBaselineFastsatForEjendomKorrektion() {
+    return $this->elBaselineFastsatForEjendomKorrektion;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeGAFForbrugKorrektion() {
+    return $this->varmeGAFForbrugKorrektion;
+  }
+
+  /**
+   * @return float
+   */
+  public function getVarmeGUFForbrugKorrektion() {
+    return $this->varmeGUFForbrugKorrektion;
+  }
+
   ///
   // Calculations
   ///
@@ -2284,16 +2461,83 @@ class Baseline {
     $this->varmeBaselineFastsatForEjendom = $this->calculateVarmeBaselineFastsatForEjendom();
     $this->varmeBaselineNoegletalForEjendom = $this->calculateVarmeBaselineNoegletalForEjendom();
 
+    // Korrektioner
+    $this->elBaselineFastsatForEjendomKorrigeret = $this->calculateElBaselineFastsatForEjendomKorrigeret();
+    $this->varmeGAFForbrugKorrigeret = $this->calculateVarmeGAFForbrugKorrigeret();
+    $this->varmeGUFForbrugKorrigeret = $this->calculateVarmeGUFForbrugKorrigeret();
+    $this->varmeStrafafkoelingsafgiftKorrigeret = $this->calculateVarmeStrafafkoelingsafgiftKorrigeret();
+
     //Update Rapport Baseline
-    if($this->getBygning()->getRapport()) {
+    if($this->getBygning() && $this->getBygning()->getRapport()) {
       $rapport = $this->getBygning()->getRapport();
 
-      $rapport->setBaselineEl($this->getElBaselineFastsatForEjendom());
-      $rapport->setBaselineVarmeGAF($this->getVarmeGAFForbrug());
-      $rapport->setBaselineVarmeGUF($this->getVarmeGUFForbrug());
-      $rapport->setBaselineStrafAfkoeling($this->getVarmeStrafafkoelingsafgift());
+      $rapport->setBaselineEl($this->getElBaselineFastsatForEjendomKorrigeret());
+      $rapport->setBaselineVarmeGAF($this->getVarmeGAFForbrugKorrigeret());
+      $rapport->setBaselineVarmeGUF($this->getVarmeGUFForbrugKorrigeret());
+      $rapport->setBaselineStrafAfkoeling($this->getVarmeStrafafkoelingsafgiftKorrigeret());
     }
 
+  }
+
+  /**
+   * Calculate varmeStrafafkoelingsafgiftKorrigeret
+   *
+   * @return float|null
+   */
+  public function calculateVarmeStrafafkoelingsafgiftKorrigeret() {
+    $this->varmeStrafafkoelingsafgiftKorrektion = $this->varmeStrafafkoelingsafgiftKorrektion == null ? 0 : $this->varmeStrafafkoelingsafgiftKorrektion;
+    return $this->varmeStrafafkoelingsafgift + $this->varmeStrafafkoelingsafgiftKorrektion;
+  }
+
+  /**
+   * Calculate elBaselineFastsatForEjendomKorrigeret
+   *
+   * @return float|null
+   */
+  public function calculateElBaselineFastsatForEjendomKorrigeret() {
+    $this->elBaselineFastsatForEjendomKorrektion = 0;
+    if(!empty($this->korrektioner)) {
+      foreach($this->korrektioner as $k) {
+        if($k->getIndvirkning()){
+          $this->elBaselineFastsatForEjendomKorrektion += $k->getKorrektionEl();
+        }
+      }
+    }
+    return $this->getElBaselineFastsatForEjendom() + $this->elBaselineFastsatForEjendomKorrektion;
+  }
+
+  /**
+   * Calculate varmeGAFForbrugKorrigeret
+   *
+   * @return float|null
+   */
+  public function calculateVarmeGAFForbrugKorrigeret() {
+    $this->varmeGAFForbrugKorrektion = 0;
+    if(!empty($this->korrektioner)) {
+      foreach($this->korrektioner as $k) {
+        if($k->getIndvirkning()) {
+          $this->varmeGAFForbrugKorrektion += $k->getKorrektionGAF();
+        }
+      }
+    }
+    return $this->getVarmeGAFForbrug() + $this->varmeGAFForbrugKorrektion;
+  }
+
+  /**
+   * Calculate varmeGAFForbrugKorrigeret
+   *
+   * @return float|null
+   */
+  public function calculateVarmeGUFForbrugKorrigeret() {
+    $this->varmeGUFForbrugKorrektion = 0;
+    if(!empty($this->korrektioner)) {
+      foreach($this->korrektioner as $k) {
+        if($k->getIndvirkning()) {
+          $this->varmeGUFForbrugKorrektion += $k->getKorrektionGUF();
+        }
+      }
+    }
+    return $this->getVarmeGUFForbrug() + $this->varmeGUFForbrugKorrektion;
   }
 
   /**

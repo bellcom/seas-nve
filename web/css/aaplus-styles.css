@@ -152,6 +152,10 @@ tr.text-center th {
     text-align: center;
 }
 
+tr.text-right th {
+    text-align: right;
+}
+
 th.unit {
     text-align: center;
     background-color: #ddd;

@@ -136,6 +136,20 @@ services:
         class: AppBundle\Calculation\SolcelleTiltagDetailCalculation
         arguments: [ @service_container ]
 
+    aaplus.baseline_calculation:
+        class: AppBundle\Calculation\BaselineCalculation
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist }
+
+    aaplus.baselinekorrektion_calculation:
+        class: AppBundle\Calculation\BaselineKorrektionCalculation
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist }
+
     appbundle.profile.form.type:
         class: AppBundle\Form\Type\ProfileFormType
         tags:
@@ -152,13 +166,6 @@ services:
     # https://github.com/FriendsOfSymfony/FOSUserBundle/issues/2048
     fos_user.doctrine_registry:
         alias: doctrine
-
-    aaplus.baseline_calculation:
-        class: AppBundle\Calculation\BaselineCalculation
-        arguments: [@service_container]
-        tags:
-            - { name: doctrine.event_listener, event: preUpdate }
-            - { name: doctrine.event_listener, event: prePersist }
 
     aaplus.pdf_export:
         class: AppBundle\PdfExport\PdfExport

@@ -32,6 +32,7 @@ class BaselineKorrektionOverviewType extends AbstractType {
    * @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
+    $builder->add('varmeStrafafkoelingsafgiftKorrektion');
     $builder->add('korrektioner', 'collection', array('type' => new BaselineKorrektionEmbeddedType(), 'label' => FALSE));
   }
 
