@@ -304,7 +304,8 @@ class BygningController extends BaseController implements InitControllerInterfac
    */
   public function newBaselineAction(Request $request, Bygning $bygning) {
     if($bygning) {
-      if(!$bygning->getBaseline()) {
+      $baseline = $bygning->getBaseline();
+      if(!$baseline) {
         $em = $this->getDoctrine()->getManager();
 
         $baseline = new Baseline();

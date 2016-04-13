@@ -5,6 +5,7 @@ use AppBundle\Entity\BaselineKorrektion;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use AppBundle\Entity\Baseline;
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\TiltagDetail;

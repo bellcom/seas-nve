@@ -1343,7 +1343,7 @@ class Baseline {
   }
 
   /**
-   * @param float $elBaselineNoter
+   * @param string $elBaselineNoter
    */
   public function setElBaselineNoter($elBaselineNoter) {
     $this->elBaselineNoter = $elBaselineNoter;
