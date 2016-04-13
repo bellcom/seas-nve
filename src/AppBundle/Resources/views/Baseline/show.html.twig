@@ -7,7 +7,7 @@
       <h1>{{ 'baseline.labels.singular' | trans }}</h1>
     </div>
     <div class="col-md-3 text-right">
-      <a class="btn btn-default btn-default" href="{{ path('bygning_baseline_edit', { 'id': entity.bygning.id }) }}">{{ icon('edit') }} {{ 'baseline.actions.edit' | trans }}</a>
+      <a class="btn btn-default btn-default" href="{{ path('baseline_edit', { 'id': entity.id }) }}">{{ icon('edit') }} {{ 'baseline.actions.edit' | trans }}</a>
     </div>
   </div>
 
@@ -60,10 +60,22 @@
     </div>
   </div>
 
+  <div class="row heading">
+    <div class="col-md-12 text-right">
+      <form method="POST" action="{{ path('baseline_korrektion_create', { 'id': entity.id }) }}" class="inline-block">
+        <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('baselinekorrektioner.actions.add') | trans }}</button>
+      </form>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-md-12">
       {% if entity.korrektioner is not empty %}
+
+        {% if is_granted('BASELINE_EDIT', entity) %}
+          {{ form_start(edit_form) }}
+        {% endif %}
+
         <div class="panel panel-default">
           <div class="panel-heading">{{ icon('sliders') }} {{ 'appbundle.baseline.korrektioner' | trans }}</div>
           <table class="table table-condensed">
@@ -98,10 +110,17 @@
             </tr>
             </thead>
             <tbody>
-            {% for k in entity.korrektioner %}
+            {% for form_korrektion in edit_form.korrektioner %}
+              {% set k = korrektioner[form_korrektion.vars['value'].id] %}
               <tr>
-                <td>{{ k.indvirkning | b2icon }}</td>
-                <td>
+                <td class="text-center">
+                  {% if is_granted('BASELINE_EDIT', entity) %}
+                    {{ form_row(form_korrektion.indvirkning) }}
+                  {% else %}
+                    {{ k.indvirkning | b2icon }}
+                  {% endif %}
+                </td>
+                <td class="text-center">
                   {% if k.datoForImplementering is not empty %}
                     {{ k.datoForImplementering | date('Y-m-d') }}
                   {% endif %}
@@ -119,20 +138,17 @@
             </tbody>
           </table>
         </div>
+
+        {% if is_granted('BASELINE_EDIT', entity) %}
+          {{ form_rest(edit_form) }}
+          {{ form_end(edit_form) }}
+        {% endif %}
+
       {% else %}
         <div class="alert alert-info" role="alert">{{ 'baselinekorrektioner.strings.ingen' | trans }}</div>
       {% endif %}
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-xs-12 text-right">
-      <form method="POST" action="{{ path('baseline_korrektion_create', { 'id': entity.bygning.id }) }}" class="inline-block">
-        <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('baselinekorrektioner.actions.add') | trans }}</button>
-      </form>
-    </div>
-  </div>
-
 
 {% endblock %}
 

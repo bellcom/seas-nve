@@ -113,6 +113,8 @@ baseline:
     show: Vis Baseline
   confirmation:
     baseline_infoert: Baseline data verificeret
+    created: Baseline oprettet
+    updated: Baseline opdateret
   labels:
     plural: Baselines
     singular: Baseline
@@ -122,6 +124,8 @@ baselinekorrektioner:
   actions:
     add: Tilføj Korrektion
     edit: Rediger Korrektion
+  confirmation:
+    created: Korrektion oprettet
   labels:
     singular: Korrektion
   strings:

@@ -33,7 +33,7 @@ class BaselineKorrektionController extends BaseController {
    */
   public function editAction(BaselineKorrektion $entity) {
     $this->breadcrumbs->addItem($entity->getBaseline()->getBygning(), $this->generateUrl('bygning_show', array('id' => $entity->getBaseline()->getBygning()->getId())));
-    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('bygning_baseline_show', array('id' => $entity->getBaseline()->getBygning()->getId())));
+    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('baseline_show', array('id' => $entity->getBaseline()->getId())));
     $this->breadcrumbs->addItem('baselinekorrektioner.actions.edit');
 
     if (!$entity) {
@@ -63,7 +63,7 @@ class BaselineKorrektionController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('bygning_baseline_show', array('id' => $entity->getBaseline()->getBygning()->getId())));
+    $this->addUpdate($form, $this->generateUrl('baseline_show', array('id' => $entity->getBaseline()->getId())));
 
     return $form;
   }
@@ -91,7 +91,7 @@ class BaselineKorrektionController extends BaseController {
     if ($editForm->isValid()) {
       $em->flush();
 
-      return $this->redirect($this->generateUrl('bygning_baseline_show', array('id' => $entity->getBaseline()->getBygning()->getId())));
+      return $this->redirect($this->generateUrl('baseline_show', array('id' => $entity->getBaseline()->getId())));
     }
 
     return array(
