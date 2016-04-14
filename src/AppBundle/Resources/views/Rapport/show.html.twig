@@ -350,3 +350,9 @@
   {% endif %}
 
 {% endblock %}
+
+{% block documentReady %}
+  {{ parent() }}
+
+  {% include 'AppBundle:Rapport:_documentReady.js.twig' %}
+{% endblock documentReady %}
