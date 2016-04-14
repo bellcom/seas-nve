@@ -38,6 +38,11 @@ tr:target td {
     background-color: #ffc;
 }
 
+span.popover-trigger {
+    cursor: pointer;
+    margin: 0 1em;
+}
+
 /**
 * Login
 */

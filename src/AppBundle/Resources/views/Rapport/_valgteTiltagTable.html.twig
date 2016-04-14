@@ -12,8 +12,6 @@
       <th>{{ 'appbundle.tiltag.tilvalgtAfRaadgiver.th' | trans }}</th>
       <th>{{ 'appbundle.tiltag.tilvalgtAfAaPlus.th' | trans }}</th>
       <th>{{ 'appbundle.tiltag.tilvalgtAfMagistrat.th' | trans }}</th>
-      <th>{{ 'appbundle.tiltag.tilvalgtbegrundelse' | trans }}</th>
-      <th>{{ 'appbundle.tiltag.tilvalgtBegrundelseMagistrat' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
@@ -27,10 +25,22 @@
       <tr>
         <td>{{ t.title }}</td>
         <td>{{ t.tilvalgtAfRaadgiver | b2icon }}</td>
-        <td>{{ t.tilvalgtAfAaPlus | b2icon }}</td>
-        <td>{{ t.tilvalgtAfMagistrat | b2icon }}</td>
-        <td>{{ t.tilvalgtbegrundelse }}</td>
-        <td>{{ t.tilvalgtBegrundelseMagistrat }}</td>
+        <td>
+          {{ t.tilvalgtAfAaPlus | b2icon }}
+          {% if t.tilvalgtbegrundelse %}
+            <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ t.tilvalgtbegrundelse }}">
+              {{ icon('info-circle') }}
+            </span>
+          {% endif %}
+        </td>
+        <td>
+          {{ t.tilvalgtAfMagistrat | b2icon }}
+          {% if t.tilvalgtBegrundelseMagistrat %}
+            <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ t.tilvalgtBegrundelseMagistrat }}">
+              {{ icon('info-circle') }}
+            </span>
+          {% endif %}
+        </td>
         <td class="text-right">{{ t.levetid | number_format }} {{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
         <td class="text-right">{{ t.simpelTilbagebetalingstidAar | number_format }} {{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
         <td class="text-right">{{ t.anlaegsinvestering | number_format }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
@@ -51,8 +61,6 @@
     <tfoot>
     <tr>
       <th>{{ 'appbundle.tiltag.ialt' | trans }}</th>
-      <th></th>
-      <th></th>
       <th></th>
       <th></th>
       <th></th>
