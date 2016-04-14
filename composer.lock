@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6d3a0404d4cee19edd02f2516473e3d3",
-    "content-hash": "feeb5baa4c8573ed8d5e20ded559386a",
+    "hash": "b2216a7903d40e81f38bd96e43764879",
+    "content-hash": "1cea6c13707a7e77d3c08c2bf980ffc6",
     "packages": [
         {
             "name": "beberlei/DoctrineExtensions",
@@ -1410,7 +1410,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/e770bfa2fd0fc665f55cd7cfeb34bddeffb892f4",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/16b04c49af05dd3fb381e4abe04f0e5e231ac76d",
                 "reference": "e770bfa2fd0fc665f55cd7cfeb34bddeffb892f4",
                 "shasum": ""
             },
@@ -2265,28 +2265,27 @@
         },
         {
             "name": "mewesk/twig-excel-bundle",
-            "version": "1.2",
+            "version": "2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MewesK/TwigExcelBundle.git",
-                "reference": "24ab58ec1991f1afe3b32799d8c88f8bf50e85e1"
+                "reference": "8dc65247dc7e33846581e2006b69002efb178eb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MewesK/TwigExcelBundle/zipball/24ab58ec1991f1afe3b32799d8c88f8bf50e85e1",
-                "reference": "24ab58ec1991f1afe3b32799d8c88f8bf50e85e1",
+                "url": "https://api.github.com/repos/MewesK/TwigExcelBundle/zipball/8dc65247dc7e33846581e2006b69002efb178eb3",
+                "reference": "8dc65247dc7e33846581e2006b69002efb178eb3",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4",
+                "php": ">=5.5",
                 "phpoffice/phpexcel": "~1.8.1",
-                "symfony/framework-bundle": "~2.0|~3.0",
-                "symfony/symfony": "~2.0|~3.0"
+                "symfony/framework-bundle": "~2.7|~3.0"
             },
             "require-dev": {
                 "mpdf/mpdf": "~6.0",
-                "phpunit/phpunit": "~4.8",
-                "sensio/framework-extra-bundle": "~2.0|~3.0"
+                "sensio/framework-extra-bundle": "~3.0",
+                "symfony/symfony": "~2.7|~3.0"
             },
             "suggest": {
                 "mpdf/mpdf": "~6.0"
@@ -2294,7 +2293,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "1.3.x-dev"
                 }
             },
             "autoload": {
@@ -2316,13 +2315,11 @@
             "homepage": "https://github.com/MewesK/TwigExcelBundle",
             "keywords": [
                 "PHPExcel",
-                "Symfony2",
                 "excel",
                 "symfony",
-                "symfony3",
                 "twig"
             ],
-            "time": "2015-12-03 00:13:36"
+            "time": "2016-02-27 16:09:27"
         },
         {
             "name": "monolog/monolog",
