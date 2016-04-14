@@ -22,6 +22,7 @@ class PostMigrateCommand extends ContainerAwareCommand {
     // The methods MUST ONLY add data in empty fields, i.e. fields that have
     // been added by a (recent) migration.
     $this->Version20160405162034();
+    $this->Version20160413123036();
   }
 
   /**
@@ -43,6 +44,28 @@ class PostMigrateCommand extends ContainerAwareCommand {
         $stm->bindValue('id', $rapport->getId());
         $stm->bindValue('cashFlow', serialize($rapport->getCashFlow()));
         $stm->execute();
+      }
+    }
+  }
+
+  private function Version20160413123036() {
+    echo __METHOD__, PHP_EOL;
+
+    $em = $this->getContainer()->get('doctrine')->getEntityManager('default');
+
+    // Calculate and persist "maengde" and "enhed" for each Tiltag.
+    $tiltag = $em->getRepository('AppBundle:Tiltag')->findAll();
+    if ($tiltag) {
+      $sql = 'UPDATE Tiltag set maengde = :maengde, enhed = :enhed WHERE id = :id';
+      $stm = $em->getConnection()->prepare($sql);
+      foreach ($tiltag as $t) {
+        if ($t->getMaengde() === null) {
+          $t->calculate();
+          $stm->bindValue('id', $t->getId());
+          $stm->bindValue('maengde', $t->getMaengde());
+          $stm->bindValue('enhed', $t->getEnhed());
+          $stm->execute();
+        }
       }
     }
   }

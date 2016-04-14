@@ -4,21 +4,12 @@ namespace Application\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20160413123036 extends AbstractMigration implements ContainerAwareInterface
+class Version20160413123036 extends AbstractMigration
 {
-    private $container;
-
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-    }
-
     /**
      * @param Schema $schema
      */
@@ -29,57 +20,8 @@ class Version20160413123036 extends AbstractMigration implements ContainerAwareI
 
         $this->addSql('ALTER TABLE Tiltag ADD maengde DOUBLE PRECISION DEFAULT NULL, ADD enhed VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE Tiltag_audit ADD maengde DOUBLE PRECISION DEFAULT NULL, ADD enhed VARCHAR(255) DEFAULT NULL');
-    }
 
-    /**
-     * @param Schema $schema
-     */
-    public function postUp(Schema $schema)
-    {
-        // Calculate and persist "maengde" and "enhed" for each Tiltag.
-        $em = $this->container->get('doctrine')->getEntityManager('default');
-        $tiltag = $em->getRepository('AppBundle:Tiltag')->findAll();
-        if ($tiltag) {
-            $sql = 'UPDATE Tiltag set maengde = :maengde, enhed = :enhed WHERE id = :id';
-            $stm = $em->getConnection()->prepare($sql);
-            foreach ($tiltag as $t) {
-                $t->calculate();
-                $stm->bindValue('id', $t->getId());
-                $stm->bindValue('maengde', $t->getMaengde());
-                $stm->bindValue('enhed', $t->getEnhed());
-                $stm->execute();
-            }
-        }
-
-        // Add rows "besparelse_varme" and "besparelse_el" to Rapport cash flow.
-        $rapporter = $em->getRepository('AppBundle:Rapport')->findAll();
-        if ($rapporter) {
-            $sql = 'UPDATE Rapport SET cashFlow = :cashFlow where id = :id';
-            $stm = $em->getConnection()->prepare($sql);
-            foreach ($rapporter as $rapport) {
-                $cashFlow = $rapport->getCashFlow();
-                if ($cashFlow) {
-                    $changed = FALSE;
-                    if (!isset($cashFlow['besparelse_varme'])) {
-                        $cashFlow['besparelse_varme'] = array_map(function($dummy) {
-                            return NULL;
-                        }, $cashFlow['besparelse']);
-                        $changed = TRUE;
-                    }
-                    if (!isset($cashFlow['besparelse_el'])) {
-                        $cashFlow['besparelse_varme'] = array_map(function($dummy) {
-                            return NULL;
-                        }, $cashFlow['besparelse']);
-                        $changed = TRUE;
-                    }
-                    if ($changed) {
-                        $stm->bindValue('id', $t->getId());
-                        $stm->bindValue('cashFlow', serialize($cashFlow));
-                        $stm->execute();
-                    }
-                }
-            }
-        }
+        echo PHP_EOL, PHP_EOL, 'Run app/console aaplus:post-migrate to update "maengde" and "enhed" in database.', PHP_EOL, PHP_EOL;
     }
 
     /**
