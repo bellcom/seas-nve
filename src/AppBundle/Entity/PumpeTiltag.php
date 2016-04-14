@@ -58,4 +58,12 @@ class PumpeTiltag extends Tiltag {
     return parent::calculateAnlaegsinvestering($value);
   }
 
+  protected function calculateMaengde() {
+    return count($this->getTilvalgteDetails());
+  }
+
+  protected function calculateEnhed() {
+    return 'stk';
+  }
+
 }

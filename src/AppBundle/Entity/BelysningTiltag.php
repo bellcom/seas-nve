@@ -71,4 +71,12 @@ class BelysningTiltag extends Tiltag {
                                $this->sum('udgiftSensorer') + $this->sum('udgiftArmaturer') + $this->sum('udgiftLyskilde')));
   }
 
+  protected function calculateMaengde() {
+    return $this->sum('rumstoerrelseM2');
+  }
+
+  protected function calculateEnhed() {
+    return 'm2';
+  }
+
 }

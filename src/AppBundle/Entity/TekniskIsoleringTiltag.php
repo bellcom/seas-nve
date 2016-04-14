@@ -54,4 +54,12 @@ class TekniskIsoleringTiltag extends Tiltag {
     return parent::calculateAnlaegsinvestering($value);
   }
 
+  protected function calculateMaengde() {
+    return $this->sum('roerlaengdeEllerHoejdeAfVvbM');
+  }
+
+  protected function calculateEnhed() {
+    return 'm';
+  }
+
 }

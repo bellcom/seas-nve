@@ -1503,6 +1503,7 @@ appbundle:
       titel: Titel
     elbesparelse: Elbesparelse
     elbesparelse.unit: kWh/år
+    enhed: Enhed
     faktorForReinvesteringer: Faktor for reinvesteringer
     forsyningEl: Forsyning, el
     forsyningsoverblik: Forsyningsoverblik
@@ -1516,6 +1517,7 @@ appbundle:
     levetid.unit: År
     modernisering: Modernisering
     modernisering.unit: kr.
+    maengde: Mængde
     nr: Tiltags nr.
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
