@@ -54,19 +54,7 @@ class Version20160405162034 extends AbstractMigration implements ContainerAwareI
     {
         $em = $this->container->get('doctrine')->getManager();
 
-        // Calculate and persist cash flow for all Rapport entities having an empty cash flow.
-        $rapporter = $this->container->get('doctrine')->getRepository('AppBundle:Rapport')->findAll();
-        foreach ($rapporter as $rapport) {
-            $cashFlow = $rapport->getCashFlow();
-            if ($cashFlow['cash flow'][1] === 0) {
-                $rapport->calculate();
-                $sql = 'UPDATE Rapport SET cashFlow = :cashFlow where id = :id';
-                $stm = $em->getConnection()->prepare($sql);
-                $stm->bindValue('id', $rapport->getId());
-                $stm->bindValue('cashFlow', serialize($rapport->getCashFlow()));
-                $stm->execute();
-            }
-        }
+        // @TODO: Calculate and persist cash flow for all Rapport entities having an empty cash flow?
     }
 
     /**
