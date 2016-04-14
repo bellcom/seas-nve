@@ -1284,6 +1284,8 @@ appbundle:
       titel: Titel
     bygning: Bygning
     co2besparelser: CO2 Besparelser
+    co2BesparelseEl: CO2 Besparelse El
+    co2BesparelseVarme: CO2 Besparelse Varme
     co2BesparelseFaktor: Samlede CO2 Besparelser (%)
     co2BesparelseElFaktor: El
     co2BesparelseElFaktor.unit: %
@@ -1302,6 +1304,7 @@ appbundle:
     faellesomkostninger.unit: kr
     faktorPaaVarmebesparelse: Faktor på varmebesparelse
     fravalg: Fravalg
+    fravalgtImplementering: Fravalgt implementering
     genopretning: Genopretning
     genopretning.unit: kr
     genopretningsandel: Genopretningsandel
@@ -1727,3 +1730,9 @@ Varmepumpe: Varmepumpe
 # Enum: KlimaskaermType
 Klimaskaerm: Klimaskærm
 Window: Vindue
+
+Calculations have changed: Beregninger er ændret
+
+Calculate rapport: Beregn rapport
+Rapport calculated: Rapport beregnet
+Cannot calculate rapport: Fejl under beregning af rapport

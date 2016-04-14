@@ -107,9 +107,6 @@ services:
     aaplus.rapport_calculation:
         class: AppBundle\Calculation\RapportCalculation
         arguments: [ @service_container ]
-        tags:
-            - { name: doctrine.event_listener, event: postLoad }
-
     aaplus.energiforsyning_calculation:
         class: AppBundle\Calculation\EnergiforsyningCalculation
         arguments: [ @service_container ]
