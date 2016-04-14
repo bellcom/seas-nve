@@ -86,6 +86,13 @@ class Rapport {
   protected $datering;
 
   /**
+   * @var \DateTime
+   *
+   * @ORM\Column(name="datoForDrift", type="date", nullable=true)
+   */
+  protected $datoForDrift;
+
+  /**
    * @var float
    *
    * @Calculated
@@ -626,6 +633,26 @@ class Rapport {
     return $this->datering;
   }
 
+  /**
+   * Set datoForDrift
+   *
+   * @param \DateTime $datoForDrift
+   * @return Rapport
+   */
+  public function setDatoForDrift($datoForDrift) {
+    $this->datoForDrift = $datoForDrift;
+
+    return $this;
+  }
+
+  /**
+   * Get datoForDrift
+   *
+   * @return \DateTime
+   */
+  public function getDatoForDrift() {
+    return $this->datoForDrift;
+  }
 
   /**
    * Set bygning

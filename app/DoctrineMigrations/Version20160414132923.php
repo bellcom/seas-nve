@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20160413123036 extends AbstractMigration
+class Version20160414132923 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -18,10 +18,8 @@ class Version20160413123036 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE Tiltag ADD maengde DOUBLE PRECISION DEFAULT NULL, ADD enhed VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE Tiltag_audit ADD maengde DOUBLE PRECISION DEFAULT NULL, ADD enhed VARCHAR(255) DEFAULT NULL');
-
-        echo PHP_EOL, PHP_EOL, 'Run app/console aaplus:post-migrate to update "maengde" and "enhed" in database.', PHP_EOL, PHP_EOL;
+        $this->addSql('ALTER TABLE Rapport ADD datoForDrift DATE DEFAULT NULL');
+        $this->addSql('ALTER TABLE Rapport_audit ADD datoForDrift DATE DEFAULT NULL');
     }
 
     /**
@@ -32,7 +30,7 @@ class Version20160413123036 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE Tiltag DROP maengde, DROP enhed');
-        $this->addSql('ALTER TABLE Tiltag_audit DROP maengde, DROP enhed');
+        $this->addSql('ALTER TABLE Rapport DROP datoForDrift');
+        $this->addSql('ALTER TABLE Rapport_audit DROP datoForDrift');
     }
 }

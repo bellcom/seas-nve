@@ -70,10 +70,11 @@
         {% xlscell %}{{ bygning.energiRaadgiver }}{% endxlscell %}
         {% xlscell %}{#{ bygning.projektleder }#}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.datering|date : null }}{% endxlscell %}
+        {% xlscell %}{{ (rapport and rapport.datoForDrift) ? rapport.datoForDrift|date : null }}{% endxlscell %}
         {% xlscell %}{{ (rapport ? rapport.elena : false) ? 1 : 0 }}{% endxlscell %}
         {% xlscell %}{{ (rapport ? rapport.ava : false) ? 1 : 0 }}{% endxlscell %}
       {% else %}
-        {% for i in 1..6 %}
+        {% for i in 1..7 %}
           {% xlscell %}{% endxlscell %}
         {% endfor %}
       {% endif %}
@@ -163,7 +164,7 @@
         {{ macros.multi_col_cell('Baselineinformation', 12) }}
       {% endif %}
       {% if showAll or columns.groups['aa_screeningsinformation'] %}
-        {{ macros.multi_col_cell('Aa+/Screeningsinformation', 6) }}
+        {{ macros.multi_col_cell('Aa+/Screeningsinformation', 7) }}
       {% endif %}
       {% if showAll or columns.groups['besparelsesinformation'] %}
         {{ macros.multi_col_cell('Besparelsesinformation (Energi og økonomi)', 17) }}
@@ -222,6 +223,7 @@
         {% xlscell %}{{ 'appbundle.bygning.energiRaadgiver' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'appbundle.bygning.projektleder' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'appbundle.rapport.datering' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'appbundle.rapport.datoForDrift' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'appbundle.rapport.elena' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'appbundle.rapport.ava' | trans }}{% endxlscell %}
       {% endif %}
