@@ -11,6 +11,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\Form\Type\BygningUdtraekType\SegmentUdtraekType;
+use AppBundle\Form\Type\BygningUdtraekType\RapportUdtraekType;
 
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;

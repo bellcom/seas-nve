@@ -1,0 +1,45 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+    <div class="row heading">
+      <div class="col-md-9">
+        <h1>{{ 'baselinekorrektioner.actions.edit' | trans }}</h1>
+      </div>
+      <div class="col-md-3 text-right">
+        {{ form(delete_form) }}
+      </div>
+
+    </div>
+
+    {{ form_start(edit_form) }}
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('calendar') }} {{ 'appbundle.baselinekorrektion.datoKilde' | trans }}</div>
+          <div class="panel-body">
+            {{ form_row(edit_form.indvirkning) }}
+            {{ form_row(edit_form.datoForImplementering) }}
+            {{ form_row(edit_form.beskrivelse) }}
+            {{ form_row(edit_form.kilde) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('sliders') }} {{ 'appbundle.baselinekorrektion.korrektioner' | trans }}</div>
+          <div class="panel-body">
+            {{ form_row(edit_form.korrektionEl) }}
+            {{ form_row(edit_form.korrektionGAF) }}
+            {{ form_row(edit_form.korrektionGUF) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{ form_rest(edit_form) }}
+
+    {{ form_end(edit_form) }}
+
+  {% endblock %}

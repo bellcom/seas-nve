@@ -74,8 +74,9 @@ class BygningRepository extends EntityRepository {
    */
   public function searchByUser(User $user, $search) {
     $qb = $this->_em->createQueryBuilder();
-    $qb->select('b')
-      ->from('AppBundle:Bygning', 'b');
+    $qb->select('b', 's')
+      ->from('AppBundle:Bygning', 'b')
+      ->leftJoin('b.segment', 's');
 
     if (!empty($search['navn'])) {
       $qb->andWhere('b.navn LIKE :navn')
@@ -279,5 +280,17 @@ class BygningRepository extends EntityRepository {
       ->from('AppBundle:Bygning', 'b');
 
     return $qb->getQuery()->getResult();
+  }
+
+  public function getRemoveErrorMessage(Bygning $bygning) {
+    $query = $this->_em->createQuery('SELECT r FROM AppBundle:Rapport r WHERE r.bygning = :bygning');
+    $query->setParameter('bygning', $bygning);
+    $result = $query->getResult();
+
+    if ($result) {
+      return 'bygning.error.in_use';
+    }
+
+    return null;
   }
 }

@@ -64,4 +64,12 @@ class SolcelleTiltag extends Tiltag {
     return 0;
   }
 
+  protected function calculateMaengde() {
+    return $this->sum('anlaegsstoerrelseKWp');
+  }
+
+  protected function calculateEnhed() {
+    return 'KWp';
+  }
+
 }

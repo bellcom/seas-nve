@@ -1,0 +1,52 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ entity }}</h1>
+    </div>
+    <div class="col-md-3 text-right"><a class="btn btn-default btn-default"
+                                        href="{{ path('elokategori_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div
+          class="panel-heading">{{ icon('chevron-right') }} {{ 'elokategori.labels.singular' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+          <tr>
+            <th>{{ 'appbundle.elokategori.navn' | trans }}</th>
+            <td>{{ entity.navn }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elokategori.totalVarmeforbrug' | trans }}</th>
+            <td>{{ entity.totalVarmeforbrug }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elokategori.totalElforbrug' | trans }}</th>
+            <td>{{ entity.totalElforbrug }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elokategori.andelVarmeGUFFaktor' | trans }}</th>
+            <td>{{ entity.andelVarmeGUFFaktor }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elokategori.updatedBy' | trans }}</th>
+            <td>{{ entity.updatedBy }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.elokategori.updatedAt' | trans }}</th>
+            <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

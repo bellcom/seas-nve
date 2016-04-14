@@ -11,13 +11,41 @@
   </div>
 
 
-  {{ form_start(edit_form, { 'style': 'horizontal' }) }}
+  {{ form_start(edit_form) }}
   {{ form_errors(edit_form) }}
 
-  {{ form_row(edit_form.aaplusAnsvarlig) }}
-  {{ form_row(edit_form.energiRaadgiver) }}
-  <h3>{{ 'rapporter.labels.singular' | trans }}</h3>
-  {{ form_widget(edit_form.rapport) }}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ icon('user') }} {{ 'appbundle.bygning.users' | trans }}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.aaplusAnsvarlig) }}
+      </div>
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.energiRaadgiver) }}
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.rapport.datering) }}
+        {{ form_row(edit_form.rapport.elena) }}
+        {{ form_row(edit_form.rapport.ava) }}
+      </div>
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.rapport.faktorPaaVarmebesparelse) }}
+        {{ form_row(edit_form.rapport.energiscreening) }}
+      </div>
+    </div>
+  </div>
+
+
 
   {{ form_rest(edit_form) }}
   {{ form_start(edit_form) }}

@@ -250,10 +250,20 @@ class KlimaskaermController extends BaseController
      */
     private function createDeleteForm($id)
     {
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Klimaskaerm');
+        $klimaskaerm = $repository->find($id);
+        $message = $repository->getRemoveErrorMessage($klimaskaerm);
+
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('klimaskaerm_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array(
+                'label' => 'Delete',
+                'disabled' => $message,
+                'attr' => array(
+                    'disabled_message' => $message,
+                ),
+            ))
             ->getForm()
         ;
     }

@@ -15,4 +15,21 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class PumpeRepository extends EntityRepository {
+  /**
+   * Check if entity can be removed (deleted). If not, return an error message.
+   *
+   * @return string|null
+   */
+  public function getRemoveErrorMessage(Pumpe $pumpe) {
+    $query = $this->_em->createQuery('SELECT d FROM AppBundle:PumpeTiltagDetail d WHERE d.pumpe = :pumpe');
+    $query->setParameter('pumpe', $pumpe);
+    $result = $query->getResult();
+
+    if ($result) {
+      return 'pumpe.error.in_use';
+    }
+
+    return null;
+  }
+
 }

@@ -10,4 +10,20 @@ namespace AppBundle\Entity;
  */
 class SegmentRepository extends \Doctrine\ORM\EntityRepository
 {
+  /**
+   * Check if entity can be removed (deleted). If not, return an error message.
+   *
+   * @return string|null
+   */
+  public function getRemoveErrorMessage(Segment $segment) {
+    $query = $this->_em->createQuery('SELECT b FROM AppBundle:Bygning b WHERE b.segment = :segment');
+    $query->setParameter('segment', $segment);
+    $result = $query->getResult();
+
+    if ($result) {
+      return 'segment.error.in_use';
+    }
+
+    return null;
+  }
 }

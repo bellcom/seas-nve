@@ -1,0 +1,61 @@
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+        <h1>{{ 'baselinekorrektion.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+              <a class="btn btn-default" href="{{ path('baselinekorrektion_new') }}">
+          {{ icon('plus') }} {{ 'baselinekorrektion.actions.add' | trans }}
+        </a>
+          </div>
+
+  </div>
+
+
+  <table class="table table-condensed table-header-rotated">
+    <thead>
+    <tr>
+        {{ helper.header('appbundle.baselinekorrektion.datoForImplementering') }}
+        {{ helper.header('appbundle.baselinekorrektion.beskrivelse') }}
+        {{ helper.header('appbundle.baselinekorrektion.korrektionEl') }}
+        {{ helper.header('appbundle.baselinekorrektion.korrektionGAF') }}
+        {{ helper.header('appbundle.baselinekorrektion.korrektionGUF') }}
+        {{ helper.header('appbundle.baselinekorrektion.kilde') }}
+        {{ helper.header('appbundle.baselinekorrektion.indvirkning') }}
+      {{ helper.header() }}
+    </tr>
+    <tr>
+        {{ helper.header_unit('appbundle.baselinekorrektion.datoForImplementering') }}
+        {{ helper.header_unit('appbundle.baselinekorrektion.beskrivelse') }}
+        {{ helper.header_unit('appbundle.baselinekorrektion.korrektionEl') }}
+        {{ helper.header_unit('appbundle.baselinekorrektion.korrektionGAF') }}
+        {{ helper.header_unit('appbundle.baselinekorrektion.korrektionGUF') }}
+        {{ helper.header_unit('appbundle.baselinekorrektion.kilde') }}
+        {{ helper.header_unit('appbundle.baselinekorrektion.indvirkning') }}
+      {{ helper.header_unit() }}
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+    <tr>
+        <td>{{ entity.datoForImplementering }}</td>
+        <td>{{ entity.beskrivelse }}</td>
+        <td>{{ entity.korrektionEl }}</td>
+        <td>{{ entity.korrektionGAF }}</td>
+        <td>{{ entity.korrektionGUF }}</td>
+        <td>{{ entity.kilde }}</td>
+        <td>{{ entity.indvirkning }}</td>
+      <td class="text-right">    <a class="btn btn-default btn-xs" href="{{ path('baselinekorrektion_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+      </td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% endblock %}

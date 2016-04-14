@@ -4,19 +4,20 @@
  * @TODO: Missing description.
  */
 
-namespace AppBundle\Form\Type;
+namespace AppBundle\Form\Type\BygningUdtraekType;
 
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 
 /**
  * Class RapportType
  * @package AppBundle\Form
  */
-class RapportUdtraekType extends AbstractType implements EmbeddedFilterTypeInterface {
+class SegmentUdtraekType extends AbstractType implements EmbeddedFilterTypeInterface {
 
 
   /**
@@ -29,8 +30,13 @@ class RapportUdtraekType extends AbstractType implements EmbeddedFilterTypeInter
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('datering', 'filter_date_range', array('label' => false))
-      ->add('elena', 'filter_checkbox', array('label' => false));
+      ->add('forkortelse', 'filter_choice', array('label' => false, 'choices' => array(
+        'MBU' => 'MBU - Børn og Unge',
+        'MKB' => 'MKB - Kultur og borgerservice',
+        'MSO' => 'MSO - Sundhed og omsorg',
+        'MSB' => 'MSB - Social og beskæftigelse',
+        'MTM' => 'MTM - Teknik og Miljø'
+      )));
   }
 
   /**
@@ -41,7 +47,7 @@ class RapportUdtraekType extends AbstractType implements EmbeddedFilterTypeInter
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Rapport'
+      'data_class' => 'AppBundle\Entity\Segment'
     ));
   }
 
@@ -57,6 +63,6 @@ class RapportUdtraekType extends AbstractType implements EmbeddedFilterTypeInter
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'filter_rapport';
+    return 'filter_segment';
   }
 }

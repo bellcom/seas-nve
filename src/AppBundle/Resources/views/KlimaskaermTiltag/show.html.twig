@@ -43,6 +43,7 @@
           {{ helper.header('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
           {{ helper.header('appbundle.klimaskaermtiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
+          {{ helper.header() }}
         </tr>
         <tr>
           {{ helper.header_unit() }}
@@ -73,6 +74,7 @@
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
           {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
+          {{ helper.header_unit() }}
         </tr>
         </thead>
         <tbody>
@@ -121,6 +123,7 @@
             <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
             <td>{{ detail.kWhBesparElvaerkEksternEnergikilde | format_decimal }}</td>
             <td>{{ detail.kWhBesparVarmevaerkEksternEnergikilde | format_decimal }}</td>
+            <td class="last"></td>
           </tr>
         {% endfor %}
         </tbody>

@@ -9,9 +9,12 @@
 >
     <testsuites>
         <testsuite name="Project Test Suite">
+            <file>../src/AppBundle/Tests/Entity/BaselineTest.php</file>
+<!--
             <directory>../src/*/*Bundle/Tests</directory>
             <directory>../src/*/Bundle/*Bundle/Tests</directory>
             <directory>../src/*Bundle/Tests</directory>
+-->
         </testsuite>
     </testsuites>
 

@@ -1,0 +1,15 @@
+{% if types is defined %}
+  <fieldset id="types">
+	{% for name, selected in types.types %}
+	  <label><input type="radio" name="{{ types.name }}" value="{{ name }}" {{ selected ? ' checked' : '' }}/> {{ ('udtraek.types.' ~ name) | trans }}</label>
+	{% endfor %}
+  </fieldset>
+{% endif %}
+
+{% if columns is defined %}
+  <fieldset id="column-groups">
+    {% for name, selected in columns.groups %}
+      <label><input type="checkbox" name="{{ columns.name }}[{{ name }}]" {{ selected ? ' checked' : '' }}/> {{ ('udtraek.columns.' ~ name) | trans }}</label><br/>
+    {% endfor %}
+  </fieldset>
+{% endif %}

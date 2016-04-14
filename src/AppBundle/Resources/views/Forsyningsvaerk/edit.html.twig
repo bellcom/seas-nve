@@ -7,7 +7,7 @@
       <h1>{{ 'forsyningsvaerk.actions.edit' | trans }}</h1>
     </div>
     <div class="col-md-3 text-right">
-       {{ form(delete_form) }} 
+      {% if delete_form is defined %}{{ form(delete_form) }}{% endif %}
     </div>
 
   </div>

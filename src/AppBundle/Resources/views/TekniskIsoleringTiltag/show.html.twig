@@ -43,6 +43,7 @@
           {{ helper.header('appbundle.tekniskisoleringtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
           {{ helper.header('appbundle.tekniskisoleringtiltagdetail.kwhBesparelseElFraVaerket') }}
           {{ helper.header('appbundle.tekniskisoleringtiltagdetail.kwhBesparelseVarmeFraVaerket') }}
+          {{ helper.header() }}
         </tr>
         <tr>
           {{ helper.header_unit() }}
@@ -73,6 +74,7 @@
           {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
           {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.kwhBesparelseElFraVaerket') }}
           {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.kwhBesparelseVarmeFraVaerket') }}
+          {{ helper.header_unit() }}
         </tr>
         </thead>
         <tbody>
@@ -115,6 +117,7 @@
             <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
             <td>{{ detail.kwhBesparelseElFraVaerket | format_decimal }}</td>
             <td>{{ detail.kwhBesparelseVarmeFraVaerket | format_decimal }}</td>
+            <td class="last"></td>
           </tr>
         {% endfor %}
         </tbody>

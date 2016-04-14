@@ -1,0 +1,77 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+
+    <div class="row heading">
+      <div class="col-md-9">
+        <h1>{{ 'elofordeling.labels.plural' | trans }}</h1>
+      </div>
+      <div class="col-md-3 text-right">
+        <a class="btn btn-default" href="{{ path('elofordeling_new') }}">
+          {{ icon('plus') }} {{ 'elofordeling.actions.add' | trans }}
+        </a>
+      </div>
+
+    </div>
+
+
+    <table class="table table-condensed table-header-rotated">
+      <thead>
+      <tr>
+        {{ helper.header('appbundle.elofordeling.januar') }}
+        {{ helper.header('appbundle.elofordeling.februar') }}
+        {{ helper.header('appbundle.elofordeling.marts') }}
+        {{ helper.header('appbundle.elofordeling.april') }}
+        {{ helper.header('appbundle.elofordeling.maj') }}
+        {{ helper.header('appbundle.elofordeling.juni') }}
+        {{ helper.header('appbundle.elofordeling.juli') }}
+        {{ helper.header('appbundle.elofordeling.august') }}
+        {{ helper.header('appbundle.elofordeling.september') }}
+        {{ helper.header('appbundle.elofordeling.oktober') }}
+        {{ helper.header('appbundle.elofordeling.november') }}
+        {{ helper.header('appbundle.elofordeling.december') }}
+        {{ helper.header() }}
+      </tr>
+      <tr>
+        {{ helper.header_unit('appbundle.elofordeling.januar') }}
+        {{ helper.header_unit('appbundle.elofordeling.februar') }}
+        {{ helper.header_unit('appbundle.elofordeling.marts') }}
+        {{ helper.header_unit('appbundle.elofordeling.april') }}
+        {{ helper.header_unit('appbundle.elofordeling.maj') }}
+        {{ helper.header_unit('appbundle.elofordeling.juni') }}
+        {{ helper.header_unit('appbundle.elofordeling.juli') }}
+        {{ helper.header_unit('appbundle.elofordeling.august') }}
+        {{ helper.header_unit('appbundle.elofordeling.september') }}
+        {{ helper.header_unit('appbundle.elofordeling.oktober') }}
+        {{ helper.header_unit('appbundle.elofordeling.november') }}
+        {{ helper.header_unit('appbundle.elofordeling.december') }}
+        {{ helper.header_unit() }}
+      </tr>
+      </thead>
+      <tbody>
+      {% for entity in entities %}
+        <tr>
+          <td>{{ entity.januar }}</td>
+          <td>{{ entity.februar }}</td>
+          <td>{{ entity.marts }}</td>
+          <td>{{ entity.april }}</td>
+          <td>{{ entity.maj }}</td>
+          <td>{{ entity.juni }}</td>
+          <td>{{ entity.juli }}</td>
+          <td>{{ entity.august }}</td>
+          <td>{{ entity.september }}</td>
+          <td>{{ entity.oktober }}</td>
+          <td>{{ entity.november }}</td>
+          <td>{{ entity.december }}</td>
+          <td class="text-right"><a class="btn btn-default btn-xs"
+                                    href="{{ path('elofordeling_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+          </td>
+
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+  {% endblock %}
