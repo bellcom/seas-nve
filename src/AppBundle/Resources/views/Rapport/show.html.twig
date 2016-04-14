@@ -2,6 +2,25 @@
 
 {% block body -%}
 
+  {% if calculation_changes is defined and calculation_changes %}
+    <div class="modal fade" id="calculation-changes" tabindex="-1" role="dialog" aria-labelledby="calculation-changesLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="calculation-changesLabel">{{ 'Calculation changes' | trans }}</h4>
+          </div>
+          <div class="modal-body">
+            {% include 'AppBundle:_includes:calculation_changes_show.html.twig' %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Close' | trans }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
   <div class="row heading">
     <div class="col-md-2">
       <h1>
@@ -9,6 +28,16 @@
       </h1>
     </div>
     <div class="col-md-10 text-right">
+      {% if calculate_form and is_granted('RAPPORT_EDIT', entity) %}
+        <div style="display: inline-block">
+          {{ form(calculate_form) }}
+        </div>
+
+        {% if calculation_changes is defined and calculation_changes %}
+          <span style="cursor: pointer" class="fa fa-info-circle" aria-hidden="true" data-toggle="modal" data-target="#calculation-changes" title="{{ 'Show calculation changes' | trans }}"></span>
+        {% endif %}
+      {% endif %}
+
       <a class="btn btn-default" href="{{ path('rapport_bilag_get', { 'rapport_id': entity.id }) }}">
         {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
       </a>

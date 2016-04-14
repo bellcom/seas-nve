@@ -153,12 +153,17 @@ class RapportController extends BaseController {
       }
     }
 
+    $calculationChanges = $this->container->get('aaplus.rapport_calculation')->getChanges($rapport);
+    $calculateForm = $this->createCalculateForm($rapport, $calculationChanges)->createView();
+
     $twigVars = array(
       'entity' => $rapport,
       'tilvalgt_form_array' => $tilvalgtFormArray,
       'fravalgt_form_array' => $fravalgtFormArray,
       'delete_form' => $deleteForm,
       'edit_form' => $editForm ? $editForm->createView() : NULL,
+      'calculate_form' => $calculateForm,
+      'calculation_changes' => $calculationChanges,
     );
 
     return array_merge($twigVars, $formArray);
@@ -663,6 +668,50 @@ class RapportController extends BaseController {
   }
 
   /**
+   * Calculates and persists a Rapport entity.
+   *
+   * @Route("/{id}/calculate", name="rapport_calculate")
+   * @Method("POST")
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
+   */
+  public function calculateAction(Request $request, Rapport $rapport) {
+    $em = $this->getDoctrine()->getManager();
+    $flash = $this->get('braincrafted_bootstrap.flash');
+
+    try {
+      $rapport->calculate();
+
+      $em->persist($rapport);
+      $em->flush();
+
+      $flash->success('Rapport calculated');
+    } catch (\Exception $ex) {
+      $flash->error('Cannot calculate rapport');
+    }
+
+    return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+  }
+
+  /**
+   * Creates a form to calculate a Rapport entity.
+   *
+   * @param mixed $id The entity id
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createCalculateForm(Rapport $rapport, array $changes) {
+    return $this->createFormBuilder()
+      ->setAction($this->generateUrl('rapport_calculate', array('id' => $rapport->getId())))
+      ->setMethod('POST')
+      ->add('submit', 'submit', array(
+        'label' => 'Calculate Rapport',
+        'disabled' => empty($changes),
+        'button_class' => 'default',
+      ))
+      ->getForm();
+  }
+
+  /*
    * Lists all files for the Rapport.
    *
    * @Route("/{id}/filer", name="rapport_filer")

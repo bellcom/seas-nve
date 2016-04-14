@@ -540,6 +540,9 @@ class Rapport {
 
   /**
    * @var array
+   *
+   * @Calculated
+   * @ORM\Column(name="cashFlow", type="array")
    */
   protected $cashFlow;
 
