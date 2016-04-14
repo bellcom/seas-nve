@@ -47,6 +47,13 @@ class UdtraekController extends BaseController implements InitControllerInterfac
    * @Template()
    */
   public function indexAction(Request $request, $_format) {
+    if ($request->query->has('_format')) {
+      $value = $request->query->get('_format');
+      if ($value == 'xlsx' || $value == 'csv') {
+        $_format = $value;
+      }
+    }
+
     // initialize a query builder
     $filterBuilder = $this->get('doctrine.orm.entity_manager')
       ->getRepository('AppBundle:Bygning')
