@@ -4,14 +4,11 @@ namespace Application\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20160405162034 extends AbstractMigration implements ContainerAwareInterface
-{
+class Version20160405162034 extends AbstractMigration {
     /**
      * @param Schema $schema
      */
@@ -24,37 +21,10 @@ class Version20160405162034 extends AbstractMigration implements ContainerAwareI
         $this->addSql('ALTER TABLE Rapport_audit ADD cashFlow LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\'');
 
         // Set an empty cash flow.
-        $numberOfYears = 30;
-        $cashFlow = array(
-          'ydelse laan' => array_fill(0, $numberOfYears + 1, 0),
-          'laan til faellesomkostninger' => array_fill(0, $numberOfYears + 1, 0),
-          'ydelse laan inkl. faellesomkostninger' => array_fill(0, $numberOfYears + 1, 0),
-          'besparelse' => array_fill(0, $numberOfYears + 1, 0),
-          'cash flow' => array_fill(0, $numberOfYears + 1, 0),
-          'akkumuleret' => array_fill(0, $numberOfYears + 1, 0),
-        );
-        foreach ($cashFlow as &$row) {
-          unset($row[0]);
-        }
-
+        $cashFlow = array();
         $this->addSql('UPDATE Rapport SET cashFlow = \'' . serialize($cashFlow) .'\'');
-    }
 
-    private $container;
-
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-    }
-
-    /**
-     * @param Schema $schema
-     */
-    public function postUp(Schema $schema)
-    {
-        $em = $this->container->get('doctrine')->getManager();
-
-        // @TODO: Calculate and persist cash flow for all Rapport entities having an empty cash flow?
+        echo PHP_EOL, PHP_EOL, 'Run app/console aaplus:post-migrate to update cash flows in database.', PHP_EOL, PHP_EOL;
     }
 
     /**
