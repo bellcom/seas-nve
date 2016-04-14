@@ -116,6 +116,8 @@ class BygningRepository extends EntityRepository {
     if (!$this->hasFullAccess($user)) {
       $qb->andWhere(':user MEMBER OF b.users');
       $qb->setParameter('user', $user);
+      $qb->orWhere('b.energiRaadgiver = :energiRaadgiver');
+      $qb->setParameter('energiRaadgiver', $user);
     }
 
     $qb->addOrderBy('b.navn');

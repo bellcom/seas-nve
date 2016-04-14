@@ -217,6 +217,12 @@ class Bygning {
   protected $aaplusAnsvarlig;
 
   /**
+   * @ManyToOne(targetEntity="User", inversedBy="projektleder")
+   * @JoinColumn(name="projektleder_id", referencedColumnName="id")
+   **/
+  protected $projektleder;
+
+  /**
    * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
    *
    * @ManyToOne(targetEntity="User", inversedBy="energiRaadgiver")
@@ -776,6 +782,36 @@ class Bygning {
    */
   public function getAaplusAnsvarlig() {
     return $this->aaplusAnsvarlig;
+  }
+
+  /**
+   * Set Projektleder
+   *
+   * @param \AppBundle\Entity\User user
+   *
+   * @return Bygning
+   */
+  public function setProjektleder(\AppBundle\Entity\User $user = NULL) {
+    if ($this->projektleder !== NULL) {
+      $this->removeUser($this->projektleder);
+    }
+
+    if ($user && !$this->getUsers()->contains($user)) {
+      $this->addUser($user);
+    }
+
+    $this->projektleder = $user;
+
+    return $this;
+  }
+
+  /**
+   * Get Projektleder
+   *
+   * @return \AppBundle\Entity\User
+   */
+  public function getProjektleder() {
+    return $this->projektleder;
   }
 
   /**
