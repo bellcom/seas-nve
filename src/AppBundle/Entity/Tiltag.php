@@ -550,6 +550,22 @@ abstract class Tiltag {
   protected $bilag;
 
   /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="maengde", type="float", nullable=true)
+   */
+  protected $maengde;
+
+  /**
+   * @var string
+   *
+   * @Calculated
+   * @ORM\Column(name="enhed", type="string", nullable=true)
+   */
+  protected $enhed;
+
+  /**
    * Get Name
    *
    * @return string
@@ -1455,6 +1471,8 @@ abstract class Tiltag {
     $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->besparelseAarEt = $this->calculateSavingsForYear(1);
+    $this->maengde = $this->calculateMaengde();
+    $this->enhed = $this->calculateEnhed();
   }
 
   protected function calculateAaplusInvestering() {
@@ -1512,6 +1530,22 @@ abstract class Tiltag {
                 ;
 
     return $besparelse;
+  }
+
+  public function calculateBesparelseVarmeForYear($year) {
+    if ($year > $this->levetid) {
+      return 0;
+    }
+
+    return $this->getVarmebesparelseGUF() + $this->getVarmebesparelseGAF();
+  }
+
+  public function calculateBesparelseElForYear($year) {
+    if ($year > $this->levetid) {
+      return 0;
+    }
+
+    return $this->getElbesparelse();
   }
 
   protected function calculateVarmepris($year = 1) {
@@ -1622,6 +1656,14 @@ abstract class Tiltag {
     else {
       return $this->faktorForReinvesteringer * $this->aaplusInvestering;
     }
+  }
+
+  protected function calculateMaengde() {
+    return NULL;
+  }
+
+  protected function calculateEnhed() {
+    return NULL;
   }
 
   protected function accumulate(callable $accumulator, $start = 0) {
@@ -1824,5 +1866,23 @@ abstract class Tiltag {
    */
   public function getBilag() {
     return $this->bilag;
+  }
+
+  /**
+   * Get maengde
+   *
+   * @return float
+   */
+  public function getMaengde() {
+    return $this->maengde;
+  }
+
+  /**
+   * Get enhed
+   *
+   * @return string
+   */
+  public function getEnhed() {
+    return $this->enhed;
   }
 }
