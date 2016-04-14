@@ -1532,6 +1532,22 @@ abstract class Tiltag {
     return $besparelse;
   }
 
+  public function calculateBesparelseVarmeForYear($year) {
+    if ($year > $this->levetid) {
+      return 0;
+    }
+
+    return $this->getVarmebesparelseGUF() + $this->getVarmebesparelseGAF();
+  }
+
+  public function calculateBesparelseElForYear($year) {
+    if ($year > $this->levetid) {
+      return 0;
+    }
+
+    return $this->getElbesparelse();
+  }
+
   protected function calculateVarmepris($year = 1) {
     $varmepris = $this->rapport->getVarmeKrKWh($year);
     if ($this->getForsyningVarme() && $this->getForsyningVarme()

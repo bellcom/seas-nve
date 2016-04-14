@@ -50,6 +50,36 @@ class Version20160413123036 extends AbstractMigration implements ContainerAwareI
                 $stm->execute();
             }
         }
+
+        // Add rows "besparelse_varme" and "besparelse_el" to Rapport cash flow.
+        $rapporter = $em->getRepository('AppBundle:Rapport')->findAll();
+        if ($rapporter) {
+            $sql = 'UPDATE Rapport SET cashFlow = :cashFlow where id = :id';
+            $stm = $em->getConnection()->prepare($sql);
+            foreach ($rapporter as $rapport) {
+                $cashFlow = $rapport->getCashFlow();
+                if ($cashFlow) {
+                    $changed = FALSE;
+                    if (!isset($cashFlow['besparelse_varme'])) {
+                        $cashFlow['besparelse_varme'] = array_map(function($dummy) {
+                            return NULL;
+                        }, $cashFlow['besparelse']);
+                        $changed = TRUE;
+                    }
+                    if (!isset($cashFlow['besparelse_el'])) {
+                        $cashFlow['besparelse_varme'] = array_map(function($dummy) {
+                            return NULL;
+                        }, $cashFlow['besparelse']);
+                        $changed = TRUE;
+                    }
+                    if ($changed) {
+                        $stm->bindValue('id', $t->getId());
+                        $stm->bindValue('cashFlow', serialize($cashFlow));
+                        $stm->execute();
+                    }
+                }
+            }
+        }
     }
 
     /**
