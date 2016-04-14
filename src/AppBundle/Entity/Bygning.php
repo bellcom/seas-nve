@@ -727,6 +727,10 @@ class Bygning {
   public function setStatus($status = NULL) {
     $this->status = $status;
 
+    if ($status == BygningStatusType::DRIFT && $this->rapport) {
+      $this->rapport->setDatoForDrift(new \DateTime());
+    }
+
     return $this;
   }
 

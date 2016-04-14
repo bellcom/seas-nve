@@ -785,6 +785,7 @@ appbundle:
       bygning: Bygning
       co2besparelser: CO2 Besparelser
       datering: Screeningsdato
+      datoForDrift: Dato for drift
       elena: Elena
       energibesparelser: Energibesparelser
       Energiscreening: Energiscreening
