@@ -711,6 +711,7 @@ class RapportController extends BaseController {
       ->getForm();
   }
 
+  /*
    * Lists all files for the Rapport.
    *
    * @Route("/{id}/filer", name="rapport_filer")
