@@ -1,0 +1,33 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+    <div class="row heading">
+      <div class="col-md-9">
+        <h1>{{ 'elofordeling.actions.edit' | trans }}</h1>
+      </div>
+      <div class="col-md-3 text-right">
+        {{ form(delete_form) }}
+      </div>
+
+    </div>
+
+    {{ form_start(edit_form) }}
+    {{ form_row(edit_form.januar) }}
+    {{ form_row(edit_form.februar) }}
+    {{ form_row(edit_form.marts) }}
+    {{ form_row(edit_form.april) }}
+    {{ form_row(edit_form.maj) }}
+    {{ form_row(edit_form.juni) }}
+    {{ form_row(edit_form.juli) }}
+    {{ form_row(edit_form.august) }}
+    {{ form_row(edit_form.september) }}
+    {{ form_row(edit_form.oktober) }}
+    {{ form_row(edit_form.november) }}
+    {{ form_row(edit_form.december) }}
+
+    {{ form_rest(edit_form) }}
+
+    {{ form_end(edit_form) }}
+
+  {% endblock %}

@@ -1,0 +1,346 @@
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+        <h1>{{ 'baseline.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+              <a class="btn btn-default" href="{{ path('baseline_new') }}">
+          {{ icon('plus') }} {{ 'baseline.actions.add' | trans }}
+        </a>
+          </div>
+
+  </div>
+
+
+  <table class="table table-condensed table-header-rotated">
+    <thead>
+    <tr>
+        {{ helper.header('appbundle.baseline.arealdataPrimaerKilde') }}
+        {{ helper.header('appbundle.baseline.arealdataPrimaerAreal') }}
+        {{ helper.header('appbundle.baseline.arealdataPrimaerNoter') }}
+        {{ helper.header('appbundle.baseline.arealdataSekundaerKilde') }}
+        {{ helper.header('appbundle.baseline.arealdataSekundaerAreal') }}
+        {{ helper.header('appbundle.baseline.arealdataSekundaerNoter') }}
+        {{ helper.header('appbundle.baseline.arealTilNoegletalsanalyse') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataPrimaerKilde') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataPrimaer1Aarstal') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataPrimaer1Forbrug') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataPrimaer2Aarstal') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataPrimaer2Forbrug') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataPrimaer3Aarstal') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataPrimaer3Forbrug') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataPrimaerGennemsnit') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataPrimaerNoegetal') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataPrimaerNoter') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataSekundaerKilde') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataSekundaer1Aarstal') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataSekundaer1Forbrug') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataSekundaer2Aarstal') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataSekundaer2Forbrug') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataSekundaer3Aarstal') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataSekundaer3Forbrug') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataSekundaerGennemsnit') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataSekundaerNoegetal') }}
+        {{ helper.header('appbundle.baseline.elForbrugsdataSekundaerNoter') }}
+        {{ helper.header('appbundle.baseline.elBaselineFastsatForEjendom') }}
+        {{ helper.header('appbundle.baseline.elBaselineNoegletalForEjendom') }}
+        {{ helper.header('appbundle.baseline.elBaselineNoter') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaerKilde') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer1Aarstal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer1Forbrug') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer2Aarstal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer2Forbrug') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer3Aarstal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer3Forbrug') }}
+        {{ helper.header('appbundle.baseline.varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer1GUFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer2GUFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer3GUFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer1GAFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer2GAFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer3GAFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer1GDPeriode') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer2GDPeriode') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer3GDPeriode') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer1GAFnormal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer2GAFnormal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer3GAFnormal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaerGAFGennemsnit') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaerGUFGennemsnit') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaerNoegletal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataPrimaerNoter') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaerKilde') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer1Aarstal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer1Forbrug') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer2Aarstal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer2Forbrug') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer3Aarstal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer3Forbrug') }}
+        {{ helper.header('appbundle.baseline.varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer1GUFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer2GUFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer3GUFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer1GAFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer2GAFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer3GAFRegAar') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer1GDPeriode') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer2GDPeriode') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer3GDPeriode') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer1GAFnormal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer2GAFnormal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer3GAFnormal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaerGAFGennemsnit') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaerGUFGennemsnit') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaerNoegletal') }}
+        {{ helper.header('appbundle.baseline.varmeForbrugsdataSekundaerNoter') }}
+        {{ helper.header('appbundle.baseline.varmeGAFForbrug') }}
+        {{ helper.header('appbundle.baseline.varmeGUFForbrug') }}
+        {{ helper.header('appbundle.baseline.varmeBaselineFastsatForEjendom') }}
+        {{ helper.header('appbundle.baseline.varmeBaselineNoegletalForEjendom') }}
+        {{ helper.header('appbundle.baseline.varmeStrafafkoelingsafgift') }}
+        {{ helper.header('appbundle.baseline.varmeBaselineNoter') }}
+        {{ helper.header('appbundle.baseline.createdBy') }}
+        {{ helper.header('appbundle.baseline.updatedBy') }}
+        {{ helper.header('appbundle.baseline.createdAt') }}
+        {{ helper.header('appbundle.baseline.updatedAt') }}
+      {{ helper.header() }}
+    </tr>
+    <tr>
+        {{ helper.header_unit('appbundle.baseline.arealdataPrimaerKilde') }}
+        {{ helper.header_unit('appbundle.baseline.arealdataPrimaerAreal') }}
+        {{ helper.header_unit('appbundle.baseline.arealdataPrimaerNoter') }}
+        {{ helper.header_unit('appbundle.baseline.arealdataSekundaerKilde') }}
+        {{ helper.header_unit('appbundle.baseline.arealdataSekundaerAreal') }}
+        {{ helper.header_unit('appbundle.baseline.arealdataSekundaerNoter') }}
+        {{ helper.header_unit('appbundle.baseline.arealTilNoegletalsanalyse') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataPrimaerKilde') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataPrimaer1Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataPrimaer1Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataPrimaer2Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataPrimaer2Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataPrimaer3Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataPrimaer3Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataPrimaerGennemsnit') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataPrimaerNoegetal') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataPrimaerNoter') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataSekundaerKilde') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataSekundaer1Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataSekundaer1Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataSekundaer2Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataSekundaer2Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataSekundaer3Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataSekundaer3Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataSekundaerGennemsnit') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataSekundaerNoegetal') }}
+        {{ helper.header_unit('appbundle.baseline.elForbrugsdataSekundaerNoter') }}
+        {{ helper.header_unit('appbundle.baseline.elBaselineFastsatForEjendom') }}
+        {{ helper.header_unit('appbundle.baseline.elBaselineNoegletalForEjendom') }}
+        {{ helper.header_unit('appbundle.baseline.elBaselineNoter') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaerKilde') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer1Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer1Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer2Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer2Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer3Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer3Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer1GUFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer2GUFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer3GUFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer1GAFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer2GAFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer3GAFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer1GDPeriode') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer2GDPeriode') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer3GDPeriode') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer1GAFnormal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer2GAFnormal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer3GAFnormal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaerGAFGennemsnit') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaerGUFGennemsnit') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaerNoegletal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataPrimaerNoter') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaerKilde') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer1Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer1Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer2Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer2Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer3Aarstal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer3Forbrug') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer1GUFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer2GUFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer3GUFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer1GAFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer2GAFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer3GAFRegAar') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer1GDPeriode') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer2GDPeriode') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer3GDPeriode') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer1GAFnormal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer2GAFnormal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer3GAFnormal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaerGAFGennemsnit') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaerGUFGennemsnit') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaerNoegletal') }}
+        {{ helper.header_unit('appbundle.baseline.varmeForbrugsdataSekundaerNoter') }}
+        {{ helper.header_unit('appbundle.baseline.varmeGAFForbrug') }}
+        {{ helper.header_unit('appbundle.baseline.varmeGUFForbrug') }}
+        {{ helper.header_unit('appbundle.baseline.varmeBaselineFastsatForEjendom') }}
+        {{ helper.header_unit('appbundle.baseline.varmeBaselineNoegletalForEjendom') }}
+        {{ helper.header_unit('appbundle.baseline.varmeStrafafkoelingsafgift') }}
+        {{ helper.header_unit('appbundle.baseline.varmeBaselineNoter') }}
+        {{ helper.header_unit('appbundle.baseline.createdBy') }}
+        {{ helper.header_unit('appbundle.baseline.updatedBy') }}
+        {{ helper.header_unit('appbundle.baseline.createdAt') }}
+        {{ helper.header_unit('appbundle.baseline.updatedAt') }}
+      {{ helper.header_unit() }}
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+    <tr>
+        <td>{{ entity.arealdataPrimaerKilde }}</td>
+        <td>{{ entity.arealdataPrimaerAreal }}</td>
+        <td>{{ entity.arealdataPrimaerNoter }}</td>
+        <td>{{ entity.arealdataSekundaerKilde }}</td>
+        <td>{{ entity.arealdataSekundaerAreal }}</td>
+        <td>{{ entity.arealdataSekundaerNoter }}</td>
+        <td>{{ entity.arealTilNoegletalsanalyse }}</td>
+        <td>{{ entity.elForbrugsdataPrimaerKilde }}</td>
+        <td>{{ entity.elForbrugsdataPrimaer1Aarstal }}</td>
+        <td>{{ entity.elForbrugsdataPrimaer1Forbrug }}</td>
+        <td>{{ entity.elForbrugsdataPrimaer2Aarstal }}</td>
+        <td>{{ entity.elForbrugsdataPrimaer2Forbrug }}</td>
+        <td>{{ entity.elForbrugsdataPrimaer3Aarstal }}</td>
+        <td>{{ entity.elForbrugsdataPrimaer3Forbrug }}</td>
+        <td>{{ entity.elForbrugsdataPrimaerGennemsnit }}</td>
+        <td>{{ entity.elForbrugsdataPrimaerNoegetal }}</td>
+        <td>{{ entity.elForbrugsdataPrimaerNoter }}</td>
+        <td>{{ entity.elForbrugsdataSekundaerKilde }}</td>
+        <td>{{ entity.elForbrugsdataSekundaer1Aarstal }}</td>
+        <td>{{ entity.elForbrugsdataSekundaer1Forbrug }}</td>
+        <td>{{ entity.elForbrugsdataSekundaer2Aarstal }}</td>
+        <td>{{ entity.elForbrugsdataSekundaer2Forbrug }}</td>
+        <td>{{ entity.elForbrugsdataSekundaer3Aarstal }}</td>
+        <td>{{ entity.elForbrugsdataSekundaer3Forbrug }}</td>
+        <td>{{ entity.elForbrugsdataSekundaerGennemsnit }}</td>
+        <td>{{ entity.elForbrugsdataSekundaerNoegetal }}</td>
+        <td>{{ entity.elForbrugsdataSekundaerNoter }}</td>
+        <td>{{ entity.elBaselineFastsatForEjendom }}</td>
+        <td>{{ entity.elBaselineNoegletalForEjendom }}</td>
+        <td>{{ entity.elBaselineNoter }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaerKilde }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer1Aarstal }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer1Forbrug }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer2Aarstal }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer2Forbrug }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer3Aarstal }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer3Forbrug }}</td>
+        <td>{{ entity.varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer1GUFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer2GUFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer3GUFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer1GAFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer2GAFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer3GAFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer1GDPeriode }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer2GDPeriode }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer3GDPeriode }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer1GAFnormal }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer2GAFnormal }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer3GAFnormal }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaerGAFGennemsnit }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaerGUFGennemsnit }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaerNoegletal }}</td>
+        <td>{{ entity.varmeForbrugsdataPrimaerNoter }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaerKilde }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer1Aarstal }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer1Forbrug }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer2Aarstal }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer2Forbrug }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer3Aarstal }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer3Forbrug }}</td>
+        <td>{{ entity.varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer1GUFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer2GUFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer3GUFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer1GAFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer2GAFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer3GAFRegAar }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer1GDPeriode }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer2GDPeriode }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer3GDPeriode }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer1GAFnormal }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer2GAFnormal }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer3GAFnormal }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaerGAFGennemsnit }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaerGUFGennemsnit }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaerNoegletal }}</td>
+        <td>{{ entity.varmeForbrugsdataSekundaerNoter }}</td>
+        <td>{{ entity.varmeGAFForbrug }}</td>
+        <td>{{ entity.varmeGUFForbrug }}</td>
+        <td>{{ entity.varmeBaselineFastsatForEjendom }}</td>
+        <td>{{ entity.varmeBaselineNoegletalForEjendom }}</td>
+        <td>{{ entity.varmeStrafafkoelingsafgift }}</td>
+        <td>{{ entity.varmeBaselineNoter }}</td>
+        <td>{{ entity.createdBy }}</td>
+        <td>{{ entity.updatedBy }}</td>
+        <td>{{ entity.createdAt | date('Y-m-d') }}</td>
+        <td>{{ entity.updatedAt | date('Y-m-d') }}</td>
+      <td class="text-right">    <a class="btn btn-default btn-xs" href="{{ path('baseline_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+      </td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% endblock %}
