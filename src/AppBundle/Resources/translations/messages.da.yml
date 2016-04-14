@@ -446,6 +446,16 @@ tiltagdetail:
     updated: Detail opdateret
     deleted: Detail slettet
 udtraek:
+  columns:
+    alt: Alt (Uden tiltag)
+    bygningsinformation: Bygningsinformation
+    baselineinformation: Baselineinformation
+    aa_screeningsinformation: Aa+/Screeningsinformation
+    besparelsesinformation: Besparelsesinformation (Energi + Økonomi)
+    oekonomi: Økonomi (Set over 30 år)
+  types:
+    bygning: Bygning
+    tiltag: Tiltag
   labels:
     plural: Udtræk
     besparelse_varme_guf_pr_aar: Besparelse varme GUF pr. år
@@ -1511,6 +1521,7 @@ appbundle:
     genopretning: Genopretning
     genopretning.unit: kr.
     ialt: I alt
+    id: Id
     indeklima: Indeklima
     information: Information
     levetid: Funktionsdygtig levetid
@@ -1558,6 +1569,7 @@ appbundle:
     tilvalgtBegrundelseMagistrat: Bemærkning Magistrat
     tilvalgtFravalgt: Tilvalgt / Fravalgt
     title: Titel
+    type: Type
     vandbesparelse: Vandbesparelse
     vandbesparelse.unit: m³/år
     varmebesparelseGAF: Varmebesparelse, GAF
