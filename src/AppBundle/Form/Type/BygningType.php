@@ -85,7 +85,11 @@ class BygningType extends AbstractType {
         'choices' => $this->getUsersFromGroup("Rådgiver"),
         'required' => FALSE,
         'empty_value' => 'common.none',
-      ));
+      ))
+      ->add('users', null, array(
+        'expanded' => TRUE,
+        'choices' => $this->getUsersFromGroup("Interessent"),
+        ));
 
     // Only show the editable status field to super admins
     if ($this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {

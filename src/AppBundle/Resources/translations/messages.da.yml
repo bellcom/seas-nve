@@ -46,6 +46,7 @@ common:
   baseline: Baseline
   beskrivelsesamtforudsætninger: Beskrivelse samt forudsætninger
   besparelse: Besparelse
+  calculated_value: Beregnet værdi
   cancel: Annuller
   confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
@@ -89,7 +90,6 @@ common:
   updatedAt: Opdateret
   updatedBy: Opdateret af
   your_buildings: Dine bygninger
-  calculated_value: Beregnet værdi
 dashboard:
   besparelseCO2: CO2 Besparelse
   besparelseEl: El Besparelse
@@ -830,7 +830,7 @@ appbundle:
     type: Type
     updatedAt: Opdateret
     updatedBy: Opdateret af
-    users: Brugere
+    users: Interessenter
   configuration:
     rapportDriftomkostningerfaktor: Driftomkostninger Faktor
     rapportDriftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
