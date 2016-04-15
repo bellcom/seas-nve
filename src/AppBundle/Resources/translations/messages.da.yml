@@ -96,6 +96,7 @@ dashboard:
   besparelseVarmeGAF: GAF Besparelse
   besparelseVarmeGUF: GUF Besparelse
   current: Igangværende
+  dine_bygninger: Dine bygninger
   finished: Afleverede
   totalareal: Areal
 footer:
@@ -757,6 +758,7 @@ appbundle:
     postBy: By
     postnr: Postnr.
     postnummer: Postnummer
+    projektleder: Projektleder
     rapport:
       BaselineEl: El
       BaselineEl.unit: kwh/år
