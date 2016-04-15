@@ -766,14 +766,6 @@ class Bygning {
    * @return Bygning
    */
   public function setAaplusAnsvarlig(\AppBundle\Entity\User $user = NULL) {
-    if ($this->aaplusAnsvarlig !== NULL) {
-      $this->removeUser($this->aaplusAnsvarlig);
-    }
-
-    if ($user && !$this->getUsers()->contains($user)) {
-      $this->addUser($user);
-    }
-
     $this->aaplusAnsvarlig = $user;
 
     return $this;
@@ -796,14 +788,6 @@ class Bygning {
    * @return Bygning
    */
   public function setProjektleder(\AppBundle\Entity\User $user = NULL) {
-    if ($this->projektleder !== NULL) {
-      $this->removeUser($this->projektleder);
-    }
-
-    if ($user && !$this->getUsers()->contains($user)) {
-      $this->addUser($user);
-    }
-
     $this->projektleder = $user;
 
     return $this;
@@ -826,14 +810,6 @@ class Bygning {
    * @return Bygning
    */
   public function setEnergiRaadgiver(\AppBundle\Entity\User $user = NULL) {
-    if ($this->energiRaadgiver) {
-      $this->removeUser($this->energiRaadgiver);
-    }
-
-    if ($user && !$this->getUsers()->contains($user)) {
-      $this->addUser($user);
-    }
-
     $this->energiRaadgiver = $user;
 
     return $this;
