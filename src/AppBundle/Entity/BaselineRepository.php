@@ -12,46 +12,21 @@ use AppBundle\DBAL\Types\BygningStatusType;
 /**
  * BaselineRepository.
  */
-class BaselineRepository extends EntityRepository {
-  /**
-   * Check if a User has access to a Baseline
-   *
-   * @param User $user
-   * @param Baseline $baseline
-   * @return bool
-   */
-  public function hasAccess(User $user, Baseline $baseline) {
-    if ($this->hasFullAccess($user)) {
-      return true;
-    }
-
-    return $baseline->getBygning()->getEnergiRaadgiver() == $user || $baseline->getBygning()->getUsers()->contains($user);
-  }
+class BaselineRepository extends BaseRepository {
 
   /**
-   * Check if a User has edit rights to a Baseline
+   * Check if a User has edit rights to a BAseline
    *
    * @param User $user
-   * @param Baseline $baseline
+   * @param Rapport $baseline
    * @return bool
    */
   public function canEdit(User $user, Baseline $baseline) {
-    if ($this->hasFullAccess($user) && $baseline->getBygning()->getStatus() !== BygningStatusType::TILKNYTTET_RAADGIVER) {
-      return true;
+    if($baseline->getBygning()->getStatus() === BygningStatusType::TILKNYTTET_RAADGIVER) {
+      return $baseline->getBygning()->getEnergiRaadgiver() == $user;
     }
 
-    return $baseline->getBygning()->getEnergiRaadgiver() == $user && $baseline->getBygning()->getStatus() === BygningStatusType::TILKNYTTET_RAADGIVER;
+    return $this->hasFullAccess($user);
   }
 
-  /**
-   * The ugly function to check if a user is allowed to do everything …
-   *
-   * ROLE_ADMIN == Aa+
-   *
-   * @param $user
-   * @return bool
-   */
-  private function hasFullAccess($user) {
-    return $user && $user->hasRole('ROLE_ADMIN');
-  }
 }

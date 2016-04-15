@@ -73,7 +73,7 @@ class BaselineVoter implements VoterInterface {
 
     switch($attribute) {
       case self::VIEW:
-        if ($this->hasRole($token, 'ROLE_BASELINE_VIEW') && $this->baselineRepository->hasAccess($user, $baseline)) {
+        if ($this->hasRole($token, 'ROLE_BASELINE_VIEW') && $this->baselineRepository->hasAccess($user, $baseline->getBygning())) {
           return VoterInterface::ACCESS_GRANTED;
         }
         break;
