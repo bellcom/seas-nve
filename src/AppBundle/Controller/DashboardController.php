@@ -29,7 +29,7 @@ class DashboardController extends BaseController {
     $paginator = $this->get('knp_paginator');
 
     if ($this->isGranted('ROLE_ADMIN')) {
-      $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, BygningStatusType::AFLEVERET_RAADGIVER);
+      $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, BygningStatusType::AFLEVERET_RAADGIVER, TRUE);
 
       $byg_pagination = $paginator->paginate(
         $finished_buildings_q,

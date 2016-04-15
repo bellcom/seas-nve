@@ -73,9 +73,13 @@ class TiltagVoter implements VoterInterface {
       return VoterInterface::ACCESS_DENIED;
     }
 
+    if (!$rapport) {
+      return VoterInterface::ACCESS_DENIED;
+    }
+
     switch($attribute) {
       case self::VIEW:
-        if ($this->hasRole($token, 'ROLE_TILTAG_VIEW') && $this->rapportRepository->hasAccess($user, $rapport)) {
+        if ($this->hasRole($token, 'ROLE_TILTAG_VIEW') && $this->rapportRepository->hasAccess($user, $rapport->getBygning())) {
           return VoterInterface::ACCESS_GRANTED;
         }
         break;

@@ -217,6 +217,12 @@ class Bygning {
   protected $aaplusAnsvarlig;
 
   /**
+   * @ManyToOne(targetEntity="User", inversedBy="projektleder")
+   * @JoinColumn(name="projektleder_id", referencedColumnName="id")
+   **/
+  protected $projektleder;
+
+  /**
    * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
    *
    * @ManyToOne(targetEntity="User", inversedBy="energiRaadgiver")
@@ -760,14 +766,6 @@ class Bygning {
    * @return Bygning
    */
   public function setAaplusAnsvarlig(\AppBundle\Entity\User $user = NULL) {
-    if ($this->aaplusAnsvarlig !== NULL) {
-      $this->removeUser($this->aaplusAnsvarlig);
-    }
-
-    if ($user && !$this->getUsers()->contains($user)) {
-      $this->addUser($user);
-    }
-
     $this->aaplusAnsvarlig = $user;
 
     return $this;
@@ -783,6 +781,28 @@ class Bygning {
   }
 
   /**
+   * Set Projektleder
+   *
+   * @param \AppBundle\Entity\User user
+   *
+   * @return Bygning
+   */
+  public function setProjektleder(\AppBundle\Entity\User $user = NULL) {
+    $this->projektleder = $user;
+
+    return $this;
+  }
+
+  /**
+   * Get Projektleder
+   *
+   * @return \AppBundle\Entity\User
+   */
+  public function getProjektleder() {
+    return $this->projektleder;
+  }
+
+  /**
    * Set Energirådgiver
    *
    * @param \AppBundle\Entity\User user
@@ -790,14 +810,6 @@ class Bygning {
    * @return Bygning
    */
   public function setEnergiRaadgiver(\AppBundle\Entity\User $user = NULL) {
-    if ($this->energiRaadgiver) {
-      $this->removeUser($this->energiRaadgiver);
-    }
-
-    if ($user && !$this->getUsers()->contains($user)) {
-      $this->addUser($user);
-    }
-
     $this->energiRaadgiver = $user;
 
     return $this;
