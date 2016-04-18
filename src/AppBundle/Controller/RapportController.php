@@ -704,7 +704,7 @@ class RapportController extends BaseController {
       ->setAction($this->generateUrl('rapport_calculate', array('id' => $rapport->getId())))
       ->setMethod('POST')
       ->add('submit', 'submit', array(
-        'label' => 'Calculate Rapport',
+        'label' => 'rapporter.actions.re-calculate',
         'disabled' => empty($changes),
         'button_class' => 'default',
       ))

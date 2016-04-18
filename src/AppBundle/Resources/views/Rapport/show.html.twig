@@ -3,22 +3,51 @@
 {% block body -%}
 
   {% if calculation_changes is defined and calculation_changes %}
-    <div class="modal fade" id="calculation-changes" tabindex="-1" role="dialog" aria-labelledby="calculation-changesLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="calculation-changesLabel">{{ 'Calculation changes' | trans }}</h4>
-          </div>
-          <div class="modal-body">
-            {% include 'AppBundle:_includes:calculation_changes_show.html.twig' %}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Close' | trans }}</button>
+
+    {% form_theme calculate_form 'AppBundle:Form:calculateRapportConfirmModalForm.html.twig' %}
+    {% if calculate_form and is_granted('RAPPORT_EDIT', entity) %}
+      {{ form_start(calculate_form) }}
+
+      <!-- Modal -->
+      <div class="modal fade" id="modal-calculate-rapport" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title text-left" id="myModalLabel">{{ 'rapporter.confirmation.re-calculate' | trans }}</h4>
+            </div>
+            <div class="modal-body text-left">
+              <p><strong>{{ 'common.changes' | trans }}:</strong></p>
+              {% if calculation_changes is defined and calculation_changes %}
+                {% for message in calculation_changes %}
+
+                  <p>
+                    {{ message.property | trans_field(entity) }}:
+                    {% if message.type == 'float' %}
+                      {{ message.oldValue | format_decimal }} → {{ message.newValue | format_decimal }}
+                      ({{ message.oldValue }} → {{ message.newValue }})
+                    {% elseif message.type == 'array' %}
+                      {{ 'common.will_change' | trans }}
+                    {% else %}
+                      {{ message.oldValue }} → {{ message.newValue }}
+                    {% endif %}
+                  </p>
+                {% endfor %}
+              {% endif %}
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | trans }}</button>
+              {{ form_widget(calculate_form) }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <!-- Modal end -->
+
+      {{ form_end(calculate_form) }}
+    {% endif %}
+
   {% endif %}
 
   <div class="row heading">
@@ -28,14 +57,10 @@
       </h1>
     </div>
     <div class="col-md-10 text-right">
-      {% if calculate_form and is_granted('RAPPORT_EDIT', entity) %}
-        <div style="display: inline-block">
-          {{ form(calculate_form) }}
-        </div>
-
-        {% if calculation_changes is defined and calculation_changes %}
-          <span style="cursor: pointer" class="fa fa-info-circle" aria-hidden="true" data-toggle="modal" data-target="#calculation-changes" title="{{ 'Show calculation changes' | trans }}"></span>
-        {% endif %}
+      {% if calculation_changes is defined and calculation_changes %}
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( 'calculator' ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
+      {% else %}
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( 'calculator' ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
       {% endif %}
 
       <a class="btn btn-default" href="{{ path('rapport_bilag_get', { 'rapport_id': entity.id }) }}">
@@ -67,7 +92,7 @@
       {% endif %}
       {% if next_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ next_status_form.vars.action | replace({'/': ''}) }}">
-        {{ icon('caret-square-o-right') }} {{ next_status_form.children.buttons.submit.vars.label | trans }}
+          {{ icon('caret-square-o-right') }} {{ next_status_form.children.buttons.submit.vars.label | trans }}
         </button>
       {% endif %}
 
@@ -285,7 +310,8 @@
           {% if entity.internRenteInklFaellesomkostninger < 100 %}
             {{ entity.internRenteInklFaellesomkostninger | number_format }}
           {% else %}
-            <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">({{ 'common.calculated_value' | trans}}: {{ entity.internRenteInklFaellesomkostninger | number_format }})</span> <span class="aaplus-note-marker"></span>
+            <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">({{ 'common.calculated_value' | trans }}: {{ entity.internRenteInklFaellesomkostninger | number_format }})</span> <span
+                  class="aaplus-note-marker"></span>
               –
             </span>
           {% endif %}

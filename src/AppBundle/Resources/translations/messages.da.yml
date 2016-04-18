@@ -48,6 +48,7 @@ common:
   besparelse: Besparelse
   calculated_value: Beregnet værdi
   cancel: Annuller
+  changes: Ændringer
   confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
   create: Opret
@@ -89,6 +90,7 @@ common:
   update: Opdater
   updatedAt: Opdateret
   updatedBy: Opdateret af
+  will_change: Opdateres
   your_buildings: Dine bygninger
 dashboard:
   besparelseCO2: CO2 Besparelse
@@ -331,6 +333,7 @@ rapporter:
     operation_confirm: Er du sikker på du vil markere bygningen som i drift?
     pdf2: Resultatoversigt
     pdf5: Detailark
+    re-calculate: Genberegn
     retur: Retur til rådgiver
     retur_confirm: Er du sikker på du vil sende repporten retur til rådgiveren?
     show: Vis Rapport
@@ -342,6 +345,7 @@ rapporter:
     approved: Rapport markeret som "Godkendt af Magistrat"
     implementation: Rapport markeret som "Under udførsel"
     operation: Bygningen markeret som i drift
+    re-calculate: Er du sikker på du vil genberegne rapporten?
     retur: Rapport returneret til rådgiver
     submitted: Rapport afleveret til Aa+
     verified: Rapport verificeret af Aa+
@@ -1286,6 +1290,8 @@ appbundle:
       kommentar: Kommentar
       titel: Titel
     bygning: Bygning
+    cashFlow: Cashflow (30 år)
+    cashFlow15: Cashflow (15 år)
     co2besparelser: CO2 Besparelser
     co2BesparelseEl: CO2 Besparelse El
     co2BesparelseVarme: CO2 Besparelse Varme
@@ -1336,6 +1342,7 @@ appbundle:
     nutidsvaerdi.unit: kr
     nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. øvrige omkostninger
     nutidsvaerdiInklFaellesomkostninger.unit: kr
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi over 15 år
     oevrigeOmkostninger: Øvrige omkostninger
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
     status.ava: AVA-støtte
