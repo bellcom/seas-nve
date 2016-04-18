@@ -9,7 +9,9 @@
       </h1>
     </div>
     <div class="col-md-3 text-right">
-      <h2><small>{% include 'AppBundle:_includes:pagination_count.html.twig' %}</small></h2>
+      <h2>
+        <small>{% include 'AppBundle:_includes:pagination_count.html.twig' %}</small>
+      </h2>
     </div>
 
   </div>
@@ -17,82 +19,87 @@
   {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
   {{ form_errors(form) }}
 
-  <table class="table table-condensed table-hover">
-    <tr>
-      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.navn'|trans, 'b.navn') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.postnummer'|trans, 'b.postnummer') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 'b.segment') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.rapport.datering'|trans, 'b.rapport.datering') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.rapport.elena'|trans, 'b.rapport.elena') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.status'|trans, 'b.status') }}</th>
-      <th></th>
-    </tr>
+  <div class="panel panel-default">
+    <table class="table table-condensed table-hover">
+      <tr>
+        <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.navn'|trans, 'b.navn') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.postnummer'|trans, 'b.postnummer') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 'b.segment') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.rapport.datering'|trans, 'b.rapport.datering') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.rapport.elena'|trans, 'b.rapport.elena') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.status'|trans, 'b.status') }}</th>
+        <th></th>
+      </tr>
 
-    <tr class="search">
-      <th>{{ form_row(form.navn) }}</th>
-      <th>{{ form_row(form.postnummer) }}</th>
-      <th>{{ form_row(form.segment) }}</th>
-      <th class="text-center">{{ form_row(form.rapport.datering) }}</th>
-      <th>{{ form_row(form.rapport.elena) }}</th>
-      <th>{{ form_row(form.status) }}</th>
-      <th>{{ form_row(form.Søg) }}</th>
-    </tr>
+      <tr class="search">
+        <th>{{ form_row(form.navn) }}</th>
+        <th>{{ form_row(form.postnummer) }}</th>
+        <th>{{ form_row(form.segment) }}</th>
+        <th class="text-center">{{ form_row(form.rapport.datering) }}</th>
+        <th>{{ form_row(form.rapport.elena) }}</th>
+        <th>{{ form_row(form.status) }}</th>
+        <th>{{ form_row(form.Søg) }}</th>
+      </tr>
 
-    {% for bygning in pagination %}
-    <tr>
-      <td>{{ bygning.navn }}</td>
-      <td>{{ bygning.postnummer }}</td>
-      <td>
-        {% if bygning.segment is not empty %}
-          {{ bygning.segment.forkortelse }}
-        {% endif %}
-      </td>
-      <td class="text-center">
-        {% if bygning.rapport is not empty %}
+      {% for bygning in pagination %}
+      <tr>
+        <td>{{ bygning.navn }}</td>
+        <td>{{ bygning.postnummer }}</td>
+        <td>
+          {% if bygning.segment is not empty %}
+            {{ bygning.segment.forkortelse }}
+          {% endif %}
+        </td>
+        <td class="text-center">
+          {% if bygning.rapport is not empty %}
           {{ bygning.rapport.datering | date('Y-m-d') }}</td>
         {% endif %}
-      <td>
-        {% if bygning.rapport is not empty %}
-          {{ bygning.rapport.elena | b2icon }}
-        {% endif %}
-      </td>
-      <td>{{ bygning.status  | readable }}</td>
-      <td class="text-right">
-        <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
-      </td>
-    </tr>
-    {% else %}
-      <tr>
-        <td colspan="8">
-          <div class="alert alert-info" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
+        <td>
+          {% if bygning.rapport is not empty %}
+            {{ bygning.rapport.elena | b2icon }}
+          {% endif %}
+        </td>
+        <td>{{ bygning.status  | readable }}</td>
+        <td class="text-right">
+          <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
         </td>
       </tr>
-    {% endfor %}
-  </table>
+      {% else %}
+        <tr>
+          <td colspan="8">
+            <div class="alert alert-info" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
 
-
-
-  <div class="row">
-    <div class="col-md-3">
-      {% if is_granted('ROLE_ADMIN') %}
-      <a href="{{ path('bygning_new') }}" class="btn btn-default">
-        {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
-      </a>
-    </div>
-    {% endif %}
-    <div class="col-md-6 text-center">
-      {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
-    </div>
-    <div class="col-md-3 text-right">
-      {% if is_granted('ROLE_ADMIN') %}
-        <button type="submit" name="_format" value="xlsx" icon="download" class="btn btn-default" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadExcel' | trans }}</button>
-        <button type="submit" name="_format" value="csv" icon="download" class="btn btn-default" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadCsv' | trans }}</button>
-        <div class="text-left">
+  <div class="panel panel-default">
+    <div class="panel-heading">{{ 'udtraek.labels.options' | trans }}</div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-3">
+          {% include 'AppBundle:Udtraek:_types.html.twig' %}
+        </div>
+        <div class="col-md-6">
           {% include 'AppBundle:Udtraek:_columns.html.twig' %}
         </div>
-      {% endif %}
+        <div class="col-md-3 text-right">
+          {% if is_granted('ROLE_ADMIN') %}
+            <button type="submit" name="_format" value="xlsx" icon="download" class="btn btn-default" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadExcel' | trans }}</button>
+            <button type="submit" name="_format" value="csv" icon="download" class="btn btn-default" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadCsv' | trans }}</button>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-12 text-center">
+      {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
+    </div>
+  </div>
+
   {{ form_end(form) }}
 
 {% endblock %}

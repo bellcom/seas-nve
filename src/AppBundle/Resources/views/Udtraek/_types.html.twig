@@ -1,0 +1,11 @@
+{% if types is defined %}
+  <h4>{{ 'udtraek.labels.types' | trans }}</h4>
+  <fieldset id="types">
+    <ul class="list-unstyled list-inline">
+      {% for name, selected in types.types %}
+        <li><label><input type="radio" name="{{ types.name }}" value="{{ name }}" {{ selected ? ' checked' : '' }}/> {{ ('udtraek.types.' ~ name) | trans }}</label></li>
+      {% endfor %}
+    </ul>
+  </fieldset>
+{% endif %}
+
