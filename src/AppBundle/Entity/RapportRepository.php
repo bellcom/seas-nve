@@ -114,6 +114,11 @@ class RapportRepository extends BaseRepository {
         ->setParameter('status', $search['status']);
     }
 
+    if (!empty($search['version'])) {
+      $qb->andWhere('r.version = :version')
+        ->setParameter('version', $search['version']);
+    }
+
     if (!empty($search['segment'])) {
       $qb->andWhere('b.segment = :segment')
         ->setParameter('segment', $search['segment']);

@@ -570,7 +570,7 @@ class Rapport {
    * @return string
    */
   public function __toString() {
-    return $this->getBygning()->getAdresse() . ", v." . $this->getFullVersion();
+    return $this->getBygning()->getAdresse();
   }
 
   /**
@@ -609,7 +609,7 @@ class Rapport {
    * @return string
    */
   public function getFullVersion() {
-    return $this->getBygning()->getNummericStatus() . '.' . $this->version;
+    return 'Bygn. Status: '.$this->getBygning()->getNummericStatus().' / Itteration: '.$this->version;
   }
 
   /**

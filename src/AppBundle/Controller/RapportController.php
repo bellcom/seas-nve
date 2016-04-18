@@ -50,6 +50,7 @@ class RapportController extends BaseController {
     $rapport->setDatering(null);
     $rapport->setElena(null);
     $rapport->setAva(null);
+    $rapport->setVersion(null);
     $bygning = new Bygning();
     $bygning->setStatus(null);
     $rapport->setBygning($bygning);
@@ -71,6 +72,7 @@ class RapportController extends BaseController {
     $search['segment'] = $rapport->getBygning()->getSegment();
     $search['status'] = $rapport->getBygning()->getStatus();
     $search['datering'] = $rapport->getDatering();
+    $search['version'] = $rapport->getVersion();
 
     $search['elena'] = $rapport->getElena();
     $search['ava'] = $rapport->getAva();
@@ -183,7 +185,7 @@ class RapportController extends BaseController {
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->export2($rapport);
 
-    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion();
+    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion();
 
     return new Response($pdf, 200, array(
       'Content-Type'          => 'application/pdf',
@@ -205,7 +207,7 @@ class RapportController extends BaseController {
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->export5($rapport);
 
-    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion();
+    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion();
 
     return new Response($pdf, 200, array(
       'Content-Type'          => 'application/pdf',
@@ -485,7 +487,7 @@ class RapportController extends BaseController {
       $filRepository = $em->getRepository('AppBundle:Fil');
 
       $pdf = $exporter->export2($rapport);
-      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion() . '.pdf';
+      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion() . '.pdf';
 
       $fil = new Fil();
       $fil
@@ -495,7 +497,7 @@ class RapportController extends BaseController {
       $em->persist($fil);
 
       $pdf = $exporter->export5($rapport);
-      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-ver.'.$rapport->getFullVersion() . '.pdf';
+      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion() . '.pdf';
 
       $fil = new Fil();
       $fil

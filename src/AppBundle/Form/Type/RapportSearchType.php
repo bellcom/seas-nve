@@ -34,6 +34,7 @@ class RapportSearchType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('bygning', new RapportSearchBygningEmbedType(), array('label' => false))
+      ->add('version', 'text' , array('label' => false))
       ->add('datering', 'text' , array('label' => false));
 
 
