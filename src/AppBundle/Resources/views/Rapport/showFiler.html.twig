@@ -21,7 +21,7 @@
             <td>{{ fil.createdBy }}</td>
             <td>{{ fil.type }}</td>
             <td><a href="{{ path('rapport_fil', { id: entity.id, fil: fil.id }) }}">{{ fil.navn }}</a></td>
-            <td><a href="{{ path('rapport_fil', { id: entity.id, fil: fil.id, download: true }) }}"><i class="fa fa-download"></i></a></td>
+            <td class="text-right"><a class="btn btn-default btn-xs" href="{{ path('rapport_fil', { id: entity.id, fil: fil.id, download: true }) }}">{{ icon('download') }} {{ 'common.download' | trans }}</a></td>
           </tr>
         {% endfor %}
       </tbody>

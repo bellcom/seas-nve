@@ -58,6 +58,7 @@ common:
   data: Data
   date: Dato
   deselect: Fravælg
+  download: Download
   downloadExcel: Hent som Excel
   downloadCsv: Hent som csv
   edit: Rediger
