@@ -111,9 +111,7 @@
 
     $('[data-toggle=tab][href^=#]').on('click', function(event) {
       var id = $(this).attr('href').replace(/^#/, '');
-      if (id) {
-        setLocation(id);
-      }
+      document.location.hash = '#' + id;
     });
 
     // Get hash or any stored location and scroll element into view.
