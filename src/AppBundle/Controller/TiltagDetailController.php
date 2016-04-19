@@ -130,7 +130,7 @@ class TiltagDetailController extends BaseController {
       $form->get('nyttiggjortVarme')->addError(new \Symfony\Component\Form\FormError(''));
     }
 
-    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $entity->getTiltag()->getId())));
+    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $entity->getTiltag()->getId())) . '#' . $entity->getId());
 
     return $form;
   }
@@ -158,7 +158,7 @@ class TiltagDetailController extends BaseController {
 
       $this->flash->success('tiltagdetail.confirmation.updated');
 
-      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltagdetail->getTiltag()->getId())));
+      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltagdetail->getTiltag()->getId())) . '#' . $tiltagdetail->getId());
     }
 
     $template = $this->getTemplate($tiltagdetail, 'edit');
