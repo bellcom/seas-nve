@@ -106,7 +106,7 @@
         <tbody>
         {% for form_detail in edit_form.details %}
           {% set detail = details[form_detail.vars['value'].id] %}
-          <tr>
+          <tr id="{{ detail.id }}">
             <td>
               {{ block('tiltag_detail_edit') }}
             </td>
