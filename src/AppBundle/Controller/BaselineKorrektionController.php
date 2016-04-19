@@ -108,22 +108,23 @@ class BaselineKorrektionController extends BaseController {
    * @Method("DELETE")
    */
   public function deleteAction(Request $request, $id) {
+    $em = $this->getDoctrine()->getManager();
+    $entity = $em->getRepository('AppBundle:BaselineKorrektion')->find($id);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find BaselineKorrektion entity.');
+    }
+
     $form = $this->createDeleteForm($id);
     $form->handleRequest($request);
 
     if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $entity = $em->getRepository('AppBundle:BaselineKorrektion')->find($id);
-
-      if (!$entity) {
-        throw $this->createNotFoundException('Unable to find BaselineKorrektion entity.');
-      }
 
       $em->remove($entity);
       $em->flush();
     }
 
-    return $this->redirect($this->generateUrl('baselinekorrektion'));
+    return $this->redirect($this->generateUrl('baseline_show', array('id' => $entity->getBaseline()->getId())));
   }
 
   /**
