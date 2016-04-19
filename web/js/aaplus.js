@@ -109,25 +109,16 @@
 
     $('.tooltip-wrapper').tooltip({position: "bottom"});
 
-    $('a.btn').on('click', function(event) {
-      var id = this.id ? this.id : $(this).closest('[id]').attr('id');
-      if (id) {
-        setLocation(id);
-      }
-    });
-
     $('[data-toggle=tab][href^=#]').on('click', function(event) {
       var id = $(this).attr('href').replace(/^#/, '');
-      if (id) {
-        setLocation(id);
-      }
+      document.location.hash = '#' + id;
     });
 
     // Get hash or any stored location and scroll element into view.
-    var hash = location.hash ? location.hash : getLocation();
+    var hash = location.hash;
     if (hash) {
       setHash(hash);
-      // Make any flashed "fixed" if not visible on screen.
+      // Make any flashes "fixed" if not visible on screen.
       setTimeout(function() {
         // http://stackoverflow.com/a/488073
         var $elem = $('.aaplus-flashes');

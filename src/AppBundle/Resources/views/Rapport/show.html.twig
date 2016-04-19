@@ -57,10 +57,12 @@
       </h1>
     </div>
     <div class="col-md-10 text-right">
-      {% if calculation_changes is defined and calculation_changes %}
+      {% if calculate_form and is_granted('RAPPORT_EDIT', entity) %}
+        {% if calculation_changes is defined and calculation_changes %}
           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( 'calculator' ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
-      {% else %}
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( 'calculator' ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
+        {% else %}
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( 'calculator' ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
+        {% endif %}
       {% endif %}
 
       <a class="btn btn-default" href="{{ path('rapport_bilag_get', { 'rapport_id': entity.id }) }}">

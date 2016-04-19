@@ -5,9 +5,9 @@
     padding-left: 2em;
 }
 
-tr:target td {
-    background-color: #ffc;
-}
+/* tr:target td {
+     background-color: #ffc;
+} */
 
 span.required {
     font-size: 0.7em;
@@ -32,10 +32,6 @@ div.tab-content div.details-overview:first-child {
     top: 60px;
     left: 10px;
     right: 10px;
-}
-
-tr:target td {
-    background-color: #ffc;
 }
 
 span.popover-trigger {
