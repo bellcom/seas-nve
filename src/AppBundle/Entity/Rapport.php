@@ -570,7 +570,14 @@ class Rapport {
    * @return string
    */
   public function __toString() {
-    return $this->getBygning()->getAdresse();
+    $bygning = $this->getBygning();
+    if ($bygning->getAdresse()) {
+      return $bygning->getAdresse();
+    }
+    if ($bygning->getNavn()) {
+      return $bygning->getNavn();
+    }
+    return $bygning->getId();
   }
 
   /**
