@@ -196,6 +196,8 @@ class UserController extends BaseController {
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
+      $userManager = $this->get('fos_user.user_manager');
+      $userManager->updatePassword($entity);
       $em->flush();
 
       $this->flash->success('user.confirmation.updated');
