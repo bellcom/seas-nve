@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Baseline;
+use AppBundle\Entity\Rapport;
 use AppBundle\Form\BaselineType;
 use AppBundle\Controller\BaseController;
 use AppBundle\Form\Type\BaselineKorrektionOverviewType;
@@ -22,10 +23,28 @@ use AppBundle\Form\Type\BaselineKorrektionOverviewType;
  * @Route("baseline")
  */
 class BaselineController extends BaseController {
+  private $request;
 
   public function init(Request $request) {
+    $this->request = $request;
     parent::init($request);
     $this->breadcrumbs->addItem('Bygninger', $this->generateUrl('bygning'));
+  }
+
+  /**
+   * Use a Rapport as breadcrumbs rather than a Bygning.
+   *
+   * @param Rapport
+   *   The rapport.
+   */
+  private function setRapportBreadcrumbs(Rapport $rapport) {
+    // Reset the breadcrumbs.
+    $this->breadcrumbs->clear();
+    parent::init($this->request);
+    // Add Rapport path.
+    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
   }
 
   /**
@@ -48,8 +67,15 @@ class BaselineController extends BaseController {
    * @Security("is_granted('BASELINE_VIEW', baseline)")
    */
   public function showAction(Baseline $baseline) {
-    $this->breadcrumbs->addItem($baseline->getBygning(), $this->generateUrl('bygning_show', array('id' => $baseline->getBygning()->getId())));
-    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
+    $bygning = $baseline->getBygning();
+    $rapport = $bygning ? $bygning->getRapport() : NULL;
+    if ($rapport) {
+      $this->setRapportBreadcrumbs($rapport);
+    }
+    else {
+      $this->breadcrumbs->addItem($baseline->getBygning(), $this->generateUrl('bygning_show', array('id' => $baseline->getBygning()->getId())));
+      $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
+    }
 
     if (!$baseline) {
       throw $this->createNotFoundException('Unable to find Baseline entity.');
@@ -122,8 +148,15 @@ class BaselineController extends BaseController {
    * @Security("is_granted('BASELINE_EDIT', baseline)")
    */
   public function editAction(Baseline $baseline) {
-    $this->breadcrumbs->addItem($baseline->getBygning(), $this->generateUrl('bygning_show', array('id' => $baseline->getBygning()->getId())));
-    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
+    $bygning = $baseline->getBygning();
+    $rapport = $bygning ? $bygning->getRapport() : NULL;
+    if ($rapport) {
+      $this->setRapportBreadcrumbs($rapport);
+    }
+    else {
+      $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+      $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
+    }
     $this->breadcrumbs->addItem('common.edit');
 
     if(!$baseline) {
