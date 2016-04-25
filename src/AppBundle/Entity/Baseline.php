@@ -1329,13 +1329,6 @@ class Baseline {
   }
 
   /**
-   * @param float $elBaselineNoegletalForEjendom
-   */
-  public function setElBaselineNoegletalForEjendom($elBaselineNoegletalForEjendom) {
-    $this->elBaselineNoegletalForEjendom = $elBaselineNoegletalForEjendom;
-  }
-
-  /**
    * @return float
    */
   public function getElBaselineNoter() {
