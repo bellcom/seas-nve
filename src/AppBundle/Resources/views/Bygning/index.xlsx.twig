@@ -122,7 +122,7 @@
     {% endif %}
 
     {% if tiltag %}
-      {% xlscell %}{{ tiltag.id }}{% endxlscell %}
+      {% xlscell %}{{ tiltagIndex + 1 }}{% endxlscell %}
       {% xlscell %}{{ tiltag_type(tiltag) | trans }}{% endxlscell %}
       {% xlscell %}{{ tiltag.title }}{% endxlscell %}
       {% xlscell %}{{ tiltag.tilvalgtAfAaPlus ? 1 : 0 }}{% endxlscell %}
