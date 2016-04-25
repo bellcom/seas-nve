@@ -658,6 +658,8 @@ class RapportController extends BaseController {
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
+      $rapport->calculate();
+      $em->persist($rapport);
       $em->flush();
 
       return $this->redirect($request->headers->get('referer'));
