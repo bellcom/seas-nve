@@ -43,7 +43,6 @@ class BaselineType extends AbstractType
             ->add('elForbrugsdataSekundaerNoegetal', 'text', array('disabled' => 'disabled', 'required' => false))
             ->add('elForbrugsdataSekundaerNoter',  'textarea', array('attr' => array('maxlength' => 120), 'required' => FALSE))
             ->add('elBaselineFastsatForEjendom')
-            ->add('elBaselineNoegletalForEjendom')
             ->add('elBaselineNoter',  'textarea', array('attr' => array('maxlength' => 120), 'required' => FALSE))
             ->add('varmeForbrugsdataPrimaerKilde')
             ->add('varmeForbrugsdataPrimaer1Aarstal')
