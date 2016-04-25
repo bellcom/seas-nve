@@ -1,3 +1,29 @@
+{% import _self as aaplus %}
+
+{% macro form_label(label) %}
+  <label class="control-label">{{ label | trans }}</label>
+{% endmacro %}
+
+{% macro form_widget(value, unit) %}
+  <input type="text" disabled="disabled" class="form-control" value="{{ value == null ? '' : value | format_decimal }}">
+  {% if unit %}
+    <span class="input-group-addon">{{ unit | trans }}</span>
+  {% endif %}
+{% endmacro %}
+
+{% macro form_row_decimal(label, value, unit) %}
+  {% import _self as aaplus %}
+
+  <div class="form-group">
+    {{ aaplus.form_label(label) }}
+
+    <div class="input-group">
+      {{ aaplus.form_widget(value, unit) }}
+    </div>
+  </div>
+{% endmacro %}
+
+
 {{ form_start(edit_form) }}
 
 <div class="row heading">
@@ -144,19 +170,9 @@
                 </tr>
                 </tbody>
               </table>
-              {{ form_row(edit_form.elForbrugsdataPrimaerGennemsnit) }}
-              <div class="form-group">
-                <label
-                    class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
-
-                <div class="input-group">
-                  <input type="text" disabled="disabled" class="form-control"
-                         value="{{ entity.eloKategori ? entity.eloKategori.totalElforbrug : "" }}">
-            <span
-                class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
-                </div>
-              </div>
-              {{ form_row(edit_form.elForbrugsdataPrimaerNoegetal) }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.elForbrugsdataPrimaerGennemsnit', entity.elForbrugsdataPrimaerGennemsnit, 'appbundle.baseline.elForbrugsdataPrimaerGennemsnit.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.eloElTotalForbrug', entity.eloKategori ? entity.eloKategori.totalElforbrug : null, 'appbundle.baseline.eloElTotalForbrug.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.elForbrugsdataPrimaerNoegetal', entity.elForbrugsdataPrimaerNoegetal, 'appbundle.baseline.elForbrugsdataPrimaerNoegetal.unit') }}
               {{ form_row(edit_form.elForbrugsdataPrimaerNoter) }}
             </div>
           </div>
@@ -194,19 +210,9 @@
                 </tr>
                 </tbody>
               </table>
-              {{ form_row(edit_form.elForbrugsdataSekundaerGennemsnit) }}
-              <div class="form-group">
-                <label
-                    class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
-
-                <div class="input-group">
-                  <input type="text" disabled="disabled" class="form-control"
-                         value="{{ entity.eloKategori ? entity.eloKategori.totalElforbrug : "" }}">
-            <span
-                class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
-                </div>
-              </div>
-              {{ form_row(edit_form.elForbrugsdataSekundaerNoegetal) }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.elForbrugsdataSekundaerGennemsnit', entity.elForbrugsdataSekundaerGennemsnit, 'appbundle.baseline.elForbrugsdataSekundaerGennemsnit.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.eloElTotalForbrug', entity.eloKategori ? entity.eloKategori.totalElforbrug : null, 'appbundle.baseline.eloElTotalForbrug.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.elForbrugsdataSekundaerNoegetal', entity.elForbrugsdataSekundaerNoegetal, 'appbundle.baseline.elForbrugsdataSekundaerNoegetal.unit') }}
               {{ form_row(edit_form.elForbrugsdataSekundaerNoter) }}
             </div>
           </div>
@@ -219,18 +225,8 @@
                 class="panel-heading">{{ icon('flash') }} {{ 'appbundle.baseline.elGenerelt' | trans }}</div>
             <div class="panel-body">
               {{ form_row(edit_form.elBaselineFastsatForEjendom) }}
-              <div class="form-group">
-                <label
-                    class="control-label">{{ 'appbundle.baseline.eloElTotalForbrug' | trans }}</label>
-
-                <div class="input-group">
-                  <input type="text" disabled="disabled" class="form-control"
-                         value="{{ entity.eloKategori ? entity.eloKategori.totalElforbrug : "" }}">
-            <span
-                class="input-group-addon">{{ 'appbundle.baseline.eloElTotalForbrug.unit' | trans }}</span>
-                </div>
-              </div>
-              {{ form_row(edit_form.elBaselineNoegletalForEjendom) }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.eloElTotalForbrug', entity.eloKategori ? entity.eloKategori.totalElforbrug : null, 'appbundle.baseline.eloElTotalForbrug.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.elBaselineNoegletalForEjendom', entity.elBaselineNoegletalForEjendom, 'appbundle.baseline.elBaselineNoegletalForEjendom.unit') }}
               {{ form_row(edit_form.elBaselineNoter) }}
             </div>
           </div>
@@ -280,16 +276,16 @@
                   <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust) }}</td>
                 </tr>
                 <tr>
-                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GUFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GUFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GUFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GUFRegAar) }}</td>
+                  <td>{{ aaplus.form_label('appbundle.baseline.varmeForbrugsdataPrimaer1GUFRegAar') }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer1GUFRegAar) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer2GUFRegAar) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer3GUFRegAar) }}</td>
                 </tr>
                 <tr>
-                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GAFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GAFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GAFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GAFRegAar) }}</td>
+                  <td>{{ aaplus.form_label('appbundle.baseline.varmeForbrugsdataPrimaer1GAFRegAar') }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer1GAFRegAar) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer2GAFRegAar) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer3GAFRegAar) }}</td>
                 </tr>
                 <tr>
                   <td><label
@@ -309,34 +305,24 @@
                   <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GDPeriode) }}</td>
                 </tr>
                 <tr>
-                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1GAFnormal) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1GAFnormal) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2GAFnormal) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3GAFnormal) }}</td>
+                  <td>{{ aaplus.form_label('appbundle.baseline.varmeForbrugsdataPrimaer1GAFnormal') }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer1GAFnormal) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer2GAFnormal) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer3GAFnormal) }}</td>
                 </tr>
                 <tr>
-                  <td>{{ form_label(edit_form.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ aaplus.form_label('appbundle.baseline.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret') }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer2ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataPrimaer3ForbrugKlimakorrigeret) }}</td>
                 </tr>
                 </tbody>
               </table>
-              {{ form_row(edit_form.varmeForbrugsdataPrimaerGAFGennemsnit) }}
-              {{ form_row(edit_form.varmeForbrugsdataPrimaerGUFGennemsnit) }}
-              {{ form_row(edit_form.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret) }}
-              <div class="form-group">
-                <label
-                    class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
-
-                <div class="input-group">
-                  <input type="text" disabled="disabled" class="form-control"
-                         value="{{ entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : "" }}">
-            <span
-                class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
-                </div>
-              </div>
-              {{ form_row(edit_form.varmeForbrugsdataPrimaerNoegletal) }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.varmeForbrugsdataPrimaerGAFGennemsnit', entity.varmeForbrugsdataPrimaerGAFGennemsnit, 'appbundle.baseline.varmeForbrugsdataPrimaerGAFGennemsnit.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.varmeForbrugsdataPrimaerGUFGennemsnit', entity.varmeForbrugsdataPrimaerGUFGennemsnit, 'appbundle.baseline.varmeForbrugsdataPrimaerGUFGennemsnit.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret', entity.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret, 'appbundle.baseline.varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.eloVarmeTotalForbrug', entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : null, 'appbundle.baseline.eloVarmeTotalForbrug.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.varmeForbrugsdataPrimaerNoegletal', entity.varmeForbrugsdataPrimaerNoegletal, 'appbundle.baseline.varmeForbrugsdataPrimaerNoegletal.unit') }}
               {{ form_row(edit_form.varmeForbrugsdataPrimaerNoter) }}
             </div>
           </div>
@@ -380,16 +366,16 @@
                   <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust) }}</td>
                 </tr>
                 <tr>
-                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GUFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GUFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GUFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GUFRegAar) }}</td>
+                  <td>{{ aaplus.form_label('appbundle.baseline.varmeForbrugsdataSekundaer1GUFRegAar') }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer1GUFRegAar) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer2GUFRegAar) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer3GUFRegAar) }}</td>
                 </tr>
                 <tr>
-                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GAFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GAFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GAFRegAar) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GAFRegAar) }}</td>
+                  <td>{{ aaplus.form_label('appbundle.baseline.varmeForbrugsdataSekundaer1GAFRegAar') }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer1GAFRegAar) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer2GAFRegAar) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer3GAFRegAar) }}</td>
                 </tr>
                 <tr>
                   <td><label
@@ -409,34 +395,24 @@
                   <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GDPeriode) }}</td>
                 </tr>
                 <tr>
-                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1GAFnormal) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1GAFnormal) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2GAFnormal) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3GAFnormal) }}</td>
+                  <td>{{ aaplus.form_label('appbundle.baseline.varmeForbrugsdataSekundaer1GAFnormal') }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer1GAFnormal) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer2GAFnormal) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer3GAFnormal) }}</td>
                 </tr>
                 <tr>
-                  <td>{{ form_label(edit_form.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret) }}</td>
-                  <td>{{ form_widget(edit_form.varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ aaplus.form_label('appbundle.baseline.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret') }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer2ForbrugKlimakorrigeret) }}</td>
+                  <td>{{ aaplus.form_widget(entity.varmeForbrugsdataSekundaer3ForbrugKlimakorrigeret) }}</td>
                 </tr>
                 </tbody>
               </table>
-              {{ form_row(edit_form.varmeForbrugsdataSekundaerGAFGennemsnit) }}
-              {{ form_row(edit_form.varmeForbrugsdataSekundaerGUFGennemsnit) }}
-              {{ form_row(edit_form.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret) }}
-              <div class="form-group">
-                <label
-                    class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
-
-                <div class="input-group">
-                  <input type="text" disabled="disabled" class="form-control"
-                         value="{{ entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : "" }}">
-            <span
-                class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
-                </div>
-              </div>
-              {{ form_row(edit_form.varmeForbrugsdataSekundaerNoegletal) }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.varmeForbrugsdataSekundaerGAFGennemsnit', entity.varmeForbrugsdataSekundaerGAFGennemsnit, 'appbundle.baseline.varmeForbrugsdataSekundaerGAFGennemsnit.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.varmeForbrugsdataSekundaerGUFGennemsnit', entity.varmeForbrugsdataSekundaerGUFGennemsnit, 'appbundle.baseline.varmeForbrugsdataSekundaerGUFGennemsnit.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret', entity.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret, 'appbundle.baseline.varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.eloVarmeTotalForbrug', entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : null, 'appbundle.baseline.eloVarmeTotalForbrug.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.varmeForbrugsdataSekundaerNoegletal', entity.varmeForbrugsdataSekundaerNoegletal, 'appbundle.baseline.varmeForbrugsdataSekundaerNoegletal.unit') }}
               {{ form_row(edit_form.varmeForbrugsdataSekundaerNoter) }}
             </div>
           </div>
@@ -455,19 +431,9 @@
             <div class="panel-body">
               {{ form_row(edit_form.varmeGAFForbrug) }}
               {{ form_row(edit_form.varmeGUFForbrug) }}
-              {{ form_row(edit_form.varmeBaselineFastsatForEjendom) }}
-              <div class="form-group">
-                <label
-                    class="control-label">{{ 'appbundle.baseline.eloVarmeTotalForbrug' | trans }}</label>
-
-                <div class="input-group">
-                  <input type="text" disabled="disabled" class="form-control"
-                         value="{{ entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : "" }}">
-            <span
-                class="input-group-addon">{{ 'appbundle.baseline.eloVarmeTotalForbrug.unit' | trans }}</span>
-                </div>
-              </div>
-              {{ form_row(edit_form.varmeBaselineNoegletalForEjendom) }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.varmeBaselineFastsatForEjendom', entity.varmeBaselineFastsatForEjendom, 'appbundle.baseline.varmeBaselineFastsatForEjendom.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.eloVarmeTotalForbrug', entity.eloKategori ? entity.eloKategori.totalVarmeforbrug : null, 'appbundle.baseline.eloVarmeTotalForbrug.unit') }}
+              {{ aaplus.form_row_decimal('appbundle.baseline.varmeBaselineNoegletalForEjendom', entity.varmeBaselineNoegletalForEjendom, 'appbundle.baseline.varmeBaselineNoegletalForEjendom.unit') }}
               {{ form_row(edit_form.varmeStrafafkoelingsafgift) }}
               {{ form_row(edit_form.varmeBaselineNoter) }}
             </div>
