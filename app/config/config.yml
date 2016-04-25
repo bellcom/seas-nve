@@ -147,6 +147,9 @@ fos_user:
     profile:
         form:
             type: appbundle_user_profile
+    from_email:
+      address:        aarhusplus@mtm.aarhus.dk
+      sender_name:    AaPlus
 
 simple_things_entity_audit:
     audited_entities:
