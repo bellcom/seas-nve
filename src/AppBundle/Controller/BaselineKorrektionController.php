@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\BaselineKorrektion;
+use AppBundle\Entity\Baseline;
+use AppBundle\Entity\Rapport;
 use AppBundle\Form\BaselineKorrektionType;
 use AppBundle\Controller\BaseController;
 
@@ -20,8 +22,25 @@ use AppBundle\Controller\BaseController;
 class BaselineKorrektionController extends BaseController {
 
   public function init(Request $request) {
+    $this->request = $request;
     parent::init($request);
     $this->breadcrumbs->addItem('Bygninger', $this->generateUrl('bygning'));
+  }
+
+  /**
+   * Use a Rapport as breadcrumbs rather than a Bygning.
+   *
+   * @param Rapport
+   *   The rapport.
+   */
+  private function setRapportBreadcrumbs(Rapport $rapport, BaselineKorrektion $korrektion) {
+    // Reset the breadcrumbs.
+    $this->breadcrumbs->clear();
+    parent::init($this->request);
+    // Add Rapport path.
+    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('baseline_edit', array('id' => $korrektion->getBaseline()->getId())));
   }
 
   /**
@@ -32,8 +51,13 @@ class BaselineKorrektionController extends BaseController {
    * @Template()
    */
   public function editAction(BaselineKorrektion $entity) {
-    $this->breadcrumbs->addItem($entity->getBaseline()->getBygning(), $this->generateUrl('bygning_show', array('id' => $entity->getBaseline()->getBygning()->getId())));
-    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('baseline_show', array('id' => $entity->getBaseline()->getId())));
+    $bygning = $entity->getBaseline()->getBygning();
+    $rapport = $bygning ? $bygning->getRapport() : NULL;
+    if ($rapport) {
+      $this->setRapportBreadcrumbs($rapport, $entity);
+    } else {
+      $this->breadcrumbs->addItem($entity->getBaseline()->getBygning(), $this->generateUrl('bygning_show', array('id' => $entity->getBaseline()->getBygning()->getId())));
+    }
     $this->breadcrumbs->addItem('baselinekorrektioner.actions.edit');
 
     if (!$entity) {
