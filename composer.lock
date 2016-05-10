@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b2216a7903d40e81f38bd96e43764879",
-    "content-hash": "1cea6c13707a7e77d3c08c2bf980ffc6",
+    "hash": "51b0b88d2887b9a8b282cf6e49dc8693",
+    "content-hash": "d6fd214d67105bcbb92143ddb52bd153",
     "packages": [
         {
             "name": "beberlei/DoctrineExtensions",
@@ -1410,12 +1410,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "16b04c49af05dd3fb381e4abe04f0e5e231ac76d"
+                "reference": "def27463609e24af410b2606f0062de46fab5662"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/16b04c49af05dd3fb381e4abe04f0e5e231ac76d",
-                "reference": "16b04c49af05dd3fb381e4abe04f0e5e231ac76d",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/def27463609e24af410b2606f0062de46fab5662",
+                "reference": "def27463609e24af410b2606f0062de46fab5662",
                 "shasum": ""
             },
             "require": {
@@ -1471,7 +1471,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2016-03-08 11:05:28"
+            "time": "2016-04-28 10:51:07"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -2711,16 +2711,16 @@
         },
         {
             "name": "rollerworks/password-strength-bundle",
-            "version": "v1.5.2",
+            "version": "v1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollerworks/PasswordStrengthBundle.git",
-                "reference": "f3b7b9952d8e2a5dbacd80182af15a944728b832"
+                "reference": "0169b29f48bf7440c12d3a00f9cc560245998447"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollerworks/PasswordStrengthBundle/zipball/f3b7b9952d8e2a5dbacd80182af15a944728b832",
-                "reference": "f3b7b9952d8e2a5dbacd80182af15a944728b832",
+                "url": "https://api.github.com/repos/rollerworks/PasswordStrengthBundle/zipball/0169b29f48bf7440c12d3a00f9cc560245998447",
+                "reference": "0169b29f48bf7440c12d3a00f9cc560245998447",
                 "shasum": ""
             },
             "require": {
@@ -2771,21 +2771,21 @@
                 "symfony",
                 "validator"
             ],
-            "time": "2016-03-31 08:13:52"
+            "time": "2016-04-28 14:13:45"
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.35",
+            "version": "v3.0.36",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "abc5b0ce28f72f838922aa0e0a107ba270dbabb5"
+                "reference": "964a56e855acac38d4a81920b3a86543f7e8492f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/abc5b0ce28f72f838922aa0e0a107ba270dbabb5",
-                "reference": "abc5b0ce28f72f838922aa0e0a107ba270dbabb5",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/964a56e855acac38d4a81920b3a86543f7e8492f",
+                "reference": "964a56e855acac38d4a81920b3a86543f7e8492f",
                 "shasum": ""
             },
             "require": {
@@ -2831,7 +2831,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-12-08 17:53:19"
+            "time": "2016-04-25 20:46:43"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2941,23 +2941,34 @@
         },
         {
             "name": "simplethings/entity-audit-bundle",
-            "version": "v0.7",
+            "version": "dev-aaplus",
             "source": {
                 "type": "git",
-                "url": "https://github.com/simplethings/EntityAudit.git",
-                "reference": "37f8aeaea4cb7e4b7fba07db4109843080a22d0a"
+                "url": "https://github.com/aakb/entity-audit-bundle.git",
+                "reference": "d1ed2996c68d59bb7bb686f1993b4e1b9d238852"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplethings/EntityAudit/zipball/37f8aeaea4cb7e4b7fba07db4109843080a22d0a",
-                "reference": "37f8aeaea4cb7e4b7fba07db4109843080a22d0a",
+                "url": "https://api.github.com/repos/aakb/entity-audit-bundle/zipball/d1ed2996c68d59bb7bb686f1993b4e1b9d238852",
+                "reference": "d1ed2996c68d59bb7bb686f1993b4e1b9d238852",
                 "shasum": ""
             },
             "require": {
-                "doctrine/orm": "~2.1"
+                "doctrine/dbal": "~2.5",
+                "doctrine/orm": "~2.4",
+                "php": "^5.3.9|~7.0"
+            },
+            "conflict": {
+                "doctrine/doctrine-bundle": "<1.4",
+                "gedmo/doctrine-extensions": "<2.3.1",
+                "symfony/framework-bundle": "<2.7"
             },
             "require-dev": {
-                "symfony/framework-bundle": "~2.0"
+                "doctrine/doctrine-bundle": "~1.4",
+                "gedmo/doctrine-extensions": "^2.3.1",
+                "phpunit/phpunit": "~4.8.20",
+                "symfony/framework-bundle": "~2.7|~3.0",
+                "symfony/var-dumper": "^2.7"
             },
             "type": "library",
             "extra": {
@@ -2966,21 +2977,28 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "SimpleThings\\EntityAudit": "src/"
+                "psr-4": {
+                    "SimpleThings\\EntityAudit\\": "src/SimpleThings/EntityAudit"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "SimpleThings\\EntityAudit\\Tests\\": "tests/SimpleThings/Tests/EntityAudit"
+                }
+            },
             "license": [
-                "New BSD"
+                "LGPL-2.1"
             ],
             "description": "Audit for Doctrine Entities",
             "keywords": [
                 "Audit",
-                "database",
-                "persistence"
+                "Database",
+                "Persistence"
             ],
-            "time": "2014-11-10 16:07:56"
+            "support": {
+                "source": "https://github.com/aakb/entity-audit-bundle/tree/aaplus"
+            },
+            "time": "2016-05-04 13:23:47"
         },
         {
             "name": "stof/doctrine-extensions-bundle",
@@ -3045,16 +3063,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.1",
+            "version": "v5.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421"
+                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0697e6aa65c83edf97bb0f23d8763f94e3f11421",
-                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
+                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
                 "shasum": ""
             },
             "require": {
@@ -3094,7 +3112,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2015-06-06 14:19:39"
+            "time": "2016-05-01 08:45:47"
         },
         {
             "name": "symfony/assetic-bundle",
@@ -3397,16 +3415,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.7.11",
+            "version": "v2.7.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "66c99826ce3d4392aa1fd08564946cb4277e3897"
+                "reference": "9edf2430f1846602844d2b434f26389a018f494f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/66c99826ce3d4392aa1fd08564946cb4277e3897",
-                "reference": "66c99826ce3d4392aa1fd08564946cb4277e3897",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/9edf2430f1846602844d2b434f26389a018f494f",
+                "reference": "9edf2430f1846602844d2b434f26389a018f494f",
                 "shasum": ""
             },
             "require": {
@@ -3482,7 +3500,11 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Symfony\\Bridge\\": "src/Symfony/Bridge/",
+                    "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
+                    "Symfony\\Bridge\\Monolog\\": "src/Symfony/Bridge/Monolog/",
+                    "Symfony\\Bridge\\ProxyManager\\": "src/Symfony/Bridge/ProxyManager/",
+                    "Symfony\\Bridge\\Swiftmailer\\": "src/Symfony/Bridge/Swiftmailer/",
+                    "Symfony\\Bridge\\Twig\\": "src/Symfony/Bridge/Twig/",
                     "Symfony\\Bundle\\": "src/Symfony/Bundle/",
                     "Symfony\\Component\\": "src/Symfony/Component/"
                 },
@@ -3516,7 +3538,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-03-25 18:14:23"
+            "time": "2016-04-29 09:48:03"
         },
         {
             "name": "twbs/bootstrap",
@@ -3768,27 +3790,27 @@
         },
         {
             "name": "zendframework/zend-code",
-            "version": "2.6.2",
+            "version": "2.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-code.git",
-                "reference": "c4e8f976a772cfb14b47dabd69b5245a423082b4"
+                "reference": "95033f061b083e16cdee60530ec260d7d628b887"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-code/zipball/c4e8f976a772cfb14b47dabd69b5245a423082b4",
-                "reference": "c4e8f976a772cfb14b47dabd69b5245a423082b4",
+                "url": "https://api.github.com/repos/zendframework/zend-code/zipball/95033f061b083e16cdee60530ec260d7d628b887",
+                "reference": "95033f061b083e16cdee60530ec260d7d628b887",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5",
-                "zendframework/zend-eventmanager": "^2.6|^3.0"
+                "php": "^5.5 || 7.0.0 - 7.0.4 || ^7.0.6",
+                "zendframework/zend-eventmanager": "^2.6 || ^3.0"
             },
             "require-dev": {
                 "doctrine/annotations": "~1.0",
                 "fabpot/php-cs-fixer": "1.7.*",
-                "phpunit/phpunit": "~4.0",
-                "zendframework/zend-stdlib": "~2.7"
+                "phpunit/phpunit": "^4.8.21",
+                "zendframework/zend-stdlib": "^2.7 || ^3.0"
             },
             "suggest": {
                 "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
@@ -3816,7 +3838,7 @@
                 "code",
                 "zf2"
             ],
-            "time": "2016-01-05 05:58:37"
+            "time": "2016-04-20 17:26:42"
         },
         {
             "name": "zendframework/zend-eventmanager",
@@ -3931,6 +3953,7 @@
         "yavin/symfony-init-controller": 20,
         "whiteoctober/breadcrumbs-bundle": 20,
         "friendsofsymfony/user-bundle": 20,
+        "simplethings/entity-audit-bundle": 20,
         "knplabs/knp-snappy-bundle": 20
     },
     "prefer-stable": false,

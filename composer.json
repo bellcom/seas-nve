@@ -28,7 +28,7 @@
     "yavin/symfony-init-controller": "dev-master",
     "whiteoctober/breadcrumbs-bundle": "dev-master",
     "friendsofsymfony/user-bundle": "~2.0@dev",
-    "simplethings/entity-audit-bundle": "0.7.*",
+    "simplethings/entity-audit-bundle": "dev-aaplus",
     "stof/doctrine-extensions-bundle": "~1.1",
     "jms/serializer-bundle": "~0.13",
     "phpoffice/phpexcel": "~1.8",
@@ -44,6 +44,12 @@
   "require-dev": {
     "sensio/generator-bundle": "~2.3"
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/aakb/entity-audit-bundle"
+    }
+  ],
   "scripts": {
     "post-root-package-install": [
       "SymfonyStandard\\Composer::hookRootPackageInstall"
