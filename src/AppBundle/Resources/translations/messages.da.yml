@@ -1255,6 +1255,7 @@ appbundle:
     varmebespIsokappeKWh.unit: kWh
   rapport:
     ava: AVA
+    anlaegsinvestering.unit: kr
     BaselineEl: El
     BaselineEl.unit: kwh/år
     BaselineStrafAfkoeling: Strafafkøling
