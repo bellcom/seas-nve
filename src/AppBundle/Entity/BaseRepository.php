@@ -7,8 +7,11 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use DateTime;
+use Symfony\Component\Form\FormInterface;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * BygningRepository
@@ -50,6 +53,20 @@ class BaseRepository extends EntityRepository {
 
     $bygninger = $this->findByUser($user);
     return $bygninger && in_array($bygning, $bygninger);
+  }
+
+  private $container;
+
+  public function setContainer(ContainerInterface $container) {
+    $this->container = $container;
+
+    return $this;
+  }
+
+  public function findAtTime(DateTime $timestamp, FormInterface $form) {
+    return $this->container->get('aaplus.entityaudit.reader')
+      ->setFilter($form)
+      ->getEntitiesAtTime($this->getClassName(), $timestamp);
   }
 
 }

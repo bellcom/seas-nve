@@ -38,7 +38,7 @@ twig:
         decimal_point: ','
         thousands_separator: '.'
     globals:
-        aaplus_release_ver: Release 1.5
+        aaplus_release_ver: Release 1.6
 
 
 # Assetic Configuration
@@ -175,6 +175,8 @@ simple_things_entity_audit:
         - AppBundle\Entity\SpecialTiltagDetail
         - AppBundle\Entity\TekniskIsoleringTiltag
         - AppBundle\Entity\TekniskIsoleringTiltagDetail
+        - AppBundle\Entity\VindueTiltag
+        - AppBundle\Entity\VindueTiltagDetail
         - AppBundle\Entity\Tiltag
         - AppBundle\Entity\TiltagDetail
         - AppBundle\Entity\Segment

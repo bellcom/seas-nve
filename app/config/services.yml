@@ -167,3 +167,12 @@ services:
     aaplus.pdf_export:
         class: AppBundle\PdfExport\PdfExport
         arguments: [ @service_container ]
+
+    aaplus.entityaudit.manager:
+      class: AppBundle\EntityAudit\AuditManager
+      arguments: [ @simplethings_entityaudit.config ]
+
+    aaplus.entityaudit.reader:
+      class: AppBundle\EntityAudit\AuditReader
+      factory: [@aaplus.entityaudit.manager, createAuditReader]
+      arguments: [@doctrine.orm.default_entity_manager]

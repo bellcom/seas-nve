@@ -7,6 +7,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\DataExport\ExcelExport;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Form\Type\BygningUdtraekType;
+use DateTime;
 
 /**
  * Udtraek controller.
@@ -75,6 +77,17 @@ class UdtraekController extends BaseController implements InitControllerInterfac
       $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
     }
 
+    if ($request->query->has('_timestamp')) {
+      $spec = $request->query->get('_timestamp');
+      try {
+        $timestamp = DateTime::createFromFormat('Y-m-d', $spec['year'] . '-' . $spec['month'] . '-' . $spec['day']);
+        if ($timestamp !== FALSE) {
+          $timestamp->setTime(0, 0, 0);
+          return $this->indexAtTimeAction($request, $form, $timestamp, $_format);
+        }
+      } catch (Exception $ex) {}
+    }
+
     $query = $filterBuilder->getQuery();
 
     $columns = $this->getColumnGroupsInfo($request);
@@ -113,6 +126,54 @@ class UdtraekController extends BaseController implements InitControllerInterfac
         'columns' => $columns,
         'types' => $types,
         'type' => $type,
+      ));
+    }
+  }
+
+  /**
+   * Get Bygning data from at specific point in time (in the past).
+   */
+  private function indexAtTimeAction(Request $request, Form $form, DateTime $timestamp, $_format) {
+    $entities = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning')
+              ->setContainer($this->container)
+              ->findAtTime($timestamp, $form);
+
+    $columns = $this->getColumnGroupsInfo($request);
+    $types = $this->getTypesInfo($request);
+    $type = $this->getType($request);
+
+    if ($_format != 'html') {
+      $filename = 'bygninger--' . date('d-m-Y_Hi') . '.' . $_format;
+
+      $response = new Response();
+      $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+      $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
+      $response->headers->set('Cache-Control', 'max-age=0');
+
+      return $this->render('AppBundle:Bygning:index.' . $_format . '.twig',
+        array(
+          'bygninger' => $entities,
+          'columns' => $columns,
+          'types' => $types,
+          'type' => $type,
+          'timestamp' => $timestamp,
+        ),
+        $response);
+    } else {
+      $paginator = $this->get('knp_paginator');
+      $pagination = $paginator->paginate(
+        $entities,
+        $request->query->get('page', 1) /*page number*/,
+        10 /*limit per page*/
+      );
+
+      return $this->render('AppBundle:Udtraek:index.html.twig', array(
+        'pagination' => $pagination,
+        'form' => $form->createView(),
+        'columns' => $columns,
+        'types' => $types,
+        'type' => $type,
+        'timestamp' => $timestamp,
       ));
     }
   }
