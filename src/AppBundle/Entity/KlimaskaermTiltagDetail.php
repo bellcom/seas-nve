@@ -149,6 +149,18 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   protected $levetidAar;
 
   /**
+   * @var string
+   *
+   * @ORM\Column(name="noteGenerelt", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 360,
+   *  maxMessage = "maxLength"
+   * )
+   */
+  protected $noteGenerelt;
+
+  /**
    * @var float
    *
    * @Calculated
@@ -559,6 +571,27 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    */
   public function getLevetidAar() {
     return $this->levetidAar;
+  }
+
+  /**
+   * Set noteGenerelt
+   *
+   * @param integer $noteGenerelt
+   * @return KlimaskaermTiltagDetail
+   */
+  public function setNoteGenerelt($noteGenerelt) {
+    $this->noteGenerelt = $noteGenerelt;
+
+    return $this;
+  }
+
+  /**
+   * Get noteGenerelt
+   *
+   * @return integer
+   */
+  public function getNoteGenerelt() {
+    return $this->noteGenerelt;
   }
 
   /**
