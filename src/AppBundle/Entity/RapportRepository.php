@@ -177,11 +177,9 @@ class RapportRepository extends BaseRepository {
     $qb->orderBy('r.updatedAt', 'DESC');
 
     if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users');
+      $qb->andWhere(':user MEMBER OF b.users OR b.energiRaadgiver = :energiRaadgiver OR b.projektleder = :projektleder');
       $qb->setParameter('user', $user);
-      $qb->orWhere('b.energiRaadgiver = :energiRaadgiver');
       $qb->setParameter('energiRaadgiver', $user);
-      $qb->orWhere('b.projektleder = :projektleder');
       $qb->setParameter('projektleder', $user);
     } else if($onlyOwnBuildings) {
       $qb->andWhere('b.aaplusAnsvarlig = :aaplusAnsvarlig');

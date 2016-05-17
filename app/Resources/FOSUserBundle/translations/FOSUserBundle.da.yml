@@ -76,7 +76,7 @@ resetting:
     flash:
         success: Kodeordet er blevet nulstillet
     email:
-        subject: Velkommen %username%!
+        subject: Nulstilling af kodeord (%username%)
         message: |
             Hej %username%!
 
