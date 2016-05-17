@@ -175,6 +175,8 @@ simple_things_entity_audit:
         - AppBundle\Entity\SpecialTiltagDetail
         - AppBundle\Entity\TekniskIsoleringTiltag
         - AppBundle\Entity\TekniskIsoleringTiltagDetail
+        - AppBundle\Entity\VindueTiltag
+        - AppBundle\Entity\VindueTiltagDetail
         - AppBundle\Entity\Tiltag
         - AppBundle\Entity\TiltagDetail
         - AppBundle\Entity\Segment
