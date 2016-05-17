@@ -46,6 +46,7 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
         'attr' => array('maxlength' => 360), 'required' => false,
       ))
       ->add('levetidAar')
+      ->add('noteGenerelt', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
       ;
   }
 
