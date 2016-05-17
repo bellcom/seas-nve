@@ -1488,7 +1488,7 @@ class Rapport {
     return FALSE;
   }
 
-  public function getEnergiforsyningByNavn($navn) {
+  private function getEnergiforsyningByNavn($navn) {
     if (!$this->energiforsyninger) {
       return NULL;
     }
