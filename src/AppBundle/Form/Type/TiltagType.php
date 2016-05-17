@@ -65,6 +65,7 @@ class TiltagType extends AbstractType {
       ));
       $builder->add('tilvalgtbegrundelse', NULL, array('required' => FALSE));
       $builder->add('tilvalgtBegrundelseMagistrat', NULL, array('required' => FALSE));
+      $builder->add('datoForDrift');
     }
     $builder->add('title')
       ->add('faktorForReinvesteringer')

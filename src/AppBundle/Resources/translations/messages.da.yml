@@ -1529,6 +1529,7 @@ appbundle:
       filepath: Fil
       kommentar: Kommentar
       titel: Titel
+    datoForDrift: Dato for drift
     elbesparelse: Elbesparelse
     elbesparelse.unit: kWh/år
     enhed: Enhed

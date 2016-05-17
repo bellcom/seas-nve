@@ -566,6 +566,13 @@ abstract class Tiltag {
   protected $enhed;
 
   /**
+   * @var \DateTime
+   *
+   * @ORM\Column(name="DatoForDrift", type="date", nullable=true)
+   */
+  protected $datoForDrift;
+
+  /**
    * Get Name
    *
    * @return string
@@ -1433,6 +1440,27 @@ abstract class Tiltag {
    */
   public function setAaplusInvestering($aaplusInvestering) {
     $this->aaplusInvestering = $aaplusInvestering;
+  }
+
+  /**
+   * Set dato for drift
+   *
+   * @param \DateTime $datoForDrift
+   * @return Rapport
+   */
+  public function setDatoForDrift($datoForDrift) {
+    $this->datoForDrift = $datoForDrift;
+
+    return $this;
+  }
+
+  /**
+   * Get dato for drift
+   *
+   * @return \DateTime
+   */
+  public function getDatoForDrift() {
+    return $this->datoForDrift;
   }
 
 
