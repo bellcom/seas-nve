@@ -297,7 +297,7 @@ class Rapport {
   /**
    * @var float
    *
-   * @ORM\Column(name="energiscreening", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="energiscreening", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $energiscreening;
 
