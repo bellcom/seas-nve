@@ -222,6 +222,11 @@
           <td></td>
         </tr>
         <tr>
+          <th>{{ 'appbundle.tiltag.datoForDrift' | trans }}</th>
+          <td class="text-right">{{ tiltag.datoForDrift is empty ? "" : tiltag.datoForDrift | date('Y-m-d') }}</td>
+          <td></td>
+        </tr>
+        <tr>
           <th>{{ 'common.risikovurdering' | trans }} {{ 'appbundle.tiltag.risikovurderingTeknisk' | trans }}</th>
           <td class="text-right">{{ entity.risikovurderingTeknisk ? entity.risikovurderingTeknisk | readable : "" }}</td>
           <td></td>

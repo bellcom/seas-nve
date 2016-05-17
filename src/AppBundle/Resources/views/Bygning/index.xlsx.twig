@@ -132,6 +132,7 @@
       {% xlscell %}{{ tiltag.maengde }}{% endxlscell %}
       {% xlscell %}{{ tiltag.enhed }} {% endxlscell %}
       {% xlscell %}{{ tiltag.levetid | format_integer }}{% endxlscell %}
+      {% xlscell %}{{ tiltag.datoForDrift is empty ? "" : tiltag.datoForDrift | date('Y-m-d') }}{% endxlscell %}
       {% xlscell %}{{ tiltag.varmebesparelseGAF }}{% endxlscell %}
       {% xlscell %}{{ tiltag.varmebesparelseGUF }}{% endxlscell %}
       {% xlscell %}{{ tiltag.elbesparelse }}{% endxlscell %}
@@ -267,6 +268,7 @@
         {% xlscell %}{{ 'Mængde' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Enheder' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Funktionsdygtig levetid' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'Dato for drift' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Varmebesparelse GAF' | trans }} ({{ 'appbundle.tiltag.varmebesparelseGAF.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Varmebesparelse GUF' | trans }} ({{ 'appbundle.tiltag.varmebesparelseGUF.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Elbesparelse' | trans }} ({{ 'appbundle.tiltag.elbesparelse.unit' | trans }}){% endxlscell %}
