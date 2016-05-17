@@ -84,11 +84,10 @@
   <tr>
     {% if can_edit is defined and can_edit == true %}
       <th colspan="7">{{ 'graddagefordeling.strings.bemaerk' | trans }}</th>
-      <th colspan="7" class="text-right">{{ 'graddagefordeling.strings.kilde' | trans }}: <a href="{{ baseline_grdadage_url }}" target="_blank">Graddagetal på aarhus.dk</a></th>
+      <th colspan="7" class="text-right">{{ 'graddagefordeling.strings.kilde' | trans }}: <a href="{{ baseline_graddage_url }}" target="_blank">Graddagetal på aarhus.dk</a></th>
     {% else %}
-      <th colspan="14" class="text-right">{{ 'graddagefordeling.strings.kilde' | trans }}: <a href="{{ baseline_grdadage_url }}" target="_blank">Graddagetal på aarhus.dk</a></th>
+      <th colspan="14" class="text-right">{{ 'graddagefordeling.strings.kilde' | trans }}: <a href="{{ baseline_graddage_url }}" target="_blank">Graddagetal på aarhus.dk</a></th>
     {% endif %}
   </tr>
   </tfoot>
 </table>
-
