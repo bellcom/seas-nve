@@ -47,6 +47,9 @@ class UdtraekController extends BaseController implements InitControllerInterfac
    * @Template()
    */
   public function indexAction(Request $request, $_format) {
+    // We need more time!
+    set_time_limit(0);
+
     if ($request->query->has('_format')) {
       $value = $request->query->get('_format');
       if ($value == 'xlsx' || $value == 'csv') {
