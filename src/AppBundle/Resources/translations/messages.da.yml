@@ -253,8 +253,9 @@ graddagefordeling:
     plural: Graddage-fordelinger
     singular: Graddage-fordeling
   strings:
-    ingen: Ingen Graddage-fordeling fundet
     bemaerk: "* Bemærk: Normtal skal opdateres manuelt"
+    ingen: Ingen Graddage-fordeling fundet
+    kilde: Kilde
 klimaskaerm:
   actions:
     add: Tilføj klimaskærm
