@@ -1,0 +1,10 @@
+{% if columns is defined %}
+  <h4>{{ 'udtraek.labels.columns' | trans }}</h4>
+  <fieldset id="column-groups">
+    <ul class="list-unstyled list-inline">
+    {% for name, selected in columns.groups %}
+      <li><label><input type="checkbox" name="{{ columns.name }}[{{ name }}]" {{ selected ? ' checked' : '' }}/> {{ ('udtraek.columns.' ~ name) | trans }}</label></li>
+    {% endfor %}
+      </ul>
+  </fieldset>
+{% endif %}

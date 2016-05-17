@@ -47,6 +47,13 @@ class UdtraekController extends BaseController implements InitControllerInterfac
    * @Template()
    */
   public function indexAction(Request $request, $_format) {
+    if ($request->query->has('_format')) {
+      $value = $request->query->get('_format');
+      if ($value == 'xlsx' || $value == 'csv') {
+        $_format = $value;
+      }
+    }
+
     // initialize a query builder
     $filterBuilder = $this->get('doctrine.orm.entity_manager')
       ->getRepository('AppBundle:Bygning')
@@ -67,6 +74,10 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
     $query = $filterBuilder->getQuery();
 
+    $columns = $this->getColumnGroupsInfo($request);
+    $types = $this->getTypesInfo($request);
+    $type = $this->getType($request);
+
     if ($_format != 'html') {
       $filename = 'bygninger--' . date('d-m-Y_Hi') . '.' . $_format;
 
@@ -78,7 +89,12 @@ class UdtraekController extends BaseController implements InitControllerInterfac
       $result = $query->getResult();
 
       return $this->render('AppBundle:Bygning:index.' . $_format . '.twig',
-        array('bygninger' => $result),
+        array(
+          'bygninger' => $result,
+          'columns' => $columns,
+          'types' => $types,
+          'type' => $type,
+        ),
         $response);
     } else {
       $paginator = $this->get('knp_paginator');
@@ -88,8 +104,83 @@ class UdtraekController extends BaseController implements InitControllerInterfac
         10 /*limit per page*/
       );
 
-      return $this->render('AppBundle:Udtraek:index.html.twig', array('pagination' => $pagination, 'form' => $form->createView()));
+      return $this->render('AppBundle:Udtraek:index.html.twig', array(
+        'pagination' => $pagination,
+        'form' => $form->createView(),
+        'columns' => $columns,
+        'types' => $types,
+        'type' => $type,
+      ));
     }
+  }
+
+  /**
+   *
+   */
+  private function getColumnGroupsInfo(Request $request) {
+    $groups = array(
+      'name' => '_columns',
+      'groups' => array(),
+    );
+    $values = $request->query->get($groups['name']);
+    $names = array(
+      UdtraekColumnGroups::ALT,
+      UdtraekColumnGroups::BYGNINGSINFORMATION,
+      UdtraekColumnGroups::BASELINEINFORMATION,
+      UdtraekColumnGroups::AA_SCREENINGSINFORMATION,
+      UdtraekColumnGroups::BESPARELSESINFORMATION,
+      UdtraekColumnGroups::OEKONOMI,
+    );
+    foreach ($names as $name) {
+      $groups['groups'][$name] = isset($values[$name]) && !empty($values[$name]);
+    }
+
+    return $groups;
+  }
+
+  private function getColumnGroups(Request $request) {
+    $info = $this->getColumnGroupsInfo($request);
+    $groups = array();
+    foreach ($info['groups'] as $name => $value) {
+      if ($value) {
+        $groups[$name] = $name;
+      }
+    }
+    return $groups;
+  }
+
+  /**
+   *
+   */
+  private function getTypesInfo(Request $request) {
+    $types = array(
+      'name' => '_entity',
+      'types' => array(),
+    );
+    $value = $request->query->get($types['name'], UdtraekType::BYGNING);
+    if (!$value) {
+      $value = UdtraekType::BYGNING;
+    }
+    $names = array(
+      UdtraekType::BYGNING,
+      UdtraekType::TILTAG,
+    );
+    foreach ($names as $name) {
+      $types['types'][$name] = ($name == $value);
+    }
+
+    return $types;
+  }
+
+  private function getType(Request $request) {
+    $types = $this->getTypesInfo($request);
+    foreach ($types['types'] as $type => $value) {
+      if ($value) {
+        return $type;
+      }
+    }
+
+    return UdtraekType::BYGNING;
   }
 
   /**
@@ -278,4 +369,18 @@ class UdtraekController extends BaseController implements InitControllerInterfac
 
     return ExcelExport::generateTwoDimensionalExcelResponse($results, 'udtraek--' . $field . '-' . $baseline . '-diff-pr-aar--' . date('d-m-Y_Hi') . '.xlsx');
   }
+}
+
+abstract class UdtraekColumnGroups {
+  const ALT = 'alt';
+  const BYGNINGSINFORMATION = 'bygningsinformation';
+  const BASELINEINFORMATION = 'baselineinformation';
+  const AA_SCREENINGSINFORMATION = 'aa_screeningsinformation';
+  const BESPARELSESINFORMATION = 'besparelsesinformation';
+  const OEKONOMI = 'oekonomi';
+}
+
+abstract class UdtraekType {
+  const BYGNING = 'bygning';
+  const TILTAG = 'tiltag';
 }

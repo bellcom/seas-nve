@@ -39,7 +39,7 @@
     "doctrine/doctrine-migrations-bundle": "^1.0",
     "lexik/form-filter-bundle": "~4.0",
     "beberlei/DoctrineExtensions": "^1.0",
-    "mewesk/twig-excel-bundle": "^1.2"
+    "mewesk/twig-excel-bundle": "^2.0"
   },
   "require-dev": {
     "sensio/generator-bundle": "~2.3"

@@ -8,15 +8,19 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 /**
  * Pumpe
  *
  * @ORM\Table()
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\PumpeRepository")
  */
 class Pumpe {
   use TimestampableEntity;
+  use SoftDeleteableEntity;
 
   /**
    * @var integer
@@ -178,7 +182,7 @@ class Pumpe {
    * @return string
    */
   public function __toString() {
-    return $this->id.'. '.$this->nuvaerendeType . ' / ' . $this->nyPumpe;
+    return $this->id.'. '.$this->nuvaerendeType . ' / ' . $this->nyPumpe . ' - Stand.inv: ' .number_format($this->standInvestering, 0, ',', '.') . ' Kr / Indst: ' . $this->indst;
   }
 
 

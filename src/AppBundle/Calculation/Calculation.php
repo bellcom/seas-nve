@@ -2,8 +2,16 @@
 
 namespace AppBundle\Calculation;
 
+use Symfony\Component\DependencyInjection\Container;
+
 abstract class Calculation {
   private static $allowedDeviance = 0.0001;
+
+  protected $container = null;
+
+  public function __construct(Container $container) {
+    $this->container = $container;
+  }
 
   /**
    * Check if two numeric values are equals within some deviance.
@@ -38,25 +46,71 @@ abstract class Calculation {
    *   Whether any numeric value will if re-calculating values.
    */
   public function getChanges($entity) {
-    $old = $entity;
-    $new = $this->calculate(clone $old);
-
-    $getters = array_filter(get_class_methods($entity), function($method) { return strpos($method, 'get') === 0; });
     $changes = array();
-    foreach ($getters as $getter) {
-      $oldValue = $old->{$getter}();
-      $newValue = $new->{$getter}();
-      // Compare numeric values with a fixed scale
-      if (is_numeric($oldValue) && is_numeric($newValue) && !self::areEqual($oldValue, $newValue)) {
-        $changes[] = array(
-          'property' => lcfirst(preg_replace('/^get/', '', $getter)),
-          'oldValue' => $oldValue,
-          'newValue' => $newValue,
-        );
+    $calculatedFields = $this->getCalculatedFields($entity);
+
+    if ($calculatedFields) {
+      $old = $entity;
+      $new = $this->calculate(clone $old);
+
+      foreach ($calculatedFields as $field) {
+        try {
+          $name = $field['fieldName'];
+          $type = $field['type'];
+          $getter = 'get' . $name;
+          if (method_exists($old, $getter)) {
+            $oldValue = $old->{$getter}();
+            $newValue = $new->{$getter}();
+            $isChanged = $oldValue != $newValue;
+            switch ($type) {
+              case 'float':
+                // Compare numeric values with a fixed scale
+                $isChanged = !self::areEqual($oldValue, $newValue);
+                break;
+            }
+
+            if ($isChanged) {
+              $changes[] = array(
+                'property' => $name,
+                'type' => $type,
+                'oldValue' => $oldValue,
+                'newValue' => $newValue,
+              );
+            }
+          }
+        } catch (\Exception $ex) {}
       }
     }
 
     return $changes;
+  }
+
+  /**
+   * Get calculated fields on an entity.
+   *
+   * @param Entity $entity
+   *   The entity.
+   *
+   * @return Array
+   *   List of calculated fields.
+   */
+  protected function getCalculatedFields($entity) {
+    $reflectionClass = new \ReflectionClass($entity);
+    $properties = $reflectionClass->getProperties();
+
+    $calculatedFieldNames = array_map(function($property) {
+      return $property->getName();
+    }, array_filter($properties, function($property) {
+      return strpos($property->getDocComment(), '@Calculated') !== FALSE;
+    }));
+
+    $em = $this->container->get('doctrine')->getManager();
+    $className = get_class($entity);
+    $metadata = $em->getClassMetadata($className);
+
+    return array_filter($metadata->fieldMappings, function($field) use ($calculatedFieldNames) {
+      return in_array($field['fieldName'], $calculatedFieldNames);
+    });
   }
 
   /**

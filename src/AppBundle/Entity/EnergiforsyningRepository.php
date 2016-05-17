@@ -15,5 +15,21 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class EnergiforsyningRepository extends EntityRepository {
+  /**
+   * Check if entity can be removed (deleted). If not, return an error message.
+   *
+   * @return string|null
+   */
+  public function getRemoveErrorMessage(Energiforsyning $energiforsyning) {
+    $query = $this->_em->createQuery('SELECT t FROM AppBundle:Tiltag t WHERE t.forsyningVarme = :energiforsyning OR t.forsyningEl = :energiforsyning');
+    $query->setParameter('energiforsyning', $energiforsyning);
+    $result = $query->getResult();
+
+    if ($result) {
+      return 'energiforsyninger.error.in_use';
+    }
+
+    return null;
+  }
 
 }

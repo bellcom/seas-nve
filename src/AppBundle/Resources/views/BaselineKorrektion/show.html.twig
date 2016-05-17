@@ -1,0 +1,53 @@
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ entity }}</h1>
+    </div>
+    <div class="col-md-3 text-right">    <a class="btn btn-default btn-default" href="{{ path('baselinekorrektion_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('chevron-right') }} {{ 'baselinekorrektion.labels.singular' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+            <tr>
+              <th>{{ 'appbundle.baselinekorrektion.datoForImplementering' | trans }}</th>
+                <td>{{ entity.datoForImplementering|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.baselinekorrektion.beskrivelse' | trans }}</th>
+                <td>{{ entity.beskrivelse }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.baselinekorrektion.korrektionEl' | trans }}</th>
+                <td>{{ entity.korrektionEl }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.baselinekorrektion.korrektionGAF' | trans }}</th>
+                <td>{{ entity.korrektionGAF }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.baselinekorrektion.korrektionGUF' | trans }}</th>
+                <td>{{ entity.korrektionGUF }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.baselinekorrektion.kilde' | trans }}</th>
+                <td>{{ entity.kilde }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.baselinekorrektion.indvirkning' | trans }}</th>
+                <td>{{ entity.indvirkning }}</td>
+            </tr>          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

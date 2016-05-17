@@ -1,0 +1,76 @@
+{% extends 'AppBundle:Form:aaplus-bootstrap.html.twig' %}
+
+{% block form_widget %}
+  {% spaceless %}
+    {% if compound %}
+      {{ block('form_widget_compound') }}
+    {% else %}
+      {{ block('form_widget_simple') }}
+    {% endif %}
+  {% endspaceless %}
+{% endblock form_widget %}
+
+{% block form_widget_compound %}
+  {% spaceless %}
+
+      {% if form.parent is empty %}
+        {{ block('global_form_errors') }}
+      {% endif %}
+      {{ block('form_rows') }}
+      {{ form_rest(form) }}
+
+  {% endspaceless %}
+{% endblock form_widget_compound %}
+
+{% block button_row %}
+  {% spaceless %}
+      {{ form_widget(form) }}
+  {% endspaceless %}
+{% endblock button_row %}
+
+{% block form_start %}
+    {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' form-inline') }) %}
+
+    {{ parent() }}
+{% endblock form_start %}
+
+
+
+{% block button_widget %}
+  {% spaceless %}
+
+    {# Apparently we can't render two forms with different form themes in Symfony/Twig - hence this ugly hack! #}
+
+    {% if label is defined and label != '' %}
+      {% set modal_header = label%}
+      {% set modal_body = label ~ '_confirm' %}
+      {% set modal_submit_button = label %}
+      {% set modal_submit_button_icon = 'calculator' %}
+      {% set modal_submit_button_type = 'btn-primary' %}
+    {% endif %}
+
+    {% if label is empty and label is not sameas(false) %}
+      {% set label = name|humanize %}
+    {% endif %}
+
+    {% if type is defined and type == 'submit' %}
+      {# Set a random id to namespace the form so that two delete forms on the same page doesn't conflict modals#}
+      {% set form_id = random() %}
+      {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' btn btn-'~button_class|default('danger'))|trim }) %}
+      <button type="submit" class="btn {{ modal_submit_button_type }}">{{ icon( modal_submit_button_icon ) }} {{ modal_submit_button | trans({}, translation_domain) }}</button>
+
+    {% else %}
+      {% if type is defined and type == 'submit' %}
+        {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' btn btn-'~button_class|default('primary'))|trim }) %}
+      {% else %}
+        {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' btn btn-'~button_class|default('default'))|trim }) %}
+      {% endif %}
+      {% if as_link is defined and as_link == true %}
+        <a {{ block('button_attributes') }}>{% if attr.icon is defined and attr.icon != '' %}{{ icon(attr.icon) }}{% endif %}{{ label|trans({}, translation_domain) }}</a>
+      {% else %}
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{% if attr.icon is defined and attr.icon != '' %}{{ icon(attr.icon) }}{% endif %}{{ label|trans({}, translation_domain) }}</button>
+      {% endif %}
+    {% endif %}
+
+  {% endspaceless %}
+{% endblock button_widget %}

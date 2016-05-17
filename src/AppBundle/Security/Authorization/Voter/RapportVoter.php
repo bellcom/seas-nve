@@ -72,7 +72,7 @@ class RapportVoter implements VoterInterface {
 
     switch($attribute) {
       case self::VIEW:
-        if ($this->hasRole($token, 'ROLE_RAPPORT_VIEW') && $this->rapportRepository->hasAccess($user, $rapport)) {
+        if ($this->hasRole($token, 'ROLE_RAPPORT_VIEW') && $this->rapportRepository->hasAccess($user, $rapport->getBygning())) {
           return VoterInterface::ACCESS_GRANTED;
         }
         break;

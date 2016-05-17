@@ -46,7 +46,9 @@ common:
   baseline: Baseline
   beskrivelsesamtforudsætninger: Beskrivelse samt forudsætninger
   besparelse: Besparelse
+  calculated_value: Beregnet værdi
   cancel: Annuller
+  changes: Ændringer
   confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
   create: Opret
@@ -56,6 +58,7 @@ common:
   data: Data
   date: Dato
   deselect: Fravælg
+  download: Download
   downloadExcel: Hent som Excel
   downloadCsv: Hent som csv
   edit: Rediger
@@ -66,7 +69,9 @@ common:
   forside: Forside
   generelt: Generelt
   genereted: Genereret
+  linked: Tilknyttet
   none: Ingen
+  notLinked: Ikke tilknyttet
   oekonomi: Økonomi
   personer: Personer
   printed: Udskrevet
@@ -84,16 +89,17 @@ common:
   tekniske_oplysninger: Tekniske Oplysninger
   tilknytning: Tilknytning
   update: Opdater
-  updatedat: Opdateret
-  updatedby: Opdateret af
+  updatedAt: Opdateret
+  updatedBy: Opdateret af
+  will_change: Opdateres
   your_buildings: Dine bygninger
-  calculated_value: Beregnet værdi
 dashboard:
   besparelseCO2: CO2 Besparelse
   besparelseEl: El Besparelse
   besparelseVarmeGAF: GAF Besparelse
   besparelseVarmeGUF: GUF Besparelse
   current: Igangværende
+  dine_bygninger: Dine bygninger
   finished: Afleverede
   totalareal: Areal
 footer:
@@ -102,6 +108,33 @@ footer:
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
 
 # Entities
+baseline:
+  actions:
+    add: Tilføj Baseline
+    create: Opret Baseline
+    edit: Rediger Baseline
+    indfoer: Indfør Baseline
+    korriger: Korriger Baseline
+    show: Vis Baseline
+  confirmation:
+    baseline_infoert: Baseline data verificeret
+    created: Baseline oprettet
+    updated: Baseline opdateret
+  labels:
+    plural: Baselines
+    singular: Baseline
+  strings:
+    ingen: Ingen baseline fundet
+baselinekorrektioner:
+  actions:
+    add: Tilføj Korrektion
+    edit: Rediger Korrektion
+  confirmation:
+    created: Korrektion oprettet
+  labels:
+    singular: Korrektion
+  strings:
+    ingen: Ingen baseline korrektioner
 belysningtiltag:
   actions:
     add: Tilføj belysningstiltag
@@ -146,6 +179,34 @@ configuration:
     plural: Indstillinger
     singular: Indstillinger
   strings:
+elofordeling:
+  actions:
+    add: Tilføj ELO-fordeling
+    create: Opret ELO-fordeling
+    edit: Rediger ELO-fordeling
+    indfoer: Indfør ELO-fordeling
+    show: Vis ELO-fordeling
+  confirmation:
+    baseline_infoert: ELO-fordeling data verificeret
+  labels:
+    plural: ELO-fordelinger
+    singular: ELO-fordeling
+  strings:
+    ingen: Ingen ELO-fordeling fundet
+elokategori:
+  actions:
+    add: Tilføj ELO-kategori
+    create: Opret ELO-kategori
+    edit: Rediger ELO-kategori
+    indfoer: Indfør ELO-kategori
+    show: Vis ELO-kategori
+  confirmation:
+    baseline_infoert: ELO-kategori data verificeret
+  labels:
+    plural: ELO-kategorier
+    singular: ELO-kategori
+  strings:
+    ingen: Ingen ELO-kategori fundet
 energiforsyninger:
   actions:
     add: Tilføj energiforsyning
@@ -163,22 +224,44 @@ erstatningslyskilde:
   actions:
     add: Tilføj erstatnings lyskilde
     edit: Rediger erstatnings lyskilde
+  error:
+    in_use: Kan ikke slettes. Bruges af belysningstiltag.
   labels:
     plural: Erstatnings lyskilder
     singular: Erstatnings lyskilde
-forsyningsvaerk:
+forsyningsvaerker:
   actions:
     add: Tilføj forsyningsværk
     create: Opret forsyningsværk
     edit: Rediger forsyningsværk
+  error:
+    cannot_delete: Forsyningsværk kan ikke slettes
+    in_use: Kan ikke slettes. Bruges af bygning.
   labels:
     plural: Forsyningsværker
     singular: Forsyningsværk
+graddagefordeling:
+  actions:
+    add: Tilføj Graddage-fordeling
+    create: Opret Graddage-fordeling
+    edit: Rediger Graddage-fordeling
+    indfoer: Indfør Graddage-fordeling
+    show: Vis Graddage-fordeling
+  confirmation:
+    baseline_infoert: Graddage-fordeling data verificeret
+  labels:
+    plural: Graddage-fordelinger
+    singular: Graddage-fordeling
+  strings:
+    ingen: Ingen Graddage-fordeling fundet
+    bemaerk: "* Bemærk: Normtal skal opdateres manuelt"
 klimaskaerm:
   actions:
     add: Tilføj klimaskærm
     create: Opret klimaskærm
     edit: Rediger klimaskærm
+  error:
+    in_use: Kan ikke slettes. Bruges af klimaskærmstiltag.
   labels:
     plural: Klimaskærme
     singular: Klimaskærm
@@ -199,6 +282,8 @@ nyttiggjortvarme:
     add: Tilføj faktor
     new: Ny faktor
     edit: Rediger faktor
+  error:
+    in_use: Kan ikke slettes. Bruges af pumpe- eller tekniskisoleringtiltag.
   labels:
     plural: Faktorer for nyttiggjort varme (Teknisk Iso.)
     singular: Faktor for nyttiggjort varme (Teknisk Iso.)
@@ -211,6 +296,8 @@ pumpe:
     created: Pumpe oprettet
     updated: Pumpe opdateret
     deleted: Pumpe slettet
+  error:
+    in_use: Kan ikke slettes. Bruges af pumpetiltag.
   labels:
     nuvaerende: Nuværende pumpe
     ny: Ny pumpe
@@ -239,13 +326,15 @@ rapporter:
     approve: Godkendt Magistrat
     approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt af Magistrat"?
     create: Opret Rapport
-    edit: Rediger Rapport
+    edit: Baseline
+    filer: Filer
     implementation: Under udførsel
     implementation_confirm: Er du sikker på du vil markere rapporten som "Under udførsel"?
     operation: Drift
     operation_confirm: Er du sikker på du vil markere bygningen som i drift?
     pdf2: Resultatoversigt
     pdf5: Detailark
+    re-calculate: Genberegn
     retur: Retur til rådgiver
     retur_confirm: Er du sikker på du vil sende repporten retur til rådgiveren?
     show: Vis Rapport
@@ -257,6 +346,7 @@ rapporter:
     approved: Rapport markeret som "Godkendt af Magistrat"
     implementation: Rapport markeret som "Under udførsel"
     operation: Bygningen markeret som i drift
+    re-calculate: Er du sikker på du vil genberegne rapporten?
     retur: Rapport returneret til rådgiver
     submitted: Rapport afleveret til Aa+
     verified: Rapport verificeret af Aa+
@@ -283,6 +373,8 @@ segment:
     created: Segment oprettet
     updated: Segment opdateret
     deleted: Segment slettet
+  error:
+    in_use: Kan ikke slettes. Bruges af bygning.
   labels:
     plural: Segmenter
     singular: Segment
@@ -360,8 +452,17 @@ tiltagdetail:
     updated: Detail opdateret
     deleted: Detail slettet
 udtraek:
+  columns:
+    alt: Alt (Uden tiltag)
+    bygningsinformation: Bygningsinformation
+    baselineinformation: Baselineinformation
+    aa_screeningsinformation: Aa+/Screeningsinformation
+    besparelsesinformation: Besparelsesinformation (Energi + Økonomi)
+    oekonomi: Økonomi (Set over 30 år)
+  types:
+    bygning: Bygning
+    tiltag: Tiltag
   labels:
-    plural: Udtræk
     besparelse_varme_guf_pr_aar: Besparelse varme GUF pr. år
     besparelse_varme_guf_percent_pr_aar: Besparelse varme GUF pr. år i procent
     besparelse_varme_gaf_pr_aar: Besparelse varme GAF pr. år
@@ -369,6 +470,10 @@ udtraek:
     besparelse_el_pr_aar: Besparelse el pr. år
     besparelse_el_percent_pr_aar: Besparelse el pr. år i procent
     besparelse_co2_ton_pr_aar: Besparelse CO2 i ton pr. år
+    columns: Hvilke kollonner skal medtages?
+    options: Udtræks valg
+    plural: Udtræk
+    types: Vælg udtrækstype
 user:
   actions:
     add: Tilføj bruger
@@ -397,6 +502,141 @@ vinduetiltagdetail:
 
 # Forms - We follow the formbuilders form id format
 appbundle:
+  baseline:
+    areal: Areal
+    arealdataPrimaerKilde: Primær kilde
+    arealdataPrimaerKilde.help: Vælg fra liste
+    arealdataPrimaerAreal: Areal
+    arealdataPrimaerAreal.unit: m²
+    arealdataPrimaerNoter: Evt. bemærkninger
+    arealdataSekundaerKilde: Sekundær kilde
+    arealdataSekundaerKilde.help: Vælg fra liste
+    arealdataSekundaerAreal: Areal
+    arealdataSekundaerAreal.unit: m²
+    arealdataSekundaerNoter: Evt. bemærkninger
+    arealGenerelt: Konklusion (Areal)
+    arealPrimaer: Primær kilde
+    arealSekundaer: Sekundær kilde
+    arealTilNoegletalsanalyse: Areal, der skal benyttes til nøgletalsanalyse
+    arealTilNoegletalsanalyse.unit: m²
+    baselineFraUdbud: Baseline fra Rådg. udbud
+    baselineTilRaadgiver: Baseline til Energirådg.
+    changed: Beregn
+    changed_message: Du har ændret i Baseline. Gem for at få foretaget nye beregninger.
+    changed_submit: Beregn Baseline
+    el: El
+    elBaselineFastsatForEjendom: Fastsat baseline for ejendom (El)
+    elBaselineFastsatForEjendom.unit: kWh/år
+    elBaselineNoegletalForEjendom: Nøgletal for ejendom - baseline
+    elBaselineNoegletalForEjendom.unit: kWh/m² pr år
+    elBaselineNoter: Baggrund for valg af baseline
+    elForbrugsdataPrimaerKilde: Primær kilde for forbrugsdata
+    elForbrugsdataPrimaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
+    elForbrugsdataPrimaer1Forbrug: Forbrug (kWh/år)
+    elForbrugsdataPrimaerGennemsnit: Gennemsnit for årene
+    elForbrugsdataPrimaerGennemsnit.unit: kWh/år
+    elForbrugsdataPrimaerNoegetal: Nøgletal for primær kilde
+    elForbrugsdataPrimaerNoegetal.unit: kWh/m² pr år
+    elForbrugsdataPrimaerNoter: Evt. bemærkninger
+    elForbrugsdataSekundaerKilde: Sekundær kilde for forbrugsdata
+    elForbrugsdataSekundaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
+    elForbrugsdataSekundaer1Forbrug: Forbrug (kWh/år)
+    elForbrugsdataSekundaerGennemsnit: Gennemsnit for årene
+    elForbrugsdataSekundaerGennemsnit.unit: kWh/år
+    elForbrugsdataSekundaerNoegetal: Nøgletal for sekundær kilde
+    elForbrugsdataSekundaerNoegetal.unit: kWh/m² pr år
+    elForbrugsdataSekundaerNoter: Evt. bemærkninger
+    elGenerelt: Baseline til udbudsmateriale, årlig (El)
+    elPrimaer: Primær kilde (El)
+    elSekundaer: Sekundær kilde (El)
+    eloElTotalForbrug: ELO-nøgletal for valgt kategori
+    eloElTotalForbrug.unit: kWh/m² pr år
+    eloVarmeTotalForbrug: ELO-nøgletal for valgt kategori
+    eloVarmeTotalForbrug.unit: kWh/m² pr år
+    generelt: Generelt
+    gdNormal: GDnormal.år
+    korrektion.index.varmeStrafafkoelingsafgiftKorrektion: Strafafkølingsafgift korrektion (+/-)
+    korrektion.index.varmeStrafafkoelingsafgiftKorrektion.unit: kr/år
+    korrektioner: Baseline Korrektioner
+    korrektionFraBesigtigelse: Korr. fra besigtigelse
+    opsummering: Opsummering
+    varme: Varme
+    varmeBaselineFastsatForEjendom: Fastsat baseline for ejendom (Varme)
+    varmeBaselineFastsatForEjendom.unit: kWh/år
+    varmeBaselineNoegletalForEjendom: Nøgletal for ejendom - baseline
+    varmeBaselineNoegletalForEjendom.unit: kWh/m² pr år
+    varmeBaselineNoter: Baggrund for valg af baseline (beskrivelse)
+    varmeForbrugsdataPrimaerKilde: Primær kilde til forbrugsdata
+    varmeForbrugsdataPrimaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
+    varmeForbrugsdataPrimaer1Forbrug: Forbrug (kWh/år), ukorrigeret
+    varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter: GUF-forbruget fastsættes ud fra:
+    varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust: Samlet Varmeforbrug for juni, juli, august
+    varmeForbrugsdataPrimaer1GUFRegAar: GUFreg.år
+    varmeForbrugsdataPrimaer1GAFRegAar: GAFreg.år
+    varmeForbrugsdataPrimaer1GDPeriode: GDperiode
+    varmeForbrugsdataPrimaer1GAFnormal: GAFnormal
+    varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret: Forbrug (kWh), klimakorrigeret
+    varmeForbrugsdataPrimaerGAFGennemsnit: GAF, Gennemsnit, årene
+    varmeForbrugsdataPrimaerGAFGennemsnit.unit: kWh/år
+    varmeForbrugsdataPrimaerGUFGennemsnit: GUF, Gennemsnit, årene
+    varmeForbrugsdataPrimaerGUFGennemsnit.unit: kWh/år
+    varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret: Gennemsnit for årene, klimakorr.
+    varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret.unit: kWh/år
+    varmeForbrugsdataPrimaerNoegletal: Nøgletal med primær kilde
+    varmeForbrugsdataPrimaerNoegletal.unit: kWh/m² pr år
+    varmeForbrugsdataPrimaerNoter: Evt. bemærkninger
+    varmeForbrugsdataSekundaerKilde: Sekundær kilde til forbrugsdata
+    varmeForbrugsdataSekundaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
+    varmeForbrugsdataSekundaer1Forbrug: Forbrug (kWh/år), ukorrigeret
+    varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter: GUF-forbruget fastsættes ud fra:
+    varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust: Samlet Varmeforbrug for juni, juli, august
+    varmeForbrugsdataSekundaer1GUFRegAar: GUFreg.år
+    varmeForbrugsdataSekundaer1GAFRegAar: GAFreg.år
+    varmeForbrugsdataSekundaer1GDPeriode: GDperiode
+    varmeForbrugsdataSekundaer1GAFnormal: GAFnormal
+    varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret: Forbrug (kWh), klimakorrigeret
+    varmeForbrugsdataSekundaerGAFGennemsnit: GAF, Gennemsnit, årene
+    varmeForbrugsdataSekundaerGAFGennemsnit.unit: kWh/år
+    varmeForbrugsdataSekundaerGUFGennemsnit: GUF, Gennemsnit, årene
+    varmeForbrugsdataSekundaerGUFGennemsnit.unit: kWh/år
+    varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret: Gennemsnit for årene, klimakorr.
+    varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret.unit: kWh/år
+    varmeForbrugsdataSekundaerNoegletal: Nøgletal med primær kilde
+    varmeForbrugsdataSekundaerNoegletal.unit: kWh/m² pr år
+    varmeForbrugsdataSekundaerNoter: Evt. bemærkninger
+    varmeGAFForbrug: GAF-forbrug
+    varmeGAFForbrug.unit: kWh/år
+    varmeGenerelt: Baseline til udbudsmateriale, årlig (Varme)
+    varmeGUFForbrug: GUF-forbrug
+    varmeGUFForbrug.unit: kWh/år
+    varmePrimaer: Primær kilde (Varme)
+    varmeSekundaer: Sekundær kilde (Varme)
+    varmeStrafafkoelingsafgift: Evt. strafafkølingsafgift
+    varmeStrafafkoelingsafgift.unit: kr/år
+    varmeStrafafkoelingsafgiftKorrektion: Strafafkølingsafgift korrektion
+    year1: År 1
+    year2: År 2
+    year3: År 3
+    createdBy: Oprettet af
+    updatedBy: Opdateret af
+    createdAt: Oprettet
+    updatedAt: Opdateret
+    bygning: Bygning
+    eloKategori: ELO-kategori
+  baselinekorrektion:
+    aarligkorrektion: Årlig korrektion af forbrug +/-
+    beskrivelse: Beskrivelse
+    datoForImplementering: Dato for implementering
+    datoKilde: Dato / Kilde
+    indvirkning: Indvirkning
+    kilde: Kilde
+    korrektionEl: El
+    korrektionEl.unit: kWh/år
+    korrektioner: Korrektioner (+/-)
+    korrektionGAF: GAF
+    korrektionGAF.unit: kWh/år
+    korrektionGUF: GUF
+    korrektionGUF.unit: kWh/år
   belysningtiltagdetail:
     add: Tilføj
     armaturerStkLokale: Armaturer antal
@@ -504,6 +744,7 @@ appbundle:
     afdelingsnavn: Afdelingsnavn
     ansvarlig: Ansvarlig
     anvendelse: Anvendelse
+    baseline: Baseline
     bruttoetageareal: Bruttoetageareal
     by: By
     bygId: ID
@@ -525,6 +766,7 @@ appbundle:
     postBy: By
     postnr: Postnr.
     postnummer: Postnummer
+    projektleder: Projektleder
     rapport:
       BaselineEl: El
       BaselineEl.unit: kwh/år
@@ -553,6 +795,7 @@ appbundle:
       bygning: Bygning
       co2besparelser: CO2 Besparelser
       datering: Screeningsdato
+      datoForDrift: Dato for drift
       elena: Elena
       energibesparelser: Energibesparelser
       Energiscreening: Energiscreening
@@ -595,7 +838,7 @@ appbundle:
     type: Type
     updatedAt: Opdateret
     updatedBy: Opdateret af
-    users: Brugere
+    users: Interessenter
   configuration:
     rapportDriftomkostningerfaktor: Driftomkostninger Faktor
     rapportDriftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
@@ -624,6 +867,34 @@ appbundle:
     solcelletiltagdetailSalgsprisFoerste10AarKrKWh.unit: Kr/KWh
     solcelletiltagdetailSalgsprisEfter10AarKrKWh: Salgspris (Efter 10 år)
     solcelletiltagdetailSalgsprisEfter10AarKrKWh.unit: Kr/KWh
+  elofordeling:
+    januar: Januar
+    februar: Februar
+    marts: Marts
+    april: April
+    maj: Maj
+    juni: Juni
+    juli: Juli
+    august: August
+    september: September
+    oktober: Oktober
+    november: November
+    december: December
+    eloKategoriFordelingVarmeGUF: ELO-kategori VarmeGUF
+    eloKategoriFordelingVarmeGAF: ELO-kategori VarmeGAF
+    eloKategoriFordelingEl: ELO-kategori El
+  elokategori:
+    navn: Navn
+    totalVarmeforbrug: Total varmeforbrug
+    totalElforbrug: Total elforbrug
+    andelVarmeGUFFaktor: Andel varme GUF
+    createdBy: Oprettet af
+    updatedBy: Opdateret af
+    createdAt: Oprettet
+    updatedAt: Opdateret
+    fordelingVarmeGUF: ELO-fordeling VarmeGUF
+    fordelingVarmeGAF: ELO-fordeling VarmeGAF
+    fordelingEl: ELO-fordeling El
   energiforsyning:
     forsyningsvaerk: Forsyningsværk
     enhedspris: Enhedspris
@@ -806,6 +1077,22 @@ appbundle:
     pris2075: Pris, 2075
     priser: Priser
     vedForbrugOverKWh: Ved forbrug over
+  graddagefordeling:
+    januar: Januar
+    februar: Februar
+    marts: Marts
+    april: April
+    maj: Maj
+    juni: Juni
+    juli: Juli
+    august: August
+    maaneder: Måneder
+    september: September
+    oktober: Oktober
+    november: November
+    december: December
+    graddageVedForskelligeAar: Graddage ved forskellige år:
+    titel: År
   klimaskaerm:
     arbejdeOmfang: Arbejde/omfang
     enhed: Enhed
@@ -813,6 +1100,7 @@ appbundle:
     klimaskaerm: Klimaskærm
     noter: Noter
     post: Post
+    type: Type
   klimaskaermtiltagdetail:
     add: Tilføj
     andelAfArealDerEfterisoleres: Andel af areal der efterisoleres
@@ -843,9 +1131,9 @@ appbundle:
     klimaskaermOverskrevetPris.unit: kr/m²
     klimaskaermOverskrevetPris.validation: Klimaskærm overskrevet pris skal udfyldes hvis der er ikke er valgt tiltag
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
-    kWhBesparElvaerkEksternEnergikilde.unit: ??
+    kWhBesparElvaerkEksternEnergikilde.unit: kWh/år
     kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
-    kWhBesparVarmevaerkEksternEnergikilde.unit: ??
+    kWhBesparVarmevaerkEksternEnergikilde.unit: kWh/år
     laastAfEnergiraadgiver: Låst af energirådgiver
     levetidAar: Levetid
     levetidAar.unit: år
@@ -938,9 +1226,9 @@ appbundle:
     b.faktor: B-Faktor
     b.faktor.help: ﻿B-faktor for pumpens placering indtastes, undlades såfremt eksisterende pumpe har isoleringskappe. B-faktor jf. håndbog for energikonsulenter.
     kwhBesparelseElFraVaerket: El: kWh-besparelse fra værket
-    kwhBesparelseElFraVaerket.unit: ??
+    kwhBesparelseElFraVaerket.unit: kWh/år
     kwhBesparelseVarmeFraVaerket: ﻿Varme: kWh-besparelse fra værket
-    kwhBesparelseVarmeFraVaerket.unit: ??
+    kwhBesparelseVarmeFraVaerket.unit: kWh/år
     noter: Noter
     noter.help: ﻿Rådgivers noter til pumpeudskiftning indtastes her. Krav til de punkter rådgiver skal tage stilling til er angivet i kolonnens overskrift
     nutidsvaerdiSetOver15AarKr: ﻿Nutidsværdi set over 15 år
@@ -967,6 +1255,7 @@ appbundle:
     varmebespIsokappeKWh.unit: kWh
   rapport:
     ava: AVA
+    anlaegsinvestering.unit: kr
     BaselineEl: El
     BaselineEl.unit: kwh/år
     BaselineStrafAfkoeling: Strafafkøling
@@ -1006,7 +1295,11 @@ appbundle:
       kommentar: Kommentar
       titel: Titel
     bygning: Bygning
+    cashFlow: Cashflow (30 år)
+    cashFlow15: Cashflow (15 år)
     co2besparelser: CO2 Besparelser
+    co2BesparelseEl: CO2 Besparelse El
+    co2BesparelseVarme: CO2 Besparelse Varme
     co2BesparelseFaktor: Samlede CO2 Besparelser (%)
     co2BesparelseElFaktor: El
     co2BesparelseElFaktor.unit: %
@@ -1025,6 +1318,7 @@ appbundle:
     faellesomkostninger.unit: kr
     faktorPaaVarmebesparelse: Faktor på varmebesparelse
     fravalg: Fravalg
+    fravalgtImplementering: Fravalgt implementering
     genopretning: Genopretning
     genopretning.unit: kr
     genopretningsandel: Genopretningsandel
@@ -1047,12 +1341,13 @@ appbundle:
     likviditetsoversigt: Likviditetsoversigt
     modernisering: Modernisering
     modernisering.unit: kr
-    mtmFaellesomkostninger: MTM Øvrige omkostninger
+    mtmFaellesomkostninger: MTM Fællesomkostninger
     mtmFaellesomkostninger.unit: kr
     nutidsvaerdi: Nutidsværdi
     nutidsvaerdi.unit: kr
     nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. øvrige omkostninger
     nutidsvaerdiInklFaellesomkostninger.unit: kr
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi over 15 år
     oevrigeOmkostninger: Øvrige omkostninger
     samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
     status.ava: AVA-støtte
@@ -1067,7 +1362,7 @@ appbundle:
     totalEntreprisesum: Total Entreprisesum
     totalEntreprisesum.unit: kr
     varmetotal: ﻿I alt baseline varme
-    version: Version
+    version: Iteration
   segment:
     add: Opret Segment
     edit: Rediger Segment
@@ -1236,6 +1531,7 @@ appbundle:
       titel: Titel
     elbesparelse: Elbesparelse
     elbesparelse.unit: kWh/år
+    enhed: Enhed
     faktorForReinvesteringer: Faktor for reinvesteringer
     forsyningEl: Forsyning, el
     forsyningsoverblik: Forsyningsoverblik
@@ -1243,12 +1539,14 @@ appbundle:
     genopretning: Genopretning
     genopretning.unit: kr.
     ialt: I alt
+    id: Id
     indeklima: Indeklima
     information: Information
     levetid: Funktionsdygtig levetid
     levetid.unit: År
     modernisering: Modernisering
     modernisering.unit: kr.
+    maengde: Mængde
     nr: Tiltags nr.
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
@@ -1289,6 +1587,7 @@ appbundle:
     tilvalgtBegrundelseMagistrat: Bemærkning Magistrat
     tilvalgtFravalgt: Tilvalgt / Fravalgt
     title: Titel
+    type: Type
     vandbesparelse: Vandbesparelse
     vandbesparelse.unit: m³/år
     varmebesparelseGAF: Varmebesparelse, GAF
@@ -1341,6 +1640,8 @@ appbundle:
     eWNyKWhM2Aar: E_w,ny
     eWNyKWhM2Aar.unit: kWh/år
     faktorForReinvestering: Faktor for reinvestering
+    glasandel: Glasandel
+    glasandel.unit: %
     hoejdeElLaengdeM: Højde el. Længde
     hoejdeElLaengdeM.unit: m
     ikkeElenaBerettiget: Ikke Elena Berettiget
@@ -1353,6 +1654,7 @@ appbundle:
     laastAfEnergiraadgiver: Låst af energirådgiver
     levetidAar: Levetid
     levetidAar.unit: År
+    noteGenerelt: Noter
     noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter
     noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet.help: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
@@ -1386,6 +1688,11 @@ appbundle:
     vindue: Vindue
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
+  fil:
+    createdAt: Oprettet
+    createdBy: Oprettet af
+    type: Type
+    navn: Navn
 
 # Dataudtræk
 udtraek.bygning:
@@ -1434,3 +1741,13 @@ Hovedforsyning El: Hovedforsyning El
 Oliefyr: Oliefyr
 Træpillefyr: Træpillefyr
 Varmepumpe: Varmepumpe
+
+# Enum: KlimaskaermType
+Klimaskaerm: Klimaskærm
+Window: Vindue
+
+Calculations have changed: Beregninger er ændret
+
+Calculate rapport: Beregn rapport
+Rapport calculated: Rapport beregnet
+Cannot calculate rapport: Fejl under beregning af rapport

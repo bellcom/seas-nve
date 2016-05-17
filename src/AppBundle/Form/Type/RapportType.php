@@ -6,6 +6,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\Rapport;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,10 +18,12 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class RapportType extends AbstractType {
   protected $authorizationChecker;
+  protected $rapport;
 
-  public function __construct(AuthorizationCheckerInterface $authorizationChecker)
+  public function __construct(AuthorizationCheckerInterface $authorizationChecker, Rapport $rapport)
   {
     $this->authorizationChecker = $authorizationChecker;
+    $this->rapport = $rapport;
   }
 
   /**
@@ -32,14 +35,16 @@ class RapportType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
+
+    // If there is a Baseline attached disable editing of baseline fields
+    $disabled = $this->rapport->getBygning()->getBaseline() ? 'disabeld' : '';
+
     $builder
-//      ->add('version')
       ->add('datering')
-      ->add('BaselineEl')
-      ->add('BaselineVarmeGUF')
-      ->add('BaselineVarmeGAF')
-      ->add('BaselineVand')
-      ->add('BaselineStrafAfkoeling')
+      ->add('BaselineEl', null, array('disabled' => $disabled))
+      ->add('BaselineVarmeGUF', null, array('disabled' => $disabled))
+      ->add('BaselineVarmeGAF', null, array('disabled' => $disabled))
+      ->add('BaselineStrafAfkoeling', null, array('disabled' => $disabled))
       ->add('faktorPaaVarmebesparelse')
       ->add('energiscreening');
 

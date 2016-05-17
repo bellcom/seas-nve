@@ -22,6 +22,7 @@ use JMS\Serializer\Annotation as JMS;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Bygning
@@ -36,6 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      @Index(name="bygning_idx_postby", columns={"PostBy"}),
  *    }
  * )
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\BygningRepository")
  */
 class Bygning {
@@ -51,6 +53,13 @@ class Bygning {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
+
+  /**
+   * @var \DateTime $deletedAt
+   *
+   * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+   */
+  private $deletedAt;
 
   /**
    * @var integer
@@ -193,12 +202,25 @@ class Bygning {
   protected $rapport;
 
   /**
+   * @OneToOne(targetEntity="Baseline", mappedBy="bygning", cascade={"persist"})
+   * @JoinColumn(name="baseline_id", referencedColumnName="id", nullable=true)
+   * @JMS\Exclude
+   **/
+  protected $baseline;
+
+  /**
    * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
    *
    * @ManyToOne(targetEntity="User", inversedBy="ansvarlig")
    * @JoinColumn(name="aaplusansvarlig_id", referencedColumnName="id")
    **/
   protected $aaplusAnsvarlig;
+
+  /**
+   * @ManyToOne(targetEntity="User", inversedBy="projektleder")
+   * @JoinColumn(name="projektleder_id", referencedColumnName="id")
+   **/
+  protected $projektleder;
 
   /**
    * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
@@ -711,6 +733,10 @@ class Bygning {
   public function setStatus($status = NULL) {
     $this->status = $status;
 
+    if ($status == BygningStatusType::DRIFT && $this->rapport) {
+      $this->rapport->setDatoForDrift(new \DateTime());
+    }
+
     return $this;
   }
 
@@ -740,14 +766,6 @@ class Bygning {
    * @return Bygning
    */
   public function setAaplusAnsvarlig(\AppBundle\Entity\User $user = NULL) {
-    if ($this->aaplusAnsvarlig !== NULL) {
-      $this->removeUser($this->aaplusAnsvarlig);
-    }
-
-    if ($user && !$this->getUsers()->contains($user)) {
-      $this->addUser($user);
-    }
-
     $this->aaplusAnsvarlig = $user;
 
     return $this;
@@ -763,6 +781,28 @@ class Bygning {
   }
 
   /**
+   * Set Projektleder
+   *
+   * @param \AppBundle\Entity\User user
+   *
+   * @return Bygning
+   */
+  public function setProjektleder(\AppBundle\Entity\User $user = NULL) {
+    $this->projektleder = $user;
+
+    return $this;
+  }
+
+  /**
+   * Get Projektleder
+   *
+   * @return \AppBundle\Entity\User
+   */
+  public function getProjektleder() {
+    return $this->projektleder;
+  }
+
+  /**
    * Set Energirådgiver
    *
    * @param \AppBundle\Entity\User user
@@ -770,14 +810,6 @@ class Bygning {
    * @return Bygning
    */
   public function setEnergiRaadgiver(\AppBundle\Entity\User $user = NULL) {
-    if ($this->energiRaadgiver) {
-      $this->removeUser($this->energiRaadgiver);
-    }
-
-    if ($user && !$this->getUsers()->contains($user)) {
-      $this->addUser($user);
-    }
-
     $this->energiRaadgiver = $user;
 
     return $this;
@@ -815,5 +847,34 @@ class Bygning {
    */
   public function getRapport() {
     return $this->rapport;
+  }
+
+  /**
+   * @return string
+   */
+  public function getKommentarer() {
+    return $this->kommentarer;
+  }
+
+  /**
+   * @param string $kommentarer
+   */
+  public function setKommentarer($kommentarer) {
+    $this->kommentarer = $kommentarer;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getBaseline() {
+    return $this->baseline;
+  }
+
+  /**
+   * @param mixed $baseline
+   */
+  public function setBaseline($baseline) {
+    $this->baseline = $baseline;
+    $baseline->setBygning($this);
   }
 }

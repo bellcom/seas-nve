@@ -5,12 +5,38 @@
     padding-left: 2em;
 }
 
+/* tr:target td {
+     background-color: #ffc;
+} */
+
 span.required {
     font-size: 0.7em;
 }
 
 .form-inline {
     display: inline;
+}
+
+
+div.tab-content div.row:first-child {
+    margin-top: 1.5em;
+}
+
+div.tab-content div.details-overview:first-child {
+    margin-top: 0;
+}
+
+.aaplus-flashes.fixed {
+    position: fixed;
+    z-index: 9999;
+    top: 60px;
+    left: 10px;
+    right: 10px;
+}
+
+span.popover-trigger {
+    cursor: pointer;
+    margin: 0 1em;
 }
 
 /**
@@ -62,7 +88,7 @@ form.inline-block {
     overflow: hidden;
 }
 
-.table-header-rotated td.number {
+td.number {
     text-align: right;
 }
 
@@ -113,12 +139,22 @@ form.inline-block {
     background-color: #f1f1f1;
 }
 
-div.tab-content div.row:first-child {
-    margin-top: 1.5em;
+
+
+
+
+/* Ekstra table classes */
+
+.th-vertical>tbody>tr>th, .th-vertical>tfoot>tr>th, .th-vertical>thead>tr>th {
+    width: 40%;
 }
 
-div.tab-content div.details-overview:first-child {
-    margin-top: 0;
+tr.text-center th {
+    text-align: center;
+}
+
+tr.text-right th {
+    text-align: right;
 }
 
 th.unit {
@@ -128,6 +164,10 @@ th.unit {
 
 .table > tfoot > tr > th {
     border-top: 2px solid #ddd;
+}
+
+td.last {
+    min-width: 50px;
 }
 
 table .checkbox input[type=checkbox], table .checkbox-inline input[type=checkbox], table .radio input[type=radio], table .radio-inline input[type=radio] {
@@ -154,6 +194,128 @@ table .checkbox input[type=checkbox], table .checkbox-inline input[type=checkbox
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+tr.search {
+    background-color: #f5f5f5;
+}
+
+tr.search .form-group {
+    margin-bottom: 0;
+}
+
+tr.search .checkbox input[type=checkbox], tr.search .checkbox-inline input[type=checkbox], tr.search .radio input[type=radio], tr.search .radio-inline input[type=radio] {
+    margin-left: 0;
+}
+
+div.row.heading .btn {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.finansiering-likviditetsoverblik {
+    margin-top: 20px;
+}
+
+.finansiering-likviditetsoverblik header {
+    text-align: right;
+}
+
+.finansiering-likviditetsoverblik [data-toggle]::after {
+    font-family: FontAwesome;
+    content: '\f0d7';
+}
+
+.finansiering-likviditetsoverblik [data-toggle][aria-expanded = "true"]::after {
+    content: '\f0d8';
+}
+
+table.configuration-settings td:first-child {
+    width: 50%;
+}
+
+table.configuration-settings td:nth-child(2) {
+    width: 25%;
+    text-align: right;
+}
+
+
+
+/* Ekstra form validation classes */
+
+.has-info .help-block,
+.has-info .control-label,
+.has-info .radio,
+.has-info .checkbox,
+.has-info .radio-inline,
+.has-info .checkbox-inline,
+.has-info.radio label,
+.has-info.checkbox label,
+.has-info.radio-inline label,
+.has-info.checkbox-inline label {
+    color: #31708f;
+}
+
+.has-info .form-control {
+    border-color: #31708f;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.has-info .form-control:focus {
+    border-color: #843534;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+}
+
+.has-info .input-group-addon {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #31708f;
+}
+
+.has-info .form-control-feedback {
+    color: #31708f;
+}
+
+.textarea-countdown {
+    position: absolute;
+    right: 20px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    color: #777;
+}
+
+.aaplus-overwritten-value .aaplus-note-marker::before {
+    font-family: FontAwesome;
+    content: '\f05a';
+}
+
+.aaplus-overwritten-value .aaplus-calculated-value {
+    visibility: hidden;
+}
+
+.aaplus-overwritten-value:hover .aaplus-calculated-value {
+    visibility: visible;
+}
+
+/* Extra Tooltip classes for disabled buttons */
+
+.tooltip-wrapper {
+    display: inline-block; /* display: block works as well */
+}
+
+.tooltip-wrapper .btn[disabled] {
+    /* don't let button block mouse events from reaching wrapper */
+    pointer-events: none;
+}
+
+.tooltip-wrapper.disabled {
+    /* OPTIONAL pointer-events setting above blocks cursor setting, so set it here */
+    cursor: not-allowed;
+}
+
+
 
 /**
  * Additional styles for BraincraftedBootstrapBundle
@@ -537,122 +699,4 @@ form .alert ul {
 .form-horizontal .checkbox.horizontal, .form-horizontal .radio.horizontal {
     margin-top: 0px;
     margin-left: 15px;
-}
-
-tr.search {
-    background-color: #f5f5f5;
-}
-
-tr.search .form-group {
-    margin-bottom: 0;
-}
-
-tr.search .checkbox input[type=checkbox], tr.search .checkbox-inline input[type=checkbox], tr.search .radio input[type=radio], tr.search .radio-inline input[type=radio] {
-    margin-left: 0;
-}
-
-div.row.heading .btn {
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.finansiering-likviditetsoverblik {
-    margin-top: 20px;
-}
-
-.finansiering-likviditetsoverblik header {
-    text-align: right;
-}
-
-.finansiering-likviditetsoverblik [data-toggle]::after {
-    font-family: FontAwesome;
-    content: '\f0d7';
-}
-
-.finansiering-likviditetsoverblik [data-toggle][aria-expanded = "true"]::after {
-    content: '\f0d8';
-}
-
-table.configuration-settings td:first-child {
-    width: 50%;
-}
-
-table.configuration-settings td:nth-child(2) {
-    width: 25%;
-    text-align: right;
-}
-
-/* Ekstra form validation classes */
-
-.has-info .help-block,
-.has-info .control-label,
-.has-info .radio,
-.has-info .checkbox,
-.has-info .radio-inline,
-.has-info .checkbox-inline,
-.has-info.radio label,
-.has-info.checkbox label,
-.has-info.radio-inline label,
-.has-info.checkbox-inline label {
-    color: #31708f;
-}
-
-.has-info .form-control {
-    border-color: #31708f;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-}
-
-.has-info .form-control:focus {
-    border-color: #843534;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
-}
-
-.has-info .input-group-addon {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #31708f;
-}
-
-.has-info .form-control-feedback {
-    color: #31708f;
-}
-
-.textarea-countdown {
-    position: absolute;
-    right: 20px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    font-size: 0.9em;
-    color: #777;
-}
-
-.aaplus-overwritten-value .aaplus-note-marker::before {
-    font-family: FontAwesome;
-    content: '\f05a';
-}
-
-.aaplus-overwritten-value .aaplus-calculated-value {
-    visibility: hidden;
-}
-
-.aaplus-overwritten-value:hover .aaplus-calculated-value {
-    visibility: visible;
-}
-
-/* Extra Tooltip classes for disabled buttons */
-
-.tooltip-wrapper {
-    display: inline-block; /* display: block works as well */
-}
-
-.tooltip-wrapper .btn[disabled] {
-    /* don't let button block mouse events from reaching wrapper */
-    pointer-events: none;
-}
-
-.tooltip-wrapper.disabled {
-    /* OPTIONAL pointer-events setting above blocks cursor setting, so set it here */
-    cursor: not-allowed;
 }

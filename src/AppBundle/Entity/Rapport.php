@@ -86,6 +86,13 @@ class Rapport {
   protected $datering;
 
   /**
+   * @var \DateTime
+   *
+   * @ORM\Column(name="datoForDrift", type="date", nullable=true)
+   */
+  protected $datoForDrift;
+
+  /**
    * @var float
    *
    * @Calculated
@@ -540,6 +547,9 @@ class Rapport {
 
   /**
    * @var array
+   *
+   * @Calculated
+   * @ORM\Column(name="cashFlow", type="array")
    */
   protected $cashFlow;
 
@@ -560,7 +570,14 @@ class Rapport {
    * @return string
    */
   public function __toString() {
-    return $this->getBygning()->getAdresse() . ", v." . $this->getFullVersion();
+    $bygning = $this->getBygning();
+    if ($bygning->getAdresse()) {
+      return $bygning->getAdresse();
+    }
+    if ($bygning->getNavn()) {
+      return $bygning->getNavn();
+    }
+    return $bygning->getId();
   }
 
   /**
@@ -599,7 +616,7 @@ class Rapport {
    * @return string
    */
   public function getFullVersion() {
-    return $this->getBygning()->getNummericStatus() . '.' . $this->version;
+    return 'Bygn. Status: '.$this->getBygning()->getNummericStatus().' / Itteration: '.$this->version;
   }
 
   /**
@@ -623,6 +640,26 @@ class Rapport {
     return $this->datering;
   }
 
+  /**
+   * Set datoForDrift
+   *
+   * @param \DateTime $datoForDrift
+   * @return Rapport
+   */
+  public function setDatoForDrift($datoForDrift) {
+    $this->datoForDrift = $datoForDrift;
+
+    return $this;
+  }
+
+  /**
+   * Get datoForDrift
+   *
+   * @return \DateTime
+   */
+  public function getDatoForDrift() {
+    return $this->datoForDrift;
+  }
 
   /**
    * Set bygning
@@ -632,6 +669,13 @@ class Rapport {
    */
   public function setBygning(\AppBundle\Entity\Bygning $bygning = NULL) {
     $this->bygning = $bygning;
+
+    if($bygning && $bygning->getBaseline()) {
+      $this->setBaselineEl($bygning->getBaseline()->getElBaselineFastsatForEjendomKorrigeret());
+      $this->setBaselineVarmeGAF($bygning->getBaseline()->getVarmeGAFForbrugKorrigeret());
+      $this->setBaselineVarmeGUF($bygning->getBaseline()->getVarmeGUFForbrugKorrigeret());
+      $this->setBaselineStrafAfkoeling($bygning->getBaseline()->getVarmeStrafafkoelingsafgiftKorrigeret());
+    }
 
     return $this;
   }
@@ -1961,6 +2005,8 @@ class Rapport {
       'besparelse' => array_fill(0, $numberOfYears + 1, 0),
       'cash flow' => array_fill(0, $numberOfYears + 1, 0),
       'akkumuleret' => array_fill(0, $numberOfYears + 1, 0),
+      'besparelse_varme' => array_fill(0, $numberOfYears + 1, NULL),
+      'besparelse_el' => array_fill(0, $numberOfYears + 1, NULL),
     );
 
     $tilvalgteTiltag = $this->getTilvalgteTiltag();
@@ -1983,6 +2029,15 @@ class Rapport {
       $flow['besparelse'][$year] = $besparelse;
       $flow['cash flow'][$year] = -$flow['ydelse laan inkl. faellesomkostninger'][$year] + $flow['besparelse'][$year];
       $flow['akkumuleret'][$year] = $flow['akkumuleret'][$year - 1] + $flow['cash flow'][$year];
+
+      if ($year <= $maxTiltagLevetid) {
+        $flow['besparelse_varme'][$year] = $this->accumulate(function($tiltag, $value) use ($year) {
+          return $value + $tiltag->calculateBesparelseVarmeForYear($year);
+        }, 0);
+        $flow['besparelse_el'][$year] = $this->accumulate(function($tiltag, $value) use ($year) {
+          return $value + $tiltag->calculateBesparelseElForYear($year);
+        }, 0);
+      }
     }
 
     // Remove year 0.
@@ -2010,15 +2065,6 @@ class Rapport {
       $value = $accumulator($tiltag, $value);
     }
     return $value;
-  }
-
-  public function canDeleteEnergiforsyning(Energiforsyning $energiforsyning) {
-    foreach ($this->getTiltag() as $tiltag) {
-      if ($tiltag->getForsyningVarme() == $energiforsyning || $tiltag->getForsyningEl() == $energiforsyning) {
-        return FALSE;
-      }
-    }
-    return TRUE;
   }
 
 }

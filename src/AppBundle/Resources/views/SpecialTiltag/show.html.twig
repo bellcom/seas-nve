@@ -20,7 +20,7 @@
         </thead>
         <tbody>
         {% for detail in entity.details %}
-          <tr>
+          <tr id="{{ detail.id }}">
             <td>
               {% if is_granted('TILTAG_EDIT', entity) %}
                 {{ block('special_tiltag_detail_edit') }}

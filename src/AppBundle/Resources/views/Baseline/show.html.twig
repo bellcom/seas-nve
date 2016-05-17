@@ -1,0 +1,174 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'baseline.labels.singular' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+      {% if is_granted('BASELINE_EDIT', entity) %}
+        <a class="btn btn-default btn-default" href="{{ path('baseline_edit', { 'id': entity.id }) }}">{{ icon('edit') }} {{ 'baseline.actions.edit' | trans }}</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('cube') }} {{ 'appbundle.baseline.opsummering' | trans }}</div>
+        <table class="table table-condensed">
+          <thead>
+          <tr class="text-right">
+            {{ helper.header() }}
+            {{ helper.header('appbundle.baseline.baselineFraUdbud') }}
+            {{ helper.header('appbundle.baseline.korrektionFraBesigtigelse') }}
+            {{ helper.header('appbundle.baseline.baselineTilRaadgiver') }}
+            {{ helper.header() }}
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th>{{ 'appbundle.baseline.el' | trans }}</th>
+            <td class="number">{{ entity.elBaselineFastsatForEjendom }}</td>
+            <td class="number">{{ entity.elBaselineFastsatForEjendomKorrektion }}</td>
+            <td class="number">{{ entity.elBaselineFastsatForEjendomKorrigeret }}</td>
+            <td>{{ 'appbundle.baseline.elBaselineFastsatForEjendom.unit' | trans }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.baseline.varmeGAFForbrug' | trans }}</th>
+            <td class="number">{{ entity.varmeGAFForbrug }}</td>
+            <td class="number">{{ entity.varmeGAFForbrugKorrektion }}</td>
+            <td class="number">{{ entity.varmeGAFForbrugKorrigeret }}</td>
+            <td>{{ 'appbundle.baseline.varmeGAFForbrug.unit' | trans }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.baseline.varmeGUFForbrug' | trans }}</th>
+            <td class="number">{{ entity.varmeGUFForbrug }}</td>
+            <td class="number">{{ entity.varmeGUFForbrugKorrektion }}</td>
+            <td class="number">{{ entity.varmeGUFForbrugKorrigeret }}</td>
+            <td>{{ 'appbundle.baseline.varmeGUFForbrug.unit' | trans }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.baseline.varmeStrafafkoelingsafgift' | trans }}</th>
+            <td class="number">{{ entity.varmeStrafafkoelingsafgift }}</td>
+            <td class="number">{{ entity.varmeStrafafkoelingsafgiftKorrektion }}</td>
+            <td class="number">{{ entity.varmeStrafafkoelingsafgiftKorrigeret }}</td>
+            <td>{{ 'appbundle.baseline.varmeStrafafkoelingsafgift.unit' | trans }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {% if is_granted('BASELINE_EDIT', entity) %}
+    {{ form_start(edit_form) }}
+  {% endif %}
+
+  {% if is_granted('BASELINE_EDIT', entity) %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('sliders') }} {{ 'appbundle.baseline.varmeStrafafkoelingsafgiftKorrektion' | trans }}</div>
+          <div class="panel-body">
+            {{ form_row(edit_form.varmeStrafafkoelingsafgiftKorrektion) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if is_granted('BASELINE_EDIT', entity) %}
+    <div class="row heading">
+      <div class="col-md-12 text-right">
+        <button onclick="document.getElementById('baselinekorrektioner-form').submit()" type="button" class="btn btn-default">{{ icon('plus') }} {{ ('baselinekorrektioner.actions.add') | trans }}</button>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="col-md-12">
+      {% if entity.korrektioner is not empty %}
+
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('sliders') }} {{ 'appbundle.baseline.korrektioner' | trans }}</div>
+          <table class="table table-condensed">
+            <thead>
+            <tr class="text-center">
+              <th></th>
+              <th></th>
+              <th></th>
+              <th colspan="3" class="text-center">{{ 'appbundle.baselinekorrektion.aarligkorrektion' | trans }}</th>
+              <th></th>
+              <th></th>
+            </tr>
+            <tr class="text-center">
+              {{ helper.header('appbundle.baselinekorrektion.indvirkning') }}
+              {{ helper.header('appbundle.baselinekorrektion.datoForImplementering') }}
+              {{ helper.header('appbundle.baselinekorrektion.beskrivelse') }}
+              {{ helper.header('appbundle.baselinekorrektion.korrektionEl') }}
+              {{ helper.header('appbundle.baselinekorrektion.korrektionGAF') }}
+              {{ helper.header('appbundle.baselinekorrektion.korrektionGUF') }}
+              {{ helper.header('appbundle.baselinekorrektion.kilde') }}
+              {{ helper.header() }}
+            </tr>
+            <tr>
+              {{ helper.header_unit('appbundle.baselinekorrektion.indvirkning') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.datoForImplementering') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.beskrivelse') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.korrektionEl') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.korrektionGAF') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.korrektionGUF') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.kilde') }}
+              {{ helper.header_unit() }}
+            </tr>
+            </thead>
+            <tbody>
+            {% for form_korrektion in edit_form.korrektioner %}
+              {% set k = korrektioner[form_korrektion.vars['value'].id] %}
+              <tr>
+                <td class="text-center">
+                  {% if is_granted('BASELINE_EDIT', entity) %}
+                    {{ form_row(form_korrektion.indvirkning) }}
+                  {% else %}
+                    {{ k.indvirkning | b2icon }}
+                  {% endif %}
+                </td>
+                <td class="text-center">
+                  {% if k.datoForImplementering is not empty %}
+                    {{ k.datoForImplementering | date('Y-m-d') }}
+                  {% endif %}
+                </td>
+                <td>{{ k.beskrivelse }}</td>
+                <td class="number">{{ k.korrektionEl }}</td>
+                <td class="number">{{ k.korrektionGAF }}</td>
+                <td class="number">{{ k.korrektionGUF }}</td>
+                <td>{{ k.kilde }}</td>
+                <td class="text-right">
+                  {% if is_granted('BASELINE_EDIT', entity) %}
+                  <a class="btn btn-default btn-xs" href="{{ path('baselinekorrektion_edit', { 'id': k.id }) }}">{{ 'common.edit' | trans }}</a>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      {% else %}
+        <div class="alert alert-info" role="alert">{{ 'baselinekorrektioner.strings.ingen' | trans }}</div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if is_granted('BASELINE_EDIT', entity) %}
+    {{ form_rest(edit_form) }}
+    {{ form_end(edit_form) }}
+  {% endif %}
+
+  {% if is_granted('BASELINE_EDIT', entity) %}
+    <form id="baselinekorrektioner-form" method="POST" action="{{ path('baseline_korrektion_create', { 'id': entity.id }) }}"></form>
+  {% endif %}
+
+{% endblock %}

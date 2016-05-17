@@ -23,7 +23,7 @@ class ForsyningsvaerkController extends BaseController
 
   public function init(Request $request) {
     parent::init($request);
-    $this->breadcrumbs->addItem('forsyningsvaerk.labels.singular', $this->generateUrl('forsyningsvaerk'));
+    $this->breadcrumbs->addItem('forsyningsvaerker.labels.singular', $this->generateUrl('forsyningsvaerk'));
 }
 
 
@@ -250,10 +250,20 @@ class ForsyningsvaerkController extends BaseController
      */
     private function createDeleteForm($id)
     {
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Forsyningsvaerk');
+        $entity = $repository->find($id);
+        $message = $repository->getRemoveErrorMessage($entity);
+
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('forsyningsvaerk_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array(
+                'label' => 'Delete',
+                'disabled' => $message,
+                'attr' => array(
+                    'disabled_message' => $message,
+                ),
+            ))
             ->getForm()
         ;
     }

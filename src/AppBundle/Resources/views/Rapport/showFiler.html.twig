@@ -1,0 +1,32 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>{{ 'Filer' | trans }}</h1>
+
+  {% if filer %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{ 'appbundle.fil.createdAt' | trans }}</th>
+          <th>{{ 'appbundle.fil.createdBy' | trans }}</th>
+          <th>{{ 'appbundle.fil.type' | trans }}</th>
+          <th>{{ 'appbundle.fil.navn' | trans }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for fil in filer %}
+          <tr>
+            <td>{{ fil.createdAt | date('Y-m-d H:i:s') }}</td>
+            <td>{{ fil.createdBy }}</td>
+            <td>{{ fil.type }}</td>
+            <td><a href="{{ path('rapport_fil', { id: entity.id, fil: fil.id }) }}">{{ fil.navn }}</a></td>
+            <td class="text-right"><a class="btn btn-default btn-xs" href="{{ path('rapport_fil', { id: entity.id, fil: fil.id, download: true }) }}">{{ icon('download') }} {{ 'common.download' | trans }}</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-info">{{ 'Ingen filer' | trans }}</div>
+  {% endif %}
+{% endblock %}

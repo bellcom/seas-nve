@@ -53,7 +53,8 @@
                 'forsyningsvaerk': 'Forsyningsværker',
                 'segment': 'Segmenter',
                 'nyttiggjortvarme': 'Nyttiggjort varme',
-                'belysningtiltagdetail_erstatningslyskilde': 'Erstatnings lyskilder'
+                'belysningtiltagdetail_erstatningslyskilde': 'Erstatnings lyskilder',
+                'graddage': 'Graddage-fordelinger'
               } %}
                 <li><a href="{{ path(route) }}">{{ name | trans }}</a></li>
               {% endfor %}
@@ -113,7 +114,9 @@
 <div class="container-fluid">
   {{ wo_render_breadcrumbs() }}
 
-  {% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
+  <div class="aaplus-flashes">
+    {% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
+  </div>
 
   {% block body %}{% endblock %}
 </div>
@@ -137,18 +140,11 @@
   <script src="{{ absolute_url(asset('js/lib/bc-bootstrap-collection.js')) }}"></script>
   <script src="{{ absolute_url(asset('js/lib/jquery.autogrowtextarea.min.js')) }}"></script>
   <script src="{{ absolute_url(asset('js/lib/jquery.floatThead.min.js')) }}"></script>
+  <script src="{{ absolute_url(asset('js/aaplus.js')) }}"></script>
 
   <script>
     $(document).ready(function() {
-      $("textarea").autoGrow();
-
-      $(".table-header-rotated").floatThead({
-        position: 'fixed',
-        top: 50
-      });
-
       {% block documentReady %}{% endblock documentReady %}
-
     });
   </script>
 {% endblock %}

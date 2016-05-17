@@ -7,15 +7,20 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 /**
  * Segment
  *
  * @ORM\Table()
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\SegmentRepository")
  */
 class Segment
 {
+  use SoftDeleteableEntity;
+
   /**
    * @var integer
    *
@@ -151,7 +156,7 @@ class Segment
    * @return string
    */
   public function __toString() {
-    return $this->getForkortelse()." - ".$this->getNavn();
+    return $this->getNavn()." / ".$this->getForkortelse();
   }
 
 

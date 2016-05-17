@@ -28,13 +28,14 @@ class RapportEmbedType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('datering')
-      ->add('BaselineEl')
-      ->add('BaselineVarmeGUF')
-      ->add('BaselineVarmeGAF')
-      ->add('BaselineVand')
-      ->add('BaselineStrafAfkoeling')
+//      ->add('BaselineEl')
+//      ->add('BaselineVarmeGUF')
+//      ->add('BaselineVarmeGAF')
+//      ->add('BaselineVand')
+//      ->add('BaselineStrafAfkoeling')
       ->add('faktorPaaVarmebesparelse')
       ->add('energiscreening')
+      ->add('ava')
       ->add('elena');
   }
 

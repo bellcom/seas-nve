@@ -76,4 +76,12 @@ class KlimaskaermTiltag extends Tiltag {
     ));
   }
 
+  protected function calculateMaengde() {
+    return $this->sum('arealM2');
+  }
+
+  protected function calculateEnhed() {
+    return 'm2';
+  }
+
 }

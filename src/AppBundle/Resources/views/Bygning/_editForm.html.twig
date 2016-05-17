@@ -2,59 +2,83 @@
 
   {{ form_errors(edit_form) }}
 
-<div class="row">
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.bygning.navn' | trans }} / {{ 'appbundle.bygning.adresse' | trans }}</div>
-      <div class="panel-body">
-        {{ form_row(edit_form.navn) }}
-        {{ form_row(edit_form.adresse ) }}
-        {{ form_row(edit_form.postnummer ) }}
-        {{ form_row(edit_form.postBy ) }}
-      </div>
-    </div>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="#generelt" role="tab" data-toggle="tab">{{ 'common.generelt' | trans }}</a></li>
+  <li role="presentation"><a href="#interessenter" role="tab" data-toggle="tab">{{ 'appbundle.bygning.users' | trans }}</a></li>
+</ul>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">{{ icon('users') }} {{ 'common.personer' | trans }} / {{ 'common.tilknytning' | trans }}</div>
-      <div class="panel-body">
-        {{ form_row(edit_form.aaplusAnsvarlig ) }}
-        {{ form_row(edit_form.energiRaadgiver ) }}
-        {{ form_row(edit_form.afdelingsnavn ) }}
-        {{ form_row(edit_form.ejerA ) }}
-        {{ form_row(edit_form.divisionnavn ) }}
-        {{ form_row(edit_form.omraadenavn ) }}
-        {{ form_row(edit_form.ejerforhold ) }}
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="generelt">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.bygning.navn' | trans }} / {{ 'appbundle.bygning.adresse' | trans }}</div>
+          <div class="panel-body">
+            {{ form_row(edit_form.navn) }}
+            {{ form_row(edit_form.adresse ) }}
+            {{ form_row(edit_form.postnummer ) }}
+            {{ form_row(edit_form.postBy ) }}
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('users') }} {{ 'common.personer' | trans }} / {{ 'common.tilknytning' | trans }}</div>
+          <div class="panel-body">
+            {{ form_row(edit_form.aaplusAnsvarlig ) }}
+            {{ form_row(edit_form.projektleder ) }}
+            {{ form_row(edit_form.energiRaadgiver ) }}
+            {{ form_row(edit_form.afdelingsnavn ) }}
+            {{ form_row(edit_form.ejerA ) }}
+            {{ form_row(edit_form.divisionnavn ) }}
+            {{ form_row(edit_form.omraadenavn ) }}
+            {{ form_row(edit_form.ejerforhold ) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('info-circle') }} {{ 'common.data' | trans }}</div>
+          <div class="panel-body">
+            {{ form_row(edit_form.bygId ) }}
+            {{ form_row(edit_form.enhedsys ) }}
+            {{ form_row(edit_form.type ) }}
+            {{ form_row(edit_form.OpfoerselsAar ) }}
+            {{ form_row(edit_form.anvendelse ) }}
+            {{ form_row(edit_form.bruttoetageareal ) }}
+            {{ form_row(edit_form.status ) }}
+            {{ form_row(edit_form.segment ) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('industry') }} {{ 'forsyningsvaerker.labels.plural' | trans }}</div>
+          <div class="panel-body">
+            {{ form_row(edit_form.forsyningsvaerkEl ) }}
+            {{ form_row(edit_form.forsyningsvaerkVarme ) }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="interessenter">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('users') }} {{ 'appbundle.bygning.users' | trans }}</div>
+          <div class="panel-body">
+            {{ form_row(edit_form.users) }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">{{ icon('info-circle') }} {{ 'common.data' | trans }}</div>
-      <div class="panel-body">
-        {{ form_row(edit_form.bygId ) }}
-        {{ form_row(edit_form.enhedsys ) }}
-        {{ form_row(edit_form.type ) }}
-        {{ form_row(edit_form.OpfoerselsAar ) }}
-        {{ form_row(edit_form.anvendelse ) }}
-        {{ form_row(edit_form.bruttoetageareal ) }}
-        {{ form_row(edit_form.status ) }}
-        {{ form_row(edit_form.segment ) }}
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">{{ icon('industry') }} {{ 'forsyningsvaerker.labels.plural' | trans }}</div>
-      <div class="panel-body">
-        {{ form_row(edit_form.forsyningsvaerkEl ) }}
-        {{ form_row(edit_form.forsyningsvaerkVarme ) }}
-      </div>
-    </div>
-  </div>
-
 </div>
 
 {{ form_rest(edit_form) }}
-  {{ form_end(edit_form) }}
+{{ form_end(edit_form) }}

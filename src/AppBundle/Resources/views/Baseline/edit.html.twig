@@ -1,0 +1,15 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+
+    {% include 'AppBundle:Baseline:_form.html.twig' %}
+
+  {% endblock %}
+
+
+{% block documentReady %}
+  {{ parent() }}
+
+  {% include 'AppBundle:Baseline:_documentReady.js.twig' %}
+{% endblock documentReady %}

@@ -7,6 +7,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\DataExport\ExcelExport;
+use AppBundle\Entity\Baseline;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -275,11 +276,52 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createDeleteForm(Bygning $bygning) {
+    $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bygning');
+    $message = $repository->getRemoveErrorMessage($bygning);
+
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('bygning_delete', array('id' => $bygning->getId())))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'disabled' => $message,
+        'attr' => array(
+          'disabled_message' => $message,
+        ),
+      ))
       ->getForm();
+  }
+
+  //---------------- Baseline -------------------//
+
+  /**
+   * Creates a new Baseline entity.
+   *
+   * @Route("/{id}/new", name="baseline_create")
+   * @Method("POST")
+   * @Template("AppBundle:Baseline:new.html.twig")
+   * @Security("is_granted('BYGNING_EDIT', bygning)")
+   */
+  public function newBaselineAction(Request $request, Bygning $bygning) {
+    if($bygning) {
+      $baseline = $bygning->getBaseline();
+      if(!$baseline) {
+        $em = $this->getDoctrine()->getManager();
+
+        $baseline = new Baseline();
+        $bygning->setBaseline($baseline);
+
+        $em->persist($baseline);
+        $em->flush();
+      }
+
+      $flash = $this->get('braincrafted_bootstrap.flash');
+      $flash->success( 'baseline.confirmation.created');
+
+      return $this->redirect($this->generateUrl('baseline_edit', array('id' => $baseline->getId())));
+    } else {
+      throw $this->createNotFoundException('Unable to find Bygning entity.');
+    }
   }
 
 }

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * NyLyskilde
  *
  * @ORM\Table(name="BelysningTiltagDetail_ErstatningsLyskilde")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\BelysningTiltagDetail\ErstatningsLyskildeRepository")
  */
 class ErstatningsLyskilde {
   /**

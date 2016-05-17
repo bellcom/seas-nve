@@ -1,0 +1,14 @@
+{% if calculation_changes is defined and calculation_changes %}
+  {% for message in calculation_changes %}
+    <p>
+      {{ message.property | trans_field(entity) }}:
+      {% if message.type == 'float' %}
+        {{ message.oldValue | format_decimal }} → {{ message.newValue | format_decimal }}
+        ({{ message.oldValue }} → {{ message.newValue }})
+      {% elseif message.type == 'array' %}
+      {% else %}
+        {{ message.oldValue }} → {{ message.newValue }}
+      {% endif %}
+    </p>
+  {% endfor %}
+{% endif %}

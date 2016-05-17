@@ -1,3 +1,5 @@
+/web/filer/*
+!web/filer/.htaccess
 /web/uploads/*
 !web/uploads/.htaccess
 /web/bundles/

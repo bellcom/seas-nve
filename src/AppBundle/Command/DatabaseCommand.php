@@ -16,7 +16,7 @@ class DatabaseCommand extends ContainerAwareCommand {
       ->addArgument(
         'action',
         InputArgument::REQUIRED,
-        'What do you want to do? (connect|dump)'
+        'What do you want to do? (cli|dump)'
       );
   }
 
@@ -30,7 +30,16 @@ class DatabaseCommand extends ContainerAwareCommand {
     }
   }
 
+  /**
+   * @deprecated Deprecated – use "cli".
+   */
   private function connect() {
+    $STDERR = fopen('php://stderr', 'w+');
+    fwrite($STDERR, PHP_EOL . 'Command "connect" is deprecated. Use "cli" instead, i.e. app/console aaplus:database cli.' . PHP_EOL . PHP_EOL);
+    $this->cli();
+  }
+
+  private function cli() {
     $parameters = $this->getContainer()->getParameterBag();
     $cmd = 'mysql'
          .' --host=' . escapeshellarg($parameters->get('database_host'))

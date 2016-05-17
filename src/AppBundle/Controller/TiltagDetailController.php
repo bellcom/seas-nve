@@ -130,7 +130,7 @@ class TiltagDetailController extends BaseController {
       $form->get('nyttiggjortVarme')->addError(new \Symfony\Component\Form\FormError(''));
     }
 
-    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $entity->getTiltag()->getId())));
+    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $entity->getTiltag()->getId())) . '#' . $entity->getId());
 
     return $form;
   }
@@ -156,10 +156,9 @@ class TiltagDetailController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('tiltagdetail.confirmation.updated');
+      $this->flash->success('tiltagdetail.confirmation.updated');
 
-      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltagdetail->getTiltag()->getId())));
+      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltagdetail->getTiltag()->getId())) . '#' . $tiltagdetail->getId());
     }
 
     $template = $this->getTemplate($tiltagdetail, 'edit');
@@ -191,8 +190,7 @@ class TiltagDetailController extends BaseController {
       $em->remove($tiltagdetail);
       $em->flush();
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('tiltagdetail.confirmation.deleted');
+      $this->flash->success('tiltagdetail.confirmation.deleted');
     }
 
     return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));

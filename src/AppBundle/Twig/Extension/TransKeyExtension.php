@@ -4,6 +4,7 @@ namespace AppBundle\Twig\Extension;
 
 use Twig_Extension;
 use Twig_SimpleFilter;
+use Twig_SimpleFunction;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -30,7 +31,25 @@ class TransKeyExtension extends \Twig_Extension {
       new Twig_SimpleFilter('get_help', [$this, 'getHelpText'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('get_calculation', [$this, 'getCalculation'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('get_unit', [$this, 'getUnit'], ['is_safe' => ['all']]),
+      new Twig_SimpleFilter('trans_field', [$this, 'getFieldTranslation'], ['is_safe' => ['all']]),
     );
+  }
+
+  public function getFieldTranslation($field, $entity) {
+    $translated = $this->translator->trans($field);
+
+    if ($field === $translated) {
+      if (preg_match('/^AppBundle\\\\Entity\\\\(?<name>.+)/', get_class($entity), $matches)) {
+        $entityName = str_replace('\\', '_', strtolower($matches['name']));
+        $key = 'appbundle.' . $entityName . '.' . $field;
+        $t = $this->translator->trans($key);
+        if ($t != $key) {
+          $translated = $t;
+        }
+      }
+    }
+
+    return $translated;
   }
 
   public function getTranslation($key) {

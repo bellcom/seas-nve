@@ -7,14 +7,21 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\DBAL\Types\KlimaskaermType;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 /**
  * Klimaskaerm
  *
  * @ORM\Table()
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\KlimaskaermRepository")
  */
 class Klimaskaerm {
+  use SoftDeleteableEntity;
+
   /**
    * @var integer
    *
@@ -23,6 +30,14 @@ class Klimaskaerm {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
+
+  /**
+   * @var string
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\KlimaskaermType")
+   * @ORM\Column(name="type", type="KlimaskaermType")
+   */
+  protected $type;
 
   /**
    * @var string
@@ -68,6 +83,16 @@ class Klimaskaerm {
 
   public function getId() {
     return $this->id;
+  }
+
+  public function setType($type) {
+    $this->type = $type;
+
+    return $this;
+  }
+
+  public function getType() {
+    return $this->type;
   }
 
   public function setPost($post) {

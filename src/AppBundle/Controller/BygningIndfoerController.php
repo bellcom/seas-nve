@@ -70,18 +70,17 @@ class BygningIndfoerController extends BaseController implements InitControllerI
 
     $editForm = $this->createEditForm($bygning);
     $editForm->handleRequest($request);
-    $flash = $this->get('braincrafted_bootstrap.flash');
 
     if ($editForm->isValid()) {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      $flash->success('bygninger.confirmation.bygning_infoert');
+      $this->flash->success('bygninger.confirmation.bygning_infoert');
 
       return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
     }
 
-    $flash->error('common.form_error');
+    $this->flash->error('common.form_error');
 
     return array(
       'entity' => $bygning,

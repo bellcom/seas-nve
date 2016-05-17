@@ -5,7 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotations\Calculated;
 use AppBundle\DBAL\Types\CardinalDirectionType;
-
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * VindueTiltagDetail
  *
@@ -30,6 +31,13 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
   /**
    * @var float
    *
+   * @ORM\Column(name="glasandel", type="decimal", scale=4, nullable=true)
+   */
+  protected $glasandel = 1;
+
+  /**
+   * @var float
+   *
    * @Calculated
    * @ORM\Column(name="eRefEksKWhM2Aar", type="float")
    */
@@ -50,6 +58,18 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
    * @ORM\Column(name="eRefNyKWhM2Aar", type="float")
    */
   protected $eRefNyKWhM2Aar;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="noteGenerelt", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 360,
+   *  maxMessage = "maxLength"
+   * )
+   */
+  protected $noteGenerelt;
 
   /**
    * @var float
@@ -79,6 +99,22 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
     return $this->solenergitransmittansNy;
   }
 
+  public function setGlasandel($glasandel) {
+    $this->glasandel = $glasandel;
+
+    return $this;
+  }
+
+  public function setNoteGenerelt($noteGenerelt) {
+    $this->noteGenerelt = $noteGenerelt;
+
+    return $this;
+  }
+
+  public function getGlasandel() {
+    return $this->glasandel;
+  }
+
   public function getERefEksKWhM2Aar() {
     return $this->eRefEksKWhM2Aar;
   }
@@ -95,6 +131,10 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
     return $this->eWNyKWhM2Aar;
   }
 
+  public function getNoteGenerelt() {
+    return $this->noteGenerelt;
+  }
+
   public function calculate() {
     $this->arealM2 = $this->calculateArealM2();
     $this->eRefEksKWhM2Aar = $this->calculateERefEksKWhM2Aar();
@@ -102,6 +142,10 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
     $this->eRefNyKWhM2Aar = $this->calculateERefNyKWhM2Aar();
     $this->eWNyKWhM2Aar = $this->calculateEWNyKWhM2Aar();
     parent::calculate();
+  }
+
+  protected function calculateArealM2() {
+    return $this->glasandel * parent::calculateArealM2();
   }
 
   protected function calculateERefEksKWhM2Aar() {

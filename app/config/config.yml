@@ -38,7 +38,7 @@ twig:
         decimal_point: ','
         thousands_separator: '.'
     globals:
-        aaplus_release_ver: Release 1.4.5
+        aaplus_release_ver: Release 1.5
 
 
 # Assetic Configuration
@@ -80,8 +80,16 @@ doctrine:
             StyringType: AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType
             TiltagType: AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType
             PlaceringType: AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType
+            ArealKildePrimaerType: AppBundle\DBAL\Types\Baseline\ArealKildePrimaerType
+            ArealKildeSekundaerType: AppBundle\DBAL\Types\Baseline\ArealKildeSekundaerType
+            ElKildePrimaerType: AppBundle\DBAL\Types\Baseline\ElKildePrimaerType
+            ElKildeSekundaerType: AppBundle\DBAL\Types\Baseline\ElKildeSekundaerType
+            VarmeKildePrimaerType: AppBundle\DBAL\Types\Baseline\VarmeKildePrimaerType
+            VarmeKildeSekundaerType: AppBundle\DBAL\Types\Baseline\VarmeKildeSekundaerType
+            GUFFastsaettesEfterType: AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType
             RisikovurderingType: AppBundle\DBAL\Types\RisikovurderingType
             PrimaerEnterpriseType: AppBundle\DBAL\Types\PrimaerEnterpriseType
+            KlimaskaermType: AppBundle\DBAL\Types\KlimaskaermType
         logging: false
         profiling: false
     orm:
@@ -139,6 +147,9 @@ fos_user:
     profile:
         form:
             type: appbundle_user_profile
+    from_email:
+      address:        aarhusplus@mtm.aarhus.dk
+      sender_name:    AaPlus
 
 simple_things_entity_audit:
     audited_entities:
@@ -168,6 +179,8 @@ simple_things_entity_audit:
         - AppBundle\Entity\TiltagDetail
         - AppBundle\Entity\Segment
         - AppBundle\Entity\TekniskIsoleringTiltagDetail\NyttiggjortVarme
+        - AppBundle\Entity\Baseline
+        - AppBundle\Entity\BaselineKorrektion
 
 white_october_breadcrumbs:
   separator:
@@ -202,3 +215,8 @@ knp_snappy:
 mewes_k_twig_excel:
     pre_calculate_formulas: false
     disk_caching_directory: "%kernel.cache_dir%/phpexcel"
+
+app:
+  pdf_export:
+    base_url: %app.pdf_export.base_url%
+    default_file_path: %app.pdf_export.default_file_path

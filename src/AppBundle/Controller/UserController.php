@@ -83,8 +83,7 @@ class UserController extends BaseController {
     if ($form->isValid()) {
       $userManager->updateUser($user);
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('user.confirmation.created');
+      $this->flash->success('user.confirmation.created');
 
       return $this->redirect($this->generateUrl('user'));
     }
@@ -197,10 +196,11 @@ class UserController extends BaseController {
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
+      $userManager = $this->get('fos_user.user_manager');
+      $userManager->updatePassword($entity);
       $em->flush();
 
-      $flash = $this->get('braincrafted_bootstrap.flash');
-      $flash->success('user.confirmation.updated');
+      $this->flash->success('user.confirmation.updated');
 
       return $this->redirect($this->generateUrl('user'));
     }
@@ -214,9 +214,8 @@ class UserController extends BaseController {
   }
 
   private function reportErrors($form) {
-    $flash = $this->get('braincrafted_bootstrap.flash');
     foreach ($form->getErrors() as $error) {
-      $flash->error($error->getMessage());
+      $this->flash->error($error->getMessage());
     }
   }
 

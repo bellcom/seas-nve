@@ -7,25 +7,8 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\Rapport;
 
 class RapportCalculation extends Calculation {
-  protected $container = null;
-
   public function __construct(Container $container) {
-    $this->container = $container;
-  }
-
-  /**
-   * Calculate rapport after loading from data store.
-   *
-   * @param LifecycleEventArgs $args
-   */
-  public function postLoad(LifecycleEventArgs $args) {
-    $entity = $args->getEntity();
-
-    if (!$entity instanceof Rapport) {
-      return;
-    }
-
-    $this->calculate($entity);
+    parent::__construct($container);
   }
 
   /*
