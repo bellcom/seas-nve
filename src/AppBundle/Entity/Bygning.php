@@ -536,6 +536,17 @@ class Bygning {
   }
 
   /**
+   * Get areal
+   *
+   * @return integer
+   */
+  public function getAreal() {
+    return ($this->baseline && !empty($this->baseline->getArealTilNoegletalsanalyse()))
+      ? $this->baseline->getArealTilNoegletalsanalyse()
+      : $this->getBruttoetageareal();
+  }
+
+  /**
    * Set forsyningsvaerkVand
    *
    * @param Forsyningsvaerk $forsyningsvaerkVand

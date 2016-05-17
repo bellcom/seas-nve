@@ -1302,7 +1302,7 @@ class Rapport {
    * @return float
    */
   public function getInterneDriftomkostninger() {
-    return $this->getDriftomkostningerfaktor() + (25 * $this->getBygning()->getBruttoetageareal());
+    return $this->getDriftomkostningerfaktor() + (25 * $this->getBygning()->getAreal());
   }
 
   /**
@@ -1904,7 +1904,7 @@ class Rapport {
   }
 
   private function calculateMtmFaellesomkostninger() {
-    return 10000 + 10 * $this->bygning->getBruttoetageareal();
+    return 10000 + 10 * $this->bygning->getAreal();
   }
 
   private function calculateImplementering() {
