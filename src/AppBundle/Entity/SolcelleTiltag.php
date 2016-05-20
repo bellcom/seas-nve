@@ -32,6 +32,10 @@ class SolcelleTiltag extends Tiltag {
     $this->setTitle('Solceller');
   }
 
+  public function getSalgTilNettetAar1() {
+    return $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }) / $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+  }
+
   protected function calculateElbesparelse($value = null) {
     $value = $this->sum('egetForbrugAfProduktionenKWh');
 
