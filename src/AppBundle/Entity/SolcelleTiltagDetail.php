@@ -470,11 +470,16 @@ class SolcelleTiltagDetail extends TiltagDetail {
 
     $flow['Investering'][1] = -$this->tiltag->getAnlaegsinvestering();
 
+    $tilNettetPct = $this->tilNettetPct;
+    if (!empty($this->tiltag->getRisikovurderingAendringIBesparelseFaktor())) {
+      $tilNettetPct *= 1 + $this->tiltag->getRisikovurderingAendringIBesparelseFaktor();
+    }
+
     for ($year = 1; $year <= $numberOfYears; $year++) {
       $flow['Drift'][$year] = -$this->totalDriftomkostningerPrAar * pow(1 + $inflation, $year);
       $flow['Eget forbrug'][$year] = $this->produktionKWh * $this->tilEgetForbrugPct * $elKrKWh
                                    * pow(1 - $this->forringetYdeevnePrAar, $year -1 ) * pow(1 + $inflation + $this->energiprisstigningPctPrAar, $year - 1);
-      $flow['Salg til nettet'][$year] = $this->produktionKWh * $this->tilNettetPct *
+      $flow['Salg til nettet'][$year] = $this->produktionKWh * $tilNettetPct *
                                       (($year > 10) ? $this->salgsprisEfter10AarKrKWh : $this->salgsprisFoerste10AarKrKWh)
                                       * pow(1 - $this->forringetYdeevnePrAar, $year);
       $flow['Inv. skift'][$year] = ($year == $this->inverterskift1Aar || $year == $this->inverterskift2Aar)
