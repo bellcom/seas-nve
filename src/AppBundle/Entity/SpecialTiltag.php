@@ -123,24 +123,12 @@ class SpecialTiltag extends Tiltag {
   }
 
   protected function calculateVarmebesparelseGUF($value = null) {
-    if ($this->rapport->getStandardForsyning()) {
-      $value = $this->besparelseGUF;
-    }
-    else {
-      $value = $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse();
-    }
-
+    $value = ($this->rapport->getStandardForsyning() ? $this->besparelseGUF : $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
     return parent::calculateVarmebesparelseGUF($value);
   }
 
   protected function calculateVarmebesparelseGAF($value = null) {
-    if ($this->rapport->getStandardForsyning()) {
-      $value = $this->besparelseGAF;
-    }
-    else {
-      $value = $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME') * $this->rapport->getFaktorPaaVarmebesparelse();
-    }
-
+    $value = ($this->rapport->getStandardForsyning() ? $this->besparelseGAF : $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
     return parent::calculateVarmebesparelseGAF($value);
   }
 
