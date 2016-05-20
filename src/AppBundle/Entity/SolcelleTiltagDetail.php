@@ -468,7 +468,7 @@ class SolcelleTiltagDetail extends TiltagDetail {
       'TBT' => array_fill(0, $numberOfYears + 1, 0),
     );
 
-    $flow['Investering'][1] = -$this->investeringKr - $this->screeningOgProjekteringKr;
+    $flow['Investering'][1] = -$this->tiltag->getAnlaegsinvestering();
 
     for ($year = 1; $year <= $numberOfYears; $year++) {
       $flow['Drift'][$year] = -$this->totalDriftomkostningerPrAar * pow(1 + $inflation, $year);
