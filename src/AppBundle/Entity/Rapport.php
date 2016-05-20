@@ -1998,7 +1998,17 @@ class Rapport {
   }
 
   private function calculateInternRenteInklFaellesomkostninger() {
-    return Excel::IRR($this->cashFlow15) * 100;
+    $numberOfYears = 15;
+    $cashFlow = array_fill(1, $numberOfYears, 0);
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      foreach ($tiltag->getCashFlow15() as $index => $value) {
+        $cashFlow[$index] += $value;
+      }
+    }
+
+    $cashFlow[1] -= $this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering();
+
+    return Excel::IRR($cashFlow);
   }
 
   private function calculateCashFlow() {
