@@ -310,9 +310,9 @@
         <th>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger' | trans }}</th>
         <td class="text-right">
           {% if entity.internRenteInklFaellesomkostninger < 100 %}
-            {{ entity.internRenteInklFaellesomkostninger | number_format }}
+            {{ entity.internRenteInklFaellesomkostninger | format_percent_nounit }}
           {% else %}
-            <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">({{ 'common.calculated_value' | trans }}: {{ entity.internRenteInklFaellesomkostninger | number_format }})</span> <span
+            <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">({{ 'common.calculated_value' | trans }}: {{ entity.internRenteInklFaellesomkostninger | format_percent_nounit }})</span> <span
                   class="aaplus-note-marker"></span>
               –
             </span>

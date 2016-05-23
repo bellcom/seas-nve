@@ -1970,13 +1970,22 @@ class Rapport {
     return $result;
   }
 
+  /**
+   * Calculate using sum of cash flows from Tiltag with "Øvrige omkostninger"
+   * added in year 1.
+   */
   protected function calculateNutidsvaerdiSetOver15AarKr() {
-    $result = 0;
+    $numberOfYears = 15;
+    $cashFlow = array_fill(1, $numberOfYears, 0);
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      $result += $tiltag->getNutidsvaerdiSetOver15AarKr();
+      foreach ($tiltag->getCashFlow15() as $index => $value) {
+        $cashFlow[$index] += $value;
+      }
     }
 
-    return $result;
+    $cashFlow[1] -= $this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering();
+
+    return Excel::NPV($this->getKalkulationsrente(), $cashFlow);
   }
 
   protected function calculateFravalgtNutidsvaerdiSetOver15AarKr() {
@@ -1989,7 +1998,17 @@ class Rapport {
   }
 
   private function calculateInternRenteInklFaellesomkostninger() {
-    return Excel::IRR($this->cashFlow15) * 100;
+    $numberOfYears = 15;
+    $cashFlow = array_fill(1, $numberOfYears, 0);
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      foreach ($tiltag->getCashFlow15() as $index => $value) {
+        $cashFlow[$index] += $value;
+      }
+    }
+
+    $cashFlow[1] -= $this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering();
+
+    return Excel::IRR($cashFlow);
   }
 
   private function calculateCashFlow() {
