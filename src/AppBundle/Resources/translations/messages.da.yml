@@ -156,6 +156,9 @@ bilag:
     created: Bilag oprettet
     updated: Bilag opdateret
     deleted: Bilag slettet
+  labels:
+    singular: Bilag
+    plural: Bilag
 bygninger:
   actions:
     add: Tilføj Bygning
@@ -735,6 +738,7 @@ appbundle:
   bilag:
     updated_by: Redigeret af
     updated_at: Redigeringstidspunkt
+    filer: Filer
     filepath: Fil
     kommentar: Kommentar
     titel: Titel

@@ -262,6 +262,7 @@ class RapportBilagController extends BaseController {
    * @param Bilag $bilag
    * @ParamConverter("bilag", class="AppBundle:Bilag", options={"id" = "bilag_id"})
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
    */
   public function showAction(Rapport $rapport, Bilag $bilag) {
     $this->setBreadcrumb($rapport);
@@ -286,6 +287,7 @@ class RapportBilagController extends BaseController {
    * @ParamConverter("bilag", class="AppBundle:Bilag", options={"id" = "bilag_id"})
    * @param Bilag $bilag
    * @return \Symfony\Component\HttpFoundation\Response
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
    */
   public function downloadAction(Bilag $bilag) {
     $path = $bilag->getFilepath();
