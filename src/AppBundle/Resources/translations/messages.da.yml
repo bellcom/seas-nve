@@ -156,6 +156,9 @@ bilag:
     created: Bilag oprettet
     updated: Bilag opdateret
     deleted: Bilag slettet
+  labels:
+    singular: Bilag
+    plural: Bilag
 bygninger:
   actions:
     add: Tilføj Bygning
@@ -736,6 +739,7 @@ appbundle:
   bilag:
     updated_by: Redigeret af
     updated_at: Redigeringstidspunkt
+    filer: Filer
     filepath: Fil
     kommentar: Kommentar
     titel: Titel
@@ -1570,6 +1574,8 @@ appbundle:
     risikovurderingAendringIBesparelseFaktor.unit: %
     risikovurderingOekonomiskKompenseringIftInvesteringFaktor: Økonomisk kompensering ift. investering
     risikovurderingOekonomiskKompenseringIftInvesteringFaktor.unit: %
+    salgTilNettetAar1: Salg til nettet år 1
+    salgTilNettetAar1.unit: kWh
     samletCo2besparelse: Samlet co2-besparelse
     samletCo2besparelse.unit: t/år
     samletEnergibesparelse: Samlet energibesparelse
