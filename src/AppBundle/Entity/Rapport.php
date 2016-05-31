@@ -415,6 +415,22 @@ class Rapport {
   protected $cashFlow30;
 
   /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="energibudgetVarme", type="float", nullable=true)
+   */
+  protected $energibudgetVarme;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="energibudgetEl", type="float", nullable=true)
+   */
+  protected $energibudgetEl;
+
+  /**
    * @return float
    */
   public function getBaselineCO2El() {
@@ -528,6 +544,24 @@ class Rapport {
    */
   public function getCashFlow30() {
     return $this->cashFlow30;
+  }
+
+  /**
+   * Get energibudgetVarme
+   *
+   * @return float
+   */
+  public function getEnergibudgetVarme() {
+    return $this->energibudgetVarme;
+  }
+
+  /**
+   * Get energibudgetEl
+   *
+   * @return float
+   */
+  public function getEnergibudgetEl() {
+    return $this->energibudgetEl;
   }
 
   /**
@@ -1702,6 +1736,9 @@ class Rapport {
     $this->cashFlow30 = $this->calculateCashFlow30();
 
     $this->internRenteInklFaellesomkostninger = $this->calculateInternRenteInklFaellesomkostninger();
+
+    $this->energibudgetVarme = $this->calculateEnergibudgetVarme();
+    $this->energibudgetEl = $this->calculateEnergibudgetEl();
   }
 
   private function calculateCashFlow15() {
@@ -2009,6 +2046,14 @@ class Rapport {
     $cashFlow[1] -= $this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering();
 
     return Excel::IRR($cashFlow);
+  }
+
+  private function calculateEnergibudgetVarme() {
+    return $this->BaselineVarmeGAF - $this->BaselineVarmeGUF - ($this->besparelseVarmeGAF + $this->besparelseVarmeGUF);
+  }
+
+  private function calculateEnergibudgetEl() {
+    return $this->BaselineEl - $this->besparelseEl;
   }
 
   private function calculateCashFlow() {
