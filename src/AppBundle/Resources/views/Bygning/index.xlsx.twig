@@ -56,7 +56,8 @@
         {% xlscell %}{{ rapport ? rapport.baselineVarmeGUF : null }}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.baselineEl : null }}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.BaselineStrafAfkoeling : null }}{% endxlscell %}
-        {% xlscell %}{#{ rapport ? rapport.BaselineEnergibudget : null }#}{% endxlscell %}
+        {% xlscell %}{{ rapport ? rapport.energibudgetVarme : null }}{% endxlscell %}
+        {% xlscell %}{{ rapport ? rapport.energibudgetEl : null }}{% endxlscell %}
       {% else %}
         {% for i in 1..12 %}
           {% xlscell %}{% endxlscell %}
@@ -165,7 +166,7 @@
         {{ macros.multi_col_cell('Bygningsinformation', 11) }}
       {% endif %}
       {% if showAll or columns.groups['baselineinformation'] %}
-        {{ macros.multi_col_cell('Baselineinformation', 12) }}
+        {{ macros.multi_col_cell('Baselineinformation', 13) }}
       {% endif %}
       {% if showAll or columns.groups['aa_screeningsinformation'] %}
         {{ macros.multi_col_cell('Aa+/Screeningsinformation', 7) }}
@@ -219,7 +220,8 @@
         {% xlscell %}{{ 'Varmeforbrug GUF (Baseline)' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Elforbrug (Baseline)' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Straffeafkøling' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Energibudget' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'Energibudget, varme' | trans }} ({{ 'appbundle.rapport.energibudgetVarme.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'Energibudget, el' | trans }} ({{ 'appbundle.rapport.energibudgetEl.unit' | trans }}){% endxlscell %}
       {% endif %}
 
       {% if showAll or columns.groups['aa_screeningsinformation'] %}

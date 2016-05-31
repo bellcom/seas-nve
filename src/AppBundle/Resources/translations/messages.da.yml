@@ -330,7 +330,7 @@ rapporter:
     approve: Godkendt Magistrat
     approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt af Magistrat"?
     create: Opret Rapport
-    edit: Baseline
+    edit: Baseline og energibudget
     filer: Filer
     implementation: Under udførsel
     implementation_confirm: Er du sikker på du vil markere rapporten som "Under udførsel"?
@@ -1316,6 +1316,10 @@ appbundle:
     datering: Screeningsdato
     elena: Elena
     energibesparelser: Energibesparelser
+    energibudgetEl: Energibudget, el
+    energibudgetEl.unit: kWh/år
+    energibudgetVarme: Energibudget, varme
+    energibudgetVarme.unit: kWh/år
     Energiscreening: Energiscreening
     Energiscreening.unit: Kr
     energiscreening: Energiscreening
