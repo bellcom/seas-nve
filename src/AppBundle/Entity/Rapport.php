@@ -2052,7 +2052,7 @@ class Rapport {
       return NULL;
     }
 
-    return Excel::IRR($cashFlow);
+    return $irr;
   }
 
   private function calculateEnergibudgetVarme() {
