@@ -23,6 +23,7 @@ use JMS\Serializer\Annotation as JMS;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use PHPExcel_Calculation_Financial as Excel;
+use PHPExcel_Calculation_Functions as ExcelError;
 
 /**
  * Rapport
@@ -2044,6 +2045,12 @@ class Rapport {
     }
 
     $cashFlow[1] -= $this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering();
+
+    $irr = Excel::IRR($cashFlow);
+    
+    if(ExcelError::IS_ERR($irr)) {
+      return NULL;
+    }
 
     return Excel::IRR($cashFlow);
   }
