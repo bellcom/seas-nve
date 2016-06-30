@@ -205,7 +205,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="elForbrugsdataSekundaer1Forbrug", type="float", nullable=true)
+   * @ORM\Column(name="elForbrugsdataSekundaer1Forbrug", type="decimal", scale=2, nullable=true)
    */
   protected $elForbrugsdataSekundaer1Forbrug;
 
@@ -219,7 +219,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="elForbrugsdataSekundaer2Forbrug", type="float", nullable=true)
+   * @ORM\Column(name="elForbrugsdataSekundaer2Forbrug", type="decimal", scale=2, nullable=true)
    */
   protected $elForbrugsdataSekundaer2Forbrug;
 
@@ -233,7 +233,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="elForbrugsdataSekundaer3Forbrug", type="float", nullable=true)
+   * @ORM\Column(name="elForbrugsdataSekundaer3Forbrug", type="decimal", scale=2, nullable=true)
    */
   protected $elForbrugsdataSekundaer3Forbrug;
 
@@ -263,7 +263,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="elBaselineFastsatForEjendom", type="float", nullable=true)
+   * @ORM\Column(name="elBaselineFastsatForEjendom", type="decimal", scale=2, nullable=true)
    */
   protected $elBaselineFastsatForEjendom;
 
@@ -316,7 +316,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataPrimaer1Forbrug", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataPrimaer1Forbrug", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataPrimaer1Forbrug;
 
@@ -330,7 +330,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataPrimaer2Forbrug", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataPrimaer2Forbrug", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataPrimaer2Forbrug;
 
@@ -344,7 +344,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataPrimaer3Forbrug", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataPrimaer3Forbrug", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataPrimaer3Forbrug;
 
@@ -358,21 +358,21 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataPrimaer2SamletVarmeforbrugJuniJuliAugust;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataPrimaer3SamletVarmeforbrugJuniJuliAugust;
 
@@ -427,21 +427,21 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataPrimaer1GDPeriode", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataPrimaer1GDPeriode", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataPrimaer1GDPeriode;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataPrimaer2GDPeriode", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataPrimaer2GDPeriode", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataPrimaer2GDPeriode;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataPrimaer3GDPeriode", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataPrimaer3GDPeriode", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataPrimaer3GDPeriode;
 
@@ -549,7 +549,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataSekundaer1Forbrug", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataSekundaer1Forbrug", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataSekundaer1Forbrug;
 
@@ -563,7 +563,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataSekundaer2Forbrug", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataSekundaer2Forbrug", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataSekundaer2Forbrug;
 
@@ -577,7 +577,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataSekundaer3Forbrug", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataSekundaer3Forbrug", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataSekundaer3Forbrug;
 
@@ -591,21 +591,21 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataSekundaer2SamletVarmeforbrugJuniJuliAugust;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataSekundaer3SamletVarmeforbrugJuniJuliAugust;
 
@@ -660,21 +660,21 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataSekundaer1GDPeriode", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataSekundaer1GDPeriode", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataSekundaer1GDPeriode;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataSekundaer2GDPeriode", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataSekundaer2GDPeriode", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataSekundaer2GDPeriode;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeForbrugsdataSekundaer3GDPeriode", type="float", nullable=true)
+   * @ORM\Column(name="varmeForbrugsdataSekundaer3GDPeriode", type="decimal", scale=2, nullable=true)
    */
   protected $varmeForbrugsdataSekundaer3GDPeriode;
 
@@ -768,7 +768,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeGAFForbrug", type="float", nullable=true)
+   * @ORM\Column(name="varmeGAFForbrug", type="decimal", scale=2, nullable=true)
    */
   protected $varmeGAFForbrug;
 
@@ -791,7 +791,7 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeGUFForbrug", type="float", nullable=true)
+   * @ORM\Column(name="varmeGUFForbrug", type="decimal", scale=2, nullable=true)
    */
   protected $varmeGUFForbrug;
 
@@ -838,14 +838,14 @@ class Baseline {
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeStrafafkoelingsafgift", type="float", nullable=true)
+   * @ORM\Column(name="varmeStrafafkoelingsafgift", type="decimal", scale=2, nullable=true)
    */
   protected $varmeStrafafkoelingsafgift;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="varmeStrafafkoelingsafgiftKorrektion", type="float", nullable=true)
+   * @ORM\Column(name="varmeStrafafkoelingsafgiftKorrektion", type="decimal", scale=2, nullable=true)
    */
   protected $varmeStrafafkoelingsafgiftKorrektion;
 
@@ -2302,24 +2302,10 @@ class Baseline {
   }
 
   /**
-   * @param float $elBaselineFastsatForEjendomKorrigeret
-   */
-  private function setElBaselineFastsatForEjendomKorrigeret($elBaselineFastsatForEjendomKorrigeret) {
-    $this->elBaselineFastsatForEjendomKorrigeret = $elBaselineFastsatForEjendomKorrigeret;
-  }
-
-  /**
    * @return float
    */
   public function getVarmeGAFForbrugKorrigeret() {
     return $this->varmeGAFForbrugKorrigeret;
-  }
-
-  /**
-   * @param float $varmeGAFForbrugKorrigeret
-   */
-  private function setVarmeGAFForbrugKorrigeret($varmeGAFForbrugKorrigeret) {
-    $this->varmeGAFForbrugKorrigeret = $varmeGAFForbrugKorrigeret;
   }
 
   /**
@@ -2330,24 +2316,10 @@ class Baseline {
   }
 
   /**
-   * @param float $varmeGUFForbrugKorrigeret
-   */
-  private function setVarmeGUFForbrugKorrigeret($varmeGUFForbrugKorrigeret) {
-    $this->varmeGUFForbrugKorrigeret = $varmeGUFForbrugKorrigeret;
-  }
-
-  /**
    * @return float
    */
   public function getVarmeBaselineFastsatForEjendomKorrigeret() {
     return $this->varmeBaselineFastsatForEjendomKorrigeret;
-  }
-
-  /**
-   * @param float $varmeBaselineFastsatForEjendomKorrigeret
-   */
-  private function setVarmeBaselineFastsatForEjendomKorrigeret($varmeBaselineFastsatForEjendomKorrigeret) {
-    $this->varmeBaselineFastsatForEjendomKorrigeret = $varmeBaselineFastsatForEjendomKorrigeret;
   }
 
   /**
@@ -2369,13 +2341,6 @@ class Baseline {
    */
   public function getVarmeStrafafkoelingsafgiftKorrigeret() {
     return $this->varmeStrafafkoelingsafgiftKorrigeret;
-  }
-
-  /**
-   * @param float $varmeStrafafkoelingsafgiftKorrigeret
-   */
-  private function setVarmeStrafafkoelingsafgiftKorrigeret($varmeStrafafkoelingsafgiftKorrigeret) {
-    $this->varmeStrafafkoelingsafgiftKorrigeret = $varmeStrafafkoelingsafgiftKorrigeret;
   }
 
   /**
