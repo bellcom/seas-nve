@@ -145,7 +145,7 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
   }
 
   protected function calculateArealM2() {
-    return $this->glasandel * parent::calculateArealM2();
+    return parent::calculateArealM2();
   }
 
   protected function calculateERefEksKWhM2Aar() {
@@ -167,7 +167,7 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
         break;
     }
 
-    return $solenergitransmittansFactor * $this->solenergitransmittansEks - 90.36 * $this->uEksWM2K;
+    return $this->glasandel * $solenergitransmittansFactor * $this->solenergitransmittansEks - 90.36 * $this->uEksWM2K;
   }
 
   protected function calculateEWEksKWhM2Aar() {
@@ -193,7 +193,7 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
         break;
     }
 
-    return $solenergitransmittansFactor * $this->solenergitransmittansNy - 90.36 * $this->uNyWM2K;
+    return $this->glasandel * $solenergitransmittansFactor * $this->solenergitransmittansNy - 90.36 * $this->uNyWM2K;
   }
 
   protected function calculateEWNyKWhM2Aar() {
