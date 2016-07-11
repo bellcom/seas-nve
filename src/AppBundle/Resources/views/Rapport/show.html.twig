@@ -18,23 +18,7 @@
             </div>
             <div class="modal-body text-left">
               <p><strong>{{ 'common.changes' | trans }}:</strong></p>
-              {% if calculation_changes is defined and calculation_changes %}
-                {% for message in calculation_changes %}
-
-                  <p>
-                    {{ message.property | trans_field(entity) }}:
-                    {% if message.type == 'float' %}
-                      {{ message.oldValue | format_decimal }} → {{ message.newValue | format_decimal }}
-                      ({{ message.oldValue }} → {{ message.newValue }})
-                    {% elseif message.type == 'array' %}
-                      {{ 'common.will_change' | trans }}
-                    {% else %}
-                      {{ message.oldValue }} → {{ message.newValue }}
-                    {% endif %}
-                  </p>
-                {% endfor %}
-              {% endif %}
-
+              {% include 'AppBundle:_includes:calculation_changes_show.html.twig' %}
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | trans }}</button>
