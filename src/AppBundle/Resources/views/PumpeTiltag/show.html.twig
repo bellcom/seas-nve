@@ -12,97 +12,127 @@
         {{ form_start(edit_form) }}
       {% endif %}
 
-      <table class="table table-condensed table-header-rotated">
-        <thead>
-        <tr>
-          {{ helper.header() }}
-          {{ helper.header('appbundle.tiltag.tilvalgt') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.noter') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.pumpeID') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.forsyningsomraade') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.placering') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.applikation') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.isoleringskappe') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.nyttiggjortVarme') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.nyDrifttid') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.prisfaktor') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.pristillaeg') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.elforbrugVedNyeDriftstidKWhAar') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.elbespKWhAar') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.varmebespIsokappeKWh') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.kwhBesparelseElFraVaerket') }}
-          {{ helper.header('appbundle.pumpetiltagdetail.kwhBesparelseVarmeFraVaerket') }}
-          {{ helper.header() }}
-        </tr>
-        <tr>
-          {{ helper.header_unit() }}
-          {{ helper.header_unit('appbundle.tiltag.tilvalgt') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.noter') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.pumpeID') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.forsyningsomraade') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.placering') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.applikation') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.isoleringskappe') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.nyttiggjortVarme') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.nyDrifttid') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.prisfaktor') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.pristillaeg') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.elforbrugVedNyeDriftstidKWhAar') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.elbespKWhAar') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.varmebespIsokappeKWh') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.kwhBesparelseElFraVaerket') }}
-          {{ helper.header_unit('appbundle.pumpetiltagdetail.kwhBesparelseVarmeFraVaerket') }}
-          {{ helper.header_unit() }}
-        </tr>
-        </thead>
-        <tbody>
-        {% for form_detail in edit_form.details %}
-          {% set detail = details[form_detail.vars['value'].id] %}
-          <tr id="{{ detail.id }}">
-            <td>
-              {{ block('tiltag_detail_edit') }}
-            </td>
-            <td>
-              {% if is_granted('TILTAG_EDIT', entity) %}
-                {{ form_row(form_detail.tilvalgt) }}
-              {% else %}
-                {{ detail.tilvalgt | b2icon }}
-              {% endif %}
-            </td>
-            <td>{{ detail.noter }}</td>
-            <td>{{ detail.pumpeID }}</td>
-            <td>{{ detail.forsyningsomraade }}</td>
-            <td>{{ detail.placering }}</td>
-            <td>{{ detail.applikation }}</td>
-            <td>{{ detail.isoleringskappe | b2icon }}</td>
-            <td>
-              {{ (detail.nyttiggjortVarme is null ? detail.bFaktor : detail.nyttiggjortVarme.faktor) | format_decimal }}
-            </td>
-            <td>{{ detail.eksisterendeDrifttid | format_decimal }}</td>
-            <td>{{ detail.nyDrifttid | format_decimal }}</td>
-            <td>{{ detail.prisfaktor | format_decimal }}</td>
-            <td>{{ detail.pristillaeg | format_decimal }}</td>
-            <td>{{ detail.samletInvesteringInklPristillaeg | format_decimal }}</td>
-            <td>{{ detail.elforbrugVedNyeDriftstidKWhAar | format_decimal }}</td>
-            <td>{{ detail.elbespKWhAar | format_decimal }}</td>
-            <td>{{ detail.varmebespIsokappeKWh | format_decimal }}</td>
-            <td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
-            <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
-            <td>{{ detail.kwhBesparelseElFraVaerket | format_decimal }}</td>
-            <td>{{ detail.kwhBesparelseVarmeFraVaerket | format_decimal }}</td>
-            <td class="last"></td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      <div id="list-details">
+        <table class="table table-condensed table-header-rotated">
+          <thead>
+            <tr>
+              {{ helper.header() }}
+              {{ helper.header('appbundle.tiltag.tilvalgt') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.noter') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.pumpeID') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.forsyningsomraade') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.placering') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.applikation') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.isoleringskappe') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.nyttiggjortVarme') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.nyDrifttid') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.prisfaktor') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.pristillaeg') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.elforbrugVedNyeDriftstidKWhAar') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.elbespKWhAar') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.varmebespIsokappeKWh') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.simpelTilbagebetalingstidAar') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.kwhBesparelseElFraVaerket') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.kwhBesparelseVarmeFraVaerket') }}
+              {{ helper.header() }}
+            </tr>
+            <tr>
+              {{ helper.header_unit() }}
+              {{ helper.header_unit('appbundle.tiltag.tilvalgt', 'tilvalgt', null, 'value') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.noter', 'noter') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.pumpeID', 'pumpeID') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.forsyningsomraade', 'forsyningsomraade') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.placering', 'placering') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.applikation', 'applikation') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.isoleringskappe', 'isoleringskappe') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.nyttiggjortVarme', 'nyttiggjortVarme', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.eksisterendeDrifttid', 'eksisterendeDrifttid', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.nyDrifttid', 'nyDrifttid', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.prisfaktor', 'prisfaktor', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.pristillaeg', 'pristillaeg', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg', 'samletInvesteringInklPristillaeg', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.elforbrugVedNyeDriftstidKWhAar', 'elforbrugVedNyeDriftstidKWhAar', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.elbespKWhAar', 'elbespKWhAar', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.varmebespIsokappeKWh', 'varmebespIsokappeKWh', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.simpelTilbagebetalingstidAar', 'simpelTilbagebetalingstidAar', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.nutidsvaerdiSetOver15AarKr', 'nutidsvaerdiSetOver15AarKr', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.kwhBesparelseElFraVaerket', 'kwhBesparelseElFraVaerket', 'number') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.kwhBesparelseVarmeFraVaerket', 'kwhBesparelseVarmeFraVaerket', 'number') }}
+              {{ helper.header_unit() }}
+            </tr>
+          </thead>
+
+          <tbody class="filter">
+            <tr>
+              {{ helper.header_filter() }}
+              {{ helper.header_filter() }}
+              {{ helper.header_filter('noter') }}
+              {{ helper.header_filter('pumpeID') }}
+              {{ helper.header_filter('forsyningsomraade') }}
+              {{ helper.header_filter('placering') }}
+              {{ helper.header_filter('applikation') }}
+              {{ helper.header_filter('isoleringskappe') }}
+              {{ helper.header_filter('nyttiggjortVarme', 'number') }}
+              {{ helper.header_filter('eksisterendeDrifttid', 'number') }}
+              {{ helper.header_filter('nyDrifttid', 'number') }}
+              {{ helper.header_filter('prisfaktor', 'number') }}
+              {{ helper.header_filter('pristillaeg', 'number') }}
+              {{ helper.header_filter('samletInvesteringInklPristillaeg', 'number') }}
+              {{ helper.header_filter('elforbrugVedNyeDriftstidKWhAar', 'number') }}
+              {{ helper.header_filter('elbespKWhAar', 'number') }}
+              {{ helper.header_filter('varmebespIsokappeKWh', 'number') }}
+              {{ helper.header_filter('simpelTilbagebetalingstidAar', 'number') }}
+              {{ helper.header_filter('nutidsvaerdiSetOver15AarKr', 'number') }}
+              {{ helper.header_filter('kwhBesparelseElFraVaerket', 'number') }}
+              {{ helper.header_filter('kwhBesparelseVarmeFraVaerket', 'number') }}
+              {{ helper.header_filter() }}
+            </tr>
+          </tbody>
+
+          <tbody class="list">
+            {% for form_detail in edit_form.details %}
+              {% set detail = details[form_detail.vars['value'].id] %}
+              <tr id="{{ detail.id }}">
+                <td>
+                  {{ block('tiltag_detail_edit') }}
+                </td>
+                <td class="tilvalgt" data-value="{{ detail.tilvalgt }}">
+                  {% if is_granted('TILTAG_EDIT', entity) %}
+                    {{ form_row(form_detail.tilvalgt) }}
+                  {% else %}
+                    {{ detail.tilvalgt | b2icon }}
+                  {% endif %}
+                </td>
+                <td class="noter">{{ detail.noter }}</td>
+                <td class="pumpeID">{{ detail.pumpeID }}</td>
+                <td class="forsyningsomraade">{{ detail.forsyningsomraade }}</td>
+                <td class="placering">{{ detail.placering }}</td>
+                <td class="applikation">{{ detail.applikation }}</td>
+                <td class="isoleringskappe">{{ detail.isoleringskappe | b2icon }}</td>
+                <td class="nyttiggjortVarme number">
+                  {{ (detail.nyttiggjortVarme is null ? detail.bFaktor : detail.nyttiggjortVarme.faktor) | format_decimal }}
+                </td>
+                <td class="eksisterendeDrifttid number">{{ detail.eksisterendeDrifttid | format_decimal }}</td>
+                <td class="nyDrifttid number">{{ detail.nyDrifttid | format_decimal }}</td>
+                <td class="prisfaktor number">{{ detail.prisfaktor | format_decimal }}</td>
+                <td class="pristillaeg number">{{ detail.pristillaeg | format_decimal }}</td>
+                <td class="samletInvesteringInklPristillaeg number">{{ detail.samletInvesteringInklPristillaeg | format_decimal }}</td>
+                <td class="elforbrugVedNyeDriftstidKWhAar number">{{ detail.elforbrugVedNyeDriftstidKWhAar | format_decimal }}</td>
+                <td class="elbespKWhAar number">{{ detail.elbespKWhAar | format_decimal }}</td>
+                <td class="varmebespIsokappeKWh number">{{ detail.varmebespIsokappeKWh | format_decimal }}</td>
+                <td class="simpelTilbagebetalingstidAar number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
+                <td class="nutidsvaerdiSetOver15AarKr number">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+                <td class="kwhBesparelseElFraVaerket number">{{ detail.kwhBesparelseElFraVaerket | format_decimal }}</td>
+                <td class="kwhBesparelseVarmeFraVaerket number">{{ detail.kwhBesparelseVarmeFraVaerket | format_decimal }}</td>
+                <td class="last"></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 
       {% if is_granted('TILTAG_EDIT', entity) %}
         {{ form_rest(edit_form) }}

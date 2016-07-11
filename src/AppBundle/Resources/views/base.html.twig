@@ -99,12 +99,26 @@
   </th>
 {% endmacro %}
 
-{% macro header_unit(key) %}
+{% macro header_unit(key, column, classNames, dataAttribute) %}
   {% set translation = key|get_unit %}
 
-  <th class="unit">
-    {{ translation }}
-  </th>
+  {% if column %}
+    <th class="unit {{ classNames }} column-sort" data-column="{{ column }}" data-attr="{{ dataAttribute ? 'data-' ~ dataAttribute : '' }}">
+      {{ translation }}
+    </th>
+  {% else %}
+    <th class="unit {{ classNames }}">
+      {{ translation }}
+    </th>
+  {% endif %}
+{% endmacro %}
+
+{% macro header_filter(column, classNames) %}
+  {% if column %}
+    <td class="column-filter {{ column }} {{ classNames }}"><input style="width: 0" data-column="{{ column }}"/></td>
+  {% else %}
+    <td></td>
+  {% endif %}
 {% endmacro %}
 
 {% import _self as helper %}

@@ -12,129 +12,168 @@
         {{ form_start(edit_form) }}
       {% endif %}
 
-      <table class="table table-condensed table-header-rotated table-hover">
-        <thead>
-        <tr>
-          {{ helper.header() }}
-          {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.orientering') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.eRefEksKWhM2Aar') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.eWEksKWhM2Aar') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.eRefNyKWhM2Aar') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.eWNyKWhM2Aar') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansEks') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansNy') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.klimaskaerm') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.type') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.placering') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.hoejdeElLaengdeM') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.breddeM') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.antalStk') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.arealM2') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.glasandel') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.uEksWM2K') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.uNyWM2K') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.besparelseKWhAar') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.prisfaktor') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.samletInvesteringKr') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.levetidAar') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.faktorForReinvestering') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
-          {{ helper.header('appbundle.vinduetiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
-          {{ helper.header() }}
-        </tr>
-        <tr>
-          {{ helper.header_unit() }}
-          {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.orientering') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.eRefEksKWhM2Aar') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.eWEksKWhM2Aar') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.eRefNyKWhM2Aar') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.eWNyKWhM2Aar') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansEks') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansNy') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.klimaskaerm') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.type') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.placering') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.hoejdeElLaengdeM') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.breddeM') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.antalStk') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.arealM2') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.glasandel') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.uEksWM2K') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.uNyWM2K') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.besparelseKWhAar') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.prisfaktor') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.samletInvesteringKr') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.levetidAar') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.faktorForReinvestering') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
-          {{ helper.header_unit('appbundle.vinduetiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
-          {{ helper.header_unit() }}
-        </tr>
-        </thead>
-        <tbody>
-        {% for form_detail in edit_form.details %}
-          {% set detail = details[form_detail.vars['value'].id] %}
-          <tr id="{{ detail.id }}">
-            <td>
-              {{ block('tiltag_detail_edit') }}
-            </td>
-            <td>
-              {% if is_granted('TILTAG_EDIT', entity) %}
-                {{ form_row(form_detail.tilvalgt) }}
-              {% else %}
-                {{ detail.tilvalgt | b2icon }}
-              {% endif %}
-            </td>
-            <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
-            <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
-            <td>{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
-            <td>{{ detail.eRefEksKWhM2Aar | format_decimal }}</td>
-            <td>{{ detail.eWEksKWhM2Aar | format_decimal }}</td>
-            <td>{{ detail.eRefNyKWhM2Aar | format_decimal }}</td>
-            <td>{{ detail.eWNyKWhM2Aar | format_decimal }}</td>
-            <td>{{ detail.solenergitransmittansEks | format_percent }}</td>
-            <td>{{ detail.solenergitransmittansNy | format_percent }}</td>
-            <td>
-              {% if detail.klimaskaerm is not empty %}
-                {{ detail.klimaskaerm }}
-              {% else %}
-                {{ 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.show' | trans }}
-              {% endif %}
-            </td>
-            <td>{{ detail.type }}</td>
-            <td>{{ detail.placering }}</td>
-            <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
-            <td>{{ detail.breddeM | format_decimal }}</td>
-            <td>{{ detail.antalStk | format_integer }}</td>
-            <td>{{ detail.arealM2 | format_decimal }}</td>
-            <td>{{ detail.glasandel | format_percent_nounit }}</td>
-            <td>{{ detail.uEksWM2K | format_decimal }}</td>
-            <td>{{ detail.uNyWM2K | format_decimal }}</td>
-            <td>{{ detail.besparelseKWhAar | format_decimal }}</td>
-            <td>{{ detail.prisfaktor | format_decimal }}</td>
-            <td>{{ detail.samletInvesteringKr | format_decimal }}</td>
-            <td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
-            <td>{{ detail.levetidAar | format_decimal }}</td>
-            <td>{{ detail.faktorForReinvestering | format_decimal }}</td>
-            <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
-            <td>{{ detail.kWhBesparElvaerkEksternEnergikilde | format_decimal }}</td>
-            <td>{{ detail.kWhBesparVarmevaerkEksternEnergikilde | format_decimal }}</td>
-            <td class="last"></td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      <div id="list-details">
+        <table class="table table-condensed table-header-rotated table-hover">
+          <thead>
+            <tr>
+              {{ helper.header() }}
+              {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.orientering') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.eRefEksKWhM2Aar') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.eWEksKWhM2Aar') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.eRefNyKWhM2Aar') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.eWNyKWhM2Aar') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansEks') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansNy') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.klimaskaerm') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.type') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.placering') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.hoejdeElLaengdeM') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.breddeM') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.antalStk') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.arealM2') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.glasandel') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.uEksWM2K') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.uNyWM2K') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.besparelseKWhAar') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.prisfaktor') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.samletInvesteringKr') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.simpelTilbagebetalingstidAar') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.levetidAar') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.faktorForReinvestering') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
+              {{ helper.header('appbundle.vinduetiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
+              {{ helper.header() }}
+            </tr>
+            <tr>
+              {{ helper.header_unit() }}
+              {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt', 'tilvalgt', null, 'value') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.laastAfEnergiraadgiver', 'laastAfEnergiraadgiver', null, 'value') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet', 'noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.orientering', 'orientering') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.eRefEksKWhM2Aar', 'eRefEksKWhM2Aar', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.eWEksKWhM2Aar', 'eWEksKWhM2Aar', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.eRefNyKWhM2Aar', 'eRefNyKWhM2Aar', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.eWNyKWhM2Aar', 'eWNyKWhM2Aar', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansEks', 'solenergitransmittansEks', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansNy', 'solenergitransmittansNy', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.klimaskaerm', 'klimaskaerm') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.type', 'type') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.placering', 'placering') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.hoejdeElLaengdeM', 'hoejdeElLaengdeM', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.breddeM', 'breddeM', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.antalStk', 'antalStk', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.arealM2', 'arealM2', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.glasandel', 'glasandel', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.uEksWM2K', 'uEksWM2K', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.uNyWM2K', 'uNyWM2K', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.besparelseKWhAar', 'besparelseKWhAar', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.prisfaktor', 'prisfaktor', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.samletInvesteringKr', 'samletInvesteringKr', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.simpelTilbagebetalingstidAar', 'simpelTilbagebetalingstidAar', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.levetidAar', 'levetidAar', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.faktorForReinvestering', 'faktorForReinvestering', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr', 'nutidsvaerdiSetOver15AarKr', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.kWhBesparElvaerkEksternEnergikilde', 'kWhBesparElvaerkEksternEnergikilde', 'number') }}
+              {{ helper.header_unit('appbundle.vinduetiltagdetail.kWhBesparVarmevaerkEksternEnergikilde', 'kWhBesparVarmevaerkEksternEnergikilde', 'number') }}
+              {{ helper.header_unit() }}
+            </tr>
+          </thead>
 
+          <tbody class="filter">
+            <tr>
+              {{ helper.header_filter() }}
+              {{ helper.header_filter() }}
+              {{ helper.header_filter() }}
+              {{ helper.header_filter('noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
+              {{ helper.header_filter('orientering') }}
+              {{ helper.header_filter('eRefEksKWhM2Aar', 'number') }}
+              {{ helper.header_filter('eWEksKWhM2Aar', 'number') }}
+              {{ helper.header_filter('eRefNyKWhM2Aar', 'number') }}
+              {{ helper.header_filter('eWNyKWhM2Aar', 'number') }}
+              {{ helper.header_filter('solenergitransmittansEks', 'number') }}
+              {{ helper.header_filter('solenergitransmittansNy', 'number') }}
+              {{ helper.header_filter('klimaskaerm') }}
+              {{ helper.header_filter('type') }}
+              {{ helper.header_filter('placering') }}
+              {{ helper.header_filter('hoejdeElLaengdeM', 'number') }}
+              {{ helper.header_filter('breddeM', 'number') }}
+              {{ helper.header_filter('antalStk', 'number') }}
+              {{ helper.header_filter('arealM2', 'number') }}
+              {{ helper.header_filter('glasandel', 'number') }}
+              {{ helper.header_filter('uEksWM2K', 'number') }}
+              {{ helper.header_filter('uNyWM2K', 'number') }}
+              {{ helper.header_filter('besparelseKWhAar', 'number') }}
+              {{ helper.header_filter('prisfaktor', 'number') }}
+              {{ helper.header_filter('samletInvesteringKr', 'number') }}
+              {{ helper.header_filter('simpelTilbagebetalingstidAar', 'number') }}
+              {{ helper.header_filter('levetidAar', 'number') }}
+              {{ helper.header_filter('faktorForReinvestering', 'number') }}
+              {{ helper.header_filter('nutidsvaerdiSetOver15AarKr', 'number') }}
+              {{ helper.header_filter('kWhBesparElvaerkEksternEnergikilde', 'number') }}
+              {{ helper.header_filter('kWhBesparVarmevaerkEksternEnergikilde', 'number') }}
+              {{ helper.header_filter() }}
+            </tr>
+
+          </tbody>
+
+          <tbody class="list">
+            {% for form_detail in edit_form.details %}
+              {% set detail = details[form_detail.vars['value'].id] %}
+              <tr id="{{ detail.id }}">
+                <td>
+                  {{ block('tiltag_detail_edit') }}
+                </td>
+                <td class="tilvalgt" data-value="{{ detail.tilvalgt }}">
+                  {% if is_granted('TILTAG_EDIT', entity) %}
+                    {{ form_row(form_detail.tilvalgt) }}
+                  {% else %}
+                    {{ detail.tilvalgt | b2icon }}
+                  {% endif %}
+                </td>
+                <td class="laastAfEnergiraadgiver" data-value="{{ detail.laastAfEnergiraadgiver }}">{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
+                <td class="noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet">{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
+                <td class="orientering">{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
+                <td class="eRefEksKWhM2Aar number">{{ detail.eRefEksKWhM2Aar | format_decimal }}</td>
+                <td class="eWEksKWhM2Aar number">{{ detail.eWEksKWhM2Aar | format_decimal }}</td>
+                <td class="eRefNyKWhM2Aar number">{{ detail.eRefNyKWhM2Aar | format_decimal }}</td>
+                <td class="eWNyKWhM2Aar number">{{ detail.eWNyKWhM2Aar | format_decimal }}</td>
+                <td class="solenergitransmittansEks number">{{ detail.solenergitransmittansEks | format_percent }}</td>
+                <td class="solenergitransmittansNy number">{{ detail.solenergitransmittansNy | format_percent }}</td>
+                <td class="klimaskaerm">
+                  {% if detail.klimaskaerm is not empty %}
+                    {{ detail.klimaskaerm }}
+                  {% else %}
+                    {{ 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.show' | trans }}
+                  {% endif %}
+                </td>
+                <td class="type">{{ detail.type }}</td>
+                <td class="placering">{{ detail.placering }}</td>
+                <td class="hoejdeElLaengdeM number">{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
+                <td class="breddeM number">{{ detail.breddeM | format_decimal }}</td>
+                <td class="antalStk number">{{ detail.antalStk | format_integer }}</td>
+                <td class="arealM2 number">{{ detail.arealM2 | format_decimal }}</td>
+                <td class="glasandel number">{{ detail.glasandel | format_percent_nounit }}</td>
+                <td class="uEksWM2K number">{{ detail.uEksWM2K | format_decimal }}</td>
+                <td class="uNyWM2K number">{{ detail.uNyWM2K | format_decimal }}</td>
+                <td class="besparelseKWhAar number">{{ detail.besparelseKWhAar | format_decimal }}</td>
+                <td class="prisfaktor number">{{ detail.prisfaktor | format_decimal }}</td>
+                <td class="samletInvesteringKr number">{{ detail.samletInvesteringKr | format_decimal }}</td>
+                <td class="simpelTilbagebetalingstidAar number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
+                <td class="levetidAar number">{{ detail.levetidAar | format_decimal }}</td>
+                <td class="faktorForReinvestering number">{{ detail.faktorForReinvestering | format_decimal }}</td>
+                <td class="nutidsvaerdiSetOver15AarKr number">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+                <td class="kWhBesparElvaerkEksternEnergikilde number">{{ detail.kWhBesparElvaerkEksternEnergikilde | format_decimal }}</td>
+                <td class="kWhBesparVarmevaerkEksternEnergikilde number">{{ detail.kWhBesparVarmevaerkEksternEnergikilde | format_decimal }}</td>
+                <td class="last"></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 
       {% if is_granted('TILTAG_EDIT', entity) %}
         {{ form_rest(edit_form) }}

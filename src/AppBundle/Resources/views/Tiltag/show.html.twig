@@ -49,3 +49,19 @@
     <p><a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('edit') }} {{ 'common.edit' | trans }}</a></p>
   {% endif %}
 {% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script>
+    var parseNumber = function(value) {
+    {% if ',' in (3.14 | format_decimal) %}
+      value = value.replace('.', '').replace(',', '.');
+    {% endif %}
+    return parseFloat(value);
+    };
+  </script>
+
+  <script src="{{ asset('js/lib/list.min.js') }}"></script>
+  <script src="{{ asset('js/detail-filter.js') }}"></script>
+{% endblock %}

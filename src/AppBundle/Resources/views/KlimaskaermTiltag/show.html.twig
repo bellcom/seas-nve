@@ -1,4 +1,4 @@
-{% extends 'AppBundle:Tiltag:show.html.twig' %}
+ {% extends 'AppBundle:Tiltag:show.html.twig' %}
 
 {% block body -%}
   {{ parent() }}
@@ -12,122 +12,159 @@
         {{ form_start(edit_form) }}
       {% endif %}
 
-      <table class="table table-condensed table-header-rotated table-hover">
-        <thead>
-        <tr>
-          {{ helper.header() }}
-          {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.klimaskaerm') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.orientering') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.type') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.placering') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.hoejdeElLaengdeM') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.breddeM') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.antalStk') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.arealM2') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.andelAfArealDerEfterisoleres') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.uEksWM2K') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.uNyWM2K') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.tIndeC') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.tUdeC') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.tOpvarmningTimerAar') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.yderligereBesparelserPct') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.besparelseKWhAar') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.prisfaktor') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.samletInvesteringKr') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.levetidAar') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.faktorForReinvestering') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
-          {{ helper.header('appbundle.klimaskaermtiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
-          {{ helper.header() }}
-        </tr>
-        <tr>
-          {{ helper.header_unit() }}
-          {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.orientering') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.klimaskaerm') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.type') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.placering') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.hoejdeElLaengdeM') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.breddeM') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.antalStk') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.arealM2') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.andelAfArealDerEfterisoleres') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.uEksWM2K') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.uNyWM2K') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.tIndeC') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.tUdeC') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.tOpvarmningTimerAar') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.yderligereBesparelserPct') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.besparelseKWhAar') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.prisfaktor') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.samletInvesteringKr') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.levetidAar') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.faktorForReinvestering') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
-          {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
-          {{ helper.header_unit() }}
-        </tr>
-        </thead>
-        <tbody>
-        {% for form_detail in edit_form.details %}
-          {% set detail = details[form_detail.vars['value'].id] %}
-          <tr id="{{ detail.id }}">
-            <td>
-              {{ block('tiltag_detail_edit') }}
-            </td>
-            <td>
-              {% if is_granted('TILTAG_EDIT', entity) %}
-                {{ form_row(form_detail.tilvalgt) }}
-              {% else %}
-                {{ detail.tilvalgt | b2icon }}
-              {% endif %}
-            </td>
-            <td>{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
-            <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
-            <td>
-              {% if detail.klimaskaerm is not empty %}
-                {{ detail.klimaskaerm }}
-              {% else %}
-                {{ 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.show' | trans }}
-              {% endif %}
-            </td>
-            <td>{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
-            <td>{{ detail.type }}</td>
-            <td>{{ detail.placering }}</td>
-            <td>{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
-            <td>{{ detail.breddeM | format_decimal }}</td>
-            <td>{{ detail.antalStk | format_integer }}</td>
-            <td>{{ detail.arealM2 | format_decimal }}</td>
-            <td>{{ detail.andelAfArealDerEfterisoleres | format_percent }}</td>
-            <td>{{ detail.uEksWM2K | format_decimal }}</td>
-            <td>{{ detail.uNyWM2K | format_decimal }}</td>
-            <td>{{ detail.tIndeC | format_decimal }}</td>
-            <td>{{ detail.tUdeC | format_decimal }}</td>
-            <td>{{ detail.tOpvarmningTimerAar | format_decimal }}</td>
-            <td>{{ detail.yderligereBesparelserPct | format_percent }}</td>
-            <td>{{ detail.besparelseKWhAar | format_decimal }}</td>
-            <td>{{ detail.prisfaktor | format_decimal }}</td>
-            <td>{{ detail.samletInvesteringKr | format_decimal }}</td>
-            <td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
-            <td>{{ detail.levetidAar | format_decimal }}</td>
-            <td>{{ detail.faktorForReinvestering | format_decimal }}</td>
-            <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
-            <td>{{ detail.kWhBesparElvaerkEksternEnergikilde | format_decimal }}</td>
-            <td>{{ detail.kWhBesparVarmevaerkEksternEnergikilde | format_decimal }}</td>
-            <td class="last"></td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      <div id="list-details">
+        <table class="table table-condensed table-header-rotated table-hover">
+          <thead>
+            <tr>
+              {{ helper.header() }}
+              {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.klimaskaerm') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.orientering') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.type') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.placering') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.hoejdeElLaengdeM') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.breddeM') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.antalStk') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.arealM2') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.andelAfArealDerEfterisoleres') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.uEksWM2K') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.uNyWM2K') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.tIndeC') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.tUdeC') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.tOpvarmningTimerAar') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.yderligereBesparelserPct') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.besparelseKWhAar') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.prisfaktor') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.samletInvesteringKr') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.levetidAar') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.faktorForReinvestering') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.kWhBesparElvaerkEksternEnergikilde') }}
+              {{ helper.header('appbundle.klimaskaermtiltagdetail.kWhBesparVarmevaerkEksternEnergikilde') }}
+              {{ helper.header() }}
+            </tr>
+            <tr>
+              {{ helper.header_unit() }}
+              {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt', 'tilvalgt', null, 'value') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.laastAfEnergiraadgiver', 'laastAfEnergiraadgiver') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.orientering', 'orientering') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.klimaskaerm', 'klimaskaerm') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.type', 'type') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.placering', 'placering') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.hoejdeElLaengdeM', 'hoejdeElLaengdeM', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.breddeM', 'breddeM', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.antalStk', 'antalStk', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.arealM2', 'arealM2', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.andelAfArealDerEfterisoleres', 'andelAfArealDerEfterisoleres', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.uEksWM2K', 'uEksWM2K', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.uNyWM2K', 'uNyWM2K', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.tIndeC', 'tIndeC', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.tUdeC', 'tUdeC', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.tOpvarmningTimerAar', 'tOpvarmningTimerAar', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.yderligereBesparelserPct', 'yderligereBesparelserPct', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.besparelseKWhAar', 'besparelseKWhAar', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.prisfaktor', 'prisfaktor', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.samletInvesteringKr', 'samletInvesteringKr', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar', 'simpelTilbagebetalingstidAar', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.levetidAar', 'levetidAar', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.faktorForReinvestering', 'faktorForReinvestering', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.nutidsvaerdiSetOver15AarKr', 'nutidsvaerdiSetOver15AarKr', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.kWhBesparElvaerkEksternEnergikilde', 'kWhBesparElvaerkEksternEnergikilde', 'number') }}
+              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.kWhBesparVarmevaerkEksternEnergikilde', 'kWhBesparVarmevaerkEksternEnergikilde', 'number') }}
+              {{ helper.header_unit() }}
+            </tr>
+          </thead>
+
+          <tbody class="filter">
+            <tr>
+              {{ helper.header_filter() }}
+              {{ helper.header_filter() }}
+              {{ helper.header_filter() }}
+              {{ helper.header_filter('noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
+              {{ helper.header_filter('orientering') }}
+              {{ helper.header_filter('klimaskaerm') }}
+              {{ helper.header_filter('type') }}
+              {{ helper.header_filter('placering') }}
+              {{ helper.header_filter('hoejdeElLaengdeM', 'number') }}
+              {{ helper.header_filter('breddeM', 'number') }}
+              {{ helper.header_filter('antalStk', 'number') }}
+              {{ helper.header_filter('arealM2', 'number') }}
+              {{ helper.header_filter('andelAfArealDerEfterisoleres', 'number') }}
+              {{ helper.header_filter('uEksWM2K', 'number') }}
+              {{ helper.header_filter('uNyWM2K', 'number') }}
+              {{ helper.header_filter('tIndeC', 'number') }}
+              {{ helper.header_filter('tUdeC', 'number') }}
+              {{ helper.header_filter('tOpvarmningTimerAar', 'number') }}
+              {{ helper.header_filter('yderligereBesparelserPct', 'number') }}
+              {{ helper.header_filter('besparelseKWhAar', 'number') }}
+              {{ helper.header_filter('prisfaktor', 'number') }}
+              {{ helper.header_filter('samletInvesteringKr', 'number') }}
+              {{ helper.header_filter('simpelTilbagebetalingstidAar', 'number') }}
+              {{ helper.header_filter('levetidAar', 'number') }}
+              {{ helper.header_filter('faktorForReinvestering', 'number') }}
+              {{ helper.header_filter('nutidsvaerdiSetOver15AarKr', 'number') }}
+              {{ helper.header_filter('kWhBesparElvaerkEksternEnergikilde', 'number') }}
+              {{ helper.header_filter('kWhBesparVarmevaerkEksternEnergikilde', 'number') }}
+              {{ helper.header_filter() }}
+            </tr>
+          </tbody>
+
+          <tbody class="list">
+            {% for form_detail in edit_form.details %}
+              {% set detail = details[form_detail.vars['value'].id] %}
+              <tr id="{{ detail.id }}">
+                <td>
+                  {{ block('tiltag_detail_edit') }}
+                </td>
+                <td class="tilvalgt" data-value="{{ detail.tilvalgt }}">
+                  {% if is_granted('TILTAG_EDIT', entity) %}
+                    {{ form_row(form_detail.tilvalgt) }}
+                  {% else %}
+                    {{ detail.tilvalgt | b2icon }}
+                  {% endif %}
+                </td>
+                <td class="laastAfEnergiraadgiver" data-value="{{ detail.laastAfEnergiraadgiver }}">{{ detail.laastAfEnergiraadgiver | b2icon }}</td>
+                <td class="noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet">{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
+                <td class="klimaskaerm">
+                  {% if detail.klimaskaerm is not empty %}
+                    {{ detail.klimaskaerm }}
+                  {% else %}
+                    {{ 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.show' | trans }}
+                  {% endif %}
+                </td>
+                <td class="orientering">{{ detail.orientering | readable('CardinalDirectionType') | trans }}</td>
+                <td class="type">{{ detail.type }}</td>
+                <td class="placering">{{ detail.placering }}</td>
+                <td class="hoejdeElLaengdeM number">{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
+                <td class="breddeM number">{{ detail.breddeM | format_decimal }}</td>
+                <td class="antalStk number">{{ detail.antalStk | format_integer }}</td>
+                <td class="arealM2 number">{{ detail.arealM2 | format_decimal }}</td>
+                <td class="andelAfArealDerEfterisoleres number">{{ detail.andelAfArealDerEfterisoleres | format_percent }}</td>
+                <td class="uEksWM2K number">{{ detail.uEksWM2K | format_decimal }}</td>
+                <td class="uNyWM2K number">{{ detail.uNyWM2K | format_decimal }}</td>
+                <td class="tIndeC number">{{ detail.tIndeC | format_decimal }}</td>
+                <td class="tUdeC number">{{ detail.tUdeC | format_decimal }}</td>
+                <td class="tOpvarmningTimerAar number">{{ detail.tOpvarmningTimerAar | format_decimal }}</td>
+                <td class="yderligereBesparelserPct number">{{ detail.yderligereBesparelserPct | format_percent }}</td>
+                <td class="besparelseKWhAar number">{{ detail.besparelseKWhAar | format_decimal }}</td>
+                <td class="prisfaktor number">{{ detail.prisfaktor | format_decimal }}</td>
+                <td class="samletInvesteringKr number">{{ detail.samletInvesteringKr | format_decimal }}</td>
+                <td class="simpelTilbagebetalingstidAar number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
+                <td class="levetidAar number">{{ detail.levetidAar | format_decimal }}</td>
+                <td class="faktorForReinvestering number">{{ detail.faktorForReinvestering | format_decimal }}</td>
+                <td class="nutidsvaerdiSetOver15AarKr number">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+                <td class="kWhBesparElvaerkEksternEnergikilde number">{{ detail.kWhBesparElvaerkEksternEnergikilde | format_decimal }}</td>
+                <td class="kWhBesparVarmevaerkEksternEnergikilde number">{{ detail.kWhBesparVarmevaerkEksternEnergikilde | format_decimal }}</td>
+                <td class="last"></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 
       {% if is_granted('TILTAG_EDIT', entity) %}
         {{ form_rest(edit_form) }}
