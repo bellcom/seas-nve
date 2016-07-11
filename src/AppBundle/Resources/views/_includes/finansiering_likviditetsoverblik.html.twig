@@ -36,7 +36,7 @@
               <th scope="row">{{ name | trans }}</th>
               {% for year in years %}
                 <td class="text-right">
-                  {{ entity.cashFlow[key][year] | format_decimal }}
+                  {{ entity.cashFlow[key][year] | format_amount }}
                 </td>
               {% endfor %}
             </tr>

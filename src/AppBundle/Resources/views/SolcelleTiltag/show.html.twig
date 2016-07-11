@@ -121,18 +121,18 @@
                 <td class="forringetYdeevnePrAar number">{{ detail.forringetYdeevnePrAar | format_percent }}</td>
                 <td class="inverterskift1Aar number">{{ detail.inverterskift1Aar | format_integer }}</td>
                 <td class="inverterskift2Aar number">{{ detail.inverterskift2Aar | format_integer }}</td>
-                <td class="prisForNyInverterKr number">{{ detail.prisForNyInverterKr | format_decimal }}</td>
-                <td class="salgsprisFoerste10AarKrKWh number">{{ detail.salgsprisFoerste10AarKrKWh | format_decimal }}</td>
-                <td class="salgsprisEfter10AarKrKWh number">{{ detail.salgsprisEfter10AarKrKWh | format_decimal }}</td>
+                <td class="prisForNyInverterKr number">{{ detail.prisForNyInverterKr | format_amount }}</td>
+                <td class="salgsprisFoerste10AarKrKWh number">{{ detail.salgsprisFoerste10AarKrKWh | format_amount }}</td>
+                <td class="salgsprisEfter10AarKrKWh number">{{ detail.salgsprisEfter10AarKrKWh | format_amount }}</td>
                 <td class="energiprisstigningPctPrAar number">{{ detail.energiprisstigningPctPrAar | format_percent }}</td>
-                <td class="investeringKr number">{{ detail.investeringKr | format_decimal }}</td>
-                <td class="screeningOgProjekteringKr number">{{ detail.screeningOgProjekteringKr | format_decimal }}</td>
-                <td class="driftPrAarKr number">{{ detail.driftPrAarKr | format_decimal }}</td>
-                <td class="omkostningTilMaalerKr number">{{ detail.omkostningTilMaalerKr | format_decimal }}</td>
-                <td class="raadighedstarifKr number">{{ detail.raadighedstarifKr | format_decimal }}</td>
-                <td class="totalDriftomkostningerPrAar number">{{ detail.totalDriftomkostningerPrAar | format_decimal }}</td>
+                <td class="investeringKr number">{{ detail.investeringKr | format_amount }}</td>
+                <td class="screeningOgProjekteringKr number">{{ detail.screeningOgProjekteringKr | format_amount }}</td>
+                <td class="driftPrAarKr number">{{ detail.driftPrAarKr | format_amount }}</td>
+                <td class="omkostningTilMaalerKr number">{{ detail.omkostningTilMaalerKr | format_amount }}</td>
+                <td class="raadighedstarifKr number">{{ detail.raadighedstarifKr | format_amount }}</td>
+                <td class="totalDriftomkostningerPrAar number">{{ detail.totalDriftomkostningerPrAar | format_amount }}</td>
                 <td class="simpelTilbagebetalingstidAar number">{{ detail.simpelTilbagebetalingstidAar | format_integer }}</td>
-                <td class="nutidsvaerdiSetOver15AarKr number">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+                <td class="nutidsvaerdiSetOver15AarKr number">{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
                 <td class="last"></td>
               </tr>
             {% endfor %}

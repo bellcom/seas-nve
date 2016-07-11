@@ -46,9 +46,9 @@
       <td>{{ detail.eksisterendeDrifttid | format_decimal }}</td>
       <td>{{ detail.nyDrifttid | format_decimal }}</td>
       <td>{{ detail.pumpe }}</td>
-      <td>{{ detail.samletInvesteringInklPristillaeg | format_decimal }}</td>
+      <td>{{ detail.samletInvesteringInklPristillaeg | format_amount }}</td>
       <td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
-      <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+      <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
       <td class="last"></td>
     </tr>
   {% endfor %}
