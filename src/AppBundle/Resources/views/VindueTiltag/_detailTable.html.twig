@@ -49,9 +49,9 @@
       <td>{{ detail.klimaskaerm }}</td>
       <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
       <td>{{ detail.levetidAar | format_decimal }}</td>
-      <td>{{ detail.samletInvesteringKr | format_decimal }}</td>
+      <td>{{ detail.samletInvesteringKr | format_amount }}</td>
       <td>{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
-      <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+      <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
       <td class="last"></td>
     </tr>
   {% endfor %}
