@@ -700,3 +700,24 @@ form .alert ul {
     margin-top: 0px;
     margin-left: 15px;
 }
+
+.column-sort {
+  position: relative;
+}
+
+.column-sort::before {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  content: '\f0dc';
+  font: normal normal normal 14px/1 FontAwesome;
+}
+
+.column-sort.sort-asc::before {
+  content: '\f0de';
+}
+
+.column-sort.sort-desc::before {
+  content: '\f0dd';
+}

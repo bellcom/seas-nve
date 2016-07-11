@@ -12,101 +12,133 @@
         {{ form_start(edit_form) }}
       {% endif %}
 
-      <table class="table table-condensed table-header-rotated table-hover">
-        <thead>
-        <tr>
-          {{ helper.header() }}
-          {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.anlaegsstoerrelseKWp') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.produktionKWh') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.tilNettetPct') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.tilEgetForbrugPct') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.egetForbrugAfProduktionenKWh') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.produktionTilNettetKWh') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.forringetYdeevnePrAar') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.inverterskift1Aar') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.inverterskift2Aar') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.prisForNyInverterKr') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.salgsprisFoerste10AarKrKWh') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.salgsprisEfter10AarKrKWh') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.energiprisstigningPctPrAar') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.investeringKr') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.screeningOgProjekteringKr') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.driftPrAarKr') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.omkostningTilMaalerKr') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.raadighedstarifKr') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.totalDriftomkostningerPrAar') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header('appbundle.solcelletiltagdetail.nutidsvaerdiSetOver15AarKr') }}
-          {{ helper.header() }}
-        </tr>
-        <tr>
-          {{ helper.header_unit() }}
-          {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.anlaegsstoerrelseKWp') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.produktionKWh') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.tilNettetPct') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.tilEgetForbrugPct') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.egetForbrugAfProduktionenKWh') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.produktionTilNettetKWh') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.forringetYdeevnePrAar') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.inverterskift1Aar') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.inverterskift2Aar') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.prisForNyInverterKr') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.salgsprisFoerste10AarKrKWh') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.salgsprisEfter10AarKrKWh') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.energiprisstigningPctPrAar') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.investeringKr') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.screeningOgProjekteringKr') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.driftPrAarKr') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.omkostningTilMaalerKr') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.raadighedstarifKr') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.totalDriftomkostningerPrAar') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.simpelTilbagebetalingstidAar') }}
-          {{ helper.header_unit('appbundle.solcelletiltagdetail.nutidsvaerdiSetOver15AarKr') }}
-          {{ helper.header_unit() }}
-        </tr>
-        </thead>
-        <tbody>
-        {% for form_detail in edit_form.details %}
-          {% set detail = details[form_detail.vars['value'].id] %}
-          <tr id="{{ detail.id }}">
-            <td>
-              {{ block('tiltag_detail_edit') }}
-            </td>
-            <td>
-              {% if is_granted('TILTAG_EDIT', entity) %}
-                {{ form_row(form_detail.tilvalgt) }}
-              {% else %}
-                {{ detail.tilvalgt | b2icon }}
-              {% endif %}
-            </td>
-            <td>{{ detail.anlaegsstoerrelseKWp | format_decimal }}</td>
-            <td>{{ detail.produktionKWh | format_decimal }}</td>
-            <td>{{ detail.tilNettetPct | format_percent }}</td>
-            <td>{{ detail.tilEgetForbrugPct | format_percent }}</td>
-            <td>{{ detail.egetForbrugAfProduktionenKWh | format_decimal }}</td>
-            <td>{{ detail.produktionTilNettetKWh | format_decimal }}</td>
-            <td>{{ detail.forringetYdeevnePrAar | format_percent }}</td>
-            <td>{{ detail.inverterskift1Aar | format_integer }}</td>
-            <td>{{ detail.inverterskift2Aar | format_integer }}</td>
-            <td>{{ detail.prisForNyInverterKr | format_decimal }}</td>
-            <td>{{ detail.salgsprisFoerste10AarKrKWh | format_decimal }}</td>
-            <td>{{ detail.salgsprisEfter10AarKrKWh | format_decimal }}</td>
-            <td>{{ detail.energiprisstigningPctPrAar | format_percent }}</td>
-            <td>{{ detail.investeringKr | format_decimal }}</td>
-            <td>{{ detail.screeningOgProjekteringKr | format_decimal }}</td>
-            <td>{{ detail.driftPrAarKr | format_decimal }}</td>
-            <td>{{ detail.omkostningTilMaalerKr | format_decimal }}</td>
-            <td>{{ detail.raadighedstarifKr | format_decimal }}</td>
-            <td>{{ detail.totalDriftomkostningerPrAar | format_decimal }}</td>
-            <td>{{ detail.simpelTilbagebetalingstidAar | format_integer }}</td>
-            <td>{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
-            <td class="last"></td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      <div id="list-details">
+        <table class="table table-condensed table-header-rotated table-hover">
+          <thead>
+            <tr>
+              {{ helper.header() }}
+              {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.anlaegsstoerrelseKWp') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.produktionKWh') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.tilNettetPct') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.tilEgetForbrugPct') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.egetForbrugAfProduktionenKWh') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.produktionTilNettetKWh') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.forringetYdeevnePrAar') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.inverterskift1Aar') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.inverterskift2Aar') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.prisForNyInverterKr') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.salgsprisFoerste10AarKrKWh') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.salgsprisEfter10AarKrKWh') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.energiprisstigningPctPrAar') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.investeringKr') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.screeningOgProjekteringKr') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.driftPrAarKr') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.omkostningTilMaalerKr') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.raadighedstarifKr') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.totalDriftomkostningerPrAar') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.simpelTilbagebetalingstidAar') }}
+              {{ helper.header('appbundle.solcelletiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+              {{ helper.header() }}
+            </tr>
+            <tr>
+              {{ helper.header_unit() }}
+              {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt', 'tilvalgt', null, 'value') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.anlaegsstoerrelseKWp', 'anlaegsstoerrelseKWp', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.produktionKWh', 'produktionKWh', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.tilNettetPct', 'tilNettetPct', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.tilEgetForbrugPct', 'tilEgetForbrugPct', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.egetForbrugAfProduktionenKWh', 'egetForbrugAfProduktionenKWh', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.produktionTilNettetKWh', 'produktionTilNettetKWh', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.forringetYdeevnePrAar', 'forringetYdeevnePrAar', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.inverterskift1Aar', 'inverterskift1Aar', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.inverterskift2Aar', 'inverterskift2Aar', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.prisForNyInverterKr', 'prisForNyInverterKr', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.salgsprisFoerste10AarKrKWh', 'salgsprisFoerste10AarKrKWh', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.salgsprisEfter10AarKrKWh', 'salgsprisEfter10AarKrKWh', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.energiprisstigningPctPrAar', 'energiprisstigningPctPrAar', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.investeringKr', 'investeringKr', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.screeningOgProjekteringKr', 'screeningOgProjekteringKr', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.driftPrAarKr', 'driftPrAarKr', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.omkostningTilMaalerKr', 'omkostningTilMaalerKr', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.raadighedstarifKr', 'raadighedstarifKr', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.totalDriftomkostningerPrAar', 'totalDriftomkostningerPrAar', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.simpelTilbagebetalingstidAar', 'simpelTilbagebetalingstidAar', 'number') }}
+              {{ helper.header_unit('appbundle.solcelletiltagdetail.nutidsvaerdiSetOver15AarKr', 'nutidsvaerdiSetOver15AarKr', 'number') }}
+              {{ helper.header_unit() }}
+            </tr>
+          </thead>
+
+          <tbody class="filter">
+            <tr>
+              {{ helper.header_filter() }}
+              {{ helper.header_filter() }}
+              {{ helper.header_filter('anlaegsstoerrelseKWp', 'number') }}
+              {{ helper.header_filter('produktionKWh', 'number') }}
+              {{ helper.header_filter('tilNettetPct', 'number') }}
+              {{ helper.header_filter('tilEgetForbrugPct', 'number') }}
+              {{ helper.header_filter('egetForbrugAfProduktionenKWh', 'number') }}
+              {{ helper.header_filter('produktionTilNettetKWh', 'number') }}
+              {{ helper.header_filter('forringetYdeevnePrAar', 'number') }}
+              {{ helper.header_filter('inverterskift1Aar', 'number') }}
+              {{ helper.header_filter('inverterskift2Aar', 'number') }}
+              {{ helper.header_filter('prisForNyInverterKr', 'number') }}
+              {{ helper.header_filter('salgsprisFoerste10AarKrKWh', 'number') }}
+              {{ helper.header_filter('salgsprisEfter10AarKrKWh', 'number') }}
+              {{ helper.header_filter('energiprisstigningPctPrAar', 'number') }}
+              {{ helper.header_filter('investeringKr', 'number') }}
+              {{ helper.header_filter('screeningOgProjekteringKr', 'number') }}
+              {{ helper.header_filter('driftPrAarKr', 'number') }}
+              {{ helper.header_filter('omkostningTilMaalerKr', 'number') }}
+              {{ helper.header_filter('raadighedstarifKr', 'number') }}
+              {{ helper.header_filter('totalDriftomkostningerPrAar', 'number') }}
+              {{ helper.header_filter('simpelTilbagebetalingstidAar', 'number') }}
+              {{ helper.header_filter('nutidsvaerdiSetOver15AarKr', 'number') }}
+              {{ helper.header_filter() }}
+            </tr>
+          </tbody>
+
+          <tbody class="list">
+            {% for form_detail in edit_form.details %}
+              {% set detail = details[form_detail.vars['value'].id] %}
+              <tr id="{{ detail.id }}">
+                <td>
+                  {{ block('tiltag_detail_edit') }}
+                </td>
+                <td class="tilvalgt" data-value="{{ detail.tilvalgt }}">
+                  {% if is_granted('TILTAG_EDIT', entity) %}
+                    {{ form_row(form_detail.tilvalgt) }}
+                  {% else %}
+                    {{ detail.tilvalgt | b2icon }}
+                  {% endif %}
+                </td>
+                <td class="anlaegsstoerrelseKWp number">{{ detail.anlaegsstoerrelseKWp | format_decimal }}</td>
+                <td class="produktionKWh number">{{ detail.produktionKWh | format_decimal }}</td>
+                <td class="tilNettetPct number">{{ detail.tilNettetPct | format_percent }}</td>
+                <td class="tilEgetForbrugPct number">{{ detail.tilEgetForbrugPct | format_percent }}</td>
+                <td class="egetForbrugAfProduktionenKWh number">{{ detail.egetForbrugAfProduktionenKWh | format_decimal }}</td>
+                <td class="produktionTilNettetKWh number">{{ detail.produktionTilNettetKWh | format_decimal }}</td>
+                <td class="forringetYdeevnePrAar number">{{ detail.forringetYdeevnePrAar | format_percent }}</td>
+                <td class="inverterskift1Aar number">{{ detail.inverterskift1Aar | format_integer }}</td>
+                <td class="inverterskift2Aar number">{{ detail.inverterskift2Aar | format_integer }}</td>
+                <td class="prisForNyInverterKr number">{{ detail.prisForNyInverterKr | format_decimal }}</td>
+                <td class="salgsprisFoerste10AarKrKWh number">{{ detail.salgsprisFoerste10AarKrKWh | format_decimal }}</td>
+                <td class="salgsprisEfter10AarKrKWh number">{{ detail.salgsprisEfter10AarKrKWh | format_decimal }}</td>
+                <td class="energiprisstigningPctPrAar number">{{ detail.energiprisstigningPctPrAar | format_percent }}</td>
+                <td class="investeringKr number">{{ detail.investeringKr | format_decimal }}</td>
+                <td class="screeningOgProjekteringKr number">{{ detail.screeningOgProjekteringKr | format_decimal }}</td>
+                <td class="driftPrAarKr number">{{ detail.driftPrAarKr | format_decimal }}</td>
+                <td class="omkostningTilMaalerKr number">{{ detail.omkostningTilMaalerKr | format_decimal }}</td>
+                <td class="raadighedstarifKr number">{{ detail.raadighedstarifKr | format_decimal }}</td>
+                <td class="totalDriftomkostningerPrAar number">{{ detail.totalDriftomkostningerPrAar | format_decimal }}</td>
+                <td class="simpelTilbagebetalingstidAar number">{{ detail.simpelTilbagebetalingstidAar | format_integer }}</td>
+                <td class="nutidsvaerdiSetOver15AarKr number">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+                <td class="last"></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 
       {% if is_granted('TILTAG_EDIT', entity) %}
         {{ form_rest(edit_form) }}
