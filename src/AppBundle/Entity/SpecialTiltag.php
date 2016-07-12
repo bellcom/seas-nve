@@ -151,7 +151,7 @@ class SpecialTiltag extends Tiltag {
   }
 
   protected function calculateSamletCo2besparelse() {
-    return (($this->varmebesparelseGAF + $this->varmebesparelseGUF / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
+    return ((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
             + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
   }
 
