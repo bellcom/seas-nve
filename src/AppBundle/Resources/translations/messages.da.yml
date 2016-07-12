@@ -1220,6 +1220,7 @@ appbundle:
     eksisterendeDrifttid: Eksisterende drifttid
     eksisterendeDrifttid.unit: Timer/år
     eksisterendeDrifttid.help: ﻿Eksisterende driftstid indtastes i timer/år
+    eksisterendePumpe: Eksisterende pumpe
     elbespKWhAar: El-Besparelse
     elbespKWhAar.unit: kWh/år
     elforbrugVedNyeDriftstidKWhAar: Elforbrug ved nye driftstid
@@ -1241,8 +1242,12 @@ appbundle:
     nutidsvaerdiSetOver15AarKr.unit: kr
     nyDrifttid: Ny drifttid
     nyDrifttid.unit: Timer/år
+    nyPumpe: Ny pumpe
+    nytByggemaal: Nyt byggemål
+    nyTilslutning: Ny tilslutning
     nyttiggjortVarme: Nyttiggjort varme
     nyttiggjortVarme.unit: B-faktor
+    nytVVSnr: Nyt VVS-nr.
     placering: Placering
     placering.help: ﻿Rum nr. og eventuel note for placering  fx. "rum 20, under isoleringskappe til varmtvandsbeholder"
     prisfaktor: Prisfaktor
