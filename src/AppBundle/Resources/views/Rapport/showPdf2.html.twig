@@ -104,7 +104,7 @@
         <th>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger' | trans }}</th>
         <td class="text-right">
           {% if rapport.internRenteInklFaellesomkostninger < 100 %}
-            {{ rapport.internRenteInklFaellesomkostninger | number_format }}
+            {{ rapport.internRenteInklFaellesomkostninger | format_percent_nounit }}
           {% else %}
             --
           {% endif %}
