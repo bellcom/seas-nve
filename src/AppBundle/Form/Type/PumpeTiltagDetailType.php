@@ -29,7 +29,8 @@ class PumpeTiltagDetailType extends TiltagDetailType {
       ->add('noter', null, array('required' => false))
       ->add('eksisterendeDrifttid')
       ->add('nyDrifttid')
-      ->add('prisfaktor');
+      ->add('prisfaktor')
+      ->add('overskrevetPris', null, array('required' => false));
 
     // @FIXME: Workaround for the field "B-Faktor" being deprecated.
     if (!$this->detail->getNyttiggjortVarme()) {

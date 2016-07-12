@@ -106,6 +106,13 @@ class PumpeTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
+   * @ORM\Column(name="overskrevetPris", type="decimal", scale=4)
+   */
+  protected $overskrevetPris;
+
+  /**
+   * @var float
+   *
    * @Calculated
    * @ORM\Column(name="pristillaeg", type="float")
    */
@@ -419,6 +426,27 @@ class PumpeTiltagDetail extends TiltagDetail {
     return $this->pumpe;
   }
 
+  /**
+   * Set overskrevetPris
+   *
+   * @param float $overskrevetPris
+   * @return PumpeDetail
+   */
+  public function setOverskrevetPris($overskrevetPris) {
+    $this->overskrevetPris = $overskrevetPris;
+
+    return $this;
+  }
+
+  /**
+   * Get overskrevetPris
+   *
+   * @return float
+   */
+  public function getOverskrevetPris() {
+    return $this->overskrevetPris;
+  }
+
   public function getPristillaeg() {
     return $this->pristillaeg;
   }
@@ -468,19 +496,29 @@ class PumpeTiltagDetail extends TiltagDetail {
     parent::calculate();
   }
 
+  private function getPris() {
+    if ($this->overskrevetPris !== null) {
+      return $this->overskrevetPris;
+    } else if ($this->pumpe !== null) {
+      return $this->pumpe->getStandInvestering();
+    }
+
+    return 0;
+  }
+
   public function calculatePristillaeg() {
     // 'AN'
     if ($this->prisfaktor == 0) {
       return 0;
     }
     else {
-      return ($this->prisfaktor - 1) * $this->pumpe->getStandInvestering();
+      return ($this->prisfaktor - 1) * $this->getPris();
     }
   }
 
   public function calculateSamletInvesteringInklPristillaeg() {
     // 'AO'
-    return $this->pristillaeg + $this->pumpe->getStandInvestering();
+    return $this->pristillaeg + $this->getPris();
   }
 
   public function calculateElforbrugVedNyeDriftstidKWhAar() {
