@@ -61,6 +61,7 @@
     <table class="table table-condensed table-hover">
       <tr>
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.navn'|trans, 'b.navn') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.adresse'|trans, 'b.adresse') }}</th>
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.postnummer'|trans, 'b.postnummer') }}</th>
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 'b.segment') }}</th>
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.rapport.datering'|trans, 'b.rapport.datering') }}</th>
@@ -71,6 +72,7 @@
 
       <tr class="search">
         <th>{{ form_row(form.navn) }}</th>
+        <th>{{ form_row(form.adresse) }}</th>
         <th>{{ form_row(form.postnummer) }}</th>
         <th>{{ form_row(form.segment) }}</th>
         <th class="text-center">{{ form_row(form.rapport.datering) }}</th>
@@ -82,6 +84,7 @@
       {% for bygning in pagination %}
       <tr>
         <td>{{ bygning.navn }}</td>
+        <td>{{ bygning.adresse }}</td>
         <td>{{ bygning.postnummer }}</td>
         <td>
           {% if bygning.segment is not empty %}

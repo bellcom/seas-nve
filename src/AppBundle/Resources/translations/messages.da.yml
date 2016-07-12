@@ -1698,6 +1698,7 @@ appbundle:
 # Dataudtræk
 udtraek.bygning:
   navn: Navn indholder
+  adresse: Adresse indholder
   postnummer: Postnummer starter med
   rapport.datering: Datering mellem
   rapport.elena: Elena
