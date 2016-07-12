@@ -721,3 +721,13 @@ form .alert ul {
 .column-sort.sort-desc::before {
   content: '\f0dd';
 }
+
+/* http://stephen.io/mediaqueries/#iPad */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+  td .btn-xs {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+  }
+}
