@@ -1248,6 +1248,8 @@ appbundle:
     nyttiggjortVarme: Nyttiggjort varme
     nyttiggjortVarme.unit: B-faktor
     nytVVSnr: Nyt VVS-nr.
+    overskrevetPris: Overskrevet pris
+    overskrevetPris.unit: kr
     placering: Placering
     placering.help: ﻿Rum nr. og eventuel note for placering  fx. "rum 20, under isoleringskappe til varmtvandsbeholder"
     prisfaktor: Prisfaktor
