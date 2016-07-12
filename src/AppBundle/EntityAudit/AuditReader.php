@@ -49,9 +49,6 @@ class AuditReader extends BaseAuditReader {
               $where .= ' AND ' . $fieldName . ' LIKE \'%' . self::mysqlEscape($value) . '%\'';
             }
           }
-
-
-
           break;
 
         case 'AppBundle\Entity\Rapport':
@@ -94,12 +91,11 @@ class AuditReader extends BaseAuditReader {
   public function getEntitiesAtTime($className, DateTime $timestamp) {
     $entities = [];
 
-    $revision = $this->getRevisionByDate($timestamp);
-    $ids = $this->getEntityIds($className, $timestamp);
+    $revisions = $this->getEntityRevisions($className, $timestamp);
 
-    foreach ($ids as $id) {
+    foreach ($revisions as $revision) {
       try {
-        $entities[] = $this->find($className, $id, $revision);
+        $entities[] = $this->find($className, $revision['id'], $revision['rev'], [ 'exactRevision' => true ]);
       } catch (NoRevisionFoundException $ex) {
       } catch (Exception $ex) {
         throw $ex;
@@ -110,9 +106,9 @@ class AuditReader extends BaseAuditReader {
   }
 
   /**
-   *
+   * Get entity id and the lastest revision before a given time.
    */
-  private function getEntityIds($className, DateTime $timestamp) {
+  private function getEntityRevisions($className, DateTime $timestamp) {
     $tableName = NULL;
 
     switch ($className) {
@@ -127,14 +123,16 @@ class AuditReader extends BaseAuditReader {
     $auditTableName = $tableName . '_audit';
 
     $sql = <<<SQL
-select distinct
-  e.id
+select
+  e.id, max(e.rev) rev
 from
   $auditTableName e
 		inner join revisions r on e.rev = r.id
 where
 	r.timestamp <= :timestamp
     and e.revtype != 'DEL'
+group by
+  e.id
 ;
 SQL;
 
@@ -144,25 +142,8 @@ SQL;
     $rows = $stmt->fetchAll();
 
     return array_map(function($row) {
-      return $row['id'];
+      return [ 'id' => $row['id'], 'rev' => $row['rev'] ];
     }, $rows);
-  }
-
-  // @see https://github.com/simplethings/EntityAudit/pull/177/files
-  public function getRevisionByDate(\DateTime $date) {
-    $revision = null;
-
-    $query = "SELECT revisions.id FROM "
-           .'revisions'
-           ." WHERE timestamp <= '".$date->format("Y-m-d H:i:s")."' ORDER BY revisions.timestamp DESC,revisions.id DESC LIMIT 1";
-
-    $row = $this->getConnection()->fetchAssoc($query);
-
-    if ($row) {
-      $revision = $row['id'];
-    }
-
-    return $revision;
   }
 
 }
