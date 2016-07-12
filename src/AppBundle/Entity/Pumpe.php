@@ -618,20 +618,20 @@ class Pumpe {
   /**
    *
    */
-  public function getBesparelseVedIsoleringskappe() {
+  public function getBesparelseVedIsoleringskappe($roerstoerrelse = null) {
     if ($this->besparelseVedIsoleringskappe === null) {
-      $this->besparelseVedIsoleringskappe = $this->calculateBesparelseVedIsoleringskappe();
+      $this->besparelseVedIsoleringskappe = $this->calculateBesparelseVedIsoleringskappe($roerstoerrelse);
     }
     return $this->besparelseVedIsoleringskappe;
   }
 
-  private function calculateBesparelseVedIsoleringskappe() {
+  private function calculateBesparelseVedIsoleringskappe($roerstoerrelse = null) {
     $standardtemperatur = (45 - 12);
-    $varmetab = self::$varmetabstabel[$this->roerstoerrelse];
+    $varmetab = self::$varmetabstabel[$roerstoerrelse !== null ? $roerstoerrelse : $this->roerstoerrelse];
     return ($varmetab[1] - $varmetab[2]) * 2 * $standardtemperatur * 5448 / 1000;
   }
 
-  private static $varmetabstabel = array(
+  public static $varmetabstabel = array(
     // 'Isol. (mm' => [ 'Isolering/Diameter mm', '0 mm', '30 mm' ]
     '3/8"' => array( 17.2, 0.83, 0.16 ),
     '1/2"' => array( 21.3, 1.01, 0.17 ),

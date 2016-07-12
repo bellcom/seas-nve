@@ -1266,6 +1266,7 @@ appbundle:
     tilvalgt: Tilvalgt
     varmebespIsokappeKWh: Varmebesp. iso.kappe
     varmebespIsokappeKWh.unit: kWh
+    varmetabIftAekvivalentRoerstoerrelse: Varmetab ift. ækvivalent rørstørrelse (Pumpetilslutning)
   rapport:
     ava: AVA
     anlaegsinvestering.unit: kr
