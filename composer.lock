@@ -2945,12 +2945,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/aakb/entity-audit-bundle.git",
-                "reference": "d1ed2996c68d59bb7bb686f1993b4e1b9d238852"
+                "reference": "c204928fa73522d0d801ba5d2db8c4139235db19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aakb/entity-audit-bundle/zipball/d1ed2996c68d59bb7bb686f1993b4e1b9d238852",
-                "reference": "d1ed2996c68d59bb7bb686f1993b4e1b9d238852",
+                "url": "https://api.github.com/repos/aakb/entity-audit-bundle/zipball/c204928fa73522d0d801ba5d2db8c4139235db19",
+                "reference": "c204928fa73522d0d801ba5d2db8c4139235db19",
                 "shasum": ""
             },
             "require": {
@@ -2998,7 +2998,7 @@
             "support": {
                 "source": "https://github.com/aakb/entity-audit-bundle/tree/aaplus"
             },
-            "time": "2016-05-04 13:23:47"
+            "time": "2016-07-12 20:32:18"
         },
         {
             "name": "stof/doctrine-extensions-bundle",
