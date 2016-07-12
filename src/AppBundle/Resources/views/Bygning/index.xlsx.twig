@@ -125,6 +125,7 @@
     {% if tiltag %}
       {% xlscell %}{{ tiltagIndex + 1 }}{% endxlscell %}
       {% xlscell %}{{ tiltag_type(tiltag) | trans }}{% endxlscell %}
+      {% xlscell %}{{ tiltag_type(tiltag) == 'Special' and tiltag.tiltagskategori ? tiltag.tiltagskategori.navn : '' }}{% endxlscell %}
       {% xlscell %}{{ tiltag.title }}{% endxlscell %}
       {% xlscell %}{{ tiltag.tilvalgtAfAaPlus ? 1 : 0 }}{% endxlscell %}
       {# Somebody has put in "=((" in tilvalgtBegrundelseMagistrat …  #}
@@ -266,6 +267,7 @@
       {% if type == 'tiltag' %}
         {% xlscell %}{{ 'Tiltagsnr.' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Type' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'Kategori' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Title' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Tilvalgt (Aa+)' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Begrundelse (Aa+)' | trans }}{% endxlscell %}
