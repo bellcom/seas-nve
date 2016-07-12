@@ -8,6 +8,7 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\Pumpe;
 
 /**
  * Class PumpeTiltagDetailType
@@ -30,7 +31,11 @@ class PumpeTiltagDetailType extends TiltagDetailType {
       ->add('eksisterendeDrifttid')
       ->add('nyDrifttid')
       ->add('prisfaktor')
-      ->add('overskrevetPris', null, array('required' => false));
+      ->add('overskrevetPris', null, array('required' => false))
+      ->add('varmetabIftAekvivalentRoerstoerrelse', 'choice', array(
+        'choices' => $this->getRoerstoerrelser(),
+        'required' => false,
+      ));
 
     // @FIXME: Workaround for the field "B-Faktor" being deprecated.
     if (!$this->detail->getNyttiggjortVarme()) {
@@ -45,6 +50,12 @@ class PumpeTiltagDetailType extends TiltagDetailType {
           ),
         ));
     }
+  }
+
+  private function getRoerstoerrelser() {
+    $sizes = array_keys(Pumpe::$varmetabstabel);
+
+    return array_combine($sizes, $sizes);
   }
 
   public function configureOptions(OptionsResolver $resolver) {
