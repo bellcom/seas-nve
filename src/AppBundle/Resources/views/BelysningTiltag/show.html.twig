@@ -27,6 +27,7 @@
               {{ helper.header('appbundle.belysningtiltagdetail.lokale.antal') }}
               {{ helper.header('appbundle.belysningtiltagdetail.drifttidTAar') }}
               {{ helper.header('appbundle.belysningtiltagdetail.lyskilde') }}
+              {{ helper.header('appbundle.belysningtiltagdetail.standardinvestLyskildeKrStk') }}
               {{ helper.header('appbundle.belysningtiltagdetail.lyskildeStkArmatur') }}
               {{ helper.header('appbundle.belysningtiltagdetail.lyskildeWLyskilde') }}
               {{ helper.header('appbundle.belysningtiltagdetail.forkoblingStkArmatur') }}
@@ -71,6 +72,7 @@
               {{ helper.header_unit('appbundle.belysningtiltagdetail.lokale.antal', 'lokaleAntal', 'number') }}
               {{ helper.header_unit('appbundle.belysningtiltagdetail.drifttidTAar', 'drifttidTAar', 'number') }}
               {{ helper.header_unit('appbundle.belysningtiltagdetail.lyskilde', 'lyskilde') }}
+              {{ helper.header_unit('appbundle.belysningtiltagdetail.standardinvestLyskildeKrStk', 'standardinvestLyskildeKrStk', 'number') }}
               {{ helper.header_unit('appbundle.belysningtiltagdetail.lyskildeStkArmatur', 'lyskildeStkArmatur', 'number') }}
               {{ helper.header_unit('appbundle.belysningtiltagdetail.lyskildeWLyskilde', 'lyskildeWLyskilde', 'number') }}
               {{ helper.header_unit('appbundle.belysningtiltagdetail.forkoblingStkArmatur', 'forkoblingStkArmatur', 'number') }}
@@ -118,6 +120,7 @@
               {{ helper.header_filter('lokaleAntal', 'number') }}
               {{ helper.header_filter('drifttidTAar', 'number') }}
               {{ helper.header_filter('lyskilde') }}
+              {{ helper.header_filter('standardinvestLyskildeKrStk', 'number') }}
               {{ helper.header_filter('lyskildeStkArmatur', 'number') }}
               {{ helper.header_filter('lyskildeWLyskilde', 'number') }}
               {{ helper.header_filter('forkoblingStkArmatur', 'number') }}
@@ -175,6 +178,7 @@
                 <td class="lokaleAntal number">{{ detail.lokaleAntal | format_integer }}</td>
                 <td class="drifttidTAar number">{{ detail.drifttidTAar | format_decimal(0) }}</td>
                 <td class="lyskilde">{{ detail.lyskilde }}</td>
+                <td class="standardinvestLyskildeKrStk number">{{ detail.standardinvestLyskildeKrStk | format_amount }}</td>
                 <td class="lyskildeStkArmatur number">{{ detail.lyskildeStkArmatur | format_integer }}</td>
                 <td class="lyskildeWLyskilde number">{{ detail.lyskildeWLyskilde | format_decimal }}</td>
                 <td class="forkoblingStkArmatur number">{{ detail.forkoblingStkArmatur | format_integer }}</td>
