@@ -115,20 +115,20 @@
       <tr>
         <th>{{ 'appbundle.rapport.datering' | trans }}</th>
         <td>{{ entity.datering | date('Y-m-d') }}</td>
-        <th>{{ 'appbundle.bygning.status' | trans }}</th>
-        <td>{{ entity.bygning.status | readable }}</td>
+        <th>{{ 'appbundle.bygning.projektleder' | trans }}</th>
+        <td>{{ entity.bygning.projektleder }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.rapport.elena' | trans }}</th>
         <td>{{ entity.elena | b2icon }}</td>
-        <th>{{ 'common.updatedAt' | trans }}</th>
-        <td>{{ entity.updatedAt | date('Y-m-d  H:i') }}, {{ entity.updatedBy }}</td>
+        <th>{{ 'appbundle.bygning.status' | trans }}</th>
+        <td>{{ entity.bygning.status | readable }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.rapport.ava' | trans }}</th>
         <td>{{ entity.ava | b2icon }}</td>
-        <th></th>
-        <td></td>
+        <th>{{ 'common.updatedAt' | trans }}</th>
+        <td>{{ entity.updatedAt | date('Y-m-d  H:i') }}, {{ entity.updatedBy }}</td>
       </tr>
       </tbody>
     </table>
