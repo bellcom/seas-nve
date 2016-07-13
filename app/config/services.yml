@@ -104,6 +104,11 @@ services:
         tags:
             - { name: doctrine.event_listener, event: onFlush }
 
+    aaplus.baseline_listener:
+        class: AppBundle\Listener\BaselineListener
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }
+
     aaplus.rapport_calculation:
         class: AppBundle\Calculation\RapportCalculation
         arguments: [ @service_container ]
