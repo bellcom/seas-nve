@@ -281,6 +281,15 @@ klimaskaermtiltagdetail:
     add: Tilføj klimaskærmstiltag
     copy: Kopier klimaskærmstiltag
     edit: Rediger klimaskærmstiltag
+lyskilde:
+  actions:
+    add: Tilføj lyskilde
+    edit: Rediger lyskilde
+  error:
+    in_use: Kan ikke slettes. Bruges af belysningstiltag.
+  labels:
+    plural: Lyskilder
+    singular: Lyskilde
 nytArmatur:
   actions:
     add: Tilføj armatur
@@ -688,6 +697,12 @@ appbundle:
     kwhBesparelseEl: kWh-besparelse El
     kwhBesparelseVarmeFraVarmevaerket: kWh-besparelse Varme fra varmeværket
     lyskilde: Belysningstype
+    lyskilde.forkobling: Forkobling
+    lyskilde.levetid: Levetid
+    lyskilde.navn: Navn
+    lyskilde.type: Type
+    lyskilde.udgift: Udgift
+    lyskilde.udgift.unit: kr
     lyskildeStkArmatur: Lyskilde antal
     lyskildeStkArmatur.unit: stk/arm.
     lyskildeWLyskilde: Wattage
@@ -1196,6 +1211,14 @@ appbundle:
     vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
+  lyskilde:
+    forkobling: Forkobling
+    levetid: Levetid
+    levetid.unit: timer
+    navn: Navn
+    type: Type
+    udgift: Udgift
+    udgift.unit: kr
   nytArmatur:
     arbejdeOmfang: Arbejde / Omfang
     id: id
