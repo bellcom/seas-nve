@@ -281,6 +281,15 @@ klimaskaermtiltagdetail:
     add: Tilføj klimaskærmstiltag
     copy: Kopier klimaskærmstiltag
     edit: Rediger klimaskærmstiltag
+nytArmatur:
+  actions:
+    add: Tilføj armatur
+    edit: Rediger armatur
+  error:
+    in_use: Kan ikke slettes. Bruges af belysningstiltag.
+  labels:
+    plural: Armaturer
+    singular: Armatur
 nyttiggjortvarme:
   actions:
     add: Tilføj faktor
@@ -705,7 +714,17 @@ appbundle:
     nyLyskildeWLyskilde: Ny wattage
     nyLyskildeWLyskilde.unit: W/lysk.
     nyStyring: Ny styring
-    nytArmatur: Nyt armatur
+    nytarmatur: Nyt armatur
+    nytarmatur.arbejdeOmfang: Arbejde / Omfang
+    nytarmatur.id: id
+    nytarmatur.nyeForkoblingerAntal: Nye forkoblinger
+    nytarmatur.nyeForkoblingerAntal.unit: Stk./arm.
+    nytarmatur.nyLyskildeAntal: Antal
+    nytarmatur.noter: Noter
+    nytarmatur.pris: Pris
+    nytarmatur.pris.unit: kr
+    nytarmatur.wattage: Wattage
+    nytarmatur.wattage.unit: W/Lysk.
     nytElforbrugWM2: Nyt elforbrug
     nytElforbrugWM2.unit: W/m²
     nyttiggjortVarmeAfElBesparelse: Nyttiggjort varme
@@ -1177,6 +1196,17 @@ appbundle:
     vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
+  nytArmatur:
+    arbejdeOmfang: Arbejde / Omfang
+    id: id
+    nyeForkoblingerAntal: Nye forkoblinger
+    nyeForkoblingerAntal.unit: Stk./arm.
+    nyLyskildeAntal: Antal
+    noter: Noter
+    pris: Pris
+    pris.unit: kr
+    wattage: Wattage
+    wattage.unit: W/Lysk.
   nyttiggjortvarme:
     faktor: Faktor for nyttiggjort varme
     titel: Titel
