@@ -729,7 +729,7 @@ appbundle:
     nyLyskildeWLyskilde: Ny wattage
     nyLyskildeWLyskilde.unit: W/lysk.
     nyStyring: Ny styring
-    nytarmatur: Nyt armatur
+    nytArmatur: Nyt armatur
     nytarmatur.arbejdeOmfang: Arbejde / Omfang
     nytarmatur.id: id
     nytarmatur.nyeForkoblingerAntal: Nye forkoblinger
