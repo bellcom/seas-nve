@@ -1092,6 +1092,49 @@ class BelysningTiltagDetail extends TiltagDetail {
     $this->erstatningsLyskilde = $erstatningsLyskilde;
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'lokaleNavn',
+    'lyskilde',
+    'placering',
+    'drifttidTAar',
+    'lyskildeStkArmatur',
+    'lyskildeWLyskilde',
+    'forkoblingStkArmatur',
+    'armaturerStkLokale',
+    'belysningstiltag',
+    'reduktionAfDrifttid',
+    'nyLyskildeStkArmatur',
+    'nyLyskildeWLyskilde',
+    'nyForkoblingStkArmatur',
+    'prisfaktor',
+  ];
+
+  public function getPropertiesRequiredForCalculation() {
+    $properties = parent::getPropertiesRequiredForCalculation();
+
+    if ($this->getNyStyring()) {
+      $properties[] = 'nyeSensorerStkLokale';
+      $properties[] = 'standardinvestSensorKrStk';
+    }
+
+    $tiltag = $this->getBelysningstiltag();
+    switch ($tiltag) {
+      case TiltagType::ARMATUR:
+        $properties[] = 'nytArmatur';
+        $properties[] = 'nyeArmaturerStkLokale';
+        $properties[] = 'standardinvestArmaturKrStk';
+        break;
+
+      case TiltagType::LED_I_EKSIST_ARM:
+      case TiltagType::NY_INDSATS_I_ARM:
+        $properties[] = 'erstatningsLyskilde';
+        $properties[] = 'standardinvestLyskildeKrStk';
+        break;
+    }
+
+    return $properties;
+  }
+
   public function calculate() {
     $this->elforbrugWM2 = $this->calculateElforbrugWM2();
     $this->nyDriftstid = $this->calculateNyDriftstid();

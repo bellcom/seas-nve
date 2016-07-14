@@ -1,4 +1,5 @@
 {% extends 'AppBundle:Tiltag:show.html.twig' %}
+{% from 'AppBundle:_includes:calculation_warnings.html.twig' import renderWarnings as renderCalculationWarnings %}
 
 {% block body -%}
   {{ parent() }}
@@ -120,6 +121,7 @@
                   {% else %}
                     {{ detail.tilvalgt | b2icon }}
                   {% endif %}
+                  {{ renderCalculationWarnings(detail.calculationWarnings, detail.id, { edit_url: is_granted('TILTAG_EDIT', entity) ? path('tiltag_detail_edit', { 'id': detail.id }) : null }) }}
                 </td>
                 <td class="noter">{{ detail.noter }}</td>
                 <td class="pumpeID">{{ detail.pumpeID }}</td>

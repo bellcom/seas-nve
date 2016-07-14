@@ -166,6 +166,7 @@ class RapportController extends BaseController {
       'edit_form' => $editForm ? $editForm->createView() : NULL,
       'calculate_form' => $calculateForm,
       'calculation_changes' => $calculationChanges,
+      'calculation_warnings' => $rapport->getCalculationWarnings(),
     );
 
     return array_merge($twigVars, $formArray);

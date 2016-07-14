@@ -113,6 +113,22 @@ abstract class Calculation {
     });
   }
 
+  public function getCalculationWarnings($entity, array $properties, $prefix = '') {
+    $errors = array_filter($properties, function($property) use ($entity) {
+      $getter = 'get' . $property;
+      $value = method_exists($entity, $getter) ? $entity->$getter() : null;
+      return empty($value) || (is_numeric($value) && $value == 0);
+    });
+
+    if ($prefix) {
+      $errors = array_map(function($error) use ($prefix) {
+        return $prefix . $error;
+      }, $errors);
+    }
+
+    return $errors;
+  }
+
   /**
    * Calculate Net Present Value
    *

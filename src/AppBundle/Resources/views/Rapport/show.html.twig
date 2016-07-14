@@ -1,7 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
+{% import 'AppBundle:_includes:calculation_warnings.html.twig' as calculationWarnings %}
 
 {% block body -%}
-
   {% if calculation_changes is defined and calculation_changes %}
 
     {% form_theme calculate_form 'AppBundle:Form:calculateRapportConfirmModalForm.html.twig' %}
@@ -41,6 +41,10 @@
       </h1>
     </div>
     <div class="col-md-10 text-right">
+      {% if calculation_warnings %}
+        {{ calculationWarnings.renderWarnings(calculation_warnings, null, { edit_url: path('rapport_edit', { 'id': entity.id }) } ) }}
+      {% endif %}
+
       {% if calculate_form and is_granted('RAPPORT_EDIT', entity) %}
         {% if calculation_changes is defined and calculation_changes %}
           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( 'calculator' ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
@@ -348,6 +352,7 @@
           <li role="presentation" {% if key == 0 %} class="active" {% endif %}>
             <a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">
               {{ key + 1 }}. {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
+              {{ calculationWarnings.renderIcon(t.calculationWarnings) }}
             </a>
           </li>
         {% endfor %}
@@ -359,7 +364,10 @@
           <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
             <div class="row">
               <div class="col-md-6">
-                <h3>{{ t.title }}</h3>
+                <h3>{{ t.title }}
+                  {{ calculationWarnings.renderIcon(t.calculationWarnings, key) }}
+                </h3>
+                {{ calculationWarnings.renderMessagesPopup(t.calculationWarnings, key, { edit_url: is_granted('TILTAG_EDIT', t) ? path('tiltag_edit', { 'id': t.id }) : null }) }}
               </div>
               <div class="col-md-6 text-right">
                 {% if is_granted('RAPPORT_EDIT', entity) %}

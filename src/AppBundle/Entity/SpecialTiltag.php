@@ -122,6 +122,19 @@ class SpecialTiltag extends Tiltag {
     return $this;
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'besparelseEl',
+    'besparelseGAF',
+    'besparelseGUF',
+    'faktorForReinvesteringer',
+    'forsyningEl',
+    'forsyningVarme',
+    'levetid',
+    'primaerEnterprise',
+    'tiltagskategori',
+    'yderligereBesparelse',
+  ];
+
   protected function calculateVarmebesparelseGUF($value = null) {
     $value = ($this->rapport->getStandardForsyning() ? $this->besparelseGUF : $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
     return parent::calculateVarmebesparelseGUF($value);

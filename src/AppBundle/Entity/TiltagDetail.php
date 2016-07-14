@@ -280,6 +280,22 @@ abstract class TiltagDetail {
    */
   protected $configuration;
 
+  protected $propertiesRequiredForCalculation = [];
+
+  public function getPropertiesRequiredForCalculation() {
+    return $this->propertiesRequiredForCalculation;
+  }
+
+  /**
+   * Check if calculating this Tiltag makes sense.
+   * Some values may be required to make a meaningful calculation.
+   */
+  public function getCalculationWarnings($messages = []) {
+    $properties = $this->getPropertiesRequiredForCalculation();
+    $prefix = 'appbundle.' . strtolower((string)$this) . '.';
+    return Calculation::getCalculationWarnings($this, $properties, $prefix);
+  }
+
   /**
    * Calculate stuff.
    */

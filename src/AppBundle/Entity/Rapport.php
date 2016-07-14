@@ -1694,6 +1694,29 @@ class Rapport {
     $event->getEntityManager()->flush();
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'BaselineEl',
+    'BaselineStrafAfkoeling',
+    'BaselineVarmeGAF',
+    'BaselineVarmeGUF',
+    'energiscreening',
+    'faktorPaaVarmebesparelse',
+  ];
+
+  public function getPropertiesRequiredForCalculation() {
+    return $this->propertiesRequiredForCalculation;
+  }
+
+  /**
+   * Check if calculating this Tiltag makes sense.
+   * Some values may be required to make a meaningful calculation.
+   */
+  public function getCalculationWarnings($messages = []) {
+    $properties = $this->getPropertiesRequiredForCalculation();
+    $prefix = 'appbundle.rapport.';
+    return Calculation::getCalculationWarnings($this, $properties, $prefix);
+  }
+
   public function calculate() {
     $this->BaselineCO2El = $this->calculateBaselineCO2El();
     $this->BaselineCO2Varme = $this->calculateBaselineCO2Varme();
@@ -2047,7 +2070,7 @@ class Rapport {
     $cashFlow[1] -= $this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering();
 
     $irr = Excel::IRR($cashFlow);
-    
+
     if(ExcelError::IS_ERR($irr)) {
       return NULL;
     }

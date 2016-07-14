@@ -1,4 +1,5 @@
 {% extends 'AppBundle::base.html.twig' %}
+{% from 'AppBundle:_includes:calculation_warnings.html.twig' import renderWarnings as renderCalculationWarnings %}
 
 {% if add_action is not defined %}
   {% set add_action = 'tiltagdetail.actions.add' %}
