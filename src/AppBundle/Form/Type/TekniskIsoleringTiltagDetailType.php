@@ -24,13 +24,15 @@ class TekniskIsoleringTiltagDetailType extends TiltagDetailType {
       ->add('type', 'choice', array(
         'choices' => array(
           'Rør' => 'Rør',
-          'Beholder' => 'Beholder'
+          'Komponenter' => 'Komponenter'
         ),
+      ))
+      ->add('komponent', null, array(
+        'required' => false,
       ))
       ->add('driftstidTAar')
       ->add('udvDiameterMm')
       ->add('eksistIsolMm')
-      ->add('tankVolL')
       ->add('tempOmgivelC')
       ->add('tempMedieC')
       ->add('roerlaengdeEllerHoejdeAfVvbM')
@@ -39,6 +41,7 @@ class TekniskIsoleringTiltagDetailType extends TiltagDetailType {
       ))
       ->add('nyIsolMm')
       ->add('standardinvestKrM2EllerKrM')
+      ->add('overskrevetPris')
       ->add('prisfaktor');
   }
 

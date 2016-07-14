@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\TiltagDetail;
+use AppBundle\Entity\TekniskIsoleringTiltagDetail;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -74,12 +75,18 @@ class TiltagDetailController extends BaseController {
     $deleteForm = $this->createDeleteForm($tiltagdetail);
 
     $template = $this->getTemplate($tiltagdetail, 'edit');
-    return $this->render($template, array(
+    $parameters = [
       'calculation_changes' => $this->container->get('aaplus.tiltagdetail_calculation')->getChanges($tiltagdetail),
       'entity' => $tiltagdetail,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
-    ));
+    ];
+
+    if ($tiltagdetail instanceof TekniskIsoleringTiltagDetail) {
+      $parameters['komponenter'] = $this->getDoctrine()->getManager()->getRepository('AppBundle:TekniskIsoleringTiltagDetail\Komponent')->findAll();
+    }
+
+    return $this->render($template, $parameters);
   }
 
   /**
@@ -103,12 +110,17 @@ class TiltagDetailController extends BaseController {
     $deleteForm = $this->createDeleteForm($copy);
 
     $template = $this->getTemplate($copy, 'copy');
-    return $this->render($template, array(
+    $parameters = [
       'calculation_changes' => $this->container->get('aaplus.tiltagdetail_calculation')->getChanges($copy),
       'entity' => $copy,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
-    ));
+    ];
+
+    if ($tiltagdetail instanceof TekniskIsoleringTiltagDetail) {
+      $parameters['komponenter'] = $em->getRepository('AppBundle:TekniskIsoleringTiltagDetail\Komponent')->findAll();
+    }
+    return $this->render($template, $parameters);
   }
 
   /**
