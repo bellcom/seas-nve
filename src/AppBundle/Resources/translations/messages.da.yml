@@ -281,6 +281,16 @@ klimaskaermtiltagdetail:
     add: Tilføj klimaskærmstiltag
     copy: Kopier klimaskærmstiltag
     edit: Rediger klimaskærmstiltag
+komponent:
+  actions:
+    add: Tilføj komponent
+    new: Ny komponent
+    edit: Rediger komponent
+  error:
+    in_use: Kan ikke slettes. Bruges af tekniskisoleringtiltag.
+  labels:
+    plural: Komponenter
+    singular: Komponent
 lyskilde:
   actions:
     add: Tilføj lyskilde
@@ -1211,6 +1221,10 @@ appbundle:
     vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
+  komponent:
+    titel: Titel
+    roerlaengde: Rørlængde
+    roerlaengde.unit: m
   lyskilde:
     forkobling: Forkobling
     levetid: Levetid
@@ -1506,8 +1520,6 @@ appbundle:
     title: Title
   tekniskisoleringtiltagdetail:
     add: Tilføg
-    arealAfBeholderM2: Areal af beholder
-    arealAfBeholderM2.unit: m²
     beskrivelseType: Beskrivelse (type)
     driftstidTAar: Driftstid
     driftstidTAar.unit: t/år
@@ -1518,6 +1530,10 @@ appbundle:
     ikkeElenaBerettiget: Ikke Elena Berettiget
     investeringKr: Investering
     investeringKr.unit: kr
+    komponent: Komponent
+    komponent.titel: Titel
+    komponent.roerlaengde: Rørlængde
+    komponent.roerlaengde.unit: m
     kwhBesparelseElFraVaerket: kWh-besparelse El fra værket
     kwhBesparelseElFraVaerket.unit: kwh/år
     kwhBesparelseVarmeFraVaerket: kWh-besparelse Varme fra værket
@@ -1535,8 +1551,10 @@ appbundle:
     nyttiggjortvarme.titel: Beskrivelse for nyttiggjort varme
     nytVarmetabKwh: Nyt varmetab
     nytVarmetabKwh.unit: kwh
+    overskrevetPris: Overskrevet pris
+    overskrevetPris.unit: kr
     prisfaktor: Prisfaktor
-    roerlaengdeEllerHoejdeAfVvbM: Rørlængde eller højde af VVB
+    roerlaengdeEllerHoejdeAfVvbM: Rørlængde
     roerlaengdeEllerHoejdeAfVvbM.unit: m
     roerstoerrelseMmAekvivalent: Rørstørrelse ækvivalent
     roerstoerrelseMmAekvivalent.unit: mm
@@ -1545,8 +1563,6 @@ appbundle:
     standardinvestKrM2EllerKrM: Standardinvest.
     standardinvestKrM2EllerKrM.unit: kr/m² el. kr/m
     standardinvestKrM2EllerKrM.help: For rør indtastes i kr/m, for beholdere i kr/m²
-    tankVolL: Tankvol.
-    tankVolL.unit: L
     tempMedieC: Temp. Medie
     tempMedieC.unit: °C
     tempOmgivelC: Temp. omgivel.
