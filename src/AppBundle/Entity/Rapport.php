@@ -1641,6 +1641,29 @@ class Rapport {
     return $this->mtmFaellesomkostninger + $this->implementering;
   }
 
+  /**
+   * Get all files on this Rapport plus any files from Tiltag.
+   *
+   * @return array
+   */
+  public function getAllFiles() {
+    $files = [];
+
+    if ($this->getBilag()) {
+      foreach ($this->getBilag() as $bilag) {
+        $files[] = $bilag->getFilepath();
+      }
+    }
+
+    foreach ($this->getTiltag() as $tiltag) {
+      $tiltagFiles = $tiltag->getAllFiles();
+      if ($tiltagFiles) {
+        $files += $tiltagFiles;
+      }
+    }
+
+    return $files ? [ 'rapport-' . $this->getId() => $files ] : null;
+  }
 
   /**
    * Post load handler.

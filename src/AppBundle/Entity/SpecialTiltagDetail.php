@@ -75,6 +75,19 @@ class SpecialTiltagDetail extends TiltagDetail {
     return basename($this->filepath);
   }
 
+  public function getAllFiles() {
+    $files = parent::getAllFiles();
+
+    if ($this->getFilepath()) {
+      if (!$files) {
+        $files = [];
+      }
+      $files[] = $this->getFilepath();
+    }
+
+    return $files ? [ 'specialtiltagdetail-' . $this->getId() => $files ] : null;
+  }
+
   public function handleUploads($manager) {
     $fileInfo = $this->getFilepath();
     if (is_object($fileInfo) && $fileInfo instanceof UploadedFile) {

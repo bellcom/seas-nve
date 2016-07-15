@@ -358,6 +358,7 @@ rapporter:
     approve: Godkendt Magistrat
     approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt af Magistrat"?
     create: Opret Rapport
+    download_files: Hent alle bilag og filer
     edit: Baseline og energibudget
     filer: Filer
     implementation: Under udførsel
@@ -386,6 +387,8 @@ rapporter:
     detailark: Detailark
     plural: Rapporter
     singular: Rapport
+  messages:
+    no_files: Rapporten har ingen filer tilknyttet
   strings:
     belysningtiltag: Belysning
     klimaskaermtiltag: Klimaskærm

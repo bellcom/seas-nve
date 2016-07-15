@@ -757,4 +757,64 @@ class RapportController extends BaseController {
     }
     return $response;
   }
+
+  /**
+   * Download all files for Rapport.
+   *
+   * @Route("/{id}/download_files", name="rapport_download_files")
+   * @Method("GET")
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   */
+  public function downloadFilesAction(Request $request, Rapport $rapport) {
+    $allFiles = $rapport->getAllFiles();
+
+    if (!$allFiles) {
+      $this->flash->error('rapporter.messages.no_files');
+      return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    }
+
+    $zipName = 'bilag-' . $rapport->getBygning()->getAdresse() . '-' . date('Y-m-d') . '.zip';
+    // Sanitize filename.
+    $zipName = preg_replace('/[^a-z0-9.-]/i', '_', $zipName);
+
+    $archive = new \ZipArchive();
+    $zipPath = tempnam(sys_get_temp_dir(), $zipName);
+    $archive->open($zipPath, \ZipArchive::CREATE);
+
+    $this->addFilesToArchive($archive, $allFiles);
+    $archive->close();
+
+    $response = new BinaryFileResponse($zipPath);
+    $response->setContentDisposition(
+        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        $zipName
+    );
+
+    return $response;
+  }
+
+  /**
+   * Add files to archive.
+   *
+   * If a value in $files is an array the files in the value will be added to a sub-directory.
+   *
+   * @param array $files
+   *   The files to add.
+   * @param string $dir
+   *   The dir to add files to. Must be empty or end with a slash (/).
+   */
+  private function addFilesToArchive(\ZipArchive $archive, array $files, $dir = '') {
+    if ($files) {
+      foreach ($files as $key => $data) {
+        if (is_array($data)) {
+          $subDir = $dir . $key . '/';
+          $archive->addEmptyDir($subDir);
+          $this->addFilesToArchive($archive, $data, $subDir);
+        } else {
+          $file = new File($data);
+          $archive->addFromString($dir . $file->getBasename(), file_get_contents($file->getRealPath()));
+        }
+      }
+    }
+  }
 }
