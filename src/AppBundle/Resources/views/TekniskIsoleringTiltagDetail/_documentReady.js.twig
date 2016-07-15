@@ -23,7 +23,7 @@ function formatNumber(value) {
 
 var komponenter = {};
 {% for komponent in komponenter %}
-komponenter[{{ komponent.id }}] = {{ komponent.roerlaengde | json_encode | raw }};
+komponenter[{{ komponent.data.id }}] = {{ komponent.data.roerlaengde | json_encode | raw }};
 {% endfor %}
 
 function changeKomponent() {
