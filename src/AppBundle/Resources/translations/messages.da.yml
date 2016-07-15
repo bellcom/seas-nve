@@ -1520,8 +1520,6 @@ appbundle:
     title: Title
   tekniskisoleringtiltagdetail:
     add: Tilføg
-    arealAfBeholderM2: Areal af beholder
-    arealAfBeholderM2.unit: m²
     beskrivelseType: Beskrivelse (type)
     driftstidTAar: Driftstid
     driftstidTAar.unit: t/år

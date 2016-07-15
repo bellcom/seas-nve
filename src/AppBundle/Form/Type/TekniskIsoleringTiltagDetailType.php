@@ -24,7 +24,7 @@ class TekniskIsoleringTiltagDetailType extends TiltagDetailType {
       ->add('type', 'choice', array(
         'choices' => array(
           'Rør' => 'Rør',
-          'Komponenter' => 'Komponenter'
+          'Komponenter' => 'Komponenter',
         ),
       ))
       ->add('komponent', null, array(
