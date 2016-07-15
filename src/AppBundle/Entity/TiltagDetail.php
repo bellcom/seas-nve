@@ -267,7 +267,14 @@ abstract class TiltagDetail {
     return $this->getTiltag()->getRapport();
   }
 
-
+  /**
+   * Get all files on this TiltagDetail.
+   *
+   * @return array
+   */
+  public function getAllFiles() {
+    return null;
+  }
 
   /**
    * Handle uploads.

@@ -1463,6 +1463,29 @@ abstract class Tiltag {
     return $this->datoForDrift;
   }
 
+  /**
+   * Get all files on this Tiltag plus any files from TiltagDetails.
+   *
+   * @return array
+   */
+  public function getAllFiles() {
+    $files = [];
+
+    if ($this->getBilag()) {
+      foreach ($this->getBilag() as $bilag) {
+        $files[] = $bilag->getFilepath();
+      }
+    }
+
+    foreach ($this->getDetails() as $detail) {
+      $detailFiles = $detail->getAllFiles();
+      if ($detailFiles) {
+        $files += $detailFiles;
+      }
+    }
+
+    return $files ? [ 'tiltag-' . $this->getId() => $files ] : null;
+  }
 
   /**
    * Calculate values in this Tiltag
