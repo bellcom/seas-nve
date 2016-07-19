@@ -7,6 +7,7 @@
 namespace AppBundle\Form\Type;
 
 use AppBundle\AppBundle;
+use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\Form\Type\RisikovurderingType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
@@ -65,7 +66,15 @@ class TiltagType extends AbstractType {
       ));
       $builder->add('tilvalgtbegrundelse', NULL, array('required' => FALSE));
       $builder->add('tilvalgtBegrundelseMagistrat', NULL, array('required' => FALSE));
-      $builder->add('datoForDrift');
+
+      $status = $this->tiltag->getRapport()->getBygning()->getStatus();
+      if($status === BygningStatusType::UNDER_UDFOERSEL || $status === BygningStatusType::DRIFT) {
+        $builder->add('datoForDrift', 'date', array(
+          // render as a single text box
+          'widget' => 'single_text',
+          'required' => false
+        ));
+      }
     }
     $builder->add('title')
       ->add('faktorForReinvesteringer')

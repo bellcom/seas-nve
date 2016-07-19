@@ -10,6 +10,7 @@ use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\RapportSearchType;
 use AppBundle\Form\Type\RapportStatusType;
+use AppBundle\Form\Type\TiltagDatoForDriftType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
@@ -125,6 +126,7 @@ class RapportController extends BaseController {
 
     $status = $rapport->getBygning()->getStatus();
 
+    // Bygning Status forms
     $formArray = array();
     if($status == BygningStatusType::TILKNYTTET_RAADGIVER) {
       $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_submit', 'rapporter.actions.submit')->createView();
@@ -139,18 +141,29 @@ class RapportController extends BaseController {
       $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_operation', 'rapporter.actions.operation')->createView();
     }
 
+    // Tiltag tilvalgt/fravalgt forms
     $tilvalgtFormArray = array();
     $fravalgtFormArray = array();
 
     if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
       foreach ($rapport->getTiltag() as $tiltag) {
         if ($tiltag->getTilvalgt()) {
-          $tilvalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
-            ->createView();
+          $tilvalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)->createView();
         }
         else {
-          $fravalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
-            ->createView();
+          $fravalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)->createView();
+        }
+      }
+    }
+
+    // Dato for drift forms
+    $tiltagDatoForDriftFormArray = array();
+    if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+      if($status === BygningStatusType::UNDER_UDFOERSEL || $status === BygningStatusType::DRIFT) {
+        foreach ($rapport->getTiltag() as $tiltag) {
+          if ($tiltag->getTilvalgt()) {
+            $tiltagDatoForDriftFormArray[$tiltag->getId()] = $this->createEditTiltagDatoForDriftForm($tiltag, $rapport)->createView();
+          }
         }
       }
     }
@@ -160,6 +173,7 @@ class RapportController extends BaseController {
 
     $twigVars = array(
       'entity' => $rapport,
+      'dato_for_drift_form_array' => $tiltagDatoForDriftFormArray,
       'tilvalgt_form_array' => $tilvalgtFormArray,
       'fravalgt_form_array' => $fravalgtFormArray,
       'delete_form' => $deleteForm,
@@ -341,6 +355,25 @@ class RapportController extends BaseController {
     ));
 
     $this->addUpdate($form, $this->generateUrl('rapport_show', array('id' => $entity->getId())));
+
+    return $form;
+  }
+
+  /**
+   * Creates a form to edit a Tiltag entity.
+   *
+   * @param Tiltag $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditTiltagDatoForDriftForm($entity) {
+
+    $form = $this->createForm(new TiltagDatoForDriftType($entity), $entity, array(
+      'action' => $this->generateUrl('tiltag_dato_for_drift_update', array('id' => $entity->getId())),
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form);
 
     return $form;
   }

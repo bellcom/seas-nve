@@ -463,6 +463,7 @@ tiltag:
     edit: Rediger Tiltag
   confirmation:
     created: Tiltag oprettet
+    datofordriftupdated: Dato for drift opdateret
     tilfravalgtupdated: Til/Fravalgt af opdateret
     updated: Tiltag opdateret
     deleted: Tiltag slettet
@@ -1687,6 +1688,8 @@ appbundle:
     varmebesparelseGAF.unit: kWh/år
     varmebesparelseGUF: ﻿Varmebesparelse, GUF
     varmebesparelseGUF.unit: kWh/år
+  tiltagdatofordrift:
+    datoForDrift: Dato for drift
   tiltagdetail:
     tilvalgt: Tilvalgt
   tiltagtilvalgt:

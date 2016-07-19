@@ -71,7 +71,7 @@
         {% xlscell %}{{ bygning.energiRaadgiver }}{% endxlscell %}
         {% xlscell %}{#{ bygning.projektleder }#}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.datering|date : null }}{% endxlscell %}
-        {% xlscell %}{{ (rapport and rapport.datoForDrift) ? rapport.datoForDrift|date : null }}{% endxlscell %}
+        {% xlscell %}{{ (rapport and rapport.datoForDrift) ? rapport.datoForDrift|date('Y-m-d') : null }}{% endxlscell %}
         {% xlscell %}{{ (rapport ? rapport.elena : false) ? 1 : 0 }}{% endxlscell %}
         {% xlscell %}{{ (rapport ? rapport.ava : false) ? 1 : 0 }}{% endxlscell %}
       {% else %}
@@ -230,7 +230,7 @@
         {% xlscell %}{{ 'Rådgiver' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Projektleder' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Screeningsdato' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Dato for drift' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'Dato f. drift (Bygn.)' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Elena' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'AVA-støtte' | trans }}{% endxlscell %}
       {% endif %}
@@ -276,7 +276,7 @@
         {% xlscell %}{{ 'Mængde' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Enheder' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Funktionsdygtig levetid' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Dato for drift' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'Dato f. drift (Tiltag)' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Varmebesparelse GAF' | trans }} ({{ 'appbundle.tiltag.varmebesparelseGAF.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Varmebesparelse GUF' | trans }} ({{ 'appbundle.tiltag.varmebesparelseGUF.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Elbesparelse' | trans }} ({{ 'appbundle.tiltag.elbesparelse.unit' | trans }}){% endxlscell %}

@@ -1,6 +1,10 @@
 /**
 * Helpers
 */
+.float-right {
+    float: right;
+}
+
 .table > tbody > tr > .indent {
     padding-left: 2em;
 }

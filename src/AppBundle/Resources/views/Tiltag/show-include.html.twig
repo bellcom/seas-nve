@@ -6,6 +6,7 @@
           <li>{{ entity.tilvalgtAfRaadgiver | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfRaadgiver' | trans }}</li>
           <li>{{ entity.tilvalgtAfAaPlus | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfAaPlus' | trans }}</li>
           <li>{{ entity.tilvalgtAfMagistrat | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfMagistrat' | trans }}</li>
+          <li class="float-right">{{ 'appbundle.tiltag.datoForDrift' | trans }}: {{ entity.datoForDrift ? entity.datoForDrift | date('Y-m-d') : '--'}}</li>
         </ul>
       </div>
     </div>

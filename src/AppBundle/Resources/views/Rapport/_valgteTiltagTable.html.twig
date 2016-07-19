@@ -50,6 +50,9 @@
         <td class="text-right">{{ t.anlaegsinvestering | format_amount }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
         {% if is_granted('RAPPORT_EDIT', entity) and is_granted('ROLE_ADMIN') and pdf == false %}
           <td class="text-right">
+            {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
+              <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#datoForDriftModal-{{ t.id }}">Dato f. drift</button>
+            {% endif %}
             <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
               {% if type == 'tilvalg' %}
                 {{ 'common.deselect' | trans }}
@@ -85,6 +88,15 @@
   </table>
 
 </div>
+
+{% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
+  {% if is_granted('ROLE_ADMIN') and pdf == false %}
+    {% for t in tiltag %}
+      {% form_theme dato_for_drift_form_array[t.id] 'AppBundle:Form:dato-for-drift-modal-form.html.twig' %}
+      {{ form(dato_for_drift_form_array[t.id], { 'style': 'horizontal' }) }}
+    {% endfor %}
+  {% endif %}
+{% endif %}
 
 {% if is_granted('ROLE_ADMIN') and pdf == false %}
   {% for t in tiltag %}

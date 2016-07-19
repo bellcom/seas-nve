@@ -6,16 +6,26 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\Tiltag;
+use AppBundle\Entity\PumpeTiltag;
+use AppBundle\Entity\SolcelleTiltag;
+use AppBundle\Entity\TekniskIsoleringTiltag;
+use AppBundle\Entity\KlimaskaermTiltag;
+use AppBundle\Entity\SpecialTiltag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Class RapportType
+ * Class TiltagDatoForDriftType
  * @package AppBundle\Form
  */
-class RapportEmbedType extends AbstractType {
+class TiltagDatoForDriftType extends AbstractType {
+  protected $tiltag;
+
+  public function __construct(Tiltag $tiltag) {
+    $this->tiltag = $tiltag;
+  }
 
   /**
    * @TODO: Missing description.
@@ -26,20 +36,11 @@ class RapportEmbedType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder
-      ->add('datering', 'date', array(
-          // render as a single HTML5 text box
-          'widget' => 'single_text')
-      )
-//      ->add('BaselineEl')
-//      ->add('BaselineVarmeGUF')
-//      ->add('BaselineVarmeGAF')
-//      ->add('BaselineVand')
-//      ->add('BaselineStrafAfkoeling')
-      ->add('faktorPaaVarmebesparelse')
-      ->add('energiscreening')
-      ->add('ava')
-      ->add('elena');
+    $builder->add('datoForDrift', 'date', array(
+      // render as a single text box
+      'widget' => 'single_text',
+      'required' => false
+    ));
   }
 
   /**
@@ -50,7 +51,7 @@ class RapportEmbedType extends AbstractType {
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Rapport'
+      'data_class' => 'AppBundle\Entity\Tiltag'
     ));
   }
 
@@ -61,6 +62,6 @@ class RapportEmbedType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function getName() {
-    return 'appbundle_rapport_embed';
+    return 'appbundle_tiltagdatofordrift';
   }
 }

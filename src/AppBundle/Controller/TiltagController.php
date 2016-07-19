@@ -7,6 +7,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Regning;
+use AppBundle\Form\Type\TiltagDatoForDriftType;
 use AppBundle\Form\Type\TiltagOverviewDetailType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
 use Exception;
@@ -207,6 +208,29 @@ class TiltagController extends BaseController {
     $editForm->handleRequest($request);
 
     $this->flash->success('tiltag.confirmation.tilfravalgtupdated');
+
+    $em = $this->getDoctrine()->getManager();
+    $em->flush();
+
+    return $this->redirectToReferer($request);
+  }
+
+  /**
+   * Edits "dato for drift" for an existing Tiltag entity.
+   *
+   * @Route("/datofordrift/{id}", name="tiltag_dato_for_drift_update")
+   * @Method("PUT")
+   * @Security("is_granted('TILTAG_EDIT', tiltag)")
+   */
+  public function updateDatoForDriftAction(Request $request, Tiltag $tiltag) {
+    $editForm = $this->createForm(new TiltagDatoForDriftType($tiltag), $tiltag, array(
+      'action' => $this->generateUrl('tiltag_dato_for_drift_update', array('id' => $tiltag->getId())),
+      'method' => 'PUT',
+    ));
+
+    $editForm->handleRequest($request);
+
+    $this->flash->success('tiltag.confirmation.datofordriftupdated');
 
     $em = $this->getDoctrine()->getManager();
     $em->flush();
