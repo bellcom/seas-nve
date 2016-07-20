@@ -432,6 +432,30 @@ class Rapport {
   protected $energibudgetEl;
 
   /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="fravlagtBesparelseDriftOgVedligeholdelse", type="float", nullable=true)
+   */
+  protected $fravalgtBesparelseDriftOgVedligeholdelse;
+
+  /**
+   * @return float
+   */
+  public function getfravalgtBesparelseDriftOgVedligeholdelse()
+  {
+    return $this->fravalgtBesparelseDriftOgVedligeholdelse;
+  }
+
+  /**
+   * @param float $fravalgtBesparelseDriftOgVedligeholdelse
+   */
+  public function setFravalgtBesparelseDriftOgVedligeholdelse($fravalgtBesparelseDriftOgVedligeholdelse)
+  {
+    $this->fravalgtBesparelseDriftOgVedligeholdelse = $fravalgtBesparelseDriftOgVedligeholdelse;
+  }
+
+  /**
    * @return float
    */
   public function getBaselineCO2El() {
@@ -1743,6 +1767,7 @@ class Rapport {
     $this->implementering = $this->calculateImplementering();
     $this->fravalgtImplementering = $this->calculateFravalgtImplementering();
     $this->faellesomkostninger = $this->calculateFaellesomkostninger();
+    $this->fravalgtBesparelseDriftOgVedligeholdelse = $this->calculateFravalgtBesparelseDriftOgVedligeholdelse();
 
     $this->cashFlow = $this->calculateCashFlow();
     $this->besparelseAarEt = $this->calculateSavingsYearOne();
@@ -2140,6 +2165,15 @@ class Rapport {
     }
 
     return $flow;
+  }
+
+  protected function calculateFravalgtBesparelseDriftOgVedligeholdelse() {
+    $result = 0;
+    foreach ($this->getFravalgteTiltag() as $tiltag) {
+      $result += $tiltag->getBesparelseDriftOgVedligeholdelse();
+    }
+
+    return $result;
   }
 
   /**

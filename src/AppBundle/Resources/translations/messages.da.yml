@@ -1421,6 +1421,8 @@ appbundle:
     faellesomkostninger.unit: kr
     faktorPaaVarmebesparelse: Faktor på varmebesparelse
     fravalg: Fravalg
+    fravalgtBesparelseDriftOgVedligeholdelse: Sum af D & V Besparelser
+    fravalgtBesparelseDriftOgVedligeholdelse.unit: kr
     fravalgtImplementering: Fravalgt implementering
     genopretning: Genopretning
     genopretning.unit: kr
