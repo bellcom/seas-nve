@@ -68,6 +68,8 @@ class TiltagType extends AbstractType {
       $builder->add('tilvalgtBegrundelseMagistrat', NULL, array('required' => FALSE));
 
       $status = $this->tiltag->getRapport()->getBygning()->getStatus();
+
+      // Dato for drift
       if($status === BygningStatusType::UNDER_UDFOERSEL || $status === BygningStatusType::DRIFT) {
         $builder->add('datoForDrift', 'date', array(
           // render as a single text box
@@ -75,6 +77,13 @@ class TiltagType extends AbstractType {
           'required' => false
         ));
       }
+
+      // Energiledelse faktor/noter
+      if($status === BygningStatusType::DRIFT) {
+        $builder->add('energiledelseAendringIBesparelseFaktor', 'percent', array('required' => FALSE));
+        $builder->add('energiledelseNoter');
+      }
+
     }
     $builder->add('title')
       ->add('faktorForReinvesteringer')
@@ -108,8 +117,8 @@ class TiltagType extends AbstractType {
     $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
     $builder->add('risikovurderingDatagrundlag', new RisikovurderingType(), array());
     $builder->add('risikovurderingDiverse', new RisikovurderingType(), array());
-    $builder->add('risikovurderingAendringIBesparelseFaktor', 'percent', array('required' => FALSE))
-      ->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor', 'percent', array('required' => FALSE));
+    $builder->add('risikovurderingAendringIBesparelseFaktor', 'percent', array('required' => FALSE));
+    $builder->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor', 'percent', array('required' => FALSE));
 
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder

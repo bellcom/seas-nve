@@ -175,6 +175,16 @@
           </div>
         </div>
         {{ form_row(edit_form.risikovurdering) }}
+
+        {% if edit_form.energiledelseAendringIBesparelseFaktor is defined and edit_form.energiledelseNoter is defined %}
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+              <label>{{ 'common.energiledelse' | trans }}</label>
+              {{ form_row(edit_form.energiledelseAendringIBesparelseFaktor) }}
+              {{ form_row(edit_form.energiledelseNoter) }}
+            </div>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

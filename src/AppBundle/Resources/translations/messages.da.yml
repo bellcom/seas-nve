@@ -63,6 +63,7 @@ common:
   downloadCsv: Hent som csv
   edit: Rediger
   empty: Blank
+  energiledelse: Energiledelse
   finans: Økonomi
   finished_buildings: Indsendt til Aa+
   form_error: Fejl: ret venligst de nævnte problemer nedenfor
@@ -1623,6 +1624,9 @@ appbundle:
     datoForDrift: Dato for drift
     elbesparelse: Elbesparelse
     elbesparelse.unit: kWh/år
+    energiledelseAendringIBesparelseFaktor: Justering af besparelse ift. energiledelse
+    energiledelseAendringIBesparelseFaktor.unit: %
+    energiledelseNoter: Noter til justering af besparelse ift. energiledelse
     enhed: Enhed
     faktorForReinvesteringer: Faktor for reinvesteringer
     forsyningEl: Forsyning, el

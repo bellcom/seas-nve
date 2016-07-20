@@ -417,7 +417,7 @@ abstract class Tiltag {
   /**
    * @var float
    *
-   * Ændring i besparelse
+   * Ændring i besparelse i forhold til risikovurdering
    *
    * @ORM\Column(name="risikovurderingAendringIBesparelseFaktor", type="float", nullable=true)
    */
@@ -431,6 +431,27 @@ abstract class Tiltag {
    * @ORM\Column(name="risikovurderingOekonomiskKompenseringIftInvesteringFaktor", type="float", nullable=true)
    */
   protected $risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
+
+  /**
+   * @var float
+   *
+   * Ændring i besparelse ift. energiledelse
+   *
+   * @ORM\Column(name="energiledelseAendringIBesparelseFaktor", type="float", nullable=true)
+   */
+  protected $energiledelseAendringIBesparelseFaktor;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="energiledelseNoter", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 360,
+   *  maxMessage = "maxLength"
+   * )
+   */
+  protected $energiledelseNoter;
 
   /**
    * @var string
@@ -672,6 +693,38 @@ abstract class Tiltag {
    */
   public function setRisikovurderingOekonomiskKompenseringIftInvesteringFaktor($risikovurderingOekonomiskKompenseringIftInvesteringFaktor) {
     $this->risikovurderingOekonomiskKompenseringIftInvesteringFaktor = $risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
+  }
+
+  /**
+   * @return float
+   */
+  public function getEnergiledelseAendringIBesparelseFaktor()
+  {
+    return $this->energiledelseAendringIBesparelseFaktor;
+  }
+
+  /**
+   * @param float $energiledelseAendringIBesparelseFaktor
+   */
+  public function setEnergiledelseAendringIBesparelseFaktor($energiledelseAendringIBesparelseFaktor)
+  {
+    $this->energiledelseAendringIBesparelseFaktor = $energiledelseAendringIBesparelseFaktor;
+  }
+
+  /**
+   * @return string
+   */
+  public function getEnergiledelseNoter()
+  {
+    return $this->energiledelseNoter;
+  }
+
+  /**
+   * @param string $energiledelseNoter
+   */
+  public function setEnergiledelseNoter($energiledelseNoter)
+  {
+    $this->energiledelseNoter = $energiledelseNoter;
   }
 
   /**
@@ -1665,9 +1718,11 @@ abstract class Tiltag {
     if($value === NULL) {
       return NULL;
     } else {
-      $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? 1 - $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+      $risikoFaktor = $this->getRisikovurderingAendringIBesparelseFaktor() ? 1 - $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
 
-      return $value * $besparelse;
+      $energiledelseFaktor = $this->getEnergiledelseAendringIBesparelseFaktor() ? 1 - $this->getEnergiledelseAendringIBesparelseFaktor() : 1;
+
+      return $value * $risikoFaktor * $energiledelseFaktor;
     }
   }
 
