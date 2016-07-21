@@ -1340,7 +1340,7 @@ appbundle:
     prisfaktor: Prisfaktor
     pristillaeg: Pristillæg
     pristillaeg.unit: kr
-    pumpe: Pumpe
+    pumpe: Eks. pumpe / Ny pumpe
     pumpeID: Pumpe ID
     pumpeID.help: ﻿Et ID der kan genfindes på vedlagt skitse angives, fx. "P1", "P2" osv.
     pumpetiltag: Pumpetiltag

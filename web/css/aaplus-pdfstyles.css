@@ -186,6 +186,14 @@ td.tiltag-title, th.tiltag-title {
   overflow: hidden;
 }
 
+th.border-right, td.border-right {
+  border-right: 2pt solid #444;
+}
+
+th.border-right:last-child, td.border-right:last-child {
+  border-right: 0;
+}
+
 /** Panels **/
 .panel {
   border: 1pt solid #444;
