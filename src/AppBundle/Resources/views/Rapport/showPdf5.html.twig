@@ -164,7 +164,7 @@
 
 
     {% if t.details is not empty %}
-      {% set template = 'AppBundle:' ~ tiltag_type(t) ~ 'Tiltag:_detailTable.html.twig' %}
+      {% set template = 'AppBundle:' ~ tiltag_type(t) ~ 'Tiltag:_detailTablePdf.html.twig' %}
 
       <div class="panel panel-default page-break-before">
         <div class="panel-heading"><h3 class="panel-title">{{ icon('list') }} Skema til: {{ t.title }}</h3></div>
