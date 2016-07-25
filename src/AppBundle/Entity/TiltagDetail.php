@@ -122,7 +122,7 @@ abstract class TiltagDetail {
    * @param object $value
    * @return $this
    */
-  protected function addData($key, $value) {
+  public function addData($key, $value) {
     $data = $this->data;
     if ($data === null) {
       $data = new \StdClass();
@@ -134,8 +134,10 @@ abstract class TiltagDetail {
     return $this;
   }
 
-  public function setData($key, $value) {
-    return $this->addData($key, $value);
+  public function setData($data) {
+    $this->$this->data = $data;
+
+    return $this;
   }
 
   /**
@@ -448,8 +450,7 @@ End Function
     if(get_class($this) === get_class($detail)) {
       foreach ($detail as $property => $value) {
         // Only update set values
-        // Exclude 'data' caching field
-        if(!empty($value) && $property !=='data') {
+        if($value !== null) {
           $accessor->setValue($this, $property, $value);
         }
       }

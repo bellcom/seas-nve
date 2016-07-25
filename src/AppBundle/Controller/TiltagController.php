@@ -429,6 +429,9 @@ class TiltagController extends BaseController {
   //---------------- TiltagDetail Batch Edit -------------------//
 
   private function createDetailBatchEditForm(Tiltag $tiltag, $detail, $detailsIdArray = null) {
+    $detail->setTilvalgt(null);
+    $detail->setIkkeElenaBerettiget(null);
+
     $formClass = $this->getFormTypeClassName($detail, TRUE);
     $form = $this->createForm(new $formClass($this->container, $detail, TRUE), $detail, array(
       'action' => $this->generateUrl('tiltag_detail_batch', array('id' => $tiltag->getId())),
@@ -438,7 +441,7 @@ class TiltagController extends BaseController {
     $implodeIds = empty($detailsIdArray) ? '' : implode(",", $detailsIdArray);
 
     $form->add('batchEditIdArray', 'hidden', array('mapped' => FALSE, 'data' => $implodeIds));
-    $form->add('submit', 'submit', array('label' => 'Batch Edit'));
+    $form->add('submit', 'submit', array('label' => "Rediger ".count($detailsIdArray)." details"));
 
     return $form;
   }
@@ -476,9 +479,9 @@ class TiltagController extends BaseController {
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     }
 
-    $template = $this->getDetailTemplate($detail, 'new');
+    $template = $this->getDetailTemplate($formDetail, 'new');
     return $this->render($template, array(
-      'entity' => $detail,
+      'entity' => $formDetail,
       'edit_form' => $form->createView(),
     ));
   }

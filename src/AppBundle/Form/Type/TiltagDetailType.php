@@ -37,33 +37,60 @@ class TiltagDetailType extends AbstractType {
   }
 
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('tilvalgt')
-            ->add('ikkeElenaBerettiget');
+    $builder->add('tilvalgt');
+    $builder->add('ikkeElenaBerettiget');
 
-    $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'setAllNotRequired'));
+    $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'modifyForBatchEdit'));
   }
 
-  public function setAllNotRequired(FormEvent $event) {
+  public function modifyForBatchEdit(FormEvent $event) {
     if($this->isBatchEdit) {
       $form = $event->getForm();
       foreach ($event->getForm()->all() as $child) {
         $config = $child->getConfig();
         $options = $config->getOptions();
+        $type = $config->getType()->getName();
         $name = $config->getName();
 
-        $form->add(
-        // Replace original field...
-          $config->getName(),
-          $config->getType()->getName(),
-          // while keeping the original options...
-          array_replace(
-            $options,
-            [
-              // replacing specific ones
-              'required' => false,
-            ]
-          )
-        );
+        // Alter checkbox to dropdown
+        if($type === 'checkbox') {
+          $options['choice_value'] = null;
+          unset($options['value']);
+          $form->add(
+          // Replace original field...
+            $name,
+            'choice',
+            // while keeping the original options...
+            array_replace(
+              $options,
+              [
+                // replacing specific ones
+                'required' => false,
+                'choices' => array(
+                  '0' => 'Nej',
+                  '1' => 'Ja',
+                ),
+                'empty_data'  => null,
+                'empty_value' => '--'
+              ]
+            )
+          );
+        } else {
+          // Set all as "Not required"
+          $form->add(
+          // Replace original field...
+            $name,
+            $type,
+            // while keeping the original options...
+            array_replace(
+              $options,
+              [
+                // replacing specific ones
+                'required' => false,
+              ]
+            )
+          );
+        }
       }
     }
   }
