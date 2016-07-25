@@ -183,7 +183,7 @@ class TiltagController extends BaseController {
 
         $this->setBreadcrumb($tiltag);
         $type = strtolower($this->getEntityName($tiltag));
-        $this->breadcrumbs->addItem($type.'detail.actions.batch', $this->get('router')->generate('tiltag_detail_batch', array('id' => $tiltag->getId())));
+        $this->breadcrumbs->addItem($type.'detail.actions.batch_edit', $this->get('router')->generate('tiltag_detail_batch', array('id' => $tiltag->getId())));
 
         $batchEditDetailIds = array();
         foreach ($tiltag->getDetails() as $detail) {
@@ -441,7 +441,7 @@ class TiltagController extends BaseController {
     $implodeIds = empty($detailsIdArray) ? '' : implode(",", $detailsIdArray);
 
     $form->add('batchEditIdArray', 'hidden', array('mapped' => FALSE, 'data' => $implodeIds));
-    $form->add('submit', 'submit', array('label' => "Rediger ".count($detailsIdArray)." details"));
+    $form->add('submit', 'submit', array('label' => "Rediger ".count($detailsIdArray)." tiltag"));
 
     return $form;
   }

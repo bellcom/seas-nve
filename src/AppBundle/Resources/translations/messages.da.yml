@@ -146,6 +146,7 @@ belysningtiltag:
 belysningtiltagdetail:
   actions:
     add: Tilføj belysningstiltag
+    batch_edit: Rediger valgte belysningstiltag
     copy: Kopier belysningstiltag
     edit: Rediger belysningstiltag
 bilag:
@@ -281,6 +282,7 @@ klimaskaermtiltag:
 klimaskaermtiltagdetail:
   actions:
     add: Tilføj klimaskærmstiltag
+    batch_edit: Rediger valgte klimaskærmstiltag
     copy: Kopier klimaskærmstiltag
     edit: Rediger klimaskærmstiltag
 komponent:
@@ -351,6 +353,7 @@ pumpetiltag:
 pumpetiltagdetail:
   actions:
     add: Tilføj Pumpetiltag
+    batch_edit: Rediger valgte pumpetiltag
     copy: Kopier Pumpetiltag
     create: Opret Pumpetiltag
     edit: Rediger Pumpetiltag
@@ -430,6 +433,7 @@ solcelle:
 solcelletiltag:
   actions:
     add: Tilføj solcelletiltag
+    batch_edit: Rediger valgte solcelletiltag
     copy: Kopier solcelletiltag
     edit: Rediger solcelletiltag
   confirmation:
@@ -446,6 +450,7 @@ specialtiltag:
 specialtiltagdetail:
   actions:
     add: Upload bilag
+    batch_edit: Rediger valgte specialtiltag
     edit: Rediger bilag til specialtiltag
 tekniskisoleringtiltag:
   actions:
@@ -455,6 +460,7 @@ tekniskisoleringtiltag:
 tekniskisoleringtiltagdetail:
   actions:
     add: Tilføj teknisk isolering
+    batch_edit: Rediger valgte teknisk isolering
     copy: Kopier teknisk isolering
     create: Opret teknisk isolering
     edit: Rediger teknisk isolering
@@ -484,6 +490,7 @@ tiltag:
 tiltagdetail:
   actions:
     add: Tilføj Detail
+    batch_edit: Rediger valgte tiltag
     copy: Kopier Detail
     edit: Rediger Detail
   confirmation:
@@ -536,6 +543,7 @@ vinduetiltag:
 vinduetiltagdetail:
   actions:
     add: Tilføj vinduestiltag
+    batch_edit: Rediger valgte vinduestiltag
     copy: Kopier vinduestiltag
     edit: Rediger vinduestiltag
 
