@@ -166,10 +166,7 @@
         </table>
       </div>
 
-      {% if is_granted('TILTAG_EDIT', entity) %}
-        {{ form_rest(edit_form) }}
-        {{ form_end(edit_form) }}
-      {% endif %}
+      {{ block('editform_button_row') }}
 
     </div>
   </div>
