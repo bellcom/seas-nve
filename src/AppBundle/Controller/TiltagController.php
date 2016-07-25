@@ -185,15 +185,8 @@ class TiltagController extends BaseController {
         $type = strtolower($this->getEntityName($tiltag));
         $this->breadcrumbs->addItem($type.'detail.actions.batch_edit', $this->get('router')->generate('tiltag_detail_batch', array('id' => $tiltag->getId())));
 
-        $batchEditDetailIds = array();
-        foreach ($tiltag->getDetails() as $detail) {
-          if($detail->isBatchEdit()) {
-            $batchEditDetailIds[] = $detail->getId();
-          }
-        }
-
         $detail = $this->createDetailEntity($tiltag);
-        $form = $this->createDetailBatchEditForm($tiltag, $detail, $batchEditDetailIds);
+        $form = $this->createDetailBatchEditForm($tiltag, $detail);
         $template = $this->getDetailTemplate($detail, 'new');
 
         return $this->render($template, array(
@@ -428,7 +421,7 @@ class TiltagController extends BaseController {
 
   //---------------- TiltagDetail Batch Edit -------------------//
 
-  private function createDetailBatchEditForm(Tiltag $tiltag, $detail, $detailsIdArray = null) {
+  private function createDetailBatchEditForm(Tiltag $tiltag, $detail, $numberOfDetails = null) {
     $detail->setTilvalgt(null);
     $detail->setIkkeElenaBerettiget(null);
 
@@ -438,10 +431,18 @@ class TiltagController extends BaseController {
       'method' => 'POST',
     ));
 
-    $implodeIds = empty($detailsIdArray) ? '' : implode(",", $detailsIdArray);
+    $batchEditDetailIds = array();
+    foreach ($tiltag->getDetails() as $detail) {
+      if($detail->isBatchEdit()) {
+        $batchEditDetailIds[] = $detail->getId();
+      }
+    }
+
+    $implodeIds = empty($batchEditDetailIds) ? '' : implode(",", $batchEditDetailIds);
+    $numberOfDetails =  empty($batchEditDetailIds) ? $numberOfDetails : count($batchEditDetailIds);
 
     $form->add('batchEditIdArray', 'hidden', array('mapped' => FALSE, 'data' => $implodeIds));
-    $form->add('submit', 'submit', array('label' => "Rediger ".count($detailsIdArray)." tiltag"));
+    $form->add('submit', 'submit', array('label' => "Opdater ".$numberOfDetails." tiltag"));
 
     return $form;
   }
@@ -455,21 +456,27 @@ class TiltagController extends BaseController {
    * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
   public function batchEditDetailAction(Request $request, Tiltag $tiltag) {
+    $formDataArray = $request->request->get('appbundle_tekniskisoleringtiltagdetail');
+    $detailsId = $formDataArray['batchEditIdArray'];
+    $detailsIdArray = explode(',', $detailsId);
+
     // Use createform to validate data
     $formDetail = $this->createDetailEntity($tiltag);
-    $form = $this->createDetailBatchEditForm($tiltag, $formDetail);
+    $form = $this->createDetailBatchEditForm($tiltag, $formDetail, count($detailsIdArray));
 
     $form->handleRequest($request);
 
-    if ($form->isValid()) {
+    $em = $this->getDoctrine()->getManager();
+    $detailsId = $form->get('batchEditIdArray')->getData();
+    $detailsIdArray = explode(',', $detailsId);
 
-      $em = $this->getDoctrine()->getManager();
-      $detailsId = $form->get('batchEditIdArray')->getData();
-      $detailsIdArray = explode(',', $detailsId);
+    if ($form->isValid()) {
       $details = $em->getRepository('AppBundle:TiltagDetail')->findById($detailsIdArray);
 
       foreach ($details as $detail) {
-        $detail->updateProperties($formDetail);
+        if($tiltag->getDetails()->contains($detail)) {
+          $detail->updateProperties($formDetail);
+        }
       }
 
       $em->flush();
@@ -478,6 +485,10 @@ class TiltagController extends BaseController {
 
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     }
+
+    $this->setBreadcrumb($tiltag);
+    $type = strtolower($this->getEntityName($tiltag));
+    $this->breadcrumbs->addItem($type.'detail.actions.batch_edit', $this->get('router')->generate('tiltag_detail_batch', array('id' => $tiltag->getId())));
 
     $template = $this->getDetailTemplate($formDetail, 'new');
     return $this->render($template, array(
