@@ -49,6 +49,7 @@ common:
   calculated_value: Beregnet værdi
   cancel: Annuller
   changes: Ændringer
+  choose: Vælg
   confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
   create: Opret
@@ -460,6 +461,7 @@ tekniskisoleringtiltagdetail:
 tiltag:
   actions:
     add: Tilføj Tiltag
+    batch_edit: Rediger valgte
     create: Opret Tiltag
     edit: Rediger Tiltag
   confirmation:
@@ -485,6 +487,7 @@ tiltagdetail:
     copy: Kopier Detail
     edit: Rediger Detail
   confirmation:
+    batch_edited: Detail(s) opdateret
     created: Detail oprettet
     updated: Detail opdateret
     deleted: Detail slettet

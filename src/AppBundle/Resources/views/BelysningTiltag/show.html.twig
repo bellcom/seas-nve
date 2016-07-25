@@ -217,6 +217,8 @@
       </div>
 
       {% if is_granted('TILTAG_EDIT', entity) %}
+        {{ form_row(edit_form.buttons) }}
+        {{ form_widget(edit_form.batch_edit_button, { 'attr': {'class': 'batch-edit'} }) }}
         {{ form_rest(edit_form) }}
         {{ form_end(edit_form) }}
       {% endif %}

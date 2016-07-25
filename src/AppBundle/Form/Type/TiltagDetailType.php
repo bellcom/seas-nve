@@ -13,6 +13,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 
 /**
  * Class TiltagDetailType
@@ -22,18 +24,48 @@ class TiltagDetailType extends AbstractType {
   protected $container;
   protected $authorizationChecker;
   protected $detail;
+  protected $isBatchEdit;
+  protected $doctrine;
 
-  public function __construct(ContainerInterface $container, TiltagDetail $detail)
+  public function __construct(ContainerInterface $container, TiltagDetail $detail, $isBatchEdit = false)
   {
     $this->container = $container;
+    $this->doctrine = $this->container->get('doctrine');
     $this->authorizationChecker = $this->container->get('security.context');
     $this->detail = $detail;
+    $this->isBatchEdit = $isBatchEdit;
   }
 
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder->add('tilvalgt')
             ->add('ikkeElenaBerettiget');
 
+    $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'setAllNotRequired'));
+  }
+
+  public function setAllNotRequired(FormEvent $event) {
+    if($this->isBatchEdit) {
+      $form = $event->getForm();
+      foreach ($event->getForm()->all() as $child) {
+        $config = $child->getConfig();
+        $options = $config->getOptions();
+        $name = $config->getName();
+
+        $form->add(
+        // Replace original field...
+          $config->getName(),
+          $config->getType()->getName(),
+          // while keeping the original options...
+          array_replace(
+            $options,
+            [
+              // replacing specific ones
+              'required' => false,
+            ]
+          )
+        );
+      }
+    }
   }
 
   public function configureOptions(OptionsResolver $resolver) {

@@ -33,6 +33,7 @@ class TiltagOverviewDetailType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder->add('details', 'collection', array('type' => new TiltagDetailEmbeddedType(), 'label' => FALSE));
+    $builder->add('batch_edit_button', 'submit', array('label' => 'tiltag.actions.batch_edit', 'button_class' => 'default'));
   }
 
   /**
