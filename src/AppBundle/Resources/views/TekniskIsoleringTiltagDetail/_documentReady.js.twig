@@ -4,7 +4,8 @@ function changeType() {
   if (type === 'Komponenter') {
 		$('#appbundle_tekniskisoleringtiltagdetail_komponent').removeAttr('disabled');
   } else {
-		$('#appbundle_tekniskisoleringtiltagdetail_komponent').attr('disabled', 'disabled').val('');
+        $('#appbundle_tekniskisoleringtiltagdetail_komponent').attr('disabled', 'disabled').val('');
+        $('#appbundle_tekniskisoleringtiltagdetail_roerlaengdeEllerHoejdeAfVvbM').parent().removeClass('has-info');
   }
 }
 
@@ -30,7 +31,12 @@ function changeKomponent() {
   var id = $('#appbundle_tekniskisoleringtiltagdetail_komponent').val();
 
   if (id && komponenter[id]) {
-		$('#appbundle_tekniskisoleringtiltagdetail_roerlaengdeEllerHoejdeAfVvbM').val(formatNumber(komponenter[id]));
+      roerlaengde = $('#appbundle_tekniskisoleringtiltagdetail_roerlaengdeEllerHoejdeAfVvbM');
+      roerlaengde.val(formatNumber(komponenter[id]));
+      roerlaengde.parent().addClass('has-info');
+      roerlaengde.focusout(function() {
+          roerlaengde.parent().removeClass('has-info');
+      });
   }
 }
 
