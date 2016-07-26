@@ -2,8 +2,8 @@
   <thead>
   <tr>
     {{ helper.header_span('common.generelt', 6) }}
-    {{ helper.header_span('appbundle.belysningtiltagdetail.nyBelysning', 8) }}
-    {{ helper.header_span('appbundle.belysningtiltagdetail.eksisterendeBelysning', 11) }}
+    {{ helper.header_span('appbundle.belysningtiltagdetail.eksisterendeBelysning', 8) }}
+    {{ helper.header_span('appbundle.belysningtiltagdetail.nyBelysning', 11) }}
     {{ helper.header_span('common.oekonomi', 5) }}
   </tr>
   <tr>
@@ -94,7 +94,7 @@
       <td>{{ detail.placering }}</td>
       <td class="number">{{ detail.lyskildeStkArmatur | format_integer }}</td>
       <td class="number">{{ detail.lyskildeWLyskilde | format_decimal }}</td>
-      <td>{{ detail.lyskilde.forkobling }}</td>
+      <td>{% if detail.lyskilde is not empty %}{{ detail.lyskilde.forkobling }}{% endif %}</td>
       <td class="number">{{ detail.armaturerStkLokale | format_integer }}</td>
       <td class="border-right">{{ detail.styring | readable('StyringType') }}</td>
 
