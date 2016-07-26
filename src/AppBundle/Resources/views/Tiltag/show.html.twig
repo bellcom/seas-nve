@@ -41,6 +41,7 @@
   {% if is_granted('TILTAG_EDIT', entity) %}
     <p><a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('edit') }} {{ 'common.edit' | trans }}</a></p>
     <p><a href="{{ path('tiltag_detail_copy', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('clone') }} {{ 'common.copy' | trans }}</a></p>
+    {{ form_row(form_detail.batchEdit) }}
   {% endif %}
 {% endblock %}
 
@@ -49,6 +50,22 @@
     <p><a href="{{ path('tiltag_detail_edit', { 'id': detail.id }) }}" class="btn btn-default btn-xs">{{ icon('edit') }} {{ 'common.edit' | trans }}</a></p>
   {% endif %}
 {% endblock %}
+
+{% block editform_button_row %}
+  {% if is_granted('TILTAG_EDIT', entity) %}
+    {{ form_row(edit_form.buttons) }}
+    {{ form_widget(edit_form.select_all_button, { 'attr': {'class': 'batch-edit'} }) }}
+    {{ form_widget(edit_form.batch_edit_button, { 'attr': {'class': 'batch-edit'} }) }}
+    {{ form_rest(edit_form) }}
+    {{ form_end(edit_form) }}
+  {% endif %}
+{% endblock %}
+
+{% block documentReady %}
+  {{ parent() }}
+
+  {% include 'AppBundle:Tiltag:_documentReady.js.twig' %}
+{% endblock documentReady %}
 
 {% block javascripts %}
   {{ parent() }}

@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * TiltagDetail
@@ -121,7 +122,7 @@ abstract class TiltagDetail {
    * @param object $value
    * @return $this
    */
-  protected function addData($key, $value) {
+  public function addData($key, $value) {
     $data = $this->data;
     if ($data === null) {
       $data = new \StdClass();
@@ -133,8 +134,10 @@ abstract class TiltagDetail {
     return $this;
   }
 
-  public function setData($key, $value) {
-    return $this->addData($key, $value);
+  public function setData($data) {
+    $this->$this->data = $data;
+
+    return $this;
   }
 
   /**
@@ -420,6 +423,38 @@ End Function
       return $matches['name'];
     }
     return $className;
+  }
+
+  // Temp field for batch edit form - not persisted
+  protected $batchEdit = false;
+
+  /**
+   * @return boolean
+   */
+  public function isBatchEdit()
+  {
+    return $this->batchEdit;
+  }
+
+  /**
+   * @param boolean $batchEdit
+   */
+  public function setBatchEdit($batchEdit)
+  {
+    $this->batchEdit = $batchEdit;
+  }
+
+  public function updateProperties($detail) {
+    $accessor = PropertyAccess::createPropertyAccessor();
+
+    if(get_class($this) === get_class($detail)) {
+      foreach ($detail as $property => $value) {
+        // Only update set values
+        if($value !== null) {
+          $accessor->setValue($this, $property, $value);
+        }
+      }
+    }
   }
 
 }

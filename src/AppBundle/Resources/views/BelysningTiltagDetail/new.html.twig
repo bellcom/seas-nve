@@ -1,6 +1,10 @@
 {% extends 'AppBundle:TiltagDetail:new.html.twig' %}
 
-{% set heading = 'belysningtiltagdetail.actions.add' %}
+{% if edit_form.batchEditIdArray is defined %}
+  {% set heading = 'belysningtiltagdetail.actions.batch_edit' %}
+{% else %}
+  {% set heading = 'belysningtiltagdetail.actions.add' %}
+{% endif %}
 
 {% block edit_form %}
 
@@ -11,5 +15,5 @@
 {% block documentReady %}
   {{ parent() }}
 
-  {% include 'AppBundle:BelysningTiltagDetail:_documentReady.js.twig' with {'erstatningsLyskildeChoices' : edit_form.erstatningsLyskilde.vars.choices, 'nytArmaturChoices' : edit_form.nytArmatur.vars.choices, 'nyStyringChoices' : edit_form.nyStyring.vars.choices }%}
+  {% include 'AppBundle:BelysningTiltagDetail:_documentReady.js.twig' with {'erstatningsLyskildeChoices' : edit_form.erstatningsLyskilde.vars.choices, 'nytArmaturChoices' : edit_form.nytArmatur.vars.choices, 'nyStyringChoices' : edit_form.nyStyring.vars.choices } %}
 {% endblock documentReady %}

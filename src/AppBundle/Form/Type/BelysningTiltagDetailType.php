@@ -6,7 +6,9 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\BelysningTiltagDetail;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,10 +22,8 @@ use AppBundle\Entity\BelysningTiltagDetail\TiltagRepository;
  */
 class BelysningTiltagDetailType extends TiltagDetailType {
 
-  private $doctrine;
-
-  public function __construct(Container $container) {
-    $this->doctrine = $container->get('doctrine');
+  public function __construct(Container $container, BelysningTiltagDetail $detail, $isBatchEdit = false) {
+    parent::__construct($container, $detail, $isBatchEdit);
   }
 
   public function buildForm(FormBuilderInterface $builder, array $options) {

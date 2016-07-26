@@ -14,7 +14,7 @@ class TiltagDetailTest extends EntityTestCase {
 
     $data = array(__FILE__);
 
-    $actual = $detail->setData('data', $data);
+    $actual = $detail->addData('data', $data);
 
     $this->assertEquals($detail, $actual);
 
