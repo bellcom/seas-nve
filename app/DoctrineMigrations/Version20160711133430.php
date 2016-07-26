@@ -27,74 +27,17 @@ class Version20160711133430 extends AbstractMigration implements ContainerAwareI
     // Move value from varmebesparelseGUF to varmebesparelseGAF and set varmebesparelseGUF to null (which the value will always be).
     $this->addSql("UPDATE Tiltag SET varmebesparelseGAF = varmebesparelseGUF, varmebesparelseGUF = NULL where discr = 'belysning';");
     $this->addSql("UPDATE Tiltag_audit SET varmebesparelseGAF = varmebesparelseGUF, varmebesparelseGUF = NULL where discr = 'belysning';");
-  }
 
-  /**
-   * Recalculate Rapport to update properties depending of the values updated.
-   *
-   * @param Schema $schema
-   */
-  public function postUp(Schema $schema) {
-    $em = $this->container->get('doctrine.orm.entity_manager');
-    $repository = $em->getRepository('AppBundle:Rapport');
-    $rapporter = $repository->findAll();
+    $this->write('
 
-    $reflectionClass = null;
+<comment>Please run
 
-    foreach ($rapporter as $rapport) {
-      if ($reflectionClass === null) {
-        $reflectionClass = new ReflectionClass(get_class($rapport));
-      }
+app/console aaplus:post-migrate:20160711133430
 
-      $oldBesparelseVarmeGUF = floatval($rapport->getBesparelseVarmeGUF());
-      $oldBesparelseVarmeGAF = floatval($rapport->getBesparelseVarmeGAF());
-      $oldFravalgtBesparelseVarmeGUF = floatval($rapport->getFravalgtBesparelseVarmeGUF());
-      $oldFravalgtBesparelseVarmeGAF = floatval($rapport->getFravalgtBesparelseVarmeGAF());
+to flip gaf and guf after migrations have run.</comment>
 
-      $rapport->calculate();
-
-      $newBesparelseVarmeGUF = floatval($rapport->getBesparelseVarmeGUF());
-      $newBesparelseVarmeGAF = floatval($rapport->getBesparelseVarmeGAF());
-      $newFravalgtBesparelseVarmeGUF = floatval($rapport->getFravalgtBesparelseVarmeGUF());
-      $newFravalgtBesparelseVarmeGAF = floatval($rapport->getFravalgtBesparelseVarmeGAF());
-
-      $changedValues = [];
-      if ($newBesparelseVarmeGUF != $oldBesparelseVarmeGUF) {
-        $changedValues['besparelseVarmeGUF'] = [
-          'old' => $oldBesparelseVarmeGUF,
-          'new' => $newBesparelseVarmeGUF,
-        ];
-      }
-      if ($newBesparelseVarmeGAF != $oldBesparelseVarmeGAF) {
-        $changedValues['besparelseVarmeGAF'] = [
-          'old' => $oldBesparelseVarmeGAF,
-          'new' => $newBesparelseVarmeGAF,
-        ];
-      }
-      if ($newFravalgtBesparelseVarmeGUF != $oldFravalgtBesparelseVarmeGUF) {
-        $changedValues['fravalgtBesparelseVarmeGUF'] = [
-          'old' => $oldFravalgtBesparelseVarmeGUF,
-          'new' => $newFravalgtBesparelseVarmeGUF,
-        ];
-      }
-      if ($newFravalgtBesparelseVarmeGAF != $oldFravalgtBesparelseVarmeGAF) {
-        $changedValues['fravalgtBesparelseVarmeGAF'] = [
-          'old' => $oldFravalgtBesparelseVarmeGAF,
-          'new' => $newFravalgtBesparelseVarmeGAF,
-        ];
-      }
-
-      if ($changedValues) {
-        foreach ($changedValues as $name => $values) {
-          $property = $reflectionClass->getProperty($name);
-          $property->setAccessible(true);
-          $property->setValue($rapport, $values['new']);
-        }
-        $em->persist($rapport);
-
-        $this->write(sprintf('rapport %d: %s', $rapport->getId(), var_export($changedValues, true)));
-      }
-    }
+');
+    readline('Capisce? ');
   }
 
   /**
