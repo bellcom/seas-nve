@@ -233,14 +233,33 @@ class RapportController extends BaseController {
   /**
    * Finds and displays a Rapport entity.
    *
-   * @Route("/{id}/pdftest", name="rapport_show_pdftest")
+   * @Route("/{id}/pdf2test", name="rapport_show_pdf2test")
    * @Method("GET")
    * @Template()
    * @Security("is_granted('RAPPORT_VIEW', rapport)")
    * @param Rapport $rapport
    * @return array
    */
-  public function showPdfTestAction(Rapport $rapport) {
+  public function showPdf2TestAction(Rapport $rapport) {
+
+    return array(
+      'rapport' => $rapport,
+      'entity' => $rapport,
+    );
+
+  }
+
+  /**
+   * Finds and displays a Rapport entity.
+   *
+   * @Route("/{id}/pdf5test", name="rapport_show_pdf5test")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Rapport $rapport
+   * @return array
+   */
+  public function showPdf5TestAction(Rapport $rapport) {
 
     return array(
       'rapport' => $rapport,

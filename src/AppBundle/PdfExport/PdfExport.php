@@ -44,7 +44,8 @@ class PdfExport {
     ));
 
     return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
-      array('lowquality' => false,
+      array('orientation'=>'Landscape',
+            'lowquality' => false,
             'encoding' => 'utf-8',
             'images' => true,
             'cover' => $cover,

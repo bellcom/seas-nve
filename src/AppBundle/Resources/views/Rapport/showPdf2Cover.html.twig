@@ -2,62 +2,73 @@
 
 {% block body -%}
 
-  <p class="text-right">
-    <img src="{{ absolute_url(asset('img/aaplus-logo-pdf.jpg')) }}" width="217" height="93">
-  </p>
+  <div class="portrait">
 
-  <hr class="pdf-heading">
+    <p class="text-right">
+      <img src="{{ absolute_url(asset('img/aaplus-logo-pdf.jpg')) }}" width="217" height="93">
+    </p>
 
-  <div class="row">
-    <div class="col-xs-7">
-      <h1>Dokument 2<br>
-        Resultatoversigt</h1>
+    <hr class="pdf-heading">
+
+    <div class="row">
+      <div class="col-xs-7">
+        <h1>Dokument 2<br>
+          Resultatoversigt</h1>
+      </div>
+      <div class="col-xs-5">
+        <h1 class="grey text-right text-uppercase">Energirapport</h1>
+      </div>
     </div>
-    <div class="col-xs-5">
-      <h1 class="grey text-right text-uppercase">Energirapport</h1>
+    <div class="row heading">
+      <div class="col-xs-8">
+        <address>
+          {{ icon('home') }} <strong>{{ rapport.bygning.navn }}</strong><br>
+          {{ rapport.bygning.adresse }}<br>
+          {{ rapport.bygning.postnummer }} {{ rapport.bygning.postBy }}<br>
+        </address>
+        <strong>{{ rapport.fullVersion }}</strong>
+      </div>
+      <div class="col-xs-4 text-right">
+        <p>{{ 'common.genereted'| trans }}: {{ 'now'|date }}</p>
+      </div>
     </div>
-  </div>
-  <div class="row heading">
-    <div class="col-xs-8">
-      <address>
-        {{ icon('home') }} <strong>{{ rapport.bygning.navn }}</strong><br>
-        {{ rapport.bygning.adresse }}<br>
-        {{ rapport.bygning.postnummer }} {{ rapport.bygning.postBy }}<br>
-      </address>
-      <strong>{{ rapport.fullVersion }}</strong>
+
+    <hr class="pdf-heading">
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>1. Overordnede resultat af energianalyser</h3>
+
+        <p>Nedenfor ses resultatet for de energisparetiltag som Aa+ projektsekretariatet anbefaler at gennemføre på
+          ejendommen (tilvalgte energisparetiltag), samt resultatet for de energitiltag, der aktuelt er fravalgte
+          for
+          ejendommen.</p>
+
+        <p>Resultatet er ikke et udtryk for det endelige omfang af energisparetiltag, der udføres på ejendommen da
+          brugere, teknisk personale mv. kan komme med input efter gennemlæsning af nærværende resultatoversigt samt
+          øvrige dokumenter, der er udleveret for ejendommen (for oversigt over disse dokumenter, se læsevejledningen i
+          dokument 1).</p>
+
+        <p>På baggrund af disse input, samt tekniske, brugermæssige og/eller økonomiske betragtninger, beslutter
+          magistratsafdelingen i samarbejde med Aa+ Projektsekretariatet hvilke tiltag, der skal udføres på
+          ejendommen. Sker der større ændringer af tilvalg/fravalg i denne beslutningsproces, udsendes nærværende
+          dokument i en opdateret version hvor Aa+ Projektsekretariatet informerer om, at der dermed er tale om
+          endelige tilvalg/fravalg.</p>
+
+        <p>Bagerst i nærværende dokument ses en liste over energisparetiltag, som energirådgiveren har identificeret på
+          ejendommen. Listen viser om tiltaget aktuelt er tilvalgt/fravalgt samt tiltagets besparelse og
+          økonomi. Tiltagene er forsynet med et "Detailark nr." der henviser til et detailark i dokument 5, hvor hvert
+          enkelt tiltag beskrives nærmere. Detailarkene i dokument 5 er indsat i samme rækkefølge, som de fremgår
+          af bruttolisten.</p>
+
+        <p>Alle beløb er ekskl. moms.</p>
+
+        <p class="text-right">
+          <img src="{{ absolute_url(asset('img/eu-logo-pdf.jpg')) }}" width="150" height="65">
+        </p>
+      </div>
     </div>
-    <div class="col-xs-4 text-right">
-      <p>{{ 'common.genereted'| trans }}: {{ 'now'|date }}</p>
-    </div>
-  </div>
 
-  <hr class="pdf-heading">
-
-  <div class="row">
-    <div class="col-xs-12">
-      <h3>1. Overordnede resultat af energianalyser</h3>
-
-      <p>Nedenfor ses resultatet for de energisparetiltag som Aa+ projektsekretariatet anbefaler at gennemføre på ejendommen (tilvalgte energisparetiltag), samt resultatet for de energitiltag, der aktuelt er fravalgte
-        for
-        ejendommen.</p>
-
-      <p>Resultatet er ikke et udtryk for det endelige omfang af energisparetiltag, der udføres på ejendommen da brugere, teknisk personale mv. kan komme med input efter gennemlæsning af nærværende resultatoversigt samt
-        øvrige dokumenter, der er udleveret for ejendommen (for oversigt over disse dokumenter, se læsevejledningen i dokument 1).</p>
-
-      <p>På baggrund af disse input, samt tekniske, brugermæssige og/eller økonomiske betragtninger, beslutter magistratsafdelingen i samarbejde med Aa+ Projektsekretariatet hvilke tiltag, der skal udføres på
-        ejendommen. Sker der større ændringer af tilvalg/fravalg i denne beslutningsproces, udsendes nærværende dokument i en opdateret version hvor Aa+ Projektsekretariatet informerer om, at der dermed er tale om
-        endelige tilvalg/fravalg.</p>
-
-      <p>Bagerst i nærværende dokument ses en liste over energisparetiltag, som energirådgiveren har identificeret på ejendommen. Listen viser om tiltaget aktuelt er tilvalgt/fravalgt samt tiltagets besparelse og
-        økonomi. Tiltagene er forsynet med et "Detailark nr." der henviser til et detailark i dokument 5, hvor hvert enkelt tiltag beskrives nærmere. Detailarkene i dokument 5 er indsat i samme rækkefølge, som de fremgår
-        af bruttolisten.</p>
-
-      <p>Alle beløb er ekskl. moms.</p>
-
-      <p class="text-right">
-        <img src="{{ absolute_url(asset('img/eu-logo-pdf.jpg')) }}" width="150" height="65">
-      </p>
-    </div>
   </div>
 
 {% endblock %}

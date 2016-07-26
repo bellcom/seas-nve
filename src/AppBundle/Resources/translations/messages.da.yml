@@ -1645,6 +1645,7 @@ appbundle:
     forsyningEl: Forsyning, el
     forsyningsoverblik: Forsyningsoverblik
     forsyningVarme: Forsyning, varme
+    fravalgt: Fravalgt
     genopretning: Genopretning
     genopretning.unit: kr.
     ialt: I alt
