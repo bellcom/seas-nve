@@ -1686,7 +1686,7 @@ class Rapport {
       }
     }
 
-    return $files ? [ 'rapport-' . $this->getId() => $files ] : null;
+    return $files ? $files : null;
   }
 
   /**
