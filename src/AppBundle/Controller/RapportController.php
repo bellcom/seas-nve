@@ -773,7 +773,7 @@ class RapportController extends BaseController {
       return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     }
 
-    $zipName = 'bilag-' . $rapport->getBygning()->getAdresse() . '-' . date('Y-m-d') . '.zip';
+    $zipName = 'Bilag-' . $rapport->getBygning()->getAdresse() . '-' . date('Y-m-d') . '.zip';
     // Sanitize filename.
     $zipName = preg_replace('/[^a-z0-9.-]/i', '_', $zipName);
 

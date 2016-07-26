@@ -591,6 +591,24 @@ abstract class Tiltag {
   }
 
   /**
+   * Get id
+   *
+   * @return integer
+   */
+  public function getIndexNumberFromRapport() {
+    $tiltag = $this->getRapport()->getTiltag();
+    $index = 1;
+    foreach ($tiltag as $t) {
+      if($t.$this->getId() === $this.$this->getId()) {
+        return $index;
+      }
+      $index++;
+    }
+
+    return 0;
+  }
+
+  /**
    * @return string
    */
   public function getRisikovurderingTeknisk() {
@@ -1480,11 +1498,11 @@ abstract class Tiltag {
     foreach ($this->getDetails() as $detail) {
       $detailFiles = $detail->getAllFiles();
       if ($detailFiles) {
-        $files += $detailFiles;
+        $files[] = $detailFiles;
       }
     }
 
-    return $files ? [ 'tiltag-' . $this->getId() => $files ] : null;
+    return $files ? [ $this->getIndexNumberFromRapport().'-'.$this->getTitle() => $files ] : null;
   }
 
   /**
