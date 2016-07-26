@@ -70,7 +70,7 @@ class BaseRepository extends EntityRepository {
   }
 
   private function findBygningerByUser($user) {
-    $em = $this->_em->getRepository("AppBundle:Bygning");
+    $em = $this->_em->getRepository('AppBundle:Bygning');
     $bygninger = $em->findByUser($user);
 
     return $bygninger;
