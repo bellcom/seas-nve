@@ -435,7 +435,7 @@ class Rapport {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="fravlagtBesparelseDriftOgVedligeholdelse", type="float", nullable=true)
+   * @ORM\Column(name="fravalgtBesparelseDriftOgVedligeholdelse", type="float", nullable=true)
    */
   protected $fravalgtBesparelseDriftOgVedligeholdelse;
 

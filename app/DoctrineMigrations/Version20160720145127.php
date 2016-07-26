@@ -18,8 +18,8 @@ class Version20160720145127 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE Rapport ADD fravlagtBesparelseDriftOgVedligeholdelse DOUBLE PRECISION DEFAULT NULL');
-        $this->addSql('ALTER TABLE Rapport_audit ADD fravlagtBesparelseDriftOgVedligeholdelse DOUBLE PRECISION DEFAULT NULL');
+        $this->addSql('ALTER TABLE Rapport ADD fravalgtBesparelseDriftOgVedligeholdelse DOUBLE PRECISION DEFAULT NULL');
+        $this->addSql('ALTER TABLE Rapport_audit ADD fravalgtBesparelseDriftOgVedligeholdelse DOUBLE PRECISION DEFAULT NULL');
     }
 
     /**
@@ -30,7 +30,7 @@ class Version20160720145127 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE Rapport DROP fravlagtBesparelseDriftOgVedligeholdelse');
-        $this->addSql('ALTER TABLE Rapport_audit DROP fravlagtBesparelseDriftOgVedligeholdelse');
+        $this->addSql('ALTER TABLE Rapport DROP fravalgtBesparelseDriftOgVedligeholdelse');
+        $this->addSql('ALTER TABLE Rapport_audit DROP fravalgtBesparelseDriftOgVedligeholdelse');
     }
 }
