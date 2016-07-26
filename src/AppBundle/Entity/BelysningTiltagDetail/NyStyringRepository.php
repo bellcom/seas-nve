@@ -27,7 +27,6 @@ class NyStyringRepository extends EntityRepository {
   public function __construct($em, Mapping\ClassMetadata $class)
   {
     parent::__construct($em, $class);
-    $em->getFilters()->disable('softdeleteable');
   }
 
   public function findNotDeleted() {

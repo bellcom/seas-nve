@@ -1,8 +1,10 @@
 <div class="panel panel-default">
   {% if type == 'tilvalg' %}
-    <div class="panel-heading"><h3 class="panel-title">{{ icon('thumbs-up') }} {{ 'appbundle.rapport.tilvalg' | trans }}</h3></div>
+    <div class="panel-heading"><h3
+          class="panel-title">{{ icon('thumbs-up') }} {{ 'appbundle.rapport.tilvalg' | trans }}</h3></div>
   {% else %}
-    <div class="panel-heading"><h3 class="panel-title">{{ icon('thumbs-down') }} {{ 'appbundle.rapport.fravalg' | trans }}</h3></div>
+    <div class="panel-heading"><h3
+          class="panel-title">{{ icon('thumbs-down') }} {{ 'appbundle.rapport.fravalg' | trans }}</h3></div>
   {% endif %}
 
   <table class="table table-condensed table-tiltag">
@@ -30,7 +32,8 @@
         <td>
           {{ t.tilvalgtAfAaPlus | b2icon }}
           {% if t.tilvalgtbegrundelse %}
-            <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ t.tilvalgtbegrundelse }}">
+            <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top"
+                  data-content="{{ t.tilvalgtbegrundelse }}">
               {{ icon('info-circle') }}
             </span>
           {% endif %}
@@ -38,7 +41,8 @@
         <td>
           {{ t.tilvalgtAfMagistrat | b2icon }}
           {% if t.tilvalgtBegrundelseMagistrat %}
-            <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ t.tilvalgtBegrundelseMagistrat }}">
+            <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top"
+                  data-content="{{ t.tilvalgtBegrundelseMagistrat }}">
               {{ icon('info-circle') }}
             </span>
           {% endif %}
@@ -54,6 +58,7 @@
               <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#datoForDriftModal-{{ t.id }}">Dato f. drift</button>
             {% endif %}
             <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
+            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
               {% if type == 'tilvalg' %}
                 {{ 'common.deselect' | trans }}
               {% else %}
@@ -68,6 +73,8 @@
     <tfoot>
     <tr>
       <th>{{ 'appbundle.tiltag.ialt' | trans }}</th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>

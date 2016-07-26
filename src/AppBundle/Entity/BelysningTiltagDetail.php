@@ -14,7 +14,7 @@ use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
  * BelysningTiltagDetail
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\BelysningTiltagDetailRepository")
  */
 class BelysningTiltagDetail extends TiltagDetail {
   /**
@@ -253,7 +253,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var BelysningTiltagDetailNytArmatur
    *
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NytArmatur")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NytArmatur", fetch="EAGER")
    * ORM\JoinColumn(name="nytArmatur_id", referencedColumnName="id", nullable=true)
    **/
   protected $nytArmatur;

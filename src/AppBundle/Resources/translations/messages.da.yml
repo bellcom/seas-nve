@@ -1340,7 +1340,7 @@ appbundle:
     prisfaktor: Prisfaktor
     pristillaeg: Pristillæg
     pristillaeg.unit: kr
-    pumpe: Pumpe
+    pumpe: Eks. pumpe / Ny pumpe
     pumpeID: Pumpe ID
     pumpeID.help: ﻿Et ID der kan genfindes på vedlagt skitse angives, fx. "P1", "P2" osv.
     pumpetiltag: Pumpetiltag
@@ -1421,6 +1421,8 @@ appbundle:
     faellesomkostninger.unit: kr
     faktorPaaVarmebesparelse: Faktor på varmebesparelse
     fravalg: Fravalg
+    fravalgtBesparelseDriftOgVedligeholdelse: Sum af D & V Besparelser
+    fravalgtBesparelseDriftOgVedligeholdelse.unit: kr
     fravalgtImplementering: Fravalgt implementering
     genopretning: Genopretning
     genopretning.unit: kr
@@ -1645,6 +1647,7 @@ appbundle:
     forsyningEl: Forsyning, el
     forsyningsoverblik: Forsyningsoverblik
     forsyningVarme: Forsyning, varme
+    fravalgt: Fravalgt
     genopretning: Genopretning
     genopretning.unit: kr.
     ialt: I alt

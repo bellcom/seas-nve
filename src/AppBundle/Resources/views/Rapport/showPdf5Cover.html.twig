@@ -2,43 +2,47 @@
 
 {% block body -%}
 
-  <p class="text-right">
-    <img src="{{ absolute_url(asset('img/aaplus-logo-pdf.jpg')) }}" width="217" height="93">
-  </p>
+  <div class="landscape">
 
-  <hr class="pdf-heading">
+    <p class="text-right">
+      <img src="{{ absolute_url(asset('img/aaplus-logo-pdf.jpg')) }}" width="217" height="93">
+    </p>
 
-  <div class="row">
-    <div class="col-xs-7">
-      <h1>Dokument 5<br>
-        Detailark</h1>
-    </div>
-    <div class="col-xs-5">
-      <h1 class="grey text-right text-uppercase">Energirapport</h1>
-    </div>
-  </div>
-  <div class="row heading">
-    <div class="col-xs-8">
-      <address>
-        {{ icon('home') }} <strong>{{ rapport.bygning.navn }}</strong><br>
-        {{ rapport.bygning.adresse }}<br>
-        {{ rapport.bygning.postnummer }} {{ rapport.bygning.postBy }}<br>
-      </address>
-      <strong>{{ rapport.fullVersion }}</strong>
-    </div>
-    <div class="col-xs-4 text-right">
-      <p>{{ 'common.genereted'| trans }}: {{ 'now'|date }}</p>
-    </div>
-  </div>
+    <hr class="pdf-heading">
 
-  <hr class="pdf-heading">
-
-  <div class="row">
-    <div class="col-xs-12">
-      <p class="text-right">
-        <img src="{{ absolute_url(asset('img/eu-logo-pdf.jpg')) }}" width="150" height="65">
-      </p>
+    <div class="row">
+      <div class="col-xs-7">
+        <h1>Dokument 5<br>
+          Detailark</h1>
+      </div>
+      <div class="col-xs-5">
+        <h1 class="grey text-right text-uppercase">Energirapport</h1>
+      </div>
     </div>
+    <div class="row heading">
+      <div class="col-xs-8">
+        <address>
+          {{ icon('home') }} <strong>{{ rapport.bygning.navn }}</strong><br>
+          {{ rapport.bygning.adresse }}<br>
+          {{ rapport.bygning.postnummer }} {{ rapport.bygning.postBy }}<br>
+        </address>
+        <strong>{{ rapport.fullVersion }}</strong>
+      </div>
+      <div class="col-xs-4 text-right">
+        <p>{{ 'common.genereted'| trans }}: {{ 'now'|date }}</p>
+      </div>
+    </div>
+
+    <hr class="pdf-heading">
+
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="text-right">
+          <img src="{{ absolute_url(asset('img/eu-logo-pdf.jpg')) }}" width="150" height="65">
+        </p>
+      </div>
+    </div>
+
   </div>
 
 {% endblock %}
