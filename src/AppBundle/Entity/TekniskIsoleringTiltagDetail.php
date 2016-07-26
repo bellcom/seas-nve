@@ -436,6 +436,9 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   }
 
   private function calculateInvesteringKr() {
+    if ($this->overskrevetPris !== null) {
+      return $this->overskrevetPris;
+    }
     return $this->standardinvestKrM2EllerKrM * $this->prisfaktor * $this->roerlaengdeEllerHoejdeAfVvbM;
   }
 
