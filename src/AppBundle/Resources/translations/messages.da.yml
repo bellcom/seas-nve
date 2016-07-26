@@ -468,6 +468,8 @@ tiltag:
   actions:
     add: Tilføj Tiltag
     batch_edit: Rediger valgte
+    batch_select_all: Vælg alle
+    batch_select_none: Fravælg alle
     create: Opret Tiltag
     edit: Rediger Tiltag
   confirmation:

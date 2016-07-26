@@ -25,7 +25,7 @@ class TiltagDetailEmbeddedType extends AbstractType {
       'class' => 'tilvalgt'
     )));
     $builder->add('batchEdit', 'checkbox', array('label' => 'common.choose', 'required' => FALSE, 'mapped' => true, 'attr' => array(
-      'class' => 'batch_edit'
+      'class' => 'js-batch-edit'
     )));
   }
 
