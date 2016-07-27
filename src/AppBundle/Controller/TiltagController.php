@@ -421,7 +421,7 @@ class TiltagController extends BaseController {
 
   //---------------- TiltagDetail Batch Edit -------------------//
 
-  private function createDetailBatchEditForm(Tiltag $tiltag, $detail, $numberOfDetails = null) {
+  private function createDetailBatchEditForm(Tiltag $tiltag, $detail) {
     $detail->setTilvalgt(null);
     $detail->setIkkeElenaBerettiget(null);
 
@@ -439,10 +439,10 @@ class TiltagController extends BaseController {
     }
 
     $implodeIds = empty($batchEditDetailIds) ? '' : implode(",", $batchEditDetailIds);
-    $numberOfDetails =  empty($batchEditDetailIds) ? $numberOfDetails : count($batchEditDetailIds);
+    $numberOfDetails =  empty($batchEditDetailIds) ? 'valgte' : count($batchEditDetailIds);
 
     $form->add('batchEditIdArray', 'hidden', array('mapped' => FALSE, 'data' => $implodeIds));
-    $form->add('submit', 'submit', array('label' => "Opdater ".$numberOfDetails." tiltag"));
+    $form->add('submit', 'submit', array('label' => 'Opdater '.$numberOfDetails.' tiltag'));
 
     return $form;
   }
@@ -456,13 +456,9 @@ class TiltagController extends BaseController {
    * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
   public function batchEditDetailAction(Request $request, Tiltag $tiltag) {
-    $formDataArray = $request->request->get('appbundle_tekniskisoleringtiltagdetail');
-    $detailsId = $formDataArray['batchEditIdArray'];
-    $detailsIdArray = explode(',', $detailsId);
-
     // Use createform to validate data
     $formDetail = $this->createDetailEntity($tiltag);
-    $form = $this->createDetailBatchEditForm($tiltag, $formDetail, count($detailsIdArray));
+    $form = $this->createDetailBatchEditForm($tiltag, $formDetail);
 
     $form->handleRequest($request);
 
