@@ -7,3 +7,10 @@
   {% include 'AppBundle:TekniskIsoleringTiltagDetail:_form.html.twig' %}
 
 {% endblock %}
+
+
+{% block documentReady %}
+  {{ parent() }}
+
+  {% include 'AppBundle:TekniskIsoleringTiltagDetail:_documentReady.js.twig' with { komponenter: edit_form.komponent.vars.choices } %}
+{% endblock documentReady %}

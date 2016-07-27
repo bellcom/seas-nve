@@ -17,7 +17,7 @@
         <table class="table table-condensed table-header-rotated table-hover">
           <thead>
             <tr>
-              {{ helper.header() }}
+              {{ helper.header('') }}
               {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.laastAfEnergiraadgiver') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.beskrivelseType') }}
@@ -26,7 +26,6 @@
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.udvDiameterMm') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.eksistIsolMm') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.roerstoerrelseMmAekvivalent') }}
-              {{ helper.header('appbundle.tekniskisoleringtiltagdetail.tankVolL') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.tempOmgivelC') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.tempMedieC') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.roerlaengdeEllerHoejdeAfVvbM') }}
@@ -34,7 +33,6 @@
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.nyIsolMm') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.varmeledningsevnePaaEksistIsoleringWMK') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.varmeledningsevnePaaNyIsoleringWMK') }}
-              {{ helper.header('appbundle.tekniskisoleringtiltagdetail.arealAfBeholderM2') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.standardinvestKrM2EllerKrM') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.prisfaktor') }}
               {{ helper.header('appbundle.tekniskisoleringtiltagdetail.investeringKr') }}
@@ -57,7 +55,6 @@
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.udvDiameterMm', 'udvDiameterMm', 'number') }}
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.eksistIsolMm', 'eksistIsolMm', 'number') }}
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.roerstoerrelseMmAekvivalent', 'roerstoerrelseMmAekvivalent', 'number') }}
-              {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.tankVolL', 'tankVolL', 'number') }}
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.tempOmgivelC', 'tempOmgivelC', 'number') }}
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.tempMedieC', 'tempMedieC', 'number') }}
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.roerlaengdeEllerHoejdeAfVvbM', 'roerlaengdeEllerHoejdeAfVvbM', 'number') }}
@@ -65,7 +62,6 @@
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.nyIsolMm', 'nyIsolMm', 'number') }}
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.varmeledningsevnePaaEksistIsoleringWMK', 'varmeledningsevnePaaEksistIsoleringWMK', 'number') }}
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.varmeledningsevnePaaNyIsoleringWMK', 'varmeledningsevnePaaNyIsoleringWMK', 'number') }}
-              {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.arealAfBeholderM2', 'arealAfBeholderM2', 'number') }}
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.standardinvestKrM2EllerKrM', 'standardinvestKrM2EllerKrM', 'number') }}
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.prisfaktor', 'prisfaktor', 'number') }}
               {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.investeringKr', 'investeringKr', 'number') }}
@@ -91,7 +87,6 @@
               {{ helper.header_filter('udvDiameterMm', 'number') }}
               {{ helper.header_filter('eksistIsolMm', 'number') }}
               {{ helper.header_filter('roerstoerrelseMmAekvivalent', 'number') }}
-              {{ helper.header_filter('tankVolL', 'number') }}
               {{ helper.header_filter('tempOmgivelC', 'number') }}
               {{ helper.header_filter('tempMedieC', 'number') }}
               {{ helper.header_filter('roerlaengdeEllerHoejdeAfVvbM', 'number') }}
@@ -99,7 +94,6 @@
               {{ helper.header_filter('nyIsolMm', 'number') }}
               {{ helper.header_filter('varmeledningsevnePaaEksistIsoleringWMK', 'number') }}
               {{ helper.header_filter('varmeledningsevnePaaNyIsoleringWMK', 'number') }}
-              {{ helper.header_filter('arealAfBeholderM2', 'number') }}
               {{ helper.header_filter('standardinvestKrM2EllerKrM', 'number') }}
               {{ helper.header_filter('prisfaktor', 'number') }}
               {{ helper.header_filter('investeringKr', 'number') }}
@@ -136,7 +130,6 @@
                 <td class="udvDiameterMm number">{{ detail.udvDiameterMm | format_decimal }}</td>
                 <td class="eksistIsolMm number">{{ detail.eksistIsolMm | format_decimal }}</td>
                 <td class="roerstoerrelseMmAekvivalent number">{{ detail.roerstoerrelseMmAekvivalent | format_decimal }}</td>
-                <td class="tankVolL number">{{ detail.tankVolL | format_decimal }}</td>
                 <td class="tempOmgivelC number">{{ detail.tempOmgivelC | format_decimal }}</td>
                 <td class="tempMedieC number">{{ detail.tempMedieC | format_decimal }}</td>
                 <td class="roerlaengdeEllerHoejdeAfVvbM number">{{ detail.roerlaengdeEllerHoejdeAfVvbM | format_decimal }}</td>
@@ -144,7 +137,6 @@
                 <td class="nyIsolMm number">{{ detail.nyIsolMm | format_decimal }}</td>
                 <td class="varmeledningsevnePaaEksistIsoleringWMK number">{{ detail.varmeledningsevnePaaEksistIsoleringWMK | format_decimal }}</td>
                 <td class="varmeledningsevnePaaNyIsoleringWMK number">{{ detail.varmeledningsevnePaaNyIsoleringWMK | format_decimal }}</td>
-                <td class="arealAfBeholderM2 number">{{ detail.arealAfBeholderM2 | format_decimal }}</td>
                 <td class="standardinvestKrM2EllerKrM number">{{ detail.standardinvestKrM2EllerKrM | format_amount }}</td>
                 <td class="prisfaktor number">{{ detail.prisfaktor | format_decimal }}</td>
                 <td class="investeringKr number">{{ detail.investeringKr | format_amount }}</td>
@@ -162,10 +154,7 @@
         </table>
       </div>
 
-      {% if is_granted('TILTAG_EDIT', entity) %}
-        {{ form_rest(edit_form) }}
-        {{ form_end(edit_form) }}
-      {% endif %}
+      {{ block('editform_button_row') }}
 
     </div>
   </div>

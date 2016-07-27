@@ -253,7 +253,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var BelysningTiltagDetailNytArmatur
    *
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NytArmatur")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NytArmatur", fetch="EAGER")
    * ORM\JoinColumn(name="nytArmatur_id", referencedColumnName="id", nullable=true)
    **/
   protected $nytArmatur;
@@ -498,7 +498,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @param BelysningTiltagDetailLyskilde $lyskilde
    * @return BelysningTiltagDetail
    */
-  public function setLyskilde(BelysningTiltagDetailLyskilde $lyskilde) {
+  public function setLyskilde(BelysningTiltagDetailLyskilde $lyskilde = null) {
     $this->lyskilde = $lyskilde;
     $this->addData('lyskilde', $lyskilde);
 
@@ -815,7 +815,7 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @param BelysningTiltagDetailLyskilde $nyLyskilde
    * @return BelysningTiltagDetail
    */
-  public function setNyLyskilde($nyLyskilde) {
+  public function setNyLyskilde($nyLyskilde = null) {
     $this->nyLyskilde = $nyLyskilde;
     $this->addData('nyLyskilde', $nyLyskilde);
 

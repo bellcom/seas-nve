@@ -28,6 +28,13 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   protected $type;
 
   /**
+   * @var string
+   *
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\TekniskIsoleringTiltagDetail\Komponent", fetch="EAGER")
+   */
+  protected $komponent;
+
+  /**
    * @var float
    *
    * @ORM\Column(name="driftstidTAar", type="decimal", scale=4)
@@ -51,17 +58,17 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @Calculated
-   * @ORM\Column(name="roerstoerrelseMmAekvivalent", type="float")
+   * @ORM\Column(name="overskrevetPris", type="decimal", scale=4, nullable=true)
    */
-  protected $roerstoerrelseMmAekvivalent;
+  protected $overskrevetPris;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="tankVolL", type="decimal", scale=4, nullable=true)
+   * @Calculated
+   * @ORM\Column(name="roerstoerrelseMmAekvivalent", type="float")
    */
-  protected $tankVolL;
+  protected $roerstoerrelseMmAekvivalent;
 
   /**
    * @var float
@@ -122,14 +129,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
    * @ORM\Column(name="varmeledningsevnePaaNyIsoleringWMK", type="float")
    */
   protected $varmeledningsevnePaaNyIsoleringWMK;
-
-  /**
-   * @var float
-   *
-   * @Calculated
-   * @ORM\Column(name="arealAfBeholderM2", type="float")
-   */
-  protected $arealAfBeholderM2;
 
   /**
    * @var float
@@ -229,6 +228,16 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     return $this->type;
   }
 
+  public function setKomponent($komponent) {
+    $this->komponent = $komponent;
+
+    return $this;
+  }
+
+  public function getKomponent() {
+    return $this->komponent;
+  }
+
   public function setDriftstidTAar($driftstidTAar) {
     $this->driftstidTAar = $driftstidTAar;
 
@@ -259,18 +268,18 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     return $this->eksistIsolMm;
   }
 
-  public function getRoerstoerrelseMmAekvivalent() {
-    return $this->roerstoerrelseMmAekvivalent;
-  }
-
-  public function setTankVolL($tankVolL) {
-    $this->tankVolL = $tankVolL;
+  public function setOverskrevetPris($overskrevetPris) {
+    $this->overskrevetPris = $overskrevetPris;
 
     return $this;
   }
 
-  public function getTankVolL() {
-    return $this->tankVolL;
+  public function getOverskrevetPris() {
+    return $this->overskrevetPris;
+  }
+
+  public function getRoerstoerrelseMmAekvivalent() {
+    return $this->roerstoerrelseMmAekvivalent;
   }
 
   public function setTempOmgivelC($tempOmgivelC) {
@@ -319,10 +328,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
 
   public function getVarmeledningsevnePaaNyIsoleringWMK() {
     return $this->varmeledningsevnePaaNyIsoleringWMK;
-  }
-
-  public function getArealAfBeholderM2() {
-    return $this->arealAfBeholderM2;
   }
 
   public function setStandardinvestKrM2EllerKrM($standardinvestKrM2EllerKrM) {
@@ -419,7 +424,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     $this->roerstoerrelseMmAekvivalent = $this->calculateRoerstoerrelseMmAekvivalent();
     $this->varmeledningsevnePaaEksistIsoleringWMK = $this->calculateVarmeledningsevnePaaEksistIsoleringWMK();
     $this->varmeledningsevnePaaNyIsoleringWMK = $this->calculateVarmeledningsevnePaaNyIsoleringWMK();
-    $this->arealAfBeholderM2 = $this->calculateArealAfBeholderM2();
     $this->investeringKr = $this->calculateInvesteringKr();
     $this->eksistVarmetabKwh = $this->calculateEksistVarmetabKwh();
     $this->nytVarmetabKwh = $this->calculateNytVarmetabKwh();
@@ -434,12 +438,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   }
 
   private function calculateRoerstoerrelseMmAekvivalent() {
-    // 'P'
-    if ($this->tankVolL == 0) {
-      return $this->udvDiameterMm;
-    } else {
-      return sqrt(($this->tankVolL / 1000) / ($this->roerlaengdeEllerHoejdeAfVvbM * M_PI)) * 1000;
-    }
+    return $this->udvDiameterMm;
   }
 
   private function calculateVarmeledningsevnePaaEksistIsoleringWMK() {
@@ -450,45 +449,19 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     return $this->getRapport()->getConfiguration()->getTekniskIsoleringVarmeledningsevneNyIsolering();
   }
 
-  private function calculateArealAfBeholderM2() {
-    // 'Y'
-    if ($this->tankVolL == 0) {
-      return 0;
-    } else {
-      return sqrt(($this->tankVolL / 1000) / (M_PI * $this->roerlaengdeEllerHoejdeAfVvbM))
-        * (1 + $this->roerlaengdeEllerHoejdeAfVvbM * 2 * M_PI);
-    }
-  }
-
   private function calculateInvesteringKr() {
-    // 'AB'
-    if ($this->tankVolL == 0) {
-      return $this->standardinvestKrM2EllerKrM * $this->prisfaktor * $this->roerlaengdeEllerHoejdeAfVvbM;
-    } else {
-      return $this->standardinvestKrM2EllerKrM * $this->prisfaktor * $this->arealAfBeholderM2;
+    if ($this->overskrevetPris !== null) {
+      return $this->overskrevetPris;
     }
+    return $this->standardinvestKrM2EllerKrM * $this->prisfaktor * $this->roerlaengdeEllerHoejdeAfVvbM;
   }
 
   private function calculateEksistVarmetabKwh() {
-    // 'AC'
-    if (strcasecmp($this->type, 'rør') == 0) {
-     return $this->calculateEksisterendeUVaerdi()*$this->roerlaengdeEllerHoejdeAfVvbM*(abs($this->tempMedieC-$this->tempOmgivelC))*$this->driftstidTAar/1000*$this->nyttiggjortVarme->getFaktor();
-    } else if (strcasecmp($this->type, 'beholder') == 0) {
-      return ($this->roerstoerrelseMmAekvivalent/1000*PI()*$this->roerlaengdeEllerHoejdeAfVvbM+($this->roerstoerrelseMmAekvivalent/1000)^2*PI())*abs($this->tempMedieC-$this->tempOmgivelC)*$this->calculateEksisterendeUVaerdi()*$this->driftstidTAar/1000;
-    } else {
-      return 0;
-    }
+    return $this->calculateEksisterendeUVaerdi()*$this->roerlaengdeEllerHoejdeAfVvbM*(abs($this->tempMedieC-$this->tempOmgivelC))*$this->driftstidTAar/1000*$this->nyttiggjortVarme->getFaktor();
   }
 
   private function calculateNytVarmetabKwh() {
-    // 'AD'
-    if (strcasecmp($this->type, 'rør') == 0) {
-      return $this->calculateUkorrigeret()*$this->roerlaengdeEllerHoejdeAfVvbM*(abs($this->tempMedieC-$this->tempOmgivelC))*$this->driftstidTAar/1000*$this->nyttiggjortVarme->getFaktor();
-    } else if (strcasecmp($this->type, 'beholder') == 0) {
-      return ($this->roerstoerrelseMmAekvivalent/1000*PI()*$this->roerlaengdeEllerHoejdeAfVvbM+($this->roerstoerrelseMmAekvivalent/1000)^2*PI())*abs($this->tempMedieC-$this->tempOmgivelC)*$this->calculateUkorrigeret()*$this->driftstidTAar/1000;
-    } else {
-      return 0;
-    }
+    return $this->calculateUkorrigeret()*$this->roerlaengdeEllerHoejdeAfVvbM*(abs($this->tempMedieC-$this->tempOmgivelC))*$this->driftstidTAar/1000*$this->nyttiggjortVarme->getFaktor();
   }
 
   private function calculateVarmebespKwhAar() {

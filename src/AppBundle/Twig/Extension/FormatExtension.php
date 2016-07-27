@@ -100,7 +100,7 @@ class FormatExtension extends \Twig_Extension {
     }
     else {
       $precision = intval(pow(10, abs($precision)));
-      $value = $value + (5 * $precision / 10);
+      $value = $value >= 0 ? $value + (5 * $precision / 10) : $value - (5 * $precision / 10);
       $rounded = round($value - ($value % $precision), 0);
     }
 

@@ -50,6 +50,7 @@ common:
   calculated_value: Beregnet værdi
   cancel: Annuller
   changes: Ændringer
+  choose: Vælg
   confirmDelete: Er du sikker på du vil slette?
   copy: Kopier
   create: Opret
@@ -64,6 +65,7 @@ common:
   downloadCsv: Hent som csv
   edit: Rediger
   empty: Blank
+  energiledelse: Energiledelse
   finans: Økonomi
   finished_buildings: Indsendt til Aa+
   form_error: Fejl: ret venligst de nævnte problemer nedenfor
@@ -145,6 +147,7 @@ belysningtiltag:
 belysningtiltagdetail:
   actions:
     add: Tilføj belysningstiltag
+    batch_edit: Rediger valgte belysningstiltag
     copy: Kopier belysningstiltag
     edit: Rediger belysningstiltag
 bilag:
@@ -280,8 +283,19 @@ klimaskaermtiltag:
 klimaskaermtiltagdetail:
   actions:
     add: Tilføj klimaskærmstiltag
+    batch_edit: Rediger valgte klimaskærmstiltag
     copy: Kopier klimaskærmstiltag
     edit: Rediger klimaskærmstiltag
+komponent:
+  actions:
+    add: Tilføj komponent
+    new: Ny komponent
+    edit: Rediger komponent
+  error:
+    in_use: Kan ikke slettes. Bruges af tekniskisoleringtiltag.
+  labels:
+    plural: Komponenter
+    singular: Komponent
 lyskilde:
   actions:
     add: Tilføj lyskilde
@@ -340,6 +354,7 @@ pumpetiltag:
 pumpetiltagdetail:
   actions:
     add: Tilføj Pumpetiltag
+    batch_edit: Rediger valgte pumpetiltag
     copy: Kopier Pumpetiltag
     create: Opret Pumpetiltag
     edit: Rediger Pumpetiltag
@@ -349,6 +364,7 @@ rapporter:
     approve: Godkendt Magistrat
     approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt af Magistrat"?
     create: Opret Rapport
+    download_files: Hent alle bilag og filer
     edit: Baseline og energibudget
     filer: Filer
     implementation: Under udførsel
@@ -377,6 +393,8 @@ rapporter:
     detailark: Detailark
     plural: Rapporter
     singular: Rapport
+  messages:
+    no_files: Rapporten har ingen filer tilknyttet
   strings:
     belysningtiltag: Belysning
     klimaskaermtiltag: Klimaskærm
@@ -416,6 +434,7 @@ solcelle:
 solcelletiltag:
   actions:
     add: Tilføj solcelletiltag
+    batch_edit: Rediger valgte solcelletiltag
     copy: Kopier solcelletiltag
     edit: Rediger solcelletiltag
   confirmation:
@@ -432,6 +451,7 @@ specialtiltag:
 specialtiltagdetail:
   actions:
     add: Upload bilag
+    batch_edit: Rediger valgte specialtiltag
     edit: Rediger bilag til specialtiltag
 tekniskisoleringtiltag:
   actions:
@@ -441,16 +461,21 @@ tekniskisoleringtiltag:
 tekniskisoleringtiltagdetail:
   actions:
     add: Tilføj teknisk isolering
+    batch_edit: Rediger valgte teknisk isolering
     copy: Kopier teknisk isolering
     create: Opret teknisk isolering
     edit: Rediger teknisk isolering
 tiltag:
   actions:
     add: Tilføj Tiltag
+    batch_edit: Rediger valgte
+    batch_select_all: Vælg alle
+    batch_select_none: Fravælg alle
     create: Opret Tiltag
     edit: Rediger Tiltag
   confirmation:
     created: Tiltag oprettet
+    datofordriftupdated: Dato for drift opdateret
     tilfravalgtupdated: Til/Fravalgt af opdateret
     updated: Tiltag opdateret
     deleted: Tiltag slettet
@@ -468,9 +493,11 @@ tiltag:
 tiltagdetail:
   actions:
     add: Tilføj Detail
+    batch_edit: Rediger valgte tiltag
     copy: Kopier Detail
     edit: Rediger Detail
   confirmation:
+    batch_edited: Detail(s) opdateret
     created: Detail oprettet
     updated: Detail opdateret
     deleted: Detail slettet
@@ -519,6 +546,7 @@ vinduetiltag:
 vinduetiltagdetail:
   actions:
     add: Tilføj vinduestiltag
+    batch_edit: Rediger valgte vinduestiltag
     copy: Kopier vinduestiltag
     edit: Rediger vinduestiltag
 
@@ -730,7 +758,7 @@ appbundle:
     nyLyskildeWLyskilde: Ny wattage
     nyLyskildeWLyskilde.unit: W/lysk.
     nyStyring: Ny styring
-    nytarmatur: Nyt armatur
+    nytArmatur: Nyt armatur
     nytarmatur.arbejdeOmfang: Arbejde / Omfang
     nytarmatur.id: id
     nytarmatur.nyeForkoblingerAntal: Nye forkoblinger
@@ -1212,6 +1240,10 @@ appbundle:
     vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
+  komponent:
+    titel: Titel
+    roerlaengde: Rørlængde
+    roerlaengde.unit: m
   lyskilde:
     forkobling: Forkobling
     levetid: Levetid
@@ -1309,7 +1341,7 @@ appbundle:
     prisfaktor: Prisfaktor
     pristillaeg: Pristillæg
     pristillaeg.unit: kr
-    pumpe: Pumpe
+    pumpe: Eks. pumpe / Ny pumpe
     pumpeID: Pumpe ID
     pumpeID.help: ﻿Et ID der kan genfindes på vedlagt skitse angives, fx. "P1", "P2" osv.
     pumpetiltag: Pumpetiltag
@@ -1390,6 +1422,8 @@ appbundle:
     faellesomkostninger.unit: kr
     faktorPaaVarmebesparelse: Faktor på varmebesparelse
     fravalg: Fravalg
+    fravalgtBesparelseDriftOgVedligeholdelse: Sum af D & V Besparelser
+    fravalgtBesparelseDriftOgVedligeholdelse.unit: kr
     fravalgtImplementering: Fravalgt implementering
     genopretning: Genopretning
     genopretning.unit: kr
@@ -1507,8 +1541,6 @@ appbundle:
     title: Title
   tekniskisoleringtiltagdetail:
     add: Tilføg
-    arealAfBeholderM2: Areal af beholder
-    arealAfBeholderM2.unit: m²
     beskrivelseType: Beskrivelse (type)
     driftstidTAar: Driftstid
     driftstidTAar.unit: t/år
@@ -1519,6 +1551,10 @@ appbundle:
     ikkeElenaBerettiget: Ikke Elena Berettiget
     investeringKr: Investering
     investeringKr.unit: kr
+    komponent: Komponent
+    komponent.titel: Titel
+    komponent.roerlaengde: Rørlængde
+    komponent.roerlaengde.unit: m
     kwhBesparelseElFraVaerket: kWh-besparelse El fra værket
     kwhBesparelseElFraVaerket.unit: kwh/år
     kwhBesparelseVarmeFraVaerket: kWh-besparelse Varme fra værket
@@ -1536,8 +1572,10 @@ appbundle:
     nyttiggjortvarme.titel: Beskrivelse for nyttiggjort varme
     nytVarmetabKwh: Nyt varmetab
     nytVarmetabKwh.unit: kwh
+    overskrevetPris: Overskrevet pris
+    overskrevetPris.unit: kr
     prisfaktor: Prisfaktor
-    roerlaengdeEllerHoejdeAfVvbM: Rørlængde eller højde af VVB
+    roerlaengdeEllerHoejdeAfVvbM: Rørlængde
     roerlaengdeEllerHoejdeAfVvbM.unit: m
     roerstoerrelseMmAekvivalent: Rørstørrelse ækvivalent
     roerstoerrelseMmAekvivalent.unit: mm
@@ -1546,8 +1584,6 @@ appbundle:
     standardinvestKrM2EllerKrM: Standardinvest.
     standardinvestKrM2EllerKrM.unit: kr/m² el. kr/m
     standardinvestKrM2EllerKrM.help: For rør indtastes i kr/m, for beholdere i kr/m²
-    tankVolL: Tankvol.
-    tankVolL.unit: L
     tempMedieC: Temp. Medie
     tempMedieC.unit: °C
     tempOmgivelC: Temp. omgivel.
@@ -1604,11 +1640,15 @@ appbundle:
     datoForDrift: Dato for drift
     elbesparelse: Elbesparelse
     elbesparelse.unit: kWh/år
+    energiledelseAendringIBesparelseFaktor: Justering af besparelse ift. energiledelse
+    energiledelseAendringIBesparelseFaktor.unit: %
+    energiledelseNoter: Noter til justering af besparelse ift. energiledelse
     enhed: Enhed
     faktorForReinvesteringer: Faktor for reinvesteringer
     forsyningEl: Forsyning, el
     forsyningsoverblik: Forsyningsoverblik
     forsyningVarme: Forsyning, varme
+    fravalgt: Fravalgt
     genopretning: Genopretning
     genopretning.unit: kr.
     ialt: I alt
@@ -1669,6 +1709,8 @@ appbundle:
     varmebesparelseGAF.unit: kWh/år
     varmebesparelseGUF: ﻿Varmebesparelse, GUF
     varmebesparelseGUF.unit: kWh/år
+  tiltagdatofordrift:
+    datoForDrift: Dato for drift
   tiltagdetail:
     tilvalgt: Tilvalgt
   tiltagtilvalgt:

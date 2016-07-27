@@ -51,7 +51,7 @@ class BaseRepository extends EntityRepository {
       return TRUE;
     }
 
-    $bygninger = $this->findByUser($user);
+    $bygninger = $this->findBygningerByUser($user);
     return $bygninger && in_array($bygning, $bygninger);
   }
 
@@ -67,6 +67,13 @@ class BaseRepository extends EntityRepository {
     return $this->container->get('aaplus.entityaudit.reader')
       ->setFilter($form)
       ->getEntitiesAtTime($this->getClassName(), $timestamp);
+  }
+
+  private function findBygningerByUser($user) {
+    $em = $this->_em->getRepository('AppBundle:Bygning');
+    $bygninger = $em->findByUser($user);
+
+    return $bygninger;
   }
 
 }

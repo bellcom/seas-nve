@@ -2,17 +2,24 @@
 
 {% block body -%}
 
-  {% for t in rapport.tiltag %}
+  <div class="landscape">
+
+  {% for key, t in rapport.tiltag %}
 
     <div class="row page-break-before">
       <div class="col-xs-12">
-        <h3>{{ t.title }}</h3>
-
+        <h3>{{ key + 1 }}. {{ t.title }}</h3>
       </div>
     </div>
 
     <div class="panel panel-default">
-      <div class="panel-heading"><h3 class="panel-title">{{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}</h3></div>
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          {{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}
+          <span
+              class="float-right">{{ t.tilvalgt ? 'appbundle.tiltag.tilvalgt' | trans : 'appbundle.tiltag.fravalgt' | trans }}</span>
+        </h3>
+      </div>
 
       <table class="table table-condensed results">
         <tbody>
@@ -63,7 +70,7 @@
         </tr>
         <tr>
           <th>{{ 'appbundle.tiltag.samletCo2besparelse' | trans }}</th>
-          <td class="text-right">{{ t.samletCo2besparelse | format_zeros }}</td>
+          <td class="text-right">{{ t.samletCo2besparelse | format_decimal }}</td>
           <td>{{ 'appbundle.tiltag.samletCo2besparelse.unit' | trans }}</td>
 
           <th>{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr' | trans }}</th>
@@ -157,15 +164,16 @@
 
 
     {% if t.details is not empty %}
-      {% set template = 'AppBundle:' ~ tiltag_type(t) ~ 'Tiltag:_detailTable.html.twig' %}
+      {% set template = 'AppBundle:' ~ tiltag_type(t) ~ 'Tiltag:_detailTablePdf.html.twig' %}
 
       <div class="panel panel-default page-break-before">
         <div class="panel-heading"><h3 class="panel-title">{{ icon('list') }} Skema til: {{ t.title }}</h3></div>
-          {% include template with {'entity': t} %}
-        </div>
+        {% include template with {'entity': t} %}
       </div>
     {% endif %}
 
   {% endfor %}
+
+  </div>
 
 {% endblock %}

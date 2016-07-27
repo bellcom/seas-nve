@@ -21,7 +21,12 @@ class TiltagDetailEmbeddedType extends AbstractType {
 
 
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('tilvalgt', 'checkbox', array('label' => FALSE, 'required' => FALSE));
+    $builder->add('tilvalgt', 'checkbox', array('label' => FALSE, 'required' => FALSE, 'attr' => array(
+      'class' => 'tilvalgt'
+    )));
+    $builder->add('batchEdit', 'checkbox', array('label' => 'common.choose', 'required' => FALSE, 'mapped' => true, 'attr' => array(
+      'class' => 'js-batch-edit'
+    )));
   }
 
   public function configureOptions(OptionsResolver $resolver) {

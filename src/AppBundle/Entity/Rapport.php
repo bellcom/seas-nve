@@ -432,6 +432,30 @@ class Rapport {
   protected $energibudgetEl;
 
   /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="fravalgtBesparelseDriftOgVedligeholdelse", type="float", nullable=true)
+   */
+  protected $fravalgtBesparelseDriftOgVedligeholdelse;
+
+  /**
+   * @return float
+   */
+  public function getfravalgtBesparelseDriftOgVedligeholdelse()
+  {
+    return $this->fravalgtBesparelseDriftOgVedligeholdelse;
+  }
+
+  /**
+   * @param float $fravalgtBesparelseDriftOgVedligeholdelse
+   */
+  public function setFravalgtBesparelseDriftOgVedligeholdelse($fravalgtBesparelseDriftOgVedligeholdelse)
+  {
+    $this->fravalgtBesparelseDriftOgVedligeholdelse = $fravalgtBesparelseDriftOgVedligeholdelse;
+  }
+
+  /**
    * @return float
    */
   public function getBaselineCO2El() {
@@ -1641,6 +1665,29 @@ class Rapport {
     return $this->mtmFaellesomkostninger + $this->implementering;
   }
 
+  /**
+   * Get all files on this Rapport plus any files from Tiltag.
+   *
+   * @return array
+   */
+  public function getAllFiles() {
+    $files = [];
+
+    if ($this->getBilag()) {
+      foreach ($this->getBilag() as $bilag) {
+        $files[] = $bilag->getFilepath();
+      }
+    }
+
+    foreach ($this->getTiltag() as $tiltag) {
+      $tiltagFiles = $tiltag->getAllFiles();
+      if ($tiltagFiles) {
+        $files += $tiltagFiles;
+      }
+    }
+
+    return $files ? $files : null;
+  }
 
   /**
    * Post load handler.
@@ -1743,6 +1790,7 @@ class Rapport {
     $this->implementering = $this->calculateImplementering();
     $this->fravalgtImplementering = $this->calculateFravalgtImplementering();
     $this->faellesomkostninger = $this->calculateFaellesomkostninger();
+    $this->fravalgtBesparelseDriftOgVedligeholdelse = $this->calculateFravalgtBesparelseDriftOgVedligeholdelse();
 
     $this->cashFlow = $this->calculateCashFlow();
     $this->besparelseAarEt = $this->calculateSavingsYearOne();
@@ -2140,6 +2188,15 @@ class Rapport {
     }
 
     return $flow;
+  }
+
+  protected function calculateFravalgtBesparelseDriftOgVedligeholdelse() {
+    $result = 0;
+    foreach ($this->getFravalgteTiltag() as $tiltag) {
+      $result += $tiltag->getBesparelseDriftOgVedligeholdelse();
+    }
+
+    return $result;
   }
 
   /**

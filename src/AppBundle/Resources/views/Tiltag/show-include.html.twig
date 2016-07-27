@@ -6,6 +6,7 @@
           <li>{{ entity.tilvalgtAfRaadgiver | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfRaadgiver' | trans }}</li>
           <li>{{ entity.tilvalgtAfAaPlus | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfAaPlus' | trans }}</li>
           <li>{{ entity.tilvalgtAfMagistrat | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfMagistrat' | trans }}</li>
+          <li class="float-right">{{ 'appbundle.tiltag.datoForDrift' | trans }}: {{ entity.datoForDrift ? entity.datoForDrift | date('Y-m-d') : '--'}}</li>
         </ul>
       </div>
     </div>
@@ -60,6 +61,11 @@
           <td>{{ 'common.risikovurdering' | trans }}: {{ 'appbundle.tiltag.risikovurderingAendringIBesparelseFaktor' | trans }}</td>
           <td class="text-right">{{ entity.risikovurderingAendringIBesparelseFaktor | format_percent_nounit }}</td>
           <td>{{ 'appbundle.tiltag.risikovurderingAendringIBesparelseFaktor.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'common.energiledelse' | trans }}: {{ 'appbundle.tiltag.energiledelseAendringIBesparelseFaktor' | trans }}</td>
+          <td class="text-right">{{ entity.energiledelseAendringIBesparelseFaktor | format_percent_nounit }}</td>
+          <td>{{ 'appbundle.tiltag.energiledelseAendringIBesparelseFaktor.unit' | trans }}</td>
         </tr>
         <tr>
           <td>

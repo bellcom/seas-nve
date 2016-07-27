@@ -175,7 +175,7 @@
                 <td class="noterForNyBelysning">{{ detail.noterForNyBelysning }}</td>
                 <td class="lokaleNavn">{{ detail.lokaleNavn }}</td>
                 <td class="lokaleType">{{ detail.lokaleType }}</td>
-                <td class="armaturhoejdeM number">{{ detail.armaturhoejdeM | format_decimal(3) }}</td>
+                <td class="armaturhoejdeM number">{{ detail.armaturhoejdeM | format_decimal(2) }}</td>
                 <td class="rumstoerrelseM2 number">{{ detail.rumstoerrelseM2 | format_decimal(1) }}</td>
                 <td class="lokaleAntal number">{{ detail.lokaleAntal | format_integer }}</td>
                 <td class="drifttidTAar number">{{ detail.drifttidTAar | format_decimal(0) }}</td>
@@ -218,10 +218,7 @@
         </table>
       </div>
 
-      {% if is_granted('TILTAG_EDIT', entity) %}
-        {{ form_rest(edit_form) }}
-        {{ form_end(edit_form) }}
-      {% endif %}
+      {{ block('editform_button_row') }}
 
     </div>
   </div>

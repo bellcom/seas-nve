@@ -56,6 +56,9 @@
       <a class="btn btn-default" href="{{ path('rapport_bilag_get', { 'rapport_id': entity.id }) }}">
         {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
       </a>
+      <a class="btn btn-default" href="{{ path('rapport_download_files', { 'id': entity.id }) }}">
+        {{ icon('download') }} {{ 'rapporter.actions.download_files' | trans }}
+      </a>
       <a href="{{ path('rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf2' | trans }}
       </a>
@@ -238,7 +241,7 @@
   </div>
 
   {% if entity.tilvalgteTiltag is not empty %}
-    {% include 'AppBundle::Rapport/_valgteTiltagTable.html.twig' with {'rapport': entity, 'tiltag': entity.tilvalgteTiltag, 'pdf': false, 'type': 'tilvalg', 'valgt_form_array': tilvalgt_form_array } %}
+    {% include 'AppBundle::Rapport/_valgteTiltagTable.html.twig' with {'rapport': entity, 'tiltag': entity.tilvalgteTiltag, 'pdf': false, 'type': 'tilvalg', 'valgt_form_array': tilvalgt_form_array, 'dato_for_drift_form_array': dato_for_drift_form_array } %}
   {% endif %}
 
 

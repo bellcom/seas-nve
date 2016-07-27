@@ -7,6 +7,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Regning;
+use AppBundle\Form\Type\TiltagDatoForDriftType;
 use AppBundle\Form\Type\TiltagOverviewDetailType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
 use Exception;
@@ -178,12 +179,33 @@ class TiltagController extends BaseController {
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->flush();
 
-      $this->flash->success('tiltag.confirmation.updated');
+      if ($editForm->get('batch_edit_button')->isClicked()) {
 
-      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+        $this->setBreadcrumb($tiltag);
+        $type = strtolower($this->getEntityName($tiltag));
+        $this->breadcrumbs->addItem($type.'detail.actions.batch_edit', $this->get('router')->generate('tiltag_detail_batch', array('id' => $tiltag->getId())));
+
+        $detail = $this->createDetailEntity($tiltag);
+        $form = $this->createDetailBatchEditForm($tiltag, $detail);
+        $template = $this->getDetailTemplate($detail, 'new');
+
+        return $this->render($template, array(
+          'isBatchEdit' => TRUE,
+          'entity' => $detail,
+          'edit_form' => $form->createView(),
+        ));
+
+      } else {
+
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+        $this->flash->success('tiltag.confirmation.updated');
+
+        return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+      }
+
     }
 
     return array(
@@ -208,6 +230,29 @@ class TiltagController extends BaseController {
     $editForm->handleRequest($request);
 
     $this->flash->success('tiltag.confirmation.tilfravalgtupdated');
+
+    $em = $this->getDoctrine()->getManager();
+    $em->flush();
+
+    return $this->redirectToReferer($request);
+  }
+
+  /**
+   * Edits "dato for drift" for an existing Tiltag entity.
+   *
+   * @Route("/datofordrift/{id}", name="tiltag_dato_for_drift_update")
+   * @Method("PUT")
+   * @Security("is_granted('TILTAG_EDIT', tiltag)")
+   */
+  public function updateDatoForDriftAction(Request $request, Tiltag $tiltag) {
+    $editForm = $this->createForm(new TiltagDatoForDriftType($tiltag), $tiltag, array(
+      'action' => $this->generateUrl('tiltag_dato_for_drift_update', array('id' => $tiltag->getId())),
+      'method' => 'PUT',
+    ));
+
+    $editForm->handleRequest($request);
+
+    $this->flash->success('tiltag.confirmation.datofordriftupdated');
 
     $em = $this->getDoctrine()->getManager();
     $em->flush();
@@ -334,7 +379,7 @@ class TiltagController extends BaseController {
     }
     $formClass = $this->getFormTypeClassName($detail, TRUE);
     $form = $this->createForm(new $formClass($this->container, $detail), $detail, array(
-      'action' => $this->generateUrl('tiltag_detail_new', array('id' => $tiltag->getId())),
+      'action' => $this->generateUrl('tiltag_detail_create', array('id' => $tiltag->getId())),
       'method' => 'POST',
     ));
 
@@ -344,7 +389,7 @@ class TiltagController extends BaseController {
   }
 
   /**
-   * Displays a form to create a new Detail entity.
+   * Creates a new Detail entity from form data
    *
    * @Route("/{id}/detailnew", name="tiltag_detail_create")
    * @Method("POST")
@@ -374,6 +419,89 @@ class TiltagController extends BaseController {
       'edit_form' => $form->createView(),
     ));
   }
+
+  //---------------- TiltagDetail Batch Edit -------------------//
+
+  private function createDetailBatchEditForm(Tiltag $tiltag, $detail) {
+    // Null default values
+    $detail->setTilvalgt(null);
+    $detail->setIkkeElenaBerettiget(null);
+    if(method_exists($detail, 'setIsoleringskappe')) {
+      $detail->setIsoleringskappe(null);
+    }
+    if(method_exists($detail, 'setNyttiggjortVarme')) {
+      $detail->setNyttiggjortVarme(null);
+    }
+
+    $formClass = $this->getFormTypeClassName($detail, TRUE);
+    $form = $this->createForm(new $formClass($this->container, $detail, TRUE), $detail, array(
+      'action' => $this->generateUrl('tiltag_detail_batch', array('id' => $tiltag->getId())),
+      'method' => 'POST',
+    ));
+
+    $batchEditDetailIds = array();
+    foreach ($tiltag->getDetails() as $detail) {
+      if($detail->isBatchEdit()) {
+        $batchEditDetailIds[] = $detail->getId();
+      }
+    }
+
+    $implodeIds = empty($batchEditDetailIds) ? '' : implode(",", $batchEditDetailIds);
+    $numberOfDetails =  empty($batchEditDetailIds) ? 'valgte' : count($batchEditDetailIds);
+
+    $form->add('batchEditIdArray', 'hidden', array('mapped' => FALSE, 'data' => $implodeIds));
+    $form->add('submit', 'submit', array('label' => 'Opdater '.$numberOfDetails.' tiltag'));
+
+    return $form;
+  }
+
+  /**
+   * Updates a batch of details
+   *
+   * @Route("/{id}/detailbatch", name="tiltag_detail_batch")
+   * @Method("POST")
+   * @Template()
+   * @Security("is_granted('TILTAG_EDIT', tiltag)")
+   */
+  public function batchEditDetailAction(Request $request, Tiltag $tiltag) {
+    // Use createform to validate data
+    $formDetail = $this->createDetailEntity($tiltag);
+    $form = $this->createDetailBatchEditForm($tiltag, $formDetail);
+
+    $form->handleRequest($request);
+
+    $em = $this->getDoctrine()->getManager();
+    $detailsId = $form->get('batchEditIdArray')->getData();
+    $detailsIdArray = explode(',', $detailsId);
+
+    if ($form->isValid()) {
+      $details = $em->getRepository('AppBundle:TiltagDetail')->findById($detailsIdArray);
+
+      foreach ($details as $detail) {
+        if($tiltag->getDetails()->contains($detail)) {
+          $detail->updateProperties($formDetail);
+        }
+      }
+
+      $em->flush();
+
+      $this->flash->success('tiltagdetail.confirmation.batch_edited');
+
+      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+    }
+
+    $this->setBreadcrumb($tiltag);
+    $type = strtolower($this->getEntityName($tiltag));
+    $this->breadcrumbs->addItem($type.'detail.actions.batch_edit', $this->get('router')->generate('tiltag_detail_batch', array('id' => $tiltag->getId())));
+
+    $template = $this->getDetailTemplate($formDetail, 'new');
+    return $this->render($template, array(
+      'entity' => $formDetail,
+      'edit_form' => $form->createView(),
+    ));
+  }
+
+  //---------------- Helpers -------------------//
 
   /**
    * Get form type class name for a entity

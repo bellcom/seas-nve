@@ -10,6 +10,7 @@ use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\RapportSearchType;
 use AppBundle\Form\Type\RapportStatusType;
+use AppBundle\Form\Type\TiltagDatoForDriftType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
@@ -125,6 +126,7 @@ class RapportController extends BaseController {
 
     $status = $rapport->getBygning()->getStatus();
 
+    // Bygning Status forms
     $formArray = array();
     if($status == BygningStatusType::TILKNYTTET_RAADGIVER) {
       $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_submit', 'rapporter.actions.submit')->createView();
@@ -139,18 +141,29 @@ class RapportController extends BaseController {
       $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_operation', 'rapporter.actions.operation')->createView();
     }
 
+    // Tiltag tilvalgt/fravalgt forms
     $tilvalgtFormArray = array();
     $fravalgtFormArray = array();
 
     if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
       foreach ($rapport->getTiltag() as $tiltag) {
         if ($tiltag->getTilvalgt()) {
-          $tilvalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
-            ->createView();
+          $tilvalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)->createView();
         }
         else {
-          $fravalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)
-            ->createView();
+          $fravalgtFormArray[$tiltag->getId()] = $this->createEditTilvalgTilvalgtForm($tiltag, $rapport)->createView();
+        }
+      }
+    }
+
+    // Dato for drift forms
+    $tiltagDatoForDriftFormArray = array();
+    if ($this->container->get('security.context')->isGranted('ROLE_ADMIN')) {
+      if($status === BygningStatusType::UNDER_UDFOERSEL || $status === BygningStatusType::DRIFT) {
+        foreach ($rapport->getTiltag() as $tiltag) {
+          if ($tiltag->getTilvalgt()) {
+            $tiltagDatoForDriftFormArray[$tiltag->getId()] = $this->createEditTiltagDatoForDriftForm($tiltag, $rapport)->createView();
+          }
         }
       }
     }
@@ -160,6 +173,7 @@ class RapportController extends BaseController {
 
     $twigVars = array(
       'entity' => $rapport,
+      'dato_for_drift_form_array' => $tiltagDatoForDriftFormArray,
       'tilvalgt_form_array' => $tilvalgtFormArray,
       'fravalgt_form_array' => $fravalgtFormArray,
       'delete_form' => $deleteForm,
@@ -220,14 +234,33 @@ class RapportController extends BaseController {
   /**
    * Finds and displays a Rapport entity.
    *
-   * @Route("/{id}/pdftest", name="rapport_show_pdftest")
+   * @Route("/{id}/pdf2test", name="rapport_show_pdf2test")
    * @Method("GET")
    * @Template()
    * @Security("is_granted('RAPPORT_VIEW', rapport)")
    * @param Rapport $rapport
    * @return array
    */
-  public function showPdfTestAction(Rapport $rapport) {
+  public function showPdf2TestAction(Rapport $rapport) {
+
+    return array(
+      'rapport' => $rapport,
+      'entity' => $rapport,
+    );
+
+  }
+
+  /**
+   * Finds and displays a Rapport entity.
+   *
+   * @Route("/{id}/pdf5test", name="rapport_show_pdf5test")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Rapport $rapport
+   * @return array
+   */
+  public function showPdf5TestAction(Rapport $rapport) {
 
     return array(
       'rapport' => $rapport,
@@ -342,6 +375,25 @@ class RapportController extends BaseController {
     ));
 
     $this->addUpdate($form, $this->generateUrl('rapport_show', array('id' => $entity->getId())));
+
+    return $form;
+  }
+
+  /**
+   * Creates a form to edit a Tiltag entity.
+   *
+   * @param Tiltag $entity The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditTiltagDatoForDriftForm($entity) {
+
+    $form = $this->createForm(new TiltagDatoForDriftType($entity), $entity, array(
+      'action' => $this->generateUrl('tiltag_dato_for_drift_update', array('id' => $entity->getId())),
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form);
 
     return $form;
   }
@@ -757,5 +809,65 @@ class RapportController extends BaseController {
       );
     }
     return $response;
+  }
+
+  /**
+   * Download all files for Rapport.
+   *
+   * @Route("/{id}/download_files", name="rapport_download_files")
+   * @Method("GET")
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   */
+  public function downloadFilesAction(Request $request, Rapport $rapport) {
+    $allFiles = $rapport->getAllFiles();
+
+    if (!$allFiles) {
+      $this->flash->error('rapporter.messages.no_files');
+      return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    }
+
+    $zipName = 'Bilag-' . $rapport->getBygning()->getAdresse() . '-' . date('Y-m-d') . '.zip';
+    // Sanitize filename.
+    $zipName = preg_replace('/[^a-z0-9.-]/i', '_', $zipName);
+
+    $archive = new \ZipArchive();
+    $zipPath = tempnam(sys_get_temp_dir(), $zipName);
+    $archive->open($zipPath, \ZipArchive::CREATE);
+
+    $this->addFilesToArchive($archive, $allFiles);
+    $archive->close();
+
+    $response = new BinaryFileResponse($zipPath);
+    $response->setContentDisposition(
+        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        $zipName
+    );
+
+    return $response;
+  }
+
+  /**
+   * Add files to archive.
+   *
+   * If a value in $files is an array the files in the value will be added to a sub-directory.
+   *
+   * @param array $files
+   *   The files to add.
+   * @param string $dir
+   *   The dir to add files to. Must be empty or end with a slash (/).
+   */
+  private function addFilesToArchive(\ZipArchive $archive, array $files, $dir = '') {
+    if ($files) {
+      foreach ($files as $key => $data) {
+        if (is_array($data)) {
+          $subDir = $dir . $key . '/';
+          $archive->addEmptyDir($subDir);
+          $this->addFilesToArchive($archive, $data, $subDir);
+        } else {
+          $file = new File($data);
+          $archive->addFromString($dir . $file->getBasename(), file_get_contents($file->getRealPath()));
+        }
+      }
+    }
   }
 }

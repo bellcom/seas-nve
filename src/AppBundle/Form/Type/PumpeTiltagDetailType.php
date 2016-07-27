@@ -38,16 +38,19 @@ class PumpeTiltagDetailType extends TiltagDetailType {
       ));
 
     // @FIXME: Workaround for the field "B-Faktor" being deprecated.
+    $empty_value = $this->isBatchEdit ? '--' : '*** Gammel B-Faktor: ' . number_format($this->detail->getBFaktor(), 2, ',', '.') . ' ***';
+    $attr = $this->isBatchEdit ? array() : array(
+      'help_text' => 'Bemærk: Feltet "B-Faktor" er blevet erstattet af "Nyttiggjort varme". Vælg venligst "Nyttiggjort varme" ovenfor.',
+      'class' => 'aaplus-deprecated',
+    );
+
     if (!$this->detail->getNyttiggjortVarme()) {
       $builder
         ->remove('nyttiggjortVarme')
         ->add('nyttiggjortVarme', null, array(
           'required' => true,
-          'empty_value' => '*** Gammel B-Faktor: ' . number_format($this->detail->getBFaktor(), 2, ',', '.') . ' ***',
-          'attr' => array(
-            'help_text' => 'Bemærk: Feltet "B-Faktor" er blevet erstattet af "Nyttiggjort varme". Vælg venligst "Nyttiggjort varme" ovenfor.',
-            'class' => 'aaplus-deprecated',
-          ),
+          'empty_value' => $empty_value,
+          'attr' => $attr,
         ));
     }
   }
