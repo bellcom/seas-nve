@@ -422,6 +422,7 @@ class TiltagController extends BaseController {
   //---------------- TiltagDetail Batch Edit -------------------//
 
   private function createDetailBatchEditForm(Tiltag $tiltag, $detail) {
+    // Null default values
     $detail->setTilvalgt(null);
     $detail->setIkkeElenaBerettiget(null);
     if(method_exists($detail, 'setIsoleringskappe')) {
