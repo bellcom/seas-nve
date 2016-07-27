@@ -2,11 +2,23 @@
 
 {% block body -%}
 
-  <div class="row">
-    <div class="col-md-6">
-      <table class="table table-condensed">
+  <div class="row heading">
+    <div class="col-md-6"><h1>{% if entity.title is empty %}{{ 'bilag.labels.singular' | trans }}{% else %}{{ entity.title }}: {{ 'bilag.labels.singular' | trans }}{% endif %}</h1></div>
+    <div class="col-md-6 text-right">
+      {% if is_granted('TILTAG_EDIT', entity) %}
+        <a class="btn btn-primary" href="{{ path('bilag_tiltag_new', { 'tiltag_id': entity.id }) }}">
+          {{ icon('plus') }} {{ 'bilag.actions.create' | trans }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row details-overview">
+    <div class="col-md-12">
+      <table class="table table-condensed table-header-rotated">
         <tbody>
           <tr>
+            <th></th>
             <th>{{ 'appbundle.bilag.titel' | trans }}</th>
             <th>{{ 'appbundle.bilag.kommentar' | trans }}</th>
             <th>{{ 'appbundle.bilag.filepath' | trans }}</th>
@@ -15,7 +27,12 @@
           </tr>
         {% for bilag in entity.bilag %}
           <tr>
-            <td><a href="{{ path('tiltag_bilag_edit', { 'tiltag_id': entity.id, 'bilag_id': bilag.id }) }}">{{ bilag.titel }}</a></td>
+            <td>
+              {% if is_granted('TILTAG_EDIT', entity) %}
+                <p><a href="{{ path('tiltag_bilag_edit', { 'tiltag_id': entity.id, 'bilag_id': bilag.id }) }}" class="btn btn-default btn-xs">{{ icon('edit') }} {{ 'common.edit' | trans }}</a></p>
+              {% endif %}
+            </td>
+            <td>{{ bilag.titel }}</td>
             <td>{{ bilag.kommentar }}</td>
             <td>
               {% if not bilag.filepath is empty %}
@@ -29,11 +46,6 @@
         </tbody>
       </table>
 
-      {% if is_granted('TILTAG_EDIT', entity) %}
-        <a class="btn btn-primary" href="{{ path('bilag_tiltag_new', { 'tiltag_id': entity.id }) }}">
-          {{ icon('plus') }} {{ 'bilag.actions.create' | trans }}
-        </a>
-      {% endif %}
     </div>
   </div>
 

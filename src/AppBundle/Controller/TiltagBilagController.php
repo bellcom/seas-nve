@@ -40,7 +40,6 @@ class TiltagBilagController extends BaseController {
   private function setBreadcrumb(Tiltag $tiltag) {
     $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
     $this->breadcrumbs->addItem($tiltag->getRapport(), $this->generateUrl('rapport_show', array('id' => $tiltag->getRapport()->getId())));
-    $this->breadcrumbs->addItem('Tiltag');
     $this->breadcrumbs->addItem($tiltag, $this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
     $this->breadcrumbs->addItem('Bilag', $this->generateUrl('tiltag_bilag_get', array('tiltag_id' => $tiltag->getId())));
   }
