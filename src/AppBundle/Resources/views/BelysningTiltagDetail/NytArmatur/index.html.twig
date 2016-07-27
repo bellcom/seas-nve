@@ -38,10 +38,10 @@
       {% for entity in entities %}
         <tr>
           <td>{{ entity.arbejdeOmfang }}</td>
-          <td>{{ entity.nyLyskildeAntal }}</td>
-          <td>{{ entity.wattage }}</td>
-          <td>{{ entity.nyeForkoblingerAntal }}</td>
-          <td>{{ entity.pris }}</td>
+          <td class="number">{{ entity.nyLyskildeAntal }}</td>
+          <td class="number">{{ entity.wattage }}</td>
+          <td class="number">{{ entity.nyeForkoblingerAntal }}</td>
+          <td class="number">{{ entity.pris | format_decimal}}</td>
           <td>{{ entity.noter }}</td>
           <td class="text-right">
             <a class="btn btn-default btn-xs" href="{{ path('belysningtiltagdetail_nytarmatur_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>

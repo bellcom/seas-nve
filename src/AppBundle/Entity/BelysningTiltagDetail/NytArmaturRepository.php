@@ -26,7 +26,7 @@ class NytArmaturRepository extends EntityRepository {
     $result = $query->getResult();
 
     if ($result) {
-      return 'nytarmatur.error.in_use';
+      return 'nytArmatur.error.in_use';
     }
 
     return null;
