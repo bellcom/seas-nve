@@ -424,6 +424,12 @@ class TiltagController extends BaseController {
   private function createDetailBatchEditForm(Tiltag $tiltag, $detail) {
     $detail->setTilvalgt(null);
     $detail->setIkkeElenaBerettiget(null);
+    if(method_exists($detail, 'setIsoleringskappe')) {
+      $detail->setIsoleringskappe(null);
+    }
+    if(method_exists($detail, 'setNyttiggjortVarme')) {
+      $detail->setNyttiggjortVarme(null);
+    }
 
     $formClass = $this->getFormTypeClassName($detail, TRUE);
     $form = $this->createForm(new $formClass($this->container, $detail, TRUE), $detail, array(
