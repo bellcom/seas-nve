@@ -70,9 +70,6 @@ class RapportVoter implements VoterInterface {
       return VoterInterface::ACCESS_DENIED;
     }
 
-    $d=$this->rapportRepository->hasAccess($user, $rapport->getBygning());
-    $s=1;
-
     switch($attribute) {
       case self::VIEW:
         if ($this->hasRole($token, 'ROLE_RAPPORT_VIEW') && $this->rapportRepository->hasAccess($user, $rapport->getBygning())) {

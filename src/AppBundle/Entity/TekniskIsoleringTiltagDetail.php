@@ -58,7 +58,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
-   * @ORM\Column(name="overskrevetPris", type="decimal", scale=4)
+   * @ORM\Column(name="overskrevetPris", type="decimal", scale=4, nullable=true)
    */
   protected $overskrevetPris;
 
@@ -436,6 +436,9 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
   }
 
   private function calculateInvesteringKr() {
+    if ($this->overskrevetPris !== null) {
+      return $this->overskrevetPris;
+    }
     return $this->standardinvestKrM2EllerKrM * $this->prisfaktor * $this->roerlaengdeEllerHoejdeAfVvbM;
   }
 
