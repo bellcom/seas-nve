@@ -117,7 +117,7 @@ abstract class Calculation {
     $errors = array_filter($properties, function($property) use ($entity) {
       $getter = 'get' . $property;
       $value = method_exists($entity, $getter) ? $entity->$getter() : null;
-      return empty($value);
+      return $value === null;
     });
 
     if ($prefix) {
