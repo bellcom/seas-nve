@@ -26,27 +26,13 @@ class AuditReader extends BaseAuditReader {
     if ($this->filter) {
       switch ($className) {
         case 'AppBundle\Entity\Bygning':
-          $fieldName = 'navn';
-          if ($this->filter->has($fieldName)) {
-            $value = $this->filter->get($fieldName)->getNormData();
-            if ($value) {
-              $where .= ' AND ' . $fieldName . ' LIKE \'%' . self::mysqlEscape($value) . '%\'';
-            }
-          }
-
-          $fieldName = 'postnummer';
-          if ($this->filter->has($fieldName)) {
-            $value = $this->filter->get($fieldName)->getNormData();
-            if ($value) {
-              $where .= ' AND ' . $fieldName . ' LIKE \'%' . self::mysqlEscape($value) . '%\'';
-            }
-          }
-
-          $fieldName = 'status';
-          if ($this->filter->has($fieldName)) {
-            $value = $this->filter->get($fieldName)->getNormData();
-            if ($value) {
-              $where .= ' AND ' . $fieldName . ' LIKE \'%' . self::mysqlEscape($value) . '%\'';
+          $fieldNames = ['navn', 'adresse', 'postnummer', 'status'];
+          foreach ($fieldNames as $fieldName) {
+            if ($this->filter->has($fieldName)) {
+              $value = $this->filter->get($fieldName)->getNormData();
+              if ($value) {
+                $where .= ' AND ' . $fieldName . ' LIKE \'%' . self::mysqlEscape($value) . '%\'';
+              }
             }
           }
           break;
