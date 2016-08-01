@@ -365,12 +365,12 @@
                 <h3>{{ t.title }}</h3>
               </div>
               <div class="col-md-6 text-right">
+                {% if tiltag_type(t) != 'Special' %}
+                  <a class="btn btn-default" href="{{ path('tiltag_bilag_get', { 'tiltag_id': t.id }) }}">
+                    {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
+                  </a>
+                {% endif %}
                 {% if is_granted('RAPPORT_EDIT', entity) %}
-                  {% if tiltag_type(t) != 'Special' %}
-                    <a class="btn btn-default" href="{{ path('tiltag_bilag_get', { 'tiltag_id': t.id }) }}">
-                      {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
-                    </a>
-                  {% endif %}
                   <a href="{{ path('tiltag_edit', { 'id': t.id }) }}" class="btn btn-default">
                     {{ icon('edit') }} {{ 'common.edit' | trans }}: {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
                   </a>
