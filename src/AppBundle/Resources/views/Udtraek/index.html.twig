@@ -20,9 +20,48 @@
   {{ form_errors(form) }}
 
   <div class="panel panel-default">
+    <div class="panel-body">
+      <label>{{ 'udtraek.labels.showDataFrom' | trans }}</label>
+      <div id="_timestamp" class="bootstrap-date-range">
+        <select id="_timestamp_day" name="_timestamp[day]" class="form-control">
+          <option value=""></option>
+          {% for day in 1..31 %}
+            {% if app.request.get('_timestamp')['day'] is defined and app.request.get('_timestamp')['day'] == day %}
+              <option value="{{ day }}" selected>{{ "%02d" | format(day) }}</option>
+            {% else %}
+              <option value="{{ day }}">{{ "%02d" | format(day) }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+        <select id="_timestamp_month" name="_timestamp[month]" class="form-control">
+          <option value=""></option>
+          {% for month in 1..12 %}
+            {% if app.request.get('_timestamp')['month'] is defined and app.request.get('_timestamp')['month'] == month %}
+              <option value="{{ month }}" selected>{{ "%02d" | format(month) }}</option>
+            {% else %}
+              <option value="{{ month }}">{{ "%02d" | format(month) }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+        <select id="_timestamp_year" name="_timestamp[year]" class="form-control">
+          <option value=""></option>
+          {% for year in 2011..('now' | date('Y')) %}
+            {% if app.request.get('_timestamp')['year'] is defined and app.request.get('_timestamp')['year'] == year %}
+              <option value="{{ year }}" selected>{{ "%02d" | format(year) }}</option>
+            {% else %}
+              <option value="{{ year }}">{{ "%02d" | format(year) }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
     <table class="table table-condensed table-hover">
       <tr>
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.navn'|trans, 'b.navn') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.adresse'|trans, 'b.adresse') }}</th>
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.postnummer'|trans, 'b.postnummer') }}</th>
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 'b.segment') }}</th>
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.rapport.datering'|trans, 'b.rapport.datering') }}</th>
@@ -33,6 +72,7 @@
 
       <tr class="search">
         <th>{{ form_row(form.navn) }}</th>
+        <th>{{ form_row(form.adresse) }}</th>
         <th>{{ form_row(form.postnummer) }}</th>
         <th>{{ form_row(form.segment) }}</th>
         <th class="text-center">{{ form_row(form.rapport.datering) }}</th>
@@ -44,6 +84,7 @@
       {% for bygning in pagination %}
       <tr>
         <td>{{ bygning.navn }}</td>
+        <td>{{ bygning.adresse }}</td>
         <td>{{ bygning.postnummer }}</td>
         <td>
           {% if bygning.segment is not empty %}
