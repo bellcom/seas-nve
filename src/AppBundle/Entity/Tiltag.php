@@ -1616,8 +1616,8 @@ abstract class Tiltag {
     $cashFlow = array_fill(1, $numberOfYears, 0);
 
     for ($year = 1; $year <= $numberOfYears; $year++) {
-      $value = ($varmebesparelseGUF + $varmebesparelseGAF) * $this->getRapport()
-          ->getVarmeKrKWh($year)
+      $varmepris = $this->calculateVarmepris($year);
+      $value = ($varmebesparelseGUF + $varmebesparelseGAF) * $varmepris
         + $elbesparelse * $this->getRapport()->getElKrKWh($year)
         + $vandbesparelse * $this->getRapport()->getVandKrKWh($year)
         + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
@@ -1671,14 +1671,14 @@ abstract class Tiltag {
   }
 
   protected function calculateVarmepris($year = 1) {
-    $varmepris = $this->rapport->getVarmeKrKWh($year);
-    if ($this->getForsyningVarme() && $this->getForsyningVarme()
-        ->getNavn() == NavnType::TRAEPILLEFYR
-    ) {
-      $varmepris = $this->rapport->getTraepillefyr() ? $this->rapport->getTraepillefyr()
-                 ->getKrKWh($this->rapport->getDatering()->format('Y') - 1 + $year) : 0;
+    if ($this->forsyningVarme) {
+      $forsyningsvaerk = $this->forsyningVarme->getForsyningsvaerk();
+      if ($forsyningsvaerk) {
+        return $forsyningsvaerk->getKrKWh($this->rapport->getDatering()->format('Y') - 1 + $year);
+      }
     }
-    return $varmepris;
+
+    return 0;
   }
 
   protected function calculateVandbesparelse() {

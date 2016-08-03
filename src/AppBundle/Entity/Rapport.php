@@ -605,6 +605,21 @@ class Rapport {
   }
 
   /**
+   * @var Forsyningsvaerk
+   */
+  protected $olie;
+
+  public function setOlie(Forsyningsvaerk $olie = NULL) {
+    $this->olie = $olie;
+
+    return $this;
+  }
+
+  public function getOlie() {
+    return $this->olie;
+  }
+
+  /**
    * @var array
    *
    * @Calculated
@@ -2095,7 +2110,7 @@ class Rapport {
     $cashFlow[1] -= $this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering();
 
     $irr = Excel::IRR($cashFlow);
-    
+
     if(ExcelError::IS_ERR($irr)) {
       return NULL;
     }
