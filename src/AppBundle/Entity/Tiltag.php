@@ -612,15 +612,15 @@ abstract class Tiltag {
   }
 
   /**
-   * Get id
+   * Get index
    *
    * @return integer
    */
-  public function getIndexNumberFromRapport() {
+  public function getIndexNumber() {
     $tiltag = $this->getRapport()->getTiltag();
     $index = 1;
     foreach ($tiltag as $t) {
-      if($t.$this->getId() === $this.$this->getId()) {
+      if($t->getId() === $this->getId()) {
         return $index;
       }
       $index++;
@@ -1552,8 +1552,8 @@ abstract class Tiltag {
   public function getCalculationWarnings($messages = [])
   {
     $properties = $this->getPropertiesRequiredForCalculation();
-    $prefix = 'appbundle.tiltag.';
-    return Calculation::getCalculationWarnings($this, $properties, $prefix);
+    $prefix = 'tiltag';
+    return Calculation::getCalculationWarnings($this, $properties, $prefix, $this->getDetails());
   }
 
   /**
@@ -1577,7 +1577,7 @@ abstract class Tiltag {
       }
     }
 
-    return $files ? [ $this->getIndexNumberFromRapport().'-'.$this->getTitle() => $files ] : null;
+    return $files ? [ $this->getIndexNumber().'-'.$this->getTitle() => $files ] : null;
   }
 
   /**

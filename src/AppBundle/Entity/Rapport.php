@@ -1755,13 +1755,14 @@ class Rapport {
   }
 
   /**
-   * Check if calculating this Tiltag makes sense.
+   * Check if calculating this Rapport makes sense.
    * Some values may be required to make a meaningful calculation.
    */
   public function getCalculationWarnings($messages = []) {
     $properties = $this->getPropertiesRequiredForCalculation();
-    $prefix = 'appbundle.rapport.';
-    return Calculation::getCalculationWarnings($this, $properties, $prefix);
+    $prefix = 'rapport';
+    $tiltag = $this->getTiltag();
+    return Calculation::getCalculationWarnings($this, $properties, $prefix, $this->getTiltag());
   }
 
   public function calculate() {

@@ -17,11 +17,20 @@
               <h4 class="modal-title text-left" id="myModalLabel">{{ 'rapporter.confirmation.re-calculate' | trans }}</h4>
             </div>
             <div class="modal-body text-left">
+              {% if entity.calculationWarnings %}
+                <div class="alert alert-warning">
+                  <p><strong>{{ 'Incomplete calculation' | trans }}</strong></p>
+                  {{ calculationWarnings.renderMessagesInline(calculation_warnings) }}
+                </div>
+              {% endif %}
               <p><strong>{{ 'common.changes' | trans }}:</strong></p>
               {% include 'AppBundle:_includes:calculation_changes_show.html.twig' %}
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | trans }}</button>
+              <a href="{{ path('rapport_edit', {'id': entity.id}) }}" class="btn btn-default">
+                {{ icon('edit') }} {{ (params.edit_title is defined ? params.edit_title : 'common.edit') | trans }}
+              </a>
               {{ form_widget(calculate_form) }}
             </div>
           </div>
@@ -37,19 +46,19 @@
   <div class="row heading">
     <div class="col-md-2">
       <h1>
-        <nobr>{{ icon('file') }} {{ 'rapporter.labels.singular' | trans }}</nobr>
+        <nobr>
+          {{ icon('file-text-o') }}
+          {{ 'rapporter.labels.singular' | trans }}
+        </nobr>
       </h1>
     </div>
     <div class="col-md-10 text-right">
-      {% if calculation_warnings %}
-        {{ calculationWarnings.renderWarnings(calculation_warnings, null, { edit_url: path('rapport_edit', { 'id': entity.id }) } ) }}
-      {% endif %}
-
       {% if calculate_form and is_granted('RAPPORT_EDIT', entity) %}
-        {% if calculation_changes is defined and calculation_changes %}
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( 'calculator' ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
+        {% set calculation_btn_icon = entity.calculationWarnings ? 'warning' : 'calculator' %}
+        {% if calculation_changes is defined and calculation_changes is not empty%}
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( calculation_btn_icon ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
         {% else %}
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( 'calculator' ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( calculation_btn_icon ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
         {% endif %}
       {% endif %}
 
@@ -145,7 +154,7 @@
   <div class="panel panel-default">
     <div class="panel-heading"><h3 class="panel-title">{{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}</h3></div>
 
-    <table class="table table-condensed">
+    <table class="table table-condensed table-fixed">
       <tbody>
       <tr>
         <th>{{ 'appbundle.rapport.energibesparelser' | trans }}:</th>
@@ -183,35 +192,36 @@
         <td>{{ 'appbundle.rapport.co2BesparelseVarmeFaktor.unit' | trans }}</td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td colspan="3" rowspan="4">
+          {% if entity.calculationWarnings and is_granted('RAPPORT_EDIT', entity) %}
+            <div class="alert alert-warning">
+              <p><strong>{{ icon('warning') }} {{ 'Incomplete calculation' | trans }}</strong></p>
+              {{ calculationWarnings.renderMessagesInline(calculation_warnings) }}
+              <p>
+                <a href="{{ path('rapport_edit', {'id': entity.id}) }}" class="btn btn-warning">
+                  {{ icon('edit') }} {{ (params.edit_title is defined ? params.edit_title : 'common.edit') | trans }}
+                </a>
+              </p>
+            </div>
+          {% endif %}
+        </td>
         <th>{{ 'appbundle.rapport.co2besparelser' | trans }}:</th>
         <td></td>
         <td></td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
 
         <th class="indent">{{ 'appbundle.rapport.besparelseCO2' | trans }}</th>
         <td class="text-right">{{ entity.besparelseCO2 | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2.unit' | trans }}</td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
 
         <th class="indent">{{ 'appbundle.rapport.besparelseCO2el' | trans }}</th>
         <td class="text-right">{{ entity.co2BesparelseEl | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2el.unit' | trans }}</td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
 
         <th class="indent">{{ 'appbundle.rapport.besparelseCO2varme' | trans }}</th>
         <td class="text-right">{{ entity.co2BesparelseVarme | format_decimal }}</td>
@@ -370,7 +380,7 @@
                 <h3>{{ t.title }}
                   {{ calculationWarnings.renderIcon(t.calculationWarnings, key) }}
                 </h3>
-                {{ calculationWarnings.renderMessagesPopup(t.calculationWarnings, key, { edit_url: is_granted('TILTAG_EDIT', t) ? path('tiltag_edit', { 'id': t.id }) : null }) }}
+                {{ calculationWarnings.renderMessagesPopup(t.calculationWarnings, key, { edit_url: is_granted('TILTAG_EDIT', t) ? path('tiltag_edit', { 'id': t.id }) : null, details_url: path('tiltag_show', { 'id': t.id }) }) }}
               </div>
               <div class="col-md-6 text-right">
                 {% if is_granted('RAPPORT_EDIT', entity) %}

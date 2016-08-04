@@ -2,7 +2,9 @@
 
 namespace AppBundle\Calculation;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 abstract class Calculation {
   private static $allowedDeviance = 0.0001;
@@ -113,17 +115,32 @@ abstract class Calculation {
     });
   }
 
-  public function getCalculationWarnings($entity, array $properties, $prefix = '') {
-    $errors = array_filter($properties, function($property) use ($entity) {
-      $getter = 'get' . $property;
-      $value = method_exists($entity, $getter) ? $entity->$getter() : null;
-      return $value === null;
-    });
+  public function getCalculationWarnings($entity, array $properties, $prefix = '', $details = null) {
+    $accessor = PropertyAccess::createPropertyAccessor();
+    $errors = array();
 
-    if ($prefix) {
-      $errors = array_map(function($error) use ($prefix) {
-        return $prefix . $error;
-      }, $errors);
+    if(!empty($properties)) {
+      $propertyErrors = array_filter($properties, function ($property) use ($entity, $accessor) {
+        $value = $accessor->isReadable($entity, $property) ? $accessor->getValue($entity, $property) : null;
+        return $value === null;
+      });
+
+      if ($prefix) {
+        $propertyErrors = array_map(function($error) use ($prefix) {
+          return 'appbundle.' . $prefix . '.' . $error;
+        }, $propertyErrors);
+      }
+    }
+    if(!empty($propertyErrors)) {
+      $errors['errors'] = $propertyErrors;
+    }
+
+    if(!empty($details)) {
+      foreach ($details as $d) {
+        if($d->getCalculationWarnings()) {
+          $errors[$prefix][] = $d->getIndexNumber();
+        }
+      }
     }
 
     return $errors;
