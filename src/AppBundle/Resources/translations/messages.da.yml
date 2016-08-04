@@ -1652,6 +1652,8 @@ appbundle:
     fravalgt: Fravalgt
     genopretning: Genopretning
     genopretning.unit: kr.
+    genopretningForImplementeringsomkostninger: Genopretning for implementeringsomkostninger
+    genopretningForImplementeringsomkostninger.unit: kr.
     ialt: I alt
     id: Id
     indeklima: Indeklima
