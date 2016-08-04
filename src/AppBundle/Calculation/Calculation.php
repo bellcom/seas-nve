@@ -115,11 +115,11 @@ abstract class Calculation {
     });
   }
 
-  public function getCalculationWarnings($entity, array $properties, $prefix = '', $details = null) {
+  public function getCalculationWarnings($entity, array $properties, $prefix = '', $subEntities = null) {
     $accessor = PropertyAccess::createPropertyAccessor();
     $errors = array();
 
-    if(!empty($properties)) {
+    if (!empty($properties)) {
       $propertyErrors = array_filter($properties, function ($property) use ($entity, $accessor) {
         $value = $accessor->isReadable($entity, $property) ? $accessor->getValue($entity, $property) : null;
         return $value === null;
@@ -131,14 +131,14 @@ abstract class Calculation {
         }, $propertyErrors);
       }
     }
-    if(!empty($propertyErrors)) {
+    if (!empty($propertyErrors)) {
       $errors['errors'] = $propertyErrors;
     }
 
-    if(!empty($details)) {
-      foreach ($details as $d) {
-        if($d->getCalculationWarnings()) {
-          $errors[$prefix][] = $d->getIndexNumber();
+    if (!empty($subEntities)) {
+      foreach ($subEntities as $e) {
+        if($e->getCalculationWarnings()) {
+          $errors[$prefix][] = $e->getIndexNumber();
         }
       }
     }

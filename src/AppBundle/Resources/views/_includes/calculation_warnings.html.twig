@@ -31,7 +31,7 @@
 
 {% macro renderMessagesInline(messages) %}
   <p>
-    {% if messages['errors'] is not empty %}
+    {% if messages['errors'] is defined and messages['errors'] is not empty %}
       {{ 'Fields required for calculation' | trans }}:
       <em>
         {% for message in messages['errors'] %}
