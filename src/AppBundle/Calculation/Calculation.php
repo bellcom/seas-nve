@@ -34,6 +34,11 @@ abstract class Calculation {
     return true;
   }
 
+  private static function formatNumber($value) {
+    $decimals = abs(log10(self::$allowedDeviance));
+    return number_format($value, $decimals);
+  }
+
   /**
    * Decide if any calculated values (numeric only) in entity will have different values if re-calculated.
    *
@@ -61,6 +66,17 @@ abstract class Calculation {
           if (method_exists($old, $getter)) {
             $oldValue = $old->{$getter}();
             $newValue = $new->{$getter}();
+
+            if (is_array($oldValue) && is_array($newValue)) {
+              $format = function(&$value) {
+                if (is_numeric($value)) {
+                  $value = self::formatNumber($value);
+                }
+              };
+              array_walk_recursive($oldValue, $format);
+              array_walk_recursive($newValue, $format);
+            }
+
             $isChanged = $oldValue != $newValue;
             switch ($type) {
               case 'float':

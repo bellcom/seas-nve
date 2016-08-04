@@ -734,3 +734,16 @@ form .alert ul {
     border-radius: 4px;
   }
 }
+
+.aaplus-calculation-changes-wrapper  {
+  max-height: 24em;
+  overflow: auto;
+}
+
+.aaplus-calculation-changes .entity > .property {
+  font-weight: bold;
+}
+
+.aaplus-calculation-changes .aaplus-calculation-changes {
+  margin-left: 1em;
+}
