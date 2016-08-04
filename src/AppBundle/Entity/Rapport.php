@@ -605,6 +605,21 @@ class Rapport {
   }
 
   /**
+   * @var Forsyningsvaerk
+   */
+  protected $olie;
+
+  public function setOlie(Forsyningsvaerk $olie = NULL) {
+    $this->olie = $olie;
+
+    return $this;
+  }
+
+  public function getOlie() {
+    return $this->olie;
+  }
+
+  /**
    * @var array
    *
    * @Calculated

@@ -523,6 +523,7 @@ udtraek:
     columns: Hvilke kollonner skal medtages?
     options: Udtræks valg
     plural: Udtræk
+    showDataFrom: Vis data fra
     types: Vælg udtrækstype
 user:
   actions:

@@ -157,6 +157,9 @@ where
 
 SQL;
 
+      $sql[] = <<<SQL
+alter table revisions auto_increment = 1;
+SQL;
     }
 
     $this->addSql($sql);

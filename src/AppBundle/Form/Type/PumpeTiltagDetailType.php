@@ -56,9 +56,12 @@ class PumpeTiltagDetailType extends TiltagDetailType {
   }
 
   private function getRoerstoerrelser() {
-    $sizes = array_keys(Pumpe::$varmetabstabel);
+    $options = [];
+    foreach (Pumpe::$varmetabstabel as $value => $item) {
+      $options[$value] = $value . ' / ' . $item[0]. ' mm';
+    }
 
-    return array_combine($sizes, $sizes);
+    return $options;
   }
 
   public function configureOptions(OptionsResolver $resolver) {
