@@ -39,7 +39,7 @@ class RapportCalculation extends Calculation {
         $tiltagChanges = $tiltagCalculation->getChanges($tiltag);
         if ($tiltagChanges) {
           $changes['tiltag:' . $tiltag->getId()] = [
-            'property' => $tiltag->getIndexNumberFromRapport() . '. '. $tiltag->getTitle(),
+            'property' => $tiltag->getIndexNumber() . '. '. $tiltag->getTitle(),
             'type' => 'tiltag',
             'entity' => $tiltag,
             'changes' => $tiltagChanges,
