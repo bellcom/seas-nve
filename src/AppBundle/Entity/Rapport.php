@@ -1756,6 +1756,30 @@ class Rapport {
     $event->getEntityManager()->flush();
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'BaselineEl',
+    'BaselineStrafAfkoeling',
+    'BaselineVarmeGAF',
+    'BaselineVarmeGUF',
+    'energiscreening',
+    'faktorPaaVarmebesparelse',
+  ];
+
+  public function getPropertiesRequiredForCalculation() {
+    return $this->propertiesRequiredForCalculation;
+  }
+
+  /**
+   * Check if calculating this Rapport makes sense.
+   * Some values may be required to make a meaningful calculation.
+   */
+  public function getCalculationWarnings($messages = []) {
+    $properties = $this->getPropertiesRequiredForCalculation();
+    $prefix = 'rapport';
+    $tiltag = $this->getTiltag();
+    return Calculation::getCalculationWarnings($this, $properties, $prefix, $this->getTiltag());
+  }
+
   public function calculate() {
     $this->BaselineCO2El = $this->calculateBaselineCO2El();
     $this->BaselineCO2Varme = $this->calculateBaselineCO2Varme();

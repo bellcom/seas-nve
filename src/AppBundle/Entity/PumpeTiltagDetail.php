@@ -500,6 +500,18 @@ class PumpeTiltagDetail extends TiltagDetail {
     return $this->kwhBesparelseVarmeFraVaerket;
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'applikation',
+    'eksisterendeDrifttid',
+    'forsyningsomraade',
+    'nyDrifttid',
+    'nyttiggjortVarme',
+    'placering',
+    'prisfaktor',
+    'pumpe',
+    'pumpeID',
+  ];
+
   public function calculate() {
     $this->pristillaeg = $this->calculatePristillaeg();
     $this->samletInvesteringInklPristillaeg = $this->calculateSamletInvesteringInklPristillaeg();

@@ -6,12 +6,20 @@
           <li>{{ entity.tilvalgtAfRaadgiver | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfRaadgiver' | trans }}</li>
           <li>{{ entity.tilvalgtAfAaPlus | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfAaPlus' | trans }}</li>
           <li>{{ entity.tilvalgtAfMagistrat | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfMagistrat' | trans }}</li>
-          <li class="float-right">{{ 'appbundle.tiltag.datoForDrift' | trans }}: {{ entity.datoForDrift ? entity.datoForDrift | date('Y-m-d') : '--'}}</li>
+          <li class="float-right">{{ 'appbundle.tiltag.datoForDrift' | trans }}: {{ entity.datoForDrift ? entity.datoForDrift | date('Y-m-d') : '--' }}</li>
         </ul>
       </div>
     </div>
   </div>
 </div>
+
+{% if entity.calculationWarnings %}
+  <div class="row">
+    <div class="col-xs-12">
+      {% from 'AppBundle:_includes:calculation_warnings.html.twig' import renderWarnings as renderCalculationWarnings %}
+    </div>
+  </div>
+{% endif %}
 
 <div class="row">
   <div class="col-xs-12 col-md-6">

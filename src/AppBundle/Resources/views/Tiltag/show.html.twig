@@ -1,4 +1,5 @@
 {% extends 'AppBundle::base.html.twig' %}
+{% from 'AppBundle:_includes:calculation_warnings.html.twig' import renderWarnings as renderCalculationWarnings %}
 
 {% if add_action is not defined %}
   {% set add_action = 'tiltagdetail.actions.add' %}
@@ -61,6 +62,15 @@
   {% endif %}
 {% endblock %}
 
+{% block tiltag_detail_tilvalgt %}
+  {% if is_granted('TILTAG_EDIT', entity) %}
+    {{ form_row(form_detail.tilvalgt) }}
+    {{ renderCalculationWarnings(detail.calculationWarnings, detail.id, { edit_url: path('tiltag_detail_edit', { 'id': detail.id }) }) }}
+  {% else %}
+    {{ detail.tilvalgt | b2icon }}
+  {% endif %}
+{% endblock %}
+
 {% block documentReady %}
   {{ parent() }}
 
@@ -71,11 +81,11 @@
   {{ parent() }}
 
   <script>
-    var parseNumber = function(value) {
-    {% if ',' in (3.14 | format_decimal) %}
+    var parseNumber = function (value) {
+      {% if ',' in (3.14 | format_decimal) %}
       value = value.replace('.', '').replace(',', '.');
-    {% endif %}
-    return parseFloat(value);
+      {% endif %}
+      return parseFloat(value);
     };
   </script>
 
