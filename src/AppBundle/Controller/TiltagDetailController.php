@@ -76,6 +76,7 @@ class TiltagDetailController extends BaseController {
     $template = $this->getTemplate($tiltagdetail, 'edit');
     return $this->render($template, array(
       'calculation_changes' => $this->container->get('aaplus.tiltagdetail_calculation')->getChanges($tiltagdetail),
+      'calculation_warnings' => $tiltagdetail->getCalculationWarnings(),
       'entity' => $tiltagdetail,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
@@ -105,6 +106,7 @@ class TiltagDetailController extends BaseController {
     $template = $this->getTemplate($copy, 'copy');
     return $this->render($template, array(
       'calculation_changes' => $this->container->get('aaplus.tiltagdetail_calculation')->getChanges($copy),
+      'calculation_warnings' => $copy->getCalculationWarnings(),
       'entity' => $copy,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),

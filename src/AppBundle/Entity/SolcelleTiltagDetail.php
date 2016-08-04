@@ -392,6 +392,21 @@ class SolcelleTiltagDetail extends TiltagDetail {
     return $this->nutidsvaerdiSetOver15AarKr;
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'anlaegsstoerrelseKWp',
+    'energiprisstigningPctPrAar',
+    'forringetYdeevnePrAar',
+    'inverterskift1Aar',
+    'inverterskift2Aar',
+    'investeringKr',
+    'omkostningTilMaalerKr',
+    'produktionKWh',
+    'salgsprisEfter10AarKrKWh',
+    'salgsprisFoerste10AarKrKWh',
+    'screeningOgProjekteringKr',
+    'tilNettetPct',
+  ];
+
   public function calculate() {
     $this->tilEgetForbrugPct = $this->calculateTilEgetForbrugPct();
     $this->egetForbrugAfProduktionenKWh = $this->calculateEgetForbrugAfProduktionenKWh();

@@ -36,7 +36,8 @@ Cancel: Annuller
 Update: Opdater
 Delete: Slet
 Add: Tilføj
-
+Close: Luk
+Ok: Ok
 
 common:
   a_search: Søgning
@@ -1869,3 +1870,9 @@ Calculations have changed: Beregninger er ændret
 Calculate rapport: Beregn rapport
 Rapport calculated: Rapport beregnet
 Cannot calculate rapport: Fejl under beregning af rapport
+
+
+Incomplete calculation: Beregningen er ikke komplet
+Fields required for calculation: Udfyld følgende felter
+Tiltag required for calculation: Opdater tiltag nr
+Details required for calculation: Opdater detail nr

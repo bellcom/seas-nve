@@ -1,4 +1,5 @@
 {% extends 'AppBundle:Tiltag:show.html.twig' %}
+{% from 'AppBundle:_includes:calculation_warnings.html.twig' import renderWarnings as renderCalculationWarnings %}
 
 {% block body -%}
   {{ parent() }}
@@ -106,11 +107,7 @@
                   {{ block('tiltag_detail_edit') }}
                 </td>
                 <td class="tilvalgt" data-value="{{ detail.tilvalgt }}">
-                  {% if is_granted('TILTAG_EDIT', entity) %}
-                    {{ form_row(form_detail.tilvalgt) }}
-                  {% else %}
-                    {{ detail.tilvalgt | b2icon }}
-                  {% endif %}
+                  {{ block('tiltag_detail_tilvalgt') }}
                 </td>
                 <td class="anlaegsstoerrelseKWp number">{{ detail.anlaegsstoerrelseKWp | format_decimal }}</td>
                 <td class="produktionKWh number">{{ detail.produktionKWh | format_decimal }}</td>

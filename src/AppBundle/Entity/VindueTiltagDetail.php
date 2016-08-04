@@ -113,6 +113,24 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
     return $this->eWNyKWhM2Aar;
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'type',
+    'placering',
+    'orientering',
+    'antalStk',
+    'hoejdeElLaengdeM',
+    'Uekswm2k',
+    'solenergitransmittansEks',
+    'yderligereBesparelserPct',
+    'glasandel',
+    'breddeM',
+    'Unywm2k',
+    'solenergitransmittansNy',
+    'tiltag',
+    'levetidAar',
+    'prisfaktor',
+  ];
+
   public function calculate() {
     $this->arealM2 = $this->calculateArealM2();
     $this->eRefEksKWhM2Aar = $this->calculateERefEksKWhM2Aar();
