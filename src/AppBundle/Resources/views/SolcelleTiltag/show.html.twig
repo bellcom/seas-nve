@@ -107,12 +107,7 @@
                   {{ block('tiltag_detail_edit') }}
                 </td>
                 <td class="tilvalgt" data-value="{{ detail.tilvalgt }}">
-                  {% if is_granted('TILTAG_EDIT', entity) %}
-                    {{ form_row(form_detail.tilvalgt) }}
-                  {% else %}
-                    {{ detail.tilvalgt | b2icon }}
-                  {% endif %}
-                  {{ renderCalculationWarnings(detail.calculationWarnings, detail.id, { edit_url: is_granted('TILTAG_EDIT', entity) ? path('tiltag_detail_edit', { 'id': detail.id }) : null }) }}
+                  {{ block('tiltag_detail_tilvalgt') }}
                 </td>
                 <td class="anlaegsstoerrelseKWp number">{{ detail.anlaegsstoerrelseKWp | format_decimal }}</td>
                 <td class="produktionKWh number">{{ detail.produktionKWh | format_decimal }}</td>

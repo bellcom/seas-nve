@@ -365,7 +365,9 @@
           <li role="presentation" {% if key == 0 %} class="active" {% endif %}>
             <a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">
               {{ key + 1 }}. {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
-              {{ calculationWarnings.renderIcon(t.calculationWarnings) }}
+              {% if is_granted('RAPPORT_EDIT', entity) %}
+                {{ calculationWarnings.renderIcon(t.calculationWarnings) }}
+              {% endif %}
             </a>
           </li>
         {% endfor %}
@@ -377,10 +379,15 @@
           <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
             <div class="row">
               <div class="col-md-6">
-                <h3>{{ t.title }}
-                  {{ calculationWarnings.renderIcon(t.calculationWarnings, key) }}
+                <h3>
+                  {{ t.title }}
+                  {% if is_granted('RAPPORT_EDIT', entity) %}
+                    {{ calculationWarnings.renderIcon(t.calculationWarnings, key) }}
+                  {% endif %}
                 </h3>
-                {{ calculationWarnings.renderMessagesPopup(t.calculationWarnings, key, { edit_url: is_granted('TILTAG_EDIT', t) ? path('tiltag_edit', { 'id': t.id }) : null, details_url: path('tiltag_show', { 'id': t.id }) }) }}
+                {% if is_granted('RAPPORT_EDIT', entity) %}
+                  {{ calculationWarnings.renderMessagesPopup(t.calculationWarnings, key, { edit_url: is_granted('TILTAG_EDIT', t) ? path('tiltag_edit', { 'id': t.id }) : null, details_url: path('tiltag_show', { 'id': t.id }) }) }}
+                {% endif %}
               </div>
               <div class="col-md-6 text-right">
                 {% if tiltag_type(t) != 'Special' %}
