@@ -36,9 +36,23 @@ abstract class Calculation {
     return true;
   }
 
-  private static function formatNumber($value) {
+  /**
+   * Format a number.
+   */
+  protected static function formatNumber($value) {
     $decimals = abs(log10(self::$allowedDeviance));
     return number_format($value, $decimals);
+  }
+
+  /**
+   * Format all numbers in array structure.
+   */
+  private static function formatNumbers(array &$array) {
+    array_walk_recursive($array, function(&$value) {
+      if (is_numeric($value)) {
+        $value = self::formatNumber($value);
+      }
+    });
   }
 
   /**
@@ -70,13 +84,9 @@ abstract class Calculation {
             $newValue = $new->{$getter}();
 
             if (is_array($oldValue) && is_array($newValue)) {
-              $format = function(&$value) {
-                if (is_numeric($value)) {
-                  $value = self::formatNumber($value);
-                }
-              };
-              array_walk_recursive($oldValue, $format);
-              array_walk_recursive($newValue, $format);
+              // Format numbers in arrays to make comparison make sense.
+              self::formatNumbers($oldValue);
+              self::formatNumbers($newValue);
             }
 
             $isChanged = $oldValue != $newValue;
