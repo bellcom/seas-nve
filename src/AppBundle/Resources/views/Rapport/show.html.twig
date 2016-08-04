@@ -197,11 +197,13 @@
             <div class="alert alert-warning">
               <p><strong>{{ icon('warning') }} {{ 'Incomplete calculation' | trans }}</strong></p>
               {{ calculationWarnings.renderMessagesInline(calculation_warnings) }}
-              <p>
-                <a href="{{ path('rapport_edit', {'id': entity.id}) }}" class="btn btn-warning">
-                  {{ icon('edit') }} {{ (params.edit_title is defined ? params.edit_title : 'common.edit') | trans }}
-                </a>
-              </p>
+              {% if calculation_warnings['errors'] is defined and calculation_warnings['errors'] is not empty %}
+                <p>
+                  <a href="{{ path('rapport_edit', {'id': entity.id}) }}" class="btn btn-warning">
+                    {{ icon('edit') }} {{ (params.edit_title is defined ? params.edit_title : 'common.edit') | trans }}
+                  </a>
+                </p>
+              {% endif %}
             </div>
           {% endif %}
         </td>
@@ -365,7 +367,7 @@
           <li role="presentation" {% if key == 0 %} class="active" {% endif %}>
             <a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">
               {{ key + 1 }}. {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
-              {% if is_granted('RAPPORT_EDIT', entity) %}
+              {% if is_granted('TILTAG_EDIT', t) %}
                 {{ calculationWarnings.renderIcon(t.calculationWarnings) }}
               {% endif %}
             </a>
@@ -381,12 +383,15 @@
               <div class="col-md-6">
                 <h3>
                   {{ t.title }}
-                  {% if is_granted('RAPPORT_EDIT', entity) %}
+                  {% if is_granted('TILTAG_EDIT', t) %}
                     {{ calculationWarnings.renderIcon(t.calculationWarnings, key) }}
                   {% endif %}
                 </h3>
-                {% if is_granted('RAPPORT_EDIT', entity) %}
-                  {{ calculationWarnings.renderMessagesPopup(t.calculationWarnings, key, { edit_url: is_granted('TILTAG_EDIT', t) ? path('tiltag_edit', { 'id': t.id }) : null, details_url: path('tiltag_show', { 'id': t.id }) }) }}
+                {% if is_granted('TILTAG_EDIT', t) %}
+                  {{ calculationWarnings.renderMessagesPopup(t.calculationWarnings, key, {
+                    edit_url: (t.calculationWarnings['errors'] is defined and t.calculationWarnings['errors'] is not empty) ? path('tiltag_edit', { 'id': t.id }) : null,
+                    details_url: path('tiltag_show', { 'id': t.id }) })
+                  }}
                 {% endif %}
               </div>
               <div class="col-md-6 text-right">

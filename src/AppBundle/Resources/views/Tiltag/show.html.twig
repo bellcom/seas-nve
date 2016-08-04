@@ -65,7 +65,7 @@
 {% block tiltag_detail_tilvalgt %}
   {% if is_granted('TILTAG_EDIT', entity) %}
     {{ form_row(form_detail.tilvalgt) }}
-    {{ renderCalculationWarnings(detail.calculationWarnings, detail.id, { edit_url: is_granted('TILTAG_EDIT', entity) ? path('tiltag_detail_edit', { 'id': detail.id }) : null }) }}
+    {{ renderCalculationWarnings(detail.calculationWarnings, detail.id, { edit_url: path('tiltag_detail_edit', { 'id': detail.id }) }) }}
   {% else %}
     {{ detail.tilvalgt | b2icon }}
   {% endif %}
