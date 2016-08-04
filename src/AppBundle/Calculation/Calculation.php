@@ -37,6 +37,25 @@ abstract class Calculation {
   }
 
   /**
+   * Format a number.
+   */
+  protected static function formatNumber($value) {
+    $decimals = abs(log10(self::$allowedDeviance));
+    return number_format($value, $decimals);
+  }
+
+  /**
+   * Format all numbers in array structure.
+   */
+  private static function formatNumbers(array &$array) {
+    array_walk_recursive($array, function(&$value) {
+      if (is_numeric($value)) {
+        $value = self::formatNumber($value);
+      }
+    });
+  }
+
+  /**
    * Decide if any calculated values (numeric only) in entity will have different values if re-calculated.
    *
    * @FIXME:
@@ -63,6 +82,13 @@ abstract class Calculation {
           if (method_exists($old, $getter)) {
             $oldValue = $old->{$getter}();
             $newValue = $new->{$getter}();
+
+            if (is_array($oldValue) && is_array($newValue)) {
+              // Format numbers in arrays to make comparison make sense.
+              self::formatNumbers($oldValue);
+              self::formatNumbers($newValue);
+            }
+
             $isChanged = $oldValue != $newValue;
             switch ($type) {
               case 'float':

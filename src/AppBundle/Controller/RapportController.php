@@ -736,6 +736,14 @@ class RapportController extends BaseController {
     $flash = $this->get('braincrafted_bootstrap.flash');
 
     try {
+      foreach ($rapport->getTiltag() as $tiltag) {
+        foreach ($tiltag->getDetails() as $detail) {
+          $detail->calculate();
+          $em->persist($detail);
+        }
+        $tiltag->calculate();
+        $em->persist($tiltag);
+      }
       $rapport->calculate();
 
       $em->persist($rapport);

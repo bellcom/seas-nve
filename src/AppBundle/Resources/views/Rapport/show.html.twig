@@ -24,7 +24,9 @@
                 </div>
               {% endif %}
               <p><strong>{{ 'common.changes' | trans }}:</strong></p>
-              {% include 'AppBundle:_includes:calculation_changes_show.html.twig' %}
+              <div class="aaplus-calculation-changes-wrapper">
+                {% include 'AppBundle:_includes:calculation_changes_show.html.twig' %}
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | trans }}</button>
