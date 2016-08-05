@@ -20,6 +20,8 @@ class Version20160802113736 extends AbstractMigration
 
         $this->addSql('ALTER TABLE Tiltag ADD genopretningForImplementeringsomkostninger NUMERIC(10, 0) DEFAULT NULL');
         $this->addSql('ALTER TABLE Tiltag_audit ADD genopretningForImplementeringsomkostninger NUMERIC(10, 0) DEFAULT NULL');
+        $this->addSql('ALTER TABLE Rapport ADD genopretningForImplementeringsomkostninger NUMERIC(10, 0) DEFAULT NULL');
+        $this->addSql('ALTER TABLE Rapport_audit ADD genopretningForImplementeringsomkostninger NUMERIC(10, 0) DEFAULT NULL');
     }
 
     /**
@@ -32,5 +34,7 @@ class Version20160802113736 extends AbstractMigration
 
         $this->addSql('ALTER TABLE Tiltag DROP genopretningForImplementeringsomkostninger');
         $this->addSql('ALTER TABLE Tiltag_audit DROP genopretningForImplementeringsomkostninger');
+        $this->addSql('ALTER TABLE Rapport DROP genopretningForImplementeringsomkostninger');
+        $this->addSql('ALTER TABLE Rapport_audit DROP genopretningForImplementeringsomkostninger');
     }
 }

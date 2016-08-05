@@ -1279,6 +1279,13 @@ class Rapport {
   protected $genopretning;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
+   */
+  protected $genopretningForImplementeringsomkostninger;
+
+  /**
    * @var string
    *
    * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
@@ -1306,6 +1313,10 @@ class Rapport {
    */
   public function getGenopretning() {
     return $this->genopretning;
+  }
+
+  public function getGenopretningForImplementeringsomkostninger() {
+    return $this->genopretningForImplementeringsomkostninger;
   }
 
   /**
@@ -1816,6 +1827,7 @@ class Rapport {
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->fravalgtNutidsvaerdiSetOver15AarKr = $this->calculateFravalgtNutidsvaerdiSetOver15AarKr();
     $this->genopretning = $this->calculateGenopretning();
+    $this->genopretningForImplementeringsomkostninger = $this->calculateGenopretningForImplementeringsomkostninger();
     $this->modernisering = $this->calculateModernisering();
     $this->fravalgtGenopretning = $this->calculateFravalgtGenopretning();
     $this->fravalgtModernisering = $this->calculateFravalgtModernisering();
@@ -1863,6 +1875,12 @@ class Rapport {
       $value += $tiltag->getGenopretning();
     }
     return $value;
+  }
+
+  private function calculateGenopretningForImplementeringsomkostninger() {
+    return $this->accumulate(function($tiltag, $value) {
+      return $value + $tiltag->getGenopretningForImplementeringsomkostninger();
+    }, 0);
   }
 
   private function calculateModernisering() {
