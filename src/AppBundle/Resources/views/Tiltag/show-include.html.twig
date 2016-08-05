@@ -136,6 +136,13 @@
           <td class="text-right">{{ entity.genopretning | format_amount }}</td>
           <td>{{ 'appbundle.tiltag.genopretning.unit' | trans }}</td>
         </tr>
+        {% if extended is defined and extended %}
+          <tr>
+            <td>{{ 'appbundle.tiltag.genopretningForImplementeringsomkostninger' | trans }}</td>
+            <td class="text-right">{{ entity.genopretningForImplementeringsomkostninger | format_amount }}</td>
+            <td>{{ 'appbundle.tiltag.genopretningForImplementeringsomkostninger.unit' | trans }}</td>
+          </tr>
+        {% endif %}
         <tr>
           <td>{{ 'appbundle.tiltag.modernisering' | trans }}</td>
           <td class="text-right">{{ entity.modernisering | format_amount }}</td>

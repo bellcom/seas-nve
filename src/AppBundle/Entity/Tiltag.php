@@ -557,6 +557,13 @@ abstract class Tiltag {
   protected $genopretning;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
+   */
+  protected $genopretningForImplementeringsomkostninger;
+
+  /**
    * @var string
    *
    * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
@@ -1463,6 +1470,28 @@ abstract class Tiltag {
    */
   public function getGenopretning() {
     return $this->genopretning;
+  }
+
+  /**
+   * Set genopretningForImplementeringsomkostninger
+   *
+   * @param string $genopretningForImplementeringsomkostninger
+   *
+   * @return Tiltag
+   */
+  public function setGenopretningForImplementeringsomkostninger($genopretningForImplementeringsomkostninger) {
+    $this->genopretningForImplementeringsomkostninger = $genopretningForImplementeringsomkostninger;
+
+    return $this;
+  }
+
+  /**
+   * Get genopretningForImplementeringsomkostninger
+   *
+   * @return string
+   */
+  public function getGenopretningForImplementeringsomkostninger() {
+    return $this->genopretningForImplementeringsomkostninger;
   }
 
   /**
