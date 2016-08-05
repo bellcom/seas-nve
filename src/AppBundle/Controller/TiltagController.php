@@ -92,6 +92,7 @@ class TiltagController extends BaseController {
     $template = $this->getTemplate($tiltag, 'edit');
     return $this->render($template, array(
       'entity' => $tiltag,
+      'calculation_warnings' => $tiltag->getCalculationWarnings(),
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     ));

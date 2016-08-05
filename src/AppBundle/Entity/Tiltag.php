@@ -557,6 +557,13 @@ abstract class Tiltag {
   protected $genopretning;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
+   */
+  protected $genopretningForImplementeringsomkostninger;
+
+  /**
    * @var string
    *
    * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
@@ -612,15 +619,15 @@ abstract class Tiltag {
   }
 
   /**
-   * Get id
+   * Get index
    *
    * @return integer
    */
-  public function getIndexNumberFromRapport() {
+  public function getIndexNumber() {
     $tiltag = $this->getRapport()->getTiltag();
     $index = 1;
     foreach ($tiltag as $t) {
-      if($t.$this->getId() === $this.$this->getId()) {
+      if($t->getId() === $this->getId()) {
         return $index;
       }
       $index++;
@@ -1466,6 +1473,28 @@ abstract class Tiltag {
   }
 
   /**
+   * Set genopretningForImplementeringsomkostninger
+   *
+   * @param string $genopretningForImplementeringsomkostninger
+   *
+   * @return Tiltag
+   */
+  public function setGenopretningForImplementeringsomkostninger($genopretningForImplementeringsomkostninger) {
+    $this->genopretningForImplementeringsomkostninger = $genopretningForImplementeringsomkostninger;
+
+    return $this;
+  }
+
+  /**
+   * Get genopretningForImplementeringsomkostninger
+   *
+   * @return string
+   */
+  public function getGenopretningForImplementeringsomkostninger() {
+    return $this->genopretningForImplementeringsomkostninger;
+  }
+
+  /**
    * Set modernisering
    *
    * @param string $modernisering
@@ -1534,6 +1563,28 @@ abstract class Tiltag {
     return $this->datoForDrift;
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'forsyningVarme',
+    'forsyningEl',
+    'levetid',
+    'faktorForReinvesteringer',
+  ];
+
+  public function getPropertiesRequiredForCalculation() {
+    return $this->propertiesRequiredForCalculation;
+  }
+
+  /**
+   * Check if calculating this Tiltag makes sense.
+   * Some values may be required to make a meaningful calculation.
+   */
+  public function getCalculationWarnings($messages = [])
+  {
+    $properties = $this->getPropertiesRequiredForCalculation();
+    $prefix = 'tiltag';
+    return Calculation::getCalculationWarnings($this, $properties, $prefix, $this->getDetails());
+  }
+
   /**
    * Get all files on this Tiltag plus any files from TiltagDetails.
    *
@@ -1555,7 +1606,7 @@ abstract class Tiltag {
       }
     }
 
-    return $files ? [ $this->getIndexNumberFromRapport().'-'.$this->getTitle() => $files ] : null;
+    return $files ? [ $this->getIndexNumber().'-'.$this->getTitle() => $files ] : null;
   }
 
   /**

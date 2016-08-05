@@ -36,7 +36,8 @@ Cancel: Annuller
 Update: Opdater
 Delete: Slet
 Add: Tilføj
-
+Close: Luk
+Ok: Ok
 
 common:
   a_search: Søgning
@@ -1429,6 +1430,8 @@ appbundle:
     fravalgtImplementering: Fravalgt implementering
     genopretning: Genopretning
     genopretning.unit: kr
+    genopretningForImplementeringsomkostninger: Genopretning for implementeringsomkostninger
+    genopretningForImplementeringsomkostninger.unit: kr
     genopretningsandel: Genopretningsandel
     genopretningsandel.unit: kr
     implementering: Implementering
@@ -1653,6 +1656,8 @@ appbundle:
     fravalgt: Fravalgt
     genopretning: Genopretning
     genopretning.unit: kr.
+    genopretningForImplementeringsomkostninger: Genopretning for implementeringsomkostninger
+    genopretningForImplementeringsomkostninger.unit: kr.
     ialt: I alt
     id: Id
     indeklima: Indeklima
@@ -1873,3 +1878,9 @@ Calculations have changed: Beregninger er ændret
 Calculate rapport: Beregn rapport
 Rapport calculated: Rapport beregnet
 Cannot calculate rapport: Fejl under beregning af rapport
+
+
+Incomplete calculation: Beregningen er ikke komplet
+Fields required for calculation: Udfyld følgende felter
+Tiltag required for calculation: Opdater tiltag nr
+Details required for calculation: Opdater detail nr

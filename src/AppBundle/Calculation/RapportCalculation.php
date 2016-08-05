@@ -30,4 +30,24 @@ class RapportCalculation extends Calculation {
     return $rapport;
   }
 
+  public function getChanges($entity) {
+    $changes = parent::getChanges($entity);
+
+    if ($entity instanceof Rapport) {
+      $tiltagCalculation = $this->container->get('aaplus.tiltag_calculation');
+      foreach ($entity->getTilvalgteTiltag() as $tiltag) {
+        $tiltagChanges = $tiltagCalculation->getChanges($tiltag);
+        if ($tiltagChanges) {
+          $changes['tiltag:' . $tiltag->getId()] = [
+            'property' => $tiltag->getIndexNumber() . '. '. $tiltag->getTitle(),
+            'type' => 'tiltag',
+            'entity' => $tiltag,
+            'changes' => $tiltagChanges,
+          ];
+        }
+      }
+    }
+
+    return $changes;
+  }
 }

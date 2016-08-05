@@ -1,14 +1,42 @@
+{% from _self import render_calculation_changes %}
+
 {% if calculation_changes is defined and calculation_changes %}
-  {% for message in calculation_changes %}
-    <p>
-      {{ message.property | trans_field(entity) }}:
-      {% if message.type == 'float' %}
-        {{ message.oldValue | format_decimal }} → {{ message.newValue | format_decimal }}
-      {% elseif message.type == 'array' %}
-        {{ 'common.will_change' | trans }}
-      {% else %}
-        {{ message.oldValue }} → {{ message.newValue }}
-      {% endif %}
-    </p>
-  {% endfor %}
+  {{ render_calculation_changes(calculation_changes, entity) }}
 {% endif %}
+
+{% macro render_calculation_changes(changes, entity) %}
+  {% from _self import render_calculation_changes %}
+
+  <div class="aaplus-calculation-changes">
+    {% for message in changes %}
+      {% if message.type in [ 'tiltag', 'tiltag_detail' ] %}
+        <div class="change entity">
+          <span class="property">
+            {{ message.property }}
+            {% if message.type in [ 'tiltag' ] %}
+              ({{ tiltag_type(message.entity)  }})
+            {% endif %}
+          </span>
+          <div class="values">
+            {{ render_calculation_changes(message.changes, message.entity) }}
+          </div>
+        </div>
+      {% else %}
+        <div class="change">
+          <span class="property">
+            {{ message.property | trans_field(entity) }}:
+          </span>
+          <span class="values">
+            {% if message.type == 'float' %}
+              {{ message.oldValue | format_decimal }} → {{ message.newValue | format_decimal }}
+            {% elseif message.type == 'array' %}
+              {{ 'common.will_change' | trans }}
+            {% else %}
+              {{ message.oldValue }} → {{ message.newValue }}
+            {% endif %}
+          </span>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endmacro %}

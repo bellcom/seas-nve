@@ -684,6 +684,23 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     return 0;
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'andelAfArealDerEfterisoleres',
+    'antalStk',
+    'breddeM',
+    'hoejdeElLaengdeM',
+    'klimaskaerm',
+    'levetidAar',
+    'placering',
+    'prisfaktor',
+    'tIndeC',
+    'tOpvarmningTimerAar',
+    'tUdeC',
+    'type',
+    'uEksWM2K',
+    'uNyWM2K',
+  ];
+
   public function calculate() {
     $this->arealM2 = $this->calculateArealM2();
     $this->besparelseKWhAar = $this->calculateBesparelseKWhAar();

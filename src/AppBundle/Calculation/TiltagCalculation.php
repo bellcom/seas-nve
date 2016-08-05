@@ -52,6 +52,27 @@ class TiltagCalculation extends Calculation {
     return $tiltag;
   }
 
+  public function getChanges($entity) {
+    $changes = parent::getChanges($entity);
+
+    if ($entity instanceof Tiltag) {
+      $detailCalculation = $this->container->get('aaplus.tiltagdetail_calculation');
+      foreach ($entity->getDetails() as $detail) {
+        $detailChanges = $detailCalculation->getChanges($detail);
+        if ($detailChanges) {
+          $changes['tiltag_detail:' . $detail->getId()] = [
+            'property' => $detail->getIndexNumber() . '. ' . ($detail->getTitle() ?: 'Detail'),
+            'type' => 'tiltag_detail',
+            'entity' => $detail,
+            'changes' => $detailChanges,
+          ];
+        }
+      }
+    }
+
+    return $changes;
+  }
+
   private function getCalculationService($entity) {
     $entityName = $this->getEntityName($entity);
     if (!$entityName) {

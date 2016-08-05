@@ -406,6 +406,20 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     return $this->nyttiggjortVarme;
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'type',
+    'driftstidTAar',
+    'eksistIsolMm',
+    'udvDiameterMm',
+    'tempOmgivelC',
+    'roerlaengdeEllerHoejdeAfVvbM',
+    'nyttiggjortVarme',
+    'nyIsolMm',
+    'tempMedieC',
+    'standardinvestKrM2EllerKrM',
+    'prisfaktor',
+  ];
+
   public function calculate() {
     $this->roerstoerrelseMmAekvivalent = $this->calculateRoerstoerrelseMmAekvivalent();
     $this->varmeledningsevnePaaEksistIsoleringWMK = $this->calculateVarmeledningsevnePaaEksistIsoleringWMK();

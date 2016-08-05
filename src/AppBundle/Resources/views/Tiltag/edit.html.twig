@@ -5,6 +5,8 @@
 {% endif %}
 
 {% block body -%}
+  {% include 'AppBundle:_includes:calculation_warnings.html.twig' %}
+
   <div class="row heading">
     <div class="col-md-8">
       <h1>{{ heading | trans }}</h1>
@@ -107,6 +109,7 @@
         {% if edit_form.genopretning is defined %}
           {{ form_row(edit_form.genopretning) }}
         {% endif %}
+        {{ form_row(edit_form.genopretningForImplementeringsomkostninger) }}
         {% if edit_form.besparelseDriftOgVedligeholdelse is defined %}
           {{ form_row(edit_form.besparelseDriftOgVedligeholdelse) }}
         {% endif %}

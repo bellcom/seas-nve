@@ -290,6 +290,41 @@ abstract class TiltagDetail {
    */
   protected $configuration;
 
+  protected $propertiesRequiredForCalculation = [];
+
+  public function getPropertiesRequiredForCalculation() {
+    return $this->propertiesRequiredForCalculation;
+  }
+
+  /**
+   * Check if calculating this Tiltag makes sense.
+   * Some values may be required to make a meaningful calculation.
+   */
+  public function getCalculationWarnings($messages = []) {
+    $properties = $this->getPropertiesRequiredForCalculation();
+    $prefix = strtolower((string)$this);
+    $d = Calculation::getCalculationWarnings($this, $properties, $prefix);
+    return Calculation::getCalculationWarnings($this, $properties, $prefix);
+  }
+
+  /**
+   * Get index
+   *
+   * @return integer
+   */
+  public function getIndexNumber() {
+    $details = $this->getTiltag()->getDetails();
+    $index = 1;
+    foreach ($details as $d) {
+      if($this->getId() === $d->getId()) {
+        return $index;
+      }
+      $index++;
+    }
+
+    return 0;
+  }
+
   /**
    * Calculate stuff.
    */

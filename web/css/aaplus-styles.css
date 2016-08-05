@@ -9,6 +9,18 @@
   padding-left: 2em;
 }
 
+.modal-link {
+  cursor: pointer;
+}
+
+span.calculattion-warning {
+  cursor: pointer;
+}
+
+.nav span.calculattion-warning {
+  cursor: default;
+}
+
 /* tr:target td {
      background-color: #ffc;
 } */
@@ -90,6 +102,10 @@ form.inline-block {
 * https://css-tricks.com/rotated-table-column-headers/
 */
 
+table.table-fixed {
+  table-layout: fixed;
+}
+
 .table.table-header-rotated > thead:first-child > tr:first-child > th {
   border-top: 1px solid #ddd;
 }
@@ -151,6 +167,13 @@ td.number {
 }
 
 /* Ekstra table classes */
+
+td span.calculattion-warning {
+  position: relative;
+  top: 10px;
+  left: 3px;
+  color: #777;
+}
 
 .th-vertical > tbody > tr > th, .th-vertical > tfoot > tr > th, .th-vertical > thead > tr > th {
   width: 40%;
@@ -737,4 +760,17 @@ form .alert ul {
     line-height: 1.42857143;
     border-radius: 4px;
   }
+}
+
+.aaplus-calculation-changes-wrapper  {
+  max-height: 24em;
+  overflow: auto;
+}
+
+.aaplus-calculation-changes .entity > .property {
+  font-weight: bold;
+}
+
+.aaplus-calculation-changes .aaplus-calculation-changes {
+  margin-left: 1em;
 }
