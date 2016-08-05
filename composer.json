@@ -23,7 +23,7 @@
     "ddeboer/data-import": "@stable",
     "ddeboer/data-import-bundle": "~0.1",
     "braincrafted/bootstrap-bundle": "~2.0",
-    "knplabs/knp-paginator-bundle": "2.5.*",
+    "knplabs/knp-paginator-bundle": "2.4.*@dev",
     "twbs/bootstrap": "3.3.*",
     "yavin/symfony-init-controller": "dev-master",
     "whiteoctober/breadcrumbs-bundle": "dev-master",

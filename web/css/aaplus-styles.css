@@ -245,10 +245,6 @@ table.configuration-settings td:nth-child(2) {
   text-align: right;
 }
 
-td.date {
-  white-space: nowrap;
-}
-
 /* Ekstra form validation classes */
 
 .has-info .help-block,

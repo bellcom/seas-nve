@@ -95,8 +95,6 @@ common:
   updatedBy: Opdateret af
   will_change: Opdateres
   your_buildings: Dine bygninger
-  your_segments: Dine segmenter
-  projektleder_for: Projektleder for
 dashboard:
   besparelseCO2: CO2 Besparelse
   besparelseEl: El Besparelse
@@ -1815,15 +1813,13 @@ appbundle:
 
 # Dataudtræk
 udtraek.bygning:
-  adresse: Adresse indholder
-  energiRaadgiver: Energirådgiver
   navn: Navn indholder
+  adresse: Adresse indholder
   postnummer: Postnummer starter med
   rapport.datering: Datering mellem
   rapport.elena: Elena
   status: Status
   segment.forkortelse: Magistrat
-  updatedBy: Opdateret af
 
 # Calculations
 appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |
