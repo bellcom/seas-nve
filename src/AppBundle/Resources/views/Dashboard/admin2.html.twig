@@ -1,0 +1,116 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+
+  <div>
+
+    {% if bygninger or segmenter or projektleder %}
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        {% if bygninger %}
+          <li role="presentation" {% if tab == 'bygninger' %} class="active" {% endif %}><a href="{{ path('dashboard') }}" role="tab">{{ 'bygninger.labels.plural' | trans }}</a></li>
+        {% endif %}
+        {% if segmenter %}
+          <li role="presentation" {% if tab == 'segmenter' %} class="active" {% endif %}><a href="{{ path('dashboard_segmenter') }}" role="tab">{{ 'segment.labels.plural' | trans }}</a></li>{##}
+        {% endif %}
+        {% if projektleder %}
+          <li role="presentation" {% if tab == 'projektleder' %} class="active" {% endif %}><a href="{{ path('dashboard_projektleder') }}" aria-controls="messages" role="tab">{{ 'appbundle.bygning.projektleder' | trans }}</a></li>
+        {% endif %}
+      </ul>
+    {% endif %}
+
+
+    <div class="row">
+      <div class="col-md-9">
+        <h3>
+          {% if tab == 'bygninger' %}
+            {{ 'common.your_buildings' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
+          {% elseif tab == 'segmenter' %}
+            {{ 'common.your_segments' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
+          {% elseif tab == 'projektleder' %}
+            {{ 'common.projektleder_for' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
+          {% else %}
+            {{ 'common.forside' | trans }}
+          {% endif %}
+        </h3>
+      </div>
+      <div class="col-md-3 text-right">
+        <h4>
+          <small>{% include 'AppBundle:_includes:pagination_count.html.twig' with {'pagination': pagination} %}</small>
+        </h4>
+      </div>
+
+    </div>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_errors(form) }}
+
+    <div class="panel panel-default">
+      <table class="table table-condensed table-hover">
+        <tr>
+          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.navn'|trans, 'b.navn') }}</th>
+          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.adresse'|trans, 'b.adresse') }}</th>
+          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.postnummer'|trans, 'b.postnummer') }}</th>
+          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 'b.segment') }}</th>
+          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.status'|trans, 'b.status') }}</th>
+          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.energiRaadgiver'|trans, 'b.energiRaadgiver') }}</th>
+          <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.updatedAt'|trans, 'r.updatedAt') }}</th>
+          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.updatedBy'|trans, 'b.updatedBy') }}</th>
+          <th></th>
+        </tr>
+
+        <tr class="search">
+          <th>{{ form_row(form.navn) }}</th>
+          <th>{{ form_row(form.adresse) }}</th>
+          <th>{{ form_row(form.postnummer) }}</th>
+          <th>{{ form_row(form.segment) }}</th>
+          <th>{{ form_row(form.status) }}</th>
+          <th>{{ form_row(form.energiRaadgiver) }}</th>
+          <th></th>
+          <th></th>
+          <th>{{ form_row(form.Søg) }}</th>
+        </tr>
+
+        {% for bygning in pagination %}
+        <tr>
+          <td>{{ bygning.navn }}</td>
+          <td>{{ bygning.adresse }}</td>
+          <td>{{ bygning.postnummer }}</td>
+          <td>
+            {% if bygning.segment is not empty %}
+              {{ bygning.segment.forkortelse }}
+            {% endif %}
+          </td>
+          <td>{{ bygning.status  | readable }}</td>
+          <td>{% if bygning.energiRaadgiver is not empty %}{{ bygning.energiRaadgiver.username }}{% endif %}</td>
+          <td class="date">{{ bygning.updatedAt | date('Y-m-d') }}</td>
+          <td>{{ bygning.updatedBy }}</td>
+          <td class="text-right">
+            {% if bygning.rapport is not empty %}
+              <a href="{{ path('rapport_show', { 'id': bygning.rapport.id }) }}" class="btn btn-default btn-xs">{{ 'rapporter.actions.show' | trans }}</a>
+            {% else %}
+              <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'bygninger.actions.show' | trans }}</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+          <tr>
+            <td colspan="9">
+              <div class="alert alert-info" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-center">
+        {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
+      </div>
+    </div>
+
+    {{ form_end(form) }}
+
+  </div>
+
+{% endblock %}
