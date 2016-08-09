@@ -28,13 +28,6 @@ class RapportBilagType extends AbstractType {
     $builder
       ->add('titel')
       ->add('kommentar')
-      ->add('rapport', 'entity', array(
-        'class' => 'AppBundle:Rapport',
-        'label' => false,
-        'attr' => array(
-          'class' => 'hidden'
-        )
-      ))
       ->add('filepath', 'file', array(
         'data_class' => null,
         'attachment_path' => 'filepath',

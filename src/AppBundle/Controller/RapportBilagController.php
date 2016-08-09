@@ -209,6 +209,7 @@ class RapportBilagController extends BaseController {
    */
   public function newBilagAction(Request $request, Rapport $rapport) {
     $bilag = new Bilag();
+    $bilag->setRapport($rapport);
 
     $editForm = $this->createNewForm($rapport, $bilag);
     $editForm->handleRequest($request);
