@@ -1,5 +1,11 @@
 # Aaplus changelog
 
+## v1.6.1
+* SUPPORT-679:  Fixed bug on baseline edit and on new rapport/bilag  
+
+## v1.6.0
+* AAPLUS-550    Dataudtræk - historisk
+
 ## v1.5.0
 * AAPLUS-557	Opsplitning af “version"
 * AAPLUS-551	"Dato for drift" på Rapport

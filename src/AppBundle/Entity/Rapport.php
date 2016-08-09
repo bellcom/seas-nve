@@ -651,7 +651,7 @@ class Rapport {
     if ($bygning->getNavn()) {
       return $bygning->getNavn();
     }
-    return $bygning->getId();
+    return strval($bygning->getId());
   }
 
   /**

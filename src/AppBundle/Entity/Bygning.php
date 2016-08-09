@@ -267,10 +267,10 @@ class Bygning {
     if (!empty($this->navn)) {
       return $this->navn;
     }
-    else {
+    if (!empty($this->adresse)) {
       return $this->adresse;
     }
-
+    return strval($this->id);
   }
 
 
