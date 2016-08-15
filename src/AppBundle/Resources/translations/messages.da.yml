@@ -1374,6 +1374,8 @@ appbundle:
     BaselineVarmeGUF.unit: kwh/år
     besparelseAarEt: Økonomisk besparelse i år 1
     besparelseAarEt.unit: kr
+    besparelseAarEtPdf: Økonomisk besparelse i år 1 (inkl. D&V-besparelse)
+    besparelseAarEtPdf.unit: kr
     besparelseAarEt: Samlet besparelse i kr i år 1
     besparelseAarEt.unit: kr/år
     besparelseCO2: Samlet CO2
