@@ -2041,7 +2041,7 @@ class Rapport {
   private function calculateFravalgtBesparelseEl() {
     $value = 0;
     foreach ($this->getFravalgteTiltag() as $tiltag) {
-      $value += $tiltag->getSamletEnergibesparelse();
+      $value += $tiltag->getElBesparelse();
     }
     return $value;
   }
