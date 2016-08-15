@@ -20,6 +20,9 @@
       <th class="text-right">{{ 'appbundle.tiltag.aaplusInvestering' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
       {% if is_granted('RAPPORT_EDIT', entity) and is_granted('ROLE_ADMIN') and pdf == false %}
+        {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
+          <th class="text-right">{{ 'appbundle.tiltag.datoForDrift' | trans }}</th>
+        {% endif %}
         <th></th>
       {% endif %}
     </tr>
@@ -32,8 +35,7 @@
         <td>
           {{ t.tilvalgtAfAaPlus | b2icon }}
           {% if t.tilvalgtbegrundelse %}
-            <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top"
-                  data-content="{{ t.tilvalgtbegrundelse }}">
+            <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ t.tilvalgtbegrundelse }}">
               {{ icon('info-circle') }}
             </span>
           {% endif %}
@@ -41,8 +43,7 @@
         <td>
           {{ t.tilvalgtAfMagistrat | b2icon }}
           {% if t.tilvalgtBegrundelseMagistrat %}
-            <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top"
-                  data-content="{{ t.tilvalgtBegrundelseMagistrat }}">
+            <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ t.tilvalgtBegrundelseMagistrat }}">
               {{ icon('info-circle') }}
             </span>
           {% endif %}
@@ -54,17 +55,21 @@
         <td class="text-right">{{ t.anlaegsinvestering | format_amount }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
         {% if is_granted('RAPPORT_EDIT', entity) and is_granted('ROLE_ADMIN') and pdf == false %}
           <td class="text-right">
-            {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
-              <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#datoForDriftModal-{{ t.id }}">Dato f. drift</button>
-            {% endif %}
-            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
-              {% if type == 'tilvalg' %}
-                {{ 'common.deselect' | trans }}
-              {% else %}
-                {{ 'common.select' | trans }}
-              {% endif %}
+            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#datoForDriftModal-{{ t.id }}">
+              {{ t.datoForDrift ?  t.datoForDrift | date('Y-m-d') : 'appbundle.tiltag.datoForDrift' | trans }}
             </button>
           </td>
+        {% endif %}
+        <td class="text-right">
+          {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
+          <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
+            {% if type == 'tilvalg' %}
+              {{ 'common.deselect' | trans }}
+            {% else %}
+              {{ 'common.select' | trans }}
+            {% endif %}
+          </button>
+        </td>
         {% endif %}
       </tr>
     {% endfor %}
@@ -87,6 +92,9 @@
         {% endif %}
       </th>
       {% if is_granted('RAPPORT_EDIT', entity) and is_granted('ROLE_ADMIN') and pdf == false %}
+        {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
+          <th></th>
+        {% endif %}
         <th></th>
       {% endif %}
     </tr>

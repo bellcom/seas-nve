@@ -1642,7 +1642,7 @@ appbundle:
       filepath: Fil
       kommentar: Kommentar
       titel: Titel
-    datoForDrift: Dato for drift
+    datoForDrift: Dato f. drift
     elbesparelse: Elbesparelse
     elbesparelse.unit: kWh/år
     energiledelseAendringIBesparelseFaktor: Justering af besparelse ift. energiledelse
