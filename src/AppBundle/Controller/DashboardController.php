@@ -39,8 +39,6 @@ class DashboardController extends BaseController {
       $filterBuilder = $this->get('doctrine.orm.entity_manager')
         ->getRepository('AppBundle:Bygning')
         ->createQueryBuilder('b ');
-//      $filterBuilder->leftJoin('b.rapport', 'r');
-      $filterBuilder->leftJoin('b.rapport', 'r');
       $filterBuilder->andWhere('b.aaplusAnsvarlig = :aaplusAnsvarlig');
       $filterBuilder->setParameter('aaplusAnsvarlig', $user);
 
@@ -66,7 +64,7 @@ class DashboardController extends BaseController {
         array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
       );
 
-      return $this->render('AppBundle:Dashboard:admin2.html.twig', array(
+      return $this->render('AppBundle:Dashboard:admin.html.twig', array(
         'pagination' => $pagination,
         'form' => $form->createView(),
         'tab' => 'bygninger',
