@@ -256,35 +256,35 @@ class Rapport {
   /**
    * @var float
    *
-   * @ORM\Column(name="BaselineEl", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineEl", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $BaselineEl;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="BaselineVarmeGUF", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineVarmeGUF", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $BaselineVarmeGUF;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="BaselineVarmeGAF", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineVarmeGAF", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $BaselineVarmeGAF;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="BaselineVand", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineVand", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $BaselineVand;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="BaselineStrafAfkoeling", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineStrafAfkoeling", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $BaselineStrafAfkoeling;
 
