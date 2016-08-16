@@ -2161,7 +2161,7 @@ class Rapport {
   }
 
   private function calculateEnergibudgetVarme() {
-    return $this->BaselineVarmeGAF - $this->BaselineVarmeGUF - ($this->besparelseVarmeGAF + $this->besparelseVarmeGUF);
+    return ($this->BaselineVarmeGAF + $this->BaselineVarmeGUF) - ($this->besparelseVarmeGAF + $this->besparelseVarmeGUF);
   }
 
   private function calculateEnergibudgetEl() {
