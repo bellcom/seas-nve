@@ -485,7 +485,7 @@ End Function
     if(get_class($this) === get_class($detail)) {
       foreach ($detail as $property => $value) {
         // Only update set values
-        if($value !== null) {
+        if($value !== null && $accessor->isWritable($this, $property)) {
           $accessor->setValue($this, $property, $value);
         }
       }

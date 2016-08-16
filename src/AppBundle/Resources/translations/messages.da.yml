@@ -436,7 +436,6 @@ solcelle:
 solcelletiltag:
   actions:
     add: Tilføj solcelletiltag
-    batch_edit: Rediger valgte solcelletiltag
     copy: Kopier solcelletiltag
     edit: Rediger solcelletiltag
   confirmation:
@@ -444,6 +443,7 @@ solcelletiltag:
 solcelletiltagdetail:
   actions:
     add: Tilføj solcelletiltag
+    batch_edit: Rediger valgte solcelletiltag
     copy: Kopier solcelletiltag
     edit: Rediger solcelletiltag
 specialtiltag:
