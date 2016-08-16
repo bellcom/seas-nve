@@ -27,11 +27,11 @@
               {{ helper.header('appbundle.pumpetiltagdetail.isoleringskappe') }}
               {{ helper.header('appbundle.pumpetiltagdetail.nyttiggjortVarme') }}
               {{ helper.header('appbundle.pumpetiltagdetail.eksisterendePumpe') }}
+              {{ helper.header('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
               {{ helper.header('appbundle.pumpetiltagdetail.nyPumpe') }}
               {{ helper.header('appbundle.pumpetiltagdetail.nytByggemaal') }}
               {{ helper.header('appbundle.pumpetiltagdetail.nyTilslutning') }}
               {{ helper.header('appbundle.pumpetiltagdetail.nytVVSnr') }}
-              {{ helper.header('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
               {{ helper.header('appbundle.pumpetiltagdetail.nyDrifttid') }}
               {{ helper.header('appbundle.pumpetiltagdetail.prisfaktor') }}
               {{ helper.header('appbundle.pumpetiltagdetail.pristillaeg') }}
@@ -56,11 +56,11 @@
               {{ helper.header_unit('appbundle.pumpetiltagdetail.isoleringskappe', 'isoleringskappe') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.nyttiggjortVarme', 'nyttiggjortVarme', 'number') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.eksisterendePumpe', 'eksisterendePumpe') }}
+              {{ helper.header_unit('appbundle.pumpetiltagdetail.eksisterendeDrifttid', 'eksisterendeDrifttid', 'number') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.nyPumpe', 'nyPumpe') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.nytByggemaal', 'nytByggemaal') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.nyTilslutning', 'nyTilslutning') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.nytVVSnr', 'nytVVSnr') }}
-              {{ helper.header_unit('appbundle.pumpetiltagdetail.eksisterendeDrifttid', 'eksisterendeDrifttid', 'number') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.nyDrifttid', 'nyDrifttid', 'number') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.prisfaktor', 'prisfaktor', 'number') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.pristillaeg', 'pristillaeg', 'number') }}
@@ -88,11 +88,11 @@
               {{ helper.header_filter('isoleringskappe') }}
               {{ helper.header_filter('nyttiggjortVarme', 'number') }}
               {{ helper.header_filter('eksisterendePumpe') }}
+              {{ helper.header_filter('eksisterendeDrifttid', 'number') }}
               {{ helper.header_filter('nyPumpe') }}
               {{ helper.header_filter('nytByggemaal') }}
               {{ helper.header_filter('nyTilslutning') }}
               {{ helper.header_filter('nytVVSnr') }}
-              {{ helper.header_filter('eksisterendeDrifttid', 'number') }}
               {{ helper.header_filter('nyDrifttid', 'number') }}
               {{ helper.header_filter('prisfaktor', 'number') }}
               {{ helper.header_filter('pristillaeg', 'number') }}
@@ -128,11 +128,11 @@
                   {{ (detail.nyttiggjortVarme is null ? detail.bFaktor : detail.nyttiggjortVarme.faktor) | format_decimal }}
                 </td>
 								<td class="eksisterendePumpe">{{ detail.pumpe }}</td>
-								<td class="nyPumpe">{{ detail.pumpe ? detail.pumpe.nyPumpe : '' }}</td>
-								<td class="nytByggemaal">{{ detail.pumpe ? detail.pumpe.nyByggemaal : '' }}</td>
-								<td class="nyTilslutning">{{ detail.pumpe ? detail.pumpe.nyTilslutning : '' }}</td>
-								<td class="nytVVSnr">{{ detail.pumpe ? detail.pumpe.VvsNr : '' }}</td>
                 <td class="eksisterendeDrifttid number">{{ detail.eksisterendeDrifttid | format_decimal }}</td>
+                <td class="nyPumpe">{{ detail.pumpe ? detail.pumpe.nyPumpe : '' }}</td>
+                <td class="nytByggemaal">{{ detail.pumpe ? detail.pumpe.nyByggemaal : '' }}</td>
+                <td class="nyTilslutning">{{ detail.pumpe ? detail.pumpe.nyTilslutning : '' }}</td>
+                <td class="nytVVSnr">{{ detail.pumpe ? detail.pumpe.VvsNr : '' }}</td>
                 <td class="nyDrifttid number">{{ detail.nyDrifttid | format_decimal }}</td>
                 <td class="prisfaktor number">{{ detail.prisfaktor | format_decimal }}</td>
                 <td class="pristillaeg number">{{ detail.pristillaeg | format_amount }}</td>
