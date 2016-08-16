@@ -38,7 +38,7 @@ class DashboardController extends BaseController {
       // initialize a query builder
       $filterBuilder = $this->get('doctrine.orm.entity_manager')
         ->getRepository('AppBundle:Bygning')
-        ->createQueryBuilder('b ');
+        ->createQueryBuilder('b');
       $filterBuilder->andWhere('b.aaplusAnsvarlig = :aaplusAnsvarlig');
       $filterBuilder->setParameter('aaplusAnsvarlig', $user);
 
