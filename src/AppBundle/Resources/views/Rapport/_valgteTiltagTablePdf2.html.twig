@@ -52,7 +52,7 @@
       <tbody>
       {% for t in tiltag %}
         <tr>
-          <td class="text-right">{{ loop.index }}</td>
+          <td class="text-right">{{ t.indexNumber }}</td>
           <td class="tiltag-title">{{ t.title | slice(0,20)}}{% if t.title | length > 20 %}...{% endif %}</td>
           <td class="text-center">{{ t.tilvalgt | b2icon }}</td>
           <td class="text-right">{{ t.varmebesparelseGUF | format_zeros }}</td>

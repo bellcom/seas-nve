@@ -10,6 +10,7 @@
   <table class="table table-condensed table-tiltag">
     <thead>
     <tr>
+      <th></th>
       <th>{{ 'appbundle.tiltag.title' | trans }}</th>
       <th>{{ 'appbundle.tiltag.tilvalgtAfRaadgiver.th' | trans }}</th>
       <th>{{ 'appbundle.tiltag.tilvalgtAfAaPlus.th' | trans }}</th>
@@ -30,6 +31,7 @@
     <tbody>
     {% for t in tiltag %}
       <tr>
+        <td class="number index">{{ t.indexNumber }}</td>
         <td>{{ t.title }}</td>
         <td>{{ t.tilvalgtAfRaadgiver | b2icon }}</td>
         <td>
@@ -54,36 +56,30 @@
         <td class="text-right">{{ t.aaplusInvestering | format_amount }} {{ 'appbundle.tiltag.aaplusInvestering.unit' | trans }}</td>
         <td class="text-right">{{ t.anlaegsinvestering | format_amount }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
         {% if is_granted('RAPPORT_EDIT', entity) and is_granted('ROLE_ADMIN') and pdf == false %}
+          {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
+            <td class="text-right">
+              <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#datoForDriftModal-{{ t.id }}">
+                {{ t.datoForDrift ?  t.datoForDrift | date('Y-m-d') : 'appbundle.tiltag.datoForDrift' | trans }}
+              </button>
+            </td>
+          {% endif %}
           <td class="text-right">
-            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#datoForDriftModal-{{ t.id }}">
-              {{ t.datoForDrift ?  t.datoForDrift | date('Y-m-d') : 'appbundle.tiltag.datoForDrift' | trans }}
+            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
+              {% if type == 'tilvalg' %}
+                {{ 'common.deselect' | trans }}
+              {% else %}
+                {{ 'common.select' | trans }}
+              {% endif %}
             </button>
           </td>
-        {% endif %}
-        <td class="text-right">
-          {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
-          <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
-            {% if type == 'tilvalg' %}
-              {{ 'common.deselect' | trans }}
-            {% else %}
-              {{ 'common.select' | trans }}
-            {% endif %}
-          </button>
-        </td>
         {% endif %}
       </tr>
     {% endfor %}
     </tbody>
     <tfoot>
     <tr>
-      <th>{{ 'appbundle.tiltag.ialt' | trans }}</th>
       <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th colspan="8">{{ 'appbundle.tiltag.ialt' | trans }}</th>
       <th class="text-right">
         {% if type == 'tilvalg' %}
           {{ rapport.anlaegsinvestering | format_amount }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}
