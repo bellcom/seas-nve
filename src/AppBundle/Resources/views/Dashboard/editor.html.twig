@@ -60,6 +60,7 @@
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.segment'|trans, 's.navn') }}</th>
+              <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.status'|trans, 'b.status') }}</th>
               <th>{{ 'appbundle.bygning.aaplusAnsvarlig'|trans }}</th>
               <th>{{ knp_pagination_sortable(current_buildings, 'appbundle.bygning.updatedAt'|trans, 'b.updatedAt') }}</th>
               <th></th>
@@ -70,6 +71,7 @@
                 <td>{{ r.bygning.adresse }}</td>
                 <td>{{ r.bygning.postBy }}</td>
                 <td>{{ r.bygning.segment }}</td>
+                <td>{{ r.bygning.status | readable }}</td>
                 <td>{{ r.bygning.aaplusAnsvarlig }}</td>
                 <td>{{ r.updatedAt | date('F j, Y H:i') }}</td>
                 <td class="text-right">

@@ -203,6 +203,37 @@ class RapportRepository extends BaseRepository {
   }
 
   /**
+   * Search for buildings with specific status and user
+   *
+   * @param \AppBundle\Entity\User $user
+   * @param \AppBundle\DBAL\Types\BygningStatusType $status
+   * @return \Doctrine\ORM\Query
+   */
+  public function getByUserAndStatusAfter(User $user, $status, $onlyOwnBuildings = FALSE) {
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('r', 'b', 's');
+    $qb->from('AppBundle:Rapport', 'r');
+    $qb->leftJoin('r.bygning', 'b');
+    $qb->leftJoin('b.segment', 's');
+
+    $qb->where('b.status >= :status')->setParameter('status', $status);
+    $qb->orderBy('r.updatedAt', 'DESC');
+
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF b.users OR b.energiRaadgiver = :energiRaadgiver OR b.projektleder = :projektleder');
+      $qb->setParameter('user', $user);
+      $qb->setParameter('energiRaadgiver', $user);
+      $qb->setParameter('projektleder', $user);
+    } else if($onlyOwnBuildings) {
+      $qb->andWhere('b.aaplusAnsvarlig = :aaplusAnsvarlig');
+      $qb->setParameter('aaplusAnsvarlig', $user);
+    }
+
+    return $qb->getQuery();
+  }
+
+  /**
    * Search for buildings with specific segment
    *
    * @param \AppBundle\Entity\Segment $segment

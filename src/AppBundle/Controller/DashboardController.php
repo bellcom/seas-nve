@@ -77,7 +77,7 @@ class DashboardController extends BaseController {
     } else if ($this->isGranted('ROLE_EDIT')) {
 
       $current_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, BygningStatusType::TILKNYTTET_RAADGIVER);
-      $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, BygningStatusType::AFLEVERET_RAADGIVER);
+      $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatusAfter($user, BygningStatusType::AFLEVERET_RAADGIVER);
 
       $current_buildings = $paginator->paginate(
         $current_buildings_q,
