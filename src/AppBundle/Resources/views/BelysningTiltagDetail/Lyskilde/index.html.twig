@@ -38,7 +38,7 @@
           <td>{{ entity.navn }}</td>
           <td>{{ entity.type }}</td>
           <td>{{ entity.forkobling }}</td>
-          <td class="number">{{ entity.udgift | format_amount }}</td>
+          <td class="number">{{ entity.udgift | format_amount(2) }}</td>
           <td class="number">{{ entity.levetid | format_integer }}</td>
           <td class="text-right">
             <a class="btn btn-default btn-xs" href="{{ path('belysningtiltagdetail_lyskilde_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>

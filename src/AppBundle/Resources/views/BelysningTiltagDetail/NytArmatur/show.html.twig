@@ -35,7 +35,7 @@
             </tr>
             <tr>
               <th>{{ 'appbundle.nytArmatur.pris' | trans }}</th>
-              <td>{{ entity.pris }}</td>
+              <td>{{ entity.pris | format_amount(2) }}</td>
             </tr>
             <tr>
               <th>{{ 'appbundle.nytArmatur.noter' | trans }}</th>

@@ -37,7 +37,7 @@
       <td class="number">{{ detail.produktionKWh | format_decimal }}</td>
       <td class="number">{{ detail.egetForbrugAfProduktionenKWh | format_decimal }}</td>
       <td class="number">{{ detail.produktionTilNettetKWh | format_decimal }}</td>
-      <td class="number">{{ detail.prisForNyInverterKr | format_amount }}</td>
+      <td class="number">{{ detail.prisForNyInverterKr | format_amount(2) }}</td>
       <td class="number">{{ detail.investeringKr | format_amount }}</td>
       <td class="number">{{ detail.screeningOgProjekteringKr | format_amount }}</td>
       <td class="number">{{ detail.totalDriftomkostningerPrAar | format_amount }}</td>
