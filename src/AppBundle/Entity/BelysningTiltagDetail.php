@@ -500,7 +500,6 @@ class BelysningTiltagDetail extends TiltagDetail {
    */
   public function setLyskilde(BelysningTiltagDetailLyskilde $lyskilde = null) {
     $this->lyskilde = $lyskilde;
-    $this->addData('lyskilde', $lyskilde);
 
     return $this;
   }
@@ -508,13 +507,10 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get lyskilde.
    *
-   * @param bool $useCached
-   *   If set, then that cached value is returned. Otherwise the current value is returned.
-   *
    * @return BelysningTiltagDetailLyskilde
    */
-  public function getLyskilde($useCached = false) {
-    return $useCached ? $this->getData('lyskilde') : $this->lyskilde;
+  public function getLyskilde() {
+    return $this->lyskilde;
   }
 
   /**
@@ -817,7 +813,6 @@ class BelysningTiltagDetail extends TiltagDetail {
    */
   public function setNyLyskilde($nyLyskilde = null) {
     $this->nyLyskilde = $nyLyskilde;
-    $this->addData('nyLyskilde', $nyLyskilde);
 
     return $this;
   }
@@ -827,11 +822,10 @@ class BelysningTiltagDetail extends TiltagDetail {
    *
    * @see getLyskilde()
    *
-   * @param bool $useCached
    * @return BelysningTiltagDetailLyskilde
    */
-  public function getNyLyskilde($useCached = false) {
-    return $useCached ? $this->getData('nyLyskilde') : $this->nyLyskilde;
+  public function getNyLyskilde() {
+    return $this->nyLyskilde;
   }
 
   /**

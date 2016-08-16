@@ -221,7 +221,6 @@ class SolcelleTiltagDetail extends TiltagDetail {
    */
   public function setSolcelle(Solcelle $solcelle = NULL) {
     $this->solcelle = $solcelle;
-    $this->addData('solcelle', $solcelle);
 
     return $this;
   }
@@ -229,13 +228,10 @@ class SolcelleTiltagDetail extends TiltagDetail {
   /**
    * Get solcelle.
    *
-   * @param bool $useCached
-   *   If set, then that cached value is returned. Otherwise the current value is returned.
-   *
    * @return Solcelle
    */
-  public function getSolcelle($useCached = false) {
-    return $useCached ? $this->getData('solcelle') : $this->solcelle;
+  public function getSolcelle() {
+    return $this->solcelle;
   }
 
   public function setProduktionKWh($produktionKWh) {
