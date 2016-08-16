@@ -419,7 +419,6 @@ class PumpeTiltagDetail extends TiltagDetail {
    */
   public function setPumpe(Pumpe $pumpe = NULL) {
     $this->pumpe = $pumpe;
-    $this->addData('pumpe', $pumpe);
 
     return $this;
   }
