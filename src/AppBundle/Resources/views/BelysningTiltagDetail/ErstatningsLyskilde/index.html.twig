@@ -44,7 +44,7 @@
         <td>{{ entity.antal }}</td>
         <td>{{ entity.wattage }}</td>
         <td>{{ entity.nyeForkoblinger }}</td>
-        <td>{{ entity.pris }}</td>
+        <td>{{ entity.pris | format_amount(2) }}</td>
         <td>{{ entity.noter }}</td>
       <td class="text-right">    <a class="btn btn-default btn-xs" href="{{ path('belysningtiltagdetail_erstatningslyskilde_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
 

@@ -132,9 +132,9 @@
                 <td class="nyIsolMm number">{{ detail.nyIsolMm | format_decimal }}</td>
                 <td class="varmeledningsevnePaaEksistIsoleringWMK number">{{ detail.varmeledningsevnePaaEksistIsoleringWMK | format_decimal }}</td>
                 <td class="varmeledningsevnePaaNyIsoleringWMK number">{{ detail.varmeledningsevnePaaNyIsoleringWMK | format_decimal }}</td>
-                <td class="standardinvestKrM2EllerKrM number">{{ detail.standardinvestKrM2EllerKrM | format_amount }}</td>
+                <td class="standardinvestKrM2EllerKrM number">{{ detail.standardinvestKrM2EllerKrM | format_amount(2) }}</td>
                 <td class="prisfaktor number">{{ detail.prisfaktor | format_decimal }}</td>
-                <td class="investeringKr number">{{ detail.investeringKr | format_amount }}</td>
+                <td class="investeringKr number">{{ detail.investeringKr | format_amount(2) }}</td>
                 <td class="eksistVarmetabKwh number">{{ detail.eksistVarmetabKwh | format_decimal }}</td>
                 <td class="nytVarmetabKwh number">{{ detail.nytVarmetabKwh | format_decimal }}</td>
                 <td class="varmebespKwhAar number">{{ detail.varmebespKwhAar | format_decimal }}</td>

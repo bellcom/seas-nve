@@ -41,7 +41,7 @@
           <td class="number">{{ entity.nyLyskildeAntal }}</td>
           <td class="number">{{ entity.wattage }}</td>
           <td class="number">{{ entity.nyeForkoblingerAntal }}</td>
-          <td class="number">{{ entity.pris | format_decimal}}</td>
+          <td class="number">{{ entity.pris | format_amount(2) }}</td>
           <td>{{ entity.noter }}</td>
           <td class="text-right">
             <a class="btn btn-default btn-xs" href="{{ path('belysningtiltagdetail_nytarmatur_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>

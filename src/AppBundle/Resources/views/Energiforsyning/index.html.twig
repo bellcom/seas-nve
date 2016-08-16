@@ -40,9 +40,9 @@
       <tr>
         <td>{{ entity.navn | readable('NavnType') | trans }}</td>
         <td>{{ entity.forsyningsvaerk }}</td>
-        <td class="number">{{ entity.enhedspris | format_amount }}</td>
+        <td class="number">{{ entity.enhedspris | format_amount(2) }}</td>
         <td class="number">{{ entity.prisfaktor | format_decimal }}</td>
-        <td class="number">{{ entity.nyEnhedspris | format_amount }}</td>
+        <td class="number">{{ entity.nyEnhedspris | format_amount(2) }}</td>
         <td class="number">{{ entity.samletVarmeeffektivitet | format_decimal }}</td>
         <td class="number">{{ entity.samletEleffektivitet | format_decimal }}</td>
         <td class="text-right">

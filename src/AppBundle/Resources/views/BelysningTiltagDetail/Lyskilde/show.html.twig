@@ -31,7 +31,7 @@
             </tr>
             <tr>
               <th>{{ 'appbundle.lyskilde.udgift' | trans }}</th>
-              <td>{{ entity.udgift | format_amount }} {{ 'appbundle.lyskilde.udgift.unit' | trans }}</td>
+              <td>{{ entity.udgift | format_amount(2) }} {{ 'appbundle.lyskilde.udgift.unit' | trans }}</td>
             </tr>
             <tr>
               <th>{{ 'appbundle.lyskilde.levetid' | trans }}</th>

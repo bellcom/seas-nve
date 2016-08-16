@@ -36,7 +36,7 @@
         <td>{{ entity.post }}</td>
         <td>{{ entity.klimaskaerm }}</td>
         <td>{{ entity.arbejdeOmfang }}</td>
-        <td class="number">{{ entity.enhedsprisEksklMoms | format_amount }}</td>
+        <td class="number">{{ entity.enhedsprisEksklMoms | format_amount(2) }}</td>
         <td>{{ entity.enhed }}</td>
         <td>{{ entity.noter }}</td>
       <td class="text-right">    <a class="btn btn-default btn-xs" href="{{ path('klimaskaerm_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
