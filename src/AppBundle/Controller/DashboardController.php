@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\BygningDashboardType;
+use AppBundle\DBAL\Types\BygningStatusType;
 
 /**
  * Class DashboardController
@@ -64,7 +65,7 @@ class DashboardController extends BaseController {
         array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
       );
 
-      return $this->render('AppBundle:Dashboard:admin.html.twig', array(
+      return $this->render('AppBundle:Dashboard:default.html.twig', array(
         'pagination' => $pagination,
         'form' => $form->createView(),
         'tab' => 'bygninger',
@@ -81,13 +82,15 @@ class DashboardController extends BaseController {
       $current_buildings = $paginator->paginate(
         $current_buildings_q,
         $request->query->get('page', 1),
-        10
+        10,
+        array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
       );
 
       $finished_buildings = $paginator->paginate(
         $finished_buildings_q,
         $request->query->get('page', 1),
-        10
+        10,
+        array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
       );
 
       $summary_current = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, BygningStatusType::TILKNYTTET_RAADGIVER);
@@ -97,7 +100,43 @@ class DashboardController extends BaseController {
 
     } else {
 
-      return $this->render('AppBundle:Dashboard:default.html.twig');
+      // initialize a query builder
+      $filterBuilder = $this->get('doctrine.orm.entity_manager')
+        ->getRepository('AppBundle:Bygning')
+        ->createQueryBuilder('b');
+      $filterBuilder->andWhere(':user MEMBER OF b.users');
+      $filterBuilder->setParameter('user', $user);
+
+      $form = $this->get('form.factory')->create(new BygningDashboardType($this->getDoctrine()), NULL, array(
+        'action' => $this->generateUrl('dashboard'),
+        'method' => 'GET',
+      ));
+
+      if ($request->query->has($form->getName())) {
+        // manually bind values from the request
+        $form->submit($request->query->get($form->getName()));
+
+        // build the query from the given form object
+        $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
+      }
+
+      $query = $filterBuilder->getQuery();
+
+      $pagination = $paginator->paginate(
+        $query,
+        $request->query->get('page', 1) /*page number*/,
+        20, /*limit per page*/
+        array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
+      );
+
+      return $this->render('AppBundle:Dashboard:default.html.twig', array(
+        'pagination' => $pagination,
+        'form' => $form->createView(),
+        'tab' => 'bygninger',
+        'bygninger' => $user->hasGroup('Aa+'),
+        'segmenter' => !$user->getSegmenter()->isEmpty(),
+        'projektleder' => $user->hasGroup('Projektleder'),
+      ));
 
     }
 
