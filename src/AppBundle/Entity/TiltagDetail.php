@@ -90,55 +90,11 @@ abstract class TiltagDetail {
   }
 
   /**
-   * @var object
-   *
-   * @ORM\Column(name="data", type="object")
-   */
-  protected $data;
-
-  /**
    * @var boolean
    *
    * @ORM\Column(name="ikkeElenaBerettiget", type="boolean", nullable=true)
    */
   protected $ikkeElenaBerettiget = false;
-
-   /**
-   * Get data.
-   *
-   * @param string $key
-   * @return object
-   */
-  public function getData($key = null) {
-    if ($key === null) {
-      return $this->data;
-    }
-    return isset($this->data->{$key}) ? $this->data->{$key} : null;
-  }
-
-  /**
-   * Add data
-   * @param string $key
-   * @param object $value
-   * @return $this
-   */
-  public function addData($key, $value) {
-    $data = $this->data;
-    if ($data === null) {
-      $data = new \StdClass();
-    }
-    $data->{$key} = $value;
-    // Mark $this->data as dirty (Hack!)
-    $this->data = clone $data;
-
-    return $this;
-  }
-
-  public function setData($data) {
-    $this->$this->data = $data;
-
-    return $this;
-  }
 
   /**
    * Set ikkeElenaBerettiget
