@@ -33,6 +33,8 @@ twig:
     form_themes:
         - AppBundle:Form:aaplus-bootstrap.html.twig
         - AppBundle:Form:form_div_layout.html.twig
+    date:
+        format: Y-m-d
     number_format:
         decimals: 2
         decimal_point: ','

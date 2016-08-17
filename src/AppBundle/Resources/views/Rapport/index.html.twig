@@ -67,7 +67,7 @@
       {% if form.ava is defined %}
         <td class="text-center">{{ rapport.ava | b2icon }}</td>
       {% endif %}
-      <td class="text-center">{{ rapport.datering | date('Y-m-d') }}</td>
+      <td class="text-center">{{ rapport.datering | date }}</td>
       <td class="text-right">
         <a href="{{ path('rapport_show', { 'id': rapport.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
       </td>
