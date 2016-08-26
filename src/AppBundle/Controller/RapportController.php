@@ -9,6 +9,7 @@ namespace AppBundle\Controller;
 use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\RapportSearchType;
+use AppBundle\Form\Type\RapportShowType;
 use AppBundle\Form\Type\RapportStatusType;
 use AppBundle\Form\Type\TiltagDatoForDriftType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
@@ -184,6 +185,32 @@ class RapportController extends BaseController {
     );
 
     return array_merge($twigVars, $formArray);
+  }
+
+
+  /**
+   * Finds and displays Baseline for a Rapport entity.
+   *
+   * @Route("/{id}/baseline", name="rapport_show_baseline")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Rapport $rapport
+   * @return array
+   */
+  public function baselineAction(Rapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('rapporter.actions.edit', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
+
+    $showForm = $this->createForm(new RapportShowType($this->get('security.context'), $rapport), $rapport, array(
+      'action' => '#',
+      'method' => 'PUT',
+    ));
+
+    return array(
+      'entity' => $rapport,
+      'show_form' => $showForm->createView(),
+    );
   }
 
   /**

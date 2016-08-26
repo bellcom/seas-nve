@@ -79,11 +79,15 @@
       <a class="btn btn-default" href="{{ path('rapport_filer', { 'id': entity.id }) }}">
         {{ icon('file') }} {{ 'rapporter.actions.filer' | trans }}
       </a>
+      <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">
+        {{ icon('industry') }} Energiforsyninger
+      </a>
       {% if is_granted('RAPPORT_EDIT', entity) %}
-        <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">
-          {{ icon('industry') }} Energiforsyninger
-        </a>
         <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default">
+          {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}
+        </a>
+      {% else %}
+        <a href="{{ path('rapport_show_baseline', { 'id': entity.id }) }}" class="btn btn-default">
           {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}
         </a>
       {% endif %}

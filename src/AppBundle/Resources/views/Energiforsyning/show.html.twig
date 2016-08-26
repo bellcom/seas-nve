@@ -6,9 +6,11 @@
       <h1>{{ icon('file') }} {{ 'energiforsyninger.labels.singular' | trans }}</h1>
     </div>
     <div class="col-md-4 text-right ">
-      <a href="{{ path('energiforsyning_edit', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-default">
-        {{ 'Edit' | trans }}
-      </a>
+      {% if is_granted('RAPPORT_EDIT', entity.rapport) %}
+        <a href="{{ path('energiforsyning_edit', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-default">
+          {{ 'Edit' | trans }}
+        </a>
+      {% endif %}
     </div>
   </div>
 

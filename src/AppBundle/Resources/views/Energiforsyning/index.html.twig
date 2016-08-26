@@ -6,9 +6,11 @@
       <h1>{{ 'energiforsyninger.labels.plural' | trans }}</h1>
     </div>
     <div class="col-md-2 text-right">
-      <a href="{{ path('energiforsyning_new', { 'rapport_id': rapport.id }) }}" class="btn btn-default">
-        {{ icon('plus') }} {{ 'energiforsyninger.actions.add' | trans }}
-      </a>
+      {% if is_granted('RAPPORT_EDIT', rapport) %}
+        <a href="{{ path('energiforsyning_new', { 'rapport_id': rapport.id }) }}" class="btn btn-default">
+          {{ icon('plus') }} {{ 'energiforsyninger.actions.add' | trans }}
+        </a>
+      {% endif %}
     </div>
   </div>
 
@@ -46,8 +48,11 @@
         <td class="number">{{ entity.samletVarmeeffektivitet | format_decimal }}</td>
         <td class="number">{{ entity.samletEleffektivitet | format_decimal }}</td>
         <td class="text-right">
-          <a href="{{ path('energiforsyning_edit', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
-          <a href="{{ path('energiforsyning_show', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-primary btn-xs">{{ 'common.show' | trans }}</a>
+          {% if is_granted('RAPPORT_EDIT', entity.rapport) %}
+            <a href="{{ path('energiforsyning_edit', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
+          {% else %}
+            <a href="{{ path('energiforsyning_show', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
+          {% endif %}
         </td>
       </tr>
     {% endfor %}

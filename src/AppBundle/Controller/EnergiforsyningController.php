@@ -25,7 +25,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  *
  * @Route("/rapport/{rapport_id}/energiforsyning")
  * @ParamConverter("rapport", class="AppBundle:Rapport", options={"id" = "rapport_id"})
- * @Security("is_granted('RAPPORT_EDIT', rapport)")
  */
 class EnergiforsyningController extends BaseController {
 
@@ -47,6 +46,7 @@ class EnergiforsyningController extends BaseController {
    * @Route("/", name="energiforsyning")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
    */
   public function indexAction() {
     $rapport = $this->getRapport();
@@ -64,6 +64,7 @@ class EnergiforsyningController extends BaseController {
    * @Route("/new", name="energiforsyning_new")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function newAction() {
     $entity = (new Energiforsyning())
@@ -82,6 +83,7 @@ class EnergiforsyningController extends BaseController {
    * @Route("/{id}", name="energiforsyning_show")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
    */
   public function showAction(Rapport $rapport, Energiforsyning $entity) {
     $this->breadcrumbs->addItem($entity->__toString());
@@ -97,6 +99,7 @@ class EnergiforsyningController extends BaseController {
    * @Route("/{id}/edit", name="energiforsyning_edit")
    * @Method("GET")
    * @Template()
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function editAction(Rapport $rapport, Energiforsyning $entity) {
     $this->breadcrumbs->addItem($entity->__toString());
@@ -135,6 +138,7 @@ class EnergiforsyningController extends BaseController {
    * @Route("/{id}", name="energiforsyning_update")
    * @Method("PUT")
    * @Template("AppBundle:Energiforsyning:edit.html.twig")
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function updateAction(Request $request, Energiforsyning $entity) {
     // @See http://symfony.com/doc/current/cookbook/form/form_collections.html.
@@ -172,6 +176,7 @@ class EnergiforsyningController extends BaseController {
    *
    * @Route("/{id}", name="energiforsyning_delete")
    * @Method("DELETE")
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function deleteAction(Request $request, Energiforsyning $entity) {
     $form = $this->createDeleteForm($entity);
@@ -220,6 +225,7 @@ class EnergiforsyningController extends BaseController {
    * @Route("/new", name="energiforsyning_create")
    * @Method("POST")
    * @Template("AppBundle:Energiforsyning:new.html.twig")
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function createAction(Request $request) {
     $entity = (new Energiforsyning())
