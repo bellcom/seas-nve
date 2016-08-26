@@ -1362,6 +1362,10 @@ appbundle:
   rapport:
     ava: AVA
     anlaegsinvestering.unit: kr
+    BaselineCO2El: Baseline CO2 EL 2009
+    BaselineCO2El.unit: t/år
+    BaselineCO2Varme: Baseline CO2 Varme 2009
+    BaselineCO2Varme.unit: t/år
     BaselineEl: El
     BaselineEl.unit: kwh/år
     BaselineStrafAfkoeling: Strafafkøling

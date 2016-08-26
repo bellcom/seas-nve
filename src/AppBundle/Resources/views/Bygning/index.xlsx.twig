@@ -48,9 +48,11 @@
         {% xlscell %}{{ bygning.bruttoetageareal }}{% endxlscell %}
         {% xlscell %}{{ bygning.forsyningsvaerkVarme }}{% endxlscell %}
         {% xlscell %}{{ bygning.forsyningsvaerkVarme ? bygning.forsyningsvaerkVarme.kgCo2MWh(2009) : null }}{% endxlscell %}
+        {% xlscell %}{{ rapport ? rapport.BaselineCO2Varme : null }}{% endxlscell %}
         {% xlscell %}{{ (bygning.forsyningsvaerkVarme and rapport) ? bygning.forsyningsvaerkVarme.kgCo2MWh(rapport.datering|date('Y')) : null }}{% endxlscell %}
         {% xlscell %}{{ bygning.forsyningsvaerkEl }}{% endxlscell %}
         {% xlscell %}{{ bygning.forsyningsvaerkEl ? bygning.forsyningsvaerkEl.kgCo2MWh(2009) : null }}{% endxlscell %}
+        {% xlscell %}{{ rapport ? rapport.BaselineCO2El : null }}{% endxlscell %}
         {% xlscell %}{{ (bygning.forsyningsvaerkEl and rapport) ? bygning.forsyningsvaerkEl.kgCo2MWh(rapport.datering|date('Y')) : null }}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.baselineVarmeGAF : null }}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.baselineVarmeGUF : null }}{% endxlscell %}
@@ -214,9 +216,11 @@
         {% xlscell %}{{ 'Bruttoetageareal' | trans }} ({{ 'appbundle.bygning.bruttoetageareal.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Varmeværk' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'CO2-faktor Varme 2009' | trans }} (Kg CO2/mWh){% endxlscell %}
+        {% xlscell %}{{ 'CO2 Varme 2009' | trans }} ({{ 'appbundle.rapport.BaselineCO2Varme.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'CO2-faktor Varme screeningsdato' | trans }} (Kg CO2/mWh){% endxlscell %}
         {% xlscell %}{{ 'Elværk' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'CO2-faktor El 2009' | trans }} (Kg CO2/mWh){% endxlscell %}
+        {% xlscell %}{{ 'CO2 El 2009' | trans }} ({{ 'appbundle.rapport.BaselineCO2El.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'CO2-faktor El screeningsdato' | trans }} (Kg CO2/mWh}){% endxlscell %}
         {% xlscell %}{{ 'Varmeforbrug GAF (Baseline)' | trans }} ({{ 'appbundle.rapport.BaselineVarmeGAF.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Varmeforbrug GUF (Baseline)' | trans }} ({{ 'appbundle.rapport.BaselineVarmeGUF.unit' | trans }}){% endxlscell %}
