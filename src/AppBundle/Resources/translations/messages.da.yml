@@ -558,6 +558,7 @@ vinduetiltagdetail:
 appbundle:
   baseline:
     areal: Areal
+    areal.unit: m²
     arealdataPrimaerKilde: Primær kilde
     arealdataPrimaerKilde.help: Vælg fra liste
     arealdataPrimaerAreal: Areal
@@ -817,6 +818,7 @@ appbundle:
     anvendelse: Anvendelse
     baseline: Baseline
     bruttoetageareal: Bruttoetageareal
+    bruttoetageareal.unit: m²
     by: By
     bygId: ID
     createdAt: Oprettet
@@ -1591,7 +1593,7 @@ appbundle:
     simpelTilbagebetalingstidAar.unit: år
     standardinvestKrM2EllerKrM: Standardinvest.
     standardinvestKrM2EllerKrM.unit: kr/m² el. kr/m
-    standardinvestKrM2EllerKrM.help: For rør indtastes i kr/m, for beholdere i kr/m²
+    standardinvestKrM2EllerKrM.help: For rør indtastes i kr/m, for beholdere i kr/m² - udfyldes "Overskrevet Pris" kan dette felt udelades
     tempMedieC: Temp. Medie
     tempMedieC.unit: °C
     tempOmgivelC: Temp. omgivel.

@@ -211,17 +211,17 @@
       {% endif %}
 
       {% if showAll or columns.groups['baselineinformation'] %}
-        {% xlscell %}{{ 'Bruttoetageareal' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'Bruttoetageareal' | trans }} ({{ 'appbundle.bygning.bruttoetageareal.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Varmeværk' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'CO2-faktor Varme 2009' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'CO2-faktor Varme screeningsdato' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'CO2-faktor Varme 2009' | trans }} (Kg CO2/mWh){% endxlscell %}
+        {% xlscell %}{{ 'CO2-faktor Varme screeningsdato' | trans }} (Kg CO2/mWh){% endxlscell %}
         {% xlscell %}{{ 'Elværk' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'CO2-faktor El 2009' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'CO2-faktor El screeningsdato' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Varmeforbrug GAF (Baseline)' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Varmeforbrug GUF (Baseline)' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Elforbrug (Baseline)' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Straffeafkøling' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'CO2-faktor El 2009' | trans }} (Kg CO2/mWh){% endxlscell %}
+        {% xlscell %}{{ 'CO2-faktor El screeningsdato' | trans }} (Kg CO2/mWh}){% endxlscell %}
+        {% xlscell %}{{ 'Varmeforbrug GAF (Baseline)' | trans }} ({{ 'appbundle.rapport.BaselineVarmeGAF.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'Varmeforbrug GUF (Baseline)' | trans }} ({{ 'appbundle.rapport.BaselineVarmeGUF.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'Elforbrug (Baseline)' | trans }} ({{ 'appbundle.rapport.BaselineEl.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'Straffeafkøling' | trans }} ({{ 'appbundle.rapport.BaselineStrafAfkoeling.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Energibudget, varme' | trans }} ({{ 'appbundle.rapport.energibudgetVarme.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Energibudget, el' | trans }} ({{ 'appbundle.rapport.energibudgetEl.unit' | trans }}){% endxlscell %}
       {% endif %}
