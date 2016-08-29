@@ -50,6 +50,7 @@ class RapportType extends AbstractType
       ->add('BaselineVarmeGUF', null, array('disabled' => $disabled))
       ->add('BaselineVarmeGAF', null, array('disabled' => $disabled))
       ->add('BaselineStrafAfkoeling', null, array('disabled' => $disabled))
+      ->add('bygning', new BygningBaselineEmbedType(), array('label' => false))
       ->add('faktorPaaVarmebesparelse')
       ->add('energiscreening');
 

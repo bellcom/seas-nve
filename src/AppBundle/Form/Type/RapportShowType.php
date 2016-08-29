@@ -47,6 +47,7 @@ class RapportShowType extends AbstractType
       ->add('BaselineEl', null, array('disabled' => 'disabled'))
       ->add('BaselineVarmeGUF', null, array('disabled' => 'disabled'))
       ->add('BaselineVarmeGAF', null, array('disabled' => 'disabled'))
+      ->add('bygning', new BygningBaselineEmbedType(), array('label' => false))
       ->add('BaselineStrafAfkoeling', null, array('disabled' => 'disabled'))
       ->add('faktorPaaVarmebesparelse', null, array('disabled' => 'disabled'))
       ->add('energiscreening', null, array('disabled' => 'disabled'));

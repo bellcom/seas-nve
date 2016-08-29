@@ -1407,6 +1407,8 @@ appbundle:
       kommentar: Kommentar
       titel: Titel
     bygning: Bygning
+    bygning.areal: Areal
+    bygning.areal.unit: m²
     cashFlow: Cashflow (30 år)
     cashFlow15: Cashflow (15 år)
     co2besparelser: CO2 Besparelser
