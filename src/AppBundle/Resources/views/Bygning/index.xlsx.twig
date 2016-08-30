@@ -45,20 +45,23 @@
 
     {% if showAll or columns.groups['baselineinformation'] %}
       {% if tiltagIndex == 0 %}
-        {% xlscell %}{{ bygning.bruttoetageareal | format_integer }}{% endxlscell %}
+        {% xlscell %}{{ bygning.bruttoetageareal }}{% endxlscell %}
         {% xlscell %}{{ bygning.forsyningsvaerkVarme }}{% endxlscell %}
         {% xlscell %}{{ bygning.forsyningsvaerkVarme ? bygning.forsyningsvaerkVarme.kgCo2MWh(2009) : null }}{% endxlscell %}
+        {% xlscell %}{{ rapport ? rapport.BaselineCO2Varme : null }}{% endxlscell %}
         {% xlscell %}{{ (bygning.forsyningsvaerkVarme and rapport) ? bygning.forsyningsvaerkVarme.kgCo2MWh(rapport.datering|date('Y')) : null }}{% endxlscell %}
         {% xlscell %}{{ bygning.forsyningsvaerkEl }}{% endxlscell %}
         {% xlscell %}{{ bygning.forsyningsvaerkEl ? bygning.forsyningsvaerkEl.kgCo2MWh(2009) : null }}{% endxlscell %}
+        {% xlscell %}{{ rapport ? rapport.BaselineCO2El : null }}{% endxlscell %}
         {% xlscell %}{{ (bygning.forsyningsvaerkEl and rapport) ? bygning.forsyningsvaerkEl.kgCo2MWh(rapport.datering|date('Y')) : null }}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.baselineVarmeGAF : null }}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.baselineVarmeGUF : null }}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.baselineEl : null }}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.BaselineStrafAfkoeling : null }}{% endxlscell %}
-        {% xlscell %}{#{ rapport ? rapport.BaselineEnergibudget : null }#}{% endxlscell %}
+        {% xlscell %}{{ rapport ? rapport.energibudgetVarme : null }}{% endxlscell %}
+        {% xlscell %}{{ rapport ? rapport.energibudgetEl : null }}{% endxlscell %}
       {% else %}
-        {% for i in 1..12 %}
+        {% for i in 1..13 %}
           {% xlscell %}{% endxlscell %}
         {% endfor %}
       {% endif %}
@@ -70,7 +73,7 @@
         {% xlscell %}{{ bygning.energiRaadgiver }}{% endxlscell %}
         {% xlscell %}{#{ bygning.projektleder }#}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.datering|date : null }}{% endxlscell %}
-        {% xlscell %}{{ (rapport and rapport.datoForDrift) ? rapport.datoForDrift|date : null }}{% endxlscell %}
+        {% xlscell %}{{ (rapport and rapport.datoForDrift) ? rapport.datoForDrift|date('Y-m-d') : null }}{% endxlscell %}
         {% xlscell %}{{ (rapport ? rapport.elena : false) ? 1 : 0 }}{% endxlscell %}
         {% xlscell %}{{ (rapport ? rapport.ava : false) ? 1 : 0 }}{% endxlscell %}
       {% else %}
@@ -124,14 +127,18 @@
     {% if tiltag %}
       {% xlscell %}{{ tiltagIndex + 1 }}{% endxlscell %}
       {% xlscell %}{{ tiltag_type(tiltag) | trans }}{% endxlscell %}
+      {% xlscell %}{{ tiltag_type(tiltag) == 'Special' and tiltag.tiltagskategori ? tiltag.tiltagskategori.navn : '' }}{% endxlscell %}
       {% xlscell %}{{ tiltag.title }}{% endxlscell %}
       {% xlscell %}{{ tiltag.tilvalgtAfAaPlus ? 1 : 0 }}{% endxlscell %}
+      {# Somebody has put in "=((" in tilvalgtBegrundelseMagistrat …  #}
+      {% xlscell { dataType: 's' } %}{{ tiltag.tilvalgtbegrundelse }}{% endxlscell %}
       {% xlscell %}{{ tiltag.tilvalgtAfMagistrat ? 1 : 0 }}{% endxlscell %}
       {# Somebody has put in "=((" in tilvalgtBegrundelseMagistrat …  #}
       {% xlscell { dataType: 's' } %}{{ tiltag.tilvalgtBegrundelseMagistrat }}{% endxlscell %}
       {% xlscell %}{{ tiltag.maengde }}{% endxlscell %}
       {% xlscell %}{{ tiltag.enhed }} {% endxlscell %}
-      {% xlscell %}{{ tiltag.levetid | format_integer }}{% endxlscell %}
+      {% xlscell %}{{ tiltag.levetid }}{% endxlscell %}
+      {% xlscell %}{{ tiltag.datoForDrift is empty ? "" : tiltag.datoForDrift | date('Y-m-d') }}{% endxlscell %}
       {% xlscell %}{{ tiltag.varmebesparelseGAF }}{% endxlscell %}
       {% xlscell %}{{ tiltag.varmebesparelseGUF }}{% endxlscell %}
       {% xlscell %}{{ tiltag.elbesparelse }}{% endxlscell %}
@@ -141,8 +148,10 @@
       {% xlscell %}{{ tiltag.scrapvaerdi }}{% endxlscell %}
       {% xlscell %}{{ tiltag.reinvestering }}{% endxlscell %}
       {% xlscell %}{{ tiltag.samletCo2besparelse }}{% endxlscell %}
+      {% xlscell %}{{ tiltag.reelAnlaegsinvestering }}{% endxlscell %}
       {% xlscell %}{{ tiltag.anlaegsinvestering }}{% endxlscell %}
       {% xlscell %}{{ tiltag.genopretning }}{% endxlscell %}
+      {% xlscell %}{{ tiltag.genopretningForImplementeringsomkostninger }}{% endxlscell %}
       {% xlscell %}{{ tiltag.modernisering }}{% endxlscell %}
       {% xlscell %}{{ tiltag.aaplusInvestering }}{% endxlscell %}
       {% xlscell %}{{ tiltag.simpelTilbagebetalingstidAar }}{% endxlscell %}
@@ -161,7 +170,7 @@
         {{ macros.multi_col_cell('Bygningsinformation', 11) }}
       {% endif %}
       {% if showAll or columns.groups['baselineinformation'] %}
-        {{ macros.multi_col_cell('Baselineinformation', 12) }}
+        {{ macros.multi_col_cell('Baselineinformation', 13) }}
       {% endif %}
       {% if showAll or columns.groups['aa_screeningsinformation'] %}
         {{ macros.multi_col_cell('Aa+/Screeningsinformation', 7) }}
@@ -204,18 +213,21 @@
       {% endif %}
 
       {% if showAll or columns.groups['baselineinformation'] %}
-        {% xlscell %}{{ 'Bruttoetageareal' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'Bruttoetageareal' | trans }} ({{ 'appbundle.bygning.bruttoetageareal.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Varmeværk' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'CO2-faktor Varme 2009' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'CO2-faktor Varme screeningsdato' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'CO2-faktor Varme 2009' | trans }} (Kg CO2/mWh){% endxlscell %}
+        {% xlscell %}{{ 'CO2 Varme 2009' | trans }} ({{ 'appbundle.rapport.BaselineCO2Varme.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'CO2-faktor Varme screeningsdato' | trans }} (Kg CO2/mWh){% endxlscell %}
         {% xlscell %}{{ 'Elværk' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'CO2-faktor El 2009' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'CO2-faktor El screeningsdato' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Varmeforbrug GAF (Baseline)' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Varmeforbrug GUF (Baseline)' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Elforbrug (Baseline)' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Straffeafkøling' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Energibudget' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'CO2-faktor El 2009' | trans }} (Kg CO2/mWh){% endxlscell %}
+        {% xlscell %}{{ 'CO2 El 2009' | trans }} ({{ 'appbundle.rapport.BaselineCO2El.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'CO2-faktor El screeningsdato' | trans }} (Kg CO2/mWh}){% endxlscell %}
+        {% xlscell %}{{ 'Varmeforbrug GAF (Baseline)' | trans }} ({{ 'appbundle.rapport.BaselineVarmeGAF.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'Varmeforbrug GUF (Baseline)' | trans }} ({{ 'appbundle.rapport.BaselineVarmeGUF.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'Elforbrug (Baseline)' | trans }} ({{ 'appbundle.rapport.BaselineEl.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'Straffeafkøling' | trans }} ({{ 'appbundle.rapport.BaselineStrafAfkoeling.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'Energibudget, varme' | trans }} ({{ 'appbundle.rapport.energibudgetVarme.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'Energibudget, el' | trans }} ({{ 'appbundle.rapport.energibudgetEl.unit' | trans }}){% endxlscell %}
       {% endif %}
 
       {% if showAll or columns.groups['aa_screeningsinformation'] %}
@@ -223,7 +235,7 @@
         {% xlscell %}{{ 'Rådgiver' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Projektleder' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Screeningsdato' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Dato for drift' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'Dato f. drift (Bygn.)' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Elena' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'AVA-støtte' | trans }}{% endxlscell %}
       {% endif %}
@@ -260,13 +272,16 @@
       {% if type == 'tiltag' %}
         {% xlscell %}{{ 'Tiltagsnr.' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Type' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'Kategori' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Title' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Tilvalgt (Aa+)' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'Begrundelse (Aa+)' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Tilvalgt/fravalgt (Mag)' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Begrundelse (mag)' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Mængde' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Enheder' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Funktionsdygtig levetid' | trans }}{% endxlscell %}
+        {% xlscell %}{{ 'Dato f. drift (Tiltag)' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Varmebesparelse GAF' | trans }} ({{ 'appbundle.tiltag.varmebesparelseGAF.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Varmebesparelse GUF' | trans }} ({{ 'appbundle.tiltag.varmebesparelseGUF.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Elbesparelse' | trans }} ({{ 'appbundle.tiltag.elbesparelse.unit' | trans }}){% endxlscell %}
@@ -276,8 +291,10 @@
         {% xlscell %}{{ 'Scrapværdi' | trans }} ({{ 'appbundle.tiltag.scrapvaerdi.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Reinvestering' | trans }} ({{ 'appbundle.tiltag.reinvestering.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'CO2-besparelse' | trans }} ({{ 'appbundle.tiltag.samletCo2besparelse.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'Faktisk Entreprisesum' | trans }} ({{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Entreprisesum' | trans }} ({{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Genopretning' | trans }} ({{ 'appbundle.tiltag.genopretning.unit' | trans }}){% endxlscell %}
+        {% xlscell %}{{ 'Genopretning for implementeringsomkostninger' | trans }} ({{ 'appbundle.tiltag.genopretningForImplementeringsomkostninger.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Modernisering' | trans }} ({{ 'appbundle.tiltag.modernisering.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Aa+ investering eksl. øvrige omk.' | trans }} ({{ 'appbundle.tiltag.aaplusInvestering.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Simpel tilbagebetalingstid' | trans }} ({{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}){% endxlscell %}

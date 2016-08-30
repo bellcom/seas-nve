@@ -1,0 +1,54 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'nytArmatur.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+      <a class="btn btn-default" href="{{ path('belysningtiltagdetail_nytarmatur_new') }}">
+        {{ icon('plus') }} {{ 'nytArmatur.actions.add' | trans }}
+      </a>
+    </div>
+  </div>
+
+  <table class="table table-condensed table-header-rotated">
+    <thead>
+      <tr>
+        {{ helper.header('appbundle.nytArmatur.arbejdeOmfang') }}
+        {{ helper.header('appbundle.nytArmatur.nyLyskildeAntal') }}
+        {{ helper.header('appbundle.nytArmatur.wattage') }}
+        {{ helper.header('appbundle.nytArmatur.nyeForkoblingerAntal') }}
+        {{ helper.header('appbundle.nytArmatur.pris') }}
+        {{ helper.header('appbundle.nytArmatur.noter') }}
+        {{ helper.header() }}
+      </tr>
+      <tr>
+        {{ helper.header_unit('appbundle.nytArmatur.arbejdeOmfang') }}
+        {{ helper.header_unit('appbundle.nytArmatur.nyLyskildeAntal') }}
+        {{ helper.header_unit('appbundle.nytArmatur.wattage') }}
+        {{ helper.header_unit('appbundle.nytArmatur.nyeForkoblingerAntal') }}
+        {{ helper.header_unit('appbundle.nytArmatur.pris') }}
+        {{ helper.header_unit('appbundle.nytArmatur.noter') }}
+        {{ helper.header_unit() }}
+      </tr>
+    </thead>
+    <tbody>
+      {% for entity in entities %}
+        <tr>
+          <td>{{ entity.arbejdeOmfang }}</td>
+          <td class="number">{{ entity.nyLyskildeAntal }}</td>
+          <td class="number">{{ entity.wattage }}</td>
+          <td class="number">{{ entity.nyeForkoblingerAntal }}</td>
+          <td class="number">{{ entity.pris | format_amount(2) }}</td>
+          <td>{{ entity.noter }}</td>
+          <td class="text-right">
+            <a class="btn btn-default btn-xs" href="{{ path('belysningtiltagdetail_nytarmatur_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

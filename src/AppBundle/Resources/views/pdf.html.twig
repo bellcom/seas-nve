@@ -35,10 +35,19 @@
   </th>
 {% endmacro %}
 
-{% macro header_unit(key) %}
+{% macro header_unit(key, border_right=false) %}
   {% set translation = key|get_unit %}
+  {% set border = border_right ? 'border-right' : '' %}
 
-  <th class="unit">
+  <th class="unit {{ border }}">
+    {{ translation }}
+  </th>
+{% endmacro %}
+
+{% macro header_span(key, span) %}
+  {% set translation = key|trans %}
+
+  <th colspan="{{ span }}" class="text-center border-right">
     {{ translation }}
   </th>
 {% endmacro %}

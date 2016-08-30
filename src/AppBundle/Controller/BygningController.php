@@ -309,6 +309,7 @@ class BygningController extends BaseController implements InitControllerInterfac
         $em = $this->getDoctrine()->getManager();
 
         $baseline = new Baseline();
+        $baseline->setArealdataPrimaerAreal($bygning->getBruttoetageareal());
         $bygning->setBaseline($baseline);
 
         $em->persist($baseline);

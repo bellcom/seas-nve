@@ -37,7 +37,7 @@
       {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
       <ul class="nav navbar-nav">
         <li><a href="/bygning">{{ icon('home') }} {{ 'bygninger.labels.plural' | trans }}</a></li>
-        <li><a href="/rapport">{{ icon('file') }} {{ 'rapporter.labels.plural' | trans }}</a></li>
+        <li><a href="/rapport">{{ icon('file-text-o') }} {{ 'rapporter.labels.plural' | trans }}</a></li>
         {% if is_granted('ROLE_ADMIN') %}
           <li><a href="/udtraek">{{ icon('file-excel-o') }} {{ 'udtraek.labels.plural' | trans }}</a></li>
         {% endif %}
@@ -54,6 +54,8 @@
                 'segment': 'Segmenter',
                 'nyttiggjortvarme': 'Nyttiggjort varme',
                 'belysningtiltagdetail_erstatningslyskilde': 'Erstatnings lyskilder',
+                'belysningtiltagdetail_nytarmatur': 'Armaturer',
+                'belysningtiltagdetail_lyskilde': 'D & V – Udgift til lyskilder',
                 'graddage': 'Graddage-fordelinger'
               } %}
                 <li><a href="{{ path(route) }}">{{ name | trans }}</a></li>
@@ -99,12 +101,26 @@
   </th>
 {% endmacro %}
 
-{% macro header_unit(key) %}
+{% macro header_unit(key, column, classNames, dataAttribute) %}
   {% set translation = key|get_unit %}
 
-  <th class="unit">
-    {{ translation }}
-  </th>
+  {% if column %}
+    <th class="unit {{ classNames }} column-sort" data-column="{{ column }}" data-attr="{{ dataAttribute ? 'data-' ~ dataAttribute : '' }}">
+      {{ translation }}
+    </th>
+  {% else %}
+    <th class="unit {{ classNames }}">
+      {{ translation }}
+    </th>
+  {% endif %}
+{% endmacro %}
+
+{% macro header_filter(column, classNames) %}
+  {% if column %}
+    <td class="column-filter {{ column }} {{ classNames }}"><input style="width: 0" data-column="{{ column }}"/></td>
+  {% else %}
+    <td></td>
+  {% endif %}
 {% endmacro %}
 
 {% import _self as helper %}

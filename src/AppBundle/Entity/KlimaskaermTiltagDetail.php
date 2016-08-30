@@ -37,7 +37,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @ORM\Column(name="klimaskaermOverskrevetPris", type="decimal", scale=4, nullable=true)
    *
    * @Assert\Expression(
-   *  "this.getKlimaskaerm() !== null || this.getKlimaskaermOverskrevetPris() !== null",
+   *  "(this.getKlimaskaerm() !== null || this.getKlimaskaermOverskrevetPris() !== null) || this.isBatchEdit()",
    *  message="appbundle.klimaskaermtiltagdetail.klimaskaermOverskrevetPris.validation"
    * )
    */
@@ -147,6 +147,18 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @ORM\Column(name="levetidAar", type="integer", nullable=true)
    */
   protected $levetidAar;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="noteGenerelt", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 360,
+   *  maxMessage = "maxLength"
+   * )
+   */
+  protected $noteGenerelt;
 
   /**
    * @var float
@@ -562,6 +574,27 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   /**
+   * Set noteGenerelt
+   *
+   * @param integer $noteGenerelt
+   * @return KlimaskaermTiltagDetail
+   */
+  public function setNoteGenerelt($noteGenerelt) {
+    $this->noteGenerelt = $noteGenerelt;
+
+    return $this;
+  }
+
+  /**
+   * Get noteGenerelt
+   *
+   * @return integer
+   */
+  public function getNoteGenerelt() {
+    return $this->noteGenerelt;
+  }
+
+  /**
    * Get arealM2
    *
    * @return float
@@ -650,6 +683,23 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
 
     return 0;
   }
+
+  protected $propertiesRequiredForCalculation = [
+    'andelAfArealDerEfterisoleres',
+    'antalStk',
+    'breddeM',
+    'hoejdeElLaengdeM',
+    'klimaskaerm',
+    'levetidAar',
+    'placering',
+    'prisfaktor',
+    'tIndeC',
+    'tOpvarmningTimerAar',
+    'tUdeC',
+    'type',
+    'uEksWM2K',
+    'uNyWM2K',
+  ];
 
   public function calculate() {
     $this->arealM2 = $this->calculateArealM2();

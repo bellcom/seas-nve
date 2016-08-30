@@ -1,0 +1,42 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'komponent.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+      <a class="btn btn-default" href="{{ path('komponent_new') }}">
+        {{ icon('plus') }} {{ 'komponent.actions.add' | trans }}
+      </a>
+    </div>
+  </div>
+
+  <table class="table table-condensed table-details">
+    <thead>
+      <tr>
+        {{ helper.header('appbundle.komponent.titel') }}
+        {{ helper.header('appbundle.komponent.roerlaengde') }}
+        {{ helper.header() }}
+      </tr>
+      <tr>
+        {{ helper.header_unit('appbundle.komponent.titel') }}
+        {{ helper.header_unit('appbundle.komponent.roerlaengde') }}
+        {{ helper.header_unit() }}
+      </tr>
+    </thead>
+    <tbody>
+      {% for entity in entities %}
+        <tr>
+          <td>{{ entity.titel }}</td>
+          <td class="number">{{ entity.roerlaengde | format_decimal }}</td>
+          <td class="text-right">
+            <a class="btn btn-default btn-xs" href="{{ path('komponent_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

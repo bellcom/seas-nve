@@ -8,6 +8,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\BygningStatusType;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping;
 
 /**
  * RapportRepository
@@ -16,6 +17,18 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class RapportRepository extends BaseRepository {
+
+  /**
+   * Initializes a new <tt>EntityRepository</tt>.
+   *
+   * @param EntityManager         $em    The EntityManager to use.
+   * @param Mapping\ClassMetadata $class The class descriptor.
+   */
+  public function __construct($em, Mapping\ClassMetadata $class)
+  {
+    parent::__construct($em, $class);
+    $em->getFilters()->disable('softdeleteable');
+  }
 
   /**
    * Check if a User has edit rights to a Rapport
@@ -174,6 +187,37 @@ class RapportRepository extends BaseRepository {
     $qb->leftJoin('b.segment', 's');
 
     $qb->where('b.status = :status')->setParameter('status', $status);
+    $qb->orderBy('r.updatedAt', 'DESC');
+
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF b.users OR b.energiRaadgiver = :energiRaadgiver OR b.projektleder = :projektleder');
+      $qb->setParameter('user', $user);
+      $qb->setParameter('energiRaadgiver', $user);
+      $qb->setParameter('projektleder', $user);
+    } else if($onlyOwnBuildings) {
+      $qb->andWhere('b.aaplusAnsvarlig = :aaplusAnsvarlig');
+      $qb->setParameter('aaplusAnsvarlig', $user);
+    }
+
+    return $qb->getQuery();
+  }
+
+  /**
+   * Search for buildings with specific status and user
+   *
+   * @param \AppBundle\Entity\User $user
+   * @param \AppBundle\DBAL\Types\BygningStatusType $status
+   * @return \Doctrine\ORM\Query
+   */
+  public function getByUserAndStatusAfter(User $user, $status, $onlyOwnBuildings = FALSE) {
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('r', 'b', 's');
+    $qb->from('AppBundle:Rapport', 'r');
+    $qb->leftJoin('r.bygning', 'b');
+    $qb->leftJoin('b.segment', 's');
+
+    $qb->where('b.status >= :status')->setParameter('status', $status);
     $qb->orderBy('r.updatedAt', 'DESC');
 
     if (!$this->hasFullAccess($user)) {

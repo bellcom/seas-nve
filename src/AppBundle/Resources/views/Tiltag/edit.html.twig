@@ -5,6 +5,8 @@
 {% endif %}
 
 {% block body -%}
+  {% include 'AppBundle:_includes:calculation_warnings.html.twig' %}
+
   <div class="row heading">
     <div class="col-md-8">
       <h1>{{ heading | trans }}</h1>
@@ -41,6 +43,9 @@
       <div class="col-xs-12 col-md-6">
         {{ form_row(edit_form.title) }}
         {{ form_row(edit_form.placering) }}
+        {% if edit_form.datoForDrift is defined %}
+          {{ form_row(edit_form.datoForDrift) }}
+        {% endif %}
       </div>
     </div>
   </div>
@@ -104,6 +109,7 @@
         {% if edit_form.genopretning is defined %}
           {{ form_row(edit_form.genopretning) }}
         {% endif %}
+        {{ form_row(edit_form.genopretningForImplementeringsomkostninger) }}
         {% if edit_form.besparelseDriftOgVedligeholdelse is defined %}
           {{ form_row(edit_form.besparelseDriftOgVedligeholdelse) }}
         {% endif %}
@@ -172,6 +178,16 @@
           </div>
         </div>
         {{ form_row(edit_form.risikovurdering) }}
+
+        {% if edit_form.energiledelseAendringIBesparelseFaktor is defined and edit_form.energiledelseNoter is defined %}
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+              <label>{{ 'common.energiledelse' | trans }}</label>
+              {{ form_row(edit_form.energiledelseAendringIBesparelseFaktor) }}
+              {{ form_row(edit_form.energiledelseNoter) }}
+            </div>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

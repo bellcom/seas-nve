@@ -24,7 +24,16 @@ class Version20160405162034 extends AbstractMigration {
         $cashFlow = array();
         $this->addSql('UPDATE Rapport SET cashFlow = \'' . serialize($cashFlow) .'\'');
 
-        echo PHP_EOL, PHP_EOL, 'Run app/console aaplus:post-migrate to update cash flows in database.', PHP_EOL, PHP_EOL;
+        $this->write('
+
+<comment>Please run
+
+app/console aaplus:post-migrate
+
+to update cash flows in database after migrations have run.</comment>
+
+');
+        readline('Capisce? ');
     }
 
     /**

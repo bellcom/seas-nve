@@ -1,0 +1,48 @@
+function changeType() {
+  var type = $('#appbundle_tekniskisoleringtiltagdetail_type').val();
+
+  if (type === 'Komponenter') {
+		$('#appbundle_tekniskisoleringtiltagdetail_komponent').removeAttr('disabled');
+  } else {
+    $('#appbundle_tekniskisoleringtiltagdetail_komponent').attr('disabled', 'disabled').val('');
+    $('#appbundle_tekniskisoleringtiltagdetail_roerlaengdeEllerHoejdeAfVvbM').parent().removeClass('has-info');
+  }
+}
+
+function formatNumber(value) {
+	var length = {{ ((1 | format_decimal | length) - 2) | json_encode | raw }};
+	var x = parseFloat(value);
+	var s = x.toFixed(length);
+
+  {# Localize number #}
+  {% if ',' in (3.14 | format_decimal) %}
+  s = s.replace('.', ',');
+  {% endif %}
+
+	return s;
+}
+
+var komponenter = {};
+{% for komponent in komponenter %}
+komponenter[{{ komponent.data.id }}] = {{ komponent.data.roerlaengde | json_encode | raw }};
+{% endfor %}
+
+function changeKomponent() {
+  var id = $('#appbundle_tekniskisoleringtiltagdetail_komponent').val();
+
+  if (id && komponenter[id]) {
+      roerlaengde = $('#appbundle_tekniskisoleringtiltagdetail_roerlaengdeEllerHoejdeAfVvbM');
+      roerlaengde.val(formatNumber(komponenter[id]));
+      roerlaengde.parent().addClass('has-info');
+      roerlaengde.focusout(function() {
+          roerlaengde.parent().removeClass('has-info');
+      });
+  }
+}
+
+// Register listeners
+$('#appbundle_tekniskisoleringtiltagdetail_type').change(changeType);
+$('#appbundle_tekniskisoleringtiltagdetail_komponent').change(changeKomponent);
+
+// On ready calls
+changeType();

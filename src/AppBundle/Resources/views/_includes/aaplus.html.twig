@@ -1,0 +1,22 @@
+{% macro form_label(label) %}
+  <label class="control-label">{{ label | trans }}</label>
+{% endmacro %}
+
+{% macro form_widget(value, unit) %}
+  <input type="text" disabled="disabled" class="form-control" value="{{ value == null ? '' : value | format_decimal }}">
+  {% if unit %}
+    <span class="input-group-addon">{{ unit | trans }}</span>
+  {% endif %}
+{% endmacro %}
+
+{% macro form_row_decimal(label, value, unit) %}
+  {% import _self as aaplus %}
+
+  <div class="form-group">
+    {{ aaplus.form_label(label) }}
+
+    <div class="input-group">
+      {{ aaplus.form_widget(value, unit) }}
+    </div>
+  </div>
+{% endmacro %}

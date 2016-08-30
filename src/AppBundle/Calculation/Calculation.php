@@ -2,7 +2,9 @@
 
 namespace AppBundle\Calculation;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 abstract class Calculation {
   private static $allowedDeviance = 0.0001;
@@ -35,6 +37,25 @@ abstract class Calculation {
   }
 
   /**
+   * Format a number.
+   */
+  protected static function formatNumber($value) {
+    $decimals = abs(log10(self::$allowedDeviance));
+    return number_format($value, $decimals);
+  }
+
+  /**
+   * Format all numbers in array structure.
+   */
+  private static function formatNumbers(array &$array) {
+    array_walk_recursive($array, function(&$value) {
+      if (is_numeric($value)) {
+        $value = self::formatNumber($value);
+      }
+    });
+  }
+
+  /**
    * Decide if any calculated values (numeric only) in entity will have different values if re-calculated.
    *
    * @FIXME:
@@ -61,6 +82,13 @@ abstract class Calculation {
           if (method_exists($old, $getter)) {
             $oldValue = $old->{$getter}();
             $newValue = $new->{$getter}();
+
+            if (is_array($oldValue) && is_array($newValue)) {
+              // Format numbers in arrays to make comparison make sense.
+              self::formatNumbers($oldValue);
+              self::formatNumbers($newValue);
+            }
+
             $isChanged = $oldValue != $newValue;
             switch ($type) {
               case 'float':
@@ -111,6 +139,37 @@ abstract class Calculation {
     return array_filter($metadata->fieldMappings, function($field) use ($calculatedFieldNames) {
       return in_array($field['fieldName'], $calculatedFieldNames);
     });
+  }
+
+  public function getCalculationWarnings($entity, array $properties, $prefix = '', $subEntities = null) {
+    $accessor = PropertyAccess::createPropertyAccessor();
+    $errors = array();
+
+    if (!empty($properties)) {
+      $propertyErrors = array_filter($properties, function ($property) use ($entity, $accessor) {
+        $value = $accessor->isReadable($entity, $property) ? $accessor->getValue($entity, $property) : null;
+        return $value === null;
+      });
+
+      if ($prefix) {
+        $propertyErrors = array_map(function($error) use ($prefix) {
+          return 'appbundle.' . $prefix . '.' . $error;
+        }, $propertyErrors);
+      }
+    }
+    if (!empty($propertyErrors)) {
+      $errors['errors'] = $propertyErrors;
+    }
+
+    if (!empty($subEntities)) {
+      foreach ($subEntities as $e) {
+        if($e->getCalculationWarnings()) {
+          $errors[$prefix][] = $e->getIndexNumber();
+        }
+      }
+    }
+
+    return $errors;
   }
 
   /**

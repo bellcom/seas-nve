@@ -8,6 +8,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\Baseline;
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\Tiltag;
+use AppBundle\Entity\SolcelleTiltag;
 use AppBundle\Entity\TiltagDetail;
 
 class TiltagListener {
@@ -44,6 +45,18 @@ class TiltagListener {
       if ($entity instanceof Tiltag) {
         $targets[] = $entity;
         $targets[] = $entity->getRapport();
+
+        if ($entity instanceof SolcelleTiltag) {
+          $changeSet = $uow->getEntityChangeSet($entity);
+          // Calculation of nutidsvaerdiSetOver15AarKr on SolcelleTiltagDetail
+          // depends on SolcelleTiltag.reelAnlaegsinvestering.
+          $field = 'reelAnlaegsinvestering';
+          if (isset($changeSet[$field]) && $changeSet[$field][0] != $changeSet[$field][1]) {
+            foreach ($entity->getDetails() as $detail) {
+              $targets[] = $detail;
+            }
+          }
+        }
       }
       elseif ($entity instanceof TiltagDetail) {
         $targets[] = $entity;

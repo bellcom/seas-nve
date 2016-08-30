@@ -26,7 +26,7 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
         'class' => 'AppBundle:Klimaskaerm',
         'choices' => $this->getKlimaskaerme(),
         'required' => FALSE,
-        'empty_value' => 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.edit',
+        'empty_data' => null,
       ))
       ->add('klimaskaermOverskrevetPris')
       ->add('type')
@@ -46,6 +46,7 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
         'attr' => array('maxlength' => 360), 'required' => false,
       ))
       ->add('levetidAar')
+      ->add('noteGenerelt', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
       ;
   }
 

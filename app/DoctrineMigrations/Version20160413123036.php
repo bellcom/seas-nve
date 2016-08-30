@@ -21,7 +21,16 @@ class Version20160413123036 extends AbstractMigration
         $this->addSql('ALTER TABLE Tiltag ADD maengde DOUBLE PRECISION DEFAULT NULL, ADD enhed VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE Tiltag_audit ADD maengde DOUBLE PRECISION DEFAULT NULL, ADD enhed VARCHAR(255) DEFAULT NULL');
 
-        echo PHP_EOL, PHP_EOL, 'Run app/console aaplus:post-migrate to update "maengde" and "enhed" in database.', PHP_EOL, PHP_EOL;
+        $this->write('
+
+<comment>Please run
+
+app/console aaplus:post-migrate
+
+to update "maengde" and "enhed" in database after migrations have run.</comment>
+
+');
+        readline('Capisce? ');
     }
 
     /**

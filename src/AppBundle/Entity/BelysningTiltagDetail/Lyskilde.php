@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
  * Belysningstype
  *
  * @ORM\Table(name="BelysningTiltagDetail_Lyskilde")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\BelysningTiltagDetail\LyskildeRepository")
  */
 class Lyskilde {
   use TimestampableEntity;

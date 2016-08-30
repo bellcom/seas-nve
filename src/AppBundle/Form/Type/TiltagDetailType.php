@@ -13,6 +13,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 
 /**
  * Class TiltagDetailType
@@ -22,18 +24,75 @@ class TiltagDetailType extends AbstractType {
   protected $container;
   protected $authorizationChecker;
   protected $detail;
+  protected $isBatchEdit;
+  protected $doctrine;
 
-  public function __construct(ContainerInterface $container, TiltagDetail $detail)
+  public function __construct(ContainerInterface $container, TiltagDetail $detail, $isBatchEdit = false)
   {
     $this->container = $container;
+    $this->doctrine = $this->container->get('doctrine');
     $this->authorizationChecker = $this->container->get('security.context');
     $this->detail = $detail;
+    $this->isBatchEdit = $isBatchEdit;
   }
 
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('tilvalgt')
-            ->add('ikkeElenaBerettiget');
+    $builder->add('tilvalgt');
+    $builder->add('ikkeElenaBerettiget');
 
+    $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'modifyForBatchEdit'));
+  }
+
+  public function modifyForBatchEdit(FormEvent $event) {
+    if($this->isBatchEdit) {
+      $form = $event->getForm();
+      foreach ($event->getForm()->all() as $child) {
+        $config = $child->getConfig();
+        $options = $config->getOptions();
+        $type = $config->getType()->getName();
+        $name = $config->getName();
+
+        // Alter checkbox to dropdown
+        if($type === 'checkbox') {
+          $options['choice_value'] = null;
+          unset($options['value']);
+          $form->add(
+          // Replace original field...
+            $name,
+            'choice',
+            // while keeping the original options...
+            array_replace(
+              $options,
+              [
+                // replacing specific ones
+                'required' => false,
+                'choices' => array(
+                  '0' => 'Nej',
+                  '1' => 'Ja',
+                ),
+                'empty_data'  => null,
+                'empty_value' => '--'
+              ]
+            )
+          );
+        } else {
+          // Set all as "Not required"
+          $form->add(
+          // Replace original field...
+            $name,
+            $type,
+            // while keeping the original options...
+            array_replace(
+              $options,
+              [
+                // replacing specific ones
+                'required' => false,
+              ]
+            )
+          );
+        }
+      }
+    }
   }
 
   public function configureOptions(OptionsResolver $resolver) {

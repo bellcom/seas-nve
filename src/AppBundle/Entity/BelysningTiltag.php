@@ -26,10 +26,10 @@ class BelysningTiltag extends Tiltag {
     $this->setTitle('Belysning');
   }
 
-  protected function calculateVarmebesparelseGUF($value = null) {
+  protected function calculateVarmebesparelseGAF($value = null) {
     $value = $this->sum('kWhBesparelseVarmeFraVarmevaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
 
-    return parent::calculateVarmebesparelseGUF($value);
+    return parent::calculateVarmebesparelseGAF($value);
   }
 
   protected function calculateElbesparelse($value = null) {
@@ -39,11 +39,11 @@ class BelysningTiltag extends Tiltag {
   }
 
   protected function calculateSamletEnergibesparelse() {
-    return ($this->varmebesparelseGUF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapport()->getElKrKWh());
+    return ($this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapport()->getElKrKWh());
   }
 
   protected function calculateSamletCo2besparelse() {
-    return (($this->varmebesparelseGUF / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
+    return (($this->varmebesparelseGAF / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
             + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
   }
 

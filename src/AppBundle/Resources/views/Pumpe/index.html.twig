@@ -69,24 +69,24 @@
     {% for entity in entities %}
     <tr>
         <td>{{ entity.nuvaerendeType }}</td>
-        <td>{{ entity.byggemaal }}</td>
+        <td class="number">{{ entity.byggemaal }}</td>
         <td>{{ entity.tilslutning }}</td>
-        <td>{{ entity.indst }}</td>
-        <td>{{ entity.forbrug }}</td>
-        <td>{{ entity.q }}</td>
-        <td>{{ entity.h }}</td>
-        <td>{{ entity.aarsforbrug }}</td>
+        <td class="number">{{ entity.indst }}</td>
+        <td class="number">{{ entity.forbrug }}</td>
+        <td class="number">{{ entity.q }}</td>
+        <td class="number">{{ entity.h }}</td>
+        <td class="number">{{ entity.aarsforbrug }}</td>
         <td>{{ entity.nyPumpe }}</td>
-        <td>{{ entity.nyByggemaal }}</td>
+        <td class="number">{{ entity.nyByggemaal }}</td>
         <td>{{ entity.nyTilslutning }}</td>
-        <td>{{ entity.vvsnr }}</td>
-        <td>{{ entity.nytAarsforbrug }}</td>
-        <td>{{ entity.elbesparelse }}</td>
+        <td class="number">{{ entity.vvsnr }}</td>
+        <td class="number">{{ entity.nytAarsforbrug }}</td>
+        <td class="number">{{ entity.elbesparelse }}</td>
         <td>{{ entity.udligningssaet }}</td>
         <td>{{ entity.kommentarer }}</td>
-        <td>{{ entity.standInvestering }}</td>
+        <td class="number">{{ entity.standInvestering | format_amount(2) }}</td>
         <td>{{ entity.fabrikant }}</td>
-        <td>{{ entity.roerlaengde }}</td>
+        <td class="number">{{ entity.roerlaengde }}</td>
         <td>{{ entity.roerstoerrelse }}</td>
       <td class="text-right">    <a class="btn btn-default btn-xs" href="{{ path('pumpe_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
 

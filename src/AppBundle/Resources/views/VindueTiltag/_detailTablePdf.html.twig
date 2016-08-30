@@ -1,0 +1,79 @@
+<table class="table table-condensed table-header-rotated table-hover">
+  <thead>
+  <tr>
+    {{ helper.header_span('common.generelt', 5) }}
+    {{ helper.header_span('appbundle.vinduetiltagdetail.vindue', 6) }}
+    {{ helper.header_span('common.oekonomi', 6) }}
+  </tr>
+  <tr>
+    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.type') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.placering') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.noteGenerelt') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.klimaskaerm') }}
+
+    {{ helper.header('appbundle.vinduetiltagdetail.antalStk') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.arealM2') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.uEksWM2K') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.uNyWM2K') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansEks') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.solenergitransmittansNy') }}
+
+    {{ helper.header('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.samletInvesteringKr') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.levetidAar') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+
+    {{ helper.header() }}
+  </tr>
+  <tr>
+    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header_unit('appbundle.tiltagdetail.type') }}
+    {{ helper.header_unit('appbundle.tiltagdetail.placering') }}
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.noteGenerelt') }}
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.klimaskaerm', true) }}
+
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.antalStk') }}
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.arealM2') }}
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.uEksWM2K') }}
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.uNyWM2K') }}
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansEks') }}
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.solenergitransmittansNy', true) }}
+
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet') }}
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.samletInvesteringKr') }}
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.levetidAar') }}
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header_unit('appbundle.vinduetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+
+    {{ helper.header_unit() }}
+  </tr>
+  </thead>
+  <tbody>
+  {% for detail in entity.details %}
+    <tr>
+      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
+      <td>{{ detail.type | trans }}</td>
+      <td>{{ detail.placering }}</td>
+      <td>{{ detail.noteGenerelt }}</td>
+      <td class="border-right">{{ detail.klimaskaerm }}</td>
+
+      <td class="number">{{ detail.antalStk | format_integer }}</td>
+      <td class="number">{{ detail.arealM2 | format_decimal }}</td>
+      <td class="number">{{ detail.uEksWM2K | format_decimal }}</td>
+      <td class="number">{{ detail.uNyWM2K | format_decimal }}</td>
+      <td class="number">{{ detail.solenergitransmittansEks | format_percent_nounit | format_zeros }}</td>
+      <td class="number border-right">{{ detail.solenergitransmittansNy | format_percent_nounit | format_zeros }}</td>
+
+      <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
+      <td class="number">{{ detail.samletInvesteringKr | format_amount }}</td>
+      <td class="number">{{ detail.levetidAar | format_zeros }}</td>
+      <td class="number">{{ detail.samletInvesteringKr | format_amount }}</td>
+      <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
+
+      <td class="last"></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

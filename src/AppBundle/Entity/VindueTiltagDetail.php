@@ -60,18 +60,6 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
   protected $eRefNyKWhM2Aar;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="noteGenerelt", type="text", nullable=true)
-   *
-   * @Assert\Length(
-   *  max = 360,
-   *  maxMessage = "maxLength"
-   * )
-   */
-  protected $noteGenerelt;
-
-  /**
    * @var float
    *
    * @Calculated
@@ -105,12 +93,6 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
     return $this;
   }
 
-  public function setNoteGenerelt($noteGenerelt) {
-    $this->noteGenerelt = $noteGenerelt;
-
-    return $this;
-  }
-
   public function getGlasandel() {
     return $this->glasandel;
   }
@@ -131,9 +113,23 @@ class VindueTiltagDetail extends KlimaskaermTiltagDetail {
     return $this->eWNyKWhM2Aar;
   }
 
-  public function getNoteGenerelt() {
-    return $this->noteGenerelt;
-  }
+  protected $propertiesRequiredForCalculation = [
+    'type',
+    'placering',
+    'orientering',
+    'antalStk',
+    'hoejdeElLaengdeM',
+    'Uekswm2k',
+    'solenergitransmittansEks',
+    'yderligereBesparelserPct',
+    'glasandel',
+    'breddeM',
+    'Unywm2k',
+    'solenergitransmittansNy',
+    'tiltag',
+    'levetidAar',
+    'prisfaktor',
+  ];
 
   public function calculate() {
     $this->arealM2 = $this->calculateArealM2();

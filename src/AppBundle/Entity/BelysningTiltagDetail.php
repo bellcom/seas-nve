@@ -253,7 +253,7 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * @var BelysningTiltagDetailNytArmatur
    *
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NytArmatur")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NytArmatur", fetch="EAGER")
    * ORM\JoinColumn(name="nytArmatur_id", referencedColumnName="id", nullable=true)
    **/
   protected $nytArmatur;
@@ -498,9 +498,8 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @param BelysningTiltagDetailLyskilde $lyskilde
    * @return BelysningTiltagDetail
    */
-  public function setLyskilde(BelysningTiltagDetailLyskilde $lyskilde) {
+  public function setLyskilde(BelysningTiltagDetailLyskilde $lyskilde = null) {
     $this->lyskilde = $lyskilde;
-    $this->addData('lyskilde', $lyskilde);
 
     return $this;
   }
@@ -508,13 +507,10 @@ class BelysningTiltagDetail extends TiltagDetail {
   /**
    * Get lyskilde.
    *
-   * @param bool $useCached
-   *   If set, then that cached value is returned. Otherwise the current value is returned.
-   *
    * @return BelysningTiltagDetailLyskilde
    */
-  public function getLyskilde($useCached = false) {
-    return $useCached ? $this->getData('lyskilde') : $this->lyskilde;
+  public function getLyskilde() {
+    return $this->lyskilde;
   }
 
   /**
@@ -815,9 +811,8 @@ class BelysningTiltagDetail extends TiltagDetail {
    * @param BelysningTiltagDetailLyskilde $nyLyskilde
    * @return BelysningTiltagDetail
    */
-  public function setNyLyskilde($nyLyskilde) {
+  public function setNyLyskilde($nyLyskilde = null) {
     $this->nyLyskilde = $nyLyskilde;
-    $this->addData('nyLyskilde', $nyLyskilde);
 
     return $this;
   }
@@ -827,11 +822,10 @@ class BelysningTiltagDetail extends TiltagDetail {
    *
    * @see getLyskilde()
    *
-   * @param bool $useCached
    * @return BelysningTiltagDetailLyskilde
    */
-  public function getNyLyskilde($useCached = false) {
-    return $useCached ? $this->getData('nyLyskilde') : $this->nyLyskilde;
+  public function getNyLyskilde() {
+    return $this->nyLyskilde;
   }
 
   /**
@@ -1090,6 +1084,49 @@ class BelysningTiltagDetail extends TiltagDetail {
    */
   public function setErstatningsLyskilde($erstatningsLyskilde) {
     $this->erstatningsLyskilde = $erstatningsLyskilde;
+  }
+
+  protected $propertiesRequiredForCalculation = [
+    'lokaleNavn',
+    'lyskilde',
+    'placering',
+    'drifttidTAar',
+    'lyskildeStkArmatur',
+    'lyskildeWLyskilde',
+    'forkoblingStkArmatur',
+    'armaturerStkLokale',
+    'belysningstiltag',
+    'reduktionAfDrifttid',
+    'nyLyskildeStkArmatur',
+    'nyLyskildeWLyskilde',
+    'nyForkoblingStkArmatur',
+    'prisfaktor',
+  ];
+
+  public function getPropertiesRequiredForCalculation() {
+    $properties = parent::getPropertiesRequiredForCalculation();
+
+    if ($this->getNyStyring()) {
+      $properties[] = 'nyeSensorerStkLokale';
+      $properties[] = 'standardinvestSensorKrStk';
+    }
+
+    $tiltag = $this->getBelysningstiltag();
+    switch ($tiltag) {
+      case TiltagType::ARMATUR:
+        $properties[] = 'nytArmatur';
+        $properties[] = 'nyeArmaturerStkLokale';
+        $properties[] = 'standardinvestArmaturKrStk';
+        break;
+
+      case TiltagType::LED_I_EKSIST_ARM:
+      case TiltagType::NY_INDSATS_I_ARM:
+        $properties[] = 'erstatningsLyskilde';
+        $properties[] = 'standardinvestLyskildeKrStk';
+        break;
+    }
+
+    return $properties;
   }
 
   public function calculate() {

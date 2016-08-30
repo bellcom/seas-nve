@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * TiltagDetail
@@ -89,53 +90,11 @@ abstract class TiltagDetail {
   }
 
   /**
-   * @var object
-   *
-   * @ORM\Column(name="data", type="object")
-   */
-  protected $data;
-
-  /**
    * @var boolean
    *
    * @ORM\Column(name="ikkeElenaBerettiget", type="boolean", nullable=true)
    */
   protected $ikkeElenaBerettiget = false;
-
-   /**
-   * Get data.
-   *
-   * @param string $key
-   * @return object
-   */
-  public function getData($key = null) {
-    if ($key === null) {
-      return $this->data;
-    }
-    return isset($this->data->{$key}) ? $this->data->{$key} : null;
-  }
-
-  /**
-   * Add data
-   * @param string $key
-   * @param object $value
-   * @return $this
-   */
-  protected function addData($key, $value) {
-    $data = $this->data;
-    if ($data === null) {
-      $data = new \StdClass();
-    }
-    $data->{$key} = $value;
-    // Mark $this->data as dirty (Hack!)
-    $this->data = clone $data;
-
-    return $this;
-  }
-
-  public function setData($key, $value) {
-    return $this->addData($key, $value);
-  }
 
   /**
    * Set ikkeElenaBerettiget
@@ -267,7 +226,14 @@ abstract class TiltagDetail {
     return $this->getTiltag()->getRapport();
   }
 
-
+  /**
+   * Get all files on this TiltagDetail.
+   *
+   * @return array
+   */
+  public function getAllFiles() {
+    return null;
+  }
 
   /**
    * Handle uploads.
@@ -279,6 +245,41 @@ abstract class TiltagDetail {
    * @var Configuration
    */
   protected $configuration;
+
+  protected $propertiesRequiredForCalculation = [];
+
+  public function getPropertiesRequiredForCalculation() {
+    return $this->propertiesRequiredForCalculation;
+  }
+
+  /**
+   * Check if calculating this Tiltag makes sense.
+   * Some values may be required to make a meaningful calculation.
+   */
+  public function getCalculationWarnings($messages = []) {
+    $properties = $this->getPropertiesRequiredForCalculation();
+    $prefix = strtolower((string)$this);
+    $d = Calculation::getCalculationWarnings($this, $properties, $prefix);
+    return Calculation::getCalculationWarnings($this, $properties, $prefix);
+  }
+
+  /**
+   * Get index
+   *
+   * @return integer
+   */
+  public function getIndexNumber() {
+    $details = $this->getTiltag()->getDetails();
+    $index = 1;
+    foreach ($details as $d) {
+      if($this->getId() === $d->getId()) {
+        return $index;
+      }
+      $index++;
+    }
+
+    return 0;
+  }
 
   /**
    * Calculate stuff.
@@ -413,6 +414,38 @@ End Function
       return $matches['name'];
     }
     return $className;
+  }
+
+  // Temp field for batch edit form - not persisted
+  protected $batchEdit = false;
+
+  /**
+   * @return boolean
+   */
+  public function isBatchEdit()
+  {
+    return $this->batchEdit;
+  }
+
+  /**
+   * @param boolean $batchEdit
+   */
+  public function setBatchEdit($batchEdit)
+  {
+    $this->batchEdit = $batchEdit;
+  }
+
+  public function updateProperties($detail) {
+    $accessor = PropertyAccess::createPropertyAccessor();
+
+    if(get_class($this) === get_class($detail)) {
+      foreach ($detail as $property => $value) {
+        // Only update set values
+        if($value !== null && $accessor->isWritable($this, $property)) {
+          $accessor->setValue($this, $property, $value);
+        }
+      }
+    }
   }
 
 }

@@ -23,6 +23,7 @@ use JMS\Serializer\Annotation as JMS;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use PHPExcel_Calculation_Financial as Excel;
+use PHPExcel_Calculation_Functions as ExcelError;
 
 /**
  * Rapport
@@ -255,35 +256,35 @@ class Rapport {
   /**
    * @var float
    *
-   * @ORM\Column(name="BaselineEl", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineEl", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $BaselineEl;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="BaselineVarmeGUF", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineVarmeGUF", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $BaselineVarmeGUF;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="BaselineVarmeGAF", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineVarmeGAF", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $BaselineVarmeGAF;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="BaselineVand", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineVand", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $BaselineVand;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="BaselineStrafAfkoeling", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="BaselineStrafAfkoeling", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $BaselineStrafAfkoeling;
 
@@ -297,7 +298,7 @@ class Rapport {
   /**
    * @var float
    *
-   * @ORM\Column(name="energiscreening", type="decimal", scale=4, nullable=true)
+   * @ORM\Column(name="energiscreening", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $energiscreening;
 
@@ -413,6 +414,46 @@ class Rapport {
    * @ORM\Column(name="cashFlow30", type="array")
    */
   protected $cashFlow30;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="energibudgetVarme", type="float", nullable=true)
+   */
+  protected $energibudgetVarme;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="energibudgetEl", type="float", nullable=true)
+   */
+  protected $energibudgetEl;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="fravalgtBesparelseDriftOgVedligeholdelse", type="float", nullable=true)
+   */
+  protected $fravalgtBesparelseDriftOgVedligeholdelse;
+
+  /**
+   * @return float
+   */
+  public function getfravalgtBesparelseDriftOgVedligeholdelse()
+  {
+    return $this->fravalgtBesparelseDriftOgVedligeholdelse;
+  }
+
+  /**
+   * @param float $fravalgtBesparelseDriftOgVedligeholdelse
+   */
+  public function setFravalgtBesparelseDriftOgVedligeholdelse($fravalgtBesparelseDriftOgVedligeholdelse)
+  {
+    $this->fravalgtBesparelseDriftOgVedligeholdelse = $fravalgtBesparelseDriftOgVedligeholdelse;
+  }
 
   /**
    * @return float
@@ -531,6 +572,24 @@ class Rapport {
   }
 
   /**
+   * Get energibudgetVarme
+   *
+   * @return float
+   */
+  public function getEnergibudgetVarme() {
+    return $this->energibudgetVarme;
+  }
+
+  /**
+   * Get energibudgetEl
+   *
+   * @return float
+   */
+  public function getEnergibudgetEl() {
+    return $this->energibudgetEl;
+  }
+
+  /**
    * @var Forsyningsvaerk
    */
   protected $traepillefyr;
@@ -543,6 +602,21 @@ class Rapport {
 
   public function getTraepillefyr() {
     return $this->traepillefyr;
+  }
+
+  /**
+   * @var Forsyningsvaerk
+   */
+  protected $olie;
+
+  public function setOlie(Forsyningsvaerk $olie = NULL) {
+    $this->olie = $olie;
+
+    return $this;
+  }
+
+  public function getOlie() {
+    return $this->olie;
   }
 
   /**
@@ -1205,6 +1279,13 @@ class Rapport {
   protected $genopretning;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
+   */
+  protected $genopretningForImplementeringsomkostninger;
+
+  /**
    * @var string
    *
    * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
@@ -1232,6 +1313,10 @@ class Rapport {
    */
   public function getGenopretning() {
     return $this->genopretning;
+  }
+
+  public function getGenopretningForImplementeringsomkostninger() {
+    return $this->genopretningForImplementeringsomkostninger;
   }
 
   /**
@@ -1302,7 +1387,7 @@ class Rapport {
    * @return float
    */
   public function getInterneDriftomkostninger() {
-    return $this->getDriftomkostningerfaktor() + (25 * $this->getBygning()->getBruttoetageareal());
+    return $this->getDriftomkostningerfaktor() + (25 * $this->getBygning()->getAreal());
   }
 
   /**
@@ -1488,7 +1573,7 @@ class Rapport {
     return FALSE;
   }
 
-  public function getEnergiforsyningByNavn($navn) {
+  private function getEnergiforsyningByNavn($navn) {
     if (!$this->energiforsyninger) {
       return NULL;
     }
@@ -1606,6 +1691,29 @@ class Rapport {
     return $this->mtmFaellesomkostninger + $this->implementering;
   }
 
+  /**
+   * Get all files on this Rapport plus any files from Tiltag.
+   *
+   * @return array
+   */
+  public function getAllFiles() {
+    $files = [];
+
+    if ($this->getBilag()) {
+      foreach ($this->getBilag() as $bilag) {
+        $files[] = $bilag->getFilepath();
+      }
+    }
+
+    foreach ($this->getTiltag() as $tiltag) {
+      $tiltagFiles = $tiltag->getAllFiles();
+      if ($tiltagFiles) {
+        $files += $tiltagFiles;
+      }
+    }
+
+    return $files ? $files : null;
+  }
 
   /**
    * Post load handler.
@@ -1659,6 +1767,30 @@ class Rapport {
     $event->getEntityManager()->flush();
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'BaselineEl',
+    'BaselineStrafAfkoeling',
+    'BaselineVarmeGAF',
+    'BaselineVarmeGUF',
+    'energiscreening',
+    'faktorPaaVarmebesparelse',
+  ];
+
+  public function getPropertiesRequiredForCalculation() {
+    return $this->propertiesRequiredForCalculation;
+  }
+
+  /**
+   * Check if calculating this Rapport makes sense.
+   * Some values may be required to make a meaningful calculation.
+   */
+  public function getCalculationWarnings($messages = []) {
+    $properties = $this->getPropertiesRequiredForCalculation();
+    $prefix = 'rapport';
+    $tiltag = $this->getTiltag();
+    return Calculation::getCalculationWarnings($this, $properties, $prefix, $this->getTiltag());
+  }
+
   public function calculate() {
     $this->BaselineCO2El = $this->calculateBaselineCO2El();
     $this->BaselineCO2Varme = $this->calculateBaselineCO2Varme();
@@ -1685,6 +1817,7 @@ class Rapport {
     $this->implementering = $this->calculateImplementering();
     $this->fravalgtImplementering = $this->calculateFravalgtImplementering();
     $this->faellesomkostninger = $this->calculateFaellesomkostninger();
+    $this->fravalgtBesparelseDriftOgVedligeholdelse = $this->calculateFravalgtBesparelseDriftOgVedligeholdelse();
 
     $this->cashFlow = $this->calculateCashFlow();
     $this->besparelseAarEt = $this->calculateSavingsYearOne();
@@ -1694,6 +1827,7 @@ class Rapport {
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->fravalgtNutidsvaerdiSetOver15AarKr = $this->calculateFravalgtNutidsvaerdiSetOver15AarKr();
     $this->genopretning = $this->calculateGenopretning();
+    $this->genopretningForImplementeringsomkostninger = $this->calculateGenopretningForImplementeringsomkostninger();
     $this->modernisering = $this->calculateModernisering();
     $this->fravalgtGenopretning = $this->calculateFravalgtGenopretning();
     $this->fravalgtModernisering = $this->calculateFravalgtModernisering();
@@ -1702,6 +1836,9 @@ class Rapport {
     $this->cashFlow30 = $this->calculateCashFlow30();
 
     $this->internRenteInklFaellesomkostninger = $this->calculateInternRenteInklFaellesomkostninger();
+
+    $this->energibudgetVarme = $this->calculateEnergibudgetVarme();
+    $this->energibudgetEl = $this->calculateEnergibudgetEl();
   }
 
   private function calculateCashFlow15() {
@@ -1738,6 +1875,12 @@ class Rapport {
       $value += $tiltag->getGenopretning();
     }
     return $value;
+  }
+
+  private function calculateGenopretningForImplementeringsomkostninger() {
+    return $this->accumulate(function($tiltag, $value) {
+      return $value + $tiltag->getGenopretningForImplementeringsomkostninger();
+    }, 0);
   }
 
   private function calculateModernisering() {
@@ -1898,13 +2041,13 @@ class Rapport {
   private function calculateFravalgtBesparelseEl() {
     $value = 0;
     foreach ($this->getFravalgteTiltag() as $tiltag) {
-      $value += $tiltag->getSamletEnergibesparelse();
+      $value += $tiltag->getElBesparelse();
     }
     return $value;
   }
 
   private function calculateMtmFaellesomkostninger() {
-    return 10000 + 10 * $this->bygning->getBruttoetageareal();
+    return 10000 + 10 * $this->bygning->getAreal();
   }
 
   private function calculateImplementering() {
@@ -2008,7 +2151,21 @@ class Rapport {
 
     $cashFlow[1] -= $this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering();
 
-    return Excel::IRR($cashFlow);
+    $irr = Excel::IRR($cashFlow);
+
+    if(ExcelError::IS_ERR($irr)) {
+      return NULL;
+    }
+
+    return $irr;
+  }
+
+  private function calculateEnergibudgetVarme() {
+    return ($this->BaselineVarmeGAF + $this->BaselineVarmeGUF) - ($this->besparelseVarmeGAF + $this->besparelseVarmeGUF);
+  }
+
+  private function calculateEnergibudgetEl() {
+    return $this->BaselineEl - $this->besparelseEl;
   }
 
   private function calculateCashFlow() {
@@ -2065,6 +2222,15 @@ class Rapport {
     }
 
     return $flow;
+  }
+
+  protected function calculateFravalgtBesparelseDriftOgVedligeholdelse() {
+    $result = 0;
+    foreach ($this->getFravalgteTiltag() as $tiltag) {
+      $result += $tiltag->getBesparelseDriftOgVedligeholdelse();
+    }
+
+    return $result;
   }
 
   /**

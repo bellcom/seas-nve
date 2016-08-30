@@ -84,7 +84,7 @@
             </tr>
             <tr>
               <th>{{ 'appbundle.pumpe.standInvestering' | trans }}</th>
-                <td>{{ entity.standInvestering }}</td>
+                <td>{{ entity.standInvestering | format_amount(2) }}</td>
             </tr>
             <tr>
               <th>{{ 'appbundle.pumpe.fabrikant' | trans }}</th>

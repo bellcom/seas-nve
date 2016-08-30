@@ -16,7 +16,8 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  * Class RapportType
  * @package AppBundle\Form
  */
-class RapportType extends AbstractType {
+class RapportType extends AbstractType
+{
   protected $authorizationChecker;
   protected $rapport;
 
@@ -30,21 +31,26 @@ class RapportType extends AbstractType {
    * @TODO: Missing description.
    *
    * @param FormBuilderInterface $builder
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    * @param array $options
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
-  public function buildForm(FormBuilderInterface $builder, array $options) {
+  public function buildForm(FormBuilderInterface $builder, array $options)
+  {
 
     // If there is a Baseline attached disable editing of baseline fields
-    $disabled = $this->rapport->getBygning()->getBaseline() ? 'disabeld' : '';
+    $disabled = $this->rapport->getBygning()->getBaseline() ? 'disabled' : '';
 
     $builder
-      ->add('datering')
+      ->add('datering', 'date', array(
+        // render as a single HTML5 text box
+        'widget' => 'single_text')
+      )
       ->add('BaselineEl', null, array('disabled' => $disabled))
       ->add('BaselineVarmeGUF', null, array('disabled' => $disabled))
       ->add('BaselineVarmeGAF', null, array('disabled' => $disabled))
       ->add('BaselineStrafAfkoeling', null, array('disabled' => $disabled))
+      ->add('bygning', new BygningBaselineEmbedType(), array('label' => false))
       ->add('faktorPaaVarmebesparelse')
       ->add('energiscreening');
 
@@ -58,9 +64,10 @@ class RapportType extends AbstractType {
    * @TODO: Missing description.
    *
    * @param OptionsResolver $resolver
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
-  public function configureOptions(OptionsResolver $resolver) {
+  public function configureOptions(OptionsResolver $resolver)
+  {
     $resolver->setDefaults(array(
       'data_class' => 'AppBundle\Entity\Rapport'
     ));
@@ -70,9 +77,10 @@ class RapportType extends AbstractType {
    * @TODO: Missing description.
    *
    * @return string
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
-  public function getName() {
+  public function getName()
+  {
     return 'appbundle_rapport';
   }
 }

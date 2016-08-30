@@ -16,9 +16,12 @@
         {{ helper.header( 'appbundle.tiltag.besparelseDriftOgVedligeholdelse') }}
         {{ helper.header( 'appbundle.tiltag.anlaegsInvestering') }}
         {{ helper.header( 'appbundle.tiltag.genopretning') }}
+        {{ helper.header( 'appbundle.tiltag.genopretningForImplementeringsomkostninger') }}
         {{ helper.header( 'appbundle.tiltag.modernisering') }}
         {{ helper.header( 'appbundle.tiltag.aaplusInvestering') }}
         {{ helper.header( 'appbundle.tiltag.simpelTilbagebetalingstidAar') }}
+        {{ helper.header( 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr') }}
+        {{ helper.header( 'appbundle.tiltag.aaplusInvestering') }}
         {{ helper.header( 'appbundle.tiltag.levetid') }}
         {{ helper.header( 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr') }}
         {{ helper.header( ) }}
@@ -35,9 +38,12 @@
         {{ helper.header_unit( 'appbundle.tiltag.besparelseDriftOgVedligeholdelse') }}
         {{ helper.header_unit( 'appbundle.tiltag.anlaegsInvestering') }}
         {{ helper.header_unit( 'appbundle.tiltag.genopretning') }}
+        {{ helper.header_unit( 'appbundle.tiltag.genopretningForImplementeringsomkostninger') }}
         {{ helper.header_unit( 'appbundle.tiltag.modernisering') }}
         {{ helper.header_unit( 'appbundle.tiltag.aaplusInvestering') }}
         {{ helper.header_unit( 'appbundle.tiltag.simpelTilbagebetalingstidAar') }}
+        {{ helper.header_unit( 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr') }}
+        {{ helper.header_unit( 'appbundle.tiltag.aaplusInvestering') }}
         {{ helper.header_unit( 'appbundle.tiltag.levetid') }}
         {{ helper.header_unit( 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr') }}
         {{ helper.header_unit( ) }}
@@ -46,7 +52,7 @@
       <tbody>
       {% for t in tiltag %}
         <tr>
-          <td class="text-right">{{ loop.index }}</td>
+          <td class="text-right">{{ t.indexNumber }}</td>
           <td class="tiltag-title">{{ t.title | slice(0,20)}}{% if t.title | length > 20 %}...{% endif %}</td>
           <td class="text-center">{{ t.tilvalgt | b2icon }}</td>
           <td class="text-right">{{ t.varmebesparelseGUF | format_zeros }}</td>
@@ -57,9 +63,12 @@
           <td class="text-right">{{ t.besparelseDriftOgVedligeholdelse | format_zeros }}</td>
           <td class="text-right">{{ t.anlaegsinvestering | format_zeros }}</td>
           <td class="text-right">{{ t.genopretning | format_zeros }}</td>
+          <td class="text-right">{{ t.genopretningForImplementeringsomkostninger | format_zeros }}</td>
           <td class="text-right">{{ t.modernisering | format_zeros }}</td>
           <td class="text-right">{{ t.aaplusInvestering | format_zeros }}</td>
           <td class="text-right">{{ t.simpelTilbagebetalingstidAar | format_one_decimal }}</td>
+          <td class="text-right">{{ t.nutidsvaerdiSetOver15AarKr | format_zeros }}</td>
+          <td class="text-right">{{ t.aaplusInvestering | format_zeros }}</td>
           <td class="text-right">{{ t.levetid | format_zeros }}</td>
           <td class="text-right">{{ t.nutidsvaerdiSetOver15AarKr | format_zeros }}</td>
           <td></td>

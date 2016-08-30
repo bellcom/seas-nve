@@ -1,6 +1,10 @@
 {% extends 'AppBundle:TiltagDetail:new.html.twig' %}
 
-{% set heading = 'specialtiltagdetail.actions.add' %}
+{% if edit_form.batchEditIdArray is defined %}
+  {% set heading = 'specialtiltagdetail.actions.batch_edit' %}
+{% else %}
+  {% set heading = 'specialtiltagdetail.actions.add' %}
+{% endif %}
 
 {% block edit_form %}
 

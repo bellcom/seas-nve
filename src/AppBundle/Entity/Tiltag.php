@@ -417,7 +417,7 @@ abstract class Tiltag {
   /**
    * @var float
    *
-   * Ændring i besparelse
+   * Ændring i besparelse i forhold til risikovurdering
    *
    * @ORM\Column(name="risikovurderingAendringIBesparelseFaktor", type="float", nullable=true)
    */
@@ -431,6 +431,27 @@ abstract class Tiltag {
    * @ORM\Column(name="risikovurderingOekonomiskKompenseringIftInvesteringFaktor", type="float", nullable=true)
    */
   protected $risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
+
+  /**
+   * @var float
+   *
+   * Ændring i besparelse ift. energiledelse
+   *
+   * @ORM\Column(name="energiledelseAendringIBesparelseFaktor", type="float", nullable=true)
+   */
+  protected $energiledelseAendringIBesparelseFaktor;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="energiledelseNoter", type="text", nullable=true)
+   *
+   * @Assert\Length(
+   *  max = 360,
+   *  maxMessage = "maxLength"
+   * )
+   */
+  protected $energiledelseNoter;
 
   /**
    * @var string
@@ -536,6 +557,13 @@ abstract class Tiltag {
   protected $genopretning;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
+   */
+  protected $genopretningForImplementeringsomkostninger;
+
+  /**
    * @var string
    *
    * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
@@ -566,6 +594,13 @@ abstract class Tiltag {
   protected $enhed;
 
   /**
+   * @var \DateTime
+   *
+   * @ORM\Column(name="DatoForDrift", type="date", nullable=true)
+   */
+  protected $datoForDrift;
+
+  /**
    * Get Name
    *
    * @return string
@@ -581,6 +616,24 @@ abstract class Tiltag {
    */
   public function getId() {
     return $this->id;
+  }
+
+  /**
+   * Get index
+   *
+   * @return integer
+   */
+  public function getIndexNumber() {
+    $tiltag = $this->getRapport()->getTiltag();
+    $index = 1;
+    foreach ($tiltag as $t) {
+      if($t->getId() === $this->getId()) {
+        return $index;
+      }
+      $index++;
+    }
+
+    return 0;
   }
 
   /**
@@ -665,6 +718,38 @@ abstract class Tiltag {
    */
   public function setRisikovurderingOekonomiskKompenseringIftInvesteringFaktor($risikovurderingOekonomiskKompenseringIftInvesteringFaktor) {
     $this->risikovurderingOekonomiskKompenseringIftInvesteringFaktor = $risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
+  }
+
+  /**
+   * @return float
+   */
+  public function getEnergiledelseAendringIBesparelseFaktor()
+  {
+    return $this->energiledelseAendringIBesparelseFaktor;
+  }
+
+  /**
+   * @param float $energiledelseAendringIBesparelseFaktor
+   */
+  public function setEnergiledelseAendringIBesparelseFaktor($energiledelseAendringIBesparelseFaktor)
+  {
+    $this->energiledelseAendringIBesparelseFaktor = $energiledelseAendringIBesparelseFaktor;
+  }
+
+  /**
+   * @return string
+   */
+  public function getEnergiledelseNoter()
+  {
+    return $this->energiledelseNoter;
+  }
+
+  /**
+   * @param string $energiledelseNoter
+   */
+  public function setEnergiledelseNoter($energiledelseNoter)
+  {
+    $this->energiledelseNoter = $energiledelseNoter;
   }
 
   /**
@@ -1388,6 +1473,28 @@ abstract class Tiltag {
   }
 
   /**
+   * Set genopretningForImplementeringsomkostninger
+   *
+   * @param string $genopretningForImplementeringsomkostninger
+   *
+   * @return Tiltag
+   */
+  public function setGenopretningForImplementeringsomkostninger($genopretningForImplementeringsomkostninger) {
+    $this->genopretningForImplementeringsomkostninger = $genopretningForImplementeringsomkostninger;
+
+    return $this;
+  }
+
+  /**
+   * Get genopretningForImplementeringsomkostninger
+   *
+   * @return string
+   */
+  public function getGenopretningForImplementeringsomkostninger() {
+    return $this->genopretningForImplementeringsomkostninger;
+  }
+
+  /**
    * Set modernisering
    *
    * @param string $modernisering
@@ -1435,6 +1542,72 @@ abstract class Tiltag {
     $this->aaplusInvestering = $aaplusInvestering;
   }
 
+  /**
+   * Set dato for drift
+   *
+   * @param \DateTime $datoForDrift
+   * @return Rapport
+   */
+  public function setDatoForDrift($datoForDrift) {
+    $this->datoForDrift = $datoForDrift;
+
+    return $this;
+  }
+
+  /**
+   * Get dato for drift
+   *
+   * @return \DateTime
+   */
+  public function getDatoForDrift() {
+    return $this->datoForDrift;
+  }
+
+  protected $propertiesRequiredForCalculation = [
+    'forsyningVarme',
+    'forsyningEl',
+    'levetid',
+    'faktorForReinvesteringer',
+  ];
+
+  public function getPropertiesRequiredForCalculation() {
+    return $this->propertiesRequiredForCalculation;
+  }
+
+  /**
+   * Check if calculating this Tiltag makes sense.
+   * Some values may be required to make a meaningful calculation.
+   */
+  public function getCalculationWarnings($messages = [])
+  {
+    $properties = $this->getPropertiesRequiredForCalculation();
+    $prefix = 'tiltag';
+    return Calculation::getCalculationWarnings($this, $properties, $prefix, $this->getDetails());
+  }
+
+  /**
+   * Get all files on this Tiltag plus any files from TiltagDetails.
+   *
+   * @return array
+   */
+  public function getAllFiles() {
+    $files = [];
+
+    if ($this->getBilag()) {
+      foreach ($this->getBilag() as $bilag) {
+        $files[] = $bilag->getFilepath();
+      }
+    }
+
+    foreach ($this->getDetails() as $detail) {
+      $detailFiles = $detail->getAllFiles();
+      if ($detailFiles) {
+        $files[] = $detailFiles;
+      }
+    }
+
+    return $files ? [ $this->getIndexNumber().'-'.$this->getTitle() => $files ] : null;
+  }
 
   /**
    * Calculate values in this Tiltag
@@ -1494,8 +1667,8 @@ abstract class Tiltag {
     $cashFlow = array_fill(1, $numberOfYears, 0);
 
     for ($year = 1; $year <= $numberOfYears; $year++) {
-      $value = ($varmebesparelseGUF + $varmebesparelseGAF) * $this->getRapport()
-          ->getVarmeKrKWh($year)
+      $varmepris = $this->calculateVarmepris($year);
+      $value = ($varmebesparelseGUF + $varmebesparelseGAF) * $varmepris
         + $elbesparelse * $this->getRapport()->getElKrKWh($year)
         + $vandbesparelse * $this->getRapport()->getVandKrKWh($year)
         + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
@@ -1549,14 +1722,14 @@ abstract class Tiltag {
   }
 
   protected function calculateVarmepris($year = 1) {
-    $varmepris = $this->rapport->getVarmeKrKWh($year);
-    if ($this->getForsyningVarme() && $this->getForsyningVarme()
-        ->getNavn() == NavnType::TRAEPILLEFYR
-    ) {
-      $varmepris = $this->rapport->getTraepillefyr() ? $this->rapport->getTraepillefyr()
-                 ->getKrKWh($this->rapport->getDatering()->format('Y') - 1 + $year) : 0;
+    if ($this->forsyningVarme) {
+      $forsyningsvaerk = $this->forsyningVarme->getForsyningsvaerk();
+      if ($forsyningsvaerk) {
+        return $forsyningsvaerk->getKrKWh($this->rapport->getDatering()->format('Y') - 1 + $year);
+      }
     }
-    return $varmepris;
+
+    return 0;
   }
 
   protected function calculateVandbesparelse() {
@@ -1614,9 +1787,11 @@ abstract class Tiltag {
     if($value === NULL) {
       return NULL;
     } else {
-      $besparelse = $this->getRisikovurderingAendringIBesparelseFaktor() ? 1 - $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
+      $risikoFaktor = $this->getRisikovurderingAendringIBesparelseFaktor() ? 1 - $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
 
-      return $value * $besparelse;
+      $energiledelseFaktor = $this->getEnergiledelseAendringIBesparelseFaktor() ? 1 - $this->getEnergiledelseAendringIBesparelseFaktor() : 1;
+
+      return $value * $risikoFaktor * $energiledelseFaktor;
     }
   }
 

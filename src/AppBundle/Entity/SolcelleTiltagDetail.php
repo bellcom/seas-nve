@@ -221,7 +221,6 @@ class SolcelleTiltagDetail extends TiltagDetail {
    */
   public function setSolcelle(Solcelle $solcelle = NULL) {
     $this->solcelle = $solcelle;
-    $this->addData('solcelle', $solcelle);
 
     return $this;
   }
@@ -229,13 +228,10 @@ class SolcelleTiltagDetail extends TiltagDetail {
   /**
    * Get solcelle.
    *
-   * @param bool $useCached
-   *   If set, then that cached value is returned. Otherwise the current value is returned.
-   *
    * @return Solcelle
    */
-  public function getSolcelle($useCached = false) {
-    return $useCached ? $this->getData('solcelle') : $this->solcelle;
+  public function getSolcelle() {
+    return $this->solcelle;
   }
 
   public function setProduktionKWh($produktionKWh) {
@@ -391,6 +387,21 @@ class SolcelleTiltagDetail extends TiltagDetail {
   public function getNutidsvaerdiSetOver15AarKr() {
     return $this->nutidsvaerdiSetOver15AarKr;
   }
+
+  protected $propertiesRequiredForCalculation = [
+    'anlaegsstoerrelseKWp',
+    'energiprisstigningPctPrAar',
+    'forringetYdeevnePrAar',
+    'inverterskift1Aar',
+    'inverterskift2Aar',
+    'investeringKr',
+    'omkostningTilMaalerKr',
+    'produktionKWh',
+    'salgsprisEfter10AarKrKWh',
+    'salgsprisFoerste10AarKrKWh',
+    'screeningOgProjekteringKr',
+    'tilNettetPct',
+  ];
 
   public function calculate() {
     $this->tilEgetForbrugPct = $this->calculateTilEgetForbrugPct();

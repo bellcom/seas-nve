@@ -1,9 +1,19 @@
 {% extends 'AppBundle:TiltagDetail:new.html.twig' %}
 
-{% set heading = 'tekniskisoleringtiltagdetail.actions.add' %}
+{% if edit_form.batchEditIdArray is defined %}
+  {% set heading = 'tekniskisoleringtiltagdetail.actions.batch_edit' %}
+{% else %}
+  {% set heading = 'tekniskisoleringtiltagdetail.actions.add' %}
+{% endif %}
 
 {% block edit_form %}
 
   {% include 'AppBundle:TekniskIsoleringTiltagDetail:_form.html.twig' %}
 
 {% endblock %}
+
+{% block documentReady %}
+  {{ parent() }}
+
+  {% include 'AppBundle:TekniskIsoleringTiltagDetail:_documentReady.js.twig' with { komponenter: edit_form.komponent.vars.choices } %}
+{% endblock documentReady %}

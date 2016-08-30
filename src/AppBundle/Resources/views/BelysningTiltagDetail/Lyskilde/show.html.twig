@@ -1,0 +1,46 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ entity }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+      <a class="btn btn-default btn-default" href="{{ path('belysningtiltagdetail_lyskilde_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('chevron-right') }} {{ 'lyskilde.labels.singular' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+            <tr>
+              <th>{{ 'appbundle.lyskilde.navn' | trans }}</th>
+              <td>{{ entity.navn }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.lyskilde.type' | trans }}</th>
+              <td>{{ entity.type }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.lyskilde.forkobling' | trans }}</th>
+              <td>{{ entity.forkobling }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.lyskilde.udgift' | trans }}</th>
+              <td>{{ entity.udgift | format_amount(2) }} {{ 'appbundle.lyskilde.udgift.unit' | trans }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.lyskilde.levetid' | trans }}</th>
+              <td>{{ entity.levetid | format_integer }} {{ 'appbundle.lyskilde.levetid.unit' | trans }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

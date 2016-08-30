@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * BelysningTiltagDetail:NytArmatur
  *
  * @ORM\Table(name="BelysningTiltagDetail_NytArmatur")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\BelysningTiltagDetail\NytArmaturRepository")
  */
 class NytArmatur {
   /**
@@ -208,4 +208,3 @@ class NytArmatur {
     return $this->noter;
   }
 }
-

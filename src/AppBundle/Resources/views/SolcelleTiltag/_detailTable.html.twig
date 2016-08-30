@@ -33,16 +33,16 @@
   {% for detail in entity.details %}
     <tr>
       <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
-      <td class="text-right">{{ detail.anlaegsstoerrelseKWp | format_decimal }}</td>
-      <td class="text-right">{{ detail.produktionKWh | format_decimal }}</td>
-      <td class="text-right">{{ detail.egetForbrugAfProduktionenKWh | format_decimal }}</td>
-      <td class="text-right">{{ detail.produktionTilNettetKWh | format_decimal }}</td>
-      <td class="text-right">{{ detail.prisForNyInverterKr | format_decimal }}</td>
-      <td class="text-right">{{ detail.investeringKr | format_decimal }}</td>
-      <td class="text-right">{{ detail.screeningOgProjekteringKr | format_decimal }}</td>
-      <td class="text-right">{{ detail.totalDriftomkostningerPrAar | format_decimal }}</td>
-      <td class="text-right">{{ detail.simpelTilbagebetalingstidAar | format_integer }}</td>
-      <td class="text-right">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+      <td class="number">{{ detail.anlaegsstoerrelseKWp | format_decimal }}</td>
+      <td class="number">{{ detail.produktionKWh | format_decimal }}</td>
+      <td class="number">{{ detail.egetForbrugAfProduktionenKWh | format_decimal }}</td>
+      <td class="number">{{ detail.produktionTilNettetKWh | format_decimal }}</td>
+      <td class="number">{{ detail.prisForNyInverterKr | format_amount(2) }}</td>
+      <td class="number">{{ detail.investeringKr | format_amount }}</td>
+      <td class="number">{{ detail.screeningOgProjekteringKr | format_amount }}</td>
+      <td class="number">{{ detail.totalDriftomkostningerPrAar | format_amount }}</td>
+      <td class="number">{{ detail.simpelTilbagebetalingstidAar | format_integer }}</td>
+      <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
       <td class="last"></td>
     </tr>
   {% endfor %}

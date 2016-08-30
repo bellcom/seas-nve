@@ -52,9 +52,9 @@
       <td>{{ detail.styring | readable('StyringType') }}</td>
       <td>{{ detail.noter }}</td>
       <td>{{ detail.belysningstiltag | readable('TiltagType') }}</td>
-      <td class="number">{{ detail.investeringAlleLokalerKr | format_decimal }}</td>
+      <td class="number">{{ detail.investeringAlleLokalerKr | format_amount }}</td>
       <td class="number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
-      <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_decimal }}</td>
+      <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
       <td class="last"></td>
     </tr>
   {% endfor %}

@@ -106,6 +106,20 @@ class PumpeTiltagDetail extends TiltagDetail {
   /**
    * @var float
    *
+   * @ORM\Column(name="overskrevetPris", type="decimal", scale=4)
+   */
+  protected $overskrevetPris;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="varmetabIftAekvivalentRoerstoerrelse", type="string", length=10)
+   */
+  protected $varmetabIftAekvivalentRoerstoerrelse;
+
+  /**
+   * @var float
+   *
    * @Calculated
    * @ORM\Column(name="pristillaeg", type="float")
    */
@@ -405,7 +419,6 @@ class PumpeTiltagDetail extends TiltagDetail {
    */
   public function setPumpe(Pumpe $pumpe = NULL) {
     $this->pumpe = $pumpe;
-    $this->addData('pumpe', $pumpe);
 
     return $this;
   }
@@ -417,6 +430,37 @@ class PumpeTiltagDetail extends TiltagDetail {
    */
   public function getPumpe() {
     return $this->pumpe;
+  }
+
+  /**
+   * Set overskrevetPris
+   *
+   * @param float $overskrevetPris
+   * @return PumpeDetail
+   */
+  public function setOverskrevetPris($overskrevetPris) {
+    $this->overskrevetPris = $overskrevetPris;
+
+    return $this;
+  }
+
+  /**
+   * Get overskrevetPris
+   *
+   * @return float
+   */
+  public function getOverskrevetPris() {
+    return $this->overskrevetPris;
+  }
+
+  public function setVarmetabIftAekvivalentRoerstoerrelse($varmetabIftAekvivalentRoerstoerrelse) {
+    $this->varmetabIftAekvivalentRoerstoerrelse = $varmetabIftAekvivalentRoerstoerrelse;
+
+    return $this;
+  }
+
+  public function getVarmetabIftAekvivalentRoerstoerrelse() {
+    return $this->varmetabIftAekvivalentRoerstoerrelse;
   }
 
   public function getPristillaeg() {
@@ -455,6 +499,18 @@ class PumpeTiltagDetail extends TiltagDetail {
     return $this->kwhBesparelseVarmeFraVaerket;
   }
 
+  protected $propertiesRequiredForCalculation = [
+    'applikation',
+    'eksisterendeDrifttid',
+    'forsyningsomraade',
+    'nyDrifttid',
+    'nyttiggjortVarme',
+    'placering',
+    'prisfaktor',
+    'pumpe',
+    'pumpeID',
+  ];
+
   public function calculate() {
     $this->pristillaeg = $this->calculatePristillaeg();
     $this->samletInvesteringInklPristillaeg = $this->calculateSamletInvesteringInklPristillaeg();
@@ -468,19 +524,29 @@ class PumpeTiltagDetail extends TiltagDetail {
     parent::calculate();
   }
 
+  private function getPris() {
+    if ($this->overskrevetPris !== null) {
+      return $this->overskrevetPris;
+    } else if ($this->pumpe !== null) {
+      return $this->pumpe->getStandInvestering();
+    }
+
+    return 0;
+  }
+
   public function calculatePristillaeg() {
     // 'AN'
     if ($this->prisfaktor == 0) {
       return 0;
     }
     else {
-      return ($this->prisfaktor - 1) * $this->pumpe->getStandInvestering();
+      return ($this->prisfaktor - 1) * $this->getPris();
     }
   }
 
   public function calculateSamletInvesteringInklPristillaeg() {
     // 'AO'
-    return $this->pristillaeg + $this->pumpe->getStandInvestering();
+    return $this->pristillaeg + $this->getPris();
   }
 
   public function calculateElforbrugVedNyeDriftstidKWhAar() {
@@ -493,6 +559,10 @@ class PumpeTiltagDetail extends TiltagDetail {
     return ($this->pumpe->getAarsforbrug() * $this->eksisterendeDrifttid - $this->pumpe->getNytAarsforbrug() * $this->nyDrifttid) / 8760;
   }
 
+  private function getBesparelseVedIsoleringskappe() {
+    return $this->pumpe->getBesparelseVedIsoleringskappe($this->varmetabIftAekvivalentRoerstoerrelse);
+  }
+
   public function calculateVarmebespIsokappeKWh() {
     // 'AR'
     if ($this->isoleringskappe) {
@@ -500,9 +570,9 @@ class PumpeTiltagDetail extends TiltagDetail {
     }
     else {
       if (!$this->nyttiggjortVarme) {
-        return $this->bFaktor * $this->pumpe->getBesparelseVedIsoleringskappe();
+        return $this->bFaktor * $this->getBesparelseVedIsoleringskappe();
       }
-      return $this->nyttiggjortVarme->getFaktor() * $this->pumpe->getBesparelseVedIsoleringskappe();
+      return $this->nyttiggjortVarme->getFaktor() * $this->getBesparelseVedIsoleringskappe();
     }
   }
 

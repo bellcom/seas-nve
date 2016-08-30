@@ -9,20 +9,6 @@ use AppBundle\Entity\SpecialTiltag;
 use AppBundle\Entity\SpecialTiltagDetail;
 
 class TiltagDetailTest extends EntityTestCase {
-  public function testSetGetData() {
-    $detail = new SpecialTiltagDetail();
-
-    $data = array(__FILE__);
-
-    $actual = $detail->setData('data', $data);
-
-    $this->assertEquals($detail, $actual);
-
-    $actual = $detail->getData('data');
-
-    $this->assertEquals($data, $actual);
-  }
-
   public function test_nvPTO2() {
     $tests = array(
       array(

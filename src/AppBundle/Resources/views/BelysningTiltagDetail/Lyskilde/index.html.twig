@@ -1,0 +1,51 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'lyskilde.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+      <a class="btn btn-default" href="{{ path('belysningtiltagdetail_lyskilde_new') }}">
+        {{ icon('plus') }} {{ 'lyskilde.actions.add' | trans }}
+      </a>
+    </div>
+  </div>
+
+  <table class="table table-condensed table-header-rotated">
+    <thead>
+      <tr>
+        {{ helper.header('appbundle.lyskilde.navn') }}
+        {{ helper.header('appbundle.lyskilde.type') }}
+        {{ helper.header('appbundle.lyskilde.forkobling') }}
+        {{ helper.header('appbundle.lyskilde.udgift') }}
+        {{ helper.header('appbundle.lyskilde.levetid') }}
+        {{ helper.header() }}
+      </tr>
+      <tr>
+        {{ helper.header_unit('appbundle.lyskilde.navn') }}
+        {{ helper.header_unit('appbundle.lyskilde.type') }}
+        {{ helper.header_unit('appbundle.lyskilde.forkobling') }}
+        {{ helper.header_unit('appbundle.lyskilde.udgift') }}
+        {{ helper.header_unit('appbundle.lyskilde.levetid') }}
+        {{ helper.header_unit() }}
+      </tr>
+    </thead>
+    <tbody>
+      {% for entity in entities %}
+        <tr>
+          <td>{{ entity.navn }}</td>
+          <td>{{ entity.type }}</td>
+          <td>{{ entity.forkobling }}</td>
+          <td class="number">{{ entity.udgift | format_amount(2) }}</td>
+          <td class="number">{{ entity.levetid | format_integer }}</td>
+          <td class="text-right">
+            <a class="btn btn-default btn-xs" href="{{ path('belysningtiltagdetail_lyskilde_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
