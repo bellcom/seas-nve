@@ -36,7 +36,7 @@
             </tr>
             <tr>
               <th>{{ 'appbundle.erstatningslyskilde.pris' | trans }}</th>
-                <td>{{ entity.pris }}</td>
+                <td>{{ entity.pris | format_amount(2) }}</td>
             </tr>
             <tr>
               <th>{{ 'appbundle.erstatningslyskilde.noter' | trans }}</th>

@@ -6,9 +6,11 @@
       <h1>{{ icon('file') }} {{ 'energiforsyninger.labels.singular' | trans }}</h1>
     </div>
     <div class="col-md-4 text-right ">
-      <a href="{{ path('energiforsyning_edit', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-default">
-        {{ 'Edit' | trans }}
-      </a>
+      {% if is_granted('RAPPORT_EDIT', entity.rapport) %}
+        <a href="{{ path('energiforsyning_edit', { 'rapport_id': entity.rapport.id, 'id': entity.id }) }}" class="btn btn-default">
+          {{ 'Edit' | trans }}
+        </a>
+      {% endif %}
     </div>
   </div>
 
@@ -45,7 +47,7 @@
             </tr>
             <tr>
               <th>{{ 'appbundle.energiforsyning.enhedspris' | trans }}</th>
-              <td>{{ entity.enhedspris | format_amount }}</td>
+              <td>{{ entity.enhedspris | format_amount(2) }}</td>
             </tr>
             <tr>
               <th>{{ 'appbundle.energiforsyning.prisfaktor' | trans }}</th>
@@ -53,7 +55,7 @@
             </tr>
             <tr>
               <th>{{ 'appbundle.energiforsyning.nyEnhedspris' | trans }}</th>
-              <td>{{ entity.nyEnhedspris | format_amount }}</td>
+              <td>{{ entity.nyEnhedspris | format_amount(2) }}</td>
             </tr>
             <tr>
               <th>{{ 'appbundle.energiforsyning.samletVarmeeffektivitet' | trans }}</th>

@@ -9,43 +9,38 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Bridge\Doctrine\RegistryInterface;
+use AppBundle\DBAL\Types\BygningStatusType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 /**
- * Class RapportType
+ * Class BygningType
  * @package AppBundle\Form
  */
-class RapportEmbedType extends AbstractType {
+class BygningBaselineEmbedType extends AbstractType {
 
   /**
    * @TODO: Missing description.
    *
    * @param FormBuilderInterface $builder
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    * @param array $options
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder
-      ->add('datering', 'date', array(
-          // render as a single HTML5 text box
-          'widget' => 'single_text')
-      )
-      ->add('faktorPaaVarmebesparelse')
-      ->add('energiscreening')
-      ->add('ava')
-      ->add('elena');
+    $builder->add('areal', null, array('disabled' => 'disabled'));
   }
 
   /**
    * @TODO: Missing description.
    *
    * @param OptionsResolver $resolver
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Rapport'
+      'data_class' => 'AppBundle\Entity\Bygning',
     ));
   }
 
@@ -53,9 +48,9 @@ class RapportEmbedType extends AbstractType {
    * @TODO: Missing description.
    *
    * @return string
-   *   @TODO: Missing description.
+   * @TODO: Missing description.
    */
   public function getName() {
-    return 'appbundle_rapport_embed';
+    return 'appbundle_bygning_embed';
   }
 }

@@ -26,7 +26,7 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
         'class' => 'AppBundle:Klimaskaerm',
         'choices' => $this->getKlimaskaerme(),
         'required' => FALSE,
-        'empty_data' => 'appbundle.klimaskaermtiltagdetail.klimaskaerm.empty.edit',
+        'empty_data' => null,
       ))
       ->add('klimaskaermOverskrevetPris')
       ->add('type')

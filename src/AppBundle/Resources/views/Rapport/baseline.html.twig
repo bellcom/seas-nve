@@ -14,7 +14,7 @@
 
   </div>
 
-  {{ form_start(edit_form) }}
+  {{ form_start(show_form) }}
 
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -22,17 +22,17 @@
     </div>
     <div class="panel-body">
       <div class="col-xs-12 col-md-6">
-        {{ form_row(edit_form.datering) }}
-        {% if edit_form.elena is defined %}
-          {{ form_row(edit_form.elena) }}
+        {{ form_row(show_form.datering) }}
+        {% if show_form.elena is defined %}
+          {{ form_row(show_form.elena) }}
         {% endif %}
-        {% if edit_form.ava is defined %}
-          {{ form_row(edit_form.ava) }}
+        {% if show_form.ava is defined %}
+          {{ form_row(show_form.ava) }}
         {% endif %}
       </div>
       <div class="col-xs-12 col-md-6">
-        {{ form_row(edit_form.energiscreening) }}
-        {{ form_row(edit_form.faktorPaaVarmebesparelse) }}
+        {{ form_row(show_form.energiscreening) }}
+        {{ form_row(show_form.faktorPaaVarmebesparelse) }}
       </div>
       <div class="col-xs-12 col-md-6">
         {{ aaplus.form_row_decimal('appbundle.rapport.energibudgetVarme', entity.energibudgetVarme, 'appbundle.rapport.energibudgetVarme.unit') }}
@@ -49,18 +49,18 @@
     </div>
     <div class="panel-body">
       <div class="col-xs-12 col-md-6">
-        {{ form_row(edit_form.BaselineEl) }}
-        {{ form_row(edit_form.BaselineVarmeGUF) }}
-        {{ form_row(edit_form.BaselineVarmeGAF) }}
+        {{ form_row(show_form.BaselineEl) }}
+        {{ form_row(show_form.BaselineVarmeGUF) }}
+        {{ form_row(show_form.BaselineVarmeGAF) }}
       </div>
       <div class="col-xs-12 col-md-6">
-        {{ form_row(edit_form.BaselineStrafAfkoeling) }}
-        {{ form_row(edit_form.bygning) }}
+        {{ form_row(show_form.BaselineStrafAfkoeling) }}
+        {{ form_row(show_form.bygning) }}
       </div>
     </div>
   </div>
 
-  {{ form_rest(edit_form) }}
-  {{ form_end(edit_form) }}
+  {{ form_rest(show_form) }}
+  {{ form_end(show_form) }}
 
 {% endblock %}

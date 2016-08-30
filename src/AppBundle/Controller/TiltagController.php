@@ -432,6 +432,9 @@ class TiltagController extends BaseController {
     if(method_exists($detail, 'setNyttiggjortVarme')) {
       $detail->setNyttiggjortVarme(null);
     }
+    if(method_exists($detail, 'setGlasandel')) {
+      $detail->setGlasandel(null);
+    }
 
     $formClass = $this->getFormTypeClassName($detail, TRUE);
     $form = $this->createForm(new $formClass($this->container, $detail, TRUE), $detail, array(
@@ -466,6 +469,7 @@ class TiltagController extends BaseController {
   public function batchEditDetailAction(Request $request, Tiltag $tiltag) {
     // Use createform to validate data
     $formDetail = $this->createDetailEntity($tiltag);
+    $formDetail->setBatchEdit(true);
     $form = $this->createDetailBatchEditForm($tiltag, $formDetail);
 
     $form->handleRequest($request);

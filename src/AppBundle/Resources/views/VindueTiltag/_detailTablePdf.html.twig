@@ -63,12 +63,12 @@
       <td class="number">{{ detail.arealM2 | format_decimal }}</td>
       <td class="number">{{ detail.uEksWM2K | format_decimal }}</td>
       <td class="number">{{ detail.uNyWM2K | format_decimal }}</td>
-      <td class="number">{{ detail.solenergitransmittansEks | format_percent_nounit }}</td>
-      <td class="number border-right">{{ detail.solenergitransmittansNy | format_percent_nounit }}</td>
+      <td class="number">{{ detail.solenergitransmittansEks | format_percent_nounit | format_zeros }}</td>
+      <td class="number border-right">{{ detail.solenergitransmittansNy | format_percent_nounit | format_zeros }}</td>
 
       <td>{{ detail.noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet }}</td>
       <td class="number">{{ detail.samletInvesteringKr | format_amount }}</td>
-      <td class="number">{{ detail.levetidAar | format_decimal }}</td>
+      <td class="number">{{ detail.levetidAar | format_zeros }}</td>
       <td class="number">{{ detail.samletInvesteringKr | format_amount }}</td>
       <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
 

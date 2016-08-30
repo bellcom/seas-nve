@@ -416,9 +416,19 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     'nyttiggjortVarme',
     'nyIsolMm',
     'tempMedieC',
-    'standardinvestKrM2EllerKrM',
     'prisfaktor',
   ];
+
+  public function getPropertiesRequiredForCalculation() {
+    // standardinvestKrM2EllerKrM is only required if overskrevetPris is not set
+    if(empty($this->overskrevetPris)) {
+      if(!in_array('standardinvestKrM2EllerKrM', $this->propertiesRequiredForCalculation)) {
+        $this->propertiesRequiredForCalculation[] = 'standardinvestKrM2EllerKrM';
+      }
+    }
+
+    return $this->propertiesRequiredForCalculation;
+  }
 
   public function calculate() {
     $this->roerstoerrelseMmAekvivalent = $this->calculateRoerstoerrelseMmAekvivalent();

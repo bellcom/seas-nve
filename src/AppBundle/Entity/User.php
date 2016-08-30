@@ -90,6 +90,12 @@ class User extends BaseUser {
    **/
   protected $energiRaadgiver;
 
+  /**
+   * @OneToMany(targetEntity="Bygning", mappedBy="projektleder")
+   * @OrderBy({"navn" = "ASC"})
+   * @JMS\Exclude
+   **/
+  protected $projektleder;
 
   public function __construct() {
     parent::__construct();

@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  * Class RapportType
  * @package AppBundle\Form
  */
-class RapportType extends AbstractType
+class RapportShowType extends AbstractType
 {
   protected $authorizationChecker;
   protected $rapport;
@@ -38,25 +38,23 @@ class RapportType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
 
-    // If there is a Baseline attached disable editing of baseline fields
-    $disabled = $this->rapport->getBygning()->getBaseline() ? 'disabled' : '';
-
     $builder
       ->add('datering', 'date', array(
+        'disabled' => 'disabled',
         // render as a single HTML5 text box
         'widget' => 'single_text')
       )
-      ->add('BaselineEl', null, array('disabled' => $disabled))
-      ->add('BaselineVarmeGUF', null, array('disabled' => $disabled))
-      ->add('BaselineVarmeGAF', null, array('disabled' => $disabled))
-      ->add('BaselineStrafAfkoeling', null, array('disabled' => $disabled))
+      ->add('BaselineEl', null, array('disabled' => 'disabled'))
+      ->add('BaselineVarmeGUF', null, array('disabled' => 'disabled'))
+      ->add('BaselineVarmeGAF', null, array('disabled' => 'disabled'))
       ->add('bygning', new BygningBaselineEmbedType(), array('label' => false))
-      ->add('faktorPaaVarmebesparelse')
-      ->add('energiscreening');
+      ->add('BaselineStrafAfkoeling', null, array('disabled' => 'disabled'))
+      ->add('faktorPaaVarmebesparelse', null, array('disabled' => 'disabled'))
+      ->add('energiscreening', null, array('disabled' => 'disabled'));
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-      $builder->add('elena');
-      $builder->add('ava');
+      $builder->add('elena', null, array('disabled' => 'disabled'));
+      $builder->add('ava', null, array('disabled' => 'disabled'));
     }
   }
 

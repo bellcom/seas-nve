@@ -14,6 +14,7 @@
     {{ helper.header('appbundle.graddagefordeling.oktober') }}
     {{ helper.header('appbundle.graddagefordeling.november') }}
     {{ helper.header('appbundle.graddagefordeling.december') }}
+    {{ helper.header('appbundle.graddagefordeling.sumAar') }}
     {{ helper.header() }}
   </tr>
   <tr>
@@ -30,6 +31,7 @@
     {{ helper.header_unit('appbundle.graddagefordeling.oktober') }}
     {{ helper.header_unit('appbundle.graddagefordeling.november') }}
     {{ helper.header_unit('appbundle.graddagefordeling.december') }}
+    {{ helper.header_unit('appbundle.graddagefordeling.sumAar') }}
     {{ helper.header_unit() }}
   </tr>
   </thead>
@@ -49,6 +51,7 @@
       <th class="number">{{ entity.oktober  | number_format }}</th>
       <th class="number">{{ entity.november  | number_format }}</th>
       <th class="number">{{ entity.december  | number_format }}</th>
+      <th class="number">{{ entity.sumAar  | number_format }}</th>
       <th class="text-right">
         {% if can_edit is defined and can_edit == true %}
           <a class="btn btn-default btn-xs" href="{{ path('graddage_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
@@ -60,18 +63,19 @@
   {% for entity in entities | slice(1) %}
     <tr>
       <td>{{ entity.titel }}</td>
-      <td class="number">{{ entity.januar  | number_format }}</td>
-      <td class="number">{{ entity.februar  | number_format }}</td>
-      <td class="number">{{ entity.marts  | number_format }}</td>
-      <td class="number">{{ entity.april  | number_format }}</td>
-      <td class="number">{{ entity.maj  | number_format }}</td>
-      <td class="number">{{ entity.juni  | number_format }}</td>
-      <td class="number">{{ entity.juli  | number_format }}</td>
-      <td class="number">{{ entity.august  | number_format }}</td>
-      <td class="number">{{ entity.september  | number_format }}</td>
-      <td class="number">{{ entity.oktober  | number_format }}</td>
-      <td class="number">{{ entity.november  | number_format }}</td>
-      <td class="number">{{ entity.december  | number_format }}</td>
+      <td class="number">{{ entity.januar ? entity.januar  | number_format : '-' }}</td>
+      <td class="number">{{ entity.februar ? entity.februar  | number_format : '-' }}</td>
+      <td class="number">{{ entity.marts ? entity.marts  | number_format : '-' }}</td>
+      <td class="number">{{ entity.april ? entity.april  | number_format : '-' }}</td>
+      <td class="number">{{ entity.maj ? entity.maj  | number_format : '-' }}</td>
+      <td class="number">{{ entity.juni ? entity.juni  | number_format : '-' }}</td>
+      <td class="number">{{ entity.juli ? entity.juli  | number_format : '-' }}</td>
+      <td class="number">{{ entity.august ? entity.august  | number_format : '-' }}</td>
+      <td class="number">{{ entity.september ? entity.september  | number_format : '-' }}</td>
+      <td class="number">{{ entity.oktober ? entity.oktober  | number_format : '-' }}</td>
+      <td class="number">{{ entity.november ? entity.november  | number_format : '-' }}</td>
+      <td class="number">{{ entity.december ? entity.december | number_format : '-'}}</td>
+      <td class="number">{{ entity.sumAar  | number_format }}</td>
       <td class="text-right">
         {% if can_edit is defined and can_edit == true %}
           <a class="btn btn-default btn-xs" href="{{ path('graddage_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
@@ -86,7 +90,7 @@
       <th colspan="7">{{ 'graddagefordeling.strings.bemaerk' | trans }}</th>
       <th colspan="7" class="text-right">{{ 'graddagefordeling.strings.kilde' | trans }}: <a href="{{ baseline_graddage_url }}" target="_blank">Graddagetal på aarhus.dk</a></th>
     {% else %}
-      <th colspan="14" class="text-right">{{ 'graddagefordeling.strings.kilde' | trans }}: <a href="{{ baseline_graddage_url }}" target="_blank">Graddagetal på aarhus.dk</a></th>
+      <th colspan="15" class="text-right">{{ 'graddagefordeling.strings.kilde' | trans }}: <a href="{{ baseline_graddage_url }}" target="_blank">Graddagetal på aarhus.dk</a></th>
     {% endif %}
   </tr>
   </tfoot>

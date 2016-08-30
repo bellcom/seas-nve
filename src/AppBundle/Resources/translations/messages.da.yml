@@ -238,7 +238,7 @@ erstatningslyskilde:
   labels:
     plural: Erstatnings lyskilder
     singular: Erstatnings lyskilde
-forsyningsvaerker:
+forsyningsvaerk:
   actions:
     add: Tilføj forsyningsværk
     create: Opret forsyningsværk
@@ -436,7 +436,6 @@ solcelle:
 solcelletiltag:
   actions:
     add: Tilføj solcelletiltag
-    batch_edit: Rediger valgte solcelletiltag
     copy: Kopier solcelletiltag
     edit: Rediger solcelletiltag
   confirmation:
@@ -444,6 +443,7 @@ solcelletiltag:
 solcelletiltagdetail:
   actions:
     add: Tilføj solcelletiltag
+    batch_edit: Rediger valgte solcelletiltag
     copy: Kopier solcelletiltag
     edit: Rediger solcelletiltag
 specialtiltag:
@@ -558,6 +558,7 @@ vinduetiltagdetail:
 appbundle:
   baseline:
     areal: Areal
+    areal.unit: m²
     arealdataPrimaerKilde: Primær kilde
     arealdataPrimaerKilde.help: Vælg fra liste
     arealdataPrimaerAreal: Areal
@@ -817,6 +818,7 @@ appbundle:
     anvendelse: Anvendelse
     baseline: Baseline
     bruttoetageareal: Bruttoetageareal
+    bruttoetageareal.unit: m²
     by: By
     bygId: ID
     createdAt: Oprettet
@@ -1163,6 +1165,7 @@ appbundle:
     november: November
     december: December
     graddageVedForskelligeAar: Graddage ved forskellige år:
+    sumAar: Sum f. år
     titel: År
   klimaskaerm:
     arbejdeOmfang: Arbejde/omfang
@@ -1359,6 +1362,10 @@ appbundle:
   rapport:
     ava: AVA
     anlaegsinvestering.unit: kr
+    BaselineCO2El: Baseline CO2 EL 2009
+    BaselineCO2El.unit: t/år
+    BaselineCO2Varme: Baseline CO2 Varme 2009
+    BaselineCO2Varme.unit: t/år
     BaselineEl: El
     BaselineEl.unit: kwh/år
     BaselineStrafAfkoeling: Strafafkøling
@@ -1373,6 +1380,8 @@ appbundle:
     BaselineVarmeGUF.unit: kwh/år
     besparelseAarEt: Økonomisk besparelse i år 1
     besparelseAarEt.unit: kr
+    besparelseAarEtPdf: Økonomisk besparelse i år 1 (inkl. D&V-besparelse)
+    besparelseAarEtPdf.unit: kr
     besparelseAarEt: Samlet besparelse i kr i år 1
     besparelseAarEt.unit: kr/år
     besparelseCO2: Samlet CO2
@@ -1398,6 +1407,8 @@ appbundle:
       kommentar: Kommentar
       titel: Titel
     bygning: Bygning
+    bygning.areal: Areal
+    bygning.areal.unit: m²
     cashFlow: Cashflow (30 år)
     cashFlow15: Cashflow (15 år)
     co2besparelser: CO2 Besparelser
@@ -1588,7 +1599,7 @@ appbundle:
     simpelTilbagebetalingstidAar.unit: år
     standardinvestKrM2EllerKrM: Standardinvest.
     standardinvestKrM2EllerKrM.unit: kr/m² el. kr/m
-    standardinvestKrM2EllerKrM.help: For rør indtastes i kr/m, for beholdere i kr/m²
+    standardinvestKrM2EllerKrM.help: For rør indtastes i kr/m - udfyldes "Overskrevet Pris" kan dette felt udelades
     tempMedieC: Temp. Medie
     tempMedieC.unit: °C
     tempOmgivelC: Temp. omgivel.
@@ -1642,7 +1653,7 @@ appbundle:
       filepath: Fil
       kommentar: Kommentar
       titel: Titel
-    datoForDrift: Dato for drift
+    datoForDrift: Dato f. drift
     elbesparelse: Elbesparelse
     elbesparelse.unit: kWh/år
     energiledelseAendringIBesparelseFaktor: Justering af besparelse ift. energiledelse

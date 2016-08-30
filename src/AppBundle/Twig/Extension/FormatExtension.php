@@ -25,7 +25,7 @@ class FormatExtension extends \Twig_Extension {
       new Twig_SimpleFilter('format_zeros', [$this, 'formatToZeros'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_integer', [$this, 'formatInteger'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_decimal', [$this, 'formatDecimal'], ['is_safe' => ['all']]),
-      new Twig_SimpleFilter('format_amount', [$this, 'formatInteger'], ['is_safe' => ['all']]),
+      new Twig_SimpleFilter('format_amount', [$this, 'formatAmount'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_one_decimal', [$this, 'formatOneDecimal'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_percent', [$this, 'formatPercent'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_percent_nounit', [$this, 'formatPercentNoUnit'], ['is_safe' => ['all']]),
@@ -53,6 +53,10 @@ class FormatExtension extends \Twig_Extension {
 
   public function formatInteger($number) {
     return $this->formatDecimal($number, 0);
+  }
+
+  public function formatAmount($number, $numberOfDecimals = 0) {
+    return $this->formatDecimal($number, $numberOfDecimals);
   }
 
   public function formatOneDecimal($number) {

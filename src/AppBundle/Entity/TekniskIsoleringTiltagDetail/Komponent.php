@@ -45,7 +45,7 @@ class Komponent {
    * @return string
    */
   public function __toString() {
-    return $this->getTitel().' (' . $this->getRoerlaengde() . ')';
+    return $this->getTitel().' (' . number_format($this->getRoerlaengde(), 2, ',', '.') . 'm)';
   }
 
   /**
