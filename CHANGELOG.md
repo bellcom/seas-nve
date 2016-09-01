@@ -1,4 +1,7 @@
 # Aaplus changelog
+
+## v1.7.1
+* SUPPORT-716:  Fixed dashboard tab display bug 
  
 ## v1.7.0
 * AAPLUS-581    Primær entreprise og Tiltagskategori blev på et tidspunkt tilføjet for standard tiltag, men syns de mangler, se rapport 45
