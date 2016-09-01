@@ -189,7 +189,7 @@ class DashboardController extends BaseController {
         array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
       );
 
-      return $this->render('AppBundle:Dashboard:admin2.html.twig', array(
+      return $this->render('AppBundle:Dashboard:default.html.twig', array(
         'pagination' => $pagination,
         'form' => $form->createView(),
         'tab' => 'segmenter',
@@ -252,7 +252,7 @@ class DashboardController extends BaseController {
         array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
       );
 
-      return $this->render('AppBundle:Dashboard:admin2.html.twig', array(
+      return $this->render('AppBundle:Dashboard:default.html.twig', array(
         'pagination' => $pagination,
         'form' => $form->createView(),
         'tab' => 'projektleder',
