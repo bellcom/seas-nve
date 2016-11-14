@@ -129,10 +129,10 @@
       {% xlscell %}{{ tiltag_type(tiltag) | trans }}{% endxlscell %}
       {% xlscell %}{{ tiltag_type(tiltag) == 'Special' and tiltag.tiltagskategori ? tiltag.tiltagskategori.navn : '' }}{% endxlscell %}
       {% xlscell %}{{ tiltag.title }}{% endxlscell %}
-      {% xlscell %}{{ tiltag.tilvalgtAfAaPlus ? 1 : 0 }}{% endxlscell %}
+      {% xlscell %}{{ tiltag.tilvalgtAfAaPlus | b2number }}{% endxlscell %}
       {# Somebody has put in "=((" in tilvalgtBegrundelseMagistrat …  #}
       {% xlscell { dataType: 's' } %}{{ tiltag.tilvalgtbegrundelse }}{% endxlscell %}
-      {% xlscell %}{{ tiltag.tilvalgtAfMagistrat ? 1 : 0 }}{% endxlscell %}
+      {% xlscell %}{{ tiltag.tilvalgtAfMagistrat | b2number }}{% endxlscell %}
       {# Somebody has put in "=((" in tilvalgtBegrundelseMagistrat …  #}
       {% xlscell { dataType: 's' } %}{{ tiltag.tilvalgtBegrundelseMagistrat }}{% endxlscell %}
       {% xlscell %}{{ tiltag.maengde }}{% endxlscell %}
