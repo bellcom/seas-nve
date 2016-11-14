@@ -21,6 +21,7 @@ class FilterExtension extends \Twig_Extension {
   {
     return array(
       new Twig_SimpleFilter('b2icon', [$this, 'booleanToIconFilter'], ['is_safe' => ['all']]),
+      new Twig_SimpleFilter('b2number', [$this, 'booleanToNumberFilter'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('b2class', [$this, 'booleanToClassFilter'], ['is_safe' => ['all']]),
     );
   }
@@ -30,6 +31,14 @@ class FilterExtension extends \Twig_Extension {
       return '<span class="fa fa-circle-thin"></span>';
     } else {
       return $boolean ? '<span class="fa fa-check"></span>' : '<span class="fa fa-minus"></span>';
+    }
+  }
+
+  public function booleanToNumberFilter($boolean) {
+    if($boolean === NULL) {
+      return '';
+    } else {
+      return $boolean ? '1' : '0';
     }
   }
 
