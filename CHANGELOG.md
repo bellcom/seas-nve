@@ -1,5 +1,8 @@
 # Aaplus changelog
 
+## v1.7.2
+* SUPPORT-831:  Fixed boolean values in export 
+
 ## v1.7.1
 * SUPPORT-716:  Fixed dashboard tab display bug 
  
