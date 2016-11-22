@@ -4,8 +4,11 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Tiltag;
+use Box\Spout\Writer\WriterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Box\Spout\Writer\WriterFactory;
+use Box\Spout\Common\Type;
 
 class BygningStreamExporter {
   /**
@@ -29,10 +32,15 @@ class BygningStreamExporter {
     $this->showAll = isset($this->groups['alt']) ? $this->groups['alt'] : false;
   }
 
-  private $handle = null;
+  /**
+   * @var WriterInterface
+   */
+  private $writer;
 
-  public function start($handle) {
-    $this->handle = $handle;
+  public function start($filepath, $format) {
+    $this->format = $format;
+    $this->writer = WriterFactory::create($format);
+    $this->writer->openToFile($filepath);
   }
 
   public function header() {
@@ -49,7 +57,9 @@ class BygningStreamExporter {
     }
   }
 
-  public function end() {}
+  public function end() {
+    $this->writer->close();
+  }
 
   private $showAll = false;
   private $type = null;
@@ -387,14 +397,9 @@ class BygningStreamExporter {
     $this->write(array_fill(0, $cols, $value));
   }
 
-  private function freeze() {
-    $this->sheet->freezePaneByColumnAndRow($this->col, $this->row);
-  }
-
   private function endRow() {
-    $fields = array_slice($this->data, 0, $this->col);
-    fputcsv($this->handle, $fields);
-    fflush($this->handle);
+    $row = array_slice($this->data, 0, $this->col);
+    $this->writer->addRow($row);
     $this->row += 1;
     $this->col = 0;
   }

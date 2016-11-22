@@ -117,7 +117,6 @@ class UdtraekController extends BaseController implements InitControllerInterfac
   }
 
   private function export(array $result, $format, $columns, $types, $type) {
-    $format = 'csv';
     $filename = 'bygninger--' . date('d-m-Y_Hi') . '.' . $format;
 
     $streamer = $this->container->get('aaplus.exporter.bygning_stream');
@@ -134,47 +133,16 @@ class UdtraekController extends BaseController implements InitControllerInterfac
       'Cache-control' => 'max-age=0',
     ]);
 
-    $response->setCallback(function () use ($result, $streamer) {
-      $handle = fopen('php://output', 'w');
-      $streamer->start($handle);
+    $response->setCallback(function () use ($result, $streamer, $format) {
+      $streamer->start('php://output', $format);
       $streamer->header();
       foreach ($result as $item) {
         $streamer->item($item);
-        fflush($handle);
       }
       $streamer->end();
-      fclose($handle);
     });
 
     return $response;
-
-    $result = array_slice($result, 0, 1);
-
-    $exporter = $this->container->get('aaplus.exporter.bygning');
-    $exporter->setConfig([
-      'columns' => $columns,
-      'types' => $types,
-      'type' => $type,
-    ]);
-    $type = 'Xlsx';
-    switch ($format) {
-      case 'csv':
-        $type = 'CSV';
-        break;
-    }
-
-    ob_start();
-    $exporter->export($result, $type, 'php://output');
-
-    return new Response(
-      ob_get_clean(),  // read from output buffer
-      200,
-      [
-        'Content-Type' => 'application/vnd.ms-excel',
-        'Content-Disposition' => 'attachment; filename="' . $filename . '"',
-        'Cache-Control' => 'max-age=0',
-      ]
-    );
   }
 
   /**
