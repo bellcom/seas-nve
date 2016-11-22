@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -95,23 +96,8 @@ class UdtraekController extends BaseController implements InitControllerInterfac
     $type = $this->getType($request);
 
     if ($_format != 'html') {
-      $filename = 'bygninger--' . date('d-m-Y_Hi') . '.' . $_format;
-
-      $response = new Response();
-      $response->headers->set('Content-Type', 'application/vnd.ms-excel');
-      $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-      $response->headers->set('Cache-Control', 'max-age=0');
-
       $result = $query->getResult();
-
-      return $this->render('AppBundle:Bygning:index.' . $_format . '.twig',
-        array(
-          'bygninger' => $result,
-          'columns' => $columns,
-          'types' => $types,
-          'type' => $type,
-        ),
-        $response);
+      return $this->export($result, $_format, $columns, $types, $type);
     } else {
       $paginator = $this->get('knp_paginator');
       $pagination = $paginator->paginate(
@@ -130,6 +116,35 @@ class UdtraekController extends BaseController implements InitControllerInterfac
     }
   }
 
+  private function export(array $result, $format, $columns, $types, $type) {
+    $filename = 'bygninger--' . date('d-m-Y_Hi') . '.' . $format;
+
+    $streamer = $this->container->get('aaplus.exporter.bygning_stream');
+    $streamer->setConfig([
+      'columns' => $columns,
+      'types' => $types,
+      'type' => $type,
+    ]);
+
+    $response = new StreamedResponse();
+    $response->headers->add([
+      'Content-type' => 'text/csv',
+      'Content-disposition' => 'attachment; filename="' . $filename . '"',
+      'Cache-control' => 'max-age=0',
+    ]);
+
+    $response->setCallback(function () use ($result, $streamer, $format) {
+      $streamer->start('php://output', $format);
+      $streamer->header();
+      foreach ($result as $item) {
+        $streamer->item($item);
+      }
+      $streamer->end();
+    });
+
+    return $response;
+  }
+
   /**
    * Get Bygning data from at specific point in time (in the past).
    */
@@ -143,22 +158,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
     $type = $this->getType($request);
 
     if ($_format != 'html') {
-      $filename = 'bygninger--' . date('d-m-Y_Hi') . '.' . $_format;
-
-      $response = new Response();
-      $response->headers->set('Content-Type', 'application/vnd.ms-excel');
-      $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
-      $response->headers->set('Cache-Control', 'max-age=0');
-
-      return $this->render('AppBundle:Bygning:index.' . $_format . '.twig',
-        array(
-          'bygninger' => $entities,
-          'columns' => $columns,
-          'types' => $types,
-          'type' => $type,
-          'timestamp' => $timestamp,
-        ),
-        $response);
+      return $this->export($entities, $_format, $columns, $types, $type);
     } else {
       $paginator = $this->get('knp_paginator');
       $pagination = $paginator->paginate(
