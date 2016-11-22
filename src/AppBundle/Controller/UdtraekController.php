@@ -126,9 +126,18 @@ class UdtraekController extends BaseController implements InitControllerInterfac
       'type' => $type,
     ]);
 
+    switch ($format) {
+      case 'csv':
+        $contentType = 'text/csv';
+        break;
+      case 'xlsx':
+        $contentType = 'application/vnd.ms-excel';
+        break;
+    }
+
     $response = new StreamedResponse();
     $response->headers->add([
-      'Content-type' => 'text/csv',
+      'Content-type' => $contentType,
       'Content-disposition' => 'attachment; filename="' . $filename . '"',
       'Cache-control' => 'max-age=0',
     ]);
