@@ -186,3 +186,7 @@ services:
       class: AppBundle\EntityAudit\AuditReader
       factory: [@aaplus.entityaudit.manager, createAuditReader]
       arguments: [@doctrine.orm.default_entity_manager]
+
+    aaplus.exporter.bygning_stream:
+      class: AppBundle\Service\BygningStreamExporter
+      arguments: [ "@service_container", "@translator" ]
