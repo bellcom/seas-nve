@@ -30,17 +30,7 @@ class BygningRepository extends BaseRepository {
     $qb->select('b')->from('AppBundle:Bygning', 'b');
     $qb->orderBy('b.updatedAt', 'DESC');
 
-    if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users');
-      $qb->setParameter('user', $user);
-      $qb->orWhere('b.energiRaadgiver = :energiRaadgiver');
-      $qb->setParameter('energiRaadgiver', $user);
-      $qb->orWhere('b.projektleder = :projektleder');
-      $qb->setParameter('projektleder', $user);
-    } else if($onlyOwnBuildings) {
-      $qb->andWhere('b.aaplusAnsvarlig = :aaplusAnsvarlig');
-      $qb->setParameter('aaplusAnsvarlig', $user);
-    }
+    $this->limitQueryToUSerAccess($user, $qb, $onlyOwnBuildings);
 
     $query = $qb->getQuery();
 
@@ -109,14 +99,7 @@ class BygningRepository extends BaseRepository {
         ->setParameter('segment', $search['segment']);
     }
 
-    if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users');
-      $qb->setParameter('user', $user);
-      $qb->orWhere('b.energiRaadgiver = :energiRaadgiver');
-      $qb->setParameter('energiRaadgiver', $user);
-      $qb->orWhere('b.projektleder = :projektleder');
-      $qb->setParameter('projektleder', $user);
-    }
+    $this->limitQueryToUSerAccess($user, $qb);
 
     $qb->addOrderBy('b.navn');
 
@@ -157,14 +140,7 @@ class BygningRepository extends BaseRepository {
         ->setParameter('year', $search['year']);
     }
 
-    if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users');
-      $qb->setParameter('user', $user);
-      $qb->orWhere('b.energiRaadgiver = :energiRaadgiver');
-      $qb->setParameter('energiRaadgiver', $user);
-      $qb->orWhere('b.projektleder = :projektleder');
-      $qb->setParameter('projektleder', $user);
-    }
+    $this->limitQueryToUSerAccess($user, $qb);
 
     return $qb->getQuery();
   }
@@ -206,14 +182,7 @@ class BygningRepository extends BaseRepository {
         ->setParameter('year', $search['year']);
     }
 
-    if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users');
-      $qb->setParameter('user', $user);
-      $qb->orWhere('b.energiRaadgiver = :energiRaadgiver');
-      $qb->setParameter('energiRaadgiver', $user);
-      $qb->orWhere('b.projektleder = :projektleder');
-      $qb->setParameter('projektleder', $user);
-    }
+    $this->limitQueryToUSerAccess($user, $qb);
 
     return $qb->getQuery();
   }
@@ -233,14 +202,7 @@ class BygningRepository extends BaseRepository {
     $qb->where('b.status = :status')->setParameter('status', $status);
     $qb->orderBy('b.updatedAt', 'DESC');
 
-    if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users');
-      $qb->setParameter('user', $user);
-      $qb->orWhere('b.energiRaadgiver = :energiRaadgiver');
-      $qb->setParameter('energiRaadgiver', $user);
-      $qb->orWhere('b.projektleder = :projektleder');
-      $qb->setParameter('projektleder', $user);
-    }
+    $this->limitQueryToUSerAccess($user, $qb);
 
     return $qb->getQuery();
   }
@@ -260,14 +222,7 @@ class BygningRepository extends BaseRepository {
 
     $qb->where('b.status = :status')->setParameter('status', $status);
 
-    if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users');
-      $qb->setParameter('user', $user);
-      $qb->orWhere('b.energiRaadgiver = :energiRaadgiver');
-      $qb->setParameter('energiRaadgiver', $user);
-      $qb->orWhere('b.projektleder = :projektleder');
-      $qb->setParameter('projektleder', $user);
-    }
+    $this->limitQueryToUSerAccess($user, $qb);
 
     return $qb->getQuery()->getSingleResult();
   }

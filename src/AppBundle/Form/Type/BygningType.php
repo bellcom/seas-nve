@@ -86,6 +86,12 @@ class BygningType extends AbstractType {
         'required' => FALSE,
         'empty_value' => 'common.none',
       ))
+      ->add('projekterende', 'entity', array(
+        'class' => 'AppBundle:User',
+        'choices' => $this->getUsersFromGroup("Projekterende"),
+        'required' => FALSE,
+        'empty_value' => 'common.none',
+      ))
       ->add('users', null, array(
         'expanded' => TRUE,
         'choices' => $this->getUsersFromGroup("Interessent"),

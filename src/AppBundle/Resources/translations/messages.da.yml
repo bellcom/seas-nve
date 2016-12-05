@@ -839,6 +839,7 @@ appbundle:
     postBy: By
     postnr: Postnr.
     postnummer: Postnummer
+    projekterende: Projekterende
     projektleder: Projektleder
     rapport:
       BaselineEl: El

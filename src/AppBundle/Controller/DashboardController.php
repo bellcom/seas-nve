@@ -76,27 +76,52 @@ class DashboardController extends BaseController {
 
     } else if ($this->isGranted('ROLE_EDIT')) {
 
-      $current_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, BygningStatusType::TILKNYTTET_RAADGIVER);
-      $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatusAfter($user, BygningStatusType::AFLEVERET_RAADGIVER);
+      $twigVars = array();
 
-      $current_buildings = $paginator->paginate(
-        $current_buildings_q,
-        $request->query->get('page', 1),
-        10,
-        array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
-      );
+      // Rådgiver
 
-      $finished_buildings = $paginator->paginate(
-        $finished_buildings_q,
-        $request->query->get('page', 1),
-        10,
-        array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
-      );
+      if($user->hasGroup('Rådgiver')) {
 
-      $summary_current = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, BygningStatusType::TILKNYTTET_RAADGIVER);
-      $summary_finished = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, BygningStatusType::AFLEVERET_RAADGIVER);
+        $current_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, BygningStatusType::TILKNYTTET_RAADGIVER);
+        $finished_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatusAfter($user, BygningStatusType::AFLEVERET_RAADGIVER);
 
-      return $this->render('AppBundle:Dashboard:editor.html.twig', array('current_buildings' => $current_buildings, 'finished_buildings' => $finished_buildings, 'summary_current' => $summary_current, 'summary_finished' => $summary_finished));
+        $twigVars['current_buildings'] = $paginator->paginate(
+          $current_buildings_q,
+          $request->query->get('page', 1),
+          10,
+          array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
+        );
+
+        $twigVars['finished_buildings'] = $paginator->paginate(
+          $finished_buildings_q,
+          $request->query->get('page', 1),
+          10,
+          array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
+        );
+
+        $twigVars['summary_current'] = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, BygningStatusType::TILKNYTTET_RAADGIVER);
+        $twigVars['summary_finished'] = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, BygningStatusType::AFLEVERET_RAADGIVER);
+
+      }
+
+      // Projekterende
+
+      if($user->hasGroup('Projekterende')) {
+
+        $udfoersel_buildings_q = $em->getRepository('AppBundle:Rapport')->getByUserAndStatus($user, BygningStatusType::UNDER_UDFOERSEL);
+
+        $twigVars['udfoersel_buildings'] = $paginator->paginate(
+          $udfoersel_buildings_q,
+          $request->query->get('page', 1),
+          10,
+          array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
+        );
+
+        $twigVars['summary_udfoersel'] = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, BygningStatusType::UNDER_UDFOERSEL);
+
+      }
+
+      return $this->render('AppBundle:Dashboard:editor.html.twig', $twigVars);
 
     } else {
 
