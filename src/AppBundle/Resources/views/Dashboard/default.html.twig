@@ -4,17 +4,23 @@
 
   <div>
 
-    {% if bygninger or segmenter or projektleder %}
+    {% if aaplusAnsvarlig or segmenter or projektleder or projekterende or energiRaadgiver %}
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        {% if bygninger %}
-          <li role="presentation" {% if tab == 'bygninger' %} class="active" {% endif %}><a href="{{ path('dashboard') }}" role="tab">{{ 'bygninger.labels.plural' | trans }}</a></li>
+        {% if aaplusAnsvarlig %}
+          <li role="presentation" {% if tab == 'aaplusAnsvarlig' %} class="active" {% endif %}><a href="{{ path('dashboard') }}" role="tab">{{ 'bygninger.labels.plural' | trans }}</a></li>
         {% endif %}
         {% if segmenter %}
         <li role="presentation" {% if tab == 'segmenter' %} class="active" {% endif %}><a href="{{ path('dashboard_segmenter') }}" role="tab">{{ 'segment.labels.plural' | trans }}</a></li>{##}
         {% endif %}
         {% if projektleder %}
           <li role="presentation" {% if tab == 'projektleder' %} class="active" {% endif %}><a href="{{ path('dashboard_projektleder') }}" aria-controls="messages" role="tab">{{ 'appbundle.bygning.projektleder' | trans }}</a></li>
+        {% endif %}
+        {% if energiRaadgiver %}
+          <li role="presentation" {% if tab == 'energiRaadgiver' %} class="active" {% endif %}><a href="{{ path('dashboard_energiraadgiver') }}" aria-controls="messages" role="tab">{{ 'appbundle.bygning.energiRaadgiver' | trans }}</a></li>
+        {% endif %}
+        {% if projekterende %}
+          <li role="presentation" {% if tab == 'projekterende' %} class="active" {% endif %}><a href="{{ path('dashboard_projekterende') }}" aria-controls="messages" role="tab">{{ 'appbundle.bygning.projekterende' | trans }}</a></li>
         {% endif %}
       </ul>
     {% endif %}
@@ -23,12 +29,14 @@
     <div class="row">
       <div class="col-md-9">
         <h3>
-          {% if tab == 'bygninger' %}
+          {% if tab == 'aaplusAnsvarlig' %}
             {{ 'common.your_buildings' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
           {% elseif tab == 'segmenter' %}
             {{ 'common.your_segments' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
           {% elseif tab == 'projektleder' %}
             {{ 'common.projektleder_for' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
+          {% elseif tab == 'projekterende' %}
+            {{ 'common.projekterende_for' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
           {% else %}
             {{ 'common.forside' | trans }}
           {% endif %}
