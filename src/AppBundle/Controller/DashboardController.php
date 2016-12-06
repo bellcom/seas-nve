@@ -61,6 +61,7 @@ class DashboardController extends BaseController {
    */
   public function indexAaplusAnsvarligAction(Request $request) {
     $user = $this->get('security.context')->getToken()->getUser();
+    $paginator = $this->get('knp_paginator');
 
     if ($this->isGranted('ROLE_ADMIN')) {
 
@@ -234,7 +235,7 @@ class DashboardController extends BaseController {
   private function getDashboardFilterBuilder(User $user, $filterCondition) {
     $filterBuilder = $this->get('doctrine.orm.entity_manager')
       ->getRepository('AppBundle:Bygning')
-      ->createQueryBuilder('b ');
+      ->createQueryBuilder('b');
     $filterBuilder->leftJoin('b.rapport', 'r');
 
     switch ($filterCondition) {
