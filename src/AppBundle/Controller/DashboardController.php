@@ -24,7 +24,7 @@ class DashboardController extends BaseController {
   /**
    * @TODO: Missing description.
    *
-   * @Route("/", name="dashboard")
+   * @Route("/", name="dashboard_default")
    * @Template()
    */
   public function indexAction(Request $request) {
@@ -39,16 +39,37 @@ class DashboardController extends BaseController {
 
       // Rådgiver
       if($user->hasGroup('Rådgiver')) {
-        return $this->dashboardView($request, $user, 'energiRaadgiver');
+        return $this->dashboardView($request, $user, 'igangvaerende');
       }
 
       // Projekterende
       if($user->hasGroup('Projekterende')) {
-        return $this->dashboardView($request, $user, 'energiRaadgiver');
+        return $this->dashboardView($request, $user, 'projekterende');
       }
 
     } else {
       return $this->dashboardView($request, $user, 'default');
+    }
+
+  }
+
+  /**
+   * @TODO: Missing description.
+   *
+   * @Route("/bygninger", name="dashboard_aaplusAnsvarlig")
+   * @Template()
+   */
+  public function indexAaplusAnsvarligAction(Request $request) {
+    $user = $this->get('security.context')->getToken()->getUser();
+
+    if ($this->isGranted('ROLE_ADMIN')) {
+
+      return $this->dashboardView($request, $user, 'aaplusAnsvarlig');
+
+    } else {
+
+      return $this->redirectToRoute('dashboard_default');
+
     }
 
   }
@@ -68,7 +89,7 @@ class DashboardController extends BaseController {
 
     } else {
 
-      return $this->redirectToRoute('dashboard');
+      return $this->redirectToRoute('dashboard_default');
 
     }
 
@@ -89,7 +110,7 @@ class DashboardController extends BaseController {
 
     } else {
 
-      return $this->redirectToRoute('dashboard');
+      return $this->redirectToRoute('dashboard_default');
 
     }
 
@@ -110,7 +131,7 @@ class DashboardController extends BaseController {
 
     } else {
 
-      return $this->redirectToRoute('dashboard');
+      return $this->redirectToRoute('dashboard_default');
 
     }
 
@@ -119,19 +140,40 @@ class DashboardController extends BaseController {
   /**
    * @TODO: Missing description.
    *
-   * @Route("/energiraadgiver", name="dashboard_energiraadgiver")
+   * @Route("/igangvaerende", name="dashboard_igangvaerende")
    * @Template()
    */
-  public function indexEnergiRaadgiverAction(Request $request) {
+  public function indexIgangvaerendeAction(Request $request) {
     $user = $this->get('security.context')->getToken()->getUser();
 
     if ($user->hasGroup('Rådgiver')) {
 
-      return $this->dashboardView($request, $user, 'energiRaadgiver');
+      return $this->dashboardView($request, $user, 'igangvaerende');
 
     } else {
 
-      return $this->redirectToRoute('dashboard');
+      return $this->redirectToRoute('dashboard_default');
+
+    }
+
+  }
+
+  /**
+   * @TODO: Missing description.
+   *
+   * @Route("/indsendt", name="dashboard_indsendt")
+   * @Template()
+   */
+  public function indexIndsendtAction(Request $request) {
+    $user = $this->get('security.context')->getToken()->getUser();
+
+    if ($user->hasGroup('Rådgiver')) {
+
+      return $this->dashboardView($request, $user, 'indsendt');
+
+    } else {
+
+      return $this->redirectToRoute('dashboard_default');
 
     }
 
@@ -151,7 +193,7 @@ class DashboardController extends BaseController {
     $filterBuilder = $this->getDashboardFilterBuilder($user, $filterCondition);
 
     $form = $this->get('form.factory')->create(new BygningDashboardType($this->getDoctrine()), NULL, array(
-      'action' => $this->generateUrl('dashboard_segmenter'),
+      'action' => $this->generateUrl('dashboard_'.$filterCondition),
       'method' => 'GET',
     ));
 
@@ -200,9 +242,17 @@ class DashboardController extends BaseController {
         $filterBuilder->andWhere('b.aaplusAnsvarlig = :aaplusAnsvarlig');
         $filterBuilder->setParameter('aaplusAnsvarlig', $user);
         break;
-      case 'energiRaadgiver':
+      case 'igangvaerende':
         $filterBuilder->andWhere('b.energiRaadgiver = :energiRaadgiver');
         $filterBuilder->setParameter('energiRaadgiver', $user);
+        $filterBuilder->andWhere('b.status = :status');
+        $filterBuilder->setParameter('status', BygningStatusType::TILKNYTTET_RAADGIVER);
+        break;
+      case 'indsendt':
+        $filterBuilder->andWhere('b.energiRaadgiver = :energiRaadgiver');
+        $filterBuilder->setParameter('energiRaadgiver', $user);
+        $filterBuilder->andWhere('b.status >= :status');
+        $filterBuilder->setParameter('status', BygningStatusType::AFLEVERET_RAADGIVER);
         break;
       case 'projektleder':
         $filterBuilder->andWhere('b.projektleder = :projektleder');
