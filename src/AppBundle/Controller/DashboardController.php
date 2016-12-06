@@ -19,7 +19,8 @@ use AppBundle\DBAL\Types\BygningStatusType;
  * Class DashboardController
  * @package AppBundle\Controller
  */
-class DashboardController extends BaseController {
+class DashboardController extends BaseController
+{
 
   /**
    * @TODO: Missing description.
@@ -27,7 +28,8 @@ class DashboardController extends BaseController {
    * @Route("/", name="dashboard_default")
    * @Template()
    */
-  public function indexAction(Request $request) {
+  public function indexAction(Request $request)
+  {
     $user = $this->get('security.context')->getToken()->getUser();
 
     if ($this->isGranted('ROLE_ADMIN')) {
@@ -38,12 +40,12 @@ class DashboardController extends BaseController {
     } else if ($this->isGranted('ROLE_EDIT')) {
 
       // Rådgiver
-      if($user->hasGroup('Rådgiver')) {
+      if ($user->hasGroup('Rådgiver')) {
         return $this->dashboardView($request, $user, 'igangvaerende');
       }
 
       // Projekterende
-      if($user->hasGroup('Projekterende')) {
+      if ($user->hasGroup('Projekterende')) {
         return $this->dashboardView($request, $user, 'projekterende');
       }
 
@@ -59,7 +61,8 @@ class DashboardController extends BaseController {
    * @Route("/bygninger", name="dashboard_aaplusAnsvarlig")
    * @Template()
    */
-  public function indexAaplusAnsvarligAction(Request $request) {
+  public function indexAaplusAnsvarligAction(Request $request)
+  {
     $user = $this->get('security.context')->getToken()->getUser();
     $paginator = $this->get('knp_paginator');
 
@@ -81,7 +84,8 @@ class DashboardController extends BaseController {
    * @Route("/segmenter", name="dashboard_segmenter")
    * @Template()
    */
-  public function indexSegmenterAction(Request $request) {
+  public function indexSegmenterAction(Request $request)
+  {
     $user = $this->get('security.context')->getToken()->getUser();
 
     if ($this->isGranted('ROLE_ADMIN') && !$user->getSegmenter()->isEmpty()) {
@@ -102,7 +106,8 @@ class DashboardController extends BaseController {
    * @Route("/projektleder", name="dashboard_projektleder")
    * @Template()
    */
-  public function indexProjektlederAction(Request $request) {
+  public function indexProjektlederAction(Request $request)
+  {
     $user = $this->get('security.context')->getToken()->getUser();
 
     if ($user->hasGroup('Projektleder')) {
@@ -123,7 +128,8 @@ class DashboardController extends BaseController {
    * @Route("/projekterende", name="dashboard_projekterende")
    * @Template()
    */
-  public function indexProjekterendeAction(Request $request) {
+  public function indexProjekterendeAction(Request $request)
+  {
     $user = $this->get('security.context')->getToken()->getUser();
 
     if ($user->hasGroup('Projekterende')) {
@@ -144,7 +150,8 @@ class DashboardController extends BaseController {
    * @Route("/igangvaerende", name="dashboard_igangvaerende")
    * @Template()
    */
-  public function indexIgangvaerendeAction(Request $request) {
+  public function indexIgangvaerendeAction(Request $request)
+  {
     $user = $this->get('security.context')->getToken()->getUser();
 
     if ($user->hasGroup('Rådgiver')) {
@@ -165,7 +172,8 @@ class DashboardController extends BaseController {
    * @Route("/indsendt", name="dashboard_indsendt")
    * @Template()
    */
-  public function indexIndsendtAction(Request $request) {
+  public function indexIndsendtAction(Request $request)
+  {
     $user = $this->get('security.context')->getToken()->getUser();
 
     if ($user->hasGroup('Rådgiver')) {
@@ -186,7 +194,8 @@ class DashboardController extends BaseController {
    * @param $filterCondition
    * @return \Symfony\Component\HttpFoundation\Response
    */
-  private function dashboardView(Request $request, User $user, $filterCondition) {
+  private function dashboardView(Request $request, User $user, $filterCondition)
+  {
 
     $paginator = $this->get('knp_paginator');
 
@@ -194,7 +203,7 @@ class DashboardController extends BaseController {
     $filterBuilder = $this->getDashboardFilterBuilder($user, $filterCondition);
 
     $form = $this->get('form.factory')->create(new BygningDashboardType($this->getDoctrine()), NULL, array(
-      'action' => $this->generateUrl('dashboard_'.$filterCondition),
+      'action' => $this->generateUrl('dashboard_' . $filterCondition),
       'method' => 'GET',
     ));
 
@@ -215,7 +224,7 @@ class DashboardController extends BaseController {
       array('defaultSortFieldName' => 'b.updatedAt', 'defaultSortDirection' => 'desc')
     );
 
-    return $this->render('AppBundle:Dashboard:default.html.twig', array(
+    $twigArray = array(
       'pagination' => $pagination,
       'form' => $form->createView(),
       'tab' => $filterCondition,
@@ -224,7 +233,16 @@ class DashboardController extends BaseController {
       'segmenter' => !$user->getSegmenter()->isEmpty(),
       'projektleder' => $user->hasGroup('Projektleder'),
       'projekterende' => $user->hasGroup('Projekterende'),
-    ));
+    );
+
+    if ($filterCondition == 'igangvaerende' || $filterCondition == 'indsendt') {
+      // Summary
+      $em = $this->getDoctrine()->getManager();
+      $twigArray['summary_current'] = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, BygningStatusType::TILKNYTTET_RAADGIVER);
+      $twigArray['summary_finished'] = $em->getRepository('AppBundle:Rapport')->getSummaryByUserAndStatus($user, BygningStatusType::AFLEVERET_RAADGIVER);
+    }
+
+    return $this->render('AppBundle:Dashboard:default.html.twig', $twigArray);
   }
 
   /**
@@ -232,11 +250,13 @@ class DashboardController extends BaseController {
    * @param $filterCondition
    * @return mixed
    */
-  private function getDashboardFilterBuilder(User $user, $filterCondition) {
+  private function getDashboardFilterBuilder(User $user, $filterCondition)
+  {
     $filterBuilder = $this->get('doctrine.orm.entity_manager')
       ->getRepository('AppBundle:Bygning')
       ->createQueryBuilder('b');
     $filterBuilder->leftJoin('b.rapport', 'r');
+    $filterBuilder->leftJoin('b.segment', 's');
 
     switch ($filterCondition) {
       case 'aaplusAnsvarlig':
