@@ -368,7 +368,15 @@ class BygningStreamExporter {
         $value = $value->format('Y-m-d');
       } elseif (is_object($value)) {
         $value = (string)$value;
+      } elseif (gettype($value) == 'string' && is_numeric($value)) {
+        if((int)$value == $value) {
+          $value = (int)$value;
+        } else {
+          $value = floatval($value);
+        }
       }
+
+
       $this->data[$this->col] = $value;
       for ($i = 1; $i < $width; $i++) {
         $this->data[$this->col + $i] = null;
