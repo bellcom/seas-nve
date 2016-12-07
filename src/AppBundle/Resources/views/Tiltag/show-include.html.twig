@@ -44,6 +44,13 @@
           <td class="text-right">{{ entity.elbesparelse | number_format }}</td>
           <td>{{ 'appbundle.tiltag.elbesparelse.unit' | trans }}</td>
         </tr>
+        {% if entity.solcelleproduktion is defined %}
+          <tr>
+            <td>{{ 'appbundle.tiltag.solcelleproduktion' | trans }}</td>
+            <td class="text-right">{{ entity.solcelleproduktion | number_format }}</td>
+            <td>{{ 'appbundle.tiltag.solcelleproduktion.unit' | trans }}</td>
+          </tr>
+        {% endif %}
         {% if entity.salgTilNettetAar1 is defined %}
           <tr>
             <td>{{ 'appbundle.tiltag.salgTilNettetAar1' | trans }}</td>
