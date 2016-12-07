@@ -141,7 +141,7 @@ abstract class Calculation {
     });
   }
 
-  public function getCalculationWarnings($entity, array $properties, $prefix = '', $subEntities = null) {
+  public static function getCalculationWarnings($entity, array $properties, $prefix = '', $subEntities = null) {
     $accessor = PropertyAccess::createPropertyAccessor();
     $errors = array();
 
