@@ -30,7 +30,7 @@ class CalculateCommand extends ContainerAwareCommand {
   protected function execute(InputInterface $input, OutputInterface $output) {
     $entities = $this->getEntities($input);
 
-    $em = $this->getContainer()->get('doctrine')->getEntityManager('default');
+    $em = $this->getContainer()->get('doctrine')->getManager('default');
 
     foreach ($entities as $entity) {
       $originalValues = $this->getValues($entity);
@@ -85,7 +85,7 @@ class CalculateCommand extends ContainerAwareCommand {
       $type = count($tokens) > 0 ? $tokens[0] : NULL;
       $id = count($tokens) > 1 ? $tokens[1] : NULL;
 
-      $em = $this->getContainer()->get('doctrine')->getEntityManager('default');
+      $em = $this->getContainer()->get('doctrine')->getManager('default');
       if ($id) {
         $query = $em->createQuery('SELECT e FROM AppBundle:' . $type . ' e WHERE e.id = :id');
         $query->setParameter('id', $id);
