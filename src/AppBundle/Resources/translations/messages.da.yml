@@ -1698,7 +1698,7 @@ appbundle:
     risikovurderingAendringIBesparelseFaktor.unit: %
     risikovurderingOekonomiskKompenseringIftInvesteringFaktor: Økonomisk kompensering ift. investering
     risikovurderingOekonomiskKompenseringIftInvesteringFaktor.unit: %
-    salgTilNettetAar1: Salg til nettet år 1
+    salgTilNettetAar1: Solcelleproduktion, salg til nettet år 1
     salgTilNettetAar1.unit: kWh
     samletCo2besparelse: Samlet co2-besparelse
     samletCo2besparelse.unit: t/år
