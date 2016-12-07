@@ -32,14 +32,27 @@ class SolcelleTiltag extends Tiltag {
     $this->setTitle('Solceller');
   }
 
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="solcelleproduktion", type="decimal", scale=4, precision=14)
+   */
+  protected $solcelleproduktion;
+
   public function getSalgTilNettetAar1() {
     return $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }) / $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
   }
 
-  protected function calculateElbesparelse($value = null) {
-    $value = $this->sum('egetForbrugAfProduktionenKWh');
+  public function getSolcelleproduktion() {
+    return $this->solcelleproduktion;
+  }
 
-    return parent::calculateElbesparelse($value);
+  protected function calculateSolcelleproduktion($value = null) {
+    return $this->sum('egetForbrugAfProduktionenKWh');
+  }
+
+  protected function calculateElbesparelse($value = null) {
+    return 0;
   }
 
   protected function calculateSamletEnergibesparelse() {
@@ -47,8 +60,7 @@ class SolcelleTiltag extends Tiltag {
   }
 
   protected function calculateSamletCo2besparelse() {
-    return (($this->varmebesparelseGAF / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
-            + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
+    return ($this->solcelleproduktion + $this->getSalgTilNettetAar1()) * $this->getRapport()->getElKgCo2MWh() / 1000;
   }
 
   protected function calculateAnlaegsinvestering($value = NULL) {

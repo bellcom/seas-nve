@@ -1708,6 +1708,8 @@ appbundle:
     scrapvaerdi.unit: kr
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
     simpelTilbagebetalingstidAar.unit: År
+    solcelleproduktion: Solcelleproduktion, eget forbrug
+    solcelleproduktion.unit: kWh/år
     tiltagskategori: Tiltagskategori
     tilvalgt: Tilvalgt
     tilvalgtAfAaPlus: Tilvalgt Aa+
