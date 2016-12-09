@@ -103,7 +103,7 @@ class BygningAaPlusVerificeret extends BaseController implements InitControllerI
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Bygning $entity) {
-    $form = $this->createForm(new BygningTilknytRaadgiverType($this->getDoctrine()), $entity, array(
+    $form = $this->createForm(new BygningTilknytRaadgiverType($this->getDoctrine(), $this->get('security.context')), $entity, array(
       'action' => $this->generateUrl('bygning_tilknyt_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));

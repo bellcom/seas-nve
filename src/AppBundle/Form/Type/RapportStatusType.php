@@ -36,9 +36,8 @@ class RapportStatusType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-//    $builder->add('ava');
 
-    if($this->status === BygningStatusType::UNDER_UDFOERSEL) {
+    if($this->status === BygningStatusType::UNDER_UDFOERSEL && $this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
       $builder->add('ava', 'choice', array(
         'choices' => array(
           '0' => 'Ikke ansøgt AVA-støtte',
@@ -48,10 +47,6 @@ class RapportStatusType extends AbstractType {
         'required' => TRUE
       ));
     }
-//    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-//      $builder->add('elena');
-//      $builder->add('ava');
-//    }
   }
 
   /**

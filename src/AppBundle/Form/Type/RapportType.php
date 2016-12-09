@@ -56,6 +56,9 @@ class RapportType extends AbstractType
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder->add('elena');
+    }
+
+    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
       $builder->add('ava');
     }
   }

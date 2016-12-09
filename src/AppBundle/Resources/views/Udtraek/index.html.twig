@@ -66,6 +66,7 @@
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 'b.segment') }}</th>
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.rapport.datering'|trans, 'b.rapport.datering') }}</th>
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.rapport.elena'|trans, 'b.rapport.elena') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.rapport.ava'|trans, 'b.rapport.ava') }}</th>
         <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.status'|trans, 'b.status') }}</th>
         <th></th>
       </tr>
@@ -77,6 +78,7 @@
         <th>{{ form_row(form.segment) }}</th>
         <th class="text-center">{{ form_row(form.rapport.datering) }}</th>
         <th>{{ form_row(form.rapport.elena) }}</th>
+        <th>{{ form_row(form.rapport.ava) }}</th>
         <th>{{ form_row(form.status) }}</th>
         <th>{{ form_row(form.Søg) }}</th>
       </tr>
@@ -93,11 +95,17 @@
         </td>
         <td class="text-center">
           {% if bygning.rapport is not empty %}
-          {{ bygning.rapport.datering | date('Y-m-d') }}</td>
-        {% endif %}
+            {{ bygning.rapport.datering | date('Y-m-d') }}
+          {% endif %}
+        </td>
         <td>
           {% if bygning.rapport is not empty %}
             {{ bygning.rapport.elena | b2icon }}
+          {% endif %}
+        </td>
+        <td>
+          {% if bygning.rapport is not empty %}
+            {{ bygning.rapport.ava | b2icon }}
           {% endif %}
         </td>
         <td>{{ bygning.status  | readable }}</td>
