@@ -76,6 +76,7 @@ class BaseRepository extends EntityRepository {
     }
 
     if ($bygning->getProjekterende() == $user) {
+      return TRUE;
     }
 
     $bygninger = $this->findBygningerByUser($user);
