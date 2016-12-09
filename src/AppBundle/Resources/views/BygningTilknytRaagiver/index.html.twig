@@ -36,7 +36,9 @@
       <div class="col-xs-12 col-md-6">
         {{ form_row(edit_form.rapport.datering) }}
         {{ form_row(edit_form.rapport.elena) }}
-        {{ form_row(edit_form.rapport.ava) }}
+        {% if edit_form.ava is defined %}
+          {{ form_row(edit_form.rapport.ava) }}
+        {% endif %}
       </div>
       <div class="col-xs-12 col-md-6">
         {{ form_row(edit_form.rapport.faktorPaaVarmebesparelse) }}

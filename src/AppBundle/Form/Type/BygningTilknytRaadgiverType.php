@@ -21,8 +21,11 @@ class BygningTilknytRaadgiverType extends AbstractType {
 
   private $doctrine;
 
-  public function __construct(RegistryInterface $doctrine) {
+  protected $authorizationChecker;
+
+  public function __construct(RegistryInterface $doctrine, AuthorizationCheckerInterface $authorizationChecker) {
     $this->doctrine = $doctrine;
+    $this->authorizationChecker = $authorizationChecker;
   }
 
   /**
@@ -50,12 +53,11 @@ class BygningTilknytRaadgiverType extends AbstractType {
       ->add('status', 'hidden', array(
         'read_only' => TRUE
       ))
-      ->add('rapport', new RapportEmbedType(), array(
+      ->add('rapport', new RapportEmbedType($this->authorizationChecker), array(
           'by_reference' => TRUE,
           'data_class' => 'AppBundle\Entity\Rapport'
         )
       );
-    //->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
   }
 
   private function getUsersFromGroup($groupname) {
