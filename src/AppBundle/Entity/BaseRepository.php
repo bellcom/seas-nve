@@ -39,7 +39,7 @@ class BaseRepository extends EntityRepository {
    * @param bool $onlyOwnBuildings
    * @param string $buildingAlias
    */
-  protected function limitQueryToUSerAccess(User $user, QueryBuilder $qb, $onlyOwnBuildings = FALSE, $buildingAlias = 'b') {
+  protected function limitQueryToUserAccess(User $user, QueryBuilder $qb, $onlyOwnBuildings = FALSE, $buildingAlias = 'b') {
     if (!$this->hasFullAccess($user)) {
       $qb->andWhere(':user MEMBER OF '.$buildingAlias.'.users');
       $qb->setParameter('user', $user);

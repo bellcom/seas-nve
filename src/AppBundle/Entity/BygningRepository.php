@@ -30,7 +30,7 @@ class BygningRepository extends BaseRepository {
     $qb->select('b')->from('AppBundle:Bygning', 'b');
     $qb->orderBy('b.updatedAt', 'DESC');
 
-    $this->limitQueryToUSerAccess($user, $qb, $onlyOwnBuildings);
+    $this->limitQueryToUserAccess($user, $qb, $onlyOwnBuildings);
 
     $query = $qb->getQuery();
 
@@ -99,7 +99,7 @@ class BygningRepository extends BaseRepository {
         ->setParameter('segment', $search['segment']);
     }
 
-    $this->limitQueryToUSerAccess($user, $qb);
+    $this->limitQueryToUserAccess($user, $qb);
 
     $qb->addOrderBy('b.navn');
 
@@ -140,7 +140,7 @@ class BygningRepository extends BaseRepository {
         ->setParameter('year', $search['year']);
     }
 
-    $this->limitQueryToUSerAccess($user, $qb);
+    $this->limitQueryToUserAccess($user, $qb);
 
     return $qb->getQuery();
   }
@@ -182,7 +182,7 @@ class BygningRepository extends BaseRepository {
         ->setParameter('year', $search['year']);
     }
 
-    $this->limitQueryToUSerAccess($user, $qb);
+    $this->limitQueryToUserAccess($user, $qb);
 
     return $qb->getQuery();
   }
@@ -202,7 +202,7 @@ class BygningRepository extends BaseRepository {
     $qb->where('b.status = :status')->setParameter('status', $status);
     $qb->orderBy('b.updatedAt', 'DESC');
 
-    $this->limitQueryToUSerAccess($user, $qb);
+    $this->limitQueryToUserAccess($user, $qb);
 
     return $qb->getQuery();
   }
@@ -222,7 +222,7 @@ class BygningRepository extends BaseRepository {
 
     $qb->where('b.status = :status')->setParameter('status', $status);
 
-    $this->limitQueryToUSerAccess($user, $qb);
+    $this->limitQueryToUserAccess($user, $qb);
 
     return $qb->getQuery()->getSingleResult();
   }

@@ -66,7 +66,7 @@ class RapportRepository extends BaseRepository {
     $qb->leftJoin('r.bygning', 'b');
     $qb->orderBy('b.updatedAt', 'DESC');
 
-    $this->limitQueryToUSerAccess($user, $qb, $onlyOwnBuildings);
+    $this->limitQueryToUserAccess($user, $qb, $onlyOwnBuildings);
 
     $query = $qb->getQuery();
 
@@ -133,7 +133,7 @@ class RapportRepository extends BaseRepository {
         ->setParameter('segment', $search['segment']);
     }
 
-    $this->limitQueryToUSerAccess($user, $qb);
+    $this->limitQueryToUserAccess($user, $qb);
 
     $qb->addOrderBy('b.navn');
 
@@ -178,7 +178,7 @@ class RapportRepository extends BaseRepository {
     $qb->where('b.status = :status')->setParameter('status', $status);
     $qb->orderBy('r.updatedAt', 'DESC');
 
-    $this->limitQueryToUSerAccess($user, $qb, $onlyOwnBuildings);
+    $this->limitQueryToUserAccess($user, $qb, $onlyOwnBuildings);
 
     return $qb->getQuery();
   }
@@ -201,7 +201,7 @@ class RapportRepository extends BaseRepository {
     $qb->where('b.status >= :status')->setParameter('status', $status);
     $qb->orderBy('r.updatedAt', 'DESC');
 
-    $this->limitQueryToUSerAccess($user, $qb, $onlyOwnBuildings);
+    $this->limitQueryToUserAccess($user, $qb, $onlyOwnBuildings);
 
     return $qb->getQuery();
   }
@@ -247,7 +247,7 @@ class RapportRepository extends BaseRepository {
 
     $qb->where('b.status = :status')->setParameter('status', $status);
 
-    $this->limitQueryToUSerAccess($user, $qb);
+    $this->limitQueryToUserAccess($user, $qb);
 
     return $qb->getQuery()->getSingleResult();
   }
