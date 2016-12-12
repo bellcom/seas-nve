@@ -202,7 +202,7 @@ class DashboardController extends BaseController
     // initialize a query builder
     $filterBuilder = $this->getDashboardFilterBuilder($user, $filterCondition);
 
-    $form = $this->get('form.factory')->create(new BygningDashboardType($this->getDoctrine()), NULL, array(
+    $form = $this->get('form.factory')->create(new BygningDashboardType($this->getDoctrine(), $filterCondition), NULL, array(
       'action' => $this->generateUrl('dashboard_' . $filterCondition),
       'method' => 'GET',
     ));

@@ -28,8 +28,8 @@ class BygningDashboardType extends AbstractType {
 
   private $doctrine;
 
-  public function __construct(RegistryInterface $doctrine) {
-
+  public function __construct(RegistryInterface $doctrine, $filterCondition='aaplusAnsvarlig') {
+    $this->type = $filterCondition;
     $this->doctrine = $doctrine;
   }
 
@@ -58,15 +58,27 @@ class BygningDashboardType extends AbstractType {
       }
     ));
 
-    $builder->add('energiRaadgiver', new BygningDashboardUserType($this->doctrine, "Rådgiver"), array('label' => false,
-      'add_shared' => function (FilterBuilderExecuterInterface $qbe) {
-        $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
-          $filterBuilder->leftJoin($alias . '.energiRaadgiver', $joinAlias);
-        };
+    if($this->type === 'aaplusAnsvarlig') {
+      $builder->add('energiRaadgiver', new BygningDashboardUserType($this->doctrine, "Rådgiver"), array('label' => false,
+        'add_shared' => function (FilterBuilderExecuterInterface $qbe) {
+          $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
+            $filterBuilder->leftJoin($alias . '.energiRaadgiver', $joinAlias);
+          };
 
-        $qbe->addOnce($qbe->getAlias().'.energiRaadgiver', 'u', $closure);
-      }
-    ));
+          $qbe->addOnce($qbe->getAlias() . '.energiRaadgiver', 'u', $closure);
+        }
+      ));
+    } else {
+      $builder->add('aaplusAnsvarlig', new BygningDashboardUserType($this->doctrine, "Aa+"), array('label' => false,
+        'add_shared' => function (FilterBuilderExecuterInterface $qbe) {
+          $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
+            $filterBuilder->leftJoin($alias . '.aaplusAnsvarlig', $joinAlias);
+          };
+
+          $qbe->addOnce($qbe->getAlias() . '.aaplusAnsvarlig', 'u', $closure);
+        }
+      ));
+    }
 
     $builder->add('Søg', 'submit');
   }

@@ -1835,6 +1835,7 @@ appbundle:
 
 # Dataudtræk
 udtraek.bygning:
+  aaplusAnsvarlig: Aa+ ansvarlig
   adresse: Adresse indholder
   energiRaadgiver: Energirådgiver
   navn: Navn indholder
