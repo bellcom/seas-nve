@@ -54,7 +54,7 @@ class BygningDashboardType extends AbstractType {
           $filterBuilder->leftJoin($alias . '.segment', $joinAlias);
         };
 
-        $qbe->addOnce($qbe->getAlias().'.segment', 's', $closure);
+        $qbe->addOnce($qbe->getAlias().'.segment', 'seg', $closure);
       }
     ));
 
