@@ -1,5 +1,11 @@
 # Aaplus changelog
 
+## v1.8.0
+* AAPLUS-664: New calculation model for "Solceller"
+* AAPLUS-662: Altered AVA edit fields to only show for super admin
+* AAPLUS-661: Added user type "Projekterende"
+* AAPLUS-660: Changed to box/spout for streaming output of Excel export
+
 ## v1.7.2
 * SUPPORT-831: Fixed boolean values in export 
 
