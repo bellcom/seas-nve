@@ -459,7 +459,7 @@ class RapportController extends BaseController {
 
     $this->flash->success('rapporter.confirmation.submitted');
 
-    return $this->redirect($this->generateUrl('dashboard'));
+    return $this->redirect($this->generateUrl('dashboard_default'));
   }
 
   //---------------- Retur til Rådgiver -------------------//
@@ -476,7 +476,7 @@ class RapportController extends BaseController {
 
     $this->flash->success('rapporter.confirmation.retur');
 
-    return $this->redirect($this->generateUrl('dashboard'));
+    return $this->redirect($this->generateUrl('dashboard_default'));
   }
 
 
@@ -494,7 +494,7 @@ class RapportController extends BaseController {
 
     $this->flash->success('rapporter.confirmation.verified');
 
-    return $this->redirect($this->generateUrl('dashboard'));
+    return $this->redirect($this->generateUrl('dashboard_default'));
   }
 
   //---------------- Godkendt Magistrat -------------------//
@@ -511,7 +511,7 @@ class RapportController extends BaseController {
 
     $this->flash->success('rapporter.confirmation.approved');
 
-    return $this->redirect($this->generateUrl('dashboard'));
+    return $this->redirect($this->generateUrl('dashboard_default'));
   }
 
   //---------------- Under udførsel -------------------//
@@ -528,7 +528,7 @@ class RapportController extends BaseController {
 
     $this->flash->success('rapporter.confirmation.implementation');
 
-    return $this->redirect($this->generateUrl('dashboard'));
+    return $this->redirect($this->generateUrl('dashboard_default'));
   }
 
   //---------------- Drift -------------------//
@@ -545,7 +545,7 @@ class RapportController extends BaseController {
 
     $this->flash->success('rapporter.confirmation.operation');
 
-    return $this->redirect($this->generateUrl('dashboard'));
+    return $this->redirect($this->generateUrl('dashboard_default'));
   }
 
   //---------------- Generic Status -------------------//

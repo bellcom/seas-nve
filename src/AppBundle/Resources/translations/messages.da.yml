@@ -78,6 +78,8 @@ common:
   oekonomi: Økonomi
   personer: Personer
   printed: Udskrevet
+  projektleder_for: Projektleder for
+  projekterende_for: Projekterende for
   replace_file: Vælg ny fil
   result_overview: Resultatoversigt
   risikovurdering: Risikovurdering
@@ -97,7 +99,6 @@ common:
   will_change: Opdateres
   your_buildings: Dine bygninger
   your_segments: Dine segmenter
-  projektleder_for: Projektleder for
 dashboard:
   besparelseCO2: CO2 Besparelse
   besparelseEl: El Besparelse
@@ -839,6 +840,7 @@ appbundle:
     postBy: By
     postnr: Postnr.
     postnummer: Postnummer
+    projekterende: Projekterende
     projektleder: Projektleder
     rapport:
       BaselineEl: El

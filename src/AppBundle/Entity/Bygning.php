@@ -231,6 +231,12 @@ class Bygning {
   protected $energiRaadgiver;
 
   /**
+   * @ManyToOne(targetEntity="User", inversedBy="projekterende")
+   * @JoinColumn(name="projekterende_id", referencedColumnName="id")
+   **/
+  protected $projekterende;
+
+  /**
    * @ManyToMany(targetEntity="User", inversedBy="bygninger")
    * @JoinTable(name="bygning_user")
    * @JMS\Exclude
@@ -833,6 +839,28 @@ class Bygning {
    */
   public function getEnergiRaadgiver() {
     return $this->energiRaadgiver;
+  }
+
+  /**
+   * Set Projekterende
+   *
+   * @param \AppBundle\Entity\User user
+   *
+   * @return Bygning
+   */
+  public function setProjekterende(\AppBundle\Entity\User $user = NULL) {
+    $this->projekterende = $user;
+
+    return $this;
+  }
+
+  /**
+   * Get Energirådgiver
+   *
+   * @return \AppBundle\Entity\User
+   */
+  public function getProjekterende() {
+    return $this->projekterende;
   }
 
   /**

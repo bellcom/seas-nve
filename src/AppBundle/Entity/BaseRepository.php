@@ -9,7 +9,7 @@ namespace AppBundle\Entity;
 use AppBundle\DBAL\Types\BygningStatusType;
 use DateTime;
 use Symfony\Component\Form\FormInterface;
-use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -32,6 +32,30 @@ class BaseRepository extends EntityRepository {
   }
 
   /**
+   * Limit Query to buildings user has access to
+   *
+   * @param User $user
+   * @param QueryBuilder $qb
+   * @param bool $onlyOwnBuildings
+   * @param string $buildingAlias
+   */
+  protected function limitQueryToUserAccess(User $user, QueryBuilder $qb, $onlyOwnBuildings = FALSE, $buildingAlias = 'b') {
+    if (!$this->hasFullAccess($user)) {
+      $qb->andWhere(':user MEMBER OF '.$buildingAlias.'.users');
+      $qb->setParameter('user', $user);
+      $qb->orWhere($buildingAlias.'.energiRaadgiver = :energiRaadgiver');
+      $qb->setParameter('energiRaadgiver', $user);
+      $qb->orWhere($buildingAlias.'.projektleder = :projektleder');
+      $qb->setParameter('projektleder', $user);
+      $qb->orWhere($buildingAlias.'.projekterende = :projekterende');
+      $qb->setParameter('projekterende', $user);
+    } else if($onlyOwnBuildings) {
+      $qb->andWhere('b.aaplusAnsvarlig = :aaplusAnsvarlig');
+      $qb->setParameter('aaplusAnsvarlig', $user);
+    }
+  }
+
+  /**
    * Check if a User has access to a Bygning
    *
    * @param User $user
@@ -48,6 +72,10 @@ class BaseRepository extends EntityRepository {
     }
 
     if ($bygning->getProjektleder() == $user) {
+      return TRUE;
+    }
+
+    if ($bygning->getProjekterende() == $user) {
       return TRUE;
     }
 

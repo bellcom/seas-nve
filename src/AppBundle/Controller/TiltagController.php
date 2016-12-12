@@ -45,7 +45,7 @@ class TiltagController extends BaseController {
    * @Template()
    */
   public function indexAction() {
-    return $this->redirect($this->generateUrl('dashboard'));
+    return $this->redirect($this->generateUrl('dashboard_default'));
   }
 
   /**
