@@ -4,6 +4,8 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Tiltag;
+use Box\Spout\Writer\Style\Style;
+use Box\Spout\Writer\Style\StyleBuilder;
 use Box\Spout\Writer\WriterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -21,9 +23,16 @@ class BygningStreamExporter {
    */
   protected $translator;
 
+  /**
+   * @var StyleBuilder
+   */
+  protected $headerStyle;
+
   public function __construct(ContainerInterface $container, TranslatorInterface $translator) {
     $this->container = $container;
     $this->translator = $translator;
+
+    $this->headerStyle = (new StyleBuilder())->setFontBold()->setFontSize(16)->build();
   }
 
   public function setConfig(array $config) {
@@ -314,6 +323,7 @@ class BygningStreamExporter {
       $this->write($tiltag->getTitle());
       $this->write($tiltag->getTilvalgtAfAaPlus() ? 1 : 0);
       $this->write($tiltag->getTilvalgtbegrundelse());
+      $this->write($tiltag->getTilvalgtAfMagistrat() ? 1 : 0);
       $this->write($tiltag->getTilvalgtBegrundelseMagistrat());
       $this->write($tiltag->getMaengde());
       $this->write($tiltag->getEnhed());
@@ -405,9 +415,13 @@ class BygningStreamExporter {
     $this->write(array_fill(0, $cols, $value));
   }
 
-  private function endRow() {
+  private function endRow($style = null) {
     $row = array_slice($this->data, 0, $this->col);
-    $this->writer->addRow($row);
+    if($style) {
+      $this->writer->addRowWithStyle($row, $style);
+    } else {
+      $this->writer->addRow($row);
+    }
     $this->row += 1;
     $this->col = 0;
   }
