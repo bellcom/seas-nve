@@ -47,6 +47,11 @@ class SolcelleTiltag extends Tiltag {
     return $this->solcelleproduktion;
   }
 
+  public function calculate() {
+    $this->calculateSolcelleproduktion();
+    parent::calculate();
+  }
+
   protected function calculateSolcelleproduktion($value = null) {
     return $this->sum('egetForbrugAfProduktionenKWh');
   }
