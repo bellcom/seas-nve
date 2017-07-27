@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class BygningStreamExporter {
 
@@ -29,6 +30,11 @@ class BygningStreamExporter {
   protected $translator;
 
   /**
+   * @var PropertyAccessor
+   */
+  protected $accessor;
+
+  /**
    * @var StyleBuilder
    */
   protected $headerStyle;
@@ -36,6 +42,7 @@ class BygningStreamExporter {
   public function __construct(ContainerInterface $container, TranslatorInterface $translator) {
     $this->container = $container;
     $this->translator = $translator;
+    $this->accessor = PropertyAccess::createPropertyAccessor();
 
     $this->headerStyle = (new StyleBuilder())->setFontBold()->setFontSize(14)->build();
   }
@@ -198,6 +205,8 @@ class BygningStreamExporter {
       $this->addFormatedStringCell('%s (%s)', ['Varmebesparelse GAF', $this->trans('appbundle.tiltag.varmebesparelseGAF.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Varmebesparelse GUF', $this->trans('appbundle.tiltag.varmebesparelseGUF.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Elbesparelse', $this->trans('appbundle.tiltag.elbesparelse.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Solcelleproduktion, eget forbrug', $this->trans('appbundle.tiltag.solcelleproduktion.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Solcelleproduktion, salg til nettet år 1', $this->trans('appbundle.tiltag.salgTilNettetAar1.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['samlet energibesparelse', $this->trans('appbundle.tiltag.samletEnergibesparelse.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Besparelse på straffeafkøling', $this->trans('appbundle.tiltag.besparelseStrafafkoelingsafgift.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Besparelse D & V', $this->trans('appbundle.tiltag.besparelseDriftOgVedligeholdelse.unit')]);
@@ -337,6 +346,16 @@ class BygningStreamExporter {
       $this->addCell($tiltag->getVarmebesparelseGAF());
       $this->addCell($tiltag->getVarmebesparelseGUF());
       $this->addCell($tiltag->getElbesparelse());
+      if($this->accessor->isReadable($tiltag, 'solcelleproduktion')) {
+        $this->addCell($this->accessor->getValue($tiltag, 'solcelleproduktion'));
+      } else {
+        $this->fillCell(1);
+      }
+      if($this->accessor->isReadable($tiltag, 'salg_til_nettet_aar1')) {
+        $this->addCell($this->accessor->getValue($tiltag, 'salg_til_nettet_aar1'));
+      } else {
+        $this->fillCell(1);
+      }
       $this->addCell($tiltag->getSamletEnergibesparelse());
       $this->addCell($tiltag->getBesparelseStrafafkoelingsafgift());
       $this->addCell($tiltag->getBeskrivelseDriftOgVedligeholdelse());
