@@ -32,12 +32,12 @@ class DashboardController extends BaseController
   {
     $user = $this->get('security.context')->getToken()->getUser();
 
-    if ($this->isGranted('ROLE_ADMIN')) {
+    if ($this->isGranted('ROLE_EDIT')) {
 
       // Aa+
-      return $this->dashboardView($request, $user, 'aaplusAnsvarlig');
-
-    } else if ($this->isGranted('ROLE_EDIT')) {
+      if ($user->hasGroup('Aa+')) {
+        return $this->dashboardView($request, $user, 'aaplusAnsvarlig');
+      }
 
       // Rådgiver
       if ($user->hasGroup('Rådgiver')) {
@@ -49,9 +49,14 @@ class DashboardController extends BaseController
         return $this->dashboardView($request, $user, 'projekterende');
       }
 
-    } else {
-      return $this->dashboardView($request, $user, 'default');
+      // Projektleder
+      if ($user->hasGroup('Projektleder')) {
+        return $this->dashboardView($request, $user, 'projektleder');
+      }
+
     }
+
+    return $this->dashboardView($request, $user, 'default');
 
   }
 
