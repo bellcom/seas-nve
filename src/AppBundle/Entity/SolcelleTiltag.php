@@ -48,7 +48,7 @@ class SolcelleTiltag extends Tiltag {
   }
 
   public function calculate() {
-    $this->calculateSolcelleproduktion();
+    $this->solcelleproduktion = $this->calculateSolcelleproduktion();
     parent::calculate();
   }
 
