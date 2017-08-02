@@ -46,7 +46,6 @@ class RapportRepository extends BaseRepository {
 
     if ($rapport->getBygning()->getStatus() === BygningStatusType::UNDER_UDFOERSEL) {
       $bygning = $rapport->getBygning();
-      $r = ($bygning->getProjekterende() == $user || $bygning->getAaplusAnsvarlig() == $user || $bygning->getProjektleder() == $user);
       return ($bygning->getProjekterende() == $user || $bygning->getAaplusAnsvarlig() == $user || $bygning->getProjektleder() == $user);
     }
 
