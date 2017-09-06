@@ -2006,33 +2006,23 @@ class Rapport {
   }
 
   private function calculateCo2BesparelseEl() {
-    $year = $this->datering->format("Y");
     $vaerk = $this->getBygning()->getForsyningsvaerkEl();
 
     if($vaerk) {
-      $ElKgCo2MWh = $this->getBygning()->getForsyningsvaerkEl()->getKgCo2MWh($year);
+      $ElKgCo2MWh = $this->getBygning()->getForsyningsvaerkEl()->getKgCo2MWh(2009);
 
-      $newMwh = $this->BaselineEl - $this->besparelseEl;
-      $newCO2 = ($newMwh / 1000) * ($ElKgCo2MWh / 1000);
-
-      return $this->BaselineCO2El - $newCO2;
+      return $this->besparelseEl / 1000 * $ElKgCo2MWh / 1000;
     } else {
       return 0;
     }
   }
 
   private function calculateCo2BesparelseVarme() {
-    $year = $this->datering->format("Y");
-
     $vaerk = $this->getBygning()->getForsyningsvaerkVarme();
     if($vaerk) {
-      $VarmeKgCo2MWh = $this->getBygning()->getForsyningsvaerkVarme()->getKgCo2MWh($year);
+      $VarmeKgCo2MWh = $this->getBygning()->getForsyningsvaerkVarme()->getKgCo2MWh(2009);
 
-      $baselineMWh = $this->BaselineVarmeGAF + $this->BaselineVarmeGUF;
-      $newMwh = $baselineMWh - ($this->besparelseVarmeGAF + $this->besparelseVarmeGUF);
-      $newCO2 = ($newMwh / 1000) * ($VarmeKgCo2MWh / 1000);
-
-      return $this->BaselineCO2Varme - $newCO2;
+      return ($this->besparelseVarmeGAF + $this->besparelseVarmeGUF) / 1000 * $VarmeKgCo2MWh / 1000;
     } else {
       return 0;
     }
