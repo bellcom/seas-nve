@@ -165,6 +165,8 @@ class BygningStreamExporter {
       $this->addFormatedStringCell('%s (%s)', ['Varmebesparelse GAF', $this->trans('appbundle.rapport.besparelseVarmeGAF.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Varmebesparelse GUF', $this->trans('appbundle.rapport.besparelseVarmeGUF.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Elbesparelse', $this->trans('appbundle.rapport.besparelseEl.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Solcelleproduktion, eget forbrug', $this->trans('appbundle.tiltag.solcelleproduktion.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Solcelleproduktion, salg til nettet år 1', $this->trans('appbundle.tiltag.salgTilNettetAar1.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['CO2-besparelse Varme', $this->trans('appbundle.rapport.besparelseCO2varme.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['CO2-besparelse El', $this->trans('appbundle.rapport.besparelseCO2el.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Samlet CO2-besparelse', $this->trans('appbundle.rapport.besparelseCO2.unit')]);
@@ -299,6 +301,8 @@ class BygningStreamExporter {
         $this->addCell($rapport->getBesparelseVarmeGAF());
         $this->addCell($rapport->getBesparelseVarmeGUF());
         $this->addCell($rapport->getBesparelseEl());
+        $this->addCell($rapport->getSolcelleproduktion());
+        $this->addCell($rapport->getSalgTilNettetAar1());
         $this->addCell($rapport->getCo2BesparelseVarme());
         $this->addCell($rapport->getCo2BesparelseEl());
         $this->addCell($rapport->getCo2BesparelseVarme() + $rapport->getCo2BesparelseEl());
@@ -314,7 +318,7 @@ class BygningStreamExporter {
         $this->addCell($rapport->getNutidsvaerdiSetOver15AarKr());
         $this->addCell($rapport->getBesparelseAarEt());
       } else {
-        $this->fillCell(17);
+        $this->fillCell(19);
       }
     }
 
