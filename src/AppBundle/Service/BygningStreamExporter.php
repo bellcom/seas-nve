@@ -285,7 +285,7 @@ class BygningStreamExporter {
       if ($tiltagIndex === 0) {
         $this->addCell($bygning->getAaplusAnsvarlig());
         $this->addCell($bygning->getEnergiRaadgiver());
-        $this->addCell(null /*$bygning->getProjektleder()*/);
+        $this->addCell($bygning->getProjektleder());
         $this->addCell($bygning->getProjekterende());
         $this->addCell($rapport ? $rapport->getDatering() : null);
         $this->addCell(($rapport && $rapport->getDatoForDrift()) ? $rapport->getDatoForDrift()->format('Y-m-d') : null);
