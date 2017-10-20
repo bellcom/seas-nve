@@ -2029,7 +2029,7 @@ class Rapport {
     if($vaerk) {
       $ElKgCo2MWh = $this->getBygning()->getForsyningsvaerkEl()->getKgCo2MWh(2009);
 
-      return $this->besparelseEl / 1000 * $ElKgCo2MWh / 1000;
+      return ($this->besparelseEl + $this->getSolcelleproduktion() + $this->getSalgTilNettetAar1()) / 1000 * $ElKgCo2MWh / 1000;
     } else {
       return 0;
     }
