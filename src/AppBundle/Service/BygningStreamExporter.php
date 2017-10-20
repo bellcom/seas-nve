@@ -95,7 +95,7 @@ class BygningStreamExporter {
       $this->addCell('Baselineinformation', 15);
     }
     if ($this->showAll || $this->groups['aa_screeningsinformation']) {
-      $this->addCell('Aa+/Screeningsinformation', 7);
+      $this->addCell('Aa+/Screeningsinformation', 8);
     }
     if ($this->showAll || $this->groups['besparelsesinformation']) {
       $this->addCell('Besparelsesinformation (Energi og økonomi)', 17);
@@ -154,6 +154,7 @@ class BygningStreamExporter {
       $this->addCell('Aa+ Ansvarlig');
       $this->addCell('Rådgiver');
       $this->addCell('Projektleder');
+      $this->addCell('Projekterende');
       $this->addCell('Screeningsdato');
       $this->addCell('Dato f. drift (Bygn.)');
       $this->addCell('Elena');
@@ -283,6 +284,7 @@ class BygningStreamExporter {
         $this->addCell($bygning->getAaplusAnsvarlig());
         $this->addCell($bygning->getEnergiRaadgiver());
         $this->addCell(null /*$bygning->getProjektleder()*/);
+        $this->addCell($bygning->getProjekterende());
         $this->addCell($rapport ? $rapport->getDatering() : null);
         $this->addCell(($rapport && $rapport->getDatoForDrift()) ? $rapport->getDatoForDrift()->format('Y-m-d') : null);
         $this->addCell(($rapport ? $rapport->getElena() : false) ? 1 : 0);
