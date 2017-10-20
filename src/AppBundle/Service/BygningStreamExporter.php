@@ -95,7 +95,7 @@ class BygningStreamExporter {
       $this->addCell('Baselineinformation', 15);
     }
     if ($this->showAll || $this->groups['aa_screeningsinformation']) {
-      $this->addCell('Aa+/Screeningsinformation', 7);
+      $this->addCell('Aa+/Screeningsinformation', 8);
     }
     if ($this->showAll || $this->groups['besparelsesinformation']) {
       $this->addCell('Besparelsesinformation (Energi og økonomi)', 17);
@@ -154,6 +154,7 @@ class BygningStreamExporter {
       $this->addCell('Aa+ Ansvarlig');
       $this->addCell('Rådgiver');
       $this->addCell('Projektleder');
+      $this->addCell('Projekterende');
       $this->addCell('Screeningsdato');
       $this->addCell('Dato f. drift (Bygn.)');
       $this->addCell('Elena');
@@ -164,6 +165,8 @@ class BygningStreamExporter {
       $this->addFormatedStringCell('%s (%s)', ['Varmebesparelse GAF', $this->trans('appbundle.rapport.besparelseVarmeGAF.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Varmebesparelse GUF', $this->trans('appbundle.rapport.besparelseVarmeGUF.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Elbesparelse', $this->trans('appbundle.rapport.besparelseEl.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Solcelleproduktion, eget forbrug', $this->trans('appbundle.tiltag.solcelleproduktion.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Solcelleproduktion, salg til nettet år 1', $this->trans('appbundle.tiltag.salgTilNettetAar1.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['CO2-besparelse Varme', $this->trans('appbundle.rapport.besparelseCO2varme.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['CO2-besparelse El', $this->trans('appbundle.rapport.besparelseCO2el.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Samlet CO2-besparelse', $this->trans('appbundle.rapport.besparelseCO2.unit')]);
@@ -282,7 +285,8 @@ class BygningStreamExporter {
       if ($tiltagIndex === 0) {
         $this->addCell($bygning->getAaplusAnsvarlig());
         $this->addCell($bygning->getEnergiRaadgiver());
-        $this->addCell(null /*$bygning->getProjektleder()*/);
+        $this->addCell($bygning->getProjektleder());
+        $this->addCell($bygning->getProjekterende());
         $this->addCell($rapport ? $rapport->getDatering() : null);
         $this->addCell(($rapport && $rapport->getDatoForDrift()) ? $rapport->getDatoForDrift()->format('Y-m-d') : null);
         $this->addCell(($rapport ? $rapport->getElena() : false) ? 1 : 0);
@@ -297,6 +301,8 @@ class BygningStreamExporter {
         $this->addCell($rapport->getBesparelseVarmeGAF());
         $this->addCell($rapport->getBesparelseVarmeGUF());
         $this->addCell($rapport->getBesparelseEl());
+        $this->addCell($rapport->getSolcelleproduktion());
+        $this->addCell($rapport->getSalgTilNettetAar1());
         $this->addCell($rapport->getCo2BesparelseVarme());
         $this->addCell($rapport->getCo2BesparelseEl());
         $this->addCell($rapport->getCo2BesparelseVarme() + $rapport->getCo2BesparelseEl());
@@ -312,7 +318,7 @@ class BygningStreamExporter {
         $this->addCell($rapport->getNutidsvaerdiSetOver15AarKr());
         $this->addCell($rapport->getBesparelseAarEt());
       } else {
-        $this->fillCell(17);
+        $this->fillCell(19);
       }
     }
 

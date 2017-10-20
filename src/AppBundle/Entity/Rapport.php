@@ -1692,6 +1692,24 @@ class Rapport {
   }
 
   /**
+   * Get sum of solcelleproduktion from all SolcelleTiltag.
+   */
+  public function getSolcelleproduktion() {
+    return $this->accumulate(function($tiltag, $value) {
+      return $value + ($tiltag instanceof SolcelleTiltag ? $tiltag->getSolcelleproduktion() : 0);
+    }, 0);
+  }
+
+  /**
+   * Get sum of salgTilNettetAar1 from all SolcelleTiltag.
+   */
+  public function getSalgTilNettetAar1() {
+    return $this->accumulate(function($tiltag, $value) {
+      return $value + ($tiltag instanceof SolcelleTiltag ? $tiltag->getSalgTilNettetAar1() : 0);
+    }, 0);
+  }
+
+  /**
    * Get all files on this Rapport plus any files from Tiltag.
    *
    * @return array
@@ -2011,7 +2029,7 @@ class Rapport {
     if($vaerk) {
       $ElKgCo2MWh = $this->getBygning()->getForsyningsvaerkEl()->getKgCo2MWh(2009);
 
-      return $this->besparelseEl / 1000 * $ElKgCo2MWh / 1000;
+      return ($this->besparelseEl + $this->getSolcelleproduktion() + $this->getSalgTilNettetAar1()) / 1000 * $ElKgCo2MWh / 1000;
     } else {
       return 0;
     }
