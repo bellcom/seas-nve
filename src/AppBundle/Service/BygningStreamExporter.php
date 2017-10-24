@@ -98,7 +98,7 @@ class BygningStreamExporter {
       $this->addCell('Aa+/Screeningsinformation', 8);
     }
     if ($this->showAll || $this->groups['besparelsesinformation']) {
-      $this->addCell('Besparelsesinformation (Energi og økonomi)', 17);
+      $this->addCell('Besparelsesinformation (Energi og økonomi)', 19);
     }
     if ($this->showAll || $this->groups['oekonomi']) {
       $this->addCell('Økonomiinformation (Set over 30 år)', 60);
@@ -292,7 +292,7 @@ class BygningStreamExporter {
         $this->addCell(($rapport ? $rapport->getElena() : false) ? 1 : 0);
         $this->addCell(($rapport ? $rapport->getAva() : false) ? 1 : 0);
       } else {
-        $this->fillCell(7);
+        $this->fillCell(8);
       }
     }
 
