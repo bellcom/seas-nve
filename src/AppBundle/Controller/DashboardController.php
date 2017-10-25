@@ -32,12 +32,12 @@ class DashboardController extends BaseController
   {
     $user = $this->get('security.context')->getToken()->getUser();
 
-    if ($this->isGranted('ROLE_ADMIN')) {
+    if ($this->isGranted('ROLE_EDIT')) {
 
       // Aa+
-      return $this->dashboardView($request, $user, 'aaplusAnsvarlig');
-
-    } else if ($this->isGranted('ROLE_EDIT')) {
+      if ($user->hasGroup('Aa+')) {
+        return $this->dashboardView($request, $user, 'aaplusAnsvarlig');
+      }
 
       // Rådgiver
       if ($user->hasGroup('Rådgiver')) {
@@ -49,9 +49,14 @@ class DashboardController extends BaseController
         return $this->dashboardView($request, $user, 'projekterende');
       }
 
-    } else {
-      return $this->dashboardView($request, $user, 'default');
+      // Projektleder
+      if ($user->hasGroup('Projektleder')) {
+        return $this->dashboardView($request, $user, 'projektleder');
+      }
+
     }
+
+    return $this->dashboardView($request, $user, 'default');
 
   }
 
@@ -202,7 +207,7 @@ class DashboardController extends BaseController
     // initialize a query builder
     $filterBuilder = $this->getDashboardFilterBuilder($user, $filterCondition);
 
-    $form = $this->get('form.factory')->create(new BygningDashboardType($this->getDoctrine()), NULL, array(
+    $form = $this->get('form.factory')->create(new BygningDashboardType($this->getDoctrine(), $filterCondition), NULL, array(
       'action' => $this->generateUrl('dashboard_' . $filterCondition),
       'method' => 'GET',
     ));

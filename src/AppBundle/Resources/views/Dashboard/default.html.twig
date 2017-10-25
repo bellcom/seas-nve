@@ -66,7 +66,11 @@
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.postnummer'|trans, 'b.postnummer') }}</th>
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 's.forkortelse') }}</th>
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.status'|trans, 'b.status') }}</th>
-          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.energiRaadgiver'|trans, 'b.energiRaadgiver') }}</th>
+          {% if tab == 'aaplusAnsvarlig' %}
+            <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.energiRaadgiver'|trans, 'b.energiRaadgiver') }}</th>
+          {% else %}
+            <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.aaplusAnsvarlig'|trans, 'b.aaplusAnsvarlig') }}</th>
+          {% endif %}
           <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.updatedAt'|trans, 'r.updatedAt') }}</th>
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.updatedBy'|trans, 'b.updatedBy') }}</th>
           <th></th>
@@ -78,7 +82,12 @@
           <th>{{ form_row(form.postnummer) }}</th>
           <th>{{ form_row(form.segment) }}</th>
           <th>{{ form_row(form.status) }}</th>
-          <th>{{ form_row(form.energiRaadgiver) }}</th>
+          {% if tab == 'aaplusAnsvarlig' %}
+            <th>{{ form_row(form.energiRaadgiver) }}</th>
+          {% else %}
+            <th>{{ form_row(form.aaplusAnsvarlig) }}</th>
+
+          {% endif %}
           <th></th>
           <th></th>
           <th>{{ form_row(form.Søg) }}</th>
@@ -95,7 +104,11 @@
             {% endif %}
           </td>
           <td>{{ bygning.status  | readable }}</td>
-          <td>{% if bygning.energiRaadgiver is not empty %}{{ bygning.energiRaadgiver.username }}{% endif %}</td>
+          {% if tab == 'aaplusAnsvarlig' %}
+            <td>{% if bygning.energiRaadgiver is not empty %}{{ bygning.energiRaadgiver.username }}{% endif %}</td>
+          {% else %}
+            <td>{% if bygning.aaplusAnsvarlig is not empty %}{{ bygning.aaplusAnsvarlig.username }}{% endif %}</td>
+          {% endif %}
           <td class="date">{{ bygning.updatedAt | date('Y-m-d') }}</td>
           <td>{{ bygning.updatedBy }}</td>
           <td class="text-right">

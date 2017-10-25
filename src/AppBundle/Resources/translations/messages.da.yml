@@ -112,6 +112,8 @@ footer:
   adresse: Grøndalsvej 2, 8260 Viby J
   email: aarhusplus@mtm.aarhus.dk
   navn: AaPlus Sekretariatet, Center for Administration og Ejendomme
+title:
+  prefix: Aa+
 
 # Entities
 baseline:
@@ -1835,6 +1837,7 @@ appbundle:
 
 # Dataudtræk
 udtraek.bygning:
+  aaplusAnsvarlig: Aa+ ansvarlig
   adresse: Adresse indholder
   energiRaadgiver: Energirådgiver
   navn: Navn indholder

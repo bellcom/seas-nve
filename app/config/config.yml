@@ -40,7 +40,7 @@ twig:
         decimal_point: ','
         thousands_separator: '.'
     globals:
-        aaplus_release_ver: Release 1.7.3
+        aaplus_release_ver: Release 1.8.0
         baseline_graddage_url: http://www.aarhus.dk/sitecore/content/subsites/affaldvarmeaarhus/home/varme/graddagetal.aspx?sc_lang=da
 
 # Assetic Configuration
@@ -65,6 +65,7 @@ doctrine:
         dbname:   "%database_name%"
         user:     "%database_user%"
         password: "%database_password%"
+        server_version: "%server_version%"
         charset:  UTF8
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml

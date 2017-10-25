@@ -47,6 +47,11 @@ class SolcelleTiltag extends Tiltag {
     return $this->solcelleproduktion;
   }
 
+  public function calculate() {
+    $this->solcelleproduktion = $this->calculateSolcelleproduktion();
+    parent::calculate();
+  }
+
   protected function calculateSolcelleproduktion($value = null) {
     return $this->sum('egetForbrugAfProduktionenKWh');
   }
@@ -60,7 +65,10 @@ class SolcelleTiltag extends Tiltag {
   }
 
   protected function calculateSamletCo2besparelse() {
-    return ($this->solcelleproduktion + $this->getSalgTilNettetAar1()) * $this->getRapport()->getElKgCo2MWh() / 1000;
+    $forsyningsvaerk = $this->getRapport()->getBygning()->getForsyningsvaerkEl();
+    $elKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
+
+    return ($this->solcelleproduktion + $this->getSalgTilNettetAar1()) / 1000 * $elKgCo2MWh / 1000;
   }
 
   protected function calculateAnlaegsinvestering($value = NULL) {

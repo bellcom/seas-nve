@@ -4,13 +4,21 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Tiltag;
+use Box\Spout\Writer\Style\Style;
+use Box\Spout\Writer\Style\StyleBuilder;
 use Box\Spout\Writer\WriterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class BygningStreamExporter {
+
+  private $data = [ '' ];
+  private $row = 1;
+  private $col = 0;
+
   /**
    * @var ContainerInterface
    */
@@ -21,9 +29,22 @@ class BygningStreamExporter {
    */
   protected $translator;
 
+  /**
+   * @var PropertyAccessor
+   */
+  protected $accessor;
+
+  /**
+   * @var StyleBuilder
+   */
+  protected $headerStyle;
+
   public function __construct(ContainerInterface $container, TranslatorInterface $translator) {
     $this->container = $container;
     $this->translator = $translator;
+    $this->accessor = PropertyAccess::createPropertyAccessor();
+
+    $this->headerStyle = (new StyleBuilder())->setFontBold()->setFontSize(14)->build();
   }
 
   public function setConfig(array $config) {
@@ -66,278 +87,297 @@ class BygningStreamExporter {
   private $groups = [];
 
   private function writeHeader() {
-    $this->write('Standardinformation', 9);
+    $this->addCell('Standardinformation', 9);
     if ($this->showAll || $this->groups['bygningsinformation']) {
-      $this->write('Bygningsinformation', 11);
+      $this->addCell('Bygningsinformation', 11);
     }
     if ($this->showAll || $this->groups['baselineinformation']) {
-      $this->write('Baselineinformation', 15);
+      $this->addCell('Baselineinformation', 15);
     }
     if ($this->showAll || $this->groups['aa_screeningsinformation']) {
-      $this->write('Aa+/Screeningsinformation', 7);
+      $this->addCell('Aa+/Screeningsinformation', 8);
     }
     if ($this->showAll || $this->groups['besparelsesinformation']) {
-      $this->write('Besparelsesinformation (Energi og økonomi)', 17);
+      $this->addCell('Besparelsesinformation (Energi og økonomi)', 19);
     }
     if ($this->showAll || $this->groups['oekonomi']) {
-      $this->write('Økonomiinformation (Set over 30 år)', 60);
+      $this->addCell('Økonomiinformation (Set over 30 år)', 60);
     }
     if ($this->type === 'tiltag') {
-      $this->write('Tiltag', 29);
+      $this->addCell('Tiltag', 29);
     }
-    $this->endRow();
+    $this->addRow($this->headerStyle);
 
-    $this->write('ID');
-    $this->write('Enhedsys');
-    $this->write('Navn');
-    $this->write('Adresse');
-    $this->write('Postnummer');
-    $this->write('By');
-    $this->write('Status');
-    $this->write('Version');
-    $this->write('Opdateret');
+    $this->addCell('ID');
+    $this->addCell('Enhedsys');
+    $this->addCell('Navn');
+    $this->addCell('Adresse');
+    $this->addCell('Postnummer');
+    $this->addCell('By');
+    $this->addCell('Status');
+    $this->addCell('Version');
+    $this->addCell('Opdateret');
 
     if ($this->showAll || $this->groups['bygningsinformation']) {
-      $this->write('Type');
-      $this->write('Opførelsesår');
-      $this->write('Afdelingsnavn');
-      $this->write('Ejer/Lejer');
-      $this->write('Anvendelse');
-      $this->write('Divisionnavn');
-      $this->write('Områdenavn');
-      $this->write('Ejerforhold');
-      $this->write('Segment Navn');
-      $this->write('Magistrat Forkortelse');
-      $this->write('Segment Magistrat');
+      $this->addCell('Type');
+      $this->addCell('Opførelsesår');
+      $this->addCell('Afdelingsnavn');
+      $this->addCell('Ejer/Lejer');
+      $this->addCell('Anvendelse');
+      $this->addCell('Divisionnavn');
+      $this->addCell('Områdenavn');
+      $this->addCell('Ejerforhold');
+      $this->addCell('Segment Navn');
+      $this->addCell('Magistrat Forkortelse');
+      $this->addCell('Segment Magistrat');
     }
 
     if ($this->showAll || $this->groups['baselineinformation']) {
-      $this->writef('%s (%s)', [$this->trans('Bruttoetageareal'), $this->trans('appbundle.bygning.bruttoetageareal.unit')]);
-      $this->writef('Varmeværk');
-      $this->writef('%s (%s)', ['CO2-faktor Varme 2009', 'Kg CO2/mWh']);
-      $this->writef('%s (%s)', [$this->trans('CO2 Varme 2009'), $this->trans('appbundle.rapport.BaselineCO2Varme.unit')]);
-      $this->writef('%s (%s)', ['CO2-faktor Varme screeningsdato', 'Kg CO2/mWh']);
-      $this->writef('Elværk');
-      $this->writef('%s (%s)', ['CO2-faktor El 2009', 'Kg CO2/mWh']);
-      $this->writef('%s (%s)', ['CO2 El 2009', $this->trans('appbundle.rapport.BaselineCO2El.unit')]);
-      $this->writef('%s (%s)', ['CO2-faktor El screeningsdato', 'Kg CO2/mWh']);
-      $this->writef('%s (%s)', ['Varmeforbrug GAF (Baseline)', $this->trans('appbundle.rapport.BaselineVarmeGAF.unit')]);
-      $this->writef('%s (%s)', ['Varmeforbrug GUF (Baseline)', $this->trans('appbundle.rapport.BaselineVarmeGUF.unit')]);
-      $this->writef('%s (%s)', ['Elforbrug (Baseline)', $this->trans('appbundle.rapport.BaselineEl.unit')]);
-      $this->writef('%s (%s)', ['Straffeafkøling', $this->trans('appbundle.rapport.BaselineStrafAfkoeling.unit')]);
-      $this->writef('%s (%s)', ['Energibudget, varme', $this->trans('appbundle.rapport.energibudgetVarme.unit')]);
-      $this->writef('%s (%s)', ['Energibudget, el', $this->trans('appbundle.rapport.energibudgetEl.unit')]);
+      $this->addFormatedStringCell('%s (%s)', [$this->trans('Bruttoetageareal'), $this->trans('appbundle.bygning.bruttoetageareal.unit')]);
+      $this->addFormatedStringCell('Varmeværk');
+      $this->addFormatedStringCell('%s (%s)', ['CO2-faktor Varme 2009', 'Kg CO2/mWh']);
+      $this->addFormatedStringCell('%s (%s)', [$this->trans('CO2 Varme 2009'), $this->trans('appbundle.rapport.BaselineCO2Varme.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['CO2-faktor Varme screeningsdato', 'Kg CO2/mWh']);
+      $this->addFormatedStringCell('Elværk');
+      $this->addFormatedStringCell('%s (%s)', ['CO2-faktor El 2009', 'Kg CO2/mWh']);
+      $this->addFormatedStringCell('%s (%s)', ['CO2 El 2009', $this->trans('appbundle.rapport.BaselineCO2El.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['CO2-faktor El screeningsdato', 'Kg CO2/mWh']);
+      $this->addFormatedStringCell('%s (%s)', ['Varmeforbrug GAF (Baseline)', $this->trans('appbundle.rapport.BaselineVarmeGAF.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Varmeforbrug GUF (Baseline)', $this->trans('appbundle.rapport.BaselineVarmeGUF.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Elforbrug (Baseline)', $this->trans('appbundle.rapport.BaselineEl.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Straffeafkøling', $this->trans('appbundle.rapport.BaselineStrafAfkoeling.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Energibudget, varme', $this->trans('appbundle.rapport.energibudgetVarme.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Energibudget, el', $this->trans('appbundle.rapport.energibudgetEl.unit')]);
     }
 
     if ($this->showAll || $this->groups['aa_screeningsinformation']) {
-      $this->write('Aa+ Ansvarlig');
-      $this->write('Rådgiver');
-      $this->write('Projektleder');
-      $this->write('Screeningsdato');
-      $this->write('Dato f. drift (Bygn.)');
-      $this->write('Elena');
-      $this->write('AVA-støtte');
+      $this->addCell('Aa+ Ansvarlig');
+      $this->addCell('Rådgiver');
+      $this->addCell('Projektleder');
+      $this->addCell('Projekterende');
+      $this->addCell('Screeningsdato');
+      $this->addCell('Dato f. drift (Bygn.)');
+      $this->addCell('Elena');
+      $this->addCell('AVA-støtte');
     }
 
     if ($this->showAll || $this->groups['besparelsesinformation']) {
-      $this->writef('%s (%s)', ['Varmebesparelse GAF', $this->trans('appbundle.rapport.besparelseVarmeGAF.unit')]);
-      $this->writef('%s (%s)', ['Varmebesparelse GUF', $this->trans('appbundle.rapport.besparelseVarmeGUF.unit')]);
-      $this->writef('%s (%s)', ['Elbesparelse', $this->trans('appbundle.rapport.besparelseEl.unit')]);
-      $this->writef('%s (%s)', ['CO2-besparelse Varme', $this->trans('appbundle.rapport.besparelseCO2varme.unit')]);
-      $this->writef('%s (%s)', ['CO2-besparelse El', $this->trans('appbundle.rapport.besparelseCO2el.unit')]);
-      $this->writef('%s (%s)', ['Samlet CO2-besparelse', $this->trans('appbundle.rapport.besparelseCO2.unit')]);
-      $this->writef('%s (%s)', ['Total Entreprisesum', $this->trans('appbundle.rapport.anlaegsinvestering.unit')]);
-      $this->writef('%s (%s)', ['Genopretning', $this->trans('appbundle.rapport.genopretning.unit')]);
-      $this->writef('%s (%s)', ['Modernisering', $this->trans('appbundle.rapport.modernisering.unit')]);
-      $this->writef('%s (%s)', ['Aa+ Investering eksl. øvrige omkostninger', $this->trans('appbundle.rapport.investeringEksFaellesomkostninger.unit')]);
-      $this->writef('%s (%s)', ['MTM fællesomkostninger', $this->trans('appbundle.rapport.mtmFaellesomkostninger.unit')]);
-      $this->writef('%s (%s)', ['Energiscreeningspris', $this->trans('appbundle.rapport.energiscreening.unit')]);
-      $this->writef('%s (%s)', ['Implementeringsomkostninger', $this->trans('appbundle.rapport.implementering.unit')]);
-      $this->writef('%s (%s)', ['Aa+ Investering inkl. øvrige omkostninger', $this->trans('appbundle.rapport.investeringInklFaellesomkostninger.unit')]);
-      $this->writef('%s (%s)', ['Intern rente inkl. øvrige omkostninger', $this->trans('appbundle.rapport.internRenteInklFaellesomkostninger.unit')]);
-      $this->writef('%s (%s)', ['Nutidsværdi inkl. øvrige omkostninger', $this->trans('appbundle.rapport.nutidsvaerdiInklFaellesomkostninger.unit')]);
-      $this->writef('%s (%s)', ['Økonomisk besparelse i år 1', $this->trans('appbundle.rapport.besparelseAarEt.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Varmebesparelse GAF', $this->trans('appbundle.rapport.besparelseVarmeGAF.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Varmebesparelse GUF', $this->trans('appbundle.rapport.besparelseVarmeGUF.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Elbesparelse', $this->trans('appbundle.rapport.besparelseEl.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Solcelleproduktion, eget forbrug', $this->trans('appbundle.tiltag.solcelleproduktion.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Solcelleproduktion, salg til nettet år 1', $this->trans('appbundle.tiltag.salgTilNettetAar1.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['CO2-besparelse Varme', $this->trans('appbundle.rapport.besparelseCO2varme.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['CO2-besparelse El', $this->trans('appbundle.rapport.besparelseCO2el.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Samlet CO2-besparelse', $this->trans('appbundle.rapport.besparelseCO2.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Total Entreprisesum', $this->trans('appbundle.rapport.anlaegsinvestering.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Genopretning', $this->trans('appbundle.rapport.genopretning.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Modernisering', $this->trans('appbundle.rapport.modernisering.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Aa+ Investering eksl. øvrige omkostninger', $this->trans('appbundle.rapport.investeringEksFaellesomkostninger.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['MTM fællesomkostninger', $this->trans('appbundle.rapport.mtmFaellesomkostninger.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Energiscreeningspris', $this->trans('appbundle.rapport.energiscreening.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Implementeringsomkostninger', $this->trans('appbundle.rapport.implementering.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Aa+ Investering inkl. øvrige omkostninger', $this->trans('appbundle.rapport.investeringInklFaellesomkostninger.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Intern rente inkl. øvrige omkostninger', $this->trans('appbundle.rapport.internRenteInklFaellesomkostninger.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Nutidsværdi inkl. øvrige omkostninger', $this->trans('appbundle.rapport.nutidsvaerdiInklFaellesomkostninger.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Økonomisk besparelse i år 1', $this->trans('appbundle.rapport.besparelseAarEt.unit')]);
     }
 
     if ($this->showAll || $this->groups['oekonomi']) {
       for ($y = 1; $y <= 30; $y++) {
-        $this->write('Varmebesparelse år ' . $y . ' (kWh/år)');
+        $this->addCell('Varmebesparelse år ' . $y . ' (kWh/år)');
       }
       for ($y = 1; $y <= 30; $y++) {
-        $this->write('Elbesparelse år ' . $y . ' (kWh/år)');
+        $this->addCell('Elbesparelse år ' . $y . ' (kWh/år)');
       }
     }
 
     if ($this->type === 'tiltag') {
-      $this->write('Tiltagsnr.');
-      $this->write('Type');
-      $this->write('Kategori');
-      $this->write('Title');
-      $this->write('Tilvalgt (Aa+)');
-      $this->write('Begrundelse (Aa+)');
-      $this->write('Tilvalgt/fravalgt (Mag)');
-      $this->write('Begrundelse (mag)');
-      $this->write('Mængde');
-      $this->write('Enheder');
-      $this->write('Funktionsdygtig levetid');
-      $this->write('Dato f. drift (Tiltag)');
-      $this->writef('%s (%s)', ['Varmebesparelse GAF', $this->trans('appbundle.tiltag.varmebesparelseGAF.unit')]);
-      $this->writef('%s (%s)', ['Varmebesparelse GUF', $this->trans('appbundle.tiltag.varmebesparelseGUF.unit')]);
-      $this->writef('%s (%s)', ['Elbesparelse', $this->trans('appbundle.tiltag.elbesparelse.unit')]);
-      $this->writef('%s (%s)', ['samlet energibesparelse', $this->trans('appbundle.tiltag.samletEnergibesparelse.unit')]);
-      $this->writef('%s (%s)', ['Besparelse på straffeafkøling', $this->trans('appbundle.tiltag.besparelseStrafafkoelingsafgift.unit')]);
-      $this->writef('%s (%s)', ['Besparelse D & V', $this->trans('appbundle.tiltag.besparelseDriftOgVedligeholdelse.unit')]);
-      $this->writef('%s (%s)', ['Scrapværdi', $this->trans('appbundle.tiltag.scrapvaerdi.unit')]);
-      $this->writef('%s (%s)', ['Reinvestering', $this->trans('appbundle.tiltag.reinvestering.unit')]);
-      $this->writef('%s (%s)', ['CO2-besparelse', $this->trans('appbundle.tiltag.samletCo2besparelse.unit')]);
-      $this->writef('%s (%s)', ['Faktisk Entreprisesum', $this->trans('appbundle.tiltag.anlaegsInvestering.unit')]);
-      $this->writef('%s (%s)', ['Entreprisesum', $this->trans('appbundle.tiltag.anlaegsInvestering.unit')]);
-      $this->writef('%s (%s)', ['Genopretning', $this->trans('appbundle.tiltag.genopretning.unit')]);
-      $this->writef('%s (%s)', ['Genopretning for implementeringsomkostninger', $this->trans('appbundle.tiltag.genopretningForImplementeringsomkostninger.unit')]);
-      $this->writef('%s (%s)', ['Modernisering', $this->trans('appbundle.tiltag.modernisering.unit')]);
-      $this->writef('%s (%s)', ['Aa+ investering eksl. øvrige omk.', $this->trans('appbundle.tiltag.aaplusInvestering.unit')]);
-      $this->writef('%s (%s)', ['Simpel tilbagebetalingstid', $this->trans('appbundle.tiltag.simpelTilbagebetalingstidAar.unit')]);
-      $this->writef('%s (%s)', ['Nutidsværdi set over 15 år', $this->trans('appbundle.tiltag.nutidsvaerdiSetOver15AarKr.unit')]);
+      $this->addCell('Tiltagsnr.');
+      $this->addCell('Type');
+      $this->addCell('Kategori');
+      $this->addCell('Title');
+      $this->addCell('Tilvalgt (Aa+)');
+      $this->addCell('Begrundelse (Aa+)');
+      $this->addCell('Tilvalgt/fravalgt (Mag)');
+      $this->addCell('Begrundelse (mag)');
+      $this->addCell('Mængde');
+      $this->addCell('Enheder');
+      $this->addCell('Funktionsdygtig levetid');
+      $this->addCell('Dato f. drift (Tiltag)');
+      $this->addFormatedStringCell('%s (%s)', ['Varmebesparelse GAF', $this->trans('appbundle.tiltag.varmebesparelseGAF.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Varmebesparelse GUF', $this->trans('appbundle.tiltag.varmebesparelseGUF.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Elbesparelse', $this->trans('appbundle.tiltag.elbesparelse.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Solcelleproduktion, eget forbrug', $this->trans('appbundle.tiltag.solcelleproduktion.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Solcelleproduktion, salg til nettet år 1', $this->trans('appbundle.tiltag.salgTilNettetAar1.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['samlet energibesparelse', $this->trans('appbundle.tiltag.samletEnergibesparelse.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Besparelse på straffeafkøling', $this->trans('appbundle.tiltag.besparelseStrafafkoelingsafgift.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Besparelse D & V', $this->trans('appbundle.tiltag.besparelseDriftOgVedligeholdelse.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Scrapværdi', $this->trans('appbundle.tiltag.scrapvaerdi.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Reinvestering', $this->trans('appbundle.tiltag.reinvestering.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['CO2-besparelse', $this->trans('appbundle.tiltag.samletCo2besparelse.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Faktisk Entreprisesum', $this->trans('appbundle.tiltag.anlaegsInvestering.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Entreprisesum', $this->trans('appbundle.tiltag.anlaegsInvestering.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Genopretning', $this->trans('appbundle.tiltag.genopretning.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Genopretning for implementeringsomkostninger', $this->trans('appbundle.tiltag.genopretningForImplementeringsomkostninger.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Modernisering', $this->trans('appbundle.tiltag.modernisering.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Aa+ investering eksl. øvrige omk.', $this->trans('appbundle.tiltag.aaplusInvestering.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Simpel tilbagebetalingstid', $this->trans('appbundle.tiltag.simpelTilbagebetalingstidAar.unit')]);
+      $this->addFormatedStringCell('%s (%s)', ['Nutidsværdi set over 15 år', $this->trans('appbundle.tiltag.nutidsvaerdiSetOver15AarKr.unit')]);
     }
-    $this->endRow();
+    $this->addRow($this->headerStyle);
   }
 
   private function writeBygning(Bygning $bygning, Tiltag $tiltag = null, $tiltagIndex = 0) {
     $rapport = $bygning->getRapport();
 
-    $this->write($bygning->getId());
-    $this->write($bygning->getEnhedsys());
-    $this->write($bygning->getNavn());
-    $this->write($bygning->getAdresse());
-    $this->write($bygning->getPostnummer());
-    $this->write($bygning->getPostBy());
-    $this->write($this->getReadable($bygning->getStatus(), 'BygningStatusType'));
-    $this->write($rapport ? $rapport->getVersion() : null);
-    $this->write($rapport ? $rapport->getUpdatedAt() : null);
+    $this->addCell($bygning->getId());
+    $this->addCell($bygning->getEnhedsys());
+    $this->addCell($bygning->getNavn());
+    $this->addCell($bygning->getAdresse());
+    $this->addCell($bygning->getPostnummer());
+    $this->addCell($bygning->getPostBy());
+    $this->addCell($this->getReadable($bygning->getStatus(), 'BygningStatusType'));
+    $this->addCell($rapport ? $rapport->getVersion() : null);
+    $this->addCell($rapport ? $rapport->getUpdatedAt() : null);
 
     if ($this->showAll || $this->groups['bygningsinformation']) {
-      $this->write($bygning->getType());
-      $this->write($bygning->getOpfoerselsAar());
-      $this->write($bygning->getAfdelingsnavn());
-      $this->write($bygning->getEjerA());
-      $this->write($bygning->getAnvendelse());
-      $this->write($bygning->getDivisionnavn());
-      $this->write($bygning->getOmraadenavn());
-      $this->write($bygning->getEjerforhold());
+      $this->addCell($bygning->getType());
+      $this->addCell($bygning->getOpfoerselsAar());
+      $this->addCell($bygning->getAfdelingsnavn());
+      $this->addCell($bygning->getEjerA());
+      $this->addCell($bygning->getAnvendelse());
+      $this->addCell($bygning->getDivisionnavn());
+      $this->addCell($bygning->getOmraadenavn());
+      $this->addCell($bygning->getEjerforhold());
       if ($bygning->getSegment()) {
-        $this->write($bygning->getSegment()->getNavn());
-        $this->write($bygning->getSegment()->getForkortelse());
-        $this->write($bygning->getSegment()->getMagistrat());
+        $this->addCell($bygning->getSegment()->getNavn());
+        $this->addCell($bygning->getSegment()->getForkortelse());
+        $this->addCell($bygning->getSegment()->getMagistrat());
       } else {
-        $this->fill(3);
+        $this->fillCell(3);
       }
     }
 
     if ($this->showAll || $this->groups['baselineinformation']) {
       if ($tiltagIndex === 0) {
-        $this->write($bygning->getBruttoetageareal());
-        $this->write($bygning->getForsyningsvaerkVarme());
-        $this->write($bygning->getForsyningsvaerkVarme() ? $bygning->getForsyningsvaerkVarme()->getKgCo2MWh(2009) : null);
-        $this->write($rapport ? $rapport->getBaselineCO2Varme() : null);
-        $this->write(($bygning->getForsyningsvaerkVarme() && $rapport) ? $bygning->getForsyningsvaerkVarme()->getKgCo2MWh($rapport->getDatering()->format('Y')) : null);
-        $this->write($bygning->getForsyningsvaerkEl());
-        $this->write($bygning->getForsyningsvaerkEl() ? $bygning->getForsyningsvaerkEl()->getKgCo2MWh(2009) : null);
-        $this->write($rapport ? $rapport->getBaselineCO2El() : null);
-        $this->write(($bygning->getForsyningsvaerkEl() && $rapport) ? $bygning->getForsyningsvaerkEl()->getKgCo2MWh($rapport->getDatering()->format('Y')) : null);
-        $this->write($rapport ? $rapport->getBaselineVarmeGAF() : null);
-        $this->write($rapport ? $rapport->getBaselineVarmeGUF() : null);
-        $this->write($rapport ? $rapport->getBaselineEl() : null);
-        $this->write($rapport ? $rapport->getBaselineStrafAfkoeling() : null);
-        $this->write($rapport ? $rapport->getEnergibudgetVarme() : null);
-        $this->write($rapport ? $rapport->getEnergibudgetEl() : null);
+        $this->addCell($bygning->getBruttoetageareal());
+        $this->addCell($bygning->getForsyningsvaerkVarme());
+        $this->addCell($bygning->getForsyningsvaerkVarme() ? $bygning->getForsyningsvaerkVarme()->getKgCo2MWh(2009) : null);
+        $this->addCell($rapport ? $rapport->getBaselineCO2Varme() : null);
+        $this->addCell(($bygning->getForsyningsvaerkVarme() && $rapport) ? $bygning->getForsyningsvaerkVarme()->getKgCo2MWh($rapport->getDatering()->format('Y')) : null);
+        $this->addCell($bygning->getForsyningsvaerkEl());
+        $this->addCell($bygning->getForsyningsvaerkEl() ? $bygning->getForsyningsvaerkEl()->getKgCo2MWh(2009) : null);
+        $this->addCell($rapport ? $rapport->getBaselineCO2El() : null);
+        $this->addCell(($bygning->getForsyningsvaerkEl() && $rapport) ? $bygning->getForsyningsvaerkEl()->getKgCo2MWh($rapport->getDatering()->format('Y')) : null);
+        $this->addCell($rapport ? $rapport->getBaselineVarmeGAF() : null);
+        $this->addCell($rapport ? $rapport->getBaselineVarmeGUF() : null);
+        $this->addCell($rapport ? $rapport->getBaselineEl() : null);
+        $this->addCell($rapport ? $rapport->getBaselineStrafAfkoeling() : null);
+        $this->addCell($rapport ? $rapport->getEnergibudgetVarme() : null);
+        $this->addCell($rapport ? $rapport->getEnergibudgetEl() : null);
       } else {
-        $this->fill(15);
+        $this->fillCell(15);
       }
     }
 
     if ($this->showAll || $this->groups['aa_screeningsinformation']) {
       if ($tiltagIndex === 0) {
-        $this->write($bygning->getAaplusAnsvarlig());
-        $this->write($bygning->getEnergiRaadgiver());
-        $this->write(null /*$bygning->getProjektleder()*/);
-        $this->write($rapport ? $rapport->getDatering() : null);
-        $this->write(($rapport && $rapport->getDatoForDrift()) ? $rapport->getDatoForDrift()->format('Y-m-d') : null);
-        $this->write(($rapport ? $rapport->getElena() : false) ? 1 : 0);
-        $this->write(($rapport ? $rapport->getAva() : false) ? 1 : 0);
+        $this->addCell($bygning->getAaplusAnsvarlig());
+        $this->addCell($bygning->getEnergiRaadgiver());
+        $this->addCell($bygning->getProjektleder());
+        $this->addCell($bygning->getProjekterende());
+        $this->addCell($rapport ? $rapport->getDatering() : null);
+        $this->addCell(($rapport && $rapport->getDatoForDrift()) ? $rapport->getDatoForDrift()->format('Y-m-d') : null);
+        $this->addCell(($rapport ? $rapport->getElena() : false) ? 1 : 0);
+        $this->addCell(($rapport ? $rapport->getAva() : false) ? 1 : 0);
       } else {
-        $this->fill(7);
+        $this->fillCell(8);
       }
     }
 
     if ($this->showAll || $this->groups['besparelsesinformation']) {
       if ($tiltagIndex === 0 && $rapport) {
-        $this->write($rapport->getBesparelseVarmeGAF());
-        $this->write($rapport->getBesparelseVarmeGUF());
-        $this->write($rapport->getBesparelseEl());
-        $this->write($rapport->getCo2BesparelseVarme());
-        $this->write($rapport->getCo2BesparelseEl());
-        $this->write($rapport->getCo2BesparelseVarme() + $rapport->getCo2BesparelseEl());
-        $this->write($rapport->getAnlaegsinvestering());
-        $this->write($rapport->getGenopretning());
-        $this->write($rapport->getModernisering());
-        $this->write($rapport->getFravalgtInvesteringEksFaellesomkostninger());
-        $this->write($rapport->getMtmFaellesomkostninger());
-        $this->write($rapport->getEnergiscreening());
-        $this->write($rapport->getImplementering());
-        $this->write($rapport->getinvesteringInklFaellesomkostninger());
-        $this->write($rapport->getInternRenteInklFaellesomkostninger());
-        $this->write($rapport->getNutidsvaerdiSetOver15AarKr());
-        $this->write($rapport->getBesparelseAarEt());
+        $this->addCell($rapport->getBesparelseVarmeGAF());
+        $this->addCell($rapport->getBesparelseVarmeGUF());
+        $this->addCell($rapport->getBesparelseEl());
+        $this->addCell($rapport->getSolcelleproduktion());
+        $this->addCell($rapport->getSalgTilNettetAar1());
+        $this->addCell($rapport->getCo2BesparelseVarme());
+        $this->addCell($rapport->getCo2BesparelseEl());
+        $this->addCell($rapport->getCo2BesparelseVarme() + $rapport->getCo2BesparelseEl());
+        $this->addCell($rapport->getAnlaegsinvestering());
+        $this->addCell($rapport->getGenopretning());
+        $this->addCell($rapport->getModernisering());
+        $this->addCell($rapport->getFravalgtInvesteringEksFaellesomkostninger());
+        $this->addCell($rapport->getMtmFaellesomkostninger());
+        $this->addCell($rapport->getEnergiscreening());
+        $this->addCell($rapport->getImplementering());
+        $this->addCell($rapport->getinvesteringInklFaellesomkostninger());
+        $this->addCell($rapport->getInternRenteInklFaellesomkostninger());
+        $this->addCell($rapport->getNutidsvaerdiSetOver15AarKr());
+        $this->addCell($rapport->getBesparelseAarEt());
       } else {
-        $this->fill(17);
+        $this->fillCell(19);
       }
     }
 
     if ($this->showAll || $this->groups['oekonomi']) {
       if ($tiltagIndex === 0 and $rapport) {
         for ($y = 1; $y <= 30; $y++) {
-          $this->write($rapport->getCashFlow()['besparelse_varme'][$y]);
+          $this->addCell($rapport->getCashFlow()['besparelse_varme'][$y]);
         }
         for ($y = 1; $y <= 30; $y++) {
-          $this->write($rapport->getCashFlow()['besparelse_el'][$y]);
+          $this->addCell($rapport->getCashFlow()['besparelse_el'][$y]);
         }
       } else {
-        $this->fill(60);
+        $this->fillCell(60);
       }
     }
 
     if ($tiltag) {
       $type = $this->getTiltagType($tiltag);
-      $this->write($tiltagIndex + 1);
-      $this->write($this->trans($type));
-      $this->write($type === 'Special' && $tiltag->getTiltagskategori() ? $tiltag->getTiltagskategori()->getNavn() : '');
-      $this->write($tiltag->getTitle());
-      $this->write($tiltag->getTilvalgtAfAaPlus() ? 1 : 0);
-      $this->write($tiltag->getTilvalgtbegrundelse());
-      $this->write($tiltag->getTilvalgtBegrundelseMagistrat());
-      $this->write($tiltag->getMaengde());
-      $this->write($tiltag->getEnhed());
-      $this->write($tiltag->getLevetid());
-      $this->write($tiltag->getDatoForDrift() ? $tiltag->getDatoForDrift()->format('Y-m-d') : null);
-      $this->write($tiltag->getVarmebesparelseGAF());
-      $this->write($tiltag->getVarmebesparelseGUF());
-      $this->write($tiltag->getElbesparelse());
-      $this->write($tiltag->getSamletEnergibesparelse());
-      $this->write($tiltag->getBesparelseStrafafkoelingsafgift());
-      $this->write($tiltag->getBeskrivelseDriftOgVedligeholdelse());
-      $this->write($tiltag->getScrapvaerdi());
-      $this->write($tiltag->getReinvestering());
-      $this->write($tiltag->getSamletCo2besparelse());
-      $this->write($tiltag->getReelAnlaegsinvestering());
-      $this->write($tiltag->getAnlaegsinvestering());
-      $this->write($tiltag->getGenopretning());
-      $this->write($tiltag->getGenopretningForImplementeringsomkostninger());
-      $this->write($tiltag->getModernisering());
-      $this->write($tiltag->getAaplusInvestering());
-      $this->write($tiltag->getSimpelTilbagebetalingstidAar());
-      $this->write($tiltag->getNutidsvaerdiSetOver15AarKr());
+      $this->addCell($tiltagIndex + 1);
+      $this->addCell($this->trans($type));
+      $this->addCell($type === 'Special' && $tiltag->getTiltagskategori() ? $tiltag->getTiltagskategori()->getNavn() : '');
+      $this->addCell($tiltag->getTitle());
+      $this->addCell($tiltag->getTilvalgtAfAaPlus() ? 1 : 0);
+      $this->addCell($tiltag->getTilvalgtbegrundelse());
+      $this->addCell($tiltag->getTilvalgtAfMagistrat() ? 1 : 0);
+      $this->addCell($tiltag->getTilvalgtBegrundelseMagistrat());
+      $this->addCell($tiltag->getMaengde());
+      $this->addCell($tiltag->getEnhed());
+      $this->addCell($tiltag->getLevetid());
+      $this->addCell($tiltag->getDatoForDrift() ? $tiltag->getDatoForDrift()->format('Y-m-d') : null);
+      $this->addCell($tiltag->getVarmebesparelseGAF());
+      $this->addCell($tiltag->getVarmebesparelseGUF());
+      $this->addCell($tiltag->getElbesparelse());
+      if($this->accessor->isReadable($tiltag, 'solcelleproduktion')) {
+        $this->addCell($this->accessor->getValue($tiltag, 'solcelleproduktion'));
+      } else {
+        $this->fillCell(1);
+      }
+      if($this->accessor->isReadable($tiltag, 'salg_til_nettet_aar1')) {
+        $this->addCell($this->accessor->getValue($tiltag, 'salg_til_nettet_aar1'));
+      } else {
+        $this->fillCell(1);
+      }
+      $this->addCell($tiltag->getSamletEnergibesparelse());
+      $this->addCell($tiltag->getBesparelseStrafafkoelingsafgift());
+      $this->addCell($tiltag->getBeskrivelseDriftOgVedligeholdelse());
+      $this->addCell($tiltag->getScrapvaerdi());
+      $this->addCell($tiltag->getReinvestering());
+      $this->addCell($tiltag->getSamletCo2besparelse());
+      $this->addCell($tiltag->getReelAnlaegsinvestering());
+      $this->addCell($tiltag->getAnlaegsinvestering());
+      $this->addCell($tiltag->getGenopretning());
+      $this->addCell($tiltag->getGenopretningForImplementeringsomkostninger());
+      $this->addCell($tiltag->getModernisering());
+      $this->addCell($tiltag->getAaplusInvestering());
+      $this->addCell($tiltag->getSimpelTilbagebetalingstidAar());
+      $this->addCell($tiltag->getNutidsvaerdiSetOver15AarKr());
     }
-    $this->endRow();
+    $this->addRow();
   }
 
   private function getTiltagType(Tiltag $object) {
@@ -354,14 +394,10 @@ class BygningStreamExporter {
       : $value;
   }
 
-  private $data = [ '' ];
-  private $row = 1;
-  private $col = 0;
-
-  private function write($value, $width = 1) {
+  private function addCell($value, $colspan = 1) {
     if (is_array($value)) {
       foreach ($value as $v) {
-        $this->write($v);
+        $this->addCell($v);
       }
     } else {
       if ($value instanceof \DateTime) {
@@ -378,36 +414,40 @@ class BygningStreamExporter {
 
 
       $this->data[$this->col] = $value;
-      for ($i = 1; $i < $width; $i++) {
+      for ($i = 1; $i < $colspan; $i++) {
         $this->data[$this->col + $i] = null;
       }
-      $this->col += $width;
+      $this->col += $colspan;
     }
   }
 
-  private function writeDate($value) {
+  private function addDateCell($value) {
     die($value);
   }
 
-  private function writeInteger($value) {
-    $this->write(intval($value));
+  private function addIntegerCell($value) {
+    $this->addCell(intval($value));
   }
 
-  private function writeNumber($value) {
-    $this->write(floatval($value));
+  private function addNumberCell($value) {
+    $this->addCell(floatval($value));
   }
 
-  private function writef($format, array $args = [], $width = 1) {
-    $this->write(vsprintf($format, $args), $width);
+  private function addFormatedStringCell($format, array $args = [], $width = 1) {
+    $this->addCell(vsprintf($format, $args), $width);
   }
 
-  private function fill($cols, $value = '') {
-    $this->write(array_fill(0, $cols, $value));
+  private function fillCell($colspan, $value = '') {
+    $this->addCell(array_fill(0, $colspan, $value));
   }
 
-  private function endRow() {
+  private function addRow($style = null) {
     $row = array_slice($this->data, 0, $this->col);
-    $this->writer->addRow($row);
+    if($style) {
+      $this->writer->addRowWithStyle($row, $style);
+    } else {
+      $this->writer->addRow($row);
+    }
     $this->row += 1;
     $this->col = 0;
   }

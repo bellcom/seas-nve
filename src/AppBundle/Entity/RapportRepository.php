@@ -45,7 +45,8 @@ class RapportRepository extends BaseRepository {
     }
 
     if ($rapport->getBygning()->getStatus() === BygningStatusType::UNDER_UDFOERSEL) {
-      return $rapport->getBygning()->getProjekterende() == $user;
+      $bygning = $rapport->getBygning();
+      return ($bygning->getProjekterende() == $user || $bygning->getAaplusAnsvarlig() == $user || $bygning->getProjektleder() == $user);
     }
 
     return $this->hasFullAccess($user);
