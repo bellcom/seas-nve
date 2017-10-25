@@ -18,7 +18,7 @@ class Version20151214151708 extends AbstractMigration {
 
     $this->addSql('CREATE TABLE NyttiggjortVarme (id INT AUTO_INCREMENT NOT NULL, faktor DOUBLE PRECISION NOT NULL, titel VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
     $this->addSql('CREATE TABLE NyttiggjortVarme_audit (id INT NOT NULL, rev INT NOT NULL, faktor DOUBLE PRECISION DEFAULT NULL, titel VARCHAR(255) DEFAULT NULL, revtype VARCHAR(4) NOT NULL, PRIMARY KEY(id, rev)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
-    $this->addSql('DROP TABLE BygningStatus');
+    $this->addSql('DROP TABLE IF EXISTS BygningStatus');
     $this->addSql('ALTER TABLE TiltagDetail ADD nyttiggjortvarme_id INT DEFAULT NULL');
     $this->addSql('ALTER TABLE TiltagDetail ADD CONSTRAINT FK_C39D70CED518EA9 FOREIGN KEY (nyttiggjortvarme_id) REFERENCES NyttiggjortVarme (id)');
     $this->addSql('CREATE INDEX IDX_C39D70CED518EA9 ON TiltagDetail (nyttiggjortvarme_id)');

@@ -1,0 +1,14 @@
+{% if wo_breadcrumbs()|length %}
+    {%- spaceless -%}
+        {% for b in breadcrumbs %}
+            {% if loop.first %}
+                {{- 'title.prefix' | trans(b.translationParameters, translation_domain, locale) -}}
+            {% else %}
+                {{- b.text | trans(b.translationParameters, translation_domain, locale) -}}
+            {% endif %}
+            {% if not loop.last %}
+                /
+            {% endif %}
+        {% endfor %}
+    {%- endspaceless -%}
+{% endif %}

@@ -17,6 +17,13 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class RapportEmbedType extends AbstractType {
 
+  protected $authorizationChecker;
+
+  public function __construct(AuthorizationCheckerInterface $authorizationChecker)
+  {
+    $this->authorizationChecker = $authorizationChecker;
+  }
+
   /**
    * @TODO: Missing description.
    *
@@ -33,8 +40,11 @@ class RapportEmbedType extends AbstractType {
       )
       ->add('faktorPaaVarmebesparelse')
       ->add('energiscreening')
-      ->add('ava')
       ->add('elena');
+
+    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
+      $builder->add('ava');
+    }
   }
 
   /**

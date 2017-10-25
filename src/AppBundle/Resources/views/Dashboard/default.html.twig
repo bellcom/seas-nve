@@ -4,17 +4,24 @@
 
   <div>
 
-    {% if bygninger or segmenter or projektleder %}
+    {% if aaplusAnsvarlig or segmenter or projektleder or projekterende or energiRaadgiver %}
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        {% if bygninger %}
-          <li role="presentation" {% if tab == 'bygninger' %} class="active" {% endif %}><a href="{{ path('dashboard') }}" role="tab">{{ 'bygninger.labels.plural' | trans }}</a></li>
+        {% if aaplusAnsvarlig %}
+          <li role="presentation" {% if tab == 'aaplusAnsvarlig' %} class="active" {% endif %}><a href="{{ path('dashboard_default') }}" role="tab">{{ 'bygninger.labels.plural' | trans }}</a></li>
         {% endif %}
         {% if segmenter %}
         <li role="presentation" {% if tab == 'segmenter' %} class="active" {% endif %}><a href="{{ path('dashboard_segmenter') }}" role="tab">{{ 'segment.labels.plural' | trans }}</a></li>{##}
         {% endif %}
         {% if projektleder %}
           <li role="presentation" {% if tab == 'projektleder' %} class="active" {% endif %}><a href="{{ path('dashboard_projektleder') }}" aria-controls="messages" role="tab">{{ 'appbundle.bygning.projektleder' | trans }}</a></li>
+        {% endif %}
+        {% if energiRaadgiver %}
+          <li role="presentation" {% if tab == 'igangvaerende' %} class="active" {% endif %}><a href="{{ path('dashboard_igangvaerende') }}" aria-controls="messages" role="tab">{{ 'dashboard.current' | trans }}</a></li>
+          <li role="presentation" {% if tab == 'indsendt' %} class="active" {% endif %}><a href="{{ path('dashboard_indsendt') }}" aria-controls="messages" role="tab">{{ 'dashboard.finished' | trans }}</a></li>
+        {% endif %}
+        {% if projekterende %}
+          <li role="presentation" {% if tab == 'projekterende' %} class="active" {% endif %}><a href="{{ path('dashboard_projekterende') }}" aria-controls="messages" role="tab">{{ 'appbundle.bygning.projekterende' | trans }}</a></li>
         {% endif %}
       </ul>
     {% endif %}
@@ -23,12 +30,18 @@
     <div class="row">
       <div class="col-md-9">
         <h3>
-          {% if tab == 'bygninger' %}
+          {% if tab == 'aaplusAnsvarlig' %}
             {{ 'common.your_buildings' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
           {% elseif tab == 'segmenter' %}
             {{ 'common.your_segments' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
           {% elseif tab == 'projektleder' %}
             {{ 'common.projektleder_for' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
+          {% elseif tab == 'projekterende' %}
+            {{ 'common.projekterende_for' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
+          {% elseif tab == 'igangvaerende' %}
+            {{ 'dashboard.current' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
+          {% elseif tab == 'indsendt' %}
+            {{ 'dashboard.finished' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
           {% else %}
             {{ 'common.forside' | trans }}
           {% endif %}
@@ -51,9 +64,13 @@
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.navn'|trans, 'b.navn') }}</th>
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.adresse'|trans, 'b.adresse') }}</th>
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.postnummer'|trans, 'b.postnummer') }}</th>
-          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 'b.segment') }}</th>
+          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 's.forkortelse') }}</th>
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.status'|trans, 'b.status') }}</th>
-          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.energiRaadgiver'|trans, 'b.energiRaadgiver') }}</th>
+          {% if tab == 'aaplusAnsvarlig' %}
+            <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.energiRaadgiver'|trans, 'b.energiRaadgiver') }}</th>
+          {% else %}
+            <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.aaplusAnsvarlig'|trans, 'b.aaplusAnsvarlig') }}</th>
+          {% endif %}
           <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.updatedAt'|trans, 'r.updatedAt') }}</th>
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.updatedBy'|trans, 'b.updatedBy') }}</th>
           <th></th>
@@ -65,7 +82,12 @@
           <th>{{ form_row(form.postnummer) }}</th>
           <th>{{ form_row(form.segment) }}</th>
           <th>{{ form_row(form.status) }}</th>
-          <th>{{ form_row(form.energiRaadgiver) }}</th>
+          {% if tab == 'aaplusAnsvarlig' %}
+            <th>{{ form_row(form.energiRaadgiver) }}</th>
+          {% else %}
+            <th>{{ form_row(form.aaplusAnsvarlig) }}</th>
+
+          {% endif %}
           <th></th>
           <th></th>
           <th>{{ form_row(form.Søg) }}</th>
@@ -82,7 +104,11 @@
             {% endif %}
           </td>
           <td>{{ bygning.status  | readable }}</td>
-          <td>{% if bygning.energiRaadgiver is not empty %}{{ bygning.energiRaadgiver.username }}{% endif %}</td>
+          {% if tab == 'aaplusAnsvarlig' %}
+            <td>{% if bygning.energiRaadgiver is not empty %}{{ bygning.energiRaadgiver.username }}{% endif %}</td>
+          {% else %}
+            <td>{% if bygning.aaplusAnsvarlig is not empty %}{{ bygning.aaplusAnsvarlig.username }}{% endif %}</td>
+          {% endif %}
           <td class="date">{{ bygning.updatedAt | date('Y-m-d') }}</td>
           <td>{{ bygning.updatedBy }}</td>
           <td class="text-right">
@@ -110,6 +136,36 @@
     </div>
 
     {{ form_end(form) }}
+
+    {% if summary_current is defined and summary_finished is defined %}
+      <div class="row">
+        <div class="col-md-12">
+          <h2>{{ 'common.summary' | trans }}</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>{{ 'dashboard.current' | trans }}</h3>
+          <ul class="list-unstyled">
+            <li>{{ 'dashboard.totalareal' | trans }}: {{ summary_current['totalareal'] |number_format }}</li>
+            <li>{{ 'dashboard.besparelseEl' | trans }}: {{ summary_current['besparelseEl'] |number_format }}</li>
+            <li>{{ 'dashboard.besparelseVarmeGUF' | trans }}: {{ summary_current['besparelseVarmeGUF'] |number_format }}</li>
+            <li>{{ 'dashboard.besparelseVarmeGAF' | trans }}: {{ summary_current['besparelseVarmeGAF'] |number_format }}</li>
+            <li>{{ 'dashboard.besparelseCO2' | trans }}: {{ summary_current['besparelseCO2'] |number_format }}</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h3>{{ 'dashboard.finished' | trans }}</h3>
+          <ul class="list-unstyled">
+            <li>{{ 'dashboard.totalareal' | trans }}: {{ summary_finished['totalareal'] |number_format }}</li>
+            <li>{{ 'dashboard.besparelseEl' | trans }}: {{ summary_finished['besparelseEl'] |number_format }}</li>
+            <li>{{ 'dashboard.besparelseVarmeGUF' | trans }}: {{ summary_finished['besparelseVarmeGUF'] |number_format }}</li>
+            <li>{{ 'dashboard.besparelseVarmeGAF' | trans }}: {{ summary_finished['besparelseVarmeGAF'] |number_format }}</li>
+            <li>{{ 'dashboard.besparelseCO2' | trans }}: {{ summary_finished['besparelseCO2'] |number_format }}</li>
+          </ul>
+        </div>
+      </div>
+    {% endif %}
 
   </div>
 

@@ -7,8 +7,10 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;
+use Doctrine\ORM\Query;
 
 /**
  * RapportRepository
@@ -42,6 +44,11 @@ class RapportRepository extends BaseRepository {
       return $rapport->getBygning()->getEnergiRaadgiver() == $user;
     }
 
+    if ($rapport->getBygning()->getStatus() === BygningStatusType::UNDER_UDFOERSEL) {
+      $bygning = $rapport->getBygning();
+      return ($bygning->getProjekterende() == $user || $bygning->getAaplusAnsvarlig() == $user || $bygning->getProjektleder() == $user);
+    }
+
     return $this->hasFullAccess($user);
   }
 
@@ -60,17 +67,7 @@ class RapportRepository extends BaseRepository {
     $qb->leftJoin('r.bygning', 'b');
     $qb->orderBy('b.updatedAt', 'DESC');
 
-    if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users');
-      $qb->setParameter('user', $user);
-      $qb->orWhere('b.energiRaadgiver = :energiRaadgiver');
-      $qb->setParameter('energiRaadgiver', $user);
-      $qb->orWhere('b.projektleder = :projektleder');
-      $qb->setParameter('projektleder', $user);
-    } else if($onlyOwnBuildings) {
-      $qb->andWhere('b.aaplusAnsvarlig = :aaplusAnsvarlig');
-      $qb->setParameter('aaplusAnsvarlig', $user);
-    }
+    $this->limitQueryToUserAccess($user, $qb, $onlyOwnBuildings);
 
     $query = $qb->getQuery();
 
@@ -137,14 +134,7 @@ class RapportRepository extends BaseRepository {
         ->setParameter('segment', $search['segment']);
     }
 
-    if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users');
-      $qb->setParameter('user', $user);
-      $qb->orWhere('b.energiRaadgiver = :energiRaadgiver');
-      $qb->setParameter('energiRaadgiver', $user);
-      $qb->orWhere('b.projektleder = :projektleder');
-      $qb->setParameter('projektleder', $user);
-    }
+    $this->limitQueryToUserAccess($user, $qb);
 
     $qb->addOrderBy('b.navn');
 
@@ -189,15 +179,7 @@ class RapportRepository extends BaseRepository {
     $qb->where('b.status = :status')->setParameter('status', $status);
     $qb->orderBy('r.updatedAt', 'DESC');
 
-    if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users OR b.energiRaadgiver = :energiRaadgiver OR b.projektleder = :projektleder');
-      $qb->setParameter('user', $user);
-      $qb->setParameter('energiRaadgiver', $user);
-      $qb->setParameter('projektleder', $user);
-    } else if($onlyOwnBuildings) {
-      $qb->andWhere('b.aaplusAnsvarlig = :aaplusAnsvarlig');
-      $qb->setParameter('aaplusAnsvarlig', $user);
-    }
+    $this->limitQueryToUserAccess($user, $qb, $onlyOwnBuildings);
 
     return $qb->getQuery();
   }
@@ -220,15 +202,7 @@ class RapportRepository extends BaseRepository {
     $qb->where('b.status >= :status')->setParameter('status', $status);
     $qb->orderBy('r.updatedAt', 'DESC');
 
-    if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users OR b.energiRaadgiver = :energiRaadgiver OR b.projektleder = :projektleder');
-      $qb->setParameter('user', $user);
-      $qb->setParameter('energiRaadgiver', $user);
-      $qb->setParameter('projektleder', $user);
-    } else if($onlyOwnBuildings) {
-      $qb->andWhere('b.aaplusAnsvarlig = :aaplusAnsvarlig');
-      $qb->setParameter('aaplusAnsvarlig', $user);
-    }
+    $this->limitQueryToUserAccess($user, $qb, $onlyOwnBuildings);
 
     return $qb->getQuery();
   }
@@ -245,7 +219,6 @@ class RapportRepository extends BaseRepository {
     $qb->select('r', 'b');
     $qb->from('AppBundle:Rapport', 'r');
     $qb->leftJoin('r.bygning', 'b');
-
 
     $qb->where('b.segment = :segment')->setParameter('segment', $segment);
     $qb->orderBy('r.updatedAt', 'DESC');
@@ -275,14 +248,7 @@ class RapportRepository extends BaseRepository {
 
     $qb->where('b.status = :status')->setParameter('status', $status);
 
-    if (!$this->hasFullAccess($user)) {
-      $qb->andWhere(':user MEMBER OF b.users');
-      $qb->setParameter('user', $user);
-      $qb->orWhere('b.energiRaadgiver = :energiRaadgiver');
-      $qb->setParameter('energiRaadgiver', $user);
-      $qb->orWhere('b.projektleder = :projektleder');
-      $qb->setParameter('projektleder', $user);
-    }
+    $this->limitQueryToUserAccess($user, $qb);
 
     return $qb->getQuery()->getSingleResult();
   }

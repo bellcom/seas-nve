@@ -97,6 +97,13 @@ class User extends BaseUser {
    **/
   protected $projektleder;
 
+  /**
+   * @OneToMany(targetEntity="Bygning", mappedBy="projekterende")
+   * @OrderBy({"navn" = "ASC"})
+   * @JMS\Exclude
+   **/
+  protected $projekterende;
+
   public function __construct() {
     parent::__construct();
     $this->groups = new ArrayCollection();
