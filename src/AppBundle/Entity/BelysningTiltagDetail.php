@@ -1193,13 +1193,13 @@ class BelysningTiltagDetail extends TiltagDetail {
     }
     elseif ($nyLyskilde->getType() == 'LED-arm.') {
       return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
-              + $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale * $this->nyLyskildeStkArmatur
+              + $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale
               + $this->prisfaktorTillaegKrLokale) * $this->lokale_antal;
     }
     else {
       return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
               + $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale
-              + $this->standardinvestLyskildeKrStk * $this->nyLyskildeStkArmatur * $this->nyeArmaturerStkLokale
+              + $this->standardinvestLyskildeKrStk * $this->nyeArmaturerStkLokale
               + $this->prisfaktorTillaegKrLokale) * $this->lokale_antal;
     }
   }
