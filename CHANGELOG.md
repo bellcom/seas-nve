@@ -1,5 +1,8 @@
 # Aaplus changelog
 
+## v1.8.3
+* SUPPORT-1301: Fixed 'ava' display on form view
+
 ## v1.8.2
 * SUPPORT-1301: Fixed type error on status change
 
