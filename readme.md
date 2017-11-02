@@ -12,7 +12,11 @@ git fetch
 git checkout vX.X.X
 composer install
 php app/console doctrine:migrations:migrate
-php app/console cache:clear --env=prod 
+php app/console cache:clear --env=prod
+
+chmod -R g+w web/filer/
+chmod -R g+w web/uploads/
+chown -R deploy:www-data web/
 
 ```
 

@@ -1,5 +1,11 @@
 # Aaplus changelog
 
+## v1.8.2
+* SUPPORT-1301: Fixed type error on status change
+
+## v1.8.1
+* SUPPORT-1297: Fixed calculation on 'belysning'
+
 ## v1.8.0
 * AAPLUS-664: New calculation model for "Solceller"
 * AAPLUS-662: Altered AVA edit fields to only show for super admin
