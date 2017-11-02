@@ -23,7 +23,7 @@ class BygningTilknytRaadgiverType extends AbstractType {
 
   protected $authorizationChecker;
 
-  public function __construct(RegistryInterface $doctrine, AuthorizationCheckerInterface $authorizationChecker) {
+  public function __construct(RegistryInterface $doctrine, $authorizationChecker) {
     $this->doctrine = $doctrine;
     $this->authorizationChecker = $authorizationChecker;
   }
