@@ -1,5 +1,8 @@
 # Aaplus changelog
 
+## v1.8.4
+* SUPPORT-1302: Fixed 'Tiltag' with 'Bilag' not deleteable
+
 ## v1.8.3
 * SUPPORT-1301: Fixed 'ava' display on form view
 
