@@ -49,7 +49,12 @@ class ConfigurationType extends AbstractType {
 
       ->add('solcelletiltagdetailEnergiprisstigningPctPrAar', 'percent', array('scale' => 2))
       ->add('solcelletiltagdetailSalgsprisFoerste10AarKrKWh')
-      ->add('solcelletiltagdetailSalgsprisEfter10AarKrKWh');
+      ->add('solcelletiltagdetailSalgsprisEfter10AarKrKWh')
+
+      ->add('mtmFaellesomkostningerGrundpris')
+      ->add('mtmFaellesomkostningerPrisPrM2')
+      ->add('mtmFaellesomkostningerNulHvisArealMindreEnd')
+      ->add('mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd');
   }
 
   /**
