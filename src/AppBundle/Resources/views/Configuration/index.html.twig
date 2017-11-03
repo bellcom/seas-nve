@@ -70,6 +70,31 @@
           <td>{{ 'appbundle.configuration.solcelletiltagdetailSalgsprisEfter10AarKrKWh' | get_unit }}</td>
         </tr>
       </table>
+
+      <h2>Fællesomkostninger</h2>
+      <table class="table table-condensed configuration-settings">
+        <tr>
+          <td>{{ 'appbundle.configuration.mtmFaellesomkostningerGrundpris' | trans }}</td>
+          <td>{{ entity.mtmFaellesomkostningerGrundpris | format_amount(2) }}</td>
+          <td>{{ 'appbundle.configuration.mtmFaellesomkostningerGrundpris' | get_unit }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'appbundle.configuration.mtmFaellesomkostningerPrisPrM2' | trans }}</td>
+          <td>{{ entity.mtmFaellesomkostningerPrisPrM2 | format_amount(2) }}</td>
+          <td>{{ 'appbundle.configuration.mtmFaellesomkostningerPrisPrM2' | get_unit }}</td>
+        </tr>
+        <tr>
+          <td>
+            Sæt <span class="property">fællesomkostninger</span> til {{ 0 | format_amount(2) }} {{ 'appbundle.configuration.mtmFaellesomkostningerGrundpris' | get_unit }}
+            hvis
+          </td>
+          <td>
+            <span class="property">{{ 'appbundle.bygning.areal' | trans }}</span> &lt; {{ entity.mtmFaellesomkostningerNulHvisArealMindreEnd | format_integer }} {{ 'appbundle.configuration.mtmFaellesomkostningerNulHvisArealMindreEnd' | get_unit }}
+            <strong>og</strong>
+            <span class="property">{{ 'appbundle.rapport.totalEntreprisesum' | trans }}</span> &lt; {{ entity.mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd | format_amount(2) }} {{ 'appbundle.configuration.mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd' | get_unit }}
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 
