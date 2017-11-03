@@ -571,7 +571,7 @@ abstract class Tiltag {
   protected $modernisering;
 
   /**
-   * @OneToMany(targetEntity="Bilag", mappedBy="tiltag")
+   * @OneToMany(targetEntity="Bilag", mappedBy="tiltag", cascade={"remove"})
    * @OrderBy({"id" = "ASC"})
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Bilag>")
    */
