@@ -815,6 +815,7 @@ appbundle:
     titel: Titel
   bygning:
     aaplusAnsvarlig: Aa+ Ansvarlig
+    areal: Areal
     adresse: Adresse
     afdelingsnavn: Afdelingsnavn
     ansvarlig: Ansvarlig
@@ -921,6 +922,12 @@ appbundle:
     rapportDriftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
     elfaktor: El-faktor
     elKrKWh: El (kr/kWh)
+    mtmFaellesomkostningerGrundpris: Grundpris
+    mtmFaellesomkostningerGrundpris.unit: kr.
+    mtmFaellesomkostningerPrisPrM2: Pris pr. m2
+    mtmFaellesomkostningerPrisPrM2.unit: kr.
+    mtmFaellesomkostningerNulHvisArealMindreEnd.unit: m2
+    mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd.unit: kr.
     rapportInflation: Inflation
     rapportInflation.unit: %
     inflationsfaktor: Inflationsfaktor

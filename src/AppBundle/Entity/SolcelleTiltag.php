@@ -61,7 +61,8 @@ class SolcelleTiltag extends Tiltag {
   }
 
   protected function calculateSamletEnergibesparelse() {
-    return ($this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }));
+    return $this->solcelleproduktion * $this->getRapport()->getElKrKWh()
+      + $this->getSalgTilNettetAar1() * $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
   }
 
   protected function calculateSamletCo2besparelse() {

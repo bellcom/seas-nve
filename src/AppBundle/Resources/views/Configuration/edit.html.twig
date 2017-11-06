@@ -35,6 +35,31 @@
     </div>
   </div>
 
+  <h2>Fællesomkostninger</h2>
+
+  <div class="row">
+    <div class="col-md-12">
+      {{ form_row(edit_form.mtmFaellesomkostningerGrundpris) }}
+      {{ form_row(edit_form.mtmFaellesomkostningerPrisPrM2) }}
+      <div class="form-inline">
+        <label class="control-label">Sæt <span class="property">fællesomkostninger</span> til {{ 0 | format_amount(2) }} {{ 'appbundle.configuration.mtmFaellesomkostningerGrundpris' | get_unit }} hvis</label>
+        <div>
+          <span class="property">{{ 'appbundle.bygning.areal' | trans }}</span> &lt;
+          <div class="input-group">
+            {{ form_widget(edit_form.mtmFaellesomkostningerNulHvisArealMindreEnd, {label: 'null'}) }}
+            <span class="input-group-addon">{{ 'appbundle.configuration.mtmFaellesomkostningerNulHvisArealMindreEnd' | get_unit }}</span>
+          </div>
+          <strong>og</strong>
+          <span class="property">{{ 'appbundle.rapport.totalEntreprisesum' | trans }}</span> &lt;
+          <div class="input-group">
+            {{ form_widget(edit_form.mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd) }}
+            <span class="input-group-addon">{{ 'appbundle.configuration.mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd' | get_unit }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {{ form_rest(edit_form) }}
   {{ form_end(edit_form) }}
 {% endblock %}

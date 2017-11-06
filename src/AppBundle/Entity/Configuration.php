@@ -90,6 +90,30 @@ class Configuration {
    */
   protected $solcelletiltagdetailSalgsprisEfter10AarKrKWh;
 
+	/**
+   * @var float
+   * @ORM\Column(type="decimal", scale=4, nullable=true)
+   */
+  protected $mtmFaellesomkostningerGrundpris = 5000;
+
+  /**
+   * @var float
+   * @ORM\Column(type="decimal", scale=4, nullable=true)
+   */
+  protected $mtmFaellesomkostningerPrisPrM2 = 5.0000;
+
+  /**
+   * @var float
+   * @ORM\Column(type="float")
+   */
+  protected $mtmFaellesomkostningerNulHvisArealMindreEnd;
+
+  /**
+   * @var float
+   * @ORM\Column(type="float")
+   */
+  protected $mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd;
+
   public function setId($id) {
     $this->id = $id;
   }
@@ -204,4 +228,43 @@ class Configuration {
     return $this->solcelletiltagdetailSalgsprisEfter10AarKrKWh;
   }
 
+  public function setMtmFaellesomkostningerGrundpris($mtmFaellesomkostningerGrundpris) {
+    $this->mtmFaellesomkostningerGrundpris = $mtmFaellesomkostningerGrundpris;
+
+    return $this;
+  }
+
+  public function getMtmFaellesomkostningerGrundpris() {
+    return $this->mtmFaellesomkostningerGrundpris;
+  }
+
+  public function setMtmFaellesomkostningerPrisPrM2($mtmFaellesomkostningerPrisPrM2) {
+    $this->mtmFaellesomkostningerPrisPrM2 = $mtmFaellesomkostningerPrisPrM2;
+
+    return $this;
+  }
+
+  public function getMtmFaellesomkostningerPrisPrM2() {
+    return $this->mtmFaellesomkostningerPrisPrM2;
+  }
+
+  public function setMtmFaellesomkostningerNulHvisArealMindreEnd($mtmFaellesomkostningerNulHvisArealMindreEnd) {
+      $this->mtmFaellesomkostningerNulHvisArealMindreEnd = $mtmFaellesomkostningerNulHvisArealMindreEnd;
+
+      return $this;
+  }
+
+  public function getMtmFaellesomkostningerNulHvisArealMindreEnd() {
+      return $this->mtmFaellesomkostningerNulHvisArealMindreEnd;
+  }
+
+  public function setMtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd($mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd) {
+      $this->mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd = $mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd;
+
+      return $this;
+  }
+
+  public function getMtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd() {
+      return $this->mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd;
+  }
 }
