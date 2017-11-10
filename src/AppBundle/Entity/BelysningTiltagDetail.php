@@ -1199,7 +1199,7 @@ class BelysningTiltagDetail extends TiltagDetail {
     else {
       return ($this->nyeSensorerStkLokale * $this->standardinvestSensorKrStk
               + $this->standardinvestArmaturKrStk * $this->nyeArmaturerStkLokale
-              + $this->standardinvestLyskildeKrStk * $this->nyLyskildeStkArmatur
+              + $this->standardinvestLyskildeKrStk * $this->nyLyskildeStkArmatur * $this->nyeArmaturerStkLokale
               + $this->prisfaktorTillaegKrLokale) * $this->lokale_antal;
     }
   }
