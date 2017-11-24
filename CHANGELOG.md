@@ -1,5 +1,8 @@
 # Aaplus changelog
 
+## v1.8.9
+* SUPPORT-1322: Fixed calculation (SolcelleTiltag)
+
 ## v1.8.8
 * SUPPORT-1333: Fixed output of nullable booleans in export
 

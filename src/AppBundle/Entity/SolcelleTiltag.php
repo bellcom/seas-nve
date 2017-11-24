@@ -97,4 +97,14 @@ class SolcelleTiltag extends Tiltag {
     return 'KWp';
   }
 
+  public function calculateSavingsForYear($year) {
+    if ($year > $this->levetid) {
+      return 0;
+    }
+
+    return parent::calculateSavingsForYear($year)
+      + $this->getSolcelleproduktion() * $this->getRapport()->getElKrKWh($year)
+      + $this->getSalgTilNettetAar1() * $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+  }
+
 }
