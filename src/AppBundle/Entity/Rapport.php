@@ -2055,9 +2055,9 @@ class Rapport {
   }
 
   private function calculateMtmFaellesomkostninger() {
-    $areal = $this->bygning->getAreal();
+    $areal = $this->bygning->getBruttoetageareal();
     if ($areal < $this->configuration->getMtmFaellesomkostningerNulHvisArealMindreEnd()
-        && $this->anlaegsinvestering < $this->configuration->getMtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd()) {
+        || $this->anlaegsinvestering < $this->configuration->getMtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd()) {
       return 0;
     }
     $offset = $this->configuration->getMtmFaellesomkostningerGrundpris();
