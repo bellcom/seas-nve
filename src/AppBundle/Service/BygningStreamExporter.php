@@ -341,9 +341,9 @@ class BygningStreamExporter {
       $this->addCell($this->trans($type));
       $this->addCell($type === 'Special' && $tiltag->getTiltagskategori() ? $tiltag->getTiltagskategori()->getNavn() : '');
       $this->addCell($tiltag->getTitle());
-      $this->addCell($tiltag->getTilvalgtAfAaPlus() ? 1 : 0);
+      $this->addCell($this->nullableBoolToString($tiltag->getTilvalgtAfAaPlus()));
       $this->addCell($tiltag->getTilvalgtbegrundelse());
-      $this->addCell($tiltag->getTilvalgtAfMagistrat() ? 1 : 0);
+      $this->addCell($this->nullableBoolToString($tiltag->getTilvalgtAfMagistrat()));
       $this->addCell($tiltag->getTilvalgtBegrundelseMagistrat());
       $this->addCell($tiltag->getMaengde());
       $this->addCell($tiltag->getEnhed());
@@ -454,5 +454,13 @@ class BygningStreamExporter {
 
   private function trans($text) {
     return $this->translator->trans($text);
+  }
+
+  private function nullableBoolToString($value) {
+      $s = '';
+      $s = $value === false ? 0 : $s;
+      $s = $value === true ? 1 : $s;
+
+      return $s;
   }
 }
