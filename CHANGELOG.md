@@ -1,5 +1,21 @@
 # Aaplus changelog
 
+## v1.8.8
+* SUPPORT-1333: Fixed output of nullable booleans in export
+
+## v1.8.7
+* SUPPORT-1318: Fixed calculation (Belysning)
+
+## v1.8.6
+* SUPPORT-1299: Updated calculation and added configuration (Fællesomkostninger)
+* SUPPORT-1303: Updated calculation (solcelleberegningen)
+* SUPPORT-1316: Fixed calculation (Fællesomkostninger)
+
+## v1.8.5
+* SUPPORT-1299: Updated calculation and added configuration
+* SUPPORT-1303: Updated calculation
+* AAPLUS-680: Added missing repository class
+
 ## v1.8.4
 * SUPPORT-1302: Fixed 'Tiltag' with 'Bilag' not deleteable
 
