@@ -197,6 +197,7 @@ class BygningStreamExporter {
       $this->addCell('Type');
       $this->addCell('Kategori');
       $this->addCell('Title');
+      $this->addCell('Tilvalgt (Rådgiver)');
       $this->addCell('Tilvalgt (Aa+)');
       $this->addCell('Begrundelse (Aa+)');
       $this->addCell('Tilvalgt/fravalgt (Mag)');
@@ -341,6 +342,7 @@ class BygningStreamExporter {
       $this->addCell($this->trans($type));
       $this->addCell($type === 'Special' && $tiltag->getTiltagskategori() ? $tiltag->getTiltagskategori()->getNavn() : '');
       $this->addCell($tiltag->getTitle());
+      $this->addCell($this->nullableBoolToString($tiltag->getTilvalgtAfRaadgiver()));
       $this->addCell($this->nullableBoolToString($tiltag->getTilvalgtAfAaPlus()));
       $this->addCell($tiltag->getTilvalgtbegrundelse());
       $this->addCell($this->nullableBoolToString($tiltag->getTilvalgtAfMagistrat()));
