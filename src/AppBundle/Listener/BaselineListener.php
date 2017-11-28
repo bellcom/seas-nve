@@ -1,10 +1,8 @@
 <?php
 namespace AppBundle\Listener;
 
-use Doctrine\ORM\Event\OnFlushEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\Baseline;
+use Doctrine\ORM\Event\OnFlushEventArgs;
 
 class BaselineListener {
   /**
@@ -20,17 +18,18 @@ class BaselineListener {
       $uow->getScheduledEntityUpdates()
     );
 
-    $targets = array();
-
     foreach ($entities as $entity) {
       if ($entity instanceof Baseline) {
         $changeSet = $uow->getEntityChangeSet($entity);
         $change = isset($changeSet['arealTilNoegletalsanalyse']) ? $changeSet['arealTilNoegletalsanalyse'] : null;
         if ($change && $change[0] != $change[1]) {
-          $bygning = $entity->getBygning()->setBruttoetageareal($change[1]);
-          $em->persist($bygning);
-          $md = $em->getClassMetadata(get_class($bygning));
-          $uow->recomputeSingleEntityChangeSet($md, $bygning);
+          $bygning = $entity->getBygning();
+          if ($bygning->getBruttoetageareal() != $change[1]) {
+            $bygning = $entity->getBygning()->setBruttoetageareal($change[1]);
+            $em->persist($bygning);
+            $md = $em->getClassMetadata(get_class($bygning));
+            $uow->recomputeSingleEntityChangeSet($md, $bygning);
+          }
         }
       }
     }
