@@ -575,8 +575,9 @@ appbundle:
     arealGenerelt: Konklusion (Areal)
     arealPrimaer: Primær kilde
     arealSekundaer: Sekundær kilde
-    arealTilNoegletalsanalyse: Areal, der skal benyttes til nøgletalsanalyse
+    arealTilNoegletalsanalyse: Bruttoetageareal
     arealTilNoegletalsanalyse.unit: m²
+    arealTilNoegletalsanalyse.help: Ændringer i dette felt vil opdatere bygningens bruttoetageareal
     baselineFraUdbud: Baseline fra Rådg. udbud
     baselineTilRaadgiver: Baseline til Energirådg.
     changed: Beregn

@@ -40,7 +40,7 @@ twig:
         decimal_point: ','
         thousands_separator: '.'
     globals:
-        aaplus_release_ver: Release 1.8.10
+        aaplus_release_ver: Release 1.9.0
         baseline_graddage_url: http://www.aarhus.dk/sitecore/content/subsites/affaldvarmeaarhus/home/varme/graddagetal.aspx?sc_lang=da
 
 # Assetic Configuration
