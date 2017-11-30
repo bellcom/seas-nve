@@ -1,5 +1,8 @@
 # Aaplus changelog
 
+## v1.9.0
+* AAPLUS-681: Removed use of 'Areal, der skal benyttes til nøgletalsanalyse' from Baseline
+
 ## v1.8.10
 * SUPPORT-1333: Added 'Tilvalgt Rådgiver' to export
 

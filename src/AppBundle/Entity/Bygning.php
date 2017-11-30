@@ -39,6 +39,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\BygningRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Bygning {
 
@@ -915,5 +916,18 @@ class Bygning {
   public function setBaseline($baseline) {
     $this->baseline = $baseline;
     $baseline->setBygning($this);
+  }
+
+  /**
+   * Note: This should really be done in BaseLine.postLoad, but apparently the
+   * relation to Bygning is not loaded on postLoad. An issue with OneToOne
+   * relations and owning side?
+   *
+   * @ORM\PostLoad()
+   */
+  public function postLoad() {
+    if ($this->getBaseline()) {
+      $this->getBaseline()->setArealTilNoegletalsanalyse($this->getBruttoetageareal());
+    }
   }
 }
