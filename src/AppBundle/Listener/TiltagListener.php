@@ -2,6 +2,7 @@
 namespace AppBundle\Listener;
 
 use AppBundle\Entity\BaselineKorrektion;
+use AppBundle\Entity\Configuration;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -78,6 +79,10 @@ class TiltagListener {
     }
 
     foreach ($targets as $target) {
+      // We need to set the configuration before calculating a Rapport.
+      if ($target instanceof Rapport) {
+        $target->setConfiguration($em->getRepository(Configuration::class)->getConfiguration());
+      }
       $target->calculate();
       $em->persist($target);
       $md = $em->getClassMetadata(get_class($target));
