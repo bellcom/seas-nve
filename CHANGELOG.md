@@ -1,7 +1,10 @@
 # Aaplus changelog
 
-## v1.9.1
+## v1.9.2
 * SUPPORT-1334: Updated cash flow calculation in Tiltag
+
+## v1.9.1
+* SUPPORT-1372: Fixed calculation error when changing state of Bygning
 
 ## v1.9.0
 * AAPLUS-681: Removed use of 'Areal, der skal benyttes til nøgletalsanalyse' from Baseline
