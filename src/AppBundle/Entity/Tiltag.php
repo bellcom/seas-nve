@@ -1672,6 +1672,14 @@ abstract class Tiltag {
         + $elbesparelse * $this->getRapport()->getElKrKWh($year)
         + $vandbesparelse * $this->getRapport()->getVandKrKWh($year)
         + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
+
+      if ($this instanceof SolcelleTiltag) {
+        $value += $this->getSolcelleproduktion() * $this->getRapport()->getElKrKWh($year)
+          + $this->getSalgTilNettetAar1() * ($year <= 10
+                                             ? $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()
+                                             : $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisEfter10AarKrKWh());
+      }
+
       if ($year == 1) {
         $value -= $aaplusinvestering;
       }
