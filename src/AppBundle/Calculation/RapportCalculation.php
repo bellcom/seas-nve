@@ -31,7 +31,7 @@ class RapportCalculation extends Calculation {
   }
 
   public function getChanges($entity) {
-    $changes = parent::getChanges($entity);
+    $changes = [];
 
     if ($entity instanceof Rapport) {
       $tiltagCalculation = $this->container->get('aaplus.tiltag_calculation');
@@ -44,9 +44,13 @@ class RapportCalculation extends Calculation {
             'entity' => $tiltag,
             'changes' => $tiltagChanges,
           ];
+          // We need to calculate the Tiltag for use when calculation the Rapport.
+          $tiltag->calculate();
         }
       }
     }
+
+    $changes += parent::getChanges($entity);
 
     return $changes;
   }
