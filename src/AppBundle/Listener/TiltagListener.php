@@ -25,7 +25,8 @@ class TiltagListener {
 
     $entities = array_merge(
       $uow->getScheduledEntityInsertions(),
-      $uow->getScheduledEntityUpdates()
+      $uow->getScheduledEntityUpdates(),
+      $uow->getScheduledEntityDeletions()
     );
 
     $targets = array();
