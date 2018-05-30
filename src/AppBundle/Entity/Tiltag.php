@@ -6,33 +6,27 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\DBAL\Types\Energiforsyning\NavnType;
-use AppBundle\DBAL\Types\RisikovurderingType;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\PrimaerEnterpriseType;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\OrderBy;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\InheritanceType;
-
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as JMS;
-use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Tiltag
  *
  * @ORM\Table()
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="discr", type="string")
  * @DiscriminatorMap({
@@ -65,13 +59,6 @@ abstract class Tiltag {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
-
-  /**
-   * @var \DateTime $deletedAt
-   *
-   * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
-   */
-  private $deletedAt;
 
   /**
    * @var boolean
