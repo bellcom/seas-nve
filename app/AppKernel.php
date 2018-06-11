@@ -30,6 +30,7 @@ class AppKernel extends Kernel
       new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
       new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
       new MewesK\TwigExcelBundle\MewesKTwigExcelBundle(),
+      new ItkDev\DatabaseBundle\ItkDevDatabaseBundle(),
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -48,5 +49,5 @@ class AppKernel extends Kernel
   {
     $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
   }
-  
+
 }
