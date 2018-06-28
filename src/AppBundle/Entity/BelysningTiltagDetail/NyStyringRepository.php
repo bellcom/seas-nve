@@ -29,9 +29,9 @@ class NyStyringRepository extends EntityRepository {
     parent::__construct($em, $class);
   }
 
-  public function findNotDeleted() {
+  public function findActive() {
 
-    $query = $this->_em->createQuery("SELECT ns FROM AppBundle:BelysningTiltagDetail\NyStyring ns WHERE ns.deletedAt IS NULL");
+    $query = $this->_em->createQuery("SELECT ns FROM AppBundle:BelysningTiltagDetail\NyStyring ns WHERE ns.deactivatedAt IS NULL");
 
     return $query->getResult();
 

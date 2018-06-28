@@ -3,13 +3,11 @@
 namespace AppBundle\Entity\BelysningTiltagDetail;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Styring
  *
  * @ORM\Table(name="BelysningTiltagDetail_NyStyring")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\BelysningTiltagDetail\NyStyringRepository")
  */
 class NyStyring {
@@ -113,11 +111,10 @@ class NyStyring {
   }
 
   /**
-   * @var \DateTime $deletedAt
+   * @var \DateTime $deactivatedAt
    *
-   * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+   * @ORM\Column(name="deactivated_at", type="datetime", nullable=true)
    */
-  private $deletedAt;
+  private $deactivatedAt;
 
 }
-

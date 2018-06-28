@@ -7,21 +7,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\DBAL\Types\KlimaskaermType;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 /**
  * Klimaskaerm
  *
  * @ORM\Table()
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\KlimaskaermRepository")
  */
 class Klimaskaerm {
-  use SoftDeleteableEntity;
-
   /**
    * @var integer
    *

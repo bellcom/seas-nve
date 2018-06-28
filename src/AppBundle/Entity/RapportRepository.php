@@ -21,18 +21,6 @@ use Doctrine\ORM\Query;
 class RapportRepository extends BaseRepository {
 
   /**
-   * Initializes a new <tt>EntityRepository</tt>.
-   *
-   * @param EntityManager         $em    The EntityManager to use.
-   * @param Mapping\ClassMetadata $class The class descriptor.
-   */
-  public function __construct($em, Mapping\ClassMetadata $class)
-  {
-    parent::__construct($em, $class);
-    $em->getFilters()->disable('softdeleteable');
-  }
-
-  /**
    * Check if a User has edit rights to a Rapport
    *
    * @param User $user

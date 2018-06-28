@@ -1,8 +1,8 @@
 <?php
 namespace AppBundle\Listener;
 
+use AppBundle\Entity\Tiltag;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use AppBundle\Entity\Forsyningsvaerk;
 
 class RemoveListener {
   public function preRemove(LifecycleEventArgs $event) {
@@ -15,6 +15,13 @@ class RemoveListener {
       if ($message) {
         throw new \Exception($message);
       }
+    }
+
+    if ($entity instanceof Tiltag) {
+      $rapport = $entity->getRapport();
+      $rapport->getTiltag()->removeElement($entity);
+      $rapport->calculate();
+      $event->getEntityManager()->persist($rapport);
     }
   }
 }

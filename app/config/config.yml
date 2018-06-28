@@ -100,10 +100,6 @@ doctrine:
         entity_managers:
             default:
               auto_mapping: true
-              filters:
-                softdeleteable:
-                  class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-                  enabled: true
               dql:
                 datetime_functions:
                   YEAR: DoctrineExtensions\Query\Mysql\Year
@@ -209,7 +205,6 @@ stof_doctrine_extensions:
             uploadable: true
             timestampable: true
             blameable: true
-            softdeleteable: true
 
 knp_snappy:
     pdf:
