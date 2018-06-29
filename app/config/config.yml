@@ -3,6 +3,9 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
 
+parameters:
+    version: 1.9.4
+
 framework:
     #esi:             ~
     translator:      { fallbacks: ["%locale%"] }
@@ -16,6 +19,8 @@ framework:
     templating:
         engines: ['twig']
         #assets_version: SomeVersionScheme
+    assets:
+        version: '%version%'
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -40,7 +45,7 @@ twig:
         decimal_point: ','
         thousands_separator: '.'
     globals:
-        aaplus_release_ver: Release 1.9.3
+        aaplus_release_ver: 'Release %version%'
         baseline_graddage_url: http://www.aarhus.dk/sitecore/content/subsites/affaldvarmeaarhus/home/varme/graddagetal.aspx?sc_lang=da
 
 # Assetic Configuration
