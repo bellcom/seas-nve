@@ -1833,6 +1833,8 @@ class Rapport {
 
     $this->mtmFaellesomkostninger = $this->calculateMtmFaellesomkostninger();
     $this->implementering = $this->calculateImplementering();
+    $this->fravalgtGenopretning = $this->calculateFravalgtGenopretning();
+    $this->fravalgtModernisering = $this->calculateFravalgtModernisering();
     $this->fravalgtImplementering = $this->calculateFravalgtImplementering();
     $this->faellesomkostninger = $this->calculateFaellesomkostninger();
     $this->fravalgtBesparelseDriftOgVedligeholdelse = $this->calculateFravalgtBesparelseDriftOgVedligeholdelse();
@@ -1847,8 +1849,6 @@ class Rapport {
     $this->genopretning = $this->calculateGenopretning();
     $this->genopretningForImplementeringsomkostninger = $this->calculateGenopretningForImplementeringsomkostninger();
     $this->modernisering = $this->calculateModernisering();
-    $this->fravalgtGenopretning = $this->calculateFravalgtGenopretning();
-    $this->fravalgtModernisering = $this->calculateFravalgtModernisering();
 
     $this->cashFlow15 = $this->calculateCashFlow15();
     $this->cashFlow30 = $this->calculateCashFlow30();
@@ -2081,8 +2081,8 @@ class Rapport {
       $sum += $tiltag->getAaplusInvestering();
     }
 
-    $sum -= $this->genopretning;
-    $sum -= $this->modernisering;
+    $sum -= $this->fravalgtGenopretning;
+    $sum -= $this->fravalgtModernisering;
 
     return $sum * $this->getProcentAfInvestering();
   }
