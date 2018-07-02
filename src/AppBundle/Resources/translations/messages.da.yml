@@ -1628,15 +1628,13 @@ appbundle:
     varmeledningsevnePaaNyIsoleringWMK.unit: W/m·K
   tiltag:
     aaplusInvestering: Aa+ investering eksl. øvrige omkostninger
-    aaplusInvestering.kr: kr
+    aaplusInvestering.unit: kr
     anlaegsInvestering: ﻿Entreprisesum
     anlaegsInvestering.unit: kr
     opstartsomkostninger: Opstartsomkostninger
     opstartsomkostninger.unit: kr
     anlaegsinvesteringExRisiko: ﻿Entreprisesum (eksl. risikovurdering)
     anlaegsinvesteringExRisiko.unit: kr
-    aaplusInvestering: Aa+ investering
-    aaplusInvestering.unit: kr
     antalReinvesteringer: Antal reinvesteringer
     antalReinvesteringer.unit: stk.
     beskrivelse: Beskrivelse
