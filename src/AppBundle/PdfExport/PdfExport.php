@@ -19,8 +19,6 @@ class PdfExport {
       'rapport' => $rapport,
     ));
 
-echo $html; die(__FILE__);
-
     $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', array(
       'rapport' => $rapport,
     ));
