@@ -310,7 +310,7 @@ class BygningStreamExporter {
         $this->addCell($rapport->getAnlaegsinvestering());
         $this->addCell($rapport->getGenopretning());
         $this->addCell($rapport->getModernisering());
-        $this->addCell($rapport->getFravalgtInvesteringEksFaellesomkostninger());
+        $this->addCell($rapport->getinvesteringEksFaellesomkostninger());
         $this->addCell($rapport->getMtmFaellesomkostninger());
         $this->addCell($rapport->getEnergiscreening());
         $this->addCell($rapport->getImplementering());
