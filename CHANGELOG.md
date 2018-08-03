@@ -1,5 +1,23 @@
 # Aaplus changelog
 
+## v1.9.8
+* SERV-206: Symfony Security Updates
+
+## v1.9.7
+* SUPPORT-1657: Fixed export column
+
+## v1.9.6
+* SUPPORT-1659: Removed debug statement
+
+## v1.9.5
+* SUPPORT-1652: Removed superfluous table column
+
+## v1.9.4
+* SUPPORT-1654: Fixed calculation
+
+## v1.9.3
+* SUPPORT-1526: Added Rapport calculation when deleting Tiltag
+
 ## v1.9.2
 * SUPPORT-1334: Updated cash flow calculation in Tiltag
 
