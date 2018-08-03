@@ -25,7 +25,8 @@ class TiltagListener {
 
     $entities = array_merge(
       $uow->getScheduledEntityInsertions(),
-      $uow->getScheduledEntityUpdates()
+      $uow->getScheduledEntityUpdates(),
+      $uow->getScheduledEntityDeletions()
     );
 
     $targets = array();
@@ -78,6 +79,10 @@ class TiltagListener {
       }
     }
 
+    // Process only non-deleted entities and process each entity only once.
+    $targets = array_unique(array_filter($targets, function ($target) use ($uow) {
+        return !in_array($target, $uow->getScheduledEntityDeletions());
+    }));
     foreach ($targets as $target) {
       // We need to set the configuration before calculating a Rapport.
       if ($target instanceof Rapport) {

@@ -7,22 +7,19 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToMany;
-use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\ORM\Mapping\JoinTable;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\OrderBy;
-use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\OneToOne;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
-use Doctrine\Common\Collections\ArrayCollection;
-use JMS\Serializer\Annotation as JMS;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Bygning
@@ -37,7 +34,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *      @Index(name="bygning_idx_postby", columns={"PostBy"}),
  *    }
  * )
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\BygningRepository")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -54,13 +50,6 @@ class Bygning {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
-
-  /**
-   * @var \DateTime $deletedAt
-   *
-   * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
-   */
-  private $deletedAt;
 
   /**
    * @var integer

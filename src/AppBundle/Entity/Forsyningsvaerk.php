@@ -6,21 +6,15 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Configuration;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 /**
  * Forsyningsvaerk
  *
  * @ORM\Table()
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ForsyningsvaerkRepository")
  */
 class Forsyningsvaerk {
-  use SoftDeleteableEntity;
-
   /**
    * @var integer
    *

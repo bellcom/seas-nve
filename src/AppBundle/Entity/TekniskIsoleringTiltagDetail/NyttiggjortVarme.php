@@ -3,19 +3,14 @@
 namespace AppBundle\Entity\TekniskIsoleringTiltagDetail;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 /**
  * NyttiggjortVarme
  *
  * @ORM\Table()
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TekniskIsoleringTiltagDetail\NyttiggjortVarmeRepository")
  */
 class NyttiggjortVarme {
-  use SoftDeleteableEntity;
-
   /**
    * @var integer
    *
@@ -101,4 +96,3 @@ class NyttiggjortVarme {
     return $this->titel;
   }
 }
-

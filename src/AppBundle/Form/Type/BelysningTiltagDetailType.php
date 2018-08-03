@@ -74,7 +74,7 @@ class BelysningTiltagDetailType extends TiltagDetailType {
   private function getAktuelNyStyring() {
     $em = $this->doctrine->getRepository('AppBundle:BelysningTiltagDetail\NyStyring');
 
-    return $em->findNotDeleted();
+    return $em->findActive();
   }
 
   public function configureOptions(OptionsResolver $resolver) {
