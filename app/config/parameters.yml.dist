@@ -23,3 +23,10 @@ parameters:
     #Pdf export
     app.pdf_export.base_url: http://aaplusdata.dk
     app.pdf_export.default_file_path: filer/
+
+    app.from_email_address: aarhusplus@mtm.aarhus.dk
+    app.from_email_name: AaPlus
+
+    app.page_footer.name: AaPlus Sekretariatet, Center for Administration og Ejendomme
+    app.page_footer.address: Grøndalsvej 2, 8260 Viby J
+    app.page_footer.email: aarhusplus@mtm.aarhus.dk
