@@ -87,7 +87,7 @@ class BygningStreamExporter {
   private $groups = [];
 
   private function writeHeader() {
-    $this->addCell('Standardinformation', 9);
+    $this->addCell('Standardinformation', $this->type === 'tiltag' ? 10 : 9);
     if ($this->showAll || $this->groups['bygningsinformation']) {
       $this->addCell('Bygningsinformation', 11);
     }
@@ -110,6 +110,9 @@ class BygningStreamExporter {
 
     $this->addCell('ID');
     $this->addCell('Enhedsys');
+    if ($this->type === 'tiltag') {
+      $this->addCell('Tiltags-id');
+    }
     $this->addCell('Navn');
     $this->addCell('Adresse');
     $this->addCell('Postnummer');
@@ -234,6 +237,9 @@ class BygningStreamExporter {
 
     $this->addCell($bygning->getId());
     $this->addCell($bygning->getEnhedsys());
+    if ($this->type === 'tiltag') {
+      $this->addCell($tiltag ? $tiltag->getId() : null);
+    }
     $this->addCell($bygning->getNavn());
     $this->addCell($bygning->getAdresse());
     $this->addCell($bygning->getPostnummer());
