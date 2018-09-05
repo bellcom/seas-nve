@@ -87,7 +87,7 @@ class BygningStreamExporter {
   private $groups = [];
 
   private function writeHeader() {
-    $this->addCell('Standardinformation', $this->type === 'tiltag' ? 10 : 9);
+    $this->addCell('Standardinformation', 9);
     if ($this->showAll || $this->groups['bygningsinformation']) {
       $this->addCell('Bygningsinformation', 11);
     }
@@ -110,9 +110,6 @@ class BygningStreamExporter {
 
     $this->addCell('ID');
     $this->addCell('Enhedsys');
-    if ($this->type === 'tiltag') {
-      $this->addCell('Tiltags-id');
-    }
     $this->addCell('Navn');
     $this->addCell('Adresse');
     $this->addCell('Postnummer');
@@ -197,6 +194,7 @@ class BygningStreamExporter {
 
     if ($this->type === 'tiltag') {
       $this->addCell('Tiltagsnr.');
+      $this->addCell('Tiltagsid');
       $this->addCell('Type');
       $this->addCell('Kategori');
       $this->addCell('Title');
@@ -237,9 +235,6 @@ class BygningStreamExporter {
 
     $this->addCell($bygning->getId());
     $this->addCell($bygning->getEnhedsys());
-    if ($this->type === 'tiltag') {
-      $this->addCell($tiltag ? $tiltag->getId() : null);
-    }
     $this->addCell($bygning->getNavn());
     $this->addCell($bygning->getAdresse());
     $this->addCell($bygning->getPostnummer());
@@ -345,6 +340,7 @@ class BygningStreamExporter {
     if ($tiltag) {
       $type = $this->getTiltagType($tiltag);
       $this->addCell($tiltagIndex + 1);
+      $this->addCell($tiltag->getId());
       $this->addCell($this->trans($type));
       $this->addCell($type === 'Special' && $tiltag->getTiltagskategori() ? $tiltag->getTiltagskategori()->getNavn() : '');
       $this->addCell($tiltag->getTitle());
