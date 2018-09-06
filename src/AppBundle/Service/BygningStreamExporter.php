@@ -194,6 +194,7 @@ class BygningStreamExporter {
 
     if ($this->type === 'tiltag') {
       $this->addCell('Tiltagsnr.');
+      $this->addCell('Tiltagsid');
       $this->addCell('Type');
       $this->addCell('Kategori');
       $this->addCell('Title');
@@ -339,6 +340,7 @@ class BygningStreamExporter {
     if ($tiltag) {
       $type = $this->getTiltagType($tiltag);
       $this->addCell($tiltagIndex + 1);
+      $this->addCell($tiltag->getId());
       $this->addCell($this->trans($type));
       $this->addCell($type === 'Special' && $tiltag->getTiltagskategori() ? $tiltag->getTiltagskategori()->getNavn() : '');
       $this->addCell($tiltag->getTitle());
