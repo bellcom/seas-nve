@@ -1,8 +1,4 @@
-# Aa+
-
-The installation instructions have been tested succesfully on an `Ubuntu 16.04 LTS` server.
-
-## Installation
+# Aa+ installation
 
 Make sure that you're running `PHP 5.6`:
 
