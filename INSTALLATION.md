@@ -13,7 +13,7 @@ Create a [MariaDB](https://mariadb.org/) (recommened) or a
 Clone the code:
 
 ```sh
-git clone --branch=seas-nve https://github.com/aakb/aaplus
+git clone --branch=seas-nve https://github.com/mtm-aarhus/aaplus
 cd aaplus
 ```
 

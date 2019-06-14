@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "482c399049aeb4cbaa292d4d6ff3e710",
+    "content-hash": "6f7b12628463b1842ca9c498ab2675ea",
     "packages": [
         {
             "name": "beberlei/DoctrineExtensions",
@@ -1301,12 +1301,12 @@
             "version": "v2.5.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/doctrine/doctrine2.git",
+                "url": "https://github.com/doctrine/orm.git",
                 "reference": "bc4ddbfb0114cb33438cc811c9a740d8aa304aab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/bc4ddbfb0114cb33438cc811c9a740d8aa304aab",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/bc4ddbfb0114cb33438cc811c9a740d8aa304aab",
                 "reference": "bc4ddbfb0114cb33438cc811c9a740d8aa304aab",
                 "shasum": ""
             },
@@ -3144,12 +3144,12 @@
             "version": "dev-aaplus",
             "source": {
                 "type": "git",
-                "url": "https://github.com/aakb/entity-audit-bundle.git",
+                "url": "https://github.com/mtm-aarhus/entity-audit-bundle.git",
                 "reference": "b7885b1ed8127a135bcd3efc79ccc3c6d3464bf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aakb/entity-audit-bundle/zipball/b7885b1ed8127a135bcd3efc79ccc3c6d3464bf7",
+                "url": "https://api.github.com/repos/mtm-aarhus/entity-audit-bundle/zipball/b7885b1ed8127a135bcd3efc79ccc3c6d3464bf7",
                 "reference": "b7885b1ed8127a135bcd3efc79ccc3c6d3464bf7",
                 "shasum": ""
             },
