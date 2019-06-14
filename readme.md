@@ -2,10 +2,10 @@
 
 The project follows git flow for development and releases. To finish a release, first:
 
-1. Update aaplus-release-ver field in parameters.yml to the correct number. 
-2. Finish and tag the release-branch with the same release number. 
+1. Update aaplus-release-ver field in parameters.yml to the correct number.
+2. Finish and tag the release-branch with the same release number.
 
-Then on the server: 
+Then on the server:
 
 ```
 git fetch
@@ -18,6 +18,11 @@ chmod -R g+w web/filer/
 chmod -R g+w web/uploads/
 chown -R deploy:www-data web/
 
+Clone the code:
+
+```sh
+git clone --branch=develop https://github.com/mtm-aarhus/aaplus
+cd aaplus
 ```
 
 
@@ -25,7 +30,7 @@ chown -R deploy:www-data web/
 # Setting up Symfony
 
 ```
-git clone git@github.com:aakb/aaplus.git htdocs
+git clone git@github.com:mtm-aarhus/aaplus.git htdocs
 composer install
 ```
 
