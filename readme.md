@@ -1,3 +1,13 @@
+# Aa+
+
+Rådgiverværktøjet stilles vederlagsfrit til rådighed under henvisning til, at
+dette vil bidrage til at fremme en lovlig kommunal interesse i
+miljøet/energibesparelser, hvilket sker på baggrund af
+
+Hortens juridiske vurdering (10.5.2019) af de kommunalretlige forhold vedrørende
+Rådgiverværktøjet og efterfølgende interne vurdering af underleverandørers
+immaterielle rettigheder jf. kontrakter og øvrige sagsdokumenter.
+
 # Release
 
 The project follows git flow for development and releases. To finish a release, first:
