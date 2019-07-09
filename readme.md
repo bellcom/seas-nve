@@ -50,3 +50,13 @@ SYMFONY_ENV=prod app/console fos:user:create --super-admin
 ```
 
 Finally, set up a web server as described on https://symfony.com/doc/2.7/setup/web_server_configuration.html.
+
+## Known issues
+
+After all installation steps it's possible you will get errors for some pages.
+
+1. Configuration pages `/belysningtiltagdetail_nytarmatur` and `/belysningtiltagdetail_erstatningslyskilde` requires [`intl` php extension](https://www.php.net/manual/en/book.intl.php) on server.
+
+2. General configuration page `/configuration`. Configuration entity has inconsistency in default values for keys `mtmFaellesomkostningerNulHvisArealMindreEnd` and `mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd`. You can update `Configuration` table manually and set these keys as nullable.
+
+3. Create building page `/bygning/new` requires groups: `Aa+`, `Rådgiver`, `Interessent` in system. These groups are not created by default. You can add/(copy and rename) them in db (` fos_group` table) manually.
