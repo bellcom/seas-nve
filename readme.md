@@ -2,6 +2,19 @@
 
 The installation instructions have been tested succesfully on an `Ubuntu 16.04 LTS` server.
 
+## SEAS-NVE
+
+Project has been adjusted for using for SEAS-NVE. Some values in code have been changed because of hardcoded values 
+declaration. Example:
+```
+// @SEAS-NVE adaptation begin.
+...
+# Hardcoded values declaration.
+...
+// @SEAS-NVE adaptation end.
+```
+All these hardcoded cases should be refactored to use configuration/translation layer instead. See example:`src/AppBundle/Resources/translations/messages.da_SEASNVE.yml`   
+
 ## Installation
 
 Make sure that you're running `PHP 5.6`:

@@ -20,8 +20,11 @@ class BygningStatusType extends AbstractEnumType
     self::DATA_VERIFICERET => '2. Data verificeret',
     self::TILKNYTTET_RAADGIVER  => '3. Tilknyttet Rådgiver',
     self::AFLEVERET_RAADGIVER => '4. Afleveret af Rådgiver',
-    self::AAPLUS_VERIFICERET  => '5. AaPlus Verificeret',
-    self::GODKENDT_AF_MAGISTRAT => '6. Godkendt af magistrat',
+    // @SEAS-NVE adaptation begin.
+    // @ToBeRefactored with using configuration layer.
+    self::AAPLUS_VERIFICERET  => '5. Verificeret',
+    self::GODKENDT_AF_MAGISTRAT => '6. Godkendt',
+    // @SEAS-NVE adaptation end.
     self::UNDER_UDFOERSEL => '7. Under udførsel',
     self::DRIFT => '8. Drift',
   ];
