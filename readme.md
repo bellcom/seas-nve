@@ -73,3 +73,7 @@ After all installation steps it's possible you will get errors for some pages.
 2. General configuration page `/configuration`. Configuration entity has inconsistency in default values for keys `mtmFaellesomkostningerNulHvisArealMindreEnd` and `mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd`. You can update `Configuration` table manually and set these keys as nullable.
 
 3. Create building page `/bygning/new` requires groups: `Aa+`, `Rådgiver`, `Interessent` in system. These groups are not created by default. You can add/(copy and rename) them in db (` fos_group` table) manually.
+
+4. Project includes pdf converting process that based on [KnpSnappyBundle](https://github.com/KnpLabs/KnpSnappyBundle) component. It requires [wkhtmltopdf](https://wkhtmltopdf.org/)  `>= 0.12.2` tool to be install on server.
+
+4.1 To allow `wkhtmltopdf` tool resolves paths to images and sources from html content that going to be converted, you may need to add you project host to `/etc/hosts`.
