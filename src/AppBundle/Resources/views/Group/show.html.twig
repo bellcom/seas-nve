@@ -1,0 +1,34 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block body -%}
+    <div class="row heading">
+        <div class="col-md-9">
+            <h1>{{ entity }}</h1>
+        </div>
+        <div class="col-md-3 text-right">
+            <a class="btn btn-default btn-default"
+               href="{{ path('group_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(roles_form) }}
+            {{ form_errors(roles_form) }}
+            <div class="panel panel-default">
+                <div class="panel-heading">{{ icon('chevron-right') }} {{ 'group.labels.singular' | trans }}</div>
+                <table class="table table-condensed">
+                    <tbody>
+                    {% for role in roles_form.roles %}
+                        <tr>
+                            <td><label for="{{ role.vars['id'] }}"
+                                       style="display: block;">{{ role.vars['label'] }}</label></td>
+                            <td>{{ form_widget(role) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {{ form_rest(roles_form) }}
+            {{ form_end(roles_form) }}
+        </div>
+    </div>
+{% endblock %}
