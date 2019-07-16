@@ -264,6 +264,12 @@ graddagefordeling:
     bemaerk: "* Bemærk: Normtal skal opdateres manuelt"
     ingen: Ingen Graddage-fordeling fundet
     kilde: Kilde
+group:
+  actions:
+    add: Tilføj bruger gruppe
+  labels:
+    plural: Grupper
+    singular: Gruppe
 klimaskaerm:
   actions:
     add: Tilføj klimaskærm
@@ -1175,6 +1181,9 @@ appbundle:
     graddageVedForskelligeAar: Graddage ved forskellige år:
     sumAar: Sum f. år
     titel: År
+  group:
+    name: Navn
+    roles: Roles
   klimaskaerm:
     arbejdeOmfang: Arbejde/omfang
     enhed: Enhed
