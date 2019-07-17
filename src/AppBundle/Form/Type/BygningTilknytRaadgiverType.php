@@ -65,7 +65,7 @@ class BygningTilknytRaadgiverType extends AbstractType {
 
     $group = $em->findOneByName($groupname);
 
-    return $group->getUsers();
+    return empty($group) ? array(): $group->getUsers();
   }
 
   /**

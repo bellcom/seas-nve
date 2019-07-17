@@ -28,7 +28,7 @@ class BaseRepository extends EntityRepository {
    * @return bool
    */
   protected function hasFullAccess($user) {
-    return $user && $user->hasRole('ROLE_ADMIN');
+    return $user && ($user->hasRole('ROLE_ADMIN') || $user->hasRole('ROLE_SUPER_ADMIN'));
   }
 
   /**

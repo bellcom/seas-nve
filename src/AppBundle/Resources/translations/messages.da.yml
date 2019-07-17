@@ -266,7 +266,8 @@ graddagefordeling:
     kilde: Kilde
 group:
   actions:
-    add: Tilføj bruger gruppe
+    add: Tilføj gruppe
+    edit: Rediger gruppe
   labels:
     plural: Grupper
     singular: Gruppe
