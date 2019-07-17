@@ -129,9 +129,11 @@ class GroupController extends BaseController
         }
 
         $roles_form = $this->createRolesEditForm($entity);
+        $roles = Group::getAllRoles();
         return array(
             'entity'      => $entity,
             'roles_form'  => $roles_form->createView(),
+            'roles'       => $roles,
         );
     }
 

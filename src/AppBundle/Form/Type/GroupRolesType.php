@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\TiltagDetail;
+use AppBundle\Entity\Group;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +21,7 @@ class GroupRolesType extends AbstractType {
    * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $roles = $this->container->getParameter('security.role_hierarchy.roles');
+    $roles = Group::getAllRoles();
     $builder->add('roles', 'choice', array(
         'choices' => array_keys($roles),
         'choices_as_values' => TRUE,

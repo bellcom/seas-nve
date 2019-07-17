@@ -15,13 +15,13 @@
             {{ form_errors(roles_form) }}
             <div class="panel panel-default">
                 <div class="panel-heading">{{ icon('chevron-right') }} {{ 'group.labels.singular' | trans }}</div>
-                <table class="table table-condensed">
+                <table class="table table-condensed roles-table">
                     <tbody>
                     {% for role in roles_form.roles %}
                         <tr>
                             <td><label for="{{ role.vars['id'] }}"
                                        style="display: block;">{{ role.vars['label'] }}</label></td>
-                            <td>{{ form_widget(role) }}</td>
+                            <td>{{ form_widget(role, { 'attr': {'class': 'role-checkbox' ,'data-roles': roles[role.vars['label']]| join(',')} }) }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

@@ -276,6 +276,10 @@ td.date {
   white-space: nowrap;
 }
 
+tr.disabled {
+  color: #999999;
+}
+
 /* Ekstra form validation classes */
 
 .has-info .help-block,
