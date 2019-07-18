@@ -14,6 +14,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\GroupRepository")
  * @ORM\Table(name="fos_group")
  */
 class Group extends BaseGroup {

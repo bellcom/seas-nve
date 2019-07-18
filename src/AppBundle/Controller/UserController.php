@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\Type\UserFilterType;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -104,7 +105,7 @@ class UserController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createCreateForm(User $entity) {
-    $form = $this->createForm(new UserType(), $entity, array(
+    $form = $this->createForm(new UserType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('user_create'),
       'method' => 'POST',
     ));
@@ -126,10 +127,11 @@ class UserController extends BaseController {
 
     $entity = new User();
     $form = $this->createCreateForm($entity);
-
+    $form_view = $form->createView();
+    $this->userFormPreprocess($form_view);
     return array(
       'entity' => $entity,
-      'edit_form' => $form->createView(),
+      'edit_form' => $form_view,
     );
   }
 
@@ -151,10 +153,12 @@ class UserController extends BaseController {
     }
 
     $editForm = $this->createEditForm($entity);
+    $form_view = $editForm->createView();
+    $this->userFormPreprocess($form_view);
 
     return array(
       'entity' => $entity,
-      'edit_form' => $editForm->createView(),
+      'edit_form' => $form_view,
     );
   }
 
@@ -166,7 +170,7 @@ class UserController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(User $entity) {
-    $form = $this->createForm(new UserType(), $entity, array(
+    $form = $this->createForm(new UserType($this->getDoctrine()), $entity, array(
       'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));
@@ -216,6 +220,23 @@ class UserController extends BaseController {
   private function reportErrors($form) {
     foreach ($form->getErrors() as $error) {
       $this->flash->error($error->getMessage());
+    }
+  }
+
+  /**
+   * Preprocess user form view before sending to template.
+   *
+   * @param FormView $form_view
+   */
+  private function userFormPreprocess(FormView &$form_view) {
+    if (!empty($form_view->children['groups']->children)) {
+      $em = $this->getDoctrine()->getManager();
+      $hidden_groups = $em->getRepository('AppBundle:Group')->getHiddenGroups();
+      foreach ($form_view->children['groups']->children as $key => $group_view) {
+        if (!empty($group_view->vars['label']) && in_array($group_view->vars['label'], $hidden_groups)) {
+          unset($form_view->children['groups']->children[$key]);
+        }
+      }
     }
   }
 

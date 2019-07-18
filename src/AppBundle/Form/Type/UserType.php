@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -9,11 +10,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserType extends AbstractType
 {
   /**
+   * @var RegistryInterface
+   */
+  private $doctrine;
+
+  public function __construct(RegistryInterface $doctrine) {
+    $this->doctrine = $doctrine;
+  }
+
+  /**
    * @param FormBuilderInterface $builder
    * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
+    $em = $this->doctrine->getRepository('AppBundle:Group');
+    $groups = array();
+    foreach ($em->findAll() as $group) {
+      $groups[$group->getName()] = $group->getId();
+    }
+
     $builder
       ->add('enabled', null, array('label' => 'user.enabled'))
       ->add('email')

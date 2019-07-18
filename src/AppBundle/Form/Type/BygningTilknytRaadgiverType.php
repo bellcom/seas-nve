@@ -40,7 +40,7 @@ class BygningTilknytRaadgiverType extends AbstractType {
     $builder
       ->add('aaplusAnsvarlig', 'entity', array(
         'class' => 'AppBundle:User',
-        'choices' => $this->getUsersFromGroup("Aa+"),
+        'choices' => $this->getUsersFromGroup("Administrator"),
         'required' => FALSE,
         'empty_value' => 'common.none',
       ))

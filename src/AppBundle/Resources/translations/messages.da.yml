@@ -818,7 +818,7 @@ appbundle:
     kommentar: Kommentar
     titel: Titel
   bygning:
-    aaplusAnsvarlig: Aa+ Ansvarlig
+    aaplusAnsvarlig: Adminstrator
     areal: Areal
     adresse: Adresse
     afdelingsnavn: Afdelingsnavn
@@ -1510,7 +1510,7 @@ appbundle:
     magistrat: Magistrat
     navn: Navn
     plural: Segmenter
-    segmentAnsvarlig: Aa+ Segment Ansvarlig
+    segmentAnsvarlig: Segment Ansvarlig
   solcelle:
     drift: Drift
     inverterpris: Inverterpris
@@ -1849,7 +1849,7 @@ appbundle:
 
 # Dataudtræk
 udtraek.bygning:
-  aaplusAnsvarlig: Aa+ ansvarlig
+  aaplusAnsvarlig: Ansvarlig
   adresse: Adresse indholder
   energiRaadgiver: Energirådgiver
   navn: Navn indholder
