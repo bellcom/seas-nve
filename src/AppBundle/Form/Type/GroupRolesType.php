@@ -23,7 +23,7 @@ class GroupRolesType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $roles = Group::getAllRoles();
     $builder->add('roles', 'choice', array(
-        'choices' => array_keys($roles),
+        'choices' => array_reverse(array_keys($roles)),
         'choices_as_values' => TRUE,
         'expanded' => TRUE,
         'multiple' => TRUE,
