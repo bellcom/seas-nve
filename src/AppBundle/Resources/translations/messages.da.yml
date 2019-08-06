@@ -558,7 +558,15 @@ vinduetiltagdetail:
     batch_edit: Rediger valgte vinduestiltag
     copy: Kopier vinduestiltag
     edit: Rediger vinduestiltag
-
+virksomhed:
+  actions:
+    add: Tilføj Virksomhed
+    edit: Rediger Virksomhed
+  labels:
+    plural: Virksomheder
+    singular: Virksomhed
+  error:
+    in_use: Kan ikke slettes. Bruges af bygning.
 
 # Forms - We follow the formbuilders form id format
 appbundle:
@@ -921,6 +929,7 @@ appbundle:
     updatedAt: Opdateret
     updatedBy: Opdateret af
     users: Interessenter
+    virksomhed: Virksomhed
   configuration:
     rapportDriftomkostningerfaktor: Driftomkostninger Faktor
     rapportDriftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
@@ -1841,6 +1850,20 @@ appbundle:
     vindue: Vindue
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
+  virksomhed:
+    name: Navn
+    address: Adresse
+    cvrNumber: CVR-nr
+    branchCode: Branchkode
+    contactPerson: Kontaktperson
+    customerNumber: Kundenummer
+    phoneNumber: Telefonnummer
+    subsidyLevel: Tilskuds niveau
+    kalkulationsrente: Kalkulationsrente
+    inflation: Inflation
+    lobetid: Løbetid
+    evtPNumber: Evt. P-nummer
+
   fil:
     createdAt: Oprettet
     createdBy: Oprettet af

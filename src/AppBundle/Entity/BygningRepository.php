@@ -99,6 +99,11 @@ class BygningRepository extends BaseRepository {
         ->setParameter('segment', $search['segment']);
     }
 
+    if (!empty($search['virksomhed'])) {
+      $qb->andWhere('b.virksomhed = :virksomhed')
+        ->setParameter('virksomhed', $search['virksomhed']);
+    }
+
     $this->limitQueryToUserAccess($user, $qb);
 
     $qb->addOrderBy('b.navn');

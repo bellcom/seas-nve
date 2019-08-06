@@ -1,0 +1,74 @@
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ entity }}</h1>
+    </div>
+    <div class="col-md-3 text-right">    <a class="btn btn-default btn-default" href="{{ path('virksomhed_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('chevron-right') }} {{ 'virksomhed.labels.singular' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.name' | trans }}</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.address' | trans }}</th>
+                <td>{{ entity.address }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.cvrNumber' | trans }}</th>
+                <td>{{ entity.cvrNumber }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.branchCode' | trans }}</th>
+                <td>{{ entity.branchCode }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.contactPerson' | trans }}</th>
+                <td>{{ entity.contactPerson }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.customerNumber' | trans }}</th>
+                <td>{{ entity.customerNumber }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.phoneNumber' | trans }}</th>
+                <td>{{ entity.phoneNumber }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.subsidyLevel' | trans }}</th>
+                <td>{{ entity.subsidyLevel }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.kalkulationsrente' | trans }}</th>
+                <td>{{ entity.kalkulationsrente }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.inflation' | trans }}</th>
+                <td>{{ entity.inflation }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.lobetid' | trans }}</th>
+                <td>{{ entity.lobetid }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.evtPNumber' | trans }}</th>
+                <td>{{ entity.evtPNumber }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
