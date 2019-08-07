@@ -25,7 +25,7 @@
                 <td>
                     <ul>
                         {% for role in entity.roles %}
-                            <li>{{ role }}</li>
+                            <li>{{ ('roles.labels.' ~ role) | trans }}</li>
                         {% endfor %}
                     </ul>
                 </td>

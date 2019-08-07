@@ -20,7 +20,7 @@
                     {% for role in roles_form.roles %}
                         <tr>
                             <td><label for="{{ role.vars['id'] }}"
-                                       style="display: block;">{{ role.vars['label'] }}</label></td>
+                                       style="display: block;">{{ ('roles.labels.' ~ role.vars['label']) | trans }}</label></td>
                             <td>{{ form_widget(role, { 'attr': {'class': 'role-checkbox' ,'data-roles': roles[role.vars['label']]| join(',')} }) }}</td>
                         </tr>
                     {% endfor %}

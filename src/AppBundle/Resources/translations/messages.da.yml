@@ -1915,3 +1915,38 @@ Incomplete calculation: Beregningen er ikke komplet
 Fields required for calculation: Udfyld følgende felter
 Tiltag required for calculation: Opdater tiltag nr
 Details required for calculation: Opdater detail nr
+
+roles:
+  labels:
+    ROLE_SUPER_ADMIN: Super administrator
+    ROLE_ADMIN: Administrator
+    ROLE_CREATE: Opret alle typer indhold
+    ROLE_EDIT: Rediger alle typer indhold
+    ROLE_VIEW: Vis alle typer indhold
+    ROLE_BASELINE_CREATE: Opret baseline
+    ROLE_BASELINE_EDIT: Rediger baseline
+    ROLE_BASELINE_VIEW: Vis baseline
+    ROLE_BYGNING_CREATE: Opret bygning
+    ROLE_BYGNING_EDIT: Rediger bygning
+    ROLE_BYGNING_VIEW: Vis bygning
+    ROLE_CONFIGURATION_CREATE: Opret kofiguration
+    ROLE_CONFIGURATION_EDIT: Rediger kofiguration
+    ROLE_CONFIGURATION_VIEW: Vis kofiguration
+    ROLE_FORSYNINGSVAERK_CREATE: Opret forsyningværk
+    ROLE_FORSYNINGSVAERK_EDIT: Rediger forsyningværk
+    ROLE_FORSYNINGSVAERK_VIEW: Vis forsyningværk
+    ROLE_KLIMASKAERM_CREATE: Opret klimaskærm
+    ROLE_KLIMASKAERM_EDIT: Rediger klimaskærm
+    ROLE_KLIMASKAERM_VIEW: Vis klimaskærm
+    ROLE_RAPPORT_CREATE: Opret rapport
+    ROLE_RAPPORT_EDIT: Rediger rapport
+    ROLE_RAPPORT_VIEW: Vis rapport
+    ROLE_SOLCELLE_CREATE: Opret solcelle
+    ROLE_SOLCELLE_EDIT: Rediger solcelle
+    ROLE_SOLCELLE_VIEW: Vis solcelle
+    ROLE_TILTAG_CREATE: Opret tiltag
+    ROLE_TILTAG_EDIT: Rediger tiltag
+    ROLE_TILTAG_VIEW: Vis tiltag
+    ROLE_TILTAGDETAIL_CREATE: Opret tiltag detalje
+    ROLE_TILTAGDETAIL_EDIT: Rediger tiltag detalje
+    ROLE_TILTAGDETAIL_VIEW: Vis tiltag detalje
