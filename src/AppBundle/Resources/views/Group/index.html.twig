@@ -1,0 +1,40 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block body -%}
+    <div class="row heading">
+        <div class="col-md-9">
+            <h1>{{ 'group.labels.plural' | trans }}</h1>
+        </div>
+        <div class="col-md-3 text-right">
+            <a class="btn btn-default" href="{{ path('group_new') }}">
+                {{ icon('plus') }} {{ 'group.actions.add' | trans }}
+            </a>
+        </div>
+    </div>
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            {{ helper.header('appbundle.group.name') }}
+            {{ helper.header('appbundle.group.roles') }}
+            {{ helper.header() }}
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                <td>
+                    <ul>
+                        {% for role in entity.roles %}
+                            <li>{{ role }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td class="text-right">
+                    <a class="btn btn-default btn-xs"
+                       href="{{ path('group_show', { 'id': entity.id }) }}">{{ 'common.show' | trans }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

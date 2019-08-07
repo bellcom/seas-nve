@@ -151,7 +151,7 @@ class BygningStreamExporter {
     }
 
     if ($this->showAll || $this->groups['aa_screeningsinformation']) {
-      $this->addCell('Aa+ Ansvarlig');
+      $this->addCell('Administrator');
       $this->addCell('Rådgiver');
       $this->addCell('Projektleder');
       $this->addCell('Projekterende');

@@ -34,8 +34,8 @@ class DashboardController extends BaseController
 
     if ($this->isGranted('ROLE_EDIT')) {
 
-      // Aa+
-      if ($user->hasGroup('Aa+')) {
+      // Administrator
+      if ($user->hasGroup('Administrator')) {
         return $this->dashboardView($request, $user, 'aaplusAnsvarlig');
       }
 
@@ -233,7 +233,7 @@ class DashboardController extends BaseController
       'pagination' => $pagination,
       'form' => $form->createView(),
       'tab' => $filterCondition,
-      'aaplusAnsvarlig' => $user->hasGroup('Aa+'),
+      'aaplusAnsvarlig' => $user->hasGroup('Administrator'),
       'energiRaadgiver' => $user->hasGroup('Rådgiver'),
       'segmenter' => !$user->getSegmenter()->isEmpty(),
       'projektleder' => $user->hasGroup('Projektleder'),

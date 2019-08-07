@@ -135,5 +135,24 @@
         }
       }, 150);
     }
+
+    var $roles_checkbox = $('.role-checkbox');
+    if ($roles_checkbox.length) {
+      $roles_checkbox.on('change', function() {
+        var _this = $(this);
+        var $checked = _this.is(":checked");
+        var $roles = _this.data('roles').split(',');
+
+        for (var $key in $roles) {
+          $('input[value="' + $roles[$key] + '"]').attr('disabled', $checked);
+          if ($checked) {
+            $('input[value="' + $roles[$key] + '"]').parents('tr:first').addClass('disabled');
+          }
+          else {
+            $('input[value="' + $roles[$key] + '"]').parents('tr:first').removeClass('disabled');
+          }
+        }
+      }).filter(':checked').change();
+    }
   });
 }(jQuery));

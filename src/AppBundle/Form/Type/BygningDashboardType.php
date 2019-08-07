@@ -69,7 +69,7 @@ class BygningDashboardType extends AbstractType {
         }
       ));
     } else {
-      $builder->add('aaplusAnsvarlig', new BygningDashboardUserType($this->doctrine, "Aa+"), array('label' => false,
+      $builder->add('aaplusAnsvarlig', new BygningDashboardUserType($this->doctrine, "Administrator"), array('label' => false,
         'add_shared' => function (FilterBuilderExecuterInterface $qbe) {
           $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
             $filterBuilder->leftJoin($alias . '.aaplusAnsvarlig', $joinAlias);

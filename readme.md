@@ -10,76 +10,80 @@ immaterielle rettigheder jf. kontrakter og øvrige sagsdokumenter.
 
 # Release
 
-The project follows git flow for development and releases. To finish a release, first:
+The installation instructions have been tested succesfully on an `Ubuntu 16.04 LTS` server.
 
-1. Update aaplus-release-ver field in parameters.yml to the correct number.
-2. Finish and tag the release-branch with the same release number.
-
-Then on the server:
-
+Project has been adjusted for using for SEAS-NVE. Some values in code have been changed because of hardcoded values 
+declaration. Example:
 ```
-git fetch
-git checkout vX.X.X
-composer install
-php app/console doctrine:migrations:migrate
-php app/console cache:clear --env=prod
+// @SEAS-NVE adaptation begin.
+...
+# Hardcoded values declaration.
+...
+// @SEAS-NVE adaptation end.
+```
+All these hardcoded cases should be refactored to use configuration/translation layer instead. See example:`src/AppBundle/Resources/translations/messages.da_SEASNVE.yml`   
 
-chmod -R g+w web/filer/
-chmod -R g+w web/uploads/
-chown -R deploy:www-data web/
+## Installation
+
+Clone the code:
+
+Make sure that you're running `PHP 5.6`:
+
+```sh
+php -v
+```
+
+Create a [MariaDB](https://mariadb.org/) (recommened) or a
+[MySql](https://www.mysql.com/) database; you'll need the database
+`host`, `name`, `user` and `password` shortly.
 
 Clone the code:
 
 ```sh
-git clone --branch=develop https://github.com/mtm-aarhus/aaplus
-cd aaplus
+git clone --branch=develop https://github.com/bellcom/seas-nve
+cd seas-nve
 ```
 
-
-
-# Setting up Symfony
+Install [`composer`](https://getcomposer.org/) packages (you'll be asked for `database` and `mailer` settings during the installation):
 
 ```
-git clone git@github.com:mtm-aarhus/aaplus.git htdocs
-composer install
+SYMFONY_ENV=prod composer install --no-dev --optimize-autoloader
 ```
 
-# Create Database & update schema
+Install assets and update the database schema:
 
 ```
-php app/console doctrine:database:create
-php app/console doctrine:schema:update --force
+SYMFONY_ENV=prod app/console assets:install --symlink
+SYMFONY_ENV=prod app/console cache:clear --no-warmup
+SYMFONY_ENV=prod app/console cache:warmup
+SYMFONY_ENV=prod app/console doctrine:migrations:migrate --no-interaction
 ```
 
-# Import data
+```sh
+SYMFONY_ENV=prod app/console aaplus:post-migrate
+SYMFONY_ENV=prod app/console aaplus:post-migrate:20160711133430
+```
 
-1. Copy Excel files from Dropbox into the fixtures folder:
+Set file system permissions: https://symfony.com/doc/2.7/setup/file_permissions.html
 
-    ```
-    mkdir -p src/AppBundle/DataFixtures/Data
-    rm src/AppBundle/DataFixtures/Data/*.{csv,xlsm}
-    cp -v ~/Dropbox*/Projekter/Aa+/Data/*.{csv,xlsm} src/AppBundle/DataFixtures/Data/
-    ```
+Create a super administrator user:
 
-2. Load the fixtures (inside Vagrant box):
+```sh
+SYMFONY_ENV=prod app/console fos:user:create --super-admin
+```
 
-    ```
-    php app/console doctrine:fixtures:load --purge-with-truncate
-    ```
+Finally, set up a web server as described on https://symfony.com/doc/2.7/setup/web_server_configuration.html.
 
-# Run unit tests
+## Known issues
 
-1. [Install PHPUnit](https://phpunit.de/manual/current/en/installation.html) if not already done
+After all installation steps it's possible you will get errors for some pages.
 
-2. Import fixtures and generate unit test data (see above)
+1. Configuration pages `/belysningtiltagdetail_nytarmatur` and `/belysningtiltagdetail_erstatningslyskilde` requires [`intl` php extension](https://www.php.net/manual/en/book.intl.php) on server.
 
-    ```
-	rm src/AppBundle/DataFixtures/Data/fixtures/*
-    DUMP_UNITTEST_DATA=php php app/console doctrine:fixtures:load --purge-with-truncate --no-interaction
-    ```
+2. General configuration page `/configuration`. Configuration entity has inconsistency in default values for keys `mtmFaellesomkostningerNulHvisArealMindreEnd` and `mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd`. You can update `Configuration` table manually and set these keys as nullable.
 
-3. Run unit tests
+3. Create building page `/bygning/new` requires groups: `Aa+`, `Rådgiver`, `Interessent` in system. These groups are not created by default. You can add/(copy and rename) them in db (` fos_group` table) manually.
 
-    ```
-    phpunit -c app src/AppBundle/Tests/Entity
-    ```
+4. Project includes pdf converting process that based on [KnpSnappyBundle](https://github.com/KnpLabs/KnpSnappyBundle) component. It requires [wkhtmltopdf](https://wkhtmltopdf.org/)  `>= 0.12.2` tool to be install on server.
+
+4.1 To allow `wkhtmltopdf` tool resolves paths to images and sources from html content that going to be converted, you may need to add you project host to `/etc/hosts`.

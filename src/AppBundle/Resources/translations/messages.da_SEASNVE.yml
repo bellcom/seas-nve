@@ -1,0 +1,11 @@
+# Overriding string for SEAS-NVE project.
+
+rapporter:
+  confirmation:
+    approved: Rapport markeret som "Godkendt"
+    verified: Rapport verificeret
+    submitted: Rapport afleveret
+  actions:
+    approve: Godkendt
+    approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt"?
+    verify: Verificeret

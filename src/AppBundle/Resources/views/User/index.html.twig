@@ -7,8 +7,9 @@
     </div>
     <div class="col-md-2 text-right">
       <h2><small>{% include 'AppBundle:_includes:pagination_count.html.twig' %}</small></h2>
+      <a class="btn btn-default" href="{{ path('group_list') }}">{{ 'group.labels.plural' | trans }}
+      </a>
     </div>
-
   </div>
 
   {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}

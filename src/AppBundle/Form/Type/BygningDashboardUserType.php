@@ -56,7 +56,7 @@ class BygningDashboardUserType extends AbstractType {
     $result = array();
 
     if($group) {
-      $users = $group->getUsers();
+      $users = empty($group) ? array(): $group->getUsers();
 
       foreach ($users as $user) {
         $result[$user->getUsername()] = $user->getUsername();

@@ -27,7 +27,7 @@ class SegmentType extends AbstractType
       ->add('magistrat')
       ->add('segmentAnsvarlig', 'entity', array(
         'class' => 'AppBundle:User',
-        'choices' => $this->getUsersFromGroup("Aa+"),
+        'choices' => $this->getUsersFromGroup("Administrator"),
         'required' => false,
         'empty_value'  => 'common.none',
       ))
@@ -39,7 +39,7 @@ class SegmentType extends AbstractType
 
     $group = $em->findOneByName($groupname);
 
-    return $group->getUsers();
+    return empty($group) ? array(): $group->getUsers();
   }
 
   /**
