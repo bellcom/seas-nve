@@ -24,6 +24,7 @@
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postBy'|trans, 'b.postBy') }}</th>
+      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.virksomhed'|trans, 'v.name') }}</th>
       <th class="hidden">{{ knp_pagination_sortable(pagination, 'appbundle.bygning.segment'|trans, 's.navn') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.status'|trans, 'b.status') }}</th>
       <th></th>
@@ -35,6 +36,7 @@
       <th>{{ form_row(form.adresse) }}</th>
       <th>{{ form_row(form.postnummer) }}</th>
       <th>{{ form_row(form.postBy) }}</th>
+      <th>{{ form_row(form.virksomhed) }}</th>
       <th class="hidden">{{ form_row(form.segment) }}</th>
       <th>{{ form_row(form.status) }}</th>
       <th>{{ form_row(form.Søg) }}</th>
@@ -47,6 +49,7 @@
       <td>{{ bygning.adresse }}</td>
       <td>{{ bygning.postnummer }}</td>
       <td>{{ bygning.postBy }}</td>
+      <td>{{ bygning.virksomhed }}</td>
       <td class="hidden">{{ bygning.segment }}</td>
       <td>{{ bygning.status  | readable }}</td>
       <td class="text-right">
