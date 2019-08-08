@@ -6,9 +6,11 @@
     <div class="col-md-9">
       <h1>{{ entity }}</h1>
     </div>
-    <div class="col-md-3 text-right">    <a class="btn btn-default btn-default" href="{{ path('virksomhed_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
-
-    </div>
+    {% if is_granted('ROLE_VIRKSOMHED_EDIT') %}
+      <div class="col-md-3 text-right">
+        <a class="btn btn-default btn-default" href="{{ path('virksomhed_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+      </div>
+    {% endif %}
 
   </div>
 
