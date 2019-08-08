@@ -1973,3 +1973,6 @@ roles:
     ROLE_TILTAGDETAIL_CREATE: Opret tiltag detalje
     ROLE_TILTAGDETAIL_EDIT: Rediger tiltag detalje
     ROLE_TILTAGDETAIL_VIEW: Vis tiltag detalje
+    ROLE_VIRKSOMHED_CREATE: Opret virksomhed
+    ROLE_VIRKSOMHED_EDIT: Rediger virksomhed
+    ROLE_VIRKSOMHED_VIEW: Vis virksomhed

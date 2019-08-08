@@ -17,7 +17,6 @@ use AppBundle\Controller\BaseController;
  * Virksomhed controller.
  *
  * @Route("/virksomhed")
- * @Security("has_role('ROLE_ADMIN')")
  */
 class VirksomhedController extends BaseController
 {
@@ -89,6 +88,8 @@ class VirksomhedController extends BaseController
      * @Route("/", name="virksomhed_create")
      * @Method("POST")
      * @Template("AppBundle:Virksomhed:new.html.twig")
+     *
+     * @Security("has_role('ROLE_VIRKSOMHED_CREATE')")
      */
     public function createAction(Request $request)
     {
@@ -136,6 +137,7 @@ class VirksomhedController extends BaseController
      * @Route("/new", name="virksomhed_new")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_VIRKSOMHED_CREATE')")
      */
     public function newAction()
     {
@@ -156,21 +158,13 @@ class VirksomhedController extends BaseController
      * @Route("/{id}", name="virksomhed_show")
      * @Method("GET")
      * @Template()
+     * @Security("is_granted('VIRKSOMHED_VIEW', virksomhed)")
      */
-    public function showAction($id)
+    public function showAction(Virksomhed $virksomhed)
     {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Virksomhed')->find($id);
-        $this->breadcrumbs->addItem($entity, $this->generateUrl('virksomhed_show', array('id' => $entity->getId())));
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Virksomhed entity.');
-        }
-
+        $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
         return array(
-            'entity'      => $entity,
+            'entity'      => $virksomhed,
         );
     }
 
@@ -180,6 +174,7 @@ class VirksomhedController extends BaseController
      * @Route("/{id}/edit", name="virksomhed_edit")
      * @Method("GET")
      * @Template()
+     * @Security("is_granted('VIRKSOMHED_EDIT', entity)")
      */
     public function editAction(Virksomhed $entity)
     {
@@ -224,29 +219,23 @@ class VirksomhedController extends BaseController
      * @Route("/{id}", name="virksomhed_update")
      * @Method("PUT")
      * @Template("AppBundle:Virksomhed:edit.html.twig")
+     * @Security("is_granted('VIRKSOMHED_EDIT', virksomhed)")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Virksomhed $virksomhed)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Virksomhed')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Virksomhed entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($virksomhed->getId());
+        $editForm = $this->createEditForm($virksomhed);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
             $em->flush();
 
             return $this->redirect($this->generateUrl('virksomhed'));
         }
 
         return array(
-            'entity'      => $entity,
+            'entity'      => $virksomhed,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -256,15 +245,16 @@ class VirksomhedController extends BaseController
      *
      * @Route("/{id}", name="virksomhed_delete")
      * @Method("DELETE")
+     * @Security("is_granted('VIRKSOMHED_EDIT', virksomhed)")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, Virksomhed $virksomhed)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($virksomhed->getId());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Virksomhed')->find($id);
+            $entity = $em->getRepository('AppBundle:Virksomhed')->find($virksomhed->getId());
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Virksomhed entity.');

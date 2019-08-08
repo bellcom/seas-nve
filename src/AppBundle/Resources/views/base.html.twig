@@ -36,7 +36,7 @@
     <div id="navbar" class="collapse navbar-collapse">
       {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
       <ul class="nav navbar-nav">
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
         <li><a href="/virksomhed">{{ icon('briefcase') }} {{ 'virksomhed.labels.plural' | trans }}</a></li>
         {% endif %}
         <li><a href="/bygning">{{ icon('home') }} {{ 'bygninger.labels.plural' | trans }}</a></li>
