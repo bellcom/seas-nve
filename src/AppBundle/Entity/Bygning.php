@@ -199,6 +199,12 @@ class Bygning {
   protected $baseline;
 
   /**
+   * @ManyToOne(targetEntity="Virksomhed")
+   * @JoinColumn(name="virksomhed_id", referencedColumnName="id")
+   **/
+  protected $virksomhed;
+
+  /**
    * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
    *
    * @ManyToOne(targetEntity="User", inversedBy="ansvarlig")
@@ -763,6 +769,28 @@ class Bygning {
    */
   public function getNummericStatus() {
     return substr($this->status, 0, 1);
+  }
+
+  /**
+   * Set Virksomhed.
+   *
+   * @param Virksomhed $virksomhed
+   *
+   * @return Bygning
+   */
+  public function setVirksomhed(Virksomhed $virksomhed = NULL) {
+    $this->virksomhed = $virksomhed;
+
+    return $this;
+  }
+
+  /**
+   * Get bygning tilknytet Virksomhed
+   *
+   * @return Virksomhed
+   */
+  public function getVirksomhed() {
+    return $this->virksomhed;
   }
 
   /**

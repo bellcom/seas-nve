@@ -1,0 +1,33 @@
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'virksomhed.actions.edit' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+       {{ form(delete_form) }}
+    </div>
+
+  </div>
+
+  {{ form_start(edit_form) }}
+    {{ form_row(edit_form.name)}}
+    {{ form_row(edit_form.address)}}
+    {{ form_row(edit_form.cvrNumber)}}
+    {{ form_row(edit_form.branchCode)}}
+    {{ form_row(edit_form.contactPerson)}}
+    {{ form_row(edit_form.customerNumber)}}
+    {{ form_row(edit_form.phoneNumber)}}
+    {{ form_row(edit_form.subsidyLevel)}}
+    {{ form_row(edit_form.kalkulationsrente)}}
+    {{ form_row(edit_form.inflation)}}
+    {{ form_row(edit_form.lobetid)}}
+    {{ form_row(edit_form.evtPNumber)}}
+
+    {{ form_rest(edit_form) }}
+
+  {{ form_end(edit_form) }}
+
+    {% endblock %}

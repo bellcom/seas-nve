@@ -90,10 +90,11 @@ class UserController extends BaseController {
     }
 
     $this->reportErrors($form);
-
+    $form_view = $form->createView();
+    $this->userFormPreprocess($form_view);
     return array(
       'entity' => $user,
-      'edit_form' => $form->createView(),
+      'edit_form' => $form_view,
     );
   }
 
