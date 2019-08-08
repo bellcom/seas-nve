@@ -25,15 +25,10 @@ All these hardcoded cases should be refactored to use configuration/translation 
 
 ## Installation
 
-Clone the code:
-
-Make sure that you're running `PHP 5.6`:
-
-```sh
-php -v
-```
-
-Create a [MariaDB](https://mariadb.org/) (recommened) or a
+Make sure that your environment has proper software versions.
+ 1. PHP version `5.6`.
+ 2. Composer has version 1.6.3.
+ 3. Create a [MariaDB](https://mariadb.org/) (recommened) or a
 [MySql](https://www.mysql.com/) database; you'll need the database
 `host`, `name`, `user` and `password` shortly.
 
