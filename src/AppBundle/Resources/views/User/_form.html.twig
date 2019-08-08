@@ -23,7 +23,9 @@
         <h3 class="panel-title">{{ 'user.strings.segmenteroggrupper' | trans }}</h3>
       </div>
       <div class="panel-body">
-        {{ form_row(edit_form.segmenter) }}
+        <span class="hidden">
+          {{ form_row(edit_form.segmenter) }}
+        </span>
         {{ form_row(edit_form.groups) }}
       </div>
     </div>
