@@ -100,10 +100,10 @@ common:
   your_buildings: Dine bygninger
   your_segments: Dine segmenter
 dashboard:
-  besparelseCO2: CO2 Besparelse
-  besparelseEl: El Besparelse
-  besparelseVarmeGAF: GAF Besparelse
-  besparelseVarmeGUF: GUF Besparelse
+  besparelseCO2: CO2 besparelse
+  besparelseEl: El besparelse
+  besparelseVarmeGAF: GAF besparelse
+  besparelseVarmeGUF: GUF besparelse
   current: Igangværende
   dine_bygninger: Dine bygninger
   finished: Afleverede
