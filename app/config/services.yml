@@ -84,6 +84,13 @@ services:
         tags:
             - { name: security.voter }
 
+    security.access.virksomhed_voter:
+        class:      AppBundle\Security\Authorization\Voter\VirksomhedVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
     symfony.controller.subscriber.init:
         class: Yavin\Symfony\Controller\InitControllerSubscriber
         tags:
