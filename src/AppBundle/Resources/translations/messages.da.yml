@@ -514,7 +514,7 @@ udtraek:
     alt: Alt (Uden tiltag)
     bygningsinformation: Bygningsinformation
     baselineinformation: Baselineinformation
-    aa_screeningsinformation: Aa+/Screeningsinformation
+    aa_screeningsinformation: Screeningsinformation
     besparelsesinformation: Besparelsesinformation (Energi + Økonomi)
     oekonomi: Økonomi (Set over 30 år)
   types:
