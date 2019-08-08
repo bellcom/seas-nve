@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\VirksomhedRapport;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Virksomhed entity.
@@ -69,6 +71,12 @@ class Virksomhed
      * @ORM\Column(name="phone_number", type="string", length=255)
      */
     private $phoneNumber;
+
+    /**
+     * @ORM\OneToOne(targetEntity="VirksomhedRapport", mappedBy="virksomhed", cascade={"persist"})
+     * @JMS\Exclude
+     **/
+    protected $rapport;
 
     /**
      * @var float
@@ -280,6 +288,31 @@ class Virksomhed
     }
 
     /**
+     * Set rapport
+     *
+     * @param VirksomhedRapport $rapport
+     *
+     * @return Virksomhed
+     */
+    public function setRapport(VirksomhedRapport $rapport = NULL) {
+        $this->rapport = $rapport;
+        if($rapport !== null) {
+            $rapport->setVirksomhed($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get rapport
+     *
+     * @return VirksomhedRapport
+     */
+    public function getRapport() {
+        return $this->rapport;
+    }
+
+    /**
      * Set subsidy level
      *
      * @param float $subsidyLevel
@@ -397,6 +430,23 @@ class Virksomhed
     public function getEvtPNumber()
     {
         return $this->evtPNumber;
+    }
+
+    public function getBygnings() {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:Bygning');
+        return $repository->findBy(array('virksomhed' => $this->getId()));
+
+    }
+
+    public function getBygningsAreal() {
+        $areal = 0;
+        $bygnings = $this->getBygnings();
+        /** @var Bygning $bygning */
+        foreach ($bygnings as $bygning) {
+            $areal += $bygning->getAreal();
+        }
+        return $areal;
     }
 
     /**

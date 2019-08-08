@@ -186,7 +186,7 @@ class VirksomhedController extends BaseController
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($entity->getId());
+        $deleteForm = $this->createDeleteForm($entity);
 
         return array(
             'entity'      => $entity,
@@ -223,7 +223,7 @@ class VirksomhedController extends BaseController
      */
     public function updateAction(Request $request, Virksomhed $virksomhed)
     {
-        $deleteForm = $this->createDeleteForm($virksomhed->getId());
+        $deleteForm = $this->createDeleteForm($virksomhed);
         $editForm = $this->createEditForm($virksomhed);
         $editForm->handleRequest($request);
 
@@ -249,7 +249,7 @@ class VirksomhedController extends BaseController
      */
     public function deleteAction(Request $request, Virksomhed $virksomhed)
     {
-        $form = $this->createDeleteForm($virksomhed->getId());
+        $form = $this->createDeleteForm($virksomhed);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -270,21 +270,19 @@ class VirksomhedController extends BaseController
     /**
      * Creates a form to delete a Virksomhed entity by id.
      *
-     * @param mixed $id The entity id
+     * @param Virksomhed $virksomhed
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
+    private function createDeleteForm($virksomhed)
     {
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('AppBundle:Bygning');
-        $bygnings = $repository->findBy(array('virksomhed' => $id));
+        $bygnings = $virksomhed->getBygnings();
         $message = NULL;
         if (!empty($bygnings)) {
             $message = 'virksomhed.error.in_use';
         }
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('virksomhed_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('virksomhed_delete', array('id' => $virksomhed->getId())))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array(
                 'label' => 'Delete',
