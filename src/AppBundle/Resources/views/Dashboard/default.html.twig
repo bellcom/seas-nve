@@ -11,7 +11,7 @@
           <li role="presentation" {% if tab == 'aaplusAnsvarlig' %} class="active" {% endif %}><a href="{{ path('dashboard_default') }}" role="tab">{{ 'bygninger.labels.plural' | trans }}</a></li>
         {% endif %}
         {% if segmenter %}
-        <li role="presentation" {% if tab == 'segmenter' %} class="active" {% endif %}><a href="{{ path('dashboard_segmenter') }}" role="tab">{{ 'segment.labels.plural' | trans }}</a></li>{##}
+        <li role="presentation" {% if tab == 'segmenter' %} class="active hidden" {% else %} class="hidden" {% endif %}><a href="{{ path('dashboard_segmenter') }}" role="tab">{{ 'segment.labels.plural' | trans }}</a></li>{##}
         {% endif %}
         {% if projektleder %}
           <li role="presentation" {% if tab == 'projektleder' %} class="active" {% endif %}><a href="{{ path('dashboard_projektleder') }}" aria-controls="messages" role="tab">{{ 'appbundle.bygning.projektleder' | trans }}</a></li>
