@@ -141,14 +141,14 @@
         <td>{{ entity.bygning.projektleder }}</td>
       </tr>
       <tr>
-        <th>{{ 'appbundle.rapport.elena' | trans }}</th>
-        <td>{{ entity.elena | b2icon }}</td>
+        <th><span class="hidden">{{ 'appbundle.rapport.elena' | trans }}</span></th>
+        <td><span class="hidden">{{ entity.elena | b2icon }}</span></td>
         <th>{{ 'appbundle.bygning.status' | trans }}</th>
         <td>{{ entity.bygning.status | readable }}</td>
       </tr>
       <tr>
-        <th>{{ 'appbundle.rapport.ava' | trans }}</th>
-        <td>{{ entity.ava | b2icon }}</td>
+        <th><span class="hidden">{{ 'appbundle.rapport.ava' | trans }}</span></th>
+        <td><span class="hidden">{{ entity.ava | b2icon }}</span></td>
         <th>{{ 'common.updatedAt' | trans }}</th>
         <td>{{ entity.updatedAt | date('Y-m-d  H:i') }}, {{ entity.updatedBy }}</td>
       </tr>
@@ -288,7 +288,7 @@
         <td class="text-right">{{ entity.investeringEksFaellesomkostninger | format_amount }}</td>
         <td>{{ 'appbundle.rapport.investeringEksFaellesomkostninger.unit' | trans }}</td>
       </tr>
-      <tr>
+      <tr class="hidden">
         <td class="indent">{{ 'appbundle.rapport.mtmFaellesomkostninger' | trans }}</td>
         <td class="text-right">{{ entity.mtmFaellesomkostninger | format_amount }}</td>
         <td>{{ 'appbundle.rapport.mtmFaellesomkostninger.unit' | trans }}</td>

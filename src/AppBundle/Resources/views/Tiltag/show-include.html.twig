@@ -4,8 +4,8 @@
       <div class="panel-body">
         <ul class="list-inline">
           <li>{{ entity.tilvalgtAfRaadgiver | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfRaadgiver' | trans }}</li>
-          <li>{{ entity.tilvalgtAfAaPlus | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfAaPlus' | trans }}</li>
-          <li>{{ entity.tilvalgtAfMagistrat | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfMagistrat' | trans }}</li>
+          <li class="hidden">{{ entity.tilvalgtAfAaPlus | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfAaPlus' | trans }}</li>
+          <li class="hidden">{{ entity.tilvalgtAfMagistrat | b2icon }} {{ 'appbundle.tiltag.tilvalgt' | trans }} {{ 'appbundle.tiltag.tilvalgtAfMagistrat' | trans }}</li>
           <li class="float-right">{{ 'appbundle.tiltag.datoForDrift' | trans }}: {{ entity.datoForDrift ? entity.datoForDrift | date('Y-m-d') : '--' }}</li>
         </ul>
       </div>
@@ -84,13 +84,13 @@
         </tr>
         <tr>
           <td>
-            <small>{{ 'appbundle.tiltag.besparelseDriftOgVedligeholdelse' | trans }}</small>
+            {{ 'appbundle.tiltag.besparelseDriftOgVedligeholdelse' | trans }}
           </td>
           <td class="text-right">
-            <small>{{ entity.besparelseDriftOgVedligeholdelse | format_amount }}</small>
+            {{ entity.besparelseDriftOgVedligeholdelse | format_amount }}
           </td>
           <td>
-            <small>{{ 'appbundle.tiltag.besparelseDriftOgVedligeholdelse.unit' | trans }}</small>
+            {{ 'appbundle.tiltag.besparelseDriftOgVedligeholdelse.unit' | trans }}
           </td>
         </tr>
         <tr>
