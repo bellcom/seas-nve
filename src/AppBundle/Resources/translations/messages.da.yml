@@ -100,16 +100,16 @@ common:
   your_buildings: Dine bygninger
   your_segments: Dine segmenter
 dashboard:
-  besparelseCO2: CO2 Besparelse
-  besparelseEl: El Besparelse
-  besparelseVarmeGAF: GAF Besparelse
-  besparelseVarmeGUF: GUF Besparelse
+  besparelseCO2: CO2 besparelse
+  besparelseEl: El besparelse
+  besparelseVarmeGAF: GAF besparelse
+  besparelseVarmeGUF: GUF besparelse
   current: Igangværende
   dine_bygninger: Dine bygninger
   finished: Afleverede
   totalareal: Areal
 title:
-  prefix: Aa+
+  prefix: SEAS-NVE
 
 # Entities
 baseline:
@@ -826,7 +826,7 @@ appbundle:
     kommentar: Kommentar
     titel: Titel
   bygning:
-    aaplusAnsvarlig: Adminstrator
+    aaplusAnsvarlig: Administrator
     areal: Areal
     adresse: Adresse
     afdelingsnavn: Afdelingsnavn
@@ -997,7 +997,7 @@ appbundle:
     enhedspris: Enhedspris
     enhedspris.unit: Kr/kWh
     prisfaktor: Prisfaktor
-    nyEnhedspris: Ny enhedsp.
+    nyEnhedspris: Ny enhedspris
     nyEnhedspris.unit: Kr/kWh
     forsyningsvaerk: Forsyningsværk
     beskrivelse: Beskrivelse
@@ -1008,7 +1008,7 @@ appbundle:
       fordeling.unit: %
       navn: Navn
       prisgrundlag: Prisgrundlag
-    internProduktioner: Interne produktioner
+    internProduktioner: Egne produktioner
     internProduktioner.0:
       effektivitet: Effektivitet
       effektivitet.unit: %
@@ -1478,11 +1478,11 @@ appbundle:
     interneDriftomkostninger.unit: kr
     internRenteInklFaellesomkostninger: Intern rente inkl. øvrige omkostninger
     internRenteInklFaellesomkostninger.unit: %
-    investeringEksFaellesomkostninger: Aa+ Investering eksl. øvrige omkostninger
+    investeringEksFaellesomkostninger: Investering eksl. øvrige omkostninger
     investeringEksFaellesomkostninger.unit: kr
     investeringEkslFaelles: Investering eksl. øvrige omkostninger
     investeringEkslFaelles.unit: Kr
-    investeringInklFaellesomkostninger: Aa+ Investering inkl. øvrige omkostninger
+    investeringInklFaellesomkostninger: Investering inkl. øvrige omkostninger
     investeringInklFaellesomkostninger.unit: kr
     laanLoebetid: Løbetid på lån
     laanLoebetid.unit: år
@@ -1502,7 +1502,7 @@ appbundle:
     status.ava: AVA-støtte
     sum: Sum
     sum.unit: kr
-    sumOevrige: Sum, Aa+ investering inkl. øvrige omkostninger
+    sumOevrige: Sum, investering inkl. øvrige omkostninger
     sumOevrige.unit: kr
     tiltag: Tiltag
     tilvalg: Tilvalg
@@ -1642,7 +1642,7 @@ appbundle:
     varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering
     varmeledningsevnePaaNyIsoleringWMK.unit: W/m·K
   tiltag:
-    aaplusInvestering: Aa+ investering eksl. øvrige omkostninger
+    aaplusInvestering: Investering eksl. øvrige omkostninger
     aaplusInvestering.unit: kr
     anlaegsInvestering: ﻿Entreprisesum
     anlaegsInvestering.unit: kr

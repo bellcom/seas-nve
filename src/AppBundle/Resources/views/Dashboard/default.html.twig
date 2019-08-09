@@ -11,7 +11,7 @@
           <li role="presentation" {% if tab == 'aaplusAnsvarlig' %} class="active" {% endif %}><a href="{{ path('dashboard_default') }}" role="tab">{{ 'bygninger.labels.plural' | trans }}</a></li>
         {% endif %}
         {% if segmenter %}
-        <li role="presentation" {% if tab == 'segmenter' %} class="active" {% endif %}><a href="{{ path('dashboard_segmenter') }}" role="tab">{{ 'segment.labels.plural' | trans }}</a></li>{##}
+        <li role="presentation" {% if tab == 'segmenter' %} class="active hidden" {% else %} class="hidden" {% endif %}><a href="{{ path('dashboard_segmenter') }}" role="tab">{{ 'segment.labels.plural' | trans }}</a></li>{##}
         {% endif %}
         {% if projektleder %}
           <li role="presentation" {% if tab == 'projektleder' %} class="active" {% endif %}><a href="{{ path('dashboard_projektleder') }}" aria-controls="messages" role="tab">{{ 'appbundle.bygning.projektleder' | trans }}</a></li>
@@ -64,7 +64,7 @@
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.navn'|trans, 'b.navn') }}</th>
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.adresse'|trans, 'b.adresse') }}</th>
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.postnummer'|trans, 'b.postnummer') }}</th>
-          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 's.forkortelse') }}</th>
+          <th class="hidden">{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 's.forkortelse') }}</th>
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.status'|trans, 'b.status') }}</th>
           {% if tab == 'aaplusAnsvarlig' %}
             <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.energiRaadgiver'|trans, 'b.energiRaadgiver') }}</th>
@@ -80,7 +80,7 @@
           <th>{{ form_row(form.navn) }}</th>
           <th>{{ form_row(form.adresse) }}</th>
           <th>{{ form_row(form.postnummer) }}</th>
-          <th>{{ form_row(form.segment) }}</th>
+          <th class="hidden">{{ form_row(form.segment) }}</th>
           <th>{{ form_row(form.status) }}</th>
           {% if tab == 'aaplusAnsvarlig' %}
             <th>{{ form_row(form.energiRaadgiver) }}</th>
@@ -98,7 +98,7 @@
           <td>{{ bygning.navn }}</td>
           <td>{{ bygning.adresse }}</td>
           <td>{{ bygning.postnummer }}</td>
-          <td>
+          <td class="hidden">
             {% if bygning.segment is not empty %}
               {{ bygning.segment.forkortelse }}
             {% endif %}
@@ -121,7 +121,7 @@
         </tr>
         {% else %}
           <tr>
-            <td colspan="9">
+            <td colspan="8">
               <div class="alert alert-info" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
             </td>
           </tr>
