@@ -1,0 +1,51 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <h1>{{ 'Finansiering' | trans }}</h1>
+
+  {% include('AppBundle::_includes/finansiering_graf.html.twig') %}
+
+  {% set slices = [
+    entity.cashFlow['cash flow'] | keys | slice(0, 15),
+    entity.cashFlow['cash flow'] | keys | slice(15, 15)
+  ] %}
+
+  {% for years in slices %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="row">
+            {{ 'År' | trans }}
+          </th>
+          {% for year in years %}
+            <th scope="col">
+              {{ year }}
+            </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for name, key in {
+          'Ydelse, lån inkl. fællesomkostninger [kr]': 'ydelse laan inkl. faellesomkostninger',
+          'Energibesp. [kr]': 'besparelse',
+          'Overskud [kr]': 'cash flow',
+          } %}
+          <tr>
+            <th scope="row">{{ name | trans }}</th>
+            {% for year in years %}
+              <td>
+                {{ entity.cashFlow[key][year] | format_amount }}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endfor %}
+
+  {{ 'Kalkulationsrente' | trans }}: {{ entity.configuration.kalkulationsrente }}
+
+  {% if edit_form %}
+    {{ form(edit_form, { 'style': 'horizontal' }) }}
+  {% endif %}
+{% endblock %}

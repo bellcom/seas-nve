@@ -132,7 +132,7 @@
             <th>{{ 'appbundle.bygning.bygId' | trans }}</th>
             <td>{{ entity.bygId }}</td>
           </tr>
-          <tr>
+          <tr class="hidden">
             <th>{{ 'appbundle.bygning.enhedsys' | trans }}</th>
             <td>{{ entity.enhedsys }}</td>
           </tr>
@@ -157,7 +157,7 @@
             <td>{{ entity.status | readable }}</td>
           </tr>
           <tr>
-            <th>{{ 'rapporter.labels.singular' | trans }}</th>
+            <th>{{ 'bygning_rapporter.labels.singular' | trans }}</th>
             <td>
               {% if entity.rapport %}
                 <a href="{{ path('rapport_show', { 'id': entity.rapport.id }) }}">{{ entity.rapport }} - {{ 'appbundle.rapport.version' | trans }} {{ entity.rapport.version }}</a>

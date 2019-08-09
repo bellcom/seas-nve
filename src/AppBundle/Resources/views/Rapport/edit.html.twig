@@ -4,7 +4,7 @@
 {% block body -%}
   <div class="row heading">
     <div class="col-md-9">
-      <h1>{{ 'rapporter.actions.edit' | trans }}</h1>
+      <h1>{{ 'bygning_rapporter.actions.edit' | trans }}</h1>
     </div>
     <div class="col-md-3 text-right">
       {% if entity.bygning.baseline %}
@@ -24,11 +24,17 @@
       <div class="col-xs-12 col-md-6">
         {{ form_row(edit_form.datering) }}
         {% if edit_form.elena is defined %}
-          {{ form_row(edit_form.elena) }}
+          <span class="hidden">
+            {{ form_row(edit_form.elena) }}
+          </span>
         {% endif %}
         {% if edit_form.ava is defined %}
-          {{ form_row(edit_form.ava) }}
+          <span class="hidden">
+            {{ form_row(edit_form.ava) }}
+          </span>
         {% endif %}
+
+        {{ aaplus.form_row_decimal('appbundle.rapport.energibudgetEl', entity.energibudgetEl, 'appbundle.rapport.energibudgetEl.unit') }}
       </div>
       <div class="col-xs-12 col-md-6">
         {{ form_row(edit_form.energiscreening) }}
@@ -36,9 +42,6 @@
       </div>
       <div class="col-xs-12 col-md-6">
         {{ aaplus.form_row_decimal('appbundle.rapport.energibudgetVarme', entity.energibudgetVarme, 'appbundle.rapport.energibudgetVarme.unit') }}
-      </div>
-      <div class="col-xs-12 col-md-6">
-        {{ aaplus.form_row_decimal('appbundle.rapport.energibudgetEl', entity.energibudgetEl, 'appbundle.rapport.energibudgetEl.unit') }}
       </div>
     </div>
   </div>

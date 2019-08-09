@@ -1,6 +1,6 @@
 # Overriding string for SEAS-NVE project.
 
-rapporter:
+bygning_rapporter:
   confirmation:
     approved: Rapport markeret som "Godkendt"
     verified: Rapport verificeret

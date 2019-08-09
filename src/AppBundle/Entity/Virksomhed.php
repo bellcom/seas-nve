@@ -433,10 +433,10 @@ class Virksomhed
     }
 
     public function getBygnings() {
-        $em = $this->getDoctrine()->getManager();
+        global $kernel;
+        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
         $repository = $em->getRepository('AppBundle:Bygning');
         return $repository->findBy(array('virksomhed' => $this->getId()));
-
     }
 
     public function getBygningsAreal() {

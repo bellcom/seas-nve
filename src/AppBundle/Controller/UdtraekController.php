@@ -63,7 +63,7 @@ class UdtraekController extends BaseController implements InitControllerInterfac
     // initialize a query builder
     $filterBuilder = $this->get('doctrine.orm.entity_manager')
       ->getRepository('AppBundle:Bygning')
-      ->createQueryBuilder('e');
+      ->createQueryBuilder('b');
 
     $form = $this->get('form.factory')->create(new BygningUdtraekType(), NULL, array(
       'action' => $this->generateUrl('udtraek'),

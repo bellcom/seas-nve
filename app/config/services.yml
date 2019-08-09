@@ -91,6 +91,13 @@ services:
         tags:
             - { name: security.voter }
 
+    security.access.virksomhed_rapport_voter:
+        class:      AppBundle\Security\Authorization\Voter\VirksomhedRapportVoter
+        public:     false
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        tags:
+            - { name: security.voter }
+
     symfony.controller.subscriber.init:
         class: Yavin\Symfony\Controller\InitControllerSubscriber
         tags:
@@ -124,6 +131,11 @@ services:
     aaplus.rapport_calculation:
         class: AppBundle\Calculation\RapportCalculation
         arguments: [ @service_container ]
+
+    aaplus.virksomhed_rapport_calculation:
+        class: AppBundle\Calculation\VirksomhedRapportCalculation
+        arguments: [ @service_container ]
+
     aaplus.energiforsyning_calculation:
         class: AppBundle\Calculation\EnergiforsyningCalculation
         arguments: [ @service_container ]

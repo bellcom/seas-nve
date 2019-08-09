@@ -1,0 +1,31 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-8">
+      <h1>{{ 'virksomhed.actions.create_rapport' | trans }}</h1>
+    </div>
+    <div class="col-md-4 text-right">
+
+    </div>
+  </div>
+
+
+  {{ form_start(create_form) }}
+  {{ form_errors(create_form) }}
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ icon('file') }} {{ 'virksomhed_rapporter.labels.singular' | trans }}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-12">
+        {{ form_row(create_form) }}
+      </div>
+    </div>
+  </div>
+
+  {{ form_rest(create_form) }}
+  {{ form_end(create_form) }}
+
+{% endblock %}

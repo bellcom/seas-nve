@@ -19,4 +19,54 @@ use Doctrine\ORM\Query;
  * repository methods below.
  */
 class VirksomhedRapportRepository extends BaseRepository {
+
+    /**
+     * Search all Virksomhed Rapport by request params.
+     *
+     * @param bool $returnQuery
+     * @return array|\Doctrine\ORM\Query
+     */
+    public function search($search) {
+        $qb = $this->_em->createQueryBuilder();
+
+        $qb->select('vr', 'v')
+            ->from('AppBundle:VirksomhedRapport', 'vr')
+            ->leftJoin('vr.virksomhed', 'v')
+        ;
+
+        if (!empty($search['elena'])) {
+            $qb->andWhere('vr.elena = :elena')
+                ->setParameter('elena', $search['elena']);
+        }
+
+        if ($search['ava'] !== NULL) {
+            $qb->andWhere('vr.ava = :ava')
+                ->setParameter('ava', $search['ava']);
+        }
+
+        if (!empty($search['datering'])) {
+            $qb->andWhere('vr.datering LIKE :datering')
+                ->setParameter('datering', $search['datering'] . '%');
+        }
+
+        if (!empty($search['name'])) {
+            $qb->andWhere('v.name LIKE :name')
+                ->setParameter('name', '%' . $search['name'] . '%');
+        }
+
+        if (!empty($search['address'])) {
+            $qb->andWhere('v.address LIKE :address')
+                ->setParameter('address', '%' . $search['address'] . '%');
+        }
+
+        if (!empty($search['version'])) {
+            $qb->andWhere('vr.version = :version')
+                ->setParameter('version', $search['version']);
+        }
+
+        $qb->addOrderBy('v.name');
+
+        return $qb->getQuery();
+    }
+
 }

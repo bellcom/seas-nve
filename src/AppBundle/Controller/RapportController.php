@@ -130,16 +130,16 @@ class RapportController extends BaseController {
     // Bygning Status forms
     $formArray = array();
     if($status == BygningStatusType::TILKNYTTET_RAADGIVER) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_submit', 'rapporter.actions.submit')->createView();
+      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_submit', 'bygning_rapporter.actions.submit')->createView();
     } else if ($status == BygningStatusType::AFLEVERET_RAADGIVER) {
-      $formArray['prev_status_form'] = $this->createStatusForm($rapport, 'rapport_retur', 'rapporter.actions.retur')->createView();
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_verify', 'rapporter.actions.verify')->createView();
+      $formArray['prev_status_form'] = $this->createStatusForm($rapport, 'rapport_retur', 'bygning_rapporter.actions.retur')->createView();
+      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_verify', 'bygning_rapporter.actions.verify')->createView();
     } else if ($status == BygningStatusType::AAPLUS_VERIFICERET) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_approve', 'rapporter.actions.approve')->createView();
+      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_approve', 'bygning_rapporter.actions.approve')->createView();
     } else if ($status == BygningStatusType::GODKENDT_AF_MAGISTRAT) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_implementation', 'rapporter.actions.implementation')->createView();
+      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_implementation', 'bygning_rapporter.actions.implementation')->createView();
     } else if ($status == BygningStatusType::UNDER_UDFOERSEL) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_operation', 'rapporter.actions.operation')->createView();
+      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_operation', 'bygning_rapporter.actions.operation')->createView();
     }
 
     // Tiltag tilvalgt/fravalgt forms
@@ -200,7 +200,7 @@ class RapportController extends BaseController {
    */
   public function baselineAction(Rapport $rapport) {
     $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
-    $this->breadcrumbs->addItem('rapporter.actions.edit', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('bygning_rapporter.actions.edit', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
 
     $showForm = $this->createForm(new RapportShowType($this->get('security.context'), $rapport), $rapport, array(
       'action' => '#',
@@ -455,9 +455,9 @@ class RapportController extends BaseController {
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
    */
   public function submitAction(Request $request, Rapport $rapport) {
-    $this->statusAction($request, $rapport, BygningStatusType::AFLEVERET_RAADGIVER, 'rapport_submit', 'rapporter.actions.submit');
+    $this->statusAction($request, $rapport, BygningStatusType::AFLEVERET_RAADGIVER, 'rapport_submit', 'bygning_rapporter.actions.submit');
 
-    $this->flash->success('rapporter.confirmation.submitted');
+    $this->flash->success('bygning_rapporter.confirmation.submitted');
 
     return $this->redirect($this->generateUrl('dashboard_default'));
   }
@@ -472,9 +472,9 @@ class RapportController extends BaseController {
    * @Security("has_role('ROLE_ADMIN')")
    */
   public function returAction(Request $request, Rapport $rapport) {
-    $this->statusAction($request, $rapport, BygningStatusType::TILKNYTTET_RAADGIVER, 'rapport_retur', 'rapporter.actions.retur');
+    $this->statusAction($request, $rapport, BygningStatusType::TILKNYTTET_RAADGIVER, 'rapport_retur', 'bygning_rapporter.actions.retur');
 
-    $this->flash->success('rapporter.confirmation.retur');
+    $this->flash->success('bygning_rapporter.confirmation.retur');
 
     return $this->redirect($this->generateUrl('dashboard_default'));
   }
@@ -490,9 +490,9 @@ class RapportController extends BaseController {
    * @Security("has_role('ROLE_ADMIN')")
    */
   public function verifyAction(Request $request, Rapport $rapport) {
-    $this->statusAction($request, $rapport, BygningStatusType::AAPLUS_VERIFICERET, 'rapport_verify', 'rapporter.actions.verify');
+    $this->statusAction($request, $rapport, BygningStatusType::AAPLUS_VERIFICERET, 'rapport_verify', 'bygning_rapporter.actions.verify');
 
-    $this->flash->success('rapporter.confirmation.verified');
+    $this->flash->success('bygning_rapporter.confirmation.verified');
 
     return $this->redirect($this->generateUrl('dashboard_default'));
   }
@@ -507,9 +507,9 @@ class RapportController extends BaseController {
    * @Security("has_role('ROLE_ADMIN')")
    */
   public function approvedAction(Request $request, Rapport $rapport) {
-    $this->statusAction($request, $rapport, BygningStatusType::GODKENDT_AF_MAGISTRAT, 'rapport_approve', 'rapporter.actions.approve');
+    $this->statusAction($request, $rapport, BygningStatusType::GODKENDT_AF_MAGISTRAT, 'rapport_approve', 'bygning_rapporter.actions.approve');
 
-    $this->flash->success('rapporter.confirmation.approved');
+    $this->flash->success('bygning_rapporter.confirmation.approved');
 
     return $this->redirect($this->generateUrl('dashboard_default'));
   }
@@ -524,9 +524,9 @@ class RapportController extends BaseController {
    * @Security("has_role('ROLE_ADMIN')")
    */
   public function implementationAction(Request $request, Rapport $rapport) {
-    $this->statusAction($request, $rapport, BygningStatusType::UNDER_UDFOERSEL, 'rapport_implementation', 'rapporter.actions.implementation');
+    $this->statusAction($request, $rapport, BygningStatusType::UNDER_UDFOERSEL, 'rapport_implementation', 'bygning_rapporter.actions.implementation');
 
-    $this->flash->success('rapporter.confirmation.implementation');
+    $this->flash->success('bygning_rapporter.confirmation.implementation');
 
     return $this->redirect($this->generateUrl('dashboard_default'));
   }
@@ -541,9 +541,9 @@ class RapportController extends BaseController {
    * @Security("has_role('ROLE_ADMIN')")
    */
   public function operationAction(Request $request, Rapport $rapport) {
-    $this->statusAction($request, $rapport, BygningStatusType::DRIFT, 'rapport_operation', 'rapporter.actions.operation');
+    $this->statusAction($request, $rapport, BygningStatusType::DRIFT, 'rapport_operation', 'bygning_rapporter.actions.operation');
 
-    $this->flash->success('rapporter.confirmation.operation');
+    $this->flash->success('bygning_rapporter.confirmation.operation');
 
     return $this->redirect($this->generateUrl('dashboard_default'));
   }
@@ -796,7 +796,7 @@ class RapportController extends BaseController {
       ->setAction($this->generateUrl('rapport_calculate', array('id' => $rapport->getId())))
       ->setMethod('POST')
       ->add('submit', 'submit', array(
-        'label' => 'rapporter.actions.re-calculate',
+        'label' => 'bygning_rapporter.actions.re-calculate',
         'disabled' => empty($changes),
         'button_class' => 'default',
       ))
@@ -857,7 +857,7 @@ class RapportController extends BaseController {
     $allFiles = $rapport->getAllFiles();
 
     if (!$allFiles) {
-      $this->flash->error('rapporter.messages.no_files');
+      $this->flash->error('bygning_rapporter.messages.no_files');
       return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     }
 

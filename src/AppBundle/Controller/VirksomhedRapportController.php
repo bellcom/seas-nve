@@ -62,20 +62,15 @@ class VirksomhedRapportController extends BaseController {
 
     $search = array();
 
-    $search['navn'] = $rapport->getVirksomhed()->getNavn();
-    $search['adresse'] = $rapport->getVirksomhed()->getAdresse();
-    $search['postnummer'] = $rapport->getVirksomhed()->getPostnummer();
-    $search['segment'] = $rapport->getVirksomhed()->getSegment();
-    $search['status'] = $rapport->getVirksomhed()->getStatus();
+    $search['name'] = $rapport->getVirksomhed()->getName();
+    $search['address'] = $rapport->getVirksomhed()->getAddress();
     $search['datering'] = $rapport->getDatering();
     $search['version'] = $rapport->getVersion();
 
     $search['elena'] = $rapport->getElena();
     $search['ava'] = $rapport->getAva();
 
-    $user = $this->get('security.context')->getToken()->getUser();
-
-    $query = $em->getRepository('AppBundle:VirksomhedRapport')->searchByUser($user, $search);
+    $query = $em->getRepository('AppBundle:VirksomhedRapport')->search($search);
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
@@ -111,6 +106,7 @@ class VirksomhedRapportController extends BaseController {
    * @Template()
    * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
    * @param VirksomhedRapport $rapport
+   *
    * @return array
    */
   public function showAction(VirksomhedRapport $rapport) {
@@ -119,7 +115,7 @@ class VirksomhedRapportController extends BaseController {
     $deleteForm = $this->createDeleteForm($rapport->getId())->createView();
     $editForm = $this->createEditFormFinansiering($rapport);
 
-    $calculationChanges = $this->container->get('aaplus.rapport_calculation')->getChanges($rapport);
+    $calculationChanges = $this->container->get('aaplus.virksomhed_rapport_calculation')->getChanges($rapport);
     $calculateForm = $this->createCalculateForm($rapport, $calculationChanges)->createView();
 
     $twigVars = array(
@@ -142,11 +138,12 @@ class VirksomhedRapportController extends BaseController {
    * @Template()
    * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
    * @param VirksomhedRapport $rapport
-   * @return array
+   *
+   * @return Response
    */
   public function showPdf2Action(VirksomhedRapport $rapport) {
     $exporter = $this->get('aaplus.pdf_export');
-    $pdf = $exporter->export2($rapport);
+    $pdf = $exporter->exportVirksomhedRapport2($rapport);
 
     $pdfName = $rapport->getVirksomhed()->getAddress() . '-Dokument 2-' . date('Y-m-d') . '-Status ' . $rapport->getVirksomhed() . '-Itt ' . $rapport->getVersion();
 
@@ -164,11 +161,12 @@ class VirksomhedRapportController extends BaseController {
    * @Template()
    * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
    * @param VirksomhedRapport $rapport
-   * @return array
+   *
+   * @return Response
    */
   public function showPdf5Action(VirksomhedRapport $rapport) {
     $exporter = $this->get('aaplus.pdf_export');
-    $pdf = $exporter->export5($rapport);
+    $pdf = $exporter->exportVirksomhedRapport5($rapport);
 
     $pdfName = $rapport->getVirksomhed()->getAddress() . '-Dokument 5-' . date('Y-m-d') . '-Status ' . $rapport->getVirksomhed() . '-Itt ' . $rapport->getVersion();
 
@@ -326,201 +324,6 @@ class VirksomhedRapportController extends BaseController {
     return $form;
   }
 
-  //---------------- Rådgiver aflever -------------------//
-
-  /**
-   * Aaplus verifies a VirksomhedRapport entity.
-   *
-   * @Route("/{id}/submit", name="virksomhed_rapport_submit")
-   * @Method("PUT")
-   * @Security("is_granted('VIRKSOMHED_RAPPORT_EDIT', rapport)")
-   */
-  public function submitAction(Request $request, VirksomhedRapport $rapport) {
-    $this->statusAction($request, $rapport, 'virksomhed_rapport_submit', 'rapporter.actions.submit');
-
-    $this->flash->success('rapporter.confirmation.submitted');
-
-    return $this->redirect($this->generateUrl('dashboard_default'));
-  }
-
-  //---------------- Retur til Rådgiver -------------------//
-
-  /**
-   * Aaplus verifies a Rapport entity.
-   *
-   * @Route("/{id}/retur", name="virksomhed_rapport_retur")
-   * @Method("PUT")
-   * @Security("has_role('ROLE_ADMIN')")
-   */
-  public function returAction(Request $request, VirksomhedRapport $rapport) {
-    $this->statusAction($request, $rapport, 'virksomhed_rapport_retur', 'rapporter.actions.retur');
-
-    $this->flash->success('rapporter.confirmation.retur');
-
-    return $this->redirect($this->generateUrl('dashboard_default'));
-  }
-
-
-  //---------------- Aa+ Verificeret -------------------//
-
-  /**
-   * Aaplus verifies a VirksomhedRapport entity.
-   *
-   * @Route("/{id}/verify", name="virksomhed_rapport_verify")
-   * @Method("PUT")
-   * @Security("has_role('ROLE_ADMIN')")
-   */
-  public function verifyAction(Request $request, VirksomhedRapport $rapport) {
-    $this->statusAction($request, $rapport, 'virksomhed_rapport_verify', 'rapporter.actions.verify');
-
-    $this->flash->success('rapporter.confirmation.verified');
-
-    return $this->redirect($this->generateUrl('dashboard_default'));
-  }
-
-  //---------------- Godkendt Magistrat -------------------//
-
-  /**
-   * Magistrat VirksomhedRapport Godkendt
-   *
-   * @Route("/{id}/approve", name="virksomhed_rapport_approve")
-   * @Method("PUT")
-   * @Security("has_role('ROLE_ADMIN')")
-   */
-  public function approvedAction(Request $request, VirksomhedRapport $rapport) {
-    $this->statusAction($request, $rapport, 'virksomhed_rapport_approve', 'rapporter.actions.approve');
-
-    $this->flash->success('rapporter.confirmation.approved');
-
-    return $this->redirect($this->generateUrl('dashboard_default'));
-  }
-
-  //---------------- Under udførsel -------------------//
-
-  /**
-   * Under udførsel
-   *
-   * @Route("/{id}/implementation", name="virksomhed_rapport_implementation")
-   * @Method("PUT")
-   * @Security("has_role('ROLE_ADMIN')")
-   */
-  public function implementationAction(Request $request, VirksomhedRapport $rapport) {
-    $this->statusAction($request, $rapport, 'virksomhed_rapport_implementation', 'rapporter.actions.implementation');
-
-    $this->flash->success('rapporter.confirmation.implementation');
-
-    return $this->redirect($this->generateUrl('dashboard_default'));
-  }
-
-  //---------------- Drift -------------------//
-
-  /**
-   * Drift
-   *
-   * @Route("/{id}/operation", name="virksomhed_rapport_operation")
-   * @Method("PUT")
-   * @Security("has_role('ROLE_ADMIN')")
-   */
-  public function operationAction(Request $request, VirksomhedRapport $rapport) {
-    $this->statusAction($request, $rapport, 'virksomhed_rapport_operation', 'rapporter.actions.operation');
-
-    $this->flash->success('rapporter.confirmation.operation');
-
-    return $this->redirect($this->generateUrl('dashboard_default'));
-  }
-
-  //---------------- Generic Status -------------------//
-
-
-  private function statusAction(Request $request, VirksomhedRapport $rapport, $route, $label) {
-    $form = $this->createStatusForm($rapport, $route, $label);
-    $form->handleRequest($request);
-
-    if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $rapport = $em->getRepository('AppBundle:VirksomhedRapport')->find($rapport->getId());
-
-      if (!$rapport) {
-        throw $this->createNotFoundException('Unable to find Rapport entity.');
-      }
-
-      $exporter = $this->get('aaplus.pdf_export');
-      $filRepository = $em->getRepository('AppBundle:Fil');
-
-      $pdf = $exporter->export2($rapport);
-      $pdfName = $rapport->getVirksomhed()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-Status '.$rapport->getVirksomhed().'-Itt '.$rapport->getVersion() . '.pdf';
-
-      $fil = new Fil();
-      $fil
-        ->setNavn($pdfName)
-        ->setEntity($rapport);
-      $filRepository->saveContent($pdf, $fil, $this->container);
-      $em->persist($fil);
-
-      $pdf = $exporter->export5($rapport);
-      $pdfName = $rapport->getVirksomhed()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-Status '.$rapport->getVirksomhed().'-Itt '.$rapport->getVersion() . '.pdf';
-
-      $fil = new Fil();
-      $fil
-        ->setNavn($pdfName)
-        ->setEntity($rapport);
-      $filRepository->saveContent($pdf, $fil, $this->container);
-      $em->persist($fil);
-
-      $rapport->setVersion($rapport->getVersion() + 1);
-      $em->flush();
-    }
-
-  }
-
-  /**
-   * Creates a form to verify a VirksomhedRapport entity by id.
-   *
-   * @param mixed $id The entity id
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createStatusForm(VirksomhedRapport $entity, $route, $label) {
-    $form = $this->createForm(new VirksomhedRapportStatusType($this->get('security.context')), $entity, array(
-      'action' => $this->generateUrl($route, array('id' => $entity->getId())),
-      'method' => 'PUT',
-    ));
-
-    $this->addUpdate($form, null, $label);
-
-    return $form;
-
-  }
-
-  //---------------- Regninger -------------------//
-
-  /**
-   * Finds and displays a VirksomhedRapport entity.
-   *
-   * @Route("/{id}/regninger", name="virksomhed_rapport_regninger_show")
-   * @Method("GET")
-   * @Template()
-   * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
-   * @param VirksomhedRapport $rapport
-   * @return array
-   */
-  public function showRegningerAction(VirksomhedRapport $rapport) {
-    $this->breadcrumbs->addItem($rapport->getVirksomhed(), $this->get('router')
-      ->generate('virksomhed_show', array(
-        'id' => $rapport->getVirksomhed()
-          ->getId()
-      )));
-    $this->breadcrumbs->addItem($rapport->getVersion(), $this->get('router')
-      ->generate('virksomhed_rapport_show', array('id' => $rapport->getId())));
-
-    $deleteForm = $this->createDeleteForm($rapport->getId());
-
-    return array(
-      'tiltag' => $rapport->getTiltag(),
-      'delete_form' => $deleteForm->createView(),
-    );
-  }
-
   /**
    * Finds and displays a VirksomhedRapport entity.
    *
@@ -642,7 +445,7 @@ class VirksomhedRapportController extends BaseController {
       ->setAction($this->generateUrl('virksomhed_rapport_calculate', array('id' => $rapport->getId())))
       ->setMethod('POST')
       ->add('submit', 'submit', array(
-        'label' => 'rapporter.actions.re-calculate',
+        'label' => 'bygning_rapporter.actions.re-calculate',
         'disabled' => empty($changes),
         'button_class' => 'default',
       ))
@@ -690,66 +493,6 @@ class VirksomhedRapportController extends BaseController {
       );
     }
     return $response;
-  }
-
-  /**
-   * Download all files for VirksomhedRapport.
-   *
-   * @Route("/{id}/download_files", name="virksomhed_rapport_download_files")
-   * @Method("GET")
-   * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
-   */
-  public function downloadFilesAction(Request $request, VirksomhedRapport $rapport) {
-    $allFiles = $rapport->getAllFiles();
-
-    if (!$allFiles) {
-      $this->flash->error('rapporter.messages.no_files');
-      return $this->redirect($this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
-    }
-
-    $zipName = 'Bilag-' . $rapport->getVirksomhed()->getAdresse() . '-' . date('Y-m-d') . '.zip';
-    // Sanitize filename.
-    $zipName = preg_replace('/[^a-z0-9.-]/i', '_', $zipName);
-
-    $archive = new \ZipArchive();
-    $zipPath = tempnam(sys_get_temp_dir(), $zipName);
-    $archive->open($zipPath, \ZipArchive::CREATE);
-
-    $this->addFilesToArchive($archive, $allFiles);
-    $archive->close();
-
-    $response = new BinaryFileResponse($zipPath);
-    $response->setContentDisposition(
-        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-        $zipName
-    );
-
-    return $response;
-  }
-
-  /**
-   * Add files to archive.
-   *
-   * If a value in $files is an array the files in the value will be added to a sub-directory.
-   *
-   * @param array $files
-   *   The files to add.
-   * @param string $dir
-   *   The dir to add files to. Must be empty or end with a slash (/).
-   */
-  private function addFilesToArchive(\ZipArchive $archive, array $files, $dir = '') {
-    if ($files) {
-      foreach ($files as $key => $data) {
-        if (is_array($data)) {
-          $subDir = $dir . $key . '/';
-          $archive->addEmptyDir($subDir);
-          $this->addFilesToArchive($archive, $data, $subDir);
-        } else {
-          $file = new File($data);
-          $archive->addFromString($dir . $file->getBasename(), file_get_contents($file->getRealPath()));
-        }
-      }
-    }
   }
 
 }

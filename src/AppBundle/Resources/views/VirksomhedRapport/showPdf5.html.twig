@@ -1,0 +1,204 @@
+{% extends 'AppBundle::pdf.html.twig' %}
+
+{% block body -%}
+
+  <div class="landscape">
+
+  {% for key, t in rapport.tiltag %}
+
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h3>{{ key + 1 }}. {{ t.title }}</h3>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          {{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}
+          <span
+              class="float-right">{{ t.tilvalgt ? 'appbundle.tiltag.tilvalgt' | trans : 'appbundle.tiltag.fravalgt' | trans }}</span>
+        </h3>
+      </div>
+
+      <table class="table table-condensed results">
+        <tbody>
+        <tr>
+          <th>{{ 'appbundle.tiltag.varmebesparelseGUF' | trans }}</th>
+          <td class="text-right">{{ t.varmebesparelseGUF | format_zeros }}</td>
+          <td>{{ 'appbundle.tiltag.varmebesparelseGUF.unit' | trans }}</td>
+
+          <th>{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
+          <td class="text-right">{{ t.anlaegsinvestering | format_zeros }}</td>
+          <td>{{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.tiltag.varmebesparelseGAF' | trans }}</th>
+          <td class="text-right">{{ t.varmebesparelseGAF | format_zeros }}</td>
+          <td>{{ 'appbundle.tiltag.varmebesparelseGAF.unit' | trans }}</td>
+
+          <th>{{ 'appbundle.tiltag.besparelseDriftOgVedligeholdelse' | trans }}</th>
+          <td class="text-right">{{ t.besparelseDriftOgVedligeholdelse | format_zeros }}</td>
+          <td>{{ 'appbundle.tiltag.besparelseDriftOgVedligeholdelse.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.tiltag.elbesparelse' | trans }}</th>
+          <td class="text-right">{{ t.elbesparelse | format_zeros }}</td>
+          <td>{{ 'appbundle.tiltag.elbesparelse.unit' | trans }}</td>
+
+          <th>{{ 'appbundle.tiltag.besparelseStrafafkoelingsafgift' | trans }}</th>
+          <td class="text-right">{{ t.besparelseStrafafkoelingsafgift | format_zeros }}</td>
+          <td>{{ 'appbundle.tiltag.besparelseStrafafkoelingsafgift.unit' | trans }}</td>
+        </tr>
+        <tr>
+          {% if t.salgTilNettetAar1 is defined %}
+          <th>{{ 'appbundle.tiltag.salgTilNettetAar1' | trans }}</th>
+          <td class="text-right">{{ t.salgTilNettetAar1 | format_zeros }}</td>
+          <td>{{ 'appbundle.tiltag.salgTilNettetAar1.unit' | trans }}</td>
+          {% else %}
+          <th></th>
+          <td class="text-right"></td>
+          <td></td>
+          {% endif %}
+
+          <th>{{ 'appbundle.tiltag.levetid' | trans }}</th>
+          <td class="text-right">{{ t.levetid | format_zeros }}</td>
+          <td>{{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.tiltag.besparelseAarEt' | trans }}</th>
+          <td class="text-right">{{ t.besparelseAarEt | format_zeros }}</td>
+          <td>{{ 'appbundle.tiltag.besparelseAarEt.unit' | trans }}</td>
+
+          <th>{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
+          <td class="text-right">{{ t.simpelTilbagebetalingstidAar | format_zeros }}</td>
+          <td>{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.tiltag.samletCo2besparelse' | trans }}</th>
+          <td class="text-right">{{ t.samletCo2besparelse | format_decimal }}</td>
+          <td>{{ 'appbundle.tiltag.samletCo2besparelse.unit' | trans }}</td>
+
+          <th>{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr' | trans }}</th>
+          <td class="text-right">{{ t.nutidsvaerdiSetOver15AarKr | format_zeros }}</td>
+          <td>{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr.unit' | trans }}</td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h4>Beskrivelse:</h4>
+
+        <h5>Nuværende forhold:</h5>
+        {% if t.beskrivelseNuvaerende is not empty %}
+          <p>{{ t.beskrivelseNuvaerende }}</p>
+        {% else %}
+          <p>--</p>
+        {% endif %}
+
+        <h5>Forslag:</h5>
+        {% if t.beskrivelseForslag is not empty %}
+          <p>{{ t.beskrivelseForslag }}</p>
+        {% else %}
+          <p>--</p>
+        {% endif %}
+
+        <h5>Øvrige bemærkninger:</h5>
+        {% if t.beskrivelseOevrige is not empty %}
+          <p>{{ t.beskrivelseOevrige }}</p>
+        {% else %}
+          <p>--</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h4>Risikovurdering:</h4>
+
+        {% if t.risikovurderingBrugsmoenster or t.risikovurderingDatagrundlag  or t.risikovurderingTeknisk or t.risikovurderingDiverse %}
+          <table class="table-fixed"><tr>
+          {% if t.risikovurderingTeknisk %}
+            <td><strong>{{ 'appbundle.tiltag.risikovurderingTeknisk' | trans }}:</strong> {{ ('common.risikovurdering.' ~ t.risikovurderingTeknisk) | trans }}</td>
+          {% endif %}
+          {% if t.risikovurderingBrugsmoenster %}
+            <td><strong>{{ 'appbundle.tiltag.risikovurderingBrugsmoenster' | trans }}:</strong> {{ ('common.risikovurdering.' ~ t.risikovurderingBrugsmoenster) | trans }}</td>
+          {% endif %}
+          {% if t.risikovurderingDatagrundlag %}
+            <td><strong>{{ 'appbundle.tiltag.risikovurderingDatagrundlag' | trans }}:</strong> {{ ('common.risikovurdering.' ~ t.risikovurderingDatagrundlag) | trans }}</td>
+          {% endif %}
+          {% if t.risikovurderingDiverse %}
+            <td><strong>{{ 'appbundle.tiltag.risikovurderingDiverse' | trans }}:</strong> {{ t.risikovurderingDiverse }}</td>
+          {% endif %}
+            </tr></table>
+          {% if t.risikovurdering is not empty %}
+            <p><strong>{{ 'appbundle.tiltag.risikovurdering' | trans }}:</strong><p>
+            <p>{{ t.risikovurdering }}</p>
+          {% endif %}
+        {% elseif t.risikovurdering is not empty %}
+          <p>{{ t.risikovurdering }}</p>
+        {% else %}
+          <p>--</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h4>Placering jf. oversigtstegning:</h4>
+
+        {% if t.placering is not empty %}
+          <p>{{ t.placering }}</p>
+        {% else %}
+          <p>--</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h4>Beskrivelse af ændringer til D&V udgifter samt fremtidigt timeforbrug for driftspersonale:</h4>
+
+        {% if t.beskrivelseDriftOgVedligeholdelse is not empty %}
+          <p>{{ t.beskrivelseDriftOgVedligeholdelse }}</p>
+        {% else %}
+          <p>--</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="row page-break-after">
+      <div class="col-xs-12">
+        <h4>Indeklima/brugere:</h4>
+
+        {% if t.indeklima is not empty %}
+          <p>{{ t.indeklima }}</p>
+        {% else %}
+          <p>--</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+
+    {% if t.details is not empty %}
+      {% set template = 'AppBundle:' ~ tiltag_type(t) ~ 'Tiltag:_detailTablePdf.html.twig' %}
+
+      <div class="panel panel-default page-break-before">
+        <div class="panel-heading"><h3 class="panel-title">{{ icon('list') }} Skema til: {{ t.title }}</h3></div>
+        {% include template with {'entity': t} %}
+      </div>
+    {% endif %}
+
+  {% endfor %}
+
+  </div>
+
+{% endblock %}

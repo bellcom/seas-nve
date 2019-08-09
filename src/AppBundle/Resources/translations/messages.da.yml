@@ -100,16 +100,16 @@ common:
   your_buildings: Dine bygninger
   your_segments: Dine segmenter
 dashboard:
-  besparelseCO2: CO2 Besparelse
-  besparelseEl: El Besparelse
-  besparelseVarmeGAF: GAF Besparelse
-  besparelseVarmeGUF: GUF Besparelse
+  besparelseCO2: CO2 besparelse
+  besparelseEl: El besparelse
+  besparelseVarmeGAF: GAF besparelse
+  besparelseVarmeGUF: GUF besparelse
   current: Igangværende
   dine_bygninger: Dine bygninger
   finished: Afleverede
   totalareal: Areal
 title:
-  prefix: Aa+
+  prefix: SEAS-NVE
 
 # Entities
 baseline:
@@ -180,6 +180,52 @@ bygninger:
     singular: Bygning
   strings:
     ingen: Ingen bygninger fundet
+bygning_rapporter:
+  labels:
+    plural: Bygning rapporter
+    singular: Bygning rapport
+  actions:
+    add: Tilføj Bygning rapport
+    approve: Godkendt Magistrat
+    approve_confirm: Er du sikker på du vil markere bygning rapporten som "Godkendt af Magistrat"?
+    create: Opret Bygning rapport
+    download_files: Hent alle bilag og filer
+    edit: Baseline og energibudget
+    filer: Filer
+    implementation: Under udførsel
+    implementation_confirm: Er du sikker på du vil markere rapporten som "Under udførsel"?
+    operation: Drift
+    operation_confirm: Er du sikker på du vil markere bygningen som i drift?
+    pdf2: Resultatoversigt
+    pdf5: Detailark
+    re-calculate: Genberegn
+    retur: Retur til rådgiver
+    retur_confirm: Er du sikker på du vil sende bygning repporten retur til rådgiveren?
+    show: Vis Bygning rapport
+    submit: Aflever Bygning rapport
+    submit_confirm: Er du sikker på du vil aflevere bygning rapporten?
+    verify: Aa+ Verificeret
+    verify_confirm: Er du sikker på du vil verificerer bygning rapporten?
+  confirmation:
+    approved: Bygning rapport markeret som "Godkendt af Magistrat"
+    implementation: Bygning rapport markeret som "Under udførsel"
+    operation: Bygningen markeret som i drift
+    re-calculate: Er du sikker på du vil genberegne bygning rapporten?
+    retur: Bygning rapport returneret til rådgiver
+    submitted: Bygning rapport afleveret til Aa+
+    verified: Bygning rapport verificeret af Aa+
+  messages:
+    no_files: Bygning rapporten har ingen filer tilknyttet
+  strings:
+    belysningtiltag: Belysning
+    klimaskaermtiltag: Klimaskærm
+    pumpetiltag: Pumper
+    solcelletiltag: Solcelle
+    specialtiltag: Special
+    tekniskisoleringtiltag: Teknisk isolering
+    tiltag: Tiltag
+    tilvalgt: Tilvalgt
+    vinduetiltag: Vindue
 configuration:
   actions:
     edit: Rediger indstillinger
@@ -367,52 +413,9 @@ pumpetiltagdetail:
     create: Opret Pumpetiltag
     edit: Rediger Pumpetiltag
 rapporter:
-  actions:
-    add: Tilføj Rapport
-    approve: Godkendt Magistrat
-    approve_confirm: Er du sikker på du vil markere rapporten som "Godkendt af Magistrat"?
-    create: Opret Rapport
-    download_files: Hent alle bilag og filer
-    edit: Baseline og energibudget
-    filer: Filer
-    implementation: Under udførsel
-    implementation_confirm: Er du sikker på du vil markere rapporten som "Under udførsel"?
-    operation: Drift
-    operation_confirm: Er du sikker på du vil markere bygningen som i drift?
-    pdf2: Resultatoversigt
-    pdf5: Detailark
-    re-calculate: Genberegn
-    retur: Retur til rådgiver
-    retur_confirm: Er du sikker på du vil sende repporten retur til rådgiveren?
-    show: Vis Rapport
-    submit: Aflever Rapport
-    submit_confirm: Er du sikker på du vil aflevere rapporten?
-    verify: Aa+ Verificeret
-    verify_confirm: Er du sikker på du vil verificerer rapporten?
-  confirmation:
-    approved: Rapport markeret som "Godkendt af Magistrat"
-    implementation: Rapport markeret som "Under udførsel"
-    operation: Bygningen markeret som i drift
-    re-calculate: Er du sikker på du vil genberegne rapporten?
-    retur: Rapport returneret til rådgiver
-    submitted: Rapport afleveret til Aa+
-    verified: Rapport verificeret af Aa+
   labels:
-    detailark: Detailark
     plural: Rapporter
     singular: Rapport
-  messages:
-    no_files: Rapporten har ingen filer tilknyttet
-  strings:
-    belysningtiltag: Belysning
-    klimaskaermtiltag: Klimaskærm
-    pumpetiltag: Pumper
-    solcelletiltag: Solcelle
-    specialtiltag: Special
-    tekniskisoleringtiltag: Teknisk isolering
-    tiltag: Tiltag
-    tilvalgt: Tilvalgt
-    vinduetiltag: Vindue
 segment:
   actions:
     add: Tilføj segment
@@ -514,7 +517,7 @@ udtraek:
     alt: Alt (Uden tiltag)
     bygningsinformation: Bygningsinformation
     baselineinformation: Baselineinformation
-    aa_screeningsinformation: Aa+/Screeningsinformation
+    aa_screeningsinformation: Screeningsinformation
     besparelsesinformation: Besparelsesinformation (Energi + Økonomi)
     oekonomi: Økonomi (Set over 30 år)
   types:
@@ -567,6 +570,24 @@ virksomhed:
     singular: Virksomhed
   error:
     in_use: Kan ikke slettes. Bruges af bygning.
+virksomhed_rapporter:
+  actions:
+    create: Opret Virksomhed rapport
+    download_files: Hent alle bilag og filer
+    edit: Baseline og energibudget
+    filer: Filer
+    pdf2: Resultatoversigt
+    pdf5: Detailark
+    re-calculate: Genberegn
+    show: Vis Virksomhed rapport
+  labels:
+    detailark: Detailark
+    plural: Virksomhed rapporter
+    singular: Virksomhed rapport
+  confirmation:
+    re-calculate: Er du sikker på du vil genberegne bygning rapporten?
+  messages:
+    no_files: Rapporten har ingen filer tilknyttet
 
 # Forms - We follow the formbuilders form id format
 appbundle:
@@ -826,7 +847,7 @@ appbundle:
     kommentar: Kommentar
     titel: Titel
   bygning:
-    aaplusAnsvarlig: Adminstrator
+    aaplusAnsvarlig: Administrator
     areal: Areal
     adresse: Adresse
     afdelingsnavn: Afdelingsnavn
@@ -919,7 +940,7 @@ appbundle:
       nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Øvrige omkostninger
       nutidsvaerdiInklFaellesomkostninger.unit: kr
       tilvalg: Tilvalg
-      varmetotal: ﻿I alt baseline varme
+      varmetotal: I alt baseline varme
       version: Version
     segment: Segment
     segment.forkortelse: Magistrat (Forkortelse)
@@ -997,7 +1018,7 @@ appbundle:
     enhedspris: Enhedspris
     enhedspris.unit: Kr/kWh
     prisfaktor: Prisfaktor
-    nyEnhedspris: Ny enhedsp.
+    nyEnhedspris: Ny enhedspris
     nyEnhedspris.unit: Kr/kWh
     forsyningsvaerk: Forsyningsværk
     beskrivelse: Beskrivelse
@@ -1008,7 +1029,7 @@ appbundle:
       fordeling.unit: %
       navn: Navn
       prisgrundlag: Prisgrundlag
-    internProduktioner: Interne produktioner
+    internProduktioner: Egne produktioner
     internProduktioner.0:
       effektivitet: Effektivitet
       effektivitet.unit: %
@@ -1478,11 +1499,11 @@ appbundle:
     interneDriftomkostninger.unit: kr
     internRenteInklFaellesomkostninger: Intern rente inkl. øvrige omkostninger
     internRenteInklFaellesomkostninger.unit: %
-    investeringEksFaellesomkostninger: Aa+ Investering eksl. øvrige omkostninger
+    investeringEksFaellesomkostninger: Investering eksl. øvrige omkostninger
     investeringEksFaellesomkostninger.unit: kr
     investeringEkslFaelles: Investering eksl. øvrige omkostninger
     investeringEkslFaelles.unit: Kr
-    investeringInklFaellesomkostninger: Aa+ Investering inkl. øvrige omkostninger
+    investeringInklFaellesomkostninger: Investering inkl. øvrige omkostninger
     investeringInklFaellesomkostninger.unit: kr
     laanLoebetid: Løbetid på lån
     laanLoebetid.unit: år
@@ -1502,7 +1523,7 @@ appbundle:
     status.ava: AVA-støtte
     sum: Sum
     sum.unit: kr
-    sumOevrige: Sum, Aa+ investering inkl. øvrige omkostninger
+    sumOevrige: Sum, investering inkl. øvrige omkostninger
     sumOevrige.unit: kr
     tiltag: Tiltag
     tilvalg: Tilvalg
@@ -1642,7 +1663,7 @@ appbundle:
     varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering
     varmeledningsevnePaaNyIsoleringWMK.unit: W/m·K
   tiltag:
-    aaplusInvestering: Aa+ investering eksl. øvrige omkostninger
+    aaplusInvestering: Investering eksl. øvrige omkostninger
     aaplusInvestering.unit: kr
     anlaegsInvestering: ﻿Entreprisesum
     anlaegsInvestering.unit: kr
@@ -1863,6 +1884,130 @@ appbundle:
     inflation: Inflation
     lobetid: Løbetid
     evtPNumber: Evt. P-nummer
+  virksomhed_rapport:
+    ava: AVA
+    anlaegsinvestering.unit: kr
+    BaselineCO2El: Baseline CO2 EL 2009
+    BaselineCO2El.unit: t/år
+    BaselineCO2Varme: Baseline CO2 Varme 2009
+    BaselineCO2Varme.unit: t/år
+    BaselineEl: El
+    BaselineEl.unit: kwh/år
+    BaselineStrafAfkoeling: Strafafkøling
+    BaselineStrafAfkoeling.unit: kr/år
+    BaselineVand: Vand
+    BaselineVand.unit: m3/år
+    BaselineVarme: Varme
+    BaselineVarme.unit: kWh/år
+    BaselineVarmeGAF: Baseline Varme GAF
+    BaselineVarmeGAF.unit: kwh/år
+    BaselineVarmeGUF: Baseline Varme GUF
+    BaselineVarmeGUF.unit: kwh/år
+    besparelseAarEt: Økonomisk besparelse i år 1
+    besparelseAarEt.unit: kr
+    besparelseAarEtPdf: Økonomisk besparelse i år 1 (inkl. D&V-besparelse)
+    besparelseAarEtPdf.unit: kr
+    besparelseAarEt: Samlet besparelse i kr i år 1
+    besparelseAarEt.unit: kr/år
+    besparelseCO2: Samlet CO2
+    besparelseCO2el: El
+    besparelseCO2el.unit: t/år
+    besparelseCO2relative: CO2 besparelse i % ift. baseline
+    besparelseCO2relative.unit: %
+    besparelseCO2.unit: t/år
+    besparelseCO2varme: Varme
+    besparelseCO2varme.unit: t/år
+    besparelseEl: El
+    besparelseEl.unit: kWh/år
+    besparelseVarme: Varme
+    besparelseVarme.unit: kwh/år
+    besparelseVarmeGAF: Varme GAF
+    besparelseVarmeGAF.unit: kwh/år
+    besparelseVarmeGUF: Varme GUF
+    besparelseVarmeGUF.unit: kwh/år
+    bilag:
+      updated_by: Redigeret af
+      updated_at: Redigeringstidspunkt
+      filepath: Fil
+      kommentar: Kommentar
+      titel: Titel
+    cashFlow: Cashflow (30 år)
+    cashFlow15: Cashflow (15 år)
+    co2besparelser: CO2 Besparelser
+    co2BesparelseEl: CO2 Besparelse El
+    co2BesparelseVarme: CO2 Besparelse Varme
+    co2BesparelseFaktor: Samlede CO2 Besparelser (%)
+    co2BesparelseElFaktor: El
+    co2BesparelseElFaktor.unit: %
+    co2BesparelseSamletFaktor: Samlet CO2
+    co2BesparelseSamletFaktor.unit: %
+    co2BesparelseVarmeFaktor: Varme
+    co2BesparelseVarmeFaktor.unit: %
+    datering: Screeningsdato
+    elena: Elena
+    energibesparelser: Energibesparelser
+    energibudgetEl: Energibudget, el
+    energibudgetEl.unit: kWh/år
+    energibudgetVarme: Energibudget, varme
+    energibudgetVarme.unit: kWh/år
+    Energiscreening: Energiscreening
+    Energiscreening.unit: Kr
+    energiscreening: Energiscreening
+    energiscreening.unit: kr
+    faellesomkostninger: Øvrige omkostninger
+    faellesomkostninger.unit: kr
+    faktorPaaVarmebesparelse: Faktor på varmebesparelse
+    fravalg: Fravalg
+    fravalgtBesparelseDriftOgVedligeholdelse: Sum af D & V Besparelser
+    fravalgtBesparelseDriftOgVedligeholdelse.unit: kr
+    fravalgtImplementering: Fravalgt implementering
+    genopretning: Genopretning
+    genopretning.unit: kr
+    genopretningForImplementeringsomkostninger: Genopretning for implementeringsomkostninger
+    genopretningForImplementeringsomkostninger.unit: kr
+    genopretningsandel: Genopretningsandel
+    genopretningsandel.unit: kr
+    implementering: Implementering
+    implementering.unit: kr
+    interneDriftomkostninger: Interne Driftomkostninger
+    interneDriftomkostninger.unit: kr
+    internRenteInklFaellesomkostninger: Intern rente inkl. øvrige omkostninger
+    internRenteInklFaellesomkostninger.unit: %
+    investeringEksFaellesomkostninger: Investering eksl. øvrige omkostninger
+    investeringEksFaellesomkostninger.unit: kr
+    investeringEkslFaelles: Investering eksl. øvrige omkostninger
+    investeringEkslFaelles.unit: Kr
+    investeringInklFaellesomkostninger: Investering inkl. øvrige omkostninger
+    investeringInklFaellesomkostninger.unit: kr
+    laanLoebetid: Løbetid på lån
+    laanLoebetid.unit: år
+    laanRente: Rente på lån
+    likviditetsoversigt: Likviditetsoversigt
+    modernisering: Modernisering
+    modernisering.unit: kr
+    mtmFaellesomkostninger: MTM Fællesomkostninger
+    mtmFaellesomkostninger.unit: kr
+    nutidsvaerdi: Nutidsværdi
+    nutidsvaerdi.unit: kr
+    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. øvrige omkostninger
+    nutidsvaerdiInklFaellesomkostninger.unit: kr
+    nutidsvaerdiSetOver15AarKr: Nutidsværdi over 15 år
+    oevrigeOmkostninger: Øvrige omkostninger
+    samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
+    status.ava: AVA-støtte
+    sum: Sum
+    sum.unit: kr
+    sumOevrige: Sum, investering inkl. øvrige omkostninger
+    sumOevrige.unit: kr
+    timeforbrug: Forventet timeforbrug for lokalpersonalet
+    timeforbrug.unit: kr
+    totalEntreprisesum: Total Entreprisesum
+    totalEntreprisesum.unit: kr
+    varmetotal: ﻿I alt baseline varme
+    version: Iteration
+    virksomhed: Virksomhed
+    virksomhed.areal: Areal
+    virksomhed.areal.unit: m²
 
   fil:
     createdAt: Oprettet
@@ -1976,3 +2121,6 @@ roles:
     ROLE_VIRKSOMHED_CREATE: Opret virksomhed
     ROLE_VIRKSOMHED_EDIT: Rediger virksomhed
     ROLE_VIRKSOMHED_VIEW: Vis virksomhed
+    ROLE_VIRKSOMHED_RAPPORT_CREATE: Opret virksomhed rapport
+    ROLE_VIRKSOMHED_RAPPORT_EDIT: Rediger virksomhed rapport
+    ROLE_VIRKSOMHED_RAPPORT_VIEW: Vis virksomhed rapport

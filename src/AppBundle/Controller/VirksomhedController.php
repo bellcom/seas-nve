@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\VirksomhedRapport;
+use AppBundle\Form\Type\VirksomhedCreateRapportType;
 use AppBundle\Form\Type\VirksomhedFilterType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -294,4 +296,82 @@ class VirksomhedController extends BaseController
             ->getForm()
         ;
     }
+
+    /**
+     * Get/Create Virksomhed rapport action.
+     *
+     * @Route("/{id}/rapport", name="virksomhed_get_rapport")
+     * @Method("GET")
+     * @Template("AppBundle:Virksomhed:create_rapport.html.twig")
+     */
+    public function reportAction(Virksomhed $virksomhed) {
+        $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+
+        $rapport = $virksomhed->getRapport();
+        if(empty($rapport)) {
+            $virksomhed->setRapport(new VirksomhedRapport());
+            $this->breadcrumbs->addItem('virksomhed.actions.create_rapport');
+            $createForm = $this->createRapportForm($virksomhed);
+            return array(
+                'entity' => $virksomhed,
+                'create_form' => $createForm->createView(),
+            );
+        }
+        return $this->redirect($this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+    }
+
+    /**
+     * Create Virksomhed rapport entity.
+     *
+     * @Route("/{id}/rapport", name="virksomhed_create_rapport")
+     * @Method("PUT")
+     * @Template("AppBundle:Virksomhed:create_rapport.html.twig")
+     */
+    public function reportCreateAction(Request $request, Virksomhed $virksomhed) {
+        $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+        $this->breadcrumbs->addItem('virksomhed.actions.create_rapport');
+
+        if(!$virksomhed->getRapport()) {
+            $rapport = new VirksomhedRapport();
+            $rapport->setVirksomhed($virksomhed);
+        }
+
+        $editForm = $this->createRapportForm($virksomhed);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $this->flash->success('virksomhed.confirmation.rapport_created');
+
+            return $this->redirect($this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+        }
+
+        $this->flash->error('common.form_error');
+
+        return array(
+            'entity' => $virksomhed,
+            'create_form' => $editForm->createView(),
+        );
+    }
+
+    /**
+     * Creates a form to edit a Virksomhed entity.
+     *
+     * @param Virksomhed $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createRapportForm(Virksomhed $entity) {
+        $form = $this->createForm(new VirksomhedCreateRapportType(), $entity, array(
+            'action' => $this->generateUrl('virksomhed_create_rapport', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_show', array('id' => $entity->getId())));
+
+        return $form;
+    }
+
 }
