@@ -54,11 +54,10 @@
     </div>
     <div class="col-md-10 text-right">
       {% if calculate_form and is_granted('VIRKSOMHED_RAPPORT_EDIT', entity) %}
-        {% set calculation_btn_icon = 'calculator' %}
         {% if calculation_changes is defined and calculation_changes is not empty%}
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( calculation_btn_icon ) }} {{ 'virksomhed_rapporter.actions.re-calculate' | trans }}</button>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( 'calculator' ) }} {{ 'virksomhed_rapporter.actions.re-calculate' | trans }}</button>
         {% else %}
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( calculation_btn_icon ) }} {{ 'virksomhed_rapporter.actions.re-calculate' | trans }}</button>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( 'calculator' ) }} {{ 'virksomhed_rapporter.actions.re-calculate' | trans }}</button>
         {% endif %}
       {% endif %}
 

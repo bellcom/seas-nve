@@ -6,7 +6,6 @@ use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\VirksomhedCreateRapportType;
 use AppBundle\Form\Type\VirksomhedFilterType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -278,7 +277,7 @@ class VirksomhedController extends BaseController
      */
     private function createDeleteForm($virksomhed)
     {
-        $bygnings = $virksomhed->getBygnings();
+        $bygnings = $virksomhed->getBygninger();
         $message = NULL;
         if (!empty($bygnings)) {
             $message = 'virksomhed.error.in_use';

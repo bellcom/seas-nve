@@ -110,6 +110,11 @@ class Virksomhed
     private $evtPNumber;
 
     /**
+     * @ORM\OneToMany(targetEntity="Bygning", mappedBy="virksomhed")
+     */
+    private $bygninger;
+
+    /**
      * Get id
      *
      * @return integer
@@ -432,16 +437,30 @@ class Virksomhed
         return $this->evtPNumber;
     }
 
-    public function getBygnings() {
-        global $kernel;
-        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
-        $repository = $em->getRepository('AppBundle:Bygning');
-        return $repository->findBy(array('virksomhed' => $this->getId()));
+
+    /**
+     * Set bygninger
+     *
+     * @return Virksomhed
+     */
+    public function setBygninger($bygninger) {
+        $this->bygninger = $bygninger;
+
+        return $this;
     }
 
-    public function getBygningsAreal() {
+    /**
+     * Get bygninger
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBygninger() {
+        return $this->bygninger;
+    }
+
+    public function getBygningerAreal() {
         $areal = 0;
-        $bygnings = $this->getBygnings();
+        $bygnings = $this->getBygninger();
         /** @var Bygning $bygning */
         foreach ($bygnings as $bygning) {
             $areal += $bygning->getAreal();
