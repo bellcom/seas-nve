@@ -20,22 +20,14 @@
     <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.name' | trans, 'v.name') }}</th>
     <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.address' | trans, 'v.address') }}</th>
     <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.cvrNumber' | trans, 'v.cvrNumber') }}</th>
-    <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.branchCode' | trans, 'v.branchCode') }}</th>
-    <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.contactPerson' | trans, 'v.contactPerson') }}</th>
     <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.customerNumber' | trans, 'v.customerNumber') }}</th>
-    <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.phoneNumber' | trans, 'v.phoneNumber') }}</th>
-    <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.evtPNumber' | trans, 'v.evtPNumber') }}</th>
     <th class="text-right"></th>
   </tr>
   <tr class="search">
     <th>{{ form_row(form.name) }}</th>
     <th>{{ form_row(form.address) }}</th>
     <th>{{ form_row(form.cvrNumber) }}</th>
-    <th>{{ form_row(form.branchCode) }}</th>
-    <th>{{ form_row(form.contactPerson) }}</th>
     <th>{{ form_row(form.customerNumber) }}</th>
-    <th>{{ form_row(form.phoneNumber) }}</th>
-    <th>{{ form_row(form.evtPNumber) }}</th>
     <th>{{ form_row(form.Søg) }}</th>
   </tr>
   </thead>
@@ -45,11 +37,7 @@
     <td>{{ entity.name }}</td>
     <td>{{ entity.address }}</td>
     <td>{{ entity.cvrNumber }}</td>
-    <td>{{ entity.branchCode }}</td>
-    <td>{{ entity.contactPerson }}</td>
     <td>{{ entity.customerNumber }}</td>
-    <td>{{ entity.phoneNumber }}</td>
-    <td>{{ entity.evtPNumber }}</td>
     <td class="text-right">
       <a class="btn btn-default btn-xs" href="{{ path('virksomhed_show', { 'id': entity.id }) }}">{{ 'common.show' | trans }}</a>
     </td>

@@ -12,22 +12,6 @@
 
   </div>
 
-  {{ form_start(edit_form) }}
-    {{ form_row(edit_form.name)}}
-    {{ form_row(edit_form.address)}}
-    {{ form_row(edit_form.cvrNumber)}}
-    {{ form_row(edit_form.branchCode)}}
-    {{ form_row(edit_form.contactPerson)}}
-    {{ form_row(edit_form.customerNumber)}}
-    {{ form_row(edit_form.phoneNumber)}}
-    {{ form_row(edit_form.subsidyLevel)}}
-    {{ form_row(edit_form.kalkulationsrente)}}
-    {{ form_row(edit_form.inflation)}}
-    {{ form_row(edit_form.lobetid)}}
-    {{ form_row(edit_form.evtPNumber)}}
+  {% include 'AppBundle:Virksomhed:_form.html.twig' with { 'form': edit_form } %}
 
-    {{ form_rest(edit_form) }}
-
-  {{ form_end(edit_form) }}
-
-    {% endblock %}
+  {% endblock %}

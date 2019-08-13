@@ -58,6 +58,27 @@ class Bygning {
    */
   protected $bygId;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cvr_number", type="string", length=255, nullable=true)
+     */
+    private $cvrNumber;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ean_number", type="string", length=255, nullable=true)
+     */
+    private $eanNumber;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="p_number", type="string", length=255, nullable=true)
+     */
+    private $pNumber;
+
   /**
    * @var integer
    *
@@ -200,7 +221,7 @@ class Bygning {
 
   /**
    * @ManyToOne(targetEntity="Virksomhed")
-   * @JoinColumn(name="virksomhed_id", referencedColumnName="id")
+   * @JoinColumn(name="virksomhed_id", referencedColumnName="id", nullable=true)
    **/
   protected $virksomhed;
 
@@ -305,6 +326,78 @@ class Bygning {
   public function getBygId() {
     return $this->bygId;
   }
+
+    /**
+     * Set cvrNumber
+     *
+     * @param string $cvrNumber
+     *
+     * @return Bygning
+     */
+    public function setCvrNumber($cvrNumber)
+    {
+        $this->cvrNumber = $cvrNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get cvrNumber
+     *
+     * @return string
+     */
+    public function getCvrNumber()
+    {
+        return $this->cvrNumber;
+    }
+
+    /**
+     * Set eanNumber
+     *
+     * @param string $eanNumber
+     *
+     * @return Bygning
+     */
+    public function setEanNumber($eanNumber)
+    {
+        $this->eanNumber = $eanNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get eanNumber
+     *
+     * @return string
+     */
+    public function getEanNumber()
+    {
+        return $this->eanNumber;
+    }
+
+    /**
+     * Set pNumber
+     *
+     * @param string $pNumber
+     *
+     * @return Bygning
+     */
+    public function setPNumber($pNumber)
+    {
+        $this->pNumber = $pNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get pNumber
+     *
+     * @return string
+     */
+    public function getPNumber()
+    {
+        return $this->pNumber;
+    }
 
   /**
    * Set OpfoerselsAar

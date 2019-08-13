@@ -565,11 +565,20 @@ virksomhed:
   actions:
     add: Tilføj Virksomhed
     edit: Rediger Virksomhed
+    create_rapport: Opret virksomhed rapport
   labels:
     plural: Virksomheder
     singular: Virksomhed
   error:
     in_use: Kan ikke slettes. Bruges af bygning.
+  confirmation:
+    rapport_created: Nyt virksomhed rapport oprettet
+  messages:
+    empty:
+      contactPersons: Ingen kontaktpersoner
+      datterSelskaber: Ingen datterselskaber
+      eanNumbers: Ingen EAN nummere
+      pNumbers: Ingen P nummere
 virksomhed_rapporter:
   actions:
     create: Opret Virksomhed rapport
@@ -878,6 +887,9 @@ appbundle:
     postnummer: Postnummer
     projekterende: Projekterende
     projektleder: Projektleder
+    cvrNumber: CVR nummer
+    pNumber: P Nummer
+    eanNumber: EAN nummer
     rapport:
       BaselineEl: El
       BaselineEl.unit: kwh/år
@@ -1872,18 +1884,51 @@ appbundle:
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
   virksomhed:
-    name: Navn
-    address: Adresse
-    cvrNumber: CVR-nr
-    branchCode: Branchkode
-    contactPerson: Kontaktperson
+    generalt: Generalt information
+    name: Firma navn
+    cvrNumber: CVR nummer
+    pNumbers: P Nummers
+    eanNumbers: EAN nummers
+    crmNumber: CRM nummer
+    projectNumber: Projekt nummer
+    aftagerNumber: Aftager nummer
+    datterSelskaber: Datter selskaber
+    typeName: Type navn
+    firma_adresse: Firma adresse
+    kommune: Kommune
+    region: Region
+    by: By
+    address: Adesse
+    postnummer: Postnummer
+    contactPersons: Kontaktpersons
+    contactPersons.0:
+      name: Navn
+      phoneNumber: Telefon
+      mail: Mail adresse
+    contactPersons...name..:
+      name: Navn
+      phoneNumber: Telefon
+      mail: Mail adresse
+    rapport: Rapport
     customerNumber: Kundenummer
-    phoneNumber: Telefonnummer
-    subsidyLevel: Tilskuds niveau
+    beregn_oplysninger: Beregning oplysninger
+    naceCode: Nace kode
+    dsmCode: DSM Kode
+    energyPrice: Priser på energi
+    subsidySize: Tilskudsstørrelse
+    erhvervsAreal: Erhvervsareal
+    opvarmetAreal: Opvarmet areal
+    aarsVaerk: Årsværk
+    forbrug: Forbrug
+    er: ER
+    kam: KAM
     kalkulationsrente: Kalkulationsrente
     inflation: Inflation
     lobetid: Løbetid
-    evtPNumber: Evt. P-nummer
+    create:
+      rapport:
+        rapport:
+          datering: Rapport dato
   virksomhed_rapport:
     ava: AVA
     anlaegsinvestering.unit: kr

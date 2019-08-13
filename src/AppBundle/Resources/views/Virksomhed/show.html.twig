@@ -20,61 +20,198 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
       <div class="panel panel-default">
-        <div class="panel-heading">{{ icon('chevron-right') }} {{ 'virksomhed.labels.singular' | trans }}</div>
-        <table class="table table-condensed">
+        <div class="panel-heading">{{ icon('briefcase') }} {{ 'appbundle.virksomhed.generalt' | trans }}</div>
+        <table class="table table-condensed th-vertical">
           <tbody>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.name' | trans }}</th>
+            <td>{{ entity.name }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.cvrNumber' | trans }}</th>
+            <td>{{ entity.cvrNumber }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.eanNumbers' | trans }}</th>
+            <td>
+              {% if entity.getEanNumbers() %}
+                <ul>
+                  {% for eanNumber in entity.getEanNumbers() %}
+                    <li>{{ eanNumber }}</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                {{ 'virksomhed.messages.empty.eanNumbers' | trans }}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.pNumbers' | trans }}</th>
+            <td>
+              {% if entity.getEanNumbers() %}
+                <ul>
+                  {% for pNumber in entity.getPNumbers() %}
+                    <li>{{ pNumber }}</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                {{ 'virksomhed.messages.empty.pNumbers' | trans }}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.crmNumber' | trans }}</th>
+            <td>{{ entity.crmNumber }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.customerNumber' | trans }}</th>
+            <td>{{ entity.customerNumber }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.projectNumber' | trans }}</th>
+            <td>{{ entity.projectNumber }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.aftagerNumber' | trans }}</th>
+            <td>{{ entity.aftagerNumber }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.typeName' | trans }}</th>
+            <td>{{ entity.typeName }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.virksomhed.firma_adresse' | trans }}</div>
+          <table class="table table-condensed th-vertical">
+            <tbody>
             <tr>
-              <th>{{ 'appbundle.virksomhed.name' | trans }}</th>
-                <td>{{ entity.name }}</td>
+              <th>{{ 'appbundle.virksomhed.kommune' | trans }}</th>
+              <td>{{ entity.kommune }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.region' | trans }}</th>
+              <td>{{ entity.region }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.by' | trans }}</th>
+              <td>{{ entity.by }}</td>
             </tr>
             <tr>
               <th>{{ 'appbundle.virksomhed.address' | trans }}</th>
-                <td>{{ entity.address }}</td>
+              <td>{{ entity.address }}</td>
             </tr>
             <tr>
-              <th>{{ 'appbundle.virksomhed.cvrNumber' | trans }}</th>
-                <td>{{ entity.cvrNumber }}</td>
+              <th>{{ 'appbundle.virksomhed.postnummer' | trans }}</th>
+              <td>{{ entity.postnummer }}</td>
             </tr>
-            <tr>
-              <th>{{ 'appbundle.virksomhed.branchCode' | trans }}</th>
-                <td>{{ entity.branchCode }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.virksomhed.contactPerson' | trans }}</th>
-                <td>{{ entity.contactPerson }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.virksomhed.customerNumber' | trans }}</th>
-                <td>{{ entity.customerNumber }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.virksomhed.phoneNumber' | trans }}</th>
-                <td>{{ entity.phoneNumber }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.virksomhed.subsidyLevel' | trans }}</th>
-                <td>{{ entity.subsidyLevel }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.virksomhed.kalkulationsrente' | trans }}</th>
-                <td>{{ entity.kalkulationsrente }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.virksomhed.inflation' | trans }}</th>
-                <td>{{ entity.inflation }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.virksomhed.lobetid' | trans }}</th>
-                <td>{{ entity.lobetid }}</td>
-            </tr>
-            <tr>
-              <th>{{ 'appbundle.virksomhed.evtPNumber' | trans }}</th>
-                <td>{{ entity.evtPNumber }}</td>
-            </tr>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('phone') }} {{ 'appbundle.virksomhed.contactPersons' | trans }}</div>
+          {% set contactPersons = entity.getContactPersons() %}
+          {% if contactPersons | length %}
+            <table class="table table-condensed th-vertical">
+              <tbody>
+                <tr>
+                  <th>{{ 'appbundle.virksomhed.contactPersons.0.name' | trans }}</th>
+                  <th>{{ 'appbundle.virksomhed.contactPersons.0.phoneNumber' | trans }}</th>
+                  <th>{{ 'appbundle.virksomhed.contactPersons.0.mail' | trans }}</th>
+                </tr>
+                {% for contactPerson in contactPersons %}
+                  <tr>
+                    <th>{{ contactPerson.name }}</th>
+                    <td>{{ contactPerson.phoneNumber }}</td>
+                    <td>{{ contactPerson.mail }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <div class="panel-body">
+              {{ 'virksomhed.messages.empty.contactPersons' | trans }}
+            </div>
+          {% endif %}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('briefcase') }} {{ 'appbundle.virksomhed.datterSelskaber' | trans }}</div>
+        <div class="panel-body">
+          {% set datterSelskaber = entity.getDatterSelskaber() %}
+          {% if datterSelskaber | length %}
+            <ul>
+              {% for datterSelskab in datterSelskaber %}
+                <li><a href="{{ path('virksomhed_show', { 'id': datterSelskab.id }) }}">{{ datterSelskab }}</a></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            {{ 'virksomhed.messages.empty.datterSelskaber' | trans }}
+          {% endif %}
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.virksomhed.beregn_oplysninger' | trans }}</div>
+        <table class="table table-condensed th-vertical">
+          <tbody>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.naceCode' | trans }}</th>
+            <td>{{ entity.naceCode }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.dsmCode' | trans }}</th>
+            <td>{{ entity.dsmCode }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.energyPrice' | trans }}</th>
+            <td>{{ entity.energyPrice }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.subsidySize' | trans }}</th>
+            <td>{{ entity.subsidySize }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.erhvervsAreal' | trans }}</th>
+            <td>{{ entity.erhvervsAreal }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.opvarmetAreal' | trans }}</th>
+            <td>{{ entity.opvarmetAreal }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.opvarmetAreal' | trans }}</th>
+            <td>{{ entity.opvarmetAreal }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.forbrug' | trans }}</th>
+            <td>{{ entity.forbrug }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.er' | trans }}</th>
+            <td>{{ entity.er }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.kam' | trans }}</th>
+            <td>{{ entity.kam }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.kalkulationsrente' | trans }}</th>
+            <td>{{ entity.kalkulationsrente }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.inflation' | trans }}</th>
+            <td>{{ entity.inflation }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.lobetid' | trans }}</th>
+            <td>{{ entity.lobetid }}</td>
+          </tr>
+        </tbody>
+      </table>
       </div>
     </div>
   </div>

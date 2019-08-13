@@ -1,0 +1,113 @@
+{{ form_start(form, { 'style': 'horizontal' }) }}
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('briefcase') }} {{ 'appbundle.virksomhed.generalt' | trans }}</div>
+            <div class="panel-body">
+                {{ form_row(form.name)}}
+                {{ form_row(form.cvrNumber)}}
+                {{ form_row(form.crmNumber)}}
+                {{ form_row(form.customerNumber)}}
+                {{ form_row(form.projectNumber)}}
+                {{ form_row(form.aftagerNumber)}}
+                {{ form_row(form.typeName)}}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('phone') }} {{ 'appbundle.virksomhed.eanNumbers' | trans }}</div>
+            <div class="panel-body">
+                <div class="ean_numbers wrapper" data-prototype="{{ form_widget(form.eanNumbers.vars.prototype)|e('html_attr') }}">
+                    {% for eanNumber in form.eanNumbers %}
+                        <div class="row form-group">
+                            <div class="col-sm-10">
+                                {{ form_widget(eanNumber) }}
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% do form.eanNumbers.setRendered %}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('phone') }} {{ 'appbundle.virksomhed.pNumbers' | trans }}</div>
+            <div class="panel-body">
+                <div class="p_numbers wrapper" data-prototype="{{ form_widget(form.pNumbers.vars.prototype)|e('html_attr') }}">
+                    {% for pNumber in form.pNumbers %}
+                        <div class="row form-group">
+                            <div class="col-sm-10">
+                                {{ form_widget(pNumber) }}
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% do form.pNumbers.setRendered %}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.virksomhed.firma_adresse' | trans }}</div>
+            <div class="panel-body">
+                {{ form_row(form.kommune)}}
+                {{ form_row(form.region)}}
+                {{ form_row(form.byNavn)}}
+                {{ form_row(form.address)}}
+                {{ form_row(form.postnummer)}}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('phone') }} {{ 'appbundle.virksomhed.contactPersons' | trans }}</div>
+            <div class="panel-body">
+                <div class="contact_persons wrapper" data-prototype="{{ form_widget(form.contactPersons.vars.prototype)|e('html_attr') }}">
+                    {% for contactPerson in form.contactPersons %}
+                        <div class="row form-group">
+                            <div class="col-sm-10">
+                                {{ form_widget(contactPerson) }}
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% do form.contactPersons.setRendered %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('briefcase') }} {{ 'appbundle.virksomhed.datterSelskaber' | trans }}</div>
+            <div class="panel-body">
+                <div class="datter_selskaber wrapper" data-prototype="{{ form_widget(form.datterSelskaber.vars.prototype)|e('html_attr') }}">
+                    {% for datterSelskab in form.datterSelskaber %}
+                        <div class="row form-group">
+                            <div class="col-sm-10">
+                                {{ form_widget(datterSelskab) }}
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% do form.datterSelskaber.setRendered %}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.virksomhed.beregn_oplysninger' | trans }}</div>
+            <div class="panel-body">
+                {{ form_row(form.naceCode)}}
+                {{ form_row(form.dsmCode)}}
+                {{ form_row(form.energyPrice)}}
+                {{ form_row(form.subsidySize)}}
+                {{ form_row(form.erhvervsAreal)}}
+                {{ form_row(form.opvarmetAreal)}}
+                {{ form_row(form.aarsVaerk)}}
+                {{ form_row(form.forbrug)}}
+                {{ form_row(form.er)}}
+                {{ form_row(form.kam)}}
+                {{ form_row(form.kalkulationsrente)}}
+                {{ form_row(form.inflation)}}
+                {{ form_row(form.lobetid)}}
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}

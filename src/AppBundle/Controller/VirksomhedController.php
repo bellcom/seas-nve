@@ -2,9 +2,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Bygning;
+use AppBundle\Entity\ContactPerson;
 use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\VirksomhedCreateRapportType;
 use AppBundle\Form\Type\VirksomhedFilterType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -12,7 +15,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\VirksomhedType;
-use AppBundle\Controller\BaseController;
 
 /**
  * Virksomhed controller.
@@ -100,10 +102,17 @@ class VirksomhedController extends BaseController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $bygninger = $em->getRepository(Bygning::class)->findByNumbers($entity);
+            $entity->setBygninger(new ArrayCollection());
+            foreach ($bygninger as $bygning) {
+                $entity->addBygninger($bygning);
+            }
+
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('virksomhed'));
+            return $this->redirect($this->generateUrl('virksomhed_show', array('id' => $entity->getId())));
 
         }
 
@@ -125,6 +134,7 @@ class VirksomhedController extends BaseController
         $form = $this->createForm(new VirksomhedType(), $entity, array(
             'action' => $this->generateUrl('virksomhed_create'),
             'method' => 'POST',
+            'entityManager' => $this->getDoctrine()->getManager(),
         ));
 
         $this->addUpdate($form, $this->generateUrl('virksomhed'));
@@ -208,6 +218,7 @@ class VirksomhedController extends BaseController
         $form = $this->createForm(new VirksomhedType(), $entity, array(
             'action' => $this->generateUrl('virksomhed_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'entityManager' => $this->getDoctrine()->getManager(),
         ));
 
         $this->addUpdate($form, $this->generateUrl('virksomhed_show', array('id' => $entity->getId())));
@@ -224,15 +235,66 @@ class VirksomhedController extends BaseController
      */
     public function updateAction(Request $request, Virksomhed $virksomhed)
     {
+        $em = $this->getDoctrine()->getManager();
+        /** @var Virksomhed $originalVirksomhed */
+        $originalVirksomhed = $em->getRepository(Virksomhed::class)->find($virksomhed->getId());
+
+
+        $originalBygninger = new ArrayCollection();
+        foreach ($originalVirksomhed->getBygninger() as $bygning) {
+            $originalBygninger->add($bygning);
+        }
+
+        $originalContactPersons = new ArrayCollection();
+        foreach ($originalVirksomhed->getContactPersons() as $contactPerson) {
+            $originalContactPersons->add($contactPerson);
+        }
+
+        $originalDatterSelskaber = new ArrayCollection();
+        foreach ($originalVirksomhed->getDatterSelskaber() as $child_virksomhed) {
+            $originalDatterSelskaber->add($child_virksomhed);
+        }
+
         $deleteForm = $this->createDeleteForm($virksomhed);
         $editForm = $this->createEditForm($virksomhed);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+
+            $bygninger = $em->getRepository(Bygning::class)->findByNumbers($virksomhed);
+            $virksomhed->setBygninger(new ArrayCollection());
+            foreach ($bygninger as $bygning) {
+                $virksomhed->addBygninger($bygning);
+            }
+
+            /** @var Bygning $bygning */
+            foreach ($originalBygninger as $bygning) {
+                if (false === $virksomhed->getBygninger()->contains($bygning)) {
+                    $bygning->setVirksomhed(null);
+                    $em->persist($bygning);
+                }
+            }
+
+            /** @var ContactPerson $contactPerson */
+            foreach ($originalContactPersons as $contactPerson) {
+                if (false === $virksomhed->getContactPersons()->contains($contactPerson)) {
+                    $contactPerson->setVirksomhed(null);
+                    $em->persist($contactPerson);
+                    $em->remove($contactPerson);
+                }
+            }
+
+            /** @var Virksomhed $child_virksomhed */
+            foreach ($originalDatterSelskaber as $datter_selskab) {
+                if (false === $virksomhed->getDatterSelskaber()->contains($datter_selskab)) {
+                    $child_virksomhed->setParent(null);
+                    $em->persist($child_virksomhed);
+                }
+            }
+
+            $em->persist($virksomhed);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('virksomhed'));
+            return $this->redirect($this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
         }
 
         return array(
@@ -344,7 +406,7 @@ class VirksomhedController extends BaseController
 
             $this->flash->success('virksomhed.confirmation.rapport_created');
 
-            return $this->redirect($this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+            return $this->redirect($this->generateUrl('virksomhed_rapport_show', array('id' => $virksomhed->getRapport()->getId())));
         }
 
         $this->flash->error('common.form_error');

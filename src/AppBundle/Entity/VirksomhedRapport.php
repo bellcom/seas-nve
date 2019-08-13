@@ -423,7 +423,7 @@ class VirksomhedRapport
     /**
      * @var ArrayCollection $rapporter
      */
-    protected $rapporter;
+    protected $rapporter = array();
 
     /**
      * @var float
@@ -475,6 +475,7 @@ class VirksomhedRapport
     {
         $this->datering = new \DateTime();
         $this->version = 1;
+        $this->rapporter = array();
     }
 
     /**

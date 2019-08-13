@@ -19,11 +19,7 @@ class VirksomhedFilterType extends AbstractType
             ->add('name', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
             ->add('address', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
             ->add('cvrNumber', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
-            ->add('branchCode', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
-            ->add('contactPerson', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
             ->add('customerNumber', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
-            ->add('phoneNumber', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
-            ->add('evtPNumber', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
             ->add('Søg', 'submit');
     }
 
