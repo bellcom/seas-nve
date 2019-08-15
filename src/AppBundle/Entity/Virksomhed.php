@@ -739,6 +739,30 @@ class Virksomhed
     }
 
     /**
+     * Get bygninger
+     *
+     * @return array
+     */
+    public function getAllBygninger() {
+        $bygninger = array();
+        /** @var Bygning $bygning */
+        foreach ($this->getBygninger()as $bygning) {
+            $bygninger[$bygning->getId()] = $bygning;
+        }
+        /** @var Virksomhed $datterSelskab */
+        foreach ($this->getDatterSelskaber() as $datterSelskab) {
+            foreach ($datterSelskab->getBygninger() as $bygning) {
+                if (isset($bygninger[$bygning->getId()])) {
+                    continue;
+                }
+                $bygninger[$bygning->getId()] = $bygning;
+            }
+        }
+
+        return $bygninger;
+    }
+
+    /**
      * Adds bygning to collection.
      *
      * @param Bygning $bygning

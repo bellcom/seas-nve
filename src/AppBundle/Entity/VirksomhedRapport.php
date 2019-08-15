@@ -1709,8 +1709,9 @@ class VirksomhedRapport
             return $this->rapporter;
         }
 
+        $bygninger = $this->getVirksomhed()->getAllBygninger();
         /** @var Bygning $bygning */
-        foreach ($this->getVirksomhed()->getBygninger() as $bygning) {
+        foreach ($bygninger as $bygning) {
             /** @var Rapport */
             $rapport = $bygning->getRapport();
             if (empty($rapport)) {
