@@ -261,8 +261,6 @@ class Bygning {
   protected $users;
 
   /**
-   * @Assert\NotBlank(groups={"DATA_VERIFICERET"})
-   *
    * @ManyToOne(targetEntity="Segment", inversedBy="bygninger")
    * @JoinColumn(name="segment_id", referencedColumnName="id", nullable=true)
    **/
