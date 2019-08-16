@@ -184,6 +184,7 @@ bygning_rapporter:
   labels:
     plural: Bygning rapporter
     singular: Bygning rapport
+    detailark: Detailark
   actions:
     add: Tilføj Bygning rapport
     approve: Godkendt Magistrat
