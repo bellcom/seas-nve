@@ -262,9 +262,10 @@
     {% include 'AppBundle::Rapport/_valgteTiltagTable.html.twig' with {'rapport': entity, 'tiltag': entity.tilvalgteTiltag, 'pdf': false, 'type': 'tilvalg', 'valgt_form_array': tilvalgt_form_array, 'dato_for_drift_form_array': dato_for_drift_form_array } %}
   {% endif %}
 
-
   {% if entity.fravalgteTiltag is not empty %}
+    <span class="hidden">
     {% include 'AppBundle::Rapport/_valgteTiltagTable.html.twig' with {'rapport': entity, 'tiltag': entity.fravalgteTiltag, 'pdf': false, 'type': 'fravalg', 'valgt_form_array': fravalgt_form_array } %}
+    </span>
   {% endif %}
 
   <div class="panel panel-default">
