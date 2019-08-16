@@ -563,38 +563,39 @@ vinduetiltagdetail:
     edit: Rediger vinduestiltag
 virksomhed:
   actions:
-    add: Tilføj Virksomhed
-    edit: Rediger Virksomhed
-    create_rapport: Opret virksomhed rapport
+    add: Tilføj virksomhed
+    edit: Rediger virksomhed
+    create_rapport: Opret virksomhedsrapport
+    choose_by_cvr: Vælg efter CVR-nummer
   labels:
     plural: Virksomheder
     singular: Virksomhed
   error:
-    in_use: Kan ikke slettes. Bruges af bygning.
+    in_use: Kan ikke slettes da den bruges af en bygning.
   confirmation:
-    rapport_created: Nyt virksomhed rapport oprettet
+    rapport_created: Ny virksomhedsrapport er oprettet.
   messages:
     empty:
       contactPersons: Ingen kontaktpersoner
       datterSelskaber: Ingen datterselskaber
-      eanNumbers: Ingen EAN nummere
-      pNumbers: Ingen P nummere
+      eanNumbers: Ingen EAN-numre
+      pNumbers: Ingen P-numre
 virksomhed_rapporter:
   actions:
-    create: Opret Virksomhed rapport
+    create: Opret virksomhedsrapport
     download_files: Hent alle bilag og filer
     edit: Baseline og energibudget
     filer: Filer
     pdf2: Resultatoversigt
     pdf5: Detailark
     re-calculate: Genberegn
-    show: Vis Virksomhed rapport
+    show: Vis virksomhedsrapport
   labels:
     detailark: Detailark
-    plural: Virksomhed rapporter
-    singular: Virksomhed rapport
+    plural: Virksomhedsrapporter
+    singular: Virksomhedsrapport
   confirmation:
-    re-calculate: Er du sikker på du vil genberegne bygning rapporten?
+    re-calculate: Er du sikker på at du vil genberegne bygningsrapporten?
   messages:
     no_files: Rapporten har ingen filer tilknyttet
 
@@ -1884,37 +1885,37 @@ appbundle:
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
   virksomhed:
-    generalt: Generalt information
-    name: Firma navn
-    cvrNumber: CVR nummer
-    pNumbers: P Nummers
-    eanNumbers: EAN nummers
-    crmNumber: CRM nummer
-    projectNumber: Projekt nummer
-    aftagerNumber: Aftager nummer
-    datterSelskaber: Datter selskaber
-    typeName: Type navn
+    generalt: Generel information
+    name: Firmanavn
+    cvrNumber: CVR-nr.
+    pNumbers: P-nr.
+    eanNumbers: EAN-nr.
+    crmNumber: CRM-nr.
+    projectNumber: Projekt nr.
+    aftagerNumber: Aftager nr.
+    datterSelskaber: Datterselskaber
+    typeName: Typenavn
     firma_adresse: Firma adresse
     kommune: Kommune
     region: Region
-    by: By
-    address: Adesse
-    postnummer: Postnummer
-    contactPersons: Kontaktpersons
+    byNavn: By
+    address: Adresse
+    postnummer: Post nr.
+    contactPersons: Kontaktpersoner
     contactPersons.0:
       name: Navn
-      phoneNumber: Telefon
-      mail: Mail adresse
+      phoneNumber: Tlf.
+      mail: E-mail adresse
     contactPersons...name..:
       name: Navn
-      phoneNumber: Telefon
-      mail: Mail adresse
+      phoneNumber: Tlf.
+      mail: E-mail adresse
     rapport: Rapport
-    customerNumber: Kundenummer
-    beregn_oplysninger: Beregning oplysninger
+    customerNumber: Kunde nr.
+    beregn_oplysninger: Beregningsoplysninger
     naceCode: Nace kode
-    dsmCode: DSM Kode
-    energyPrice: Priser på energi
+    dsmCode: DSM kode
+    energyPrice: Energipris
     subsidySize: Tilskudsstørrelse
     erhvervsAreal: Erhvervsareal
     opvarmetAreal: Opvarmet areal
@@ -2014,7 +2015,7 @@ appbundle:
     genopretningsandel.unit: kr
     implementering: Implementering
     implementering.unit: kr
-    interneDriftomkostninger: Interne Driftomkostninger
+    interneDriftomkostninger: Interne driftomkostninger
     interneDriftomkostninger.unit: kr
     internRenteInklFaellesomkostninger: Intern rente inkl. øvrige omkostninger
     internRenteInklFaellesomkostninger.unit: %
@@ -2030,7 +2031,7 @@ appbundle:
     likviditetsoversigt: Likviditetsoversigt
     modernisering: Modernisering
     modernisering.unit: kr
-    mtmFaellesomkostninger: MTM Fællesomkostninger
+    mtmFaellesomkostninger: MTM fællesomkostninger
     mtmFaellesomkostninger.unit: kr
     nutidsvaerdi: Nutidsværdi
     nutidsvaerdi.unit: kr
@@ -2046,7 +2047,7 @@ appbundle:
     sumOevrige.unit: kr
     timeforbrug: Forventet timeforbrug for lokalpersonalet
     timeforbrug.unit: kr
-    totalEntreprisesum: Total Entreprisesum
+    totalEntreprisesum: Total entreprisesum
     totalEntreprisesum.unit: kr
     varmetotal: ﻿I alt baseline varme
     version: Iteration

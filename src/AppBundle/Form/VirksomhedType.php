@@ -80,7 +80,7 @@ class VirksomhedType extends AbstractType
             ->add('datterSelskaber','collection', array(
                 'type' => 'choice',
                 'options'      => array(
-                    'placeholder' => 'None',
+                    'placeholder' => 'virksomhed.actions.choose_by_cvr',
                     'choices' => $virksomheder,
                     'choice_label' => function($virksomhed, $key, $index) {
                         /** @var Virksomhed $virksomhed */

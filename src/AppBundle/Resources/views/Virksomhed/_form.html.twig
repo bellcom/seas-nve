@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="panel panel-default">
-            <div class="panel-heading">{{ icon('phone') }} {{ 'appbundle.virksomhed.eanNumbers' | trans }}</div>
+            <div class="panel-heading">{{ icon('barcode') }} {{ 'appbundle.virksomhed.eanNumbers' | trans }}</div>
             <div class="panel-body">
                 <div class="ean_numbers wrapper" data-prototype="{{ form_widget(form.eanNumbers.vars.prototype)|e('html_attr') }}">
                     {% for eanNumber in form.eanNumbers %}
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="panel panel-default">
-            <div class="panel-heading">{{ icon('phone') }} {{ 'appbundle.virksomhed.pNumbers' | trans }}</div>
+            <div class="panel-heading">{{ icon('user') }} {{ 'appbundle.virksomhed.pNumbers' | trans }}</div>
             <div class="panel-body">
                 <div class="p_numbers wrapper" data-prototype="{{ form_widget(form.pNumbers.vars.prototype)|e('html_attr') }}">
                     {% for pNumber in form.pNumbers %}

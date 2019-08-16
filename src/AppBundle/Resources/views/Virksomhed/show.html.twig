@@ -37,11 +37,9 @@
             <th>{{ 'appbundle.virksomhed.eanNumbers' | trans }}</th>
             <td>
               {% if entity.getEanNumbers() %}
-                <ul>
-                  {% for eanNumber in entity.getEanNumbers() %}
-                    <li>{{ eanNumber }}</li>
-                  {% endfor %}
-                </ul>
+                {% for eanNumber in entity.getEanNumbers() %}
+                  <div>{{ eanNumber }}</div>
+                {% endfor %}
               {% else %}
                 {{ 'virksomhed.messages.empty.eanNumbers' | trans }}
               {% endif %}
@@ -51,11 +49,9 @@
             <th>{{ 'appbundle.virksomhed.pNumbers' | trans }}</th>
             <td>
               {% if entity.getEanNumbers() %}
-                <ul>
-                  {% for pNumber in entity.getPNumbers() %}
-                    <li>{{ pNumber }}</li>
-                  {% endfor %}
-                </ul>
+                {% for pNumber in entity.getPNumbers() %}
+                  <div>{{ pNumber }}</div>
+                {% endfor %}
               {% else %}
                 {{ 'virksomhed.messages.empty.pNumbers' | trans }}
               {% endif %}
