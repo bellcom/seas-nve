@@ -24,7 +24,9 @@
         {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
           <th class="text-right">{{ 'appbundle.tiltag.datoForDrift' | trans }}</th>
         {% endif %}
-        <th></th>
+        {% if type == 'fravalg' %}
+          <th></th>
+        {% endif %}
       {% endif %}
     </tr>
     </thead>
@@ -63,15 +65,17 @@
               </button>
             </td>
           {% endif %}
-          <td class="text-right">
-            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
-              {% if type == 'tilvalg' %}
-                {{ 'common.deselect' | trans }}
-              {% else %}
-                {{ 'common.select' | trans }}
-              {% endif %}
-            </button>
-          </td>
+          {% if type == 'fravalg' %}
+            <td class="text-right">
+              <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
+                {% if type == 'tilvalg' %}
+                  {{ 'common.deselect' | trans }}
+                {% else %}
+                  {{ 'common.select' | trans }}
+                {% endif %}
+              </button>
+            </td>
+          {% endif %}
         {% endif %}
       </tr>
     {% endfor %}
@@ -91,7 +95,9 @@
         {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
           <th></th>
         {% endif %}
-        <th></th>
+        {% if type == 'fravalg' %}
+          <th></th>
+        {% endif %}
       {% endif %}
     </tr>
     </tfoot>
