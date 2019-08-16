@@ -30,6 +30,16 @@
             <td>{{ entity.name }}</td>
           </tr>
           <tr>
+            <th>{{ 'appbundle.virksomhed.parent' | trans }}</th>
+            <td>
+              {% if (entity.parent) %}
+                <a href="{{ path('virksomhed_show', { 'id': entity.parent.id }) }}">{{ entity.parent }}</a>
+              {% else %}
+                {{ 'virksomhed.messages.empty.parent' | trans }}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
             <th>{{ 'appbundle.virksomhed.cvrNumber' | trans }}</th>
             <td>{{ entity.cvrNumber }}</td>
           </tr>
@@ -93,7 +103,7 @@
               <td>{{ entity.region }}</td>
             </tr>
             <tr>
-              <th>{{ 'appbundle.virksomhed.by' | trans }}</th>
+              <th>{{ 'appbundle.virksomhed.byNavn' | trans }}</th>
               <td>{{ entity.by }}</td>
             </tr>
             <tr>
@@ -196,15 +206,15 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.kalkulationsrente' | trans }}</th>
-            <td>{{ entity.kalkulationsrente }}</td>
+            <td>{{ entity.kalkulationsrente | format_percent_nounit  }} {{ 'appbundle.virksomhed.kalkulationsrente' | get_unit }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.inflation' | trans }}</th>
-            <td>{{ entity.inflation }}</td>
+            <td>{{ entity.inflation | format_percent_nounit  }} {{ 'appbundle.virksomhed.inflation' | get_unit }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.lobetid' | trans }}</th>
-            <td>{{ entity.lobetid }}</td>
+            <td>{{ entity.lobetid | format_integer }} {{ 'appbundle.configuration.rapportLobetid' | get_unit }}</td>
           </tr>
         </tbody>
       </table>

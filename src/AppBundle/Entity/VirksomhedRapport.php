@@ -1779,6 +1779,7 @@ class VirksomhedRapport
             'energibudgetEl',
             'besparelseAarEt',
             'fravalgtBesparelseAarEt',
+            'energiscreening',
             'cashFlow',
             'cashFlow15',
             'cashFlow30',

@@ -581,6 +581,7 @@ virksomhed:
       datterSelskaber: Ingen datterselskaber
       eanNumbers: Ingen EAN-numre
       pNumbers: Ingen P-numre
+      parent: Ingen moderselskab
 virksomhed_rapporter:
   actions:
     create: Opret virksomhedsrapport
@@ -1925,8 +1926,12 @@ appbundle:
     er: ER
     kam: KAM
     kalkulationsrente: Kalkulationsrente
+    kalkulationsrente.unit: %
     inflation: Inflation
+    inflation.unit: %
     lobetid: Løbetid
+    lobetid.unit: år
+    parent: Moderselskab
     create:
       rapport:
         rapport:

@@ -80,7 +80,23 @@
           <tbody>
           <tr>
             <th>{{ 'appbundle.bygning.virksomhed' | trans }}</th>
-            <td>{{ entity.virksomhed }}</td>
+            <td>
+              {% if entity.virksomhed %}
+                <a href="{{ path('virksomhed_show', { 'id': entity.virksomhed.id }) }}">{{ entity.virksomhed }}</a>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.cvrNumer' | trans }}</th>
+            <td>{{ entity.cvrNumer }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.eanNumber' | trans }}</th>
+            <td>{{ entity.eanNumber }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.pNumber' | trans }}</th>
+            <td>{{ entity.pNumber }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.bygning.aaplusAnsvarlig' | trans }}</th>

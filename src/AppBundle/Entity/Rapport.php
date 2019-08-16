@@ -1365,11 +1365,27 @@ class Rapport {
   }
 
   /**
+   * Get Kalkulationsrente
    *
    * @return float
    */
   public function getKalkulationsrente() {
-    return $this->configuration->getRapportKalkulationsrente();
+    // By default configuration settings will be used.
+    $kalkulationrente = $this->configuration->getRapportKalkulationsrente();
+
+    // Inherit Kalkulationsrente from Virksomhed.
+    $virksomhed = $this->getBygning()->getVirksomhed();
+    if (!empty($virksomhed->getKalkulationsrente())) {
+      $kalkulationrente = $virksomhed->getKalkulationsrente();
+    }
+
+    // Inherit Kalkulationsrente from parentVirksomhed.
+    $parentVirksomhed = $virksomhed->getParent();
+    if (!empty($parentVirksomhed) && !empty($parentVirksomhed->getKalkulationsrente())) {
+      $kalkulationrente = $parentVirksomhed->getKalkulationsrente();
+    }
+
+    return $kalkulationrente;
   }
 
   /**
@@ -1407,19 +1423,50 @@ class Rapport {
   }
 
   /**
+   * Gets Inflation
    *
    * @return float
    */
   public function getInflation() {
-    return $this->configuration->getRapportInflation();
+    // By default configuration settings will be used.
+    $inflation = $this->configuration->getRapportInflation();
+
+    // Inherit Inflation from Virksomhed.
+    $virksomhed = $this->getBygning()->getVirksomhed();
+    if (!empty($virksomhed->getInflation())) {
+        $inflation = $virksomhed->getInflation();
+    }
+
+    // Inherit Inflation from parentVirksomhed.
+    $parentVirksomhed = $virksomhed->getParent();
+    if (!empty($parentVirksomhed) && !empty($parentVirksomhed->getInflation())) {
+        $inflation = $parentVirksomhed->getInflation();
+    }
+
+    return $inflation;
   }
 
   /**
+   * Gets Lobetid
    *
    * @return float
    */
   public function getLobetid() {
-    return $this->configuration->getRapportLobetid();
+    // By default configuration settings will be used.
+    $lobetid = $this->configuration->getRapportLobetid();
+
+    // Inherit Lobetid from Virksomhed.
+    $virksomhed = $this->getBygning()->getVirksomhed();
+    if (!empty($virksomhed->getLobetid())) {
+      $lobetid = $virksomhed->getLobetid();
+    }
+
+    // Inherit Lobetid from parentVirksomhed.
+    $parentVirksomhed = $virksomhed->getParent();
+    if (!empty($parentVirksomhed) && !empty($parentVirksomhed->getLobetid())) {
+      $lobetid = $parentVirksomhed->getLobetid();
+    }
+    return $lobetid;
   }
 
   /**
