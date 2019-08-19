@@ -116,8 +116,14 @@ class VirksomhedType extends AbstractType
             ->add('forbrug')
             ->add('er')
             ->add('kam')
-            ->add('kalkulationsrente', 'percent', array('scale' => 2))
-            ->add('inflation', 'percent', array('scale' => 2))
+            ->add('kalkulationsrente', 'percent', array(
+                'scale' => 2,
+                'required' => FALSE,
+            ))
+            ->add('inflation', 'percent', array(
+                'scale' => 2,
+                'required' => FALSE,
+            ))
             ->add('lobetid')
         ;
     }

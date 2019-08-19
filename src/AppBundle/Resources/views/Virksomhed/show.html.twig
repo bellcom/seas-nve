@@ -7,11 +7,9 @@
       <h1>{{ icon('briefcase') }} {{ entity }}</h1>
     </div>
     <div class="col-md-3 text-right">
-      {% if entity.rapport and is_granted('VIRKSOMHED_RAPPORT_VIEW', entity.rapport) %}
-        <a href="{{ path('virksomhed_get_rapport', { 'id': entity.rapport.id }) }}" class="btn btn-primary">
-          {{ icon('caret-square-o-right') }} {{ 'appbundle.virksomhed.rapport' | trans }}
-        </a>
-      {% endif %}
+      <a href="{{ path('virksomhed_get_rapport', { 'id': entity.id }) }}" class="btn btn-primary">
+        {{ icon('caret-square-o-right') }} {{ 'appbundle.virksomhed.rapport' | trans }}
+      </a>
       {% if is_granted('VIRKSOMHED_EDIT', entity) %}
           <a class="btn btn-default btn-default" href="{{ path('virksomhed_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
       {% endif %}

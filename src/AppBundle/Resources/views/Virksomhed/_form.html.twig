@@ -14,6 +14,16 @@
             </div>
         </div>
         <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.virksomhed.firma_adresse' | trans }}</div>
+            <div class="panel-body">
+                {{ form_row(form.kommune)}}
+                {{ form_row(form.region)}}
+                {{ form_row(form.byNavn)}}
+                {{ form_row(form.address)}}
+                {{ form_row(form.postnummer)}}
+            </div>
+        </div>
+        <div class="panel panel-default">
             <div class="panel-heading">{{ icon('barcode') }} {{ 'appbundle.virksomhed.eanNumbers' | trans }}</div>
             <div class="panel-body">
                 <div class="ean_numbers wrapper" data-prototype="{{ form_widget(form.eanNumbers.vars.prototype)|e('html_attr') }}">
@@ -43,16 +53,6 @@
                     {% endfor %}
                 </div>
                 {% do form.pNumbers.setRendered %}
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.virksomhed.firma_adresse' | trans }}</div>
-            <div class="panel-body">
-                {{ form_row(form.kommune)}}
-                {{ form_row(form.region)}}
-                {{ form_row(form.byNavn)}}
-                {{ form_row(form.address)}}
-                {{ form_row(form.postnummer)}}
             </div>
         </div>
         <div class="panel panel-default">
