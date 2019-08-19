@@ -1375,6 +1375,10 @@ class Rapport {
 
     // Inherit Kalkulationsrente from Virksomhed.
     $virksomhed = $this->getBygning()->getVirksomhed();
+    if (empty($virksomhed)) {
+      return $kalkulationrente;
+    }
+
     if (!empty($virksomhed->getKalkulationsrente())) {
       $kalkulationrente = $virksomhed->getKalkulationsrente();
     }
@@ -1433,6 +1437,10 @@ class Rapport {
 
     // Inherit Inflation from Virksomhed.
     $virksomhed = $this->getBygning()->getVirksomhed();
+    if (empty($virksomhed)) {
+        return $inflation;
+    }
+
     if (!empty($virksomhed->getInflation())) {
         $inflation = $virksomhed->getInflation();
     }
@@ -1457,6 +1465,10 @@ class Rapport {
 
     // Inherit Lobetid from Virksomhed.
     $virksomhed = $this->getBygning()->getVirksomhed();
+    if (empty($virksomhed)) {
+      return $lobetid;
+    }
+
     if (!empty($virksomhed->getLobetid())) {
       $lobetid = $virksomhed->getLobetid();
     }
