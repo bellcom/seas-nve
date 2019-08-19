@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\ContactPerson;
+use AppBundle\Entity\User;
 use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\VirksomhedCreateRapportType;
 use AppBundle\Form\Type\VirksomhedFilterType;
@@ -15,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\VirksomhedType;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Virksomhed controller.
@@ -23,10 +25,24 @@ use AppBundle\Form\VirksomhedType;
  */
 class VirksomhedController extends BaseController
 {
+    /**
+     * @var TranslatorInterface $tranlator
+     */
+    private $translator;
 
+    /**
+     * @var Request $request
+     */
+    private $request;
+
+    /**
+     * @inheritDoc
+     */
     public function init(Request $request) {
         parent::init($request);
         $this->breadcrumbs->addItem('virksomhed.labels.plural', $this->generateUrl('virksomhed'));
+        $this->translator = $this->container->get('translator');
+        $this->request = $request;
     }
 
     /**
@@ -109,6 +125,29 @@ class VirksomhedController extends BaseController
                 $entity->addBygninger($bygning);
             }
 
+            /** @var ContactPerson $contactPerson */
+            $contactPerson = $entity->getContactPersons()->first();
+            if (!empty($contactPerson)) {
+                /** @var User $existingUser */
+                $existingUser = $em->getRepository(User::class)->findOneBy(array('email' => $contactPerson->getMail()));
+                if (empty($existingUser)) {
+                    $user = $entity->getUser();
+                    $user->setUsername($entity->getCvrNumber());
+                    $user->setFirstname($entity->getCvrNumber());
+                    $user->setEmail($contactPerson->getMail());
+                    $user->setPassword(hash('md5', $entity->getCvrNumber()));
+                    $user->setEnabled(TRUE);
+                    $this->get('fos_user.user_manager')->updateUser($user);
+                }
+                else {
+                    $entity->setUser($existingUser);
+                    $this->flash->success($this->translator->trans('virksomhed.messages.attached_existing_user', array(
+                        '%userMail' => $existingUser->getEmail(),
+                    )));
+                }
+            }
+            $this->flash->success('virksomhed.confirmation.created');
+
             $em->persist($entity);
             $em->flush();
 
@@ -155,6 +194,10 @@ class VirksomhedController extends BaseController
         $this->breadcrumbs->addItem('common.add', $this->generateUrl('virksomhed'));
 
         $entity = new Virksomhed();
+
+        // It's required to have at least one contact person.
+        $entity->setContactPersons(new ArrayCollection(array(new ContactPerson())));
+
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -194,6 +237,10 @@ class VirksomhedController extends BaseController
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Virksomhed entity.');
+        }
+
+        if (empty($entity->getContactPersons()->first())) {
+            $entity->getContactPersons()->add(new ContactPerson());
         }
 
         $editForm = $this->createEditForm($entity);
@@ -341,12 +388,16 @@ class VirksomhedController extends BaseController
     {
         $bygnings = $virksomhed->getBygninger();
         $message = NULL;
-        if (!empty($bygnings)) {
+        if (!empty($bygnings->toArray())) {
             $message = 'virksomhed.error.in_use';
         }
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('virksomhed_delete', array('id' => $virksomhed->getId())))
             ->setMethod('DELETE')
+            // @TODO implement deleteing user checkbox.
+//            ->add('delete_user', 'checkbox', array(
+//                'label' => 'virksomhed.messages.delete_user'
+//            ))
             ->add('submit', 'submit', array(
                 'label' => 'Delete',
                 'disabled' => $message,
@@ -378,7 +429,11 @@ class VirksomhedController extends BaseController
                 'create_form' => $createForm->createView(),
             );
         }
-        return $this->redirect($this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+        $params = array('id' => $rapport->getId());
+        if ($this->request->query->get('token')) {
+            $params['token'] = $this->request->query->get('token');
+        }
+        return $this->redirect($this->generateUrl('virksomhed_rapport_show', $params));
     }
 
     /**

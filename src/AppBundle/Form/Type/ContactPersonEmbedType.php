@@ -19,7 +19,7 @@ class ContactPersonEmbedType extends AbstractType {
     $builder
       ->add('name')
       ->add('phoneNumber')
-      ->add('mail');
+      ->add('mail', null, array('required' => true));
   }
 
   /**

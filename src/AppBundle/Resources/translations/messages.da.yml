@@ -551,6 +551,9 @@ user:
     singular: Bruger
   strings:
     segmenteroggrupper: Segmenter / Grupper
+  messages:
+    error:
+      email: Bruger med adresse %email findes allerede
 vinduetiltag:
   actions:
     edit: Rediger vinduestiltag
@@ -574,6 +577,7 @@ virksomhed:
   error:
     in_use: Kan ikke slettes da den bruges af en bygning.
   confirmation:
+    created: Ny virksomhed er oprettet.
     rapport_created: Ny virksomhedsrapport er oprettet.
   messages:
     empty:
@@ -582,6 +586,8 @@ virksomhed:
       eanNumbers: Ingen EAN-numre
       pNumbers: Ingen P-numre
       parent: Ingen moderselskab
+    delete_user: Fjern tilknytet bruger?
+    attached_existing_user: Der var tilknytet eksiterende bruger med email adresse %userMail
 virksomhed_rapporter:
   actions:
     create: Opret virksomhedsrapport
@@ -1904,6 +1910,8 @@ appbundle:
     address: Adresse
     postnummer: Post nr.
     contactPersons: Kontaktpersoner
+    contactPersons.validation:
+        mail: E-mail '{{value}}' er ikke en gyldig e-mail.
     contactPersons.0:
       name: Navn
       phoneNumber: Tlf.
