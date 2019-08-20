@@ -59,9 +59,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('plus-circle') }}  {{ 'Opret' | trans }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/bygning/new">{{ 'bygninger.labels.plural' | trans }}</a></li>
+            <li><a href="/bygning/new">{{ 'bygninger.labels.singular' | trans }}</a></li>
             {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
-              <li><a href="/virksomhed/new">{{ 'virksomhed.labels.plural' | trans }}</a></li>
+              <li><a href="/virksomhed/new">{{ 'virksomhed.labels.singular' | trans }}</a></li>
             {% endif %}
           </ul>
         </li>
