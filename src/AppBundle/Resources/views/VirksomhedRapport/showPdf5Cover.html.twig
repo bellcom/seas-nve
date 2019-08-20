@@ -1,0 +1,35 @@
+{% extends 'AppBundle::pdf.html.twig' %}
+
+{% block body -%}
+
+  <div class="landscape">
+
+    <p class="text-right">
+      <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.jpg')) }}" height="60">
+    </p>
+
+    <hr class="pdf-heading">
+
+    <div class="row">
+      <div class="col-xs-7">
+        <h1>Dokument 5<br>
+          Detailark</h1>
+      </div>
+      <div class="col-xs-5">
+        <h1 class="grey text-right text-uppercase">Energirapport</h1>
+      </div>
+    </div>
+    <div class="row heading">
+      <div class="col-xs-8">
+        {{ icon('briefcase') }} <strong>{{ rapport.virksomhed.name }}</strong><br>
+      </div>
+      <div class="col-xs-4 text-right">
+        <p>{{ 'common.genereted'| trans }}: {{ 'now'|date }}</p>
+      </div>
+    </div>
+
+    <hr class="pdf-heading">
+
+  </div>
+
+{% endblock %}

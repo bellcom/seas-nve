@@ -13,8 +13,8 @@
       <th></th>
       <th>{{ 'appbundle.tiltag.title' | trans }}</th>
       <th>{{ 'appbundle.tiltag.tilvalgtAfRaadgiver.th' | trans }}</th>
-      <th>{{ 'appbundle.tiltag.tilvalgtAfAaPlus.th' | trans }}</th>
-      <th>{{ 'appbundle.tiltag.tilvalgtAfMagistrat.th' | trans }}</th>
+      <th class="hidden">{{ 'appbundle.tiltag.tilvalgtAfAaPlus.th' | trans }}</th>
+      <th class="hidden">{{ 'appbundle.tiltag.tilvalgtAfMagistrat.th' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr' | trans }}</th>
@@ -24,7 +24,9 @@
         {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
           <th class="text-right">{{ 'appbundle.tiltag.datoForDrift' | trans }}</th>
         {% endif %}
-        <th></th>
+        {% if type == 'fravalg' %}
+          <th></th>
+        {% endif %}
       {% endif %}
     </tr>
     </thead>
@@ -34,7 +36,7 @@
         <td class="number index">{{ t.indexNumber }}</td>
         <td>{{ t.title }}</td>
         <td>{{ t.tilvalgtAfRaadgiver | b2icon }}</td>
-        <td>
+        <td class="hidden">
           {{ t.tilvalgtAfAaPlus | b2icon }}
           {% if t.tilvalgtbegrundelse %}
             <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ t.tilvalgtbegrundelse }}">
@@ -42,7 +44,7 @@
             </span>
           {% endif %}
         </td>
-        <td>
+        <td class="hidden">
           {{ t.tilvalgtAfMagistrat | b2icon }}
           {% if t.tilvalgtBegrundelseMagistrat %}
             <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ t.tilvalgtBegrundelseMagistrat }}">
@@ -63,15 +65,17 @@
               </button>
             </td>
           {% endif %}
-          <td class="text-right">
-            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
-              {% if type == 'tilvalg' %}
-                {{ 'common.deselect' | trans }}
-              {% else %}
-                {{ 'common.select' | trans }}
-              {% endif %}
-            </button>
-          </td>
+          {% if type == 'fravalg' %}
+            <td class="text-right">
+              <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
+                {% if type == 'tilvalg' %}
+                  {{ 'common.deselect' | trans }}
+                {% else %}
+                  {{ 'common.select' | trans }}
+                {% endif %}
+              </button>
+            </td>
+          {% endif %}
         {% endif %}
       </tr>
     {% endfor %}
@@ -79,7 +83,7 @@
     <tfoot>
     <tr>
       <th></th>
-      <th colspan="8">{{ 'appbundle.tiltag.ialt' | trans }}</th>
+      <th colspan="6">{{ 'appbundle.tiltag.ialt' | trans }}</th>
       <th class="text-right">
         {% if type == 'tilvalg' %}
           {{ rapport.anlaegsinvestering | format_amount }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}
@@ -91,7 +95,9 @@
         {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
           <th></th>
         {% endif %}
-        <th></th>
+        {% if type == 'fravalg' %}
+          <th></th>
+        {% endif %}
       {% endif %}
     </tr>
     </tfoot>

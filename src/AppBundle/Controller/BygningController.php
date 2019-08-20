@@ -62,6 +62,7 @@ class BygningController extends BaseController implements InitControllerInterfac
     $search['adresse'] = $bygning->getAdresse();
     $search['postnummer'] = $bygning->getPostnummer();
     $search['postBy'] = $bygning->getPostBy();
+    $search['virksomhed'] = $bygning->getVirksomhed();
     $search['segment'] = $bygning->getSegment();
     $search['status'] = $bygning->getStatus();
 

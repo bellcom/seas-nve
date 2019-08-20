@@ -46,7 +46,7 @@ twig:
         thousands_separator: '.'
     globals:
         aaplus_release_ver: 'Release %version%'
-        baseline_graddage_url: http://www.aarhus.dk/sitecore/content/subsites/affaldvarmeaarhus/home/varme/graddagetal.aspx?sc_lang=da
+        baseline_graddage_url: https://www.dmi.dk/vejrarkiv/maneden-sasonen-og-arets-vejr/tabeller-maaned/
         footer:
           name: '%app.page_footer.name%'
           address: '%app.page_footer.address%'
@@ -102,6 +102,7 @@ doctrine:
             RisikovurderingType: AppBundle\DBAL\Types\RisikovurderingType
             PrimaerEnterpriseType: AppBundle\DBAL\Types\PrimaerEnterpriseType
             KlimaskaermType: AppBundle\DBAL\Types\KlimaskaermType
+            VirksomhedTypeType: AppBundle\DBAL\Types\VirksomhedTypeType
         logging: false
         profiling: false
     orm:

@@ -155,4 +155,54 @@
       }).filter(':checked').change();
     }
   });
+
+  // Add more / Remove functionality.
+  function addMoreForm($collectionHolder, $newLinkL) {
+    var prototype = $collectionHolder.data('prototype');
+    var index = $collectionHolder.data('index');
+
+    var newForm = prototype;
+    newForm = newForm.replace(/__name__/g, index);
+    $collectionHolder.data('index', index + 1);
+    var $newFormLi = $('<div class="row form-group"><div class="col-sm-10"></div><div class="col-sm-2"></div>')
+        .find('.col-sm-10').append(newForm)
+        .end();
+    $newLinkL.before($newFormLi);
+    addDeleteLink($newFormLi);
+  }
+
+  function addDeleteLink($formRow) {
+    var $removeFormA = $('<a href="#" class="btn btn-danger">Fjern</a>');
+    $formRow.find('.col-sm-2').append($removeFormA);
+
+    $removeFormA.on('click', function(e) {
+      e.preventDefault();
+      $formRow.remove();
+    });
+  }
+
+  function addMore($collectionHolder) {
+    if (!$collectionHolder.length) {
+      return;
+    }
+    var $addLink = $('<a href="#" class="btn btn-primary">Tilføj mere</a>');
+    var $newLinkRow = $('<div class="row"><div class="col-sm-12"></div></div>').find('div').append($addLink).end();
+    $collectionHolder.find('.row').each(function() {
+      addDeleteLink($(this));
+    });
+
+    $collectionHolder.append($newLinkRow);
+    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+    $addLink.on('click', function(e) {
+      e.preventDefault();
+      addMoreForm($collectionHolder, $newLinkRow);
+    });
+  }
+
+  addMore($('.contact_persons'));
+  addMore($('.datter_selskaber'));
+  addMore($('.ean_numbers'));
+  addMore($('.p_numbers'));
+
 }(jQuery));

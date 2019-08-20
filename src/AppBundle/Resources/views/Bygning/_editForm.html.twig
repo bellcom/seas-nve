@@ -1,5 +1,7 @@
 {{ form_start(edit_form, { 'style': 'horizontal' }) }}
 
+{{ form_row(edit_form.buttons) }}
+
   {{ form_errors(edit_form) }}
 
 <!-- Nav tabs -->
@@ -23,6 +25,14 @@
           </div>
         </div>
 
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('briefcase') }} {{ 'appbundle.bygning.virksomhed' | trans }} </div>
+          <div class="panel-body">
+            {{ form_row(edit_form.cvrNumber ) }}
+            {{ form_row(edit_form.eanNumber ) }}
+            {{ form_row(edit_form.pNumber ) }}
+          </div>
+        </div>
         <div class="panel panel-default">
           <div class="panel-heading">{{ icon('users') }} {{ 'common.personer' | trans }} / {{ 'common.tilknytning' | trans }}</div>
           <div class="panel-body">
@@ -50,7 +60,9 @@
             {{ form_row(edit_form.anvendelse ) }}
             {{ form_row(edit_form.bruttoetageareal ) }}
             {{ form_row(edit_form.status ) }}
-            {{ form_row(edit_form.segment ) }}
+            <span class="hidden">
+              {{ form_row(edit_form.segment ) }}
+            </span>
           </div>
         </div>
       </div>

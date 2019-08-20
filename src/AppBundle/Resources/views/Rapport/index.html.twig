@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-md-9">
       <h1>
-        {{ 'rapporter.labels.plural' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
+        {{ 'bygning_rapporter.labels.plural' | trans }}{% if form.vars.submitted %}: {{ 'common.a_search' | trans }}{% endif %}
       </h1>
     </div>
     <div class="col-md-3 text-right">
@@ -23,14 +23,14 @@
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.navn'|trans, 'b.navn') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.segment'|trans, 's.navn') }}</th>
+      <th class="hidden">{{ knp_pagination_sortable(pagination, 'appbundle.bygning.segment'|trans, 's.navn') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.status'|trans, 'b.status') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.rapport.version'|trans, 'r.version') }}</th>
       {% if form.elena is defined %}
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.rapport.elena'|trans, 'r.elena') }}</th>
+        <th class="hidden">{{ knp_pagination_sortable(pagination, 'appbundle.rapport.elena'|trans, 'r.elena') }}</th>
       {% endif %}
       {% if form.ava is defined %}
-        <th>{{ knp_pagination_sortable(pagination, 'appbundle.rapport.ava'|trans, 'r.ava') }}</th>
+        <th class="hidden">{{ knp_pagination_sortable(pagination, 'appbundle.rapport.ava'|trans, 'r.ava') }}</th>
       {% endif %}
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.rapport.datering'|trans, 'r.datering') }}</th>
       <th></th>
@@ -40,14 +40,14 @@
       <th>{{ form_row(form.bygning.navn) }}</th>
       <th>{{ form_row(form.bygning.adresse) }}</th>
       <th>{{ form_row(form.bygning.postnummer) }}</th>
-      <th>{{ form_row(form.bygning.segment) }}</th>
+      <th class="hidden">{{ form_row(form.bygning.segment) }}</th>
       <th>{{ form_row(form.bygning.status) }}</th>
       <th>{{ form_row(form.version) }}</th>
       {% if form.elena is defined %}
-        <th>{{ form_row(form.elena) }}</th>
+        <th class="hidden">{{ form_row(form.elena) }}</th>
       {% endif %}
       {% if form.ava is defined %}
-        <th>{{ form_row(form.ava) }}</th>
+        <th class="hidden">{{ form_row(form.ava) }}</th>
       {% endif %}
       <th>{{ form_row(form.datering) }}</th>
       <th>{{ form_row(form.Søg) }}</th>
@@ -58,14 +58,14 @@
       <td>{{ rapport.bygning.navn }}</td>
       <td>{{ rapport.bygning.adresse }}</td>
       <td>{{ rapport.bygning.postnummer }}</td>
-      <td>{{ rapport.bygning.segment }}</td>
+      <td class="hidden">{{ rapport.bygning.segment }}</td>
       <td>{{ rapport.bygning.status  | readable }}</td>
       <td class="text-center">{{ rapport.version }}</td>
       {% if form.elena is defined %}
-        <td class="text-center">{{ rapport.elena | b2icon }}</td>
+        <td class="hidden text-center">{{ rapport.elena | b2icon }}</td>
       {% endif %}
       {% if form.ava is defined %}
-        <td class="text-center">{{ rapport.ava | b2icon }}</td>
+        <td class="hidden text-center">{{ rapport.ava | b2icon }}</td>
       {% endif %}
       <td class="text-center">{{ rapport.datering | date }}</td>
       <td class="text-right">
@@ -74,14 +74,12 @@
     </tr>
     {% else %}
       <tr>
-        <td colspan="10">
+        <td colspan="7">
           <div class="alert alert-info" role="alert">{{ 'bygninger.strings.ingen' | trans }}</div>
         </td>
       </tr>
     {% endfor %}
   </table>
-
-
 
   <div class="row">
     <div class="col-md-3">

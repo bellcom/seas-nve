@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * @TODO: Missing description.
- */
 
 namespace AppBundle\Form\Type;
 
@@ -29,17 +25,15 @@ class BygningType extends AbstractType {
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @param FormBuilderInterface $builder
-   * @TODO: Missing description.
-   * @param array $options
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('bygId')
       ->add('navn')
+      ->add('cvrNumber')
+      ->add('eanNumber')
+      ->add('pNumber')
       ->add('OpfoerselsAar')
       ->add('enhedsys')
       ->add('type')
@@ -119,10 +113,7 @@ class BygningType extends AbstractType {
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @param OptionsResolver $resolver
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
@@ -143,10 +134,7 @@ class BygningType extends AbstractType {
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @return string
-   * @TODO: Missing description.
+   * @inheritDoc.
    */
   public function getName() {
     return 'appbundle_bygning';

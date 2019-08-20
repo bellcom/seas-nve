@@ -79,6 +79,26 @@
         <table class="table table-condensed th-vertical">
           <tbody>
           <tr>
+            <th>{{ 'appbundle.bygning.virksomhed' | trans }}</th>
+            <td>
+              {% if entity.virksomhed %}
+                <a href="{{ path('virksomhed_show', { 'id': entity.virksomhed.id }) }}">{{ entity.virksomhed }}</a>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.cvrNumer' | trans }}</th>
+            <td>{{ entity.cvrNumer }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.eanNumber' | trans }}</th>
+            <td>{{ entity.eanNumber }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.pNumber' | trans }}</th>
+            <td>{{ entity.pNumber }}</td>
+          </tr>
+          <tr>
             <th>{{ 'appbundle.bygning.aaplusAnsvarlig' | trans }}</th>
             <td>{{ entity.aaplusAnsvarlig }}</td>
           </tr>
@@ -128,7 +148,7 @@
             <th>{{ 'appbundle.bygning.bygId' | trans }}</th>
             <td>{{ entity.bygId }}</td>
           </tr>
-          <tr>
+          <tr class="hidden">
             <th>{{ 'appbundle.bygning.enhedsys' | trans }}</th>
             <td>{{ entity.enhedsys }}</td>
           </tr>
@@ -153,7 +173,7 @@
             <td>{{ entity.status | readable }}</td>
           </tr>
           <tr>
-            <th>{{ 'rapporter.labels.singular' | trans }}</th>
+            <th>{{ 'bygning_rapporter.labels.singular' | trans }}</th>
             <td>
               {% if entity.rapport %}
                 <a href="{{ path('rapport_show', { 'id': entity.rapport.id }) }}">{{ entity.rapport }} - {{ 'appbundle.rapport.version' | trans }} {{ entity.rapport.version }}</a>

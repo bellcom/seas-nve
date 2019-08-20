@@ -14,7 +14,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title text-left" id="myModalLabel">{{ 'rapporter.confirmation.re-calculate' | trans }}</h4>
+              <h4 class="modal-title text-left" id="myModalLabel">{{ 'bygning_rapporter.confirmation.re-calculate' | trans }}</h4>
             </div>
             <div class="modal-body text-left">
               {% if entity.calculationWarnings %}
@@ -50,7 +50,7 @@
       <h1>
         <nobr>
           {{ icon('file-text-o') }}
-          {{ 'rapporter.labels.singular' | trans }}
+          {{ 'bygning_rapporter.labels.singular' | trans }}
         </nobr>
       </h1>
     </div>
@@ -58,9 +58,9 @@
       {% if calculate_form and is_granted('RAPPORT_EDIT', entity) %}
         {% set calculation_btn_icon = entity.calculationWarnings ? 'warning' : 'calculator' %}
         {% if calculation_changes is defined and calculation_changes is not empty%}
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( calculation_btn_icon ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( calculation_btn_icon ) }} {{ 'bygning_rapporter.actions.re-calculate' | trans }}</button>
         {% else %}
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( calculation_btn_icon ) }} {{ 'rapporter.actions.re-calculate' | trans }}</button>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( calculation_btn_icon ) }} {{ 'bygning_rapporter.actions.re-calculate' | trans }}</button>
         {% endif %}
       {% endif %}
 
@@ -68,27 +68,27 @@
         {{ icon('file') }} {{ 'bilag.actions.list' | trans }}
       </a>
       <a class="btn btn-default" href="{{ path('rapport_download_files', { 'id': entity.id }) }}">
-        {{ icon('download') }} {{ 'rapporter.actions.download_files' | trans }}
+        {{ icon('download') }} {{ 'bygning_rapporter.actions.download_files' | trans }}
       </a>
       <a href="{{ path('rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
-        {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf2' | trans }}
+        {{ icon('file-pdf-o') }} {{ 'bygning_rapporter.actions.pdf2' | trans }}
       </a>
       <a href="{{ path('rapport_show_pdf5', { 'id': entity.id }) }}" class="btn btn-default">
-        {{ icon('file-pdf-o') }} {{ 'rapporter.actions.pdf5' | trans }}
+        {{ icon('file-pdf-o') }} {{ 'bygning_rapporter.actions.pdf5' | trans }}
       </a>
       <a class="btn btn-default" href="{{ path('rapport_filer', { 'id': entity.id }) }}">
-        {{ icon('file') }} {{ 'rapporter.actions.filer' | trans }}
+        {{ icon('file') }} {{ 'bygning_rapporter.actions.filer' | trans }}
       </a>
       <a class="btn btn-default" href="{{ path('energiforsyning', { 'rapport_id': entity.id }) }}">
         {{ icon('industry') }} Energiforsyninger
       </a>
       {% if is_granted('RAPPORT_EDIT', entity) %}
         <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default">
-          {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}
+          {{ icon('edit') }} {{ 'bygning_rapporter.actions.edit' | trans }}
         </a>
       {% else %}
         <a href="{{ path('rapport_show_baseline', { 'id': entity.id }) }}" class="btn btn-default">
-          {{ icon('edit') }} {{ 'rapporter.actions.edit' | trans }}
+          {{ icon('edit') }} {{ 'bygning_rapporter.actions.edit' | trans }}
         </a>
       {% endif %}
 
@@ -141,14 +141,14 @@
         <td>{{ entity.bygning.projektleder }}</td>
       </tr>
       <tr>
-        <th>{{ 'appbundle.rapport.elena' | trans }}</th>
-        <td>{{ entity.elena | b2icon }}</td>
+        <th><span class="hidden">{{ 'appbundle.rapport.elena' | trans }}</span></th>
+        <td><span class="hidden">{{ entity.elena | b2icon }}</span></td>
         <th>{{ 'appbundle.bygning.status' | trans }}</th>
         <td>{{ entity.bygning.status | readable }}</td>
       </tr>
       <tr>
-        <th>{{ 'appbundle.rapport.ava' | trans }}</th>
-        <td>{{ entity.ava | b2icon }}</td>
+        <th><span class="hidden">{{ 'appbundle.rapport.ava' | trans }}</span></th>
+        <td><span class="hidden">{{ entity.ava | b2icon }}</span></td>
         <th>{{ 'common.updatedAt' | trans }}</th>
         <td>{{ entity.updatedAt | date('Y-m-d  H:i') }}, {{ entity.updatedBy }}</td>
       </tr>
@@ -262,9 +262,10 @@
     {% include 'AppBundle::Rapport/_valgteTiltagTable.html.twig' with {'rapport': entity, 'tiltag': entity.tilvalgteTiltag, 'pdf': false, 'type': 'tilvalg', 'valgt_form_array': tilvalgt_form_array, 'dato_for_drift_form_array': dato_for_drift_form_array } %}
   {% endif %}
 
-
   {% if entity.fravalgteTiltag is not empty %}
+    <span class="hidden">
     {% include 'AppBundle::Rapport/_valgteTiltagTable.html.twig' with {'rapport': entity, 'tiltag': entity.fravalgteTiltag, 'pdf': false, 'type': 'fravalg', 'valgt_form_array': fravalgt_form_array } %}
+    </span>
   {% endif %}
 
   <div class="panel panel-default">
@@ -288,7 +289,7 @@
         <td class="text-right">{{ entity.investeringEksFaellesomkostninger | format_amount }}</td>
         <td>{{ 'appbundle.rapport.investeringEksFaellesomkostninger.unit' | trans }}</td>
       </tr>
-      <tr>
+      <tr class="hidden">
         <td class="indent">{{ 'appbundle.rapport.mtmFaellesomkostninger' | trans }}</td>
         <td class="text-right">{{ entity.mtmFaellesomkostninger | format_amount }}</td>
         <td>{{ 'appbundle.rapport.mtmFaellesomkostninger.unit' | trans }}</td>
@@ -364,7 +365,7 @@
       {% if is_granted('RAPPORT_EDIT', entity) %}
         {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'vindue', 'solcelle', 'tekniskisolering', 'special' ] %}
           <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': type }) }}" class="inline-block">
-            <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('rapporter.strings.' ~ type ~ 'tiltag') | trans }}</button>
+            <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('bygning_rapporter.strings.' ~ type ~ 'tiltag') | trans }}</button>
           </form>
         {% endfor %}
       {% endif %}
@@ -420,7 +421,7 @@
                   </a>
                 {% endif %}
                 <a href="{{ path('tiltag_show', { 'id': t.id }) }}" class="btn btn-default">
-                  {{ icon('list') }} {{ 'rapporter.labels.detailark' | trans }}: {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
+                  {{ icon('list') }} {{ 'bygning_rapporter.labels.detailark' | trans }}: {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
                 </a>
               </div>
             </div>

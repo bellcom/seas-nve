@@ -3,6 +3,7 @@
 {% block body -%}
   <h1>{{ 'bygninger.actions.create' | trans }}</h1>
 
+  {{ form_row(form.buttons) }}
   {{ form(form) }}
 
 {% endblock %}

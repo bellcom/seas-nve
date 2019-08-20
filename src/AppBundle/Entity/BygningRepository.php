@@ -52,6 +52,77 @@ class BygningRepository extends BaseRepository {
   }
 
   /**
+   * Find all Bygning by specific numbers
+   *
+   * @param Virksomhed $virksomhed
+   * @param bool $returnQuery
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function findByNumbers(Virksomhed $virksomhed, $returnQuery = FALSE) {
+      $qb = $this->_em->createQueryBuilder();
+      $qb->select('b')
+          ->from('AppBundle:Bygning', 'b');
+
+      if (!empty($virksomhed->getCvrNumber())) {
+          $qb->orWhere('b.cvrNumber = :cvrNumber')
+              ->setParameter('cvrNumber',  $virksomhed->getCvrNumber());
+      }
+
+      if (!empty($virksomhed->getPNumbers())) {
+          $qb->orWhere('b.pNumber IN (:pNumbers)')
+              ->setParameter('pNumbers', $virksomhed->getPNumbers());
+      }
+
+      if (!empty($virksomhed->getEanNumbers())) {
+          $qb->orWhere('b.eanNumber IN (:eanNumbers)')
+              ->setParameter('eanNumbers', $virksomhed->getEanNumbers());
+      }
+
+      if (empty($qb->getParameters())) {
+          return array();
+      }
+
+      $query = $qb->getQuery();
+      return $returnQuery ? $query : $query->getResult();
+  }
+
+  /**
+   * Find all Bygning with not empty values by column.
+   *
+   * @param bool $returnQuery
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function getNotEmpty($column, $returnQuery = FALSE) {
+      $qb = $this->_em->createQueryBuilder();
+      $qb->select('b')
+          ->from('AppBundle:Bygning', 'b');
+
+      $qb->where('b.' . $column . ' IS NOT NULL');
+      $qb->andWhere('b.' . $column . ' <> \'\'');
+
+      $query = $qb->getQuery();
+      return $returnQuery ? $query : $query->getResult();
+  }
+
+  /**
+   * Find all Bygning with not empty values by column.
+   *
+   * @param bool $returnQuery
+   * @return array|\Doctrine\ORM\Query
+   */
+  public function getAllUniqueValues($column, $returnQuery = FALSE) {
+      $qb = $this->_em->createQueryBuilder();
+      $qb->select('DISTINCT b.' . $column)
+          ->from('AppBundle:Bygning', 'b');
+
+      $qb->where('b.' . $column . ' IS NOT NULL');
+      $qb->andWhere('b.' . $column . ' <> \'\'');
+
+      $query = $qb->getQuery();
+      return $returnQuery ? $query : $query->getResult();
+  }
+
+  /**
    * Search all Bygning that a User has access to
    *
    * @param User $user
@@ -97,6 +168,11 @@ class BygningRepository extends BaseRepository {
     if (!empty($search['segment'])) {
       $qb->andWhere('b.segment = :segment')
         ->setParameter('segment', $search['segment']);
+    }
+
+    if (!empty($search['virksomhed'])) {
+      $qb->andWhere('b.virksomhed = :virksomhed')
+        ->setParameter('virksomhed', $search['virksomhed']);
     }
 
     $this->limitQueryToUserAccess($user, $qb);

@@ -58,6 +58,27 @@ class Bygning {
    */
   protected $bygId;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cvr_number", type="string", length=255, nullable=true)
+     */
+    private $cvrNumber;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ean_number", type="string", length=255, nullable=true)
+     */
+    private $eanNumber;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="p_number", type="string", length=255, nullable=true)
+     */
+    private $pNumber;
+
   /**
    * @var integer
    *
@@ -199,6 +220,12 @@ class Bygning {
   protected $baseline;
 
   /**
+   * @ManyToOne(targetEntity="Virksomhed")
+   * @JoinColumn(name="virksomhed_id", referencedColumnName="id", nullable=true)
+   **/
+  protected $virksomhed;
+
+  /**
    * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
    *
    * @ManyToOne(targetEntity="User", inversedBy="ansvarlig")
@@ -234,8 +261,6 @@ class Bygning {
   protected $users;
 
   /**
-   * @Assert\NotBlank(groups={"DATA_VERIFICERET"})
-   *
    * @ManyToOne(targetEntity="Segment", inversedBy="bygninger")
    * @JoinColumn(name="segment_id", referencedColumnName="id", nullable=true)
    **/
@@ -299,6 +324,78 @@ class Bygning {
   public function getBygId() {
     return $this->bygId;
   }
+
+    /**
+     * Set cvrNumber
+     *
+     * @param string $cvrNumber
+     *
+     * @return Bygning
+     */
+    public function setCvrNumber($cvrNumber)
+    {
+        $this->cvrNumber = $cvrNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get cvrNumber
+     *
+     * @return string
+     */
+    public function getCvrNumber()
+    {
+        return $this->cvrNumber;
+    }
+
+    /**
+     * Set eanNumber
+     *
+     * @param string $eanNumber
+     *
+     * @return Bygning
+     */
+    public function setEanNumber($eanNumber)
+    {
+        $this->eanNumber = $eanNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get eanNumber
+     *
+     * @return string
+     */
+    public function getEanNumber()
+    {
+        return $this->eanNumber;
+    }
+
+    /**
+     * Set pNumber
+     *
+     * @param string $pNumber
+     *
+     * @return Bygning
+     */
+    public function setPNumber($pNumber)
+    {
+        $this->pNumber = $pNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get pNumber
+     *
+     * @return string
+     */
+    public function getPNumber()
+    {
+        return $this->pNumber;
+    }
 
   /**
    * Set OpfoerselsAar
@@ -763,6 +860,28 @@ class Bygning {
    */
   public function getNummericStatus() {
     return substr($this->status, 0, 1);
+  }
+
+  /**
+   * Set Virksomhed.
+   *
+   * @param Virksomhed $virksomhed
+   *
+   * @return Bygning
+   */
+  public function setVirksomhed(Virksomhed $virksomhed = NULL) {
+    $this->virksomhed = $virksomhed;
+
+    return $this;
+  }
+
+  /**
+   * Get bygning tilknytet Virksomhed
+   *
+   * @return Virksomhed
+   */
+  public function getVirksomhed() {
+    return $this->virksomhed;
   }
 
   /**

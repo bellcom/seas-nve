@@ -1,0 +1,67 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+
+<div class="row heading">
+  <div class="col-md-9">
+    <h1>{{ 'virksomhed.labels.plural' | trans }}</h1>
+  </div>
+  <div class="col-md-3 text-right">
+    <h2><small>{% include 'AppBundle:_includes:pagination_count.html.twig' %}</small></h2>
+  </div>
+</div>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+  {{ form_errors(form) }}
+
+<table class="table table-condensed table-header">
+  <thead>
+  <tr>
+    <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.name' | trans, 'v.name') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.cvrNumber' | trans, 'v.cvrNumber') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.crmNumber' | trans, 'v.crmNumber') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.customerNumber' | trans, 'v.customerNumber') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'appbundle.virksomhed.typeName' | trans, 'v.typeName') }}</th>
+    <th class="text-right"></th>
+  </tr>
+  <tr class="search">
+    <th>{{ form_row(form.name) }}</th>
+    <th>{{ form_row(form.cvrNumber) }}</th>
+    <th>{{ form_row(form.crmNumber) }}</th>
+    <th>{{ form_row(form.customerNumber) }}</th>
+    <th>{{ form_row(form.typeName) }}</th>
+    <th>{{ form_row(form.Søg) }}</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for entity in pagination %}
+  <tr>
+    <td>{{ entity.name }}</td>
+    <td>{{ entity.cvrNumber }}</td>
+    <td>{{ entity.crmNumber }}</td>
+    <td>{{ entity.customerNumber }}</td>
+    <td>{{ entity.typeName }}</td>
+    <td class="text-right">
+      <a class="btn btn-default btn-xs" href="{{ path('virksomhed_show', { 'id': entity.id }) }}">{{ 'common.show' | trans }}</a>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{{ form_end(form) }}
+
+<div class="row">
+  <div class="col-md-3">
+    {% if is_granted('ROLE_VIRKSOMHED_CREATE') %}
+    <a class="btn btn-default" href="{{ path('virksomhed_new') }}">
+      {{ icon('plus') }} {{ 'virksomhed.actions.add' | trans }}
+    </a>
+    {% endif %}
+  </div>
+  <div class="col-md-6 text-center">
+    {{ knp_pagination_render(pagination, "", {}, { "prev_label": "«", "next_label": "»", "first_label": "««", "last_label": "»»"}) }}
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
+{% endblock %}
