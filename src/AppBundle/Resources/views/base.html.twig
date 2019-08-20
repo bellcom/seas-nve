@@ -49,8 +49,8 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('line-chart') }}  {{ 'rapporter.labels.plural' | trans }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
             {% for route, name in {
-              'virksomed_rapport': 'Virksomheder',
               'rapport': 'Bygninger',
+              'virksomed_rapport': 'Virksomheder',
             } %}
               <li><a href="{{ path(route) }}">{{ name | trans }}</a></li>
             {% endfor %}
