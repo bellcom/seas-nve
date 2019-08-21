@@ -93,6 +93,7 @@ common:
   summary: Opsummering
   tekniske_oplysninger: Tekniske Oplysninger
   tilknytning: Tilknytning
+  transport: Transport
   update: Opdater
   updatedAt: Opdateret
   updatedBy: Opdateret af
@@ -1790,6 +1791,11 @@ appbundle:
     varmebesparelseGAF.unit: kWh/år
     varmebesparelseGUF: ﻿Varmebesparelse, GUF
     varmebesparelseGUF.unit: kWh/år
+    energiBesparelse: Energibesparelse
+    dieselPris: Pris pr. liter diesel
+    benzinPris: Pris pr. liter benzin
+    antalGulpladeBiler: Antal gulplade biler
+    antalHvidpladeBiler: Antal hvidplade biler
   tiltagdatofordrift:
     datoForDrift: Dato for drift
   tiltagdetail:

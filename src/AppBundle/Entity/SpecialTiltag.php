@@ -50,6 +50,41 @@ class SpecialTiltag extends Tiltag {
   /**
    * @var float
    *
+   * @ORM\Column(name="energiBesparelse", type="decimal", scale=4, precision=14)
+   */
+  protected $energiBesparelse;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="dieselPris", type="decimal", scale=4, precision=14)
+   */
+  protected $dieselPris;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="benzinPris", type="decimal", scale=4, precision=14)
+   */
+  protected $benzinPris;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="antalGulpladeBiler", type="decimal", scale=4, precision=14)
+   */
+  protected $antalGulpladeBiler;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="antalHvidpladeBiler", type="decimal", scale=4, precision=14)
+   */
+  protected $antalHvidpladeBiler;
+
+  /**
+   * @var float
+   *
    * @ORM\Column(name="yderligereBesparelse", type="decimal", scale=4, precision=14)
    */
   protected $yderligereBesparelse;
@@ -66,6 +101,76 @@ class SpecialTiltag extends Tiltag {
    */
   public function setYderligereBesparelse($yderligereBesparelse) {
     $this->yderligereBesparelse = $yderligereBesparelse;
+  }
+
+  /**
+   * @return float
+   */
+  public function getEnergiBesparelse() {
+    return $this->energiBesparelse;
+  }
+
+  /**
+   * @param float $energiBesparelse
+   */
+  public function setEnergiBesparelse($energiBesparelse) {
+    $this->energiBesparelse = $energiBesparelse;
+  }
+
+  /**
+   * @return float
+   */
+  public function getDieselPris() {
+    return $this->dieselPris;
+  }
+
+  /**
+   * @param float $dieselPris
+   */
+  public function setDieselPris($dieselPris) {
+    $this->dieselPris = $dieselPris;
+  }
+
+  /**
+   * @return float
+   */
+  public function getBenzinPris() {
+    return $this->benzinPris;
+  }
+
+  /**
+   * @param float $benzinPris
+   */
+  public function setBenzinPris($benzinPris) {
+    $this->benzinPris = $benzinPris;
+  }
+
+  /**
+   * @return float
+   */
+  public function getAntalGulpladeBiler() {
+    return $this->antalGulpladeBiler;
+  }
+
+  /**
+   * @param float $antalGulpladeBiler
+   */
+  public function setAntalGulpladeBiler($antalGulpladeBiler) {
+    $this->antalGulpladeBiler = $antalGulpladeBiler;
+  }
+
+  /**
+   * @return float
+   */
+  public function getAntalHvidpladeBiler() {
+    return $this->antalHvidpladeBiler;
+  }
+
+  /**
+   * @param float $antalHvidpladeBiler
+   */
+  public function setAntalHvidpladeBiler($antalHvidpladeBiler) {
+    $this->antalHvidpladeBiler = $antalHvidpladeBiler;
   }
 
   public function setBesparelseGUF($besparelseGUF) {

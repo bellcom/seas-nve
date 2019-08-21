@@ -99,6 +99,35 @@
     </div>
   {% endif %}
 
+  {% if edit_form.energiBesparelse is defined %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'common.transport' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="col-xs-12 col-md-6">
+          {% if edit_form.energiBesparelse is defined %}
+            {{ form_row(edit_form.energiBesparelse) }}
+          {% endif %}
+          {% if edit_form.dieselPris is defined %}
+            {{ form_row(edit_form.dieselPris) }}
+          {% endif %}
+          {% if edit_form.benzinPris is defined %}
+            {{ form_row(edit_form.benzinPris) }}
+          {% endif %}
+        </div>
+        <div class="col-xs-12 col-md-6">
+          {% if edit_form.antalGulpladeBiler is defined %}
+            {{ form_row(edit_form.antalGulpladeBiler) }}
+          {% endif %}
+          {% if edit_form.antalHvidpladeBiler is defined %}
+            {{ form_row(edit_form.antalHvidpladeBiler) }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">{{ 'common.oekonomi' | trans }}</h3>
