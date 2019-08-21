@@ -1887,6 +1887,7 @@ appbundle:
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
   virksomhed:
+    bygning: Tilknytet bygning
     generalt: Generel information
     name: Firmanavn
     cvrNumber: CVR-nr.
