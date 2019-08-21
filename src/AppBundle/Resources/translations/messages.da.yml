@@ -1698,6 +1698,7 @@ appbundle:
     besparelseAarEt.unit: kr/år
     besparelseDriftOgVedligeholdelse: Besparelse på D & V
     besparelseDriftOgVedligeholdelse.unit: kr/år
+    slutanvendelse: Slutanvendelse
     besparelseEl: Besparelse El
     besparelseEl.unit: kWh/år
     besparelseGAF: Besparelse GAF

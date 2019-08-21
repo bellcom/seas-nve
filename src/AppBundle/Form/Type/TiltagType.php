@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Validator\Constraints\False;
+use AppBundle\DBAL\Types\SlutanvendelseType;
 
 /**
  * Class TiltagType
@@ -120,6 +121,7 @@ class TiltagType extends AbstractType {
     $builder->add('risikovurderingDiverse', new RisikovurderingType(), array());
     $builder->add('risikovurderingAendringIBesparelseFaktor', 'percent', array('required' => FALSE));
     $builder->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor', 'percent', array('required' => FALSE));
+    $builder->add('slutanvendelse');
 
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder

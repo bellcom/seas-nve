@@ -9,6 +9,7 @@ namespace AppBundle\Entity;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\PrimaerEnterpriseType;
+use AppBundle\DBAL\Types\SlutanvendelseType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
@@ -59,6 +60,14 @@ abstract class Tiltag {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
+
+  /**
+   * @var SlutanvendelseType
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\SlutanvendelseType")
+   * @ORM\Column(name="slutanvendelse", type="SlutanvendelseType", nullable=true)
+   **/
+  protected $slutanvendelse;
 
   /**
    * @var boolean
@@ -621,6 +630,28 @@ abstract class Tiltag {
     }
 
     return 0;
+  }
+
+  /**
+   * Set slutanvendelse
+   *
+   * @param SlutanvendelseType $slutanvendelse
+   *
+   * @return Slutanvendelse
+   */
+  public function setSlutanvendelse($slutanvendelse = NULL) {
+    $this->slutanvendelse = $slutanvendelse;
+
+    return $this;
+  }
+
+  /**
+   * Get slutanvendelse
+   *
+   * @return \AppBundle\DBAL\Types\SlutanvendelseType
+   */
+  public function getSlutanvendelse() {
+    return $this->slutanvendelse;
   }
 
   /**
