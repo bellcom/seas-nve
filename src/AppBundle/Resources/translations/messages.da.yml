@@ -1941,6 +1941,8 @@ appbundle:
     lobetid: Løbetid
     lobetid.unit: år
     parent: Moderselskab
+    user: Tilknytet kundens bruger
+    user.customer_url: Kundens URL
     create:
       rapport:
         rapport:

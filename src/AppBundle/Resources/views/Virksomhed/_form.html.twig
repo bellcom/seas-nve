@@ -109,6 +109,9 @@
                 {{ form_row(form.kalkulationsrente)}}
                 {{ form_row(form.inflation)}}
                 {{ form_row(form.lobetid)}}
+                {% if (form.user) %}
+                    {{ form_row(form.user) }}
+                {% endif %}
             </div>
         </div>
     </div>

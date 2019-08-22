@@ -127,6 +127,15 @@ class VirksomhedType extends AbstractType
             ))
             ->add('lobetid')
         ;
+
+        // Allow select customer user only for existing companies.
+        if (!empty($options['data']->getId())) {
+            $builder->add('user', 'entity', array(
+                'class' => 'AppBundle:User',
+                'required' => FALSE,
+                'empty_value' => 'common.none',
+            ));
+        }
     }
 
     /**
