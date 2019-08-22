@@ -18,8 +18,8 @@ class ContactPersonEmbedType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
       ->add('name')
-      ->add('phoneNumber')
-      ->add('mail');
+      ->add('mail', null, array('required' => true))
+      ->add('phoneNumber');
   }
 
   /**

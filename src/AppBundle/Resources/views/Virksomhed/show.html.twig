@@ -7,7 +7,7 @@
       <h1>{{ icon('briefcase') }} {{ entity }}</h1>
     </div>
     <div class="col-md-3 text-right">
-      <a href="{{ path('virksomhed_get_rapport', { 'id': entity.id }) }}" class="btn btn-primary">
+      <a href="{{ path_with_access_token('virksomhed_get_rapport', { 'id': entity.id }) }}" class="btn btn-primary">
         {{ icon('caret-square-o-right') }} {{ 'appbundle.virksomhed.rapport' | trans }}
       </a>
       {% if is_granted('VIRKSOMHED_EDIT', entity) %}
@@ -129,8 +129,8 @@
                 {% for contactPerson in contactPersons %}
                   <tr>
                     <th>{{ contactPerson.name }}</th>
-                    <td>{{ contactPerson.phoneNumber }}</td>
                     <td>{{ contactPerson.mail }}</td>
+                    <td>{{ contactPerson.phoneNumber }}</td>
                   </tr>
                 {% endfor %}
               </tbody>
@@ -209,6 +209,13 @@
           <tr>
             <th>{{ 'appbundle.virksomhed.lobetid' | trans }}</th>
             <td>{{ entity.lobetid | format_integer }} {{ 'appbundle.configuration.rapportLobetid' | get_unit }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.user.customer_url' | trans }}</th>
+            <td>
+              {% if entity.user %}
+              {{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}</td>
+            {% endif %}
           </tr>
         </tbody>
       </table>

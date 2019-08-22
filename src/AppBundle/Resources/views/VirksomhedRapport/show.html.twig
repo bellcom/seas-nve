@@ -61,13 +61,13 @@
         {% endif %}
       {% endif %}
 
-      <a href="{{ path('virksomhed_rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
+      <a href="{{ path_with_access_token('virksomhed_rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf2' | trans }}
       </a>
-      <a href="{{ path('virksomhed_rapport_show_pdf5', { 'id': entity.id }) }}" class="btn btn-default">
+      <a href="{{ path_with_access_token('virksomhed_rapport_show_pdf5', { 'id': entity.id }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf5' | trans }}
       </a>
-      <a class="btn btn-default" href="{{ path('virksomhed_rapport_filer', { 'id': entity.id }) }}">
+      <a class="btn btn-default" href="{{ path_with_access_token('virksomhed_rapport_filer', { 'id': entity.id }) }}">
         {{ icon('file') }} {{ 'virksomhed_rapporter.actions.filer' | trans }}
       </a>
     </div>
@@ -83,7 +83,7 @@
       </tr>
       <tr>
         <th>{{ 'appbundle.virksomhed_rapport.virksomhed' | trans }}</th>
-        <td><a href="{{ path('virksomhed_show', { 'id': entity.virksomhed.id }) }}">{{ entity.virksomhed }}</a></td>
+        <td><a href="{{ path_with_access_token('virksomhed_show', { 'id': entity.virksomhed.id }) }}">{{ entity.virksomhed }}</a></td>
       </tr>
       <tr>
         <th>{{ 'appbundle.virksomhed_rapport.datering' | trans }}</th>

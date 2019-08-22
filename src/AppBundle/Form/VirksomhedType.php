@@ -104,6 +104,7 @@ class VirksomhedType extends AbstractType
                 'allow_add' => TRUE,
                 'allow_delete' => TRUE,
                 'by_reference' => FALSE,
+                'required' => TRUE,
             ))
             ->add('naceCode')
             ->add('dsmCode')
@@ -126,6 +127,15 @@ class VirksomhedType extends AbstractType
             ))
             ->add('lobetid')
         ;
+
+        // Allow select customer user only for existing companies.
+        if (!empty($options['data']->getId())) {
+            $builder->add('user', 'entity', array(
+                'class' => 'AppBundle:User',
+                'required' => FALSE,
+                'empty_value' => 'common.none',
+            ));
+        }
     }
 
     /**
