@@ -141,16 +141,16 @@ baselinekorrektioner:
     ingen: Ingen baseline korrektioner
 belysningtiltag:
   actions:
-    add: Tilføj belysningstiltag
-    edit: Rediger belysningstiltag
+    add: Tilføj belysningsforslag
+    edit: Rediger belysningsforslag
   confirmation:
-    created: Nyt belysningstiltag oprettet
+    created: Nyt belysningsforslag oprettet
 belysningtiltagdetail:
   actions:
-    add: Tilføj belysningstiltag
-    batch_edit: Rediger valgte belysningstiltag
-    copy: Kopier belysningstiltag
-    edit: Rediger belysningstiltag
+    add: Tilføj belysningsforslag
+    batch_edit: Rediger valgte belysningsforslag
+    copy: Kopier belysningsforslag
+    edit: Rediger belysningsforslag
 bilag:
   actions:
     create: Opret bilag
@@ -224,7 +224,7 @@ bygning_rapporter:
     solcelletiltag: Solcelle
     specialtiltag: Special
     tekniskisoleringtiltag: Teknisk isolering
-    tiltag: Tiltag
+    tiltag: Forslag
     tilvalgt: Tilvalgt
     vinduetiltag: Vindue
 configuration:
@@ -271,7 +271,7 @@ energiforsyninger:
     deleted: Energiforsyning slettet
   error:
     cannot_delete: Energiforsyning kan ikke slettes
-    in_use: Kan ikke slettes. Bruges af tiltag.
+    in_use: Kan ikke slettes. Bruges af forslag.
   labels:
     plural: Energiforsyninger
     singular: Energiforsyning
@@ -280,7 +280,7 @@ erstatningslyskilde:
     add: Tilføj erstatnings lyskilde
     edit: Rediger erstatnings lyskilde
   error:
-    in_use: Kan ikke slettes. Bruges af belysningstiltag.
+    in_use: Kan ikke slettes. Bruges af belysningsforslag.
   labels:
     plural: Erstatnings lyskilder
     singular: Erstatnings lyskilde
@@ -324,30 +324,30 @@ klimaskaerm:
     create: Opret klimaskærm
     edit: Rediger klimaskærm
   error:
-    in_use: Kan ikke slettes. Bruges af klimaskærmstiltag.
+    in_use: Kan ikke slettes. Bruges af klimaskærmsforslag.
   labels:
     plural: Klimaskærme
     singular: Klimaskærm
 klimaskaermtiltag:
   actions:
-    add: Tilføj klimaskærmstiltag
-    copy: Kopier klimaskærmstiltag
-    edit: Rediger klimaskærmstiltag
+    add: Tilføj klimaskærmsforslag
+    copy: Kopier klimaskærmsforslag
+    edit: Rediger klimaskærmsforslag
   confirmation:
-    created: Nyt klimaskærmstiltag oprettet
+    created: Nyt klimaskærmsforslag oprettet
 klimaskaermtiltagdetail:
   actions:
-    add: Tilføj klimaskærmstiltag
-    batch_edit: Rediger valgte klimaskærmstiltag
-    copy: Kopier klimaskærmstiltag
-    edit: Rediger klimaskærmstiltag
+    add: Tilføj klimaskærmsforslag
+    batch_edit: Rediger valgte klimaskærmsforslag
+    copy: Kopier klimaskærmsforslag
+    edit: Rediger klimaskærmsforslag
 komponent:
   actions:
     add: Tilføj komponent
     new: Ny komponent
     edit: Rediger komponent
   error:
-    in_use: Kan ikke slettes. Bruges af tekniskisoleringtiltag.
+    in_use: Kan ikke slettes. Bruges af tekniskisoleringforslag.
   labels:
     plural: Komponenter
     singular: Komponent
@@ -356,7 +356,7 @@ lyskilde:
     add: Tilføj lyskilde
     edit: Rediger lyskilde
   error:
-    in_use: Kan ikke slettes. Bruges af belysningstiltag.
+    in_use: Kan ikke slettes. Bruges af belysningsforslag.
   labels:
     plural: Lyskilder
     singular: Lyskilde
@@ -365,7 +365,7 @@ nytArmatur:
     add: Tilføj armatur
     edit: Rediger armatur
   error:
-    in_use: Kan ikke slettes. Bruges af belysningstiltag.
+    in_use: Kan ikke slettes. Bruges af belysningsforslag.
   labels:
     plural: Armaturer
     singular: Armatur
@@ -375,7 +375,7 @@ nyttiggjortvarme:
     new: Ny faktor
     edit: Rediger faktor
   error:
-    in_use: Kan ikke slettes. Bruges af pumpe- eller tekniskisoleringtiltag.
+    in_use: Kan ikke slettes. Bruges af pumpe- eller tekniskisoleringforslag.
   labels:
     plural: Faktorer for nyttiggjort varme (Teknisk Iso.)
     singular: Faktor for nyttiggjort varme (Teknisk Iso.)
@@ -389,7 +389,7 @@ pumpe:
     updated: Pumpe opdateret
     deleted: Pumpe slettet
   error:
-    in_use: Kan ikke slettes. Bruges af pumpetiltag.
+    in_use: Kan ikke slettes. Bruges af pumpeforslag.
   labels:
     nuvaerende: Nuværende pumpe
     ny: Ny pumpe
@@ -397,22 +397,22 @@ pumpe:
     singular: Pumpe
 pumpetiltag:
   actions:
-    add: Tilføj Pumpetiltag
-    create: Opret Pumpetiltag
-    edit: Rediger Pumpetiltag
+    add: Tilføj Pumpeforslag
+    create: Opret Pumpeforslag
+    edit: Rediger Pumpeforslag
   confirmation:
-    created: Nyt pumpetiltag oprettet
+    created: Nyt pumpeforslag oprettet
   labels:
-    plural: Pumpetiltag
-    singular: Pumpetiltag
+    plural: Pumpeforslag
+    singular: Pumpeforslag
     title: Pumpeudskiftninger
 pumpetiltagdetail:
   actions:
-    add: Tilføj Pumpetiltag
-    batch_edit: Rediger valgte pumpetiltag
-    copy: Kopier Pumpetiltag
-    create: Opret Pumpetiltag
-    edit: Rediger Pumpetiltag
+    add: Tilføj Pumpeforslag
+    batch_edit: Rediger valgte pumpeforslag
+    copy: Kopier Pumpeforslag
+    create: Opret Pumpeforslag
+    edit: Rediger Pumpeforslag
 rapporter:
   labels:
     plural: Rapporter
@@ -445,31 +445,31 @@ solcelle:
     singular: Solcelle
 solcelletiltag:
   actions:
-    add: Tilføj solcelletiltag
-    copy: Kopier solcelletiltag
-    edit: Rediger solcelletiltag
+    add: Tilføj solcelleforslag
+    copy: Kopier solcelleforslag
+    edit: Rediger solcelleforslag
   confirmation:
-    created: Nyt solcelletiltag oprettet
+    created: Nyt solcelleforslag oprettet
 solcelletiltagdetail:
   actions:
-    add: Tilføj solcelletiltag
-    batch_edit: Rediger valgte solcelletiltag
-    copy: Kopier solcelletiltag
-    edit: Rediger solcelletiltag
+    add: Tilføj solcelleforslag
+    batch_edit: Rediger valgte solcelleforslag
+    copy: Kopier solcelleforslag
+    edit: Rediger solcelleforslag
 specialtiltag:
   actions:
-    add: Tilføj specialtiltag
-    edit: Rediger specialtiltag
+    add: Tilføj specialforslag
+    edit: Rediger specialforslag
 specialtiltagdetail:
   actions:
     add: Upload bilag
-    batch_edit: Rediger valgte specialtiltag
-    edit: Rediger bilag til specialtiltag
+    batch_edit: Rediger valgte specialforslag
+    edit: Rediger bilag til specialforslag
 tekniskisoleringtiltag:
   actions:
     edit: Rediger teknisk isolering
   confirmation:
-    created: Nyt teknisk isoleringstiltag oprettet
+    created: Nyt teknisk isoleringsforslag oprettet
 tekniskisoleringtiltagdetail:
   actions:
     add: Tilføj teknisk isolering
@@ -479,33 +479,33 @@ tekniskisoleringtiltagdetail:
     edit: Rediger teknisk isolering
 tiltag:
   actions:
-    add: Tilføj Tiltag
+    add: Tilføj forslag
     batch_edit: Rediger valgte
     batch_select_all: Vælg alle
     batch_select_none: Fravælg alle
-    create: Opret Tiltag
-    edit: Rediger Tiltag
+    create: Opret forslag
+    edit: Rediger forslag
   confirmation:
-    created: Tiltag oprettet
+    created: Forslag oprettet
     datofordriftupdated: Dato for drift opdateret
     tilfravalgtupdated: Til/Fravalgt af opdateret
-    updated: Tiltag opdateret
-    deleted: Tiltag slettet
+    updated: Forslag opdateret
+    deleted: Forslag slettet
   labels:
-    plural: Tiltag
-    singular: Tiltag
+    plural: Forslag
+    singular: Forslag
   strings:
     detailark: Detailark
     forhold: Forhold
     oversigt: Oversigt
     regning: Regning
-    ingen: Ingen tiltag fundet
+    ingen: Ingen forslag fundet
   validation:
-    error: Fejl i tiltaget - ret venligst de nævnte fejl
+    error: Fejl i forslaget - ret venligst de nævnte fejl
 tiltagdetail:
   actions:
     add: Tilføj Detail
-    batch_edit: Rediger valgte tiltag
+    batch_edit: Rediger valgte forslag
     copy: Kopier Detail
     edit: Rediger Detail
   confirmation:
@@ -515,7 +515,7 @@ tiltagdetail:
     deleted: Detail slettet
 udtraek:
   columns:
-    alt: Alt (Uden tiltag)
+    alt: Alt (Uden forslag)
     bygningsinformation: Bygningsinformation
     baselineinformation: Baselineinformation
     aa_screeningsinformation: Screeningsinformation
@@ -523,7 +523,7 @@ udtraek:
     oekonomi: Økonomi (Set over 30 år)
   types:
     bygning: Bygning
-    tiltag: Tiltag
+    tiltag: Forslag
   labels:
     besparelse_varme_guf_pr_aar: Besparelse varme GUF pr. år
     besparelse_varme_guf_percent_pr_aar: Besparelse varme GUF pr. år i procent
@@ -556,15 +556,15 @@ user:
       email: Bruger med adresse %email findes allerede
 vinduetiltag:
   actions:
-    edit: Rediger vinduestiltag
+    edit: Rediger vinduesforslag
   confirmation:
-    created: Nyt vinduesstiltag oprettet
+    created: Nyt vinduessforslag oprettet
 vinduetiltagdetail:
   actions:
-    add: Tilføj vinduestiltag
-    batch_edit: Rediger valgte vinduestiltag
-    copy: Kopier vinduestiltag
-    edit: Rediger vinduestiltag
+    add: Tilføj vinduesforslag
+    batch_edit: Rediger valgte vinduesforslag
+    copy: Kopier vinduesforslag
+    edit: Rediger vinduesforslag
 virksomhed:
   actions:
     add: Tilføj virksomhed
@@ -754,7 +754,7 @@ appbundle:
     armaturhoejdeM: Armaturhøjde
     armaturhoejdeM.unit: m
     armaturhoejdeM.help: ﻿Monteringshøjden for armaturene i rummet indtastes
-    belysningstiltag: Nyt tiltag
+    belysningstiltag: Nyt forslag
     driftsbesparelseTilLyskilderKrAar: Driftsbesparelse til lyskilder Alle lokaler
     driftsbesparelseTilLyskilderKrAar.unit: kr/år
     drifttidTAar: Drifttid
@@ -853,7 +853,7 @@ appbundle:
     standardinvestSensorKrStk: Standardinvest. sensor
     standardinvestSensorKrStk.unit: kr/stk
     styring: Styring
-    tiltag.id: Tiltag, input
+    tiltag.id: Forslag, input
     tilvalgt: Tilvalgt
     vaegtetLevetidAar: Vægtet Levetid
     vaegtetLevetidAar.unit: år
@@ -1295,10 +1295,10 @@ appbundle:
     simpelTilbagebetalingstidAar.unit: år
     tilSortering: Til sortering
     tilSummeringAfDelpriser: Til summering af delpriser
-    tiltagsnr: Tiltagsnr.
-    tiltagsnrDelpriser: Tiltagsnr. Delpriser
+    tiltagsnr: Forslagsnr.
+    tiltagsnrDelpriser: Forslagsnr. Delpriser
     tilvalgt: Tilvalgt
-    tilvalgteDeltiltag: Tilvalgte (deltiltag)
+    tilvalgteDeltiltag: Tilvalgte (delforslag)
     tIndeC: T_inde
     tIndeC.unit: °C
     tOpvarmningTimerAar: t_opvarmning
@@ -1312,7 +1312,7 @@ appbundle:
     uNyWM2K: U_ny
     uNyWM2K.unit: W/m²K
     vaegtetGnm: VaegtetGnm
-    vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
+    vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for forslaget (afrundet)
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
   komponent:
@@ -1419,7 +1419,7 @@ appbundle:
     pumpe: Eks. pumpe / Ny pumpe
     pumpeID: Pumpe ID
     pumpeID.help: ﻿Et ID der kan genfindes på vedlagt skitse angives, fx. "P1", "P2" osv.
-    pumpetiltag: Pumpetiltag
+    pumpetiltag: Pumpeforslag
     samletInvesteringInklPristillaeg: Samlet investering inkl. pristillæg
     samletInvesteringInklPristillaeg.unit: kr
     simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
@@ -1546,7 +1546,7 @@ appbundle:
     sum.unit: kr
     sumOevrige: Sum, investering inkl. øvrige omkostninger
     sumOevrige.unit: kr
-    tiltag: Tiltag
+    tiltag: Forslag
     tilvalg: Tilvalg
     timeforbrug: Forventet timeforbrug for lokalpersonalet
     timeforbrug.unit: kr
@@ -1745,7 +1745,7 @@ appbundle:
     modernisering: Modernisering
     modernisering.unit: kr.
     maengde: Mængde
-    nr: Tiltags nr.
+    nr: Forslags nr.
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: kr
     oekonomioverblik: Økonomioverblik
@@ -1777,7 +1777,7 @@ appbundle:
     simpelTilbagebetalingstidAar.unit: År
     solcelleproduktion: Solcelleproduktion, eget forbrug
     solcelleproduktion.unit: kWh/år
-    tiltagskategori: Tiltagskategori
+    tiltagskategori: Forslagskategori
     tilvalgt: Tilvalgt
     tilvalgtAfAaPlus: Tilvalgt Aa+
     tilvalgtAfAaPlus.th: Aa+
@@ -1849,8 +1849,8 @@ appbundle:
     hoejdeElLaengdeM: Højde el. Længde
     hoejdeElLaengdeM.unit: m
     ikkeElenaBerettiget: Ikke Elena Berettiget
-    klimaskaerm: Tiltag
-    klimaskaermOverskrevetPris: Vinduestiltag overskrevet pris
+    klimaskaerm: Forslag
+    klimaskaermOverskrevetPris: Vinduesforslag overskrevet pris
     klimaskaermOverskrevetPris.unit: kr/m²
     klimaskaermOverskrevetPris.help: Indtast pris kr/m² for at overskrive valg i priskategori
     kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
@@ -1860,7 +1860,7 @@ appbundle:
     levetidAar.unit: År
     noteGenerelt: Noter
     noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter
-    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet.help: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet.help: Noter til prisfaktor, valgte løsning/forslag, specielle forhold på stedet
     nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
     nutidsvaerdiSetOver15AarKr.unit: Kr
     orientering: Orientering
@@ -1877,10 +1877,10 @@ appbundle:
     solenergitransmittansNy.unit: %
     tilSortering: Til sortering
     tilSummeringAfDelpriser: Til summering af delpriser
-    tiltagsnr: Tiltagsnr.
-    tiltagsnrDelpriser: Tiltagsnr. Delpriser
+    tiltagsnr: Forslagsnr.
+    tiltagsnrDelpriser: Forslagsnr. Delpriser
     tilvalgt: Tilvalgt
-    tilvalgteDeltiltag: Tilvalgte (deltiltag)
+    tilvalgteDeltiltag: Tilvalgte (delforslag)
     type: Type
     placering: Placering
     uEksWM2K: U_eks
@@ -1888,11 +1888,12 @@ appbundle:
     uNyWM2K: U_ny
     uNyWM2K.unit: W/m²K
     vaegtetGnm: VaegtetGnm
-    vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for tiltaget (afrundet)
+    vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for forslaget (afrundet)
     vindue: Vindue
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
   virksomhed:
+    bygning: Tilknytet bygning
     generalt: Generel information
     name: Firmanavn
     cvrNumber: CVR-nr.
@@ -2141,7 +2142,7 @@ Cannot calculate rapport: Fejl under beregning af rapport
 
 Incomplete calculation: Beregningen er ikke komplet
 Fields required for calculation: Udfyld følgende felter
-Tiltag required for calculation: Opdater tiltag nr
+Tiltag required for calculation: Opdater forslag nr
 Details required for calculation: Opdater detail nr
 
 roles:
@@ -2172,12 +2173,12 @@ roles:
     ROLE_SOLCELLE_CREATE: Opret solcelle
     ROLE_SOLCELLE_EDIT: Rediger solcelle
     ROLE_SOLCELLE_VIEW: Vis solcelle
-    ROLE_TILTAG_CREATE: Opret tiltag
-    ROLE_TILTAG_EDIT: Rediger tiltag
-    ROLE_TILTAG_VIEW: Vis tiltag
-    ROLE_TILTAGDETAIL_CREATE: Opret tiltag detalje
-    ROLE_TILTAGDETAIL_EDIT: Rediger tiltag detalje
-    ROLE_TILTAGDETAIL_VIEW: Vis tiltag detalje
+    ROLE_TILTAG_CREATE: Opret forslag
+    ROLE_TILTAG_EDIT: Rediger forslag
+    ROLE_TILTAG_VIEW: Vis forslag
+    ROLE_TILTAGDETAIL_CREATE: Opret forslag detalje
+    ROLE_TILTAGDETAIL_EDIT: Rediger forslag detalje
+    ROLE_TILTAGDETAIL_VIEW: Vis forslag detalje
     ROLE_VIRKSOMHED_CREATE: Opret virksomhed
     ROLE_VIRKSOMHED_EDIT: Rediger virksomhed
     ROLE_VIRKSOMHED_VIEW: Vis virksomhed

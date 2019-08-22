@@ -23,7 +23,7 @@ class SpecialTiltag extends Tiltag {
     parent::__construct();
 
     // @Todo: Find af way to use the translations system or move this to some place else....
-    $this->setTitle('Specialtiltag');
+    $this->setTitle('Specialforslag');
   }
 
   /**

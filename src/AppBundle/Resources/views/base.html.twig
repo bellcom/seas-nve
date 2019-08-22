@@ -36,25 +36,37 @@
     <div id="navbar" class="collapse navbar-collapse">
       {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
       <ul class="nav navbar-nav">
-        {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
-        <li><a href="/virksomhed">{{ icon('briefcase') }} {{ 'virksomhed.labels.plural' | trans }}</a></li>
-        {% endif %}
-        {% if is_granted('ROLE_BYGNING_VIEW') %}
-        <li><a href="/bygning">{{ icon('home') }} {{ 'bygninger.labels.plural' | trans }}</a></li>
-        {% endif %}
-        {% if is_granted('ROLE_RAPPORT_VIEW') or is_granted('ROLE_VIRKSOMHED_RAPPORT_VIEW') %}
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('file-text-o') }}  {{ 'rapporter.labels.plural' | trans }} <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('table') }}  {{ 'Stamdata' | trans }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            {% for route, name in {
-              'virksomed_rapport': 'Virksomheder',
-              'rapport': 'Bygninger',
-            } %}
-              <li><a href="{{ path(route) }}">{{ name | trans }}</a></li>
-            {% endfor %}
+            {% if is_granted('ROLE_BYGNING_VIEW') %}
+              <li><a href="/bygning">{{ 'bygninger.labels.plural' | trans }}</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
+              <li><a href="/virksomhed">{{ 'virksomhed.labels.plural' | trans }}</a></li>
+            {% endif %}
           </ul>
         </li>
-        {% endif %}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('line-chart') }}  {{ 'rapporter.labels.plural' | trans }} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            {% if is_granted('ROLE_BYGNING_VIEW') %}
+              <li><a href="{{ path('rapport') }}">{{ 'rapport.labels.plural' | trans }}</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
+              <li><a href="{{ path('virksomed_rapport') }}">{{ 'virksomhed_rapport.labels.plural' | trans }}</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('plus-circle') }}  {{ 'Opret' | trans }} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/bygning/new">{{ 'bygninger.labels.singular' | trans }}</a></li>
+            {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
+              <li><a href="/virksomhed/new">{{ 'virksomhed.labels.singular' | trans }}</a></li>
+            {% endif %}
+          </ul>
+        </li>
         {% if is_granted('ROLE_ADMIN') %}
           <li><a href="/udtraek">{{ icon('file-excel-o') }} {{ 'udtraek.labels.plural' | trans }}</a></li>
         {% endif %}
@@ -156,7 +168,8 @@
 <footer class="footer">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xs-12 col-md-9"><p class="text-muted">{{ footer.name }}, {{ icon('map-marker') }} {{ footer.address }} - {{ icon('envelope') }} {{ footer.email }}</p></div>
+      <div class="col-xs-12 col-md-9"><p class="text-muted">{{ footer.name }} {{ icon('map-marker') }} {{ footer.address }} - {{ icon('envelope') }}
+          <a href="mailto: {{ footer.email }}">{{ footer.email }}</a></p></div>
       <div class="col-xs-12 col-md-3"><p class="text-muted text-right">{{ aaplus_release_ver }}</p></div>
     </div>
   </div>
