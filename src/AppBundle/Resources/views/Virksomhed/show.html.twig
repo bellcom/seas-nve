@@ -31,7 +31,7 @@
             <th>{{ 'appbundle.virksomhed.parent' | trans }}</th>
             <td>
               {% if (entity.parent) %}
-                <a href="{{ path('virksomhed_show', { 'id': entity.parent.id }) }}">{{ entity.parent }}</a>
+                <a href="{{ path_with_access_token('virksomhed_show', { 'id': entity.parent.id }) }}">{{ entity.parent }}</a>
               {% else %}
                 {{ 'virksomhed.messages.empty.parent' | trans }}
               {% endif %}
@@ -150,7 +150,7 @@
           {% if datterSelskaber | length %}
             <ul>
               {% for datterSelskab in datterSelskaber %}
-                <li><a href="{{ path('virksomhed_show', { 'id': datterSelskab.id }) }}">{{ datterSelskab }}</a></li>
+                <li><a href="{{ path_with_access_token('virksomhed_show', { 'id': datterSelskab.id }) }}">{{ datterSelskab }}</a></li>
               {% endfor %}
             </ul>
           {% else %}

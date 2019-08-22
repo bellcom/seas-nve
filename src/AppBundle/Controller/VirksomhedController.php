@@ -394,10 +394,6 @@ class VirksomhedController extends BaseController
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('virksomhed_delete', array('id' => $virksomhed->getId())))
             ->setMethod('DELETE')
-            // @TODO implement deleteing user checkbox.
-//            ->add('delete_user', 'checkbox', array(
-//                'label' => 'virksomhed.messages.delete_user'
-//            ))
             ->add('submit', 'submit', array(
                 'label' => 'Delete',
                 'disabled' => $message,
@@ -430,6 +426,7 @@ class VirksomhedController extends BaseController
             );
         }
         $params = array('id' => $rapport->getId());
+        // Forwarding access by token.
         if ($this->request->query->get('token')) {
             $params['token'] = $this->request->query->get('token');
         }
@@ -460,8 +457,12 @@ class VirksomhedController extends BaseController
             $em->flush();
 
             $this->flash->success('virksomhed.confirmation.rapport_created');
-
-            return $this->redirect($this->generateUrl('virksomhed_rapport_show', array('id' => $virksomhed->getRapport()->getId())));
+            $params = array('id' => $virksomhed->getRapport()->getId());
+            // Forwarding access by token.
+            if ($this->request->query->get('token')) {
+                $params['token'] = $this->request->query->get('token');
+            }
+            return $this->redirect($this->generateUrl('virksomhed_rapport_show', $params));
         }
 
         $this->flash->error('common.form_error');
@@ -480,12 +481,17 @@ class VirksomhedController extends BaseController
      * @return \Symfony\Component\Form\Form The form
      */
     private function createRapportForm(Virksomhed $entity) {
+        $params = array('id' => $entity->getId());
+        // Forwarding access by token.
+        if ($this->request->query->get('token')) {
+            $params['token'] = $this->request->query->get('token');
+        }
         $form = $this->createForm(new VirksomhedCreateRapportType(), $entity, array(
-            'action' => $this->generateUrl('virksomhed_create_rapport', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('virksomhed_create_rapport', $params),
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_show', $params));
 
         return $form;
     }

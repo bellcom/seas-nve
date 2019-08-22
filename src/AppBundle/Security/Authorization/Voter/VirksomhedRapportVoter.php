@@ -2,6 +2,8 @@
 
 namespace AppBundle\Security\Authorization\Voter;
 
+use AppBundle\Entity\User;
+use AppBundle\Entity\Virksomhed;
 use AppBundle\Entity\VirksomhedRapport;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -105,8 +107,25 @@ class VirksomhedRapportVoter implements VoterInterface {
     return false;
   }
 
+    /**
+     * Matches token from request by virksomhed user token or parent virksomhed token.
+     *
+     * @param VirksomhedRapport $virksomhed_rapport
+     * @return bool
+     */
     private function hasValidToken(VirksomhedRapport $virksomhed_rapport) {
-        return $this->request->query->get('token') == $virksomhed_rapport->getVirksomhed()->getUser()->getToken();
+        $token = $this->request->query->get('token');
+        $user = $virksomhed_rapport->getVirksomhed()->getUser();
+        $userToken = $user instanceof User ? $user->getToken() : '';
+
+        $parentUserToken = '';
+        $parentVirksomhed = $virksomhed_rapport->getVirksomhed()->getParent();
+        if ($parentVirksomhed instanceof Virksomhed) {
+            $user = $parentVirksomhed->getUser();
+            $parentUserToken = $user instanceof User ? $user->getToken() : '';
+        }
+
+        return !empty($token) && ($token == $userToken || $token == $parentUserToken);
     }
 
 }

@@ -1140,7 +1140,7 @@ class Virksomhed
      *
      * @return Virksomhed
      */
-    public function setUser(User $user)
+    public function setUser($user)
     {
         $this->user = $user;
 

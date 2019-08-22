@@ -2,6 +2,7 @@
 
 namespace AppBundle\Security\Authorization\Voter;
 
+use AppBundle\Entity\User;
 use AppBundle\Entity\Virksomhed;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -104,7 +105,24 @@ class VirksomhedVoter implements VoterInterface {
     return false;
   }
 
+  /**
+   * Matches token from request by virksomhed user token or parent virksomhed token.
+   *
+   * @param Virksomhed $virksomhed
+   * @return bool
+   */
   private function hasValidToken(Virksomhed $virksomhed) {
-    return $this->request->query->get('token') == $virksomhed->getUser()->getToken();
+      $token = $this->request->query->get('token');
+      $user = $virksomhed->getUser();
+      $userToken = $user instanceof User ? $user->getToken() : '';
+
+      $parentUserToken = '';
+      $parentVirksomhed = $virksomhed->getParent();
+      if ($parentVirksomhed instanceof Virksomhed) {
+          $user = $parentVirksomhed->getUser();
+          $parentUserToken = $user instanceof User ? $user->getToken() : '';
+      }
+
+      return !empty($token) && ($token == $userToken || $token == $parentUserToken);
   }
 }
