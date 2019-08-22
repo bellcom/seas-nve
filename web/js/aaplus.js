@@ -172,6 +172,9 @@
   }
 
   function addDeleteLink($formRow) {
+    if ($formRow.hasClass('required')) {
+      return;
+    }
     var $removeFormA = $('<a href="#" class="btn btn-danger">Fjern</a>');
     $formRow.find('.col-sm-2').append($removeFormA);
 

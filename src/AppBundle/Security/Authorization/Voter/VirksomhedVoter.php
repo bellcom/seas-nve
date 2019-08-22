@@ -2,22 +2,25 @@
 
 namespace AppBundle\Security\Authorization\Voter;
 
+use AppBundle\Entity\Virksomhed;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use AppBundle\Entity\VirksomhedRepository;
 
 class VirksomhedVoter implements VoterInterface {
-  /** @var VirksomhedRepository $virksomhedRepository */
-  private $virksomhedRepository;
 
   /** @var RoleHierarchyInterface $roleHierarchy */
   private $roleHierarchy;
 
-  public function __construct(EntityManager $em, RoleHierarchyInterface $roleHierarchy) {
-    $this->virksomhedRepository = $em->getRepository('AppBundle:Virksomhed');
+  /** @var Request $request */
+  protected $request;
+
+  public function __construct(EntityManager $em, RoleHierarchyInterface $roleHierarchy, RequestStack $requestStack) {
     $this->roleHierarchy = $roleHierarchy;
+    $this->request = $requestStack->getCurrentRequest();
   }
 
   const VIEW = 'VIRKSOMHED_VIEW';
@@ -38,6 +41,9 @@ class VirksomhedVoter implements VoterInterface {
     return $supportedClass === $class || is_subclass_of($class, $supportedClass);
   }
 
+    /**
+     * @inheritDoc
+     */
   public function vote(TokenInterface $token, $virksomhed, array $attributes) {
     // check if class of this object is supported by this voter
     if ($virksomhed === null || !$this->supportsClass(get_class($virksomhed))) {
@@ -63,7 +69,7 @@ class VirksomhedVoter implements VoterInterface {
 
     switch($attribute) {
       case self::VIEW:
-        if ($this->hasRole($token, 'ROLE_VIRKSOMHED_VIEW')) {
+        if ($this->hasRole($token, 'ROLE_VIRKSOMHED_VIEW') || $this->hasValidToken($virksomhed)) {
           return VoterInterface::ACCESS_GRANTED;
         }
         break;
@@ -96,5 +102,9 @@ class VirksomhedVoter implements VoterInterface {
     }
 
     return false;
+  }
+
+  private function hasValidToken(Virksomhed $virksomhed) {
+    return $this->request->query->get('token') == $virksomhed->getUser()->getToken();
   }
 }

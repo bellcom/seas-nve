@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * ContactPerson
@@ -43,9 +45,8 @@ class ContactPerson
     private $phoneNumber;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="mail", type="string", length=255, nullable=true)
+     * @Assert\Email
+     * @ORM\Column(name="mail", type="string", length=255)
      */
     private $mail;
 

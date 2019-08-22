@@ -45,6 +45,8 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username_email
+        token_access_user_provider:
+            id: token_access_user_provider
 
     firewalls:
         dev:
@@ -53,6 +55,9 @@ security:
 
         main:
             pattern: ^/
+            provider: token_access_user_provider
+            simple_preauth:
+                authenticator: token_access_authenticator
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider

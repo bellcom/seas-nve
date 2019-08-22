@@ -9,6 +9,7 @@ use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use AppBundle\Entity\VirksomhedRapport;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Virksomhed entity.
@@ -64,7 +65,9 @@ class Virksomhed
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="ContactPerson", mappedBy="virksomhed", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="ContactPerson", mappedBy="virksomhed", cascade={"persist", "remove"})
+     *
+     * @Assert\NotBlank
      */
     private $contactPersons;
 
@@ -246,6 +249,14 @@ class Virksomhed
     private $kam;
 
     /**
+     * @var User $user
+     *
+     * @ORM\ManyToOne(targetEntity="User", cascade={"persist"})
+     * @JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     */
+    protected $user;
+
+    /**
      * Virksomhed constructor.
      */
     public function __construct()
@@ -253,6 +264,7 @@ class Virksomhed
         $this->contactPersons = new ArrayCollection();
         $this->datterSelskaber = new ArrayCollection();
         $this->bygninger = new ArrayCollection();
+        $this->user = new User();
     }
 
     /**
@@ -1119,6 +1131,30 @@ class Virksomhed
     public function getKam()
     {
         return $this->kam;
+    }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     *
+     * @return Virksomhed
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**

@@ -10,6 +10,8 @@ use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\PasswordRequ
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\OrderBy;
 use JMS\Serializer\Annotation as JMS;
+use AppBundle\Validator\Constraints as AppBundleAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -24,6 +26,12 @@ class User extends BaseUser {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
+
+  /**
+   * @AppBundleAssert\UserEmail
+   * @Assert\Email
+   */
+  protected $email;
 
   /**
    * @var string
@@ -105,12 +113,20 @@ class User extends BaseUser {
    **/
   protected $projekterende;
 
+  /**
+   * The token
+   *
+   * @ORM\Column(name="token", type="string", length=255)
+   */
+  protected $token;
+
   public function __construct() {
     parent::__construct();
     $this->groups = new ArrayCollection();
     $this->bygninger = new ArrayCollection();
     $this->segmenter = new ArrayCollection();
     $this->username = 'username';
+    $this->generateToken();
   }
 
   public function setGroups($groups) {
@@ -314,5 +330,25 @@ class User extends BaseUser {
     $this->setUsernameCanonical($emailCanonical);
 
     return parent::setEmailCanonical($emailCanonical);
+  }
+
+  /**
+   * Generates token for user.
+   *
+   * @return string
+   */
+  public function generateToken()
+  {
+      $this->token = hash('md5', $this->getSalt());
+  }
+
+  /**
+   * Get user token.
+   *
+   * @return string
+   */
+  public function getToken()
+  {
+      return $this->token;
   }
 }

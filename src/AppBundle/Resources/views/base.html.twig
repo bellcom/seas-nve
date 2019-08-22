@@ -39,7 +39,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('table') }}  {{ 'Stamdata' | trans }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/bygning">{{ 'bygninger.labels.plural' | trans }}</a></li>
+            {% if is_granted('ROLE_BYGNING_VIEW') %}
+              <li><a href="/bygning">{{ 'bygninger.labels.plural' | trans }}</a></li>
+            {% endif %}
             {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
               <li><a href="/virksomhed">{{ 'virksomhed.labels.plural' | trans }}</a></li>
             {% endif %}
@@ -48,12 +50,12 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('line-chart') }}  {{ 'rapporter.labels.plural' | trans }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            {% for route, name in {
-              'rapport': 'Bygninger',
-              'virksomed_rapport': 'Virksomheder',
-            } %}
-              <li><a href="{{ path(route) }}">{{ name | trans }}</a></li>
-            {% endfor %}
+            {% if is_granted('ROLE_BYGNING_VIEW') %}
+              <li><a href="{{ path('rapport') }}">{{ 'rapport.labels.plural' | trans }}</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
+              <li><a href="{{ path('virksomed_rapport') }}">{{ 'virksomhed_rapport.labels.plural' | trans }}</a></li>
+            {% endif %}
           </ul>
         </li>
         <li class="dropdown">
