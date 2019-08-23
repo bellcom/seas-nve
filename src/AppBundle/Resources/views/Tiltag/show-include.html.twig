@@ -68,7 +68,7 @@
         </tbody>
         <tfoot>
         <tr>
-          <th>{{ 'appbundle.tiltag.samletEnergibesparelse' | trans }}</th>
+          <th>{{ 'appbundle.tiltag.samletEnergibesparelse' | trans }} <div>{{ entity.fx.samletEnergibesparelse }}</div></th>
           <th class="text-right">{{ entity.samletEnergibesparelse | format_amount }}</th>
           <th>{{ 'appbundle.tiltag.samletEnergibesparelse.unit' | trans }}</th>
         </tr>
@@ -94,7 +94,7 @@
           </td>
         </tr>
         <tr>
-          <th>{{ 'appbundle.tiltag.samletCo2besparelse' | trans }}</th>
+          <th>{{ 'appbundle.tiltag.samletCo2besparelse' | trans }} <div>{{ entity.fx.samletCo2besparelse }}</div></th>
           <th class="text-right">{{ entity.samletCo2besparelse | number_format }}</th>
           <th>{{ 'appbundle.tiltag.samletCo2besparelse.unit' | trans }}</th>
         </tr>

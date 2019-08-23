@@ -7,6 +7,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Annotations\Calculated;
+use AppBundle\Annotations\FormulaRenderer;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\PrimaerEnterpriseType;
 use AppBundle\DBAL\Types\SlutanvendelseType;
@@ -48,6 +49,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltag",
  *    "solcelle" = "AppBundle\Entity\SolcelleTiltag",
  * })
+ * @ORM\HasLifecycleCallbacks()
  */
 abstract class Tiltag {
   use TimestampableEntity;
@@ -595,6 +597,17 @@ abstract class Tiltag {
    * @ORM\Column(name="DatoForDrift", type="date", nullable=true)
    */
   protected $datoForDrift;
+
+  /**
+   * @var FormulaRenderer
+   */
+  public $fx;
+
+  /**
+   * Calculated values storage.
+   * @var array
+   */
+  protected $calculated;
 
   /**
    * Get Name
@@ -1867,6 +1880,18 @@ abstract class Tiltag {
     return NULL;
   }
 
+  public function getRapportElKrKWh() {
+    return $this->getRapport()->getElKrKWh();
+  }
+
+  public function getRapportVarmeKgCo2MWh() {
+    return $this->getRapport()->getVarmeKgCo2MWh();
+  }
+
+  public function getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {
+    return $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+  }
+
   protected function accumulate(callable $accumulator, $start = 0) {
     $value = $start;
     foreach ($this->getTilvalgteDetails() as $detail) {
@@ -2085,5 +2110,45 @@ abstract class Tiltag {
    */
   public function getEnhed() {
     return $this->enhed;
+  }
+
+  /**
+   * @ORM\PostLoad()
+   */
+  public function postLoad() {
+    $this->fx = new FormulaRenderer($this);
+  }
+
+  public function getCalculated($method) {
+    if (!method_exists($this, $method)) {
+        return NULL;
+    }
+
+    try {
+      $args = array();
+      $methodInfo = new \ReflectionMethod($this, $method);
+      // Prefill default arguments;
+      foreach ($methodInfo->getParameters() as $p) {
+        if (!$p->isDefaultValueAvailable()) {
+          continue;
+        }
+        $args[] = $p->getDefaultValue();
+      }
+
+      // Don't call method if it requires parameter;
+      if (count($methodInfo->getParameters()) != count($args)) {
+        return NULL;
+      }
+
+      if (isset($this->calculated[$method])) {
+        return $this->calculated[$method];
+      }
+
+      $calculatedValue = $this->{$method}(isset($args[0]) ? $args[0] : NULL, isset($args[1]) ? $args[1] : NULL, isset($args[2]) ? $args[2] : NULL, isset($args[3]) ? $args[3] : NULL, isset($args[4]) ? $args[4] : NULL);
+      $this->calculated[$method] = $calculatedValue;
+      return $calculatedValue;
+    } catch (\Exception $ex) {
+      return NULL;
+    }
   }
 }

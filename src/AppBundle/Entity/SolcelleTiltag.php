@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
@@ -60,16 +61,24 @@ class SolcelleTiltag extends Tiltag {
     return 0;
   }
 
+  /**
+   * @Formula("$this->solcelleproduktion * $this->getRapportElKrKWh() + $this->getSalgTilNettetAar1() * $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()")
+   */
   protected function calculateSamletEnergibesparelse() {
     return $this->solcelleproduktion * $this->getRapport()->getElKrKWh()
-      + $this->getSalgTilNettetAar1() * $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+      + $this->getSalgTilNettetAar1() * $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
   }
 
+  /**
+   * @Formula("($this->solcelleproduktion + $this->getSalgTilNettetAar1()) / 1000 * $this->calculateelKgCo2MWh() / 1000")
+   */
   protected function calculateSamletCo2besparelse() {
-    $forsyningsvaerk = $this->getRapport()->getBygning()->getForsyningsvaerkEl();
-    $elKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
+    return ($this->solcelleproduktion + $this->getSalgTilNettetAar1()) / 1000 * $this->calculateelKgCo2MWh() / 1000;
+  }
 
-    return ($this->solcelleproduktion + $this->getSalgTilNettetAar1()) / 1000 * $elKgCo2MWh / 1000;
+  protected function calculateelKgCo2MWh() {
+    $forsyningsvaerk = $this->getRapport()->getBygning()->getForsyningsvaerkEl();
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
   }
 
   protected function calculateAnlaegsinvestering($value = NULL) {

@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotations\Formula;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 
@@ -263,14 +264,20 @@ class SpecialTiltag extends Tiltag {
     return parent::calculateElbesparelse($value);
   }
 
+  /**
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse")
+   */
   protected function calculateSamletEnergibesparelse() {
     return (($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->yderligereBesparelse);
+      + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse);
   }
 
+  /**
+   * @Formula("((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKrKWh()) / 1000")
+   */
   protected function calculateSamletCo2besparelse() {
-    return ((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
-            + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
+    return ((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getRapportVarmeKgCo2MWh()
+            + ($this->elbesparelse / 1000) * $this->getRapportElKrKWh()) / 1000;
   }
 
   protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
