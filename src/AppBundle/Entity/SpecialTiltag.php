@@ -89,9 +89,23 @@ class SpecialTiltag extends Tiltag {
   /**
    * @var float
    *
+   * @ORM\Column(name="forbrugForGulpladeBiler", type="decimal", scale=4, precision=14)
+   */
+  protected $forbrugForGulpladeBiler;
+
+  /**
+   * @var float
+   *
    * @ORM\Column(name="antalHvidpladeBiler", type="decimal", scale=4, precision=14)
    */
   protected $antalHvidpladeBiler;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="forbrugForHvidpladeBiler", type="decimal", scale=4, precision=14)
+   */
+  protected $forbrugForHvidpladeBiler;
 
   /**
    * @var float
@@ -173,6 +187,20 @@ class SpecialTiltag extends Tiltag {
   /**
    * @return float
    */
+  public function getForbrugForGulpladeBiler() {
+    return $this->forbrugForGulpladeBiler;
+  }
+
+  /**
+   * @param float $forbrugForGulpladeBiler
+   */
+  public function setForbrugForGulpladeBiler($forbrugForGulpladeBiler) {
+    $this->forbrugForGulpladeBiler = $forbrugForGulpladeBiler;
+  }
+
+  /**
+   * @return float
+   */
   public function getAntalHvidpladeBiler() {
     return $this->antalHvidpladeBiler;
   }
@@ -182,6 +210,20 @@ class SpecialTiltag extends Tiltag {
    */
   public function setAntalHvidpladeBiler($antalHvidpladeBiler) {
     $this->antalHvidpladeBiler = $antalHvidpladeBiler;
+  }
+
+  /**
+   * @return float
+   */
+  public function getForbrugForHvidpladeBiler() {
+    return $this->forbrugForHvidpladeBiler;
+  }
+
+  /**
+   * @param float $forbrugForHvidpladeBiler
+   */
+  public function setForbrugForHvidpladeBiler($forbrugForHvidpladeBiler) {
+    $this->forbrugForHvidpladeBiler = $forbrugForHvidpladeBiler;
   }
 
   public function setBesparelseGUF($besparelseGUF) {
@@ -284,6 +326,16 @@ class SpecialTiltag extends Tiltag {
 
   protected function calculateAnlaegsinvestering($value = NULL) {
     return parent::calculateAnlaegsinvestering($this->getAnlaegsinvesteringExRisiko());
+  }
+
+  protected function calculateSamletTransportBesparelse() {
+    return 101212;
+  }
+
+  public function calculate() {
+    $this->samletTransportBesparelse = $this->calculateSamletTransportBesparelse();
+
+    parent::calculate();
   }
 
 }

@@ -109,6 +109,20 @@
       </div>
       <div class="panel-body">
         <div class="col-xs-12 col-md-6">
+          {% if edit_form.antalGulpladeBiler is defined %}
+            {{ form_row(edit_form.antalGulpladeBiler) }}
+          {% endif %}
+          {% if edit_form.forbrugForGulpladeBiler is defined %}
+            {{ form_row(edit_form.forbrugForGulpladeBiler) }}
+          {% endif %}
+          {% if edit_form.antalHvidpladeBiler is defined %}
+            {{ form_row(edit_form.antalHvidpladeBiler) }}
+          {% endif %}
+          {% if edit_form.forbrugForHvidpladeBiler is defined %}
+            {{ form_row(edit_form.forbrugForHvidpladeBiler) }}
+          {% endif %}
+        </div>
+        <div class="col-xs-12 col-md-6">
           {% if edit_form.energiBesparelse is defined %}
             {{ form_row(edit_form.energiBesparelse) }}
           {% endif %}
@@ -117,14 +131,6 @@
           {% endif %}
           {% if edit_form.benzinPris is defined %}
             {{ form_row(edit_form.benzinPris) }}
-          {% endif %}
-        </div>
-        <div class="col-xs-12 col-md-6">
-          {% if edit_form.antalGulpladeBiler is defined %}
-            {{ form_row(edit_form.antalGulpladeBiler) }}
-          {% endif %}
-          {% if edit_form.antalHvidpladeBiler is defined %}
-            {{ form_row(edit_form.antalHvidpladeBiler) }}
           {% endif %}
         </div>
       </div>

@@ -1713,6 +1713,8 @@ appbundle:
     besparelseGUF.unit: kWh/år
     yderligereBesparelse: Yderligere besparelse
     yderligereBesparelse.unit: kr/år
+    samletTransportBesparelse: Samlet transport besparelse
+    samletTransportBesparelse.unit: kr/år
     besparelsesoverblik: Besparelsesoverblik
     besparelseStrafafkoelingsafgift: Besparelse på Strafafkølingsafgift
     besparelseStrafafkoelingsafgift.unit: kr
@@ -1802,7 +1804,9 @@ appbundle:
     dieselPris: Pris pr. liter diesel
     benzinPris: Pris pr. liter benzin
     antalGulpladeBiler: Antal gulplade biler
+    forbrugForGulpladeBiler: Forbrug for gulplade biler
     antalHvidpladeBiler: Antal hvidplade biler
+    forbrugForHvidpladeBiler: Forbrug for hvidplade biler
   tiltagdatofordrift:
     datoForDrift: Dato for drift
   tiltagdetail:

@@ -121,7 +121,11 @@ class TiltagType extends AbstractType {
     $builder->add('risikovurderingDiverse', new RisikovurderingType(), array());
     $builder->add('risikovurderingAendringIBesparelseFaktor', 'percent', array('required' => FALSE));
     $builder->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor', 'percent', array('required' => FALSE));
-    $builder->add('slutanvendelse');
+    $builder->add('slutanvendelse', 'choice', array(
+        'choices' => SlutanvendelseType::getChoices(),
+        'empty_value' => '--',
+        'required' => TRUE,
+      ));
 
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder
@@ -158,7 +162,9 @@ class TiltagType extends AbstractType {
         ->add('dieselPris')
         ->add('benzinPris')
         ->add('antalHvidpladeBiler')
+        ->add('forbrugForHvidpladeBiler')
         ->add('antalGulpladeBiler')
+        ->add('forbrugForGulpladeBiler')
         ->add('yderligereBesparelse')
         ->add('levetid');
 
