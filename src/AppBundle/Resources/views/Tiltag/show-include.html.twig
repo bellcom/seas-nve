@@ -65,6 +65,13 @@
             <td>{{ 'appbundle.tiltag.yderligereBesparelse.unit' | trans }}</td>
           </tr>
         {% endif %}
+        {% if entity.samletTransportBesparelse is defined %}
+          <tr>
+            <td>{{ 'appbundle.tiltag.samletTransportBesparelse' | trans }}</td>
+            <td class="text-right">{{ entity.samletTransportBesparelse | format_amount }}</td>
+            <td>{{ 'appbundle.tiltag.samletTransportBesparelse.unit' | trans }}</td>
+          </tr>
+        {% endif %}
         </tbody>
         <tfoot>
         <tr>

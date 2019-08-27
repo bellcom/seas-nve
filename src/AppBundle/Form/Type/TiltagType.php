@@ -162,7 +162,9 @@ class TiltagType extends AbstractType {
         ->add('dieselPris')
         ->add('benzinPris')
         ->add('antalHvidpladeBiler')
+        ->add('forbrugForHvidpladeBiler')
         ->add('antalGulpladeBiler')
+        ->add('forbrugForGulpladeBiler')
         ->add('yderligereBesparelse')
         ->add('levetid');
 
