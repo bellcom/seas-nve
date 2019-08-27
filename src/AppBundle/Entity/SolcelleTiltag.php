@@ -24,6 +24,16 @@ use Doctrine\ORM\Mapping\OrderBy;
 class SolcelleTiltag extends Tiltag {
 
   /**
+   * @Formula("$this->solcelleproduktion * $this->getRapportElKrKWh() + $this->getSalgTilNettetAar1() * $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()")
+   */
+  protected $samletEnergibesparelse;
+
+  /**
+   * @Formula("($this->solcelleproduktion + $this->getSalgTilNettetAar1()) / 1000 * $this->calculateelKgCo2MWh() / 1000")
+   */
+  protected $samletCo2besparelse;
+
+  /**
    * Constructor
    */
   public function __construct() {
@@ -59,21 +69,6 @@ class SolcelleTiltag extends Tiltag {
 
   protected function calculateElbesparelse($value = null) {
     return 0;
-  }
-
-  /**
-   * @Formula("$this->solcelleproduktion * $this->getRapportElKrKWh() + $this->getSalgTilNettetAar1() * $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()")
-   */
-  protected function calculateSamletEnergibesparelse() {
-    return $this->solcelleproduktion * $this->getRapport()->getElKrKWh()
-      + $this->getSalgTilNettetAar1() * $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
-  }
-
-  /**
-   * @Formula("($this->solcelleproduktion + $this->getSalgTilNettetAar1()) / 1000 * $this->calculateelKgCo2MWh() / 1000")
-   */
-  protected function calculateSamletCo2besparelse() {
-    return ($this->solcelleproduktion + $this->getSalgTilNettetAar1()) / 1000 * $this->calculateelKgCo2MWh() / 1000;
   }
 
   protected function calculateelKgCo2MWh() {

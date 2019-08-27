@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotations\Formula;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
@@ -20,6 +21,16 @@ use Doctrine\ORM\Mapping\OrderBy;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\PumpeTiltagRepository")
  */
 class PumpeTiltag extends Tiltag {
+
+  /**
+   * @Formula("$this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh()")
+   */
+  protected $samletEnergibesparelse;
+
+  /**
+   * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
+   */
+  protected $samletCo2besparelse;
 
   /**
    * Constructor
@@ -41,15 +52,6 @@ class PumpeTiltag extends Tiltag {
     $value = $this->sum('kwhBesparelseElFraVaerket');
 
     return parent::calculateElbesparelse($value);
-  }
-
-  protected function calculateSamletEnergibesparelse() {
-    return ($this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapport()->getElKrKWh());
-  }
-
-  protected function calculateSamletCo2besparelse() {
-    return (($this->varmebesparelseGAF / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
-            + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
   }
 
   protected function calculateAnlaegsinvestering($value = NULL) {

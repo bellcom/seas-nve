@@ -28,6 +28,16 @@ class SpecialTiltag extends Tiltag {
   }
 
   /**
+    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse")
+    */
+  protected $samletEnergibesparelse;
+
+  /**
+   * @Formula("((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKrKWh()) / 1000")
+   */
+  protected $samletCo2besparelse;
+
+  /**
    * @var float
    *
    * @ORM\Column(name="besparelseGUF", type="decimal", scale=4, precision=14)
@@ -262,22 +272,6 @@ class SpecialTiltag extends Tiltag {
     }
 
     return parent::calculateElbesparelse($value);
-  }
-
-  /**
-   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse")
-   */
-  protected function calculateSamletEnergibesparelse() {
-    return (($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse);
-  }
-
-  /**
-   * @Formula("((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKrKWh()) / 1000")
-   */
-  protected function calculateSamletCo2besparelse() {
-    return ((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getRapportVarmeKgCo2MWh()
-            + ($this->elbesparelse / 1000) * $this->getRapportElKrKWh()) / 1000;
   }
 
   protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
