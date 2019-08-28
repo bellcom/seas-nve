@@ -586,6 +586,7 @@ virksomhed:
       eanNumbers: Ingen EAN-numre
       pNumbers: Ingen P-numre
       parent: Ingen moderselskab
+      bygninger: Ingen tilknytet bygninger
     delete_user: Fjern tilknytet bruger?
     attached_existing_user: Der var tilknytet eksiterende bruger med email adresse %userMail
 virksomhed_rapporter:
