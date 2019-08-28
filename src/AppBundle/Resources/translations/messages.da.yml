@@ -1803,9 +1803,11 @@ appbundle:
     energiBesparelse: Energibesparelse
     energiBesparelse.unit: kWh/år
     besparelseInvestering: Investeringsbesparelse
+    besparelseInvestering.unit: kr/år
     samletBesparelseInvestering: Investeringsbesparelse
     samletBesparelseInvestering.unit: kr/år
     besparelseVedligehold: Vedligeholdelsesbesparelse
+    besparelseVedligehold.unit: kr/år
     samletBesparelseVedligehold: Vedligeholdelsesbesparelse
     samletBesparelseVedligehold.unit: kr/år
     tilskudsstoerrelse: Tilskudsstørrelse

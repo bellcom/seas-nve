@@ -28,7 +28,7 @@ class SpecialTiltag extends Tiltag {
   }
 
   /**
-    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse")
+    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + $this->energiBesparelse")
     */
   protected $samletEnergibesparelse;
 
@@ -61,63 +61,21 @@ class SpecialTiltag extends Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="energiBesparelse", type="decimal", scale=4, precision=14)
+   * @ORM\Column(name="energiBesparelse", type="decimal", scale=4, precision=14, nullable=true)
    */
   protected $energiBesparelse;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="dieselPris", type="decimal", scale=4, precision=14)
-   */
-  protected $dieselPris;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="benzinPris", type="decimal", scale=4, precision=14)
-   */
-  protected $benzinPris;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="antalGulpladeBiler", type="decimal", scale=4, precision=14)
-   */
-  protected $antalGulpladeBiler;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="forbrugForGulpladeBiler", type="decimal", scale=4, precision=14)
-   */
-  protected $forbrugForGulpladeBiler;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="antalHvidpladeBiler", type="decimal", scale=4, precision=14)
-   */
-  protected $antalHvidpladeBiler;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="forbrugForHvidpladeBiler", type="decimal", scale=4, precision=14)
-   */
-  protected $forbrugForHvidpladeBiler;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="besparelseInvestering", type="decimal", scale=4, precision=14)
+   * @ORM\Column(name="besparelseInvestering", type="decimal", scale=4, precision=14, nullable=true)
    */
   protected $besparelseInvestering;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="besparelseVedligehold", type="decimal", scale=4, precision=14)
+   * @ORM\Column(name="besparelseVedligehold", type="decimal", scale=4, precision=14, nullable=true)
    */
   protected $besparelseVedligehold;
 
@@ -154,90 +112,6 @@ class SpecialTiltag extends Tiltag {
    */
   public function setEnergiBesparelse($energiBesparelse) {
     $this->energiBesparelse = $energiBesparelse;
-  }
-
-  /**
-   * @return float
-   */
-  public function getDieselPris() {
-    return $this->dieselPris;
-  }
-
-  /**
-   * @param float $dieselPris
-   */
-  public function setDieselPris($dieselPris) {
-    $this->dieselPris = $dieselPris;
-  }
-
-  /**
-   * @return float
-   */
-  public function getBenzinPris() {
-    return $this->benzinPris;
-  }
-
-  /**
-   * @param float $benzinPris
-   */
-  public function setBenzinPris($benzinPris) {
-    $this->benzinPris = $benzinPris;
-  }
-
-  /**
-   * @return float
-   */
-  public function getAntalGulpladeBiler() {
-    return $this->antalGulpladeBiler;
-  }
-
-  /**
-   * @param float $antalGulpladeBiler
-   */
-  public function setAntalGulpladeBiler($antalGulpladeBiler) {
-    $this->antalGulpladeBiler = $antalGulpladeBiler;
-  }
-
-  /**
-   * @return float
-   */
-  public function getForbrugForGulpladeBiler() {
-    return $this->forbrugForGulpladeBiler;
-  }
-
-  /**
-   * @param float $forbrugForGulpladeBiler
-   */
-  public function setForbrugForGulpladeBiler($forbrugForGulpladeBiler) {
-    $this->forbrugForGulpladeBiler = $forbrugForGulpladeBiler;
-  }
-
-  /**
-   * @return float
-   */
-  public function getAntalHvidpladeBiler() {
-    return $this->antalHvidpladeBiler;
-  }
-
-  /**
-   * @param float $antalHvidpladeBiler
-   */
-  public function setAntalHvidpladeBiler($antalHvidpladeBiler) {
-    $this->antalHvidpladeBiler = $antalHvidpladeBiler;
-  }
-
-  /**
-   * @return float
-   */
-  public function getForbrugForHvidpladeBiler() {
-    return $this->forbrugForHvidpladeBiler;
-  }
-
-  /**
-   * @param float $forbrugForHvidpladeBiler
-   */
-  public function setForbrugForHvidpladeBiler($forbrugForHvidpladeBiler) {
-    $this->forbrugForHvidpladeBiler = $forbrugForHvidpladeBiler;
   }
 
   public function setBesparelseGUF($besparelseGUF) {
