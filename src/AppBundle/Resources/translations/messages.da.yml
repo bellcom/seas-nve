@@ -571,7 +571,6 @@ virksomhed:
     add: Tilføj virksomhed
     edit: Rediger virksomhed
     create_rapport: Opret virksomhedsrapport
-    choose_by_cvr: Vælg efter CVR-nummer
   labels:
     plural: Virksomheder
     singular: Virksomhed
@@ -1907,16 +1906,22 @@ appbundle:
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
   virksomhed:
-    bygning: Tilknytet bygning
+    bygning: Tilknytet bygninger
     generalt: Generel information
     name: Firmanavn
     cvrNumber: CVR-nr.
     pNumbers: P-nr.
+    pNumbers.placeholder: Vælg bygning efter P-nummer
+    pNumbers.description: Tilknyt eksiterende bygniger på P-nummer.
     eanNumbers: EAN-nr.
+    eanNumbers.placeholder: Vælg bygning efter EAN-nummer
+    eanNumbers.description: Tilknyt eksiterende bygniger på EAN-nummer.
     crmNumber: CRM-nr.
     projectNumber: Projekt nr.
     aftagerNumber: Aftager nr.
     datterSelskaber: Datterselskaber
+    datterSelskaber.placeholder: Vælg datterselskab efter CVR-nummer
+    datterSelskaber.description: Tilknyt eksiterende Virksoheder som Datterselskab på CVR-nummer.
     typeName: Typenavn
     firma_adresse: Firma adresse
     kommune: Kommune

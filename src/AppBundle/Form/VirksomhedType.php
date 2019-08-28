@@ -31,10 +31,10 @@ class VirksomhedType extends AbstractType
                 }
             }
             foreach ($em->getRepository('AppBundle:Bygning')->getAllUniqueValues('eanNumber') as $bygning) {
-                $eanNumbers[] = $bygning['eanNumber'];
+                $eanNumbers[$bygning->getEanNumber() . ' (' . $bygning . ')'] = $bygning->getEanNumber();
             }
             foreach ($em->getRepository('AppBundle:Bygning')->getAllUniqueValues('pNumber') as $bygning) {
-                $pNumbers[] = $bygning['pNumber'];
+                $pNumbers[$bygning->getPNumber() . ' (' . $bygning . ')'] = $bygning->getPNumber();
             }
         }
         $builder
@@ -43,11 +43,8 @@ class VirksomhedType extends AbstractType
             ->add('eanNumbers','collection', array(
                 'type' => 'choice',
                 'options'      => array(
-                    'placeholder' => 'None',
+                    'placeholder' => 'appbundle.virksomhed.eanNumbers.placeholder',
                     'choices' => $eanNumbers,
-                    'choice_label' => function($value, $key, $index) {
-                        return $value;
-                    },
                     'choices_as_values' => TRUE,
                     'label' => FALSE,
                 ),
@@ -59,12 +56,9 @@ class VirksomhedType extends AbstractType
             ->add('pNumbers','collection', array(
                 'type' => 'choice',
                 'options'      => array(
-                    'placeholder' => 'None',
+                    'placeholder' => 'appbundle.virksomhed.pNumbers.placeholder',
                     'choices' => $pNumbers,
                     'choices_as_values' => TRUE,
-                    'choice_label' => function($value, $key, $index) {
-                        return $value;
-                    },
                     'label' => FALSE,
                 ),
                 'allow_add' => TRUE,
@@ -80,11 +74,11 @@ class VirksomhedType extends AbstractType
             ->add('datterSelskaber','collection', array(
                 'type' => 'choice',
                 'options'      => array(
-                    'placeholder' => 'virksomhed.actions.choose_by_cvr',
+                    'placeholder' => 'appbundle.virksomhed.datterSelskaber.placeholder',
                     'choices' => $virksomheder,
                     'choice_label' => function($virksomhed, $key, $index) {
                         /** @var Virksomhed $virksomhed */
-                        return $virksomhed->getCvrNumber();
+                        return $virksomhed->getCvrNumber() . ' (' . $virksomhed . ')';
                     },
                     'choices_as_values' => TRUE,
                     'label' => FALSE
@@ -92,6 +86,7 @@ class VirksomhedType extends AbstractType
                 'allow_add' => TRUE,
                 'allow_delete' => TRUE,
                 'by_reference' => FALSE,
+                'required' => FALSE,
             ))
             ->add('kommune')
             ->add('region')

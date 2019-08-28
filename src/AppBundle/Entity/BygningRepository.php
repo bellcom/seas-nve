@@ -119,7 +119,20 @@ class BygningRepository extends BaseRepository {
       $qb->andWhere('b.' . $column . ' <> \'\'');
 
       $query = $qb->getQuery();
-      return $returnQuery ? $query : $query->getResult();
+
+      if ($returnQuery) {
+          return $query;
+      }
+
+      $result = $query->getResult();
+      if (empty($result)) {
+          return array();
+      }
+      $values = array();
+      foreach ($result as $row) {
+          $values[] = $row[$column];
+      }
+      return $this->findBy(array($column => $values));
   }
 
   /**

@@ -332,7 +332,7 @@ class Virksomhed
      *
      * @return Virksomhed
      */
-    public function setEanNumbers(array$eanNumbers)
+    public function setEanNumbers(array $eanNumbers)
     {
         $this->eanNumbers = $eanNumbers;
 
@@ -828,13 +828,14 @@ class Virksomhed
     /**
      * Adds datterSelskaber to collection.
      *
-     * @param Virksomhed $virksomhed
+     * @param Virksomhed|null $virksomhed
      */
-    public function addDatterSelskaber(Virksomhed $virksomhed)
+    public function addDatterSelskaber($virksomhed = NULL)
     {
-        $virksomhed->setParent($this);
-        $this->datterSelskaber->add($virksomhed);
-
+        if ($virksomhed instanceof Virksomhed) {
+            $virksomhed->setParent($this);
+            $this->datterSelskaber->add($virksomhed);
+        }
     }
 
     /**
@@ -1170,6 +1171,36 @@ class Virksomhed
             return $this->address;
         }
         return strval($this->id);
+    }
+
+    /**
+     * Filters empty values for entity.
+     */
+    public function filterEmptyValues() {
+        $this->setEanNumbers(array_filter($this->getEanNumbers()));
+        $this->setPNumbers(array_filter($this->getPNumbers()));
+        $datterSelskaber = $this->getDatterSelskaber();
+        foreach ($datterSelskaber as $virksomhed) {
+            if (empty($virksomhed->getId())) {
+                $datterSelskaber->removeElement($virksomhed);
+            }
+        }
+        $this->setDatterSelskaber($datterSelskaber);
+    }
+
+    /**
+     * Sets default values for entity if they are empty.
+     */
+    public function setDefaultValues() {
+        if (empty($this->getEanNumbers())) {
+            $this->setEanNumbers(array(0 => ''));
+        }
+        if (empty($this->getPNumbers())) {
+            $this->setPNumbers(array(0 => ''));
+        }
+        if (empty($this->getDatterSelskaber()->first())) {
+            $this->setDatterSelskaber(new ArrayCollection(array(new Virksomhed())));
+        }
     }
 
 }
