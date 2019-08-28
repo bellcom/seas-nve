@@ -51,6 +51,7 @@
       <div class="col-xs-12 col-md-6">
         {{ form_row(edit_form.title) }}
         {{ form_row(edit_form.placering) }}
+        {{ form_row(edit_form.tilskudsstoerrelse) }}
         {% if edit_form.datoForDrift is defined %}
           {{ form_row(edit_form.datoForDrift) }}
         {% endif %}
@@ -83,14 +84,23 @@
       </div>
       <div class="panel-body">
         <div class="col-xs-12 col-md-6">
-          {% if edit_form.besparelseGAF is defined %}
-            {{ form_row(edit_form.besparelseGAF) }}
-          {% endif %}
           {% if edit_form.besparelseEl is defined %}
             {{ form_row(edit_form.besparelseEl) }}
           {% endif %}
+          {% if edit_form.energiBesparelse is defined %}
+            {{ form_row(edit_form.energiBesparelse) }}
+          {% endif %}
+          {% if edit_form.besparelseInvestering is defined %}
+            {{ form_row(edit_form.besparelseInvestering) }}
+          {% endif %}
+          {% if edit_form.besparelseVedligehold is defined %}
+            {{ form_row(edit_form.besparelseVedligehold) }}
+          {% endif %}
         </div>
         <div class="col-xs-12 col-md-6">
+          {% if edit_form.besparelseGAF is defined %}
+            {{ form_row(edit_form.besparelseGAF) }}
+          {% endif %}
           {% if edit_form.besparelseGUF is defined %}
             {{ form_row(edit_form.besparelseGUF) }}
           {% endif %}
@@ -102,40 +112,37 @@
     </div>
   {% endif %}
 
-  {% if edit_form.energiBesparelse is defined %}
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">{{ 'common.transport' | trans }}</h3>
-      </div>
-      <div class="panel-body">
-        <div class="col-xs-12 col-md-6">
-          {% if edit_form.antalGulpladeBiler is defined %}
-            {{ form_row(edit_form.antalGulpladeBiler) }}
-          {% endif %}
-          {% if edit_form.forbrugForGulpladeBiler is defined %}
-            {{ form_row(edit_form.forbrugForGulpladeBiler) }}
-          {% endif %}
-          {% if edit_form.antalHvidpladeBiler is defined %}
-            {{ form_row(edit_form.antalHvidpladeBiler) }}
-          {% endif %}
-          {% if edit_form.forbrugForHvidpladeBiler is defined %}
-            {{ form_row(edit_form.forbrugForHvidpladeBiler) }}
-          {% endif %}
-        </div>
-        <div class="col-xs-12 col-md-6">
-          {% if edit_form.energiBesparelse is defined %}
-            {{ form_row(edit_form.energiBesparelse) }}
-          {% endif %}
-          {% if edit_form.dieselPris is defined %}
-            {{ form_row(edit_form.dieselPris) }}
-          {% endif %}
-          {% if edit_form.benzinPris is defined %}
-            {{ form_row(edit_form.benzinPris) }}
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  {% endif %}
+{#  {% if edit_form.energiBesparelse is defined %}#}
+{#    <div class="panel panel-default">#}
+{#      <div class="panel-heading">#}
+{#        <h3 class="panel-title">{{ 'common.transport' | trans }}</h3>#}
+{#      </div>#}
+{#      <div class="panel-body">#}
+{#        <div class="col-xs-12 col-md-6">#}
+{#          {% if edit_form.antalGulpladeBiler is defined %}#}
+{#            {{ form_row(edit_form.antalGulpladeBiler) }}#}
+{#          {% endif %}#}
+{#          {% if edit_form.forbrugForGulpladeBiler is defined %}#}
+{#            {{ form_row(edit_form.forbrugForGulpladeBiler) }}#}
+{#          {% endif %}#}
+{#          {% if edit_form.antalHvidpladeBiler is defined %}#}
+{#            {{ form_row(edit_form.antalHvidpladeBiler) }}#}
+{#          {% endif %}#}
+{#          {% if edit_form.forbrugForHvidpladeBiler is defined %}#}
+{#            {{ form_row(edit_form.forbrugForHvidpladeBiler) }}#}
+{#          {% endif %}#}
+{#        </div>#}
+{#        <div class="col-xs-12 col-md-6">#}
+{#          {% if edit_form.dieselPris is defined %}#}
+{#            {{ form_row(edit_form.dieselPris) }}#}
+{#          {% endif %}#}
+{#          {% if edit_form.benzinPris is defined %}#}
+{#            {{ form_row(edit_form.benzinPris) }}#}
+{#          {% endif %}#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+{#  {% endif %}#}
 
   <div class="panel panel-default">
     <div class="panel-heading">

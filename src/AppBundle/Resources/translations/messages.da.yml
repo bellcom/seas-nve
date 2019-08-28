@@ -1807,6 +1807,9 @@ appbundle:
     forbrugForGulpladeBiler: Forbrug for gulplade biler
     antalHvidpladeBiler: Antal hvidplade biler
     forbrugForHvidpladeBiler: Forbrug for hvidplade biler
+    besparelseInvestering: Investeringsbesparelse
+    besparelseVedligehold: Vedligeholdelsesbesparelse
+    tilskudsstoerrelse: Tilskudsstørrelse
   tiltagdatofordrift:
     datoForDrift: Dato for drift
   tiltagdetail:

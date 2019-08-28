@@ -96,6 +96,8 @@ class TiltagType extends AbstractType {
       ->add('modernisering')
       ->add('reelAnlaegsinvestering');
 
+    $builder->add('tilskudsstoerrelse', NULL, array('required' => FALSE));
+
     $builder->add('reelAnlaegsinvestering')
       ->add('forsyningVarme', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
@@ -159,6 +161,8 @@ class TiltagType extends AbstractType {
         ->add('besparelseGAF')
         ->add('besparelseEl')
         ->add('energiBesparelse')
+        ->add('besparelseInvestering')
+        ->add('besparelseVedligehold')
         ->add('dieselPris')
         ->add('benzinPris')
         ->add('antalHvidpladeBiler')

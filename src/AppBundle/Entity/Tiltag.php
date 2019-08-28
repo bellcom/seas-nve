@@ -584,6 +584,14 @@ abstract class Tiltag {
   protected $maengde;
 
   /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="tilskudsstoerrelse", type="float", nullable=true)
+   */
+  protected $tilskudsstoerrelse;
+
+  /**
    * @var string
    *
    * @Calculated
@@ -1681,6 +1689,7 @@ abstract class Tiltag {
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->besparelseAarEt = $this->calculateSavingsForYear(1);
     $this->maengde = $this->calculateMaengde();
+    $this->tilskudsstoerrelse = $this->calculateTilskudsstoerrelse();
     $this->enhed = $this->calculateEnhed();
   }
 
@@ -1871,6 +1880,10 @@ abstract class Tiltag {
 
   protected function calculateMaengde() {
     return NULL;
+  }
+
+  protected function calculateTilskudsstoerrelse() {
+    return $this->tilskudsstoerrelse;
   }
 
   protected function calculateEnhed() {
@@ -2102,6 +2115,22 @@ abstract class Tiltag {
    */
   public function getMaengde() {
     return $this->maengde;
+  }
+
+  /**
+   * @param float $tilskudsstoerrelse
+   */
+  public function setTilskudsstoerrelse($tilskudsstoerrelse) {
+    $this->tilskudsstoerrelse = $tilskudsstoerrelse;
+  }
+
+  /**
+   * Get tilskudsstoerrelse
+   *
+   * @return float
+   */
+  public function getTilskudsstoerrelse() {
+    return $this->tilskudsstoerrelse;
   }
 
   /**
