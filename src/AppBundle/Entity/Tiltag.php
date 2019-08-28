@@ -7,7 +7,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Annotations\Calculated;
-use AppBundle\Annotations\FormulaRenderer;
+use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\PrimaerEnterpriseType;
 use AppBundle\DBAL\Types\SlutanvendelseType;
@@ -599,7 +599,9 @@ abstract class Tiltag {
   protected $datoForDrift;
 
   /**
-   * @var FormulaRenderer
+   * Array with formulas from annotation.
+   *
+   * @var array
    */
   public $fx;
 
@@ -1648,8 +1650,11 @@ abstract class Tiltag {
     $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
     $this->elbesparelse = $this->calculateElbesparelse();
     $this->vandbesparelse = $this->calculateVandbesparelse();
-    $this->samletEnergibesparelse = $this->calculateSamletEnergibesparelse();
-    $this->samletCo2besparelse = $this->calculateSamletCo2besparelse();
+
+    // Calculating values by formulas from annotation.
+    $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
+    $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
+
     // This may be computed, may be an input
     if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
       $this->besparelseDriftOgVedligeholdelse = $value;
@@ -1775,14 +1780,6 @@ abstract class Tiltag {
     return NULL;
   }
 
-  protected function calculateSamletEnergibesparelse() {
-    return NULL;
-  }
-
-  protected function calculateSamletCo2besparelse() {
-    return NULL;
-  }
-
   protected function calculateBesparelseDriftOgVedligeholdelse() {
     return NULL;
   }
@@ -1886,6 +1883,10 @@ abstract class Tiltag {
 
   public function getRapportVarmeKgCo2MWh() {
     return $this->getRapport()->getVarmeKgCo2MWh();
+  }
+
+  public function getRapportElKgCo2MWh() {
+    return $this->getRapport()->getElKgCo2MWh();
   }
 
   public function getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {
@@ -2116,39 +2117,94 @@ abstract class Tiltag {
    * @ORM\PostLoad()
    */
   public function postLoad() {
-    $this->fx = new FormulaRenderer($this);
+    $this->fx = Formula::parseAnnotation($this);
   }
 
-  public function getCalculated($method) {
-    if (!method_exists($this, $method)) {
-        return NULL;
-    }
+  /**
+   * Calculate function that parse expressions from annotation and calculate it.
+   *
+   * Functions are allowed for expressions ONLY without arguments.
+   *
+   * Function works only with default values.
+   * If value already calculated it will be cached.
+   *
+   * @param string $propertyName
+   * @param bool $expression
+   * @return mixed|null
+   * @throws
+   */
+  public function calculateByFormula($propertyName, $expression = FALSE) {
+      if (empty($this->fx[$propertyName])) {
+          return NULL;
+      }
+      $string = $this->fx[$propertyName];
 
-    try {
-      $args = array();
-      $methodInfo = new \ReflectionMethod($this, $method);
-      // Prefill default arguments;
-      foreach ($methodInfo->getParameters() as $p) {
-        if (!$p->isDefaultValueAvailable()) {
-          continue;
-        }
-        $args[] = $p->getDefaultValue();
+      // Matching properties and methods.
+      preg_match_all('/\\$this->(\\w*)/im', $string, $matches);
+      foreach ($matches[1] as $key => $match) {
+          $matched_str = $matches[0][$key];
+          // Resolving getter and calculate methods.
+          // Resolving calculation values through getCalculated() method.
+          if ((strpos($match, 'get') !== FALSE || strpos($match, 'calculate') !== FALSE)
+              && method_exists($this, $match)) {
+              $method = $match;
+              $matched_str .= '()';
+          }
+          // Resolving property through getter method.
+          elseif (method_exists($this, 'get' . ucfirst($match))) {
+              $method = 'get' . ucfirst($match);
+          }
+          else {
+              continue;
+          }
+
+          $args = array();
+          $methodInfo = new \ReflectionMethod($this, $method);
+
+          // Prefill default arguments.
+          foreach ($methodInfo->getParameters() as $p) {
+              if (!$p->isDefaultValueAvailable()) {
+                  continue;
+              }
+              $args[] = $p->getDefaultValue();
+          }
+
+          // Don't call method if it requires parameter. Functions call works only without values.
+          if (count($methodInfo->getParameters()) != count($args)) {
+              return NULL;
+          }
+          $value = call_user_func_array(array($this, $method), $args);
+          if ((float) $value == $value) {
+              $value = round($value, 2);
+          }
+          $string = str_replace($matched_str, $value, $string);
       }
 
-      // Don't call method if it requires parameter;
-      if (count($methodInfo->getParameters()) != count($args)) {
-        return NULL;
-      }
-
-      if (isset($this->calculated[$method])) {
-        return $this->calculated[$method];
-      }
-
-      $calculatedValue = $this->{$method}(isset($args[0]) ? $args[0] : NULL, isset($args[1]) ? $args[1] : NULL, isset($args[2]) ? $args[2] : NULL, isset($args[3]) ? $args[3] : NULL, isset($args[4]) ? $args[4] : NULL);
-      $this->calculated[$method] = $calculatedValue;
-      return $calculatedValue;
-    } catch (\Exception $ex) {
-      return NULL;
-    }
+      return $expression ? $string : $this->proceedMathExpression($string);
   }
+
+  /**
+   * Calculates simple math expressions.
+   *
+   * @param $expression
+   * @return null
+   */
+  private function proceedMathExpression($expression) {
+      $result = NULL;
+      // Execute only numbers in math expression.
+      eval('$result = ' . preg_replace('/[^0-9\+\-\*\/\(\)\.]/', '', $expression) . ';');
+      return $result;
+  }
+
+  /**
+   * Calculates property values and returns expressions.
+   *
+   * @param $propertyName
+   * @return string|null
+   */
+  public function expr($propertyName) {
+      $expression = $this->calculateByFormula($propertyName, TRUE);
+      return str_replace('.', ',', $expression);
+  }
+
 }
