@@ -363,8 +363,6 @@ class SpecialTiltag extends Tiltag {
   }
 
   public function calculate() {
-//    $this->samletTransportBesparelse = $this->calculateSamletTransportBesparelse();
-
     parent::calculate();
   }
 

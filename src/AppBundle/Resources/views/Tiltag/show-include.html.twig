@@ -65,11 +65,25 @@
             <td>{{ 'appbundle.tiltag.yderligereBesparelse.unit' | trans }}</td>
           </tr>
         {% endif %}
-        {% if entity.samletTransportBesparelse is defined %}
+        {% if entity.energiBesparelse is defined %}
           <tr>
-            <td>{{ 'appbundle.tiltag.samletTransportBesparelse' | trans }}</td>
-            <td class="text-right">{{ entity.samletTransportBesparelse | format_amount }}</td>
-            <td>{{ 'appbundle.tiltag.samletTransportBesparelse.unit' | trans }}</td>
+            <td>{{ 'appbundle.tiltag.energiBesparelse' | trans }}</td>
+            <td class="text-right">{{ entity.energiBesparelse | format_amount }}</td>
+            <td>{{ 'appbundle.tiltag.energiBesparelse.unit' | trans }}</td>
+          </tr>
+        {% endif %}
+        {% if entity.besparelseInvestering is defined %}
+          <tr>
+            <td>{{ 'appbundle.tiltag.samletBesparelseInvestering' | trans }}</td>
+            <td class="text-right">{{ entity.besparelseInvestering | format_amount }}</td>
+            <td>{{ 'appbundle.tiltag.samletBesparelseInvestering.unit' | trans }}</td>
+          </tr>
+        {% endif %}
+        {% if entity.besparelseVedligehold is defined %}
+          <tr>
+            <td>{{ 'appbundle.tiltag.samletBesparelseVedligehold' | trans }}</td>
+            <td class="text-right">{{ entity.besparelseVedligehold | format_amount }}</td>
+            <td>{{ 'appbundle.tiltag.samletBesparelseVedligehold.unit' | trans }}</td>
           </tr>
         {% endif %}
         </tbody>

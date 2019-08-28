@@ -1801,14 +1801,13 @@ appbundle:
     varmebesparelseGUF: ﻿Varmebesparelse, GUF
     varmebesparelseGUF.unit: kWh/år
     energiBesparelse: Energibesparelse
-    dieselPris: Pris pr. liter diesel
-    benzinPris: Pris pr. liter benzin
-    antalGulpladeBiler: Antal gulplade biler
-    forbrugForGulpladeBiler: Forbrug for gulplade biler
-    antalHvidpladeBiler: Antal hvidplade biler
-    forbrugForHvidpladeBiler: Forbrug for hvidplade biler
+    energiBesparelse.unit: kWh/år
     besparelseInvestering: Investeringsbesparelse
+    samletBesparelseInvestering: Investeringsbesparelse
+    samletBesparelseInvestering.unit: kr/år
     besparelseVedligehold: Vedligeholdelsesbesparelse
+    samletBesparelseVedligehold: Vedligeholdelsesbesparelse
+    samletBesparelseVedligehold.unit: kr/år
     tilskudsstoerrelse: Tilskudsstørrelse
   tiltagdatofordrift:
     datoForDrift: Dato for drift
