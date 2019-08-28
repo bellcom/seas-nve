@@ -205,7 +205,7 @@
             <th>{{ 'appbundle.virksomhed.user.customer_url' | trans }}</th>
             <td>
               {% if entity.user %}
-              {{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}</td>
+              <a href="{{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}">{{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}</a></td>
             {% endif %}
           </tr>
         </tbody>

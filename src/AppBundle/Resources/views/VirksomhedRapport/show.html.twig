@@ -292,7 +292,58 @@
       </tr>
       </tbody>
     </table>
-
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('line-chart') }} {{ 'virksomhed_rapporter.strings.related_reports' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.parent' | trans }}:</th>
+            <td>
+              {% set parent = entity.getVirksomhed.getParent() %}
+              {% if parent %}
+                <a href="{{ path_with_access_token('virksomhed_create_rapport', { 'id': parent.id }) }}">{{ parent }}</a>
+              {% else %}
+                {{ 'virksomhed.messages.empty.parent' | trans }}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.datterSelskaber' | trans }}:</th>
+            <td>
+              {% set datterSelskaber = entity.getVirksomhed.getDatterSelskaber() %}
+              {% if datterSelskaber | length %}
+                {% for datterSelskab in datterSelskaber %}
+                  <div>
+                    <a href="{{ path_with_access_token('virksomhed_create_rapport', { 'id': datterSelskab.id }) }}">{{ datterSelskab }}</a>
+                  </div>
+                {% endfor %}
+              {% else %}
+                {{ 'virksomhed.messages.empty.datterSelskaber' | trans }}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.bygning' | trans }}:</th>
+            <td>
+              {% set bygninger = entity.getVirksomhed.getBygninger() %}
+              {% if bygninger | length %}
+                {% for bygning in bygninger %}
+                  <div>
+                    <a href="{{ path_with_access_token('rapport_show', { 'id': bygning.rapport.id }) }}">{{ bygning }}</a>
+                  </div>
+                {% endfor %}
+              {% else %}
+                {{ 'virksomhed.messages.empty.bygninger' | trans }}
+              {% endif %}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 {% endblock %}
 

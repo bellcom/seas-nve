@@ -64,7 +64,7 @@ services:
     security.access.rapport_voter:
         class:      AppBundle\Security\Authorization\Voter\RapportVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy, @request_stack ]
         tags:
             - { name: security.voter }
 

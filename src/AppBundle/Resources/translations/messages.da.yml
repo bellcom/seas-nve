@@ -607,6 +607,8 @@ virksomhed_rapporter:
     re-calculate: Er du sikker på at du vil genberegne bygningsrapporten?
   messages:
     no_files: Rapporten har ingen filer tilknyttet
+  strings:
+    related_reports: Relaterede rapporter
 
 # Forms - We follow the formbuilders form id format
 appbundle:
@@ -1924,6 +1926,7 @@ appbundle:
     datterSelskaber: Datterselskaber
     datterSelskaber.placeholder: Vælg datterselskab efter CVR-nummer
     datterSelskaber.description: Tilknyt eksiterende Virksoheder som Datterselskab på CVR-nummer.
+    datterSelskaber.raporter: Datterselskabs raporter
     typeName: Typenavn
     firma_adresse: Firma adresse
     kommune: Kommune
