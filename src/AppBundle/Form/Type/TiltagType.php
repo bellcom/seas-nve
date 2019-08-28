@@ -125,6 +125,7 @@ class TiltagType extends AbstractType {
     $builder->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor', 'percent', array('required' => FALSE));
     $builder->add('slutanvendelse', 'choice', array(
         'choices' => SlutanvendelseType::getChoices(),
+//        'choices_as_values' => TRUE,
         'empty_value' => '--',
         'required' => TRUE,
       ));
@@ -163,12 +164,12 @@ class TiltagType extends AbstractType {
         ->add('energiBesparelse')
         ->add('besparelseInvestering')
         ->add('besparelseVedligehold')
-        ->add('dieselPris')
-        ->add('benzinPris')
-        ->add('antalHvidpladeBiler')
-        ->add('forbrugForHvidpladeBiler')
-        ->add('antalGulpladeBiler')
-        ->add('forbrugForGulpladeBiler')
+//        ->add('dieselPris')
+//        ->add('benzinPris')
+//        ->add('antalHvidpladeBiler')
+//        ->add('forbrugForHvidpladeBiler')
+//        ->add('antalGulpladeBiler')
+//        ->add('forbrugForGulpladeBiler')
         ->add('yderligereBesparelse')
         ->add('levetid');
 

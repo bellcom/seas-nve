@@ -17,9 +17,9 @@ class Version20190821070429 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
-        $this->addSql('ALTER TABLE Tiltag ADD slutanvendelse ENUM(\'screening\', \'undeseogelse\', \'emo\', \'energiledelse\', \'energisyn\') DEFAULT NULL COMMENT \'(DC2Type:SlutanvendelseType)\'');
-        $this->addSql('ALTER TABLE Tiltag_audit ADD slutanvendelse ENUM(\'screening\', \'undeseogelse\', \'emo\', \'energiledelse\', \'energisyn\') DEFAULT NULL COMMENT \'(DC2Type:SlutanvendelseType)\'');
+        
+        $this->addSql('ALTER TABLE Tiltag ADD slutanvendelse ENUM(\'belysning\', \'ventilation\', \'pumper\', \'koeling\', \'trykluft\', \'procesudstyr\', \'varmeanlaeg\', \'klimaskaerm\', \'vinduer\', \'elvarme_rumvarme\', \'elmotorer_intern_transport\', \'energiforbrugende_apparater\', \'oevrige\', \'kedler_udskiftning\', \'kedler_serviceeftersyn\') DEFAULT NULL COMMENT \'(DC2Type:SlutanvendelseType)\'');
+        $this->addSql('ALTER TABLE Tiltag_audit ADD slutanvendelse ENUM(\'belysning\', \'ventilation\', \'pumper\', \'koeling\', \'trykluft\', \'procesudstyr\', \'varmeanlaeg\', \'klimaskaerm\', \'vinduer\', \'elvarme_rumvarme\', \'elmotorer_intern_transport\', \'energiforbrugende_apparater\', \'oevrige\', \'kedler_udskiftning\', \'kedler_serviceeftersyn\') DEFAULT NULL COMMENT \'(DC2Type:SlutanvendelseType)\'');
     }
 
     /**
