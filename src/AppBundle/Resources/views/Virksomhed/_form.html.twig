@@ -30,6 +30,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">{{ icon('barcode') }} {{ 'appbundle.virksomhed.eanNumbers' | trans }}</div>
             <div class="panel-body">
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        {{ 'appbundle.virksomhed.eanNumbers.description' | trans }}
+                    </div>
+                </div>
                 <div class="ean_numbers wrapper" data-prototype="{{ form_widget(form.eanNumbers.vars.prototype)|e('html_attr') }}">
                     {% for eanNumber in form.eanNumbers %}
                         <div class="row form-group">
@@ -46,6 +51,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">{{ icon('user') }} {{ 'appbundle.virksomhed.pNumbers' | trans }}</div>
             <div class="panel-body">
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        {{ 'appbundle.virksomhed.pNumbers.description' | trans }}
+                    </div>
+                </div>
                 <div class="p_numbers wrapper" data-prototype="{{ form_widget(form.pNumbers.vars.prototype)|e('html_attr') }}">
                     {% for pNumber in form.pNumbers %}
                         <div class="row form-group">
@@ -80,6 +90,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">{{ icon('briefcase') }} {{ 'appbundle.virksomhed.datterSelskaber' | trans }}</div>
             <div class="panel-body">
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        {{ 'appbundle.virksomhed.datterSelskaber.description' | trans }}
+                    </div>
+                </div>
                 <div class="datter_selskaber wrapper" data-prototype="{{ form_widget(form.datterSelskaber.vars.prototype)|e('html_attr') }}">
                     {% for datterSelskab in form.datterSelskaber %}
                         <div class="row form-group">

@@ -42,30 +42,6 @@
             <td>{{ entity.cvrNumber }}</td>
           </tr>
           <tr>
-            <th>{{ 'appbundle.virksomhed.eanNumbers' | trans }}</th>
-            <td>
-              {% if entity.getEanNumbers() %}
-                {% for eanNumber in entity.getEanNumbers() %}
-                  <div>{{ eanNumber }}</div>
-                {% endfor %}
-              {% else %}
-                {{ 'virksomhed.messages.empty.eanNumbers' | trans }}
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.virksomhed.pNumbers' | trans }}</th>
-            <td>
-              {% if entity.getEanNumbers() %}
-                {% for pNumber in entity.getPNumbers() %}
-                  <div>{{ pNumber }}</div>
-                {% endfor %}
-              {% else %}
-                {{ 'virksomhed.messages.empty.pNumbers' | trans }}
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
             <th>{{ 'appbundle.virksomhed.crmNumber' | trans }}</th>
             <td>{{ entity.crmNumber }}</td>
           </tr>
@@ -114,6 +90,21 @@
             </tr>
             </tbody>
           </table>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.virksomhed.bygning' | trans }}</div>
+        <div class="panel-body">
+          {% set bygninger = entity.getBygninger() %}
+          {% if bygninger | length %}
+            <ul>
+              {% for bygning in bygninger %}
+                <li><a href="{{ path_with_access_token('bygning_show', { 'id': bygning.id }) }}">{{ bygning }}</a></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            {{ 'virksomhed.messages.empty.bygninger' | trans }}
+          {% endif %}
+        </div>
       </div>
       <div class="panel panel-default">
         <div class="panel-heading">{{ icon('phone') }} {{ 'appbundle.virksomhed.contactPersons' | trans }}</div>

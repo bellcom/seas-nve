@@ -117,6 +117,7 @@ class VirksomhedController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $entity->filterEmptyValues();
             $em = $this->getDoctrine()->getManager();
 
             $bygninger = $em->getRepository(Bygning::class)->findByNumbers($entity);
@@ -170,6 +171,7 @@ class VirksomhedController extends BaseController
      */
     private function createCreateForm(Virksomhed $entity)
     {
+        $entity->setDefaultValues();
         $form = $this->createForm(new VirksomhedType(), $entity, array(
             'action' => $this->generateUrl('virksomhed_create'),
             'method' => 'POST',
@@ -262,6 +264,7 @@ class VirksomhedController extends BaseController
     */
     private function createEditForm(Virksomhed $entity)
     {
+        $entity->setDefaultValues();
         $form = $this->createForm(new VirksomhedType(), $entity, array(
             'action' => $this->generateUrl('virksomhed_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -306,6 +309,7 @@ class VirksomhedController extends BaseController
         $editForm = $this->createEditForm($virksomhed);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $virksomhed->filterEmptyValues();
 
             $bygninger = $em->getRepository(Bygning::class)->findByNumbers($virksomhed);
             $virksomhed->setBygninger(new ArrayCollection());
