@@ -38,7 +38,7 @@ class SpecialTiltag extends Tiltag {
   protected $samletCo2besparelse;
 
   /**
-   * @var float
+   * @Formula("$this->energiBesparelse * $this->tilskudsstoerrelse")
    */
   protected $samletTilskud;
 
@@ -242,14 +242,8 @@ class SpecialTiltag extends Tiltag {
     return parent::calculateAnlaegsinvestering($this->getAnlaegsinvesteringExRisiko());
   }
 
-  protected function calculateSamletTilskud() {
-    return ($this->energiBesparelse * $this->tilskudsstoerrelse);
-  }
-
   public function calculate() {
-    $this->samletTilskud = $this->calculateSamletTilskud();
-
-
+    $this->samletTilskud = $this->calculateByFormula('samletTilskud');
     parent::calculate();
   }
 
