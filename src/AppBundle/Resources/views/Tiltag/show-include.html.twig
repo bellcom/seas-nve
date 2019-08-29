@@ -86,6 +86,11 @@
             <td>{{ 'appbundle.tiltag.samletBesparelseVedligehold.unit' | trans }}</td>
           </tr>
         {% endif %}
+          <tr>
+            <td>{{ 'appbundle.tiltag.samletTilskud' | trans }}</td>
+            <td class="text-right">{{ entity.samletTilskud | format_amount }}</td>
+            <td>{{ 'appbundle.tiltag.samletTilskud.unit' | trans }}</td>
+          </tr>
         </tbody>
         <tfoot>
         <tr>

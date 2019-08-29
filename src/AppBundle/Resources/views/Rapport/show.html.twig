@@ -198,6 +198,15 @@
         <td>{{ 'appbundle.rapport.co2BesparelseVarmeFaktor.unit' | trans }}</td>
       </tr>
       <tr>
+        <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGUF' | trans }}</th>
+        <td class="text-right">{{ entity.besparelseVarmeGUF | format_decimal }}</td>
+        <td>{{ 'appbundle.rapport.besparelseVarmeGUF.unit' | trans }}</td>
+
+        <th class="indent">{{ 'appbundle.rapport.co2BesparelseVarmeFaktor' | trans }}</th>
+        <td class="text-right">{{ entity.co2BesparelseVarmeFaktor | format_percent_nounit }}</td>
+        <td>{{ 'appbundle.rapport.co2BesparelseVarmeFaktor.unit' | trans }}</td>
+      </tr>
+      <tr>
         <td colspan="3" rowspan="4">
           {% if entity.calculationWarnings and is_granted('RAPPORT_EDIT', entity) %}
             <div class="alert alert-warning">
