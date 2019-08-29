@@ -169,6 +169,14 @@ class Rapport {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="energiBesparelse", type="float", nullable=true)
+   */
+  protected $energiBesparelse;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="fravalgtBesparelseEl", type="float", nullable=true)
    */
   protected $fravalgtBesparelseEl;
@@ -1038,6 +1046,15 @@ class Rapport {
   }
 
   /**
+   * Get energiBesparelse
+   *
+   * @return float
+   */
+  public function getEnergiBesparelse() {
+    return $this->energiBesparelse;
+  }
+
+  /**
    * Get co2besparelseEl
    *
    * @return float
@@ -1874,6 +1891,7 @@ class Rapport {
     $this->BaselineCO2Samlet = $this->calculateBaselineCO2Samlet();
 
     $this->besparelseEl = $this->calculateBesparelseEl();
+    $this->energiBesparelse = $this->calculateEnergiBesparelse();
     $this->fravalgtBesparelseEl = $this->calculateFravalgtBesparelseEl();
     $this->besparelseVarmeGUF = $this->calculateBesparelseVarmeGUF();
     $this->fravalgtBesparelseVarmeGUF = $this->calculateFravalgtBesparelseVarmeGUF();
@@ -2033,6 +2051,18 @@ class Rapport {
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
       $value += $tiltag->getElBesparelse();
     }
+    return $value;
+  }
+
+  private function calculateEnergiBesparelse() {
+    $value = 0;
+
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      if (method_exists($tiltag, 'getEnergiBesparelse')) {
+        $value += $tiltag->getEnergiBesparelse();
+      }
+    }
+
     return $value;
   }
 

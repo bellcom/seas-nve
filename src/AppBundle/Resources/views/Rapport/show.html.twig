@@ -198,6 +198,15 @@
         <td>{{ 'appbundle.rapport.co2BesparelseVarmeFaktor.unit' | trans }}</td>
       </tr>
       <tr>
+        <th class="indent">{{ 'appbundle.rapport.energiBesparelse' | trans }}</th>
+        <td class="text-right">{{ entity.energiBesparelse | format_decimal }}</td>
+        <td>{{ 'appbundle.rapport.energiBesparelse.unit' | trans }}</td>
+
+        <th class="indent"></th>
+        <td class="text-right"></td>
+        <td></td>
+      </tr>
+      <tr>
         <td colspan="3" rowspan="4">
           {% if entity.calculationWarnings and is_granted('RAPPORT_EDIT', entity) %}
             <div class="alert alert-warning">
