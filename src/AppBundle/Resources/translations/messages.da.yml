@@ -1815,6 +1815,9 @@ appbundle:
     samletBesparelseVedligehold: Vedligeholdelsesbesparelse
     samletBesparelseVedligehold.unit: kr/år
     tilskudsstoerrelse: Tilskudsstørrelse
+    tilskudsstoerrelse.unit: kr/år
+    samletTilskud: Samlet tilskud
+    samletTilskud.unit: kr/år
   tiltagdatofordrift:
     datoForDrift: Dato for drift
   tiltagdetail:

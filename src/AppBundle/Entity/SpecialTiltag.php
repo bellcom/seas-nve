@@ -28,7 +28,7 @@ class SpecialTiltag extends Tiltag {
   }
 
   /**
-    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + $this->energiBesparelse")
+    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + ($this->energiBesparelse * $this->tilskudsstoerrelse)")
     */
   protected $samletEnergibesparelse;
 
@@ -36,6 +36,11 @@ class SpecialTiltag extends Tiltag {
    * @Formula("((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKrKWh()) / 1000")
    */
   protected $samletCo2besparelse;
+
+  /**
+   * @Formula("$this->energiBesparelse * $this->tilskudsstoerrelse")
+   */
+  protected $samletTilskud;
 
   /**
    * @var float
@@ -62,6 +67,7 @@ class SpecialTiltag extends Tiltag {
    * @var float
    *
    * @ORM\Column(name="energiBesparelse", type="decimal", scale=4, precision=14, nullable=true)
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + ($this->energiBesparelse * $this->tilskudsstoerrelse)")
    */
   protected $energiBesparelse;
 
@@ -237,6 +243,7 @@ class SpecialTiltag extends Tiltag {
   }
 
   public function calculate() {
+    $this->samletTilskud = $this->calculateByFormula('samletTilskud');
     parent::calculate();
   }
 
