@@ -28,7 +28,7 @@ class SpecialTiltag extends Tiltag {
   }
 
   /**
-    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + ($this->energiBesparelse * $this->tilskudsstoerrelse)")
+    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + ($this->energiBesparelse * $this->tilskudsstoerrelse)")
     */
   protected $samletEnergibesparelse;
 
