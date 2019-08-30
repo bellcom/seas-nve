@@ -167,6 +167,14 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="samletTilskud", type="float", nullable=true)
+   */
+  protected $samletTilskud;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="besparelseAarEt", type="float", scale=4, nullable=true)
    */
   protected $besparelseAarEt;
@@ -1324,6 +1332,15 @@ abstract class Tiltag {
    */
   public function getSamletCo2besparelse() {
     return $this->samletCo2besparelse;
+  }
+
+  /**
+   * Get samletTilskud
+   *
+   * @return float
+   */
+  public function getSamletTilskud() {
+    return $this->samletTilskud;
   }
 
   /**

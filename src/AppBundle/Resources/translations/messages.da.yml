@@ -1472,7 +1472,7 @@ appbundle:
     besparelseVarmeGAF.unit: kwh/år
     besparelseVarmeGUF: Varme GUF
     besparelseVarmeGUF.unit: kwh/år
-    energiBesparelse: Energibesparelse
+    energiBesparelse: Brændstofbesparelse
     energiBesparelse.unit: kwh/år
     bilag:
       updated_by: Redigeret af
@@ -1711,9 +1711,9 @@ appbundle:
     slutanvendelse: Slutanvendelse
     besparelseEl: Besparelse El
     besparelseEl.unit: kWh/år
-    besparelseGAF: Besparelse GAF
+    besparelseGAF: Besparelse varme GAF
     besparelseGAF.unit: kWh/år
-    besparelseGUF: Besparelse GUF
+    besparelseGUF: Besparelse varme GUF
     besparelseGUF.unit: kWh/år
     yderligereBesparelse: Yderligere besparelse
     yderligereBesparelse.unit: kr/år
@@ -1777,7 +1777,7 @@ appbundle:
     salgTilNettetAar1.unit: kWh
     samletCo2besparelse: Samlet co2-besparelse
     samletCo2besparelse.unit: t/år
-    samletEnergibesparelse: Samlet energibesparelse
+    samletEnergibesparelse: Samlet brændstof besparelse
     samletEnergibesparelse.unit: kr/år
     scrapvaerdi: Scrapværdi
     scrapvaerdi.unit: kr
@@ -1804,17 +1804,20 @@ appbundle:
     varmebesparelseGAF.unit: kWh/år
     varmebesparelseGUF: ﻿Varmebesparelse, GUF
     varmebesparelseGUF.unit: kWh/år
-    energiBesparelse: Energibesparelse
+    energiBesparelse: Besparelse brændstof
     energiBesparelse.unit: kWh/år
-    besparelseInvestering: Investeringsbesparelse
+    besparelseInvestering: Besparelse investering
     besparelseInvestering.unit: kr/år
-    samletBesparelseInvestering: Investeringsbesparelse
+    samletBesparelseInvestering: Besparelse investering
     samletBesparelseInvestering.unit: kr/år
     besparelseVedligehold: Vedligeholdelsesbesparelse
     besparelseVedligehold.unit: kr/år
     samletBesparelseVedligehold: Vedligeholdelsesbesparelse
     samletBesparelseVedligehold.unit: kr/år
     tilskudsstoerrelse: Tilskudsstørrelse
+    tilskudsstoerrelse.unit: kr/kWh
+    samletTilskud: Samlet tilskud
+    samletTilskud.unit: kr/år
   tiltagdatofordrift:
     datoForDrift: Dato for drift
   tiltagdetail:
