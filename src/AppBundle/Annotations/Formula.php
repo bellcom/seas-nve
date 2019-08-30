@@ -16,6 +16,16 @@ class Formula
     protected $formula;
 
     /**
+     * @var string $isProperty
+     */
+    public $isProperty = false;
+
+    /**
+     * @var string $type
+     */
+    protected $type;
+
+    /**
      * Calculated constructor.
      * @param $formula
      */
@@ -57,22 +67,41 @@ class Formula
             if (strpos($method->name, 'calculate') === FALSE) {
                 continue;
             }
+            $formula_key = $method->name;
             $property = lcfirst(str_replace('calculate', '', $method->name));
             if (property_exists($class, $property) && !isset($formulas[$property])) {
-                $reflectionMethod = new \ReflectionMethod($class, $method->name);
-                $annotations = $annotationReader->getMethodAnnotations($reflectionMethod);
-                if (empty($annotations)) {
-                    continue;
-                }
-
-                foreach ($annotations as $annotation) {
-                    if ($annotation instanceof Formula) {
-                        $formulas[$property] = $annotation;
-                    }
+                $formula_key = $property;
+            }
+  
+            $reflectionMethod = new \ReflectionMethod($class, $method->name);
+            $annotations = $annotationReader->getMethodAnnotations($reflectionMethod);
+            if (empty($annotations)) {
+                continue;
+            }
+    
+            foreach ($annotations as $annotation) {
+                if ($annotation instanceof Formula) {
+                    $formulas[$formula_key] = $annotation;
                 }
             }
+  
         }
 
         return $formulas;
     }
+
+    /**
+     * @return float
+     */
+    public function getType() {
+        return $this->type;
+    }
+    
+    /**
+     * @param string $type
+     */
+    public function setType($type) {
+        $this->type = $type;
+    }
+  
 }

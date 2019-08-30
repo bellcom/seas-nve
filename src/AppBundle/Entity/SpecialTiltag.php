@@ -28,8 +28,8 @@ class SpecialTiltag extends Tiltag {
   }
 
   /**
-    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + $this->energiBesparelse")
-    */
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + $this->energiBesparelse")
+   */
   protected $samletEnergibesparelse;
 
   /**
@@ -201,26 +201,63 @@ class SpecialTiltag extends Tiltag {
     'yderligereBesparelse',
   ];
 
+  /**
+   * Calculates value that is using in varmebesparelseGUF calculation.
+   *
+   * @return float
+   */
+  protected function calculateVarmebesparelseGUFValue() {
+    return ($this->rapport->getStandardForsyning() ? $this->besparelseGUF : $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
+  }
+
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateVarmebesparelseGUFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateVarmebesparelseGUF($value = null) {
-    $value = ($this->rapport->getStandardForsyning() ? $this->besparelseGUF : $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
+    $value = $this->calculateVarmebesparelseGUFValue();
     return parent::calculateVarmebesparelseGUF($value);
   }
 
+  /**
+   * Calculates value that is using in varmebesparelseGAF calculation.
+   *
+   * @return float
+   */
+  protected function calculateVarmebesparelseGAFValue() {
+    return ($this->rapport->getStandardForsyning() ? $this->besparelseGAF : $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
+  }
+
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateVarmebesparelseGAF($value = null) {
-    $value = ($this->rapport->getStandardForsyning() ? $this->besparelseGAF : $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
+    $value = $this->calculateVarmebesparelseGAFValue();
     return parent::calculateVarmebesparelseGAF($value);
   }
 
-  protected function calculateElbesparelse($value = null) {
+  /**
+   * Calculates value that is using in elbesparelse calculation.
+   *
+   * @return float
+   */
+  protected function calculateElbesparelseValue() {
     if ($this->rapport->getStandardForsyning()) {
-      $value = $this->besparelseEl;
-    }
-    else {
-      $value = ($this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'EL')
-        + $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'EL')
-        + $this->besparelseEl);
+      return $this->besparelseEl;
     }
 
+    return ($this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'EL')
+      + $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'EL')
+      + $this->besparelseEl);
+  }
+
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateElbesparelseValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
+  protected function calculateElbesparelse($value = null) {
+    $value = $this->calculateElbesparelseValue();
     return parent::calculateElbesparelse($value);
   }
 
@@ -232,6 +269,10 @@ class SpecialTiltag extends Tiltag {
     return parent::calculateSavingsForYear($year) + $this->getYderligereBesparelse();
   }
 
+  /**
+   * @inheritDoc
+   * @Formula("$this->getAnlaegsinvesteringExRisiko() * $this->calculateAnlaegsinvesteringFaktor()")
+   */
   protected function calculateAnlaegsinvestering($value = NULL) {
     return parent::calculateAnlaegsinvestering($this->getAnlaegsinvesteringExRisiko());
   }
