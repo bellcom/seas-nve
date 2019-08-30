@@ -1711,9 +1711,9 @@ appbundle:
     slutanvendelse: Slutanvendelse
     besparelseEl: Besparelse El
     besparelseEl.unit: kWh/år
-    besparelseGAF: Besparelse GAF
+    besparelseGAF: Besparelse varme GAF
     besparelseGAF.unit: kWh/år
-    besparelseGUF: Besparelse GUF
+    besparelseGUF: Besparelse varme GUF
     besparelseGUF.unit: kWh/år
     yderligereBesparelse: Yderligere besparelse
     yderligereBesparelse.unit: kr/år
@@ -1777,7 +1777,7 @@ appbundle:
     salgTilNettetAar1.unit: kWh
     samletCo2besparelse: Samlet co2-besparelse
     samletCo2besparelse.unit: t/år
-    samletEnergibesparelse: Samlet energibesparelse
+    samletEnergibesparelse: Samlet brændstof besparelse
     samletEnergibesparelse.unit: kr/år
     scrapvaerdi: Scrapværdi
     scrapvaerdi.unit: kr
@@ -1804,11 +1804,11 @@ appbundle:
     varmebesparelseGAF.unit: kWh/år
     varmebesparelseGUF: ﻿Varmebesparelse, GUF
     varmebesparelseGUF.unit: kWh/år
-    energiBesparelse: Brændstofbesparelse
+    energiBesparelse: Besparelse brændstof
     energiBesparelse.unit: kWh/år
-    besparelseInvestering: Investeringsbesparelse
+    besparelseInvestering: Besparelse investering
     besparelseInvestering.unit: kr/år
-    samletBesparelseInvestering: Investeringsbesparelse
+    samletBesparelseInvestering: Besparelse investering
     samletBesparelseInvestering.unit: kr/år
     besparelseVedligehold: Vedligeholdelsesbesparelse
     besparelseVedligehold.unit: kr/år
