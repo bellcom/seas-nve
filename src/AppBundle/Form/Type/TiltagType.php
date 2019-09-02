@@ -102,11 +102,13 @@ class TiltagType extends AbstractType {
       ->add('forsyningVarme', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
+        'empty_value' => '--',
         'required' => FALSE,
       ))
       ->add('forsyningEl', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
+        'empty_value' => '--',
         'required' => FALSE,
       ))
       ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 850), 'required' => FALSE))

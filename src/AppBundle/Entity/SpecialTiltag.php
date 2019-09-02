@@ -74,20 +74,6 @@ class SpecialTiltag extends Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="besparelseInvestering", type="decimal", scale=4, precision=14, nullable=true)
-   */
-  protected $besparelseInvestering;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="besparelseVedligehold", type="decimal", scale=4, precision=14, nullable=true)
-   */
-  protected $besparelseVedligehold;
-
-  /**
-   * @var float
-   *
    * @ORM\Column(name="yderligereBesparelse", type="decimal", scale=4, precision=14)
    */
   protected $yderligereBesparelse;
@@ -148,26 +134,6 @@ class SpecialTiltag extends Tiltag {
 
   public function getBesparelseEl() {
     return $this->besparelseEl;
-  }
-
-  public function setBesparelseInvestering($besparelseInvestering) {
-    $this->besparelseInvestering = $besparelseInvestering;
-
-    return $this;
-  }
-
-  public function getBesparelseInvestering() {
-    return $this->besparelseInvestering;
-  }
-
-  public function setBesparelseVedligehold($besparelseVedligehold) {
-    $this->besparelseVedligehold = $besparelseVedligehold;
-
-    return $this;
-  }
-
-  public function getBesparelseVedligehold() {
-    return $this->besparelseVedligehold;
   }
 
   /**

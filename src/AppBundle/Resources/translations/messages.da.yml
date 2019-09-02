@@ -1454,8 +1454,6 @@ appbundle:
     besparelseAarEt.unit: kr
     besparelseAarEtPdf: Økonomisk besparelse i år 1 (inkl. D&V-besparelse)
     besparelseAarEtPdf.unit: kr
-    besparelseAarEt: Samlet besparelse i kr i år 1
-    besparelseAarEt.unit: kr/år
     besparelseCO2: Samlet CO2
     besparelseCO2el: El
     besparelseCO2el.unit: t/år
@@ -1464,6 +1462,8 @@ appbundle:
     besparelseCO2.unit: t/år
     besparelseCO2varme: Varme
     besparelseCO2varme.unit: t/år
+    besparelseCO2braendstof: Brændstof
+    besparelseCO2braendstof.unit: t/år
     besparelseEl: El
     besparelseEl.unit: kWh/år
     besparelseVarme: Varme
@@ -1472,7 +1472,7 @@ appbundle:
     besparelseVarmeGAF.unit: kwh/år
     besparelseVarmeGUF: Varme GUF
     besparelseVarmeGUF.unit: kwh/år
-    energiBesparelse: Brændstofbesparelse
+    energiBesparelse: Brændstof
     energiBesparelse.unit: kwh/år
     bilag:
       updated_by: Redigeret af
@@ -1495,6 +1495,8 @@ appbundle:
     co2BesparelseSamletFaktor.unit: %
     co2BesparelseVarmeFaktor: Varme
     co2BesparelseVarmeFaktor.unit: %
+    co2BesparelseBraendstofFaktor: Brændstof
+    co2BesparelseBraendstofFaktor.unit: %
     datering: Screeningsdato
     elena: Elena
     energibesparelser: Energibesparelser
