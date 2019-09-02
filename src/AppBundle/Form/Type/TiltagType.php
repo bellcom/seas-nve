@@ -172,6 +172,7 @@ class TiltagType extends AbstractType {
         ->add('besparelseGUF')
         ->add('besparelseGAF')
         ->add('besparelseEl')
+        ->add('besparelseCo2Braendstof', 'percent')
         ->add('energiBesparelse')
         ->add('yderligereBesparelse')
         ->add('levetid');

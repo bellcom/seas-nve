@@ -1928,7 +1928,6 @@ class Rapport {
 
     $this->co2BesparelseElFaktor = $this->calculateCO2BesparelseElFaktor();
     $this->co2BesparelseVarmeFaktor = $this->calculateCO2BesparelseVarmeFaktor();
-    $this->co2BesparelseBraendstofFaktor = $this->calculateCO2BesparelseBraendstofFaktor();
     $this->co2BesparelseSamletFaktor = $this->calculateCO2BesparelseSamletFaktor();
     $this->fravalgtCo2BesparelseSamletFaktor = $this->calculateFravalgtCO2BesparelseSamletFaktor();
 
@@ -2167,14 +2166,26 @@ class Rapport {
   }
 
   private function calculateCo2BesparelseBraendstof() {
-    $vaerk = $this->getBygning()->getForsyningsvaerkVarme();
-    if($vaerk) {
-      $VarmeKgCo2MWh = $this->getBygning()->getForsyningsvaerkVarme()->getKgCo2MWh(2009);
+    $amount = 0;
+    $count = 0;
 
-      return ($this->besparelseVarmeGAF + $this->besparelseVarmeGUF) / 1000 * $VarmeKgCo2MWh / 1000;
-    } else {
-      return 0;
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+
+      if (method_exists($tiltag, 'getBesparelseCo2Braendstof')) {
+
+        if ($value = $tiltag->getBesparelseCo2Braendstof()) {
+          $amount += $value;
+
+          $count++;
+        }
+      }
     }
+
+    if ($amount > 0 && $count > 0) {
+      return ($amount / $count);
+    }
+
+    return 0;
   }
 
   private function calculateFravalgtBesparelseEl() {
