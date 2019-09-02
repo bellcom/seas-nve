@@ -1943,7 +1943,6 @@ class Rapport {
 
     $this->co2BesparelseElFaktor = $this->calculateCo2BesparelseElFaktor();
     $this->co2BesparelseVarmeFaktor = $this->calculateCo2BesparelseVarmeFaktor();
-    $this->co2BesparelseBraendstofFaktor = $this->calculateCO2BesparelseBraendstofFaktor();
     $this->co2BesparelseSamletFaktor = $this->calculateCo2BesparelseSamletFaktor();
     $this->fravalgtCo2BesparelseSamletFaktor = $this->calculateFravalgtCo2BesparelseSamletFaktor();
 
@@ -2210,13 +2209,6 @@ class Rapport {
     }
     return null;
   }
-  
-  private function calculateCO2BesparelseBraendstofFaktor() {
-    if (!empty($this->BaselineCO2Varme)) {
-      return $this->co2BesparelseVarme / $this->BaselineCO2Varme;
-    }
-    return null;
-  }
 
   /**
    * @Formula("$this->besparelseCO2 / $this->BaselineCO2Samlet")
@@ -2285,15 +2277,34 @@ class Rapport {
     }
   }
 
-  private function calculateCo2BesparelseBraendstof() {
-    $vaerk = $this->getBygning()->getForsyningsvaerkVarme();
-    if($vaerk) {
-      $VarmeKgCo2MWh = $this->getBygning()->getForsyningsvaerkVarme()->getKgCo2MWh(2009);
+  /**
+   * Calculates expression for Co2BesparelseBraendstof value
+   */
+  protected function calculateCo2BesparelseBraendstofExp() {
+    return $this->calculateCo2BesparelseBraendstof(TRUE);
+  }
 
-      return ($this->besparelseVarmeGAF + $this->besparelseVarmeGUF) / 1000 * $VarmeKgCo2MWh / 1000;
-    } else {
-      return 0;
+  /**
+   * @Formula("$this->calculateCo2BesparelseBraendstofExp()")
+   */
+  private function calculateCo2BesparelseBraendstof($expression = FALSE) {
+    $amount = array();
+
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+
+      if (method_exists($tiltag, 'getBesparelseCo2Braendstof')) {
+
+        if ($value = $tiltag->getBesparelseCo2Braendstof()) {
+          $amount[] = (float) $value;
+        }
+      }
     }
+
+    if ($expression) {
+      return $this->sumExpr($amount) . '/' .  count($amount);
+    }
+
+    return Calculation::divide(array_sum($amount), count($amount));
   }
 
   private function calculateFravalgtBesparelseEl() {

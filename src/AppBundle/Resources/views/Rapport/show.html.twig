@@ -202,12 +202,12 @@
         <td class="text-right">{{ entity.energiBesparelse | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.energiBesparelse.unit' | trans }}</td>
 
-        <th class="indent">{{ 'appbundle.rapport.co2BesparelseBraendstofFaktor' | trans }}</th>
-        <td class="text-right">{{ entity.co2BesparelseBraendstofFaktor | format_percent_nounit }}</td>
-        <td>{{ 'appbundle.rapport.co2BesparelseBraendstofFaktor.unit' | trans }}</td>
+        <th class="indent">{{ 'appbundle.rapport.co2BesparelseBraendstof' | trans }}<div>{{ entity.expr('co2BesparelseBraendstof') }}</div></th>
+        <td class="text-right">{{ entity.co2BesparelseBraendstof | format_percent_nounit }}</td>
+        <td>{{ 'appbundle.rapport.co2BesparelseBraendstof.unit' | trans }}</td>
       </tr>
       <tr>
-        <td colspan="3" rowspan="5">
+        <td colspan="3" rowspan="4">
           {% if entity.calculationWarnings and is_granted('RAPPORT_EDIT', entity) %}
             <div class="alert alert-warning">
               <p><strong>{{ icon('warning') }} {{ 'Incomplete calculation' | trans }}</strong></p>
@@ -243,12 +243,6 @@
         <th class="indent">{{ 'appbundle.rapport.besparelseCO2varme' | trans }}<div>{{ entity.expr('co2BesparelseVarme') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseVarme | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2varme.unit' | trans }}</td>
-      </tr>
-      <tr>
-
-        <th class="indent">{{ 'appbundle.rapport.besparelseCO2braendstof' | trans }}</th>
-        <td class="text-right">{{ entity.co2BesparelseBraendstof | format_decimal }}</td>
-        <td>{{ 'appbundle.rapport.besparelseCO2braendstof.unit' | trans }}</td>
       </tr>
       </tbody>
     </table>
