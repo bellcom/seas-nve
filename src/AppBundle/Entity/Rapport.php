@@ -2457,7 +2457,7 @@ class Rapport {
     $cashFlow[1] -= $this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering();
 
     if ($expression) {
-      return 'IRR(' . implode('; ', $cashFlow) . ')';
+      return $this->mathArrayExpr($cashFlow, '; ', 'IRR(',  ')');
     }
 
     $irr = Excel::IRR($cashFlow);

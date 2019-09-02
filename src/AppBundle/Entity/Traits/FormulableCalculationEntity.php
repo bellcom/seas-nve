@@ -131,6 +131,13 @@ trait FormulableCalculationEntity {
    * @return string
    */
   public function sumExpr($array_values) {
+    return $this->mathArrayExpr($array_values, ' + ', 'SUM(', ')');
+  }
+
+  /**
+   * Generates math iterator expression from values in array.
+   */
+  public function mathArrayExpr($array_values, $separator = ' ; ', $prefix = '', $suffix = '') {
     foreach ($array_values as &$value) {
       if ($value === NULL) {
         $value = 0;
@@ -139,7 +146,7 @@ trait FormulableCalculationEntity {
         $value = round($value, 2);
       }
     }
-    return 'SUM(' . (empty($array_values) ? '0' : implode(' + ', $array_values)) . ')';
+    return $prefix . (empty($array_values) ? '0' : implode($separator, $array_values)) . $suffix;
   }
 
 }

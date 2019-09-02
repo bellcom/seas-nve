@@ -1984,7 +1984,8 @@ abstract class Tiltag {
    */
   protected function sum($f, $expression = FALSE) {
     $result = $this->accumulateArray(function ($detail, $result) use ($f) {
-      return $result[] = (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
+      $result[] = (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
+      return $result;
     });
   
     if ($expression) {
