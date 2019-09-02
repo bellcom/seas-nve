@@ -1524,7 +1524,7 @@ abstract class Tiltag {
   /**
    * Get genopretning
    *
-   * @return string
+   * @return float
    */
   public function getGenopretning() {
     return $this->genopretning;
@@ -1568,7 +1568,7 @@ abstract class Tiltag {
   /**
    * Get modernisering
    *
-   * @return string
+   * @return float
    */
   public function getModernisering() {
     return $this->modernisering;
@@ -1710,6 +1710,10 @@ abstract class Tiltag {
     $this->enhed = $this->calculateEnhed();
   }
 
+  /**
+   * @inheritDoc
+   * @Formula("($this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering())")
+   */
   protected function calculateAaplusInvestering() {
     return $this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering());
   }
@@ -1823,49 +1827,95 @@ abstract class Tiltag {
     return 0;
   }
 
+  /**
+   * Calculates Anlaegsinvestering faktor.
+   *
+   * @return float
+   */
+  protected function calculateAnlaegsinvesteringFaktor() {
+    return $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? ($this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() + 1) : 1;
+  }
+  
+  /**
+   * @Formula("$value * $this->calculateAnlaegsinvesteringFaktor()")
+   */
   protected function calculateAnlaegsinvestering($value = NULL) {
     if($value === NULL) {
       return NULL;
     } else {
-      $faktor = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() + 1 : 1;
-
-      return $value * $faktor;
+      return $value * $this->calculateAnlaegsinvesteringFaktor();
     }
   }
-
+  
+  /**
+   * @Formula("$value * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateVarmebesparelseGUF($value = NULL) {
     return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
   }
-
+  
+  /**
+   * @Formula("$value * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateVarmebesparelseGAF($value = null) {
     return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
   }
 
+  /**
+   * @Formula("$value * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateElbesparelse($value = null) {
     return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
   }
 
-  private function calculateBesparelseFromAendringIBesparelseFaktor($value) {
+  protected function calculateBesparelseFromAendringIBesparelseFaktor($value) {
     if($value === NULL) {
       return NULL;
     } else {
-      $risikoFaktor = $this->getRisikovurderingAendringIBesparelseFaktor() ? 1 - $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
-
-      $energiledelseFaktor = $this->getEnergiledelseAendringIBesparelseFaktor() ? 1 - $this->getEnergiledelseAendringIBesparelseFaktor() : 1;
-
-      return $value * $risikoFaktor * $energiledelseFaktor;
+      return $value * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor();
     }
+  }
+
+  /**
+   * Helper function to simplify calculation.
+   *
+   * @return float|int
+   */
+  protected function calculateRisikoFaktor() {
+    return $this->getRisikovurderingAendringIBesparelseFaktor() ? (1 - $this->getRisikovurderingAendringIBesparelseFaktor()) : 1;
+  }
+
+  /**
+   * Helper function to simplify calculation.
+   *
+   * @return float|int
+   */
+  protected function calculateEnergiledelseFaktor() {
+    return $this->getEnergiledelseAendringIBesparelseFaktor() ? (1 - $this->getEnergiledelseAendringIBesparelseFaktor()) : 1;
   }
 
   protected function calculateLevetid() {
     return NULL;
   }
 
+  /**
+   * @Formula("$this->aaplusInvestering / ($this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift)")
+   */
   protected function calculateSimpelTilbagebetalingstidAar() {
     return $this->divide($this->aaplusInvestering,
       $this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift);
   }
 
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
+   */
+  protected function calculateNutidsvaerdiSetOver15AarKrExpr() {
+    return Calculation::npv($this->getRapport()->getKalkulationsrente(), $this->cashFlow15, TRUE);
+  }
+  
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
+   */
   protected function calculateNutidsvaerdiSetOver15AarKr() {
     return Calculation::npv($this->getRapport()
       ->getKalkulationsrente(), $this->cashFlow15);
@@ -1910,13 +1960,17 @@ abstract class Tiltag {
   public function getRapportElKrKWh() {
     return $this->getRapport()->getElKrKWh();
   }
-
-  public function getRapportVarmeKgCo2MWh() {
-    return $this->getRapport()->getVarmeKgCo2MWh();
+  
+  public function getRapportVarmeKrKWh() {
+    return $this->getRapport()->getVarmeKrKWh();
   }
 
   public function getRapportElKgCo2MWh() {
     return $this->getRapport()->getElKgCo2MWh();
+  }
+
+  public function getRapportVarmeKgCo2MWh() {
+    return $this->getRapport()->getVarmeKgCo2MWh();
   }
 
   public function getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {
@@ -1931,6 +1985,14 @@ abstract class Tiltag {
     return $value;
   }
 
+  protected function accumulateArray(callable $accumulator, $start = array()) {
+    $result = $start;
+    foreach ($this->getTilvalgteDetails() as $detail) {
+      $result = $accumulator($detail, $result);
+    }
+    return $result;
+  }
+
   /**
    * Calculate the sum of something from each tilvalgt detail.
    *
@@ -1940,10 +2002,15 @@ abstract class Tiltag {
    * @return integer
    *   The sum af results from calling $f on each tilvalgt detail.
    */
-  protected function sum($f) {
-    return $this->accumulate(function ($detail, $value) use ($f) {
-      return $value + (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
+  protected function sum($f, $expression = FALSE) {
+    $result = $this->accumulateArray(function ($detail, $result) use ($f) {
+      return $result[] = (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
     });
+  
+    if ($expression) {
+      return 'SUM(' . (empty($result) ? '0' : implode(' + ', $result)) . ')';
+    }
+    return array_sum($result);
   }
 
   public function __construct() {
@@ -2174,20 +2241,30 @@ abstract class Tiltag {
    * Function works only with default values.
    * If value already calculated it will be cached.
    *
-   * @param string $propertyName
+   * @param string $formulaKey
    * @param bool $expression
    * @return mixed|null
    * @throws
    */
-  public function calculateByFormula($propertyName, $expression = FALSE) {
-      if (empty($this->fx[$propertyName])) {
-          return NULL;
+  public function calculateByFormula($formulaKey, $expression = FALSE) {
+      $string = NULL;
+      if (isset($this->fx[$formulaKey])) {
+        $string = $this->fx[$formulaKey];
       }
-      $string = $this->fx[$propertyName];
+      elseif (isset($this->fx['calculate' . ucfirst( $formulaKey)])) {
+        $string = $this->fx['calculate' . ucfirst( $formulaKey)];
+      }
+      elseif (isset($this->fx['get' . ucfirst( $formulaKey)])) {
+        $string = $this->fx['get' . ucfirst( $formulaKey)];
+      }
+      else {
+        return NULL;
+      }
 
       // Matching properties and methods.
       preg_match_all('/\\$this->(\\w*)/im', $string, $matches);
       foreach ($matches[1] as $key => $match) {
+          $value = NULL;
           $matched_str = $matches[0][$key];
           // Resolving getter and calculate methods.
           // Resolving calculation values through getCalculated() method.
@@ -2220,8 +2297,9 @@ abstract class Tiltag {
               return NULL;
           }
           $value = call_user_func_array(array($this, $method), $args);
-          if ((float) $value == $value) {
-              $value = round($value, 2);
+          // Converting values to float. Expressions should not be converted.
+          if ((is_numeric($value) && $value != '') || $value === NULL) {
+            $value = round($value, 2);
           }
           $string = str_replace($matched_str, $value, $string);
       }

@@ -51,9 +51,24 @@ class SolcelleTiltag extends Tiltag {
   protected $solcelleproduktion;
 
   public function getSalgTilNettetAar1() {
-    return $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }) / $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+    return $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }) / $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
   }
 
+  public function getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {
+    return $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+  }
+
+  public function calculateSalgTilNettetAar1SumExpr() {
+    return $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }, TRUE);
+  }
+  
+  /**
+   * @Formula("$this->calculateSalgTilNettetAar1SumExpr() / $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()")
+   */
+  public function calculateSalgTilNettetAar1() {
+    return $this->getSalgTilNettetAar1();
+  }
+  
   public function getSolcelleproduktion() {
     return $this->solcelleproduktion;
   }
@@ -63,10 +78,22 @@ class SolcelleTiltag extends Tiltag {
     parent::calculate();
   }
 
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateSolcelleproduktionExpr()")
+   */
   protected function calculateSolcelleproduktion($value = null) {
     return $this->sum('egetForbrugAfProduktionenKWh');
   }
 
+  protected function calculateSolcelleproduktionExpr($value = null) {
+    return $this->sum('egetForbrugAfProduktionenKWh', TRUE);
+  }
+
+  /**
+   * @inheritDoc
+   * @Formula("0")
+   */
   protected function calculateElbesparelse($value = null) {
     return 0;
   }
@@ -76,6 +103,19 @@ class SolcelleTiltag extends Tiltag {
     return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
   }
 
+  /**
+   * Calculates value that is using in Anlaegsinvestering calculation.
+   *
+   * @return float
+   */
+  protected function calculateAnlaegsinvesteringValueExpr() {
+    return $this->sum('investeringKr') . ' + ' . $this->sum('screeningOgProjekteringKr');
+  }
+  
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateAnlaegsinvesteringValueExpr() * $this->calculateAnlaegsinvesteringFaktor()")
+   */
   protected function calculateAnlaegsinvestering($value = NULL) {
     $value = ($this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr'));
 

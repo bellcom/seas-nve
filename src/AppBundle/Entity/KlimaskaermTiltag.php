@@ -37,20 +37,59 @@ class KlimaskaermTiltag extends Tiltag {
     $this->setTitle('Klimaskærm');
   }
 
+  /**
+   * Calculates value that is using in varmebesparelseGAF calculation.
+   *
+   * @return float
+   */
+  protected function calculateVarmebesparelseGAFValue() {
+    return $this->sum('kWhBesparVarmevaerkEksternEnergikilde') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+  }
+
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateVarmebesparelseGAF($value = null) {
-    $value = $this->sum('kWhBesparVarmevaerkEksternEnergikilde') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+    $value = $this->calculateVarmebesparelseGAFValue();
 
     return parent::calculateVarmebesparelseGAF($value);
   }
 
+  /**
+   * Calculates value that is using in elbesparelse calculation.
+   *
+   * @return float
+   */
+  protected function calculateElbesparelseValue() {
+    return  $this->sum('kWhBesparElvaerkEksternEnergikilde');
+  }
+
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateElbesparelseValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateElbesparelse($value = null) {
-    $value = $this->sum('kWhBesparElvaerkEksternEnergikilde');
+    $value = $this->calculateElbesparelseValue();
 
     return parent::calculateElbesparelse($value);
   }
 
+  /**
+   * Calculates value that is using in Anlaegsinvestering calculation.
+   *
+   * @return float
+   */
+  protected function calculateAnlaegsinvesteringValue() {
+    return  $this->sum('samletInvesteringKr');
+  }
+  
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateAnlaegsinvesteringValue() * $this->calculateAnlaegsinvesteringFaktor()")
+   */
   protected function calculateAnlaegsinvestering($value = NULL) {
-    $value = $this->sum('samletInvesteringKr');
+    $value = $this->calculateAnlaegsinvesteringValue();
 
     return parent::calculateAnlaegsinvestering($value);
   }

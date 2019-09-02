@@ -30,30 +30,30 @@
       <table class="table">
         <tbody>
         <tr>
-          <td>{{ 'appbundle.tiltag.varmebesparelseGUF' | trans }}</td>
+          <td>{{ 'appbundle.tiltag.varmebesparelseGUF' | trans }} <div>{{ entity.expr('varmebesparelseGUF') }}</div></td>
           <td class="text-right" class="text-right">{{ entity.varmebesparelseGUF | number_format }}</td>
           <td>{{ 'appbundle.tiltag.varmebesparelseGUF.unit' | trans }}</td>
         </tr>
         <tr>
-          <td>{{ 'appbundle.tiltag.varmebesparelseGAF' | trans }}</td>
+          <td>{{ 'appbundle.tiltag.varmebesparelseGAF' | trans }} <div>{{ entity.expr('varmebesparelseGAF') }}</div></td>
           <td class="text-right" class="text-right">{{ entity.varmebesparelseGAF | number_format }}</td>
           <td>{{ 'appbundle.tiltag.varmebesparelseGAF.unit' | trans }}</td>
         </tr>
         <tr>
-          <td>{{ 'appbundle.tiltag.elbesparelse' | trans }}</td>
+          <td>{{ 'appbundle.tiltag.elbesparelse' | trans }} <div>{{ entity.expr('elbesparelse') }}</div></td>
           <td class="text-right">{{ entity.elbesparelse | number_format }}</td>
           <td>{{ 'appbundle.tiltag.elbesparelse.unit' | trans }}</td>
         </tr>
         {% if entity.solcelleproduktion is defined %}
           <tr>
-            <td>{{ 'appbundle.tiltag.solcelleproduktion' | trans }}</td>
+            <td>{{ 'appbundle.tiltag.solcelleproduktion' | trans }} <div>{{ entity.expr('solcelleproduktion') }}</div></td>
             <td class="text-right">{{ entity.solcelleproduktion | number_format }}</td>
             <td>{{ 'appbundle.tiltag.solcelleproduktion.unit' | trans }}</td>
           </tr>
         {% endif %}
         {% if entity.salgTilNettetAar1 is defined %}
           <tr>
-            <td>{{ 'appbundle.tiltag.salgTilNettetAar1' | trans }}</td>
+            <td>{{ 'appbundle.tiltag.salgTilNettetAar1' | trans }} <div>{{ entity.expr('salgTilNettetAar1') }}</td>
             <td class="text-right">{{ entity.salgTilNettetAar1 | number_format }}</td>
             <td>{{ 'appbundle.tiltag.salgTilNettetAar1.unit' | trans }}</td>
           </tr>
@@ -96,7 +96,7 @@
         </tr>
         <tr>
           <td>
-            {{ 'appbundle.tiltag.besparelseDriftOgVedligeholdelse' | trans }}
+            {{ 'appbundle.tiltag.besparelseDriftOgVedligeholdelse' | trans }} <div>{{ entity.expr('besparelseDriftOgVedligeholdelse') }}</div>
           </td>
           <td class="text-right">
             {{ entity.besparelseDriftOgVedligeholdelse | format_amount }}
@@ -122,10 +122,10 @@
       <table class="table">
         <tbody>
         <tr>
-          <td>{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</td>
+          <td>{{ 'appbundle.tiltag.anlaegsInvestering' | trans }} <div>{{ entity.expr('anlaegsinvestering') }}</div></td>
           <td class="text-right">
             {% if entity.anlaegsInvesteringBeregnet != null and entity.anlaegsInvesteringBeregnet != entity.anlaegsInvestering %}
-              <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">({{ 'common.calculated_value' | trans }}: {{ entity.anlaegsInvesteringBeregnet | format_amount }})</span> <span
+              <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">( {{ 'common.calculated_value' | trans }}: {{ entity.anlaegsInvesteringBeregnet | format_amount }} kr )</span> <span
                     class="aaplus-note-marker"></span>
                 {{ entity.anlaegsInvestering | format_amount }}
               </span>
@@ -141,7 +141,7 @@
           <td>{{ 'appbundle.tiltag.opstartsomkostninger.unit' | trans }}</td>
         </tr>
         <tr>
-          <td>{{ 'appbundle.tiltag.aaplusInvestering' | trans }}</td>
+          <td>{{ 'appbundle.tiltag.aaplusInvestering' | trans }} <div>{{ entity.expr('aaplusInvestering') }}</div></td>
           <td class="text-right">{{ entity.aaplusInvestering | format_amount }}</td>
           <td>{{ 'appbundle.tiltag.aaplusInvestering.unit' | trans }}</td>
         </tr>
@@ -168,12 +168,12 @@
           <td>{{ 'appbundle.tiltag.modernisering.unit' | trans }}</td>
         </tr>
         <tr>
-          <td>{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</td>
+          <td>{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }} <div>{{ entity.expr('simpelTilbagebetalingstidAar') }}</div></td>
           <td class="text-right">{{ entity.simpelTilbagebetalingstidAar | number_format }}</td>
           <td>{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</td>
         </tr>
         <tr>
-          <td>{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr' | trans }}</td>
+          <td>{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr' | trans }} <div>{{ entity.expr('nutidsvaerdiSetOver15AarKr') }}</div></td>
           <td class="text-right">{{ entity.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
           <td>{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr.unit' | trans }}</td>
         </tr>

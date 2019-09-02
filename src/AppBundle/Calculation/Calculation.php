@@ -184,15 +184,22 @@ abstract class Calculation {
    * @return float
    *   The npv.
    */
-  public static function npv($rate, array $values) {
-    $npv = 0;
+  public static function npv($rate, array $values, $expression = FALSE) {
+    $npv_result = array();
 
     // @see http://stackoverflow.com/questions/2027460/how-to-calculate-npv
     foreach ($values as $year => $value) {
-      $npv += $value / pow(1 + $rate, $year);
+      $npv_result[] = $value / pow(1 + $rate, $year);
+    }
+    
+    if ($expression) {
+      foreach ($npv_result as &$value) {
+        $value = round($value, 2);
+      }
+      return 'SUM(' . (empty($npv_result) ? '0' : implode(' + ', $npv_result)) . ')';
     }
 
-    return $npv;
+    return array_sum($npv_result);
   }
 
   public static function divide($numerator, $denominator) {
