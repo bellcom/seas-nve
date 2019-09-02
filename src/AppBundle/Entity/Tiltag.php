@@ -2214,7 +2214,25 @@ abstract class Tiltag {
    * @return float
    */
   public function getTilskudsstoerrelse() {
-    return $this->tilskudsstoerrelse;
+    if ($this->tilskudsstoerrelse) {
+      return $this->tilskudsstoerrelse;
+    }
+
+    $virksomhed = $this->getRapport()->getBygning()->getVirksomhed();
+
+    if ($virksomhed) {
+      if ($virksomhed->getSubsidySize()) {
+        return $virksomhed->getSubsidySize();
+      }
+
+      // Check if parent has it.
+      $parent = $virksomhed->getParent();
+      if ($parent && $parent->getSubsidySize()) {
+        return $parent->getSubsidySize();
+      }
+    }
+
+    return 0;
   }
 
   /**
