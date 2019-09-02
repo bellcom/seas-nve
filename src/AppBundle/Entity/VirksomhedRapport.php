@@ -7,11 +7,13 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Annotations\Calculated;
+use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
 use AppBundle\Entity\Energiforsyning;
+use AppBundle\Entity\Traits\FormulableCalculationEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
@@ -38,6 +40,7 @@ class VirksomhedRapport
 
     use BlameableEntity;
     use TimestampableEntity;
+    use FormulableCalculationEntity;
 
     /**
      * @var integer
@@ -1879,6 +1882,13 @@ class VirksomhedRapport
         }
 
         return $flow;
+    }
+
+    /**
+     * Post load handler.
+     */
+    public function postLoad() {
+      $this->initFormulableCalculation();
     }
 
 }

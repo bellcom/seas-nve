@@ -92,7 +92,6 @@ class SolcelleTiltag extends Tiltag {
 
   /**
    * @inheritDoc
-   * @Formula("0")
    */
   protected function calculateElbesparelse($value = null) {
     return 0;
@@ -126,9 +125,16 @@ class SolcelleTiltag extends Tiltag {
     return $this->sum('simpelTilbagebetalingstidAar');
   }
 
-  protected function calculateNutidsvaerdiSetOver15AarKr() {
+  /**
+   * Calculates expression for nutidsvaerdiSetOver15AarKr value
+   */
+  protected function calculateNutidsvaerdiSetOver15AarKrExpr() {
+    return $this->sumExpr($this->calculateNutidsvaerdiSetOver15AarKr(TRUE));
+  }
+
+  protected function calculateNutidsvaerdiSetOver15AarKr($array = FALSE) {
     if ($this->getTilvalgteDetails()->count() == 1) {
-      return Calculation::npv($this->getRapport()->getKalkulationsrente(), $this->getTilvalgteDetails()->first()->getCashFlow()['Cash flow']);
+      return Calculation::npv($this->getRapport()->getKalkulationsrente(), $this->getTilvalgteDetails()->first()->getCashFlow()['Cash flow'], $array);
     }
     return 0;
   }

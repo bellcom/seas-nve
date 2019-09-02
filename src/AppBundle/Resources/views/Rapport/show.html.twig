@@ -171,34 +171,34 @@
         <td></td>
       </tr>
       <tr>
-        <th class="indent">{{ 'appbundle.rapport.besparelseEl' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.besparelseEl' | trans }}<div>{{ entity.expr('besparelseEl') }}</div></th>
         <td class="text-right">{{ entity.besparelseEl | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseEl.unit' | trans }}</td>
 
-        <th class="indent">{{ 'appbundle.rapport.co2BesparelseSamletFaktor' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.co2BesparelseSamletFaktor' | trans }}<div>{{ entity.expr('co2BesparelseSamletFaktor') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseSamletFaktor | format_percent_nounit }}</td>
         <td>{{ 'appbundle.rapport.co2BesparelseSamletFaktor.unit' | trans }}</td>
       </tr>
       <tr>
-        <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGAF' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGAF' | trans }}<div>{{ entity.expr('besparelseVarmeGAF') }}</div></th>
         <td class="text-right">{{ entity.besparelseVarmeGAF | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseVarmeGAF.unit' | trans }}</td>
 
-        <th class="indent">{{ 'appbundle.rapport.co2BesparelseElFaktor' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.co2BesparelseElFaktor' | trans }}<div>{{ entity.expr('co2BesparelseElFaktor') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseElFaktor | format_percent_nounit }}</td>
         <td>{{ 'appbundle.rapport.co2BesparelseElFaktor.unit' | trans }}</td>
       </tr>
       <tr>
-        <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGUF' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.besparelseVarmeGUF' | trans }}<div>{{ entity.expr('besparelseVarmeGUF') }}</div></th>
         <td class="text-right">{{ entity.besparelseVarmeGUF | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseVarmeGUF.unit' | trans }}</td>
 
-        <th class="indent">{{ 'appbundle.rapport.co2BesparelseVarmeFaktor' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.co2BesparelseVarmeFaktor' | trans }}<div>{{ entity.expr('co2BesparelseVarmeFaktor') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseVarmeFaktor | format_percent_nounit }}</td>
         <td>{{ 'appbundle.rapport.co2BesparelseVarmeFaktor.unit' | trans }}</td>
       </tr>
       <tr>
-        <th class="indent">{{ 'appbundle.rapport.energiBesparelse' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.energiBesparelse' | trans }}<div>{{ entity.expr('energiBesparelse') }}</div></th>
         <td class="text-right">{{ entity.energiBesparelse | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.energiBesparelse.unit' | trans }}</td>
 
@@ -228,19 +228,19 @@
       </tr>
       <tr>
 
-        <th class="indent">{{ 'appbundle.rapport.besparelseCO2' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.besparelseCO2' | trans }}<div>{{ entity.expr('besparelseCO2') }}</div></th>
         <td class="text-right">{{ entity.besparelseCO2 | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2.unit' | trans }}</td>
       </tr>
       <tr>
 
-        <th class="indent">{{ 'appbundle.rapport.besparelseCO2el' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.besparelseCO2el' | trans }}<div>{{ entity.expr('co2BesparelseEl') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseEl | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2el.unit' | trans }}</td>
       </tr>
       <tr>
 
-        <th class="indent">{{ 'appbundle.rapport.besparelseCO2varme' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.besparelseCO2varme' | trans }}<div>{{ entity.expr('co2BesparelseVarme') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseVarme | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2varme.unit' | trans }}</td>
       </tr>
@@ -286,7 +286,7 @@
         <th>{{ 'appbundle.rapport.faellesomkostninger' | trans }}:</th>
         <td></td>
         <td></td>
-        <th>{{ 'appbundle.rapport.totalEntreprisesum' | trans }}</th>
+        <th>{{ 'appbundle.rapport.totalEntreprisesum' | trans }} <div>{{ entity.expr('anlaegsinvestering') }}</div></th>
         <td class="text-right">{{ entity.anlaegsinvestering | format_amount }}</td>
         <td>{{ 'appbundle.rapport.totalEntreprisesum.unit' | trans }}</td>
       </tr>
@@ -294,7 +294,7 @@
         <td class="indent">{{ 'appbundle.rapport.energiscreening' | trans }}</td>
         <td class="text-right">{{ entity.energiscreening | format_amount }}</td>
         <td>{{ 'appbundle.rapport.energiscreening.unit' | trans }}</td>
-        <th>{{ 'appbundle.rapport.investeringEksFaellesomkostninger' | trans }}</th>
+        <th>{{ 'appbundle.rapport.investeringEksFaellesomkostninger' | trans }} <div>{{ entity.expr('investeringEksFaellesomkostninger') }}</div></th>
         <td class="text-right">{{ entity.investeringEksFaellesomkostninger | format_amount }}</td>
         <td>{{ 'appbundle.rapport.investeringEksFaellesomkostninger.unit' | trans }}</td>
       </tr>
@@ -302,7 +302,7 @@
         <td class="indent">{{ 'appbundle.rapport.mtmFaellesomkostninger' | trans }}</td>
         <td class="text-right">{{ entity.mtmFaellesomkostninger | format_amount }}</td>
         <td>{{ 'appbundle.rapport.mtmFaellesomkostninger.unit' | trans }}</td>
-        <th>{{ 'appbundle.rapport.investeringInklFaellesomkostninger' | trans }}</th>
+        <th>{{ 'appbundle.rapport.investeringInklFaellesomkostninger' | trans }} <div>{{ entity.expr('investeringInklFaellesomkostninger') }}</div></th>
         <td class="text-right">{{ entity.investeringInklFaellesomkostninger | format_amount }}</td>
         <td>{{ 'appbundle.rapport.investeringInklFaellesomkostninger.unit' | trans }}</td>
       </tr>
@@ -310,7 +310,7 @@
         <td class="indent">{{ 'appbundle.rapport.implementering' | trans }}</td>
         <td class="text-right">{{ entity.implementering | format_amount }}</td>
         <td>{{ 'appbundle.rapport.implementering.unit' | trans }}</td>
-        <th>{{ 'appbundle.rapport.nutidsvaerdiInklFaellesomkostninger' | trans }}</th>
+        <th>{{ 'appbundle.rapport.nutidsvaerdiInklFaellesomkostninger' | trans }} <div>{{ entity.expr('nutidsvaerdiSetOver15AarKr') }}</div></th>
         <td class="text-right">{{ entity.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
         <td>{{ 'appbundle.rapport.nutidsvaerdiInklFaellesomkostninger.unit' | trans }}</td>
       </tr>
@@ -318,7 +318,7 @@
         <th class="indent"></th>
         <td class="text-right"></td>
         <td></td>
-        <th>{{ 'appbundle.rapport.besparelseAarEt' | trans }}</th>
+        <th>{{ 'appbundle.rapport.besparelseAarEt' | trans }} <div>{{ entity.expr('besparelseAarEt') }}</div></th>
         <td class="text-right">{{ entity.besparelseAarEt | format_amount }}</td>
         <td>{{ 'appbundle.rapport.besparelseAarEt.unit' | trans }}</td>
       </tr>
@@ -326,7 +326,7 @@
         <th class="indent"></th>
         <td class="text-right"></td>
         <td></td>
-        <th>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger' | trans }}</th>
+        <th>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger' | trans }} <div>{{ entity.expr('internRenteInklFaellesomkostninger') }}</div></th>
         <td class="text-right">
           {% if entity.internRenteInklFaellesomkostninger < 100 %}
             {{ entity.internRenteInklFaellesomkostninger | format_percent_nounit }}
@@ -343,7 +343,7 @@
         <th></th>
         <td></td>
         <td></td>
-        <th>{{ 'appbundle.rapport.genopretning' | trans }}</th>
+        <th>{{ 'appbundle.rapport.genopretning' | trans }} <div>{{ entity.expr('genopretning') }}</div></th>
         <td class="text-right">{{ entity.genopretning | format_amount }}</td>
         <td>{{ 'appbundle.rapport.genopretning.unit' | trans }}</td>
       </tr>
@@ -351,7 +351,7 @@
         <th></th>
         <td></td>
         <td></td>
-        <th>{{ 'appbundle.rapport.genopretningForImplementeringsomkostninger' | trans }}</th>
+        <th>{{ 'appbundle.rapport.genopretningForImplementeringsomkostninger' | trans }} <div>{{ entity.expr('genopretningForImplementeringsomkostninger') }}</div></th>
         <td class="text-right">{{ entity.genopretningForImplementeringsomkostninger | format_amount }}</td>
         <td>{{ 'appbundle.rapport.genopretningForImplementeringsomkostninger.unit' | trans }}</td>
       </tr>
@@ -359,7 +359,7 @@
         <th></th>
         <td></td>
         <td></td>
-        <th>{{ 'appbundle.rapport.modernisering' | trans }}</th>
+        <th>{{ 'appbundle.rapport.modernisering' | trans }} <div>{{ entity.expr('modernisering') }}</div></th>
         <td class="text-right">{{ entity.modernisering | format_amount }}</td>
         <td>{{ 'appbundle.rapport.modernisering.unit' | trans }}</td>
       </tr>
