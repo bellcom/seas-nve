@@ -202,7 +202,7 @@
         <td class="text-right">{{ entity.energiBesparelse | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.energiBesparelse.unit' | trans }}</td>
 
-        <th class="indent">{{ 'appbundle.rapport.co2BesparelseBraendstof' | trans }}</th>
+        <th class="indent">{{ 'appbundle.rapport.co2BesparelseBraendstof' | trans }}<div>{{ entity.expr('co2BesparelseBraendstof') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseBraendstof | format_percent_nounit }}</td>
         <td>{{ 'appbundle.rapport.co2BesparelseBraendstof.unit' | trans }}</td>
       </tr>

@@ -2277,27 +2277,34 @@ class Rapport {
     }
   }
 
-  private function calculateCo2BesparelseBraendstof() {
-    $amount = 0;
-    $count = 0;
+  /**
+   * Calculates expression for Co2BesparelseBraendstof value
+   */
+  protected function calculateCo2BesparelseBraendstofExp() {
+    return $this->calculateCo2BesparelseBraendstof(TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateCo2BesparelseBraendstofExp()")
+   */
+  private function calculateCo2BesparelseBraendstof($expression = FALSE) {
+    $amount = array();
 
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
 
       if (method_exists($tiltag, 'getBesparelseCo2Braendstof')) {
 
         if ($value = $tiltag->getBesparelseCo2Braendstof()) {
-          $amount += $value;
-
-          $count++;
+          $amount[] = (float) $value;
         }
       }
     }
 
-    if ($count > 0) {
-      return ($amount / $count);
+    if ($expression) {
+      return $this->sumExpr($amount) . '/' .  count($amount);
     }
 
-    return 0;
+    return Calculation::divide(array_sum($amount), count($amount));
   }
 
   private function calculateFravalgtBesparelseEl() {
