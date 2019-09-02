@@ -52,6 +52,7 @@ trait FormulableCalculationEntity {
     preg_match_all('/\\$this->(\\w*)/im', $string, $matches);
     foreach ($matches[1] as $key => $match) {
       $value = NULL;
+      $args = array();
       $matched_str = $matches[0][$key];
       // Resolving getter and calculate methods.
       // Resolving calculation values through getCalculated() method.
@@ -64,11 +65,16 @@ trait FormulableCalculationEntity {
       elseif (method_exists($this, 'get' . ucfirst($match))) {
         $method = 'get' . ucfirst($match);
       }
+      // Resolving by common calculateExpression function.
+      elseif (method_exists($this, 'calculateExpression')) {
+        $method = 'calculateExpression';
+        $matched_str .= '()';
+        $args[] = $formulaKey;
+      }
       else {
         continue;
       }
 
-      $args = array();
       $methodInfo = new \ReflectionMethod($this, $method);
 
       // Prefill default arguments.
