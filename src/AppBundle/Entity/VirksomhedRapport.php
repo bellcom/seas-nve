@@ -82,6 +82,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="besparelseAarEt", type="float", scale=4, nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $besparelseAarEt;
 
@@ -98,6 +99,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="besparelseVarmeGUF", type="float", scale=4, nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $besparelseVarmeGUF;
 
@@ -114,6 +116,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="besparelseVarmeGAF", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $besparelseVarmeGAF;
 
@@ -130,6 +133,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="besparelseCO2", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $besparelseCO2;
 
@@ -146,6 +150,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="besparelseEl", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $besparelseEl;
 
@@ -162,6 +167,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="co2BesparelseEl", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $co2BesparelseEl;
 
@@ -170,6 +176,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="co2BesparelseVarme", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $co2BesparelseVarme;
 
@@ -178,6 +185,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="BaselineCO2El", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $BaselineCO2El;
 
@@ -186,6 +194,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="BaselineCO2Varme", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $BaselineCO2Varme;
 
@@ -194,6 +203,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="BaselineCO2Samlet", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $BaselineCO2Samlet;
 
@@ -210,6 +220,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="co2BesparelseElFaktor", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $co2BesparelseElFaktor;
 
@@ -218,6 +229,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="co2BesparelseVarmeFaktor", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $co2BesparelseVarmeFaktor;
 
@@ -226,6 +238,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="co2BesparelseSamletFaktor", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $co2BesparelseSamletFaktor;
 
@@ -241,6 +254,7 @@ class VirksomhedRapport
      * @var float
      *
      * @ORM\Column(name="BaselineEl", type="decimal", precision=16, scale=4, nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $BaselineEl;
 
@@ -248,6 +262,7 @@ class VirksomhedRapport
      * @var float
      *
      * @ORM\Column(name="BaselineVarmeGUF", type="decimal", precision=16, scale=4, nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $BaselineVarmeGUF;
 
@@ -255,6 +270,7 @@ class VirksomhedRapport
      * @var float
      *
      * @ORM\Column(name="BaselineVarmeGAF", type="decimal", precision=16, scale=4, nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $BaselineVarmeGAF;
 
@@ -283,6 +299,7 @@ class VirksomhedRapport
      * @var float
      *
      * @ORM\Column(name="energiscreening", type="decimal", precision=16, scale=4, nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $energiscreening;
 
@@ -293,8 +310,37 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="anlaegsinvestering", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $anlaegsinvestering;
+
+    /**
+     * @Formula("$this->getAnlaegsinvestering() - ($this->getModernisering() + $this->getGenopretning())")
+     */
+    protected $investeringEksFaellesomkostninger;
+
+    /**
+     * Get investering eksl. genopretning og modernisering
+     *
+     * (Aa+ Investering eks. Øvrige omkostninger)
+     */
+    public function getInvesteringEksFaellesomkostninger() {
+        return $this->calculateByFormula('investeringEksFaellesomkostninger');
+    }
+
+    /**
+     * @Formula("$this->getInvesteringEksFaellesomkostninger() + ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering())")
+     */
+    protected $investeringInklFaellesomkostninger;
+
+    /**
+     * Get investering inkl.  øvrige omkostninger
+     *
+     * (Aa+ Investering inkl. Øvrige omkostninger)
+     */
+    public function getInvesteringInklFaellesomkostninger() {
+        return $this->calculateByFormula('investeringInklFaellesomkostninger');
+    }
 
     /**
      * Fravlgt TotalInvestering = sum af alle tiltags anlægsinvesteringer
@@ -303,6 +349,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="fravalgtAnlaegsinvestering", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $fravalgtAnlaegsinvestering;
 
@@ -311,6 +358,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $nutidsvaerdiSetOver15AarKr;
 
@@ -319,6 +367,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="fravalgtNutidsvaerdiSetOver15AarKr", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $fravalgtNutidsvaerdiSetOver15AarKr;
 
@@ -327,6 +376,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="mtmFaellesomkostninger", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $mtmFaellesomkostninger;
 
@@ -335,6 +385,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="implementering", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $implementering;
 
@@ -351,6 +402,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="faellesomkostninger", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $faellesomkostninger;
 
@@ -359,6 +411,7 @@ class VirksomhedRapport
      *
      * @Calculated
      * @ORM\Column(name="internRenteInklFaellesomkostninger", type="float", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $internRenteInklFaellesomkostninger;
 
@@ -432,6 +485,7 @@ class VirksomhedRapport
      * @var float
      *
      * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $genopretning;
 
@@ -439,6 +493,7 @@ class VirksomhedRapport
      * @var float
      *
      * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $genopretningForImplementeringsomkostninger;
 
@@ -446,6 +501,7 @@ class VirksomhedRapport
      * @var float
      *
      * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
+     * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $modernisering;
 
@@ -1736,6 +1792,69 @@ class VirksomhedRapport
         return Calculation::getCalculationWarnings($this, $properties, $prefix);
     }
 
+    /**
+     * Global method to calculate property calculation expressions
+     *
+     * @param $property
+     *
+     * @return mixed|null
+     */
+    public function calculateExpression($property)
+    {
+        if (!in_array($property, $this->calculationRapportProperties)
+            // CashFlow property has specific calculation.
+            || $property == 'cashFlow') {
+            return NULL;
+        }
+        return $this->__call('calculate' . ucfirst($property), array('expression' => TRUE));
+    }
+
+    protected $calculationRapportProperties = array(
+        'BaselineCO2El',
+        'BaselineCO2Varme',
+        'BaselineCO2Samlet',
+        'besparelseEl',
+        'fravalgtBesparelseEl',
+        'besparelseVarmeGUF',
+        'fravalgtBesparelseVarmeGUF',
+        'besparelseVarmeGAF',
+        'fravalgtBesparelseVarmeGAF',
+        'co2BesparelseEl',
+        'co2BesparelseVarme',
+        'besparelseCO2',
+        'fravalgtBesparelseCO2',
+        'co2BesparelseElFaktor',
+        'co2BesparelseVarmeFaktor',
+        'co2BesparelseSamletFaktor',
+        'fravalgtCo2BesparelseSamletFaktor',
+        'mtmFaellesomkostninger',
+        'implementering',
+        'fravalgtGenopretning',
+        'fravalgtModernisering',
+        'fravalgtImplementering',
+        'faellesomkostninger',
+        'fravalgtBesparelseDriftOgVedligeholdelse',
+        'anlaegsinvestering',
+        'fravalgtAnlaegsinvestering',
+        'nutidsvaerdiSetOver15AarKr',
+        'fravalgtNutidsvaerdiSetOver15AarKr',
+        'genopretning',
+        'genopretningForImplementeringsomkostninger',
+        'modernisering',
+        'internRenteInklFaellesomkostninger',
+        'energibudgetVarme',
+        'energibudgetEl',
+        'besparelseAarEt',
+        'fravalgtBesparelseAarEt',
+        'energiscreening',
+        'cashFlow',
+        'cashFlow15',
+        'cashFlow30',
+    );
+
+    /**
+     * General calculation function.
+     */
     public function calculate()
     {
         /** @var Rapport $rapport */
@@ -1745,77 +1864,14 @@ class VirksomhedRapport
             }
         }
 
-        $calculationProperties = array(
-            'BaselineCO2El',
-            'BaselineCO2Varme',
-            'BaselineCO2Samlet',
-            'besparelseEl',
-            'fravalgtBesparelseEl',
-            'besparelseVarmeGUF',
-            'fravalgtBesparelseVarmeGUF',
-            'besparelseVarmeGAF',
-            'fravalgtBesparelseVarmeGAF',
-            'co2BesparelseEl',
-            'co2BesparelseVarme',
-            'besparelseCO2',
-            'fravalgtBesparelseCO2',
-            'co2BesparelseElFaktor',
-            'co2BesparelseVarmeFaktor',
-            'co2BesparelseSamletFaktor',
-            'fravalgtCo2BesparelseSamletFaktor',
-            'mtmFaellesomkostninger',
-            'implementering',
-            'fravalgtGenopretning',
-            'fravalgtModernisering',
-            'fravalgtImplementering',
-            'faellesomkostninger',
-            'fravalgtBesparelseDriftOgVedligeholdelse',
-            'anlaegsinvestering',
-            'fravalgtAnlaegsinvestering',
-            'nutidsvaerdiSetOver15AarKr',
-            'fravalgtNutidsvaerdiSetOver15AarKr',
-            'genopretning',
-            'genopretningForImplementeringsomkostninger',
-            'modernisering',
-            'internRenteInklFaellesomkostninger',
-            'energibudgetVarme',
-            'energibudgetEl',
-            'besparelseAarEt',
-            'fravalgtBesparelseAarEt',
-            'energiscreening',
-            'cashFlow',
-            'cashFlow15',
-            'cashFlow30',
-        );
-
-        foreach ($calculationProperties as $property) {
-            $value = 0;
-            $getMethod = 'get' . ucfirst($property);
-            $setMethod = 'set' . ucfirst($property);
-
-            switch($property) {
-                case 'cashFlow';
-                    $value = $this->calculateCashFlow();
-                    break;
-
-                case 'cashFlow15';
-                    $value = $this->calculateCashFlow15();
-                    break;
-
-                case 'cashFlow30';
-                    $value = $this->calculateCashFlow30();
-                    break;
-
-                default:
-                    /** @var Rapport $rapport */
-                    foreach ($this->getRapporter() as $rapport) {
-                        if (method_exists($rapport, $getMethod)) {
-                            $value += call_user_func(array($rapport, $getMethod));
-                        }
-                    }
-                    break;
+        foreach ($this->calculationRapportProperties as $property) {
+            $calculateMethod = 'calculate' . ucfirst($property);
+            $value = $this->__call($calculateMethod);
+            if (empty($value)) {
+                continue;
             }
 
+            $setMethod = 'set' . ucfirst($property);
             call_user_func(array($this, $setMethod), $value);
         }
     }
@@ -1848,7 +1904,7 @@ class VirksomhedRapport
     /**
      * Fetchs cashflow15 data from reports into array.
      */
-    private function calculateCashFlow15() {
+    private function calculateCashFlow15($expression = FALSE) {
         $flow = array();
         /** @var Rapport $rapport */
         foreach ($this->getRapporter() as $rapport) {
@@ -1861,13 +1917,13 @@ class VirksomhedRapport
             }
         }
 
-        return $flow;
+        return $expression ? $this->sumExpr($flow) : $flow;
     }
 
     /**
      * Fetchs cashflow30 data from reports into array.
      */
-    private function calculateCashFlow30() {
+    private function calculateCashFlow30($expression = FALSE) {
         $flow = array();
         /** @var Rapport $rapport */
         foreach ($this->getRapporter() as $rapport) {
@@ -1881,14 +1937,36 @@ class VirksomhedRapport
             }
         }
 
-        return $flow;
+        return $expression ? $this->sumExpr($flow) : $flow;
     }
 
     /**
      * Post load handler.
+     *
+     * @ORM\PostLoad
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
      */
     public function postLoad() {
       $this->initFormulableCalculation();
+    }
+
+    public function __call($name, $arguments = array())
+    {
+      if (strpos($name, 'calculate') === FALSE) {
+        return NULL;
+      }
+
+      $expression = is_bool(end($arguments)) ? end($arguments) : FALSE;
+      $values = array();
+      $getMethod = str_replace('calculate', 'get', $name);
+      /** @var Rapport $rapport */
+      foreach ($this->getRapporter() as $rapport) {
+        if (method_exists($rapport, $getMethod)) {
+          $values[] = call_user_func(array($rapport, $getMethod));
+        }
+      }
+
+      return $expression ? $this->sumExpr($values) : array_sum($values);
     }
 
 }
