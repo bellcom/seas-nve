@@ -60,7 +60,7 @@
         {% endif %}
       </div>
       <div class="col-xs-12 col-md-6">
-        {{ form_row(edit_form.forsyningVarme) }}
+        {{ form_row(edit_form.forsyningVarme, { 'attr': { 'class': 'select2' } }) }}
         {% if edit_form.primaerEnterprise is defined %}
           {{ form_row(edit_form.primaerEnterprise) }}
         {% endif %}
@@ -69,7 +69,7 @@
         {% endif %}
       </div>
       <div class="col-xs-12 col-md-6">
-        {{ form_row(edit_form.forsyningEl) }}
+        {{ form_row(edit_form.forsyningEl, { 'attr': { 'class': 'select2' } }) }}
         {% if edit_form.tiltagskategori is defined %}
           {{ form_row(edit_form.tiltagskategori) }}
         {% endif %}

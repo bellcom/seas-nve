@@ -102,20 +102,22 @@ class TiltagType extends AbstractType {
       ->add('forsyningVarme', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
+        'empty_value' => '--',
         'required' => FALSE,
       ))
       ->add('forsyningEl', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
+        'empty_value' => '--',
         'required' => FALSE,
       ))
-      ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 850), 'required' => FALSE))
-      ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 1000), 'required' => FALSE))
-      ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 1100), 'required' => FALSE))
-      ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
-      ->add('placering', 'textarea', array('attr' => array('maxlength' => 120), 'required' => FALSE))
-      ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
-      ->add('indeklima', 'textarea', array('attr' => array('maxlength' => 360), 'required' => false));
+      ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('placering', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('indeklima', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => false));
 
     $builder->add('risikovurderingTeknisk', new RisikovurderingType(), array());
     $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
