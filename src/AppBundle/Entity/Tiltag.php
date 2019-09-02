@@ -11,6 +11,7 @@ use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\PrimaerEnterpriseType;
 use AppBundle\DBAL\Types\SlutanvendelseType;
+use AppBundle\Entity\Traits\FormulableCalculationEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
@@ -53,6 +54,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class Tiltag {
   use TimestampableEntity;
+  use FormulableCalculationEntity;
 
   /**
    * @var integer
@@ -613,19 +615,6 @@ abstract class Tiltag {
    * @ORM\Column(name="DatoForDrift", type="date", nullable=true)
    */
   protected $datoForDrift;
-
-  /**
-   * Array with formulas from annotation.
-   *
-   * @var array
-   */
-  public $fx;
-
-  /**
-   * Calculated values storage.
-   * @var array
-   */
-  protected $calculated;
 
   /**
    * Get Name
@@ -1712,7 +1701,7 @@ abstract class Tiltag {
 
   /**
    * @inheritDoc
-   * @Formula("($this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering())")
+   * @Formula("$this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering())")
    */
   protected function calculateAaplusInvestering() {
     return $this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering());
@@ -1835,10 +1824,7 @@ abstract class Tiltag {
   protected function calculateAnlaegsinvesteringFaktor() {
     return $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? ($this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() + 1) : 1;
   }
-  
-  /**
-   * @Formula("$value * $this->calculateAnlaegsinvesteringFaktor()")
-   */
+
   protected function calculateAnlaegsinvestering($value = NULL) {
     if($value === NULL) {
       return NULL;
@@ -1846,17 +1832,11 @@ abstract class Tiltag {
       return $value * $this->calculateAnlaegsinvesteringFaktor();
     }
   }
-  
-  /**
-   * @Formula("$value * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
-   */
+
   protected function calculateVarmebesparelseGUF($value = NULL) {
     return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
   }
-  
-  /**
-   * @Formula("$value * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
-   */
+
   protected function calculateVarmebesparelseGAF($value = null) {
     return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
   }
@@ -1907,18 +1887,18 @@ abstract class Tiltag {
   }
 
   /**
-   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
+   * Calculates expression for nutidsvaerdiSetOver15AarKr value
    */
   protected function calculateNutidsvaerdiSetOver15AarKrExpr() {
-    return Calculation::npv($this->getRapport()->getKalkulationsrente(), $this->cashFlow15, TRUE);
+    return $this->sumExpr($this->calculateNutidsvaerdiSetOver15AarKr(TRUE));
   }
   
   /**
    * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
    */
-  protected function calculateNutidsvaerdiSetOver15AarKr() {
+  protected function calculateNutidsvaerdiSetOver15AarKr($array = FALSE) {
     return Calculation::npv($this->getRapport()
-      ->getKalkulationsrente(), $this->cashFlow15);
+      ->getKalkulationsrente(), $this->cashFlow15, $array);
   }
 
   protected function calculateScrapvaerdi() {
@@ -2008,7 +1988,7 @@ abstract class Tiltag {
     });
   
     if ($expression) {
-      return 'SUM(' . (empty($result) ? '0' : implode(' + ', $result)) . ')';
+      return $this->sumExpr($result);
     }
     return array_sum($result);
   }
@@ -2230,105 +2210,7 @@ abstract class Tiltag {
    * @ORM\PostLoad()
    */
   public function postLoad() {
-    $this->fx = Formula::parseAnnotation($this);
-  }
-
-  /**
-   * Calculate function that parse expressions from annotation and calculate it.
-   *
-   * Functions are allowed for expressions ONLY without arguments.
-   *
-   * Function works only with default values.
-   * If value already calculated it will be cached.
-   *
-   * @param string $formulaKey
-   * @param bool $expression
-   * @return mixed|null
-   * @throws
-   */
-  public function calculateByFormula($formulaKey, $expression = FALSE) {
-      $string = NULL;
-      if (isset($this->fx[$formulaKey])) {
-        $string = $this->fx[$formulaKey];
-      }
-      elseif (isset($this->fx['calculate' . ucfirst( $formulaKey)])) {
-        $string = $this->fx['calculate' . ucfirst( $formulaKey)];
-      }
-      elseif (isset($this->fx['get' . ucfirst( $formulaKey)])) {
-        $string = $this->fx['get' . ucfirst( $formulaKey)];
-      }
-      else {
-        return NULL;
-      }
-
-      // Matching properties and methods.
-      preg_match_all('/\\$this->(\\w*)/im', $string, $matches);
-      foreach ($matches[1] as $key => $match) {
-          $value = NULL;
-          $matched_str = $matches[0][$key];
-          // Resolving getter and calculate methods.
-          // Resolving calculation values through getCalculated() method.
-          if ((strpos($match, 'get') !== FALSE || strpos($match, 'calculate') !== FALSE)
-              && method_exists($this, $match)) {
-              $method = $match;
-              $matched_str .= '()';
-          }
-          // Resolving property through getter method.
-          elseif (method_exists($this, 'get' . ucfirst($match))) {
-              $method = 'get' . ucfirst($match);
-          }
-          else {
-              continue;
-          }
-
-          $args = array();
-          $methodInfo = new \ReflectionMethod($this, $method);
-
-          // Prefill default arguments.
-          foreach ($methodInfo->getParameters() as $p) {
-              if (!$p->isDefaultValueAvailable()) {
-                  continue;
-              }
-              $args[] = $p->getDefaultValue();
-          }
-
-          // Don't call method if it requires parameter. Functions call works only without values.
-          if (count($methodInfo->getParameters()) != count($args)) {
-              return NULL;
-          }
-          $value = call_user_func_array(array($this, $method), $args);
-          // Converting values to float. Expressions should not be converted.
-          if ((is_numeric($value) && $value != '') || $value === NULL) {
-            $value = round($value, 2);
-          }
-          $string = str_replace($matched_str, $value, $string);
-      }
-
-      return $expression ? $string : $this->proceedMathExpression($string);
-  }
-
-  /**
-   * Calculates simple math expressions.
-   *
-   * @param $expression
-   * @return null
-   */
-  private function proceedMathExpression($expression) {
-      $result = NULL;
-      // Execute only numbers in math expression.
-      eval('$result = ' . preg_replace('/[^0-9\+\-\*\/\(\)\.]/', '', $expression) . ';');
-      return $result;
-  }
-
-  /**
-   * Calculates property values and returns expressions.
-   *
-   * @param $propertyName
-   * @return string|null
-   */
-  public function expr($propertyName) {
-      $expression = $this->calculateByFormula($propertyName, TRUE);
-      return str_replace('.', ',', $expression);
+    $this->initFormulableCalculation();
   }
 
 }
