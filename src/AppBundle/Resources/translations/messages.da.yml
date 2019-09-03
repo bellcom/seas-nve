@@ -1779,7 +1779,7 @@ appbundle:
     salgTilNettetAar1.unit: kWh
     samletCo2besparelse: Samlet co2-besparelse
     samletCo2besparelse.unit: t/år
-    samletEnergibesparelse: Samlet brændstof besparelse
+    samletEnergibesparelse: Samlet energibesparelse
     samletEnergibesparelse.unit: kr/år
     scrapvaerdi: Scrapværdi
     scrapvaerdi.unit: kr
