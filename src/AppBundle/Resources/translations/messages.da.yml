@@ -100,6 +100,7 @@ common:
   will_change: Opdateres
   your_buildings: Dine bygninger
   your_segments: Dine segmenter
+  toggle: Vis/Skjul
 dashboard:
   besparelseCO2: CO2 besparelse
   besparelseEl: El besparelse
@@ -902,6 +903,18 @@ appbundle:
     cvrNumber: CVR nummer
     pNumber: P Nummer
     eanNumber: EAN nummer
+    virksomhedContactPersons: Virksomhed kontaktpersoner
+    contactPersons: Kontaktpersoner
+    contactPersons.validation:
+      mail: E-mail '{{value}}' er ikke en gyldig e-mail.
+    contactPersons.0:
+      name: Navn
+      phoneNumber: Tlf.
+      mail: E-mail adresse
+    contactPersons...name..:
+      name: Navn
+      phoneNumber: Tlf.
+      mail: E-mail adresse
     rapport:
       BaselineEl: El
       BaselineEl.unit: kwh/år

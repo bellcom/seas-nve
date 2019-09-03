@@ -212,7 +212,64 @@
         </table>
       </div>
     </div>
-
+    {% if (entity.virksomhed and entity.virksomhed.getContactPersons()) %}
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ icon('briefcase') }} {{ 'appbundle.bygning.virksomhedContactPersons' | trans }}
+            <a data-toggle="collapse" href="#virksomhed-contact-person" class="pull-right">{{ 'common.toggle' | trans }}</a>
+          </div>
+          {% set contactPersons = entity.virksomhed.getContactPersons() %}
+          {% if contactPersons | length %}
+            <div id="virksomhed-contact-person" class="collapse">
+              <table class="table table-condensed th-vertical" style="margin:0;">
+                <tr>
+                  <th>{{ 'appbundle.virksomhed.contactPersons.0.name' | trans }}</th>
+                  <th>{{ 'appbundle.virksomhed.contactPersons.0.phoneNumber' | trans }}</th>
+                  <th>{{ 'appbundle.virksomhed.contactPersons.0.mail' | trans }}</th>
+                </tr>
+                {% for contactPerson in contactPersons %}
+                  <tr>
+                    <th>{{ contactPerson.name }}</th>
+                    <td>{{ contactPerson.mail }}</td>
+                    <td>{{ contactPerson.phoneNumber }}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+          {% else %}
+            <div class="panel-body">
+              {{ 'virksomhed.messages.empty.contactPersons' | trans }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('phone') }} {{ 'appbundle.bygning.contactPersons' | trans }}</div>
+        {% set contactPersons = entity.getContactPersons() %}
+        {% if contactPersons | length %}
+          <table class="table table-condensed th-vertical">
+            <tr>
+              <th>{{ 'appbundle.bygning.contactPersons.0.name' | trans }}</th>
+              <th>{{ 'appbundle.bygning.contactPersons.0.phoneNumber' | trans }}</th>
+              <th>{{ 'appbundle.bygning.contactPersons.0.mail' | trans }}</th>
+            </tr>
+            {% for contactPerson in contactPersons %}
+              <tr>
+                <th>{{ contactPerson.name }}</th>
+                <td>{{ contactPerson.mail }}</td>
+                <td>{{ contactPerson.phoneNumber }}</td>
+              </tr>
+            {% endfor %}
+          </table>
+        {% else %}
+          <div class="panel-body">
+            {{ 'virksomhed.messages.empty.contactPersons' | trans }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
   </div>
 
 {% endblock %}

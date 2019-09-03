@@ -104,6 +104,7 @@ doctrine:
             KlimaskaermType: AppBundle\DBAL\Types\KlimaskaermType
             VirksomhedTypeType: AppBundle\DBAL\Types\VirksomhedTypeType
             SlutanvendelseType: AppBundle\DBAL\Types\SlutanvendelseType
+            ContactPersonReferenceType: AppBundle\DBAL\Types\ContactPersonReferenceType
         logging: false
         profiling: false
     orm:

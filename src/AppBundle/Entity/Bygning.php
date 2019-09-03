@@ -8,6 +8,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\BygningStatusType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\JoinColumn;
@@ -274,9 +275,20 @@ class Bygning {
    **/
   protected $status = BygningStatusType::IKKE_STARTET;
 
+  /**
+   * Contact persons reference.
+   *
+   * NOTE!!! this reference is not handled by Doctrine ORM.
+   *
+   * @var ArrayCollection
+   *
+   * @Assert\NotBlank
+   */
+  private $contactPersons;
 
   public function __construct() {
     $this->users = new ArrayCollection();
+    $this->contactPersons = new ArrayCollection();
   }
 
   /**
@@ -1027,15 +1039,71 @@ class Bygning {
   }
 
   /**
+   * Set contactPersons
+   *
+   * @param ArrayCollection $contactPersons
+   *
+   * @return Bygning
+   */
+  public function setContactPersons($contactPersons)
+  {
+    $this->contactPersons = $contactPersons;
+    
+    return $this;
+  }
+  
+  /**
+   * Get contactPersons
+   *
+   * @return ArrayCollection
+   */
+  public function getContactPersons()
+  {
+    return $this->contactPersons;
+  }
+  
+  /**
+   * Adds contact person to collection.
+   *
+   * @param ContactPerson $contactPerson
+   */
+  public function addContactPerson(ContactPerson $contactPerson)
+  {
+    $contactPerson->setReference($this);
+    $this->contactPersons->add($contactPerson);
+  }
+  
+  /**
+   * Removes contact person from collection.
+   *
+   * @param ContactPerson $contactPerson
+   */
+  public function removeContactPerson(ContactPerson $contactPerson)
+  {
+    $this->contactPersons->removeElement($contactPerson);
+  }
+
+  /**
    * Note: This should really be done in BaseLine.postLoad, but apparently the
    * relation to Bygning is not loaded on postLoad. An issue with OneToOne
    * relations and owning side?
    *
    * @ORM\PostLoad()
+   * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
    */
-  public function postLoad() {
+    public function postLoad(LifecycleEventArgs $event) {
     if ($this->getBaseline()) {
       $this->getBaseline()->setArealTilNoegletalsanalyse($this->getBruttoetageareal());
     }
-  }
+  
+    // Contact persons are not handled by Doctrine ORM.
+    // We are loading it here.
+    $repository = $event->getEntityManager()
+      ->getRepository(ContactPerson::class);
+      $this->contactPersons = new ArrayCollection(array());
+      foreach ($repository->findByEntity($this) as $contactPerson) {
+        $this->contactPersons->add($contactPerson);
+      }
+    }
+
 }

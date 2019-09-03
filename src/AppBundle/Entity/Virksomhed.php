@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\VirksomhedTypeType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use AppBundle\Entity\VirksomhedRapport;
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\VirksomhedRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Virksomhed
 {
@@ -64,8 +66,11 @@ class Virksomhed
     private $crmNumber;
 
     /**
+     * Contact persons reference.
+     *
+     * NOTE!!! this reference is not handled by Doctrine ORM.
+     *
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="ContactPerson", mappedBy="virksomhed", cascade={"persist", "remove"})
      *
      * @Assert\NotBlank
      */
@@ -428,7 +433,7 @@ class Virksomhed
      */
     public function addContactPerson(ContactPerson $contactPerson)
     {
-        $contactPerson->setVirksomhed($this);
+        $contactPerson->setReference($this);
         $this->contactPersons->add($contactPerson);
     }
 
@@ -441,7 +446,6 @@ class Virksomhed
     {
         $this->contactPersons->removeElement($contactPerson);
     }
-
 
     /**
      * Set customerNumber
@@ -1200,6 +1204,23 @@ class Virksomhed
         }
         if (empty($this->getDatterSelskaber()->first())) {
             $this->setDatterSelskaber(new ArrayCollection(array(new Virksomhed())));
+        }
+    }
+
+    /**
+     * Post load handler.
+     *
+     * @ORM\PostLoad
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+     */
+    public function postLoad(LifecycleEventArgs $event) {
+        // Contact persons are not handled by Doctrine ORM.
+        // We are loading it here.
+        $repository = $event->getEntityManager()
+            ->getRepository(ContactPerson::class);
+        $this->contactPersons = new ArrayCollection(array());
+        foreach ($repository->findByEntity($this) as $contactPerson) {
+            $this->contactPersons->add($contactPerson);
         }
     }
 

@@ -8,6 +8,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\DataExport\ExcelExport;
 use AppBundle\Entity\Baseline;
+use AppBundle\Entity\ContactPerson;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -113,6 +115,14 @@ class BygningController extends BaseController implements InitControllerInterfac
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
       $em->persist($entity);
+      $em->flush();
+  
+      // Contact persons are not handled by Doctrine ORM.
+      // We inserting it here.
+      foreach ($entity->getContactPersons() as $contactPerson) {
+        $contactPerson->setReference($entity);
+        $em->persist($contactPerson);
+      }
       $em->flush();
 
       return $this->redirect($this->generateUrl('bygning_show', array('id' => $entity->getId())));
@@ -232,8 +242,29 @@ class BygningController extends BaseController implements InitControllerInterfac
     $editForm = $this->createEditForm($bygning);
     $editForm->handleRequest($request);
 
+    $em = $this->getDoctrine()->getManager();
+    /** @var Bygning $originalBygning */
+    $originalBygning = $em->getRepository(Bygning::class)->find($bygning->getId());
+  
+    $originalContactPersons = new ArrayCollection();
+    foreach ($originalBygning->getContactPersons() as $contactPerson) {
+      $originalContactPersons->add($contactPerson);
+    }
+
     if ($editForm->isValid()) {
-      $em = $this->getDoctrine()->getManager();
+      /** @var ContactPerson $contactPerson */
+      foreach ($originalContactPersons as $contactPerson) {
+        if (false === $bygning->getContactPersons()->contains($contactPerson)) {
+          $em->remove($contactPerson);
+        }
+      }
+      $em->flush();
+
+      // Contact persons are not handled by Doctrine ORM.
+      // We updating it here.
+      foreach ($bygning->getContactPersons() as $contactPerson) {
+        $em->persist($contactPerson);
+      }
       $em->flush();
 
       return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
@@ -261,6 +292,13 @@ class BygningController extends BaseController implements InitControllerInterfac
 
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
+
+      // Contact persons are not handled by Doctrine ORM.
+      // We have to update it here.
+      foreach ($bygning->getContactPersons() as $contactPerson) {
+        $em->remove($contactPerson);
+      }
+
       $em->remove($bygning);
       $em->flush();
     }
