@@ -570,6 +570,20 @@ class Rapport {
   /**
    * @return float
    */
+  public function getCo2BesparelseBraendstofITon() {
+    return $this->co2BesparelseBraendstofITon;
+  }
+
+  /**
+   * @param float $co2BesparelseBraendstofITon
+   */
+  public function setCo2BesparelseBraendstofITon($co2BesparelseBraendstofITon) {
+    $this->co2BesparelseBraendstofITon = $co2BesparelseBraendstofITon;
+  }
+
+  /**
+   * @return float
+   */
   public function getCo2BesparelseSamletFaktor() {
     return $this->co2BesparelseSamletFaktor;
   }
