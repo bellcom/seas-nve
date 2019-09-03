@@ -52,9 +52,16 @@ class SpecialTiltag extends Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="besparelseCo2Braendstof", type="decimal", scale=4, precision=14)
+   * @ORM\Column(name="besparelseCo2Braendstof", type="decimal", scale=4, precision=14, nullable=true)
    */
   protected $besparelseCo2Braendstof;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="besparelseCo2BraendstofITon", type="decimal", scale=4, precision=14, nullable=true)
+   */
+  protected $besparelseCo2BraendstofITon;
 
   /**
    * @var float
@@ -133,6 +140,16 @@ class SpecialTiltag extends Tiltag {
     return $this->besparelseCo2Braendstof;
   }
 
+  public function setBesparelseCo2BraendstofITon($besparelseCo2BraendstofITon) {
+    $this->besparelseCo2BraendstofITon = $besparelseCo2BraendstofITon;
+
+    return $this;
+  }
+
+  public function getBesparelseCo2BraendstofITon() {
+    return $this->besparelseCo2BraendstofITon;
+  }
+
   public function setBesparelseGAF($besparelseGAF) {
     $this->besparelseGAF = $besparelseGAF;
 
@@ -181,7 +198,6 @@ class SpecialTiltag extends Tiltag {
     'besparelseEl',
     'besparelseGAF',
     'besparelseGUF',
-    'besparelseCo2Braendstof',
     'faktorForReinvesteringer',
     'forsyningEl',
     'forsyningVarme',

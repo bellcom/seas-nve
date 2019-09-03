@@ -207,7 +207,7 @@
         <td>{{ 'appbundle.rapport.co2BesparelseBraendstof.unit' | trans }}</td>
       </tr>
       <tr>
-        <td colspan="3" rowspan="4">
+        <td colspan="3" rowspan="5">
           {% if entity.calculationWarnings and is_granted('RAPPORT_EDIT', entity) %}
             <div class="alert alert-warning">
               <p><strong>{{ icon('warning') }} {{ 'Incomplete calculation' | trans }}</strong></p>
@@ -243,6 +243,12 @@
         <th class="indent">{{ 'appbundle.rapport.besparelseCO2varme' | trans }}<div>{{ entity.expr('co2BesparelseVarme') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseVarme | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2varme.unit' | trans }}</td>
+      </tr>
+      <tr>
+
+        <th class="indent">{{ 'appbundle.rapport.co2BesparelseBraendstofITon' | trans }}<div>{{ entity.expr('co2BesparelseBraendstofITon') }}</div></th>
+        <td class="text-right">{{ entity.co2BesparelseBraendstofITon | format_decimal }}</td>
+        <td>{{ 'appbundle.rapport.co2BesparelseBraendstofITon.unit' | trans }}</td>
       </tr>
       </tbody>
     </table>

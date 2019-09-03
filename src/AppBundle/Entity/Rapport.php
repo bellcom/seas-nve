@@ -149,7 +149,7 @@ class Rapport {
    *
    * @Calculated
    * @ORM\Column(name="besparelseCO2", type="float", nullable=true)
-   * @Formula("$this->co2BesparelseEl + $this->co2BesparelseVarme")
+   * @Formula("$this->co2BesparelseEl + $this->co2BesparelseVarme + $this->co2BesparelseBraendstof")
    */
   protected $besparelseCO2;
 
@@ -256,6 +256,14 @@ class Rapport {
    * @ORM\Column(name="co2BesparelseBraendstof", type="float", nullable=true)
    */
   protected $co2BesparelseBraendstof;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="co2BesparelseBraendstofITon", type="float", nullable=true)
+   */
+  protected $co2BesparelseBraendstofITon;
 
   /**
    * @var float
@@ -1938,6 +1946,7 @@ class Rapport {
     $this->co2BesparelseEl = $this->calculateCo2BesparelseEl();
     $this->co2BesparelseVarme = $this->calculateCo2BesparelseVarme();
     $this->co2BesparelseBraendstof = $this->calculateCo2BesparelseBraendstof();
+    $this->co2BesparelseBraendstofITon = $this->calculateCo2BesparelseBraendstofITon();
     $this->besparelseCO2 = $this->calculateByFormula('besparelseCO2');
     $this->fravalgtBesparelseCO2 = $this->calculateFravalgtBesparelseCO2();
 
@@ -2305,6 +2314,36 @@ class Rapport {
     }
 
     return Calculation::divide(array_sum($amount), count($amount));
+  }
+
+  /**
+   * Calculates expression for Co2BesparelseBraendstofITon value
+   */
+  protected function calculateCo2BesparelseBraendstofITonExp() {
+    return $this->calculateCo2BesparelseBraendstofITon(TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateCo2BesparelseBraendstofITonExp()")
+   */
+  private function calculateCo2BesparelseBraendstofITon($expression = FALSE) {
+    $amount = array();
+
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+
+      if (method_exists($tiltag, 'getBesparelseCo2BraendstofITon')) {
+
+        if ($value = $tiltag->getBesparelseCo2BraendstofITon()) {
+          $amount[] = (float) $value;
+        }
+      }
+    }
+
+    if ($expression) {
+      return $this->sumExpr($amount);
+    }
+
+    return array_sum($amount);
   }
 
   private function calculateFravalgtBesparelseEl() {

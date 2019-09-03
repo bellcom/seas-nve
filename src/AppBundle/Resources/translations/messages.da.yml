@@ -1497,6 +1497,8 @@ appbundle:
     co2BesparelseVarmeFaktor.unit: %
     co2BesparelseBraendstof: Brændstof
     co2BesparelseBraendstof.unit: %
+    co2BesparelseBraendstofITon: Brændstof
+    co2BesparelseBraendstofITon.unit: t/år
     datering: Screeningsdato
     elena: Elena
     energibesparelser: Energibesparelser
@@ -1810,6 +1812,8 @@ appbundle:
     energiBesparelse.unit: kWh/år
     besparelseCo2Braendstof: Besparelse CO2 brændstof
     besparelseCo2Braendstof.unit: %
+    besparelseCo2BraendstofITon: Besparelse CO2 brændstof
+    besparelseCo2BraendstofITon.unit: t/år
     besparelseInvestering: Besparelse investering
     besparelseInvestering.unit: kr/år
     samletBesparelseInvestering: Besparelse investering
