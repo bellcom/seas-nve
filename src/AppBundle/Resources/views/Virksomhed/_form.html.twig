@@ -113,13 +113,9 @@
             <div class="panel-body">
                 {{ form_row(form.naceCode)}}
                 {{ form_row(form.dsmCode)}}
-                {{ form_row(form.energyPrice)}}
                 {{ form_row(form.subsidySize)}}
-                {{ form_row(form.erhvervsAreal)}}
-                {{ form_row(form.opvarmetAreal)}}
                 {{ form_row(form.aarsVaerk)}}
                 {{ form_row(form.forbrug)}}
-                {{ form_row(form.er)}}
                 {{ form_row(form.kam)}}
                 {{ form_row(form.kalkulationsrente)}}
                 {{ form_row(form.inflation)}}
@@ -127,6 +123,15 @@
                 {% if (form.user) %}
                     {{ form_row(form.user) }}
                 {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('industry') }} {{ 'forsyningsvaerk.labels.plural' | trans }}</div>
+            <div class="panel-body">
+                {{ form_row(form.forsyningsvaerkEl ) }}
+                {{ form_row(form.forsyningsvaerkVarme ) }}
             </div>
         </div>
     </div>

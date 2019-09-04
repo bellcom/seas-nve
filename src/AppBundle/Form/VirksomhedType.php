@@ -103,14 +103,9 @@ class VirksomhedType extends AbstractType
             ))
             ->add('naceCode')
             ->add('dsmCode')
-            ->add('energyPrice')
             ->add('subsidySize')
-
-            ->add('erhvervsAreal')
-            ->add('opvarmetAreal')
             ->add('aarsVaerk')
             ->add('forbrug')
-            ->add('er')
             ->add('kam')
             ->add('kalkulationsrente', 'percent', array(
                 'scale' => 2,
@@ -121,6 +116,16 @@ class VirksomhedType extends AbstractType
                 'required' => FALSE,
             ))
             ->add('lobetid')
+            ->add('forsyningsvaerkVarme', 'entity', array(
+                'class' => 'AppBundle:Forsyningsvaerk',
+                'required' => FALSE,
+                'empty_value' => 'common.none',
+            ))
+            ->add('forsyningsvaerkEl', 'entity', array(
+                'class' => 'AppBundle:Forsyningsvaerk',
+                'required' => FALSE,
+                'empty_value' => 'common.none',
+            ))
         ;
 
         // Allow select customer user only for existing companies.

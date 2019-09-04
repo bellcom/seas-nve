@@ -185,16 +185,12 @@ class Bygning {
   protected $forsyningsvaerkVand;
 
   /**
-   * @Assert\NotBlank(groups={"DATA_VERIFICERET"})
-   *
    * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
    * @ORM\JoinColumn(name="varme_forsyningsvaerk_id", referencedColumnName="id")
    **/
   protected $forsyningsvaerkVarme;
 
   /**
-   * @Assert\NotBlank(groups={"DATA_VERIFICERET"})
-   *
    * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
    * @ORM\JoinColumn(name="el_forsyningsvaerk_id", referencedColumnName="id")
    **/
@@ -722,9 +718,24 @@ class Bygning {
   /**
    * Get forsyningsvaerkVand
    *
+   * Inherits Forsyningsvaerk reference from Virksomhed/Parent Virksomhed
+   *
    * @return Forsyningsvaerk
    */
-  public function getForsyningsvaerkVand() {
+  public function getForsyningsvaerkVand($inherit = FALSE) {
+    if (empty($this->forsyningsvaerkVand) && $inherit) {
+      if ($this->getVirksomhed() && $this->getVirksomhed()->getForsyningsvaerkVand()) {
+        return $this->getVirksomhed()->getForsyningsvaerkVand();
+      }
+
+      if ($this->getVirksomhed()
+        && $this->getVirksomhed()->getParent()
+        && $this->getVirksomhed()->getParent()->getForsyningsvaerkVand()
+      ) {
+        return $this->getVirksomhed()->getParent()->getForsyningsvaerkVand();
+      }
+    }
+
     return $this->forsyningsvaerkVand;
   }
 
@@ -743,9 +754,24 @@ class Bygning {
   /**
    * Get forsyningsvaerkVarme
    *
+   * Inherits Forsyningsvaerk reference from Virksomhed/Parent Virksomhed
+   *
    * @return Forsyningsvaerk
    */
-  public function getForsyningsvaerkVarme() {
+  public function getForsyningsvaerkVarme($inherit = FALSE) {
+    if (empty($this->forsyningsvaerkVarme) && $inherit) {
+      if ($this->getVirksomhed() && $this->getVirksomhed()->getForsyningsvaerkVarme()) {
+        return $this->getVirksomhed()->getForsyningsvaerkVarme();
+      }
+
+      if ($this->getVirksomhed()
+        && $this->getVirksomhed()->getParent()
+        && $this->getVirksomhed()->getParent()->getForsyningsvaerkVarme()
+      ) {
+        return $this->getVirksomhed()->getParent()->getForsyningsvaerkVarme();
+      }
+    }
+
     return $this->forsyningsvaerkVarme;
   }
 
@@ -764,9 +790,23 @@ class Bygning {
   /**
    * Get forsyningsvaerkEl
    *
+   * Inherits Forsyningsvaerk reference from Virksomhed/Parent Virksomhed
+   *
    * @return Forsyningsvaerk
    */
-  public function getForsyningsvaerkEl() {
+  public function getForsyningsvaerkEl($inherit = FALSE) {
+    if (empty($this->forsyningsvaerkEl) && $inherit) {
+      if ($this->getVirksomhed() && $this->getVirksomhed()->getForsyningsvaerkEl()) {
+        return $this->getVirksomhed()->getForsyningsvaerkEl();
+      }
+      if ($this->getVirksomhed()
+        && $this->getVirksomhed()->getParent()
+        && $this->getVirksomhed()->getParent()->getForsyningsvaerkEl()
+      ) {
+        return $this->getVirksomhed()->getParent()->getForsyningsvaerkEl();
+      }
+    }
+
     return $this->forsyningsvaerkEl;
   }
 

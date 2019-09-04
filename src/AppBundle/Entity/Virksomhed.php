@@ -127,13 +127,6 @@ class Virksomhed
 
     /**
      * @var float
-     *
-     * @ORM\Column(name="energy_price", scale=4, nullable=true)
-     */
-    private $energyPrice;
-
-    /**
-     * @var float
      * @ORM\Column(name="subsidy_size", type="decimal", scale=4, nullable=true)
      */
     protected $subsidySize;
@@ -214,20 +207,6 @@ class Virksomhed
     /**
      * @var string
      *
-     * @ORM\Column(name="erhvervs_areal", type="string", length=255, nullable=true)
-     */
-    private $erhvervsAreal;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="opvarmet_areal", type="string", length=255, nullable=true)
-     */
-    private $opvarmetAreal;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="aars_vaerk", type="string", length=255, nullable=true)
      */
     private $aarsVaerk;
@@ -238,13 +217,6 @@ class Virksomhed
      * @ORM\Column(name="forbrug", type="string", length=255, nullable=true)
      */
     private $forbrug;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="er", type="string", length=255, nullable=true)
-     */
-    private $er;
 
     /**
      * @var string
@@ -260,6 +232,24 @@ class Virksomhed
      * @JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
     protected $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
+     * @ORM\JoinColumn(name="vand_forsyningsvaerk_id", referencedColumnName="id")
+     **/
+    protected $forsyningsvaerkVand;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
+     * @ORM\JoinColumn(name="varme_forsyningsvaerk_id", referencedColumnName="id")
+     **/
+    protected $forsyningsvaerkVarme;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
+     * @ORM\JoinColumn(name="el_forsyningsvaerk_id", referencedColumnName="id")
+     **/
+    protected $forsyningsvaerkEl;
 
     /**
      * Virksomhed constructor.
@@ -610,30 +600,6 @@ class Virksomhed
      * @return string
      */
     public function getDsmCode()
-    {
-        return $this->dsmCode;
-    }
-
-    /**
-     * Set energyPrice
-     *
-     * @param float $energyPrice
-     *
-     * @return Virksomhed
-     */
-    public function setEnergyPrice($energyPrice)
-    {
-        $this->energyPrice = $energyPrice;
-
-        return $this;
-    }
-
-    /**
-     * Get energyPrice
-     *
-     * @return float
-     */
-    public function getEnergyPrice()
     {
         return $this->dsmCode;
     }
@@ -995,54 +961,6 @@ class Virksomhed
     }
 
     /**
-     * Set erhvervsAreal
-     *
-     * @param string $erhvervsAreal
-     *
-     * @return Virksomhed
-     */
-    public function setErhvervsAreal($erhvervsAreal)
-    {
-        $this->erhvervsAreal = $erhvervsAreal;
-
-        return $this;
-    }
-
-    /**
-     * Get erhvervsAreal
-     *
-     * @return string
-     */
-    public function getErhvervsAreal()
-    {
-        return $this->erhvervsAreal;
-    }
-
-    /**
-     * Set opvarmetAreal
-     *
-     * @param string $opvarmetAreal
-     *
-     * @return Virksomhed
-     */
-    public function setOpvarmetAreal($opvarmetAreal)
-    {
-        $this->opvarmetAreal = $opvarmetAreal;
-
-        return $this;
-    }
-
-    /**
-     * Get opvarmetAreal
-     *
-     * @return string
-     */
-    public function getOpvarmetAreal()
-    {
-        return $this->opvarmetAreal;
-    }
-
-    /**
      * Set aarsVaerk
      *
      * @param string $aarsVaerk
@@ -1091,30 +1009,6 @@ class Virksomhed
     }
 
     /**
-     * Set ER
-     *
-     * @param string $er
-     *
-     * @return Virksomhed
-     */
-    public function setEr($er)
-    {
-        $this->er = $er;
-
-        return $this;
-    }
-
-    /**
-     * Get ER
-     *
-     * @return string
-     */
-    public function getEr()
-    {
-        return $this->er;
-    }
-
-    /**
      * Set KAM
      *
      * @param string $kam
@@ -1160,6 +1054,69 @@ class Virksomhed
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set forsyningsvaerkVand
+     *
+     * @param Forsyningsvaerk $forsyningsvaerkVand
+     * @return Virksomhed
+     */
+    public function setForsyningsvaerkVand($forsyningsvaerkVand) {
+        $this->forsyningsvaerkVand = $forsyningsvaerkVand;
+
+        return $this;
+    }
+
+    /**
+     * Get forsyningsvaerkVand
+     *
+     * @return Forsyningsvaerk
+     */
+    public function getForsyningsvaerkVand() {
+        return $this->forsyningsvaerkVand;
+    }
+
+    /**
+     * Set forsyningsvaerkVarme
+     *
+     * @param Forsyningsvaerk $forsyningsvaerkVarme
+     * @return Virksomhed
+     */
+    public function setForsyningsvaerkVarme($forsyningsvaerkVarme) {
+        $this->forsyningsvaerkVarme = $forsyningsvaerkVarme;
+
+        return $this;
+    }
+
+    /**
+     * Get forsyningsvaerkVarme
+     *
+     * @return Forsyningsvaerk
+     */
+    public function getForsyningsvaerkVarme() {
+        return $this->forsyningsvaerkVarme;
+    }
+
+    /**
+     * Set forsyningsvaerkEl
+     *
+     * @param Forsyningsvaerk $forsyningsvaerkEl
+     * @return Virksomhed
+     */
+    public function setForsyningsvaerkEl($forsyningsvaerkEl) {
+        $this->forsyningsvaerkEl = $forsyningsvaerkEl;
+
+        return $this;
+    }
+
+    /**
+     * Get forsyningsvaerkEl
+     *
+     * @return Forsyningsvaerk
+     */
+    public function getForsyningsvaerkEl() {
+        return $this->forsyningsvaerkEl;
     }
 
     /**

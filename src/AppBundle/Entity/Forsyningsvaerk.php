@@ -4419,7 +4419,7 @@ class Forsyningsvaerk {
     return isset($this->{$property}) ? $this->{$property} : 0;
   }
 
-  public function getFaktor(Configuration $configuration, $startYear = NULL) {
+  public function getFaktor(Rapport $rapport, $startYear = NULL) {
     $numberOfYears = 15;
 
     if ($startYear === NULL) {
@@ -4428,7 +4428,7 @@ class Forsyningsvaerk {
 
     $faktor = 0;
     for ($year = 1; $year <= $numberOfYears; $year++) {
-      $faktor += $this->getKrKWh($startYear + $year - 1) / pow(1 + $configuration->getRapportKalkulationsrente(), $year);
+      $faktor += $this->getKrKWh($startYear + $year - 1) / pow(1 + $rapport->getKalkulationsrente(), $year);
     }
     return $faktor;
   }
