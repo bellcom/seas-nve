@@ -84,3 +84,14 @@ After all installation steps it's possible you will get errors for some pages.
 4.1 You may need to add you project host to `/etc/hosts`, to allow `wkhtmltopdf` tool resolves paths to images and sources from html content that going to be converted.
 
 4.2 Allow system save temporary data to tmp folder. Check key `sys_temp_dir` and set it to accessible for webserver directory.
+
+4.3 You might need a patched QT version of "wkhtmltopdf"
+
+4.3 You might need to install one or more of these libraries:
+  - libxrender1
+  - libfontconfig1
+  - libx11-dev
+  - libjpeg62
+  - libxtst6
+  
+See: https://github.com/barryvdh/laravel-snappy/issues/68#issuecomment-314012014
