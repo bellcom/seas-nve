@@ -552,6 +552,20 @@ class VirksomhedRapport
     protected $cashFlow;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="erhvervsareal", type="integer", nullable=true)
+     */
+    protected $erhvervsareal;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="opvarmetareal", type="integer", nullable=true)
+     */
+    protected $opvarmetareal;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1822,11 +1836,54 @@ class VirksomhedRapport
         'BaselineVarmeGAF',
         'BaselineVarmeGUF',
         'energiscreening',
-        'faktorPaaVarmebesparelse',
+        'erhvervsareal',
+        'opvarmetareal',
     ];
 
     public function getPropertiesRequiredForCalculation() {
         return $this->propertiesRequiredForCalculation;
+    }
+
+    /**
+     * Set erhvervsareal
+     *
+     * @param integer $erhvervsareal
+     * @return Bygning
+     */
+    public function setErhvervsareal($erhvervsareal) {
+        $this->erhvervsareal = $erhvervsareal;
+
+        return $this;
+    }
+
+    /**
+     * Get $erhvervsareal
+     *
+     * @return integer
+     */
+    public function getErhvervsareal() {
+        return $this->erhvervsareal;
+    }
+
+    /**
+     * Set Opvarmetareal
+     *
+     * @param integer $opvarmetareal
+     * @return Bygning
+     */
+    public function setOpvarmetareal($opvarmetareal) {
+        $this->opvarmetareal = $opvarmetareal;
+
+        return $this;
+    }
+
+    /**
+     * Get opvarmetareal
+     *
+     * @return integer
+     */
+    public function getOpvarmetareal() {
+        return $this->opvarmetareal;
     }
 
     /**
@@ -1918,6 +1975,8 @@ class VirksomhedRapport
         'besparelseAarEt',
         'fravalgtBesparelseAarEt',
         'energiscreening',
+        'erhvervsareal',
+        'opvarmetareal',
         'cashFlow',
         'cashFlow15',
         'cashFlow30',
@@ -2012,6 +2071,50 @@ class VirksomhedRapport
     }
 
     /**
+     * Calculates expression for erhvervsareal value
+     */
+    protected function calculateErhvervsarealExp() {
+        return $this->calculateErhvervsareal(TRUE);
+    }
+
+    /**
+     * Calculates erhvervsareal value.
+     *
+     * @Formula("$this->calculateErhvervsarealExp()")
+     */
+    private function calculateErhvervsareal($expression = FALSE) {
+        $result = array();
+        /** @var Bygning $bygning */
+        foreach ($this->getVirksomhed()->getAllBygninger() as $bygning) {
+            $result[] = $bygning->getErhvervsareal();
+        }
+
+        return $expression ? $this->sumExpr($result) : array_sum($result);
+    }
+
+    /**
+     * Calculates expression for opvarmetareal value
+     */
+    protected function calculateOpvarmetarealExp() {
+        return $this->calculateOpvarmetareal(TRUE);
+    }
+
+    /**
+     * Calculates opvarmetareal value.
+     *
+     * @Formula("$this->calculateOpvarmetarealExp()")
+     */
+    private function calculateOpvarmetareal($expression = FALSE) {
+        $result = array();
+        /** @var Bygning $bygning */
+        foreach ($this->getVirksomhed()->getAllBygninger() as $bygning) {
+            $result[] = $bygning->getOpvarmetareal();
+        }
+
+        return $expression ? $this->sumExpr($result) : array_sum($result);
+    }
+
+    /**
      * Post load handler.
      *
      * @ORM\PostLoad
@@ -2025,6 +2128,10 @@ class VirksomhedRapport
     {
       if (strpos($name, 'calculate') === FALSE) {
         return NULL;
+      }
+
+      if (method_exists($this, $name)) {
+          return call_user_func_array(array($this, $name), $arguments);
       }
 
       $expression = is_bool(end($arguments)) ? end($arguments) : FALSE;

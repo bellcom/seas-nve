@@ -114,8 +114,8 @@
               <tbody>
                 <tr>
                   <th>{{ 'appbundle.virksomhed.contactPersons.0.name' | trans }}</th>
-                  <th>{{ 'appbundle.virksomhed.contactPersons.0.phoneNumber' | trans }}</th>
                   <th>{{ 'appbundle.virksomhed.contactPersons.0.mail' | trans }}</th>
+                  <th>{{ 'appbundle.virksomhed.contactPersons.0.phoneNumber' | trans }}</th>
                 </tr>
                 {% for contactPerson in contactPersons %}
                   <tr>
@@ -162,28 +162,12 @@
             <td>{{ entity.dsmCode }}</td>
           </tr>
           <tr>
-            <th>{{ 'appbundle.virksomhed.energyPrice' | trans }}</th>
-            <td>{{ entity.energyPrice }}</td>
-          </tr>
-          <tr>
             <th>{{ 'appbundle.virksomhed.subsidySize' | trans }}</th>
             <td>{{ entity.subsidySize }}</td>
           </tr>
           <tr>
-            <th>{{ 'appbundle.virksomhed.erhvervsAreal' | trans }}</th>
-            <td>{{ entity.erhvervsAreal }}</td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.virksomhed.opvarmetAreal' | trans }}</th>
-            <td>{{ entity.opvarmetAreal }}</td>
-          </tr>
-          <tr>
             <th>{{ 'appbundle.virksomhed.forbrug' | trans }}</th>
             <td>{{ entity.forbrug }}</td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.virksomhed.er' | trans }}</th>
-            <td>{{ entity.er }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.kam' | trans }}</th>
@@ -210,6 +194,23 @@
           </tr>
         </tbody>
       </table>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('industry') }} {{ 'forsyningsvaerk.labels.plural' | trans }}</div>
+        <table class="table table-condensed th-vertical">
+          <tbody>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.forsyningsvaerkEl' | trans }}</th>
+            <td>{{ entity.forsyningsvaerkEl }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.forsyningsvaerkVarme' | trans }}</th>
+            <td>{{ entity.forsyningsvaerkVarme }}</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

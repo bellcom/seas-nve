@@ -126,6 +126,7 @@ class VirksomhedController extends BaseController
                 $entity->addBygninger($bygning);
             }
 
+            // Creating customer user to get ability use customer URL.
             /** @var ContactPerson $contactPerson */
             $contactPerson = $entity->getContactPersons()->first();
             if (!empty($contactPerson)) {
@@ -147,13 +148,21 @@ class VirksomhedController extends BaseController
                     )));
                 }
             }
+
             $this->flash->success('virksomhed.confirmation.created');
 
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('virksomhed_show', array('id' => $entity->getId())));
+            // Contact persons are not handled by Doctrine ORM.
+            // We inserting it here.
+            foreach ($entity->getContactPersons() as $contactPerson) {
+              $contactPerson->setReference($entity);
+              $em->persist($contactPerson);
+            }
+            $em->flush();
 
+          return $this->redirect($this->generateUrl('virksomhed_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -289,7 +298,6 @@ class VirksomhedController extends BaseController
         /** @var Virksomhed $originalVirksomhed */
         $originalVirksomhed = $em->getRepository(Virksomhed::class)->find($virksomhed->getId());
 
-
         $originalBygninger = new ArrayCollection();
         foreach ($originalVirksomhed->getBygninger() as $bygning) {
             $originalBygninger->add($bygning);
@@ -328,8 +336,6 @@ class VirksomhedController extends BaseController
             /** @var ContactPerson $contactPerson */
             foreach ($originalContactPersons as $contactPerson) {
                 if (false === $virksomhed->getContactPersons()->contains($contactPerson)) {
-                    $contactPerson->setVirksomhed(null);
-                    $em->persist($contactPerson);
                     $em->remove($contactPerson);
                 }
             }
@@ -343,6 +349,13 @@ class VirksomhedController extends BaseController
             }
 
             $em->persist($virksomhed);
+            $em->flush();
+
+            // Contact persons are not handled by Doctrine ORM.
+            // We have to update it here.
+            foreach ($virksomhed->getContactPersons() as $contactPerson) {
+              $em->persist($contactPerson);
+            }
             $em->flush();
 
             return $this->redirect($this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
@@ -372,6 +385,12 @@ class VirksomhedController extends BaseController
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Virksomhed entity.');
+            }
+
+            // Contact persons are not handled by Doctrine ORM.
+            // We have to update it here.
+            foreach ($virksomhed->getContactPersons() as $contactPerson) {
+              $em->remove($contactPerson);
             }
 
             $em->remove($entity);

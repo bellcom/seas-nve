@@ -1559,7 +1559,7 @@ class Rapport {
    * @return float
    */
   public function getElfaktor() {
-    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl(TRUE);
     return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this->configuration, $this->getDatering()->format('Y'));
   }
 
@@ -1568,7 +1568,7 @@ class Rapport {
    * @return float
    */
   public function getVarmefaktor() {
-    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme(TRUE);
     return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this->configuration, $this->getDatering()->format('Y'));
   }
 
@@ -1577,7 +1577,7 @@ class Rapport {
    * @return float
    */
   public function getVandfaktor() {
-    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVand();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVand(TRUE);
     return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this->configuration, $this->getDatering()->format('Y'));
   }
 
@@ -1586,7 +1586,7 @@ class Rapport {
    * @return float
    */
   public function getVandKrKWh($yearNumber = 1) {
-    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVand();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVand(TRUE);
     return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKrKWh($this->getDatering()->format('Y') - 1 + $yearNumber);
   }
 
@@ -1598,13 +1598,13 @@ class Rapport {
     $value = 0;
     $prisfaktor = 1;
 
-    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme(TRUE);
     if ($forsyningsvaerk) {
       $value = $forsyningsvaerk->getKrKWh($this->getDatering()->format('Y') - 1 + $yearNumber);
     }
     // Get prisfaktor from energiforsyning associated with bygnings forsyningsvaerk.
     foreach ($this->getEnergiforsyninger() as $energiforsyning) {
-      if ($energiforsyning->getForsyningsvaerk() == $this->bygning->getForsyningsvaerkVarme()) {
+      if ($energiforsyning->getForsyningsvaerk() == $this->bygning->getForsyningsvaerkVarme(TRUE)) {
         $prisfaktor = $energiforsyning->getPrisfaktor();
         break;
       }
@@ -1621,13 +1621,13 @@ class Rapport {
     $value = 0;
     $prisfaktor = 1;
 
-    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl(TRUE);
     if ($forsyningsvaerk) {
       $value = $forsyningsvaerk->getKrKWh($this->getDatering()->format('Y') - 1 + $yearNumber);
     }
     // Get prisfaktor from energiforsyning associated with bygnings forsyningsvaerk.
     foreach ($this->getEnergiforsyninger() as $energiforsyning) {
-      if ($energiforsyning->getForsyningsvaerk() == $this->bygning->getForsyningsvaerkEl()) {
+      if ($energiforsyning->getForsyningsvaerk() == $this->bygning->getForsyningsvaerkEl(TRUE)) {
         $prisfaktor = $energiforsyning->getPrisfaktor();
         break;
       }
@@ -1641,7 +1641,7 @@ class Rapport {
    * @return float
    */
   public function getVarmeKgCo2MWh($yearNumber = 1) {
-    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme(TRUE);
     return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh($this->getDatering()->format('Y') - 1 + $yearNumber);
   }
 
@@ -1650,7 +1650,7 @@ class Rapport {
    * @return float
    */
   public function getElKgCo2MWh($yearNumber = 1) {
-    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl(TRUE);
     return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh($this->getDatering()->format('Y') - 1 + $yearNumber);
   }
 
@@ -2196,14 +2196,14 @@ class Rapport {
   }
 
   private function calculateBaselineCO2El() {
-    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl(TRUE);
     $elKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
 
     return ($this->BaselineEl / 1000) * ($elKgCo2MWh / 1000);
   }
 
   private function calculateBaselineCO2Varme() {
-    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme();
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme(TRUE);
     $varmeKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
 
     return (($this->BaselineVarmeGUF + $this->BaselineVarmeGAF) / 1000) * $varmeKgCo2MWh / 1000;
@@ -2256,7 +2256,7 @@ class Rapport {
    * @return float|null
    */
   private function getBygningForsyningsvaerkElKgCo2MWh() {
-    $vaerk = $this->getBygning()->getForsyningsvaerkEl();
+    $vaerk = $this->getBygning()->getForsyningsvaerkEl(TRUE);
     if($vaerk) {
       return $vaerk->getKgCo2MWh(2009);
     }
@@ -2281,7 +2281,7 @@ class Rapport {
    * @return float|null
    */
   private function getBygningForsyningsvaerkVarmeKgCo2MWh() {
-    $vaerk = $this->getBygning()->getForsyningsvaerkVarme();
+    $vaerk = $this->getBygning()->getForsyningsvaerkVarme(TRUE);
     if($vaerk) {
       return $vaerk->getKgCo2MWh(2009);
     }

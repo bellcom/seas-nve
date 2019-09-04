@@ -154,31 +154,24 @@
         <td>{{ 'appbundle.virksomhed_rapport.co2BesparelseBraendstof.unit' | trans }}</td>
       </tr>
       <tr>
-        <td colspan="3" rowspan="5">
-          {% if entity.calculationWarnings and is_granted('RAPPORT_EDIT', entity) %}
-            <div class="alert alert-warning">
-              <p><strong>{{ icon('warning') }} {{ 'Incomplete calculation' | trans }}</strong></p>
-              {{ calculationWarnings.renderMessagesInline(calculation_warnings) }}
-              {% if calculation_warnings['errors'] is defined and calculation_warnings['errors'] is not empty %}
-                <p>
-                  <a href="{{ path('rapport_edit', {'id': entity.id}) }}" class="btn btn-warning">
-                    {{ icon('edit') }} {{ (params.edit_title is defined ? params.edit_title : 'common.edit') | trans }}
-                  </a>
-                </p>
-              {% endif %}
-            </div>
-          {% endif %}
-        </td>
+        <th>{{ 'appbundle.virksomhed_rapport.erhvervsareal' | trans }}<div class="calculation-expression hidden">{{ entity.expr('erhvervsareal') }}</div></th>
+        <td class="text-right">{{ entity.erhvervsareal | format_decimal }}</td>
+        <td>{{ 'appbundle.virksomhed_rapport.erhvervsareal.unit' | trans }}</td>
         <th>{{ 'appbundle.virksomhed_rapport.co2besparelser' | trans }}:</th>
         <td></td>
         <td></td>
       </tr>
       <tr>
+        <th>{{ 'appbundle.virksomhed_rapport.opvarmetareal' | trans }}<div class="calculation-expression hidden">{{ entity.expr('opvarmetareal') }}</div></th>
+        <td class="text-right">{{ entity.opvarmetareal | format_decimal }}</td>
+        <td>{{ 'appbundle.virksomhed_rapport.opvarmetareal.unit' | trans }}</td>
         <th class="indent">{{ 'appbundle.virksomhed_rapport.besparelseCO2' | trans }}<div class="calculation-expression hidden">{{ entity.expr('besparelseCO2') }}</div></th>
         <td class="text-right">{{ entity.besparelseCO2 | format_decimal }}</td>
         <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2.unit' | trans }}</td>
       </tr>
       <tr>
+        <td colspan="3" rowspan="3">
+        </td>
         <th class="indent">{{ 'appbundle.virksomhed_rapport.besparelseCO2el' | trans }}<div class="calculation-expression hidden">{{ entity.expr('co2BesparelseEl') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseEl | format_decimal }}</td>
         <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2el.unit' | trans }}</td>
@@ -189,7 +182,6 @@
         <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2varme.unit' | trans }}</td>
       </tr>
       <tr>
-
         <th class="indent">{{ 'appbundle.virksomhed_rapport.co2BesparelseBraendstofITon' | trans }}<div class="calculation-expression hidden">{{ entity.expr('co2BesparelseBraendstofITon') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseBraendstofITon | format_decimal }}</td>
         <td>{{ 'appbundle.virksomhed_rapport.co2BesparelseBraendstofITon.unit' | trans }}</td>

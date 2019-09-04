@@ -3,7 +3,6 @@
 {% block body -%}
   <h1>{{ 'bygninger.actions.create' | trans }}</h1>
 
-  {{ form_row(form.buttons) }}
-  {{ form(form) }}
+  {% include 'AppBundle:Bygning:_form.html.twig' with { 'edit_form': form } %}
 
 {% endblock %}

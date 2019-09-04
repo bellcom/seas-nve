@@ -100,6 +100,7 @@ common:
   will_change: Opdateres
   your_buildings: Dine bygninger
   your_segments: Dine segmenter
+  toggle: Vis/Skjul
 dashboard:
   besparelseCO2: CO2 besparelse
   besparelseEl: El besparelse
@@ -877,6 +878,10 @@ appbundle:
     baseline: Baseline
     bruttoetageareal: Bruttoetageareal
     bruttoetageareal.unit: m²
+    erhvervsareal: Erhvervsareal
+    erhvervsareal.unit: m²
+    opvarmetareal: Opvarmet areal
+    opvarmetareal.unit: m²
     by: By
     bygId: ID
     createdAt: Oprettet
@@ -887,7 +892,6 @@ appbundle:
     energiRaadgiver: Energirådgiver
     enhedsys: Enhedsys
     forsyningsvaerkEl: El
-    forsyningsvaerkVand: Vand
     forsyningsvaerkVand: Vand
     forsyningsvaerkVarme: Varme
     navn: Navn
@@ -902,6 +906,18 @@ appbundle:
     cvrNumber: CVR nummer
     pNumber: P Nummer
     eanNumber: EAN nummer
+    virksomhedContactPersons: Virksomhed kontaktpersoner
+    contactPersons: Kontaktpersoner
+    contactPersons.validation:
+      mail: E-mail '{{value}}' er ikke en gyldig e-mail.
+    contactPersons.0:
+      name: Navn
+      phoneNumber: Tlf.
+      mail: E-mail adresse
+    contactPersons...name..:
+      name: Navn
+      phoneNumber: Tlf.
+      mail: E-mail adresse
     rapport:
       BaselineEl: El
       BaselineEl.unit: kwh/år
@@ -1963,13 +1979,9 @@ appbundle:
     beregn_oplysninger: Beregningsoplysninger
     naceCode: Nace kode
     dsmCode: DSM kode
-    energyPrice: Energipris
     subsidySize: Tilskudsstørrelse
-    erhvervsAreal: Erhvervsareal
-    opvarmetAreal: Opvarmet areal
     aarsVaerk: Årsværk
     forbrug: Forbrug
-    er: ER
     kam: KAM
     kalkulationsrente: Kalkulationsrente
     kalkulationsrente.unit: %
@@ -1984,6 +1996,9 @@ appbundle:
       rapport:
         rapport:
           datering: Rapport dato
+    forsyningsvaerkEl: El
+    forsyningsvaerkVand: Vand
+    forsyningsvaerkVarme: Varme
   virksomhed_rapport:
     ava: AVA
     anlaegsinvestering.unit: kr
@@ -2007,8 +2022,6 @@ appbundle:
     besparelseAarEt.unit: kr
     besparelseAarEtPdf: Økonomisk besparelse i år 1 (inkl. D&V-besparelse)
     besparelseAarEtPdf.unit: kr
-    besparelseAarEt: Samlet besparelse i kr i år 1
-    besparelseAarEt.unit: kr/år
     besparelseCO2: Samlet CO2
     besparelseCO2el: El
     besparelseCO2el.unit: t/år
@@ -2114,7 +2127,10 @@ appbundle:
     virksomhed: Virksomhed
     virksomhed.areal: Areal
     virksomhed.areal.unit: m²
-
+    erhvervsareal: Erhvervsareal
+    erhvervsareal.unit: m²
+    opvarmetareal: Opvarmet areal
+    opvarmetareal.unit: m²
   fil:
     createdAt: Oprettet
     createdBy: Oprettet af

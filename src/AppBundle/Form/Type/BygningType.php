@@ -44,6 +44,8 @@ class BygningType extends AbstractType {
       ->add('ejerA')
       ->add('anvendelse')
       ->add('bruttoetageareal')
+      ->add('erhvervsareal')
+      ->add('opvarmetareal')
       ->add('forsyningsvaerkVarme', 'entity', array(
         'class' => 'AppBundle:Forsyningsvaerk',
         'required' => FALSE,
@@ -89,8 +91,20 @@ class BygningType extends AbstractType {
       ->add('users', null, array(
         'expanded' => TRUE,
         'choices' => $this->getUsersFromGroup("Interessent"),
-        ));
-
+        ))
+      ->add('contactPersons', 'bootstrap_collection', array(
+        'property_path' => 'ContactPersons',
+        'label' => FALSE,
+        'type' => new ContactPersonEmbedType(),
+        'required' => FALSE,
+        'allow_add' => true,
+        'by_reference' => false,
+        'allow_delete' => true,
+        'add_button_text'    => 'Add',
+        'delete_button_text' => 'Delete',
+        'sub_widget_col'     => 10,
+        'button_col'         => 2
+      ));
     // Only show the editable status field to super admins
     if ($this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
       $builder->add('status');
