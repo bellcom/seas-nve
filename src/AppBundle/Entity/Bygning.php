@@ -165,6 +165,20 @@ class Bygning {
   protected $bruttoetageareal;
 
   /**
+   * @var integer
+   *
+   * @ORM\Column(name="erhvervsareal", type="integer", nullable=true)
+   */
+  protected $erhvervsareal;
+
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="opvarmetareal", type="integer", nullable=true)
+   */
+  protected $opvarmetareal;
+
+  /**
    * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
    * @ORM\JoinColumn(name="vand_forsyningsvaerk_id", referencedColumnName="id")
    **/
@@ -638,6 +652,48 @@ class Bygning {
    */
   public function getBruttoetageareal() {
     return $this->bruttoetageareal;
+  }
+
+  /**
+   * Set erhvervsareal
+   *
+   * @param integer $erhvervsareal
+   * @return Bygning
+   */
+  public function setErhvervsareal($erhvervsareal) {
+    $this->erhvervsareal = $erhvervsareal;
+
+    return $this;
+  }
+
+  /**
+   * Get $erhvervsareal
+   *
+   * @return integer
+   */
+  public function getErhvervsareal() {
+    return $this->erhvervsareal;
+  }
+
+  /**
+   * Set Opvarmetareal
+   *
+   * @param integer $opvarmetareal
+   * @return Bygning
+   */
+  public function setOpvarmetareal($opvarmetareal) {
+    $this->opvarmetareal = $opvarmetareal;
+
+    return $this;
+  }
+
+  /**
+   * Get opvarmetareal
+   *
+   * @return integer
+   */
+  public function getOpvarmetareal() {
+    return $this->opvarmetareal;
   }
 
   /**

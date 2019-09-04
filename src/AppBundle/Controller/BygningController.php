@@ -238,11 +238,8 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @Security("is_granted('BYGNING_EDIT', bygning)")
    */
   public function updateAction(Request $request, Bygning $bygning) {
-    $deleteForm = $this->createDeleteForm($bygning);
-    $editForm = $this->createEditForm($bygning);
-    $editForm->handleRequest($request);
-
     $em = $this->getDoctrine()->getManager();
+
     /** @var Bygning $originalBygning */
     $originalBygning = $em->getRepository(Bygning::class)->find($bygning->getId());
   
@@ -250,6 +247,10 @@ class BygningController extends BaseController implements InitControllerInterfac
     foreach ($originalBygning->getContactPersons() as $contactPerson) {
       $originalContactPersons->add($contactPerson);
     }
+
+    $deleteForm = $this->createDeleteForm($bygning);
+    $editForm = $this->createEditForm($bygning);
+    $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
       /** @var ContactPerson $contactPerson */
@@ -276,8 +277,6 @@ class BygningController extends BaseController implements InitControllerInterfac
       'delete_form' => $deleteForm->createView(),
     );
   }
-
-
 
   /**
    * Deletes a Bygning entity.

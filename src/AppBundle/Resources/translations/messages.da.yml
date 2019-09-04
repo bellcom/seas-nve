@@ -878,6 +878,10 @@ appbundle:
     baseline: Baseline
     bruttoetageareal: Bruttoetageareal
     bruttoetageareal.unit: m²
+    erhvervsareal: Erhvervsareal
+    erhvervsareal.unit: m²
+    opvarmetareal: Opvarmet areal
+    opvarmetareal.unit: m²
     by: By
     bygId: ID
     createdAt: Oprettet

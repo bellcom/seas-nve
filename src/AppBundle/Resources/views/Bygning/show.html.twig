@@ -169,6 +169,14 @@
             <td>{{ entity.bruttoetageareal }}</td>
           </tr>
           <tr>
+            <th>{{ 'appbundle.bygning.erhvervsareal' | trans }}</th>
+            <td>{{ entity.erhvervsareal }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.bygning.opvarmetareal' | trans }}</th>
+            <td>{{ entity.opvarmetareal }}</td>
+          </tr>
+          <tr>
             <th>{{ 'appbundle.bygning.status' | trans }}</th>
             <td>{{ entity.status | readable }}</td>
           </tr>
@@ -224,8 +232,8 @@
               <table class="table table-condensed th-vertical" style="margin:0;">
                 <tr>
                   <th>{{ 'appbundle.virksomhed.contactPersons.0.name' | trans }}</th>
-                  <th>{{ 'appbundle.virksomhed.contactPersons.0.phoneNumber' | trans }}</th>
                   <th>{{ 'appbundle.virksomhed.contactPersons.0.mail' | trans }}</th>
+                  <th>{{ 'appbundle.virksomhed.contactPersons.0.phoneNumber' | trans }}</th>
                 </tr>
                 {% for contactPerson in contactPersons %}
                   <tr>
@@ -252,8 +260,8 @@
           <table class="table table-condensed th-vertical">
             <tr>
               <th>{{ 'appbundle.bygning.contactPersons.0.name' | trans }}</th>
-              <th>{{ 'appbundle.bygning.contactPersons.0.phoneNumber' | trans }}</th>
               <th>{{ 'appbundle.bygning.contactPersons.0.mail' | trans }}</th>
+              <th>{{ 'appbundle.bygning.contactPersons.0.phoneNumber' | trans }}</th>
             </tr>
             {% for contactPerson in contactPersons %}
               <tr>

@@ -44,6 +44,8 @@ class BygningType extends AbstractType {
       ->add('ejerA')
       ->add('anvendelse')
       ->add('bruttoetageareal')
+      ->add('erhvervsareal')
+      ->add('opvarmetareal')
       ->add('forsyningsvaerkVarme', 'entity', array(
         'class' => 'AppBundle:Forsyningsvaerk',
         'required' => FALSE,
@@ -90,7 +92,7 @@ class BygningType extends AbstractType {
         'expanded' => TRUE,
         'choices' => $this->getUsersFromGroup("Interessent"),
         ))
-      ->add('contactPerson', 'bootstrap_collection', array(
+      ->add('contactPersons', 'bootstrap_collection', array(
         'property_path' => 'ContactPersons',
         'label' => FALSE,
         'type' => new ContactPersonEmbedType(),

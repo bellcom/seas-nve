@@ -298,7 +298,6 @@ class VirksomhedController extends BaseController
         /** @var Virksomhed $originalVirksomhed */
         $originalVirksomhed = $em->getRepository(Virksomhed::class)->find($virksomhed->getId());
 
-
         $originalBygninger = new ArrayCollection();
         foreach ($originalVirksomhed->getBygninger() as $bygning) {
             $originalBygninger->add($bygning);
