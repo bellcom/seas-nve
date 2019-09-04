@@ -145,7 +145,16 @@
         <td>{{ 'appbundle.virksomhed_rapport.co2BesparelseVarmeFaktor.unit' | trans }}</td>
       </tr>
       <tr>
-        <td colspan="3" rowspan="4">
+        <th class="indent">{{ 'appbundle.virksomhed_rapport.besparelseBraendstof' | trans }}<div class="calculation-expression hidden">{{ entity.expr('besparelseBraendstof') }}</div></th>
+        <td class="text-right">{{ entity.besparelseBraendstof | format_decimal }}</td>
+        <td>{{ 'appbundle.virksomhed_rapport.besparelseBraendstof.unit' | trans }}</td>
+
+        <th class="indent">{{ 'appbundle.virksomhed_rapport.co2BesparelseBraendstof' | trans }}<div class="calculation-expression hidden">{{ entity.expr('co2BesparelseBraendstof') }}</div></th>
+        <td class="text-right">{{ entity.co2BesparelseBraendstof | format_percent_nounit }}</td>
+        <td>{{ 'appbundle.virksomhed_rapport.co2BesparelseBraendstof.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <td colspan="3" rowspan="5">
           {% if entity.calculationWarnings and is_granted('RAPPORT_EDIT', entity) %}
             <div class="alert alert-warning">
               <p><strong>{{ icon('warning') }} {{ 'Incomplete calculation' | trans }}</strong></p>
@@ -178,6 +187,12 @@
         <th class="indent">{{ 'appbundle.virksomhed_rapport.besparelseCO2varme' | trans }}<div class="calculation-expression hidden">{{ entity.expr('co2BesparelseVarme') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseVarme | format_decimal }}</td>
         <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2varme.unit' | trans }}</td>
+      </tr>
+      <tr>
+
+        <th class="indent">{{ 'appbundle.virksomhed_rapport.co2BesparelseBraendstofITon' | trans }}<div class="calculation-expression hidden">{{ entity.expr('co2BesparelseBraendstofITon') }}</div></th>
+        <td class="text-right">{{ entity.co2BesparelseBraendstofITon | format_decimal }}</td>
+        <td>{{ 'appbundle.virksomhed_rapport.co2BesparelseBraendstofITon.unit' | trans }}</td>
       </tr>
       </tbody>
     </table>

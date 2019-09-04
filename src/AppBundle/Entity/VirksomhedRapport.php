@@ -158,6 +158,14 @@ class VirksomhedRapport
      * @var float
      *
      * @Calculated
+     * @ORM\Column(name="besparelseBraendstof", type="float", nullable=true)
+     */
+    protected $besparelseBraendstof;
+
+    /**
+     * @var float
+     *
+     * @Calculated
      * @ORM\Column(name="fravalgtBesparelseEl", type="float", nullable=true)
      */
     protected $fravalgtBesparelseEl;
@@ -232,6 +240,22 @@ class VirksomhedRapport
      * @Formula("$this->calculateBesparelseElExp()")
      */
     protected $co2BesparelseVarmeFaktor;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="co2BesparelseBraendstof", type="float", nullable=true)
+     */
+    protected $co2BesparelseBraendstof;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="co2BesparelseBraendstofITon", type="float", nullable=true)
+     */
+    protected $co2BesparelseBraendstofITon;
 
     /**
      * @var float
@@ -667,6 +691,34 @@ class VirksomhedRapport
     public function getCo2BesparelseVarmeFaktor()
     {
         return $this->co2BesparelseVarmeFaktor;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCo2BesparelseBraendstof() {
+      return $this->co2BesparelseBraendstof;
+    }
+
+    /**
+     * @param float $co2BesparelseBraendstof
+     */
+    public function setCo2BesparelseBraendstof($co2BesparelseBraendstof) {
+      $this->co2BesparelseBraendstof = $co2BesparelseBraendstof;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCo2BesparelseBraendstofITon() {
+      return $this->co2BesparelseBraendstofITon;
+    }
+
+    /**
+     * @param float $co2BesparelseBraendstofITon
+     */
+    public function setCo2BesparelseBraendstofITon($co2BesparelseBraendstofITon) {
+      $this->co2BesparelseBraendstofITon = $co2BesparelseBraendstofITon;
     }
 
     /**
@@ -1153,6 +1205,25 @@ class VirksomhedRapport
     public function getBesparelseEl()
     {
         return $this->besparelseEl;
+    }
+
+    /**
+     * Get besparelseBraendstof
+     *
+     * @return float
+     */
+    public function getBesparelseBraendstof() {
+      return $this->besparelseBraendstof;
+    }
+
+    /**
+     * Set besparelseBraendstof
+
+     * @param float $co2BesparelseVarme
+     */
+    public function setBesparelseBraendstof($besparelseBraendstof)
+    {
+      $this->besparelseBraendstof = $besparelseBraendstof;
     }
 
     /**
