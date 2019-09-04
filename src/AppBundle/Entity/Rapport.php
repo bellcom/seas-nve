@@ -149,7 +149,7 @@ class Rapport {
    *
    * @Calculated
    * @ORM\Column(name="besparelseCO2", type="float", nullable=true)
-   * @Formula("$this->co2BesparelseEl + $this->co2BesparelseVarme")
+   * @Formula("$this->co2BesparelseEl + $this->co2BesparelseVarme + $this->co2BesparelseBraendstof")
    */
   protected $besparelseCO2;
 
@@ -173,9 +173,9 @@ class Rapport {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="energiBesparelse", type="float", nullable=true)
+   * @ORM\Column(name="besparelseBraendstof", type="float", nullable=true)
    */
-  protected $energiBesparelse;
+  protected $besparelseBraendstof;
 
   /**
    * @var float
@@ -256,6 +256,14 @@ class Rapport {
    * @ORM\Column(name="co2BesparelseBraendstof", type="float", nullable=true)
    */
   protected $co2BesparelseBraendstof;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="co2BesparelseBraendstofITon", type="float", nullable=true)
+   */
+  protected $co2BesparelseBraendstofITon;
 
   /**
    * @var float
@@ -557,6 +565,20 @@ class Rapport {
    */
   public function setCo2BesparelseBraendstof($co2BesparelseBraendstof) {
     $this->co2BesparelseBraendstof = $co2BesparelseBraendstof;
+  }
+
+  /**
+   * @return float
+   */
+  public function getCo2BesparelseBraendstofITon() {
+    return $this->co2BesparelseBraendstofITon;
+  }
+
+  /**
+   * @param float $co2BesparelseBraendstofITon
+   */
+  public function setCo2BesparelseBraendstofITon($co2BesparelseBraendstofITon) {
+    $this->co2BesparelseBraendstofITon = $co2BesparelseBraendstofITon;
   }
 
   /**
@@ -1072,12 +1094,12 @@ class Rapport {
   }
 
   /**
-   * Get energiBesparelse
+   * Get besparelseBraendstof
    *
    * @return float
    */
-  public function getEnergiBesparelse() {
-    return $this->energiBesparelse;
+  public function getBesparelseBraendstof() {
+    return $this->besparelseBraendstof;
   }
 
   /**
@@ -1928,7 +1950,7 @@ class Rapport {
     $this->BaselineCO2Samlet = $this->calculateBaselineCO2Samlet();
 
     $this->besparelseEl = $this->calculateBesparelseEl();
-    $this->energiBesparelse = $this->calculateEnergiBesparelse();
+    $this->besparelseBraendstof = $this->calculateBesparelseBraendstof();
     $this->fravalgtBesparelseEl = $this->calculateFravalgtBesparelseEl();
     $this->besparelseVarmeGUF = $this->calculateBesparelseVarmeGUF();
     $this->fravalgtBesparelseVarmeGUF = $this->calculateFravalgtBesparelseVarmeGUF();
@@ -1938,6 +1960,7 @@ class Rapport {
     $this->co2BesparelseEl = $this->calculateCo2BesparelseEl();
     $this->co2BesparelseVarme = $this->calculateCo2BesparelseVarme();
     $this->co2BesparelseBraendstof = $this->calculateCo2BesparelseBraendstof();
+    $this->co2BesparelseBraendstofITon = $this->calculateCo2BesparelseBraendstofITon();
     $this->besparelseCO2 = $this->calculateByFormula('besparelseCO2');
     $this->fravalgtBesparelseCO2 = $this->calculateFravalgtBesparelseCO2();
 
@@ -2152,21 +2175,21 @@ class Rapport {
   }
 
   /**
-   * Calculates expression for energiBesparelse value
+   * Calculates expression for besparelseBraendstof value
    */
-  protected function calculateEnergiBesparelseExp() {
-    return $this->calculateEnergiBesparelse(TRUE);
+  protected function calculateBesparelseBraendstofExp() {
+    return $this->calculateBesparelseBraendstof(TRUE);
   }
 
   /**
-   * @Formula("$this->calculateEnergiBesparelseExp()")
+   * @Formula("$this->calculateBesparelseBraendstofExp()")
    */
-  private function calculateEnergiBesparelse($expression = FALSE) {
+  private function calculateBesparelseBraendstof($expression = FALSE) {
     $values = array();
 
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      if (method_exists($tiltag, 'getEnergiBesparelse')) {
-        $values[] = $tiltag->getEnergiBesparelse();
+      if (method_exists($tiltag, 'getBesparelseBraendstof')) {
+        $values[] = $tiltag->getBesparelseBraendstof();
       }
     }
     return $expression ? $this->sumExpr($values) : array_sum($values);
@@ -2305,6 +2328,36 @@ class Rapport {
     }
 
     return Calculation::divide(array_sum($amount), count($amount));
+  }
+
+  /**
+   * Calculates expression for Co2BesparelseBraendstofITon value
+   */
+  protected function calculateCo2BesparelseBraendstofITonExp() {
+    return $this->calculateCo2BesparelseBraendstofITon(TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateCo2BesparelseBraendstofITonExp()")
+   */
+  private function calculateCo2BesparelseBraendstofITon($expression = FALSE) {
+    $amount = array();
+
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+
+      if (method_exists($tiltag, 'getBesparelseCo2BraendstofITon')) {
+
+        if ($value = $tiltag->getBesparelseCo2BraendstofITon()) {
+          $amount[] = (float) $value;
+        }
+      }
+    }
+
+    if ($expression) {
+      return $this->sumExpr($amount);
+    }
+
+    return array_sum($amount);
   }
 
   private function calculateFravalgtBesparelseEl() {

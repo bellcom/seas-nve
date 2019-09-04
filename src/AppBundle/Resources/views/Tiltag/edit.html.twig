@@ -87,8 +87,8 @@
           {% if edit_form.besparelseEl is defined %}
             {{ form_row(edit_form.besparelseEl) }}
           {% endif %}
-          {% if edit_form.energiBesparelse is defined %}
-            {{ form_row(edit_form.energiBesparelse) }}
+          {% if edit_form.besparelseBraendstof is defined %}
+            {{ form_row(edit_form.besparelseBraendstof) }}
           {% endif %}
           {% if edit_form.besparelseInvestering is defined %}
             {{ form_row(edit_form.besparelseInvestering) }}
@@ -98,6 +98,9 @@
           {% endif %}
           {% if edit_form.besparelseCo2Braendstof is defined %}
             {{ form_row(edit_form.besparelseCo2Braendstof) }}
+          {% endif %}
+          {% if edit_form.besparelseCo2BraendstofITon is defined %}
+            {{ form_row(edit_form.besparelseCo2BraendstofITon) }}
           {% endif %}
         </div>
         <div class="col-xs-12 col-md-6">
