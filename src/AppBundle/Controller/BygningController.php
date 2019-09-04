@@ -9,7 +9,9 @@ namespace AppBundle\Controller;
 use AppBundle\DataExport\ExcelExport;
 use AppBundle\Entity\Baseline;
 use AppBundle\Entity\ContactPerson;
+use AppBundle\Form\VirksomhedType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,8 +71,20 @@ class BygningController extends BaseController implements InitControllerInterfac
     $search['status'] = $bygning->getStatus();
 
     $user = $this->get('security.context')->getToken()->getUser();
-
+    /** @var Query $query */
     $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
+
+    if ($request->query->has('json')) {
+      $result = array();
+      foreach ($query->getResult() as $bygning) {
+        $result[$bygning->getId()] = VirksomhedType::getEanNumberReferenceLabel($bygning);
+      }
+  
+      $response = new Response();
+      $response->setContent(json_encode($result));
+      $response->headers->set('Content-Type', 'application/json');
+      return $response;
+    }
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
@@ -168,6 +182,40 @@ class BygningController extends BaseController implements InitControllerInterfac
       'entity' => $entity,
       'form' => $form->createView(),
     );
+  }
+
+  /**
+   * Gets Unique eanNumm json list.
+   *
+   * @Route("/eannumm-list", name="bygning_eannumm_list")
+   * @Method("GET")
+   * @Security("has_role('ROLE_BYGNING_VIEW')")
+   */
+  public function eanNumListAction() {
+    /** @var Query $query */
+    $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
+    $result = $repository->getEanNumberReferenceList();
+    $response = new Response();
+    $response->setContent(json_encode($result));
+    $response->headers->set('Content-Type', 'application/json');
+    return $response;
+  }
+
+  /**
+   * Gets Unique pNumm json list.
+   *
+   * @Route("/pnumm-list", name="bygning_pnumm_list")
+   * @Method("GET")
+   * @Security("has_role('ROLE_BYGNING_VIEW')")
+   */
+  public function pNumListAction() {
+    /** @var Query $query */
+    $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
+    $result = $repository->getPNumberReferenceList();
+    $response = new Response();
+    $response->setContent(json_encode($result));
+    $response->headers->set('Content-Type', 'application/json');
+    return $response;
   }
 
   /**

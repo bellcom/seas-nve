@@ -4,8 +4,13 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Virksomhed;
+use AppBundle\Entity\VirksomhedRepository;
 use AppBundle\Form\Type\ContactPersonEmbedType;
+use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
+use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -22,20 +27,9 @@ class VirksomhedType extends AbstractType
         $pNumbers = array();
         $em = $options['entityManager'];
         if (!empty($em)) {
-            $virksomheder = $em->getRepository('AppBundle:Virksomhed')->findAll();
-            if ($options['data'] instanceof Virksomhed) {
-                foreach ($virksomheder as $key => $virksomhed) {
-                    if ($virksomhed->getId() == $options['data']->getId()) {
-                        unset($virksomheder[$key]);
-                    }
-                }
-            }
-            foreach ($em->getRepository('AppBundle:Bygning')->getAllUniqueValues('eanNumber') as $bygning) {
-                $eanNumbers[$bygning->getEanNumber() . ' (' . $bygning . ')'] = $bygning->getEanNumber();
-            }
-            foreach ($em->getRepository('AppBundle:Bygning')->getAllUniqueValues('pNumber') as $bygning) {
-                $pNumbers[$bygning->getPNumber() . ' (' . $bygning . ')'] = $bygning->getPNumber();
-            }
+            $virksomheder = $em->getRepository('AppBundle:Virksomhed')->getDatterSelskabReferenceList($options['data']);
+            $eanNumbers = $em->getRepository('AppBundle:Bygning')->getEanNumberReferenceList();
+            $pNumbers = $em->getRepository('AppBundle:Bygning')->getPNumberReferenceList();
         }
         $builder
             ->add('name')
@@ -45,7 +39,6 @@ class VirksomhedType extends AbstractType
                 'options'      => array(
                     'placeholder' => 'appbundle.virksomhed.eanNumbers.placeholder',
                     'choices' => $eanNumbers,
-                    'choices_as_values' => TRUE,
                     'label' => FALSE,
                 ),
                 'allow_add' => TRUE,
@@ -58,7 +51,6 @@ class VirksomhedType extends AbstractType
                 'options'      => array(
                     'placeholder' => 'appbundle.virksomhed.pNumbers.placeholder',
                     'choices' => $pNumbers,
-                    'choices_as_values' => TRUE,
                     'label' => FALSE,
                 ),
                 'allow_add' => TRUE,
@@ -78,7 +70,10 @@ class VirksomhedType extends AbstractType
                     'choices' => $virksomheder,
                     'choice_label' => function($virksomhed, $key, $index) {
                         /** @var Virksomhed $virksomhed */
-                        return $virksomhed->getCvrNumber() . ' (' . $virksomhed . ')';
+                        return $virksomhed->getCvrReferenceLabel();
+                    },
+                    'choice_value' => function (Virksomhed $entity = null) {
+                      return $entity ? $entity->getId() : '';
                     },
                     'choices_as_values' => TRUE,
                     'label' => FALSE

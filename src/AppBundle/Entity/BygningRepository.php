@@ -341,4 +341,25 @@ class BygningRepository extends BaseRepository {
 
     return null;
   }
+
+  public function getEanNumberReferenceList()
+  {
+    $result = array();
+    /** @var Bygning $bygning */
+    foreach ($this->getAllUniqueValues('eanNumber') as $bygning) {
+      $result[$bygning->getEanNumber()] = $bygning->getEanNumber() . ' (' . $bygning . ')';
+    }
+    return $result;
+  }
+
+  public function getPNumberReferenceList()
+  {
+    $result = array();
+    /** @var Bygning $bygning */
+    foreach ($this->getAllUniqueValues('pNumber') as $bygning) {
+      $result[$bygning->getPNumber()] = $bygning->getPNumber() . ' (' . $bygning . ')';
+    }
+    return $result;
+  }
+
 }

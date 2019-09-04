@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class VirksomhedRepository extends EntityRepository
 {
+  public function getDatterSelskabReferenceList($currentVirksomhed)
+  {
+    $virksomheder = $this->findAll();
+    /** @var Virksomhed $virksomheder */
+    foreach ($virksomheder as $key => $virksomhed) {
+      if ($currentVirksomhed instanceof Virksomhed) {
+        if ($virksomhed->getId() == $currentVirksomhed->getId()) {
+          unset($virksomheder[$key]);
+        }
+      }
+    }
+    return $virksomheder;
+  }
+  
 }

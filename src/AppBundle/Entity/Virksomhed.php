@@ -297,6 +297,16 @@ class Virksomhed
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getCvrReferenceLabel()
+    {
+        return $this->getCvrNumber() . ' (' . $this->getName() . ')';
+    }
+
+    /**
      * Set cvrNumber
      *
      * @param string $cvrNumber
@@ -1153,15 +1163,6 @@ class Virksomhed
      * Sets default values for entity if they are empty.
      */
     public function setDefaultValues() {
-        if (empty($this->getEanNumbers())) {
-            $this->setEanNumbers(array(0 => ''));
-        }
-        if (empty($this->getPNumbers())) {
-            $this->setPNumbers(array(0 => ''));
-        }
-        if (empty($this->getDatterSelskaber()->first())) {
-            $this->setDatterSelskaber(new ArrayCollection(array(new Virksomhed())));
-        }
     }
 
     /**

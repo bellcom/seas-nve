@@ -9,6 +9,7 @@ use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\VirksomhedCreateRapportType;
 use AppBundle\Form\Type\VirksomhedFilterType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\VirksomhedType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -70,6 +72,20 @@ class VirksomhedController extends BaseController
         // build the query from the given form object
         $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
 
+        /** @var Query $query */
+        $query = $filterBuilder->getQuery();
+
+        if ($request->query->has('json')) {
+            $result = array();
+            foreach ($query->getResult() as $virksomhed) {
+                $result[$virksomhed->getId()] = VirksomhedType::getDatterSelskabReferenceLabel($virksomhed);
+            }
+
+            $response = new Response();
+            $response->setContent(json_encode($result));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
         $pagination = $this->get('knp_paginator')->paginate(
             $filterBuilder->getQuery(),
             $request->query->get('page', 1),
@@ -215,6 +231,31 @@ class VirksomhedController extends BaseController
             'entity' => $entity,
             'form'   => $form->createView(),
         );
+    }
+
+    /**
+     * Gets Virksomheds json list for datterselskab.
+     *
+     * @Route("/datterselskab-list", name="virksomhed_datterselskab_list")
+     * @Method("GET")
+     * @Security("has_role('ROLE_VIRKSOMHED_VIEW')")
+     */
+    public function datterselskablistAction() {
+        $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Virksomhed');
+        $current_virksomhed = NULL;
+        if ($this->request->query->get('current_id')) {
+            $current_virksomhed = $repository->find($this->request->query->get('current_id'));
+        }
+        $virksomheder = $repository->getDatterSelskabReferenceList($current_virksomhed);
+        /** @var Virksomhed $virksomhed */
+        foreach ($virksomheder as $virksomhed) {
+            $result[$virksomhed->getId()] = $virksomhed->getCvrReferenceLabel();
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode($result));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
@@ -367,6 +408,7 @@ class VirksomhedController extends BaseController
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Virksomhed entity.
      *
