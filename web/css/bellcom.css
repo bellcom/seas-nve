@@ -1,6 +1,8 @@
 .calculation-expression-toggle {
   position: fixed;
 
+  z-index: 800;
+
   right: 15px;
   bottom: 15px;
 
