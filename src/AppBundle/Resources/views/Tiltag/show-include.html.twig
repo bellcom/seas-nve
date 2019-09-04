@@ -65,11 +65,11 @@
             <td>{{ 'appbundle.tiltag.yderligereBesparelse.unit' | trans }}</td>
           </tr>
         {% endif %}
-        {% if entity.energiBesparelse is defined %}
+        {% if entity.besparelseBraendstof is defined %}
           <tr>
-            <td>{{ 'appbundle.tiltag.energiBesparelse' | trans }}</td>
-            <td class="text-right">{{ entity.energiBesparelse | format_amount }}</td>
-            <td>{{ 'appbundle.tiltag.energiBesparelse.unit' | trans }}</td>
+            <td>{{ 'appbundle.tiltag.besparelseBraendstof' | trans }}</td>
+            <td class="text-right">{{ entity.besparelseBraendstof | format_amount }}</td>
+            <td>{{ 'appbundle.tiltag.besparelseBraendstof.unit' | trans }}</td>
           </tr>
         {% endif %}
           <tr>

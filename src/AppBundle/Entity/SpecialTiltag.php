@@ -28,7 +28,7 @@ class SpecialTiltag extends Tiltag {
   }
 
   /**
-    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + ($this->energiBesparelse * $this->tilskudsstoerrelse)")
+    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + ($this->besparelseBraendstof * $this->tilskudsstoerrelse)")
     */
   protected $samletEnergibesparelse;
 
@@ -38,7 +38,7 @@ class SpecialTiltag extends Tiltag {
   protected $samletCo2besparelse;
 
   /**
-   * @Formula("$this->energiBesparelse * $this->tilskudsstoerrelse")
+   * @Formula("$this->besparelseBraendstof * $this->tilskudsstoerrelse")
    */
   protected $samletTilskud;
 
@@ -80,10 +80,10 @@ class SpecialTiltag extends Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="energiBesparelse", type="decimal", scale=4, precision=14, nullable=true)
-   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + ($this->energiBesparelse * $this->tilskudsstoerrelse)")
+   * @ORM\Column(name="besparelseBraendstof", type="decimal", scale=4, precision=14, nullable=true)
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + ($this->besparelseBraendstof * $this->tilskudsstoerrelse)")
    */
-  protected $energiBesparelse;
+  protected $besparelseBraendstof;
 
   /**
    * @var float
@@ -109,15 +109,15 @@ class SpecialTiltag extends Tiltag {
   /**
    * @return float
    */
-  public function getEnergiBesparelse() {
-    return $this->energiBesparelse;
+  public function getBesparelseBraendstof() {
+    return $this->besparelseBraendstof;
   }
 
   /**
-   * @param float $energiBesparelse
+   * @param float $besparelseBraendstof
    */
-  public function setEnergiBesparelse($energiBesparelse) {
-    $this->energiBesparelse = $energiBesparelse;
+  public function setBesparelseBraendstof($besparelseBraendstof) {
+    $this->besparelseBraendstof = $besparelseBraendstof;
   }
 
   public function setBesparelseGUF($besparelseGUF) {

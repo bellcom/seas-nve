@@ -173,9 +173,9 @@ class Rapport {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="energiBesparelse", type="float", nullable=true)
+   * @ORM\Column(name="besparelseBraendstof", type="float", nullable=true)
    */
-  protected $energiBesparelse;
+  protected $besparelseBraendstof;
 
   /**
    * @var float
@@ -1094,12 +1094,12 @@ class Rapport {
   }
 
   /**
-   * Get energiBesparelse
+   * Get besparelseBraendstof
    *
    * @return float
    */
-  public function getEnergiBesparelse() {
-    return $this->energiBesparelse;
+  public function getBesparelseBraendstof() {
+    return $this->besparelseBraendstof;
   }
 
   /**
@@ -1950,7 +1950,7 @@ class Rapport {
     $this->BaselineCO2Samlet = $this->calculateBaselineCO2Samlet();
 
     $this->besparelseEl = $this->calculateBesparelseEl();
-    $this->energiBesparelse = $this->calculateEnergiBesparelse();
+    $this->besparelseBraendstof = $this->calculateBesparelseBraendstof();
     $this->fravalgtBesparelseEl = $this->calculateFravalgtBesparelseEl();
     $this->besparelseVarmeGUF = $this->calculateBesparelseVarmeGUF();
     $this->fravalgtBesparelseVarmeGUF = $this->calculateFravalgtBesparelseVarmeGUF();
@@ -2175,21 +2175,21 @@ class Rapport {
   }
 
   /**
-   * Calculates expression for energiBesparelse value
+   * Calculates expression for besparelseBraendstof value
    */
-  protected function calculateEnergiBesparelseExp() {
-    return $this->calculateEnergiBesparelse(TRUE);
+  protected function calculateBesparelseBraendstofExp() {
+    return $this->calculateBesparelseBraendstof(TRUE);
   }
 
   /**
-   * @Formula("$this->calculateEnergiBesparelseExp()")
+   * @Formula("$this->calculateBesparelseBraendstofExp()")
    */
-  private function calculateEnergiBesparelse($expression = FALSE) {
+  private function calculateBesparelseBraendstof($expression = FALSE) {
     $values = array();
 
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      if (method_exists($tiltag, 'getEnergiBesparelse')) {
-        $values[] = $tiltag->getEnergiBesparelse();
+      if (method_exists($tiltag, 'getBesparelseBraendstof')) {
+        $values[] = $tiltag->getBesparelseBraendstof();
       }
     }
     return $expression ? $this->sumExpr($values) : array_sum($values);

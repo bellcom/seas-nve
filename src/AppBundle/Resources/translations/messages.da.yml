@@ -1472,8 +1472,8 @@ appbundle:
     besparelseVarmeGAF.unit: kwh/år
     besparelseVarmeGUF: Varme GUF
     besparelseVarmeGUF.unit: kwh/år
-    energiBesparelse: Brændstof
-    energiBesparelse.unit: kwh/år
+    besparelseBraendstof: Brændstof
+    besparelseBraendstof.unit: kwh/år
     bilag:
       updated_by: Redigeret af
       updated_at: Redigeringstidspunkt
@@ -1808,8 +1808,8 @@ appbundle:
     varmebesparelseGAF.unit: kWh/år
     varmebesparelseGUF: ﻿Varmebesparelse, GUF
     varmebesparelseGUF.unit: kWh/år
-    energiBesparelse: Besparelse brændstof
-    energiBesparelse.unit: kWh/år
+    besparelseBraendstof: Besparelse brændstof
+    besparelseBraendstof.unit: kWh/år
     besparelseCo2Braendstof: Besparelse CO2 brændstof
     besparelseCo2Braendstof.unit: %
     besparelseCo2BraendstofITon: Besparelse CO2 brændstof
