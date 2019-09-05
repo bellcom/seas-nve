@@ -275,6 +275,28 @@ class VirksomhedController extends BaseController
     }
 
     /**
+     * Finds and displays a Virksomhed entity.
+     *
+     * @Route("/{id}/baselines", name="virksomhed_bygning_baseline_list")
+     * @Method("GET")
+     * @Template("AppBundle:Baseline:index.html.twig")
+     * @Security("is_granted('VIRKSOMHED_VIEW', virksomhed)")
+     */
+    public function bygningBaselineListAction(Virksomhed $virksomhed)
+    {
+        $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+        $bygninger = $virksomhed->getAllBygninger();
+        $baselines = array();
+        /** @var Bygning $bygning */
+        foreach ($bygninger as $bygning) {
+            $baselines[] = $bygning->getBaseline();
+        }
+        return array(
+            'entities'      => $baselines,
+        );
+    }
+
+    /**
      * Displays a form to edit an existing Virksomhed entity.
      *
      * @Route("/{id}/edit", name="virksomhed_edit")
