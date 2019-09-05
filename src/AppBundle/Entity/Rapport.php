@@ -1560,7 +1560,7 @@ class Rapport {
    */
   public function getElfaktor() {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl(TRUE);
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this->configuration, $this->getDatering()->format('Y'));
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this, $this->getDatering()->format('Y'));
   }
 
   /**
@@ -1569,7 +1569,7 @@ class Rapport {
    */
   public function getVarmefaktor() {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme(TRUE);
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this->configuration, $this->getDatering()->format('Y'));
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this, $this->getDatering()->format('Y'));
   }
 
   /**
@@ -1578,7 +1578,7 @@ class Rapport {
    */
   public function getVandfaktor() {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkVand(TRUE);
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this->configuration, $this->getDatering()->format('Y'));
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getFaktor($this, $this->getDatering()->format('Y'));
   }
 
   /**
