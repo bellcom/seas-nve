@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Validator\Constraints\False;
+use AppBundle\DBAL\Types\SlutanvendelseType;
 
 /**
  * Class TiltagType
@@ -95,24 +96,37 @@ class TiltagType extends AbstractType {
       ->add('modernisering')
       ->add('reelAnlaegsinvestering');
 
+    $builder->add(
+      'tilskudsstoerrelse',
+      NULL,
+      array(
+        'required' => FALSE,
+        'attr' => array(
+          'help_text' => 'Hvis ingen angives, arves værdien fra virksomheden.'
+        ),
+      )
+    );
+
     $builder->add('reelAnlaegsinvestering')
       ->add('forsyningVarme', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
+        'empty_value' => '--',
         'required' => FALSE,
       ))
       ->add('forsyningEl', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
         'choices' => $this->tiltag->getRapport()->getEnergiforsyninger(),
+        'empty_value' => '--',
         'required' => FALSE,
       ))
-      ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 850), 'required' => FALSE))
-      ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 1000), 'required' => FALSE))
-      ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 1100), 'required' => FALSE))
-      ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
-      ->add('placering', 'textarea', array('attr' => array('maxlength' => 120), 'required' => FALSE))
-      ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
-      ->add('indeklima', 'textarea', array('attr' => array('maxlength' => 360), 'required' => false));
+      ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('placering', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('indeklima', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => false));
 
     $builder->add('risikovurderingTeknisk', new RisikovurderingType(), array());
     $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
@@ -120,6 +134,12 @@ class TiltagType extends AbstractType {
     $builder->add('risikovurderingDiverse', new RisikovurderingType(), array());
     $builder->add('risikovurderingAendringIBesparelseFaktor', 'percent', array('required' => FALSE));
     $builder->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor', 'percent', array('required' => FALSE));
+    $builder->add('slutanvendelse', 'choice', array(
+        'choices' => SlutanvendelseType::getChoices(),
+//        'choices_as_values' => TRUE,
+        'empty_value' => '--',
+        'required' => TRUE,
+      ));
 
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder
@@ -152,6 +172,9 @@ class TiltagType extends AbstractType {
         ->add('besparelseGUF')
         ->add('besparelseGAF')
         ->add('besparelseEl')
+        ->add('besparelseCo2Braendstof', 'percent')
+        ->add('besparelseCo2BraendstofITon')
+        ->add('besparelseBraendstof')
         ->add('yderligereBesparelse')
         ->add('levetid');
 

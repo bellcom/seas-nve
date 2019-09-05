@@ -26,6 +26,18 @@ services:
         tags:
             - {name: "twig.extension"}
 
+    routing_token_access_extension:
+        class: AppBundle\Twig\Extension\RoutingTokenAccessExtension
+        arguments: [ @router, @request_stack ]
+        tags:
+            - {name: "twig.extension"}
+
+    appbundle.user_email_validator:
+        class: AppBundle\Validator\Constraints\UserEmailValidator
+        arguments: ["@doctrine.orm.entity_manager", @translator]
+        tags:
+            - { name: validator.constraint_validator }
+
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
         tags:
@@ -52,7 +64,7 @@ services:
     security.access.rapport_voter:
         class:      AppBundle\Security\Authorization\Voter\RapportVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy, @request_stack ]
         tags:
             - { name: security.voter }
 
@@ -87,16 +99,25 @@ services:
     security.access.virksomhed_voter:
         class:      AppBundle\Security\Authorization\Voter\VirksomhedVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy, @request_stack ]
         tags:
             - { name: security.voter }
 
     security.access.virksomhed_rapport_voter:
         class:      AppBundle\Security\Authorization\Voter\VirksomhedRapportVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy, @request_stack ]
         tags:
             - { name: security.voter }
+
+    token_access_user_provider:
+        class: AppBundle\Security\TokenAccessUserProvider
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    token_access_authenticator:
+        class:     AppBundle\Security\TokenAccessAuthenticator
+        arguments: ["@security.http_utils"]
+        public:    false
 
     symfony.controller.subscriber.init:
         class: Yavin\Symfony\Controller\InitControllerSubscriber

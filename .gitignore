@@ -16,4 +16,4 @@
 /composer.phar
 /src/AppBundle/DataFixtures/Data/*
 .idea/
-
+.DS_Store

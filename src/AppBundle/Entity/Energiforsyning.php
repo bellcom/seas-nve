@@ -141,14 +141,14 @@ class Energiforsyning {
 
     switch ($this->getNavn()) {
       case NavnType::FJERNVARME:
-        return $this->getRapport()->getBygning()->getForsyningsvaerkVarme();
+        return $this->getRapport()->getBygning()->getForsyningsvaerkVarme(TRUE);
       case NavnType::OLIEFYR:
         return $this->getRapport()->getOlie();
       case NavnType::TRAEPILLEFYR:
         return $this->getRapport()->getTraepillefyr();
       case NavnType::HOVEDFORSYNING_EL:
       case NavnType::VARMEPUMPE:
-        return $this->getRapport()->getBygning()->getForsyningsvaerkEl();
+        return $this->getRapport()->getBygning()->getForsyningsvaerkEl(TRUE);
     }
 
     return NULL;

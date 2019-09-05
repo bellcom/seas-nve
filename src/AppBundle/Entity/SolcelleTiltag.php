@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
@@ -21,6 +22,16 @@ use Doctrine\ORM\Mapping\OrderBy;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\SolcelleTiltagRepository")
  */
 class SolcelleTiltag extends Tiltag {
+
+  /**
+   * @Formula("$this->solcelleproduktion * $this->getRapportElKrKWh() + $this->getSalgTilNettetAar1() * $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()")
+   */
+  protected $samletEnergibesparelse;
+
+  /**
+   * @Formula("($this->solcelleproduktion + $this->getSalgTilNettetAar1()) / 1000 * $this->calculateelKgCo2MWh() / 1000")
+   */
+  protected $samletCo2besparelse;
 
   /**
    * Constructor
@@ -40,9 +51,24 @@ class SolcelleTiltag extends Tiltag {
   protected $solcelleproduktion;
 
   public function getSalgTilNettetAar1() {
-    return $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }) / $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+    return $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }) / $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
   }
 
+  public function getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {
+    return $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+  }
+
+  public function calculateSalgTilNettetAar1SumExpr() {
+    return $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }, TRUE);
+  }
+  
+  /**
+   * @Formula("$this->calculateSalgTilNettetAar1SumExpr() / $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()")
+   */
+  public function calculateSalgTilNettetAar1() {
+    return $this->getSalgTilNettetAar1();
+  }
+  
   public function getSolcelleproduktion() {
     return $this->solcelleproduktion;
   }
@@ -52,26 +78,43 @@ class SolcelleTiltag extends Tiltag {
     parent::calculate();
   }
 
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateSolcelleproduktionExpr()")
+   */
   protected function calculateSolcelleproduktion($value = null) {
     return $this->sum('egetForbrugAfProduktionenKWh');
   }
 
+  protected function calculateSolcelleproduktionExpr($value = null) {
+    return $this->sum('egetForbrugAfProduktionenKWh', TRUE);
+  }
+
+  /**
+   * @inheritDoc
+   */
   protected function calculateElbesparelse($value = null) {
     return 0;
   }
 
-  protected function calculateSamletEnergibesparelse() {
-    return $this->solcelleproduktion * $this->getRapport()->getElKrKWh()
-      + $this->getSalgTilNettetAar1() * $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+  protected function calculateelKgCo2MWh() {
+    $forsyningsvaerk = $this->getRapport()->getBygning()->getForsyningsvaerkEl(TRUE);
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
   }
 
-  protected function calculateSamletCo2besparelse() {
-    $forsyningsvaerk = $this->getRapport()->getBygning()->getForsyningsvaerkEl();
-    $elKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
-
-    return ($this->solcelleproduktion + $this->getSalgTilNettetAar1()) / 1000 * $elKgCo2MWh / 1000;
+  /**
+   * Calculates value that is using in Anlaegsinvestering calculation.
+   *
+   * @return float
+   */
+  protected function calculateAnlaegsinvesteringValueExpr() {
+    return $this->sum('investeringKr') . ' + ' . $this->sum('screeningOgProjekteringKr');
   }
-
+  
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateAnlaegsinvesteringValueExpr() * $this->calculateAnlaegsinvesteringFaktor()")
+   */
   protected function calculateAnlaegsinvestering($value = NULL) {
     $value = ($this->sum('investeringKr') + $this->sum('screeningOgProjekteringKr'));
 
@@ -82,9 +125,16 @@ class SolcelleTiltag extends Tiltag {
     return $this->sum('simpelTilbagebetalingstidAar');
   }
 
-  protected function calculateNutidsvaerdiSetOver15AarKr() {
+  /**
+   * Calculates expression for nutidsvaerdiSetOver15AarKr value
+   */
+  protected function calculateNutidsvaerdiSetOver15AarKrExpr() {
+    return $this->sumExpr($this->calculateNutidsvaerdiSetOver15AarKr(TRUE));
+  }
+
+  protected function calculateNutidsvaerdiSetOver15AarKr($array = FALSE) {
     if ($this->getTilvalgteDetails()->count() == 1) {
-      return Calculation::npv($this->getRapport()->getKalkulationsrente(), $this->getTilvalgteDetails()->first()->getCashFlow()['Cash flow']);
+      return Calculation::npv($this->getRapport()->getKalkulationsrente(), $this->getTilvalgteDetails()->first()->getCashFlow()['Cash flow'], $array);
     }
     return 0;
   }

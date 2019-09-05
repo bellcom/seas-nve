@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotations\Formula;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 
@@ -23,8 +24,23 @@ class SpecialTiltag extends Tiltag {
     parent::__construct();
 
     // @Todo: Find af way to use the translations system or move this to some place else....
-    $this->setTitle('Specialtiltag');
+    $this->setTitle('Specialforslag');
   }
+
+  /**
+    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + ($this->besparelseBraendstof * $this->tilskudsstoerrelse)")
+    */
+  protected $samletEnergibesparelse;
+
+  /**
+   * @Formula("((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKrKWh()) / 1000")
+   */
+  protected $samletCo2besparelse;
+
+  /**
+   * @Formula("$this->besparelseBraendstof * $this->tilskudsstoerrelse")
+   */
+  protected $samletTilskud;
 
   /**
    * @var float
@@ -32,6 +48,20 @@ class SpecialTiltag extends Tiltag {
    * @ORM\Column(name="besparelseGUF", type="decimal", scale=4, precision=14)
    */
   protected $besparelseGUF;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="besparelseCo2Braendstof", type="decimal", scale=4, precision=14, nullable=true)
+   */
+  protected $besparelseCo2Braendstof;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="besparelseCo2BraendstofITon", type="decimal", scale=4, precision=14, nullable=true)
+   */
+  protected $besparelseCo2BraendstofITon;
 
   /**
    * @var float
@@ -46,6 +76,14 @@ class SpecialTiltag extends Tiltag {
    * @ORM\Column(name="besparelseEl", type="decimal", scale=4, precision=14)
    */
   protected $besparelseEl;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="besparelseBraendstof", type="decimal", scale=4, precision=14, nullable=true)
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + ($this->besparelseBraendstof * $this->tilskudsstoerrelse)")
+   */
+  protected $besparelseBraendstof;
 
   /**
    * @var float
@@ -68,6 +106,20 @@ class SpecialTiltag extends Tiltag {
     $this->yderligereBesparelse = $yderligereBesparelse;
   }
 
+  /**
+   * @return float
+   */
+  public function getBesparelseBraendstof() {
+    return $this->besparelseBraendstof;
+  }
+
+  /**
+   * @param float $besparelseBraendstof
+   */
+  public function setBesparelseBraendstof($besparelseBraendstof) {
+    $this->besparelseBraendstof = $besparelseBraendstof;
+  }
+
   public function setBesparelseGUF($besparelseGUF) {
     $this->besparelseGUF = $besparelseGUF;
 
@@ -76,6 +128,26 @@ class SpecialTiltag extends Tiltag {
 
   public function getBesparelseGUF() {
     return $this->besparelseGUF;
+  }
+
+  public function setBesparelseCo2Braendstof($besparelseCo2Braendstof) {
+    $this->besparelseCo2Braendstof = $besparelseCo2Braendstof;
+
+    return $this;
+  }
+
+  public function getBesparelseCo2Braendstof() {
+    return $this->besparelseCo2Braendstof;
+  }
+
+  public function setBesparelseCo2BraendstofITon($besparelseCo2BraendstofITon) {
+    $this->besparelseCo2BraendstofITon = $besparelseCo2BraendstofITon;
+
+    return $this;
+  }
+
+  public function getBesparelseCo2BraendstofITon() {
+    return $this->besparelseCo2BraendstofITon;
   }
 
   public function setBesparelseGAF($besparelseGAF) {
@@ -135,37 +207,64 @@ class SpecialTiltag extends Tiltag {
     'yderligereBesparelse',
   ];
 
+  /**
+   * Calculates value that is using in varmebesparelseGUF calculation.
+   *
+   * @return float
+   */
+  protected function calculateVarmebesparelseGUFValue() {
+    return ($this->rapport->getStandardForsyning() ? $this->besparelseGUF : $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
+  }
+
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateVarmebesparelseGUFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateVarmebesparelseGUF($value = null) {
-    $value = ($this->rapport->getStandardForsyning() ? $this->besparelseGUF : $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
+    $value = $this->calculateVarmebesparelseGUFValue();
     return parent::calculateVarmebesparelseGUF($value);
   }
 
+  /**
+   * Calculates value that is using in varmebesparelseGAF calculation.
+   *
+   * @return float
+   */
+  protected function calculateVarmebesparelseGAFValue() {
+    return ($this->rapport->getStandardForsyning() ? $this->besparelseGAF : $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
+  }
+
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateVarmebesparelseGAF($value = null) {
-    $value = ($this->rapport->getStandardForsyning() ? $this->besparelseGAF : $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
+    $value = $this->calculateVarmebesparelseGAFValue();
     return parent::calculateVarmebesparelseGAF($value);
   }
 
-  protected function calculateElbesparelse($value = null) {
+  /**
+   * Calculates value that is using in elbesparelse calculation.
+   *
+   * @return float
+   */
+  protected function calculateElbesparelseValue() {
     if ($this->rapport->getStandardForsyning()) {
-      $value = $this->besparelseEl;
-    }
-    else {
-      $value = ($this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'EL')
-        + $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'EL')
-        + $this->besparelseEl);
+      return $this->besparelseEl;
     }
 
+    return ($this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'EL')
+      + $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'EL')
+      + $this->besparelseEl);
+  }
+
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateElbesparelseValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
+  protected function calculateElbesparelse($value = null) {
+    $value = $this->calculateElbesparelseValue();
     return parent::calculateElbesparelse($value);
-  }
-
-  protected function calculateSamletEnergibesparelse() {
-    return (($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris()
-      + $this->elbesparelse * $this->getRapport()->getElKrKWh() + $this->yderligereBesparelse);
-  }
-
-  protected function calculateSamletCo2besparelse() {
-    return ((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
-            + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
   }
 
   protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
@@ -176,8 +275,17 @@ class SpecialTiltag extends Tiltag {
     return parent::calculateSavingsForYear($year) + $this->getYderligereBesparelse();
   }
 
+  /**
+   * @inheritDoc
+   * @Formula("$this->getAnlaegsinvesteringExRisiko() * $this->calculateAnlaegsinvesteringFaktor()")
+   */
   protected function calculateAnlaegsinvestering($value = NULL) {
     return parent::calculateAnlaegsinvestering($this->getAnlaegsinvesteringExRisiko());
+  }
+
+  public function calculate() {
+    $this->samletTilskud = $this->calculateByFormula('samletTilskud');
+    parent::calculate();
   }
 
 }

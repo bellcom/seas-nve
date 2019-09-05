@@ -15,7 +15,9 @@
     <link href="{{ absolute_url(asset('css/lib/bootstrap-theme.min.css')) }}" type="text/css" rel="stylesheet" />
     <link href="{{ absolute_url(asset('css/lib/font-awesome.min.css')) }}" type="text/css" rel="stylesheet" />
     <link href="{{ absolute_url(asset('css/lib/sticky-footer-navbar.css')) }}" type="text/css" rel="stylesheet" />
+    <link href="{{ absolute_url(asset('css/lib/select2.min.css')) }}" type="text/css" rel="stylesheet" />
     <link href="{{ absolute_url(asset('css/aaplus-styles.css')) }}" type="text/css" rel="stylesheet" />
+    <link href="{{ absolute_url(asset('css/bellcom.css')) }}" type="text/css" rel="stylesheet" />
   {% endblock %}
 </head>
 
@@ -36,35 +38,45 @@
     <div id="navbar" class="collapse navbar-collapse">
       {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
       <ul class="nav navbar-nav">
+        {% if is_granted('ROLE_BYGNING_VIEW') or is_granted('ROLE_VIRKSOMHED_VIEW') %}
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('table') }}  {{ 'Stamdata' | trans }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/bygning">{{ 'bygninger.labels.plural' | trans }}</a></li>
+            {% if is_granted('ROLE_BYGNING_VIEW') %}
+              <li><a href="/bygning">{{ 'bygninger.labels.plural' | trans }}</a></li>
+            {% endif %}
             {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
               <li><a href="/virksomhed">{{ 'virksomhed.labels.plural' | trans }}</a></li>
             {% endif %}
           </ul>
         </li>
+        {% endif %}
+        {% if is_granted('ROLE_RAPPORT_VIEW') or is_granted('ROLE_VIRKSOMHED_RAPPORT_VIEW') %}
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('line-chart') }}  {{ 'rapporter.labels.plural' | trans }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            {% for route, name in {
-              'rapport': 'Bygninger',
-              'virksomed_rapport': 'Virksomheder',
-            } %}
-              <li><a href="{{ path(route) }}">{{ name | trans }}</a></li>
-            {% endfor %}
+            {% if is_granted('ROLE_RAPPORT_VIEW') %}
+              <li><a href="{{ path('rapport') }}">{{ 'bygninger.labels.plural' | trans }}</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_VIRKSOMHED_RAPPORT_VIEW') %}
+              <li><a href="{{ path('virksomed_rapport') }}">{{ 'virksomhed.labels.plural' | trans }}</a></li>
+            {% endif %}
           </ul>
         </li>
+        {% endif %}
+        {% if is_granted('ROLE_BYGNING_VIEW') or is_granted('ROLE_VIRKSOMHED_VIEW') %}
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('plus-circle') }}  {{ 'Opret' | trans }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            {% if is_granted('ROLE_BYGNING_VIEW') %}
             <li><a href="/bygning/new">{{ 'bygninger.labels.singular' | trans }}</a></li>
+            {% endif %}
             {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
               <li><a href="/virksomhed/new">{{ 'virksomhed.labels.singular' | trans }}</a></li>
             {% endif %}
           </ul>
         </li>
+        {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
           <li><a href="/udtraek">{{ icon('file-excel-o') }} {{ 'udtraek.labels.plural' | trans }}</a></li>
         {% endif %}
@@ -173,6 +185,9 @@
   </div>
 </footer>
 
+<button class="calculation-expression-toggle">
+  Vis/skjul formler
+</button>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -183,7 +198,9 @@
   <script src="{{ absolute_url(asset('js/lib/bc-bootstrap-collection.js')) }}"></script>
   <script src="{{ absolute_url(asset('js/lib/jquery.autogrowtextarea.min.js')) }}"></script>
   <script src="{{ absolute_url(asset('js/lib/jquery.floatThead.min.js')) }}"></script>
+  <script src="{{ absolute_url(asset('js/lib/select2.min.js')) }}"></script>
   <script src="{{ absolute_url(asset('js/aaplus.js')) }}"></script>
+  <script src="{{ absolute_url(asset('js/app.js')) }}"></script>
 
   <script>
     $(document).ready(function() {

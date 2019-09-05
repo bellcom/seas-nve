@@ -181,18 +181,25 @@ abstract class Calculation {
    * @param array $values
    *   The values. Indexes should be years (from 1).
    *
-   * @return float
+   * @return float|array
    *   The npv.
    */
-  public static function npv($rate, array $values) {
-    $npv = 0;
+  public static function npv($rate, array $values, $array = FALSE) {
+    $npv_result = array();
 
     // @see http://stackoverflow.com/questions/2027460/how-to-calculate-npv
     foreach ($values as $year => $value) {
-      $npv += $value / pow(1 + $rate, $year);
+      $npv_result[] = $value / pow(1 + $rate, $year);
+    }
+    
+    if ($array) {
+      foreach ($npv_result as &$value) {
+        $value = round($value, 2);
+      }
+      return $npv_result;
     }
 
-    return $npv;
+    return array_sum($npv_result);
   }
 
   public static function divide($numerator, $denominator) {

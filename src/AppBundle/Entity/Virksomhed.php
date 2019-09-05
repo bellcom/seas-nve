@@ -4,17 +4,20 @@ namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\VirksomhedTypeType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use AppBundle\Entity\VirksomhedRapport;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Virksomhed entity.
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\VirksomhedRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Virksomhed
 {
@@ -63,8 +66,13 @@ class Virksomhed
     private $crmNumber;
 
     /**
+     * Contact persons reference.
+     *
+     * NOTE!!! this reference is not handled by Doctrine ORM.
+     *
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="ContactPerson", mappedBy="virksomhed", cascade={"persist"})
+     *
+     * @Assert\NotBlank
      */
     private $contactPersons;
 
@@ -116,13 +124,6 @@ class Virksomhed
      * @ORM\Column(name="dsm_code", type="string", length=255, nullable=true)
      */
     private $dsmCode;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="energy_price", scale=4, nullable=true)
-     */
-    private $energyPrice;
 
     /**
      * @var float
@@ -206,20 +207,6 @@ class Virksomhed
     /**
      * @var string
      *
-     * @ORM\Column(name="erhvervs_areal", type="string", length=255, nullable=true)
-     */
-    private $erhvervsAreal;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="opvarmet_areal", type="string", length=255, nullable=true)
-     */
-    private $opvarmetAreal;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="aars_vaerk", type="string", length=255, nullable=true)
      */
     private $aarsVaerk;
@@ -234,16 +221,35 @@ class Virksomhed
     /**
      * @var string
      *
-     * @ORM\Column(name="er", type="string", length=255, nullable=true)
-     */
-    private $er;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="kam", type="string", length=255, nullable=true)
      */
     private $kam;
+
+    /**
+     * @var User $user
+     *
+     * @ORM\ManyToOne(targetEntity="User", cascade={"persist"})
+     * @JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     */
+    protected $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
+     * @ORM\JoinColumn(name="vand_forsyningsvaerk_id", referencedColumnName="id")
+     **/
+    protected $forsyningsvaerkVand;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
+     * @ORM\JoinColumn(name="varme_forsyningsvaerk_id", referencedColumnName="id")
+     **/
+    protected $forsyningsvaerkVarme;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Forsyningsvaerk")
+     * @ORM\JoinColumn(name="el_forsyningsvaerk_id", referencedColumnName="id")
+     **/
+    protected $forsyningsvaerkEl;
 
     /**
      * Virksomhed constructor.
@@ -253,6 +259,7 @@ class Virksomhed
         $this->contactPersons = new ArrayCollection();
         $this->datterSelskaber = new ArrayCollection();
         $this->bygninger = new ArrayCollection();
+        $this->user = new User();
     }
 
     /**
@@ -290,6 +297,16 @@ class Virksomhed
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getCvrReferenceLabel()
+    {
+        return $this->getCvrNumber() . ' (' . $this->getName() . ')';
+    }
+
+    /**
      * Set cvrNumber
      *
      * @param string $cvrNumber
@@ -320,7 +337,7 @@ class Virksomhed
      *
      * @return Virksomhed
      */
-    public function setEanNumbers(array$eanNumbers)
+    public function setEanNumbers(array $eanNumbers)
     {
         $this->eanNumbers = $eanNumbers;
 
@@ -416,7 +433,7 @@ class Virksomhed
      */
     public function addContactPerson(ContactPerson $contactPerson)
     {
-        $contactPerson->setVirksomhed($this);
+        $contactPerson->setReference($this);
         $this->contactPersons->add($contactPerson);
     }
 
@@ -429,7 +446,6 @@ class Virksomhed
     {
         $this->contactPersons->removeElement($contactPerson);
     }
-
 
     /**
      * Set customerNumber
@@ -594,30 +610,6 @@ class Virksomhed
      * @return string
      */
     public function getDsmCode()
-    {
-        return $this->dsmCode;
-    }
-
-    /**
-     * Set energyPrice
-     *
-     * @param float $energyPrice
-     *
-     * @return Virksomhed
-     */
-    public function setEnergyPrice($energyPrice)
-    {
-        $this->energyPrice = $energyPrice;
-
-        return $this;
-    }
-
-    /**
-     * Get energyPrice
-     *
-     * @return float
-     */
-    public function getEnergyPrice()
     {
         return $this->dsmCode;
     }
@@ -816,13 +808,14 @@ class Virksomhed
     /**
      * Adds datterSelskaber to collection.
      *
-     * @param Virksomhed $virksomhed
+     * @param Virksomhed|null $virksomhed
      */
-    public function addDatterSelskaber(Virksomhed $virksomhed)
+    public function addDatterSelskaber($virksomhed = NULL)
     {
-        $virksomhed->setParent($this);
-        $this->datterSelskaber->add($virksomhed);
-
+        if ($virksomhed instanceof Virksomhed) {
+            $virksomhed->setParent($this);
+            $this->datterSelskaber->add($virksomhed);
+        }
     }
 
     /**
@@ -978,54 +971,6 @@ class Virksomhed
     }
 
     /**
-     * Set erhvervsAreal
-     *
-     * @param string $erhvervsAreal
-     *
-     * @return Virksomhed
-     */
-    public function setErhvervsAreal($erhvervsAreal)
-    {
-        $this->erhvervsAreal = $erhvervsAreal;
-
-        return $this;
-    }
-
-    /**
-     * Get erhvervsAreal
-     *
-     * @return string
-     */
-    public function getErhvervsAreal()
-    {
-        return $this->erhvervsAreal;
-    }
-
-    /**
-     * Set opvarmetAreal
-     *
-     * @param string $opvarmetAreal
-     *
-     * @return Virksomhed
-     */
-    public function setOpvarmetAreal($opvarmetAreal)
-    {
-        $this->opvarmetAreal = $opvarmetAreal;
-
-        return $this;
-    }
-
-    /**
-     * Get opvarmetAreal
-     *
-     * @return string
-     */
-    public function getOpvarmetAreal()
-    {
-        return $this->opvarmetAreal;
-    }
-
-    /**
      * Set aarsVaerk
      *
      * @param string $aarsVaerk
@@ -1074,30 +1019,6 @@ class Virksomhed
     }
 
     /**
-     * Set ER
-     *
-     * @param string $er
-     *
-     * @return Virksomhed
-     */
-    public function setEr($er)
-    {
-        $this->er = $er;
-
-        return $this;
-    }
-
-    /**
-     * Get ER
-     *
-     * @return string
-     */
-    public function getEr()
-    {
-        return $this->er;
-    }
-
-    /**
      * Set KAM
      *
      * @param string $kam
@@ -1122,6 +1043,93 @@ class Virksomhed
     }
 
     /**
+     * Set user
+     *
+     * @param User $user
+     *
+     * @return Virksomhed
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set forsyningsvaerkVand
+     *
+     * @param Forsyningsvaerk $forsyningsvaerkVand
+     * @return Virksomhed
+     */
+    public function setForsyningsvaerkVand($forsyningsvaerkVand) {
+        $this->forsyningsvaerkVand = $forsyningsvaerkVand;
+
+        return $this;
+    }
+
+    /**
+     * Get forsyningsvaerkVand
+     *
+     * @return Forsyningsvaerk
+     */
+    public function getForsyningsvaerkVand() {
+        return $this->forsyningsvaerkVand;
+    }
+
+    /**
+     * Set forsyningsvaerkVarme
+     *
+     * @param Forsyningsvaerk $forsyningsvaerkVarme
+     * @return Virksomhed
+     */
+    public function setForsyningsvaerkVarme($forsyningsvaerkVarme) {
+        $this->forsyningsvaerkVarme = $forsyningsvaerkVarme;
+
+        return $this;
+    }
+
+    /**
+     * Get forsyningsvaerkVarme
+     *
+     * @return Forsyningsvaerk
+     */
+    public function getForsyningsvaerkVarme() {
+        return $this->forsyningsvaerkVarme;
+    }
+
+    /**
+     * Set forsyningsvaerkEl
+     *
+     * @param Forsyningsvaerk $forsyningsvaerkEl
+     * @return Virksomhed
+     */
+    public function setForsyningsvaerkEl($forsyningsvaerkEl) {
+        $this->forsyningsvaerkEl = $forsyningsvaerkEl;
+
+        return $this;
+    }
+
+    /**
+     * Get forsyningsvaerkEl
+     *
+     * @return Forsyningsvaerk
+     */
+    public function getForsyningsvaerkEl() {
+        return $this->forsyningsvaerkEl;
+    }
+
+    /**
      * To string converting method
      *
      * @return string
@@ -1134,6 +1142,44 @@ class Virksomhed
             return $this->address;
         }
         return strval($this->id);
+    }
+
+    /**
+     * Filters empty values for entity.
+     */
+    public function filterEmptyValues() {
+        $this->setEanNumbers(array_filter($this->getEanNumbers()));
+        $this->setPNumbers(array_filter($this->getPNumbers()));
+        $datterSelskaber = $this->getDatterSelskaber();
+        foreach ($datterSelskaber as $virksomhed) {
+            if (empty($virksomhed->getId())) {
+                $datterSelskaber->removeElement($virksomhed);
+            }
+        }
+        $this->setDatterSelskaber($datterSelskaber);
+    }
+
+    /**
+     * Sets default values for entity if they are empty.
+     */
+    public function setDefaultValues() {
+    }
+
+    /**
+     * Post load handler.
+     *
+     * @ORM\PostLoad
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+     */
+    public function postLoad(LifecycleEventArgs $event) {
+        // Contact persons are not handled by Doctrine ORM.
+        // We are loading it here.
+        $repository = $event->getEntityManager()
+            ->getRepository(ContactPerson::class);
+        $this->contactPersons = new ArrayCollection(array());
+        foreach ($repository->findByEntity($this) as $contactPerson) {
+            $this->contactPersons->add($contactPerson);
+        }
     }
 
 }

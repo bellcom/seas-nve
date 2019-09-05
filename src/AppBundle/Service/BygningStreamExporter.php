@@ -264,14 +264,14 @@ class BygningStreamExporter {
     if ($this->showAll || $this->groups['baselineinformation']) {
       if ($tiltagIndex === 0) {
         $this->addCell($bygning->getBruttoetageareal());
-        $this->addCell($bygning->getForsyningsvaerkVarme());
-        $this->addCell($bygning->getForsyningsvaerkVarme() ? $bygning->getForsyningsvaerkVarme()->getKgCo2MWh(2009) : null);
+        $this->addCell($bygning->getForsyningsvaerkVarme(TRUE));
+        $this->addCell($bygning->getForsyningsvaerkVarme(TRUE) ? $bygning->getForsyningsvaerkVarme(TRUE)->getKgCo2MWh(2009) : null);
         $this->addCell($rapport ? $rapport->getBaselineCO2Varme() : null);
-        $this->addCell(($bygning->getForsyningsvaerkVarme() && $rapport) ? $bygning->getForsyningsvaerkVarme()->getKgCo2MWh($rapport->getDatering()->format('Y')) : null);
-        $this->addCell($bygning->getForsyningsvaerkEl());
-        $this->addCell($bygning->getForsyningsvaerkEl() ? $bygning->getForsyningsvaerkEl()->getKgCo2MWh(2009) : null);
+        $this->addCell(($bygning->getForsyningsvaerkVarme(TRUE) && $rapport) ? $bygning->getForsyningsvaerkVarme(TRUE)->getKgCo2MWh($rapport->getDatering()->format('Y')) : null);
+        $this->addCell($bygning->getForsyningsvaerkEl(TRUE));
+        $this->addCell($bygning->getForsyningsvaerkEl(TRUE) ? $bygning->getForsyningsvaerkEl(TRUE)->getKgCo2MWh(2009) : null);
         $this->addCell($rapport ? $rapport->getBaselineCO2El() : null);
-        $this->addCell(($bygning->getForsyningsvaerkEl() && $rapport) ? $bygning->getForsyningsvaerkEl()->getKgCo2MWh($rapport->getDatering()->format('Y')) : null);
+        $this->addCell(($bygning->getForsyningsvaerkEl(TRUE) && $rapport) ? $bygning->getForsyningsvaerkEl(TRUE)->getKgCo2MWh($rapport->getDatering()->format('Y')) : null);
         $this->addCell($rapport ? $rapport->getBaselineVarmeGAF() : null);
         $this->addCell($rapport ? $rapport->getBaselineVarmeGUF() : null);
         $this->addCell($rapport ? $rapport->getBaselineEl() : null);

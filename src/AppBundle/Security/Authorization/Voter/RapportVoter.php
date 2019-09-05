@@ -2,7 +2,12 @@
 
 namespace AppBundle\Security\Authorization\Voter;
 
+use AppBundle\Entity\Rapport;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Virksomhed;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -16,9 +21,13 @@ class RapportVoter implements VoterInterface {
   /** @var RoleHierarchyInterface $roleHierarchy */
   private $roleHierarchy;
 
-  public function __construct(EntityManager $em, RoleHierarchyInterface $roleHierarchy) {
+  /** @var Request $request */
+  protected $request;
+
+  public function __construct(EntityManager $em, RoleHierarchyInterface $roleHierarchy, RequestStack $requestStack) {
     $this->rapportRepository = $em->getRepository('AppBundle:Rapport');
     $this->roleHierarchy = $roleHierarchy;
+    $this->request = $requestStack->getCurrentRequest();
   }
 
   const VIEW = 'RAPPORT_VIEW';
@@ -72,7 +81,8 @@ class RapportVoter implements VoterInterface {
 
     switch($attribute) {
       case self::VIEW:
-        if ($this->hasRole($token, 'ROLE_RAPPORT_VIEW') && $this->rapportRepository->hasAccess($user, $rapport->getBygning())) {
+        if (($this->hasRole($token, 'ROLE_RAPPORT_VIEW') && $this->rapportRepository->hasAccess($user, $rapport->getBygning()))
+            || $this->hasValidToken($rapport)) {
           return VoterInterface::ACCESS_GRANTED;
         }
         break;
@@ -106,4 +116,30 @@ class RapportVoter implements VoterInterface {
 
     return false;
   }
+
+  /**
+   * Matches token from request by virksomhed user token or parent virksomhed token.
+   *
+   * @param Rapport $rapport
+   * @return bool
+   */
+  private function hasValidToken(Rapport $rapport) {
+    $token = $this->request->query->get('token');
+    /** @var Virksomhed $virksomhed */
+    $virksomhed = $rapport->getBygning()->getVirksomhed();
+    if (empty($virksomhed)) {
+      return FALSE;
+    }
+    $user = $virksomhed->getUser();
+    $userToken = $user instanceof User ? $user->getToken() : '';
+
+    $parentVirksomhed = $virksomhed->getParent();
+    if ($parentVirksomhed instanceof Virksomhed) {
+      $user = $parentVirksomhed->getUser();
+      $parentUserToken = $user instanceof User ? $user->getToken() : '';
+    }
+
+    return !empty($token) && ($token == $userToken || $token == $parentUserToken);
+  }
+
 }

@@ -7,8 +7,11 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Annotations\Calculated;
+use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\PrimaerEnterpriseType;
+use AppBundle\DBAL\Types\SlutanvendelseType;
+use AppBundle\Entity\Traits\FormulableCalculationEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
@@ -47,9 +50,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltag",
  *    "solcelle" = "AppBundle\Entity\SolcelleTiltag",
  * })
+ * @ORM\HasLifecycleCallbacks()
  */
 abstract class Tiltag {
   use TimestampableEntity;
+  use FormulableCalculationEntity;
 
   /**
    * @var integer
@@ -59,6 +64,14 @@ abstract class Tiltag {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
+
+  /**
+   * @var SlutanvendelseType
+   *
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\SlutanvendelseType")
+   * @ORM\Column(name="slutanvendelse", type="SlutanvendelseType", nullable=true)
+   **/
+  protected $slutanvendelse;
 
   /**
    * @var boolean
@@ -151,6 +164,14 @@ abstract class Tiltag {
    * @ORM\Column(name="samletCo2besparelse", type="float", nullable=true)
    */
   protected $samletCo2besparelse;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="samletTilskud", type="float", nullable=true)
+   */
+  protected $samletTilskud;
 
   /**
    * @var float
@@ -319,7 +340,7 @@ abstract class Tiltag {
    * @ORM\Column(name="beskrivelseNuvaerende", type="text", nullable=true)
    *
    * @Assert\Length(
-   *  max = 850,
+   *  max = 10000,
    *  maxMessage = "maxLength"
    * )
    */
@@ -331,7 +352,7 @@ abstract class Tiltag {
    * @ORM\Column(name="beskrivelseForslag", type="text", nullable=true)
    *
    * @Assert\Length(
-   *  max = 1000,
+   *  max = 10000,
    *  maxMessage = "maxLength"
    * )
    */
@@ -343,7 +364,7 @@ abstract class Tiltag {
    * @ORM\Column(name="beskrivelseOevrige", type="text", nullable=true)
    *
    * @Assert\Length(
-   *  max = 1100,
+   *  max = 10000,
    *  maxMessage = "maxLength"
    * )
    */
@@ -355,7 +376,7 @@ abstract class Tiltag {
    * @ORM\Column(name="risikovurdering", type="text", nullable=true)
    *
    * @Assert\Length(
-   *  max = 360,
+   *  max = 10000,
    *  maxMessage = "maxLength"
    * )
    */
@@ -443,7 +464,7 @@ abstract class Tiltag {
   /**
    * @var string
    *
-   * @ORM\Column(name="placering", type="string", length=255, nullable=true)
+   * @ORM\Column(name="placering", type="string", length=10000, nullable=true)
    */
   protected $placering;
 
@@ -453,7 +474,7 @@ abstract class Tiltag {
    * @ORM\Column(name="beskrivelseDriftOgVedligeholdelse", type="text", nullable=true)
    *
    * @Assert\Length(
-   *  max = 360,
+   *  max = 10000,
    *  maxMessage = "maxLength"
    * )
    */
@@ -465,7 +486,7 @@ abstract class Tiltag {
    * @ORM\Column(name="indeklima", type="text", nullable=true)
    *
    * @Assert\Length(
-   *  max = 360,
+   *  max = 10000,
    *  maxMessage = "maxLength"
    * )
    */
@@ -573,6 +594,14 @@ abstract class Tiltag {
   protected $maengde;
 
   /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="tilskudsstoerrelse", type="float", nullable=true)
+   */
+  protected $tilskudsstoerrelse;
+
+  /**
    * @var string
    *
    * @Calculated
@@ -621,6 +650,28 @@ abstract class Tiltag {
     }
 
     return 0;
+  }
+
+  /**
+   * Set slutanvendelse
+   *
+   * @param SlutanvendelseType $slutanvendelse
+   *
+   * @return Slutanvendelse
+   */
+  public function setSlutanvendelse($slutanvendelse = NULL) {
+    $this->slutanvendelse = $slutanvendelse;
+
+    return $this;
+  }
+
+  /**
+   * Get slutanvendelse
+   *
+   * @return \AppBundle\DBAL\Types\SlutanvendelseType
+   */
+  public function getSlutanvendelse() {
+    return $this->slutanvendelse;
   }
 
   /**
@@ -1273,6 +1324,15 @@ abstract class Tiltag {
   }
 
   /**
+   * Get samletTilskud
+   *
+   * @return float
+   */
+  public function getSamletTilskud() {
+    return $this->samletTilskud;
+  }
+
+  /**
    * Get antalReinvesteringer
    *
    * @return integer
@@ -1453,7 +1513,7 @@ abstract class Tiltag {
   /**
    * Get genopretning
    *
-   * @return string
+   * @return float
    */
   public function getGenopretning() {
     return $this->genopretning;
@@ -1497,7 +1557,7 @@ abstract class Tiltag {
   /**
    * Get modernisering
    *
-   * @return string
+   * @return float
    */
   public function getModernisering() {
     return $this->modernisering;
@@ -1604,8 +1664,11 @@ abstract class Tiltag {
     $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
     $this->elbesparelse = $this->calculateElbesparelse();
     $this->vandbesparelse = $this->calculateVandbesparelse();
-    $this->samletEnergibesparelse = $this->calculateSamletEnergibesparelse();
-    $this->samletCo2besparelse = $this->calculateSamletCo2besparelse();
+
+    // Calculating values by formulas from annotation.
+    $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
+    $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
+
     // This may be computed, may be an input
     if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
       $this->besparelseDriftOgVedligeholdelse = $value;
@@ -1632,9 +1695,14 @@ abstract class Tiltag {
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->besparelseAarEt = $this->calculateSavingsForYear(1);
     $this->maengde = $this->calculateMaengde();
+    $this->tilskudsstoerrelse = $this->calculateTilskudsstoerrelse();
     $this->enhed = $this->calculateEnhed();
   }
 
+  /**
+   * @inheritDoc
+   * @Formula("$this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering())")
+   */
   protected function calculateAaplusInvestering() {
     return $this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering());
   }
@@ -1731,14 +1799,6 @@ abstract class Tiltag {
     return NULL;
   }
 
-  protected function calculateSamletEnergibesparelse() {
-    return NULL;
-  }
-
-  protected function calculateSamletCo2besparelse() {
-    return NULL;
-  }
-
   protected function calculateBesparelseDriftOgVedligeholdelse() {
     return NULL;
   }
@@ -1756,13 +1816,20 @@ abstract class Tiltag {
     return 0;
   }
 
+  /**
+   * Calculates Anlaegsinvestering faktor.
+   *
+   * @return float
+   */
+  protected function calculateAnlaegsinvesteringFaktor() {
+    return $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? ($this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() + 1) : 1;
+  }
+
   protected function calculateAnlaegsinvestering($value = NULL) {
     if($value === NULL) {
       return NULL;
     } else {
-      $faktor = $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() + 1 : 1;
-
-      return $value * $faktor;
+      return $value * $this->calculateAnlaegsinvesteringFaktor();
     }
   }
 
@@ -1774,34 +1841,64 @@ abstract class Tiltag {
     return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
   }
 
+  /**
+   * @Formula("$value * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateElbesparelse($value = null) {
     return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
   }
 
-  private function calculateBesparelseFromAendringIBesparelseFaktor($value) {
+  protected function calculateBesparelseFromAendringIBesparelseFaktor($value) {
     if($value === NULL) {
       return NULL;
     } else {
-      $risikoFaktor = $this->getRisikovurderingAendringIBesparelseFaktor() ? 1 - $this->getRisikovurderingAendringIBesparelseFaktor() : 1;
-
-      $energiledelseFaktor = $this->getEnergiledelseAendringIBesparelseFaktor() ? 1 - $this->getEnergiledelseAendringIBesparelseFaktor() : 1;
-
-      return $value * $risikoFaktor * $energiledelseFaktor;
+      return $value * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor();
     }
+  }
+
+  /**
+   * Helper function to simplify calculation.
+   *
+   * @return float|int
+   */
+  protected function calculateRisikoFaktor() {
+    return $this->getRisikovurderingAendringIBesparelseFaktor() ? (1 - $this->getRisikovurderingAendringIBesparelseFaktor()) : 1;
+  }
+
+  /**
+   * Helper function to simplify calculation.
+   *
+   * @return float|int
+   */
+  protected function calculateEnergiledelseFaktor() {
+    return $this->getEnergiledelseAendringIBesparelseFaktor() ? (1 - $this->getEnergiledelseAendringIBesparelseFaktor()) : 1;
   }
 
   protected function calculateLevetid() {
     return NULL;
   }
 
+  /**
+   * @Formula("$this->aaplusInvestering / ($this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift)")
+   */
   protected function calculateSimpelTilbagebetalingstidAar() {
     return $this->divide($this->aaplusInvestering,
       $this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift);
   }
 
-  protected function calculateNutidsvaerdiSetOver15AarKr() {
+  /**
+   * Calculates expression for nutidsvaerdiSetOver15AarKr value
+   */
+  protected function calculateNutidsvaerdiSetOver15AarKrExpr() {
+    return $this->sumExpr($this->calculateNutidsvaerdiSetOver15AarKr(TRUE));
+  }
+  
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
+   */
+  protected function calculateNutidsvaerdiSetOver15AarKr($array = FALSE) {
     return Calculation::npv($this->getRapport()
-      ->getKalkulationsrente(), $this->cashFlow15);
+      ->getKalkulationsrente(), $this->cashFlow15, $array);
   }
 
   protected function calculateScrapvaerdi() {
@@ -1832,8 +1929,32 @@ abstract class Tiltag {
     return NULL;
   }
 
+  protected function calculateTilskudsstoerrelse() {
+    return $this->tilskudsstoerrelse;
+  }
+
   protected function calculateEnhed() {
     return NULL;
+  }
+
+  public function getRapportElKrKWh() {
+    return $this->getRapport()->getElKrKWh();
+  }
+  
+  public function getRapportVarmeKrKWh() {
+    return $this->getRapport()->getVarmeKrKWh();
+  }
+
+  public function getRapportElKgCo2MWh() {
+    return $this->getRapport()->getElKgCo2MWh();
+  }
+
+  public function getRapportVarmeKgCo2MWh() {
+    return $this->getRapport()->getVarmeKgCo2MWh();
+  }
+
+  public function getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {
+    return $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
   }
 
   protected function accumulate(callable $accumulator, $start = 0) {
@@ -1842,6 +1963,14 @@ abstract class Tiltag {
       $value = $accumulator($detail, $value);
     }
     return $value;
+  }
+
+  protected function accumulateArray(callable $accumulator, $start = array()) {
+    $result = $start;
+    foreach ($this->getTilvalgteDetails() as $detail) {
+      $result = $accumulator($detail, $result);
+    }
+    return $result;
   }
 
   /**
@@ -1853,10 +1982,16 @@ abstract class Tiltag {
    * @return integer
    *   The sum af results from calling $f on each tilvalgt detail.
    */
-  protected function sum($f) {
-    return $this->accumulate(function ($detail, $value) use ($f) {
-      return $value + (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
+  protected function sum($f, $expression = FALSE) {
+    $result = $this->accumulateArray(function ($detail, $result) use ($f) {
+      $result[] = (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
+      return $result;
     });
+  
+    if ($expression) {
+      return $this->sumExpr($result);
+    }
+    return array_sum($result);
   }
 
   public function __construct() {
@@ -2048,6 +2183,40 @@ abstract class Tiltag {
   }
 
   /**
+   * @param float $tilskudsstoerrelse
+   */
+  public function setTilskudsstoerrelse($tilskudsstoerrelse) {
+    $this->tilskudsstoerrelse = $tilskudsstoerrelse;
+  }
+
+  /**
+   * Get tilskudsstoerrelse
+   *
+   * @return float
+   */
+  public function getTilskudsstoerrelse() {
+    if ($this->tilskudsstoerrelse) {
+      return $this->tilskudsstoerrelse;
+    }
+
+    $virksomhed = $this->getRapport()->getBygning()->getVirksomhed();
+
+    if ($virksomhed) {
+      if ($virksomhed->getSubsidySize()) {
+        return $virksomhed->getSubsidySize();
+      }
+
+      // Check if parent has it.
+      $parent = $virksomhed->getParent();
+      if ($parent && $parent->getSubsidySize()) {
+        return $parent->getSubsidySize();
+      }
+    }
+
+    return 0;
+  }
+
+  /**
    * Get enhed
    *
    * @return string
@@ -2055,4 +2224,12 @@ abstract class Tiltag {
   public function getEnhed() {
     return $this->enhed;
   }
+
+  /**
+   * @ORM\PostLoad()
+   */
+  public function postLoad() {
+    $this->initFormulableCalculation();
+  }
+
 }

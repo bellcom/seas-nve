@@ -1,0 +1,20 @@
+.calculation-expression-toggle {
+  position: fixed;
+
+  z-index: 800;
+
+  right: 15px;
+  bottom: 15px;
+
+  padding: 10px 20px;
+
+  outline: 0;
+
+  border-radius: 25px;
+
+  background-color: #f7f7f7;
+  border: 1px solid #aaaaaa;
+}
+.calculation-expression-toggle:hover {
+  background-color: #eee;
+}

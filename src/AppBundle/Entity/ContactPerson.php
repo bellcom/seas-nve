@@ -2,14 +2,17 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\DBAL\Types\ContactPersonReferenceType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * ContactPerson
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ContactPersonRepository")
  */
 class ContactPerson
 {
@@ -30,10 +33,15 @@ class ContactPerson
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Virksomhed")
-     * @JoinColumn(name="virksomhed_id", referencedColumnName="id")
+     * @var integer
+     * @ORM\Column(name="reference_id", type="integer", nullable=true)
+     */
+    private $referenceId;
+
+    /**
+     * @ORM\Column(name="reference_type", type="ContactPersonReferenceType")
      **/
-    private $virksomhed;
+    private $referenceType;
 
     /**
      * @var string
@@ -43,12 +51,10 @@ class ContactPerson
     private $phoneNumber;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="mail", type="string", length=255, nullable=true)
+     * @Assert\Email
+     * @ORM\Column(name="mail", type="string", length=255)
      */
     private $mail;
-
 
     /**
      * Get id
@@ -58,28 +64,6 @@ class ContactPerson
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set Virksomhed.
-     *
-     * @param Virksomhed $virksomhed
-     *
-     * @return ContactPerson
-     */
-    public function setVirksomhed(Virksomhed $virksomhed = NULL) {
-        $this->virksomhed = $virksomhed;
-
-        return $this;
-    }
-
-    /**
-     * Get contact person tilknytet Virksomhed
-     *
-     * @return Virksomhed
-     */
-    public function getVirksomhed() {
-        return $this->virksomhed;
     }
 
     /**
@@ -105,6 +89,73 @@ class ContactPerson
     {
         return $this->name;
     }
+
+    /**
+     * Set reference_type
+     *
+     * @param string $referenceType
+     *
+     * @return ContactPerson
+     */
+    public function setReferenceType($referenceType)
+    {
+        $this->referenceType = $referenceType;
+
+        return $this;
+    }
+
+    /**
+     * Get reference_type
+     *
+     * @return string
+     */
+    public function getReferenceType()
+    {
+        return $this->referenceType;
+    }
+
+    /**
+     * Set reference_id
+     *
+     * @param string $referenceId
+     *
+     * @return ContactPerson
+     */
+    public function setReferenceId($referenceId)
+    {
+        $this->referenceId = $referenceId;
+
+        return $this;
+    }
+
+    /**
+     * Get reference_id
+     *
+     * @return string
+     */
+    public function getReferenceId()
+    {
+        return $this->referenceId;
+    }
+
+  /**
+   * Set reference
+   *
+   * @param object $reference
+   *
+   * @return ContactPerson
+   * @throws
+   */
+  public function setReference($reference)
+  {
+      $reference_type = strtolower((new \ReflectionClass($reference))->getShortName());
+      if (!ContactPersonReferenceType::isValueExist($reference_type)) {
+          return NULL;
+      }
+      $this->setReferenceType($reference_type);
+      $this->setReferenceId($reference->getId());
+      return $this;
+  }
 
     /**
      * Set phoneNumber

@@ -8,6 +8,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\DataExport\ExcelExport;
 use AppBundle\Entity\Baseline;
+use AppBundle\Entity\ContactPerson;
+use AppBundle\Form\VirksomhedType;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,8 +71,20 @@ class BygningController extends BaseController implements InitControllerInterfac
     $search['status'] = $bygning->getStatus();
 
     $user = $this->get('security.context')->getToken()->getUser();
-
+    /** @var Query $query */
     $query = $em->getRepository('AppBundle:Bygning')->searchByUser($user, $search);
+
+    if ($request->query->has('json')) {
+      $result = array();
+      foreach ($query->getResult() as $bygning) {
+        $result[$bygning->getId()] = VirksomhedType::getEanNumberReferenceLabel($bygning);
+      }
+  
+      $response = new Response();
+      $response->setContent(json_encode($result));
+      $response->headers->set('Content-Type', 'application/json');
+      return $response;
+    }
 
     $paginator = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
@@ -114,6 +130,14 @@ class BygningController extends BaseController implements InitControllerInterfac
       $em = $this->getDoctrine()->getManager();
       $em->persist($entity);
       $em->flush();
+  
+      // Contact persons are not handled by Doctrine ORM.
+      // We inserting it here.
+      foreach ($entity->getContactPersons() as $contactPerson) {
+        $contactPerson->setReference($entity);
+        $em->persist($contactPerson);
+      }
+      $em->flush();
 
       return $this->redirect($this->generateUrl('bygning_show', array('id' => $entity->getId())));
     }
@@ -158,6 +182,40 @@ class BygningController extends BaseController implements InitControllerInterfac
       'entity' => $entity,
       'form' => $form->createView(),
     );
+  }
+
+  /**
+   * Gets Unique eanNumm json list.
+   *
+   * @Route("/eannumm-list", name="bygning_eannumm_list")
+   * @Method("GET")
+   * @Security("has_role('ROLE_BYGNING_VIEW')")
+   */
+  public function eanNumListAction() {
+    /** @var Query $query */
+    $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
+    $result = $repository->getEanNumberReferenceList();
+    $response = new Response();
+    $response->setContent(json_encode($result));
+    $response->headers->set('Content-Type', 'application/json');
+    return $response;
+  }
+
+  /**
+   * Gets Unique pNumm json list.
+   *
+   * @Route("/pnumm-list", name="bygning_pnumm_list")
+   * @Method("GET")
+   * @Security("has_role('ROLE_BYGNING_VIEW')")
+   */
+  public function pNumListAction() {
+    /** @var Query $query */
+    $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
+    $result = $repository->getPNumberReferenceList();
+    $response = new Response();
+    $response->setContent(json_encode($result));
+    $response->headers->set('Content-Type', 'application/json');
+    return $response;
   }
 
   /**
@@ -228,12 +286,34 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @Security("is_granted('BYGNING_EDIT', bygning)")
    */
   public function updateAction(Request $request, Bygning $bygning) {
+    $em = $this->getDoctrine()->getManager();
+
+    /** @var Bygning $originalBygning */
+    $originalBygning = $em->getRepository(Bygning::class)->find($bygning->getId());
+  
+    $originalContactPersons = new ArrayCollection();
+    foreach ($originalBygning->getContactPersons() as $contactPerson) {
+      $originalContactPersons->add($contactPerson);
+    }
+
     $deleteForm = $this->createDeleteForm($bygning);
     $editForm = $this->createEditForm($bygning);
     $editForm->handleRequest($request);
 
     if ($editForm->isValid()) {
-      $em = $this->getDoctrine()->getManager();
+      /** @var ContactPerson $contactPerson */
+      foreach ($originalContactPersons as $contactPerson) {
+        if (false === $bygning->getContactPersons()->contains($contactPerson)) {
+          $em->remove($contactPerson);
+        }
+      }
+      $em->flush();
+
+      // Contact persons are not handled by Doctrine ORM.
+      // We updating it here.
+      foreach ($bygning->getContactPersons() as $contactPerson) {
+        $em->persist($contactPerson);
+      }
       $em->flush();
 
       return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
@@ -245,8 +325,6 @@ class BygningController extends BaseController implements InitControllerInterfac
       'delete_form' => $deleteForm->createView(),
     );
   }
-
-
 
   /**
    * Deletes a Bygning entity.
@@ -261,6 +339,13 @@ class BygningController extends BaseController implements InitControllerInterfac
 
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
+
+      // Contact persons are not handled by Doctrine ORM.
+      // We have to update it here.
+      foreach ($bygning->getContactPersons() as $contactPerson) {
+        $em->remove($contactPerson);
+      }
+
       $em->remove($bygning);
       $em->flush();
     }

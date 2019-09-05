@@ -157,21 +157,61 @@
   });
 
   // Add more / Remove functionality.
-  function addMoreForm($collectionHolder, $newLinkL) {
-    var prototype = $collectionHolder.data('prototype');
+  function addMoreForm($collectionHolder, $newLinkL, $ajaxSrc) {
+    var prototype = false;
+    if ($ajaxSrc) {
+      var $ajaxSrc = new URL( window.location.protocol + "//" + window.location.host + $ajaxSrc);
+      var $currentId = $collectionHolder.data('current-id');
+      if ($currentId) {
+        $ajaxSrc.searchParams.append('current_id', $currentId);
+      }
+      $.get($ajaxSrc, function($data) {
+        if (jQuery.isEmptyObject($data)) {
+          console.log('Add more ajax request to ' + $ajaxSrc + ' is empty');
+          // If we got wring data from backed.
+          // Use fallback prototype.
+          newForm = $collectionHolder.data('prototype');
+          addMoreFormCallback($collectionHolder, $newLinkL, newForm);
+          return;
+        }
+        newForm = $('<div></div>').append($collectionHolder.data('prototype'));
+        $select = newForm.find('select');
+        $select.find('option').each(function() {
+          if (this.value) {
+            this.remove();
+          }
+        });
+        if ($data) {
+          for ($value in $data) {
+            $select.append($("<option>").attr('value', $value).text($data[$value]));
+          }
+        }
+        addMoreFormCallback($collectionHolder, $newLinkL, newForm.html());
+      }, "json");
+    }
+    else {
+      newForm = $collectionHolder.data('prototype');
+      addMoreFormCallback($collectionHolder, $newLinkL, newForm);
+    }
+  }
+  function addMoreFormCallback($collectionHolder, $newLinkL, newForm) {
     var index = $collectionHolder.data('index');
 
-    var newForm = prototype;
     newForm = newForm.replace(/__name__/g, index);
     $collectionHolder.data('index', index + 1);
     var $newFormLi = $('<div class="row form-group"><div class="col-sm-10"></div><div class="col-sm-2"></div>')
-        .find('.col-sm-10').append(newForm)
-        .end();
+      .find('.col-sm-10').append(newForm)
+      .end();
     $newLinkL.before($newFormLi);
     addDeleteLink($newFormLi);
+
+    $collectionHolder.find('.add-link').removeClass('disabled');
   }
 
   function addDeleteLink($formRow) {
+    if ($formRow.hasClass('required')) {
+      return;
+    }
     var $removeFormA = $('<a href="#" class="btn btn-danger">Fjern</a>');
     $formRow.find('.col-sm-2').append($removeFormA);
 
@@ -181,12 +221,16 @@
     });
   }
 
-  function addMore($collectionHolder) {
+  function addMore($collectionHolder, $ajaxSrc, $addNewUrl) {
     if (!$collectionHolder.length) {
       return;
     }
-    var $addLink = $('<a href="#" class="btn btn-primary">Tilføj mere</a>');
+    var $addLink = $('<a href="#" class="btn btn-primary add-link">Tilføj</a>');
     var $newLinkRow = $('<div class="row"><div class="col-sm-12"></div></div>').find('div').append($addLink).end();
+    if ($addNewUrl) {
+      var $addNewLink = $('<a href="' + $addNewUrl +'" class="btn btn-primary" target="_blank">Opret nyt</a>');
+      $newLinkRow.find('div').append('&nbsp;').append($addNewLink).end();
+    }
     $collectionHolder.find('.row').each(function() {
       addDeleteLink($(this));
     });
@@ -196,13 +240,14 @@
 
     $addLink.on('click', function(e) {
       e.preventDefault();
-      addMoreForm($collectionHolder, $newLinkRow);
+      $(this).addClass('disabled');
+      addMoreForm($collectionHolder, $newLinkRow, $ajaxSrc);
     });
   }
 
   addMore($('.contact_persons'));
-  addMore($('.datter_selskaber'));
-  addMore($('.ean_numbers'));
-  addMore($('.p_numbers'));
+  addMore($('.datter_selskaber'), '/virksomhed/datterselskab-list', '/virksomhed/new');
+  addMore($('.ean_numbers'), '/bygning/eannumm-list', '/bygning/new');
+  addMore($('.p_numbers'), '/bygning/pnumm-list', '/bygning/new');
 
 }(jQuery));

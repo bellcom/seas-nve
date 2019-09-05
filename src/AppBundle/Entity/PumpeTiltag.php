@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotations\Formula;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
@@ -22,6 +23,16 @@ use Doctrine\ORM\Mapping\OrderBy;
 class PumpeTiltag extends Tiltag {
 
   /**
+   * @Formula("$this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh()")
+   */
+  protected $samletEnergibesparelse;
+
+  /**
+   * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
+   */
+  protected $samletCo2besparelse;
+
+  /**
    * Constructor
    */
   public function __construct() {
@@ -31,29 +42,59 @@ class PumpeTiltag extends Tiltag {
     $this->setTitle('Pumpeudskiftninger');
   }
 
+  /**
+   * Calculates value that is using in VarmebesparelseGAF calculation.
+   *
+   * @return float
+   */
+  protected function calculateVarmebesparelseGAFValue() {
+    return $this->sum('kwhBesparelseVarmeFraVaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+  }
+  
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateVarmebesparelseGAF($value = null) {
-    $value = $this->sum('kwhBesparelseVarmeFraVaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+    $value = $this->calculateVarmebesparelseGAFValue();
 
     return parent::calculateVarmebesparelseGAF($value);
   }
 
+  /**
+   * Calculates value that is using in Elbesparelse calculation.
+   *
+   * @return float
+   */
+  protected function calculateElbesparelseValue() {
+    return $this->sum('kwhBesparelseElFraVaerket');
+  }
+  
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateElbesparelseValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateElbesparelse($value = null) {
-    $value = $this->sum('kwhBesparelseElFraVaerket');
+    $value = $this->calculateElbesparelseValue();
 
     return parent::calculateElbesparelse($value);
   }
 
-  protected function calculateSamletEnergibesparelse() {
-    return ($this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapport()->getElKrKWh());
+  /**
+   * Calculates value that is using in Anlaegsinvestering calculation.
+   *
+   * @return float
+   */
+  protected function calculateAnlaegsinvesteringValue() {
+    return $this->sum('samletInvesteringInklPristillaeg');
   }
-
-  protected function calculateSamletCo2besparelse() {
-    return (($this->varmebesparelseGAF / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
-            + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
-  }
-
+  
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateAnlaegsinvesteringValue() * $this->calculateAnlaegsinvesteringFaktor()")
+   */
   protected function calculateAnlaegsinvestering($value = NULL) {
-    $value = $this->sum('samletInvesteringInklPristillaeg');
+    $value = $this->calculateAnlaegsinvesteringValue();
 
     return parent::calculateAnlaegsinvestering($value);
   }

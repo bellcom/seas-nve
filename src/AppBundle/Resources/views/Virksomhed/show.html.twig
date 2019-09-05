@@ -7,7 +7,7 @@
       <h1>{{ icon('briefcase') }} {{ entity }}</h1>
     </div>
     <div class="col-md-3 text-right">
-      <a href="{{ path('virksomhed_get_rapport', { 'id': entity.id }) }}" class="btn btn-primary">
+      <a href="{{ path_with_access_token('virksomhed_get_rapport', { 'id': entity.id }) }}" class="btn btn-primary">
         {{ icon('caret-square-o-right') }} {{ 'appbundle.virksomhed.rapport' | trans }}
       </a>
       {% if is_granted('VIRKSOMHED_EDIT', entity) %}
@@ -31,7 +31,7 @@
             <th>{{ 'appbundle.virksomhed.parent' | trans }}</th>
             <td>
               {% if (entity.parent) %}
-                <a href="{{ path('virksomhed_show', { 'id': entity.parent.id }) }}">{{ entity.parent }}</a>
+                <a href="{{ path_with_access_token('virksomhed_show', { 'id': entity.parent.id }) }}">{{ entity.parent }}</a>
               {% else %}
                 {{ 'virksomhed.messages.empty.parent' | trans }}
               {% endif %}
@@ -40,30 +40,6 @@
           <tr>
             <th>{{ 'appbundle.virksomhed.cvrNumber' | trans }}</th>
             <td>{{ entity.cvrNumber }}</td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.virksomhed.eanNumbers' | trans }}</th>
-            <td>
-              {% if entity.getEanNumbers() %}
-                {% for eanNumber in entity.getEanNumbers() %}
-                  <div>{{ eanNumber }}</div>
-                {% endfor %}
-              {% else %}
-                {{ 'virksomhed.messages.empty.eanNumbers' | trans }}
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.virksomhed.pNumbers' | trans }}</th>
-            <td>
-              {% if entity.getEanNumbers() %}
-                {% for pNumber in entity.getPNumbers() %}
-                  <div>{{ pNumber }}</div>
-                {% endfor %}
-              {% else %}
-                {{ 'virksomhed.messages.empty.pNumbers' | trans }}
-              {% endif %}
-            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.crmNumber' | trans }}</th>
@@ -116,6 +92,21 @@
           </table>
       </div>
       <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.virksomhed.bygning' | trans }}</div>
+        <div class="panel-body">
+          {% set bygninger = entity.getBygninger() %}
+          {% if bygninger | length %}
+            <ul>
+              {% for bygning in bygninger %}
+                <li><a href="{{ path_with_access_token('bygning_show', { 'id': bygning.id }) }}">{{ bygning }}</a></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            {{ 'virksomhed.messages.empty.bygninger' | trans }}
+          {% endif %}
+        </div>
+      </div>
+      <div class="panel panel-default">
         <div class="panel-heading">{{ icon('phone') }} {{ 'appbundle.virksomhed.contactPersons' | trans }}</div>
           {% set contactPersons = entity.getContactPersons() %}
           {% if contactPersons | length %}
@@ -123,14 +114,14 @@
               <tbody>
                 <tr>
                   <th>{{ 'appbundle.virksomhed.contactPersons.0.name' | trans }}</th>
-                  <th>{{ 'appbundle.virksomhed.contactPersons.0.phoneNumber' | trans }}</th>
                   <th>{{ 'appbundle.virksomhed.contactPersons.0.mail' | trans }}</th>
+                  <th>{{ 'appbundle.virksomhed.contactPersons.0.phoneNumber' | trans }}</th>
                 </tr>
                 {% for contactPerson in contactPersons %}
                   <tr>
                     <th>{{ contactPerson.name }}</th>
-                    <td>{{ contactPerson.phoneNumber }}</td>
                     <td>{{ contactPerson.mail }}</td>
+                    <td>{{ contactPerson.phoneNumber }}</td>
                   </tr>
                 {% endfor %}
               </tbody>
@@ -150,7 +141,7 @@
           {% if datterSelskaber | length %}
             <ul>
               {% for datterSelskab in datterSelskaber %}
-                <li><a href="{{ path('virksomhed_show', { 'id': datterSelskab.id }) }}">{{ datterSelskab }}</a></li>
+                <li><a href="{{ path_with_access_token('virksomhed_show', { 'id': datterSelskab.id }) }}">{{ datterSelskab }}</a></li>
               {% endfor %}
             </ul>
           {% else %}
@@ -171,32 +162,12 @@
             <td>{{ entity.dsmCode }}</td>
           </tr>
           <tr>
-            <th>{{ 'appbundle.virksomhed.energyPrice' | trans }}</th>
-            <td>{{ entity.energyPrice }}</td>
-          </tr>
-          <tr>
             <th>{{ 'appbundle.virksomhed.subsidySize' | trans }}</th>
             <td>{{ entity.subsidySize }}</td>
           </tr>
           <tr>
-            <th>{{ 'appbundle.virksomhed.erhvervsAreal' | trans }}</th>
-            <td>{{ entity.erhvervsAreal }}</td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.virksomhed.opvarmetAreal' | trans }}</th>
-            <td>{{ entity.opvarmetAreal }}</td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.virksomhed.opvarmetAreal' | trans }}</th>
-            <td>{{ entity.opvarmetAreal }}</td>
-          </tr>
-          <tr>
             <th>{{ 'appbundle.virksomhed.forbrug' | trans }}</th>
             <td>{{ entity.forbrug }}</td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.virksomhed.er' | trans }}</th>
-            <td>{{ entity.er }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.kam' | trans }}</th>
@@ -214,8 +185,32 @@
             <th>{{ 'appbundle.virksomhed.lobetid' | trans }}</th>
             <td>{{ entity.lobetid | format_integer }} {{ 'appbundle.configuration.rapportLobetid' | get_unit }}</td>
           </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.user.customer_url' | trans }}</th>
+            <td>
+              {% if entity.user %}
+              <a href="{{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}">{{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}</a></td>
+            {% endif %}
+          </tr>
         </tbody>
       </table>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('industry') }} {{ 'forsyningsvaerk.labels.plural' | trans }}</div>
+        <table class="table table-condensed th-vertical">
+          <tbody>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.forsyningsvaerkEl' | trans }}</th>
+            <td>{{ entity.forsyningsvaerkEl }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.forsyningsvaerkVarme' | trans }}</th>
+            <td>{{ entity.forsyningsvaerkVarme }}</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

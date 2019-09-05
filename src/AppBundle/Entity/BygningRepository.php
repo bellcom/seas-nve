@@ -119,7 +119,20 @@ class BygningRepository extends BaseRepository {
       $qb->andWhere('b.' . $column . ' <> \'\'');
 
       $query = $qb->getQuery();
-      return $returnQuery ? $query : $query->getResult();
+
+      if ($returnQuery) {
+          return $query;
+      }
+
+      $result = $query->getResult();
+      if (empty($result)) {
+          return array();
+      }
+      $values = array();
+      foreach ($result as $row) {
+          $values[] = $row[$column];
+      }
+      return $this->findBy(array($column => $values));
   }
 
   /**
@@ -328,4 +341,25 @@ class BygningRepository extends BaseRepository {
 
     return null;
   }
+
+  public function getEanNumberReferenceList()
+  {
+    $result = array();
+    /** @var Bygning $bygning */
+    foreach ($this->getAllUniqueValues('eanNumber') as $bygning) {
+      $result[$bygning->getEanNumber()] = $bygning->getEanNumber() . ' (' . $bygning . ')';
+    }
+    return $result;
+  }
+
+  public function getPNumberReferenceList()
+  {
+    $result = array();
+    /** @var Bygning $bygning */
+    foreach ($this->getAllUniqueValues('pNumber') as $bygning) {
+      $result[$bygning->getPNumber()] = $bygning->getPNumber() . ' (' . $bygning . ')';
+    }
+    return $result;
+  }
+
 }

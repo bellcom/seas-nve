@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotations\Formula;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,6 +18,16 @@ use Doctrine\ORM\Mapping as ORM;
 class BelysningTiltag extends Tiltag {
 
   /**
+   * @Formula("$this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh()")
+   */
+  protected $samletEnergibesparelse;
+
+  /**
+   * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
+   */
+  protected $samletCo2besparelse;
+
+  /**
    * Constructor
    */
   public function __construct() {
@@ -26,27 +37,57 @@ class BelysningTiltag extends Tiltag {
     $this->setTitle('Belysning');
   }
 
+  /**
+   * Calculates value that is using in varmebesparelseGAF calculation.
+   *
+   * @return float
+   */
+  protected function calculateVarmebesparelseGAFValue() {
+    return $this->sum('kWhBesparelseVarmeFraVarmevaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+  }
+
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateVarmebesparelseGAF($value = null) {
-    $value = $this->sum('kWhBesparelseVarmeFraVarmevaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+    $value = $this->calculateVarmebesparelseGAFValue();
 
     return parent::calculateVarmebesparelseGAF($value);
   }
 
+  /**
+   * Calculates expressions that is using in Elbesparelse calculation.
+   *
+   * @return float
+   */
+  protected function calculateElbesparelseValueExpr() {
+    return $this->sum('kwhBesparelseEl', TRUE);
+  }
+
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateElbesparelseValueExpr() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   */
   protected function calculateElbesparelse($value = null) {
     $value = $this->sum('kwhBesparelseEl');
 
     return parent::calculateElbesparelse($value);
   }
 
-  protected function calculateSamletEnergibesparelse() {
-    return ($this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapport()->getElKrKWh());
+  /**
+   * Calculates expressions that is using in Anlaegsinvestering calculation.
+   *
+   * @return float
+   */
+  protected function calculateAnlaegsinvesteringValueExpr() {
+    return $this->sum('investeringAlleLokalerKr', TRUE);
   }
-
-  protected function calculateSamletCo2besparelse() {
-    return (($this->varmebesparelseGAF / 1000) * $this->getRapport()->getVarmeKgCo2MWh()
-            + ($this->elbesparelse / 1000) * $this->getRapport()->getElKgCo2MWh()) / 1000;
-  }
-
+  
+  /**
+   * @inheritDoc
+   * @Formula("$this->calculateAnlaegsinvesteringValueExpr() * $this->calculateAnlaegsinvesteringFaktor()")
+   */
   protected function calculateAnlaegsinvestering($value = NULL) {
     $value = $this->sum('investeringAlleLokalerKr');
 
@@ -62,6 +103,13 @@ class BelysningTiltag extends Tiltag {
     }
   }
 
+  protected function calculateBesparelseDriftOgVedligeholdelseExpr() {
+    return $this->sum('driftsbesparelseTilLyskilderKrAar', TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateBesparelseDriftOgVedligeholdelseExpr()")
+   */
   protected function calculateBesparelseDriftOgVedligeholdelse() {
     return $this->sum('driftsbesparelseTilLyskilderKrAar');
   }

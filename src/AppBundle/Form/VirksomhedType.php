@@ -4,8 +4,13 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Virksomhed;
+use AppBundle\Entity\VirksomhedRepository;
 use AppBundle\Form\Type\ContactPersonEmbedType;
+use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
+use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -22,20 +27,9 @@ class VirksomhedType extends AbstractType
         $pNumbers = array();
         $em = $options['entityManager'];
         if (!empty($em)) {
-            $virksomheder = $em->getRepository('AppBundle:Virksomhed')->findAll();
-            if ($options['data'] instanceof Virksomhed) {
-                foreach ($virksomheder as $key => $virksomhed) {
-                    if ($virksomhed->getId() == $options['data']->getId()) {
-                        unset($virksomheder[$key]);
-                    }
-                }
-            }
-            foreach ($em->getRepository('AppBundle:Bygning')->getAllUniqueValues('eanNumber') as $bygning) {
-                $eanNumbers[] = $bygning['eanNumber'];
-            }
-            foreach ($em->getRepository('AppBundle:Bygning')->getAllUniqueValues('pNumber') as $bygning) {
-                $pNumbers[] = $bygning['pNumber'];
-            }
+            $virksomheder = $em->getRepository('AppBundle:Virksomhed')->getDatterSelskabReferenceList($options['data']);
+            $eanNumbers = $em->getRepository('AppBundle:Bygning')->getEanNumberReferenceList();
+            $pNumbers = $em->getRepository('AppBundle:Bygning')->getPNumberReferenceList();
         }
         $builder
             ->add('name')
@@ -43,12 +37,8 @@ class VirksomhedType extends AbstractType
             ->add('eanNumbers','collection', array(
                 'type' => 'choice',
                 'options'      => array(
-                    'placeholder' => 'None',
+                    'placeholder' => 'appbundle.virksomhed.eanNumbers.placeholder',
                     'choices' => $eanNumbers,
-                    'choice_label' => function($value, $key, $index) {
-                        return $value;
-                    },
-                    'choices_as_values' => TRUE,
                     'label' => FALSE,
                 ),
                 'allow_add' => TRUE,
@@ -59,12 +49,8 @@ class VirksomhedType extends AbstractType
             ->add('pNumbers','collection', array(
                 'type' => 'choice',
                 'options'      => array(
-                    'placeholder' => 'None',
+                    'placeholder' => 'appbundle.virksomhed.pNumbers.placeholder',
                     'choices' => $pNumbers,
-                    'choices_as_values' => TRUE,
-                    'choice_label' => function($value, $key, $index) {
-                        return $value;
-                    },
                     'label' => FALSE,
                 ),
                 'allow_add' => TRUE,
@@ -80,11 +66,14 @@ class VirksomhedType extends AbstractType
             ->add('datterSelskaber','collection', array(
                 'type' => 'choice',
                 'options'      => array(
-                    'placeholder' => 'virksomhed.actions.choose_by_cvr',
+                    'placeholder' => 'appbundle.virksomhed.datterSelskaber.placeholder',
                     'choices' => $virksomheder,
                     'choice_label' => function($virksomhed, $key, $index) {
                         /** @var Virksomhed $virksomhed */
-                        return $virksomhed->getCvrNumber();
+                        return $virksomhed->getCvrReferenceLabel();
+                    },
+                    'choice_value' => function (Virksomhed $entity = null) {
+                      return $entity ? $entity->getId() : '';
                     },
                     'choices_as_values' => TRUE,
                     'label' => FALSE
@@ -92,6 +81,7 @@ class VirksomhedType extends AbstractType
                 'allow_add' => TRUE,
                 'allow_delete' => TRUE,
                 'by_reference' => FALSE,
+                'required' => FALSE,
             ))
             ->add('kommune')
             ->add('region')
@@ -104,17 +94,13 @@ class VirksomhedType extends AbstractType
                 'allow_add' => TRUE,
                 'allow_delete' => TRUE,
                 'by_reference' => FALSE,
+                'required' => TRUE,
             ))
             ->add('naceCode')
             ->add('dsmCode')
-            ->add('energyPrice')
             ->add('subsidySize')
-
-            ->add('erhvervsAreal')
-            ->add('opvarmetAreal')
             ->add('aarsVaerk')
             ->add('forbrug')
-            ->add('er')
             ->add('kam')
             ->add('kalkulationsrente', 'percent', array(
                 'scale' => 2,
@@ -125,7 +111,26 @@ class VirksomhedType extends AbstractType
                 'required' => FALSE,
             ))
             ->add('lobetid')
+            ->add('forsyningsvaerkVarme', 'entity', array(
+                'class' => 'AppBundle:Forsyningsvaerk',
+                'required' => FALSE,
+                'empty_value' => 'common.none',
+            ))
+            ->add('forsyningsvaerkEl', 'entity', array(
+                'class' => 'AppBundle:Forsyningsvaerk',
+                'required' => FALSE,
+                'empty_value' => 'common.none',
+            ))
         ;
+
+        // Allow select customer user only for existing companies.
+        if (!empty($options['data']->getId())) {
+            $builder->add('user', 'entity', array(
+                'class' => 'AppBundle:User',
+                'required' => FALSE,
+                'empty_value' => 'common.none',
+            ));
+        }
     }
 
     /**

@@ -2,7 +2,12 @@
 
 namespace AppBundle\Security\Authorization\Voter;
 
+use AppBundle\Entity\User;
+use AppBundle\Entity\Virksomhed;
+use AppBundle\Entity\VirksomhedRapport;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -15,9 +20,13 @@ class VirksomhedRapportVoter implements VoterInterface {
   /** @var RoleHierarchyInterface $roleHierarchy */
   private $roleHierarchy;
 
-  public function __construct(EntityManager $em, RoleHierarchyInterface $roleHierarchy) {
+    /** @var Request $request */
+    protected $request;
+
+  public function __construct(EntityManager $em, RoleHierarchyInterface $roleHierarchy, RequestStack $requestStack) {
     $this->virksomhedRapportRepository = $em->getRepository('AppBundle:VirksomhedRapport');
     $this->roleHierarchy = $roleHierarchy;
+    $this->request = $requestStack->getCurrentRequest();
   }
 
   const VIEW = 'VIRKSOMHED_RAPPORT_VIEW';
@@ -38,9 +47,9 @@ class VirksomhedRapportVoter implements VoterInterface {
     return $supportedClass === $class || is_subclass_of($class, $supportedClass);
   }
 
-  public function vote(TokenInterface $token, $virksomhed, array $attributes) {
+  public function vote(TokenInterface $token, $virksomhed_rapport, array $attributes) {
     // check if class of this object is supported by this voter
-    if ($virksomhed === null || !$this->supportsClass(get_class($virksomhed))) {
+    if ($virksomhed_rapport === null || !$this->supportsClass(get_class($virksomhed_rapport))) {
       return VoterInterface::ACCESS_ABSTAIN;
     }
 
@@ -63,7 +72,7 @@ class VirksomhedRapportVoter implements VoterInterface {
 
     switch($attribute) {
       case self::VIEW:
-        if ($this->hasRole($token, 'ROLE_VIRKSOMHED_RAPPORT_VIEW')) {
+        if ($this->hasRole($token, 'ROLE_VIRKSOMHED_RAPPORT_VIEW') || $this->hasValidToken($virksomhed_rapport)) {
           return VoterInterface::ACCESS_GRANTED;
         }
         break;
@@ -97,4 +106,26 @@ class VirksomhedRapportVoter implements VoterInterface {
 
     return false;
   }
+
+    /**
+     * Matches token from request by virksomhed user token or parent virksomhed token.
+     *
+     * @param VirksomhedRapport $virksomhed_rapport
+     * @return bool
+     */
+    private function hasValidToken(VirksomhedRapport $virksomhed_rapport) {
+        $token = $this->request->query->get('token');
+        $user = $virksomhed_rapport->getVirksomhed()->getUser();
+        $userToken = $user instanceof User ? $user->getToken() : '';
+
+        $parentUserToken = '';
+        $parentVirksomhed = $virksomhed_rapport->getVirksomhed()->getParent();
+        if ($parentVirksomhed instanceof Virksomhed) {
+            $user = $parentVirksomhed->getUser();
+            $parentUserToken = $user instanceof User ? $user->getToken() : '';
+        }
+
+        return !empty($token) && ($token == $userToken || $token == $parentUserToken);
+    }
+
 }
