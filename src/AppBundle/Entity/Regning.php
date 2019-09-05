@@ -228,4 +228,12 @@ class Regning {
     {
         return $this->leverandoer;
     }
+
+    /**
+     * To string function.
+     */
+    public function __toString()
+    {
+        return strval($this->nummer);
+    }
 }

@@ -1,16 +1,15 @@
-{% extends '::base.html.twig' %}
+  {% extends 'AppBundle::base.html.twig' %}
+  {% block body -%}
+      <div class="row heading">
+          <div class="col-md-9">
+              <h1>{{ 'leverandoer.actions.edit' | trans }}</h1>
+          </div>
+          <div class="col-md-3 text-right">
+              {{ form(delete_form) }}
+          </div>
 
-{% block body -%}
-    <h1>Leverandoer edit</h1>
+      </div>
 
-    {{ form(edit_form) }}
+      {% include 'AppBundle:Leverandoer:_form.html.twig' %}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('leverandoer') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
-{% endblock %}
+  {% endblock %}

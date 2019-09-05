@@ -112,8 +112,23 @@ class Leverandoer
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getRegning()
+    public function getRegninger()
     {
         return $this->regninger;
     }
+
+    /**
+     * Set $regninger
+     *
+     * @param string $regninger
+     *
+     * @return Leverandoer
+     */
+    public function setRegninger($regninger)
+    {
+        $this->regninger = $regninger;
+
+        return $this;
+    }
+
 }

@@ -1,41 +1,36 @@
-{% extends '::base.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Leverandoer list</h1>
 
-    <table class="records_list">
+    <div class="row heading">
+        <div class="col-md-9">
+            <h1>{{ 'leverandoer.labels.plural' | trans }}</h1>
+        </div>
+        <div class="col-md-3 text-right">
+            <a class="btn btn-default" href="{{ path('leverandoer_new') }}">
+                {{ icon('plus') }} {{ 'leverandoer.actions.add' | trans }}
+            </a>
+        </div>
+
+    </div>
+
+
+    <table class="table table-condensed">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            {{ helper.header('appbundle.leverandoer.title') }}
+            {{ helper.header() }}
+        </tr>
         </thead>
         <tbody>
+
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('leverandoer_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.title }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('leverandoer_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('leverandoer_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                <td class="text-right"><a href="{{ path('leverandoer_edit', { 'id': entity.id }) }}" class="btn btn-default btn-xs">{{ 'common.edit' | trans }}</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('leverandoer_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+{% endblock %}

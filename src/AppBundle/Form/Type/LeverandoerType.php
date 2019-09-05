@@ -16,6 +16,22 @@ class LeverandoerType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('regninger', 'bootstrap_collection', array(
+                'property_path' => 'Regninger',
+                'type' => 'entity',
+                'options' => array(
+                    'class' => 'AppBundle:Regning',
+                    'required' => FALSE,
+                    'empty_value' => '--',
+                ),
+                'allow_add' => true,
+                'by_reference' => false,
+                'allow_delete' => true,
+                'add_button_text'    => 'Add',
+                'delete_button_text' => 'Delete',
+                'sub_widget_col'     => 10,
+                'button_col'         => 2
+            ));
         ;
     }
 

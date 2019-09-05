@@ -408,6 +408,20 @@ pumpetiltag:
     plural: Pumpeforslag
     singular: Pumpeforslag
     title: Pumpeudskiftninger
+pumpetiltagdetailapplikation:
+  actions:
+    add: Tilføj Pumpeforslag detail applikation
+    create: Opret Pumpeforslag detail applikation
+    edit: Rediger Pumpeforslag detail applikation
+  confirmation:
+    created: Nyt Pumpeforslag detail applikation oprettet
+    updated: Pumpeforslag detail applikation opdateret
+    deleted: Pumpeforslag detail applikation slettet
+  error:
+    in_use: Kan ikke slettes. Bruges af pumpetiltagdetail.
+  labels:
+    plural: Pumpeforslag detail applikationer
+    singular: Pumpeforslag detail applikation
 pumpetiltagdetail:
   actions:
     add: Tilføj Pumpeforslag
@@ -515,6 +529,19 @@ tiltagdetail:
     created: Detail oprettet
     updated: Detail opdateret
     deleted: Detail slettet
+tiltagskategori:
+  actions:
+    add: Tilføj forslag kategori
+    edit: Rediger forslag kategori
+  confirmation:
+    created: Forslag faketori oprettet
+    updated: Forslag faketori opdateret
+    deleted: Forslag faketori slettet
+  error:
+    in_use: Kan ikke slettes. Bruges af forslag.
+  labels:
+    plural: Forslag kategorier
+    singular: Forslag kategori
 udtraek:
   columns:
     alt: Alt (Uden forslag)
@@ -1447,6 +1474,9 @@ appbundle:
     varmebespIsokappeKWh: Varmebesp. iso.kappe
     varmebespIsokappeKWh.unit: kWh
     varmetabIftAekvivalentRoerstoerrelse: Overskreven varmetab ift. ækvivalent rørstørrelse (Pumpetilslutning)
+  pumpetiltagdetailapplikation:
+    navn: Navn
+
   rapport:
     ava: AVA
     anlaegsinvestering.unit: kr
@@ -1853,6 +1883,8 @@ appbundle:
     tilvalgtAfRaadgiver: Tilvalgt af Rådgiver
     tilvalgtbegrundelse: Bemærkning Aa+
     tilvalgtBegrundelseMagistrat: Bemærkning Magistrat
+  tiltagskategori:
+    navn: Navn
   user:
     bygninger: Bygninger
     email: Email
