@@ -221,7 +221,21 @@ stof_doctrine_extensions:
 knp_snappy:
     pdf:
         enabled:    true
-        options:    {page-size: A4, zoom: 1, footer-font-size: 8, header-font-size: 8, javascript-delay: 300, debug-javascript: true, margin-top: 25, margin-right: 20, margin-bottom: 20, margin-left: 20, footer-spacing: 5, header-spacing: 5}
+        options:    {
+            page-size: A4,
+            zoom: 1,
+            footer-font-size: 8,
+            header-font-name: 'Arial, Helvetica, sans-serif',
+            header-font-size: 8,
+            javascript-delay: 300,
+            debug-javascript: true,
+            margin-top: 25,
+            margin-right: 20,
+            margin-bottom: 20,
+            margin-left: 20,
+            footer-spacing: 5,
+            header-spacing: 5
+        }
 
 # https://twigexcelbundle.readthedocs.org/en/latest/installation.html#step-3-configure-the-bundle-optional
 mewes_k_twig_excel:
