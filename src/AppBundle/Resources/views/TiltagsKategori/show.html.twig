@@ -1,0 +1,29 @@
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ entity }}</h1>
+    </div>
+    <div class="col-md-3 text-right">    <a class="btn btn-default btn-default" href="{{ path('tiltagskategori_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('chevron-right') }} {{ 'tiltagskategori.labels.singular' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+            <tr>
+              <th>{{ 'appbundle.tiltagskategori.navn' | trans }}</th>
+                <td>{{ entity.navn }}</td>
+            </tr>          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
