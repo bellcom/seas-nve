@@ -202,42 +202,6 @@
 
     </div>
 
-    <div class="row">
-      <div class="col-xs-12">
-        <h4>Ordforklaring</h4>
-
-        <p>
-          <em>Nutidsværdi</em><br>
-          Beløbet er den "nutidige værdi" af de kommende indtægter fra energibesparelsen samt udgifterne til service mv.
-          i 15 år, hvor der er taget hensyn til inflation, energiprisstigninger, renteudgifter til
-          lånoptagning, reinvesteringer samt tiltagenes eventuelle restværdi i år 15.<br>
-          En positiv nutidsværdi beskriver dermed den totale gevinst ved en investering, set over 15 år, mens en negativ
-          nutidsværdi viser den
-          totale udgift set over 15 år.
-        </p>
-
-        <p><em>Øvrige omkostninger</em><br>
-          Udover investeringen er der indregnet øvrige omkostninger til:
-        <ul>
-          <li>Energiscreening, som er udgiften til Energirådgiver for at gennemgå bygningen samt beskrive og beregne
-            tiltagene i tiltagslisten.
-          </li>
-          <li>MTM fællesudgifter, som bl.a. omfatter udgifter til bl.a. energiledelse, bygherrerådgivning og Aa+
-            sekretariatet
-          </li>
-          <li>Implementeringsomkostninger, som omfatter bl.a. projektering og byggeledelse.</li>
-        </ul>
-        </p>
-
-        <p><em>Forventet timeforbrug for lokalpersonalet</em><br>
-          I forbindelse med gennemførslen af projektet forventes der et øget timeforbrug for lokalpersonalet direkte
-          relateret til projektet, bl.a. i forbindelse med møder,
-          kordinering, energiledelse og uddannelse.
-        </p>
-
-      </div>
-    </div>
-
     <div class="row page-break-before">
       <div class="col-xs-12">
         <h3>2. Samtidighed</h3>
@@ -385,6 +349,51 @@
 
     <div class="panel panel-default">
       {% include 'AppBundle::_includes/finansiering_likviditetsoverblik_pdf.html.twig' with {'entity': rapport} %}
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h4>Ordforklaring</h4>
+
+        <p>
+          <em>Nutidsværdi</em><br>
+          Beløbet er den "nutidige værdi" af de kommende indtægter fra
+          energibesparelsen samt udgifterne til service mv.
+          i 15 år, hvor der er taget hensyn til inflation, energiprisstigninger,
+          renteudgifter til
+          lånoptagning, reinvesteringer samt tiltagenes eventuelle restværdi i
+          år 15.<br>
+          En positiv nutidsværdi beskriver dermed den totale gevinst ved en
+          investering, set over 15 år, mens en negativ
+          nutidsværdi viser den
+          totale udgift set over 15 år.
+        </p>
+
+        <p><em>Øvrige omkostninger</em><br>
+          Udover investeringen er der indregnet øvrige omkostninger til:
+        <ul>
+          <li>Energiscreening, som er udgiften til Energirådgiver for at
+            gennemgå bygningen samt beskrive og beregne
+            tiltagene i tiltagslisten.
+          </li>
+          <li>MTM fællesudgifter, som bl.a. omfatter udgifter til bl.a.
+            energiledelse, bygherrerådgivning og Aa+
+            sekretariatet
+          </li>
+          <li>Implementeringsomkostninger, som omfatter bl.a. projektering og
+            byggeledelse.
+          </li>
+        </ul>
+        </p>
+
+        <p><em>Forventet timeforbrug for lokalpersonalet</em><br>
+          I forbindelse med gennemførslen af projektet forventes der et øget
+          timeforbrug for lokalpersonalet direkte
+          relateret til projektet, bl.a. i forbindelse med møder,
+          kordinering, energiledelse og uddannelse.
+        </p>
+
+      </div>
     </div>
 
   </div>
