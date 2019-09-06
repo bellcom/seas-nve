@@ -231,3 +231,9 @@ th.border-right:last-child, td.border-right:last-child {
   background-color: #E5E5E1;
   border-color: #E5E5E1;
 }
+
+.pdf-footer {
+  padding-top: 10pt;
+  font-size: .7em;
+  border-top: 1pt solid #B2C930;
+}
