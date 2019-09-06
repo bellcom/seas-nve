@@ -2,39 +2,67 @@
 
 {% block body -%}
 
-  <div class="landscape">
+  <h1 class="pdf-enlarged">
+    {% if rapport.bygning.virksomhed.navn %}
+      {{ rapport.bygning.virksomhed.navn }}
+      <br>
+    {% endif %}
 
-    <p class="text-right">
-      <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
-    </p>
+    {{ rapport.bygning.navn }}
+  </h1>
 
-    <hr class="pdf-heading">
+  <br><br>
 
-    <div class="row">
-      <div class="col-xs-7">
-        <h1>Dokument 5<br>
-          Detailark</h1>
-      </div>
-      <div class="col-xs-5">
-        <h1 class="grey text-right text-uppercase">Energirapport</h1>
-      </div>
-    </div>
-    <div class="row heading">
-      <div class="col-xs-8">
-        <address>
-          {{ icon('home') }} <strong>{{ rapport.bygning.navn }}</strong><br>
-          {{ rapport.bygning.adresse }}<br>
-          {{ rapport.bygning.postnummer }} {{ rapport.bygning.postBy }}<br>
-        </address>
-        <strong>{{ rapport.fullVersion }}</strong>
-      </div>
-      <div class="col-xs-4 text-right">
-        <p>{{ 'common.genereted'| trans }}: {{ 'now'|date }}</p>
-      </div>
-    </div>
+  <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
 
-    <hr class="pdf-heading">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
+  {% if not rapport.bygning.virksomhed.navn %}
+    <br><br><br>
+  {% endif %}
+
+  <div class="text-right">
+    <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
   </div>
 
 {% endblock %}
