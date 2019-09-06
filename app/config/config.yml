@@ -221,7 +221,6 @@ stof_doctrine_extensions:
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     /var/www/seas.symfony2/wkhtmltopdf
         options:    { page-size: A4, zoom: 1, footer-font-size: 8, header-font-name: 'Arial, Helvetica, sans-serif', header-font-size: 7, javascript-delay: 300, debug-javascript: true, margin-top: 25, margin-right: 20, margin-bottom: 20, margin-left: 20, header-spacing: 14, footer-spacing: 5 }
 
 # https://twigexcelbundle.readthedocs.org/en/latest/installation.html#step-3-configure-the-bundle-optional
