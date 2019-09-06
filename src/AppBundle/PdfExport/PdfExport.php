@@ -40,15 +40,10 @@ class PdfExport {
       'rapport' => $rapport,
     ));
 
-    $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', array(
-      'rapport' => $rapport,
-    ));
-
     return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('lowquality' => false,
             'encoding' => 'utf-8',
             'images' => true,
-            'cover' => $cover,
             'header-left' => implode(' | ', $data),
             'header-right' => "Side [page] af [toPage]",
             'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf2Footer.html'),
@@ -80,16 +75,11 @@ class PdfExport {
       'rapport' => $rapport,
     ));
 
-    $cover = $this->renderView('AppBundle:Rapport:showPdf5Cover.html.twig', array(
-      'rapport' => $rapport,
-    ));
-
     return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('orientation'=>'Landscape',
             'lowquality' => false,
             'encoding' => 'utf-8',
             'images' => true,
-            'cover' => $cover,
             'header-left' => implode(' | ', $data),
             'header-right' => "Side [page] af [toPage]",
             'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf5Footer.html'),
@@ -117,15 +107,10 @@ class PdfExport {
       'rapport' => $rapport,
     ));
 
-    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdf2Cover.html.twig', array(
-      'rapport' => $rapport,
-    ));
-
     return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('lowquality' => false,
             'encoding' => 'utf-8',
             'images' => true,
-            'cover' => $cover,
             'header-left' => implode(' | ', $data),
             'header-right' => "Side [page] af [toPage]",
             'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf2Footer.html'),
@@ -153,16 +138,11 @@ class PdfExport {
       'rapport' => $rapport,
     ));
 
-    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdf5Cover.html.twig', array(
-      'rapport' => $rapport,
-    ));
-
     return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('orientation'=>'Landscape',
             'lowquality' => false,
             'encoding' => 'utf-8',
             'images' => true,
-            'cover' => $cover,
             'header-left' => implode(' | ', $data),
             'header-right' => "Side [page] af [toPage]",
             'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf5Footer.html'),
