@@ -63,6 +63,7 @@ common:
   download: Download
   downloadExcel: Hent som Excel
   downloadCsv: Hent som csv
+  import: Import
   edit: Rediger
   empty: Blank
   energiledelse: Energiledelse
@@ -386,12 +387,15 @@ pumpe:
     add: Tilføj Pumpe
     create: Opret Pumpe
     edit: Rediger Pumpe
+    import: Import Pumper
   confirmation:
     created: Pumpe oprettet
     updated: Pumpe opdateret
     deleted: Pumpe slettet
+    imported: Der var oprettet %created og opdateret %updated pumper.
   error:
     in_use: Kan ikke slettes. Bruges af pumpeforslag.
+    import_file: Import file er forkert.
   labels:
     nuvaerende: Nuværende pumpe
     ny: Ny pumpe
@@ -1408,6 +1412,8 @@ appbundle:
     tilslutning: Tilslutning
     udligningssaet: Udligningssæt
     vvsnr: VVS Nr.
+    import:
+      filepath: Vælg fil med import pumper data
   pumpetiltag:
     applikation: Applikation
     nyttiggjortVarme: Nyttiggjort varme

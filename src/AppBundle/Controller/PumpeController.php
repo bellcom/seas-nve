@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\PumpeRepository;
+use AppBundle\Form\Type\PumpeImportType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -11,6 +13,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Pumpe;
 use AppBundle\Form\Type\PumpeType;
 use AppBundle\Controller\BaseController;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use League\Csv\Reader;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
+use Symfony\Component\Translation\TranslatorInterface;
+
 
 /**
  * Pumpe controller.
@@ -20,30 +28,55 @@ use AppBundle\Controller\BaseController;
  */
 class PumpeController extends BaseController
 {
+    /**
+     * @var TranslatorInterface $tranlator
+     */
+    private $translator;
 
-  public function init(Request $request) {
-    parent::init($request);
-    $this->breadcrumbs->addItem('pumpe.labels.singular', $this->generateUrl('pumpe'));
-}
+    /**
+     * @var PropertyAccessor
+     */
+    protected $accessor;
 
+    public function init(Request $request) {
+        parent::init($request);
+        $this->breadcrumbs->addItem('pumpe.labels.singular', $this->generateUrl('pumpe'));
+        $this->accessor = PropertyAccess::createPropertyAccessor();
+        $this->translator = $this->container->get('translator');
+    }
 
     /**
      * Lists all Pumpe entities.
      *
      * @Route("/", name="pumpe")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Pumpe:index.html.twig")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        // We need more time!
+        set_time_limit(0);
 
+        $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('AppBundle:Pumpe')->findAll();
+
+        $_format = '';
+        if ($request->query->has('_format')) {
+            $value = $request->query->get('_format');
+            if ($value == 'xlsx' || $value == 'csv') {
+                $_format = $value;
+            }
+        }
+
+        if (!empty($_format)) {
+            return $this->export($entities, $_format);
+        }
 
         return array(
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Pumpe entity.
      *
@@ -109,6 +142,120 @@ class PumpeController extends BaseController
             'entity' => $entity,
             'form'   => $form->createView(),
         );
+    }
+
+    /**
+     * Displays a form to import file with Pumpe entities data.
+     *
+     * @Route("/import", name="pumpe_import_form")
+     * @Method("GET")
+     * @Template("AppBundle:Pumpe:import.html.twig")
+     */
+    public function importFormAction()
+    {
+        $this->breadcrumbs->addItem('common.import', $this->generateUrl('pumpe'));
+        $form = $this->createImportForm();
+
+        return array(
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
+     * Imports a new Pumpe entities.
+     *
+     * @Route("/import", name="pumpe_import")
+     * @Method("POST")
+     * @Template("AppBundle:Pumpe:import.html.twig")
+     */
+    public function importAction(Request $request)
+    {
+        $form = $this->createImportForm();
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $updated = 0;
+            $created = 0;
+
+            // Get file
+            $file = $form->get('filepath');
+            $fileData = $file->getData();
+            $reader = Reader::createFromPath($fileData->getPathname());
+            try {
+                $results = $reader->fetchAssoc();
+            }
+            catch (\Exception $e) {
+                $results = array();
+                $this->flash->error('pumpe.error.import_file');
+            }
+            $em = $this->getDoctrine()->getManager();
+            /** @var PumpeRepository $repository */
+            $repository = $em->getRepository(Pumpe::class);
+            $columns = $em->getClassMetadata(Pumpe::class)->getColumnNames();
+            // Remove 'id' column from properties.
+            $columns = array_filter($columns, function($val) { return $val != 'id'; });
+            foreach ($results as $row) {
+                if (!empty($row['id']) && $entity = $repository->find($row['id'])) {
+                    // Update  entity.
+                    foreach ($columns as $column) {
+                        if (isset($row[$column])) {
+                            $value = $repository->getTypedValue($column, $row[$column]);
+                            if ($this->accessor->getValue($entity, $column) != $value) {
+                                $this->accessor->setValue($entity, $column, $value);
+                            }
+                        }
+                    }
+                    // Save entity only if it has changes.
+                    $uow = $em->getUnitOfWork();
+                    $uow->computeChangeSets();
+                    if ($uow->getEntityChangeSet($entity)) {
+                        $em->persist($entity);
+                        $updated++;
+                    }
+                    continue;
+                }
+
+                // Insert entity.
+                $entity = new Pumpe();
+                foreach ($columns as $column) {
+                    $value = '';
+                    if (isset($row[$column])) {
+                        $value = $row[$column];
+                    }
+                    $this->accessor->setValue($entity, $column, $repository->getTypedValue($column, $value));
+                }
+                $em->persist($entity);
+                $created++;
+            }
+            $em->flush();
+            $this->flash->success($this->translator->trans('pumpe.confirmation.imported', array(
+                '%created' => $created,
+                '%updated' => $updated,
+            )));
+
+            return $this->redirect($this->generateUrl('pumpe'));
+        }
+
+        return array(
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
+     * Creates a form to create a Pumpe entity.
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createImportForm()
+    {
+        $form = $this->createForm(new PumpeImportType(), null, array(
+            'action' => $this->generateUrl('pumpe_import'),
+            'method' => 'POST',
+        ));
+
+        $this->addUpdate($form, $this->generateUrl('pumpe'));
+
+        return $form;
     }
 
     /**
@@ -215,6 +362,7 @@ class PumpeController extends BaseController
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Pumpe entity.
      *
@@ -267,4 +415,59 @@ class PumpeController extends BaseController
             ->getForm()
         ;
     }
+
+    private function export(array $result, $format) {
+        $filename = 'pumper--' . date('d-m-Y_Hi') . '.' . $format;
+        switch ($format) {
+            case 'csv':
+                $contentType = 'text/csv';
+                break;
+            case 'xlsx':
+                $contentType = 'application/vnd.ms-excel';
+                break;
+        }
+
+        $response = new StreamedResponse();
+        $response->headers->add([
+            'Content-type' => $contentType,
+            'Content-disposition' => 'attachment; filename="' . $filename . '"',
+            'Cache-control' => 'max-age=0',
+        ]);
+        $em = $this->getDoctrine()->getManager();
+        $columns = $em->getClassMetadata(Pumpe::class)->getColumnNames();
+        $streamer = $this->container->get('aaplus.exporter.csv_stream');
+        $streamer->setConfig([
+            'columns' => $columns,
+        ]);
+        $response->setCallback(function () use ($result, $streamer, $format) {
+            $streamer->start('php://output', $format);
+            $streamer->header();
+            foreach ($result as $item) {
+                $streamer->item($item);
+            }
+            $streamer->end();
+        });
+
+        return $response;
+    }
+
+  private function updateEntityFromArray($entity, $values) {
+    $repository = $this->getDoctrine()->getManager()->getRepository(Pumpe::class);
+
+  }
+
+  private function insertEntiyFromArray($values) {
+    $columns = $this->getClassMetadata()->getColumnNames();
+    $entity = new Pumpe();
+    foreach ($columns as $column) {
+      if (isset($values[$column])) {
+        $value = $this->getTypedValue($column, $values[$column]);
+        $this->accessor->setValue($entity, $column, $value);
+      }
+    }
+    $em = $this->getEntityManager();
+    $em->persist($entity);
+    $em->flush();
+  }
+
 }

@@ -230,3 +230,7 @@ services:
     aaplus.exporter.bygning_stream:
       class: AppBundle\Service\BygningStreamExporter
       arguments: [ "@service_container", "@translator" ]
+
+    aaplus.exporter.csv_stream:
+      class: AppBundle\Service\StreamExporter
+      arguments: []

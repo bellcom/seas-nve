@@ -7,6 +7,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use DateTime;
 
 /**
  * PumpeRepository
@@ -15,6 +16,7 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class PumpeRepository extends EntityRepository {
+
   /**
    * Check if entity can be removed (deleted). If not, return an error message.
    *
@@ -30,6 +32,32 @@ class PumpeRepository extends EntityRepository {
     }
 
     return null;
+  }
+
+  /**
+   * Helper function to convert values to proper type.
+   *
+   * @param string $column
+   * @param string $value
+   *
+   * @return string|DateTime
+   *
+   * @throws
+   */
+  public function getTypedValue($column, $value) {
+    switch ($column) {
+      case 'createdAt':
+      case 'updatedAt':
+        if (empty($value)) {
+            $value = 'now';
+        }
+        return new \DateTime($value);
+        break;
+
+      default;
+        // Most of values is stringable.
+        return (string) $value;
+    }
   }
 
 }
