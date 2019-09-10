@@ -618,9 +618,9 @@ virksomhed:
       eanNumbers: Ingen EAN-numre
       pNumbers: Ingen P-numre
       parent: Ingen moderselskab
-      bygninger: Ingen tilknytet bygninger
-    delete_user: Fjern tilknytet bruger?
-    attached_existing_user: Der var tilknytet eksiterende bruger med email adresse %userMail
+      bygninger: Ingen tilknyttet bygning
+    delete_user: Fjern tilknyttet bruger?
+    attached_existing_user: Der var tilknyttet en eksisterende bruger med e-mail adresse %userMail
 virksomhed_rapporter:
   actions:
     create: Opret virksomhedsrapport
@@ -1977,23 +1977,23 @@ appbundle:
     yderligereBesparelserPct: Yderligere besparelser
     yderligereBesparelserPct.unit: %
   virksomhed:
-    bygning: Tilknytet bygninger
+    bygning: Tilknyttet bygninger
     generalt: Generel information
     name: Firmanavn
     cvrNumber: CVR-nr.
     pNumbers: P-nr.
     pNumbers.placeholder: Vælg bygning efter P-nummer
-    pNumbers.description: Tilknyt eksiterende bygniger på P-nummer.
+    pNumbers.description: Tilknyt eksisterende bygniger på P-nummer.
     eanNumbers: EAN-nr.
     eanNumbers.placeholder: Vælg bygning efter EAN-nummer
-    eanNumbers.description: Tilknyt eksiterende bygniger på EAN-nummer.
+    eanNumbers.description: Tilknyt eksisterende bygniger på EAN-nummer.
     crmNumber: CRM-nr.
     projectNumber: Projekt nr.
     aftagerNumber: Aftager nr.
     datterSelskaber: Datterselskaber
     datterSelskaber.placeholder: Vælg datterselskab efter CVR-nummer
-    datterSelskaber.description: Tilknyt eksiterende Virksoheder som Datterselskab på CVR-nummer.
-    datterSelskaber.raporter: Datterselskabs raporter
+    datterSelskaber.description: Tilknyt eksisterende virksomheder som Datterselskab på CVR-nummer.
+    datterSelskaber.raporter: Datterselskabs rapporter
     typeName: Typenavn
     firma_adresse: Firma adresse
     kommune: Kommune
@@ -2028,7 +2028,7 @@ appbundle:
     lobetid: Løbetid
     lobetid.unit: år
     parent: Moderselskab
-    user: Tilknytet kundens bruger
+    user: Tilknyttet kundens bruger
     user.customer_url: Kundens URL
     create:
       rapport:
@@ -2275,12 +2275,12 @@ roles:
     ROLE_TILTAG_CREATE: Opret forslag
     ROLE_TILTAG_EDIT: Rediger forslag
     ROLE_TILTAG_VIEW: Vis forslag
-    ROLE_TILTAGDETAIL_CREATE: Opret forslag detalje
-    ROLE_TILTAGDETAIL_EDIT: Rediger forslag detalje
-    ROLE_TILTAGDETAIL_VIEW: Vis forslag detalje
+    ROLE_TILTAGDETAIL_CREATE: Opret forslagsdetail
+    ROLE_TILTAGDETAIL_EDIT: Rediger forslagsdetail
+    ROLE_TILTAGDETAIL_VIEW: Vis forslagsdetail
     ROLE_VIRKSOMHED_CREATE: Opret virksomhed
     ROLE_VIRKSOMHED_EDIT: Rediger virksomhed
     ROLE_VIRKSOMHED_VIEW: Vis virksomhed
-    ROLE_VIRKSOMHED_RAPPORT_CREATE: Opret virksomhed rapport
-    ROLE_VIRKSOMHED_RAPPORT_EDIT: Rediger virksomhed rapport
-    ROLE_VIRKSOMHED_RAPPORT_VIEW: Vis virksomhed rapport
+    ROLE_VIRKSOMHED_RAPPORT_CREATE: Opret virksomhedsrapport
+    ROLE_VIRKSOMHED_RAPPORT_EDIT: Rediger virksomhedsrapport
+    ROLE_VIRKSOMHED_RAPPORT_VIEW: Vis virksomhedsrapport
