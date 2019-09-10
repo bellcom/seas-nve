@@ -47,11 +47,11 @@
       {% if tiltagIndex == 0 %}
         {% xlscell %}{{ bygning.bruttoetageareal }}{% endxlscell %}
         {% xlscell %}{{ bygning.forsyningsvaerkVarme }}{% endxlscell %}
-        {% xlscell %}{{ bygning.forsyningsvaerkVarme ? bygning.forsyningsvaerkVarme.kgCo2MWh(2009) : null }}{% endxlscell %}
+        {% xlscell %}{{ bygning.forsyningsvaerkVarme ? bygning.forsyningsvaerkVarme.kgCo2MWh(2015) : null }}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.BaselineCO2Varme : null }}{% endxlscell %}
         {% xlscell %}{{ (bygning.forsyningsvaerkVarme and rapport) ? bygning.forsyningsvaerkVarme.kgCo2MWh(rapport.datering|date('Y')) : null }}{% endxlscell %}
         {% xlscell %}{{ bygning.forsyningsvaerkEl }}{% endxlscell %}
-        {% xlscell %}{{ bygning.forsyningsvaerkEl ? bygning.forsyningsvaerkEl.kgCo2MWh(2009) : null }}{% endxlscell %}
+        {% xlscell %}{{ bygning.forsyningsvaerkEl ? bygning.forsyningsvaerkEl.kgCo2MWh(2015) : null }}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.BaselineCO2El : null }}{% endxlscell %}
         {% xlscell %}{{ (bygning.forsyningsvaerkEl and rapport) ? bygning.forsyningsvaerkEl.kgCo2MWh(rapport.datering|date('Y')) : null }}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.baselineVarmeGAF : null }}{% endxlscell %}

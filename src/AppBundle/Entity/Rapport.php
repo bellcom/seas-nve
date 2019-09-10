@@ -2197,14 +2197,14 @@ class Rapport {
 
   private function calculateBaselineCO2El() {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl(TRUE);
-    $elKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
+    $elKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2015);
 
     return ($this->BaselineEl / 1000) * ($elKgCo2MWh / 1000);
   }
 
   private function calculateBaselineCO2Varme() {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme(TRUE);
-    $varmeKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
+    $varmeKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2015);
 
     return (($this->BaselineVarmeGUF + $this->BaselineVarmeGAF) / 1000) * $varmeKgCo2MWh / 1000;
   }
@@ -2258,7 +2258,7 @@ class Rapport {
   private function getBygningForsyningsvaerkElKgCo2MWh() {
     $vaerk = $this->getBygning()->getForsyningsvaerkEl(TRUE);
     if($vaerk) {
-      return $vaerk->getKgCo2MWh(2009);
+      return $vaerk->getKgCo2MWh(2015);
     }
     return null;
   }
@@ -2283,7 +2283,7 @@ class Rapport {
   private function getBygningForsyningsvaerkVarmeKgCo2MWh() {
     $vaerk = $this->getBygning()->getForsyningsvaerkVarme(TRUE);
     if($vaerk) {
-      return $vaerk->getKgCo2MWh(2009);
+      return $vaerk->getKgCo2MWh(2015);
     }
     return null;
   }
