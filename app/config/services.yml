@@ -18,7 +18,7 @@ services:
             - {name: "twig.extension"}
     trans_key_extension:
         class: AppBundle\Twig\Extension\TransKeyExtension
-        arguments: [@translator]
+        arguments: ["@translator"]
         tags:
             - {name: "twig.extension"}
     format_extension:
@@ -28,13 +28,13 @@ services:
 
     routing_token_access_extension:
         class: AppBundle\Twig\Extension\RoutingTokenAccessExtension
-        arguments: [ @router, @request_stack ]
+        arguments: [ "@router", "@request_stack" ]
         tags:
             - {name: "twig.extension"}
 
     appbundle.user_email_validator:
         class: AppBundle\Validator\Constraints\UserEmailValidator
-        arguments: ["@doctrine.orm.entity_manager", @translator]
+        arguments: ["@doctrine.orm.entity_manager", "@translator"]
         tags:
             - { name: validator.constraint_validator }
 
@@ -44,69 +44,69 @@ services:
             - { name: twig.extension }
 
     twig.extension.text:
-         class: Twig_Extensions_Extension_Text
-         tags: [{ name: twig.extension }]
+        class: Twig_Extensions_Extension_Text
+        tags: [{ name: twig.extension }]
 
     security.access.bygning_voter:
         class:      AppBundle\Security\Authorization\Voter\BygningVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        arguments: [ "@doctrine.orm.default_entity_manager", "@?security.role_hierarchy" ]
         tags:
             - { name: security.voter }
 
     security.access.baseline_voter:
         class:      AppBundle\Security\Authorization\Voter\BaselineVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        arguments: [ "@doctrine.orm.default_entity_manager", "@?security.role_hierarchy" ]
         tags:
             - { name: security.voter }
 
     security.access.rapport_voter:
         class:      AppBundle\Security\Authorization\Voter\RapportVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy, @request_stack ]
+        arguments: [ "@doctrine.orm.default_entity_manager", "@?security.role_hierarchy", "@request_stack" ]
         tags:
             - { name: security.voter }
 
     security.access.tiltag_voter:
         class:      AppBundle\Security\Authorization\Voter\TiltagVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        arguments: [ "@doctrine.orm.default_entity_manager", "@?security.role_hierarchy" ]
         tags:
             - { name: security.voter }
 
     security.access.tiltagdetail_voter:
         class:      AppBundle\Security\Authorization\Voter\TiltagDetailVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        arguments: [ "@doctrine.orm.default_entity_manager", "@?security.role_hierarchy" ]
         tags:
             - { name: security.voter }
 
     security.access.configuration_voter:
         class:      AppBundle\Security\Authorization\Voter\ConfigurationVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        arguments: [ "@doctrine.orm.default_entity_manager", "@?security.role_hierarchy" ]
         tags:
             - { name: security.voter }
 
     security.access.forsyningsvaerk_voter:
         class:      AppBundle\Security\Authorization\Voter\ForsyningsvaerkVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy ]
+        arguments: [ "@doctrine.orm.default_entity_manager", "@?security.role_hierarchy" ]
         tags:
             - { name: security.voter }
 
     security.access.virksomhed_voter:
         class:      AppBundle\Security\Authorization\Voter\VirksomhedVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy, @request_stack ]
+        arguments: [ "@doctrine.orm.default_entity_manager", "@?security.role_hierarchy", "@request_stack" ]
         tags:
             - { name: security.voter }
 
     security.access.virksomhed_rapport_voter:
         class:      AppBundle\Security\Authorization\Voter\VirksomhedRapportVoter
         public:     false
-        arguments: [ @doctrine.orm.default_entity_manager, @?security.role_hierarchy, @request_stack ]
+        arguments: [ "@doctrine.orm.default_entity_manager", "@?security.role_hierarchy", "@request_stack" ]
         tags:
             - { name: security.voter }
 
@@ -151,15 +151,15 @@ services:
 
     aaplus.rapport_calculation:
         class: AppBundle\Calculation\RapportCalculation
-        arguments: [ @service_container ]
+        arguments: [ "@service_container" ]
 
     aaplus.virksomhed_rapport_calculation:
         class: AppBundle\Calculation\VirksomhedRapportCalculation
-        arguments: [ @service_container ]
+        arguments: [ "@service_container" ]
 
     aaplus.energiforsyning_calculation:
         class: AppBundle\Calculation\EnergiforsyningCalculation
-        arguments: [ @service_container ]
+        arguments: [ "@service_container" ]
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
@@ -167,32 +167,32 @@ services:
 
     aaplus.tiltag_calculation:
         class: AppBundle\Calculation\TiltagCalculation
-        arguments: [ @service_container ]
+        arguments: [ "@service_container" ]
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
 
     aaplus.tiltagdetail_calculation:
         class: AppBundle\Calculation\TiltagDetailCalculation
-        arguments: [ @service_container ]
+        arguments: [ "@service_container" ]
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
 
     aaplus.solcelletiltagdetail_calculation:
         class: AppBundle\Calculation\SolcelleTiltagDetailCalculation
-        arguments: [ @service_container ]
+        arguments: [ "@service_container" ]
 
     aaplus.baseline_calculation:
         class: AppBundle\Calculation\BaselineCalculation
-        arguments: [@service_container]
+        arguments: [ "@service_container"]
         tags:
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: prePersist }
 
     aaplus.baselinekorrektion_calculation:
         class: AppBundle\Calculation\BaselineKorrektionCalculation
-        arguments: [@service_container]
+        arguments: [ "@service_container"]
         tags:
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: prePersist }
@@ -216,21 +216,21 @@ services:
 
     aaplus.pdf_export:
         class: AppBundle\PdfExport\PdfExport
-        arguments: [ @service_container ]
+        arguments: [ "@service_container" ]
 
     aaplus.entityaudit.manager:
-      class: AppBundle\EntityAudit\AuditManager
-      arguments: [ @simplethings_entityaudit.config ]
+        class: AppBundle\EntityAudit\AuditManager
+        arguments: [ "@simplethings_entityaudit.config" ]
 
     aaplus.entityaudit.reader:
-      class: AppBundle\EntityAudit\AuditReader
-      factory: [@aaplus.entityaudit.manager, createAuditReader]
-      arguments: [@doctrine.orm.default_entity_manager]
+        class: AppBundle\EntityAudit\AuditReader
+        factory: ["@aaplus.entityaudit.manager", createAuditReader]
+        arguments: ["@doctrine.orm.default_entity_manager"]
 
     aaplus.exporter.bygning_stream:
-      class: AppBundle\Service\BygningStreamExporter
-      arguments: [ "@service_container", "@translator" ]
+        class: AppBundle\Service\BygningStreamExporter
+        arguments: [ "@service_container", "@translator" ]
 
     aaplus.exporter.csv_stream:
-      class: AppBundle\Service\StreamExporter
-      arguments: []
+        class: AppBundle\Service\StreamExporter
+        arguments: []

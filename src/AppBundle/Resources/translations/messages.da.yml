@@ -1,2193 +1,2191 @@
 fos:
   user:
-
     profile:
       form:
-        username: Email
-        email: Email
-        firstname: Fornavn
-        lastname: Efternavn
-        phone: Telefon
+        username: "Email"
+        email: "Email"
+        firstname: "Fornavn"
+        lastname: "Efternavn"
+        phone: "Telefon"
         current:
-          password: Nuværende kodeord
+          password: "Nuværende kodeord"
     resetting:
       form:
         plainPassword:
-          first: Indtast nyt kodeord
-          second: Gentag kodeord
+          first: "Indtast nyt kodeord"
+          second: "Gentag kodeord"
     change:
       password:
         form:
           current:
-            password: Nuværende kodeord
+            password: "Nuværende kodeord"
           plainPassword:
-            first: Indtast nyt kodeord
-            second: Gentag kodeord
+            first: "Indtast nyt kodeord"
+            second: "Gentag kodeord"
 
 security:
   login:
-    username: Email
+    username: "Email"
 
-Update: Opdater
-Edit: Rediger
-Show: Vis
-Create: Opret
-Cancel: Annuller
-Update: Opdater
-Delete: Slet
-Add: Tilføj
-Close: Luk
-Ok: Ok
+Update: "Opdater"
+Edit: "Rediger"
+Show: "Vis"
+Create: "Opret"
+Cancel: "Annuller"
+Update: "Opdater"
+Delete: "Slet"
+Add: "Tilføj"
+Close: "Luk"
+Ok: "Ok"
 
 common:
-  a_search: Søgning
-  add: Tilføj
-  afleveret_raadgiver: Afleveret af Rådgiver
-  all: Alle
-  baseline: Baseline
-  beskrivelsesamtforudsætninger: Beskrivelse samt forudsætninger
-  besparelse: Besparelse
-  calculated_value: Beregnet værdi
-  cancel: Annuller
-  changes: Ændringer
-  choose: Vælg
-  confirmDelete: Er du sikker på du vil slette?
-  copy: Kopier
-  create: Opret
-  createdat: Oprettet
-  createdby: Oprettet af
-  current_buildings: Igangværende bygninger
-  data: Data
-  date: Dato
-  deselect: Fravælg
-  download: Download
-  downloadExcel: Hent som Excel
-  downloadCsv: Hent som csv
-  import: Import
-  edit: Rediger
-  empty: Blank
-  energiledelse: Energiledelse
-  finans: Økonomi
-  finished_buildings: Indsendt til Aa+
-  form_error: Fejl: ret venligst de nævnte problemer nedenfor
-  forside: Forside
-  generelt: Generelt
-  genereted: Genereret
-  linked: Tilknyttet
-  none: Ingen
-  notLinked: Ikke tilknyttet
-  oekonomi: Økonomi
-  personer: Personer
-  printed: Udskrevet
-  projektleder_for: Projektleder for
-  projekterende_for: Projekterende for
-  replace_file: Vælg ny fil
-  result_overview: Resultatoversigt
-  risikovurdering: Risikovurdering
-  risikovurdering.lav: Lav
-  risikovurdering.mellem: Mellem
-  risikovurdering.hoej: Høj
-  search: Søg
-  select: Tilvælg
-  show: Vis
-  showing: Viser
-  summary: Opsummering
-  tekniske_oplysninger: Tekniske Oplysninger
-  tilknytning: Tilknytning
-  transport: Transport
-  update: Opdater
-  updatedAt: Opdateret
-  updatedBy: Opdateret af
-  will_change: Opdateres
-  your_buildings: Dine bygninger
-  your_segments: Dine segmenter
-  toggle: Vis/Skjul
+  a_search: "Søgning"
+  add: "Tilføj"
+  afleveret_raadgiver: "Afleveret af Rådgiver"
+  all: "Alle"
+  baseline: "Baseline"
+  beskrivelsesamtforudsætninger: "Beskrivelse samt forudsætninger"
+  besparelse: "Besparelse"
+  calculated_value: "Beregnet værdi"
+  cancel: "Annuller"
+  changes: "Ændringer"
+  choose: "Vælg"
+  confirmDelete: "Er du sikker på du vil slette?"
+  copy: "Kopier"
+  create: "Opret"
+  createdat: "Oprettet"
+  createdby: "Oprettet af"
+  current_buildings: "Igangværende bygninger"
+  data: "Data"
+  date: "Dato"
+  deselect: "Fravælg"
+  download: "Download"
+  downloadExcel: "Hent som Excel"
+  downloadCsv: "Hent som csv"
+  import: "Import"
+  edit: "Rediger"
+  empty: "Blank"
+  energiledelse: "Energiledelse"
+  finans: "Økonomi"
+  finished_buildings: "Indsendt til Aa+"
+  form_error: "Fejl: ret venligst de nævnte problemer nedenfor"
+  forside: "Forside"
+  generelt: "Generelt"
+  genereted: "Genereret"
+  linked: "Tilknyttet"
+  none: "Ingen"
+  notLinked: "Ikke tilknyttet"
+  oekonomi: "Økonomi"
+  personer: "Personer"
+  printed: "Udskrevet"
+  projektleder_for: "Projektleder for"
+  projekterende_for: "Projekterende for"
+  replace_file: "Vælg ny fil"
+  result_overview: "Resultatoversigt"
+  risikovurdering: "Risikovurdering"
+  risikovurdering.lav: "Lav"
+  risikovurdering.mellem: "Mellem"
+  risikovurdering.hoej: "Høj"
+  search: "Søg"
+  select: "Tilvælg"
+  show: "Vis"
+  showing: "Viser"
+  summary: "Opsummering"
+  tekniske_oplysninger: "Tekniske Oplysninger"
+  tilknytning: "Tilknytning"
+  transport: "Transport"
+  update: "Opdater"
+  updatedAt: "Opdateret"
+  updatedBy: "Opdateret af"
+  will_change: "Opdateres"
+  your_buildings: "Dine bygninger"
+  your_segments: "Dine segmenter"
+  toggle: "Vis/Skjul"
 dashboard:
-  besparelseCO2: CO2 besparelse
-  besparelseEl: El besparelse
-  besparelseVarmeGAF: GAF besparelse
-  besparelseVarmeGUF: GUF besparelse
-  current: Igangværende
-  dine_bygninger: Dine bygninger
-  finished: Afleverede
-  totalareal: Areal
+  besparelseCO2: "CO2 besparelse"
+  besparelseEl: "El besparelse"
+  besparelseVarmeGAF: "GAF besparelse"
+  besparelseVarmeGUF: "GUF besparelse"
+  current: "Igangværende"
+  dine_bygninger: "Dine bygninger"
+  finished: "Afleverede"
+  totalareal: "Areal"
 title:
-  prefix: SEAS-NVE
+  prefix: "SEAS-NVE"
 
 # Entities
 baseline:
   actions:
-    add: Tilføj Baseline
-    create: Opret Baseline
-    edit: Rediger Baseline
-    indfoer: Indfør Baseline
-    korriger: Korriger Baseline
-    show: Vis Baseline
+    add: "Tilføj Baseline"
+    create: "Opret Baseline"
+    edit: "Rediger Baseline"
+    indfoer: "Indfør Baseline"
+    korriger: "Korriger Baseline"
+    show: "Vis Baseline"
   confirmation:
-    baseline_infoert: Baseline data verificeret
-    created: Baseline oprettet
-    updated: Baseline opdateret
+    baseline_infoert: "Baseline data verificeret"
+    created: "Baseline oprettet"
+    updated: "Baseline opdateret"
   labels:
-    plural: Baselines
-    singular: Baseline
+    plural: "Baselines"
+    singular: "Baseline"
   strings:
-    ingen: Ingen baseline fundet
+    ingen: "Ingen baseline fundet"
 baselinekorrektioner:
   actions:
-    add: Tilføj Korrektion
-    edit: Rediger Korrektion
+    add: "Tilføj Korrektion"
+    edit: "Rediger Korrektion"
   confirmation:
-    created: Korrektion oprettet
+    created: "Korrektion oprettet"
   labels:
-    singular: Korrektion
+    singular: "Korrektion"
   strings:
-    ingen: Ingen baseline korrektioner
+    ingen: "Ingen baseline korrektioner"
 belysningtiltag:
   actions:
-    add: Tilføj belysningsforslag
-    edit: Rediger belysningsforslag
+    add: "Tilføj belysningsforslag"
+    edit: "Rediger belysningsforslag"
   confirmation:
-    created: Nyt belysningsforslag oprettet
+    created: "Nyt belysningsforslag oprettet"
 belysningtiltagdetail:
   actions:
-    add: Tilføj belysningsforslag
-    batch_edit: Rediger valgte belysningsforslag
-    copy: Kopier belysningsforslag
-    edit: Rediger belysningsforslag
+    add: "Tilføj belysningsforslag"
+    batch_edit: "Rediger valgte belysningsforslag"
+    copy: "Kopier belysningsforslag"
+    edit: "Rediger belysningsforslag"
 bilag:
   actions:
-    create: Opret bilag
-    list: Bilag
-    new: Opret bilag
-    edit: Rediger bilag
+    create: "Opret bilag"
+    list: "Bilag"
+    new: "Opret bilag"
+    edit: "Rediger bilag"
   confirmation:
-    created: Bilag oprettet
-    updated: Bilag opdateret
-    deleted: Bilag slettet
+    created: "Bilag oprettet"
+    updated: "Bilag opdateret"
+    deleted: "Bilag slettet"
   labels:
-    singular: Bilag
-    plural: Bilag
+    singular: "Bilag"
+    plural: "Bilag"
 bygninger:
   actions:
-    add: Tilføj Bygning
-    create: Opret Bygning
-    edit: Rediger Bygning
-    indfoer: Indfør Bygning
-    show: Vis Bygning
-    tilknyt_raadgiver: Tilknyt Rådgiver
+    add: "Tilføj Bygning"
+    create: "Opret Bygning"
+    edit: "Rediger Bygning"
+    indfoer: "Indfør Bygning"
+    show: "Vis Bygning"
+    tilknyt_raadgiver: "Tilknyt Rådgiver"
   confirmation:
-    bygning_infoert: Bygnings data verificeret
-    raadgiver_tilknyttet: Rådgiver tilknyttet
+    bygning_infoert: "Bygnings data verificeret"
+    raadgiver_tilknyttet: "Rådgiver tilknyttet"
   labels:
-    plural: Bygninger
-    singular: Bygning
+    plural: "Bygninger"
+    singular: "Bygning"
   strings:
-    ingen: Ingen bygninger fundet
+    ingen: "Ingen bygninger fundet"
 bygning_rapporter:
   labels:
-    plural: Bygning rapporter
-    singular: Bygning rapport
-    detailark: Detailark
+    plural: "Bygning rapporter"
+    singular: "Bygning rapport"
+    detailark: "Detailark"
   actions:
-    add: Tilføj Bygning rapport
-    approve: Godkendt Magistrat
-    approve_confirm: Er du sikker på du vil markere bygning rapporten som "Godkendt af Magistrat"?
-    create: Opret Bygning rapport
-    download_files: Hent alle bilag og filer
-    edit: Baseline og energibudget
-    filer: Filer
-    implementation: Under udførsel
-    implementation_confirm: Er du sikker på du vil markere rapporten som "Under udførsel"?
-    operation: Drift
-    operation_confirm: Er du sikker på du vil markere bygningen som i drift?
-    pdf2: Resultatoversigt
-    pdf5: Detailark
-    re-calculate: Genberegn
-    retur: Retur til rådgiver
-    retur_confirm: Er du sikker på du vil sende bygning repporten retur til rådgiveren?
-    show: Vis Bygning rapport
-    submit: Aflever Bygning rapport
-    submit_confirm: Er du sikker på du vil aflevere bygning rapporten?
-    verify: Aa+ Verificeret
-    verify_confirm: Er du sikker på du vil verificerer bygning rapporten?
+    add: "Tilføj Bygning rapport"
+    approve: "Godkendt Magistrat"
+    approve_confirm: "Er du sikker på du vil markere bygning rapporten som \"Godkendt af Magistrat\"?"
+    create: "Opret Bygning rapport"
+    download_files: "Hent alle bilag og filer"
+    edit: "Baseline og energibudget"
+    filer: "Filer"
+    implementation: "Under udførsel"
+    implementation_confirm: "Er du sikker på du vil markere rapporten som \"Under udførsel\"?"
+    operation: "Drift"
+    operation_confirm: "Er du sikker på du vil markere bygningen som i drift?"
+    pdf2: "Resultatoversigt"
+    pdf5: "Detailark"
+    re-calculate: "Genberegn"
+    retur: "Retur til rådgiver"
+    retur_confirm: "Er du sikker på du vil sende bygning repporten retur til rådgiveren?"
+    show: "Vis Bygning rapport"
+    submit: "Aflever Bygning rapport"
+    submit_confirm: "Er du sikker på du vil aflevere bygning rapporten?"
+    verify: "Aa+ Verificeret"
+    verify_confirm: "Er du sikker på du vil verificerer bygning rapporten?"
   confirmation:
-    approved: Bygning rapport markeret som "Godkendt af Magistrat"
-    implementation: Bygning rapport markeret som "Under udførsel"
-    operation: Bygningen markeret som i drift
-    re-calculate: Er du sikker på du vil genberegne bygning rapporten?
-    retur: Bygning rapport returneret til rådgiver
-    submitted: Bygning rapport afleveret til Aa+
-    verified: Bygning rapport verificeret af Aa+
+    approved: "Bygning rapport markeret som \"Godkendt af Magistrat\""
+    implementation: "Bygning rapport markeret som \"Under udførsel\""
+    operation: "Bygningen markeret som i drift"
+    re-calculate: "Er du sikker på du vil genberegne bygning rapporten?"
+    retur: "Bygning rapport returneret til rådgiver"
+    submitted: "Bygning rapport afleveret til Aa+"
+    verified: "Bygning rapport verificeret af Aa+"
   messages:
-    no_files: Bygning rapporten har ingen filer tilknyttet
+    no_files: "Bygning rapporten har ingen filer tilknyttet"
   strings:
-    belysningtiltag: Belysning
-    klimaskaermtiltag: Klimaskærm
-    pumpetiltag: Pumper
-    solcelletiltag: Solcelle
-    specialtiltag: Special
-    tekniskisoleringtiltag: Teknisk isolering
-    tiltag: Forslag
-    tilvalgt: Tilvalgt
-    vinduetiltag: Vindue
+    belysningtiltag: "Belysning"
+    klimaskaermtiltag: "Klimaskærm"
+    pumpetiltag: "Pumper"
+    solcelletiltag: "Solcelle"
+    specialtiltag: "Special"
+    tekniskisoleringtiltag: "Teknisk isolering"
+    tiltag: "Forslag"
+    tilvalgt: "Tilvalgt"
+    vinduetiltag: "Vindue"
 configuration:
   actions:
-    edit: Rediger indstillinger
+    edit: "Rediger indstillinger"
   labels:
-    plural: Indstillinger
-    singular: Indstillinger
+    plural: "Indstillinger"
+    singular: "Indstillinger"
   strings:
 elofordeling:
   actions:
-    add: Tilføj ELO-fordeling
-    create: Opret ELO-fordeling
-    edit: Rediger ELO-fordeling
-    indfoer: Indfør ELO-fordeling
-    show: Vis ELO-fordeling
+    add: "Tilføj ELO-fordeling"
+    create: "Opret ELO-fordeling"
+    edit: "Rediger ELO-fordeling"
+    indfoer: "Indfør ELO-fordeling"
+    show: "Vis ELO-fordeling"
   confirmation:
-    baseline_infoert: ELO-fordeling data verificeret
+    baseline_infoert: "ELO-fordeling data verificeret"
   labels:
-    plural: ELO-fordelinger
-    singular: ELO-fordeling
+    plural: "ELO-fordelinger"
+    singular: "ELO-fordeling"
   strings:
-    ingen: Ingen ELO-fordeling fundet
+    ingen: "Ingen ELO-fordeling fundet"
 elokategori:
   actions:
-    add: Tilføj ELO-kategori
-    create: Opret ELO-kategori
-    edit: Rediger ELO-kategori
-    indfoer: Indfør ELO-kategori
-    show: Vis ELO-kategori
+    add: "Tilføj ELO-kategori"
+    create: "Opret ELO-kategori"
+    edit: "Rediger ELO-kategori"
+    indfoer: "Indfør ELO-kategori"
+    show: "Vis ELO-kategori"
   confirmation:
-    baseline_infoert: ELO-kategori data verificeret
+    baseline_infoert: "ELO-kategori data verificeret"
   labels:
-    plural: ELO-kategorier
-    singular: ELO-kategori
+    plural: "ELO-kategorier"
+    singular: "ELO-kategori"
   strings:
-    ingen: Ingen ELO-kategori fundet
+    ingen: "Ingen ELO-kategori fundet"
 energiforsyninger:
   actions:
-    add: Tilføj energiforsyning
-    create: Opret energiforsyning
-    edit: Rediger energiforsyning
+    add: "Tilføj energiforsyning"
+    create: "Opret energiforsyning"
+    edit: "Rediger energiforsyning"
   confirmation:
-    deleted: Energiforsyning slettet
+    deleted: "Energiforsyning slettet"
   error:
-    cannot_delete: Energiforsyning kan ikke slettes
-    in_use: Kan ikke slettes. Bruges af forslag.
+    cannot_delete: "Energiforsyning kan ikke slettes"
+    in_use: "Kan ikke slettes. Bruges af forslag."
   labels:
-    plural: Energiforsyninger
-    singular: Energiforsyning
+    plural: "Energiforsyninger"
+    singular: "Energiforsyning"
 erstatningslyskilde:
   actions:
-    add: Tilføj erstatnings lyskilde
-    edit: Rediger erstatnings lyskilde
+    add: "Tilføj erstatnings lyskilde"
+    edit: "Rediger erstatnings lyskilde"
   error:
-    in_use: Kan ikke slettes. Bruges af belysningsforslag.
+    in_use: "Kan ikke slettes. Bruges af belysningsforslag."
   labels:
-    plural: Erstatnings lyskilder
-    singular: Erstatnings lyskilde
+    plural: "Erstatnings lyskilder"
+    singular: "Erstatnings lyskilde"
 forsyningsvaerk:
   actions:
-    add: Tilføj forsyningsværk
-    create: Opret forsyningsværk
-    edit: Rediger forsyningsværk
+    add: "Tilføj forsyningsværk"
+    create: "Opret forsyningsværk"
+    edit: "Rediger forsyningsværk"
   error:
-    cannot_delete: Forsyningsværk kan ikke slettes
-    in_use: Kan ikke slettes. Bruges af bygning.
+    cannot_delete: "Forsyningsværk kan ikke slettes"
+    in_use: "Kan ikke slettes. Bruges af bygning."
   labels:
-    plural: Forsyningsværker
-    singular: Forsyningsværk
+    plural: "Forsyningsværker"
+    singular: "Forsyningsværk"
 graddagefordeling:
   actions:
-    add: Tilføj Graddage-fordeling
-    create: Opret Graddage-fordeling
-    edit: Rediger Graddage-fordeling
-    indfoer: Indfør Graddage-fordeling
-    show: Vis Graddage-fordeling
+    add: "Tilføj Graddage-fordeling"
+    create: "Opret Graddage-fordeling"
+    edit: "Rediger Graddage-fordeling"
+    indfoer: "Indfør Graddage-fordeling"
+    show: "Vis Graddage-fordeling"
   confirmation:
-    baseline_infoert: Graddage-fordeling data verificeret
+    baseline_infoert: "Graddage-fordeling data verificeret"
   labels:
-    plural: Graddage-fordelinger
-    singular: Graddage-fordeling
+    plural: "Graddage-fordelinger"
+    singular: "Graddage-fordeling"
   strings:
-    bemaerk: "* Bemærk: Normtal skal opdateres manuelt"
-    ingen: Ingen Graddage-fordeling fundet
-    kilde: Kilde
+    bemaerk: "* Bemærk: \"Normtal skal opdateres manuelt\""
+    ingen: "Ingen Graddage-fordeling fundet"
+    kilde: "Kilde"
 group:
   actions:
-    add: Tilføj gruppe
-    edit: Rediger gruppe
+    add: "Tilføj gruppe"
+    edit: "Rediger gruppe"
   labels:
-    plural: Grupper
-    singular: Gruppe
+    plural: "Grupper"
+    singular: "Gruppe"
 klimaskaerm:
   actions:
-    add: Tilføj klimaskærm
-    create: Opret klimaskærm
-    edit: Rediger klimaskærm
+    add: "Tilføj klimaskærm"
+    create: "Opret klimaskærm"
+    edit: "Rediger klimaskærm"
   error:
-    in_use: Kan ikke slettes. Bruges af klimaskærmsforslag.
+    in_use: "Kan ikke slettes. Bruges af klimaskærmsforslag."
   labels:
-    plural: Klimaskærme
-    singular: Klimaskærm
+    plural: "Klimaskærme"
+    singular: "Klimaskærm"
 klimaskaermtiltag:
   actions:
-    add: Tilføj klimaskærmsforslag
-    copy: Kopier klimaskærmsforslag
-    edit: Rediger klimaskærmsforslag
+    add: "Tilføj klimaskærmsforslag"
+    copy: "Kopier klimaskærmsforslag"
+    edit: "Rediger klimaskærmsforslag"
   confirmation:
-    created: Nyt klimaskærmsforslag oprettet
+    created: "Nyt klimaskærmsforslag oprettet"
 klimaskaermtiltagdetail:
   actions:
-    add: Tilføj klimaskærmsforslag
-    batch_edit: Rediger valgte klimaskærmsforslag
-    copy: Kopier klimaskærmsforslag
-    edit: Rediger klimaskærmsforslag
+    add: "Tilføj klimaskærmsforslag"
+    batch_edit: "Rediger valgte klimaskærmsforslag"
+    copy: "Kopier klimaskærmsforslag"
+    edit: "Rediger klimaskærmsforslag"
 komponent:
   actions:
-    add: Tilføj komponent
-    new: Ny komponent
-    edit: Rediger komponent
+    add: "Tilføj komponent"
+    new: "Ny komponent"
+    edit: "Rediger komponent"
   error:
-    in_use: Kan ikke slettes. Bruges af tekniskisoleringforslag.
+    in_use: "Kan ikke slettes. Bruges af tekniskisoleringforslag."
   labels:
-    plural: Komponenter
-    singular: Komponent
+    plural: "Komponenter"
+    singular: "Komponent"
 lyskilde:
   actions:
-    add: Tilføj lyskilde
-    edit: Rediger lyskilde
+    add: "Tilføj lyskilde"
+    edit: "Rediger lyskilde"
   error:
-    in_use: Kan ikke slettes. Bruges af belysningsforslag.
+    in_use: "Kan ikke slettes. Bruges af belysningsforslag."
   labels:
-    plural: Lyskilder
-    singular: Lyskilde
+    plural: "Lyskilder"
+    singular: "Lyskilde"
 nytArmatur:
   actions:
-    add: Tilføj armatur
-    edit: Rediger armatur
+    add: "Tilføj armatur"
+    edit: "Rediger armatur"
   error:
-    in_use: Kan ikke slettes. Bruges af belysningsforslag.
+    in_use: "Kan ikke slettes. Bruges af belysningsforslag."
   labels:
-    plural: Armaturer
-    singular: Armatur
+    plural: "Armaturer"
+    singular: "Armatur"
 nyttiggjortvarme:
   actions:
-    add: Tilføj faktor
-    new: Ny faktor
-    edit: Rediger faktor
+    add: "Tilføj faktor"
+    new: "Ny faktor"
+    edit: "Rediger faktor"
   error:
-    in_use: Kan ikke slettes. Bruges af pumpe- eller tekniskisoleringforslag.
+    in_use: "Kan ikke slettes. Bruges af pumpe- eller tekniskisoleringforslag."
   labels:
-    plural: Faktorer for nyttiggjort varme (Teknisk Iso.)
-    singular: Faktor for nyttiggjort varme (Teknisk Iso.)
+    plural: "Faktorer for nyttiggjort varme (Teknisk Iso.)"
+    singular: "Faktor for nyttiggjort varme (Teknisk Iso.)"
 pumpe:
   actions:
-    add: Tilføj Pumpe
-    create: Opret Pumpe
-    edit: Rediger Pumpe
-    import: Import Pumper
+    add: "Tilføj Pumpe"
+    create: "Opret Pumpe"
+    edit: "Rediger Pumpe"
+    import: "Import Pumper"
   confirmation:
-    created: Pumpe oprettet
-    updated: Pumpe opdateret
-    deleted: Pumpe slettet
-    imported: Der var oprettet %created og opdateret %updated pumper.
+    created: "Pumpe oprettet"
+    updated: "Pumpe opdateret"
+    deleted: "Pumpe slettet"
+    imported: "Der var oprettet %created og opdateret %updated pumper."
   error:
-    in_use: Kan ikke slettes. Bruges af pumpeforslag.
-    import_file: Import file er forkert.
+    in_use: "Kan ikke slettes. Bruges af pumpeforslag."
+    import_file: "Import file er forkert."
   labels:
-    nuvaerende: Nuværende pumpe
-    ny: Ny pumpe
-    plural: Pumper
-    singular: Pumpe
+    nuvaerende: "Nuværende pumpe"
+    ny: "Ny pumpe"
+    plural: "Pumper"
+    singular: "Pumpe"
 pumpetiltag:
   actions:
-    add: Tilføj Pumpeforslag
-    create: Opret Pumpeforslag
-    edit: Rediger Pumpeforslag
+    add: "Tilføj Pumpeforslag"
+    create: "Opret Pumpeforslag"
+    edit: "Rediger Pumpeforslag"
   confirmation:
-    created: Nyt pumpeforslag oprettet
+    created: "Nyt pumpeforslag oprettet"
   labels:
-    plural: Pumpeforslag
-    singular: Pumpeforslag
-    title: Pumpeudskiftninger
+    plural: "Pumpeforslag"
+    singular: "Pumpeforslag"
+    title: "Pumpeudskiftninger"
 pumpetiltagdetailapplikation:
   actions:
-    add: Tilføj Pumpeforslag detail applikation
-    create: Opret Pumpeforslag detail applikation
-    edit: Rediger Pumpeforslag detail applikation
+    add: "Tilføj Pumpeforslag detail applikation"
+    create: "Opret Pumpeforslag detail applikation"
+    edit: "Rediger Pumpeforslag detail applikation"
   confirmation:
-    created: Nyt Pumpeforslag detail applikation oprettet
-    updated: Pumpeforslag detail applikation opdateret
-    deleted: Pumpeforslag detail applikation slettet
+    created: "Nyt Pumpeforslag detail applikation oprettet"
+    updated: "Pumpeforslag detail applikation opdateret"
+    deleted: "Pumpeforslag detail applikation slettet"
   error:
-    in_use: Kan ikke slettes. Bruges af pumpetiltagdetail.
+    in_use: "Kan ikke slettes. Bruges af pumpetiltagdetail."
   labels:
-    plural: Pumpeforslag detail applikationer
-    singular: Pumpeforslag detail applikation
+    plural: "Pumpeforslag detail applikationer"
+    singular: "Pumpeforslag detail applikation"
 pumpetiltagdetail:
   actions:
-    add: Tilføj Pumpeforslag
-    batch_edit: Rediger valgte pumpeforslag
-    copy: Kopier Pumpeforslag
-    create: Opret Pumpeforslag
-    edit: Rediger Pumpeforslag
+    add: "Tilføj Pumpeforslag"
+    batch_edit: "Rediger valgte pumpeforslag"
+    copy: "Kopier Pumpeforslag"
+    create: "Opret Pumpeforslag"
+    edit: "Rediger Pumpeforslag"
 rapporter:
   labels:
-    plural: Rapporter
-    singular: Rapport
+    plural: "Rapporter"
+    singular: "Rapport"
 segment:
   actions:
-    add: Tilføj segment
-    create: Opret segment
-    edit: Rediger segment
+    add: "Tilføj segment"
+    create: "Opret segment"
+    edit: "Rediger segment"
   confirmation:
-    created: Segment oprettet
-    updated: Segment opdateret
-    deleted: Segment slettet
+    created: "Segment oprettet"
+    updated: "Segment opdateret"
+    deleted: "Segment slettet"
   error:
-    in_use: Kan ikke slettes. Bruges af bygning.
+    in_use: "Kan ikke slettes. Bruges af bygning."
   labels:
-    plural: Segmenter
-    singular: Segment
+    plural: "Segmenter"
+    singular: "Segment"
 solcelle:
   actions:
-    add: Tilføj solcelle
-    create: Opret solcelle
-    edit: Rediger solcelle
+    add: "Tilføj solcelle"
+    create: "Opret solcelle"
+    edit: "Rediger solcelle"
   confirmation:
-    created: Solcelle oprettet
-    updated: Solcelle opdateret
-    deleted: Solcelle slettet
+    created: "Solcelle oprettet"
+    updated: "Solcelle opdateret"
+    deleted: "Solcelle slettet"
   labels:
-    plural: Solceller
-    singular: Solcelle
+    plural: "Solceller"
+    singular: "Solcelle"
 solcelletiltag:
   actions:
-    add: Tilføj solcelleforslag
-    copy: Kopier solcelleforslag
-    edit: Rediger solcelleforslag
+    add: "Tilføj solcelleforslag"
+    copy: "Kopier solcelleforslag"
+    edit: "Rediger solcelleforslag"
   confirmation:
-    created: Nyt solcelleforslag oprettet
+    created: "Nyt solcelleforslag oprettet"
 solcelletiltagdetail:
   actions:
-    add: Tilføj solcelleforslag
-    batch_edit: Rediger valgte solcelleforslag
-    copy: Kopier solcelleforslag
-    edit: Rediger solcelleforslag
+    add: "Tilføj solcelleforslag"
+    batch_edit: "Rediger valgte solcelleforslag"
+    copy: "Kopier solcelleforslag"
+    edit: "Rediger solcelleforslag"
 specialtiltag:
   actions:
-    add: Tilføj specialforslag
-    edit: Rediger specialforslag
+    add: "Tilføj specialforslag"
+    edit: "Rediger specialforslag"
 specialtiltagdetail:
   actions:
-    add: Upload bilag
-    batch_edit: Rediger valgte specialforslag
-    edit: Rediger bilag til specialforslag
+    add: "Upload bilag"
+    batch_edit: "Rediger valgte specialforslag"
+    edit: "Rediger bilag til specialforslag"
 tekniskisoleringtiltag:
   actions:
-    edit: Rediger teknisk isolering
+    edit: "Rediger teknisk isolering"
   confirmation:
-    created: Nyt teknisk isoleringsforslag oprettet
+    created: "Nyt teknisk isoleringsforslag oprettet"
 tekniskisoleringtiltagdetail:
   actions:
-    add: Tilføj teknisk isolering
-    batch_edit: Rediger valgte teknisk isolering
-    copy: Kopier teknisk isolering
-    create: Opret teknisk isolering
-    edit: Rediger teknisk isolering
+    add: "Tilføj teknisk isolering"
+    batch_edit: "Rediger valgte teknisk isolering"
+    copy: "Kopier teknisk isolering"
+    create: "Opret teknisk isolering"
+    edit: "Rediger teknisk isolering"
 tiltag:
   actions:
-    add: Tilføj forslag
-    batch_edit: Rediger valgte
-    batch_select_all: Vælg alle
-    batch_select_none: Fravælg alle
-    create: Opret forslag
-    edit: Rediger forslag
+    add: "Tilføj forslag"
+    batch_edit: "Rediger valgte"
+    batch_select_all: "Vælg alle"
+    batch_select_none: "Fravælg alle"
+    create: "Opret forslag"
+    edit: "Rediger forslag"
   confirmation:
-    created: Forslag oprettet
-    datofordriftupdated: Dato for drift opdateret
-    tilfravalgtupdated: Til/Fravalgt af opdateret
-    updated: Forslag opdateret
-    deleted: Forslag slettet
+    created: "Forslag oprettet"
+    datofordriftupdated: "Dato for drift opdateret"
+    tilfravalgtupdated: "Til/Fravalgt af opdateret"
+    updated: "Forslag opdateret"
+    deleted: "Forslag slettet"
   labels:
-    plural: Forslag
-    singular: Forslag
+    plural: "Forslag"
+    singular: "Forslag"
   strings:
-    detailark: Detailark
-    forhold: Forhold
-    oversigt: Oversigt
-    regning: Regning
-    ingen: Ingen forslag fundet
+    detailark: "Detailark"
+    forhold: "Forhold"
+    oversigt: "Oversigt"
+    regning: "Regning"
+    ingen: "Ingen forslag fundet"
   validation:
-    error: Fejl i forslaget - ret venligst de nævnte fejl
+    error: "Fejl i forslaget - ret venligst de nævnte fejl"
 tiltagdetail:
   actions:
-    add: Tilføj Detail
-    batch_edit: Rediger valgte forslag
-    copy: Kopier Detail
-    edit: Rediger Detail
+    add: "Tilføj Detail"
+    batch_edit: "Rediger valgte forslag"
+    copy: "Kopier Detail"
+    edit: "Rediger Detail"
   confirmation:
-    batch_edited: Detail(s) opdateret
-    created: Detail oprettet
-    updated: Detail opdateret
-    deleted: Detail slettet
+    batch_edited: "Detail(s) opdateret"
+    created: "Detail oprettet"
+    updated: "Detail opdateret"
+    deleted: "Detail slettet"
 tiltagskategori:
   actions:
-    add: Tilføj forslag kategori
-    edit: Rediger forslag kategori
+    add: "Tilføj forslag kategori"
+    edit: "Rediger forslag kategori"
   confirmation:
-    created: Forslag faketori oprettet
-    updated: Forslag faketori opdateret
-    deleted: Forslag faketori slettet
+    created: "Forslag faketori oprettet"
+    updated: "Forslag faketori opdateret"
+    deleted: "Forslag faketori slettet"
   error:
-    in_use: Kan ikke slettes. Bruges af forslag.
+    in_use: "Kan ikke slettes. Bruges af forslag."
   labels:
-    plural: Forslag kategorier
-    singular: Forslag kategori
+    plural: "Forslag kategorier"
+    singular: "Forslag kategori"
 udtraek:
   columns:
-    alt: Alt (Uden forslag)
-    bygningsinformation: Bygningsinformation
-    baselineinformation: Baselineinformation
-    aa_screeningsinformation: Screeningsinformation
-    besparelsesinformation: Besparelsesinformation (Energi + Økonomi)
-    oekonomi: Økonomi (Set over 30 år)
+    alt: "Alt (Uden forslag)"
+    bygningsinformation: "Bygningsinformation"
+    baselineinformation: "Baselineinformation"
+    aa_screeningsinformation: "Screeningsinformation"
+    besparelsesinformation: "Besparelsesinformation (Energi + Økonomi)"
+    oekonomi: "Økonomi (Set over 30 år)"
   types:
-    bygning: Bygning
-    tiltag: Forslag
+    bygning: "Bygning"
+    tiltag: "Forslag"
   labels:
-    besparelse_varme_guf_pr_aar: Besparelse varme GUF pr. år
-    besparelse_varme_guf_percent_pr_aar: Besparelse varme GUF pr. år i procent
-    besparelse_varme_gaf_pr_aar: Besparelse varme GAF pr. år
-    besparelse_varme_gaf_percent_pr_aar: Besparelse varme GAF pr. år i procent
-    besparelse_el_pr_aar: Besparelse el pr. år
-    besparelse_el_percent_pr_aar: Besparelse el pr. år i procent
-    besparelse_co2_ton_pr_aar: Besparelse CO2 i ton pr. år
-    columns: Hvilke kollonner skal medtages?
-    options: Udtræks valg
-    plural: Udtræk
-    showDataFrom: Vis data fra
-    types: Vælg udtrækstype
+    besparelse_varme_guf_pr_aar: "Besparelse varme GUF pr. år"
+    besparelse_varme_guf_percent_pr_aar: "Besparelse varme GUF pr. år i procent"
+    besparelse_varme_gaf_pr_aar: "Besparelse varme GAF pr. år"
+    besparelse_varme_gaf_percent_pr_aar: "Besparelse varme GAF pr. år i procent"
+    besparelse_el_pr_aar: "Besparelse el pr. år"
+    besparelse_el_percent_pr_aar: "Besparelse el pr. år i procent"
+    besparelse_co2_ton_pr_aar: "Besparelse CO2 i ton pr. år"
+    columns: "Hvilke kollonner skal medtages?"
+    options: "Udtræks valg"
+    plural: "Udtræk"
+    showDataFrom: "Vis data fra"
+    types: "Vælg udtrækstype"
 user:
   actions:
-    add: Tilføj bruger
-    create: Opret bruger
-    edit: Rediger bruger
+    add: "Tilføj bruger"
+    create: "Opret bruger"
+    edit: "Rediger bruger"
   confirmation:
-    created: Ny bruger oprettet
-    updated: Bruger oplysninger opdateret
-  enabled: Aktiv (Kun aktive brugere kan logge ind)
+    created: "Ny bruger oprettet"
+    updated: "Bruger oplysninger opdateret"
+  enabled: "Aktiv (Kun aktive brugere kan logge ind)"
   labels:
-    plural: Brugere
-    singular: Bruger
+    plural: "Brugere"
+    singular: "Bruger"
   strings:
-    segmenteroggrupper: Segmenter / Grupper
+    segmenteroggrupper: "Segmenter / Grupper"
   messages:
     error:
-      email: Bruger med adresse %email findes allerede
+      email: "Bruger med adresse %email findes allerede"
 vinduetiltag:
   actions:
-    edit: Rediger vinduesforslag
+    edit: "Rediger vinduesforslag"
   confirmation:
-    created: Nyt vinduessforslag oprettet
+    created: "Nyt vinduessforslag oprettet"
 vinduetiltagdetail:
   actions:
-    add: Tilføj vinduesforslag
-    batch_edit: Rediger valgte vinduesforslag
-    copy: Kopier vinduesforslag
-    edit: Rediger vinduesforslag
+    add: "Tilføj vinduesforslag"
+    batch_edit: "Rediger valgte vinduesforslag"
+    copy: "Kopier vinduesforslag"
+    edit: "Rediger vinduesforslag"
 virksomhed:
   actions:
-    add: Tilføj virksomhed
-    edit: Rediger virksomhed
-    create_rapport: Opret virksomhedsrapport
+    add: "Tilføj virksomhed"
+    edit: "Rediger virksomhed"
+    create_rapport: "Opret virksomhedsrapport"
   labels:
-    plural: Virksomheder
-    singular: Virksomhed
+    plural: "Virksomheder"
+    singular: "Virksomhed"
   error:
-    in_use: Kan ikke slettes da den bruges af en bygning.
+    in_use: "Kan ikke slettes da den bruges af en bygning."
   confirmation:
-    created: Ny virksomhed er oprettet.
-    rapport_created: Ny virksomhedsrapport er oprettet.
+    created: "Ny virksomhed er oprettet."
+    rapport_created: "Ny virksomhedsrapport er oprettet."
   messages:
     empty:
-      contactPersons: Ingen kontaktpersoner
-      datterSelskaber: Ingen datterselskaber
-      eanNumbers: Ingen EAN-numre
-      pNumbers: Ingen P-numre
-      parent: Ingen moderselskab
-      bygninger: Ingen tilknyttet bygning
-    delete_user: Fjern tilknyttet bruger?
-    attached_existing_user: Der var tilknyttet en eksisterende bruger med e-mail adresse %userMail
+      contactPersons: "Ingen kontaktpersoner"
+      datterSelskaber: "Ingen datterselskaber"
+      eanNumbers: "Ingen EAN-numre"
+      pNumbers: "Ingen P-numre"
+      parent: "Ingen moderselskab"
+      bygninger: "Ingen tilknytet bygninger"
+    delete_user: "Fjern tilknytet bruger?"
+    attached_existing_user: "Der var tilknytet eksiterende bruger med email adresse %userMail"
 virksomhed_rapporter:
   actions:
-    create: Opret virksomhedsrapport
-    download_files: Hent alle bilag og filer
-    edit: Baseline og energibudget
-    filer: Filer
-    pdf2: Resultatoversigt
-    pdf5: Detailark
-    re-calculate: Genberegn
-    show: Vis virksomhedsrapport
+    create: "Opret virksomhedsrapport"
+    download_files: "Hent alle bilag og filer"
+    edit: "Baseline og energibudget"
+    filer: "Filer"
+    pdf2: "Resultatoversigt"
+    pdf5: "Detailark"
+    re-calculate: "Genberegn"
+    show: "Vis virksomhedsrapport"
   labels:
-    detailark: Detailark
-    plural: Virksomhedsrapporter
-    singular: Virksomhedsrapport
+    detailark: "Detailark"
+    plural: "Virksomhedsrapporter"
+    singular: "Virksomhedsrapport"
   confirmation:
-    re-calculate: Er du sikker på at du vil genberegne bygningsrapporten?
+    re-calculate: "Er du sikker på at du vil genberegne bygningsrapporten?"
   messages:
-    no_files: Rapporten har ingen filer tilknyttet
+    no_files: "Rapporten har ingen filer tilknyttet"
   strings:
-    related_reports: Relaterede rapporter
+    related_reports: "Relaterede rapporter"
 
 # Forms - We follow the formbuilders form id format
 appbundle:
   baseline:
-    areal: Areal
-    areal.unit: m²
-    arealdataPrimaerKilde: Primær kilde
-    arealdataPrimaerKilde.help: Vælg fra liste
-    arealdataPrimaerAreal: Areal
-    arealdataPrimaerAreal.unit: m²
-    arealdataPrimaerNoter: Evt. bemærkninger
-    arealdataSekundaerKilde: Sekundær kilde
-    arealdataSekundaerKilde.help: Vælg fra liste
-    arealdataSekundaerAreal: Areal
-    arealdataSekundaerAreal.unit: m²
-    arealdataSekundaerNoter: Evt. bemærkninger
-    arealGenerelt: Konklusion (Areal)
-    arealPrimaer: Primær kilde
-    arealSekundaer: Sekundær kilde
-    arealTilNoegletalsanalyse: Bruttoetageareal
-    arealTilNoegletalsanalyse.unit: m²
-    arealTilNoegletalsanalyse.help: Ændringer i dette felt vil opdatere bygningens bruttoetageareal
-    baselineFraUdbud: Baseline fra Rådg. udbud
-    baselineTilRaadgiver: Baseline til Energirådg.
-    changed: Beregn
-    changed_message: Du har ændret i Baseline. Gem for at få foretaget nye beregninger.
-    changed_submit: Beregn Baseline
-    el: El
-    elBaselineFastsatForEjendom: Fastsat baseline for ejendom (El)
-    elBaselineFastsatForEjendom.unit: kWh/år
-    elBaselineNoegletalForEjendom: Nøgletal for ejendom - baseline
-    elBaselineNoegletalForEjendom.unit: kWh/m² pr år
-    elBaselineNoter: Baggrund for valg af baseline
-    elForbrugsdataPrimaerKilde: Primær kilde for forbrugsdata
-    elForbrugsdataPrimaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
-    elForbrugsdataPrimaer1Forbrug: Forbrug (kWh/år)
-    elForbrugsdataPrimaerGennemsnit: Gennemsnit for årene
-    elForbrugsdataPrimaerGennemsnit.unit: kWh/år
-    elForbrugsdataPrimaerNoegetal: Nøgletal for primær kilde
-    elForbrugsdataPrimaerNoegetal.unit: kWh/m² pr år
-    elForbrugsdataPrimaerNoter: Evt. bemærkninger
-    elForbrugsdataSekundaerKilde: Sekundær kilde for forbrugsdata
-    elForbrugsdataSekundaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
-    elForbrugsdataSekundaer1Forbrug: Forbrug (kWh/år)
-    elForbrugsdataSekundaerGennemsnit: Gennemsnit for årene
-    elForbrugsdataSekundaerGennemsnit.unit: kWh/år
-    elForbrugsdataSekundaerNoegetal: Nøgletal for sekundær kilde
-    elForbrugsdataSekundaerNoegetal.unit: kWh/m² pr år
-    elForbrugsdataSekundaerNoter: Evt. bemærkninger
-    elGenerelt: Baseline til udbudsmateriale, årlig (El)
-    elPrimaer: Primær kilde (El)
-    elSekundaer: Sekundær kilde (El)
-    eloElTotalForbrug: ELO-nøgletal for valgt kategori
-    eloElTotalForbrug.unit: kWh/m² pr år
-    eloVarmeTotalForbrug: ELO-nøgletal for valgt kategori
-    eloVarmeTotalForbrug.unit: kWh/m² pr år
-    generelt: Generelt
-    gdNormal: GDnormal.år
-    korrektion.index.varmeStrafafkoelingsafgiftKorrektion: Strafafkølingsafgift korrektion (+/-)
-    korrektion.index.varmeStrafafkoelingsafgiftKorrektion.unit: kr/år
-    korrektioner: Baseline Korrektioner
-    korrektionFraBesigtigelse: Korr. fra besigtigelse
-    opsummering: Opsummering
-    varme: Varme
-    varmeBaselineFastsatForEjendom: Fastsat baseline for ejendom (Varme)
-    varmeBaselineFastsatForEjendom.unit: kWh/år
-    varmeBaselineNoegletalForEjendom: Nøgletal for ejendom - baseline
-    varmeBaselineNoegletalForEjendom.unit: kWh/m² pr år
-    varmeBaselineNoter: Baggrund for valg af baseline (beskrivelse)
-    varmeForbrugsdataPrimaerKilde: Primær kilde til forbrugsdata
-    varmeForbrugsdataPrimaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
-    varmeForbrugsdataPrimaer1Forbrug: Forbrug (kWh/år), ukorrigeret
-    varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter: GUF-forbruget fastsættes ud fra:
-    varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust: Samlet Varmeforbrug for juni, juli, august
-    varmeForbrugsdataPrimaer1GUFRegAar: GUFreg.år
-    varmeForbrugsdataPrimaer1GAFRegAar: GAFreg.år
-    varmeForbrugsdataPrimaer1GDPeriode: GDperiode
-    varmeForbrugsdataPrimaer1GAFnormal: GAFnormal
-    varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret: Forbrug (kWh), klimakorrigeret
-    varmeForbrugsdataPrimaerGAFGennemsnit: GAF, Gennemsnit, årene
-    varmeForbrugsdataPrimaerGAFGennemsnit.unit: kWh/år
-    varmeForbrugsdataPrimaerGUFGennemsnit: GUF, Gennemsnit, årene
-    varmeForbrugsdataPrimaerGUFGennemsnit.unit: kWh/år
-    varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret: Gennemsnit for årene, klimakorr.
-    varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret.unit: kWh/år
-    varmeForbrugsdataPrimaerNoegletal: Nøgletal med primær kilde
-    varmeForbrugsdataPrimaerNoegletal.unit: kWh/m² pr år
-    varmeForbrugsdataPrimaerNoter: Evt. bemærkninger
-    varmeForbrugsdataSekundaerKilde: Sekundær kilde til forbrugsdata
-    varmeForbrugsdataSekundaer1Aarstal: År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)
-    varmeForbrugsdataSekundaer1Forbrug: Forbrug (kWh/år), ukorrigeret
-    varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter: GUF-forbruget fastsættes ud fra:
-    varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust: Samlet Varmeforbrug for juni, juli, august
-    varmeForbrugsdataSekundaer1GUFRegAar: GUFreg.år
-    varmeForbrugsdataSekundaer1GAFRegAar: GAFreg.år
-    varmeForbrugsdataSekundaer1GDPeriode: GDperiode
-    varmeForbrugsdataSekundaer1GAFnormal: GAFnormal
-    varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret: Forbrug (kWh), klimakorrigeret
-    varmeForbrugsdataSekundaerGAFGennemsnit: GAF, Gennemsnit, årene
-    varmeForbrugsdataSekundaerGAFGennemsnit.unit: kWh/år
-    varmeForbrugsdataSekundaerGUFGennemsnit: GUF, Gennemsnit, årene
-    varmeForbrugsdataSekundaerGUFGennemsnit.unit: kWh/år
-    varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret: Gennemsnit for årene, klimakorr.
-    varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret.unit: kWh/år
-    varmeForbrugsdataSekundaerNoegletal: Nøgletal med primær kilde
-    varmeForbrugsdataSekundaerNoegletal.unit: kWh/m² pr år
-    varmeForbrugsdataSekundaerNoter: Evt. bemærkninger
-    varmeGAFForbrug: GAF-forbrug
-    varmeGAFForbrug.unit: kWh/år
-    varmeGenerelt: Baseline til udbudsmateriale, årlig (Varme)
-    varmeGUFForbrug: GUF-forbrug
-    varmeGUFForbrug.unit: kWh/år
-    varmePrimaer: Primær kilde (Varme)
-    varmeSekundaer: Sekundær kilde (Varme)
-    varmeStrafafkoelingsafgift: Evt. strafafkølingsafgift
-    varmeStrafafkoelingsafgift.unit: kr/år
-    varmeStrafafkoelingsafgiftKorrektion: Strafafkølingsafgift korrektion
-    year1: År 1
-    year2: År 2
-    year3: År 3
-    createdBy: Oprettet af
-    updatedBy: Opdateret af
-    createdAt: Oprettet
-    updatedAt: Opdateret
-    bygning: Bygning
-    eloKategori: ELO-kategori
+    areal: "Areal"
+    areal.unit: "m²"
+    arealdataPrimaerKilde: "Primær kilde"
+    arealdataPrimaerKilde.help: "Vælg fra liste"
+    arealdataPrimaerAreal: "Areal"
+    arealdataPrimaerAreal.unit: "m²"
+    arealdataPrimaerNoter: "Evt. bemærkninger"
+    arealdataSekundaerKilde: "Sekundær kilde"
+    arealdataSekundaerKilde.help: "Vælg fra liste"
+    arealdataSekundaerAreal: "Areal"
+    arealdataSekundaerAreal.unit: "m²"
+    arealdataSekundaerNoter: "Evt. bemærkninger"
+    arealGenerelt: "Konklusion (Areal)"
+    arealPrimaer: "Primær kilde"
+    arealSekundaer: "Sekundær kilde"
+    arealTilNoegletalsanalyse: "Bruttoetageareal"
+    arealTilNoegletalsanalyse.unit: "m²"
+    arealTilNoegletalsanalyse.help: "Ændringer i dette felt vil opdatere bygningens bruttoetageareal"
+    baselineFraUdbud: "Baseline fra Rådg. udbud"
+    baselineTilRaadgiver: "Baseline til Energirådg."
+    changed: "Beregn"
+    changed_message: "Du har ændret i Baseline. Gem for at få foretaget nye beregninger."
+    changed_submit: "Beregn Baseline"
+    el: "El"
+    elBaselineFastsatForEjendom: "Fastsat baseline for ejendom (El)"
+    elBaselineFastsatForEjendom.unit: "kWh/år"
+    elBaselineNoegletalForEjendom: "Nøgletal for ejendom - baseline"
+    elBaselineNoegletalForEjendom.unit: "kWh/m² pr år"
+    elBaselineNoter: "Baggrund for valg af baseline"
+    elForbrugsdataPrimaerKilde: "Primær kilde for forbrugsdata"
+    elForbrugsdataPrimaer1Aarstal: "År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)"
+    elForbrugsdataPrimaer1Forbrug: "Forbrug (kWh/år)"
+    elForbrugsdataPrimaerGennemsnit: "Gennemsnit for årene"
+    elForbrugsdataPrimaerGennemsnit.unit: "kWh/år"
+    elForbrugsdataPrimaerNoegetal: "Nøgletal for primær kilde"
+    elForbrugsdataPrimaerNoegetal.unit: "kWh/m² pr år"
+    elForbrugsdataPrimaerNoter: "Evt. bemærkninger"
+    elForbrugsdataSekundaerKilde: "Sekundær kilde for forbrugsdata"
+    elForbrugsdataSekundaer1Aarstal: "År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)"
+    elForbrugsdataSekundaer1Forbrug: "Forbrug (kWh/år)"
+    elForbrugsdataSekundaerGennemsnit: "Gennemsnit for årene"
+    elForbrugsdataSekundaerGennemsnit.unit: "kWh/år"
+    elForbrugsdataSekundaerNoegetal: "Nøgletal for sekundær kilde"
+    elForbrugsdataSekundaerNoegetal.unit: "kWh/m² pr år"
+    elForbrugsdataSekundaerNoter: "Evt. bemærkninger"
+    elGenerelt: "Baseline til udbudsmateriale, årlig (El)"
+    elPrimaer: "Primær kilde (El)"
+    elSekundaer: "Sekundær kilde (El)"
+    eloElTotalForbrug: "ELO-nøgletal for valgt kategori"
+    eloElTotalForbrug.unit: "kWh/m² pr år"
+    eloVarmeTotalForbrug: "ELO-nøgletal for valgt kategori"
+    eloVarmeTotalForbrug.unit: "kWh/m² pr år"
+    generelt: "Generelt"
+    gdNormal: "GDnormal.år"
+    korrektion.index.varmeStrafafkoelingsafgiftKorrektion: "Strafafkølingsafgift korrektion (+/-)"
+    korrektion.index.varmeStrafafkoelingsafgiftKorrektion.unit: "kr/år"
+    korrektioner: "Baseline Korrektioner"
+    korrektionFraBesigtigelse: "Korr. fra besigtigelse"
+    opsummering: "Opsummering"
+    varme: "Varme"
+    varmeBaselineFastsatForEjendom: "Fastsat baseline for ejendom (Varme)"
+    varmeBaselineFastsatForEjendom.unit: "kWh/år"
+    varmeBaselineNoegletalForEjendom: "Nøgletal for ejendom - baseline"
+    varmeBaselineNoegletalForEjendom.unit: "kWh/m² pr år"
+    varmeBaselineNoter: "Baggrund for valg af baseline (beskrivelse)"
+    varmeForbrugsdataPrimaerKilde: "Primær kilde til forbrugsdata"
+    varmeForbrugsdataPrimaer1Aarstal: "År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)"
+    varmeForbrugsdataPrimaer1Forbrug: "Forbrug (kWh/år), ukorrigeret"
+    varmeForbrudsdataPrimaerGUFForbrugFastsaettesEfter: "GUF-forbruget fastsættes ud fra:"
+    varmeForbrugsdataPrimaer1SamletVarmeforbrugJuniJuliAugust: "Samlet Varmeforbrug for juni, juli, august"
+    varmeForbrugsdataPrimaer1GUFRegAar: "GUFreg.år"
+    varmeForbrugsdataPrimaer1GAFRegAar: "GAFreg.år"
+    varmeForbrugsdataPrimaer1GDPeriode: "GDperiode"
+    varmeForbrugsdataPrimaer1GAFnormal: "GAFnormal"
+    varmeForbrugsdataPrimaer1ForbrugKlimakorrigeret: "Forbrug (kWh), klimakorrigeret"
+    varmeForbrugsdataPrimaerGAFGennemsnit: "GAF, Gennemsnit, årene"
+    varmeForbrugsdataPrimaerGAFGennemsnit.unit: "kWh/år"
+    varmeForbrugsdataPrimaerGUFGennemsnit: "GUF, Gennemsnit, årene"
+    varmeForbrugsdataPrimaerGUFGennemsnit.unit: "kWh/år"
+    varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret: "Gennemsnit for årene, klimakorr."
+    varmeForbrugsdataPrimaerGennemsnitKlimakorrigeret.unit: "kWh/år"
+    varmeForbrugsdataPrimaerNoegletal: "Nøgletal med primær kilde"
+    varmeForbrugsdataPrimaerNoegletal.unit: "kWh/m² pr år"
+    varmeForbrugsdataPrimaerNoter: "Evt. bemærkninger"
+    varmeForbrugsdataSekundaerKilde: "Sekundær kilde til forbrugsdata"
+    varmeForbrugsdataSekundaer1Aarstal: "År (perioden som indtastes skal ikke nødvendigvis dække et kalenderår)"
+    varmeForbrugsdataSekundaer1Forbrug: "Forbrug (kWh/år), ukorrigeret"
+    varmeForbrudsdataSekundaerGUFForbrugFastsaettesEfter: "GUF-forbruget fastsættes ud fra:"
+    varmeForbrugsdataSekundaer1SamletVarmeforbrugJuniJuliAugust: "Samlet Varmeforbrug for juni, juli, august"
+    varmeForbrugsdataSekundaer1GUFRegAar: "GUFreg.år"
+    varmeForbrugsdataSekundaer1GAFRegAar: "GAFreg.år"
+    varmeForbrugsdataSekundaer1GDPeriode: "GDperiode"
+    varmeForbrugsdataSekundaer1GAFnormal: "GAFnormal"
+    varmeForbrugsdataSekundaer1ForbrugKlimakorrigeret: "Forbrug (kWh), klimakorrigeret"
+    varmeForbrugsdataSekundaerGAFGennemsnit: "GAF, Gennemsnit, årene"
+    varmeForbrugsdataSekundaerGAFGennemsnit.unit: "kWh/år"
+    varmeForbrugsdataSekundaerGUFGennemsnit: "GUF, Gennemsnit, årene"
+    varmeForbrugsdataSekundaerGUFGennemsnit.unit: "kWh/år"
+    varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret: "Gennemsnit for årene, klimakorr."
+    varmeForbrugsdataSekundaerGennemsnitKlimakorrigeret.unit: "kWh/år"
+    varmeForbrugsdataSekundaerNoegletal: "Nøgletal med primær kilde"
+    varmeForbrugsdataSekundaerNoegletal.unit: "kWh/m² pr år"
+    varmeForbrugsdataSekundaerNoter: "Evt. bemærkninger"
+    varmeGAFForbrug: "GAF-forbrug"
+    varmeGAFForbrug.unit: "kWh/år"
+    varmeGenerelt: "Baseline til udbudsmateriale, årlig (Varme)"
+    varmeGUFForbrug: "GUF-forbrug"
+    varmeGUFForbrug.unit: "kWh/år"
+    varmePrimaer: "Primær kilde (Varme)"
+    varmeSekundaer: "Sekundær kilde (Varme)"
+    varmeStrafafkoelingsafgift: "Evt. strafafkølingsafgift"
+    varmeStrafafkoelingsafgift.unit: "kr/år"
+    varmeStrafafkoelingsafgiftKorrektion: "Strafafkølingsafgift korrektion"
+    year1: "År 1"
+    year2: "År 2"
+    year3: "År 3"
+    createdBy: "Oprettet af"
+    updatedBy: "Opdateret af"
+    createdAt: "Oprettet"
+    updatedAt: "Opdateret"
+    bygning: "Bygning"
+    eloKategori: "ELO-kategori"
   baselinekorrektion:
-    aarligkorrektion: Årlig korrektion af forbrug +/-
-    beskrivelse: Beskrivelse
-    datoForImplementering: Dato for implementering
-    datoKilde: Dato / Kilde
-    indvirkning: Indvirkning
-    kilde: Kilde
-    korrektionEl: El
-    korrektionEl.unit: kWh/år
-    korrektioner: Korrektioner (+/-)
-    korrektionGAF: GAF
-    korrektionGAF.unit: kWh/år
-    korrektionGUF: GUF
-    korrektionGUF.unit: kWh/år
+    aarligkorrektion: "Årlig korrektion af forbrug +/-"
+    beskrivelse: "Beskrivelse"
+    datoForImplementering: "Dato for implementering"
+    datoKilde: "Dato / Kilde"
+    indvirkning: "Indvirkning"
+    kilde: "Kilde"
+    korrektionEl: "El"
+    korrektionEl.unit: "kWh/år"
+    korrektioner: "Korrektioner (+/-)"
+    korrektionGAF: "GAF"
+    korrektionGAF.unit: "kWh/år"
+    korrektionGUF: "GUF"
+    korrektionGUF.unit: "kWh/år"
   belysningtiltagdetail:
-    add: Tilføj
-    armaturerStkLokale: Armaturer antal
-    armaturerStkLokale.unit: stk/lok.
-    armaturerStkLokale.help: ﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
-    armaturhoejdeM: Armaturhøjde
-    armaturhoejdeM.unit: m
-    armaturhoejdeM.help: ﻿Monteringshøjden for armaturene i rummet indtastes
-    belysningstiltag: Nyt forslag
-    driftsbesparelseTilLyskilderKrAar: Driftsbesparelse til lyskilder Alle lokaler
-    driftsbesparelseTilLyskilderKrAar.unit: kr/år
-    drifttidTAar: Drifttid
-    drifttidTAar.unit: t/år
-    drifttidTAar.help: ﻿Ferieperioder, reduktion af driftstid som følge af eksisterende lysstyring  mv. skal indregnes
-    eksisterendeBelysning: Eksisterende belysning
-    elforbrugWM2: Elforbrug
-    elforbrugWM2.unit: W/m²
-    erstatningsLyskilde: Erstatnings lyskilde
-    erstatningslyskilde.antal: Antal
-    erstatningslyskilde.arbejdeOmfang: Arbejde / Omfang
-    erstatningslyskilde.id: id
-    erstatningslyskilde.nyeForkoblinger: Nye forkoblinger
-    erstatningslyskilde.nyeForkoblinger.unit: Stk./arm.
-    erstatningslyskilde.noter: Noter
-    erstatningslyskilde.pris: Pris
-    erstatningslyskilde.pris.unit: kr
-    erstatningslyskilde.wattage: Wattage
-    erstatningslyskilde.wattage.unit: W/Lysk.
-    forkoblingStkArmatur: Forkobling
-    forkoblingStkArmatur.unit: stk/arm.
-    ikkeElenaBerettiget: Ikke Elena Berettiget
-    lokale.navn: Lokale, navn
-    lokale.type: Lokale, type
-    investeringAlleLokalerKr: Investering, alle lokaler
-    investeringAlleLokalerKr.unit: kr
-    kwhBesparelseEl: kWh-besparelse El
-    kwhBesparelseVarmeFraVarmevaerket: kWh-besparelse Varme fra varmeværket
-    lyskilde: Belysningstype
-    lyskilde.forkobling: Forkobling
-    lyskilde.levetid: Levetid
-    lyskilde.navn: Navn
-    lyskilde.type: Type
-    lyskilde.udgift: Udgift
-    lyskilde.udgift.unit: kr
-    lyskildeStkArmatur: Lyskilde antal
-    lyskildeStkArmatur.unit: stk/arm.
-    lyskildeWLyskilde: Wattage
-    lyskildeWLyskilde.unit: W/lysk.
-    noter: Noter for eksisterende belysning
-    noterForNyBelysning: Noter for ny belysning
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
-    nutidsvaerdiSetOver15AarKr.unit: kr
-    nyArmatureffektWStk: Ny armatureffekt
-    nyArmatureffektWStk.unit: W/stk
-    nyBelysning: Ny belysning
-    nyDriftstid: Ny driftstid
-    nyDriftstid.unit: t/år
-    nyeArmaturerStkLokale: Nyt armatur antal
-    nyeArmaturerStkLokale.help: Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes
-    nyeArmaturerStkLokale.unit: stk/lok.
-    nyeSensorerStkLokale: Ny sensor antal
-    nyeSensorerStkLokale.unit: stk/lok.
-    nyForkoblingStkArmatur: Ny forkobling
-    nyForkoblingStkArmatur.unit: stk/arm.
-    nyLyskilde: Belysningstype
-    nyLyskildeStkArmatur: Ny lyskilde antal
-    nyLyskildeStkArmatur.unit: stk/arm.
-    nyLyskildeWLyskilde: Ny wattage
-    nyLyskildeWLyskilde.unit: W/lysk.
-    nyStyring: Ny styring
-    nytArmatur: Nyt armatur
-    nytarmatur.arbejdeOmfang: Arbejde / Omfang
-    nytarmatur.id: id
-    nytarmatur.nyeForkoblingerAntal: Nye forkoblinger
-    nytarmatur.nyeForkoblingerAntal.unit: Stk./arm.
-    nytarmatur.nyLyskildeAntal: Antal
-    nytarmatur.noter: Noter
-    nytarmatur.pris: Pris
-    nytarmatur.pris.unit: kr
-    nytarmatur.wattage: Wattage
-    nytarmatur.wattage.unit: W/Lysk.
-    nytElforbrugWM2: Nyt elforbrug
-    nytElforbrugWM2.unit: W/m²
-    nyttiggjortVarmeAfElBesparelse: Nyttiggjort varme
-    nyttiggjortVarmeAfElBesparelse.unit: % af el-besparelse
-    nyttiggjortVarmeAfElBesparelse.help: Nyttigjort varme: procentdel af varmeudledning fra tidligere beslygning der har været nyttigjort, dvs. en varmeudledning der efterfølgende skal udføres af varmeanlægge.
-    placering: Placering
-    styring.id: Styring
-    prisfaktor: Prisfaktor
-    prisfaktorTillaegKrLokale: Prisfaktor-tillæg
-    prisfaktorTillaegKrLokale.unit: kr/lok.
-    reduktionAfDrifttid: Reduktion af drifttid
-    reduktionAfDrifttid.unit: %
-    reduktionAfDrifttid.help: Den procentvise reduktion af drifttid
-    rumstoerrelseM2: Rumstørrelse
-    rumstoerrelseM2.unit: m²
-    rumstoerrelseM2.help: ﻿Rumstørrelse indtastes. Der kan også regnes på flere sammenlignelige rum i en større zone.
-    lokale.antal: Lokaleantal
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
-    simpelTilbagebetalingstidAar.unit: år
-    standardinvestArmaturKrStk: Standardinvest. armatur
-    standardinvestArmaturKrStk.unit: kr/stk
-    standardinvestLyskildeKrStk: Standardinvest. lyskilde
-    standardinvestLyskildeKrStk.unit: kr/stk
-    standardinvestSensorKrStk: Standardinvest. sensor
-    standardinvestSensorKrStk.unit: kr/stk
-    styring: Styring
-    tiltag.id: Forslag, input
-    tilvalgt: Tilvalgt
-    vaegtetLevetidAar: Vægtet Levetid
-    vaegtetLevetidAar.unit: år
+    add: "Tilføj"
+    armaturerStkLokale: "Armaturer antal"
+    armaturerStkLokale.unit: "stk/lok."
+    armaturerStkLokale.help: "﻿Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes"
+    armaturhoejdeM: "Armaturhøjde"
+    armaturhoejdeM.unit: "m"
+    armaturhoejdeM.help: "﻿Monteringshøjden for armaturene i rummet indtastes"
+    belysningstiltag: "Nyt forslag"
+    driftsbesparelseTilLyskilderKrAar: "Driftsbesparelse til lyskilder Alle lokaler"
+    driftsbesparelseTilLyskilderKrAar.unit: "kr/år"
+    drifttidTAar: "Drifttid"
+    drifttidTAar.unit: "t/år"
+    drifttidTAar.help: "﻿Ferieperioder, reduktion af driftstid som følge af eksisterende lysstyring  mv. skal indregnes"
+    eksisterendeBelysning: "Eksisterende belysning"
+    elforbrugWM2: "Elforbrug"
+    elforbrugWM2.unit: "W/m²"
+    erstatningsLyskilde: "Erstatnings lyskilde"
+    erstatningslyskilde.antal: "Antal"
+    erstatningslyskilde.arbejdeOmfang: "Arbejde / Omfang"
+    erstatningslyskilde.id: "id"
+    erstatningslyskilde.nyeForkoblinger: "Nye forkoblinger"
+    erstatningslyskilde.nyeForkoblinger.unit: "Stk./arm."
+    erstatningslyskilde.noter: "Noter"
+    erstatningslyskilde.pris: "Pris"
+    erstatningslyskilde.pris.unit: "kr"
+    erstatningslyskilde.wattage: "Wattage"
+    erstatningslyskilde.wattage.unit: "W/Lysk."
+    forkoblingStkArmatur: "Forkobling"
+    forkoblingStkArmatur.unit: "stk/arm."
+    ikkeElenaBerettiget: "Ikke Elena Berettiget"
+    lokale.navn: "Lokale, navn"
+    lokale.type: "Lokale, type"
+    investeringAlleLokalerKr: "Investering, alle lokaler"
+    investeringAlleLokalerKr.unit: "kr"
+    kwhBesparelseEl: "kWh-besparelse El"
+    kwhBesparelseVarmeFraVarmevaerket: "kWh-besparelse Varme fra varmeværket"
+    lyskilde: "Belysningstype"
+    lyskilde.forkobling: "Forkobling"
+    lyskilde.levetid: "Levetid"
+    lyskilde.navn: "Navn"
+    lyskilde.type: "Type"
+    lyskilde.udgift: "Udgift"
+    lyskilde.udgift.unit: "kr"
+    lyskildeStkArmatur: "Lyskilde antal"
+    lyskildeStkArmatur.unit: "stk/arm."
+    lyskildeWLyskilde: "Wattage"
+    lyskildeWLyskilde.unit: "W/lysk."
+    noter: "Noter for eksisterende belysning"
+    noterForNyBelysning: "Noter for ny belysning"
+    nutidsvaerdiSetOver15AarKr: "Nutidsværdi set over 15 år"
+    nutidsvaerdiSetOver15AarKr.unit: "kr"
+    nyArmatureffektWStk: "Ny armatureffekt"
+    nyArmatureffektWStk.unit: "W/stk"
+    nyBelysning: "Ny belysning"
+    nyDriftstid: "Ny driftstid"
+    nyDriftstid.unit: "t/år"
+    nyeArmaturerStkLokale: "Nyt armatur antal"
+    nyeArmaturerStkLokale.help: "Såfremt der beregnes på større zoner, skal det totalt antal armaturer indtastes"
+    nyeArmaturerStkLokale.unit: "stk/lok."
+    nyeSensorerStkLokale: "Ny sensor antal"
+    nyeSensorerStkLokale.unit: "stk/lok."
+    nyForkoblingStkArmatur: "Ny forkobling"
+    nyForkoblingStkArmatur.unit: "stk/arm."
+    nyLyskilde: "Belysningstype"
+    nyLyskildeStkArmatur: "Ny lyskilde antal"
+    nyLyskildeStkArmatur.unit: "stk/arm."
+    nyLyskildeWLyskilde: "Ny wattage"
+    nyLyskildeWLyskilde.unit: "W/lysk."
+    nyStyring: "Ny styring"
+    nytArmatur: "Nyt armatur"
+    nytarmatur.arbejdeOmfang: "Arbejde / Omfang"
+    nytarmatur.id: "id"
+    nytarmatur.nyeForkoblingerAntal: "Nye forkoblinger"
+    nytarmatur.nyeForkoblingerAntal.unit: "Stk./arm."
+    nytarmatur.nyLyskildeAntal: "Antal"
+    nytarmatur.noter: "Noter"
+    nytarmatur.pris: "Pris"
+    nytarmatur.pris.unit: "kr"
+    nytarmatur.wattage: "Wattage"
+    nytarmatur.wattage.unit: "W/Lysk."
+    nytElforbrugWM2: "Nyt elforbrug"
+    nytElforbrugWM2.unit: "W/m²"
+    nyttiggjortVarmeAfElBesparelse: "Nyttiggjort varme"
+    nyttiggjortVarmeAfElBesparelse.unit: "% af el-besparelse"
+    nyttiggjortVarmeAfElBesparelse.help: "Nyttigjort varme: procentdel af varmeudledning fra tidligere beslygning der har været nyttigjort, dvs. en varmeudledning der efterfølgende skal udføres af varmeanlægge."
+    placering: "Placering"
+    styring.id: "Styring"
+    prisfaktor: "Prisfaktor"
+    prisfaktorTillaegKrLokale: "Prisfaktor-tillæg"
+    prisfaktorTillaegKrLokale.unit: "kr/lok."
+    reduktionAfDrifttid: "Reduktion af drifttid"
+    reduktionAfDrifttid.unit: "%"
+    reduktionAfDrifttid.help: "Den procentvise reduktion af drifttid"
+    rumstoerrelseM2: "Rumstørrelse"
+    rumstoerrelseM2.unit: "m²"
+    rumstoerrelseM2.help: "﻿Rumstørrelse indtastes. Der kan også regnes på flere sammenlignelige rum i en større zone."
+    lokale.antal: "Lokaleantal"
+    simpelTilbagebetalingstidAar: "Simpel tilbagebetalingstid"
+    simpelTilbagebetalingstidAar.unit: "år"
+    standardinvestArmaturKrStk: "Standardinvest. armatur"
+    standardinvestArmaturKrStk.unit: "kr/stk"
+    standardinvestLyskildeKrStk: "Standardinvest. lyskilde"
+    standardinvestLyskildeKrStk.unit: "kr/stk"
+    standardinvestSensorKrStk: "Standardinvest. sensor"
+    standardinvestSensorKrStk.unit: "kr/stk"
+    styring: "Styring"
+    tiltag.id: "Forslag, input"
+    tilvalgt: "Tilvalgt"
+    vaegtetLevetidAar: "Vægtet Levetid"
+    vaegtetLevetidAar.unit: "år"
   bilag:
-    updated_by: Redigeret af
-    updated_at: Redigeringstidspunkt
-    filer: Filer
-    filepath: Fil
-    kommentar: Kommentar
-    titel: Titel
+    updated_by: "Redigeret af"
+    updated_at: "Redigeringstidspunkt"
+    filer: "Filer"
+    filepath: "Fil"
+    kommentar: "Kommentar"
+    titel: "Titel"
   bygning:
-    aaplusAnsvarlig: Administrator
-    areal: Areal
-    adresse: Adresse
-    afdelingsnavn: Afdelingsnavn
-    ansvarlig: Ansvarlig
-    anvendelse: Anvendelse
-    baseline: Baseline
-    bruttoetageareal: Bruttoetageareal
-    bruttoetageareal.unit: m²
-    erhvervsareal: Erhvervsareal
-    erhvervsareal.unit: m²
-    opvarmetareal: Opvarmet areal
-    opvarmetareal.unit: m²
-    by: By
-    bygId: ID
-    createdAt: Oprettet
-    createdBy: Oprettet af
-    divisionnavn: Divisionnavn
-    ejerA: Ejer A
-    ejerforhold: Ejerforhold
-    energiRaadgiver: Energirådgiver
-    enhedsys: Enhedsys
-    forsyningsvaerkEl: El
-    forsyningsvaerkVand: Vand
-    forsyningsvaerkVarme: Varme
-    navn: Navn
-    omraadenavn: Områdenavn
-    OpfoerselsAar: Opførelsesår
-    plural: Bygninger
-    postBy: By
-    postnr: Postnr.
-    postnummer: Postnummer
-    projekterende: Projekterende
-    projektleder: Projektleder
-    cvrNumber: CVR nummer
-    pNumber: P Nummer
-    eanNumber: EAN nummer
-    virksomhedContactPersons: Virksomhed kontaktpersoner
-    contactPersons: Kontaktpersoner
+    aaplusAnsvarlig: "Administrator"
+    areal: "Areal"
+    adresse: "Adresse"
+    afdelingsnavn: "Afdelingsnavn"
+    ansvarlig: "Ansvarlig"
+    anvendelse: "Anvendelse"
+    baseline: "Baseline"
+    bruttoetageareal: "Bruttoetageareal"
+    bruttoetageareal.unit: "m²"
+    erhvervsareal: "Erhvervsareal"
+    erhvervsareal.unit: "m²"
+    opvarmetareal: "Opvarmet areal"
+    opvarmetareal.unit: "m²"
+    by: "By"
+    bygId: "ID"
+    createdAt: "Oprettet"
+    createdBy: "Oprettet af"
+    divisionnavn: "Divisionnavn"
+    ejerA: "Ejer A"
+    ejerforhold: "Ejerforhold"
+    energiRaadgiver: "Energirådgiver"
+    enhedsys: "Enhedsys"
+    forsyningsvaerkEl: "El"
+    forsyningsvaerkVand: "Vand"
+    forsyningsvaerkVarme: "Varme"
+    navn: "Navn"
+    omraadenavn: "Områdenavn"
+    OpfoerselsAar: "Opførelsesår"
+    plural: "Bygninger"
+    postBy: "By"
+    postnr: "Postnr."
+    postnummer: "Postnummer"
+    projekterende: "Projekterende"
+    projektleder: "Projektleder"
+    cvrNumber: "CVR nummer"
+    pNumber: "P Nummer"
+    eanNumber: "EAN nummer"
+    virksomhedContactPersons: "Virksomhed kontaktpersoner"
+    contactPersons: "Kontaktpersoner"
     contactPersons.validation:
-      mail: E-mail '{{value}}' er ikke en gyldig e-mail.
+      mail: "E-mail '{{value}}' er ikke en gyldig e-mail."
     contactPersons.0:
-      name: Navn
-      phoneNumber: Tlf.
-      mail: E-mail adresse
+      name: "Navn"
+      phoneNumber: "Tlf."
+      mail: "E-mail adresse"
     contactPersons...name..:
-      name: Navn
-      phoneNumber: Tlf.
-      mail: E-mail adresse
+      name: "Navn"
+      phoneNumber: "Tlf."
+      mail: "E-mail adresse"
     rapport:
-      BaselineEl: El
-      BaselineEl.unit: kwh/år
-      BaselineStrafAfkoeling: Strafafkøling
-      BaselineStrafAfkoeling.unit: kr/år
-      BaselineVand: Vand
-      BaselineVand.unit: m3/år
-      BaselineVarmeGAF: Baseline Varme GAF
-      BaselineVarmeGAF.unit: kwh/år
-      BaselineVarmeGUF: Baseline Varme GUF
-      BaselineVarmeGUF.unit: kwh/år
-      besparelseAarEt: Økonomisk besparelse i år 1
-      besparelseAarEt.unit: kr
-      besparelseCO2: Samlet CO2
-      besparelseCO2.unit: t/år
-      besparelseCO2el: El
-      besparelseCO2el.unit: t/år
-      besparelseCO2varme: Varme
-      besparelseCO2varme.unit: t/år
-      besparelseEl: El
-      besparelseEl.unit: kWh/år
-      besparelseVarmeGAF: Varme GAF
-      besparelseVarmeGAF.unit: kwh/år
-      besparelseVarmeGUF: Varme GUF
-      besparelseVarmeGUF.unit: kwh/år
-      bygning: Bygning
-      co2besparelser: CO2 Besparelser
-      datering: Screeningsdato
-      datoForDrift: Dato for drift
-      elena: Elena
-      energibesparelser: Energibesparelser
-      Energiscreening: Energiscreening
-      Energiscreening.unit: Kr
-      energiscreening: Energiscreening
-      energiscreening.unit: kr
-      faellesomkostninger: Øvrige omkostninger
-      faellesomkostninger.unit: kr
-      faktorPaaVarmebesparelse: Faktor på varmebesparelse
-      fravalg: Fravalg
-      genopretning: Genopretning
-      genopretning.unit: kr
-      implementering: Implementering
-      implementering.unit: kr
-      interneDriftomkostninger: Interne Driftomkostninger
-      interneDriftomkostninger.unit: kr
-      internRenteInklFaellesomkostninger: Intern rente inkl. Øvrige omkostninger
-      internRenteInklFaellesomkostninger.unit: %
-      investeringEksFaellesomkostninger: Investering eks. Øvrige omkostninger
-      investeringEksFaellesomkostninger.unit: kr
-      investeringInklFaellesomkostninger: Investering inkl. Øvrige omkostninger
-      investeringInklFaellesomkostninger.unit: kr
-      laanLoebetid: Løbetid på lån
-      laanLoebetid.unit: år
-      laanRente: Rente på lån
-      likviditetsoversigt: Likviditetsoversigt
-      modernisering: Modernisering
-      modernisering.unit: kr
-      mtmFaellesomkostninger: MTM Øvrige omkostninger
-      mtmFaellesomkostninger.unit: kr
-      nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. Øvrige omkostninger
-      nutidsvaerdiInklFaellesomkostninger.unit: kr
-      tilvalg: Tilvalg
-      varmetotal: I alt baseline varme
-      version: Version
-    segment: Segment
-    segment.forkortelse: Magistrat (Forkortelse)
-    singular: Bygning
-    status: Status
-    type: Type
-    updatedAt: Opdateret
-    updatedBy: Opdateret af
-    users: Interessenter
-    virksomhed: Virksomhed
+      BaselineEl: "El"
+      BaselineEl.unit: "kwh/år"
+      BaselineStrafAfkoeling: "Strafafkøling"
+      BaselineStrafAfkoeling.unit: "kr/år"
+      BaselineVand: "Vand"
+      BaselineVand.unit: "m3/år"
+      BaselineVarmeGAF: "Baseline Varme GAF"
+      BaselineVarmeGAF.unit: "kwh/år"
+      BaselineVarmeGUF: "Baseline Varme GUF"
+      BaselineVarmeGUF.unit: "kwh/år"
+      besparelseAarEt: "Økonomisk besparelse i år 1"
+      besparelseAarEt.unit: "kr"
+      besparelseCO2: "Samlet CO2"
+      besparelseCO2.unit: "t/år"
+      besparelseCO2el: "El"
+      besparelseCO2el.unit: "t/år"
+      besparelseCO2varme: "Varme"
+      besparelseCO2varme.unit: "t/år"
+      besparelseEl: "El"
+      besparelseEl.unit: "kWh/år"
+      besparelseVarmeGAF: "Varme GAF"
+      besparelseVarmeGAF.unit: "kwh/år"
+      besparelseVarmeGUF: "Varme GUF"
+      besparelseVarmeGUF.unit: "kwh/år"
+      bygning: "Bygning"
+      co2besparelser: "CO2 Besparelser"
+      datering: "Screeningsdato"
+      datoForDrift: "Dato for drift"
+      elena: "Elena"
+      energibesparelser: "Energibesparelser"
+      Energiscreening: "Energiscreening"
+      Energiscreening.unit: "Kr"
+      energiscreening: "Energiscreening"
+      energiscreening.unit: "kr"
+      faellesomkostninger: "Øvrige omkostninger"
+      faellesomkostninger.unit: "kr"
+      faktorPaaVarmebesparelse: "Faktor på varmebesparelse"
+      fravalg: "Fravalg"
+      genopretning: "Genopretning"
+      genopretning.unit: "kr"
+      implementering: "Implementering"
+      implementering.unit: "kr"
+      interneDriftomkostninger: "Interne Driftomkostninger"
+      interneDriftomkostninger.unit: "kr"
+      internRenteInklFaellesomkostninger: "Intern rente inkl. Øvrige omkostninger"
+      internRenteInklFaellesomkostninger.unit: "%"
+      investeringEksFaellesomkostninger: "Investering eks. Øvrige omkostninger"
+      investeringEksFaellesomkostninger.unit: "kr"
+      investeringInklFaellesomkostninger: "Investering inkl. Øvrige omkostninger"
+      investeringInklFaellesomkostninger.unit: "kr"
+      laanLoebetid: "Løbetid på lån"
+      laanLoebetid.unit: "år"
+      laanRente: "Rente på lån"
+      likviditetsoversigt: "Likviditetsoversigt"
+      modernisering: "Modernisering"
+      modernisering.unit: "kr"
+      mtmFaellesomkostninger: "MTM Øvrige omkostninger"
+      mtmFaellesomkostninger.unit: "kr"
+      nutidsvaerdiInklFaellesomkostninger: "Nutidsværdi inkl. Øvrige omkostninger"
+      nutidsvaerdiInklFaellesomkostninger.unit: "kr"
+      tilvalg: "Tilvalg"
+      varmetotal: "I alt baseline varme"
+      version: "Version"
+    segment: "Segment"
+    segment.forkortelse: "Magistrat (Forkortelse)"
+    singular: "Bygning"
+    status: "Status"
+    type: "Type"
+    updatedAt: "Opdateret"
+    updatedBy: "Opdateret af"
+    users: "Interessenter"
+    virksomhed: "Virksomhed"
   configuration:
-    rapportDriftomkostningerfaktor: Driftomkostninger Faktor
-    rapportDriftomkostningerfaktor.help: Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A
-    elfaktor: El-faktor
-    elKrKWh: El (kr/kWh)
-    mtmFaellesomkostningerGrundpris: Grundpris
-    mtmFaellesomkostningerGrundpris.unit: kr.
-    mtmFaellesomkostningerPrisPrM2: Pris pr. m2
-    mtmFaellesomkostningerPrisPrM2.unit: kr.
-    mtmFaellesomkostningerNulHvisArealMindreEnd.unit: m2
-    mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd.unit: kr.
-    rapportInflation: Inflation
-    rapportInflation.unit: %
-    inflationsfaktor: Inflationsfaktor
-    rapportKalkulationsrente: Kalkulationsrente
-    rapportKalkulationsrente.unit: %
-    rapportLobetid: Løbetid
-    rapportLobetid.unit: år
-    rapportNominelEnergiprisstigning: Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt
-    rapportProcentAfInvestering: Procent af investering
-    rapportProcentAfInvestering.unit: %
-    vandfaktor: Vandfaktor
-    varmefaktor: Varmefaktor
-    varmeKrKWh: Varme (kr/kWh)
-    tekniskisoleringVarmeledningsevneEksistLamelmaatter: Varmeledningsevne, eksist. lamelmåtter
-    tekniskisoleringVarmeledningsevneEksistLamelmaatter.unit: W/m·K
-    tekniskisoleringVarmeledningsevneNyIsolering: Varmeledningsevne, ny isolering
-    tekniskisoleringVarmeledningsevneNyIsolering.unit: W/m·K
-    solcelletiltagdetailEnergiprisstigningPctPrAar: Energiprisstigning
-    solcelletiltagdetailEnergiprisstigningPctPrAar.unit: %/år
-    solcelletiltagdetailSalgsprisFoerste10AarKrKWh: Salgspris (Første 10 år)
-    solcelletiltagdetailSalgsprisFoerste10AarKrKWh.unit: Kr/KWh
-    solcelletiltagdetailSalgsprisEfter10AarKrKWh: Salgspris (Efter 10 år)
-    solcelletiltagdetailSalgsprisEfter10AarKrKWh.unit: Kr/KWh
+    rapportDriftomkostningerfaktor: "Driftomkostninger Faktor"
+    rapportDriftomkostningerfaktor.help: "Faktor (F) til udregning af interne driftomkostninger for bygning m. areal (A): Driftomkostninger = F + 25*A"
+    elfaktor: "El-faktor"
+    elKrKWh: "El (kr/kWh)"
+    mtmFaellesomkostningerGrundpris: "Grundpris"
+    mtmFaellesomkostningerGrundpris.unit: "kr."
+    mtmFaellesomkostningerPrisPrM2: "Pris pr. m2"
+    mtmFaellesomkostningerPrisPrM2.unit: "kr."
+    mtmFaellesomkostningerNulHvisArealMindreEnd.unit: "m2"
+    mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd.unit: "kr."
+    rapportInflation: "Inflation"
+    rapportInflation.unit: "%"
+    inflationsfaktor: "Inflationsfaktor"
+    rapportKalkulationsrente: "Kalkulationsrente"
+    rapportKalkulationsrente.unit: "%"
+    rapportLobetid: "Løbetid"
+    rapportLobetid.unit: "år"
+    rapportNominelEnergiprisstigning: "Nominel energiprisstigning for varmevaerker hvor energiprisudviklingen er ukendt"
+    rapportProcentAfInvestering: "Procent af investering"
+    rapportProcentAfInvestering.unit: "%"
+    vandfaktor: "Vandfaktor"
+    varmefaktor: "Varmefaktor"
+    varmeKrKWh: "Varme (kr/kWh)"
+    tekniskisoleringVarmeledningsevneEksistLamelmaatter: "Varmeledningsevne, eksist. lamelmåtter"
+    tekniskisoleringVarmeledningsevneEksistLamelmaatter.unit: "W/m·K"
+    tekniskisoleringVarmeledningsevneNyIsolering: "Varmeledningsevne, ny isolering"
+    tekniskisoleringVarmeledningsevneNyIsolering.unit: "W/m·K"
+    solcelletiltagdetailEnergiprisstigningPctPrAar: "Energiprisstigning"
+    solcelletiltagdetailEnergiprisstigningPctPrAar.unit: "%/år"
+    solcelletiltagdetailSalgsprisFoerste10AarKrKWh: "Salgspris (Første 10 år)"
+    solcelletiltagdetailSalgsprisFoerste10AarKrKWh.unit: "Kr/KWh"
+    solcelletiltagdetailSalgsprisEfter10AarKrKWh: "Salgspris (Efter 10 år)"
+    solcelletiltagdetailSalgsprisEfter10AarKrKWh.unit: "Kr/KWh"
   elofordeling:
-    januar: Januar
-    februar: Februar
-    marts: Marts
-    april: April
-    maj: Maj
-    juni: Juni
-    juli: Juli
-    august: August
-    september: September
-    oktober: Oktober
-    november: November
-    december: December
-    eloKategoriFordelingVarmeGUF: ELO-kategori VarmeGUF
-    eloKategoriFordelingVarmeGAF: ELO-kategori VarmeGAF
-    eloKategoriFordelingEl: ELO-kategori El
+    januar: "Januar"
+    februar: "Februar"
+    marts: "Marts"
+    april: "April"
+    maj: "Maj"
+    juni: "Juni"
+    juli: "Juli"
+    august: "August"
+    september: "September"
+    oktober: "Oktober"
+    november: "November"
+    december: "December"
+    eloKategoriFordelingVarmeGUF: "ELO-kategori VarmeGUF"
+    eloKategoriFordelingVarmeGAF: "ELO-kategori VarmeGAF"
+    eloKategoriFordelingEl: "ELO-kategori El"
   elokategori:
-    navn: Navn
-    totalVarmeforbrug: Total varmeforbrug
-    totalElforbrug: Total elforbrug
-    andelVarmeGUFFaktor: Andel varme GUF
-    createdBy: Oprettet af
-    updatedBy: Opdateret af
-    createdAt: Oprettet
-    updatedAt: Opdateret
-    fordelingVarmeGUF: ELO-fordeling VarmeGUF
-    fordelingVarmeGAF: ELO-fordeling VarmeGAF
-    fordelingEl: ELO-fordeling El
+    navn: "Navn"
+    totalVarmeforbrug: "Total varmeforbrug"
+    totalElforbrug: "Total elforbrug"
+    andelVarmeGUFFaktor: "Andel varme GUF"
+    createdBy: "Oprettet af"
+    updatedBy: "Opdateret af"
+    createdAt: "Oprettet"
+    updatedAt: "Opdateret"
+    fordelingVarmeGUF: "ELO-fordeling VarmeGUF"
+    fordelingVarmeGAF: "ELO-fordeling VarmeGAF"
+    fordelingEl: "ELO-fordeling El"
   energiforsyning:
-    forsyningsvaerk: Forsyningsværk
-    enhedspris: Enhedspris
-    enhedspris.unit: Kr/kWh
-    prisfaktor: Prisfaktor
-    nyEnhedspris: Ny enhedspris
-    nyEnhedspris.unit: Kr/kWh
-    forsyningsvaerk: Forsyningsværk
-    beskrivelse: Beskrivelse
+    forsyningsvaerk: "Forsyningsværk"
+    enhedspris: "Enhedspris"
+    enhedspris.unit: "Kr/kWh"
+    prisfaktor: "Prisfaktor"
+    nyEnhedspris: "Ny enhedspris"
+    nyEnhedspris.unit: "Kr/kWh"
+    forsyningsvaerk: "Forsyningsværk"
+    beskrivelse: "Beskrivelse"
     internproduktion:
-      effektivitet: Effektivitet
-      effektivitet.unit: %
-      fordeling: Fordeling
-      fordeling.unit: %
-      navn: Navn
-      prisgrundlag: Prisgrundlag
-    internProduktioner: Egne produktioner
+      effektivitet: "Effektivitet"
+      effektivitet.unit: "%"
+      fordeling: "Fordeling"
+      fordeling.unit: "%"
+      navn: "Navn"
+      prisgrundlag: "Prisgrundlag"
+    internProduktioner: "Egne produktioner"
     internProduktioner.0:
-      effektivitet: Effektivitet
-      effektivitet.unit: %
-      fordeling: Fordeling
-      fordeling.unit: %
-      navn: Navn
-      prisgrundlag: Prisgrundlag
-    navn: Navn
-    samletEleffektivitet: Samlet eleffektivitet:
-    samletVarmeeffektivitet: Samlet varmeeffektivitet:
+      effektivitet: "Effektivitet"
+      effektivitet.unit: "%"
+      fordeling: "Fordeling"
+      fordeling.unit: "%"
+      navn: "Navn"
+      prisgrundlag: "Prisgrundlag"
+    navn: "Navn"
+    samletEleffektivitet: "Samlet eleffektivitet:"
+    samletVarmeeffektivitet: "Samlet varmeeffektivitet:"
   erstatningslyskilde:
-    antal: Antal
-    arbejdeOmfang: Arbejde / Omfang
-    id: id
-    nyeForkoblinger: Nye forkoblinger
-    nyeForkoblinger.unit: Stk./arm.
-    noter: Noter
-    pris: Pris
-    pris.unit: kr
-    wattage: Wattage
-    wattage.unit: W/Lysk.
+    antal: "Antal"
+    arbejdeOmfang: "Arbejde / Omfang"
+    id: "id"
+    nyeForkoblinger: "Nye forkoblinger"
+    nyeForkoblinger.unit: "Stk./arm."
+    noter: "Noter"
+    pris: "Pris"
+    pris.unit: "kr"
+    wattage: "Wattage"
+    wattage.unit: "W/Lysk."
   forsyningsvaerk:
-    co2: CO2
-    co2Noter: Noter (CO2)
-    co2y2009: CO2, 2009
-    co2y2010: CO2, 2010
-    co2y2011: CO2, 2011
-    co2y2012: CO2, 2012
-    co2y2013: CO2, 2013
-    co2y2014: CO2, 2014
-    co2y2015: CO2, 2015
-    co2y2016: CO2, 2016
-    co2y2017: CO2, 2017
-    co2y2018: CO2, 2018
-    co2y2019: CO2, 2019
-    co2y2020: CO2, 2020
-    co2y2021: CO2, 2021
-    co2y2022: CO2, 2022
-    co2y2023: CO2, 2023
-    co2y2024: CO2, 2024
-    co2y2025: CO2, 2025
-    co2y2026: CO2, 2026
-    co2y2027: CO2, 2027
-    co2y2028: CO2, 2028
-    co2y2029: CO2, 2029
-    co2y2030: CO2, 2030
-    co2y2031: CO2, 2031
-    co2y2032: CO2, 2032
-    co2y2033: CO2, 2033
-    co2y2034: CO2, 2034
-    co2y2035: CO2, 2035
-    co2y2036: CO2, 2036
-    co2y2037: CO2, 2037
-    co2y2038: CO2, 2038
-    co2y2039: CO2, 2039
-    co2y2040: CO2, 2040
-    co2y2041: CO2, 2041
-    co2y2042: CO2, 2042
-    co2y2043: CO2, 2043
-    co2y2044: CO2, 2044
-    co2y2045: CO2, 2045
-    co2y2046: CO2, 2046
-    co2y2047: CO2, 2047
-    co2y2048: CO2, 2048
-    co2y2049: CO2, 2049
-    co2y2050: CO2, 2050
-    co2y2051: CO2, 2051
-    co2y2052: CO2, 2052
-    co2y2053: CO2, 2053
-    co2y2054: CO2, 2054
-    co2y2055: CO2, 2055
-    co2y2056: CO2, 2056
-    co2y2057: CO2, 2057
-    co2y2058: CO2, 2058
-    co2y2059: CO2, 2059
-    co2y2060: CO2, 2060
-    co2y2061: CO2, 2061
-    co2y2062: CO2, 2062
-    co2y2063: CO2, 2063
-    co2y2064: CO2, 2064
-    co2y2065: CO2, 2065
-    co2y2066: CO2, 2066
-    co2y2067: CO2, 2067
-    co2y2068: CO2, 2068
-    co2y2069: CO2, 2069
-    co2y2070: CO2, 2070
-    co2y2071: CO2, 2071
-    co2y2072: CO2, 2072
-    co2y2073: CO2, 2073
-    co2y2074: CO2, 2074
-    co2y2075: CO2, 2075
-    energiform: Energiform
-    navn: Navn
-    noter: Noter
-    noterTBeregningAfRabat: Noter til rabat
-    pris: Pris
-    pris2009: Pris, 2009
-    pris2010: Pris, 2010
-    pris2011: Pris, 2011
-    pris2012: Pris, 2012
-    pris2013: Pris, 2013
-    pris2014: Pris, 2014
-    pris2015: Pris, 2015
-    pris2016: Pris, 2016
-    pris2017: Pris, 2017
-    pris2018: Pris, 2018
-    pris2019: Pris, 2019
-    pris2020: Pris, 2020
-    pris2021: Pris, 2021
-    pris2022: Pris, 2022
-    pris2023: Pris, 2023
-    pris2024: Pris, 2024
-    pris2025: Pris, 2025
-    pris2026: Pris, 2026
-    pris2027: Pris, 2027
-    pris2028: Pris, 2028
-    pris2029: Pris, 2029
-    pris2030: Pris, 2030
-    pris2031: Pris, 2031
-    pris2032: Pris, 2032
-    pris2033: Pris, 2033
-    pris2034: Pris, 2034
-    pris2035: Pris, 2035
-    pris2036: Pris, 2036
-    pris2037: Pris, 2037
-    pris2038: Pris, 2038
-    pris2039: Pris, 2039
-    pris2040: Pris, 2040
-    pris2041: Pris, 2041
-    pris2042: Pris, 2042
-    pris2043: Pris, 2043
-    pris2044: Pris, 2044
-    pris2045: Pris, 2045
-    pris2046: Pris, 2046
-    pris2047: Pris, 2047
-    pris2048: Pris, 2048
-    pris2049: Pris, 2049
-    pris2050: Pris, 2050
-    pris2051: Pris, 2051
-    pris2052: Pris, 2052
-    pris2053: Pris, 2053
-    pris2054: Pris, 2054
-    pris2055: Pris, 2055
-    pris2056: Pris, 2056
-    pris2057: Pris, 2057
-    pris2058: Pris, 2058
-    pris2059: Pris, 2059
-    pris2060: Pris, 2060
-    pris2061: Pris, 2061
-    pris2062: Pris, 2062
-    pris2063: Pris, 2063
-    pris2064: Pris, 2064
-    pris2065: Pris, 2065
-    pris2066: Pris, 2066
-    pris2067: Pris, 2067
-    pris2068: Pris, 2068
-    pris2069: Pris, 2069
-    pris2070: Pris, 2070
-    pris2071: Pris, 2071
-    pris2072: Pris, 2072
-    pris2073: Pris, 2073
-    pris2074: Pris, 2074
-    pris2075: Pris, 2075
-    priser: Priser
-    vedForbrugOverKWh: Ved forbrug over
+    co2: "CO2"
+    co2Noter: "Noter (CO2)"
+    co2y2009: "CO2, 2009"
+    co2y2010: "CO2, 2010"
+    co2y2011: "CO2, 2011"
+    co2y2012: "CO2, 2012"
+    co2y2013: "CO2, 2013"
+    co2y2014: "CO2, 2014"
+    co2y2015: "CO2, 2015"
+    co2y2016: "CO2, 2016"
+    co2y2017: "CO2, 2017"
+    co2y2018: "CO2, 2018"
+    co2y2019: "CO2, 2019"
+    co2y2020: "CO2, 2020"
+    co2y2021: "CO2, 2021"
+    co2y2022: "CO2, 2022"
+    co2y2023: "CO2, 2023"
+    co2y2024: "CO2, 2024"
+    co2y2025: "CO2, 2025"
+    co2y2026: "CO2, 2026"
+    co2y2027: "CO2, 2027"
+    co2y2028: "CO2, 2028"
+    co2y2029: "CO2, 2029"
+    co2y2030: "CO2, 2030"
+    co2y2031: "CO2, 2031"
+    co2y2032: "CO2, 2032"
+    co2y2033: "CO2, 2033"
+    co2y2034: "CO2, 2034"
+    co2y2035: "CO2, 2035"
+    co2y2036: "CO2, 2036"
+    co2y2037: "CO2, 2037"
+    co2y2038: "CO2, 2038"
+    co2y2039: "CO2, 2039"
+    co2y2040: "CO2, 2040"
+    co2y2041: "CO2, 2041"
+    co2y2042: "CO2, 2042"
+    co2y2043: "CO2, 2043"
+    co2y2044: "CO2, 2044"
+    co2y2045: "CO2, 2045"
+    co2y2046: "CO2, 2046"
+    co2y2047: "CO2, 2047"
+    co2y2048: "CO2, 2048"
+    co2y2049: "CO2, 2049"
+    co2y2050: "CO2, 2050"
+    co2y2051: "CO2, 2051"
+    co2y2052: "CO2, 2052"
+    co2y2053: "CO2, 2053"
+    co2y2054: "CO2, 2054"
+    co2y2055: "CO2, 2055"
+    co2y2056: "CO2, 2056"
+    co2y2057: "CO2, 2057"
+    co2y2058: "CO2, 2058"
+    co2y2059: "CO2, 2059"
+    co2y2060: "CO2, 2060"
+    co2y2061: "CO2, 2061"
+    co2y2062: "CO2, 2062"
+    co2y2063: "CO2, 2063"
+    co2y2064: "CO2, 2064"
+    co2y2065: "CO2, 2065"
+    co2y2066: "CO2, 2066"
+    co2y2067: "CO2, 2067"
+    co2y2068: "CO2, 2068"
+    co2y2069: "CO2, 2069"
+    co2y2070: "CO2, 2070"
+    co2y2071: "CO2, 2071"
+    co2y2072: "CO2, 2072"
+    co2y2073: "CO2, 2073"
+    co2y2074: "CO2, 2074"
+    co2y2075: "CO2, 2075"
+    energiform: "Energiform"
+    navn: "Navn"
+    noter: "Noter"
+    noterTBeregningAfRabat: "Noter til rabat"
+    pris: "Pris"
+    pris2009: "Pris, 2009"
+    pris2010: "Pris, 2010"
+    pris2011: "Pris, 2011"
+    pris2012: "Pris, 2012"
+    pris2013: "Pris, 2013"
+    pris2014: "Pris, 2014"
+    pris2015: "Pris, 2015"
+    pris2016: "Pris, 2016"
+    pris2017: "Pris, 2017"
+    pris2018: "Pris, 2018"
+    pris2019: "Pris, 2019"
+    pris2020: "Pris, 2020"
+    pris2021: "Pris, 2021"
+    pris2022: "Pris, 2022"
+    pris2023: "Pris, 2023"
+    pris2024: "Pris, 2024"
+    pris2025: "Pris, 2025"
+    pris2026: "Pris, 2026"
+    pris2027: "Pris, 2027"
+    pris2028: "Pris, 2028"
+    pris2029: "Pris, 2029"
+    pris2030: "Pris, 2030"
+    pris2031: "Pris, 2031"
+    pris2032: "Pris, 2032"
+    pris2033: "Pris, 2033"
+    pris2034: "Pris, 2034"
+    pris2035: "Pris, 2035"
+    pris2036: "Pris, 2036"
+    pris2037: "Pris, 2037"
+    pris2038: "Pris, 2038"
+    pris2039: "Pris, 2039"
+    pris2040: "Pris, 2040"
+    pris2041: "Pris, 2041"
+    pris2042: "Pris, 2042"
+    pris2043: "Pris, 2043"
+    pris2044: "Pris, 2044"
+    pris2045: "Pris, 2045"
+    pris2046: "Pris, 2046"
+    pris2047: "Pris, 2047"
+    pris2048: "Pris, 2048"
+    pris2049: "Pris, 2049"
+    pris2050: "Pris, 2050"
+    pris2051: "Pris, 2051"
+    pris2052: "Pris, 2052"
+    pris2053: "Pris, 2053"
+    pris2054: "Pris, 2054"
+    pris2055: "Pris, 2055"
+    pris2056: "Pris, 2056"
+    pris2057: "Pris, 2057"
+    pris2058: "Pris, 2058"
+    pris2059: "Pris, 2059"
+    pris2060: "Pris, 2060"
+    pris2061: "Pris, 2061"
+    pris2062: "Pris, 2062"
+    pris2063: "Pris, 2063"
+    pris2064: "Pris, 2064"
+    pris2065: "Pris, 2065"
+    pris2066: "Pris, 2066"
+    pris2067: "Pris, 2067"
+    pris2068: "Pris, 2068"
+    pris2069: "Pris, 2069"
+    pris2070: "Pris, 2070"
+    pris2071: "Pris, 2071"
+    pris2072: "Pris, 2072"
+    pris2073: "Pris, 2073"
+    pris2074: "Pris, 2074"
+    pris2075: "Pris, 2075"
+    priser: "Priser"
+    vedForbrugOverKWh: "Ved forbrug over"
   graddagefordeling:
-    januar: Januar
-    februar: Februar
-    marts: Marts
-    april: April
-    maj: Maj
-    juni: Juni
-    juli: Juli
-    august: August
-    maaneder: Måneder
-    september: September
-    oktober: Oktober
-    november: November
-    december: December
-    graddageVedForskelligeAar: Graddage ved forskellige år:
-    sumAar: Sum f. år
-    titel: År
+    januar: "Januar"
+    februar: "Februar"
+    marts: "Marts"
+    april: "April"
+    maj: "Maj"
+    juni: "Juni"
+    juli: "Juli"
+    august: "August"
+    maaneder: "Måneder"
+    september: "September"
+    oktober: "Oktober"
+    november: "November"
+    december: "December"
+    graddageVedForskelligeAar: "Graddage ved forskellige år:"
+    sumAar: "Sum f. år"
+    titel: "År"
   group:
-    name: Navn
-    roles: Roles
+    name: "Navn"
+    roles: "Roles"
   klimaskaerm:
-    arbejdeOmfang: Arbejde/omfang
-    enhed: Enhed
-    enhedsprisEksklMoms: Estimat for enhedspris excl moms
-    klimaskaerm: Klimaskærm
-    noter: Noter
-    post: Post
-    type: Type
+    arbejdeOmfang: "Arbejde/omfang"
+    enhed: "Enhed"
+    enhedsprisEksklMoms: "Estimat for enhedspris excl moms"
+    klimaskaerm: "Klimaskærm"
+    noter: "Noter"
+    post: "Post"
+    type: "Type"
   klimaskaermtiltagdetail:
-    add: Tilføj
-    andelAfArealDerEfterisoleres: Andel af areal der efterisoleres
-    andelAfArealDerEfterisoleres.unit: %
-    antalStk: Antal
-    antalStk.unit: stk
-    arealM2: Areal
-    arealM2.unit: m²
-    arealM2.calculation: …
-    besparelseKWhAar: Besparelse
-    besparelseKWhAar.unit: kWh/år
-    breddeM: Bredde
-    breddeM.unit: m
-    delprisKrM2: Delpris
-    delprisKrM2.unit: kr/m2
-    enhedsprisEksklMoms: Delpris
-    enhedsprisEksklMoms.unit: kr/m²
-    faktorForReinvestering: Faktor for reinvestering
-    hoejdeElLaengdeM: Højde el. Længde
-    hoejdeElLaengdeM.unit: m
-    ikkeElenaBerettiget: Ikke Elena Berettiget
-    klimaskaerm: Priskategori
-    klimaskaerm.empty.edit: Andet (oplys pris)
-    klimaskaerm.empty.show: Andet - se noter
-    klimaskaerm_label: Klimaskærm
-    klimaskaermOverskrevetPris: Klimaskærm overskrevet pris
-    klimaskaermOverskrevetPris.help: Indtast pris kr/m² for at overskrive valg i priskategori
-    klimaskaermOverskrevetPris.unit: kr/m²
-    klimaskaermOverskrevetPris.validation: Klimaskærm overskrevet pris skal udfyldes hvis der er ikke er valgt tiltag
-    kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
-    kWhBesparElvaerkEksternEnergikilde.unit: kWh/år
-    kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
-    kWhBesparVarmevaerkEksternEnergikilde.unit: kWh/år
-    laastAfEnergiraadgiver: Låst af energirådgiver
-    levetidAar: Levetid
-    levetidAar.unit: år
-    noteGenerelt: Noter
-    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter
-    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet.help: Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
-    nutidsvaerdiSetOver15AarKr.unit: kr
-    orientering: Orientering
-    prisfaktor: Prisfaktor
-    samletBesparelseKWhAarInklDelbesparelser: Samlet Besparelse inkl. delbesparelser
-    samletBesparelseKWhAarInklDelbesparelser.unit: kWh/år
-    samletInvesteringKr: Samlet investering
-    samletInvesteringKr.unit: kr
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
-    simpelTilbagebetalingstidAar.unit: år
-    tilSortering: Til sortering
-    tilSummeringAfDelpriser: Til summering af delpriser
-    tiltagsnr: Forslagsnr.
-    tiltagsnrDelpriser: Forslagsnr. Delpriser
-    tilvalgt: Tilvalgt
-    tilvalgteDeltiltag: Tilvalgte (delforslag)
-    tIndeC: T_inde
-    tIndeC.unit: °C
-    tOpvarmningTimerAar: t_opvarmning
-    tOpvarmningTimerAar.unit: timer/år
-    tUdeC: T_ude
-    tUdeC.unit: °C
-    type: Type
-    placering: Placering
-    uEksWM2K: U_eks
-    uEksWM2K.unit: W/m²K
-    uNyWM2K: U_ny
-    uNyWM2K.unit: W/m²K
-    vaegtetGnm: VaegtetGnm
-    vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for forslaget (afrundet)
-    yderligereBesparelserPct: Yderligere besparelser
-    yderligereBesparelserPct.unit: %
+    add: "Tilføj"
+    andelAfArealDerEfterisoleres: "Andel af areal der efterisoleres"
+    andelAfArealDerEfterisoleres.unit: "%"
+    antalStk: "Antal"
+    antalStk.unit: "stk"
+    arealM2: "Areal"
+    arealM2.unit: "m²"
+    arealM2.calculation: "…"
+    besparelseKWhAar: "Besparelse"
+    besparelseKWhAar.unit: "kWh/år"
+    breddeM: "Bredde"
+    breddeM.unit: "m"
+    delprisKrM2: "Delpris"
+    delprisKrM2.unit: "kr/m2"
+    enhedsprisEksklMoms: "Delpris"
+    enhedsprisEksklMoms.unit: "kr/m²"
+    faktorForReinvestering: "Faktor for reinvestering"
+    hoejdeElLaengdeM: "Højde el. Længde"
+    hoejdeElLaengdeM.unit: "m"
+    ikkeElenaBerettiget: "Ikke Elena Berettiget"
+    klimaskaerm: "Priskategori"
+    klimaskaerm.empty.edit: "Andet (oplys pris)"
+    klimaskaerm.empty.show: "Andet - se noter"
+    klimaskaerm_label: "Klimaskærm"
+    klimaskaermOverskrevetPris: "Klimaskærm overskrevet pris"
+    klimaskaermOverskrevetPris.help: "Indtast pris kr/m² for at overskrive valg i priskategori"
+    klimaskaermOverskrevetPris.unit: "kr/m²"
+    klimaskaermOverskrevetPris.validation: "Klimaskærm overskrevet pris skal udfyldes hvis der er ikke er valgt tiltag"
+    kWhBesparElvaerkEksternEnergikilde: "kWh-bespar. elværk (ekstern energikilde)"
+    kWhBesparElvaerkEksternEnergikilde.unit: "kWh/år"
+    kWhBesparVarmevaerkEksternEnergikilde: "kWh-bespar. varmeværk (ekstern energikilde)"
+    kWhBesparVarmevaerkEksternEnergikilde.unit: "kWh/år"
+    laastAfEnergiraadgiver: "Låst af energirådgiver"
+    levetidAar: "Levetid"
+    levetidAar.unit: "år"
+    noteGenerelt: "Noter"
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: "Noter"
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet.help: "Noter til prisfaktor, valgte løsning/tiltag, specielle forhold på stedet"
+    nutidsvaerdiSetOver15AarKr: "Nutidsværdi set over 15 år"
+    nutidsvaerdiSetOver15AarKr.unit: "kr"
+    orientering: "Orientering"
+    prisfaktor: "Prisfaktor"
+    samletBesparelseKWhAarInklDelbesparelser: "Samlet Besparelse inkl. delbesparelser"
+    samletBesparelseKWhAarInklDelbesparelser.unit: "kWh/år"
+    samletInvesteringKr: "Samlet investering"
+    samletInvesteringKr.unit: "kr"
+    simpelTilbagebetalingstidAar: "Simpel tilbagebetalingstid"
+    simpelTilbagebetalingstidAar.unit: "år"
+    tilSortering: "Til sortering"
+    tilSummeringAfDelpriser: "Til summering af delpriser"
+    tiltagsnr: "Forslagsnr."
+    tiltagsnrDelpriser: "Forslagsnr. Delpriser"
+    tilvalgt: "Tilvalgt"
+    tilvalgteDeltiltag: "Tilvalgte (delforslag)"
+    tIndeC: "T_inde"
+    tIndeC.unit: "°C"
+    tOpvarmningTimerAar: "t_opvarmning"
+    tOpvarmningTimerAar.unit: "timer/år"
+    tUdeC: "T_ude"
+    tUdeC.unit: "°C"
+    type: "Type"
+    placering: "Placering"
+    uEksWM2K: "U_eks"
+    uEksWM2K.unit: "W/m²K"
+    uNyWM2K: "U_ny"
+    uNyWM2K.unit: "W/m²K"
+    vaegtetGnm: "VaegtetGnm"
+    vaegtetLevetidForTiltagetAfrundet: "Vægtet levetid for forslaget (afrundet)"
+    yderligereBesparelserPct: "Yderligere besparelser"
+    yderligereBesparelserPct.unit: "%"
   komponent:
-    titel: Titel
-    roerlaengde: Rørlængde
-    roerlaengde.unit: m
+    titel: "Titel"
+    roerlaengde: "Rørlængde"
+    roerlaengde.unit: "m"
   lyskilde:
-    forkobling: Forkobling
-    levetid: Levetid
-    levetid.unit: timer
-    navn: Navn
-    type: Type
-    udgift: Udgift
-    udgift.unit: kr
+    forkobling: "Forkobling"
+    levetid: "Levetid"
+    levetid.unit: "timer"
+    navn: "Navn"
+    type: "Type"
+    udgift: "Udgift"
+    udgift.unit: "kr"
   nytArmatur:
-    arbejdeOmfang: Arbejde / Omfang
-    id: id
-    nyeForkoblingerAntal: Nye forkoblinger
-    nyeForkoblingerAntal.unit: Stk./arm.
-    nyLyskildeAntal: Antal
-    noter: Noter
-    pris: Pris
-    pris.unit: kr
-    wattage: Wattage
-    wattage.unit: W/Lysk.
+    arbejdeOmfang: "Arbejde / Omfang"
+    id: "id"
+    nyeForkoblingerAntal: "Nye forkoblinger"
+    nyeForkoblingerAntal.unit: "Stk./arm."
+    nyLyskildeAntal: "Antal"
+    noter: "Noter"
+    pris: "Pris"
+    pris.unit: "kr"
+    wattage: "Wattage"
+    wattage.unit: "W/Lysk."
   nyttiggjortvarme:
-    faktor: Faktor for nyttiggjort varme
-    titel: Titel
+    faktor: "Faktor for nyttiggjort varme"
+    titel: "Titel"
   pumpe:
-    aarsforbrug: Årsforbrug
-    byggemaal: Byggemål
-    elbesparelse: Elbsparelse
-    fabrikant: Fabrikant
-    forbrug: Forbrug
-    q: Q
-    h: H
-    indst: Indst.
-    kommentarer: Kommentarer
-    nuvaerendeType: Nuværende Type
-    nyByggemaal: Nye byggemål
-    nyPumpe: Ny pumpe
-    nytAarsforbrug: Nyt Årsforbrug
-    nyTilslutning: Ny tilslutning
-    roerlaengde: Rørlængde
-    roerstoerrelse: Rørstørrelse
-    standInvestering: Standard investering
-    tilslutning: Tilslutning
-    udligningssaet: Udligningssæt
-    vvsnr: VVS Nr.
+    aarsforbrug: "Årsforbrug"
+    byggemaal: "Byggemål"
+    elbesparelse: "Elbsparelse"
+    fabrikant: "Fabrikant"
+    forbrug: "Forbrug"
+    q: "Q"
+    h: "H"
+    indst: "Indst."
+    kommentarer: "Kommentarer"
+    nuvaerendeType: "Nuværende Type"
+    nyByggemaal: "Nye byggemål"
+    nyPumpe: "Ny pumpe"
+    nytAarsforbrug: "Nyt Årsforbrug"
+    nyTilslutning: "Ny tilslutning"
+    roerlaengde: "Rørlængde"
+    roerstoerrelse: "Rørstørrelse"
+    standInvestering: "Standard investering"
+    tilslutning: "Tilslutning"
+    udligningssaet: "Udligningssæt"
+    vvsnr: "VVS Nr."
     import:
-      filepath: Vælg fil med import pumper data
+      filepath: "Vælg fil med import pumper data"
   pumpetiltag:
-    applikation: Applikation
-    nyttiggjortVarme: Nyttiggjort varme
-    eksisterendeDrifttid: Eksisterende Drifttid
-    forsyningsomraade: Forsyningsområde
-    isoleringskappe: Isoleringskappe
-    noter: Noter
-    nyDrifttid: Ny Drifttid
-    placering: Placering
-    prisfaktor: Prisfaktor
-    pumpeID: ID
+    applikation: "Applikation"
+    nyttiggjortVarme: "Nyttiggjort varme"
+    eksisterendeDrifttid: "Eksisterende Drifttid"
+    forsyningsomraade: "Forsyningsområde"
+    isoleringskappe: "Isoleringskappe"
+    noter: "Noter"
+    nyDrifttid: "Ny Drifttid"
+    placering: "Placering"
+    prisfaktor: "Prisfaktor"
+    pumpeID: "ID"
   pumpetiltagdetail:
-    add: Tilføj pumpe
-    applikation: Applikation
-    bFaktor: B-Faktor
-    nyttiggjortVarme: Nyttiggjort varme
-    eksisterendeDrifttid: Eksisterende drifttid
-    eksisterendeDrifttid.unit: Timer/år
-    eksisterendeDrifttid.help: ﻿Eksisterende driftstid indtastes i timer/år
-    eksisterendePumpe: Eksisterende pumpe
-    elbespKWhAar: El-Besparelse
-    elbespKWhAar.unit: kWh/år
-    elforbrugVedNyeDriftstidKWhAar: Elforbrug ved nye driftstid
-    elforbrugVedNyeDriftstidKWhAar.unit: kWh/år
-    forsyningsomraade: Forsyningsområde
-    forsyningsomraade.help: ﻿Beskriv pumpens forsyningsområde, fx "Blandesløjfe til gulvvarme i rum 20-30"
-    ikkeElenaBerettiget: Ikke Elena Berettiget
-    isoleringskappe: Isoleringskappe
-    isoleringskappe.help: Sæt x hvis der er isoleringskappe på eksisterende pumpe.
-    b.faktor: B-Faktor
-    b.faktor.help: ﻿B-faktor for pumpens placering indtastes, undlades såfremt eksisterende pumpe har isoleringskappe. B-faktor jf. håndbog for energikonsulenter.
-    kwhBesparelseElFraVaerket: El: kWh-besparelse fra værket
-    kwhBesparelseElFraVaerket.unit: kWh/år
-    kwhBesparelseVarmeFraVaerket: ﻿Varme: kWh-besparelse fra værket
-    kwhBesparelseVarmeFraVaerket.unit: kWh/år
-    noter: Noter
-    noter.help: ﻿Rådgivers noter til pumpeudskiftning indtastes her. Krav til de punkter rådgiver skal tage stilling til er angivet i kolonnens overskrift
-    nutidsvaerdiSetOver15AarKr: ﻿Nutidsværdi set over 15 år
-    nutidsvaerdiSetOver15AarKr.unit: kr
-    nyDrifttid: Ny drifttid
-    nyDrifttid.unit: Timer/år
-    nyPumpe: Ny pumpe
-    nytByggemaal: Nyt byggemål
-    nyTilslutning: Ny tilslutning
-    nyttiggjortVarme: Nyttiggjort varme
-    nyttiggjortVarme.unit: B-faktor
-    nytVVSnr: Nyt VVS-nr.
-    overskrevetPris: Overskrevet pris
-    overskrevetPris.unit: kr
-    placering: Placering
-    placering.help: ﻿Rum nr. og eventuel note for placering  fx. "rum 20, under isoleringskappe til varmtvandsbeholder"
-    prisfaktor: Prisfaktor
-    pristillaeg: Pristillæg
-    pristillaeg.unit: kr
-    pumpe: Eks. pumpe / Ny pumpe
-    pumpeID: Pumpe ID
-    pumpeID.help: ﻿Et ID der kan genfindes på vedlagt skitse angives, fx. "P1", "P2" osv.
-    pumpetiltag: Pumpeforslag
-    samletInvesteringInklPristillaeg: Samlet investering inkl. pristillæg
-    samletInvesteringInklPristillaeg.unit: kr
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
-    simpelTilbagebetalingstidAar.unit: år
-    tilvalgt: Tilvalgt
-    varmebespIsokappeKWh: Varmebesp. iso.kappe
-    varmebespIsokappeKWh.unit: kWh
-    varmetabIftAekvivalentRoerstoerrelse: Overskreven varmetab ift. ækvivalent rørstørrelse (Pumpetilslutning)
+    add: "Tilføj pumpe"
+    applikation: "Applikation"
+    bFaktor: "B-Faktor"
+    nyttiggjortVarme: "Nyttiggjort varme"
+    eksisterendeDrifttid: "Eksisterende drifttid"
+    eksisterendeDrifttid.unit: "Timer/år"
+    eksisterendeDrifttid.help: "﻿Eksisterende driftstid indtastes i timer/år"
+    eksisterendePumpe: "Eksisterende pumpe"
+    elbespKWhAar: "El-Besparelse"
+    elbespKWhAar.unit: "kWh/år"
+    elforbrugVedNyeDriftstidKWhAar: "Elforbrug ved nye driftstid"
+    elforbrugVedNyeDriftstidKWhAar.unit: "kWh/år"
+    forsyningsomraade: "Forsyningsområde"
+    forsyningsomraade.help: "﻿Beskriv pumpens forsyningsområde, fx \"Blandesløjfe til gulvvarme i rum 20-30\""
+    ikkeElenaBerettiget: "Ikke Elena Berettiget"
+    isoleringskappe: "Isoleringskappe"
+    isoleringskappe.help: "Sæt x hvis der er isoleringskappe på eksisterende pumpe."
+    b.faktor: "B-Faktor"
+    b.faktor.help: "﻿B-faktor for pumpens placering indtastes, undlades såfremt eksisterende pumpe har isoleringskappe. B-faktor jf. håndbog for energikonsulenter."
+    kwhBesparelseElFraVaerket: "El: kWh-besparelse fra værket"
+    kwhBesparelseElFraVaerket.unit: "kWh/år"
+    kwhBesparelseVarmeFraVaerket: "﻿Varme: kWh-besparelse fra værket"
+    kwhBesparelseVarmeFraVaerket.unit: "kWh/år"
+    noter: "Noter"
+    noter.help: "﻿Rådgivers noter til pumpeudskiftning indtastes her. Krav til de punkter rådgiver skal tage stilling til er angivet i kolonnens overskrift"
+    nutidsvaerdiSetOver15AarKr: "﻿Nutidsværdi set over 15 år"
+    nutidsvaerdiSetOver15AarKr.unit: "kr"
+    nyDrifttid: "Ny drifttid"
+    nyDrifttid.unit: "Timer/år"
+    nyPumpe: "Ny pumpe"
+    nytByggemaal: "Nyt byggemål"
+    nyTilslutning: "Ny tilslutning"
+    nyttiggjortVarme: "Nyttiggjort varme"
+    nyttiggjortVarme.unit: "B-faktor"
+    nytVVSnr: "Nyt VVS-nr."
+    overskrevetPris: "Overskrevet pris"
+    overskrevetPris.unit: "kr"
+    placering: "Placering"
+    placering.help: "﻿Rum nr. og eventuel note for placering  fx. \"rum 20, under isoleringskappe til varmtvandsbeholder\""
+    prisfaktor: "Prisfaktor"
+    pristillaeg: "Pristillæg"
+    pristillaeg.unit: "kr"
+    pumpe: "Eks. pumpe / Ny pumpe"
+    pumpeID: "Pumpe ID"
+    pumpeID.help: "﻿Et ID der kan genfindes på vedlagt skitse angives, fx. \"P1\", \"P2\" osv."
+    pumpetiltag: "Pumpeforslag"
+    samletInvesteringInklPristillaeg: "Samlet investering inkl. pristillæg"
+    samletInvesteringInklPristillaeg.unit: "kr"
+    simpelTilbagebetalingstidAar: "Simpel tilbagebetalingstid"
+    simpelTilbagebetalingstidAar.unit: "år"
+    tilvalgt: "Tilvalgt"
+    varmebespIsokappeKWh: "Varmebesp. iso.kappe"
+    varmebespIsokappeKWh.unit: "kWh"
+    varmetabIftAekvivalentRoerstoerrelse: "Overskreven varmetab ift. ækvivalent rørstørrelse (Pumpetilslutning)"
   pumpetiltagdetailapplikation:
-    navn: Navn
-
+    navn: "Navn"
   rapport:
-    ava: AVA
-    anlaegsinvestering.unit: kr
-    BaselineCO2El: Baseline CO2 EL 2009
-    BaselineCO2El.unit: t/år
-    BaselineCO2Varme: Baseline CO2 Varme 2009
-    BaselineCO2Varme.unit: t/år
-    BaselineEl: El
-    BaselineEl.unit: kwh/år
-    BaselineStrafAfkoeling: Strafafkøling
-    BaselineStrafAfkoeling.unit: kr/år
-    BaselineVand: Vand
-    BaselineVand.unit: m3/år
-    BaselineVarme: Varme
-    BaselineVarme.unit: kWh/år
-    BaselineVarmeGAF: Baseline Varme GAF
-    BaselineVarmeGAF.unit: kwh/år
-    BaselineVarmeGUF: Baseline Varme GUF
-    BaselineVarmeGUF.unit: kwh/år
-    besparelseAarEt: Økonomisk besparelse i år 1
-    besparelseAarEt.unit: kr
-    besparelseAarEtPdf: Økonomisk besparelse i år 1 (inkl. D&V-besparelse)
-    besparelseAarEtPdf.unit: kr
-    besparelseCO2: Samlet CO2
-    besparelseCO2el: El
-    besparelseCO2el.unit: t/år
-    besparelseCO2relative: CO2 besparelse i % ift. baseline
-    besparelseCO2relative.unit: %
-    besparelseCO2.unit: t/år
-    besparelseCO2varme: Varme
-    besparelseCO2varme.unit: t/år
-    besparelseCO2braendstof: Brændstof
-    besparelseCO2braendstof.unit: t/år
-    besparelseEl: El
-    besparelseEl.unit: kWh/år
-    besparelseVarme: Varme
-    besparelseVarme.unit: kwh/år
-    besparelseVarmeGAF: Varme GAF
-    besparelseVarmeGAF.unit: kwh/år
-    besparelseVarmeGUF: Varme GUF
-    besparelseVarmeGUF.unit: kwh/år
-    besparelseBraendstof: Brændstof
-    besparelseBraendstof.unit: kwh/år
+    ava: "AVA"
+    anlaegsinvestering.unit: "kr"
+    BaselineCO2El: "Baseline CO2 EL 2009"
+    BaselineCO2El.unit: "t/år"
+    BaselineCO2Varme: "Baseline CO2 Varme 2009"
+    BaselineCO2Varme.unit: "t/år"
+    BaselineEl: "El"
+    BaselineEl.unit: "kwh/år"
+    BaselineStrafAfkoeling: "Strafafkøling"
+    BaselineStrafAfkoeling.unit: "kr/år"
+    BaselineVand: "Vand"
+    BaselineVand.unit: "m3/år"
+    BaselineVarme: "Varme"
+    BaselineVarme.unit: "kWh/år"
+    BaselineVarmeGAF: "Baseline Varme GAF"
+    BaselineVarmeGAF.unit: "kwh/år"
+    BaselineVarmeGUF: "Baseline Varme GUF"
+    BaselineVarmeGUF.unit: "kwh/år"
+    besparelseAarEt: "Økonomisk besparelse i år 1"
+    besparelseAarEt.unit: "kr"
+    besparelseAarEtPdf: "Økonomisk besparelse i år 1 (inkl. D&V-besparelse)"
+    besparelseAarEtPdf.unit: "kr"
+    besparelseCO2: "Samlet CO2"
+    besparelseCO2el: "El"
+    besparelseCO2el.unit: "t/år"
+    besparelseCO2relative: "CO2 besparelse i % ift. baseline"
+    besparelseCO2relative.unit: "%"
+    besparelseCO2.unit: "t/år"
+    besparelseCO2varme: "Varme"
+    besparelseCO2varme.unit: "t/år"
+    besparelseCO2braendstof: "Brændstof"
+    besparelseCO2braendstof.unit: "t/år"
+    besparelseEl: "El"
+    besparelseEl.unit: "kWh/år"
+    besparelseVarme: "Varme"
+    besparelseVarme.unit: "kwh/år"
+    besparelseVarmeGAF: "Varme GAF"
+    besparelseVarmeGAF.unit: "kwh/år"
+    besparelseVarmeGUF: "Varme GUF"
+    besparelseVarmeGUF.unit: "kwh/år"
+    besparelseBraendstof: "Brændstof"
+    besparelseBraendstof.unit: "kwh/år"
     bilag:
-      updated_by: Redigeret af
-      updated_at: Redigeringstidspunkt
-      filepath: Fil
-      kommentar: Kommentar
-      titel: Titel
-    bygning: Bygning
-    bygning.areal: Areal
-    bygning.areal.unit: m²
-    cashFlow: Cashflow (30 år)
-    cashFlow15: Cashflow (15 år)
-    co2besparelser: CO2 Besparelser
-    co2BesparelseEl: CO2 Besparelse El
-    co2BesparelseVarme: CO2 Besparelse Varme
-    co2BesparelseFaktor: Samlede CO2 Besparelser (%)
-    co2BesparelseElFaktor: El
-    co2BesparelseElFaktor.unit: %
-    co2BesparelseSamletFaktor: Samlet CO2
-    co2BesparelseSamletFaktor.unit: %
-    co2BesparelseVarmeFaktor: Varme
-    co2BesparelseVarmeFaktor.unit: %
-    co2BesparelseBraendstof: Brændstof
-    co2BesparelseBraendstof.unit: %
-    co2BesparelseBraendstofITon: Brændstof
-    co2BesparelseBraendstofITon.unit: t/år
-    datering: Screeningsdato
-    elena: Elena
-    energibesparelser: Energibesparelser
-    energibudgetEl: Energibudget, el
-    energibudgetEl.unit: kWh/år
-    energibudgetVarme: Energibudget, varme
-    energibudgetVarme.unit: kWh/år
-    Energiscreening: Energiscreening
-    Energiscreening.unit: Kr
-    energiscreening: Energiscreening
-    energiscreening.unit: kr
-    faellesomkostninger: Øvrige omkostninger
-    faellesomkostninger.unit: kr
-    faktorPaaVarmebesparelse: Faktor på varmebesparelse
-    fravalg: Fravalg
-    fravalgtBesparelseDriftOgVedligeholdelse: Sum af D & V Besparelser
-    fravalgtBesparelseDriftOgVedligeholdelse.unit: kr
-    fravalgtImplementering: Fravalgt implementering
-    genopretning: Genopretning
-    genopretning.unit: kr
-    genopretningForImplementeringsomkostninger: Genopretning for implementeringsomkostninger
-    genopretningForImplementeringsomkostninger.unit: kr
-    genopretningsandel: Genopretningsandel
-    genopretningsandel.unit: kr
-    implementering: Implementering
-    implementering.unit: kr
-    interneDriftomkostninger: Interne Driftomkostninger
-    interneDriftomkostninger.unit: kr
-    internRenteInklFaellesomkostninger: Intern rente inkl. øvrige omkostninger
-    internRenteInklFaellesomkostninger.unit: %
-    investeringEksFaellesomkostninger: Investering eksl. øvrige omkostninger
-    investeringEksFaellesomkostninger.unit: kr
-    investeringEkslFaelles: Investering eksl. øvrige omkostninger
-    investeringEkslFaelles.unit: Kr
-    investeringInklFaellesomkostninger: Investering inkl. øvrige omkostninger
-    investeringInklFaellesomkostninger.unit: kr
-    laanLoebetid: Løbetid på lån
-    laanLoebetid.unit: år
-    laanRente: Rente på lån
-    likviditetsoversigt: Likviditetsoversigt
-    modernisering: Modernisering
-    modernisering.unit: kr
-    mtmFaellesomkostninger: MTM Fællesomkostninger
-    mtmFaellesomkostninger.unit: kr
-    nutidsvaerdi: Nutidsværdi
-    nutidsvaerdi.unit: kr
-    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. øvrige omkostninger
-    nutidsvaerdiInklFaellesomkostninger.unit: kr
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi over 15 år
-    oevrigeOmkostninger: Øvrige omkostninger
-    samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
-    status.ava: AVA-støtte
-    sum: Sum
-    sum.unit: kr
-    sumOevrige: Sum, investering inkl. øvrige omkostninger
-    sumOevrige.unit: kr
-    tiltag: Forslag
-    tilvalg: Tilvalg
-    timeforbrug: Forventet timeforbrug for lokalpersonalet
-    timeforbrug.unit: kr
-    totalEntreprisesum: Total Entreprisesum
-    totalEntreprisesum.unit: kr
-    varmetotal: ﻿I alt baseline varme
-    version: Iteration
+      updated_by: "Redigeret af"
+      updated_at: "Redigeringstidspunkt"
+      filepath: "Fil"
+      kommentar: "Kommentar"
+      titel: "Titel"
+    bygning: "Bygning"
+    bygning.areal: "Areal"
+    bygning.areal.unit: "m²"
+    cashFlow: "Cashflow (30 år)"
+    cashFlow15: "Cashflow (15 år)"
+    co2besparelser: "CO2 Besparelser"
+    co2BesparelseEl: "CO2 Besparelse El"
+    co2BesparelseVarme: "CO2 Besparelse Varme"
+    co2BesparelseFaktor: "Samlede CO2 Besparelser (%)"
+    co2BesparelseElFaktor: "El"
+    co2BesparelseElFaktor.unit: "%"
+    co2BesparelseSamletFaktor: "Samlet CO2"
+    co2BesparelseSamletFaktor.unit: "%"
+    co2BesparelseVarmeFaktor: "Varme"
+    co2BesparelseVarmeFaktor.unit: "%"
+    co2BesparelseBraendstof: "Brændstof"
+    co2BesparelseBraendstof.unit: "%"
+    co2BesparelseBraendstofITon: "Brændstof"
+    co2BesparelseBraendstofITon.unit: "t/år"
+    datering: "Screeningsdato"
+    elena: "Elena"
+    energibesparelser: "Energibesparelser"
+    energibudgetEl: "Energibudget, el"
+    energibudgetEl.unit: "kWh/år"
+    energibudgetVarme: "Energibudget, varme"
+    energibudgetVarme.unit: "kWh/år"
+    Energiscreening: "Energiscreening"
+    Energiscreening.unit: "Kr"
+    energiscreening: "Energiscreening"
+    energiscreening.unit: "kr"
+    faellesomkostninger: "Øvrige omkostninger"
+    faellesomkostninger.unit: "kr"
+    faktorPaaVarmebesparelse: "Faktor på varmebesparelse"
+    fravalg: "Fravalg"
+    fravalgtBesparelseDriftOgVedligeholdelse: "Sum af D & V Besparelser"
+    fravalgtBesparelseDriftOgVedligeholdelse.unit: "kr"
+    fravalgtImplementering: "Fravalgt implementering"
+    genopretning: "Genopretning"
+    genopretning.unit: "kr"
+    genopretningForImplementeringsomkostninger: "Genopretning for implementeringsomkostninger"
+    genopretningForImplementeringsomkostninger.unit: "kr"
+    genopretningsandel: "Genopretningsandel"
+    genopretningsandel.unit: "kr"
+    implementering: "Implementering"
+    implementering.unit: "kr"
+    interneDriftomkostninger: "Interne Driftomkostninger"
+    interneDriftomkostninger.unit: "kr"
+    internRenteInklFaellesomkostninger: "Intern rente inkl. øvrige omkostninger"
+    internRenteInklFaellesomkostninger.unit: "%"
+    investeringEksFaellesomkostninger: "Investering eksl. øvrige omkostninger"
+    investeringEksFaellesomkostninger.unit: "kr"
+    investeringEkslFaelles: "Investering eksl. øvrige omkostninger"
+    investeringEkslFaelles.unit: "Kr"
+    investeringInklFaellesomkostninger: "Investering inkl. øvrige omkostninger"
+    investeringInklFaellesomkostninger.unit: "kr"
+    laanLoebetid: "Løbetid på lån"
+    laanLoebetid.unit: "år"
+    laanRente: "Rente på lån"
+    likviditetsoversigt: "Likviditetsoversigt"
+    modernisering: "Modernisering"
+    modernisering.unit: "kr"
+    mtmFaellesomkostninger: "MTM Fællesomkostninger"
+    mtmFaellesomkostninger.unit: "kr"
+    nutidsvaerdi: "Nutidsværdi"
+    nutidsvaerdi.unit: "kr"
+    nutidsvaerdiInklFaellesomkostninger: "Nutidsværdi inkl. øvrige omkostninger"
+    nutidsvaerdiInklFaellesomkostninger.unit: "kr"
+    nutidsvaerdiSetOver15AarKr: "Nutidsværdi over 15 år"
+    oevrigeOmkostninger: "Øvrige omkostninger"
+    samtidighedsfaktor: "På ejendommen er indregnet en samtidighedsfaktor på"
+    status.ava: "AVA-støtte"
+    sum: "Sum"
+    sum.unit: "kr"
+    sumOevrige: "Sum, investering inkl. øvrige omkostninger"
+    sumOevrige.unit: "kr"
+    tiltag: "Forslag"
+    tilvalg: "Tilvalg"
+    timeforbrug: "Forventet timeforbrug for lokalpersonalet"
+    timeforbrug.unit: "kr"
+    totalEntreprisesum: "Total Entreprisesum"
+    totalEntreprisesum.unit: "kr"
+    varmetotal: "﻿I alt baseline varme"
+    version: "Iteration"
   segment:
-    add: Opret Segment
-    edit: Rediger Segment
-    forkortelse: Magistrat Forkortelse
-    magistrat: Magistrat
-    navn: Navn
-    plural: Segmenter
-    segmentAnsvarlig: Segment Ansvarlig
+    add: "Opret Segment"
+    edit: "Rediger Segment"
+    forkortelse: "Magistrat Forkortelse"
+    magistrat: "Magistrat"
+    navn: "Navn"
+    plural: "Segmenter"
+    segmentAnsvarlig: "Segment Ansvarlig"
   solcelle:
-    drift: Drift
-    inverterpris: Inverterpris
-    KWp: KWp
-    kwp: KWp
+    drift: "Drift"
+    inverterpris: "Inverterpris"
+    KWp: "KWp"
+    kwp: "KWp"
   solcelletiltagdetail:
-    add: Tilføj
-    anlaegsstoerrelseKWp: Anlægsstørrelse
-    anlaegsstoerrelseKWp.unit: KWp
-    driftPrAarKr: Drift pr. år
-    driftPrAarKr.unit: Kr/år
-    egetForbrugAfProduktionenKWh: Eget forbrug af produktionen
-    egetForbrugAfProduktionenKWh.unit: KWh
-    energiprisstigningPctPrAar: Energiprisstigning
-    energiprisstigningPctPrAar.unit: %
-    forringetYdeevnePrAar: Forringet ydeevne pr. år
-    forringetYdeevnePrAar.unit: %
-    ikkeElenaBerettiget: Ikke Elena Berettiget
-    inverterskift: Inverterskift
-    inverterskift1Aar: Inverterskift 1
-    inverterskift1Aar.unit: Ved år
-    inverterskift2Aar: Inverterskift 2
-    inverterskift2Aar.unit: Ved år
-    investeringKr: Investering (Anlæg + opsætning)
-    investeringKr.unit: Kr
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
-    nutidsvaerdiSetOver15AarKr.unit: kr
-    omkostningTilMaalerKr: Omkostning til måler pr. år
-    omkostningTilMaalerKr.unit: Kr
-    prisForNyInverterKr: Pris for ny inverter
-    prisForNyInverterKr.unit: Kr
-    produktionKWh: Produktion
-    produktionKWh.unit: KWh
-    produktionTilNettetKWh: Produktion til nettet
-    produktionTilNettetKWh.unit: KWh
-    raadighedstarifKr: Rådighedstarif
-    raadighedstarifKr.unit: Kr
-    salgsprisEfter10AarKrKWh: Salgspris (Efter 10 år)
-    salgsprisEfter10AarKrKWh.unit: Kr/KWh
-    salgsprisFoerste10AarKrKWh: Salgspris (Første 10 år)
-    salgsprisFoerste10AarKrKWh.unit: Kr/KWh
-    screeningOgProjekteringKr: Screening og projektering
-    screeningOgProjekteringKr.unit: Kr
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
-    simpelTilbagebetalingstidAar.unit: år
-    tilEgetForbrugPct: Til eget forbrug
-    tilEgetForbrugPct.unit: %
-    tilNettetPct: Til nettet
-    tilNettetPct.unit: %
-    tilvalgt: Tilvalgt
-    totalDriftomkostningerPrAar: Total driftomkostninger pr. år
-    totalDriftomkostningerPrAar.unit: Kr/år
+    add: "Tilføj"
+    anlaegsstoerrelseKWp: "Anlægsstørrelse"
+    anlaegsstoerrelseKWp.unit: "KWp"
+    driftPrAarKr: "Drift pr. år"
+    driftPrAarKr.unit: "Kr/år"
+    egetForbrugAfProduktionenKWh: "Eget forbrug af produktionen"
+    egetForbrugAfProduktionenKWh.unit: "KWh"
+    energiprisstigningPctPrAar: "Energiprisstigning"
+    energiprisstigningPctPrAar.unit: "%"
+    forringetYdeevnePrAar: "Forringet ydeevne pr. år"
+    forringetYdeevnePrAar.unit: "%"
+    ikkeElenaBerettiget: "Ikke Elena Berettiget"
+    inverterskift: "Inverterskift"
+    inverterskift1Aar: "Inverterskift 1"
+    inverterskift1Aar.unit: "Ved år"
+    inverterskift2Aar: "Inverterskift 2"
+    inverterskift2Aar.unit: "Ved år"
+    investeringKr: "Investering (Anlæg + opsætning)"
+    investeringKr.unit: "Kr"
+    nutidsvaerdiSetOver15AarKr: "Nutidsværdi set over 15 år"
+    nutidsvaerdiSetOver15AarKr.unit: "kr"
+    omkostningTilMaalerKr: "Omkostning til måler pr. år"
+    omkostningTilMaalerKr.unit: "Kr"
+    prisForNyInverterKr: "Pris for ny inverter"
+    prisForNyInverterKr.unit: "Kr"
+    produktionKWh: "Produktion"
+    produktionKWh.unit: "KWh"
+    produktionTilNettetKWh: "Produktion til nettet"
+    produktionTilNettetKWh.unit: "KWh"
+    raadighedstarifKr: "Rådighedstarif"
+    raadighedstarifKr.unit: "Kr"
+    salgsprisEfter10AarKrKWh: "Salgspris (Efter 10 år)"
+    salgsprisEfter10AarKrKWh.unit: "Kr/KWh"
+    salgsprisFoerste10AarKrKWh: "Salgspris (Første 10 år)"
+    salgsprisFoerste10AarKrKWh.unit: "Kr/KWh"
+    screeningOgProjekteringKr: "Screening og projektering"
+    screeningOgProjekteringKr.unit: "Kr"
+    simpelTilbagebetalingstidAar: "Simpel tilbagebetalingstid"
+    simpelTilbagebetalingstidAar.unit: "år"
+    tilEgetForbrugPct: "Til eget forbrug"
+    tilEgetForbrugPct.unit: "%"
+    tilNettetPct: "Til nettet"
+    tilNettetPct.unit: "%"
+    tilvalgt: "Tilvalgt"
+    totalDriftomkostningerPrAar: "Total driftomkostninger pr. år"
+    totalDriftomkostningerPrAar.unit: "Kr/år"
   specialtiltag:
-    filepath: Uploadet fil
-    kommentar: Kommentar
+    filepath: "Uploadet fil"
+    kommentar: "Kommentar"
   specialtiltagdetail:
-    add: Upload fil
-    filepath: Vælg fil
-    ikkeElenaBerettiget: Ikke Elena Berettiget
-    kommentar: Kommentar
-    tilvalgt: Tilvalgt
-    title: Title
+    add: "Upload fil"
+    filepath: "Vælg fil"
+    ikkeElenaBerettiget: "Ikke Elena Berettiget"
+    kommentar: "Kommentar"
+    tilvalgt: "Tilvalgt"
+    title: "Title"
   tekniskisoleringtiltagdetail:
-    add: Tilføg
-    beskrivelseType: Beskrivelse (type)
-    driftstidTAar: Driftstid
-    driftstidTAar.unit: t/år
-    eksistIsolMm: Eksist. isol.
-    eksistIsolMm.unit: mm
-    eksistVarmetabKwh: Eksist. varmetab
-    eksistVarmetabKwh.unit: kwh
-    ikkeElenaBerettiget: Ikke Elena Berettiget
-    investeringKr: Investering
-    investeringKr.unit: kr
-    komponent: Komponent
-    komponent.titel: Titel
-    komponent.roerlaengde: Rørlængde
-    komponent.roerlaengde.unit: m
-    kwhBesparelseElFraVaerket: kWh-besparelse El fra værket
-    kwhBesparelseElFraVaerket.unit: kwh/år
-    kwhBesparelseVarmeFraVaerket: kWh-besparelse Varme fra værket
-    kwhBesparelseVarmeFraVaerket.unit: kwh/år
-    roerstoerrelseMmAekvivalent.calculation: …
-    laastAfEnergiraadgiver: Låst af energirådgiver
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
-    nutidsvaerdiSetOver15AarKr.unit: kr
-    nyIsolMm: Ny isol.
-    nyIsolMm.unit: mm
-    nyttiggjortVarme: Faktor for nyttiggjort varme
-    nyttiggjortVarme.unit: B-faktor
-    nyttiggjortvarme.faktor: Faktor for nyttiggjort varme
-    nyttiggjortvarme.faktor.unit: B-faktor
-    nyttiggjortvarme.titel: Beskrivelse for nyttiggjort varme
-    nytVarmetabKwh: Nyt varmetab
-    nytVarmetabKwh.unit: kwh
-    overskrevetPris: Overskrevet pris
-    overskrevetPris.unit: kr
-    prisfaktor: Prisfaktor
-    roerlaengdeEllerHoejdeAfVvbM: Rørlængde
-    roerlaengdeEllerHoejdeAfVvbM.unit: m
-    roerstoerrelseMmAekvivalent: Rørstørrelse ækvivalent
-    roerstoerrelseMmAekvivalent.unit: mm
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
-    simpelTilbagebetalingstidAar.unit: år
-    standardinvestKrM2EllerKrM: Standardinvest.
-    standardinvestKrM2EllerKrM.unit: kr/m² el. kr/m
-    standardinvestKrM2EllerKrM.help: For rør indtastes i kr/m - udfyldes "Overskrevet Pris" kan dette felt udelades
-    tempMedieC: Temp. Medie
-    tempMedieC.unit: °C
-    tempOmgivelC: Temp. omgivel.
-    tempOmgivelC.unit: °C
-    tilvalgt: Tilvalgt
-    type: Type
-    udvDiameterMm: Udv. diameter
-    udvDiameterMm.unit: mm
-    varmebespKwhAar: Varmebesp.
-    varmebespKwhAar.unit: kWh/år
-    varmeledningsevnePaaEksistIsoleringWMK: Varmeledningsevne på eksist isolering
-    varmeledningsevnePaaEksistIsoleringWMK.unit: W/m·K
-    varmeledningsevnePaaNyIsoleringWMK: Varmeledningsevne på ny isolering
-    varmeledningsevnePaaNyIsoleringWMK.unit: W/m·K
+    add: "Tilføg"
+    beskrivelseType: "Beskrivelse (type)"
+    driftstidTAar: "Driftstid"
+    driftstidTAar.unit: "t/år"
+    eksistIsolMm: "Eksist. isol."
+    eksistIsolMm.unit: "mm"
+    eksistVarmetabKwh: "Eksist. varmetab"
+    eksistVarmetabKwh.unit: "kwh"
+    ikkeElenaBerettiget: "Ikke Elena Berettiget"
+    investeringKr: "Investering"
+    investeringKr.unit: "kr"
+    komponent: "Komponent"
+    komponent.titel: "Titel"
+    komponent.roerlaengde: "Rørlængde"
+    komponent.roerlaengde.unit: "m"
+    kwhBesparelseElFraVaerket: "kWh-besparelse El fra værket"
+    kwhBesparelseElFraVaerket.unit: "kwh/år"
+    kwhBesparelseVarmeFraVaerket: "kWh-besparelse Varme fra værket"
+    kwhBesparelseVarmeFraVaerket.unit: "kwh/år"
+    roerstoerrelseMmAekvivalent.calculation: "…"
+    laastAfEnergiraadgiver: "Låst af energirådgiver"
+    nutidsvaerdiSetOver15AarKr: "Nutidsværdi set over 15 år"
+    nutidsvaerdiSetOver15AarKr.unit: "kr"
+    nyIsolMm: "Ny isol."
+    nyIsolMm.unit: "mm"
+    nyttiggjortVarme: "Faktor for nyttiggjort varme"
+    nyttiggjortVarme.unit: "B-faktor"
+    nyttiggjortvarme.faktor: "Faktor for nyttiggjort varme"
+    nyttiggjortvarme.faktor.unit: "B-faktor"
+    nyttiggjortvarme.titel: "Beskrivelse for nyttiggjort varme"
+    nytVarmetabKwh: "Nyt varmetab"
+    nytVarmetabKwh.unit: "kwh"
+    overskrevetPris: "Overskrevet pris"
+    overskrevetPris.unit: "kr"
+    prisfaktor: "Prisfaktor"
+    roerlaengdeEllerHoejdeAfVvbM: "Rørlængde"
+    roerlaengdeEllerHoejdeAfVvbM.unit: "m"
+    roerstoerrelseMmAekvivalent: "Rørstørrelse ækvivalent"
+    roerstoerrelseMmAekvivalent.unit: "mm"
+    simpelTilbagebetalingstidAar: "Simpel tilbagebetalingstid"
+    simpelTilbagebetalingstidAar.unit: "år"
+    standardinvestKrM2EllerKrM: "Standardinvest."
+    standardinvestKrM2EllerKrM.unit: "kr/m² el. kr/m"
+    standardinvestKrM2EllerKrM.help: "For rør indtastes i kr/m - udfyldes \"Overskrevet Pris\" kan dette felt udelades"
+    tempMedieC: "Temp. Medie"
+    tempMedieC.unit: "°C"
+    tempOmgivelC: "Temp. omgivel."
+    tempOmgivelC.unit: "°C"
+    tilvalgt: "Tilvalgt"
+    type: "Type"
+    udvDiameterMm: "Udv. diameter"
+    udvDiameterMm.unit: "mm"
+    varmebespKwhAar: "Varmebesp."
+    varmebespKwhAar.unit: "kWh/år"
+    varmeledningsevnePaaEksistIsoleringWMK: "Varmeledningsevne på eksist isolering"
+    varmeledningsevnePaaEksistIsoleringWMK.unit: "W/m·K"
+    varmeledningsevnePaaNyIsoleringWMK: "Varmeledningsevne på ny isolering"
+    varmeledningsevnePaaNyIsoleringWMK.unit: "W/m·K"
   tiltag:
-    aaplusInvestering: Investering eksl. øvrige omkostninger
-    aaplusInvestering.unit: kr
-    anlaegsInvestering: ﻿Entreprisesum
-    anlaegsInvestering.unit: kr
-    opstartsomkostninger: Opstartsomkostninger
-    opstartsomkostninger.unit: kr
-    anlaegsinvesteringExRisiko: ﻿Entreprisesum (eksl. risikovurdering)
-    anlaegsinvesteringExRisiko.unit: kr
-    antalReinvesteringer: Antal reinvesteringer
-    antalReinvesteringer.unit: stk.
-    beskrivelse: Beskrivelse
-    beskrivelseDriftOgVedligeholdelse: ﻿Beskrivelse af ændringer til D & V
-    beskrivelseForslag: Forslag
-    beskrivelseNuvaerende: Nuværende forhold
-    beskrivelseOevrige: Øvrige bemærkninger
-    besparelseAarEt: Energibesparelser i år 1
-    besparelseAarEt.unit: kr/år
-    besparelseDriftOgVedligeholdelse: Besparelse på D & V
-    besparelseDriftOgVedligeholdelse.unit: kr/år
-    slutanvendelse: Slutanvendelse
-    besparelseEl: Besparelse El
-    besparelseEl.unit: kWh/år
-    besparelseGAF: Besparelse varme GAF
-    besparelseGAF.unit: kWh/år
-    besparelseGUF: Besparelse varme GUF
-    besparelseGUF.unit: kWh/år
-    yderligereBesparelse: Yderligere besparelse
-    yderligereBesparelse.unit: kr/år
-    samletTransportBesparelse: Samlet transport besparelse
-    samletTransportBesparelse.unit: kr/år
-    besparelsesoverblik: Besparelsesoverblik
-    besparelseStrafafkoelingsafgift: Besparelse på Strafafkølingsafgift
-    besparelseStrafafkoelingsafgift.unit: kr
+    aaplusInvestering: "Investering eksl. øvrige omkostninger"
+    aaplusInvestering.unit: "kr"
+    anlaegsInvestering: "﻿Entreprisesum"
+    anlaegsInvestering.unit: "kr"
+    opstartsomkostninger: "Opstartsomkostninger"
+    opstartsomkostninger.unit: "kr"
+    anlaegsinvesteringExRisiko: "﻿Entreprisesum (eksl. risikovurdering)"
+    anlaegsinvesteringExRisiko.unit: "kr"
+    antalReinvesteringer: "Antal reinvesteringer"
+    antalReinvesteringer.unit: "stk."
+    beskrivelse: "Beskrivelse"
+    beskrivelseDriftOgVedligeholdelse: "﻿Beskrivelse af ændringer til D & V"
+    beskrivelseForslag: "Forslag"
+    beskrivelseNuvaerende: "Nuværende forhold"
+    beskrivelseOevrige: "Øvrige bemærkninger"
+    besparelseAarEt: "Energibesparelser i år 1"
+    besparelseAarEt.unit: "kr/år"
+    besparelseDriftOgVedligeholdelse: "Besparelse på D & V"
+    besparelseDriftOgVedligeholdelse.unit: "kr/år"
+    slutanvendelse: "Slutanvendelse"
+    besparelseEl: "Besparelse El"
+    besparelseEl.unit: "kWh/år"
+    besparelseGAF: "Besparelse varme GAF"
+    besparelseGAF.unit: "kWh/år"
+    besparelseGUF: "Besparelse varme GUF"
+    besparelseGUF.unit: "kWh/år"
+    yderligereBesparelse: "Yderligere besparelse"
+    yderligereBesparelse.unit: "kr/år"
+    samletTransportBesparelse: "Samlet transport besparelse"
+    samletTransportBesparelse.unit: "kr/år"
+    besparelsesoverblik: "Besparelsesoverblik"
+    besparelseStrafafkoelingsafgift: "Besparelse på Strafafkølingsafgift"
+    besparelseStrafafkoelingsafgift.unit: "kr"
     bilag:
-      updated_by: Redigeret af
-      updated_at: Redigeringstidspunkt
-      filepath: Fil
-      kommentar: Kommentar
-      titel: Titel
-    datoForDrift: Dato f. drift
-    elbesparelse: Elbesparelse
-    elbesparelse.unit: kWh/år
-    energiledelseAendringIBesparelseFaktor: Justering af besparelse ift. energiledelse
-    energiledelseAendringIBesparelseFaktor.unit: %
-    energiledelseNoter: Noter til justering af besparelse ift. energiledelse
-    enhed: Enhed
-    faktorForReinvesteringer: Faktor for reinvesteringer
-    forsyningEl: Forsyning, el
-    forsyningsoverblik: Forsyningsoverblik
-    forsyningVarme: Forsyning, varme
-    fravalgt: Fravalgt
-    genopretning: Genopretning
-    genopretning.unit: kr.
-    genopretningForImplementeringsomkostninger: Genopretning for implementeringsomkostninger
-    genopretningForImplementeringsomkostninger.unit: kr.
-    ialt: I alt
-    id: Id
-    indeklima: Indeklima
-    information: Information
-    levetid: Funktionsdygtig levetid
-    levetid.unit: År
-    modernisering: Modernisering
-    modernisering.unit: kr.
-    maengde: Mængde
-    nr: Forslags nr.
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
-    nutidsvaerdiSetOver15AarKr.unit: kr
-    oekonomioverblik: Økonomioverblik
-    placering: Placering
-    primaerEnterprise: Primær entreprise
-    rapport: Rapport
-    reelAnlaegsinvestering: Faktisk Entreprisesum
-    reelAnlaegsinvestering.unit: kr
-    reinvestering: Reinvestering
-    reinvestering.unit: kr
-    risikovurdering: Noter til risikovurdering
-    risikovurderingTeknisk: Tekniske forhold / kompleksitet
-    risikovurderingBrugsmoenster: Brugsmønster
-    risikovurderingDatagrundlag: Datagrundlag
-    risikovurderingDiverse: Div. (Beskrives i noter.)
-    risikovurderingAendringIBesparelseFaktor: Ændring i besparelse
-    risikovurderingAendringIBesparelseFaktor.unit: %
-    risikovurderingOekonomiskKompenseringIftInvesteringFaktor: Økonomisk kompensering ift. investering
-    risikovurderingOekonomiskKompenseringIftInvesteringFaktor.unit: %
-    salgTilNettetAar1: Solcelleproduktion, salg til nettet år 1
-    salgTilNettetAar1.unit: kWh
-    samletCo2besparelse: Samlet co2-besparelse
-    samletCo2besparelse.unit: t/år
-    samletEnergibesparelse: Samlet energibesparelse
-    samletEnergibesparelse.unit: kr/år
-    scrapvaerdi: Scrapværdi
-    scrapvaerdi.unit: kr
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
-    simpelTilbagebetalingstidAar.unit: År
-    solcelleproduktion: Solcelleproduktion, eget forbrug
-    solcelleproduktion.unit: kWh/år
-    tiltagskategori: Forslagskategori
-    tilvalgt: Tilvalgt
-    tilvalgtAfAaPlus: Tilvalgt Aa+
-    tilvalgtAfAaPlus.th: Aa+
-    tilvalgtAfMagistrat: Tilvalgt Mag.
-    tilvalgtAfMagistrat.th: Mag.
-    tilvalgtAfRaadgiver: Tilvalgt Rådg.
-    tilvalgtAfRaadgiver.th: Rådg.
-    tilvalgtbegrundelse: Bemærkning Aa+
-    tilvalgtBegrundelseMagistrat: Bemærkning Magistrat
-    tilvalgtFravalgt: Tilvalgt / Fravalgt
-    title: Titel
-    type: Type
-    vandbesparelse: Vandbesparelse
-    vandbesparelse.unit: m³/år
-    varmebesparelseGAF: Varmebesparelse, GAF
-    varmebesparelseGAF.unit: kWh/år
-    varmebesparelseGUF: ﻿Varmebesparelse, GUF
-    varmebesparelseGUF.unit: kWh/år
-    besparelseBraendstof: Besparelse brændstof
-    besparelseBraendstof.unit: kWh/år
-    besparelseCo2Braendstof: Besparelse CO2 brændstof
-    besparelseCo2Braendstof.unit: %
-    besparelseCo2BraendstofITon: Besparelse CO2 brændstof
-    besparelseCo2BraendstofITon.unit: t/år
-    besparelseInvestering: Besparelse investering
-    besparelseInvestering.unit: kr/år
-    samletBesparelseInvestering: Besparelse investering
-    samletBesparelseInvestering.unit: kr/år
-    besparelseVedligehold: Vedligeholdelsesbesparelse
-    besparelseVedligehold.unit: kr/år
-    samletBesparelseVedligehold: Vedligeholdelsesbesparelse
-    samletBesparelseVedligehold.unit: kr/år
-    tilskudsstoerrelse: Tilskudsstørrelse
-    tilskudsstoerrelse.unit: kr/kWh
-    samletTilskud: Samlet tilskud
-    samletTilskud.unit: kr/år
+      updated_by: "Redigeret af"
+      updated_at: "Redigeringstidspunkt"
+      filepath: "Fil"
+      kommentar: "Kommentar"
+      titel: "Titel"
+    datoForDrift: "Dato f. drift"
+    elbesparelse: "Elbesparelse"
+    elbesparelse.unit: "kWh/år"
+    energiledelseAendringIBesparelseFaktor: "Justering af besparelse ift. energiledelse"
+    energiledelseAendringIBesparelseFaktor.unit: "%"
+    energiledelseNoter: "Noter til justering af besparelse ift. energiledelse"
+    enhed: "Enhed"
+    faktorForReinvesteringer: "Faktor for reinvesteringer"
+    forsyningEl: "Forsyning, el"
+    forsyningsoverblik: "Forsyningsoverblik"
+    forsyningVarme: "Forsyning, varme"
+    fravalgt: "Fravalgt"
+    genopretning: "Genopretning"
+    genopretning.unit: "kr."
+    genopretningForImplementeringsomkostninger: "Genopretning for implementeringsomkostninger"
+    genopretningForImplementeringsomkostninger.unit: "kr."
+    ialt: "I alt"
+    id: "Id"
+    indeklima: "Indeklima"
+    information: "Information"
+    levetid: "Funktionsdygtig levetid"
+    levetid.unit: "År"
+    modernisering: "Modernisering"
+    modernisering.unit: "kr."
+    maengde: "Mængde"
+    nr: "Forslags nr."
+    nutidsvaerdiSetOver15AarKr: "Nutidsværdi set over 15 år"
+    nutidsvaerdiSetOver15AarKr.unit: "kr"
+    oekonomioverblik: "Økonomioverblik"
+    placering: "Placering"
+    primaerEnterprise: "Primær entreprise"
+    rapport: "Rapport"
+    reelAnlaegsinvestering: "Faktisk Entreprisesum"
+    reelAnlaegsinvestering.unit: "kr"
+    reinvestering: "Reinvestering"
+    reinvestering.unit: "kr"
+    risikovurdering: "Noter til risikovurdering"
+    risikovurderingTeknisk: "Tekniske forhold / kompleksitet"
+    risikovurderingBrugsmoenster: "Brugsmønster"
+    risikovurderingDatagrundlag: "Datagrundlag"
+    risikovurderingDiverse: "Div. (Beskrives i noter.)"
+    risikovurderingAendringIBesparelseFaktor: "Ændring i besparelse"
+    risikovurderingAendringIBesparelseFaktor.unit: "%"
+    risikovurderingOekonomiskKompenseringIftInvesteringFaktor: "Økonomisk kompensering ift. investering"
+    risikovurderingOekonomiskKompenseringIftInvesteringFaktor.unit: "%"
+    salgTilNettetAar1: "Solcelleproduktion, salg til nettet år 1"
+    salgTilNettetAar1.unit: "kWh"
+    samletCo2besparelse: "Samlet co2-besparelse"
+    samletCo2besparelse.unit: "t/år"
+    samletEnergibesparelse: "Samlet energibesparelse"
+    samletEnergibesparelse.unit: "kr/år"
+    scrapvaerdi: "Scrapværdi"
+    scrapvaerdi.unit: "kr"
+    simpelTilbagebetalingstidAar: "Simpel tilbagebetalingstid"
+    simpelTilbagebetalingstidAar.unit: "År"
+    solcelleproduktion: "Solcelleproduktion, eget forbrug"
+    solcelleproduktion.unit: "kWh/år"
+    tiltagskategori: "Forslagskategori"
+    tilvalgt: "Tilvalgt"
+    tilvalgtAfAaPlus: "Tilvalgt Aa+"
+    tilvalgtAfAaPlus.th: "Aa+"
+    tilvalgtAfMagistrat: "Tilvalgt Mag."
+    tilvalgtAfMagistrat.th: "Mag."
+    tilvalgtAfRaadgiver: "Tilvalgt Rådg."
+    tilvalgtAfRaadgiver.th: "Rådg."
+    tilvalgtbegrundelse: "Bemærkning Aa+"
+    tilvalgtBegrundelseMagistrat: "Bemærkning Magistrat"
+    tilvalgtFravalgt: "Tilvalgt / Fravalgt"
+    title: "Titel"
+    type: "Type"
+    vandbesparelse: "Vandbesparelse"
+    vandbesparelse.unit: "m³/år"
+    varmebesparelseGAF: "Varmebesparelse, GAF"
+    varmebesparelseGAF.unit: "kWh/år"
+    varmebesparelseGUF: "﻿Varmebesparelse, GUF"
+    varmebesparelseGUF.unit: "kWh/år"
+    besparelseBraendstof: "Besparelse brændstof"
+    besparelseBraendstof.unit: "kWh/år"
+    besparelseCo2Braendstof: "Besparelse CO2 brændstof"
+    besparelseCo2Braendstof.unit: "%"
+    besparelseCo2BraendstofITon: "Besparelse CO2 brændstof"
+    besparelseCo2BraendstofITon.unit: "t/år"
+    besparelseInvestering: "Besparelse investering"
+    besparelseInvestering.unit: "kr/år"
+    samletBesparelseInvestering: "Besparelse investering"
+    samletBesparelseInvestering.unit: "kr/år"
+    besparelseVedligehold: "Vedligeholdelsesbesparelse"
+    besparelseVedligehold.unit: "kr/år"
+    samletBesparelseVedligehold: "Vedligeholdelsesbesparelse"
+    samletBesparelseVedligehold.unit: "kr/år"
+    tilskudsstoerrelse: "Tilskudsstørrelse"
+    tilskudsstoerrelse.unit: "kr/kWh"
+    samletTilskud: "Samlet tilskud"
+    samletTilskud.unit: "kr/år"
   tiltagdatofordrift:
-    datoForDrift: Dato for drift
+    datoForDrift: "Dato for drift"
   tiltagdetail:
-    tilvalgt: Tilvalgt
+    tilvalgt: "Tilvalgt"
   tiltagtilvalgt:
-    tilvalgt: Tilvalgt
-    tilvalgtAfAaPlus: Tilvalgt af Aa+
-    tilvalgtAfMagistrat: Tilvalgt af Magistrat
-    tilvalgtAfRaadgiver: Tilvalgt af Rådgiver
-    tilvalgtbegrundelse: Bemærkning Aa+
-    tilvalgtBegrundelseMagistrat: Bemærkning Magistrat
+    tilvalgt: "Tilvalgt"
+    tilvalgtAfAaPlus: "Tilvalgt af Aa+"
+    tilvalgtAfMagistrat: "Tilvalgt af Magistrat"
+    tilvalgtAfRaadgiver: "Tilvalgt af Rådgiver"
+    tilvalgtbegrundelse: "Bemærkning Aa+"
+    tilvalgtBegrundelseMagistrat: "Bemærkning Magistrat"
   tiltagskategori:
-    navn: Navn
+    navn: "Navn"
   user:
-    bygninger: Bygninger
-    email: Email
-    firstname: Fornavn
-    group: Gruppe
-    groups: Grupper
-    lastname: Efternavn
-    locked: Låst
-    password: Kodeord
-    phone: Telefon
-    plainpassword: Kodeord
-    plainPassword: Kodeord
-    plainPassword.first: Kodeord
-    plainPassword.second: Gentag kodeord
-    profile: Profil
-    segmenter: Segmentansvarlig for (Aa+ brugere):
+    bygninger: "Bygninger"
+    email: "Email"
+    firstname: "Fornavn"
+    group: "Gruppe"
+    groups: "Grupper"
+    lastname: "Efternavn"
+    locked: "Låst"
+    password: "Kodeord"
+    phone: "Telefon"
+    plainpassword: "Kodeord"
+    plainPassword: "Kodeord"
+    plainPassword.first: "Kodeord"
+    plainPassword.second: "Gentag kodeord"
+    profile: "Profil"
+    segmenter: "Segmentansvarlig for (Aa+ brugere):"
   vinduetiltagdetail:
-    add: Tilføj
-    antalStk: Antal
-    antalStk.unit: stk
-    arealM2: Areal
-    arealM2.unit: m²
-    besparelseKWhAar: Besparelse (kWh/år)
-    besparelseKWhAar.unit: kWh/år
-    breddeM: Bredde
-    breddeM.unit: m
-    delprisKrM2: Delpris
-    delprisKrM2.unit: kr/m²
-    eRefEksKWhM2Aar: E_ref
-    eRefEksKWhM2Aar.unit: kWh/m²/år
-    eRefNyKWhM2Aar: E_ref,ny
-    eRefNyKWhM2Aar.unit: kWh/m²/år
-    eWEksKWhM2Aar: E_w
-    eWEksKWhM2Aar.unit: kWh/år
-    eWNyKWhM2Aar: E_w,ny
-    eWNyKWhM2Aar.unit: kWh/år
-    faktorForReinvestering: Faktor for reinvestering
-    glasandel: Glasandel
-    glasandel.unit: %
-    hoejdeElLaengdeM: Højde el. Længde
-    hoejdeElLaengdeM.unit: m
-    ikkeElenaBerettiget: Ikke Elena Berettiget
-    klimaskaerm: Forslag
-    klimaskaermOverskrevetPris: Vinduesforslag overskrevet pris
-    klimaskaermOverskrevetPris.unit: kr/m²
-    klimaskaermOverskrevetPris.help: Indtast pris kr/m² for at overskrive valg i priskategori
-    kWhBesparElvaerkEksternEnergikilde: kWh-bespar. elværk (ekstern energikilde)
-    kWhBesparVarmevaerkEksternEnergikilde: kWh-bespar. varmeværk (ekstern energikilde)
-    laastAfEnergiraadgiver: Låst af energirådgiver
-    levetidAar: Levetid
-    levetidAar.unit: År
-    noteGenerelt: Noter
-    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: Noter
-    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet.help: Noter til prisfaktor, valgte løsning/forslag, specielle forhold på stedet
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi set over 15 år
-    nutidsvaerdiSetOver15AarKr.unit: Kr
-    orientering: Orientering
-    prisfaktor: Prisfaktor
-    samletBesparelseKWhAarInklDelbesparelser: Samlet Besparelse inkl. delbesparelser
-    samletBesparelseKWhAarInklDelbesparelser.unit: kWh/år
-    samletInvesteringKr: Samlet investering
-    samletInvesteringKr.unit: Kr
-    simpelTilbagebetalingstidAar: Simpel tilbagebetalingstid
-    simpelTilbagebetalingstidAar.unit: År
-    solenergitransmittansEks: Solenergitransmittans
-    solenergitransmittansEks.unit: %
-    solenergitransmittansNy: Solenergitransmittans, ny
-    solenergitransmittansNy.unit: %
-    tilSortering: Til sortering
-    tilSummeringAfDelpriser: Til summering af delpriser
-    tiltagsnr: Forslagsnr.
-    tiltagsnrDelpriser: Forslagsnr. Delpriser
-    tilvalgt: Tilvalgt
-    tilvalgteDeltiltag: Tilvalgte (delforslag)
-    type: Type
-    placering: Placering
-    uEksWM2K: U_eks
-    uEksWM2K.unit: W/m²K
-    uNyWM2K: U_ny
-    uNyWM2K.unit: W/m²K
-    vaegtetGnm: VaegtetGnm
-    vaegtetLevetidForTiltagetAfrundet: Vægtet levetid for forslaget (afrundet)
-    vindue: Vindue
-    yderligereBesparelserPct: Yderligere besparelser
-    yderligereBesparelserPct.unit: %
+    add: "Tilføj"
+    antalStk: "Antal"
+    antalStk.unit: "stk"
+    arealM2: "Areal"
+    arealM2.unit: "m²"
+    besparelseKWhAar: "Besparelse (kWh/år)"
+    besparelseKWhAar.unit: "kWh/år"
+    breddeM: "Bredde"
+    breddeM.unit: "m"
+    delprisKrM2: "Delpris"
+    delprisKrM2.unit: "kr/m²"
+    eRefEksKWhM2Aar: "E_ref"
+    eRefEksKWhM2Aar.unit: "kWh/m²/år"
+    eRefNyKWhM2Aar: "E_ref,ny"
+    eRefNyKWhM2Aar.unit: "kWh/m²/år"
+    eWEksKWhM2Aar: "E_w"
+    eWEksKWhM2Aar.unit: "kWh/år"
+    eWNyKWhM2Aar: "E_w,ny"
+    eWNyKWhM2Aar.unit: "kWh/år"
+    faktorForReinvestering: "Faktor for reinvestering"
+    glasandel: "Glasandel"
+    glasandel.unit: "%"
+    hoejdeElLaengdeM: "Højde el. Længde"
+    hoejdeElLaengdeM.unit: "m"
+    ikkeElenaBerettiget: "Ikke Elena Berettiget"
+    klimaskaerm: "Forslag"
+    klimaskaermOverskrevetPris: "Vinduesforslag overskrevet pris"
+    klimaskaermOverskrevetPris.unit: "kr/m²"
+    klimaskaermOverskrevetPris.help: "Indtast pris kr/m² for at overskrive valg i priskategori"
+    kWhBesparElvaerkEksternEnergikilde: "kWh-bespar. elværk (ekstern energikilde)"
+    kWhBesparVarmevaerkEksternEnergikilde: "kWh-bespar. varmeværk (ekstern energikilde)"
+    laastAfEnergiraadgiver: "Låst af energirådgiver"
+    levetidAar: "Levetid"
+    levetidAar.unit: "År"
+    noteGenerelt: "Noter"
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet: "Noter"
+    noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet.help: "Noter til prisfaktor, valgte løsning/forslag, specielle forhold på stedet"
+    nutidsvaerdiSetOver15AarKr: "Nutidsværdi set over 15 år"
+    nutidsvaerdiSetOver15AarKr.unit: "Kr"
+    orientering: "Orientering"
+    prisfaktor: "Prisfaktor"
+    samletBesparelseKWhAarInklDelbesparelser: "Samlet Besparelse inkl. delbesparelser"
+    samletBesparelseKWhAarInklDelbesparelser.unit: "kWh/år"
+    samletInvesteringKr: "Samlet investering"
+    samletInvesteringKr.unit: "Kr"
+    simpelTilbagebetalingstidAar: "Simpel tilbagebetalingstid"
+    simpelTilbagebetalingstidAar.unit: "År"
+    solenergitransmittansEks: "Solenergitransmittans"
+    solenergitransmittansEks.unit: "%"
+    solenergitransmittansNy: "Solenergitransmittans, ny"
+    solenergitransmittansNy.unit: "%"
+    tilSortering: "Til sortering"
+    tilSummeringAfDelpriser: "Til summering af delpriser"
+    tiltagsnr: "Forslagsnr."
+    tiltagsnrDelpriser: "Forslagsnr. Delpriser"
+    tilvalgt: "Tilvalgt"
+    tilvalgteDeltiltag: "Tilvalgte (delforslag)"
+    type: "Type"
+    placering: "Placering"
+    uEksWM2K: "U_eks"
+    uEksWM2K.unit: "W/m²K"
+    uNyWM2K: "U_ny"
+    uNyWM2K.unit: "W/m²K"
+    vaegtetGnm: "VaegtetGnm"
+    vaegtetLevetidForTiltagetAfrundet: "Vægtet levetid for forslaget (afrundet)"
+    vindue: "Vindue"
+    yderligereBesparelserPct: "Yderligere besparelser"
+    yderligereBesparelserPct.unit: "%"
   virksomhed:
-    bygning: Tilknyttet bygninger
-    generalt: Generel information
-    name: Firmanavn
-    cvrNumber: CVR-nr.
-    pNumbers: P-nr.
-    pNumbers.placeholder: Vælg bygning efter P-nummer
-    pNumbers.description: Tilknyt eksisterende bygniger på P-nummer.
-    eanNumbers: EAN-nr.
-    eanNumbers.placeholder: Vælg bygning efter EAN-nummer
-    eanNumbers.description: Tilknyt eksisterende bygniger på EAN-nummer.
-    crmNumber: CRM-nr.
-    projectNumber: Projekt nr.
-    aftagerNumber: Aftager nr.
-    datterSelskaber: Datterselskaber
-    datterSelskaber.placeholder: Vælg datterselskab efter CVR-nummer
-    datterSelskaber.description: Tilknyt eksisterende virksomheder som Datterselskab på CVR-nummer.
-    datterSelskaber.raporter: Datterselskabs rapporter
-    typeName: Typenavn
-    firma_adresse: Firma adresse
-    kommune: Kommune
-    region: Region
-    byNavn: By
-    address: Adresse
-    postnummer: Post nr.
-    contactPersons: Kontaktpersoner
+    bygning: "Tilknytet bygninger"
+    generalt: "Generel information"
+    name: "Firmanavn"
+    cvrNumber: "CVR-nr."
+    pNumbers: "P-nr."
+    pNumbers.placeholder: "Vælg bygning efter P-nummer"
+    pNumbers.description: "Tilknyt eksiterende bygniger på P-nummer."
+    eanNumbers: "EAN-nr."
+    eanNumbers.placeholder: "Vælg bygning efter EAN-nummer"
+    eanNumbers.description: "Tilknyt eksiterende bygniger på EAN-nummer."
+    crmNumber: "CRM-nr."
+    projectNumber: "Projekt nr."
+    aftagerNumber: "Aftager nr."
+    datterSelskaber: "Datterselskaber"
+    datterSelskaber.placeholder: "Vælg datterselskab efter CVR-nummer"
+    datterSelskaber.description: "Tilknyt eksiterende Virksoheder som Datterselskab på CVR-nummer."
+    datterSelskaber.raporter: "Datterselskabs raporter"
+    typeName: "Typenavn"
+    firma_adresse: "Firma adresse"
+    kommune: "Kommune"
+    region: "Region"
+    byNavn: "By"
+    address: "Adresse"
+    postnummer: "Post nr."
+    contactPersons: "Kontaktpersoner"
     contactPersons.validation:
-        mail: E-mail '{{value}}' er ikke en gyldig e-mail.
+      mail: "E-mail '{{value}}' er ikke en gyldig e-mail."
     contactPersons.0:
-      name: Navn
-      phoneNumber: Tlf.
-      mail: E-mail adresse
+      name: "Navn"
+      phoneNumber: "Tlf."
+      mail: "E-mail adresse"
     contactPersons...name..:
-      name: Navn
-      phoneNumber: Tlf.
-      mail: E-mail adresse
-    rapport: Rapport
-    customerNumber: Kunde nr.
-    beregn_oplysninger: Beregningsoplysninger
-    naceCode: Nace kode
-    dsmCode: DSM kode
-    subsidySize: Tilskudsstørrelse
-    aarsVaerk: Årsværk
-    forbrug: Forbrug
-    kam: KAM
-    kalkulationsrente: Kalkulationsrente
-    kalkulationsrente.unit: %
-    inflation: Inflation
-    inflation.unit: %
-    lobetid: Løbetid
-    lobetid.unit: år
-    parent: Moderselskab
-    user: Tilknyttet kundens bruger
-    user.customer_url: Kundens URL
+      name: "Navn"
+      phoneNumber: "Tlf."
+      mail: "E-mail adresse"
+    rapport: "Rapport"
+    customerNumber: "Kunde nr."
+    beregn_oplysninger: "Beregningsoplysninger"
+    naceCode: "Nace kode"
+    dsmCode: "DSM kode"
+    subsidySize: "Tilskudsstørrelse"
+    aarsVaerk: "Årsværk"
+    forbrug: "Forbrug"
+    kam: "KAM"
+    kalkulationsrente: "Kalkulationsrente"
+    kalkulationsrente.unit: "%"
+    inflation: "Inflation"
+    inflation.unit: "%"
+    lobetid: "Løbetid"
+    lobetid.unit: "år"
+    parent: "Moderselskab"
+    user: "Tilknytet kundens bruger"
+    user.customer_url: "Kundens URL"
     create:
       rapport:
         rapport:
-          datering: Rapport dato
-    forsyningsvaerkEl: El
-    forsyningsvaerkVand: Vand
-    forsyningsvaerkVarme: Varme
+          datering: "Rapport dato"
+    forsyningsvaerkEl: "El"
+    forsyningsvaerkVand: "Vand"
+    forsyningsvaerkVarme: "Varme"
   virksomhed_rapport:
-    ava: AVA
-    anlaegsinvestering.unit: kr
-    BaselineCO2El: Baseline CO2 EL 2009
-    BaselineCO2El.unit: t/år
-    BaselineCO2Varme: Baseline CO2 Varme 2009
-    BaselineCO2Varme.unit: t/år
-    BaselineEl: El
-    BaselineEl.unit: kwh/år
-    BaselineStrafAfkoeling: Strafafkøling
-    BaselineStrafAfkoeling.unit: kr/år
-    BaselineVand: Vand
-    BaselineVand.unit: m3/år
-    BaselineVarme: Varme
-    BaselineVarme.unit: kWh/år
-    BaselineVarmeGAF: Baseline Varme GAF
-    BaselineVarmeGAF.unit: kwh/år
-    BaselineVarmeGUF: Baseline Varme GUF
-    BaselineVarmeGUF.unit: kwh/år
-    besparelseAarEt: Økonomisk besparelse i år 1
-    besparelseAarEt.unit: kr
-    besparelseAarEtPdf: Økonomisk besparelse i år 1 (inkl. D&V-besparelse)
-    besparelseAarEtPdf.unit: kr
-    besparelseCO2: Samlet CO2
-    besparelseCO2el: El
-    besparelseCO2el.unit: t/år
-    besparelseCO2relative: CO2 besparelse i % ift. baseline
-    besparelseCO2relative.unit: %
-    besparelseCO2.unit: t/år
-    besparelseCO2varme: Varme
-    besparelseCO2varme.unit: t/år
-    besparelseEl: El
-    besparelseEl.unit: kWh/år
-    besparelseVarme: Varme
-    besparelseVarme.unit: kwh/år
-    besparelseVarmeGAF: Varme GAF
-    besparelseVarmeGAF.unit: kwh/år
-    besparelseVarmeGUF: Varme GUF
-    besparelseVarmeGUF.unit: kwh/år
-    besparelseBraendstof: Besparelse brændstof
-    besparelseBraendstof.unit: kWh/år
-    co2BesparelseBraendstof: Brændstof
-    co2BesparelseBraendstof.unit: %
-    co2BesparelseBraendstofITon: Brændstof
-    co2BesparelseBraendstofITon.unit: t/år
+    ava: "AVA"
+    anlaegsinvestering.unit: "kr"
+    BaselineCO2El: "Baseline CO2 EL 2009"
+    BaselineCO2El.unit: "t/år"
+    BaselineCO2Varme: "Baseline CO2 Varme 2009"
+    BaselineCO2Varme.unit: "t/år"
+    BaselineEl: "El"
+    BaselineEl.unit: "kwh/år"
+    BaselineStrafAfkoeling: "Strafafkøling"
+    BaselineStrafAfkoeling.unit: "kr/år"
+    BaselineVand: "Vand"
+    BaselineVand.unit: "m3/år"
+    BaselineVarme: "Varme"
+    BaselineVarme.unit: "kWh/år"
+    BaselineVarmeGAF: "Baseline Varme GAF"
+    BaselineVarmeGAF.unit: "kwh/år"
+    BaselineVarmeGUF: "Baseline Varme GUF"
+    BaselineVarmeGUF.unit: "kwh/år"
+    besparelseAarEt: "Økonomisk besparelse i år 1"
+    besparelseAarEt.unit: "kr"
+    besparelseAarEtPdf: "Økonomisk besparelse i år 1 (inkl. D&V-besparelse)"
+    besparelseAarEtPdf.unit: "kr"
+    besparelseCO2: "Samlet CO2"
+    besparelseCO2el: "El"
+    besparelseCO2el.unit: "t/år"
+    besparelseCO2relative: "CO2 besparelse i % ift. baseline"
+    besparelseCO2relative.unit: "%"
+    besparelseCO2.unit: "t/år"
+    besparelseCO2varme: "Varme"
+    besparelseCO2varme.unit: "t/år"
+    besparelseEl: "El"
+    besparelseEl.unit: "kWh/år"
+    besparelseVarme: "Varme"
+    besparelseVarme.unit: "kwh/år"
+    besparelseVarmeGAF: "Varme GAF"
+    besparelseVarmeGAF.unit: "kwh/år"
+    besparelseVarmeGUF: "Varme GUF"
+    besparelseVarmeGUF.unit: "kwh/år"
+    besparelseBraendstof: "Besparelse brændstof"
+    besparelseBraendstof.unit: "kWh/år"
+    co2BesparelseBraendstof: "Brændstof"
+    co2BesparelseBraendstof.unit: "%"
+    co2BesparelseBraendstofITon: "Brændstof"
+    co2BesparelseBraendstofITon.unit: "t/år"
     bilag:
-      updated_by: Redigeret af
-      updated_at: Redigeringstidspunkt
-      filepath: Fil
-      kommentar: Kommentar
-      titel: Titel
-    cashFlow: Cashflow (30 år)
-    cashFlow15: Cashflow (15 år)
-    co2besparelser: CO2 Besparelser
-    co2BesparelseEl: CO2 Besparelse El
-    co2BesparelseVarme: CO2 Besparelse Varme
-    co2BesparelseFaktor: Samlede CO2 Besparelser (%)
-    co2BesparelseElFaktor: El
-    co2BesparelseElFaktor.unit: %
-    co2BesparelseSamletFaktor: Samlet CO2
-    co2BesparelseSamletFaktor.unit: %
-    co2BesparelseVarmeFaktor: Varme
-    co2BesparelseVarmeFaktor.unit: %
-    datering: Screeningsdato
-    elena: Elena
-    energibesparelser: Energibesparelser
-    energibudgetEl: Energibudget, el
-    energibudgetEl.unit: kWh/år
-    energibudgetVarme: Energibudget, varme
-    energibudgetVarme.unit: kWh/år
-    Energiscreening: Energiscreening
-    Energiscreening.unit: Kr
-    energiscreening: Energiscreening
-    energiscreening.unit: kr
-    faellesomkostninger: Øvrige omkostninger
-    faellesomkostninger.unit: kr
-    faktorPaaVarmebesparelse: Faktor på varmebesparelse
-    fravalg: Fravalg
-    fravalgtBesparelseDriftOgVedligeholdelse: Sum af D & V Besparelser
-    fravalgtBesparelseDriftOgVedligeholdelse.unit: kr
-    fravalgtImplementering: Fravalgt implementering
-    genopretning: Genopretning
-    genopretning.unit: kr
-    genopretningForImplementeringsomkostninger: Genopretning for implementeringsomkostninger
-    genopretningForImplementeringsomkostninger.unit: kr
-    genopretningsandel: Genopretningsandel
-    genopretningsandel.unit: kr
-    implementering: Implementering
-    implementering.unit: kr
-    interneDriftomkostninger: Interne driftomkostninger
-    interneDriftomkostninger.unit: kr
-    internRenteInklFaellesomkostninger: Intern rente inkl. øvrige omkostninger
-    internRenteInklFaellesomkostninger.unit: %
-    investeringEksFaellesomkostninger: Investering eksl. øvrige omkostninger
-    investeringEksFaellesomkostninger.unit: kr
-    investeringEkslFaelles: Investering eksl. øvrige omkostninger
-    investeringEkslFaelles.unit: Kr
-    investeringInklFaellesomkostninger: Investering inkl. øvrige omkostninger
-    investeringInklFaellesomkostninger.unit: kr
-    laanLoebetid: Løbetid på lån
-    laanLoebetid.unit: år
-    laanRente: Rente på lån
-    likviditetsoversigt: Likviditetsoversigt
-    modernisering: Modernisering
-    modernisering.unit: kr
-    mtmFaellesomkostninger: MTM fællesomkostninger
-    mtmFaellesomkostninger.unit: kr
-    nutidsvaerdi: Nutidsværdi
-    nutidsvaerdi.unit: kr
-    nutidsvaerdiInklFaellesomkostninger: Nutidsværdi inkl. øvrige omkostninger
-    nutidsvaerdiInklFaellesomkostninger.unit: kr
-    nutidsvaerdiSetOver15AarKr: Nutidsværdi over 15 år
-    oevrigeOmkostninger: Øvrige omkostninger
-    samtidighedsfaktor: På ejendommen er indregnet en samtidighedsfaktor på
-    status.ava: AVA-støtte
-    sum: Sum
-    sum.unit: kr
-    sumOevrige: Sum, investering inkl. øvrige omkostninger
-    sumOevrige.unit: kr
-    timeforbrug: Forventet timeforbrug for lokalpersonalet
-    timeforbrug.unit: kr
-    totalEntreprisesum: Total entreprisesum
-    totalEntreprisesum.unit: kr
-    varmetotal: ﻿I alt baseline varme
-    version: Iteration
-    virksomhed: Virksomhed
-    virksomhed.areal: Areal
-    virksomhed.areal.unit: m²
-    erhvervsareal: Erhvervsareal
-    erhvervsareal.unit: m²
-    opvarmetareal: Opvarmet areal
-    opvarmetareal.unit: m²
+      updated_by: "Redigeret af"
+      updated_at: "Redigeringstidspunkt"
+      filepath: "Fil"
+      kommentar: "Kommentar"
+      titel: "Titel"
+    cashFlow: "Cashflow (30 år)"
+    cashFlow15: "Cashflow (15 år)"
+    co2besparelser: "CO2 Besparelser"
+    co2BesparelseEl: "CO2 Besparelse El"
+    co2BesparelseVarme: "CO2 Besparelse Varme"
+    co2BesparelseFaktor: "Samlede CO2 Besparelser (%)"
+    co2BesparelseElFaktor: "El"
+    co2BesparelseElFaktor.unit: "%"
+    co2BesparelseSamletFaktor: "Samlet CO2"
+    co2BesparelseSamletFaktor.unit: "%"
+    co2BesparelseVarmeFaktor: "Varme"
+    co2BesparelseVarmeFaktor.unit: "%"
+    datering: "Screeningsdato"
+    elena: "Elena"
+    energibesparelser: "Energibesparelser"
+    energibudgetEl: "Energibudget, el"
+    energibudgetEl.unit: "kWh/år"
+    energibudgetVarme: "Energibudget, varme"
+    energibudgetVarme.unit: "kWh/år"
+    Energiscreening: "Energiscreening"
+    Energiscreening.unit: "Kr"
+    energiscreening: "Energiscreening"
+    energiscreening.unit: "kr"
+    faellesomkostninger: "Øvrige omkostninger"
+    faellesomkostninger.unit: "kr"
+    faktorPaaVarmebesparelse: "Faktor på varmebesparelse"
+    fravalg: "Fravalg"
+    fravalgtBesparelseDriftOgVedligeholdelse: "Sum af D & V Besparelser"
+    fravalgtBesparelseDriftOgVedligeholdelse.unit: "kr"
+    fravalgtImplementering: "Fravalgt implementering"
+    genopretning: "Genopretning"
+    genopretning.unit: "kr"
+    genopretningForImplementeringsomkostninger: "Genopretning for implementeringsomkostninger"
+    genopretningForImplementeringsomkostninger.unit: "kr"
+    genopretningsandel: "Genopretningsandel"
+    genopretningsandel.unit: "kr"
+    implementering: "Implementering"
+    implementering.unit: "kr"
+    interneDriftomkostninger: "Interne driftomkostninger"
+    interneDriftomkostninger.unit: "kr"
+    internRenteInklFaellesomkostninger: "Intern rente inkl. øvrige omkostninger"
+    internRenteInklFaellesomkostninger.unit: "%"
+    investeringEksFaellesomkostninger: "Investering eksl. øvrige omkostninger"
+    investeringEksFaellesomkostninger.unit: "kr"
+    investeringEkslFaelles: "Investering eksl. øvrige omkostninger"
+    investeringEkslFaelles.unit: "Kr"
+    investeringInklFaellesomkostninger: "Investering inkl. øvrige omkostninger"
+    investeringInklFaellesomkostninger.unit: "kr"
+    laanLoebetid: "Løbetid på lån"
+    laanLoebetid.unit: "år"
+    laanRente: "Rente på lån"
+    likviditetsoversigt: "Likviditetsoversigt"
+    modernisering: "Modernisering"
+    modernisering.unit: "kr"
+    mtmFaellesomkostninger: "MTM fællesomkostninger"
+    mtmFaellesomkostninger.unit: "kr"
+    nutidsvaerdi: "Nutidsværdi"
+    nutidsvaerdi.unit: "kr"
+    nutidsvaerdiInklFaellesomkostninger: "Nutidsværdi inkl. øvrige omkostninger"
+    nutidsvaerdiInklFaellesomkostninger.unit: "kr"
+    nutidsvaerdiSetOver15AarKr: "Nutidsværdi over 15 år"
+    oevrigeOmkostninger: "Øvrige omkostninger"
+    samtidighedsfaktor: "På ejendommen er indregnet en samtidighedsfaktor på"
+    status.ava: "AVA-støtte"
+    sum: "Sum"
+    sum.unit: "kr"
+    sumOevrige: "Sum, investering inkl. øvrige omkostninger"
+    sumOevrige.unit: "kr"
+    timeforbrug: "Forventet timeforbrug for lokalpersonalet"
+    timeforbrug.unit: "kr"
+    totalEntreprisesum: "Total entreprisesum"
+    totalEntreprisesum.unit: "kr"
+    varmetotal: "﻿I alt baseline varme"
+    version: "Iteration"
+    virksomhed: "Virksomhed"
+    virksomhed.areal: "Areal"
+    virksomhed.areal.unit: "m²"
+    erhvervsareal: "Erhvervsareal"
+    erhvervsareal.unit: "m²"
+    opvarmetareal: "Opvarmet areal"
+    opvarmetareal.unit: "m²"
   fil:
-    createdAt: Oprettet
-    createdBy: Oprettet af
-    type: Type
-    navn: Navn
+    createdAt: "Oprettet"
+    createdBy: "Oprettet af"
+    type: "Type"
+    navn: "Navn"
 
 # Dataudtræk
 udtraek.bygning:
-  aaplusAnsvarlig: Ansvarlig
-  adresse: Adresse indholder
-  energiRaadgiver: Energirådgiver
-  navn: Navn indholder
-  postnummer: Postnummer starter med
-  rapport.datering: Datering mellem
-  rapport.elena: Elena
-  rapport.ava: Ava
-  status: Status
-  segment.forkortelse: Magistrat
-  updatedBy: Opdateret af
+  aaplusAnsvarlig: "Ansvarlig"
+  adresse: "Adresse indholder"
+  energiRaadgiver: "Energirådgiver"
+  navn: "Navn indholder"
+  postnummer: "Postnummer starter med"
+  rapport.datering: "Datering mellem"
+  rapport.elena: "Elena"
+  rapport.ava: "Ava"
+  status: "Status"
+  segment.forkortelse: "Magistrat"
+  updatedBy: "Opdateret af"
 
 # Calculations
 appbundle.belysningtiltagdetail.elforbrug.w.m2.calculation: |
@@ -2205,82 +2203,82 @@ appbundle.belysningtiltagdetail.ny.driftstid.calculation: |
       return $this->drifttid_t_aar - $this->reduktion_af_drifttid * $this->drifttid_t_aar;
     }
 
-form.laanLoebetid: Løbetid på lån
+form.laanLoebetid: "Løbetid på lån"
 
-TiltagDetail: Detalje
-BelysningTiltagDetail: Detalje
-KlimaskaermTiltagDetail: Detalje
-PumpeTiltagDetail: Detalje
-SolcelleTiltagDetail: Detalje
-SpecialTiltagDetail: Detalje
-TekniskIsoleringTiltagDetail: Detalje
-VindueTiltagDetail: Detalje
+TiltagDetail: "Detalje"
+BelysningTiltagDetail: "Detalje"
+KlimaskaermTiltagDetail: "Detalje"
+PumpeTiltagDetail: "Detalje"
+SolcelleTiltagDetail: "Detalje"
+SpecialTiltagDetail: "Detalje"
+TekniskIsoleringTiltagDetail: "Detalje"
+VindueTiltagDetail: "Detalje"
 
-# Enum: CardinalDirectionType
-North: Nord
-South: Syd
-East: Øst
-West: Vest
+# Enum: "CardinalDirectionType
+North: "Nord"
+South: "Syd"
+East: "Øst"
+West: "Vest"
 
-# Enum: Energiforsyning/NavnType
-Hovedforsyning El: Hovedforsyning El
-Oliefyr: Oliefyr
-Træpillefyr: Træpillefyr
-Varmepumpe: Varmepumpe
+# Enum: "Energiforsyning/NavnType
+Hovedforsyning El: "Hovedforsyning El"
+Oliefyr: "Oliefyr"
+Træpillefyr: "Træpillefyr"
+Varmepumpe: "Varmepumpe"
 
-# Enum: KlimaskaermType
-Klimaskaerm: Klimaskærm
-Window: Vindue
+# Enum: "KlimaskaermType
+Klimaskaerm: "Klimaskærm"
+Window: "Vindue"
 
-Calculations have changed: Beregninger er ændret
+Calculations have changed: "Beregninger er ændret"
 
-Calculate rapport: Beregn rapport
-Rapport calculated: Rapport beregnet
-Cannot calculate rapport: Fejl under beregning af rapport
+Calculate rapport: "Beregn rapport"
+Rapport calculated: "Rapport beregnet"
+Cannot calculate rapport: "Fejl under beregning af rapport"
 
 
-Incomplete calculation: Beregningen er ikke komplet
-Fields required for calculation: Udfyld følgende felter
-Tiltag required for calculation: Opdater forslag nr
-Details required for calculation: Opdater detail nr
+Incomplete calculation: "Beregningen er ikke komplet"
+Fields required for calculation: "Udfyld følgende felter"
+Tiltag required for calculation: "Opdater forslag nr"
+Details required for calculation: "Opdater detail nr"
 
 roles:
   labels:
-    ROLE_SUPER_ADMIN: Super administrator
-    ROLE_ADMIN: Administrator
-    ROLE_CREATE: Opret alle typer indhold
-    ROLE_EDIT: Rediger alle typer indhold
-    ROLE_VIEW: Vis alle typer indhold
-    ROLE_BASELINE_CREATE: Opret baseline
-    ROLE_BASELINE_EDIT: Rediger baseline
-    ROLE_BASELINE_VIEW: Vis baseline
-    ROLE_BYGNING_CREATE: Opret bygning
-    ROLE_BYGNING_EDIT: Rediger bygning
-    ROLE_BYGNING_VIEW: Vis bygning
-    ROLE_CONFIGURATION_CREATE: Opret kofiguration
-    ROLE_CONFIGURATION_EDIT: Rediger kofiguration
-    ROLE_CONFIGURATION_VIEW: Vis kofiguration
-    ROLE_FORSYNINGSVAERK_CREATE: Opret forsyningværk
-    ROLE_FORSYNINGSVAERK_EDIT: Rediger forsyningværk
-    ROLE_FORSYNINGSVAERK_VIEW: Vis forsyningværk
-    ROLE_KLIMASKAERM_CREATE: Opret klimaskærm
-    ROLE_KLIMASKAERM_EDIT: Rediger klimaskærm
-    ROLE_KLIMASKAERM_VIEW: Vis klimaskærm
-    ROLE_RAPPORT_CREATE: Opret rapport
-    ROLE_RAPPORT_EDIT: Rediger rapport
-    ROLE_RAPPORT_VIEW: Vis rapport
-    ROLE_SOLCELLE_CREATE: Opret solcelle
-    ROLE_SOLCELLE_EDIT: Rediger solcelle
-    ROLE_SOLCELLE_VIEW: Vis solcelle
-    ROLE_TILTAG_CREATE: Opret forslag
-    ROLE_TILTAG_EDIT: Rediger forslag
-    ROLE_TILTAG_VIEW: Vis forslag
-    ROLE_TILTAGDETAIL_CREATE: Opret forslagsdetail
-    ROLE_TILTAGDETAIL_EDIT: Rediger forslagsdetail
-    ROLE_TILTAGDETAIL_VIEW: Vis forslagsdetail
-    ROLE_VIRKSOMHED_CREATE: Opret virksomhed
-    ROLE_VIRKSOMHED_EDIT: Rediger virksomhed
-    ROLE_VIRKSOMHED_VIEW: Vis virksomhed
-    ROLE_VIRKSOMHED_RAPPORT_CREATE: Opret virksomhedsrapport
-    ROLE_VIRKSOMHED_RAPPORT_EDIT: Rediger virksomhedsrapport
-    ROLE_VIRKSOMHED_RAPPORT_VIEW: Vis virksomhedsrapport
+    ROLE_SUPER_ADMIN: "Super administrator"
+    ROLE_ADMIN: "Administrator"
+    ROLE_CREATE: "Opret alle typer indhold"
+    ROLE_EDIT: "Rediger alle typer indhold"
+    ROLE_VIEW: "Vis alle typer indhold"
+    ROLE_BASELINE_CREATE: "Opret baseline"
+    ROLE_BASELINE_EDIT: "Rediger baseline"
+    ROLE_BASELINE_VIEW: "Vis baseline"
+    ROLE_BYGNING_CREATE: "Opret bygning"
+    ROLE_BYGNING_EDIT: "Rediger bygning"
+    ROLE_BYGNING_VIEW: "Vis bygning"
+    ROLE_CONFIGURATION_CREATE: "Opret kofiguration"
+    ROLE_CONFIGURATION_EDIT: "Rediger kofiguration"
+    ROLE_CONFIGURATION_VIEW: "Vis kofiguration"
+    ROLE_FORSYNINGSVAERK_CREATE: "Opret forsyningværk"
+    ROLE_FORSYNINGSVAERK_EDIT: "Rediger forsyningværk"
+    ROLE_FORSYNINGSVAERK_VIEW: "Vis forsyningværk"
+    ROLE_KLIMASKAERM_CREATE: "Opret klimaskærm"
+    ROLE_KLIMASKAERM_EDIT: "Rediger klimaskærm"
+    ROLE_KLIMASKAERM_VIEW: "Vis klimaskærm"
+    ROLE_RAPPORT_CREATE: "Opret rapport"
+    ROLE_RAPPORT_EDIT: "Rediger rapport"
+    ROLE_RAPPORT_VIEW: "Vis rapport"
+    ROLE_SOLCELLE_CREATE: "Opret solcelle"
+    ROLE_SOLCELLE_EDIT: "Rediger solcelle"
+    ROLE_SOLCELLE_VIEW: "Vis solcelle"
+    ROLE_TILTAG_CREATE: "Opret forslag"
+    ROLE_TILTAG_EDIT: "Rediger forslag"
+    ROLE_TILTAG_VIEW: "Vis forslag"
+    ROLE_TILTAGDETAIL_CREATE: "Opret forslag detalje"
+    ROLE_TILTAGDETAIL_EDIT: "Rediger forslag detalje"
+    ROLE_TILTAGDETAIL_VIEW: "Vis forslag detalje"
+    ROLE_VIRKSOMHED_CREATE: "Opret virksomhed"
+    ROLE_VIRKSOMHED_EDIT: "Rediger virksomhed"
+    ROLE_VIRKSOMHED_VIEW: "Vis virksomhed"
+    ROLE_VIRKSOMHED_RAPPORT_CREATE: "Opret virksomhed rapport"
+    ROLE_VIRKSOMHED_RAPPORT_EDIT: "Rediger virksomhed rapport"
+    ROLE_VIRKSOMHED_RAPPORT_VIEW: "Vis virksomhed rapport"
