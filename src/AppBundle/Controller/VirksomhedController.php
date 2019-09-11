@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Baseline;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\ContactPerson;
 use AppBundle\Entity\User;
@@ -18,6 +19,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\VirksomhedType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -38,6 +41,11 @@ class VirksomhedController extends BaseController
     private $request;
 
     /**
+     * @var PropertyAccessor
+     */
+    protected $accessor;
+
+    /**
      * @inheritDoc
      */
     public function init(Request $request) {
@@ -45,6 +53,7 @@ class VirksomhedController extends BaseController
         $this->breadcrumbs->addItem('virksomhed.labels.plural', $this->generateUrl('virksomhed'));
         $this->translator = $this->container->get('translator');
         $this->request = $request;
+        $this->accessor = PropertyAccess::createPropertyAccessor();
     }
 
     /**
@@ -277,22 +286,44 @@ class VirksomhedController extends BaseController
     /**
      * Finds and displays a Virksomhed entity.
      *
-     * @Route("/{id}/baselines", name="virksomhed_bygning_baseline_list")
+     * @Route("/{id}/baselines", name="virksomhed_bygninger_baseline_summary")
      * @Method("GET")
-     * @Template("AppBundle:Baseline:index.html.twig")
+     * @Template("AppBundle:Virksomhed:bygning_baseline_summary.html.twig")
      * @Security("is_granted('VIRKSOMHED_VIEW', virksomhed)")
      */
     public function bygningBaselineListAction(Virksomhed $virksomhed)
     {
         $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+        $this->breadcrumbs->addItem('appbundle.virksomhed.baseline.summary', $this->generateUrl('virksomhed_bygninger_baseline_summary', array('id' => $virksomhed->getId())));
         $bygninger = $virksomhed->getAllBygninger();
-        $baselines = array();
+        $bygninger_baselinesummary = new Baseline();
+        $properties = array(
+            'elBaselineFastsatForEjendom',
+            'elBaselineFastsatForEjendomKorrektion',
+            'elBaselineFastsatForEjendomKorrigeret',
+            'varmeGAFForbrug',
+            'varmeGAFForbrugKorrektion',
+            'varmeGAFForbrugKorrigeret',
+            'varmeGUFForbrug',
+            'varmeGUFForbrugKorrektion',
+            'varmeGUFForbrugKorrigeret',
+            'varmeStrafafkoelingsafgift',
+            'varmeStrafafkoelingsafgiftKorrektion',
+            'varmeStrafafkoelingsafgiftKorrigeret',
+        );
         /** @var Bygning $bygning */
-        foreach ($bygninger as $bygning) {
-            $baselines[] = $bygning->getBaseline();
+        foreach ($properties as $property_name) {
+            $summ_value = 0;
+            foreach ($bygninger as $bygning) {
+                $baseline = $bygning->getBaseline();
+                if (!empty($baseline)) {
+                    $summ_value += $this->accessor->getValue($baseline, $property_name);
+                }
+            }
+            $this->accessor->setValue($bygninger_baselinesummary, $property_name, $summ_value);
         }
         return array(
-            'entities'      => $baselines,
+            'entity' => $bygninger_baselinesummary,
         );
     }
 

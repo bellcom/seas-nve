@@ -2302,6 +2302,13 @@ class Baseline {
   }
 
   /**
+   * @param string $elBaselineFastsatForEjendomKorrigeret
+   */
+  public function setElBaselineFastsatForEjendomKorrigeret($elBaselineFastsatForEjendomKorrigeret) {
+    $this->elBaselineFastsatForEjendomKorrigeret = $elBaselineFastsatForEjendomKorrigeret;
+  }
+
+  /**
    * @return float
    */
   public function getVarmeGAFForbrugKorrigeret() {
@@ -2309,10 +2316,24 @@ class Baseline {
   }
 
   /**
+   * @param string $varmeGAFForbrugKorrigeret
+   */
+  public function setVarmeGAFForbrugKorrigeret($varmeGAFForbrugKorrigeret) {
+    $this->varmeGAFForbrugKorrigeret = $varmeGAFForbrugKorrigeret;
+  }
+
+  /**
    * @return float
    */
   public function getVarmeGUFForbrugKorrigeret() {
     return $this->varmeGUFForbrugKorrigeret;
+  }
+
+  /**
+   * @param string $varmeGUFForbrugKorrigeret
+   */
+  public function setVarmeGUFForbrugKorrigeret($varmeGUFForbrugKorrigeret) {
+    $this->varmeGUFForbrugKorrigeret = $varmeGUFForbrugKorrigeret;
   }
 
   /**
@@ -2344,10 +2365,24 @@ class Baseline {
   }
 
   /**
+   * @param string $varmeStrafafkoelingsafgiftKorrigeret
+   */
+  public function setVarmeStrafafkoelingsafgiftKorrigeret($varmeStrafafkoelingsafgiftKorrigeret) {
+    $this->varmeStrafafkoelingsafgiftKorrigeret = $varmeStrafafkoelingsafgiftKorrigeret;
+  }
+
+  /**
    * @return float
    */
   public function getElBaselineFastsatForEjendomKorrektion() {
     return $this->elBaselineFastsatForEjendomKorrektion;
+  }
+
+  /**
+   * @param float $elBaselineFastsatForEjendomKorrektion
+   */
+  public function setElBaselineFastsatForEjendomKorrektion($elBaselineFastsatForEjendomKorrektion) {
+    $this->elBaselineFastsatForEjendomKorrektion = $elBaselineFastsatForEjendomKorrektion;
   }
 
   /**
@@ -2358,10 +2393,24 @@ class Baseline {
   }
 
   /**
+   * @param float $varmeGAFForbrugKorrektion
+   */
+  public function setVarmeGAFForbrugKorrektion($varmeGAFForbrugKorrektion) {
+    $this->varmeGAFForbrugKorrektion = $varmeGAFForbrugKorrektion;
+  }
+
+  /**
    * @return float
    */
   public function getVarmeGUFForbrugKorrektion() {
     return $this->varmeGUFForbrugKorrektion;
+  }
+
+  /**
+   * @param string $varmeGUFForbrugKorrektion
+   */
+  public function setVarmeGUFForbrugKorrektion($varmeGUFForbrugKorrektion) {
+    $this->varmeGUFForbrugKorrektion = $varmeGUFForbrugKorrektion;
   }
 
   ///

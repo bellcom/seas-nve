@@ -2035,6 +2035,8 @@ appbundle:
     forsyningsvaerkEl: "El"
     forsyningsvaerkVand: "Vand"
     forsyningsvaerkVarme: "Varme"
+    baseline:
+      summary: "Bygninger baseline opsummering"
   virksomhed_rapport:
     ava: "AVA"
     anlaegsinvestering.unit: "kr"
