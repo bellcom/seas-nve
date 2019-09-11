@@ -1,0 +1,12 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'appbundle.virksomhed.baseline.summary' | trans }}</h1>
+    </div>
+  </div>
+
+  {% include 'AppBundle:Baseline:summary.html.twig' %}
+{% endblock %}

@@ -553,17 +553,24 @@ class VirksomhedRapport
 
     /**
      * @var integer
-     *
+     * @Calculated
      * @ORM\Column(name="erhvervsareal", type="integer", nullable=true)
      */
     protected $erhvervsareal;
 
     /**
      * @var integer
-     *
+     * @Calculated
      * @ORM\Column(name="opvarmetareal", type="integer", nullable=true)
      */
     protected $opvarmetareal;
+
+    /**
+     * @var integer
+     * @Calculated
+     * @Formula("$this->erhvervsareal - $this->opvarmetareal")
+     */
+    protected $uOpvarmetareal;
 
     /**
      * Constructor
@@ -1848,7 +1855,7 @@ class VirksomhedRapport
      * Set erhvervsareal
      *
      * @param integer $erhvervsareal
-     * @return Bygning
+     * @return VirksomhedRapport
      */
     public function setErhvervsareal($erhvervsareal) {
         $this->erhvervsareal = $erhvervsareal;
@@ -1869,7 +1876,7 @@ class VirksomhedRapport
      * Set Opvarmetareal
      *
      * @param integer $opvarmetareal
-     * @return Bygning
+     * @return VirksomhedRapport
      */
     public function setOpvarmetareal($opvarmetareal) {
         $this->opvarmetareal = $opvarmetareal;
@@ -1884,6 +1891,30 @@ class VirksomhedRapport
      */
     public function getOpvarmetareal() {
         return $this->opvarmetareal;
+    }
+
+    /**
+     * Set uOpvarmetareal
+     *
+     * @param integer $uOpvarmetareal
+     * @return VirksomhedRapport
+     */
+    public function setUOpvarmetareal($uOpvarmetareal) {
+        $this->uOpvarmetareal = $uOpvarmetareal;
+
+        return $this;
+    }
+
+    /**
+     * Get uOpvarmetareal
+     *
+     * @return integer
+     */
+    public function getUOpvarmetareal() {
+        if (empty($this->uOpvarmetareal)) {
+            $this->setUOpvarmetareal($this->calculateByFormula('uOpvarmetareal'));
+        }
+        return $this->uOpvarmetareal;
     }
 
     /**
@@ -1994,6 +2025,7 @@ class VirksomhedRapport
             }
         }
 
+        $this->setUOpvarmetareal($this->calculateByFormula('uOpvarmetareal'));
         foreach ($this->calculationRapportProperties as $property) {
             $calculateMethod = 'calculate' . ucfirst($property);
             $value = $this->__call($calculateMethod);
