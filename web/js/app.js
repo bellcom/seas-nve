@@ -3,6 +3,26 @@ jQuery(function ($) {
 
   // Select 2.
   $('select.select2').select2();
+  $('select.form-control').select2();
+
+  // Select 2 for ajax fields.
+  var $wrapper = $('.ean_numbers');
+  var $trigger = $wrapper.find('.add-link');
+
+  $trigger.on('click', function() {
+    $('select.form-control').select2('destroy');
+
+    var timer = setInterval(function() {
+      if ($trigger.hasClass('disabled')) {
+        return;
+      }
+
+      // Re-apply select2 after ajax has run.
+      $('select.form-control').select2();
+
+      clearInterval(timer);
+    }, 300);
+  });
 });
 
 // Toggle calculation expression.
