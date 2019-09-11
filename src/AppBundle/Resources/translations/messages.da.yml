@@ -2169,6 +2169,8 @@ appbundle:
     erhvervsareal.unit: "m²"
     opvarmetareal: "Opvarmet areal"
     opvarmetareal.unit: "m²"
+    uOpvarmetareal: "Uopvarmet areal"
+    uOpvarmetareal.unit: "m²"
   fil:
     createdAt: "Oprettet"
     createdBy: "Oprettet af"
