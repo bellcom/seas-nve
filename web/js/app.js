@@ -6,7 +6,7 @@ jQuery(function ($) {
   $('select.form-control').select2();
 
   // Select 2 for ajax fields.
-  var $wrapper = $('.ean_numbers');
+  var $wrapper = $('.wrapper');
   var $trigger = $wrapper.find('.add-link');
 
   $trigger.on('click', function() {
