@@ -1284,6 +1284,7 @@ appbundle:
     titel: "År"
   group:
     name: "Navn"
+    name.help: "BEMÆRK: Du kan ikke bruge navn: Projektleder, Projekterende, Interessent. Alle de grupe er servicegrupper."
     roles: "Roles"
   klimaskaerm:
     arbejdeOmfang: "Arbejde/omfang"
@@ -1876,6 +1877,7 @@ appbundle:
     prioriteringsfaktor: "Prioriteringsfaktor"
     konverteringsfaktor: "Konverteringsfaktor"
     tilskudsstoerrelse.unit: "kr/kWh"
+    tilskudsstoerrelse.help: "Hvis ingen angives, arves værdien fra virksomheden."
     samletTilskud: "Samlet tilskud"
     samletTilskud.unit: "kr/år"
   tiltagdatofordrift:
