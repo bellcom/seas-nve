@@ -229,6 +229,11 @@ th.border-right:last-child, td.border-right:last-child {
   overflow: hidden;
 }
 
+tr.highlight {
+  background-color: #E5E5E1;
+  color: #50534d;
+}
+
 .panel-heading {
   border-bottom: 1pt solid #E5E5E1;
   border-top-left-radius: 0;
