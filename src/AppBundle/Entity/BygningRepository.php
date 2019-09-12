@@ -68,14 +68,19 @@ class BygningRepository extends BaseRepository {
               ->setParameter('cvrNumber',  $virksomhed->getCvrNumber());
       }
 
-      if (!empty($virksomhed->getPNumbers())) {
-          $qb->orWhere('b.pNumber IN (:pNumbers)')
-              ->setParameter('pNumbers', $virksomhed->getPNumbers());
+      if (!empty($virksomhed->getBygningerByCvrNumber())) {
+          $qb->orWhere('b.id IN (:bygningerByCvrNumbers)')
+              ->setParameter('bygningerByCvrNumbers', $virksomhed->getBygningerByCvrNumber());
       }
 
-      if (!empty($virksomhed->getEanNumbers())) {
-          $qb->orWhere('b.eanNumber IN (:eanNumbers)')
-              ->setParameter('eanNumbers', $virksomhed->getEanNumbers());
+      if (!empty($virksomhed->getBygningerEanNumbers())) {
+          $qb->orWhere('b.eanNumber IN (:bygningerEanNumbers)')
+              ->setParameter('bygningerEanNumbers', $virksomhed->getBygningerEanNumbers());
+      }
+
+      if (!empty($virksomhed->getBygningerPNumbers())) {
+        $qb->orWhere('b.pNumber IN (:bygningerPNumbers)')
+              ->setParameter('bygningerPNumbers', $virksomhed->getBygningerPNumbers());
       }
 
       if (empty($qb->getParameters())) {
@@ -358,6 +363,16 @@ class BygningRepository extends BaseRepository {
     /** @var Bygning $bygning */
     foreach ($this->getAllUniqueValues('pNumber') as $bygning) {
       $result[$bygning->getPNumber()] = $bygning->getPNumber() . ' (' . $bygning . ')';
+    }
+    return $result;
+  }
+
+  public function getCvrNumberReferenceList()
+  {
+    $result = array();
+    /** @var Bygning $bygning */
+    foreach ($this->getNotEmpty('cvrNumber') as $bygning) {
+      $result[$bygning->getId()] = $bygning->getCvrNumber() . ' (' . $bygning . ')';
     }
     return $result;
   }

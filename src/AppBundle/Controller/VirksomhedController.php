@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Baseline;
 use AppBundle\Entity\Bygning;
+use AppBundle\Entity\BygningRepository;
 use AppBundle\Entity\ContactPerson;
 use AppBundle\Entity\User;
 use AppBundle\Entity\VirksomhedRapport;
@@ -142,10 +143,22 @@ class VirksomhedController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            // Remove incompleted add more values.
             $entity->filterEmptyValues();
             $em = $this->getDoctrine()->getManager();
 
-            $bygninger = $em->getRepository(Bygning::class)->findByNumbers($entity);
+            /** @var BygningRepository $bygningRepository */
+            $bygningRepository = $em->getRepository(Bygning::class);
+
+            // Binding already created bygning by cvr number if they are not in list.
+            $bygninger = $bygningRepository->findBy(array('cvrNumber' => $entity->getCvrNumber()));
+            foreach ($bygninger as $bygning) {
+                if (!in_array($bygning->getId(), $entity->getBygningerByCvrNumber())) {
+                    $entity->addBygningerByCvrNumber($bygning->getId());
+                }
+            }
+
+            $bygninger = $bygningRepository->findByNumbers($entity);
             $entity->setBygninger(new ArrayCollection());
             foreach ($bygninger as $bygning) {
                 $entity->addBygninger($bygning);
@@ -348,6 +361,14 @@ class VirksomhedController extends BaseController
             $entity->getContactPersons()->add(new ContactPerson());
         }
 
+        // Load already created bygning by cvr number if they are not in list.
+        $bygninger = $this->getDoctrine()->getManager()->getRepository(Bygning::class)->findBy(array('cvrNumber' => $entity->getCvrNumber()));
+        foreach ($bygninger as $bygning) {
+            if (!in_array($bygning->getId(), $entity->getBygningerByCvrNumber())) {
+                $entity->addBygningerByCvrNumber($bygning->getId());
+            }
+        }
+
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($entity);
 
@@ -411,9 +432,21 @@ class VirksomhedController extends BaseController
         $editForm = $this->createEditForm($virksomhed);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            // Remove incompleted add more values.
             $virksomhed->filterEmptyValues();
 
-            $bygninger = $em->getRepository(Bygning::class)->findByNumbers($virksomhed);
+            /** @var BygningRepository $bygningRepository */
+            $bygningRepository = $em->getRepository(Bygning::class);
+
+            // Binding already created bygning by cvr number if they are not in list.
+            $bygninger = $bygningRepository->findBy(array('cvrNumber' => $virksomhed->getCvrNumber()));
+            foreach ($bygninger as $bygning) {
+                if (!in_array($bygning->getId(), $virksomhed->getBygningerByCvrNumber())) {
+                    $virksomhed->addBygningerByCvrNumber($bygning->getId());
+                }
+            }
+
+            $bygninger = $bygningRepository->findByNumbers($virksomhed);
             $virksomhed->setBygninger(new ArrayCollection());
             foreach ($bygninger as $bygning) {
                 $virksomhed->addBygninger($bygning);
