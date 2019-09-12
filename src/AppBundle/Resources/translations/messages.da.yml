@@ -1873,6 +1873,8 @@ appbundle:
     samletBesparelseVedligehold: "Vedligeholdelsesbesparelse"
     samletBesparelseVedligehold.unit: "kr/år"
     tilskudsstoerrelse: "Tilskudsstørrelse"
+    prioriteringsfaktor: "Prioriteringsfaktor"
+    konverteringsfaktor: "Konverteringsfaktor"
     tilskudsstoerrelse.unit: "kr/kWh"
     samletTilskud: "Samlet tilskud"
     samletTilskud.unit: "kr/år"

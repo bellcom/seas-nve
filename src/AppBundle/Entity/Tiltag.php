@@ -197,6 +197,20 @@ abstract class Tiltag {
   protected $faktorForReinvesteringer;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="prioriteringsfaktor", type="float")
+   */
+  protected $prioriteringsfaktor = 1;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="konverteringsfaktor", type="float")
+   */
+  protected $konverteringsfaktor = 1;
+
+  /**
    * Enterprisesum
    *
    * @var float
@@ -876,6 +890,48 @@ abstract class Tiltag {
    */
   public function getFaktorForReinvesteringer() {
     return $this->faktorForReinvesteringer;
+  }
+
+  /**
+   * Set prioriteringsfaktor
+   *
+   * @param integer $prioriteringsfaktor
+   * @return Tiltag
+   */
+  public function setPrioriteringsfaktor($prioriteringsfaktor) {
+    $this->prioriteringsfaktor = $prioriteringsfaktor;
+
+    return $this;
+  }
+
+  /**
+   * Get prioriteringsfaktor
+   *
+   * @return integer
+   */
+  public function getPrioriteringsfaktor() {
+    return $this->prioriteringsfaktor;
+  }
+
+  /**
+   * Set konverteringsfaktor
+   *
+   * @param integer $konverteringsfaktor
+   * @return Tiltag
+   */
+  public function setKonverteringsfaktor($konverteringsfaktor) {
+    $this->konverteringsfaktor = $konverteringsfaktor;
+
+    return $this;
+  }
+
+  /**
+   * Get konverteringsfaktor
+   *
+   * @return integer
+   */
+  public function getKonverteringsfaktor() {
+    return $this->konverteringsfaktor;
   }
 
   /**
@@ -1930,7 +1986,7 @@ abstract class Tiltag {
   }
 
   protected function calculateTilskudsstoerrelse() {
-    return $this->tilskudsstoerrelse;
+    return $this->tilskudsstoerrelse * $this->getKonverteringsfaktor() * $this->getPrioriteringsfaktor();
   }
 
   protected function calculateEnhed() {

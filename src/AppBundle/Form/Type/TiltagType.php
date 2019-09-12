@@ -87,8 +87,26 @@ class TiltagType extends AbstractType {
 
     }
     $builder->add('title')
-      ->add('faktorForReinvesteringer')
-      ->add('opstartsomkostninger');
+            ->add('faktorForReinvesteringer')
+            ->add('opstartsomkostninger');
+
+    $builder
+      ->add('prioriteringsfaktor', 'choice', array(
+        'choices' => array(
+          '0.5' => '0,5',
+          '1' => '1,0',
+          '1.5' => '1,5',
+        ),
+        'required' => TRUE
+      ))
+      ->add('konverteringsfaktor', 'choice', array(
+        'choices' => array(
+          '0.8' => '0,8',
+          '1' => '1,0',
+          '1.8' => '1,8',
+        ),
+        'required' => TRUE
+      ));
 
     $builder
       ->add('genopretning')
