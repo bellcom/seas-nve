@@ -29,7 +29,7 @@ class RapportRepository extends BaseRepository {
    */
   public function canEdit(User $user, Rapport $rapport) {
     if ($rapport->getBygning()->getStatus() === BygningStatusType::TILKNYTTET_RAADGIVER) {
-      return $rapport->getBygning()->getEnergiRaadgiver() == $user;
+      return $rapport->getBygning()->getEnergiRaadgiver()->contains($user);
     }
 
     if ($rapport->getBygning()->getStatus() === BygningStatusType::UNDER_UDFOERSEL) {

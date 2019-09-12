@@ -8,6 +8,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\BygningStatusType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
@@ -253,8 +254,8 @@ class Bygning {
   /**
    * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
    *
-   * @ManyToOne(targetEntity="User", inversedBy="energiRaadgiver")
-   * @JoinColumn(name="energiraadgiver_id", referencedColumnName="id")
+   * @ManyToMany(targetEntity="User", inversedBy="energiRaadgiver")
+   * @JoinTable(name="energiraadgiver_user")
    **/
   protected $energiRaadgiver;
 
@@ -1039,12 +1040,12 @@ class Bygning {
   /**
    * Set Energirådgiver
    *
-   * @param \AppBundle\Entity\User user
+   * Collection $energiRaadgiver
    *
    * @return Bygning
    */
-  public function setEnergiRaadgiver(\AppBundle\Entity\User $user = NULL) {
-    $this->energiRaadgiver = $user;
+  public function setEnergiRaadgiver(Collection $energiRaadgiver = NULL) {
+    $this->energiRaadgiver = $energiRaadgiver;
 
     return $this;
   }
@@ -1052,7 +1053,7 @@ class Bygning {
   /**
    * Get Energirådgiver
    *
-   * @return \AppBundle\Entity\User
+   * @return Collection
    */
   public function getEnergiRaadgiver() {
     return $this->energiRaadgiver;

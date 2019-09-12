@@ -285,8 +285,10 @@ class BygningStreamExporter {
 
     if ($this->showAll || $this->groups['aa_screeningsinformation']) {
       if ($tiltagIndex === 0) {
-        $this->addCell($bygning->getAaplusAnsvarlig());
-        $this->addCell($bygning->getEnergiRaadgiver());
+        // @TODO Implement list.
+//        $this->addCell($bygning->getAaplusAnsvarlig());
+        // @TODO Implement list.
+//        $this->addCell($bygning->getEnergiRaadgiver());
         $this->addCell($bygning->getProjektleder());
         $this->addCell($bygning->getProjekterende());
         $this->addCell($rapport ? $rapport->getDatering() : null);

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints as RollerworksPassword;
 use Rollerworks\Bundle\PasswordStrengthBundle\Validator\Constraints\PasswordRequirements;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OrderBy;
 use JMS\Serializer\Annotation as JMS;
 use AppBundle\Validator\Constraints as AppBundleAssert;
@@ -93,7 +94,7 @@ class User extends BaseUser {
   protected $ansvarlig;
 
   /**
-   * @OneToMany(targetEntity="Bygning", mappedBy="energiRaadgiver")
+   * @ManyToMany(targetEntity="Bygning", mappedBy="energiRaadgiver")
    * @OrderBy({"navn" = "ASC"})
    * @JMS\Exclude
    **/

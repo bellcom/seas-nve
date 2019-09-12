@@ -67,7 +67,7 @@ class BaseRepository extends EntityRepository {
       return TRUE;
     }
 
-    if ($bygning->getEnergiRaadgiver() == $user) {
+    if ($bygning->getEnergiRaadgiver()->contains($user)) {
       return TRUE;
     }
 

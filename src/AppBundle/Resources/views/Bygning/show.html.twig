@@ -108,7 +108,14 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.bygning.energiRaadgiver' | trans }}</th>
-            <td>{{ entity.energiRaadgiver }}</td>
+            <td>
+              {% set energiRaadgiver = entity.getEnergiRaadgiver() %}
+              {% if energiRaadgiver | length %}
+                {% for user in energiRaadgiver %}
+                  <div>{{ user }}</div>
+                {% endfor %}
+              {% endif %}
+            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.bygning.projekterende' | trans }}</th>

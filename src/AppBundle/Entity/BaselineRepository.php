@@ -23,7 +23,7 @@ class BaselineRepository extends BaseRepository {
    */
   public function canEdit(User $user, Baseline $baseline) {
     if($baseline->getBygning()->getStatus() === BygningStatusType::TILKNYTTET_RAADGIVER) {
-      return $baseline->getBygning()->getEnergiRaadgiver() == $user;
+      return $baseline->getBygning()->getEnergiRaadgiver()->contains($user);
     }
 
     return $this->hasFullAccess($user);
