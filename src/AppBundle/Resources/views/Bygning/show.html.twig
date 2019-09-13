@@ -86,6 +86,24 @@
               {% endif %}
             </td>
           </tr>
+          {% if entity.virksomhed %}
+            <tr>
+              <th class="indent">{{ 'appbundle.virksomhed.crmNumber' | trans }}</th>
+              <td>{{ entity.virksomhed.getCrmNumber(TRUE) }}</td>
+            </tr>
+            <tr>
+              <th class="indent">{{ 'appbundle.virksomhed.projectNumber' | trans }}</th>
+              <td>{{ entity.virksomhed.getProjectNumber(TRUE) }}</td>
+            </tr>
+            <tr>
+              <th class="indent">{{ 'appbundle.virksomhed.customerNumber' | trans }}</th>
+              <td>{{ entity.virksomhed.getCustomerNumber(TRUE) }}</td>
+            </tr>
+            <tr>
+              <th class="indent">{{ 'appbundle.virksomhed.typeName' | trans }}</th>
+              <td>{{ entity.virksomhed.getTypeName(TRUE) }}</td>
+            </tr>
+          {% endif %}
           <tr>
             <th>{{ 'appbundle.bygning.cvrNumber' | trans }}</th>
             <td>{{ entity.cvrNumber }}</td>

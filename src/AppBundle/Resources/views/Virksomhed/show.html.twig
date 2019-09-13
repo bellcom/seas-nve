@@ -46,7 +46,7 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.crmNumber' | trans }}</th>
-            <td>{{ entity.crmNumber }}</td>
+            <td>{{ entity.getCrmNumber(TRUE) }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.customerNumber' | trans }}</th>
@@ -54,7 +54,7 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.projectNumber' | trans }}</th>
-            <td>{{ entity.projectNumber }}</td>
+            <td>{{ entity.getProjectNumber(TRUE) }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.aftagerNumber' | trans }}</th>
@@ -62,7 +62,7 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.typeName' | trans }}</th>
-            <td>{{ entity.typeName }}</td>
+            <td>{{ entity.getTypeName(TRUE) }}</td>
           </tr>
           </tbody>
         </table>

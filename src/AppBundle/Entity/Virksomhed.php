@@ -453,9 +453,17 @@ class Virksomhed
      *
      * @return string
      */
-    public function getCrmNumber()
+    public function getCrmNumber($inherit = FALSE)
     {
-        return $this->crmNumber;
+        if ($this->crmNumber || !$inherit) {
+            return $this->crmNumber;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getCrmNumber();
+        }
+
+        return NULL;
     }
 
     /**
@@ -522,9 +530,17 @@ class Virksomhed
      *
      * @return string
      */
-    public function getCustomerNumber()
+    public function getCustomerNumber($inherit = FALSE)
     {
-        return $this->customerNumber;
+        if ($this->customerNumber || !$inherit) {
+            return $this->customerNumber;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getCustomerNumber();
+        }
+
+        return NULL;
     }
 
     /**
@@ -546,9 +562,17 @@ class Virksomhed
      *
      * @return string
      */
-    public function getProjectNumber()
+    public function getProjectNumber($inherit = FALSE)
     {
-        return $this->projectNumber;
+        if ($this->projectNumber || !$inherit) {
+            return $this->projectNumber;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getProjectNumber();
+        }
+
+        return NULL;
     }
 
     /**
@@ -593,8 +617,16 @@ class Virksomhed
      *
      * @return \AppBundle\DBAL\Types\VirksomhedTypeType
      */
-    public function getTypeName() {
-        return $this->typeName;
+    public function getTypeName($inherit = FALSE) {
+        if ($this->typeName || !$inherit) {
+            return $this->typeName;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getTypeName();
+        }
+
+        return NULL;
     }
 
     /**
