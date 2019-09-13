@@ -36,6 +36,7 @@
         {% if edit_form.tilvalgtAfMagistrat is defined %}
           {{ form_row(edit_form.tilvalgtAfMagistrat) }}
         {% endif %}
+
         {% if edit_form.tilvalgtbegrundelse is defined %}
           {{ form_row(edit_form.tilvalgtBegrundelseMagistrat) }}
         {% endif %}
@@ -52,9 +53,13 @@
         {{ form_row(edit_form.title) }}
         {{ form_row(edit_form.placering) }}
         {{ form_row(edit_form.tilskudsstoerrelse) }}
+        {{ form_row(edit_form.prioriteringsfaktor) }}
+        {{ form_row(edit_form.konverteringsfaktor) }}
+
         {% if edit_form.datoForDrift is defined %}
           {{ form_row(edit_form.datoForDrift) }}
         {% endif %}
+
         {% if edit_form.slutanvendelse is defined %}
           {{ form_row(edit_form.slutanvendelse) }}
         {% endif %}
