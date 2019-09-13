@@ -416,18 +416,18 @@ pumpetiltag:
     title: "Pumpeudskiftninger"
 pumpetiltagdetailapplikation:
   actions:
-    add: "Tilføj Pumpeforslag detail applikation"
-    create: "Opret Pumpeforslag detail applikation"
-    edit: "Rediger Pumpeforslag detail applikation"
+    add: "Tilføj Pumpeforslags applikation"
+    create: "Opret Pumpeforslags applikation"
+    edit: "Rediger Pumpeforslags applikation"
   confirmation:
-    created: "Nyt Pumpeforslag detail applikation oprettet"
-    updated: "Pumpeforslag detail applikation opdateret"
-    deleted: "Pumpeforslag detail applikation slettet"
+    created: "Nyt Pumpeforslags applikation oprettet"
+    updated: "Pumpeforslags applikation opdateret"
+    deleted: "Pumpeforslags applikation slettet"
   error:
-    in_use: "Kan ikke slettes. Bruges af pumpetiltagdetail."
+    in_use: "Kan ikke slettes. Bruges af pumpeforslags."
   labels:
-    plural: "Pumpeforslag detail applikationer"
-    singular: "Pumpeforslag detail applikation"
+    plural: "Pumpeforslags applikationer"
+    singular: "Pumpeforslags applikation"
 pumpetiltagdetail:
   actions:
     add: "Tilføj Pumpeforslag"
@@ -537,17 +537,17 @@ tiltagdetail:
     deleted: "Detail slettet"
 tiltagskategori:
   actions:
-    add: "Tilføj forslag kategori"
-    edit: "Rediger forslag kategori"
+    add: "Tilføj forslags kategori"
+    edit: "Rediger forslags kategori"
   confirmation:
-    created: "Forslag faketori oprettet"
-    updated: "Forslag faketori opdateret"
-    deleted: "Forslag faketori slettet"
+    created: "Forslags kategori oprettet"
+    updated: "Forslags kategori opdateret"
+    deleted: "Forslags kategori slettet"
   error:
-    in_use: "Kan ikke slettes. Bruges af forslag."
+    in_use: "Kan ikke slettes. Bruges af forslags."
   labels:
-    plural: "Forslag kategorier"
-    singular: "Forslag kategori"
+    plural: "Forslags kategorier"
+    singular: "Forslags kategori"
 udtraek:
   columns:
     alt: "Alt (Uden forslag)"
