@@ -83,13 +83,14 @@ class BygningType extends AbstractType {
         'type' => 'entity',
         'options' => array(
           'class' => 'AppBundle:User',
+          'choices' => $this->getUsersFromGroup("Rådgiver"),
           'required' => FALSE,
           'empty_value' => '--',
         ),
         'allow_add' => true,
         'by_reference' => false,
         'allow_delete' => true,
-        'add_button_text'    => 'Add',
+        'add_button_text'    => 'Add more',
         'delete_button_text' => 'Delete',
         'sub_widget_col'     => 10,
         'button_col'         => 2

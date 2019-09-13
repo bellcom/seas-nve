@@ -1060,6 +1060,19 @@ class Bygning {
   }
 
   /**
+   * Get Energirådgiver
+   *
+   * @return Collection
+   */
+  public function getEnergiRaadgiverStr() {
+    $users = array();
+    foreach ($this->energiRaadgiver as $user) {
+      $users[] = $user->__toString();
+    }
+    return implode(', ', $users);
+  }
+
+  /**
    * Set Projekterende
    *
    * @param \AppBundle\Entity\User user

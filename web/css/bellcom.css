@@ -18,3 +18,5 @@
 .calculation-expression-toggle:hover {
   background-color: #eee;
 }
+
+#appbundle_bygning_energiRaadgiver .bc-collection li:first-child .row {margin-top: 0;}

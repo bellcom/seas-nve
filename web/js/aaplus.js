@@ -212,7 +212,7 @@
     if ($formRow.hasClass('required')) {
       return;
     }
-    var $removeFormA = $('<a href="#" class="btn btn-danger">Fjern</a>');
+    var $removeFormA = $('<a href="#" class="btn btn-danger">Slet</a>');
     $formRow.find('.col-sm-2').append($removeFormA);
 
     $removeFormA.on('click', function(e) {

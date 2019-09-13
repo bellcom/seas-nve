@@ -304,7 +304,10 @@ class User extends BaseUser {
    * @return string
    */
   public function __toString() {
-    return $this->getFirstname().' '.$this->getLastname();
+    return implode(' ', array_filter(array(
+      $this->getFirstname(),
+      $this->getLastname(),
+    )));
   }
 
   /**

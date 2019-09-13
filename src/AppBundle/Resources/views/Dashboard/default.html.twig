@@ -86,7 +86,6 @@
             <th>{{ form_row(form.energiRaadgiver) }}</th>
           {% else %}
             <th>{{ form_row(form.aaplusAnsvarlig) }}</th>
-
           {% endif %}
           <th></th>
           <th></th>
@@ -105,7 +104,7 @@
           </td>
           <td>{{ bygning.status  | readable }}</td>
           {% if tab == 'aaplusAnsvarlig' %}
-            <td>{% if bygning.energiRaadgiver is not empty %}{{ bygning.energiRaadgiver.username }}{% endif %}</td>
+            <td>{% if bygning.energiRaadgiver is not empty %}{{ bygning.getEnergiRaadgiverStr() }}{% endif %}</td>
           {% else %}
             <td>{% if bygning.aaplusAnsvarlig is not empty %}{{ bygning.aaplusAnsvarlig.username }}{% endif %}</td>
           {% endif %}
