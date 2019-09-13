@@ -95,63 +95,44 @@
           </table>
       </div>
       <div class="panel panel-default">
-        <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.virksomhed.bygning' | trans }}</div>
+        <div class="panel-heading">{{ icon('list') }} {{ 'common.overview' | trans }}</div>
         <div class="panel-body">
-          {% set bygninger = entity.getBygninger() %}
-          {% if bygninger | length %}
-            <ul>
-              {% for bygning in bygninger %}
-                <li><a href="{{ path_with_access_token('bygning_show', { 'id': bygning.id }) }}">{{ bygning }}</a></li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            {{ 'virksomhed.messages.empty.bygninger' | trans }}
-          {% endif %}
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">{{ icon('phone') }} {{ 'appbundle.virksomhed.contactPersons' | trans }}</div>
-          {% set contactPersons = entity.getContactPersons() %}
-          {% if contactPersons | length %}
-            <table class="table table-condensed th-vertical">
-              <tbody>
-                <tr>
-                  <th>{{ 'appbundle.virksomhed.contactPersons.0.name' | trans }}</th>
-                  <th>{{ 'appbundle.virksomhed.contactPersons.0.mail' | trans }}</th>
-                  <th>{{ 'appbundle.virksomhed.contactPersons.0.phoneNumber' | trans }}</th>
-                </tr>
-                {% for contactPerson in contactPersons %}
-                  <tr>
-                    <th>{{ contactPerson.name }}</th>
-                    <td>{{ contactPerson.mail }}</td>
-                    <td>{{ contactPerson.phoneNumber }}</td>
-                  </tr>
+          <div class="row">
+            <div class="col-md-6">
+              <h4>{{ 'appbundle.virksomhed.datterSelskaber' | trans }}</h4>
+              {% set datterSelskaber = entity.getDatterSelskaber() %}
+              {% if datterSelskaber | length %}
+                {% for datterSelskab in datterSelskaber %}
+                  <div>{{ icon('briefcase') }} <a href="{{ path_with_access_token('virksomhed_show', { 'id': datterSelskab.id }) }}">{{ datterSelskab }}</a></div>
+                  {% set bygninger = datterSelskab.getBygninger() %}
+                  {% if bygninger | length %}
+                    {% for bygning in bygninger %}
+                      <div class="indent">{{ icon('home') }} <a href="{{ path_with_access_token('bygning_show', { 'id': bygning.id }) }}">{{ bygning }}</a></div>
+                    {% endfor %}
+                  {% else %}
+                    <div class="indent">{{ 'virksomhed.messages.empty.bygninger' | trans }}</div>
+                  {% endif %}
                 {% endfor %}
-              </tbody>
-            </table>
-          {% else %}
-            <div class="panel-body">
-              {{ 'virksomhed.messages.empty.contactPersons' | trans }}
+              {% else %}
+                {{ 'virksomhed.messages.empty.datterSelskaber' | trans }}
+              {% endif %}
             </div>
-          {% endif %}
+            <div class="col-md-6">
+              <h4>{{ 'appbundle.virksomhed.bygning' | trans }}</h4>
+              {% set bygninger = entity.getBygninger() %}
+              {% if bygninger | length %}
+                {% for bygning in bygninger %}
+                  <div>{{ icon('home') }} <a href="{{ path_with_access_token('bygning_show', { 'id': bygning.id }) }}">{{ bygning }}</a></div>
+                {% endfor %}
+              {% else %}
+                {{ 'virksomhed.messages.empty.bygninger' | trans }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">{{ icon('briefcase') }} {{ 'appbundle.virksomhed.datterSelskaber' | trans }}</div>
-        <div class="panel-body">
-          {% set datterSelskaber = entity.getDatterSelskaber() %}
-          {% if datterSelskaber | length %}
-            <ul>
-              {% for datterSelskab in datterSelskaber %}
-                <li><a href="{{ path_with_access_token('virksomhed_show', { 'id': datterSelskab.id }) }}">{{ datterSelskab }}</a></li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            {{ 'virksomhed.messages.empty.datterSelskaber' | trans }}
-          {% endif %}
-        </div>
-      </div>
       <div class="panel panel-default">
         <div class="panel-heading">{{ icon('home') }} {{ 'appbundle.virksomhed.beregn_oplysninger' | trans }}</div>
         <table class="table table-condensed th-vertical">
@@ -214,6 +195,34 @@
           </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('phone') }} {{ 'appbundle.virksomhed.contactPersons' | trans }}</div>
+        {% set contactPersons = entity.getContactPersons() %}
+        {% if contactPersons | length %}
+          <table class="table table-condensed th-vertical">
+            <tbody>
+            <tr>
+              <th>{{ 'appbundle.virksomhed.contactPersons.0.name' | trans }}</th>
+              <th>{{ 'appbundle.virksomhed.contactPersons.0.mail' | trans }}</th>
+              <th>{{ 'appbundle.virksomhed.contactPersons.0.phoneNumber' | trans }}</th>
+            </tr>
+            {% for contactPerson in contactPersons %}
+              <tr>
+                <th>{{ contactPerson.name }}</th>
+                <td>{{ contactPerson.mail }}</td>
+                <td>{{ contactPerson.phoneNumber }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="panel-body">
+            {{ 'virksomhed.messages.empty.contactPersons' | trans }}
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
