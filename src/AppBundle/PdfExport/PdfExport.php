@@ -28,11 +28,11 @@ class PdfExport {
     }
 
     if ($screeningAt = $rapport->getDatering()) {
-      $data[] = $screeningAt->format('d.m.Y');
+      $data[] = 'Screeningsdato: ' . $screeningAt->format('d.m.Y');
     }
 
     if ($updatedAt = $rapport->getUpdatedAt()) {
-      $data[] = $updatedAt->format('d.m.Y');
+      $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
     $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', array(
@@ -67,11 +67,11 @@ class PdfExport {
     }
 
     if ($screeningAt = $rapport->getDatering()) {
-      $data[] = $screeningAt->format('d.m.Y');
+      $data[] = 'Screeningsdato: ' . $screeningAt->format('d.m.Y');
     }
 
     if ($updatedAt = $rapport->getUpdatedAt()) {
-      $data[] = $updatedAt->format('d.m.Y');
+      $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
     $cover = $this->renderView('AppBundle:Rapport:showPdf5Cover.html.twig', array(
@@ -103,11 +103,11 @@ class PdfExport {
     }
 
     if ($screeningAt = $rapport->getDatering()) {
-      $data[] = $screeningAt->format('d.m.Y');
+      $data[] = 'Screeningsdato: ' . $screeningAt->format('d.m.Y');
     }
 
     if ($updatedAt = $rapport->getUpdatedAt()) {
-      $data[] = $updatedAt->format('d.m.Y');
+      $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
     $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', array(
@@ -138,11 +138,11 @@ class PdfExport {
     }
 
     if ($screeningAt = $rapport->getDatering()) {
-      $data[] = $screeningAt->format('d.m.Y');
+      $data[] = 'Screeningsdato: ' . $screeningAt->format('d.m.Y');
     }
 
     if ($updatedAt = $rapport->getUpdatedAt()) {
-      $data[] = $updatedAt->format('d.m.Y');
+      $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
     $cover = $this->renderView('AppBundle:Rapport:showPdf5Cover.html.twig', array(

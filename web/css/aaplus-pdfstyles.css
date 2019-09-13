@@ -184,11 +184,16 @@ thead {
 
 .table-header-rotated tr:nth-child(even),
 .table-header-rotated tr:nth-child(even):hover {
-  background-color: #E5E5E1 !important;
+  background-color: #F8F8F7 !important;
 }
 
 th.unit {
-  background-color: #89C2D2;
+  background-color: #E5E5E1;
+  color: #50534d;
+}
+
+tbody th {
+  font-weight: normal;
 }
 
 td.selected {
@@ -224,6 +229,11 @@ th.border-right:last-child, td.border-right:last-child {
   overflow: hidden;
 }
 
+tr.highlight {
+  background-color: #E5E5E1;
+  color: #50534d;
+}
+
 .panel-heading {
   border-bottom: 1pt solid #E5E5E1;
   border-top-left-radius: 0;
@@ -241,4 +251,8 @@ th.border-right:last-child, td.border-right:last-child {
   padding-top: 10pt;
   font-size: .7em;
   border-top: 1pt solid #B2C930;
+}
+
+p {
+  margin: 0 0 20px;
 }

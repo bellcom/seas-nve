@@ -45,18 +45,37 @@ class Virksomhed
     private $cvrNumber;
 
     /**
+     * Helping property to split part of bygning added by CVR number.
+     *
+     * Stores bygning id as serialized array.
+     *
+     * @var array
+     *
+     * @ORM\Column(name="bygninger_by_cvr_number", type="array", nullable=true)
+     */
+    private $bygningerByCvrNumber = array();
+
+    /**
+     * Helping property to split part of bygning added by EAN number.
+     *
+     * Stores bygning EAN number as serialized array.
+     *
      * @var array
      *
      * @ORM\Column(name="ean_numbers", type="array", nullable=true)
      */
-    private $eanNumbers;
+    private $bygningerEanNumbers;
 
     /**
+     * Helping property to split part of bygning added by P number.
+     *
+     * Stores bygning P number as serialized array.
+     *
      * @var array
      *
      * @ORM\Column(name="p_numbers", type="array", nullable=true)
      */
-    private $pNumbers;
+    private $bygningerPNumbers;
 
     /**
      * @var string
@@ -331,51 +350,88 @@ class Virksomhed
     }
 
     /**
-     * Set eanNumbers
+     * Set bygningerByCvrNumber
      *
-     * @param array $eanNumbers
+     * @param array $bygningerByCvrNumber
      *
      * @return Virksomhed
      */
-    public function setEanNumbers(array $eanNumbers)
+    public function setBygningerByCvrNumber(array $bygningerByCvrNumber)
     {
-        $this->eanNumbers = $eanNumbers;
+        $this->bygningerByCvrNumber = array_unique($bygningerByCvrNumber);
 
         return $this;
     }
 
     /**
-     * Get eanNumbers
+     * Add bygningerByCvrNumber
      *
-     * @return array
-     */
-    public function getEanNumbers()
-    {
-        return $this->eanNumbers;
-    }
-
-    /**
-     * Set pNumbers
-     *
-     * @param array $pNumbers
+     * @param string $bygningerByCvrNumber
      *
      * @return Virksomhed
      */
-    public function setPNumbers(array $pNumbers)
+    public function addBygningerByCvrNumber($bygningerByCvrNumber)
     {
-        $this->pNumbers = $pNumbers;
+        $this->bygningerByCvrNumber[] = $bygningerByCvrNumber;
+        return $this;
+    }
+
+    /**
+     * Get bygningerCvrNumber
+     *
+     * @return array
+     */
+    public function getBygningerByCvrNumber()
+    {
+        return empty($this->bygningerByCvrNumber) ? array() : $this->bygningerByCvrNumber;
+    }
+
+    /**
+     * Set bygningerEanNumbers
+     *
+     * @param array $bygningerEanNumbers
+     *
+     * @return Virksomhed
+     */
+    public function setBygningerEanNumbers(array $bygningerEanNumbers)
+    {
+        $this->bygningerEanNumbers = $bygningerEanNumbers;
 
         return $this;
     }
 
     /**
-     * Get pNumbers
+     * Get bygningerEanNumbers
      *
      * @return array
      */
-    public function getPNumbers()
+    public function getBygningerEanNumbers()
     {
-        return $this->pNumbers;
+        return $this->bygningerEanNumbers;
+    }
+
+    /**
+     * Set bygningerPNumbers
+     *
+     * @param array $bygningerPNumbers
+     *
+     * @return Virksomhed
+     */
+    public function setBygningerPNumbers(array $bygningerPNumbers)
+    {
+        $this->bygningerPNumbers = $bygningerPNumbers;
+
+        return $this;
+    }
+
+    /**
+     * Get bygningerPNumbers
+     *
+     * @return array
+     */
+    public function getBygningerPNumbers()
+    {
+        return $this->bygningerPNumbers;
     }
 
     /**
@@ -1148,8 +1204,9 @@ class Virksomhed
      * Filters empty values for entity.
      */
     public function filterEmptyValues() {
-        $this->setEanNumbers(array_filter($this->getEanNumbers()));
-        $this->setPNumbers(array_filter($this->getPNumbers()));
+        $this->setBygningerEanNumbers(array_filter($this->getBygningerEanNumbers()));
+        $this->setBygningerPNumbers(array_filter($this->getBygningerPNumbers()));
+        $this->setBygningerByCvrNumber(array_filter($this->getBygningerByCvrNumber()));
         $datterSelskaber = $this->getDatterSelskaber();
         foreach ($datterSelskaber as $virksomhed) {
             if (empty($virksomhed->getId())) {

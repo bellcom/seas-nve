@@ -177,6 +177,8 @@ bygninger:
   confirmation:
     bygning_infoert: "Bygnings data verificeret"
     raadgiver_tilknyttet: "Rådgiver tilknyttet"
+  error:
+    bind_virksomhed_by_cvr: "Bygning allerede tilknutet til Virksomhed. Fjern bygning fra Virksomhed først."
   labels:
     plural: "Bygninger"
     singular: "Bygning"
@@ -614,8 +616,8 @@ virksomhed:
     empty:
       contactPersons: "Ingen kontaktpersoner"
       datterSelskaber: "Ingen datterselskaber"
-      eanNumbers: "Ingen EAN-numre"
-      pNumbers: "Ingen P-numre"
+      bygningerEanNumbers: "Ingen EAN-numre"
+      bygningerPNumbers: "Ingen P-numre"
       parent: "Ingen moderselskab"
       bygninger: "Ingen tilknytet bygninger"
     delete_user: "Fjern tilknytet bruger?"
@@ -1284,6 +1286,7 @@ appbundle:
     titel: "År"
   group:
     name: "Navn"
+    name.help: "BEMÆRK: Du kan ikke bruge navn: Projektleder, Projekterende, Interessent. Alle de grupe er servicegrupper."
     roles: "Roles"
   klimaskaerm:
     arbejdeOmfang: "Arbejde/omfang"
@@ -1873,7 +1876,10 @@ appbundle:
     samletBesparelseVedligehold: "Vedligeholdelsesbesparelse"
     samletBesparelseVedligehold.unit: "kr/år"
     tilskudsstoerrelse: "Tilskudsstørrelse"
+    prioriteringsfaktor: "Prioriteringsfaktor"
+    konverteringsfaktor: "Konverteringsfaktor"
     tilskudsstoerrelse.unit: "kr/kWh"
+    tilskudsstoerrelse.help: "Hvis ingen angives, arves værdien fra virksomheden."
     samletTilskud: "Samlet tilskud"
     samletTilskud.unit: "kr/år"
   tiltagdatofordrift:
@@ -1979,12 +1985,15 @@ appbundle:
     generalt: "Generel information"
     name: "Firmanavn"
     cvrNumber: "CVR-nr."
-    pNumbers: "P-nr."
-    pNumbers.placeholder: "Vælg bygning efter P-nummer"
-    pNumbers.description: "Tilknyt eksiterende bygniger på P-nummer."
-    eanNumbers: "EAN-nr."
-    eanNumbers.placeholder: "Vælg bygning efter EAN-nummer"
-    eanNumbers.description: "Tilknyt eksiterende bygniger på EAN-nummer."
+    bygningerByCvrNumber: "CVR-nr."
+    bygningerByCvrNumber.placeholder: "Vælg bygning efter CVR-nummer"
+    bygningerByCvrNumber.description: "Tilknyt eksiterende bygniger på CVR-nummer."
+    bygningerEanNumbers: "EAN-nr."
+    bygningerEanNumbers.placeholder: "Vælg bygning efter EAN-nummer"
+    bygningerEanNumbers.description: "Tilknyt eksiterende bygniger på EAN-nummer."
+    bygningerPNumbers: "P-nr."
+    bygningerPNumbers.placeholder: "Vælg bygning efter P-nummer"
+    bygningerPNumbers.description: "Tilknyt eksiterende bygniger på P-nummer."
     crmNumber: "CRM-nr."
     projectNumber: "Projekt nr."
     aftagerNumber: "Aftager nr."
