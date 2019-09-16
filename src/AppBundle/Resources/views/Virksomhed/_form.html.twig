@@ -58,15 +58,15 @@
             </div>
         </div>
         <div class="panel panel-default">
-            <div class="panel-heading">{{ icon('barcode') }} {{ 'appbundle.virksomhed.bygningerEanNumbers' | trans }}</div>
+            <div class="panel-heading">{{ icon('barcode') }} {{ 'appbundle.virksomhed.bygningerByEanNumber' | trans }}</div>
             <div class="panel-body">
                 <div class="row form-group">
                     <div class="col-sm-12">
-                        {{ 'appbundle.virksomhed.bygningerEanNumbers.description' | trans }}
+                        {{ 'appbundle.virksomhed.bygningerByEanNumber.description' | trans }}
                     </div>
                 </div>
-                <div class="ean_numbers wrapper" data-prototype="{{ form_widget(form.bygningerEanNumbers.vars.prototype)|e('html_attr') }}">
-                    {% for eanNumber in form.bygningerEanNumbers %}
+                <div class="ean_numbers wrapper" data-prototype="{{ form_widget(form.bygningerByEanNumber.vars.prototype)|e('html_attr') }}">
+                    {% for eanNumber in form.bygningerByEanNumber %}
                         <div class="row form-group">
                             <div class="col-sm-10">
                                 {{ form_widget(eanNumber) }}
@@ -75,19 +75,19 @@
                         </div>
                     {% endfor %}
                 </div>
-                {% do form.bygningerEanNumbers.setRendered %}
+                {% do form.bygningerByEanNumber.setRendered %}
             </div>
         </div>
         <div class="panel panel-default">
-            <div class="panel-heading">{{ icon('user') }} {{ 'appbundle.virksomhed.bygningerPNumbers' | trans }}</div>
+            <div class="panel-heading">{{ icon('user') }} {{ 'appbundle.virksomhed.bygningerByPNumber' | trans }}</div>
             <div class="panel-body">
                 <div class="row form-group">
                     <div class="col-sm-12">
-                        {{ 'appbundle.virksomhed.bygningerPNumbers.description' | trans }}
+                        {{ 'appbundle.virksomhed.bygningerByPNumber.description' | trans }}
                     </div>
                 </div>
-                <div class="p_numbers wrapper" data-prototype="{{ form_widget(form.bygningerPNumbers.vars.prototype)|e('html_attr') }}">
-                    {% for pNumber in form.bygningerPNumbers %}
+                <div class="p_numbers wrapper" data-prototype="{{ form_widget(form.bygningerByPNumber.vars.prototype)|e('html_attr') }}">
+                    {% for pNumber in form.bygningerByPNumber %}
                         <div class="row form-group">
                             <div class="col-sm-10">
                                 {{ form_widget(pNumber) }}
@@ -96,7 +96,7 @@
                         </div>
                     {% endfor %}
                 </div>
-                {% do form.bygningerPNumbers.setRendered %}
+                {% do form.bygningerByPNumber.setRendered %}
             </div>
         </div>
     </div>

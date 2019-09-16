@@ -52,46 +52,6 @@ class BygningRepository extends BaseRepository {
   }
 
   /**
-   * Find all Bygning by specific numbers
-   *
-   * @param Virksomhed $virksomhed
-   * @param bool $returnQuery
-   * @return array|\Doctrine\ORM\Query
-   */
-  public function findByNumbers(Virksomhed $virksomhed, $returnQuery = FALSE) {
-      $qb = $this->_em->createQueryBuilder();
-      $qb->select('b')
-          ->from('AppBundle:Bygning', 'b');
-
-      if (!empty($virksomhed->getCvrNumber())) {
-          $qb->orWhere('b.cvrNumber = :cvrNumber')
-              ->setParameter('cvrNumber',  $virksomhed->getCvrNumber());
-      }
-
-      if (!empty($virksomhed->getBygningerByCvrNumber())) {
-          $qb->orWhere('b.id IN (:bygningerByCvrNumbers)')
-              ->setParameter('bygningerByCvrNumbers', $virksomhed->getBygningerByCvrNumber());
-      }
-
-      if (!empty($virksomhed->getBygningerEanNumbers())) {
-          $qb->orWhere('b.eanNumber IN (:bygningerEanNumbers)')
-              ->setParameter('bygningerEanNumbers', $virksomhed->getBygningerEanNumbers());
-      }
-
-      if (!empty($virksomhed->getBygningerPNumbers())) {
-        $qb->orWhere('b.pNumber IN (:bygningerPNumbers)')
-              ->setParameter('bygningerPNumbers', $virksomhed->getBygningerPNumbers());
-      }
-
-      if (empty($qb->getParameters())) {
-          return array();
-      }
-
-      $query = $qb->getQuery();
-      return $returnQuery ? $query : $query->getResult();
-  }
-
-  /**
    * Find all Bygning with not empty values by column.
    *
    * @param bool $returnQuery
@@ -351,8 +311,8 @@ class BygningRepository extends BaseRepository {
   {
     $result = array();
     /** @var Bygning $bygning */
-    foreach ($this->getAllUniqueValues('eanNumber') as $bygning) {
-      $result[$bygning->getEanNumber()] = $bygning->getEanNumber() . ' (' . $bygning . ')';
+    foreach ($this->getNotEmpty('eanNumber') as $bygning) {
+      $result[$bygning->getId()] = $bygning->getEanNumber() . ' (' . $bygning . ')';
     }
     return $result;
   }
@@ -361,8 +321,8 @@ class BygningRepository extends BaseRepository {
   {
     $result = array();
     /** @var Bygning $bygning */
-    foreach ($this->getAllUniqueValues('pNumber') as $bygning) {
-      $result[$bygning->getPNumber()] = $bygning->getPNumber() . ' (' . $bygning . ')';
+    foreach ($this->getNotEmpty('pNumber') as $bygning) {
+      $result[$bygning->getId()] = $bygning->getPNumber() . ' (' . $bygning . ')';
     }
     return $result;
   }

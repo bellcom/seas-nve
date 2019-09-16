@@ -62,9 +62,9 @@ class Virksomhed
      *
      * @var array
      *
-     * @ORM\Column(name="ean_numbers", type="array", nullable=true)
+     * @ORM\Column(name="bygninger_ean_number", type="array", nullable=true)
      */
-    private $bygningerEanNumbers;
+    private $bygningerByEanNumber;
 
     /**
      * Helping property to split part of bygning added by P number.
@@ -73,9 +73,9 @@ class Virksomhed
      *
      * @var array
      *
-     * @ORM\Column(name="p_numbers", type="array", nullable=true)
+     * @ORM\Column(name="bygninger_p_number", type="array", nullable=true)
      */
-    private $bygningerPNumbers;
+    private $bygningerByPNumber;
 
     /**
      * @var string
@@ -387,51 +387,51 @@ class Virksomhed
     }
 
     /**
-     * Set bygningerEanNumbers
+     * Set bygningerByEanNumber
      *
-     * @param array $bygningerEanNumbers
+     * @param array $bygningerByEanNumber
      *
      * @return Virksomhed
      */
-    public function setBygningerEanNumbers(array $bygningerEanNumbers)
+    public function setBygningerByEanNumber(array $bygningerByEanNumber)
     {
-        $this->bygningerEanNumbers = $bygningerEanNumbers;
+        $this->bygningerByEanNumber = $bygningerByEanNumber;
 
         return $this;
     }
 
     /**
-     * Get bygningerEanNumbers
+     * Get bygningerByEanNumber
      *
      * @return array
      */
-    public function getBygningerEanNumbers()
+    public function getBygningerByEanNumber()
     {
-        return $this->bygningerEanNumbers;
+        return $this->bygningerByEanNumber;
     }
 
     /**
-     * Set bygningerPNumbers
+     * Set bygningerByPNumber
      *
-     * @param array $bygningerPNumbers
+     * @param array $bygningerByPNumber
      *
      * @return Virksomhed
      */
-    public function setBygningerPNumbers(array $bygningerPNumbers)
+    public function setBygningerByPNumber(array $bygningerByPNumber)
     {
-        $this->bygningerPNumbers = $bygningerPNumbers;
+        $this->bygningerByPNumber = $bygningerByPNumber;
 
         return $this;
     }
 
     /**
-     * Get bygningerPNumbers
+     * Get bygningerByPNumber
      *
      * @return array
      */
-    public function getBygningerPNumbers()
+    public function getBygningerByPNumber()
     {
-        return $this->bygningerPNumbers;
+        return $this->bygningerByPNumber;
     }
 
     /**
@@ -1236,8 +1236,8 @@ class Virksomhed
      * Filters empty values for entity.
      */
     public function filterEmptyValues() {
-        $this->setBygningerEanNumbers(array_filter($this->getBygningerEanNumbers()));
-        $this->setBygningerPNumbers(array_filter($this->getBygningerPNumbers()));
+        $this->setBygningerByEanNumber(array_filter($this->getBygningerByEanNumber()));
+        $this->setBygningerByPNumber(array_filter($this->getBygningerByPNumber()));
         $this->setBygningerByCvrNumber(array_filter($this->getBygningerByCvrNumber()));
         $datterSelskaber = $this->getDatterSelskaber();
         foreach ($datterSelskaber as $virksomhed) {

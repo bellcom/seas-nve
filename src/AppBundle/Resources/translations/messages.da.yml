@@ -186,6 +186,7 @@ bygninger:
     singular: "Bygning"
   strings:
     ingen: "Ingen bygninger fundet"
+    ingen_rapporter: "Ingen tilknytet raporter"
 bygning_rapporter:
   labels:
     plural: "Bygning rapporter"
@@ -618,8 +619,8 @@ virksomhed:
     empty:
       contactPersons: "Ingen kontaktpersoner"
       datterSelskaber: "Ingen datterselskaber"
-      bygningerEanNumbers: "Ingen EAN-numre"
-      bygningerPNumbers: "Ingen P-numre"
+      bygningerByEanNumber: "Ingen EAN-numre"
+      bygningerByPNumber: "Ingen P-numre"
       parent: "Ingen moderselskab"
       bygninger: "Ingen tilknytet bygninger"
     delete_user: "Fjern tilknytet bruger?"
@@ -1990,12 +1991,12 @@ appbundle:
     bygningerByCvrNumber: "CVR-nr."
     bygningerByCvrNumber.placeholder: "Vælg bygning efter CVR-nummer"
     bygningerByCvrNumber.description: "Tilknyt eksiterende bygniger på CVR-nummer."
-    bygningerEanNumbers: "EAN-nr."
-    bygningerEanNumbers.placeholder: "Vælg bygning efter EAN-nummer"
-    bygningerEanNumbers.description: "Tilknyt eksiterende bygniger på EAN-nummer."
-    bygningerPNumbers: "P-nr."
-    bygningerPNumbers.placeholder: "Vælg bygning efter P-nummer"
-    bygningerPNumbers.description: "Tilknyt eksiterende bygniger på P-nummer."
+    bygningerByEanNumber: "EAN-nr."
+    bygningerByEanNumber.placeholder: "Vælg bygning efter EAN-nummer"
+    bygningerByEanNumber.description: "Tilknyt eksiterende bygniger på EAN-nummer."
+    bygningerByPNumber: "P-nr."
+    bygningerByPNumber.placeholder: "Vælg bygning efter P-nummer"
+    bygningerByPNumber.description: "Tilknyt eksiterende bygniger på P-nummer."
     crmNumber: "CRM-nr."
     projectNumber: "Projekt nr."
     aftagerNumber: "Aftager nr."

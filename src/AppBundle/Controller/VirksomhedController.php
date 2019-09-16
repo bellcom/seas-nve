@@ -158,7 +158,11 @@ class VirksomhedController extends BaseController
                 }
             }
 
-            $bygninger = $bygningRepository->findByNumbers($entity);
+            $bygninger = $bygningRepository->findBy(array('id' => array_merge(
+                $entity->getBygningerByCvrNumber(),
+                $entity->getBygningerByEanNumber(),
+                $entity->getBygningerByPNumber()
+            )));
             $entity->setBygninger(new ArrayCollection());
             foreach ($bygninger as $bygning) {
                 $entity->addBygninger($bygning);
@@ -446,7 +450,11 @@ class VirksomhedController extends BaseController
                 }
             }
 
-            $bygninger = $bygningRepository->findByNumbers($virksomhed);
+            $bygninger = $bygningRepository->findBy(array('id' => array_merge(
+                $virksomhed->getBygningerByCvrNumber(),
+                $virksomhed->getBygningerByEanNumber(),
+                $virksomhed->getBygningerByPNumber()
+            )));
             $virksomhed->setBygninger(new ArrayCollection());
             foreach ($bygninger as $bygning) {
                 $virksomhed->addBygninger($bygning);

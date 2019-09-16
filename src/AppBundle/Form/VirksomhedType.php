@@ -24,16 +24,16 @@ class VirksomhedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $virksomheder = array();
-        $bygningerEanNumbers = array();
-        $bygningerPNumbers = array();
+        $bygningerByEanNumber = array();
+        $bygningerByPNumber = array();
         $em = $options['entityManager'];
         if (!empty($em)) {
             /** @var BygningRepository $bygningRepository */
             $bygningRepository = $em->getRepository('AppBundle:Bygning');
             $virksomheder = $em->getRepository('AppBundle:Virksomhed')->getDatterSelskabReferenceList($options['data']);
             $bygningerByCvrNumber = $bygningRepository->getCvrNumberReferenceList();
-            $bygningerPNumbers = $bygningRepository->getPNumberReferenceList();
-            $bygningerEanNumbers = $bygningRepository->getEanNumberReferenceList();
+            $bygningerByPNumber = $bygningRepository->getPNumberReferenceList();
+            $bygningerByEanNumber = $bygningRepository->getEanNumberReferenceList();
         }
         $builder
             ->add('name')
@@ -50,11 +50,11 @@ class VirksomhedType extends AbstractType
                 'by_reference' => FALSE,
                 'required' => FALSE,
             ))
-            ->add('bygningerEanNumbers','collection', array(
+            ->add('bygningerByEanNumber','collection', array(
                 'type' => 'choice',
                 'options'      => array(
-                    'placeholder' => 'appbundle.virksomhed.bygningerEanNumbers.placeholder',
-                    'choices' => $bygningerEanNumbers,
+                    'placeholder' => 'appbundle.virksomhed.bygningerByEanNumber.placeholder',
+                    'choices' => $bygningerByEanNumber,
                     'label' => FALSE,
                 ),
                 'allow_add' => TRUE,
@@ -62,11 +62,11 @@ class VirksomhedType extends AbstractType
                 'by_reference' => FALSE,
                 'required' => FALSE,
             ))
-            ->add('bygningerPNumbers','collection', array(
+            ->add('bygningerByPNumber','collection', array(
                 'type' => 'choice',
                 'options'      => array(
-                    'placeholder' => 'appbundle.virksomhed.bygningerPNumbers.placeholder',
-                    'choices' => $bygningerPNumbers,
+                    'placeholder' => 'appbundle.virksomhed.bygningerByPNumber.placeholder',
+                    'choices' => $bygningerByPNumber,
                     'label' => FALSE,
                 ),
                 'allow_add' => TRUE,

@@ -8,6 +8,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\DataExport\ExcelExport;
 use AppBundle\Entity\Baseline;
+use AppBundle\Entity\BygningRepository;
 use AppBundle\Entity\ContactPerson;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\VirksomhedType;
@@ -212,7 +213,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @Security("has_role('ROLE_BYGNING_VIEW')")
    */
   public function cvrNumListAction() {
-    /** @var Query $query */
+    /** @var BygningRepository $repository */
     $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
     $result = $repository->getCvrNumberReferenceList();
     $response = new Response();
@@ -229,7 +230,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @Security("has_role('ROLE_BYGNING_VIEW')")
    */
   public function eanNumListAction() {
-    /** @var Query $query */
+    /** @var BygningRepository $repository */
     $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
     $result = $repository->getEanNumberReferenceList();
     $response = new Response();
@@ -246,7 +247,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @Security("has_role('ROLE_BYGNING_VIEW')")
    */
   public function pNumListAction() {
-    /** @var Query $query */
+    /** @var BygningRepository $repository */
     $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
     $result = $repository->getPNumberReferenceList();
     $response = new Response();
@@ -338,7 +339,7 @@ class BygningController extends BaseController implements InitControllerInterfac
     $editForm = $this->createEditForm($bygning);
 
     $editForm->handleRequest($request);
-  
+
     if (!empty($bygning->getCvrNumber())
       && !empty($originalVirksomhed)
       && $bygning->getCvrNumber() != $originalVirksomhed->getCvrNumber()) {
