@@ -232,7 +232,7 @@ class Bygning {
   protected $baseline;
 
   /**
-   * @ManyToOne(targetEntity="Virksomhed")
+   * @ManyToOne(targetEntity="Virksomhed", cascade={"persist"})
    * @JoinColumn(name="virksomhed_id", referencedColumnName="id", nullable=true)
    **/
   protected $virksomhed;

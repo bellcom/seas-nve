@@ -171,7 +171,7 @@ class Virksomhed
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Bygning", mappedBy="virksomhed")
+     * @ORM\OneToMany(targetEntity="Bygning", mappedBy="virksomhed", cascade={"persist"})
      */
     private $bygninger;
 

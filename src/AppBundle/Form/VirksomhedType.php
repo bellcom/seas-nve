@@ -31,9 +31,9 @@ class VirksomhedType extends AbstractType
             /** @var BygningRepository $bygningRepository */
             $bygningRepository = $em->getRepository('AppBundle:Bygning');
             $virksomheder = $em->getRepository('AppBundle:Virksomhed')->getDatterSelskabReferenceList($options['data']);
-            $bygningerByCvrNumber = $bygningRepository->getCvrNumberReferenceList();
-            $bygningerByPNumber = $bygningRepository->getPNumberReferenceList();
-            $bygningerByEanNumber = $bygningRepository->getEanNumberReferenceList();
+            $bygningerByCvrNumber = $bygningRepository->getCvrNumberReferenceList($options['data']->getId());
+            $bygningerByPNumber = $bygningRepository->getPNumberReferenceList($options['data']->getId());
+            $bygningerByEanNumber = $bygningRepository->getEanNumberReferenceList($options['data']->getId());
         }
         $builder
             ->add('name')

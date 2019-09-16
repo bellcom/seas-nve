@@ -307,31 +307,40 @@ class BygningRepository extends BaseRepository {
     return null;
   }
 
-  public function getEanNumberReferenceList()
+  public function getEanNumberReferenceList($virksomhed_id = NULL)
   {
     $result = array();
     /** @var Bygning $bygning */
     foreach ($this->getNotEmpty('eanNumber') as $bygning) {
+      if (!empty($bygning->getVirksomhed()) && $bygning->getVirksomhed()->getId() != $virksomhed_id) {
+        continue;
+      }
       $result[$bygning->getId()] = $bygning->getEanNumber() . ' (' . $bygning . ')';
     }
     return $result;
   }
 
-  public function getPNumberReferenceList()
+  public function getPNumberReferenceList($virksomhed_id = NULL)
   {
     $result = array();
     /** @var Bygning $bygning */
     foreach ($this->getNotEmpty('pNumber') as $bygning) {
+      if (!empty($bygning->getVirksomhed()) && $bygning->getVirksomhed()->getId() != $virksomhed_id) {
+        continue;
+      }
       $result[$bygning->getId()] = $bygning->getPNumber() . ' (' . $bygning . ')';
     }
     return $result;
   }
 
-  public function getCvrNumberReferenceList()
+  public function getCvrNumberReferenceList($virksomhed_id = NULL)
   {
     $result = array();
     /** @var Bygning $bygning */
     foreach ($this->getNotEmpty('cvrNumber') as $bygning) {
+      if (!empty($bygning->getVirksomhed()) && $bygning->getVirksomhed()->getId() != $virksomhed_id) {
+        continue;
+      }
       $result[$bygning->getId()] = $bygning->getCvrNumber() . ' (' . $bygning . ')';
     }
     return $result;

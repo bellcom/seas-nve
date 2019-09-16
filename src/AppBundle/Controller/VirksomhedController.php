@@ -150,14 +150,6 @@ class VirksomhedController extends BaseController
             /** @var BygningRepository $bygningRepository */
             $bygningRepository = $em->getRepository(Bygning::class);
 
-            // Binding already created bygning by cvr number if they are not in list.
-            $bygninger = $bygningRepository->findBy(array('cvrNumber' => $entity->getCvrNumber()));
-            foreach ($bygninger as $bygning) {
-                if (!in_array($bygning->getId(), $entity->getBygningerByCvrNumber())) {
-                    $entity->addBygningerByCvrNumber($bygning->getId());
-                }
-            }
-
             $bygninger = $bygningRepository->findBy(array('id' => array_merge(
                 $entity->getBygningerByCvrNumber(),
                 $entity->getBygningerByEanNumber(),
@@ -441,14 +433,6 @@ class VirksomhedController extends BaseController
 
             /** @var BygningRepository $bygningRepository */
             $bygningRepository = $em->getRepository(Bygning::class);
-
-            // Binding already created bygning by cvr number if they are not in list.
-            $bygninger = $bygningRepository->findBy(array('cvrNumber' => $virksomhed->getCvrNumber()));
-            foreach ($bygninger as $bygning) {
-                if (!in_array($bygning->getId(), $virksomhed->getBygningerByCvrNumber())) {
-                    $virksomhed->addBygningerByCvrNumber($bygning->getId());
-                }
-            }
 
             $bygninger = $bygningRepository->findBy(array('id' => array_merge(
                 $virksomhed->getBygningerByCvrNumber(),
