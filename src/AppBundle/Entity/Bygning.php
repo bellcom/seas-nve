@@ -300,6 +300,7 @@ class Bygning {
   public function __construct() {
     $this->users = new ArrayCollection();
     $this->contactPersons = new ArrayCollection();
+    $this->energiRaadgiver = new ArrayCollection();
   }
 
   /**
@@ -1045,7 +1046,14 @@ class Bygning {
    * @return Bygning
    */
   public function setEnergiRaadgiver(Collection $energiRaadgiver = NULL) {
-    $this->energiRaadgiver = $energiRaadgiver;
+    $this->energiRaadgiver = new ArrayCollection();
+    // Prevent adding duplicated references.
+    foreach ($energiRaadgiver as $user) {
+      if ($this->energiRaadgiver->contains($user)) {
+          continue;
+      }
+      $this->energiRaadgiver->add($user);
+    }
 
     return $this;
   }
@@ -1053,7 +1061,7 @@ class Bygning {
   /**
    * Get Energirådgiver
    *
-   * @return Collection
+   * @return ArrayCollection
    */
   public function getEnergiRaadgiver() {
     return $this->energiRaadgiver;
@@ -1062,7 +1070,7 @@ class Bygning {
   /**
    * Get Energirådgiver
    *
-   * @return Collection
+   * @return string
    */
   public function getEnergiRaadgiverStr() {
     $users = array();
@@ -1158,10 +1166,10 @@ class Bygning {
   public function setContactPersons($contactPersons)
   {
     $this->contactPersons = $contactPersons;
-    
+
     return $this;
   }
-  
+
   /**
    * Get contactPersons
    *
@@ -1171,7 +1179,7 @@ class Bygning {
   {
     return $this->contactPersons;
   }
-  
+
   /**
    * Adds contact person to collection.
    *
@@ -1182,7 +1190,7 @@ class Bygning {
     $contactPerson->setReference($this);
     $this->contactPersons->add($contactPerson);
   }
-  
+
   /**
    * Removes contact person from collection.
    *
@@ -1205,7 +1213,7 @@ class Bygning {
     if ($this->getBaseline()) {
       $this->getBaseline()->setArealTilNoegletalsanalyse($this->getBruttoetageareal());
     }
-  
+
     // Contact persons are not handled by Doctrine ORM.
     // We are loading it here.
     $repository = $event->getEntityManager()
