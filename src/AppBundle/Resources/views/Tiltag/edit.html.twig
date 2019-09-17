@@ -54,7 +54,8 @@
         {{ form_row(edit_form.placering) }}
         {{ form_row(edit_form.tilskudsstoerrelse) }}
         {{ form_row(edit_form.prioriteringsfaktor) }}
-        {{ form_row(edit_form.konverteringsfaktor) }}
+        {{ form_row(edit_form.forbrugFoer) }}
+        {{ form_row(edit_form.forbrugEfter) }}
 
         {% if edit_form.datoForDrift is defined %}
           {{ form_row(edit_form.datoForDrift) }}
@@ -65,7 +66,9 @@
         {% endif %}
       </div>
       <div class="col-xs-12 col-md-6">
-        {{ form_row(edit_form.forsyningVarme, { 'attr': { 'class': 'select2' } }) }}
+        {{ form_row(edit_form.konverteringsfaktorFoer) }}
+        {{ form_row(edit_form.konverteringsfaktorEfter) }}
+        {{ form_row(edit_form.forsyningVarme) }}
         {% if edit_form.primaerEnterprise is defined %}
           {{ form_row(edit_form.primaerEnterprise) }}
         {% endif %}
@@ -74,7 +77,7 @@
         {% endif %}
       </div>
       <div class="col-xs-12 col-md-6">
-        {{ form_row(edit_form.forsyningEl, { 'attr': { 'class': 'select2' } }) }}
+        {{ form_row(edit_form.forsyningEl) }}
         {% if edit_form.tiltagskategori is defined %}
           {{ form_row(edit_form.tiltagskategori) }}
         {% endif %}
