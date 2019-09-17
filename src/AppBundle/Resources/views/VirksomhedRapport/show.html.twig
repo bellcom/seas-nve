@@ -340,7 +340,11 @@
               {% if bygninger | length %}
                 {% for bygning in bygninger %}
                   <div>
-                    <a href="{{ path_with_access_token('rapport_show', { 'id': bygning.rapport.id }) }}">{{ bygning }}</a>
+                    {% if bygning.rapport %}
+                      <a href="{{ path_with_access_token('rapport_show', { 'id': bygning.rapport.id }) }}">{{ bygning }}</a>
+                    {% else %}
+                      <a href="{{ path_with_access_token('bygning_show', { 'id': bygning.id }) }}">{{ bygning }} ({{ 'bygninger.strings.ingen_rapporter' | trans }})</a>
+                    {% endif %}
                   </div>
                 {% endfor %}
               {% else %}

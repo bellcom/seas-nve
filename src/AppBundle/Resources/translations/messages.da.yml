@@ -35,6 +35,7 @@ Cancel: "Annuller"
 Update: "Opdater"
 Delete: "Slet"
 Add: "Tilføj"
+Add more: "Tiløj mere"
 Close: "Luk"
 Ok: "Ok"
 
@@ -76,6 +77,7 @@ common:
   none: "Ingen"
   notLinked: "Ikke tilknyttet"
   oekonomi: "Økonomi"
+  overview: "Oversigt"
   personer: "Personer"
   printed: "Udskrevet"
   projektleder_for: "Projektleder for"
@@ -177,11 +179,14 @@ bygninger:
   confirmation:
     bygning_infoert: "Bygnings data verificeret"
     raadgiver_tilknyttet: "Rådgiver tilknyttet"
+  error:
+    bind_virksomhed_by_cvr: "Bygning allerede tilknutet til Virksomhed. Fjern bygning fra Virksomhed først."
   labels:
     plural: "Bygninger"
     singular: "Bygning"
   strings:
     ingen: "Ingen bygninger fundet"
+    ingen_rapporter: "Ingen tilknytet raporter"
 bygning_rapporter:
   labels:
     plural: "Bygningsrapporter"
@@ -413,18 +418,18 @@ pumpetiltag:
     title: "Pumpeudskiftninger"
 pumpetiltagdetailapplikation:
   actions:
-    add: "Tilføj Pumpeforslag detail applikation"
-    create: "Opret Pumpeforslag detail applikation"
-    edit: "Rediger Pumpeforslag detail applikation"
+    add: "Tilføj Pumpeforslags applikation"
+    create: "Opret Pumpeforslags applikation"
+    edit: "Rediger Pumpeforslags applikation"
   confirmation:
-    created: "Nyt Pumpeforslag detail applikation oprettet"
-    updated: "Pumpeforslag detail applikation opdateret"
-    deleted: "Pumpeforslag detail applikation slettet"
+    created: "Nyt Pumpeforslags applikation oprettet"
+    updated: "Pumpeforslags applikation opdateret"
+    deleted: "Pumpeforslags applikation slettet"
   error:
-    in_use: "Kan ikke slettes. Bruges af pumpetiltagdetail."
+    in_use: "Kan ikke slettes. Bruges af pumpeforslags."
   labels:
-    plural: "Pumpeforslag detail applikationer"
-    singular: "Pumpeforslag detail applikation"
+    plural: "Pumpeforslags applikationer"
+    singular: "Pumpeforslags applikation"
 pumpetiltagdetail:
   actions:
     add: "Tilføj Pumpeforslag"
@@ -534,17 +539,17 @@ tiltagdetail:
     deleted: "Detail slettet"
 tiltagskategori:
   actions:
-    add: "Tilføj forslag kategori"
-    edit: "Rediger forslag kategori"
+    add: "Tilføj forslags kategori"
+    edit: "Rediger forslags kategori"
   confirmation:
-    created: "Forslag faketori oprettet"
-    updated: "Forslag faketori opdateret"
-    deleted: "Forslag faketori slettet"
+    created: "Forslags kategori oprettet"
+    updated: "Forslags kategori opdateret"
+    deleted: "Forslags kategori slettet"
   error:
-    in_use: "Kan ikke slettes. Bruges af forslag."
+    in_use: "Kan ikke slettes. Bruges af forslags."
   labels:
-    plural: "Forslag kategorier"
-    singular: "Forslag kategori"
+    plural: "Forslags kategorier"
+    singular: "Forslags kategori"
 udtraek:
   columns:
     alt: "Alt (Uden forslag)"
@@ -614,8 +619,8 @@ virksomhed:
     empty:
       contactPersons: "Ingen kontaktpersoner"
       datterSelskaber: "Ingen datterselskaber"
-      eanNumbers: "Ingen EAN-numre"
-      pNumbers: "Ingen P-numre"
+      bygningerByEanNumber: "Ingen EAN-numre"
+      bygningerByPNumber: "Ingen P-numre"
       parent: "Ingen moderselskab"
       bygninger: "Ingen tilknyttede bygninger"
     delete_user: "Fjern tilknyttet bruger?"
@@ -1986,12 +1991,15 @@ appbundle:
     generalt: "Generel information"
     name: "Firmanavn"
     cvrNumber: "CVR-nr."
-    pNumbers: "P-nr."
-    pNumbers.placeholder: "Vælg bygning ud fra P-nummer"
-    pNumbers.description: "Tilknyt eksisterende bygninger på P-nummer."
-    eanNumbers: "EAN-nr."
-    eanNumbers.placeholder: "Vælg bygning ud fra EAN-nummer"
-    eanNumbers.description: "Tilknyt eksisterende bygninger på EAN-nummer."
+    bygningerByCvrNumber: "CVR-nr."
+    bygningerByCvrNumber.placeholder: "Vælg bygning efter CVR-nummer"
+    bygningerByCvrNumber.description: "Tilknyt eksiterende bygniger på CVR-nummer."
+    bygningerByEanNumber: "EAN-nr."
+    bygningerByEanNumber.placeholder: "Vælg bygning efter EAN-nummer"
+    bygningerByEanNumber.description: "Tilknyt eksiterende bygniger på EAN-nummer."
+    bygningerByPNumber: "P-nr."
+    bygningerByPNumber.placeholder: "Vælg bygning efter P-nummer"
+    bygningerByPNumber.description: "Tilknyt eksiterende bygniger på P-nummer."
     crmNumber: "CRM-nr."
     projectNumber: "Projekt nr."
     aftagerNumber: "Aftager nr."

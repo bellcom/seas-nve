@@ -5,7 +5,7 @@
   float: right;
 }
 
-.table > tbody > tr > .indent {
+.table > tbody > tr > .indent, .panel-body .indent {
   padding-left: 2em;
 }
 

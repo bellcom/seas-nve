@@ -70,7 +70,7 @@
     {% if showAll or columns.groups['aa_screeningsinformation'] %}
       {% if tiltagIndex == 0 %}
         {% xlscell %}{{ bygning.aaplusAnsvarlig }}{% endxlscell %}
-        {% xlscell %}{{ bygning.energiRaadgiver }}{% endxlscell %}
+        {% xlscell %}{{ bygning.getEnergiRaadgiverStr() }}{% endxlscell %}
         {% xlscell %}{#{ bygning.projektleder }#}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.datering|date : null }}{% endxlscell %}
         {% xlscell %}{{ (rapport and rapport.datoForDrift) ? rapport.datoForDrift|date('Y-m-d') : null }}{% endxlscell %}

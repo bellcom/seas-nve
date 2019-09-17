@@ -52,41 +52,6 @@ class BygningRepository extends BaseRepository {
   }
 
   /**
-   * Find all Bygning by specific numbers
-   *
-   * @param Virksomhed $virksomhed
-   * @param bool $returnQuery
-   * @return array|\Doctrine\ORM\Query
-   */
-  public function findByNumbers(Virksomhed $virksomhed, $returnQuery = FALSE) {
-      $qb = $this->_em->createQueryBuilder();
-      $qb->select('b')
-          ->from('AppBundle:Bygning', 'b');
-
-      if (!empty($virksomhed->getCvrNumber())) {
-          $qb->orWhere('b.cvrNumber = :cvrNumber')
-              ->setParameter('cvrNumber',  $virksomhed->getCvrNumber());
-      }
-
-      if (!empty($virksomhed->getPNumbers())) {
-          $qb->orWhere('b.pNumber IN (:pNumbers)')
-              ->setParameter('pNumbers', $virksomhed->getPNumbers());
-      }
-
-      if (!empty($virksomhed->getEanNumbers())) {
-          $qb->orWhere('b.eanNumber IN (:eanNumbers)')
-              ->setParameter('eanNumbers', $virksomhed->getEanNumbers());
-      }
-
-      if (empty($qb->getParameters())) {
-          return array();
-      }
-
-      $query = $qb->getQuery();
-      return $returnQuery ? $query : $query->getResult();
-  }
-
-  /**
    * Find all Bygning with not empty values by column.
    *
    * @param bool $returnQuery
@@ -342,22 +307,41 @@ class BygningRepository extends BaseRepository {
     return null;
   }
 
-  public function getEanNumberReferenceList()
+  public function getEanNumberReferenceList($virksomhed_id = NULL)
   {
     $result = array();
     /** @var Bygning $bygning */
-    foreach ($this->getAllUniqueValues('eanNumber') as $bygning) {
-      $result[$bygning->getEanNumber()] = $bygning->getEanNumber() . ' (' . $bygning . ')';
+    foreach ($this->getNotEmpty('eanNumber') as $bygning) {
+      if (!empty($bygning->getVirksomhed()) && $bygning->getVirksomhed()->getId() != $virksomhed_id) {
+        continue;
+      }
+      $result[$bygning->getId()] = $bygning->getEanNumber() . ' (' . $bygning . ')';
     }
     return $result;
   }
 
-  public function getPNumberReferenceList()
+  public function getPNumberReferenceList($virksomhed_id = NULL)
   {
     $result = array();
     /** @var Bygning $bygning */
-    foreach ($this->getAllUniqueValues('pNumber') as $bygning) {
-      $result[$bygning->getPNumber()] = $bygning->getPNumber() . ' (' . $bygning . ')';
+    foreach ($this->getNotEmpty('pNumber') as $bygning) {
+      if (!empty($bygning->getVirksomhed()) && $bygning->getVirksomhed()->getId() != $virksomhed_id) {
+        continue;
+      }
+      $result[$bygning->getId()] = $bygning->getPNumber() . ' (' . $bygning . ')';
+    }
+    return $result;
+  }
+
+  public function getCvrNumberReferenceList($virksomhed_id = NULL)
+  {
+    $result = array();
+    /** @var Bygning $bygning */
+    foreach ($this->getNotEmpty('cvrNumber') as $bygning) {
+      if (!empty($bygning->getVirksomhed()) && $bygning->getVirksomhed()->getId() != $virksomhed_id) {
+        continue;
+      }
+      $result[$bygning->getId()] = $bygning->getCvrNumber() . ' (' . $bygning . ')';
     }
     return $result;
   }

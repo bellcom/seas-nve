@@ -212,7 +212,7 @@
     if ($formRow.hasClass('required')) {
       return;
     }
-    var $removeFormA = $('<a href="#" class="btn btn-danger">Fjern</a>');
+    var $removeFormA = $('<a href="#" class="btn btn-danger">Slet</a>');
     $formRow.find('.col-sm-2').append($removeFormA);
 
     $removeFormA.on('click', function(e) {
@@ -225,7 +225,7 @@
     if (!$collectionHolder.length) {
       return;
     }
-    var $addLink = $('<a href="#" class="btn btn-primary add-link">Tilføj</a>');
+    var $addLink = $('<a href="#" class="btn btn-primary add-link">Tilføj mere</a>');
     var $newLinkRow = $('<div class="row"><div class="col-sm-12"></div></div>').find('div').append($addLink).end();
     if ($addNewUrl) {
       var $addNewLink = $('<a href="' + $addNewUrl +'" class="btn btn-primary" target="_blank">Opret nyt</a>');
@@ -247,7 +247,8 @@
 
   addMore($('.contact_persons'));
   addMore($('.datter_selskaber'), '/virksomhed/datterselskab-list', '/virksomhed/new');
-  addMore($('.ean_numbers'), '/bygning/eannumm-list', '/bygning/new');
-  addMore($('.p_numbers'), '/bygning/pnumm-list', '/bygning/new');
+  addMore($('.ean_numbers'), '/bygning/eannumm-list');
+  addMore($('.p_numbers'), '/bygning/pnumm-list');
+  addMore($('.bygning_by_cvr_number'), '/bygning/cvrnumm-list');
 
 }(jQuery));

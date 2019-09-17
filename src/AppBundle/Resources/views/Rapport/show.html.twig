@@ -132,7 +132,14 @@
         <th>{{ 'appbundle.rapport.bygning' | trans }}</th>
         <td><a href="{{ path('bygning_show', { 'id': entity.bygning.id }) }}">{{ entity.bygning }}, {{ entity.bygning.adresse }}, {{ entity.bygning.postnummer }} {{ entity.bygning.postBy }}</a></td>
         <th>{{ 'appbundle.bygning.energiRaadgiver' | trans }}</th>
-        <td>{{ entity.bygning.energiRaadgiver }}</td>
+        <td>
+          {% set energiRaadgiver = entity.bygning.getEnergiRaadgiver() %}
+          {% if energiRaadgiver | length %}
+            {% for user in energiRaadgiver %}
+              <div>{{ user }}</div>
+            {% endfor %}
+          {% endif %}
+        </td>
       </tr>
       <tr>
         <th>{{ 'appbundle.rapport.datering' | trans }}</th>
