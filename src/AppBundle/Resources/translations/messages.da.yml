@@ -2266,7 +2266,7 @@ roles:
     ROLE_SUPER_ADMIN: "Super administrator"
     ROLE_ADMIN: "Administrator"
     ROLE_CREATE: "Opret alle typer indhold"
-    ROLE_EDIT: "Rediger alle typer indhold"
+    ROLE_EDIT: "Rediger alle typer indhold (undtagen Virksomhed)"
     ROLE_VIEW: "Vis alle typer indhold"
     ROLE_BASELINE_CREATE: "Opret baseline"
     ROLE_BASELINE_EDIT: "Rediger baseline"

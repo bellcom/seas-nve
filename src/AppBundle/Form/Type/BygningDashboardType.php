@@ -59,14 +59,11 @@ class BygningDashboardType extends AbstractType {
     ));
 
     if($this->type === 'aaplusAnsvarlig') {
-      $builder->add('energiRaadgiver', new BygningDashboardUserType($this->doctrine, "Rådgiver"), array('label' => false,
-        'add_shared' => function (FilterBuilderExecuterInterface $qbe) {
-          $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
-            $filterBuilder->leftJoin($alias . '.energiRaadgiver', $joinAlias);
-          };
-
-          $qbe->addOnce($qbe->getAlias() . '.energiRaadgiver', 'u', $closure);
-        }
+      $builder->add('energiRaadgiver', 'entity', array(
+          'class' => 'AppBundle:User',
+          'choices' => $this->getUsersFromGroup("Rådgiver"),
+          'required' => FALSE,
+          'label' => FALSE,
       ));
     } else {
       $builder->add('aaplusAnsvarlig', new BygningDashboardUserType($this->doctrine, "Administrator"), array('label' => false,
@@ -106,4 +103,11 @@ class BygningDashboardType extends AbstractType {
   public function getName() {
     return 'dashboard_bygning';
   }
+
+  private function getUsersFromGroup($groupname) {
+    $em = $this->doctrine->getRepository('AppBundle:Group');
+    $group = $em->findOneByName($groupname);
+    return empty($group) ? array(): $group->getUsers();
+  }
+
 }
