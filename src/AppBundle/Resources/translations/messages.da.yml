@@ -35,7 +35,7 @@ Cancel: "Annuller"
 Update: "Opdater"
 Delete: "Slet"
 Add: "Tilføj"
-Add more: "Tiløj mere"
+Add more: "Tiløj flere"
 Close: "Luk"
 Ok: "Ok"
 
@@ -170,7 +170,7 @@ bilag:
     plural: "Bilag"
 bygninger:
   actions:
-    add: "Tilføj Bygning"
+    add: "Opret ny Bygning"
     create: "Opret Bygning"
     edit: "Rediger Bygning"
     indfoer: "Indfør Bygning"

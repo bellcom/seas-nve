@@ -225,7 +225,7 @@
     if (!$collectionHolder.length) {
       return;
     }
-    var $addLink = $('<a href="#" class="btn btn-primary add-link">Tilføj mere</a>');
+    var $addLink = $('<a href="#" class="btn btn-primary add-link">Tilføj flere</a>');
     var $newLinkRow = $('<div class="row"><div class="col-sm-12"></div></div>').find('div').append($addLink).end();
     if ($addNewUrl) {
       var $addNewLink = $('<a href="' + $addNewUrl +'" class="btn btn-primary" target="_blank">Opret nyt</a>');
