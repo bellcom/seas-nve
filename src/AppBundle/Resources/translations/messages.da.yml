@@ -186,7 +186,7 @@ bygninger:
     singular: "Bygning"
   strings:
     ingen: "Ingen bygninger fundet"
-    ingen_rapporter: "Ingen tilknytet raporter"
+    ingen_rapporter: "Ingen tilknyttede rapporter"
 bygning_rapporter:
   labels:
     plural: "Bygningsrapporter"
@@ -1993,13 +1993,13 @@ appbundle:
     cvrNumber: "CVR-nr."
     bygningerByCvrNumber: "CVR-nr."
     bygningerByCvrNumber.placeholder: "Vælg bygning efter CVR-nummer"
-    bygningerByCvrNumber.description: "Tilknyt eksiterende bygniger på CVR-nummer."
+    bygningerByCvrNumber.description: "Tilknyt eksisterende bygninger på CVR-nummer."
     bygningerByEanNumber: "EAN-nr."
     bygningerByEanNumber.placeholder: "Vælg bygning efter EAN-nummer"
-    bygningerByEanNumber.description: "Tilknyt eksiterende bygniger på EAN-nummer."
+    bygningerByEanNumber.description: "Tilknyt eksisterende bygninger på EAN-nummer."
     bygningerByPNumber: "P-nr."
     bygningerByPNumber.placeholder: "Vælg bygning efter P-nummer"
-    bygningerByPNumber.description: "Tilknyt eksiterende bygniger på P-nummer."
+    bygningerByPNumber.description: "Tilknyt eksisterende bygninger på P-nummer."
     crmNumber: "CRM-nr."
     projectNumber: "Projekt nr."
     aftagerNumber: "Aftager nr."

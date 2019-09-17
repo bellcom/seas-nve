@@ -91,6 +91,8 @@ class TiltagType extends AbstractType {
             ->add('opstartsomkostninger');
 
     $builder
+      ->add('forbrugFoer')
+      ->add('forbrugEfter')
       ->add('prioriteringsfaktor', 'choice', array(
         'choices' => array(
           '0.5' => '0,5',
@@ -99,7 +101,15 @@ class TiltagType extends AbstractType {
         ),
         'required' => TRUE
       ))
-      ->add('konverteringsfaktor', 'choice', array(
+      ->add('konverteringsfaktorFoer', 'choice', array(
+        'choices' => array(
+          '0.8' => '0,8',
+          '1' => '1,0',
+          '1.8' => '1,8',
+        ),
+        'required' => TRUE
+      ))
+      ->add('konverteringsfaktorEfter', 'choice', array(
         'choices' => array(
           '0.8' => '0,8',
           '1' => '1,0',
