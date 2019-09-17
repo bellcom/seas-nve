@@ -208,7 +208,7 @@ bygning_rapporter:
     pdf5: "Detailark"
     re-calculate: "Genberegn"
     retur: "Retur til rådgiver"
-    retur_confirm: "Er du sikker på du vil sende bygning repporten retur til rådgiveren?"
+    retur_confirm: "Er du sikker på du vil sende bygning rapporten retur til rådgiveren?"
     show: "Vis Bygning rapport"
     submit: "Aflever Bygning rapport"
     submit_confirm: "Er du sikker på du vil aflevere bygning rapporten?"
