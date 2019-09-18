@@ -197,6 +197,41 @@ abstract class Tiltag {
   protected $faktorForReinvesteringer;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="prioriteringsfaktor", type="float")
+   */
+  protected $prioriteringsfaktor = 1;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="konverteringsfaktorFoer", type="float")
+   */
+  protected $konverteringsfaktorFoer = 1;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="konverteringsfaktorEfter", type="float")
+   */
+  protected $konverteringsfaktorEfter = 1;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="forbrugFoer", type="integer")
+   */
+  protected $forbrugFoer;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="forbrugEfter", type="integer")
+   */
+  protected $forbrugEfter;
+
+  /**
    * Enterprisesum
    *
    * @var float
@@ -876,6 +911,111 @@ abstract class Tiltag {
    */
   public function getFaktorForReinvesteringer() {
     return $this->faktorForReinvesteringer;
+  }
+
+  /**
+   * Set prioriteringsfaktor
+   *
+   * @param integer $prioriteringsfaktor
+   * @return Tiltag
+   */
+  public function setPrioriteringsfaktor($prioriteringsfaktor) {
+    $this->prioriteringsfaktor = $prioriteringsfaktor;
+
+    return $this;
+  }
+
+  /**
+   * Get prioriteringsfaktor
+   *
+   * @return integer
+   */
+  public function getPrioriteringsfaktor() {
+    return $this->prioriteringsfaktor;
+  }
+
+  /**
+   * Set konverteringsfaktorFoer
+   *
+   * @param integer $konverteringsfaktorFoer
+   * @return Tiltag
+   */
+  public function setKonverteringsfaktorFoer($konverteringsfaktorFoer) {
+    $this->konverteringsfaktorFoer = $konverteringsfaktorFoer;
+
+    return $this;
+  }
+
+  /**
+   * Get konverteringsfaktorFoer
+   *
+   * @return integer
+   */
+  public function getKonverteringsfaktorFoer() {
+    return $this->konverteringsfaktorFoer;
+  }
+
+  /**
+   * Set konverteringsfaktorEfter
+   *
+   * @param integer $konverteringsfaktorEfter
+   * @return Tiltag
+   */
+  public function setKonverteringsfaktorEfter($konverteringsfaktorEfter) {
+    $this->konverteringsfaktorEfter = $konverteringsfaktorEfter;
+
+    return $this;
+  }
+
+  /**
+   * Get konverteringsfaktorEfter
+   *
+   * @return integer
+   */
+  public function getKonverteringsfaktorEfter() {
+    return $this->konverteringsfaktorEfter;
+  }
+
+  /**
+   * Set forbrugFoer
+   *
+   * @param integer $forbrugFoer
+   * @return Tiltag
+   */
+  public function setForbrugFoer($forbrugFoer) {
+    $this->forbrugFoer = $forbrugFoer;
+
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoer
+   *
+   * @return integer
+   */
+  public function getForbrugFoer() {
+    return $this->forbrugFoer;
+  }
+
+  /**
+   * Set forbrugEfter
+   *
+   * @param integer $forbrugEfter
+   * @return Tiltag
+   */
+  public function setForbrugEfter($forbrugEfter) {
+    $this->forbrugEfter = $forbrugEfter;
+
+    return $this;
+  }
+
+  /**
+   * Get forbrugEfter
+   *
+   * @return integer
+   */
+  public function getForbrugEfter() {
+    return $this->forbrugEfter;
   }
 
   /**
@@ -1930,7 +2070,7 @@ abstract class Tiltag {
   }
 
   protected function calculateTilskudsstoerrelse() {
-    return $this->tilskudsstoerrelse;
+    return $this->tilskudsstoerrelse * $this->getKonverteringsfaktorFoer() * $this->getPrioriteringsfaktor();
   }
 
   protected function calculateEnhed() {

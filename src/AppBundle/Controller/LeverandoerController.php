@@ -18,6 +18,13 @@ use AppBundle\Form\Type\LeverandoerType;
 class LeverandoerController extends BaseController
 {
 
+    protected $breadcrumbs;
+
+    public function init(Request $request) {
+        parent::init($request);
+        $this->breadcrumbs->addItem('Leverandører', $this->generateUrl('leverandoer'));
+    }
+
     /**
      * Lists all Leverandoer entities.
      *
@@ -52,8 +59,9 @@ class LeverandoerController extends BaseController
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            $this->flash->success('leverandoer.confirmation.created');
 
-            return $this->redirect($this->generateUrl('leverandoer_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('leverandoer'));
         }
 
         return array(
@@ -146,7 +154,7 @@ class LeverandoerController extends BaseController
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -164,8 +172,7 @@ class LeverandoerController extends BaseController
             'action' => $this->generateUrl('leverandoer_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $this->addUpdate($form, $this->generateUrl('leverandoer_show', array('id' => $entity->getId())));
 
         return $form;
     }
@@ -192,13 +199,14 @@ class LeverandoerController extends BaseController
 
         if ($editForm->isValid()) {
             $em->flush();
+            $this->flash->success('leverandoer.confirmation.updated');
 
             return $this->redirect($this->generateUrl('leverandoer_edit', array('id' => $id)));
         }
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -223,6 +231,8 @@ class LeverandoerController extends BaseController
 
             $em->remove($entity);
             $em->flush();
+            $this->flash->success('leverandoer.confirmation.deleted');
+
         }
 
         return $this->redirect($this->generateUrl('leverandoer'));

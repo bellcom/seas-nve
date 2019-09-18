@@ -23,29 +23,31 @@
           }({{ entity.cashFlow['cash flow'] | keys | json_encode | raw }})),
           datasets: [ {
             label: {{ 'Besparelse' | trans | json_encode | raw }},
-            fillColor: 'rgba(75,195,68,0.2)',
-            strokeColor: 'rgba(75,195,68,1)',
-            pointColor: 'rgba(75,195,68,1)',
-            pointStrokeColor: '#fff',
+            strokeColor: 'rgb(116, 118, 108)',
+            pointColor: 'rgb(116, 118, 108)',
+            pointStrokeColor: 'rgb(116, 118, 108)',
             pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(75,195,68,1)',
+            pointHighlightStroke: 'rgb(116, 118, 108)',
             data: formatData({{ entity.cashFlow['besparelse'] | json_encode | raw }})
           }, {
             label: {{ 'Ydelse, lån inkl. fællesomkostninger' | trans | json_encode | raw }},
-            fillColor: 'rgba(195,75,68,0.2)',
-            strokeColor: 'rgba(195,75,68,1)',
-            pointColor: 'rgba(195,75,68,1)',
-            pointStrokeColor: '#fff',
+            strokeColor: 'rgb(167, 203, 17)',
+            pointColor: 'rgb(167, 203, 17)',
+            pointStrokeColor: 'rgb(167, 203, 17)',
             pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(195,75,68,1)',
+            pointHighlightStroke: 'rgb(167, 203, 17)',
             data: formatData({{ entity.cashFlow['ydelse laan inkl. faellesomkostninger'] | json_encode | raw }})
           } ]
         },
         options = {
+          datasetStrokeWidth: 3,
+          pointDotRadius : 2,
+          scaleGridLineColor: 'rgb(0, 0, 0)',
+          scaleShowVerticalLines: false,
           animation: false,
           responsive: false,
           maintainAspectRatio: false,
-          datasetFill: true,
+          datasetFill: false,
           bezierCurve : true,
           bezierCurveTension : 0.2
         },

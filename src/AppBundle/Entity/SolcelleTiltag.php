@@ -99,7 +99,7 @@ class SolcelleTiltag extends Tiltag {
 
   protected function calculateelKgCo2MWh() {
     $forsyningsvaerk = $this->getRapport()->getBygning()->getForsyningsvaerkEl(TRUE);
-    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2009);
+    return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2015);
   }
 
   /**

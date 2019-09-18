@@ -18,10 +18,12 @@ class BygningType extends AbstractType {
 
   private $doctrine;
   private $authorizationChecker;
+  private $tilknutning;
 
-  public function __construct(RegistryInterface $doctrine, AuthorizationChecker $authorizationChecker) {
+  public function __construct(RegistryInterface $doctrine, AuthorizationChecker $authorizationChecker, $tilknutning = FALSE) {
     $this->doctrine = $doctrine;
     $this->authorizationChecker = $authorizationChecker;
+    $this->tilknutning = $tilknutning;
   }
 
   /**
@@ -31,9 +33,9 @@ class BygningType extends AbstractType {
     $builder
       ->add('bygId')
       ->add('navn')
-      ->add('cvrNumber')
-      ->add('eanNumber')
-      ->add('pNumber')
+      ->add('cvrNumber', null, $this->tilknutning ? array() : array('disabled' => 'disabled'))
+      ->add('eanNumber', null, $this->tilknutning ? array() : array('disabled' => 'disabled'))
+      ->add('pNumber', null, $this->tilknutning ? array() : array('disabled' => 'disabled'))
       ->add('OpfoerselsAar')
       ->add('enhedsys')
       ->add('type')
@@ -76,11 +78,22 @@ class BygningType extends AbstractType {
         'required' => FALSE,
         'empty_value' => 'common.none',
       ))
-      ->add('energiRaadgiver', 'entity', array(
-        'class' => 'AppBundle:User',
-        'choices' => $this->getUsersFromGroup("Rådgiver"),
-        'required' => FALSE,
-        'empty_value' => 'common.none',
+      ->add('energiRaadgiver', 'bootstrap_collection', array(
+        'property_path' => 'energiRaadgiver',
+        'type' => 'entity',
+        'options' => array(
+          'class' => 'AppBundle:User',
+          'choices' => $this->getUsersFromGroup("Rådgiver"),
+          'required' => FALSE,
+          'empty_value' => '--',
+        ),
+        'allow_add' => true,
+        'by_reference' => false,
+        'allow_delete' => true,
+        'add_button_text'    => 'Add more',
+        'delete_button_text' => 'Delete',
+        'sub_widget_col'     => 10,
+        'button_col'         => 2
       ))
       ->add('projekterende', 'entity', array(
         'class' => 'AppBundle:User',

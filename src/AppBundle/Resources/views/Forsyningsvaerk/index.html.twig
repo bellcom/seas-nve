@@ -27,12 +27,6 @@
         {{ helper.header('appbundle.forsyningsvaerk.vedForbrugOverKWh') }}
         {{ helper.header('appbundle.forsyningsvaerk.co2Noter') }}
         {{ helper.header() }}
-        {{ helper.header('2009') }}
-        {{ helper.header('2010') }}
-        {{ helper.header('2011') }}
-        {{ helper.header('2012') }}
-        {{ helper.header('2013') }}
-        {{ helper.header('2014') }}
         {{ helper.header('2015') }}
         {{ helper.header('2016') }}
         {{ helper.header('2017') }}
@@ -105,12 +99,6 @@
         {{ helper.header_unit('appbundle.forsyningsvaerk.vedForbrugOverKWh') }}
         {{ helper.header_unit('appbundle.forsyningsvaerk.co2Noter') }}
         {{ helper.header_unit() }}
-        {{ helper.header_unit('2009') }}
-        {{ helper.header_unit('2010') }}
-        {{ helper.header_unit('2011') }}
-        {{ helper.header_unit('2012') }}
-        {{ helper.header_unit('2013') }}
-        {{ helper.header_unit('2014') }}
         {{ helper.header_unit('2015') }}
         {{ helper.header_unit('2016') }}
         {{ helper.header_unit('2017') }}
@@ -188,12 +176,6 @@
           <td rowspan="2">{{ entity.vedForbrugOverKWh | format_decimal }}</td>
           <td rowspan="2">{{ entity.co2Noter }}</td>
           <th>{{ 'appbundle.forsyningsvaerk.pris' | trans }}:</th>
-          <td class=number>{{ entity.pris2009 | format_amount(2) }}</td>
-          <td class=number>{{ entity.pris2010 | format_amount(2) }}</td>
-          <td class=number>{{ entity.pris2011 | format_amount(2) }}</td>
-          <td class=number>{{ entity.pris2012 | format_amount(2) }}</td>
-          <td class=number>{{ entity.pris2013 | format_amount(2) }}</td>
-          <td class=number>{{ entity.pris2014 | format_amount(2) }}</td>
           <td class=number>{{ entity.pris2015 | format_amount(2) }}</td>
           <td class=number>{{ entity.pris2016 | format_amount(2) }}</td>
           <td class=number>{{ entity.pris2017 | format_amount(2) }}</td>
@@ -259,12 +241,6 @@
         </tr>
         <tr class="in-rowspan">
           <th>{{ 'appbundle.forsyningsvaerk.co2' | trans }}:</th>
-          <td class=number>{{ entity.co2y2009 | format_amount(2) }}</td>
-          <td class=number>{{ entity.co2y2010 | format_amount(2) }}</td>
-          <td class=number>{{ entity.co2y2011 | format_amount(2) }}</td>
-          <td class=number>{{ entity.co2y2012 | format_amount(2) }}</td>
-          <td class=number>{{ entity.co2y2013 | format_amount(2) }}</td>
-          <td class=number>{{ entity.co2y2014 | format_amount(2) }}</td>
           <td class=number>{{ entity.co2y2015 | format_amount(2) }}</td>
           <td class=number>{{ entity.co2y2016 | format_amount(2) }}</td>
           <td class=number>{{ entity.co2y2017 | format_amount(2) }}</td>

@@ -1,0 +1,43 @@
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+        <h1>{{ 'pumpetiltagdetailapplikation.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+              <a class="btn btn-default" href="{{ path('pumpetiltagdetailapplikation_new') }}">
+          {{ icon('plus') }} {{ 'pumpetiltagdetailapplikation.actions.add' | trans }}
+        </a>
+          </div>
+
+  </div>
+
+
+  <table class="table table-condensed">
+    <thead>
+    <tr>
+        {{ helper.header('appbundle.pumpetiltagdetailapplikation.navn') }}
+      {{ helper.header() }}
+    </tr>
+    <tr>
+        {{ helper.header_unit('appbundle.pumpetiltagdetailapplikation.navn') }}
+      {{ helper.header_unit() }}
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+    <tr>
+        <td>{{ entity.navn }}</td>
+      <td class="text-right">    <a class="btn btn-default btn-xs" href="{{ path('pumpetiltagdetailapplikation_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+      </td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% endblock %}

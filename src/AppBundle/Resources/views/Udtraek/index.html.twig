@@ -135,8 +135,8 @@
         </div>
         <div class="col-md-3 text-right">
           {% if is_granted('ROLE_ADMIN') %}
-            <button type="submit" name="_format" value="xlsx" icon="download" class="btn btn-default" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadExcel' | trans }}</button>
-            <button type="submit" name="_format" value="csv" icon="download" class="btn btn-default" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadCsv' | trans }}</button>
+            <button type="submit" name="_format" value="xlsx" class="btn btn-default" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadExcel' | trans }}</button>
+            <button type="submit" name="_format" value="csv" class="btn btn-default" class="btn btn-default btn-xs"><span class="fa fa-download"></span> {{ 'common.downloadCsv' | trans }}</button>
           {% endif %}
         </div>
       </div>

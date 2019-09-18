@@ -87,8 +87,36 @@ class TiltagType extends AbstractType {
 
     }
     $builder->add('title')
-      ->add('faktorForReinvesteringer')
-      ->add('opstartsomkostninger');
+            ->add('faktorForReinvesteringer')
+            ->add('opstartsomkostninger');
+
+    $builder
+      ->add('forbrugFoer')
+      ->add('forbrugEfter')
+      ->add('prioriteringsfaktor', 'choice', array(
+        'choices' => array(
+          '0.5' => '0,5',
+          '1' => '1,0',
+          '1.5' => '1,5',
+        ),
+        'required' => TRUE
+      ))
+      ->add('konverteringsfaktorFoer', 'choice', array(
+        'choices' => array(
+          '0.8' => '0,8',
+          '1' => '1,0',
+          '1.8' => '1,8',
+        ),
+        'required' => TRUE
+      ))
+      ->add('konverteringsfaktorEfter', 'choice', array(
+        'choices' => array(
+          '0.8' => '0,8',
+          '1' => '1,0',
+          '1.8' => '1,8',
+        ),
+        'required' => TRUE
+      ));
 
     $builder
       ->add('genopretning')
@@ -96,17 +124,7 @@ class TiltagType extends AbstractType {
       ->add('modernisering')
       ->add('reelAnlaegsinvestering');
 
-    $builder->add(
-      'tilskudsstoerrelse',
-      NULL,
-      array(
-        'required' => FALSE,
-        'attr' => array(
-          'help_text' => 'Hvis ingen angives, arves værdien fra virksomheden.'
-        ),
-      )
-    );
-
+    $builder->add('tilskudsstoerrelse', NULL);
     $builder->add('reelAnlaegsinvestering')
       ->add('forsyningVarme', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',

@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">{{ icon('cube') }} {{ 'appbundle.baseline.opsummering' | trans }}</div>
+      <table class="table table-condensed">
+        <thead>
+        <tr class="text-right">
+          {{ helper.header() }}
+          {{ helper.header('appbundle.baseline.baselineFraUdbud') }}
+          {{ helper.header('appbundle.baseline.korrektionFraBesigtigelse') }}
+          {{ helper.header('appbundle.baseline.baselineTilRaadgiver') }}
+          {{ helper.header() }}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th>{{ 'appbundle.baseline.el' | trans }}</th>
+          <td class="number">{{ entity.elBaselineFastsatForEjendom | format_decimal }}</td>
+          <td class="number">{{ entity.elBaselineFastsatForEjendomKorrektion | format_decimal }}</td>
+          <td class="number">{{ entity.elBaselineFastsatForEjendomKorrigeret | format_decimal }}</td>
+          <td>{{ 'appbundle.baseline.elBaselineFastsatForEjendom.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.baseline.varmeGAFForbrug' | trans }}</th>
+          <td class="number">{{ entity.varmeGAFForbrug | format_decimal }}</td>
+          <td class="number">{{ entity.varmeGAFForbrugKorrektion | format_decimal }}</td>
+          <td class="number">{{ entity.varmeGAFForbrugKorrigeret | format_decimal }}</td>
+          <td>{{ 'appbundle.baseline.varmeGAFForbrug.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.baseline.varmeGUFForbrug' | trans }}</th>
+          <td class="number">{{ entity.varmeGUFForbrug | format_decimal }}</td>
+          <td class="number">{{ entity.varmeGUFForbrugKorrektion | format_decimal }}</td>
+          <td class="number">{{ entity.varmeGUFForbrugKorrigeret | format_decimal }}</td>
+          <td>{{ 'appbundle.baseline.varmeGUFForbrug.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.baseline.varmeStrafafkoelingsafgift' | trans }}</th>
+          <td class="number">{{ entity.varmeStrafafkoelingsafgift | format_amount }}</td>
+          <td class="number">{{ entity.varmeStrafafkoelingsafgiftKorrektion | format_amount }}</td>
+          <td class="number">{{ entity.varmeStrafafkoelingsafgiftKorrigeret | format_amount }}</td>
+          <td>{{ 'appbundle.baseline.varmeStrafafkoelingsafgift.unit' | trans }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

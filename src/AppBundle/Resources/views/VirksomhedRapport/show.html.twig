@@ -103,7 +103,6 @@
       </tr>
       </tbody>
     </table>
-
   </div>
 
   <div class="panel panel-default">
@@ -170,13 +169,15 @@
         <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2.unit' | trans }}</td>
       </tr>
       <tr>
-        <td colspan="3" rowspan="3">
-        </td>
+        <th>{{ 'appbundle.virksomhed_rapport.uOpvarmetareal' | trans }}<div class="calculation-expression hidden">{{ entity.expr('uOpvarmetareal') }}</div></th>
+        <td class="text-right">{{ entity.uOpvarmetareal | format_decimal }}</td>
+        <td>{{ 'appbundle.virksomhed_rapport.uOpvarmetareal.unit' | trans }}</td>
         <th class="indent">{{ 'appbundle.virksomhed_rapport.besparelseCO2el' | trans }}<div class="calculation-expression hidden">{{ entity.expr('co2BesparelseEl') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseEl | format_decimal }}</td>
         <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2el.unit' | trans }}</td>
       </tr>
       <tr>
+        <td colspan="3" rowspan="2"></td>
         <th class="indent">{{ 'appbundle.virksomhed_rapport.besparelseCO2varme' | trans }}<div class="calculation-expression hidden">{{ entity.expr('co2BesparelseVarme') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseVarme | format_decimal }}</td>
         <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2varme.unit' | trans }}</td>
@@ -339,7 +340,11 @@
               {% if bygninger | length %}
                 {% for bygning in bygninger %}
                   <div>
-                    <a href="{{ path_with_access_token('rapport_show', { 'id': bygning.rapport.id }) }}">{{ bygning }}</a>
+                    {% if bygning.rapport %}
+                      <a href="{{ path_with_access_token('rapport_show', { 'id': bygning.rapport.id }) }}">{{ bygning }}</a>
+                    {% else %}
+                      <a href="{{ path_with_access_token('bygning_show', { 'id': bygning.id }) }}">{{ bygning }} ({{ 'bygninger.strings.ingen_rapporter' | trans }})</a>
+                    {% endif %}
                   </div>
                 {% endfor %}
               {% else %}

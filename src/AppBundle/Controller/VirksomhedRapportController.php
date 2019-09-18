@@ -425,9 +425,9 @@ class VirksomhedRapportController extends BaseController {
       $em->persist($rapport);
       $em->flush();
 
-      $flash->success('Virksomhed Rapport calculated');
+      $flash->success('virksomhed_rapporter.confirmation.calculated');
     } catch (\Exception $ex) {
-      $flash->error('Cannot calculate rapport');
+      $flash->error('virksomhed_rapporter.error.beregn_fejl');
     }
 
     return $this->redirect($this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));

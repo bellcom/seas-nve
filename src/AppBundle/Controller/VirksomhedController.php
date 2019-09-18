@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Baseline;
 use AppBundle\Entity\Bygning;
+use AppBundle\Entity\BygningRepository;
 use AppBundle\Entity\ContactPerson;
 use AppBundle\Entity\User;
 use AppBundle\Entity\VirksomhedRapport;
@@ -18,6 +20,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\VirksomhedType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -38,6 +42,11 @@ class VirksomhedController extends BaseController
     private $request;
 
     /**
+     * @var PropertyAccessor
+     */
+    protected $accessor;
+
+    /**
      * @inheritDoc
      */
     public function init(Request $request) {
@@ -45,6 +54,7 @@ class VirksomhedController extends BaseController
         $this->breadcrumbs->addItem('virksomhed.labels.plural', $this->generateUrl('virksomhed'));
         $this->translator = $this->container->get('translator');
         $this->request = $request;
+        $this->accessor = PropertyAccess::createPropertyAccessor();
     }
 
     /**
@@ -133,10 +143,18 @@ class VirksomhedController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            // Remove incompleted add more values.
             $entity->filterEmptyValues();
             $em = $this->getDoctrine()->getManager();
 
-            $bygninger = $em->getRepository(Bygning::class)->findByNumbers($entity);
+            /** @var BygningRepository $bygningRepository */
+            $bygningRepository = $em->getRepository(Bygning::class);
+
+            $bygninger = $bygningRepository->findBy(array('id' => array_merge(
+                $entity->getBygningerByCvrNumber(),
+                $entity->getBygningerByEanNumber(),
+                $entity->getBygningerByPNumber()
+            )));
             $entity->setBygninger(new ArrayCollection());
             foreach ($bygninger as $bygning) {
                 $entity->addBygninger($bygning);
@@ -277,22 +295,44 @@ class VirksomhedController extends BaseController
     /**
      * Finds and displays a Virksomhed entity.
      *
-     * @Route("/{id}/baselines", name="virksomhed_bygning_baseline_list")
+     * @Route("/{id}/baselines", name="virksomhed_bygninger_baseline_summary")
      * @Method("GET")
-     * @Template("AppBundle:Baseline:index.html.twig")
+     * @Template("AppBundle:Virksomhed:bygning_baseline_summary.html.twig")
      * @Security("is_granted('VIRKSOMHED_VIEW', virksomhed)")
      */
     public function bygningBaselineListAction(Virksomhed $virksomhed)
     {
         $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+        $this->breadcrumbs->addItem('appbundle.virksomhed.baseline.summary', $this->generateUrl('virksomhed_bygninger_baseline_summary', array('id' => $virksomhed->getId())));
         $bygninger = $virksomhed->getAllBygninger();
-        $baselines = array();
+        $bygninger_baselinesummary = new Baseline();
+        $properties = array(
+            'elBaselineFastsatForEjendom',
+            'elBaselineFastsatForEjendomKorrektion',
+            'elBaselineFastsatForEjendomKorrigeret',
+            'varmeGAFForbrug',
+            'varmeGAFForbrugKorrektion',
+            'varmeGAFForbrugKorrigeret',
+            'varmeGUFForbrug',
+            'varmeGUFForbrugKorrektion',
+            'varmeGUFForbrugKorrigeret',
+            'varmeStrafafkoelingsafgift',
+            'varmeStrafafkoelingsafgiftKorrektion',
+            'varmeStrafafkoelingsafgiftKorrigeret',
+        );
         /** @var Bygning $bygning */
-        foreach ($bygninger as $bygning) {
-            $baselines[] = $bygning->getBaseline();
+        foreach ($properties as $property_name) {
+            $summ_value = 0;
+            foreach ($bygninger as $bygning) {
+                $baseline = $bygning->getBaseline();
+                if (!empty($baseline)) {
+                    $summ_value += $this->accessor->getValue($baseline, $property_name);
+                }
+            }
+            $this->accessor->setValue($bygninger_baselinesummary, $property_name, $summ_value);
         }
         return array(
-            'entities'      => $baselines,
+            'entity' => $bygninger_baselinesummary,
         );
     }
 
@@ -315,6 +355,14 @@ class VirksomhedController extends BaseController
 
         if (empty($entity->getContactPersons()->first())) {
             $entity->getContactPersons()->add(new ContactPerson());
+        }
+
+        // Load already created bygning by cvr number if they are not in list.
+        $bygninger = $this->getDoctrine()->getManager()->getRepository(Bygning::class)->findBy(array('cvrNumber' => $entity->getCvrNumber()));
+        foreach ($bygninger as $bygning) {
+            if (!in_array($bygning->getId(), $entity->getBygningerByCvrNumber())) {
+                $entity->addBygningerByCvrNumber($bygning->getId());
+            }
         }
 
         $editForm = $this->createEditForm($entity);
@@ -380,9 +428,17 @@ class VirksomhedController extends BaseController
         $editForm = $this->createEditForm($virksomhed);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            // Remove incompleted add more values.
             $virksomhed->filterEmptyValues();
 
-            $bygninger = $em->getRepository(Bygning::class)->findByNumbers($virksomhed);
+            /** @var BygningRepository $bygningRepository */
+            $bygningRepository = $em->getRepository(Bygning::class);
+
+            $bygninger = $bygningRepository->findBy(array('id' => array_merge(
+                $virksomhed->getBygningerByCvrNumber(),
+                $virksomhed->getBygningerByEanNumber(),
+                $virksomhed->getBygningerByPNumber()
+            )));
             $virksomhed->setBygninger(new ArrayCollection());
             foreach ($bygninger as $bygning) {
                 $virksomhed->addBygninger($bygning);

@@ -36,6 +36,7 @@
         {% if edit_form.tilvalgtAfMagistrat is defined %}
           {{ form_row(edit_form.tilvalgtAfMagistrat) }}
         {% endif %}
+
         {% if edit_form.tilvalgtbegrundelse is defined %}
           {{ form_row(edit_form.tilvalgtBegrundelseMagistrat) }}
         {% endif %}
@@ -52,26 +53,31 @@
         {{ form_row(edit_form.title) }}
         {{ form_row(edit_form.placering) }}
         {{ form_row(edit_form.tilskudsstoerrelse) }}
+
         {% if edit_form.datoForDrift is defined %}
           {{ form_row(edit_form.datoForDrift) }}
         {% endif %}
+
         {% if edit_form.slutanvendelse is defined %}
           {{ form_row(edit_form.slutanvendelse) }}
         {% endif %}
+        {{ form_row(edit_form.forsyningVarme) }}
+        {{ form_row(edit_form.forsyningEl) }}
+        {% if edit_form.tiltagskategori is defined %}
+          {{ form_row(edit_form.tiltagskategori) }}
+        {% endif %}
       </div>
       <div class="col-xs-12 col-md-6">
-        {{ form_row(edit_form.forsyningVarme, { 'attr': { 'class': 'select2' } }) }}
+        {{ form_row(edit_form.forbrugFoer) }}
+        {{ form_row(edit_form.forbrugEfter) }}
+        {{ form_row(edit_form.prioriteringsfaktor) }}
+        {{ form_row(edit_form.konverteringsfaktorFoer) }}
+        {{ form_row(edit_form.konverteringsfaktorEfter) }}
         {% if edit_form.primaerEnterprise is defined %}
           {{ form_row(edit_form.primaerEnterprise) }}
         {% endif %}
         {% if edit_form.levetid is defined %}
           {{ form_row(edit_form.levetid) }}
-        {% endif %}
-      </div>
-      <div class="col-xs-12 col-md-6">
-        {{ form_row(edit_form.forsyningEl, { 'attr': { 'class': 'select2' } }) }}
-        {% if edit_form.tiltagskategori is defined %}
-          {{ form_row(edit_form.tiltagskategori) }}
         {% endif %}
       </div>
     </div>

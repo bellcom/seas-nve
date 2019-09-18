@@ -43,8 +43,9 @@ class BaseRepository extends EntityRepository {
     if (!$this->hasFullAccess($user)) {
       $qb->andWhere(':user MEMBER OF '.$buildingAlias.'.users');
       $qb->setParameter('user', $user);
-      $qb->orWhere($buildingAlias.'.energiRaadgiver = :energiRaadgiver');
-      $qb->setParameter('energiRaadgiver', $user);
+      $qb->leftJoin('b.energiRaadgiver', 'eu');
+      $qb->orWhere('eu = :user');
+      $qb->setParameter('user', $user);
       $qb->orWhere($buildingAlias.'.projektleder = :projektleder');
       $qb->setParameter('projektleder', $user);
       $qb->orWhere($buildingAlias.'.projekterende = :projekterende');
@@ -67,7 +68,7 @@ class BaseRepository extends EntityRepository {
       return TRUE;
     }
 
-    if ($bygning->getEnergiRaadgiver() == $user) {
+    if ($bygning->getEnergiRaadgiver()->contains($user)) {
       return TRUE;
     }
 

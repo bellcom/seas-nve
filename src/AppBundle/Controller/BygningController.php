@@ -8,11 +8,14 @@ namespace AppBundle\Controller;
 
 use AppBundle\DataExport\ExcelExport;
 use AppBundle\Entity\Baseline;
+use AppBundle\Entity\BygningRepository;
 use AppBundle\Entity\ContactPerson;
+use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\VirksomhedType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -24,6 +27,7 @@ use AppBundle\Form\Type\BygningType;
 use AppBundle\Form\Type\BygningSearchType;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
+use Symfony\Component\Translation\TranslatorInterface;
 use Yavin\Symfony\Controller\InitControllerInterface;
 
 /**
@@ -35,9 +39,15 @@ class BygningController extends BaseController implements InitControllerInterfac
 
   protected $breadcrumbs;
 
+  /**
+   * @var TranslatorInterface $tranlator
+   */
+  private $translator;
+
   public function init(Request $request) {
     parent::init($request);
     $this->breadcrumbs->addItem('Bygninger', $this->generateUrl('bygning'));
+    $this->translator = $this->container->get('translator');
   }
 
   /**
@@ -79,7 +89,7 @@ class BygningController extends BaseController implements InitControllerInterfac
       foreach ($query->getResult() as $bygning) {
         $result[$bygning->getId()] = VirksomhedType::getEanNumberReferenceLabel($bygning);
       }
-  
+
       $response = new Response();
       $response->setContent(json_encode($result));
       $response->headers->set('Content-Type', 'application/json');
@@ -129,8 +139,19 @@ class BygningController extends BaseController implements InitControllerInterfac
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
       $em->persist($entity);
+
+      // Binding bygning to already created virksomhed by cvr number.
+      if (!empty($entity->getCvrNumber()) && empty($entity->getVirksomhed())) {
+        $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array('cvrNumber' => $entity->getCvrNumber()));
+        if ($virksomheder[0] instanceof Virksomhed) {
+          $virksomheder[0]->addBygningerByCvrNumber($entity->getId());
+          $virksomheder[0]->addBygninger($entity);
+          $em->persist($virksomheder[0]);
+        }
+      }
+
       $em->flush();
-  
+
       // Contact persons are not handled by Doctrine ORM.
       // We inserting it here.
       foreach ($entity->getContactPersons() as $contactPerson) {
@@ -156,7 +177,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createCreateForm(Bygning $entity) {
-    $form = $this->createForm(new BygningType($this->getDoctrine(), $this->get('security.authorization_checker')), $entity, array(
+    $form = $this->createForm(new BygningType($this->getDoctrine(), $this->get('security.authorization_checker'), TRUE), $entity, array(
       'action' => $this->generateUrl('bygning_create'),
       'method' => 'POST',
     ));
@@ -185,6 +206,23 @@ class BygningController extends BaseController implements InitControllerInterfac
   }
 
   /**
+   * Gets Unique cvrNumm json list.
+   *
+   * @Route("/cvrnumm-list", name="bygninger_by_cvrnumm_list")
+   * @Method("GET")
+   * @Security("has_role('ROLE_BYGNING_VIEW')")
+   */
+  public function cvrNumListAction() {
+    /** @var BygningRepository $repository */
+    $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
+    $result = $repository->getCvrNumberReferenceList();
+    $response = new Response();
+    $response->setContent(json_encode($result));
+    $response->headers->set('Content-Type', 'application/json');
+    return $response;
+  }
+
+  /**
    * Gets Unique eanNumm json list.
    *
    * @Route("/eannumm-list", name="bygning_eannumm_list")
@@ -192,7 +230,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @Security("has_role('ROLE_BYGNING_VIEW')")
    */
   public function eanNumListAction() {
-    /** @var Query $query */
+    /** @var BygningRepository $repository */
     $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
     $result = $repository->getEanNumberReferenceList();
     $response = new Response();
@@ -209,7 +247,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @Security("has_role('ROLE_BYGNING_VIEW')")
    */
   public function pNumListAction() {
-    /** @var Query $query */
+    /** @var BygningRepository $repository */
     $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
     $result = $repository->getPNumberReferenceList();
     $response = new Response();
@@ -267,7 +305,7 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Bygning $entity) {
-    $form = $this->createForm(new BygningType($this->getDoctrine(), $this->get('security.authorization_checker')), $entity, array(
+    $form = $this->createForm(new BygningType($this->getDoctrine(), $this->get('security.authorization_checker'), TRUE), $entity, array(
       'action' => $this->generateUrl('bygning_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));
@@ -290,7 +328,8 @@ class BygningController extends BaseController implements InitControllerInterfac
 
     /** @var Bygning $originalBygning */
     $originalBygning = $em->getRepository(Bygning::class)->find($bygning->getId());
-  
+    $originalVirksomhed = $originalBygning->getVirksomhed();
+
     $originalContactPersons = new ArrayCollection();
     foreach ($originalBygning->getContactPersons() as $contactPerson) {
       $originalContactPersons->add($contactPerson);
@@ -298,7 +337,14 @@ class BygningController extends BaseController implements InitControllerInterfac
 
     $deleteForm = $this->createDeleteForm($bygning);
     $editForm = $this->createEditForm($bygning);
+
     $editForm->handleRequest($request);
+
+    if (!empty($bygning->getCvrNumber())
+      && !empty($originalVirksomhed)
+      && $bygning->getCvrNumber() != $originalVirksomhed->getCvrNumber()) {
+      $editForm->get('cvrNumber')->addError(new FormError($this->translator->trans('bygninger.error.bind_virksomhed_by_cvr')));
+    }
 
     if ($editForm->isValid()) {
       /** @var ContactPerson $contactPerson */
@@ -307,6 +353,17 @@ class BygningController extends BaseController implements InitControllerInterfac
           $em->remove($contactPerson);
         }
       }
+
+      // Binding bygning to already created virksomhed by cvr number.
+      if (!empty($bygning->getCvrNumber())) {
+        $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array('cvrNumber' => $bygning->getCvrNumber()));
+        if ($virksomheder[0] instanceof Virksomhed) {
+          $virksomheder[0]->addBygningerByCvrNumber($bygning->getId());
+          $virksomheder[0]->addBygninger($bygning);
+          $em->persist($virksomheder[0]);
+        }
+      }
+
       $em->flush();
 
       // Contact persons are not handled by Doctrine ORM.

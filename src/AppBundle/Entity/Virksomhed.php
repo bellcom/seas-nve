@@ -45,18 +45,37 @@ class Virksomhed
     private $cvrNumber;
 
     /**
+     * Helping property to split part of bygning added by CVR number.
+     *
+     * Stores bygning id as serialized array.
+     *
      * @var array
      *
-     * @ORM\Column(name="ean_numbers", type="array", nullable=true)
+     * @ORM\Column(name="bygninger_by_cvr_number", type="array", nullable=true)
      */
-    private $eanNumbers;
+    private $bygningerByCvrNumber = array();
 
     /**
+     * Helping property to split part of bygning added by EAN number.
+     *
+     * Stores bygning EAN number as serialized array.
+     *
      * @var array
      *
-     * @ORM\Column(name="p_numbers", type="array", nullable=true)
+     * @ORM\Column(name="bygninger_ean_number", type="array", nullable=true)
      */
-    private $pNumbers;
+    private $bygningerByEanNumber;
+
+    /**
+     * Helping property to split part of bygning added by P number.
+     *
+     * Stores bygning P number as serialized array.
+     *
+     * @var array
+     *
+     * @ORM\Column(name="bygninger_p_number", type="array", nullable=true)
+     */
+    private $bygningerByPNumber;
 
     /**
      * @var string
@@ -331,51 +350,88 @@ class Virksomhed
     }
 
     /**
-     * Set eanNumbers
+     * Set bygningerByCvrNumber
      *
-     * @param array $eanNumbers
+     * @param array $bygningerByCvrNumber
      *
      * @return Virksomhed
      */
-    public function setEanNumbers(array $eanNumbers)
+    public function setBygningerByCvrNumber(array $bygningerByCvrNumber)
     {
-        $this->eanNumbers = $eanNumbers;
+        $this->bygningerByCvrNumber = array_unique($bygningerByCvrNumber);
 
         return $this;
     }
 
     /**
-     * Get eanNumbers
+     * Add bygningerByCvrNumber
      *
-     * @return array
-     */
-    public function getEanNumbers()
-    {
-        return $this->eanNumbers;
-    }
-
-    /**
-     * Set pNumbers
-     *
-     * @param array $pNumbers
+     * @param string $bygningerByCvrNumber
      *
      * @return Virksomhed
      */
-    public function setPNumbers(array $pNumbers)
+    public function addBygningerByCvrNumber($bygningerByCvrNumber)
     {
-        $this->pNumbers = $pNumbers;
+        $this->bygningerByCvrNumber[] = $bygningerByCvrNumber;
+        return $this;
+    }
+
+    /**
+     * Get bygningerCvrNumber
+     *
+     * @return array
+     */
+    public function getBygningerByCvrNumber()
+    {
+        return empty($this->bygningerByCvrNumber) ? array() : $this->bygningerByCvrNumber;
+    }
+
+    /**
+     * Set bygningerByEanNumber
+     *
+     * @param array $bygningerByEanNumber
+     *
+     * @return Virksomhed
+     */
+    public function setBygningerByEanNumber(array $bygningerByEanNumber)
+    {
+        $this->bygningerByEanNumber = $bygningerByEanNumber;
 
         return $this;
     }
 
     /**
-     * Get pNumbers
+     * Get bygningerByEanNumber
      *
      * @return array
      */
-    public function getPNumbers()
+    public function getBygningerByEanNumber()
     {
-        return $this->pNumbers;
+        return $this->bygningerByEanNumber;
+    }
+
+    /**
+     * Set bygningerByPNumber
+     *
+     * @param array $bygningerByPNumber
+     *
+     * @return Virksomhed
+     */
+    public function setBygningerByPNumber(array $bygningerByPNumber)
+    {
+        $this->bygningerByPNumber = $bygningerByPNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get bygningerByPNumber
+     *
+     * @return array
+     */
+    public function getBygningerByPNumber()
+    {
+        return $this->bygningerByPNumber;
     }
 
     /**
@@ -397,9 +453,17 @@ class Virksomhed
      *
      * @return string
      */
-    public function getCrmNumber()
+    public function getCrmNumber($inherit = FALSE)
     {
-        return $this->crmNumber;
+        if ($this->crmNumber || !$inherit) {
+            return $this->crmNumber;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getCrmNumber();
+        }
+
+        return NULL;
     }
 
     /**
@@ -466,9 +530,17 @@ class Virksomhed
      *
      * @return string
      */
-    public function getCustomerNumber()
+    public function getCustomerNumber($inherit = FALSE)
     {
-        return $this->customerNumber;
+        if ($this->customerNumber || !$inherit) {
+            return $this->customerNumber;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getCustomerNumber();
+        }
+
+        return NULL;
     }
 
     /**
@@ -490,9 +562,17 @@ class Virksomhed
      *
      * @return string
      */
-    public function getProjectNumber()
+    public function getProjectNumber($inherit = FALSE)
     {
-        return $this->projectNumber;
+        if ($this->projectNumber || !$inherit) {
+            return $this->projectNumber;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getProjectNumber();
+        }
+
+        return NULL;
     }
 
     /**
@@ -537,8 +617,16 @@ class Virksomhed
      *
      * @return \AppBundle\DBAL\Types\VirksomhedTypeType
      */
-    public function getTypeName() {
-        return $this->typeName;
+    public function getTypeName($inherit = FALSE) {
+        if ($this->typeName || !$inherit) {
+            return $this->typeName;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getTypeName();
+        }
+
+        return NULL;
     }
 
     /**
@@ -1148,8 +1236,9 @@ class Virksomhed
      * Filters empty values for entity.
      */
     public function filterEmptyValues() {
-        $this->setEanNumbers(array_filter($this->getEanNumbers()));
-        $this->setPNumbers(array_filter($this->getPNumbers()));
+        $this->setBygningerByEanNumber(array_filter($this->getBygningerByEanNumber()));
+        $this->setBygningerByPNumber(array_filter($this->getBygningerByPNumber()));
+        $this->setBygningerByCvrNumber(array_filter($this->getBygningerByCvrNumber()));
         $datterSelskaber = $this->getDatterSelskaber();
         foreach ($datterSelskaber as $virksomhed) {
             if (empty($virksomhed->getId())) {

@@ -43,7 +43,8 @@
     "symfony/property-access": "^3.1",
     "box/spout": "^2.7",
     "sensio/generator-bundle": "~2.3",
-    "itk-dev/database-bundle": "^1.2"
+    "itk-dev/database-bundle": "^1.2",
+    "league/csv": "^8.2"
   },
   "require-dev": {
   },

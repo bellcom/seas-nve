@@ -44,11 +44,22 @@ class BygningTilknytRaadgiverType extends AbstractType {
         'required' => FALSE,
         'empty_value' => 'common.none',
       ))
-      ->add('energiRaadgiver', 'entity', array(
-        'class' => 'AppBundle:User',
-        'choices' => $this->getUsersFromGroup("Rådgiver"),
-        'required' => FALSE,
-        'empty_value' => 'common.none',
+      ->add('energiRaadgiver', 'bootstrap_collection', array(
+        'property_path' => 'energiRaadgiver',
+        'type' => 'entity',
+        'options' => array(
+          'class' => 'AppBundle:User',
+          'choices' => $this->getUsersFromGroup("Rådgiver"),
+          'required' => FALSE,
+          'empty_value' => 'common.none',
+        ),
+        'allow_add' => true,
+        'by_reference' => false,
+        'allow_delete' => true,
+        'add_button_text'    => 'Add more',
+        'delete_button_text' => 'Delete',
+        'sub_widget_col'     => 10,
+        'button_col'         => 2
       ))
       ->add('status', 'hidden', array(
         'read_only' => TRUE

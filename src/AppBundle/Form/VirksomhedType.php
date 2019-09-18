@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Bygning;
+use AppBundle\Entity\BygningRepository;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Entity\VirksomhedRepository;
 use AppBundle\Form\Type\ContactPersonEmbedType;
@@ -23,22 +24,25 @@ class VirksomhedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $virksomheder = array();
-        $eanNumbers = array();
-        $pNumbers = array();
+        $bygningerByEanNumber = array();
+        $bygningerByPNumber = array();
         $em = $options['entityManager'];
         if (!empty($em)) {
+            /** @var BygningRepository $bygningRepository */
+            $bygningRepository = $em->getRepository('AppBundle:Bygning');
             $virksomheder = $em->getRepository('AppBundle:Virksomhed')->getDatterSelskabReferenceList($options['data']);
-            $eanNumbers = $em->getRepository('AppBundle:Bygning')->getEanNumberReferenceList();
-            $pNumbers = $em->getRepository('AppBundle:Bygning')->getPNumberReferenceList();
+            $bygningerByCvrNumber = $bygningRepository->getCvrNumberReferenceList($options['data']->getId());
+            $bygningerByPNumber = $bygningRepository->getPNumberReferenceList($options['data']->getId());
+            $bygningerByEanNumber = $bygningRepository->getEanNumberReferenceList($options['data']->getId());
         }
         $builder
             ->add('name')
             ->add('cvrNumber')
-            ->add('eanNumbers','collection', array(
+            ->add('bygningerByCvrNumber','collection', array(
                 'type' => 'choice',
                 'options'      => array(
-                    'placeholder' => 'appbundle.virksomhed.eanNumbers.placeholder',
-                    'choices' => $eanNumbers,
+                    'placeholder' => 'appbundle.virksomhed.bygningerByCvrNumber.placeholder',
+                    'choices' => $bygningerByCvrNumber,
                     'label' => FALSE,
                 ),
                 'allow_add' => TRUE,
@@ -46,11 +50,23 @@ class VirksomhedType extends AbstractType
                 'by_reference' => FALSE,
                 'required' => FALSE,
             ))
-            ->add('pNumbers','collection', array(
+            ->add('bygningerByEanNumber','collection', array(
                 'type' => 'choice',
                 'options'      => array(
-                    'placeholder' => 'appbundle.virksomhed.pNumbers.placeholder',
-                    'choices' => $pNumbers,
+                    'placeholder' => 'appbundle.virksomhed.bygningerByEanNumber.placeholder',
+                    'choices' => $bygningerByEanNumber,
+                    'label' => FALSE,
+                ),
+                'allow_add' => TRUE,
+                'allow_delete' => TRUE,
+                'by_reference' => FALSE,
+                'required' => FALSE,
+            ))
+            ->add('bygningerByPNumber','collection', array(
+                'type' => 'choice',
+                'options'      => array(
+                    'placeholder' => 'appbundle.virksomhed.bygningerByPNumber.placeholder',
+                    'choices' => $bygningerByPNumber,
                     'label' => FALSE,
                 ),
                 'allow_add' => TRUE,

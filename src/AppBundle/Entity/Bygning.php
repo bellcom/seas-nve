@@ -8,6 +8,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\BygningStatusType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
@@ -231,7 +232,7 @@ class Bygning {
   protected $baseline;
 
   /**
-   * @ManyToOne(targetEntity="Virksomhed")
+   * @ManyToOne(targetEntity="Virksomhed", cascade={"persist"})
    * @JoinColumn(name="virksomhed_id", referencedColumnName="id", nullable=true)
    **/
   protected $virksomhed;
@@ -253,8 +254,8 @@ class Bygning {
   /**
    * @Assert\NotBlank(groups={"TILKNYTTET_RAADGIVER"})
    *
-   * @ManyToOne(targetEntity="User", inversedBy="energiRaadgiver")
-   * @JoinColumn(name="energiraadgiver_id", referencedColumnName="id")
+   * @ManyToMany(targetEntity="User", inversedBy="energiRaadgiver")
+   * @JoinTable(name="energiraadgiver_user")
    **/
   protected $energiRaadgiver;
 
@@ -299,6 +300,7 @@ class Bygning {
   public function __construct() {
     $this->users = new ArrayCollection();
     $this->contactPersons = new ArrayCollection();
+    $this->energiRaadgiver = new ArrayCollection();
   }
 
   /**
@@ -1039,12 +1041,19 @@ class Bygning {
   /**
    * Set Energirådgiver
    *
-   * @param \AppBundle\Entity\User user
+   * Collection $energiRaadgiver
    *
    * @return Bygning
    */
-  public function setEnergiRaadgiver(\AppBundle\Entity\User $user = NULL) {
-    $this->energiRaadgiver = $user;
+  public function setEnergiRaadgiver(Collection $energiRaadgiver = NULL) {
+    $this->energiRaadgiver = new ArrayCollection();
+    // Prevent adding duplicated references.
+    foreach ($energiRaadgiver as $user) {
+      if ($this->energiRaadgiver->contains($user)) {
+          continue;
+      }
+      $this->energiRaadgiver->add($user);
+    }
 
     return $this;
   }
@@ -1052,10 +1061,23 @@ class Bygning {
   /**
    * Get Energirådgiver
    *
-   * @return \AppBundle\Entity\User
+   * @return ArrayCollection
    */
   public function getEnergiRaadgiver() {
     return $this->energiRaadgiver;
+  }
+
+  /**
+   * Get Energirådgiver
+   *
+   * @return string
+   */
+  public function getEnergiRaadgiverStr() {
+    $users = array();
+    foreach ($this->energiRaadgiver as $user) {
+      $users[] = $user->__toString();
+    }
+    return implode(', ', $users);
   }
 
   /**
@@ -1144,10 +1166,10 @@ class Bygning {
   public function setContactPersons($contactPersons)
   {
     $this->contactPersons = $contactPersons;
-    
+
     return $this;
   }
-  
+
   /**
    * Get contactPersons
    *
@@ -1157,7 +1179,7 @@ class Bygning {
   {
     return $this->contactPersons;
   }
-  
+
   /**
    * Adds contact person to collection.
    *
@@ -1168,7 +1190,7 @@ class Bygning {
     $contactPerson->setReference($this);
     $this->contactPersons->add($contactPerson);
   }
-  
+
   /**
    * Removes contact person from collection.
    *
@@ -1191,7 +1213,7 @@ class Bygning {
     if ($this->getBaseline()) {
       $this->getBaseline()->setArealTilNoegletalsanalyse($this->getBruttoetageareal());
     }
-  
+
     // Contact persons are not handled by Doctrine ORM.
     // We are loading it here.
     $repository = $event->getEntityManager()
