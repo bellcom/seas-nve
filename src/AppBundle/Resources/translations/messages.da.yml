@@ -641,6 +641,9 @@ virksomhed_rapporter:
     singular: "Virksomhedsrapport"
   confirmation:
     re-calculate: "Er du sikker på at du vil genberegne bygningsrapporten?"
+    calculated: "Virksomhed rapport beregnet"
+  error:
+    beregn_fejl: "Fejl under beregning af rapport"
   messages:
     no_files: "Rapporten har ingen filer tilknyttet"
   strings:
