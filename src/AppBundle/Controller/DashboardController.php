@@ -8,6 +8,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Yavin\Symfony\Controller\InitControllerInterface;
@@ -257,6 +258,7 @@ class DashboardController extends BaseController
    */
   private function getDashboardFilterBuilder(User $user, $filterCondition)
   {
+    /** @var QueryBuilder $filterBuilder */
     $filterBuilder = $this->get('doctrine.orm.entity_manager')
       ->getRepository('AppBundle:Bygning')
       ->createQueryBuilder('b');
@@ -269,14 +271,16 @@ class DashboardController extends BaseController
         $filterBuilder->setParameter('aaplusAnsvarlig', $user);
         break;
       case 'igangvaerende':
-        $filterBuilder->andWhere('b.energiRaadgiver = :energiRaadgiver');
-        $filterBuilder->setParameter('energiRaadgiver', $user);
+        $filterBuilder->leftJoin('b.energiRaadgiver', 'eu');
+        $filterBuilder->where('eu = :user');
+        $filterBuilder->setParameter('user', $user);
         $filterBuilder->andWhere('b.status = :status');
         $filterBuilder->setParameter('status', BygningStatusType::TILKNYTTET_RAADGIVER);
         break;
       case 'indsendt':
-        $filterBuilder->andWhere('b.energiRaadgiver = :energiRaadgiver');
-        $filterBuilder->setParameter('energiRaadgiver', $user);
+        $filterBuilder->leftJoin('b.energiRaadgiver', 'eu');
+        $filterBuilder->where('eu = :user');
+        $filterBuilder->setParameter('user', $user);
         $filterBuilder->andWhere('b.status >= :status');
         $filterBuilder->setParameter('status', BygningStatusType::AFLEVERET_RAADGIVER);
         break;

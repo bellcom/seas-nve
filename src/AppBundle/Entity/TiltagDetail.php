@@ -166,7 +166,7 @@ abstract class TiltagDetail {
    *
    * @ORM\Column(name="tilvalgt", type="boolean", nullable=true)
    */
-  protected $tilvalgt = false;
+  protected $tilvalgt = TRUE;
 
   /**
    * Set tilvalgt

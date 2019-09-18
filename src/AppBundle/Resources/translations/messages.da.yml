@@ -35,7 +35,7 @@ Cancel: "Annuller"
 Update: "Opdater"
 Delete: "Slet"
 Add: "Tilføj"
-Add more: "Tiløj mere"
+Add more: "Tiløj flere"
 Close: "Luk"
 Ok: "Ok"
 
@@ -170,7 +170,7 @@ bilag:
     plural: "Bilag"
 bygninger:
   actions:
-    add: "Tilføj Bygning"
+    add: "Opret ny Bygning"
     create: "Opret Bygning"
     edit: "Rediger Bygning"
     indfoer: "Indfør Bygning"
@@ -641,6 +641,9 @@ virksomhed_rapporter:
     singular: "Virksomhedsrapport"
   confirmation:
     re-calculate: "Er du sikker på at du vil genberegne bygningsrapporten?"
+    calculated: "Virksomhed rapport beregnet"
+  error:
+    beregn_fejl: "Fejl under beregning af rapport"
   messages:
     no_files: "Rapporten har ingen filer tilknyttet"
   strings:
@@ -2266,7 +2269,7 @@ roles:
     ROLE_SUPER_ADMIN: "Super administrator"
     ROLE_ADMIN: "Administrator"
     ROLE_CREATE: "Opret alle typer indhold"
-    ROLE_EDIT: "Rediger alle typer indhold"
+    ROLE_EDIT: "Rediger alle typer indhold (undtagen Virksomhed)"
     ROLE_VIEW: "Vis alle typer indhold"
     ROLE_BASELINE_CREATE: "Opret baseline"
     ROLE_BASELINE_EDIT: "Rediger baseline"
