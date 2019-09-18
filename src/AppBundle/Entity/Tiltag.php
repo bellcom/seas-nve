@@ -1835,7 +1835,7 @@ abstract class Tiltag {
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->besparelseAarEt = $this->calculateSavingsForYear(1);
     $this->maengde = $this->calculateMaengde();
-    $this->tilskudsstoerrelse = $this->calculateTilskudsstoerrelse();
+    $this->tilskudsstoerrelse = $this->getTilskudsstoerrelse();
     $this->enhed = $this->calculateEnhed();
   }
 
@@ -2069,8 +2069,12 @@ abstract class Tiltag {
     return NULL;
   }
 
+  /**
+   * @Formula("$this->tilskudsstoerrelse * ((($this->getKonverteringsfaktorFoer() * $this->getForbrugFoer()) - ($this->getKonverteringsfaktorEfter() * $this->getForbrugEfter())) * $this->getPrioriteringsfaktor())")
+   */
   protected function calculateTilskudsstoerrelse() {
-    return $this->tilskudsstoerrelse * $this->getKonverteringsfaktorFoer() * $this->getPrioriteringsfaktor();
+    // tilskudsstørrelse * (((getKonverteringsfaktorFoer * forbrugFoer) - (getKonverteringsfaktorEfter * forbrugEfter)) * prioteringsFaktor);
+    return $this->tilskudsstoerrelse * ((($this->getKonverteringsfaktorFoer() * $this->getForbrugFoer()) - ($this->getKonverteringsfaktorEfter() * $this->getForbrugEfter())) * $this->getPrioriteringsfaktor());
   }
 
   protected function calculateEnhed() {
