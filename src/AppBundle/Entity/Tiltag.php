@@ -2070,6 +2070,9 @@ abstract class Tiltag {
   }
 
   protected function calculateTilskudsstoerrelse() {
+
+    // tilskudsstørrelse * (((getKonverteringsfaktorFoer * forbrugFoer) - (getKonverteringsfaktorEfter * forbrugEfter)) * prioteringsFaktor);
+
     return $this->tilskudsstoerrelse * $this->getKonverteringsfaktorFoer() * $this->getPrioriteringsfaktor();
   }
 
