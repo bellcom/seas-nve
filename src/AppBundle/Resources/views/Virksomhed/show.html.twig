@@ -7,8 +7,11 @@
       <h1>{{ icon('briefcase') }} {{ entity }}</h1>
     </div>
     <div class="col-md-3 text-right">
-      <a href="{{ path('virksomhed_bygninger_baseline_summary', { 'id': entity.id }) }}" class="btn btn-default">
+      <a href="{{ path('baseline', { 'id': entity.id }) }}" class="btn btn-default">
         {{ 'appbundle.virksomhed.baseline.summary' | trans }}
+      </a>
+      <a href="{{ path('virksomhed_kortlaegning', { 'id': entity.id }) }}" class="btn btn-default">
+        {{ 'appbundle.virksomhed.kortlaegning' | trans }}
       </a>
       <a href="{{ path_with_access_token('virksomhed_get_rapport', { 'id': entity.id }) }}" class="btn btn-default">
         {{ icon('caret-square-o-right') }} {{ 'appbundle.virksomhed.rapport' | trans }}

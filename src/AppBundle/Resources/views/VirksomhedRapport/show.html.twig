@@ -60,7 +60,9 @@
           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( 'calculator' ) }} {{ 'virksomhed_rapporter.actions.re-calculate' | trans }}</button>
         {% endif %}
       {% endif %}
-
+      <a href="{{ path('virksomhed_kortlaegning', { 'id': entity.virksomhed.id }) }}" class="btn btn-default">
+        {{ 'appbundle.virksomhed.kortlaegning' | trans }}
+      </a>
       <a href="{{ path_with_access_token('virksomhed_rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf2' | trans }}
       </a>

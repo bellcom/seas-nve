@@ -271,6 +271,13 @@ class Virksomhed
     protected $forsyningsvaerkEl;
 
     /**
+     * @ORM\OneToOne(targetEntity="VirksomhedKortlaegning", mappedBy="virksomhed", cascade={"persist"})
+     * @JoinColumn(name="virksomhed_id", referencedColumnName="id", nullable=true)
+     * @JMS\Exclude
+     **/
+    protected $kortlaegning;
+
+    /**
      * Virksomhed constructor.
      */
     public function __construct()
@@ -1215,6 +1222,21 @@ class Virksomhed
      */
     public function getForsyningsvaerkEl() {
         return $this->forsyningsvaerkEl;
+    }
+
+    /**
+     * @return VirksomhedKortlaegning|null
+     */
+    public function getKortlaegning() {
+        return $this->kortlaegning;
+    }
+
+    /**
+     * @param VirksomhedKortlaegning $kortlaegning
+     */
+    public function setKortlaegning($kortlaegning) {
+        $this->kortlaegning = $kortlaegning;
+        $kortlaegning->setVirksomhed($this);
     }
 
     /**

@@ -648,6 +648,13 @@ virksomhed_rapporter:
     no_files: "Rapporten har ingen filer tilknyttet"
   strings:
     related_reports: "Relaterede rapporter"
+virksomhed_kortlaegning:
+  label:
+    plural: "Kortlægninger"
+    singular: "Kortlægning"
+    general: "Generalt"
+  confirmation:
+    updated: "Kortlægninger opdateret"
 
 # Forms - We follow the formbuilders form id format
 appbundle:
@@ -2039,6 +2046,7 @@ appbundle:
     kam: "KAM"
     kalkulationsrente: "Kalkulationsrente"
     kalkulationsrente.unit: "%"
+    kortlaegning: "Kortlægning"
     inflation: "Inflation"
     inflation.unit: "%"
     lobetid: "Løbetid"
@@ -2189,6 +2197,15 @@ appbundle:
     opvarmetareal.unit: "m²"
     uOpvarmetareal: "Uopvarmet areal"
     uOpvarmetareal.unit: "m²"
+  virksomhedkortlaegning:
+    aar: "År"
+    slutanvendelser: "Slutanvendelser"
+    slutanvendelser.type: "Type"
+    slutanvendelser.procent: "Procent, %"
+    slutanvendelser.forbrug: "Forbrug, kWh/år"
+    titel: "Navn"
+    totalForbrug: "Total forbrug"
+    totalForbrug.unit: "kWh/år"
   fil:
     createdAt: "Oprettet"
     createdBy: "Oprettet af"
