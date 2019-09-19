@@ -50,6 +50,8 @@ class Rapport {
   protected $id;
 
   /**
+   * @var Bygning
+   *
    * @OneToOne(targetEntity="Bygning", inversedBy="rapport", fetch="EAGER")
    **/
   protected $bygning;
@@ -2369,7 +2371,7 @@ class Rapport {
   }
 
   private function calculateMtmFaellesomkostninger() {
-    $areal = $this->bygning->getBruttoetageareal();
+    $areal = $this->bygning->getErhvervsareal();
     if ($areal < $this->configuration->getMtmFaellesomkostningerNulHvisArealMindreEnd()
         || $this->anlaegsinvestering < $this->configuration->getMtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd()) {
       return 0;

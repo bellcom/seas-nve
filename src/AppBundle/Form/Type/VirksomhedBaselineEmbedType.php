@@ -18,37 +18,26 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
  * Class BygningType
  * @package AppBundle\Form
  */
-class BygningBaselineEmbedType extends AbstractType {
+class VirksomhedBaselineEmbedType extends AbstractType {
 
   /**
-   * @TODO: Missing description.
-   *
-   * @param FormBuilderInterface $builder
-   * @TODO: Missing description.
-   * @param array $options
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('areal', null, array('disabled' => 'disabled'));
+    $builder->add('erhvervsareal', null, array('disabled' => 'disabled'));
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @param OptionsResolver $resolver
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Bygning',
+      'data_class' => 'AppBundle\Entity\Virksomhed',
     ));
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @return string
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function getName() {
     return 'appbundle_bygning_embed';

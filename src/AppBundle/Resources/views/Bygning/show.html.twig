@@ -15,16 +15,10 @@
     </div>
     <div class="col-md-4 text-right">
       <p>
-        {% if is_granted('ROLE_BYGNING_EDIT') and entity.status > '1_IS' %}
         {% if entity.baseline is not null %}
         <a href="{{ path('baseline_show', { 'id': entity.baseline.id }) }}" class="btn btn-primary">
-          {{ icon('edit') }} {{ 'baseline.labels.singular' | trans }}
+          {{ 'baseline.labels.singular' | trans }}
         </a>
-        {% else %}
-        <form method="POST" action="{{ path('baseline_create', { 'id': entity.id }) }}" class="inline-block">
-          <button type="submit" class="btn btn-primary">{{ icon('plus') }} {{ 'baseline.labels.singular' | trans }}</button>
-        </form>
-      {% endif %}
       {% endif %}
 
       {% if is_granted('ROLE_BYGNING_EDIT') %}

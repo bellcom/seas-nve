@@ -6,34 +6,29 @@
 
 namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\Rapport;
+use AppBundle\Entity\VirksomhedRapport;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Class RapportType
+ * Class VirksomhedRapportType
  * @package AppBundle\Form
  */
-class RapportShowType extends AbstractType
+class VirksomhedRapportShowType extends AbstractType
 {
   protected $authorizationChecker;
   protected $rapport;
 
-  public function __construct(AuthorizationCheckerInterface $authorizationChecker, Rapport $rapport)
+  public function __construct(AuthorizationCheckerInterface $authorizationChecker, VirksomhedRapport $rapport)
   {
     $this->authorizationChecker = $authorizationChecker;
     $this->rapport = $rapport;
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @param FormBuilderInterface $builder
-   * @TODO: Missing description.
-   * @param array $options
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
@@ -47,7 +42,6 @@ class RapportShowType extends AbstractType
       ->add('BaselineEl', null, array('disabled' => 'disabled'))
       ->add('BaselineVarmeGUF', null, array('disabled' => 'disabled'))
       ->add('BaselineVarmeGAF', null, array('disabled' => 'disabled'))
-      ->add('bygning', new BygningBaselineEmbedType(), array('label' => false))
       ->add('BaselineStrafAfkoeling', null, array('disabled' => 'disabled'))
       ->add('faktorPaaVarmebesparelse', null, array('disabled' => 'disabled'))
       ->add('energiscreening', null, array('disabled' => 'disabled'));
@@ -62,26 +56,20 @@ class RapportShowType extends AbstractType
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @param OptionsResolver $resolver
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function configureOptions(OptionsResolver $resolver)
   {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Rapport'
+      'data_class' => 'AppBundle\Entity\VirksomhedRapport'
     ));
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @return string
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function getName()
   {
-    return 'appbundle_rapport';
+    return 'appbundle_virksomhed_rapport';
   }
 }

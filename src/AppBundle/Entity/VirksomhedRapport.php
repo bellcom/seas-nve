@@ -2115,13 +2115,8 @@ class VirksomhedRapport
      * @Formula("$this->calculateErhvervsarealExp()")
      */
     private function calculateErhvervsareal($expression = FALSE) {
-        $result = array();
-        /** @var Bygning $bygning */
-        foreach ($this->getVirksomhed()->getAllBygninger() as $bygning) {
-            $result[] = $bygning->getErhvervsareal();
-        }
-
-        return $expression ? $this->sumExpr($result) : array_sum($result);
+        $result = $this->getVirksomhed()->getBygningerErhvervsareal($expression);
+        return $expression ? $this->sumExpr($result) : $result;
     }
 
     /**

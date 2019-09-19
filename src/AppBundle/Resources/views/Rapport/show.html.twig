@@ -86,10 +86,6 @@
         <a href="{{ path('rapport_edit', { 'id': entity.id }) }}" class="btn btn-default">
           {{ icon('edit') }} {{ 'bygning_rapporter.actions.edit' | trans }}
         </a>
-      {% else %}
-        <a href="{{ path('rapport_show_baseline', { 'id': entity.id }) }}" class="btn btn-default">
-          {{ icon('edit') }} {{ 'bygning_rapporter.actions.edit' | trans }}
-        </a>
       {% endif %}
 
       {# BUTTONS #}

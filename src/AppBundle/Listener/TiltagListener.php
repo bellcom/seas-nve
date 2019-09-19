@@ -2,6 +2,7 @@
 namespace AppBundle\Listener;
 
 use AppBundle\Entity\BaselineKorrektion;
+use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Configuration;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -34,14 +35,16 @@ class TiltagListener {
     foreach ($entities as $entity) {
       if ($entity instanceof Baseline) {
         $targets[] = $entity;
-        if ($entity->getBygning()->getRapport()) {
-          $targets[] = $entity->getBygning()->getRapport();
+        /** @var Bygning $bygning */
+        foreach ($entity->getBygninger() as $bygning) {
+          $targets[] = $bygning->getRapport();
         }
       }
       if ($entity instanceof BaselineKorrektion) {
         $targets[] = $entity->getBaseline();
-        if ($entity->getBaseline()->getBygning()->getRapport()) {
-          $targets[] = $entity->getBaseline()->getBygning()->getRapport();
+        /** @var Bygning $bygning */
+        foreach ($entity->getBaseline()->getBygninger() as $bygning) {
+          $targets[] = $bygning->getRapport();
         }
       }
       if ($entity instanceof Tiltag) {

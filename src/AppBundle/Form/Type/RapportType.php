@@ -6,6 +6,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\Baseline;
 use AppBundle\Entity\Rapport;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,18 +29,16 @@ class RapportType extends AbstractType
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @param FormBuilderInterface $builder
-   * @TODO: Missing description.
-   * @param array $options
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
 
     // If there is a Baseline attached disable editing of baseline fields
-    $disabled = $this->rapport->getBygning()->getBaseline() ? 'disabled' : '';
+    $disabled = 'disabled';
+    if (empty($this->rapport->getBygning()->getBaseline())) {
+      $disabled = '';
+    }
 
     $builder
       ->add('datering', 'date', array(

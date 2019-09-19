@@ -3,8 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\BaselineKorrektion;
-use AppBundle\Entity\Bygning;
-use AppBundle\Form\BaselineEmbedKorrektionType;
+use AppBundle\Entity\VirksomhedRapport;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -28,23 +27,23 @@ class BaselineController extends BaseController {
   public function init(Request $request) {
     $this->request = $request;
     parent::init($request);
-    $this->breadcrumbs->addItem('Bygninger', $this->generateUrl('bygning'));
+    $this->breadcrumbs->addItem('Virksomheder', $this->generateUrl('virksomhed'));
   }
 
   /**
-   * Use a Rapport as breadcrumbs rather than a Bygning.
+   * Use a Rapport as breadcrumbs rather than a Virksomhed.
    *
    * @param Rapport
    *   The rapport.
    */
-  private function setRapportBreadcrumbs(Rapport $rapport) {
+  private function setRapportBreadcrumbs(VirksomhedRapport $rapport) {
     // Reset the breadcrumbs.
     $this->breadcrumbs->clear();
     parent::init($this->request);
-    // Add Rapport path.
-    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
-    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
-    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
+    // Add Virksomhed Rapport path.
+    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('virksomhed_rapport'));
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('appbundle.virksomhed.baseline', $this->generateUrl('baseline_show', array('id' => $rapport->getVirksomhed()->getBaseline()->getId())));
   }
 
   /**
@@ -67,14 +66,14 @@ class BaselineController extends BaseController {
    * @Security("is_granted('BASELINE_VIEW', baseline)")
    */
   public function showAction(Baseline $baseline) {
-    $bygning = $baseline->getBygning();
-    $rapport = $bygning ? $bygning->getRapport() : NULL;
+    $virksomhed = $baseline->getVirksomhed();
+    $rapport = $virksomhed ? $virksomhed->getRapport() : NULL;
     if ($rapport) {
       $this->setRapportBreadcrumbs($rapport);
     }
     else {
-      $this->breadcrumbs->addItem($baseline->getBygning(), $this->generateUrl('bygning_show', array('id' => $baseline->getBygning()->getId())));
-      $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
+      $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+      $this->breadcrumbs->addItem('appbundle.virksomhed.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
     }
 
     if (!$baseline) {
@@ -148,14 +147,14 @@ class BaselineController extends BaseController {
    * @Security("is_granted('BASELINE_EDIT', baseline)")
    */
   public function editAction(Baseline $baseline) {
-    $bygning = $baseline->getBygning();
-    $rapport = $bygning ? $bygning->getRapport() : NULL;
+    $virksomhed = $baseline->getVirksomhed();
+    $rapport = $virksomhed ? $virksomhed->getRapport() : NULL;
     if ($rapport) {
       $this->setRapportBreadcrumbs($rapport);
     }
     else {
-      $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
-      $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
+      $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+      $this->breadcrumbs->addItem('appbundle.virksomhed.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
     }
     $this->breadcrumbs->addItem('common.edit');
 
@@ -208,8 +207,8 @@ class BaselineController extends BaseController {
    * @Security("is_granted('BASELINE_EDIT', baseline)")
    */
   public function updateAction(Request $request, Baseline $baseline) {
-    $this->breadcrumbs->addItem($baseline->getBygning(), $this->generateUrl('bygning_show', array('id' => $baseline->getBygning()->getId())));
-    $this->breadcrumbs->addItem('appbundle.bygning.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
+    $this->breadcrumbs->addItem($baseline->getVirksomhed(), $this->generateUrl('virksomhed_show', array('id' => $baseline->getVirksomhed()->getId())));
+    $this->breadcrumbs->addItem('appbundle.virksomhed.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
     $this->breadcrumbs->addItem('common.edit');
 
     if (!$baseline) {

@@ -21,6 +21,7 @@ use AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType;
 use AppBundle\Annotations\Calculated;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
+use mysql_xdevapi\Collection;
 
 /**
  * Baseline.
@@ -49,9 +50,9 @@ class Baseline {
   protected $id;
 
   /**
-   * @ORM\OneToOne(targetEntity="Bygning", inversedBy="baseline", fetch="EAGER")
+   * @ORM\OneToOne(targetEntity="Virksomhed", inversedBy="baseline", fetch="EAGER")
    **/
-  protected $bygning;
+  protected $virksomhed;
 
   /**
    * @ORM\OneToMany(targetEntity="BaselineKorrektion", mappedBy="baseline")
@@ -875,22 +876,22 @@ class Baseline {
   }
 
   /**
-   * @return mixed
+   * @return Virksomhed|null
    */
-  public function getBygning() {
-    return $this->bygning;
+  public function getVirksomhed() {
+    return $this->virksomhed;
   }
 
 
   /**
-   * Set bygning
+   * Set virksomhed
    *
-   * @param \AppBundle\Entity\Bygning $bygning
+   * @param Virksomhed $virksomhed
    *
    * @return Baseline
    */
-  public function setBygning(\AppBundle\Entity\Bygning $bygning = NULL) {
-    $this->bygning = $bygning;
+  public function setVirksomhed(Virksomhed $virksomhed = NULL) {
+    $this->virksomhed = $virksomhed;
 
     return $this;
   }
@@ -907,7 +908,7 @@ class Baseline {
    *
    * @param \AppBundle\Entity\BaselineKorrektion $korrektion
    *
-   * @return Bygning
+   * @return Baseline
    */
   public function addKorrektioner(\AppBundle\Entity\BaselineKorrektion $korrektion) {
     $this->korrektioner[] = $korrektion;
@@ -2413,6 +2414,17 @@ class Baseline {
     $this->varmeGUFForbrugKorrektion = $varmeGUFForbrugKorrektion;
   }
 
+  /**
+   * @return array
+   */
+  public function getBygninger() {
+    if ($this->getVirksomhed() instanceof Virksomhed) {
+        return $this->getVirksomhed()->getAllBygninger();
+    }
+
+    return array();
+  }
+
   ///
   // Calculations
   ///
@@ -2474,10 +2486,10 @@ class Baseline {
     $this->varmeGUFForbrugKorrigeret = $this->calculateVarmeGUFForbrugKorrigeret();
     $this->varmeStrafafkoelingsafgiftKorrigeret = $this->calculateVarmeStrafafkoelingsafgiftKorrigeret();
 
-    //Update Rapport Baseline
-    if($this->getBygning() && $this->getBygning()->getRapport()) {
-      $rapport = $this->getBygning()->getRapport();
-
+    // Update Rapport Baseline.
+    /** @var Bygning $bygning */
+    foreach ($this->getBygninger() as $bygning) {
+      $rapport = $bygning->getRapport();
       $rapport->setBaselineEl($this->getElBaselineFastsatForEjendomKorrigeret());
       $rapport->setBaselineVarmeGAF($this->getVarmeGAFForbrugKorrigeret());
       $rapport->setBaselineVarmeGUF($this->getVarmeGUFForbrugKorrigeret());

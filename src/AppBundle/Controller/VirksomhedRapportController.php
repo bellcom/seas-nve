@@ -8,7 +8,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\Type\VirksomhedRapportSearchType;
-use AppBundle\Form\Type\VirksomhedRapportStatusType;
+use AppBundle\Form\Type\VirksomhedRapportShowType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,13 +32,13 @@ use Doctrine\ORM\Mapping\Entity;
 class VirksomhedRapportController extends BaseController {
   public function init(Request $request) {
     parent::init($request);
-    $this->breadcrumbs->addItem('Virksomhed Rapporter', $this->generateUrl('virksomed_rapport'));
+    $this->breadcrumbs->addItem('Virksomhed Rapporter', $this->generateUrl('virksomhed_rapport'));
   }
 
   /**
    * Lists all VirksomhedRapport entities.
    *
-   * @Route("/", name="virksomed_rapport")
+   * @Route("/", name="virksomhed_rapport")
    * @Method("GET")
    * @Template()
    */
@@ -112,7 +112,6 @@ class VirksomhedRapportController extends BaseController {
   public function showAction(VirksomhedRapport $rapport) {
     $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
 
-    $deleteForm = $this->createDeleteForm($rapport->getId())->createView();
     $editForm = $this->createEditFormFinansiering($rapport);
 
     $calculationChanges = $this->container->get('aaplus.virksomhed_rapport_calculation')->getChanges($rapport);
@@ -120,7 +119,6 @@ class VirksomhedRapportController extends BaseController {
 
     $twigVars = array(
       'entity' => $rapport,
-      'delete_form' => $deleteForm,
       'edit_form' => $editForm ? $editForm->createView() : NULL,
       'calculate_form' => $calculateForm,
       'calculation_changes' => $calculationChanges,
@@ -128,6 +126,31 @@ class VirksomhedRapportController extends BaseController {
     );
 
     return $twigVars;
+  }
+
+  /**
+   * Finds and displays Baseline for a VirksomhedRapport entity.
+   *
+   * @Route("/{id}/baseline", name="virksomhed_rapport_show_baseline")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
+   * @param VirksomhedRapport $rapport
+   * @return array
+   */
+  public function baselineAction(VirksomhedRapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('appbundle.virksomhed.baseline', $this->generateUrl('baseline_show', array('id' => $rapport->getVirksomhed()->getBaseline()->getId())));
+
+    $showForm = $this->createForm(new VirksomhedRapportShowType($this->get('security.context'), $rapport), $rapport, array(
+      'action' => '#',
+      'method' => 'PUT',
+    ));
+
+    return array(
+      'entity' => $rapport,
+      'show_form' => $showForm->createView(),
+    );
   }
 
   /**
@@ -212,116 +235,6 @@ class VirksomhedRapportController extends BaseController {
       'entity' => $rapport,
     );
 
-  }
-
-  /**
-   * Displays a form to edit an existing VirksomhedRapport entity.
-   *
-   * @Route("/{id}/edit", name="virksomhed_rapport_edit")
-   * @Method("GET")
-   * @Template()
-   * @Security("is_granted('VIRKSOMHED_RAPPORT_EDIT', rapport)")
-   */
-  public function editAction(VirksomhedRapport $rapport) {
-    $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
-    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('virksomhed_rapport_edit', array('id' => $rapport->getId())));
-
-    $editForm = $this->createEditForm($rapport);
-    $deleteForm = $this->createDeleteForm($rapport->getId());
-
-    return array(
-      'entity' => $rapport,
-      'edit_form' => $editForm->createView(),
-      'delete_form' => $deleteForm->createView(),
-    );
-  }
-
-  /**
-   * Edits an existing VirksomhedRapport entity.
-   *
-   * @Route("/{id}", name="virksomhed_rapport_update")
-   * @Method("PUT")
-   * @Template("AppBundle:VirksomhedRapport:edit.html.twig")
-   * @Security("is_granted('VIRKSOMHED_RAPPORT_EDIT', rapport)")
-   */
-  public function updateAction(Request $request, VirksomhedRapport $rapport) {
-    $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
-    $this->breadcrumbs->addItem('common.edit', $this->generateUrl('virksomhed_rapport_edit', array('id' => $rapport->getId())));
-
-    $deleteForm = $this->createDeleteForm($rapport->getId());
-    $editForm = $this->createEditForm($rapport);
-    $editForm->handleRequest($request);
-
-    if ($editForm->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $em->flush();
-
-      return $this->redirect($this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
-    }
-
-    return array(
-      'entity' => $rapport,
-      'edit_form' => $editForm->createView(),
-      'delete_form' => $deleteForm->createView(),
-    );
-  }
-
-  /**
-   * Creates a form to delete a VirksomhedRapport entity by id.
-   *
-   * @param mixed $id The entity id
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createDeleteForm($id) {
-    return $this->createFormBuilder()
-      ->setAction($this->generateUrl('virksomhed_rapport_delete', array('id' => $id)))
-      ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
-      ->getForm();
-  }
-
-  /**
-   * Deletes a VirksomhedRapport entity.
-   *
-   * @Route("/{id}", name="virksomhed_rapport_delete")
-   * @Method("DELETE")
-   */
-  public function deleteAction(Request $request, $id) {
-    $form = $this->createDeleteForm($id);
-    $form->handleRequest($request);
-
-    if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $entity = $em->getRepository('AppBundle:VirksomhedRapport')->find($id);
-
-      if (!$entity) {
-        throw $this->createNotFoundException('Unable to find Rapport entity.');
-      }
-
-      $em->remove($entity);
-      $em->flush();
-    }
-
-    return $this->redirect($this->generateUrl('virksomhed_rapport'));
-  }
-
-  /**
-   * Creates a form to edit a VirksomhedRapport entity.
-   *
-   * @param VirksomhedRapport $entity The entity
-   *
-   * @return \Symfony\Component\Form\Form The form
-   */
-  private function createEditForm(VirksomhedRapport $entity) {
-    $form = $this->createForm(new VirksomhedRapportType($this->get('security.context'), $entity), $entity, array(
-      'action' => $this->generateUrl('virksomhed_rapport_update', array('id' => $entity->getId())),
-      'method' => 'PUT',
-    ));
-
-    $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_show', array('id' => $entity->getId())));
-
-    return $form;
   }
 
   /**
