@@ -13,21 +13,4 @@ use AppBundle\DBAL\Types\BygningStatusType;
  * BaselineRepository.
  */
 class BaselineRepository extends BaseRepository {
-
-  /**
-   * Check if a User has edit rights to a BAseline
-   *
-   * @param User $user
-   * @param Rapport $baseline
-   * @return bool
-   */
-  public function canEdit(User $user, Baseline $baseline) {
-    return TRUE;
-    if($baseline->getBygning()->getStatus() === BygningStatusType::TILKNYTTET_RAADGIVER) {
-      return $baseline->getBygning()->getEnergiRaadgiver()->contains($user);
-    }
-
-    return $this->hasFullAccess($user);
-  }
-
 }

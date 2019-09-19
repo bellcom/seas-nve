@@ -220,14 +220,14 @@ abstract class Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="forbrugFoer", type="integer")
+   * @ORM\Column(name="forbrugFoer", type="integer", nullable=true)
    */
   protected $forbrugFoer;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="forbrugEfter", type="integer")
+   * @ORM\Column(name="forbrugEfter", type="integer", nullable=true)
    */
   protected $forbrugEfter;
 

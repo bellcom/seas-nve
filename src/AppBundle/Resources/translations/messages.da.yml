@@ -122,7 +122,7 @@ baseline:
     create: "Opret Baseline"
     edit: "Rediger Baseline"
     indfoer: "Indfør Baseline"
-    korriger: "Korriger Baseline"
+    korriger: "Korriger Virksomhed Baseline"
     show: "Vis Baseline"
   confirmation:
     baseline_infoert: "Baseline data verificeret"
@@ -920,7 +920,7 @@ appbundle:
     afdelingsnavn: "Afdelingsnavn"
     ansvarlig: "Ansvarlig"
     anvendelse: "Anvendelse"
-    baseline: "Baseline"
+    baseline: "Virksomhed Baseline"
     bruttoetageareal: "Bruttoetageareal"
     bruttoetageareal.unit: "m²"
     erhvervsareal: "Erhvervsareal"
@@ -1997,6 +1997,7 @@ appbundle:
     yderligereBesparelserPct: "Yderligere besparelser"
     yderligereBesparelserPct.unit: "%"
   virksomhed:
+    baseline: "Baseline"
     bygning: "Tilknyttede bygninger"
     generalt: "Generel information"
     name: "Firmanavn"
@@ -2061,8 +2062,6 @@ appbundle:
     forsyningsvaerkEl: "El"
     forsyningsvaerkVand: "Vand"
     forsyningsvaerkVarme: "Varme"
-    baseline:
-      summary: "Bygninger baseline opsummering"
   virksomhed_rapport:
     ava: "AVA"
     anlaegsinvestering.unit: "kr"

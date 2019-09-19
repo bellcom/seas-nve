@@ -950,7 +950,12 @@ class VirksomhedRapport
     public function setVirksomhed(Virksomhed $virksomhed = NULL)
     {
         $this->virksomhed = $virksomhed;
-
+        if($virksomhed && $virksomhed->getBaseline()) {
+            $this->setBaselineEl($virksomhed->getBaseline()->getElBaselineFastsatForEjendomKorrigeret());
+            $this->setBaselineVarmeGAF($virksomhed->getBaseline()->getVarmeGAFForbrugKorrigeret());
+            $this->setBaselineVarmeGUF($virksomhed->getBaseline()->getVarmeGUFForbrugKorrigeret());
+            $this->setBaselineStrafAfkoeling($virksomhed->getBaseline()->getVarmeStrafafkoelingsafgiftKorrigeret());
+        }
         return $this;
     }
 
@@ -2038,10 +2043,28 @@ class VirksomhedRapport
         }
     }
 
+    protected function calculateBaselineCO2El() {
+        $forsyningsvaerk = $this->getVirksomhed()->getForsyningsvaerkEl(TRUE);
+        $elKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2015);
+
+        return ($this->BaselineEl / 1000) * ($elKgCo2MWh / 1000);
+    }
+
+    protected function calculateBaselineCO2Varme() {
+        $forsyningsvaerk = $this->getVirksomhed()->getForsyningsvaerkVarme(TRUE);
+        $varmeKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2015);
+
+        return (($this->BaselineVarmeGUF + $this->BaselineVarmeGAF) / 1000) * $varmeKgCo2MWh / 1000;
+    }
+
+    protected function calculateBaselineCO2Samlet() {
+        return $this->BaselineCO2El + $this->BaselineCO2Varme;
+    }
+
     /**
      * Fetchs cashflow data from reports into array.
      */
-    private function calculateCashFlow() {
+    protected function calculateCashFlow() {
         $flow = array();
         /** @var Rapport $rapport */
         foreach ($this->getRapporter() as $rapport) {
@@ -2066,7 +2089,7 @@ class VirksomhedRapport
     /**
      * Fetchs cashflow15 data from reports into array.
      */
-    private function calculateCashFlow15($expression = FALSE) {
+    protected function calculateCashFlow15($expression = FALSE) {
         $flow = array();
         /** @var Rapport $rapport */
         foreach ($this->getRapporter() as $rapport) {
@@ -2085,7 +2108,7 @@ class VirksomhedRapport
     /**
      * Fetchs cashflow30 data from reports into array.
      */
-    private function calculateCashFlow30($expression = FALSE) {
+    protected function calculateCashFlow30($expression = FALSE) {
         $flow = array();
         /** @var Rapport $rapport */
         foreach ($this->getRapporter() as $rapport) {

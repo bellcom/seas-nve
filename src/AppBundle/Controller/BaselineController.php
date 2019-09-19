@@ -27,7 +27,7 @@ class BaselineController extends BaseController {
   public function init(Request $request) {
     $this->request = $request;
     parent::init($request);
-    $this->breadcrumbs->addItem('Virksomheder', $this->generateUrl('virksomhed'));
+    $this->breadcrumbs->addItem('virksomhed.labels.plural', $this->generateUrl('virksomhed'));
   }
 
   /**
@@ -41,7 +41,7 @@ class BaselineController extends BaseController {
     $this->breadcrumbs->clear();
     parent::init($this->request);
     // Add Virksomhed Rapport path.
-    $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('virksomhed_rapport'));
+    $this->breadcrumbs->addItem('virksomhed_rapporter.labels.plural', $this->generateUrl('virksomhed_rapport'));
     $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
     $this->breadcrumbs->addItem('appbundle.virksomhed.baseline', $this->generateUrl('baseline_show', array('id' => $rapport->getVirksomhed()->getBaseline()->getId())));
   }

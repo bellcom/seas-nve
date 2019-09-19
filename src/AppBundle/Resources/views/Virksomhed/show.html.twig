@@ -8,7 +8,7 @@
     </div>
     <div class="col-md-3 text-right">
       {% if entity.baseline is not null %}
-        <a href="{{ path('baseline_show', { 'id': entity.baseline.id }) }}" class="btn btn-primary">
+        <a href="{{ path('baseline_show', { 'id': entity.baseline.id }) }}" class="btn btn-default">
           {{ 'baseline.labels.singular' | trans }}
         </a>
       {% else %}

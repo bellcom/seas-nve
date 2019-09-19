@@ -16,17 +16,18 @@
     <div class="col-md-4 text-right">
       <p>
         {% if entity.baseline is not null %}
-        <a href="{{ path('baseline_show', { 'id': entity.baseline.id }) }}" class="btn btn-primary">
-          {{ 'baseline.labels.singular' | trans }}
+        <a href="{{ path('baseline_show', { 'id': entity.baseline.id }) }}" class="btn btn-default">
+          {{ 'appbundle.bygning.baseline' | trans }}
         </a>
       {% endif %}
-
+      {% if entity.rapport %}
+        <a href="{{ path('rapport_show', { 'id': entity.rapport.id }) }}" class="btn btn-default">{{ icon('caret-square-o-right') }} {{ 'appbundle.virksomhed.rapport' | trans }}</a>
+      {% endif %}
       {% if is_granted('ROLE_BYGNING_EDIT') %}
         <a href="{{ path('bygning_edit', { 'id': entity.id }) }}" class="btn btn-default">
           {{ icon('edit') }} {{ 'common.edit' | trans }}
         </a>
       {% endif %}
-
       {% if is_granted('ROLE_BYGNING_EDIT') and entity.status == '1_IS' %}
         <a href="{{ path('bygning_indfoer', { 'id': entity.id }) }}" class="btn btn-primary">
           {{ icon('caret-square-o-right') }} {{ 'bygninger.actions.indfoer' | trans }}

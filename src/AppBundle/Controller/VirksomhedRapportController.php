@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping\Entity;
 class VirksomhedRapportController extends BaseController {
   public function init(Request $request) {
     parent::init($request);
-    $this->breadcrumbs->addItem('Virksomhed Rapporter', $this->generateUrl('virksomhed_rapport'));
+    $this->breadcrumbs->addItem('virksomhed_rapporter.labels.plural', $this->generateUrl('virksomhed_rapport'));
   }
 
   /**

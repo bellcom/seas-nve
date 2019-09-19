@@ -10,20 +10,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use AppBundle\DBAL\Types\BygningStatusType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 /**
- * Class VirksomhedBaselineEmbedType
+ * Class BygningType
  * @package AppBundle\Form
  */
-class VirksomhedBaselineEmbedType extends AbstractType {
+class BygningBaselineEmbedType extends AbstractType {
 
   /**
    * @inheritDoc
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('erhvervsareal', null, array('disabled' => 'disabled'));
+    $builder->add('areal', null, array('disabled' => 'disabled'));
   }
 
   /**
@@ -31,7 +32,7 @@ class VirksomhedBaselineEmbedType extends AbstractType {
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Virksomhed',
+      'data_class' => 'AppBundle\Entity\Bygning',
     ));
   }
 
@@ -39,6 +40,6 @@ class VirksomhedBaselineEmbedType extends AbstractType {
    * @inheritDoc
    */
   public function getName() {
-    return 'appbundle_virksomhed_embed';
+    return 'appbundle_bygning_embed';
   }
 }
