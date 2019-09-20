@@ -1,50 +1,86 @@
 {% extends 'AppBundle::base.html.twig' %}
 
-  {% block body -%}
-    <div class="row heading">
-      <div class="col-md-9">
-        <h1>{{ 'virksomhed_kortlaegning.label.singular' | trans }}</h1>
-      </div>
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'virksomhed_kortlaegning.label.singular' | trans }}</h1>
     </div>
+  </div>
 
-{{ form_start(form, { 'style': 'horizontal' }) }}
-{{ form_row(form.buttons) }}
-<div class="row">
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">{{ icon('industry') }} {{ 'virksomhed_kortlaegning.label.general' | trans }}</div>
-      <div class="panel-body">
-        {{ form_row(form.titel)}}
-        {{ form_row(form.totalForbrug)}}
-        {{ form_row(form.aar)}}
+  {{ form_start(form, { 'style': 'horizontal' }) }}
+  {{ form_row(form.buttons) }}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('industry') }} {{ 'virksomhed_kortlaegning.label.general' | trans }}</div>
+        <div class="panel-body">
+          {{ form_row(form.titel)}}
+          {{ form_row(form.totalForbrug)}}
+          {{ form_row(form.aar)}}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser' | trans }}</div>
+        <table class="table table-condensed results">
+          <thead>
+            <tr>
+              <th>{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.type' | trans }}</th>
+              <th class="text-center">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.procent' | trans }}</th>
+              <th class="text-center">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.forbrug' | trans }}</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for key, slutanvendelse in form.slutanvendelser %}
+          <tr>
+            <td><label class="control">{{ slutanvendelser_label[key] }}</label></td>
+            <td>{{ form_widget(slutanvendelse.procent, {'attr': {'size': '5', 'class': 'js-percentage'}}) }}</td>
+            <td>{{ form_widget(slutanvendelse.forbrug, {'attr': {'size': '10', 'class': 'js-usage'}}) }}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">{{ icon('industry') }} {{ 'appbundle.virksomhedkortlaegning.slutanvendelser' | trans }}</div>
-      <table class="table table-condensed results">
-        <thead>
-          <tr>
-            <th>{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.type' | trans }}</th>
-            <th class="text-center">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.procent' | trans }}</th>
-            <th class="text-center">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.forbrug' | trans }}</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for key, slutanvendelse in form.slutanvendelser %}
-        <tr>
-          <td><label class="control">{{ slutanvendelser_label[key] }}</label></td>
-          <td>{{ form_widget(slutanvendelse.procent, {'attr': {'size': '5'}}) }}</td>
-          <td>{{ form_widget(slutanvendelse.forbrug, {'attr': {'size': '10'}}) }}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-{{ form_rest(form) }}
-{{ form_end(form) }}
+  {{ form_rest(form) }}
+  {{ form_end(form) }}
+
+  <script>
+    var totalSpend = document.getElementById('appbundle_virksomhedkortlaegning_totalForbrug');
+    var percentageFields = document.querySelectorAll('.js-percentage');
+    var usageFields = document.querySelectorAll('.js-usage');
+
+    function calculatePercentage(e) {
+      var input = e.target;
+      var total = totalSpend.value;
+      var parent = input.parentElement.parentElement;
+      var siblingInput = parent.querySelector('.js-usage');
+
+      // Validate total.
+      if (!total || isNaN(total)) {
+        return;
+      }
+
+      // Validate percentage input.
+      if (!input.value || isNaN(input.value)) {
+
+        // Clear sibling value.
+        siblingInput.value = '';
+
+        return;
+      }
+
+      var newAmount = (parseInt(total) / 100) * parseInt(input.value);
+
+      // Update DOM node.
+      siblingInput.value = newAmount;
+    }
+
+    for(var field of percentageFields) {
+      field.addEventListener('keyup', calculatePercentage);
+    }
+  </script>
 
 {% endblock %}
