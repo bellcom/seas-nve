@@ -185,6 +185,17 @@
               <a href="{{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}">{{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}</a></td>
             {% endif %}
           </tr>
+          <tr>
+            <th>{{ 'appbundle.virksomhed.baseline' | trans }}</th>
+            <td>
+              {% if entity.baseline %}
+                <a href="{{ path('baseline_show', { 'id': entity.baseline.id }) }}">{{ 'common.linked' | trans }}</a>
+              {% else %}
+                {{ 'common.notLinked' | trans }}
+              {% endif %}
+            </td>
+          </tr>
+
         </tbody>
       </table>
       </div>

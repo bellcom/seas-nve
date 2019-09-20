@@ -4,7 +4,7 @@
 {% block body -%}
   <div class="row heading">
     <div class="col-md-9">
-      <h1>{{ 'bygning_rapporter.actions.edit' | trans }}</h1>
+      <h1>{{ 'baseline.actions.show' | trans }}</h1>
     </div>
     <div class="col-md-3 text-right">
       {% if entity.bygning.baseline %}
@@ -23,12 +23,7 @@
     <div class="panel-body">
       <div class="col-xs-12 col-md-6">
         {{ form_row(show_form.datering) }}
-        {% if show_form.elena is defined %}
-          {{ form_row(show_form.elena) }}
-        {% endif %}
-        {% if show_form.ava is defined %}
-          {{ form_row(show_form.ava) }}
-        {% endif %}
+        {{ aaplus.form_row_decimal('appbundle.virksomhed_rapport.energibudgetEl', entity.energibudgetEl, 'appbundle.virksomhed_rapport.energibudgetEl.unit') }}
       </div>
       <div class="col-xs-12 col-md-6">
         {{ form_row(show_form.energiscreening) }}
@@ -38,7 +33,6 @@
         {{ aaplus.form_row_decimal('appbundle.virksomhed_rapport.energibudgetVarme', entity.energibudgetVarme, 'appbundle.virksomhed_rapport.energibudgetVarme.unit') }}
       </div>
       <div class="col-xs-12 col-md-6">
-        {{ aaplus.form_row_decimal('appbundle.virksomhed_rapport.energibudgetEl', entity.energibudgetEl, 'appbundle.virksomhed_rapport.energibudgetEl.unit') }}
       </div>
     </div>
   </div>
@@ -52,6 +46,7 @@
         {{ form_row(show_form.BaselineEl) }}
         {{ form_row(show_form.BaselineVarmeGUF) }}
         {{ form_row(show_form.BaselineVarmeGAF) }}
+        {{ form_row(show_form.BaselineBraendstof) }}
       </div>
       <div class="col-xs-12 col-md-6">
         {{ form_row(show_form.BaselineStrafAfkoeling) }}

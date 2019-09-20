@@ -77,6 +77,7 @@ class BaselineType extends AbstractType
             ->add('virksomhed', null, array('disabled' => 'disabled', 'required' => false))
             ->add('eloKategori')
             ->add('save_changed', 'submit', array('disabled' => 'disabled', 'label' => 'appbundle.baseline.changed_submit', 'attr' => array('icon' => 'calculator')))
+            ->add('braendstofForbrug')
         ;
     }
 

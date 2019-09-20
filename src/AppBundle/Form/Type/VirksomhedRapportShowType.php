@@ -42,17 +42,10 @@ class VirksomhedRapportShowType extends AbstractType
       ->add('BaselineEl', null, array('disabled' => 'disabled'))
       ->add('BaselineVarmeGUF', null, array('disabled' => 'disabled'))
       ->add('BaselineVarmeGAF', null, array('disabled' => 'disabled'))
+      ->add('BaselineBraendstof', null, array('disabled' => 'disabled'))
       ->add('BaselineStrafAfkoeling', null, array('disabled' => 'disabled'))
       ->add('faktorPaaVarmebesparelse', null, array('disabled' => 'disabled'))
       ->add('energiscreening', null, array('disabled' => 'disabled'));
-
-    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-      $builder->add('elena', null, array('disabled' => 'disabled'));
-    }
-
-    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
-      $builder->add('ava', null, array('disabled' => 'disabled'));
-    }
   }
 
   /**

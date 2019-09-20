@@ -151,7 +151,7 @@ class Rapport {
    *
    * @Calculated
    * @ORM\Column(name="besparelseCO2", type="float", nullable=true)
-   * @Formula("$this->co2BesparelseEl + $this->co2BesparelseVarme + $this->co2BesparelseBraendstof")
+   * @Formula("$this->co2BesparelseEl + $this->co2BesparelseVarme + $this->co2BesparelseBraendstofITon")
    */
   protected $besparelseCO2;
 
@@ -191,6 +191,14 @@ class Rapport {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="fravalgtBesparelseBraendstof", type="float", nullable=true)
+   */
+  protected $fravalgtBesparelseBraendstof;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="co2BesparelseEl", type="float", nullable=true)
    */
   protected $co2BesparelseEl;
@@ -218,6 +226,14 @@ class Rapport {
    * @ORM\Column(name="BaselineCO2Varme", type="float", nullable=true)
    */
   protected $BaselineCO2Varme;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="BaselineCO2Braendstof", type="float", nullable=true)
+   */
+  protected $BaselineCO2Braendstof;
 
   /**
    * @var float
@@ -255,9 +271,9 @@ class Rapport {
    * @var float
    *
    * @Calculated
-   * @ORM\Column(name="co2BesparelseBraendstof", type="float", nullable=true)
+   * @ORM\Column(name="co2BesparelseBraendstofFaktor", type="float", nullable=true)
    */
-  protected $co2BesparelseBraendstof;
+  protected $co2BesparelseBraendstofFaktor;
 
   /**
    * @var float
@@ -310,6 +326,13 @@ class Rapport {
    * @ORM\Column(name="BaselineVand", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $BaselineVand;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="BaselineBraendstof", type="decimal", precision=16, scale=4, nullable=true)
+   */
+  protected $BaselineBraendstof;
 
   /**
    * @var float
@@ -465,6 +488,14 @@ class Rapport {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="energibudgetBraendstof", type="float", nullable=true)
+   */
+  protected $energibudgetBraendstof;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="fravalgtBesparelseDriftOgVedligeholdelse", type="float", nullable=true)
    */
   protected $fravalgtBesparelseDriftOgVedligeholdelse;
@@ -516,6 +547,20 @@ class Rapport {
   /**
    * @return float
    */
+  public function getBaselineCO2Braendstof() {
+    return $this->BaselineCO2Braendstof;
+  }
+
+  /**
+   * @param float $BaselineCO2Braendstof
+   */
+  public function setBaselineCO2Braendstof($BaselineCO2Braendstof) {
+    $this->BaselineCO2Braendstof = $BaselineCO2Braendstof;
+  }
+
+  /**
+   * @return float
+   */
   public function getBaselineCO2Samlet() {
     return $this->BaselineCO2Samlet;
   }
@@ -558,15 +603,15 @@ class Rapport {
   /**
    * @return float
    */
-  public function getCo2BesparelseBraendstof() {
-    return $this->co2BesparelseBraendstof;
+  public function getCo2BesparelseBraendstofFaktor() {
+    return $this->co2BesparelseBraendstofFaktor;
   }
 
   /**
-   * @param float $co2BesparelseBraendstof
+   * @param float $co2BesparelseBraendstofFaktor
    */
-  public function setCo2BesparelseBraendstof($co2BesparelseBraendstof) {
-    $this->co2BesparelseBraendstof = $co2BesparelseBraendstof;
+  public function setCo2BesparelseBraendstofFaktor($co2BesparelseBraendstofFakrtor) {
+    $this->co2BesparelseBraendstofFaktor = $co2BesparelseBraendstofFakrtor;
   }
 
   /**
@@ -645,6 +690,28 @@ class Rapport {
    */
   public function getEnergibudgetEl() {
     return $this->energibudgetEl;
+  }
+
+  /**
+   * Set energibudgetBraendstof
+   *
+   * @param float $energibudgetBraendstof
+   * @return Rapport
+   */
+  public function setEnergibudgetBraendstof($energibudgetBraendstof)
+  {
+    $this->energibudgetBraendstof = $energibudgetBraendstof;
+    return $this;
+  }
+
+  /**
+   * Get energibudgetBraendstof
+   *
+   * @return float
+   */
+  public function getEnergibudgetBraendstof()
+  {
+    return $this->energibudgetBraendstof;
   }
 
   /**
@@ -803,10 +870,7 @@ class Rapport {
     $this->bygning = $bygning;
 
     if($bygning && $bygning->getBaseline()) {
-      $this->setBaselineEl($bygning->getBaseline()->getElBaselineFastsatForEjendomKorrigeret());
-      $this->setBaselineVarmeGAF($bygning->getBaseline()->getVarmeGAFForbrugKorrigeret());
-      $this->setBaselineVarmeGUF($bygning->getBaseline()->getVarmeGUFForbrugKorrigeret());
-      $this->setBaselineStrafAfkoeling($bygning->getBaseline()->getVarmeStrafafkoelingsafgiftKorrigeret());
+      $this->updateBaselineValues($bygning->getBaseline());
     }
 
     return $this;
@@ -1192,6 +1256,27 @@ class Rapport {
    */
   public function getBaselineVarmeGAF() {
     return $this->BaselineVarmeGAF;
+  }
+
+  /**
+   * Set BaselineBraendstof
+   *
+   * @param integer $BaselineBraendstof
+   * @return Rapport
+   */
+  public function setBaselineBraendstof($BaselineBraendstof) {
+    $this->BaselineBraendstof = $BaselineBraendstof;
+
+    return $this;
+  }
+
+  /**
+   * Get BaselineBraendstof
+   *
+   * @return integer
+   */
+  public function getBaselineBraendstof() {
+    return $this->BaselineBraendstof;
   }
 
   /**
@@ -1949,25 +2034,27 @@ class Rapport {
   public function calculate() {
     $this->BaselineCO2El = $this->calculateBaselineCO2El();
     $this->BaselineCO2Varme = $this->calculateBaselineCO2Varme();
+    $this->BaselineCO2Braendstof = $this->calculateBaselineCO2Braendstof();
     $this->BaselineCO2Samlet = $this->calculateBaselineCO2Samlet();
 
     $this->besparelseEl = $this->calculateBesparelseEl();
-    $this->besparelseBraendstof = $this->calculateBesparelseBraendstof();
     $this->fravalgtBesparelseEl = $this->calculateFravalgtBesparelseEl();
     $this->besparelseVarmeGUF = $this->calculateBesparelseVarmeGUF();
     $this->fravalgtBesparelseVarmeGUF = $this->calculateFravalgtBesparelseVarmeGUF();
     $this->besparelseVarmeGAF = $this->calculateBesparelseVarmeGAF();
     $this->fravalgtBesparelseVarmeGAF = $this->calculateFravalgtBesparelseVarmeGAF();
+    $this->besparelseBraendstof = $this->calculateBesparelseBraendstof();
+    $this->fravalgtBesparelseBraendstof = $this->calculateFravalgtBesparelseBraendstof();
 
     $this->co2BesparelseEl = $this->calculateCo2BesparelseEl();
     $this->co2BesparelseVarme = $this->calculateCo2BesparelseVarme();
-    $this->co2BesparelseBraendstof = $this->calculateCo2BesparelseBraendstof();
     $this->co2BesparelseBraendstofITon = $this->calculateCo2BesparelseBraendstofITon();
     $this->besparelseCO2 = $this->calculateByFormula('besparelseCO2');
     $this->fravalgtBesparelseCO2 = $this->calculateFravalgtBesparelseCO2();
 
     $this->co2BesparelseElFaktor = $this->calculateCo2BesparelseElFaktor();
     $this->co2BesparelseVarmeFaktor = $this->calculateCo2BesparelseVarmeFaktor();
+    $this->co2BesparelseBraendstofFaktor = $this->calculateCo2BesparelseBraendstofFaktor();
     $this->co2BesparelseSamletFaktor = $this->calculateCo2BesparelseSamletFaktor();
     $this->fravalgtCo2BesparelseSamletFaktor = $this->calculateFravalgtCo2BesparelseSamletFaktor();
 
@@ -1997,6 +2084,7 @@ class Rapport {
 
     $this->energibudgetVarme = $this->calculateEnergibudgetVarme();
     $this->energibudgetEl = $this->calculateEnergibudgetEl();
+    $this->energibudgetBraendstof = $this->calculateEnergibudgetBraendstof();
   }
 
   private function calculateCashFlow15() {
@@ -2150,6 +2238,28 @@ class Rapport {
     return $value;
   }
 
+  /**
+   * Calculates expression for FravalgtBesparelseBraendstof value
+   */
+  protected function calculateFravalgtBesparelseBraendstofExp() {
+    return $this->calculateFravalgtBesparelseBraendstof(TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateFravalgtBesparelseBraendstofExp()")
+   */
+  private function calculateFravalgtBesparelseBraendstof($expression = FALSE) {
+    $values = array();
+    foreach ($this->getFravalgteTiltag() as $tiltag) {
+      if (method_exists($tiltag, 'getBesparelseCo2Braendstof')) {
+        if ($value = $tiltag->getBesparelseCo2Braendstof()) {
+          $values[] = (float) $value;
+        }
+      }
+    }
+    return $expression ? $this->sumExpr($values) : array_sum($values);
+  }
+
   private function calculateFravalgtBesparelseCO2() {
     $value = 0;
     foreach ($this->getFravalgteTiltag() as $tiltag) {
@@ -2199,16 +2309,22 @@ class Rapport {
 
   private function calculateBaselineCO2El() {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkEl(TRUE);
-    $elKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2015);
+    $kgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2015);
 
-    return ($this->BaselineEl / 1000) * ($elKgCo2MWh / 1000);
+    return ($this->BaselineEl / 1000) * ($kgCo2MWh / 1000);
   }
 
   private function calculateBaselineCO2Varme() {
     $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme(TRUE);
-    $varmeKgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2015);
+    $kgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2015);
 
-    return (($this->BaselineVarmeGUF + $this->BaselineVarmeGAF) / 1000) * $varmeKgCo2MWh / 1000;
+    return (($this->BaselineVarmeGUF + $this->BaselineVarmeGAF) / 1000) * $kgCo2MWh / 1000;
+  }
+
+  private function calculateBaselineCO2Braendstof() {
+    $forsyningsvaerk = $this->bygning->getForsyningsvaerkVarme(TRUE);
+    $kgCo2MWh = !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2015);
+    return ($this->BaselineBraendstof / 1000) * $kgCo2MWh / 1000;
   }
 
   private function calculateBaselineCO2Samlet() {
@@ -2303,16 +2419,19 @@ class Rapport {
   }
 
   /**
-   * Calculates expression for Co2BesparelseBraendstof value
+   * Calculates expression for Co2BesparelseBraendstofFaktor value
    */
-  protected function calculateCo2BesparelseBraendstofExp() {
-    return $this->calculateCo2BesparelseBraendstof(TRUE);
+  protected function calculateCo2BesparelseBraendstofFaktorExp() {
+    return $this->calculateCo2BesparelseBraendstofFaktor(TRUE);
   }
 
   /**
-   * @Formula("$this->calculateCo2BesparelseBraendstofExp()")
+   * The Co2BesparelseBraendstofFaktor calculated based on Tiltag without using
+   * Baseline data.
+   *
+   * @Formula("$this->calculateCo2BesparelseBraendstofFaktorExp()")
    */
-  private function calculateCo2BesparelseBraendstof($expression = FALSE) {
+  private function calculateCo2BesparelseBraendstofFaktor($expression = FALSE) {
     $amount = array();
 
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
@@ -2543,6 +2662,10 @@ class Rapport {
     return $this->BaselineEl - $this->besparelseEl;
   }
 
+  private function calculateEnergibudgetBraendstof() {
+    return $this->BaselineBraendstof - $this->besparelseBraendstof;
+  }
+
   private function calculateCashFlow() {
     $numberOfYears = 30;
     $maxTiltagLevetid = $this->accumulate(function($tiltag, $value) {
@@ -2645,6 +2768,21 @@ class Rapport {
       $values = $accumulator($tiltag, $values);
     }
     return $values;
+  }
+
+  /**
+   * Updates baseline values;
+   *
+   * @param Baseline $baseline
+   * @return Rapport
+   */
+  public function updateBaselineValues(Baseline $baseline) {
+    $this->setBaselineEl($baseline->getElBaselineFastsatForEjendomKorrigeret());
+    $this->setBaselineVarmeGAF($baseline->getVarmeGAFForbrugKorrigeret());
+    $this->setBaselineVarmeGUF($baseline->getVarmeGUFForbrugKorrigeret());
+    $this->setBaselineBraendstof($baseline->getBraendstofForbrugKorrigeret());
+    $this->setBaselineStrafAfkoeling($baseline->getVarmeStrafafkoelingsafgiftKorrigeret());
+    return $this;
   }
 
 }

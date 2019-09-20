@@ -61,6 +61,12 @@ class TransKeyExtension extends \Twig_Extension {
       $trans = $this->translator->trans($key);
     }
 
+    // Adjusting Virksomhed rapprt labels.
+    if (preg_match('/\.[^.]*?virksomhed\.rapport\./', $key)) {
+      $key = preg_replace('/\.[^.]*?virksomhed\.rapport\./', '.virksomhed_rapport.', $key);
+      $trans = $this->translator->trans($key);
+    }
+
     // Reset ".1++." to ".0." for collections
     if($key === $trans) {
       $key = preg_replace('/\.\d+\./', '.0.', $key);

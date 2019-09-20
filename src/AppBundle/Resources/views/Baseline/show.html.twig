@@ -63,6 +63,7 @@
               {{ helper.header('appbundle.baselinekorrektion.korrektionEl') }}
               {{ helper.header('appbundle.baselinekorrektion.korrektionGAF') }}
               {{ helper.header('appbundle.baselinekorrektion.korrektionGUF') }}
+              {{ helper.header('appbundle.baselinekorrektion.korrektionBraendstof') }}
               {{ helper.header('appbundle.baselinekorrektion.kilde') }}
               {{ helper.header() }}
             </tr>
@@ -73,6 +74,7 @@
               {{ helper.header_unit('appbundle.baselinekorrektion.korrektionEl') }}
               {{ helper.header_unit('appbundle.baselinekorrektion.korrektionGAF') }}
               {{ helper.header_unit('appbundle.baselinekorrektion.korrektionGUF') }}
+              {{ helper.header_unit('appbundle.baselinekorrektion.korrektionBraendstof') }}
               {{ helper.header_unit('appbundle.baselinekorrektion.kilde') }}
               {{ helper.header_unit() }}
             </tr>
@@ -97,6 +99,7 @@
                 <td class="number">{{ k.korrektionEl }}</td>
                 <td class="number">{{ k.korrektionGAF }}</td>
                 <td class="number">{{ k.korrektionGUF }}</td>
+                <td class="number">{{ k.korrektionBraendstof }}</td>
                 <td>{{ k.kilde }}</td>
                 <td class="text-right">
                   {% if is_granted('BASELINE_EDIT', entity) %}

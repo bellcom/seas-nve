@@ -39,6 +39,7 @@ class TiltagListener {
         foreach ($entity->getBygninger() as $bygning) {
           $targets[] = $bygning->getRapport();
         }
+        $targets[] = $entity->getVirksomhed()->getRapport();
       }
       if ($entity instanceof BaselineKorrektion) {
         $targets[] = $entity->getBaseline();
@@ -46,6 +47,7 @@ class TiltagListener {
         foreach ($entity->getBaseline()->getBygninger() as $bygning) {
           $targets[] = $bygning->getRapport();
         }
+        $targets[] = $entity->getBaseline()->getVirksomhed()->getRapport();
       }
       if ($entity instanceof Tiltag) {
         $targets[] = $entity;
