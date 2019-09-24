@@ -4,6 +4,7 @@ namespace AppBundle\Listener;
 use AppBundle\Entity\BaselineKorrektion;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Configuration;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -14,7 +15,16 @@ use AppBundle\Entity\SolcelleTiltag;
 use AppBundle\Entity\TiltagDetail;
 
 class TiltagListener {
+
   private static $rapportFieldsThatTriggerRecalculationOfTiltag = [ 'faktorPaaVarmebesparelse' ];
+
+  /** @var ArrayCollection */
+  private $targets;
+
+  public function __construct()
+  {
+    $this->targets = new ArrayCollection();
+  }
 
   /**
    * Recalculate Tiltag when it is updated or when any related TiltagDetail is updated
@@ -30,28 +40,26 @@ class TiltagListener {
       $uow->getScheduledEntityDeletions()
     );
 
-    $targets = array();
-
     foreach ($entities as $entity) {
       if ($entity instanceof Baseline) {
-        $targets[] = $entity;
+        $this->addTarget($entity);
         /** @var Bygning $bygning */
         foreach ($entity->getBygninger() as $bygning) {
-          $targets[] = $bygning->getRapport();
+          $this->addTarget($bygning->getRapport());
         }
-        $targets[] = $entity->getVirksomhed()->getRapport();
+        $this->addTarget($entity->getVirksomhed()->getRapport());
       }
       if ($entity instanceof BaselineKorrektion) {
         $targets[] = $entity->getBaseline();
         /** @var Bygning $bygning */
         foreach ($entity->getBaseline()->getBygninger() as $bygning) {
-          $targets[] = $bygning->getRapport();
+          $this->addTarget($bygning->getRapport());
         }
-        $targets[] = $entity->getBaseline()->getVirksomhed()->getRapport();
+        $this->addTarget($entity->getBaseline()->getVirksomhed()->getRapport());
       }
       if ($entity instanceof Tiltag) {
-        $targets[] = $entity;
-        $targets[] = $entity->getRapport();
+        $this->addTarget($entity);
+        $this->addTarget($entity->getRapport());
 
         if ($entity instanceof SolcelleTiltag) {
           $changeSet = $uow->getEntityChangeSet($entity);
@@ -60,15 +68,15 @@ class TiltagListener {
           $field = 'reelAnlaegsinvestering';
           if (isset($changeSet[$field]) && $changeSet[$field][0] != $changeSet[$field][1]) {
             foreach ($entity->getDetails() as $detail) {
-              $targets[] = $detail;
+              $this->addTarget($detail);
             }
           }
         }
       }
       elseif ($entity instanceof TiltagDetail) {
-        $targets[] = $entity;
-        $targets[] = $entity->getTiltag();
-        $targets[] = $entity->getTiltag()->getRapport();
+        $this->addTarget($entity);
+        $this->addTarget($entity->getTiltag());
+        $this->addTarget($entity->getTiltag()->getRapport());
       }
       elseif ($entity instanceof Rapport) {
         $changeSet = $uow->getEntityChangeSet($entity);
@@ -76,7 +84,7 @@ class TiltagListener {
         foreach (self::$rapportFieldsThatTriggerRecalculationOfTiltag as $field) {
           if (isset($changeSet[$field]) && $changeSet[$field][0] != $changeSet[$field][1]) {
             foreach ($entity->getTiltag() as $tiltag) {
-              $targets[] = $tiltag;
+              $this->addTarget($tiltag);
             }
             break;
           }
@@ -85,9 +93,9 @@ class TiltagListener {
     }
 
     // Process only non-deleted entities and process each entity only once.
-    $targets = array_unique(array_filter($targets, function ($target) use ($uow) {
-        return !in_array($target, $uow->getScheduledEntityDeletions());
-    }));
+    $targets = array_filter($this->targets->toArray(), function ($target) use ($uow) {
+      return  !in_array($target, $uow->getScheduledEntityDeletions());
+    });
     foreach ($targets as $target) {
       // We need to set the configuration before calculating a Rapport.
       if ($target instanceof Rapport) {
@@ -99,4 +107,16 @@ class TiltagListener {
       $uow->recomputeSingleEntityChangeSet($md, $target);
     }
   }
+
+  /**
+   * Adds entity to targets array.
+   *
+   * @param $entity
+   */
+  private function addTarget($entity) {
+    if (!$this->targets->contains($entity)) {
+      $this->targets->add($entity);
+    }
+  }
+
 }

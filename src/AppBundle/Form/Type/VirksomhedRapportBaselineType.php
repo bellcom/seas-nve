@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * @TODO: Missing description.
- */
 
 namespace AppBundle\Form\Type;
 
@@ -13,10 +9,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Class VirksomhedRapportType
+ * Class VirksomhedRapportBaselineType
  * @package AppBundle\Form
  */
-class VirksomhedRapportShowType extends AbstractType
+class VirksomhedRapportBaselineType extends AbstractType
 {
   protected $authorizationChecker;
   protected $rapport;
@@ -32,20 +28,20 @@ class VirksomhedRapportShowType extends AbstractType
    */
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-
+    $baseline = $this->rapport->getVirksomhed()->getBaseline();
     $builder
       ->add('datering', 'date', array(
         'disabled' => 'disabled',
         // render as a single HTML5 text box
         'widget' => 'single_text')
       )
-      ->add('BaselineEl', null, array('disabled' => 'disabled'))
-      ->add('BaselineVarmeGUF', null, array('disabled' => 'disabled'))
-      ->add('BaselineVarmeGAF', null, array('disabled' => 'disabled'))
-      ->add('BaselineBraendstof', null, array('disabled' => 'disabled'))
-      ->add('BaselineStrafAfkoeling', null, array('disabled' => 'disabled'))
-      ->add('faktorPaaVarmebesparelse', null, array('disabled' => 'disabled'))
-      ->add('energiscreening', null, array('disabled' => 'disabled'));
+      ->add('BaselineEl', null, empty($baseline) ? array() : array('disabled' => 'disabled'))
+      ->add('BaselineVarmeGUF', null, empty($baseline) ? array() : array('disabled' => 'disabled'))
+      ->add('BaselineVarmeGAF', null, empty($baseline) ? array() : array('disabled' => 'disabled'))
+      ->add('BaselineBraendstof', null, empty($baseline) ? array() : array('disabled' => 'disabled'))
+      ->add('BaselineStrafAfkoeling', null, empty($baseline) ? array() : array('disabled' => 'disabled'))
+      ->add('faktorPaaVarmebesparelse', null, empty($baseline) ? array() : array('disabled' => 'disabled'))
+      ->add('energiscreening', null, empty($baseline) ? array() : array('disabled' => 'disabled'));
   }
 
   /**

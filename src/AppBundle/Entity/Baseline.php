@@ -21,7 +21,6 @@ use AppBundle\DBAL\Types\Baseline\GUFFastsaettesEfterType;
 use AppBundle\Annotations\Calculated;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
-use mysql_xdevapi\Collection;
 
 /**
  * Baseline.
@@ -2551,13 +2550,6 @@ class Baseline {
     $this->varmeGUFForbrugKorrigeret = $this->calculateVarmeGUFForbrugKorrigeret();
     $this->braendstofForbrugKorrigeret = $this->calculateBraendstofForbrugKorrigeret();
     $this->varmeStrafafkoelingsafgiftKorrigeret = $this->calculateVarmeStrafafkoelingsafgiftKorrigeret();
-
-    // Update Rapport Baseline.
-    // NOTE!!! Values will be not saved to rapport entitites.
-    /** @var Bygning $bygning */
-    foreach ($this->getBygninger() as $bygning) {
-      $bygning->getRapport()->updateBaselineValues($this);
-    }
 
     $this->getVirksomhed()->getRapport()->updateBaselineValues($this);
   }

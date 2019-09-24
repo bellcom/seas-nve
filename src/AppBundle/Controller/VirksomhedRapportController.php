@@ -6,11 +6,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\Type\VirksomhedRapportSearchType;
-use AppBundle\Form\Type\VirksomhedRapportShowType;
+use AppBundle\Form\Type\VirksomhedRapportBaselineType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -131,26 +133,80 @@ class VirksomhedRapportController extends BaseController {
   /**
    * Finds and displays Baseline for a VirksomhedRapport entity.
    *
-   * @Route("/{id}/baseline", name="virksomhed_rapport_show_baseline")
+   * @Route("/{id}/baseline", name="virksomhed_rapport_baseline_values")
    * @Method("GET")
-   * @Template()
-   * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
+   * @Template("AppBundle:VirksomhedRapport:baseline.html.twig")
+   * @Security("is_granted('VIRKSOMHED_RAPPORT_EDIT', rapport)")
    * @param VirksomhedRapport $rapport
    * @return array
    */
-  public function baselineAction(VirksomhedRapport $rapport) {
+  public function baselineValuesAction(VirksomhedRapport $rapport) {
     $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
-    $this->breadcrumbs->addItem('appbundle.virksomhed.baseline', $this->generateUrl('baseline_show', array('id' => $rapport->getVirksomhed()->getBaseline()->getId())));
+    $this->breadcrumbs->addItem('virksomhed_rapporter.actions.edit', $this->generateUrl('virksomhed_rapport_baseline_values', array('id' => $rapport->getId())));
 
-    $showForm = $this->createForm(new VirksomhedRapportShowType($this->get('security.context'), $rapport), $rapport, array(
-      'action' => '#',
-      'method' => 'PUT',
-    ));
-
+    $showForm = $this->createEditForm($rapport);
     return array(
       'entity' => $rapport,
       'show_form' => $showForm->createView(),
     );
+  }
+
+  /**
+   * Updates Baseline values for a VirksomhedRapport entity.
+   *
+   * @Route("/{id}/baseline", name="virksomhed_rapport_baseline_values_update")
+   * @Method("PUT")
+   * @Security("is_granted('VIRKSOMHED_RAPPORT_EDIT', rapport)")
+   * @Template("AppBundle:VirksomhedRapport:baseline.html.twig")
+   * @param VirksomhedRapport $rapport
+   * @return RedirectResponse|array
+   */
+  public function baselineValuesUpdateAction(Request $request, VirksomhedRapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_baseline_values', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('virksomhed_rapporter.actions.edit', $this->generateUrl('virksomhed_rapport_baseline_values', array('id' => $rapport->getId())));
+
+    $editForm = $this->createEditForm($rapport);
+    $editForm->handleRequest($request);
+
+    if ($editForm->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      /** @var Bygning $bygning */
+      foreach ($rapport->getVirksomhed()->getAllBygninger() as $bygning) {
+        $bygningRapport = $bygning->getRapport();
+        if (empty($bygningRapport)) {
+          continue;
+        }
+        $bygningRapport->updateBaselineValuesFromVirksomherRapport($rapport);
+        $em->persist($bygningRapport);
+      }
+      $em->flush();
+
+      return $this->redirect($this->generateUrl('virksomhed_rapport_baseline_values', array('id' => $rapport->getId())));
+    }
+    return array(
+      'entity' => $rapport,
+      'show_form' => $editForm->createView(),
+    );
+  }
+
+  /**
+   * Creates a form to edit a VirksomhedRapport entity.
+   *
+   * @param VirksomhedRapport $rapport The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditForm(VirksomhedRapport $rapport) {
+    $form = $this->createForm(new VirksomhedRapportBaselineType($this->get('security.context'), $rapport), $rapport, array(
+      'action' => '#',
+      'method' => 'PUT',
+    ));
+
+    if (empty($rapport->getVirksomhed()->getBaseline())) {
+      $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_baseline_values', array('id' => $rapport->getId())));
+    }
+
+    return $form;
   }
 
   /**

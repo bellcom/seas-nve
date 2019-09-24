@@ -57,11 +57,6 @@
           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( 'calculator' ) }} {{ 'virksomhed_rapporter.actions.re-calculate' | trans }}</button>
         {% endif %}
       {% endif %}
-      {% if entity.virksomhed.baseline %}
-        <a href="{{ path('virksomhed_rapport_show_baseline', { 'id': entity.id }) }}" class="btn btn-default">
-          {{ 'appbundle.virksomhed.baseline' | trans }}
-        </a>
-      {% endif %}
       <a href="{{ path('virksomhed_kortlaegning', { 'id': entity.virksomhed.id }) }}" class="btn btn-default">
         {{ 'appbundle.virksomhed.kortlaegning' | trans }}
       </a>
@@ -73,6 +68,9 @@
       </a>
       <a class="btn btn-default" href="{{ path_with_access_token('virksomhed_rapport_filer', { 'id': entity.id }) }}">
         {{ icon('file') }} {{ 'virksomhed_rapporter.actions.filer' | trans }}
+      </a>
+      <a href="{{ path('virksomhed_rapport_baseline_values', { 'id': entity.id }) }}" class="btn btn-default">
+        {{ icon('edit') }} {{ 'virksomhed_rapporter.actions.edit' | trans }}
       </a>
     </div>
   </div>

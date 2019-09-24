@@ -81,6 +81,12 @@ class TransKeyExtension extends \Twig_Extension {
     $key .= '.help';
     $trans = $this->translator->trans($key);
 
+    // Adjusting Virksomhed rapprt helptext.
+    if (preg_match('/\.[^.]*?virksomhed\.rapport\./', $key)) {
+      $key = preg_replace('/\.[^.]*?virksomhed\.rapport\./', '.virksomhed_rapport.', $key);
+      $trans = $this->translator->trans($key);
+    }
+
     if($key === $trans) {
       $key = preg_replace('/\.[^.]*?tiltag\./', '.tiltag.', $key);
       $trans = $this->translator->trans($key);
@@ -103,6 +109,12 @@ class TransKeyExtension extends \Twig_Extension {
 
     if($key === $trans) {
       $key = preg_replace('/\.[^.]*?tiltag\./', '.tiltag.', $key);
+      $trans = $this->translator->trans($key);
+    }
+
+    // Adjusting Virksomhed rapprt units.
+    if (preg_match('/\.[^.]*?virksomhed\.rapport\./', $key)) {
+      $key = preg_replace('/\.[^.]*?virksomhed\.rapport\./', '.virksomhed_rapport.', $key);
       $trans = $this->translator->trans($key);
     }
 

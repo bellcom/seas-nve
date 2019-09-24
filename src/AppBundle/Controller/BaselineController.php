@@ -67,14 +67,8 @@ class BaselineController extends BaseController {
    */
   public function showAction(Baseline $baseline) {
     $virksomhed = $baseline->getVirksomhed();
-    $rapport = $virksomhed ? $virksomhed->getRapport() : NULL;
-    if ($rapport) {
-      $this->setRapportBreadcrumbs($rapport);
-    }
-    else {
-      $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
-      $this->breadcrumbs->addItem('appbundle.virksomhed.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
-    }
+    $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+    $this->breadcrumbs->addItem('appbundle.virksomhed.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
 
     if (!$baseline) {
       throw $this->createNotFoundException('Unable to find Baseline entity.');
@@ -148,14 +142,8 @@ class BaselineController extends BaseController {
    */
   public function editAction(Baseline $baseline) {
     $virksomhed = $baseline->getVirksomhed();
-    $rapport = $virksomhed ? $virksomhed->getRapport() : NULL;
-    if ($rapport) {
-      $this->setRapportBreadcrumbs($rapport);
-    }
-    else {
-      $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
-      $this->breadcrumbs->addItem('appbundle.virksomhed.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
-    }
+    $this->breadcrumbs->addItem($virksomhed, $this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+    $this->breadcrumbs->addItem('appbundle.virksomhed.baseline', $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
     $this->breadcrumbs->addItem('common.edit');
 
     if(!$baseline) {

@@ -3,10 +3,6 @@
 namespace AppBundle\Calculation;
 
 use AppBundle\Entity\BaselineKorrektion;
-use AppBundle\Entity\Bygning;
-use AppBundle\Entity\Rapport;
-use AppBundle\Entity\RapportRepository;
-use AppBundle\Entity\VirksomhedRapport;
 use Symfony\Component\DependencyInjection\Container;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\Baseline;

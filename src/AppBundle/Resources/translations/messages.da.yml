@@ -123,7 +123,6 @@ baseline:
     edit: "Rediger Baseline"
     indfoer: "Indfør Baseline"
     korriger: "Korriger Virksomhed Baseline"
-    show: "Virksomhed baseline og energibudget"
   confirmation:
     baseline_infoert: "Baseline data verificeret"
     created: "Baseline oprettet"
@@ -224,6 +223,7 @@ bygning_rapporter:
     verified: "Bygning rapport verificeret af Aa+"
   messages:
     no_files: "Bygning rapporten har ingen filer tilknyttet"
+    baseline_value_disabled: "This value has been defined in Virksomhed rapport baseline or Virksomhed baseline"
   strings:
     belysningtiltag: "Belysning"
     klimaskaermtiltag: "Klimaskærm"
@@ -648,6 +648,8 @@ virksomhed_rapporter:
     no_files: "Rapporten har ingen filer tilknyttet"
   strings:
     related_reports: "Relaterede rapporter"
+  groups:
+    baseline_data: "Baseline data"
 virksomhed_kortlaegning:
   label:
     plural: "Kortlægninger"
@@ -1521,6 +1523,8 @@ appbundle:
     BaselineVarmeGAF.unit: "kwh/år"
     BaselineVarmeGUF: "Baseline Varme GUF"
     BaselineVarmeGUF.unit: "kwh/år"
+    BaselineBraendstof: "Braendstof"
+    BaselineBraendstof.unit: "kwh/år"
     besparelseAarEt: "Økonomisk besparelse i år 1"
     besparelseAarEt.unit: "kr"
     besparelseAarEtPdf: "Økonomisk besparelse i år 1 (inkl. D&V-besparelse)"

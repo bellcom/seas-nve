@@ -2785,4 +2785,19 @@ class Rapport {
     return $this;
   }
 
+  /**
+   * Updates baseline values from virksomhed rapport;
+   *
+   * @param VirksomhedRapport $virksomhedRapport
+   * @return Rapport
+   */
+  public function updateBaselineValuesFromVirksomherRapport(VirksomhedRapport $virksomhedRapport) {
+    $this->setBaselineEl($virksomhedRapport->getBaselineEl());
+    $this->setBaselineVarmeGAF($virksomhedRapport->getBaselineVarmeGAF());
+    $this->setBaselineVarmeGUF($virksomhedRapport->getBaselineVarmeGUF());
+    $this->setBaselineBraendstof($virksomhedRapport->getBaselineBraendstof());
+    $this->setBaselineStrafAfkoeling($virksomhedRapport->getBaselineStrafAfkoeling());
+    return $this;
+  }
+
 }

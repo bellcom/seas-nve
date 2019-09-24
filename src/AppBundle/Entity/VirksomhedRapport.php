@@ -2257,6 +2257,15 @@ class VirksomhedRapport
         $this->setBaselineVarmeGUF($baseline->getVarmeGUFForbrugKorrigeret());
         $this->setBaselineBraendstof($baseline->getBraendstofForbrugKorrigeret());
         $this->setBaselineStrafAfkoeling($baseline->getVarmeStrafafkoelingsafgiftKorrigeret());
+
+        /** @var Bygning $bygning */
+        foreach ($this->getVirksomhed()->getAllBygninger() as $bygning) {
+            $rapport = $bygning->getRapport();
+            if (empty($rapport)) {
+                continue;
+            }
+            $rapport->updateBaselineValuesFromVirksomherRapport($this);
+        }
         return $this;
     }
 
