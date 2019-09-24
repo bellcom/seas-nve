@@ -652,9 +652,9 @@ virksomhed_kortlaegning:
   label:
     plural: "Kortlægninger"
     singular: "Kortlægning"
-    general: "Generalt"
+    general: "Generelt"
   confirmation:
-    updated: "Kortlægninger opdateret"
+    updated: "Kortlægningerne blev opdateret"
 
 # Forms - We follow the formbuilders form id format
 appbundle:

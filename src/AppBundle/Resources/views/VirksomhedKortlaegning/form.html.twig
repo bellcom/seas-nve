@@ -1,50 +1,213 @@
 {% extends 'AppBundle::base.html.twig' %}
 
-  {% block body -%}
-    <div class="row heading">
-      <div class="col-md-9">
-        <h1>{{ 'virksomhed_kortlaegning.label.singular' | trans }}</h1>
-      </div>
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'virksomhed_kortlaegning.label.singular' | trans }}</h1>
     </div>
+  </div>
 
-{{ form_start(form, { 'style': 'horizontal' }) }}
-{{ form_row(form.buttons) }}
-<div class="row">
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">{{ icon('industry') }} {{ 'virksomhed_kortlaegning.label.general' | trans }}</div>
-      <div class="panel-body">
-        {{ form_row(form.titel)}}
-        {{ form_row(form.totalForbrug)}}
-        {{ form_row(form.aar)}}
+  {{ form_start(form, { 'style': 'horizontal' }) }}
+  {{ form_row(form.buttons) }}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('industry') }} {{ 'virksomhed_kortlaegning.label.general' | trans }}</div>
+        <div class="panel-body">
+          {{ form_row(form.titel)}}
+          {{ form_row(form.totalForbrug)}}
+          {{ form_row(form.aar)}}
+        </div>
+      </div>
+
+      <br><br>
+
+      <canvas id="pieChart" width="400" height="400"></canvas>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser' | trans }}</div>
+        <table class="table table-condensed results">
+          <thead>
+            <tr>
+              <th>{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.type' | trans }}</th>
+              <th class="text-center">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.procent' | trans }}</th>
+              <th class="text-center">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.forbrug' | trans }}</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for key, slutanvendelse in form.slutanvendelser %}
+          <tr data-label="{{ slutanvendelser_label[key] }}">
+            <td><label class="control">{{ slutanvendelser_label[key] }}</label></td>
+            <td>{{ form_widget(slutanvendelse.procent, {'attr': {'size': '5', 'class': 'js-percentage'}}) }}</td>
+            <td>{{ form_widget(slutanvendelse.forbrug, {'attr': {'size': '10', 'class': 'js-usage'}}) }}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">{{ icon('industry') }} {{ 'appbundle.virksomhedkortlaegning.slutanvendelser' | trans }}</div>
-      <table class="table table-condensed results">
-        <thead>
-          <tr>
-            <th>{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.type' | trans }}</th>
-            <th class="text-center">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.procent' | trans }}</th>
-            <th class="text-center">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.forbrug' | trans }}</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for key, slutanvendelse in form.slutanvendelser %}
-        <tr>
-          <td><label class="control">{{ slutanvendelser_label[key] }}</label></td>
-          <td>{{ form_widget(slutanvendelse.procent, {'attr': {'size': '5'}}) }}</td>
-          <td>{{ form_widget(slutanvendelse.forbrug, {'attr': {'size': '10'}}) }}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-{{ form_rest(form) }}
-{{ form_end(form) }}
+  {{ form_rest(form) }}
+  {{ form_end(form) }}
+
+  <script src="{{ absolute_url(asset('js/lib/Chart.js/Chart.min.js')) }}"></script>
+  <script>
+    // Update usageField whenever percentageField is updated.
+    var totalSpend = document.getElementById('appbundle_virksomhedkortlaegning_totalForbrug');
+    var percentageFields = document.querySelectorAll('.js-percentage');
+    var usageFields = document.querySelectorAll('.js-usage');
+
+    function calculatePercentage(e) {
+      var input = e.target;
+      var total = totalSpend.value;
+      var parent = input.parentElement.parentElement;
+      var siblingInput = parent.querySelector('.js-usage');
+
+      // Validate total.
+      if (!total || isNaN(total)) {
+        return;
+      }
+
+      // Validate percentage input.
+      if (!input.value || isNaN(input.value)) {
+
+        // Clear sibling value.
+        siblingInput.value = '';
+
+        return;
+      }
+
+      // Calculate the new amount.
+      var newAmount = (parseInt(total) / 100) * parseInt(input.value);
+
+      // Update DOM node.
+      siblingInput.value = newAmount;
+    }
+
+    for(var field of percentageFields) {
+      field.addEventListener('keyup', calculatePercentage);
+    }
+  </script>
+  <script>
+    function grabData() {
+      var data = [];
+      var colors = [
+        {
+          color: '#A7CB11',
+          highlight: '#A7CB11',
+        },
+        {
+          color: '#FFDE2F',
+          highlight: '#FFDE2F',
+        },
+        {
+          color: '#74766C',
+          highlight: '#74766C',
+        },
+        {
+          color: '#62C5D3',
+          highlight: '#62C5D3',
+        },
+        {
+          color: '#FE9029',
+          highlight: '#FE9029',
+        },
+        {
+          color: '#006F55',
+          highlight: '#006F55',
+        },
+        {
+          color: '#009E50',
+          highlight: '#009E50',
+        },
+        {
+          color: '#CAE070',
+          highlight: '#CAE070',
+        },
+        {
+          color: '#FFEB82',
+          highlight: '#FFEB82',
+        },
+        {
+          color: '#99D8B9',
+          highlight: '#99D8B9',
+        },
+        {
+          color: '#FEA654',
+          highlight: '#FEA654',
+        },
+        {
+          color: '#A1DCE5',
+          highlight: '#A1DCE5',
+        },
+        {
+          color: '#74766C',
+          highlight: '#74766C',
+        },
+        {
+          color: '#CCECDC',
+          highlight: '#CCECDC',
+        },
+        {
+          color: '#A1DCE5',
+          highlight: '#A1DCE5',
+        }
+      ];
+
+      var int = 0;
+      var inputFields = document.querySelectorAll('.js-percentage');
+
+      for(var input of inputFields) {
+        var parent = input.parentElement.parentElement;
+        var label = parent.dataset.label;
+
+        // Validate.
+        if (!input.value || isNaN(input.value)) {
+          continue;
+        }
+
+        // Push.
+        data.push({
+          value: parseInt(input.value),
+          label: label,
+          color: colors[int].color,
+          highlight: colors[int].highlight,
+        });
+
+        int++;
+      }
+
+      return data;
+    }
+
+    // Chart.
+    var options = {
+      animation: false,
+      segmentStrokeWidth : 1,
+    };
+    var data = grabData();
+    var ctx = document.getElementById('pieChart').getContext('2d');
+    var pieChart = new Chart(ctx).Pie(data, options);
+
+    // Redraw chart.
+    var percentageFields = document.querySelectorAll('.js-percentage');
+    var usageFields = document.querySelectorAll('.js-usage');
+
+    function redrawChart() {
+      pieChart.destroy();
+
+      var updatedData = grabData();
+
+      pieChart = new Chart(ctx).Pie(updatedData, options);
+    }
+
+    for(var field of percentageFields) {
+      field.addEventListener('keyup', redrawChart);
+    }
+    for(var field of percentageFields) {
+      field.addEventListener('keyup', redrawChart);
+    }
+  </script>
 
 {% endblock %}
