@@ -20,6 +20,7 @@ class BaselineKorrektionType extends AbstractType
             ->add('korrektionEl')
             ->add('korrektionGAF')
             ->add('korrektionGUF')
+            ->add('korrektionBraendstof')
             ->add('kilde')
             ->add('indvirkning')
         ;

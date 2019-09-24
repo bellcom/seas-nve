@@ -29,9 +29,6 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | trans }}</button>
-              <a href="{{ path('virksomhed_rapport_edit', {'id': entity.id}) }}" class="btn btn-default">
-                {{ icon('edit') }} {{ (params.edit_title is defined ? params.edit_title : 'common.edit') | trans }}
-              </a>
               {{ form_widget(calculate_form) }}
             </div>
           </div>
@@ -71,6 +68,9 @@
       </a>
       <a class="btn btn-default" href="{{ path_with_access_token('virksomhed_rapport_filer', { 'id': entity.id }) }}">
         {{ icon('file') }} {{ 'virksomhed_rapporter.actions.filer' | trans }}
+      </a>
+      <a href="{{ path('virksomhed_rapport_baseline_values', { 'id': entity.id }) }}" class="btn btn-default">
+        {{ icon('edit') }} {{ 'virksomhed_rapporter.actions.edit' | trans }}
       </a>
     </div>
   </div>
@@ -150,9 +150,9 @@
         <td class="text-right">{{ entity.besparelseBraendstof | format_decimal }}</td>
         <td>{{ 'appbundle.virksomhed_rapport.besparelseBraendstof.unit' | trans }}</td>
 
-        <th class="indent">{{ 'appbundle.virksomhed_rapport.co2BesparelseBraendstof' | trans }}<div class="calculation-expression hidden">{{ entity.expr('co2BesparelseBraendstof') }}</div></th>
-        <td class="text-right">{{ entity.co2BesparelseBraendstof | format_percent_nounit }}</td>
-        <td>{{ 'appbundle.virksomhed_rapport.co2BesparelseBraendstof.unit' | trans }}</td>
+        <th class="indent">{{ 'appbundle.virksomhed_rapport.co2BesparelseBraendstofFaktor' | trans }}<div class="calculation-expression hidden">{{ entity.expr('co2BesparelseBraendstofFaktor') }}</div></th>
+        <td class="text-right">{{ entity.co2BesparelseBraendstofFaktor | format_percent_nounit }}</td>
+        <td>{{ 'appbundle.virksomhed_rapport.co2BesparelseBraendstofFaktor.unit' | trans }}</td>
       </tr>
       <tr>
         <th>{{ 'appbundle.virksomhed_rapport.erhvervsareal' | trans }}<div class="calculation-expression hidden">{{ entity.expr('erhvervsareal') }}</div></th>

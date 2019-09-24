@@ -71,6 +71,13 @@ class BaselineKorrektion {
   /**
    * @var string
    *
+   * @ORM\Column(name="korrektionBraendstof", type="decimal", nullable=true)
+   */
+  private $korrektionBraendstof;
+
+  /**
+   * @var string
+   *
    * @ORM\Column(name="kilde", type="string", length=255, nullable=true)
    */
   private $kilde;
@@ -217,6 +224,28 @@ class BaselineKorrektion {
    */
   public function getKorrektionGUF() {
     return $this->korrektionGUF;
+  }
+
+  /**
+   * Set korrektionBraendstof
+   *
+   * @param integer $korrektionGUF
+   *
+   * @return BaselineKorrektion
+   */
+  public function setKorrektionBraendstof($korrektionBraendstof) {
+    $this->korrektionBraendstof = $korrektionBraendstof;
+
+    return $this;
+  }
+
+  /**
+   * Get korrektionBraendstof
+   *
+   * @return integer
+   */
+  public function getKorrektionBraendstof() {
+    return $this->korrektionBraendstof;
   }
 
   /**

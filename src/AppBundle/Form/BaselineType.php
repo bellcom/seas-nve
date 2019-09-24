@@ -74,9 +74,10 @@ class BaselineType extends AbstractType
             ->add('varmeGUFForbrug')
             ->add('varmeStrafafkoelingsafgift')
             ->add('varmeBaselineNoter',  'textarea', array('attr' => array('maxlength' => 750), 'required' => FALSE))
-            ->add('bygning', null, array('disabled' => 'disabled', 'required' => false))
+            ->add('virksomhed', null, array('disabled' => 'disabled', 'required' => false))
             ->add('eloKategori')
             ->add('save_changed', 'submit', array('disabled' => 'disabled', 'label' => 'appbundle.baseline.changed_submit', 'attr' => array('icon' => 'calculator')))
+            ->add('braendstofForbrug')
         ;
     }
 
