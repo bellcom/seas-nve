@@ -286,8 +286,15 @@ erstatningslyskilde:
   actions:
     add: "Tilføj erstatnings lyskilde"
     edit: "Rediger erstatnings lyskilde"
+    import: "Import erstatnings lyskilder"
   error:
     in_use: "Kan ikke slettes. Bruges af belysningsforslag."
+    import_file: "Import filen er forkert."
+  confirmation:
+    created: "Erstatnings lyskilde oprettet"
+    updated: "Erstatnings lyskilde opdateret"
+    deleted: "Erstatnings lyskilde slettet"
+    imported: "Der var oprettet %created og opdateret %updated erstatnings lyskilder."
   labels:
     plural: "Erstatnings lyskilder"
     singular: "Erstatnings lyskilde"
@@ -330,8 +337,15 @@ klimaskaerm:
     add: "Tilføj klimaskærm"
     create: "Opret klimaskærm"
     edit: "Rediger klimaskærm"
+    import: "Import klimaskærme"
   error:
     in_use: "Kan ikke slettes. Bruges af klimaskærmsforslag."
+    import_file: "Import filen er forkert."
+  confirmation:
+    created: "Klimaskærm oprettet"
+    updated: "Klimaskærm opdateret"
+    deleted: "Klimaskærm slettet"
+    imported: "Der var oprettet %created og opdateret %updated erstatnings klimaskærme."
   labels:
     plural: "Klimaskærme"
     singular: "Klimaskærm"
@@ -371,8 +385,15 @@ nytArmatur:
   actions:
     add: "Tilføj armatur"
     edit: "Rediger armatur"
+    import: "Import armaturer"
   error:
     in_use: "Kan ikke slettes. Bruges af belysningsforslag."
+    import_file: "Import filen er forkert."
+  confirmation:
+    created: "Armatur oprettet"
+    updated: "Armatur opdateret"
+    deleted: "Armatur slettet"
+    imported: "Der var oprettet %created og opdateret %updated armaturer."
   labels:
     plural: "Armaturer"
     singular: "Armatur"
@@ -399,7 +420,7 @@ pumpe:
     imported: "Der var oprettet %created og opdateret %updated pumper."
   error:
     in_use: "Kan ikke slettes. Bruges af pumpeforslag."
-    import_file: "Import file er forkert."
+    import_file: "Import filen er forkert."
   labels:
     nuvaerende: "Nuværende pumpe"
     ny: "Ny pumpe"
@@ -460,10 +481,14 @@ solcelle:
     add: "Tilføj solcelle"
     create: "Opret solcelle"
     edit: "Rediger solcelle"
+    import: "Import solceller"
+  error:
+    import_file: "Import filen er forkert."
   confirmation:
     created: "Solcelle oprettet"
     updated: "Solcelle opdateret"
     deleted: "Solcelle slettet"
+    imported: "Der var oprettet %created og opdateret %updated erstatnings solceller."
   labels:
     plural: "Solceller"
     singular: "Solcelle"
@@ -1112,7 +1137,6 @@ appbundle:
     prisfaktor: "Prisfaktor"
     nyEnhedspris: "Ny enhedspris"
     nyEnhedspris.unit: "Kr/kWh"
-    forsyningsvaerk: "Forsyningsværk"
     beskrivelse: "Beskrivelse"
     internproduktion:
       effektivitet: "Effektivitet"
@@ -1143,6 +1167,8 @@ appbundle:
     pris.unit: "kr"
     wattage: "Wattage"
     wattage.unit: "W/Lysk."
+    import:
+      filepath: "Vælg fil med import erstatningslyskilder data"
   forsyningsvaerk:
     co2: "CO2"
     co2Noter: "Noter (CO2)"
@@ -1316,6 +1342,8 @@ appbundle:
     noter: "Noter"
     post: "Post"
     type: "Type"
+    import:
+      filepath: "Vælg fil med import klimaskærme data"
   klimaskaermtiltagdetail:
     add: "Tilføj"
     andelAfArealDerEfterisoleres: "Andel af areal der efterisoleres"
@@ -1410,6 +1438,8 @@ appbundle:
     pris.unit: "kr"
     wattage: "Wattage"
     wattage.unit: "W/Lysk."
+    import:
+      filepath: "Vælg fil med import armaturer data"
   nyttiggjortvarme:
     faktor: "Faktor for nyttiggjort varme"
     titel: "Titel"
@@ -1480,7 +1510,6 @@ appbundle:
     nyPumpe: "Ny pumpe"
     nytByggemaal: "Nyt byggemål"
     nyTilslutning: "Ny tilslutning"
-    nyttiggjortVarme: "Nyttiggjort varme"
     nyttiggjortVarme.unit: "B-faktor"
     nytVVSnr: "Nyt VVS-nr."
     overskrevetPris: "Overskrevet pris"
@@ -1651,6 +1680,8 @@ appbundle:
     inverterpris: "Inverterpris"
     KWp: "KWp"
     kwp: "KWp"
+    import:
+      filepath: "Vælg fil med import solceller data"
   solcelletiltagdetail:
     add: "Tilføj"
     anlaegsstoerrelseKWp: "Anlægsstørrelse"

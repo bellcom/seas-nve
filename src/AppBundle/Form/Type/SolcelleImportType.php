@@ -5,11 +5,11 @@ namespace AppBundle\Form\Type;
 use AppBundle\Form\FileImportType;
 
 /**
- * Class PumpeImportType
+ * Class SolcelleImportType
  * @package AppBundle\Form
  */
-class PumpeImportType extends FileImportType {
+class SolcelleImportType extends FileImportType {
   public function getName() {
-    return 'appbundle_pumpe_import';
+    return 'appbundle_solcelle_import';
   }
 }

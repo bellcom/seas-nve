@@ -38,4 +38,22 @@ class KlimaskaermRepository extends EntityRepository {
     return null;
   }
 
+  /**
+   * Helper function to convert values to proper type.
+   *
+   * @param string $column
+   * @param string $value
+   *
+   * @return string
+   *
+   * @throws
+   */
+  public function getTypedValue($column, $value) {
+    switch ($column) {
+      default;
+        // Most of values are stringable.
+        return (string) $value;
+    }
+  }
+
 }
