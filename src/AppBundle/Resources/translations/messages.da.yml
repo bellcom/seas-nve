@@ -658,6 +658,7 @@ virksomhed_rapporter:
     filer: "Filer"
     pdf2: "Resultatoversigt"
     pdf5: "Detailark"
+    pdf_kortlaegning: "Kortlaegning"
     re-calculate: "Genberegn"
     show: "Vis virksomhedsrapport"
   labels:

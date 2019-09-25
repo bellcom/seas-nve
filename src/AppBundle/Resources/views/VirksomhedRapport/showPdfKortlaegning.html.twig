@@ -32,6 +32,11 @@
           <td class="text-right">{{ rapport.besparelseAarEt | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseAarEtPdf.unit' | trans }}</td>
         </tr>
+        <tr class="no-border">
+          <th>{{ 'appbundle.virksomhed_rapport.BaselineVarme' | trans }}</th>
+          <td class="text-right">{{ rapport.BaselineBraendstof | format_zeros }}</td>
+          <td>{{ 'appbundle.virksomhed_rapport.BaselineBraendstof.unit' | trans }}</td>
+        </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.besparelseCO2' | trans }}</th>
           <td class="text-right">{{ rapport.besparelseCO2 | number_format }}</td>
