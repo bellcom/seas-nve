@@ -104,7 +104,8 @@ class RapportType extends AbstractType
       return FALSE;
     }
 
-    if (!empty($this->rapport->getBygning()->getVirksomhed()->getRapport())
+    if (!empty($this->rapport->getBygning()->getVirksomhed())
+      && !empty($this->rapport->getBygning()->getVirksomhed()->getRapport())
       && !empty((integer) $this->accessor->getValue($this->rapport->getBygning()->getVirksomhed()->getRapport(), $fieldName))) {
       return FALSE;
     }
