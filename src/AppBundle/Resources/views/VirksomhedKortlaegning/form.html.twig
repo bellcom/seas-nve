@@ -22,7 +22,9 @@
 
       <br><br>
 
-      <canvas id="pieChart" width="400" height="400"></canvas>
+      <div class="text-center">
+        <canvas id="pieChart" width="400" height="400"></canvas>
+      </div>
     </div>
     <div class="col-md-6">
       <div class="panel panel-default">
@@ -31,7 +33,7 @@
           <thead>
             <tr>
               <th>{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.type' | trans }}</th>
-              <th class="text-center">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.procent' | trans }}</th>
+              <th class="text-center">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.procent' | trans }} <span id="js-percentage-total"></span></th>
               <th class="text-center">{{ 'appbundle.virksomhedkortlaegning.slutanvendelser.forbrug' | trans }}</th>
             </tr>
           </thead>
@@ -94,8 +96,8 @@
       var data = [];
       var colors = [
         {
-          color: '#A7CB11',
-          highlight: '#A7CB11',
+          color: '#FE9029',
+          highlight: '#FE9029',
         },
         {
           color: '#FFDE2F',
@@ -110,8 +112,8 @@
           highlight: '#62C5D3',
         },
         {
-          color: '#FE9029',
-          highlight: '#FE9029',
+          color: '#A7CB11',
+          highlight: '#A7CB11',
         },
         {
           color: '#006F55',
@@ -202,12 +204,42 @@
       pieChart = new Chart(ctx).Pie(updatedData, options);
     }
 
+    // Total percentage.
+    function getTotalPercentage() {
+      var percentageFields = document.querySelectorAll('.js-percentage');
+      var sum = 0;
+
+      for(var input of percentageFields) {
+
+        // Validate.
+        if (!input.value || isNaN(input.value)) {
+          continue;
+        }
+
+        sum += parseInt(input.value);
+      }
+
+      return sum;
+    }
+    function setTotalPercentage() {
+      var total = getTotalPercentage();
+      var percentageTotal = document.getElementById('js-percentage-total');
+
+      percentageTotal.innerText = '(' + total + '%)';
+    }
+
     for(var field of percentageFields) {
       field.addEventListener('keyup', redrawChart);
     }
     for(var field of percentageFields) {
       field.addEventListener('keyup', redrawChart);
     }
+    for(var field of percentageFields) {
+      field.addEventListener('keyup', setTotalPercentage);
+    }
+
+    // Initial load.
+    setTotalPercentage();
   </script>
 
 {% endblock %}
