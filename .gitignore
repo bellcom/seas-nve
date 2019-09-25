@@ -15,5 +15,8 @@
 /bin/
 /composer.phar
 /src/AppBundle/DataFixtures/Data/*
+/export_files/*
+!/export_files/.gitkeep
+!/export_files/README.md
 .idea/
 .DS_Store

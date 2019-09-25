@@ -441,13 +441,15 @@ class NytArmaturController extends BaseController
         $streamer->setConfig([
             'columns' => $columns,
         ]);
-        $response->setCallback(function () use ($result, $streamer, $format) {
-            $streamer->start('php://output', $format);
+        $filepath = $this->container->getParameter('data_export_path'). '/' . $filename;
+        $response->setCallback(function () use ($result, $streamer, $format, $filepath) {
+            $streamer->start($filepath, $format);
             $streamer->header();
             foreach ($result as $item) {
                 $streamer->item($item);
             }
             $streamer->end();
+            print(file_get_contents($filepath));
         });
 
         return $response;
