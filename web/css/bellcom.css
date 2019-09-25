@@ -20,3 +20,15 @@
 }
 
 #appbundle_bygning_energiRaadgiver .bc-collection li:first-child .row {margin-top: 0;}
+
+.js-chart-slutanvendelse-color {
+  display: inline-block;
+  float: left;
+
+  margin-right: 10px;
+
+  width: 18px;
+  height: 18px;
+
+  border-radius: 5px;
+}
