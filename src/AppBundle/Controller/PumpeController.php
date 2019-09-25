@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\PumpeRepository;
 use AppBundle\Form\Type\PumpeImportType;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -29,9 +30,9 @@ use Symfony\Component\Translation\TranslatorInterface;
 class PumpeController extends BaseController
 {
     /**
-     * @var TranslatorInterface $tranlator
+     * @var TranslatorInterface
      */
-    private $translator;
+    protected $translator;
 
     /**
      * @var PropertyAccessor
@@ -94,6 +95,7 @@ class PumpeController extends BaseController
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            $this->flash->success('pumpe.confirmation.created');
 
             return $this->redirect($this->generateUrl('pumpe'));
 
@@ -188,6 +190,7 @@ class PumpeController extends BaseController
                 $results = array();
                 $this->flash->error('pumpe.error.import_file');
             }
+            /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             /** @var PumpeRepository $repository */
             $repository = $em->getRepository(Pumpe::class);
@@ -352,6 +355,7 @@ class PumpeController extends BaseController
 
         if ($editForm->isValid()) {
             $em->flush();
+            $this->flash->success('pumpe.confirmation.updated');
 
             return $this->redirect($this->generateUrl('pumpe'));
         }
@@ -384,6 +388,7 @@ class PumpeController extends BaseController
 
             $em->remove($entity);
             $em->flush();
+            $this->flash->success('pumpe.confirmation.deleted');
         }
 
         return $this->redirect($this->generateUrl('pumpe'));
@@ -450,24 +455,5 @@ class PumpeController extends BaseController
 
         return $response;
     }
-
-  private function updateEntityFromArray($entity, $values) {
-    $repository = $this->getDoctrine()->getManager()->getRepository(Pumpe::class);
-
-  }
-
-  private function insertEntiyFromArray($values) {
-    $columns = $this->getClassMetadata()->getColumnNames();
-    $entity = new Pumpe();
-    foreach ($columns as $column) {
-      if (isset($values[$column])) {
-        $value = $this->getTypedValue($column, $values[$column]);
-        $this->accessor->setValue($entity, $column, $value);
-      }
-    }
-    $em = $this->getEntityManager();
-    $em->persist($entity);
-    $em->flush();
-  }
 
 }

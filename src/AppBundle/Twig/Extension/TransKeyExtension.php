@@ -61,6 +61,12 @@ class TransKeyExtension extends \Twig_Extension {
       $trans = $this->translator->trans($key);
     }
 
+    // Adjusting Virksomhed rapprt labels.
+    if (preg_match('/\.[^.]*?virksomhed\.rapport\./', $key)) {
+      $key = preg_replace('/\.[^.]*?virksomhed\.rapport\./', '.virksomhed_rapport.', $key);
+      $trans = $this->translator->trans($key);
+    }
+
     // Reset ".1++." to ".0." for collections
     if($key === $trans) {
       $key = preg_replace('/\.\d+\./', '.0.', $key);
@@ -74,6 +80,12 @@ class TransKeyExtension extends \Twig_Extension {
     $key = str_replace('_', '.', $key);
     $key .= '.help';
     $trans = $this->translator->trans($key);
+
+    // Adjusting Virksomhed rapprt helptext.
+    if (preg_match('/\.[^.]*?virksomhed\.rapport\./', $key)) {
+      $key = preg_replace('/\.[^.]*?virksomhed\.rapport\./', '.virksomhed_rapport.', $key);
+      $trans = $this->translator->trans($key);
+    }
 
     if($key === $trans) {
       $key = preg_replace('/\.[^.]*?tiltag\./', '.tiltag.', $key);
@@ -97,6 +109,12 @@ class TransKeyExtension extends \Twig_Extension {
 
     if($key === $trans) {
       $key = preg_replace('/\.[^.]*?tiltag\./', '.tiltag.', $key);
+      $trans = $this->translator->trans($key);
+    }
+
+    // Adjusting Virksomhed rapprt units.
+    if (preg_match('/\.[^.]*?virksomhed\.rapport\./', $key)) {
+      $key = preg_replace('/\.[^.]*?virksomhed\.rapport\./', '.virksomhed_rapport.', $key);
       $trans = $this->translator->trans($key);
     }
 

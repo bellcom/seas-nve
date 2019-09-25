@@ -3,10 +3,13 @@
 {% block body -%}
 
   <div class="row heading">
-    <div class="col-md-9">
+    <div class="col-md-6">
       <h1>{{ 'nytArmatur.labels.plural' | trans }}</h1>
     </div>
-    <div class="col-md-3 text-right">
+    <div class="col-md-6 text-right">
+      <a href="{{ path('belysningtiltagdetail_nytarmatur', {'_format': 'xlsx'}) }}" class="btn btn-default">{{ icon('download') }} {{ 'common.downloadExcel' | trans }}</a>
+      <a href="{{ path('belysningtiltagdetail_nytarmatur', {'_format': 'csv'}) }}"  class="btn btn-default">{{ icon('download') }} {{ 'common.downloadCsv' | trans }}</a>
+      <a href="{{ path('belysningtiltagdetail_nytarmatur_import_form') }}"  class="btn btn-default">{{ icon('upload') }} {{ 'common.import' | trans }}</a>
       <a class="btn btn-default" href="{{ path('belysningtiltagdetail_nytarmatur_new') }}">
         {{ icon('plus') }} {{ 'nytArmatur.actions.add' | trans }}
       </a>

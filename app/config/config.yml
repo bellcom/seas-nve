@@ -170,6 +170,7 @@ simple_things_entity_audit:
         - AppBundle\Entity\Configuration
         - AppBundle\Entity\Forsyningsvaerk
         - AppBundle\Entity\Rapport
+        - AppBundle\Entity\VirksomhedRapport
         - AppBundle\Entity\Energiforsyning
         - AppBundle\Entity\Energiforsyning\InternProduktion
         - AppBundle\Entity\Pumpe

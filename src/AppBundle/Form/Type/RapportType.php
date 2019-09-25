@@ -7,10 +7,14 @@
 namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Rapport;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class RapportType
@@ -18,38 +22,48 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class RapportType extends AbstractType
 {
+  /** @var AuthorizationCheckerInterface $authorizationChecker */
   protected $authorizationChecker;
+
+  /** @var Rapport $rapport */
   protected $rapport;
 
-  public function __construct(AuthorizationCheckerInterface $authorizationChecker, Rapport $rapport)
+  /** @var TranslatorInterface $translator */
+  protected $translator;
+
+  /** @var PropertyAccessor $accessor */
+  protected $accessor;
+
+  public function __construct(ContainerInterface $container, Rapport $rapport)
   {
-    $this->authorizationChecker = $authorizationChecker;
+    $this->authorizationChecker = $container->get('security.context');
+    $this->translator = $container->get('translator');
     $this->rapport = $rapport;
+    $this->accessor = PropertyAccess::createPropertyAccessor();
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @param FormBuilderInterface $builder
-   * @TODO: Missing description.
-   * @param array $options
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
+    $disabled_options = array(
+      'disabled' => 'disabled',
+      'attr' => array(
+        'help_text' => $this->translator->trans('bygning_rapporter.messages.baseline_value_disabled'),
 
-    // If there is a Baseline attached disable editing of baseline fields
-    $disabled = $this->rapport->getBygning()->getBaseline() ? 'disabled' : '';
-
+      ),
+    );
     $builder
       ->add('datering', 'date', array(
         // render as a single HTML5 text box
         'widget' => 'single_text')
       )
-      ->add('BaselineEl', null, array('disabled' => $disabled))
-      ->add('BaselineVarmeGUF', null, array('disabled' => $disabled))
-      ->add('BaselineVarmeGAF', null, array('disabled' => $disabled))
-      ->add('BaselineStrafAfkoeling', null, array('disabled' => $disabled))
+      ->add('BaselineEl', null, ($this->isAllowed('BaselineEl') ? array() : $disabled_options))
+      ->add('BaselineVarmeGUF', null, ($this->isAllowed('BaselineVarmeGUF') ? array() : $disabled_options))
+      ->add('BaselineVarmeGAF', null, ($this->isAllowed('BaselineVarmeGAF') ? array() : $disabled_options))
+      ->add('BaselineBraendstof', null, ($this->isAllowed('BaselineBraendstof') ? array() : $disabled_options))
+      ->add('BaselineStrafAfkoeling', null, ($this->isAllowed('BaselineStrafAfkoeling') ? array() : $disabled_options))
       ->add('bygning', new BygningBaselineEmbedType(), array('label' => false))
       ->add('faktorPaaVarmebesparelse')
       ->add('energiscreening');
@@ -64,26 +78,38 @@ class RapportType extends AbstractType
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @param OptionsResolver $resolver
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function configureOptions(OptionsResolver $resolver)
   {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\Rapport'
+      'data_class' => 'AppBundle\Entity\Rapport',
     ));
   }
 
   /**
-   * @TODO: Missing description.
-   *
-   * @return string
-   * @TODO: Missing description.
+   * @inheritDoc
    */
   public function getName()
   {
     return 'appbundle_rapport';
   }
+
+  /**
+   * @inheritDoc
+   */
+  public function isAllowed($fieldName)
+  {
+    if (!empty($this->rapport->getBygning()->getBaseline())) {
+      return FALSE;
+    }
+
+    if (!empty($this->rapport->getBygning()->getVirksomhed()->getRapport())
+      && !empty((integer) $this->accessor->getValue($this->rapport->getBygning()->getVirksomhed()->getRapport(), $fieldName))) {
+      return FALSE;
+    }
+
+    return TRUE;
+  }
+
 }

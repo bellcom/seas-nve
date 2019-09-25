@@ -19,6 +19,7 @@ class BaselineCalculation extends Calculation {
    * @param LifecycleEventArgs $args
    */
   public function preUpdate(LifecycleEventArgs $args) {
+    /** @var Baseline $entity */
     $entity = $args->getEntity();
 
     if (!$entity instanceof Baseline) {
@@ -43,7 +44,6 @@ class BaselineCalculation extends Calculation {
     if ($normtal) {
       $GDNormalAar = $normtal->getSumAar();
     }
-
     $baseline->calculate($GDNormalAar);
     return $baseline;
   }

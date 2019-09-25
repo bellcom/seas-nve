@@ -55,7 +55,7 @@ class PumpeRepository extends EntityRepository {
         break;
 
       default;
-        // Most of values is stringable.
+        // Most of values are stringable.
         return (string) $value;
     }
   }

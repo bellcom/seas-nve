@@ -4,11 +4,11 @@
 {% block body -%}
   <div class="row heading">
     <div class="col-md-9">
-      <h1>{{ 'bygning_rapporter.actions.edit' | trans }}</h1>
+      <h1>{{ 'virksomhed_rapporter.actions.edit' | trans }}</h1>
     </div>
     <div class="col-md-3 text-right">
-      {% if entity.bygning.baseline %}
-        <a href="{{ path('baseline_show', { 'id': entity.bygning.baseline.id }) }}" class="btn btn-default">{{ icon('sliders') }} {{ 'baseline.actions.korriger' | trans }}</a>
+      {% if entity.virksomhed.baseline %}
+        <a href="{{ path('baseline_show', { 'id': entity.virksomhed.baseline.id }) }}" class="btn btn-default">{{ icon('sliders') }} {{ 'baseline.actions.korriger' | trans }}</a>
       {% endif %}
     </div>
 
@@ -23,29 +23,23 @@
     <div class="panel-body">
       <div class="col-xs-12 col-md-6">
         {{ form_row(show_form.datering) }}
-        {% if show_form.elena is defined %}
-          <span class="hidden">{{ form_row(show_form.elena) }}</span>
-        {% endif %}
-        {% if show_form.ava is defined %}
-          <span class="hidden">{{ form_row(show_form.ava) }}</span>
-        {% endif %}
+        {{ aaplus.form_row_decimal('appbundle.virksomhed_rapport.energibudgetEl', entity.energibudgetEl, 'appbundle.virksomhed_rapport.energibudgetEl.unit') }}
       </div>
       <div class="col-xs-12 col-md-6">
         {{ form_row(show_form.energiscreening) }}
         {{ form_row(show_form.faktorPaaVarmebesparelse) }}
       </div>
       <div class="col-xs-12 col-md-6">
-        {{ aaplus.form_row_decimal('appbundle.rapport.energibudgetVarme', entity.energibudgetVarme, 'appbundle.rapport.energibudgetVarme.unit') }}
+        {{ aaplus.form_row_decimal('appbundle.virksomhed_rapport.energibudgetVarme', entity.energibudgetVarme, 'appbundle.virksomhed_rapport.energibudgetVarme.unit') }}
       </div>
       <div class="col-xs-12 col-md-6">
-        {{ aaplus.form_row_decimal('appbundle.rapport.energibudgetEl', entity.energibudgetEl, 'appbundle.rapport.energibudgetEl.unit') }}
       </div>
     </div>
   </div>
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">{{ 'common.baseline' | trans }}</h3>
+      <h3 class="panel-title">{{ 'virksomhed_rapporter.groups.baseline_data' | trans }}</h3>
     </div>
     <div class="panel-body">
       <div class="col-xs-12 col-md-6">
@@ -56,7 +50,6 @@
       </div>
       <div class="col-xs-12 col-md-6">
         {{ form_row(show_form.BaselineStrafAfkoeling) }}
-        {{ form_row(show_form.bygning) }}
       </div>
     </div>
   </div>

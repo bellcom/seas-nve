@@ -74,8 +74,8 @@
         {% xlscell %}{#{ bygning.projektleder }#}{% endxlscell %}
         {% xlscell %}{{ rapport ? rapport.datering|date : null }}{% endxlscell %}
         {% xlscell %}{{ (rapport and rapport.datoForDrift) ? rapport.datoForDrift|date('Y-m-d') : null }}{% endxlscell %}
-        {% xlscell %}{{ (rapport ? rapport.elena : false) ? 1 : 0 }}{% endxlscell %}
-        {% xlscell %}{{ (rapport ? rapport.ava : false) ? 1 : 0 }}{% endxlscell %}
+        {#{% xlscell %}{{ (rapport ? rapport.elena : false) ? 1 : 0 }}{% endxlscell %}#}
+        {#{% xlscell %}{{ (rapport ? rapport.ava : false) ? 1 : 0 }}{% endxlscell %}#}
       {% else %}
         {% for i in 1..7 %}
           {% xlscell %}{% endxlscell %}
