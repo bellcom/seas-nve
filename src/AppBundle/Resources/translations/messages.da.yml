@@ -2242,7 +2242,7 @@ appbundle:
     aar: "År"
     slutanvendelser: "Slutanvendelser"
     slutanvendelser.type: "Type"
-    slutanvendelser.procent: "Procent, %"
+    slutanvendelser.procent: "Procent"
     slutanvendelser.forbrug: "Forbrug, kWh/år"
     titel: "Navn"
     totalForbrug: "Total forbrug"

@@ -40,7 +40,7 @@
           <tbody>
           {% for key, slutanvendelse in form.slutanvendelser %}
           <tr data-label="{{ slutanvendelser_label[key] }}">
-            <td><label class="control">{{ slutanvendelser_label[key] }}</label></td>
+            <td style="vertical-align: middle"><span class="js-chart-slutanvendelse-color"></span> <label class="control">{{ slutanvendelser_label[key] }}</label></td>
             <td>{{ form_widget(slutanvendelse.procent, {'attr': {'size': '5', 'class': 'js-percentage'}}) }}</td>
             <td>{{ form_widget(slutanvendelse.forbrug, {'attr': {'size': '10', 'class': 'js-usage'}}) }}</td>
           </tr>
@@ -92,71 +92,71 @@
     }
   </script>
   <script>
+    var colors = [
+      {
+        color: '#FE9029',
+        highlight: '#FE9029',
+      },
+      {
+        color: '#FFDE2F',
+        highlight: '#FFDE2F',
+      },
+      {
+        color: '#74766C',
+        highlight: '#74766C',
+      },
+      {
+        color: '#62C5D3',
+        highlight: '#62C5D3',
+      },
+      {
+        color: '#A7CB11',
+        highlight: '#A7CB11',
+      },
+      {
+        color: '#006F55',
+        highlight: '#006F55',
+      },
+      {
+        color: '#009E50',
+        highlight: '#009E50',
+      },
+      {
+        color: '#CAE070',
+        highlight: '#CAE070',
+      },
+      {
+        color: '#FFEB82',
+        highlight: '#FFEB82',
+      },
+      {
+        color: '#99D8B9',
+        highlight: '#99D8B9',
+      },
+      {
+        color: '#FEA654',
+        highlight: '#FEA654',
+      },
+      {
+        color: '#A1DCE5',
+        highlight: '#A1DCE5',
+      },
+      {
+        color: '#74766C',
+        highlight: '#74766C',
+      },
+      {
+        color: '#CCECDC',
+        highlight: '#CCECDC',
+      },
+      {
+        color: '#A1DCE5',
+        highlight: '#A1DCE5',
+      }
+    ];
+
     function grabData() {
       var data = [];
-      var colors = [
-        {
-          color: '#FE9029',
-          highlight: '#FE9029',
-        },
-        {
-          color: '#FFDE2F',
-          highlight: '#FFDE2F',
-        },
-        {
-          color: '#74766C',
-          highlight: '#74766C',
-        },
-        {
-          color: '#62C5D3',
-          highlight: '#62C5D3',
-        },
-        {
-          color: '#A7CB11',
-          highlight: '#A7CB11',
-        },
-        {
-          color: '#006F55',
-          highlight: '#006F55',
-        },
-        {
-          color: '#009E50',
-          highlight: '#009E50',
-        },
-        {
-          color: '#CAE070',
-          highlight: '#CAE070',
-        },
-        {
-          color: '#FFEB82',
-          highlight: '#FFEB82',
-        },
-        {
-          color: '#99D8B9',
-          highlight: '#99D8B9',
-        },
-        {
-          color: '#FEA654',
-          highlight: '#FEA654',
-        },
-        {
-          color: '#A1DCE5',
-          highlight: '#A1DCE5',
-        },
-        {
-          color: '#74766C',
-          highlight: '#74766C',
-        },
-        {
-          color: '#CCECDC',
-          highlight: '#CCECDC',
-        },
-        {
-          color: '#A1DCE5',
-          highlight: '#A1DCE5',
-        }
-      ];
-
       var int = 0;
       var inputFields = document.querySelectorAll('.js-percentage');
 
@@ -236,6 +236,17 @@
     }
     for(var field of percentageFields) {
       field.addEventListener('keyup', setTotalPercentage);
+    }
+
+    // Set slutanvendelse colors.
+    var colorIteration = 0;
+    for(var field of percentageFields) {
+      var parent = field.parentElement.parentElement;
+      var colorField = parent.querySelector('.js-chart-slutanvendelse-color');
+
+      colorField.style.backgroundColor = colors[colorIteration].color;
+
+      colorIteration++;
     }
 
     // Initial load.
