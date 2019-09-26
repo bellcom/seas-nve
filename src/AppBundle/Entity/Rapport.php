@@ -1913,6 +1913,13 @@ class Rapport {
   }
 
   /**
+   * Get bygning Virksomhed
+   */
+  public function getVirksomhed() {
+    return $this->bygning->getVirksomhed();
+  }
+
+  /**
    * Get sum of solcelleproduktion from all SolcelleTiltag.
    */
   public function getSolcelleproduktion() {

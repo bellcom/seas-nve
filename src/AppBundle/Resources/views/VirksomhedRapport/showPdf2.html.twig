@@ -3,6 +3,22 @@
 {% block body -%}
 
   <div class="portrait">
+    <div class="row">
+      <div class="col-xs-12">
+        <h4>Kontaktinformation</h4>
+      </div>
+      <div class="col-xs-12">
+        <h5>Kunde</h5>
+        <hr>
+        <div class="row">
+          {% for contactPerson in rapport.virksomhed.contactPersons %}
+            <div class="col-xs-12">
+              {{ include ('AppBundle:ContactPerson:show-embed.html.twig') }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
 
     {# ##### Tilvalgte Tiltag ####### #}
 
