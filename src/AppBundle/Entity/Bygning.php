@@ -225,11 +225,11 @@ class Bygning {
   protected $rapport;
 
   /**
-   * @OneToOne(targetEntity="Baseline", mappedBy="bygning", cascade={"persist"})
-   * @JoinColumn(name="baseline_id", referencedColumnName="id", nullable=true)
-   * @JMS\Exclude
+   * @var Baseline|null
+   *
+   * Baseline object from Virksomhed.
    **/
-  protected $baseline;
+  protected $baseline = NULL;
 
   /**
    * @ManyToOne(targetEntity="Virksomhed", cascade={"persist"})
@@ -700,9 +700,7 @@ class Bygning {
    * @return integer
    */
   public function getAreal() {
-    return ($this->baseline && !empty($this->baseline->getArealTilNoegletalsanalyse()))
-      ? $this->baseline->getArealTilNoegletalsanalyse()
-      : $this->getBruttoetageareal();
+    return $this->getErhvervsareal();
   }
 
   /**
@@ -1153,7 +1151,6 @@ class Bygning {
    */
   public function setBaseline($baseline) {
     $this->baseline = $baseline;
-    $baseline->setBygning($this);
   }
 
   /**
@@ -1209,13 +1206,14 @@ class Bygning {
    * @ORM\PostLoad()
    * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
    */
-    public function postLoad(LifecycleEventArgs $event) {
-    if ($this->getBaseline()) {
-      $this->getBaseline()->setArealTilNoegletalsanalyse($this->getBruttoetageareal());
+  public function postLoad(LifecycleEventArgs $event) {
+    if ($this->getVirksomhed()) {
+      $this->setBaseline($this->getVirksomhed()->getBaseline());
     }
 
     // Contact persons are not handled by Doctrine ORM.
     // We are loading it here.
+    /** @var ContactPersonRepository $repository */
     $repository = $event->getEntityManager()
       ->getRepository(ContactPerson::class);
       $this->contactPersons = new ArrayCollection(array());

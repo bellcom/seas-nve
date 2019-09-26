@@ -263,7 +263,7 @@ class BygningStreamExporter {
 
     if ($this->showAll || $this->groups['baselineinformation']) {
       if ($tiltagIndex === 0) {
-        $this->addCell($bygning->getBruttoetageareal());
+        $this->addCell($bygning->getErhvervsareal());
         $this->addCell($bygning->getForsyningsvaerkVarme(TRUE));
         $this->addCell($bygning->getForsyningsvaerkVarme(TRUE) ? $bygning->getForsyningsvaerkVarme(TRUE)->getKgCo2MWh(2015) : null);
         $this->addCell($rapport ? $rapport->getBaselineCO2Varme() : null);

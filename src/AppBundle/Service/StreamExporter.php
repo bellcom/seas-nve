@@ -46,7 +46,6 @@ class StreamExporter
             $this->writer->setShouldAddBOM(FALSE);
         }
         $this->writer->openToFile($filepath);
-
     }
 
     public function header()

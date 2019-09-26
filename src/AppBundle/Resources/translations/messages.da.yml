@@ -44,7 +44,7 @@ common:
   add: "Tilføj"
   afleveret_raadgiver: "Afleveret af Rådgiver"
   all: "Alle"
-  baseline: "Baseline"
+  baseline: "Virksomhed baseline"
   beskrivelsesamtforudsætninger: "Beskrivelse samt forudsætninger"
   besparelse: "Besparelse"
   calculated_value: "Beregnet værdi"
@@ -122,8 +122,7 @@ baseline:
     create: "Opret Baseline"
     edit: "Rediger Baseline"
     indfoer: "Indfør Baseline"
-    korriger: "Korriger Baseline"
-    show: "Vis Baseline"
+    korriger: "Korriger Virksomhed Baseline"
   confirmation:
     baseline_infoert: "Baseline data verificeret"
     created: "Baseline oprettet"
@@ -198,7 +197,7 @@ bygning_rapporter:
     approve_confirm: "Er du sikker på du vil markere bygningsrapporten som \"Godkendt af Magistrat\"?"
     create: "Opret bygningsrapport"
     download_files: "Hent alle bilag og filer"
-    edit: "Baseline og energibudget"
+    edit: "Rediger rapport og energibudget"
     filer: "Filer"
     implementation: "Under udførsel"
     implementation_confirm: "Er du sikker på du vil markere rapporten som \"Under udførsel\"?"
@@ -224,6 +223,7 @@ bygning_rapporter:
     verified: "Bygning rapport verificeret af Aa+"
   messages:
     no_files: "Bygning rapporten har ingen filer tilknyttet"
+    baseline_value_disabled: "This value has been defined in Virksomhed rapport baseline or Virksomhed baseline"
   strings:
     belysningtiltag: "Belysning"
     klimaskaermtiltag: "Klimaskærm"
@@ -286,8 +286,15 @@ erstatningslyskilde:
   actions:
     add: "Tilføj erstatnings lyskilde"
     edit: "Rediger erstatnings lyskilde"
+    import: "Import erstatnings lyskilder"
   error:
     in_use: "Kan ikke slettes. Bruges af belysningsforslag."
+    import_file: "Import filen er forkert."
+  confirmation:
+    created: "Erstatnings lyskilde oprettet"
+    updated: "Erstatnings lyskilde opdateret"
+    deleted: "Erstatnings lyskilde slettet"
+    imported: "Der var oprettet %created og opdateret %updated erstatnings lyskilder."
   labels:
     plural: "Erstatnings lyskilder"
     singular: "Erstatnings lyskilde"
@@ -330,8 +337,15 @@ klimaskaerm:
     add: "Tilføj klimaskærm"
     create: "Opret klimaskærm"
     edit: "Rediger klimaskærm"
+    import: "Import klimaskærme"
   error:
     in_use: "Kan ikke slettes. Bruges af klimaskærmsforslag."
+    import_file: "Import filen er forkert."
+  confirmation:
+    created: "Klimaskærm oprettet"
+    updated: "Klimaskærm opdateret"
+    deleted: "Klimaskærm slettet"
+    imported: "Der var oprettet %created og opdateret %updated erstatnings klimaskærme."
   labels:
     plural: "Klimaskærme"
     singular: "Klimaskærm"
@@ -371,8 +385,15 @@ nytArmatur:
   actions:
     add: "Tilføj armatur"
     edit: "Rediger armatur"
+    import: "Import armaturer"
   error:
     in_use: "Kan ikke slettes. Bruges af belysningsforslag."
+    import_file: "Import filen er forkert."
+  confirmation:
+    created: "Armatur oprettet"
+    updated: "Armatur opdateret"
+    deleted: "Armatur slettet"
+    imported: "Der var oprettet %created og opdateret %updated armaturer."
   labels:
     plural: "Armaturer"
     singular: "Armatur"
@@ -399,7 +420,7 @@ pumpe:
     imported: "Der var oprettet %created og opdateret %updated pumper."
   error:
     in_use: "Kan ikke slettes. Bruges af pumpeforslag."
-    import_file: "Import file er forkert."
+    import_file: "Import filen er forkert."
   labels:
     nuvaerende: "Nuværende pumpe"
     ny: "Ny pumpe"
@@ -460,10 +481,14 @@ solcelle:
     add: "Tilføj solcelle"
     create: "Opret solcelle"
     edit: "Rediger solcelle"
+    import: "Import solceller"
+  error:
+    import_file: "Import filen er forkert."
   confirmation:
     created: "Solcelle oprettet"
     updated: "Solcelle opdateret"
     deleted: "Solcelle slettet"
+    imported: "Der var oprettet %created og opdateret %updated erstatnings solceller."
   labels:
     plural: "Solceller"
     singular: "Solcelle"
@@ -633,6 +658,7 @@ virksomhed_rapporter:
     filer: "Filer"
     pdf2: "Resultatoversigt"
     pdf5: "Detailark"
+    pdf_kortlaegning: "Kortlaegning"
     re-calculate: "Genberegn"
     show: "Vis virksomhedsrapport"
   labels:
@@ -648,6 +674,15 @@ virksomhed_rapporter:
     no_files: "Rapporten har ingen filer tilknyttet"
   strings:
     related_reports: "Relaterede rapporter"
+  groups:
+    baseline_data: "Baseline data"
+virksomhed_kortlaegning:
+  label:
+    plural: "Kortlægninger"
+    singular: "Kortlægning"
+    general: "Generelt"
+  confirmation:
+    updated: "Kortlægningerne blev opdateret"
 
 # Forms - We follow the formbuilders form id format
 appbundle:
@@ -765,6 +800,9 @@ appbundle:
     varmeStrafafkoelingsafgift: "Evt. strafafkølingsafgift"
     varmeStrafafkoelingsafgift.unit: "kr/år"
     varmeStrafafkoelingsafgiftKorrektion: "Strafafkølingsafgift korrektion"
+    braendstof: "Brændstof"
+    braendstofForbrug: "Brændstof forbrug"
+    braendstofForbrug.unit: "kWh/år"
     year1: "År 1"
     year2: "År 2"
     year3: "År 3"
@@ -788,6 +826,8 @@ appbundle:
     korrektionGAF.unit: "kWh/år"
     korrektionGUF: "GUF"
     korrektionGUF.unit: "kWh/år"
+    korrektionBraendstof: "Brændstof"
+    korrektionBraendstof.unit: "kWh/år"
   belysningtiltagdetail:
     add: "Tilføj"
     armaturerStkLokale: "Armaturer antal"
@@ -913,7 +953,7 @@ appbundle:
     afdelingsnavn: "Afdelingsnavn"
     ansvarlig: "Ansvarlig"
     anvendelse: "Anvendelse"
-    baseline: "Baseline"
+    baseline: "Virksomhed Baseline"
     bruttoetageareal: "Bruttoetageareal"
     bruttoetageareal.unit: "m²"
     erhvervsareal: "Erhvervsareal"
@@ -1098,7 +1138,6 @@ appbundle:
     prisfaktor: "Prisfaktor"
     nyEnhedspris: "Ny enhedspris"
     nyEnhedspris.unit: "Kr/kWh"
-    forsyningsvaerk: "Forsyningsværk"
     beskrivelse: "Beskrivelse"
     internproduktion:
       effektivitet: "Effektivitet"
@@ -1129,6 +1168,8 @@ appbundle:
     pris.unit: "kr"
     wattage: "Wattage"
     wattage.unit: "W/Lysk."
+    import:
+      filepath: "Vælg fil med import erstatningslyskilder data"
   forsyningsvaerk:
     co2: "CO2"
     co2Noter: "Noter (CO2)"
@@ -1302,6 +1343,8 @@ appbundle:
     noter: "Noter"
     post: "Post"
     type: "Type"
+    import:
+      filepath: "Vælg fil med import klimaskærme data"
   klimaskaermtiltagdetail:
     add: "Tilføj"
     andelAfArealDerEfterisoleres: "Andel af areal der efterisoleres"
@@ -1396,6 +1439,8 @@ appbundle:
     pris.unit: "kr"
     wattage: "Wattage"
     wattage.unit: "W/Lysk."
+    import:
+      filepath: "Vælg fil med import armaturer data"
   nyttiggjortvarme:
     faktor: "Faktor for nyttiggjort varme"
     titel: "Titel"
@@ -1466,7 +1511,6 @@ appbundle:
     nyPumpe: "Ny pumpe"
     nytByggemaal: "Nyt byggemål"
     nyTilslutning: "Ny tilslutning"
-    nyttiggjortVarme: "Nyttiggjort varme"
     nyttiggjortVarme.unit: "B-faktor"
     nytVVSnr: "Nyt VVS-nr."
     overskrevetPris: "Overskrevet pris"
@@ -1509,6 +1553,8 @@ appbundle:
     BaselineVarmeGAF.unit: "kwh/år"
     BaselineVarmeGUF: "Baseline Varme GUF"
     BaselineVarmeGUF.unit: "kwh/år"
+    BaselineBraendstof: "Braendstof"
+    BaselineBraendstof.unit: "kwh/år"
     besparelseAarEt: "Økonomisk besparelse i år 1"
     besparelseAarEt.unit: "kr"
     besparelseAarEtPdf: "Økonomisk besparelse i år 1 (inkl. D&V-besparelse)"
@@ -1554,8 +1600,8 @@ appbundle:
     co2BesparelseSamletFaktor.unit: "%"
     co2BesparelseVarmeFaktor: "Varme"
     co2BesparelseVarmeFaktor.unit: "%"
-    co2BesparelseBraendstof: "Brændstof"
-    co2BesparelseBraendstof.unit: "%"
+    co2BesparelseBraendstofFaktor: "Brændstof"
+    co2BesparelseBraendstofFaktor.unit: "%"
     co2BesparelseBraendstofITon: "Brændstof"
     co2BesparelseBraendstofITon.unit: "t/år"
     datering: "Screeningsdato"
@@ -1635,6 +1681,8 @@ appbundle:
     inverterpris: "Inverterpris"
     KWp: "KWp"
     kwp: "KWp"
+    import:
+      filepath: "Vælg fil med import solceller data"
   solcelletiltagdetail:
     add: "Tilføj"
     anlaegsstoerrelseKWp: "Anlægsstørrelse"
@@ -1990,6 +2038,7 @@ appbundle:
     yderligereBesparelserPct: "Yderligere besparelser"
     yderligereBesparelserPct.unit: "%"
   virksomhed:
+    baseline: "Baseline"
     bygning: "Tilknyttede bygninger"
     generalt: "Generel information"
     name: "Firmanavn"
@@ -2039,6 +2088,7 @@ appbundle:
     kam: "KAM"
     kalkulationsrente: "Kalkulationsrente"
     kalkulationsrente.unit: "%"
+    kortlaegning: "Kortlægning"
     inflation: "Inflation"
     inflation.unit: "%"
     lobetid: "Løbetid"
@@ -2053,8 +2103,6 @@ appbundle:
     forsyningsvaerkEl: "El"
     forsyningsvaerkVand: "Vand"
     forsyningsvaerkVarme: "Varme"
-    baseline:
-      summary: "Bygninger baseline opsummering"
   virksomhed_rapport:
     ava: "AVA"
     anlaegsinvestering.unit: "kr"
@@ -2074,6 +2122,8 @@ appbundle:
     BaselineVarmeGAF.unit: "kwh/år"
     BaselineVarmeGUF: "Baseline Varme GUF"
     BaselineVarmeGUF.unit: "kwh/år"
+    BaselineBraendstof: "Brændstof"
+    BaselineBraendstof.unit: "kWh/år"
     besparelseAarEt: "Økonomisk besparelse i år 1"
     besparelseAarEt.unit: "kr"
     besparelseAarEtPdf: "Økonomisk besparelse i år 1 (inkl. D&V-besparelse)"
@@ -2096,8 +2146,6 @@ appbundle:
     besparelseVarmeGUF.unit: "kwh/år"
     besparelseBraendstof: "Besparelse brændstof"
     besparelseBraendstof.unit: "kWh/år"
-    co2BesparelseBraendstof: "Brændstof"
-    co2BesparelseBraendstof.unit: "%"
     co2BesparelseBraendstofITon: "Brændstof"
     co2BesparelseBraendstofITon.unit: "t/år"
     bilag:
@@ -2118,6 +2166,8 @@ appbundle:
     co2BesparelseSamletFaktor.unit: "%"
     co2BesparelseVarmeFaktor: "Varme"
     co2BesparelseVarmeFaktor.unit: "%"
+    co2BesparelseBraendstofFaktor: "Brændstof"
+    co2BesparelseBraendstofFaktor.unit: "%"
     datering: "Screeningsdato"
     elena: "Elena"
     energibesparelser: "Energibesparelser"
@@ -2189,6 +2239,15 @@ appbundle:
     opvarmetareal.unit: "m²"
     uOpvarmetareal: "Uopvarmet areal"
     uOpvarmetareal.unit: "m²"
+  virksomhedkortlaegning:
+    aar: "År"
+    slutanvendelser: "Slutanvendelser"
+    slutanvendelser.type: "Type"
+    slutanvendelser.procent: "Procent"
+    slutanvendelser.forbrug: "Forbrug, kWh/år"
+    titel: "Navn"
+    totalForbrug: "Total forbrug"
+    totalForbrug.unit: "kWh/år"
   fil:
     createdAt: "Oprettet"
     createdBy: "Oprettet af"

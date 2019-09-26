@@ -2,15 +2,23 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Controller\BaseController;
+use AppBundle\Entity\KlimaskaermRepository;
+use AppBundle\Entity\Klimaskaerm;
+use AppBundle\Form\Type\KlimaskaermImportType;
+use AppBundle\Form\Type\KlimaskaermType;
+use Doctrine\ORM\EntityManager;
+use League\Csv\Reader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use AppBundle\Entity\Klimaskaerm;
-use AppBundle\Form\Type\KlimaskaermType;
-use AppBundle\Controller\BaseController;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Klimaskaerm controller.
@@ -20,11 +28,22 @@ use AppBundle\Controller\BaseController;
  */
 class KlimaskaermController extends BaseController
 {
+    /**
+     * @var TranslatorInterface
+     */
+    protected $translator;
 
-  public function init(Request $request) {
-    parent::init($request);
-    $this->breadcrumbs->addItem('klimaskaerm.labels.singular', $this->generateUrl('klimaskaerm'));
-}
+    /**
+     * @var PropertyAccessor
+     */
+    protected $accessor;
+
+    public function init(Request $request) {
+        parent::init($request);
+        $this->breadcrumbs->addItem('klimaskaerm.labels.singular', $this->generateUrl('klimaskaerm'));
+        $this->accessor = PropertyAccess::createPropertyAccessor();
+        $this->translator = $this->container->get('translator');
+    }
 
 
     /**
@@ -32,13 +51,27 @@ class KlimaskaermController extends BaseController
      *
      * @Route("/", name="klimaskaerm")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Klimaskaerm:index.html.twig")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        // We need more time!
+        set_time_limit(0);
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Klimaskaerm')->findAll();
+
+        $_format = '';
+        if ($request->query->has('_format')) {
+            $value = $request->query->get('_format');
+            if ($value == 'xlsx' || $value == 'csv') {
+                $_format = $value;
+            }
+        }
+
+        if (!empty($_format)) {
+            return $this->export($entities, $_format);
+        }
 
         return array(
             'entities' => $entities,
@@ -61,6 +94,7 @@ class KlimaskaermController extends BaseController
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            $this->flash->success('klimaskaerm.confirmation.created');
 
             return $this->redirect($this->generateUrl('klimaskaerm'));
 
@@ -109,6 +143,121 @@ class KlimaskaermController extends BaseController
             'entity' => $entity,
             'form'   => $form->createView(),
         );
+    }
+
+    /**
+     * Displays a form to import file with Klimaskaerm entities data.
+     *
+     * @Route("/import", name="klimaskaerm_import_form")
+     * @Method("GET")
+     * @Template("AppBundle:Klimaskaerm:import.html.twig")
+     */
+    public function importFormAction()
+    {
+        $this->breadcrumbs->addItem('common.import', $this->generateUrl('klimaskaerm'));
+        $form = $this->createImportForm();
+
+        return array(
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
+     * Imports a new Klimaskaerm entities.
+     *
+     * @Route("/import", name="klimaskaerm_import")
+     * @Method("POST")
+     * @Template("AppBundle:Klimaskaerm:import.html.twig")
+     */
+    public function importAction(Request $request)
+    {
+        $form = $this->createImportForm();
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $updated = 0;
+            $created = 0;
+
+            // Get file
+            $file = $form->get('filepath');
+            $fileData = $file->getData();
+            $reader = Reader::createFromPath($fileData->getPathname());
+            try {
+                $results = $reader->fetchAssoc();
+            }
+            catch (\Exception $e) {
+                $results = array();
+                $this->flash->error('klimaskaerm.error.import_file');
+            }
+            /** @var EntityManager $em */
+            $em = $this->getDoctrine()->getManager();
+            /** @var KlimaskaermRepository $repository */
+            $repository = $em->getRepository(Klimaskaerm::class);
+            $columns = $em->getClassMetadata(Klimaskaerm::class)->getColumnNames();
+            // Remove 'id' column from properties.
+            $columns = array_filter($columns, function($val) { return $val != 'id'; });
+            foreach ($results as $row) {
+                if (!empty($row['id']) && $entity = $repository->find($row['id'])) {
+                    // Update  entity.
+                    foreach ($columns as $column) {
+                        if (isset($row[$column])) {
+                            $value = $repository->getTypedValue($column, $row[$column]);
+                            if ($this->accessor->getValue($entity, $column) != $value) {
+                                $this->accessor->setValue($entity, $column, $value);
+                            }
+                        }
+                    }
+                    // Save entity only if it has changes.
+                    $uow = $em->getUnitOfWork();
+                    $uow->computeChangeSets();
+                    if ($uow->getEntityChangeSet($entity)) {
+                        $em->persist($entity);
+                        $updated++;
+                    }
+                    continue;
+                }
+
+                // Insert entity.
+                $entity = new Klimaskaerm();
+                foreach ($columns as $column) {
+                    $value = '';
+                    if (isset($row[$column])) {
+                        $value = $row[$column];
+                    }
+                    $this->accessor->setValue($entity, $column, $repository->getTypedValue($column, $value));
+                }
+                $em->persist($entity);
+                $created++;
+            }
+            $em->flush();
+            $this->flash->success($this->translator->trans('klimaskaerm.confirmation.imported', array(
+                '%created' => $created,
+                '%updated' => $updated,
+            )));
+
+            return $this->redirect($this->generateUrl('klimaskaerm'));
+        }
+
+        return array(
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
+     * Creates a form to create a Klimaskaerm entity.
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createImportForm()
+    {
+        $form = $this->createForm(new KlimaskaermImportType(), null, array(
+            'action' => $this->generateUrl('klimaskaerm_import'),
+            'method' => 'POST',
+        ));
+
+        $this->addUpdate($form, $this->generateUrl('klimaskaerm'));
+
+        return $form;
     }
 
     /**
@@ -205,6 +354,7 @@ class KlimaskaermController extends BaseController
 
         if ($editForm->isValid()) {
             $em->flush();
+            $this->flash->success('klimaskaerm.confirmation.updated');
 
             return $this->redirect($this->generateUrl('klimaskaerm'));
         }
@@ -236,6 +386,7 @@ class KlimaskaermController extends BaseController
 
             $em->remove($entity);
             $em->flush();
+            $this->flash->success('klimaskaerm.confirmation.deleted');
         }
 
         return $this->redirect($this->generateUrl('klimaskaerm'));
@@ -266,5 +417,42 @@ class KlimaskaermController extends BaseController
             ))
             ->getForm()
         ;
+    }
+
+    private function export(array $result, $format) {
+        $filename = 'klimaskaerme--' . date('d-m-Y_Hi') . '.' . $format;
+        switch ($format) {
+            case 'csv':
+                $contentType = 'text/csv';
+                break;
+            case 'xlsx':
+                $contentType = 'application/vnd.ms-excel';
+                break;
+        }
+
+        $response = new StreamedResponse();
+        $response->headers->add([
+            'Content-type' => $contentType,
+            'Content-disposition' => 'attachment; filename="' . $filename . '"',
+            'Cache-control' => 'max-age=0',
+        ]);
+        $em = $this->getDoctrine()->getManager();
+        $columns = $em->getClassMetadata(Klimaskaerm::class)->getColumnNames();
+        $streamer = $this->container->get('aaplus.exporter.csv_stream');
+        $streamer->setConfig([
+            'columns' => $columns,
+        ]);
+        $filepath = $this->container->getParameter('data_export_path'). '/' . $filename;
+        $response->setCallback(function () use ($result, $streamer, $format, $filepath) {
+            $streamer->start($filepath, $format);
+            $streamer->header();
+            foreach ($result as $item) {
+                $streamer->item($item);
+            }
+            $streamer->end();
+            print(file_get_contents($filepath));
+        });
+
+        return $response;
     }
 }

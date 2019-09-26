@@ -50,6 +50,16 @@
           <td class="text-right">{{ t.besparelseStrafafkoelingsafgift | format_zeros }}</td>
           <td>{{ 'appbundle.tiltag.besparelseStrafafkoelingsafgift.unit' | trans }}</td>
         </tr>
+        {% if t.besparelseBraendstof %}
+          <tr>
+            <th>{{ 'appbundle.tiltag.besparelseBraendstof' | trans }}</th>
+            <td class="text-right">{{ t.besparelseBraendstof | format_zeros }}</td>
+            <td>{{ 'appbundle.tiltag.besparelseBraendstof.unit' | trans }}</td>
+            <th></th>
+            <td class="text-right"></td>
+            <td></td>
+          </tr>
+        {% endif %}
         <tr>
           {% if t.salgTilNettetAar1 is defined %}
           <th>{{ 'appbundle.tiltag.salgTilNettetAar1' | trans }}</th>

@@ -271,6 +271,20 @@ class Virksomhed
     protected $forsyningsvaerkEl;
 
     /**
+     * @ORM\OneToOne(targetEntity="VirksomhedKortlaegning", mappedBy="virksomhed", cascade={"persist"})
+     * @JoinColumn(name="virksomhed_id", referencedColumnName="id", nullable=true)
+     * @JMS\Exclude
+     **/
+    protected $kortlaegning;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Baseline", mappedBy="virksomhed", cascade={"persist"})
+     * @JoinColumn(name="baseline_id", referencedColumnName="id", nullable=true)
+     * @JMS\Exclude
+     **/
+    protected $baseline;
+
+    /**
      * Virksomhed constructor.
      */
     public function __construct()
@@ -843,6 +857,21 @@ class Virksomhed
     }
 
     /**
+     * Get erhvervsareal accumulated value from bygninger.
+     *
+     * @return array|float
+     */
+    public function getBygningerErhvervsareal($array = FALSE) {
+        $result = array();
+        /** @var Bygning $bygning */
+        foreach ($this->getAllBygninger() as $bygning) {
+            $result[] = $bygning->getErhvervsareal();
+        }
+
+        return $array ? $result : array_sum($result);
+    }
+
+    /**
      * Adds bygning to collection.
      *
      * @param Bygning $bygning
@@ -865,9 +894,9 @@ class Virksomhed
 
     public function getBygningerAreal() {
         $areal = 0;
-        $bygnings = $this->getBygninger();
+        $bygninger = $this->getBygninger();
         /** @var Bygning $bygning */
-        foreach ($bygnings as $bygning) {
+        foreach ($bygninger as $bygning) {
             $areal += $bygning->getAreal();
         }
         return $areal;
@@ -1215,6 +1244,36 @@ class Virksomhed
      */
     public function getForsyningsvaerkEl() {
         return $this->forsyningsvaerkEl;
+    }
+
+    /**
+     * @return VirksomhedKortlaegning|null
+     */
+    public function getKortlaegning() {
+        return $this->kortlaegning;
+    }
+
+    /**
+     * @param VirksomhedKortlaegning $kortlaegning
+     */
+    public function setKortlaegning($kortlaegning) {
+        $this->kortlaegning = $kortlaegning;
+        $kortlaegning->setVirksomhed($this);
+    }
+
+    /**
+     * @param Baseline $baseline
+     */
+    public function setBaseline(Baseline $baseline) {
+        $this->baseline = $baseline;
+        $baseline->setVirksomhed($this);
+    }
+
+    /**
+     * @return Baseline|null
+     */
+    public function getBaseline() {
+        return $this->baseline;
     }
 
     /**

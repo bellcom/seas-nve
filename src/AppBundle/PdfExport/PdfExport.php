@@ -110,7 +110,7 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', array(
+    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdf2Cover.html.twig', array(
       'rapport' => $rapport,
     ));
 
@@ -126,6 +126,41 @@ class PdfExport {
             'header-left' => implode(' | ', $data),
             'header-right' => "Side [page] af [toPage]",
             'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf2Footer.html'),
+      $options));
+  }
+
+  public function exportVirksomhedRapportKortlaegning(VirksomhedRapport $rapport, array $options = array()) {
+    $data = array();
+    $virksomhed = $rapport;
+
+    if ($virksomhed && $virksomhedsNavn = $virksomhed->getName()) {
+      $data[] = $virksomhedsNavn;
+    }
+
+    if ($screeningAt = $rapport->getDatering()) {
+      $data[] = 'Screeningsdato: ' . $screeningAt->format('d.m.Y');
+    }
+
+    if ($updatedAt = $rapport->getUpdatedAt()) {
+      $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
+    }
+
+    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegningCover.html.twig', array(
+      'rapport' => $rapport,
+    ));
+
+    $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegning.html.twig', array(
+      'rapport' => $rapport,
+    ));
+
+    return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+      array('lowquality' => false,
+            'encoding' => 'utf-8',
+            'images' => true,
+            'cover' => $cover,
+            'header-left' => implode(' | ', $data),
+            'header-right' => "Side [page] af [toPage]",
+            'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdfKortlaegningFooter.html'),
       $options));
   }
 
@@ -145,7 +180,7 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $cover = $this->renderView('AppBundle:Rapport:showPdf5Cover.html.twig', array(
+    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdf5Cover.html.twig', array(
       'rapport' => $rapport,
     ));
 

@@ -147,6 +147,11 @@
           <td>{{ 'appbundle.virksomhed_rapport.besparelseVarme.unit' | trans }}</td>
         </tr>
         <tr class="no-border">
+          <th>{{ 'appbundle.virksomhed_rapport.besparelseBraendstof' | trans }}</th>
+          <td class="text-right">{{ rapport.besparelseBraendstof | format_hundreds }}</td>
+          <td>{{ 'appbundle.virksomhed_rapport.besparelseBraendstof.unit' | trans }}</td>
+        </tr>
+        <tr class="no-border">
           <th>{{ 'appbundle.virksomhed_rapport.fravalgtBesparelseDriftOgVedligeholdelse' | trans }}</th>
           <td class="text-right">{{ rapport.fravalgtBesparelseDriftOgVedligeholdelse | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.fravalgtBesparelseDriftOgVedligeholdelse.unit' | trans }}</td>
@@ -300,6 +305,11 @@
           <th>{{ 'appbundle.virksomhed_rapport.BaselineVarme' | trans }}</th>
           <td class="text-right">{{ rapport.BaselineVarme | format_zeros }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.BaselineVarme.unit' | trans }}</td>
+        </tr>
+        <tr class="no-border">
+          <th>{{ 'appbundle.virksomhed_rapport.BaselineBraendstof' | trans }}</th>
+          <td class="text-right">{{ rapport.BaselineBraendstof | format_zeros }}</td>
+          <td>{{ 'appbundle.virksomhed_rapport.BaselineBraendstof.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.BaselineStrafAfkoeling' | trans }}</th>

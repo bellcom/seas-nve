@@ -18,7 +18,7 @@
       <div
           class="panel-heading">{{ icon('home') }} {{ 'appbundle.baseline.generelt' | trans }}</div>
       <div class="panel-body">
-        {{ form_row(edit_form.bygning) }}
+        {{ form_row(edit_form.virksomhed) }}
         {{ form_row(edit_form.eloKategori) }}
       </div>
     </div>
@@ -45,6 +45,11 @@
           <td>{{ 'appbundle.baseline.varmeGUFForbrug.unit' | trans }}</td>
         </tr>
         <tr>
+          <th>{{ 'appbundle.baseline.braendstofForbrug' | trans }}</th>
+          <td class="text-right">{{ entity.braendstofForbrug | format_decimal }}</td>
+          <td>{{ 'appbundle.baseline.braendstofForbrug.unit' | trans }}</td>
+        </tr>
+        <tr>
           <th>{{ 'appbundle.baseline.varmeBaselineFastsatForEjendom' | trans }}</th>
           <td
               class="text-right">{{ entity.varmeBaselineFastsatForEjendom | format_decimal }}</td>
@@ -68,6 +73,7 @@
     <li role="presentation" class="active"><a href="#areal" aria-controls="areal" role="tab" data-toggle="tab">{{ icon('map-o') }} {{ 'appbundle.baseline.areal' | trans }}</a></li>
     <li role="presentation"><a href="#el" aria-controls="el" role="tab" data-toggle="tab">{{ icon('flash') }} {{ 'appbundle.baseline.el' | trans }}</a></li>
     <li role="presentation"><a href="#varme" aria-controls="varme" role="tab" data-toggle="tab">{{ icon('fire') }} {{ 'appbundle.baseline.varme' | trans }}</a></li>
+    <li role="presentation"><a href="#braendstof" aria-controls="braendstof" role="tab" data-toggle="tab">{{ icon('fire') }} {{ 'appbundle.baseline.braendstof' | trans }}</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -412,6 +418,19 @@
               {{ aaplus.form_row_decimal('appbundle.baseline.varmeBaselineNoegletalForEjendom', entity.varmeBaselineNoegletalForEjendom, 'appbundle.baseline.varmeBaselineNoegletalForEjendom.unit') }}
               {{ form_row(edit_form.varmeStrafafkoelingsafgift) }}
               {{ form_row(edit_form.varmeBaselineNoter) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Braendstof -->
+    <div role="tabpanel" class="tab-pane" id="braendstof">
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">{{ icon('map-o') }} {{ 'common.generelt' | trans }}</div>
+            <div class="panel-body">
+              {{ form_row(edit_form.braendstofForbrug) }}
             </div>
           </div>
         </div>

@@ -639,4 +639,36 @@ class VirksomhedController extends BaseController
         return $form;
     }
 
+    //---------------- Baseline -------------------//
+
+    /**
+     * Creates a new Baseline entity.
+     *
+     * @Route("/{id}/new", name="baseline_create")
+     * @Method("POST")
+     * @Template("AppBundle:Baseline:new.html.twig")
+     * @Security("is_granted('VIRKSOMHED_EDIT', virksomhed)")
+     */
+    public function newBaselineAction(Request $request, Virksomhed $virksomhed) {
+        if ($virksomhed) {
+            $baseline = $virksomhed->getBaseline();
+            if(!$baseline) {
+                $em = $this->getDoctrine()->getManager();
+
+                $baseline = new Baseline();
+                $baseline->setArealdataPrimaerAreal($virksomhed->getBygningerErhvervsareal());
+                $virksomhed->setBaseline($baseline);
+
+                $em->persist($baseline);
+                $em->flush();
+            }
+
+            $this->flash->success( 'baseline.confirmation.created');
+
+            return $this->redirect($this->generateUrl('baseline_edit', array('id' => $baseline->getId())));
+        } else {
+            throw $this->createNotFoundException('Unable to find Virksomhed entity.');
+        }
+    }
+
 }

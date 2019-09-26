@@ -49,9 +49,9 @@ class Baseline {
   protected $id;
 
   /**
-   * @ORM\OneToOne(targetEntity="Bygning", inversedBy="baseline", fetch="EAGER")
+   * @ORM\OneToOne(targetEntity="Virksomhed", inversedBy="baseline", fetch="EAGER")
    **/
-  protected $bygning;
+  protected $virksomhed;
 
   /**
    * @ORM\OneToMany(targetEntity="BaselineKorrektion", mappedBy="baseline")
@@ -866,6 +866,29 @@ class Baseline {
   protected $varmeBaselineNoter;
 
   /**
+   * @var integer
+   *
+   * @ORM\Column(name="braendstofForbrug", type="decimal", precision=16, scale=4, nullable=true)
+   */
+  protected $braendstofForbrug;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="braendstofForbrugKorrektion", type="float", nullable=true)
+   */
+  protected $braendstofForbrugKorrektion;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="braendstofForbrugKorrigeret", type="float", nullable=true)
+   */
+  protected $braendstofForbrugKorrigeret;
+
+  /**
    * Get id
    *
    * @return integer
@@ -875,22 +898,22 @@ class Baseline {
   }
 
   /**
-   * @return mixed
+   * @return Virksomhed|null
    */
-  public function getBygning() {
-    return $this->bygning;
+  public function getVirksomhed() {
+    return $this->virksomhed;
   }
 
 
   /**
-   * Set bygning
+   * Set virksomhed
    *
-   * @param \AppBundle\Entity\Bygning $bygning
+   * @param Virksomhed $virksomhed
    *
    * @return Baseline
    */
-  public function setBygning(\AppBundle\Entity\Bygning $bygning = NULL) {
-    $this->bygning = $bygning;
+  public function setVirksomhed(Virksomhed $virksomhed = NULL) {
+    $this->virksomhed = $virksomhed;
 
     return $this;
   }
@@ -907,7 +930,7 @@ class Baseline {
    *
    * @param \AppBundle\Entity\BaselineKorrektion $korrektion
    *
-   * @return Bygning
+   * @return Baseline
    */
   public function addKorrektioner(\AppBundle\Entity\BaselineKorrektion $korrektion) {
     $this->korrektioner[] = $korrektion;
@@ -2413,6 +2436,59 @@ class Baseline {
     $this->varmeGUFForbrugKorrektion = $varmeGUFForbrugKorrektion;
   }
 
+  /**
+   * @return float
+   */
+  public function getBraendstofForbrug() {
+    return $this->braendstofForbrug;
+  }
+
+  /**
+   * @param integer $braendstofForbrug
+   */
+  public function setBraendstofForbrug($braendstofForbrug) {
+    $this->braendstofForbrug = $braendstofForbrug;
+  }
+
+  /**
+   * @return float
+   */
+  public function getBraendstofForbrugKorrektion() {
+    return $this->braendstofForbrugKorrektion;
+  }
+
+  /**
+   * @param float $braendstofForbrugKorrektion
+   */
+  public function setBraendstofForbrugKorrektion($braendstofForbrugKorrektion) {
+    $this->braendstofForbrugKorrektion = $braendstofForbrugKorrektion;
+  }
+
+  /**
+   * @return float
+   */
+  public function getBraendstofForbrugKorrigeret() {
+    return $this->braendstofForbrugKorrigeret;
+  }
+
+  /**
+   * @param string $braendstofForbrugKorrigeret
+   */
+  public function setBraendstofForbrugKorrigeret($braendstofForbrugKorrigeret) {
+    $this->braendstofForbrugKorrigeret = $braendstofForbrugKorrigeret;
+  }
+
+  /**
+   * @return array
+   */
+  public function getBygninger() {
+    if ($this->getVirksomhed() instanceof Virksomhed) {
+        return $this->getVirksomhed()->getAllBygninger();
+    }
+
+    return array();
+  }
+
   ///
   // Calculations
   ///
@@ -2472,18 +2548,10 @@ class Baseline {
     $this->elBaselineFastsatForEjendomKorrigeret = $this->calculateElBaselineFastsatForEjendomKorrigeret();
     $this->varmeGAFForbrugKorrigeret = $this->calculateVarmeGAFForbrugKorrigeret();
     $this->varmeGUFForbrugKorrigeret = $this->calculateVarmeGUFForbrugKorrigeret();
+    $this->braendstofForbrugKorrigeret = $this->calculateBraendstofForbrugKorrigeret();
     $this->varmeStrafafkoelingsafgiftKorrigeret = $this->calculateVarmeStrafafkoelingsafgiftKorrigeret();
 
-    //Update Rapport Baseline
-    if($this->getBygning() && $this->getBygning()->getRapport()) {
-      $rapport = $this->getBygning()->getRapport();
-
-      $rapport->setBaselineEl($this->getElBaselineFastsatForEjendomKorrigeret());
-      $rapport->setBaselineVarmeGAF($this->getVarmeGAFForbrugKorrigeret());
-      $rapport->setBaselineVarmeGUF($this->getVarmeGUFForbrugKorrigeret());
-      $rapport->setBaselineStrafAfkoeling($this->getVarmeStrafafkoelingsafgiftKorrigeret());
-    }
-
+    $this->getVirksomhed()->getRapport()->updateBaselineValues($this);
   }
 
   /**
@@ -2545,6 +2613,24 @@ class Baseline {
       }
     }
     return $this->getVarmeGUFForbrug() + $this->varmeGUFForbrugKorrektion;
+  }
+
+
+  /**
+   * Calculate braendstofForbrugKorrigeret
+   *
+   * @return float|null
+   */
+  public function calculateBraendstofForbrugKorrigeret() {
+    $this->braendstofForbrugKorrektion = 0;
+    if(!empty($this->korrektioner)) {
+      foreach($this->korrektioner as $k) {
+        if($k->getIndvirkning()) {
+          $this->braendstofForbrugKorrektion += $k->getKorrektionGUF();
+        }
+      }
+    }
+    return $this->getBraendstofForbrug() + $this->braendstofForbrugKorrektion;
   }
 
   /**

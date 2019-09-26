@@ -187,32 +187,6 @@ class RapportController extends BaseController {
     return array_merge($twigVars, $formArray);
   }
 
-
-  /**
-   * Finds and displays Baseline for a Rapport entity.
-   *
-   * @Route("/{id}/baseline", name="rapport_show_baseline")
-   * @Method("GET")
-   * @Template()
-   * @Security("is_granted('RAPPORT_VIEW', rapport)")
-   * @param Rapport $rapport
-   * @return array
-   */
-  public function baselineAction(Rapport $rapport) {
-    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
-    $this->breadcrumbs->addItem('bygning_rapporter.actions.edit', $this->generateUrl('rapport_edit', array('id' => $rapport->getId())));
-
-    $showForm = $this->createForm(new RapportShowType($this->get('security.context'), $rapport), $rapport, array(
-      'action' => '#',
-      'method' => 'PUT',
-    ));
-
-    return array(
-      'entity' => $rapport,
-      'show_form' => $showForm->createView(),
-    );
-  }
-
   /**
    * Finds and displays a Rapport entity in PDF form. (Resultatoversigt)
    *
@@ -396,7 +370,7 @@ class RapportController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Rapport $entity) {
-    $form = $this->createForm(new RapportType($this->get('security.context'), $entity), $entity, array(
+    $form = $this->createForm(new RapportType($this->container, $entity), $entity, array(
       'action' => $this->generateUrl('rapport_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));
