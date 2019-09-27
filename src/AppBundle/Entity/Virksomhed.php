@@ -146,9 +146,9 @@ class Virksomhed
 
     /**
      * @var float
-     * @ORM\Column(name="subsidy_size", type="decimal", scale=4, nullable=true)
+     * @ORM\Column(name="tilskudstorelse", type="decimal", scale=4, nullable=true)
      */
-    protected $subsidySize;
+    protected $tilskudstorelse;
 
     /**
      * @var float
@@ -717,27 +717,27 @@ class Virksomhed
     }
 
     /**
-     * Set subsidy size
+     * Set tilskudstorelse
      *
-     * @param float $subsidySize
+     * @param float $tilskudstorelse
      *
      * @return Virksomhed
      */
-    public function setSubsidySize($subsidySize)
+    public function setTilskudstorelse($tilskudstorelse)
     {
-        $this->subsidySize = $subsidySize;
+        $this->tilskudstorelse = $tilskudstorelse;
 
         return $this;
     }
 
     /**
-     * Get subsidy size
+     * Get tilskudstorelse
      *
      * @return float
      */
-    public function getSubsidySize()
+    public function getTilskudstorelse()
     {
-        return $this->subsidySize;
+        return $this->tilskudstorelse;
     }
 
     /**

@@ -205,6 +205,7 @@ class SpecialTiltag extends Tiltag {
     'primaerEnterprise',
     'tiltagskategori',
     'yderligereBesparelse',
+    'slutanvendelse',
   ];
 
   /**

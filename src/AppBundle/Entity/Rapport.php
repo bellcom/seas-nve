@@ -183,6 +183,23 @@ class Rapport {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="samletEnergibesparelse", type="float", nullable=true)
+   * @Formula("$this->besparelseEl + $this->besparelseVarmeGAF + $this->besparelseVarmeGUF + $this->besparelseBraendstof")
+   */
+  protected $samletEnergibesparelse;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="samletEnergibesparelseKr", type="float", nullable=true)
+   */
+  protected $samletEnergibesparelseKr;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="fravalgtBesparelseEl", type="float", nullable=true)
    */
   protected $fravalgtBesparelseEl;
@@ -742,6 +759,50 @@ class Rapport {
 
   public function getOlie() {
     return $this->olie;
+  }
+
+  /**
+   * Set samletEnergibesparelse
+   *
+   * @param float $samletEnergibesparelse
+   * @return Rapport
+   */
+  public function setSamletEnergibesparelse($samletEnergibesparelse)
+  {
+    $this->samletEnergibesparelse = $samletEnergibesparelse;
+    return $this;
+  }
+
+  /**
+   * Get samletEnergibesparelse
+   *
+   * @return float
+   */
+  public function getSamletEnergibesparelse()
+  {
+    return $this->samletEnergibesparelse;
+  }
+
+  /**
+   * Set samletEnergibesparelseKr
+   *
+   * @param float $samletEnergibesparelseKr
+   * @return Rapport
+   */
+  public function setSamletEnergibesparelseKr($samletEnergibesparelseKr)
+  {
+    $this->samletEnergibesparelseKr = $samletEnergibesparelseKr;
+    return $this;
+  }
+
+  /**
+   * Get samletEnergibesparelseKr
+   *
+   * @return float
+   */
+  public function getSamletEnergibesparelseKr()
+  {
+    return $this->samletEnergibesparelseKr;
   }
 
   /**
@@ -1920,6 +1981,20 @@ class Rapport {
   }
 
   /**
+   * Get bygning Virksomhed Tilskudstorellse.
+   */
+  public function getVirksomhedTilskudstorellse() {
+    return $this->bygning->getVirksomhed() ? $this->bygning->getVirksomhed()->getTilskudstorelse() : 0;
+  }
+
+  /**
+   * Calculates SamletEnergiBesparelseTilfaeld.
+   */
+  public function calculateSamletEnergiBesparelseTilfaeld() {
+    return $this->getVirksomhedTilskudstorellse() * $this->getSamletEnergibesparelseKr() ;
+  }
+
+  /**
    * Get sum of solcelleproduktion from all SolcelleTiltag.
    */
   public function getSolcelleproduktion() {
@@ -2092,6 +2167,9 @@ class Rapport {
     $this->energibudgetVarme = $this->calculateEnergibudgetVarme();
     $this->energibudgetEl = $this->calculateEnergibudgetEl();
     $this->energibudgetBraendstof = $this->calculateEnergibudgetBraendstof();
+
+    $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
+    $this->samletEnergibesparelseKr = $this->calculateSamletEnergiBesparelseKr();
   }
 
   private function calculateCashFlow15() {
@@ -2736,6 +2814,26 @@ class Rapport {
     }
 
     return $result;
+  }
+
+  /**
+   * Calculates expression for SamletEnergiBesparelse value
+   */
+  protected function calculateSamletEnergiBesparelseKrExp() {
+    return $this->calculateSamletEnergiBesparelseKr(TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateSamletEnergiBesparelseKrExp()")
+   */
+  protected function calculateSamletEnergiBesparelseKr($expression = FALSE) {
+    $result = array();
+
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      $result[] = $tiltag->getSamletEnergibesparelse();
+    }
+
+    return $expression ? $this->sumExpr($result) : array_sum($result);
   }
 
   /**

@@ -1755,6 +1755,7 @@ abstract class Tiltag {
     'forsyningEl',
     'levetid',
     'faktorForReinvesteringer',
+    'slutanvendelse',
   ];
 
   public function getPropertiesRequiredForCalculation() {
@@ -2346,14 +2347,14 @@ abstract class Tiltag {
     $virksomhed = $this->getRapport()->getBygning()->getVirksomhed();
 
     if ($virksomhed) {
-      if ($virksomhed->getSubsidySize()) {
-        return $virksomhed->getSubsidySize();
+      if ($virksomhed->getTilskudstorelse()) {
+        return $virksomhed->getTilskudstorelse();
       }
 
       // Check if parent has it.
       $parent = $virksomhed->getParent();
-      if ($parent && $parent->getSubsidySize()) {
-        return $parent->getSubsidySize();
+      if ($parent && $parent->getTilskudstorelse()) {
+        return $parent->getTilskudstorelse();
       }
     }
 

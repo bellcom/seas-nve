@@ -355,6 +355,23 @@ class VirksomhedRapport
     protected $investeringEksFaellesomkostninger;
 
     /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="samletEnergibesparelse", type="float", nullable=true)
+     * @Formula("$this->besparelseEl + $this->besparelseVarmeGAF + $this->besparelseVarmeGUF + $this->besparelseBraendstof")
+     */
+    protected $samletEnergibesparelse;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="samletEnergibesparelseKr", type="float", nullable=true)
+     */
+    protected $samletEnergibesparelseKr;
+
+    /**
      * Get investering eksl. genopretning og modernisering
      *
      * (Aa+ Investering eks. Øvrige omkostninger)
@@ -1991,6 +2008,50 @@ class VirksomhedRapport
     }
 
     /**
+     * Set samletEnergibesparelse
+     *
+     * @param float $samletEnergibesparelse
+     * @return VirksomhedRapport
+     */
+    public function setSamletEnergibesparelse($samletEnergibesparelse)
+    {
+      $this->samletEnergibesparelse = $samletEnergibesparelse;
+      return $this;
+    }
+
+    /**
+     * Get samletEnergibesparelse
+     *
+     * @return float
+     */
+    public function getSamletEnergibesparelse()
+    {
+        return $this->samletEnergibesparelse;
+    }
+
+    /**
+     * Set samletEnergibesparelseKr
+     *
+     * @param float $samletEnergibesparelseKr
+     * @return VirksomhedRapport
+     */
+    public function setSamletEnergibesparelseKr($samletEnergibesparelseKr)
+    {
+        $this->samletEnergibesparelseKr = $samletEnergibesparelseKr;
+        return $this;
+    }
+
+    /**
+     * Get samletEnergibesparelseKr
+     *
+     * @return float
+     */
+    public function getSamletEnergibesparelseKr()
+    {
+        return $this->samletEnergibesparelseKr;
+    }
+
+    /**
      * Fetchs array with all associated rapporter
      *
      * @return ArrayCollection
@@ -2088,6 +2149,9 @@ class VirksomhedRapport
         'energibudgetEl',
         'energibudgetVarme',
         'energibudgetBraendstof',
+
+        'samletEnergibesparelse',
+        'samletEnergibesparelseKr',
 
         'besparelseAarEt',
         'fravalgtBesparelseAarEt',
@@ -2243,6 +2307,16 @@ class VirksomhedRapport
         }
 
         return $expression ? $this->sumExpr($result) : array_sum($result);
+    }
+
+    /**
+     * Calculates SamletEnergiBesparelseTilfaeld.
+     */
+    public function calculateSamletEnergiBesparelseTilfaeld() {
+        if (empty($this->getVirksomhed())) {
+            return 0;
+        }
+        return $this->getVirksomhed()->getTilskudstorelse() * $this->getSamletEnergibesparelseKr() ;
     }
 
     /**
