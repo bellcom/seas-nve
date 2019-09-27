@@ -1,0 +1,27 @@
+{% extends 'AppBundle::pdf.html.twig' %}
+
+{% block body -%}
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h1 class="pdf-enlarged">{{ rapport.virksomhed.name }}</h1>
+  <h2>Virksomhed bygninger detailark</h2>
+  <br>
+  <br>
+  <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="text-right">
+    <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
+  </div>
+{% endblock %}

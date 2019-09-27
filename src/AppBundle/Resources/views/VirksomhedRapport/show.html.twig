@@ -58,17 +58,19 @@
         {% endif %}
       {% endif %}
       <a href="{{ path('virksomhed_kortlaegning', { 'id': entity.virksomhed.id }) }}" class="btn btn-default">
-        {{ 'appbundle.virksomhed.kortlaegning' | trans }}
+        {{ 'virksomhed_rapporter.action.edit_kortlaegning' | trans }}
       </a>
-      <a href="{{ path_with_access_token('virksomhed_rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
-        {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf2' | trans }}
-      </a>
-      <a href="{{ path_with_access_token('virksomhed_rapport_show_pdf5', { 'id': entity.id }) }}" class="btn btn-default">
-        {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf5' | trans }}
-      </a>
-      <a href="{{ path_with_access_token('virksomhed_rapport_show_pdf_kortlaegning', { 'id': entity.id }) }}" class="btn btn-default">
-        {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf_kortlaegning' | trans }}
-      </a>
+      {% if entity.virksomhed.getBygninger() is not empty %}
+        <a href="{{ path_with_access_token('virksomhed_rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
+          {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf2' | trans }}
+        </a>
+        <a href="{{ path_with_access_token('virksomhed_rapport_show_pdf_detailark', { 'id': entity.id }) }}" class="btn btn-default">
+          {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf_detailark' | trans }}
+        </a>
+        <a href="{{ path_with_access_token('virksomhed_rapport_show_pdf_kortlaegning', { 'id': entity.id }) }}" class="btn btn-default">
+          {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf_kortlaegning' | trans }}
+        </a>
+      {% endif %}
       <a class="btn btn-default" href="{{ path_with_access_token('virksomhed_rapport_filer', { 'id': entity.id }) }}">
         {{ icon('file') }} {{ 'virksomhed_rapporter.actions.filer' | trans }}
       </a>

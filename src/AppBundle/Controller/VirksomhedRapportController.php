@@ -221,6 +221,8 @@ class VirksomhedRapportController extends BaseController {
    * @return Response
    */
   public function showPdf2Action(VirksomhedRapport $rapport) {
+    // We need more time!
+    set_time_limit(0);
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->exportVirksomhedRapport2($rapport);
 
@@ -244,6 +246,8 @@ class VirksomhedRapportController extends BaseController {
    * @return Response
    */
   public function showPdfKortlaegningAction(VirksomhedRapport $rapport) {
+    // We need more time!
+    set_time_limit(0);
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->exportVirksomhedRapportKortlaegning($rapport);
 
@@ -258,7 +262,7 @@ class VirksomhedRapportController extends BaseController {
   /**
    * Finds and displays a VirksomhedRapport entity in PDF form. (Detailark)
    *
-   * @Route("/{id}/pdf5", name="virksomhed_rapport_show_pdf5")
+   * @Route("/{id}/pdf_detailark", name="virksomhed_rapport_show_pdf_detailark")
    * @Method("GET")
    * @Template()
    * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
@@ -266,9 +270,11 @@ class VirksomhedRapportController extends BaseController {
    *
    * @return Response
    */
-  public function showPdf5Action(VirksomhedRapport $rapport) {
+  public function showPdfDetailarkAction(VirksomhedRapport $rapport) {
+    // We need more time!
+    set_time_limit(0);
     $exporter = $this->get('aaplus.pdf_export');
-    $pdf = $exporter->exportVirksomhedRapport5($rapport);
+    $pdf = $exporter->exportVirksomhedRapportDetailark($rapport);
 
     $pdfName = $rapport->getVirksomhed()->getAddress() . '-Dokument 5-' . date('Y-m-d') . '-Status ' . $rapport->getVirksomhed() . '-Itt ' . $rapport->getVersion();
 
@@ -289,25 +295,6 @@ class VirksomhedRapportController extends BaseController {
    * @return array
    */
   public function showPdf2TestAction(VirksomhedRapport $rapport) {
-
-    return array(
-      'rapport' => $rapport,
-      'entity' => $rapport,
-    );
-
-  }
-
-  /**
-   * Finds and displays a VirksomhedRapport entity.
-   *
-   * @Route("/{id}/pdf5test", name="virksomhed_rapport_show_pdf5test")
-   * @Method("GET")
-   * @Template()
-   * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
-   * @param VirksomhedRapport $rapport
-   * @return array
-   */
-  public function showPdf5TestAction(VirksomhedRapport $rapport) {
 
     return array(
       'rapport' => $rapport,

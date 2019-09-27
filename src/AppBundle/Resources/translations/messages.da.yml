@@ -655,10 +655,11 @@ virksomhed_rapporter:
     create: "Opret virksomhedsrapport"
     download_files: "Hent alle bilag og filer"
     edit: "Baseline og energibudget"
+    edit_kortlaegning: "Rediger Kortlægning"
     filer: "Filer"
     pdf2: "Resultatoversigt"
-    pdf5: "Detailark"
-    pdf_kortlaegning: "Kortlaegning"
+    pdf_detailark: "Detailark"
+    pdf_kortlaegning: "Kortlægning"
     re-calculate: "Genberegn"
     show: "Vis virksomhedsrapport"
   labels:

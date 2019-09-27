@@ -2,6 +2,7 @@
 
 namespace AppBundle\PdfExport;
 
+use AppBundle\Entity\Bygning;
 use AppBundle\Entity\VirksomhedRapport;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Entity\Rapport;
@@ -125,7 +126,7 @@ class PdfExport {
             'cover' => $cover,
             'header-left' => implode(' | ', $data),
             'header-right' => "Side [page] af [toPage]",
-            'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf2Footer.html'),
+            'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf2VirksomhedFooter.html'),
       $options));
   }
 
@@ -164,9 +165,9 @@ class PdfExport {
       $options));
   }
 
-  public function exportVirksomhedRapport5(VirksomhedRapport $rapport, array $options = array()) {
+  public function exportVirksomhedRapportDetailark(VirksomhedRapport $rapport, array $options = array()) {
     $data = array();
-    $virksomhed = $rapport;
+    $virksomhed = $rapport->getVirksomhed();
 
     if ($virksomhed && $virksomhedsNavn = $virksomhed->getName()) {
       $data[] = $virksomhedsNavn;
@@ -180,11 +181,23 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdf5Cover.html.twig', array(
-      'rapport' => $rapport,
-    ));
+    $html = '';
+    /** @var Bygning $bygning */
+    foreach ($virksomhed->getBygninger() as $bygning) {
+      $bygningRaport = $bygning->getRapport();
+      if (empty($bygningRaport)) {
+        continue;
+      }
+      $html .= $this->renderView('AppBundle:Rapport:showPdf5CoverBody.html.twig', array(
+        'rapport' => $bygningRaport,
+      ));
 
-    $html = $this->renderView('AppBundle:VirksomhedRapport:showPdf5.html.twig', array(
+      $html .= $this->renderView('AppBundle:Rapport:showPdf5Body.html.twig', array(
+        'rapport' => $bygningRaport,
+      ));
+    }
+
+    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailarkCover.html.twig', array(
       'rapport' => $rapport,
     ));
 
@@ -196,7 +209,7 @@ class PdfExport {
             'cover' => $cover,
             'header-left' => implode(' | ', $data),
             'header-right' => "Side [page] af [toPage]",
-            'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf5Footer.html'),
+            'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdfVirksomhedDetailarkFooter.html'),
       $options));
   }
 
