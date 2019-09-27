@@ -20,6 +20,17 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-xs-12">
+        <h4>Sammenfatning</h4>
+        <p>Sammenfatning tekst</p>
+        {% if rapport.virksomhed.kam %}
+        <br>
+        <p>Men venlig hilsen<br>{{ rapport.virksomhed.kam }}</p>
+        {% endif %}
+      </div>
+    </div>
+
     {# ##### Tilvalgte Tiltag ####### #}
 
     <div class="row">
