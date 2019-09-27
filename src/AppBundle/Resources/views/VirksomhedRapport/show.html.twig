@@ -58,7 +58,7 @@
         {% endif %}
       {% endif %}
       <a href="{{ path('virksomhed_kortlaegning', { 'id': entity.virksomhed.id }) }}" class="btn btn-default">
-        {{ 'virksomhed_rapporter.action.edit_kortlaegning' | trans }}
+        {{ 'virksomhed_rapporter.actions.edit_kortlaegning' | trans }}
       </a>
       {% if entity.virksomhed.getBygninger() is not empty %}
         <a href="{{ path_with_access_token('virksomhed_rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
