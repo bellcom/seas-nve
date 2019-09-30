@@ -11,6 +11,7 @@ use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
+use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
 use AppBundle\Entity\Energiforsyning;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
@@ -178,6 +179,13 @@ class Rapport {
    * @ORM\Column(name="besparelseBraendstof", type="float", nullable=true)
    */
   protected $besparelseBraendstof;
+
+  /**
+   * @var array
+   *
+   * @ORM\Column(name="besparelseSlutanvendelser", type="array")
+   */
+  private $besparelseSlutanvendelser = array();
 
   /**
    * @var float
@@ -822,6 +830,7 @@ class Rapport {
     $this->bilag = new \Doctrine\Common\Collections\ArrayCollection();
     $this->datering = new \DateTime();
     $this->version = 1;
+    $this->besparelseSlutanvendelser = array();
   }
 
   /**
@@ -1159,6 +1168,30 @@ class Rapport {
    */
   public function getFravalgtBesparelseVarmeGAF() {
     return $this->fravalgtBesparelseVarmeGAF;
+  }
+
+  /**
+   * Set besparelseSlutanvendelser
+   *
+   * @param array $besparelseSlutanvendelser
+   *
+   * @return Rapport
+   */
+  public function setBesparelseSlutanvendelser($besparelseSlutanvendelser)
+  {
+    $this->besparelseSlutanvendelser = $besparelseSlutanvendelser;
+
+    return $this;
+  }
+
+  /**
+   * Get besparelseSlutanvendelser
+   *
+   * @return array
+   */
+  public function getBesparelseSlutanvendelser()
+  {
+    return $this->besparelseSlutanvendelser;
   }
 
   /**
@@ -2128,6 +2161,8 @@ class Rapport {
     $this->besparelseBraendstof = $this->calculateBesparelseBraendstof();
     $this->fravalgtBesparelseBraendstof = $this->calculateFravalgtBesparelseBraendstof();
 
+    $this->besparelseSlutanvendelser = $this->calculateBesparelseSlutanvendelser();
+
     $this->co2BesparelseEl = $this->calculateCo2BesparelseEl();
     $this->co2BesparelseVarme = $this->calculateCo2BesparelseVarme();
     $this->co2BesparelseBraendstofITon = $this->calculateCo2BesparelseBraendstofITon();
@@ -2390,6 +2425,37 @@ class Rapport {
       }
     }
     return $expression ? $this->sumExpr($values) : array_sum($values);
+  }
+
+  /**
+   * Calculates besparelseSlutanvendelser by slutanvendelse type.
+   */
+  private function calculateBesparelseSlutanvendelser() {
+    $values = array();
+    /** @var Tiltag $tiltag */
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      if (empty($tiltag->getSlutanvendelse())) {
+        continue;
+      }
+
+      $slutanvendelseType = (string) $tiltag->getSlutanvendelse();
+      if (!isset($values[$slutanvendelseType])) {
+        $values[$slutanvendelseType] = array(
+          'el' => 0,
+          'varmeGAF' => 0,
+          'varmeGUF' => 0,
+          'braendStof' => 0,
+        );
+      }
+
+      $values[$slutanvendelseType]['el'] += $tiltag->getElbesparelse();
+      $values[$slutanvendelseType]['varmeGAF'] += $tiltag->getVarmebesparelseGAF();
+      $values[$slutanvendelseType]['varmeGUF'] += $tiltag->getVarmebesparelseGUF();
+      if (method_exists($tiltag, 'getBesparelseBraendstof')) {
+        $values[$slutanvendelseType]['braendStof'] += $tiltag->getBesparelseBraendstof();
+      }
+    }
+    return $values;
   }
 
   private function calculateBaselineCO2El() {

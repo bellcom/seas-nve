@@ -1,0 +1,13 @@
+{% block virksomhed_embed_overview -%}
+  <div>
+    <strong>{{ entity }}</strong>
+  </div>
+  {% for bygning in entity.getBygninger() %}
+    {{ bygning }}, {{ bygning.adresse }}, {{ bygning.postnummer }} {{ bygning.postBy }}
+    <ol>
+      {% for tiltag in bygning.rapport.getTilvalgteTiltag() %}
+        <li>{{ tiltag }}</li>
+      {% endfor %}
+    </ol>
+  {% endfor %}
+{% endblock %}
