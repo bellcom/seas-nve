@@ -63,7 +63,7 @@
       <div class="col-xs-12">
         <h2>Underskrifter</h2>
         <p>Før energisynsrapporten indsendes til Energistyrelsen, skal den underskrives af virksomhedens ejer og energisynskonsulenten.</p>
-        <table>
+        <table style="text-align:center; width:100%;">
           <tr>
             <td>For <strong>{{ rapport.virksomhed.name }}</strong><br/>
               Facility Manager<br/>
@@ -107,7 +107,22 @@
         <p>I det følgende er de enkelte afsnit opdelt i elforbrug, varmeforbrug og i brændstofforbrug.</p>
 
         <p>[[ Overordnet forbrug lagkagediagram ]]
-        <p>[[ Overordnet table ]]
+        <table>
+          <tr>
+            <th>Afdeling</th>
+            <th>Overordnet forbrug, kWh/år</th>
+          </tr>
+          <tr>
+            <td>{{ rapport.virksomhed }}</td>
+            <td>{{ rapport.calculateSamletEnergiForbrug() }}</td>
+          </tr>
+            {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+              <tr>
+                <td>{{ datterSelskab }}</td>
+                <td>{{ datterSelskab.rapport.calculateSamletEnergiForbrug() }}</td>
+              </tr>
+            {% endfor %}
+        </table>
       </div>
     </div>
 
@@ -117,7 +132,28 @@
         <p>Fordeling af elforbruget for hver afdeling fremgår desuden af følgende diagram.</p>
 
         <p>[[ Elforbrug, alle afdelinger lagkagediagram ]]</p>
-        <p>[[ Elforbrug, alle afdelinger table ]]</p>
+        <table>
+          <tr>
+            <th>Afdeling</th>
+            <th>El, kWh/år</th>
+            <th>Areal m2</th>
+            <th>KPI</th>
+          </tr>
+          <tr>
+            <td>{{ rapport.virksomhed }}</td>
+            <td>{{ rapport.BaselineEl() | format_decimal }}</td>
+            <td>{{ rapport.opvarmetareal | format_decimal }}</td>
+            <td>[x]</td>
+          </tr>
+          {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+            <tr>
+              <td>{{ datterSelskab }}</td>
+              <td>{{ datterSelskab.rapport.BaselineEl | format_decimal }}</td>
+              <td>{{ datterSelskab.rapport.opvarmetareal | format_decimal }}</td>
+              <td>[x]</td>
+            </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
 
@@ -128,7 +164,34 @@
         <p>Samtlige forbrug er opgjort i kWh så de er sammenlignelige.</p>
 
         <p>[[ Varmeforbrug, alle afdelinger lagkagediagram ]]</p>
-        <p>[[ Varmeforbrug, alle afdelinger table ]]</p>
+        <table>
+          <tr>
+            <th>Afdeling</th>
+            <th>Varme, kWh/år</th>
+            <th>Areal m2</th>
+            <th>KPI</th>
+          </tr>
+          <tr>
+            <td>{{ rapport.virksomhed }}</td>
+            <td>{{ rapport.BaselineVarme | format_decimal }}</td>
+            <td>{{ rapport.opvarmetareal  | format_decimal}}</td>
+            <td>[x]</td>
+          </tr>
+          {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+            <tr>
+              <td>{{ datterSelskab }}</td>
+              <td>{{ datterSelskab.rapport.BaselineVarme | format_decimal }}</td>
+              <td>{{ datterSelskab.rapport.opvarmetareal | format_decimal }}</td>
+              <td>[x]</td>
+            </tr>
+          {% endfor %}
+          <tr>
+            <td>Gennemsnit</td>
+            <td>{{ rapport.calculateRapporterAverage('BaselineVarme') | format_decimal }}</td>
+            <td>{{ rapport.calculateRapporterAverage('opvarmetareal') | format_decimal }}</td>
+            <td>[x]</td>
+          </tr>
+        </table>
       </div>
     </div>
 
@@ -138,16 +201,59 @@
         <p>[[ Brændstof teksten]]</p>
 
         <p>[[ Brændstof, alle afdelinger lagkagediagram ]]</p>
-        <p>[[ Brændstof, alle afdelinger table ]]</p>
+        <table>
+          <tr>
+            <th>Afdeling</th>
+            <th>Brændstof, kWh/år</th>
+            <th>Areal m2</th>
+            <th>KPI</th>
+          </tr>
+          <tr>
+            <td>{{ rapport.virksomhed }}</td>
+            <td>{{ rapport.BaselineBraendstof | format_decimal }}</td>
+            <td>{{ rapport.opvarmetareal  | format_decimal}}</td>
+            <td>[x]</td>
+          </tr>
+          {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+            <tr>
+              <td>{{ datterSelskab }}</td>
+              <td>{{ datterSelskab.rapport.BaselineBraendstof | format_decimal }}</td>
+              <td>{{ datterSelskab.rapport.opvarmetareal | format_decimal }}</td>
+              <td>[x]</td>
+            </tr>
+          {% endfor %}
+          <tr>
+            <td>Gennemsnit</td>
+            <td>{{ rapport.calculateRapporterAverage('BaselineBraendstof') | format_decimal }}</td>
+            <td>{{ rapport.calculateRapporterAverage('opvarmetareal') | format_decimal }}</td>
+            <td>[x]</td>
+          </tr>
+        </table>
       </div>
     </div>
 
     <div class="row page-break-before">
       <div class="col-xs-12">
         <h2>Besparelser opdelt i afdelinger</h2>
-        <p>[[ Besparelser lagkagediagram {{ rapport.virksomhed }} ]]</p>
+        <p>{{ rapport.virksomhed }}</p>
+        <table>
+          {% for slutanvendelse, type in rapport.getBesparelseSlutanvendelser(1) %}
+            <tr>
+              <td>{{ slutanvendelse }}</td>
+              <td>{{ type }}</td>
+            </tr>
+          {% endfor %}
+        </table>
         {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-          <p>[[ Besparelser lagkagediagram {{ datterSelskab.virksomhed }} ]]</p>
+          <p>{{ datterSelskab }}</p>
+          <table>
+            {% for slutanvendelse, type in datterSelskab.rapport.getBesparelseSlutanvendelser(1) %}
+              <tr>
+                <td>{{ slutanvendelse }}</td>
+                <td>{{ type }}</td>
+              </tr>
+            {% endfor %}
+          </table>
         {% endfor %}
       </div>
     </div>
@@ -166,10 +272,37 @@
           Samtlige forbrug er opgjort i kWh/år så de er sammenlignelige.</p>
 
         <p>[[ Sum energiforbrug og brændstofudgifter lagkagediagram ]]</p>
-        <p>[[ Sum energiforbrug og brændstofudgifter table ]]</p>
+        <h4>Energifordeling:</h4>
+        <table>
+          <tr>
+            <th>Energiart</th>
+            <th>kWh/år</th>
+            <th>%</th>
+          </tr>
+          <tr>
+            <td>EL</td>
+            <td>{{ rapport.besparelseEl }}</td>
+            <td>{{ rapport.besparelseEl | format_percent_of(rapport.samletEnergibesparelse) }} </td>
+          </tr>
+          <tr>
+            <td>Varme</td>
+            <td>{{ rapport.getBesparelseVarme() }}</td>
+            <td>{{ rapport.getBesparelseVarme() | format_percent_of(rapport.samletEnergibesparelse) }} </td>
+          </tr>
+          <tr>
+            <td>Brændstof</td>
+            <td>{{ rapport.besparelseBraendstof }}</td>
+            <td>{{ rapport.besparelseBraendstof | format_percent_of(rapport.samletEnergibesparelse) }} </td>
+          </tr>
+          <tr>
+            <td>Sum energi</td>
+            <td>{{ rapport.samletEnergibesparelse }}</td>
+            <td>100</td>
+          </tr>
+        </table>
       </div>
     </div>
-
+    {% set slutanvendelser = rapport.getBesparelseSlutanvendelserLabels() %}
     <div class="row page-break-before">
       <div class="col-xs-12">
         <h2>Kortlægning og analyser</h2>
@@ -177,10 +310,28 @@
         <p>Ud fra besigtigelse og registrering er elforbruget kortlagt og fordelt efter anvendelse.</p>
 
         <p>[[ Kortlægning og analyse af elforbrug i afdelinger {{ rapport.virksomhed }} lagkagediagram ]]</p>
-        <p>[[ Kortlægning og analyse af elforbrug i afdelinger {{ rapport.virksomhed }} table ]]</p>
+        <table>
+          {% for type, slutanvendelse in rapport.getBesparelseSlutanvendelser() %}
+            <tr>
+              <td>{{ slutanvendelser[type] }}</td>
+              <td>{{ slutanvendelse['el']  | format_decimal }}</td>
+            </tr>
+          {% endfor %}
+        </table>
         {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-          <p>[[ Kortlægning og analyse af elforbrug i afdelinger {{ datterSelskab.virksomhed }} lagkagediagram ]]</p>
-          <p>[[ Kortlægning og analyse af elforbrug i afdelinger {{ datterSelskab.virksomhed }} table ]]</p>
+          <p>[[ Kortlægning og analyse af elforbrug i afdelinger {{ datterSelskab }} lagkagediagram ]]</p>
+          {% if datterSelskab.rapport.getBesparelseSlutanvendelser() is not empty %}
+            <table>
+              {% for type, slutanvendelse in datterSelskab.rapport.getBesparelseSlutanvendelser() %}
+                <tr>
+                  <td>{{ slutanvendelser[type] }}</td>
+                  <td>{{ slutanvendelse['el']  | format_decimal }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% else %}
+            Ingen data
+          {% endif %}
         {% endfor %}
 
         <p>[[ Nøgletal elforbrug, kWh/m2 table ]]</p>
@@ -190,10 +341,28 @@
         <p>Ud fra besigtigelse og registrering er varmeforbrug kortlagt og fordelt efter anvendelse.</p>
 
         <p>[[ Kortlægning og analyse af varmeforbrug i afdelinger {{ rapport.virksomhed }} lagkagediagram ]]</p>
-        <p>[[ Kortlægning og analyse af varmeforbrug i afdelinger {{ rapport.virksomhed }} table ]]</p>
+        <table>
+          {% for type, slutanvendelse in rapport.getBesparelseSlutanvendelser() %}
+            <tr>
+              <td>{{ slutanvendelser[type] }}</td>
+              <td>{{ (slutanvendelse['varmeGAF'] + slutanvendelser['varmeGUF'])  | format_decimal }}</td>
+            </tr>
+          {% endfor %}
+        </table>
         {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-          <p>[[ Kortlægning og analyse af varmeforbrug i afdelinger {{ datterSelskab.virksomhed }} lagkagediagram ]]</p>
-          <p>[[ Kortlægning og analyse af varmeforbrug i afdelinger {{ datterSelskab.virksomhed }} table ]]</p>
+          <p>[[ Kortlægning og analyse af varmeforbrug i afdelinger {{ datterSelskab }} lagkagediagram ]]</p>
+          {% if datterSelskab.rapport.getBesparelseSlutanvendelser() is not empty %}
+            <table>
+              {% for type, slutanvendelse in datterSelskab.rapport.getBesparelseSlutanvendelser() %}
+                <tr>
+                  <td>{{ slutanvendelser[type] }}</td>
+                  <td>{{ (slutanvendelse['varmeGAF'] + slutanvendelser['varmeGUF'])  | format_decimal }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% else %}
+            Ingen data
+          {% endif %}
         {% endfor %}
 
         <p>[[ Nøgletal varmeforbrug, kWh/m2 table ]]</p>
@@ -203,10 +372,28 @@
         <p>Ud fra besigtigelse og registrering er brændstof kortlagt og fordelt efter anvendelse.</p>
 
         <p>[[ Kortlægning og analyse af brændstof i afdelinger {{ rapport.virksomhed }} lagkagediagram ]]</p>
-        <p>[[ Kortlægning og analyse af brændstof i afdelinger {{ rapport.virksomhed }} table ]]</p>
+        <table>
+          {% for type, slutanvendelse in rapport.getBesparelseSlutanvendelser() %}
+            <tr>
+              <td>{{ slutanvendelser[type] }}</td>
+              <td>{{ slutanvendelse['braendstof']  | format_decimal }}</td>
+            </tr>
+          {% endfor %}
+        </table>
         {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-          <p>[[ Kortlægning og analyse af brændstof i afdelinger {{ datterSelskab.virksomhed }} lagkagediagram ]]</p>
-          <p>[[ Kortlægning og analyse af brændstof i afdelinger {{ datterSelskab.virksomhed }} table ]]</p>
+          <p>[[ Kortlægning og analyse af brændstof i afdelinger {{ datterSelskab }} lagkagediagram ]]</p>
+          {% if datterSelskab.rapport.getBesparelseSlutanvendelser() is not empty %}
+            <table>
+              {% for type, slutanvendelse in datterSelskab.rapport.getBesparelseSlutanvendelser() %}
+                <tr>
+                  <td>{{ slutanvendelser[type] }}</td>
+                  <td>{{ slutanvendelse['braendstof']  | format_decimal }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% else %}
+            Ingen data
+          {% endif %}
         {% endfor %}
 
         <p>[[ Nøgletal brændstof, kWh/m2 table ]]</p>

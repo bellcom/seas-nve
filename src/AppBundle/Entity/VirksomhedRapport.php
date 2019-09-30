@@ -11,6 +11,7 @@ use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
+use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
 use AppBundle\Entity\Energiforsyning;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
@@ -1334,7 +1335,7 @@ class VirksomhedRapport
      */
     public function setBesparelseSlutanvendelser($besparelseSlutanvendelser)
     {
-       $this->besparelseSlutanvendelser = $besparelseSlutanvendelser;
+        $this->besparelseSlutanvendelser = $besparelseSlutanvendelser;
 
         return $this;
     }
@@ -1344,9 +1345,24 @@ class VirksomhedRapport
      *
      * @return array
      */
-    public function getBesparelseSlutanvendelser()
+    public function getBesparelseSlutanvendelser($total = FALSE)
     {
-       return $this->besparelseSlutanvendelser;
+        $besparelseSlutanvendelser = $this->besparelseSlutanvendelser;
+        if ($total) {
+            foreach ($besparelseSlutanvendelser as &$values) {
+                $values = array_sum($values);
+            }
+        }
+        return $besparelseSlutanvendelser;
+    }
+    /**
+     * Get besparelseSlutanvendelser labels
+     *
+     * @return array
+     */
+    public function getBesparelseSlutanvendelserLabels()
+    {
+        return SlutanvendelseType::getChoices();
     }
 
     /**
@@ -2093,7 +2109,7 @@ class VirksomhedRapport
             return $this->rapporter;
         }
 
-        $bygninger = $this->getVirksomhed()->getAllBygninger();
+        $bygninger = $this->getVirksomhed()->getBygninger();
         /** @var Bygning $bygning */
         foreach ($bygninger as $bygning) {
             /** @var Rapport */
@@ -2376,6 +2392,29 @@ class VirksomhedRapport
             return 0;
         }
         return $this->getVirksomhed()->getTilskudstorelse() * $this->getSamletEnergibesparelseKr() ;
+    }
+
+    /**
+     * Calculates SamletEnergiBesparelseForbrug.
+     */
+    public function calculateSamletEnergiForbrug() {
+      return $this->getBaselineEl() + $this->getBaselineVarmeGAF() + $this->getBaselineVarmeGUF() + $this->getBaselineBraendstof();
+    }
+
+    /**
+     * Get average calculated value.
+     */
+    public function calculateRapporterAverage($property)
+    {
+        $getMethod = 'get' . ucfirst($property);
+        $result = array();
+        $result[] = call_user_func(array($this, $getMethod));
+        foreach ($this->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+            if (!empty($datterSelskab->rapport)) {
+                $result[] = call_user_func(array($datterSelskab->rapport, $getMethod));
+            }
+        }
+        return count($result) ? array_sum($result)/count($result) : 0;
     }
 
     /**

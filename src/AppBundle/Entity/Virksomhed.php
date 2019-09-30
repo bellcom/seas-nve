@@ -864,8 +864,23 @@ class Virksomhed
     public function getBygningerErhvervsareal($array = FALSE) {
         $result = array();
         /** @var Bygning $bygning */
-        foreach ($this->getAllBygninger() as $bygning) {
+        foreach ($this->getBygninger() as $bygning) {
             $result[] = $bygning->getErhvervsareal();
+        }
+
+        return $array ? $result : array_sum($result);
+    }
+
+    /**
+     * Get Opvarmetareal accumulated value from bygninger.
+     *
+     * @return array|float
+     */
+    public function getBygningerOpvarmetareal($array = FALSE) {
+        $result = array();
+        /** @var Bygning $bygning */
+        foreach ($this->getBygninger() as $bygning) {
+            $result[] = $bygning->getOpvarmetareal();
         }
 
         return $array ? $result : array_sum($result);
