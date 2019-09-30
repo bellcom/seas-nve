@@ -155,6 +155,13 @@ class VirksomhedRapport
     protected $besparelseEl;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="besparelseSlutanvendelser", type="array")
+     */
+    private $besparelseSlutanvendelser;
+
+    /**
      * @var float
      *
      * @Calculated
@@ -612,6 +619,7 @@ class VirksomhedRapport
         $this->datering = new \DateTime();
         $this->version = 1;
         $this->rapporter = array();
+        $this->besparelseSlutanvendelser = array();
     }
 
     /**
@@ -1315,6 +1323,30 @@ class VirksomhedRapport
     public function setBesparelseBraendstof($besparelseBraendstof)
     {
       $this->besparelseBraendstof = $besparelseBraendstof;
+    }
+
+    /**
+     * Set besparelseSlutanvendelser
+     *
+     * @param array $besparelseSlutanvendelser
+     *
+     * @return VirksomhedRapport
+     */
+    public function setBesparelseSlutanvendelser($besparelseSlutanvendelser)
+    {
+       $this->besparelseSlutanvendelser = $besparelseSlutanvendelser;
+
+        return $this;
+    }
+
+    /**
+     * Get besparelseSlutanvendelser
+     *
+     * @return array
+     */
+    public function getBesparelseSlutanvendelser()
+    {
+       return $this->besparelseSlutanvendelser;
     }
 
     /**
@@ -2153,6 +2185,7 @@ class VirksomhedRapport
         'samletEnergibesparelse',
         'samletEnergibesparelseKr',
 
+        'besparelseSlutanvendelser',
         'besparelseAarEt',
         'fravalgtBesparelseAarEt',
         'energiscreening',
@@ -2268,6 +2301,32 @@ class VirksomhedRapport
         }
 
         return $expression ? $this->sumExpr($flow) : $flow;
+    }
+
+    /**
+     * Fetches besparelseSlutanvendelser data from reports into array.
+     */
+    protected function calculateBesparelseSlutanvendelser()
+    {
+        $result = array();
+        /** @var Rapport $rapport */
+        foreach ($this->getRapporter() as $rapport) {
+            foreach ($rapport->getBesparelseSlutanvendelser() as $slutanvendelseType => $values) {
+                if (empty($result[$slutanvendelseType])) {
+                    $result[$slutanvendelseType] = $values;
+                    continue;
+                }
+                foreach ($values as $besparelseType => $value) {
+                    if (empty($result[$slutanvendelseType][$besparelseType])) {
+                        $result[$slutanvendelseType][$besparelseType] = $value;
+                        continue;
+                    }
+                    $result[$slutanvendelseType][$besparelseType] += $value;
+                }
+            }
+        }
+
+        return $result;
     }
 
     /**
