@@ -130,7 +130,7 @@ class PdfExport {
       $options));
   }
 
-  public function exportVirksomhedRapportKortlaegning(VirksomhedRapport $rapport, array $options = array()) {
+  public function exportVirksomhedRapportKortlaegning(VirksomhedRapport $rapport, array $options = array(), $test = FALSE) {
     $data = array();
     $virksomhed = $rapport;
 
@@ -153,6 +153,10 @@ class PdfExport {
     $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegning.html.twig', array(
       'rapport' => $rapport,
     ));
+
+    if ($test) {
+      return $cover . $html;
+    }
 
     return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('lowquality' => false,

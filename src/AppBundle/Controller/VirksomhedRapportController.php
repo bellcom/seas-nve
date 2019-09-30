@@ -260,6 +260,21 @@ class VirksomhedRapportController extends BaseController {
   }
 
   /**
+   * Finds and displays a VirksomhedRapport entity.
+   *
+   * @Route("/{id}/pdf_kortlaegning_test", name="virksomhed_rapport_show_pdf_kortlaegning_test")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
+   * @param VirksomhedRapport $rapport
+   * @return Response
+   */
+  public function showPdfKortlaegningTestAction(VirksomhedRapport $rapport) {
+    $exporter = $this->get('aaplus.pdf_export');
+    return new Response($exporter->exportVirksomhedRapportKortlaegning($rapport, array(), TRUE));
+  }
+
+  /**
    * Finds and displays a VirksomhedRapport entity in PDF form. (Detailark)
    *
    * @Route("/{id}/pdf_detailark", name="virksomhed_rapport_show_pdf_detailark")

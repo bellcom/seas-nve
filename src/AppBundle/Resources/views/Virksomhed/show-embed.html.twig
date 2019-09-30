@@ -1,0 +1,22 @@
+{% block virksomhed_embed -%}
+  <strong>{{ entity }}</strong><br/>
+  {% if entity.adress %}
+    {{ entity.adress }}<br/>
+  {% endif %}
+  {% if entity.postnummer or entity.byNavn %}
+    {{ entity.postnummer }}{{ entity.byNavn }}<br/>
+  {% endif %}
+  {% if entity.kommune %}
+    {{ entity.kommune }}<br/>
+  {% endif %}
+  {% if entity.region %}
+    {{ entity.region }}<br/>
+  {% endif %}
+  CVR nr.: {{ entity.cvrNumber }}<br/>
+  <br/>
+  Kontaktperson:  {{ entity.contactPersons[0].name }}<br/>
+  {% if entity.contactPersons[0].phoneNumber %}
+    Telefon: {{ entity.contactPersons[0].phoneNumber }}<br/>
+  {% endif %}
+  Email: {{ entity.contactPersons[0].mail }}
+{% endblock %}
