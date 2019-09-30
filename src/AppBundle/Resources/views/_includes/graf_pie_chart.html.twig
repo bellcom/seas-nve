@@ -1,0 +1,79 @@
+<figure id="chart">
+  <canvas id="chart-canvas" width="950" height="400"></canvas>
+  <figcaption></figcaption>
+</figure>
+
+<script src="{{ absolute_url(asset('js/lib/Chart.js/Chart.min.js')) }}"></script>
+<script>
+  (function() {
+    var colors = [
+      '#FE9029',
+      '#FFDE2F',
+      '#74766C',
+      '#62C5D3',
+      '#A7CB11',
+      '#006F55',
+      '#009E50',
+      '#CAE070',
+      '#FFEB82',
+      '#99D8B9',
+      '#FEA654',
+      '#A1DCE5',
+      '#74766C',
+      '#CCECDC',
+      '#A1DCE5'];
+
+    var injectedData = [
+      {
+        label: 'My label',
+        value: 300
+      },
+      {
+        label: 'My label',
+        value: 200
+      },
+      {
+        label: 'My label',
+        value: 350
+      }
+    ];
+
+    function prepareData(data, colors) {
+      var iteration = 0;
+      var mutatedData = [];
+
+      for (var item of data) {
+        mutatedData.push({
+          label: item.label,
+          value: item.value,
+          color: colors[iteration],
+          highlight: colors[iteration]
+        });
+
+        // Reset if index does not exist.
+        if (typeof colors[iteration] === 'undefined') {
+          iteration = 0;
+        }
+        else {
+          iteration++;
+        }
+      }
+
+      return mutatedData;
+    }
+
+    var ctx = document.querySelector('#chart canvas').getContext('2d');
+    var options = {
+      segmentShowStroke : true,
+      segmentStrokeColor : "#fff",
+      segmentStrokeWidth : 2,
+      percentageInnerCutout : 0,
+      animationSteps : 100,
+      animationEasing : "easeOutBounce",
+      animateRotate : false,
+      animateScale : false,
+    };
+    var data = prepareData(injectedData, colors);
+
+    new Chart(ctx).Pie(data, options);
+  }())</script>
