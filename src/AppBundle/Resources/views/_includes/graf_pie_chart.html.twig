@@ -1,6 +1,7 @@
-<figure id="chart">
-  <canvas id="chart-canvas" width="950" height="400"></canvas>
-  <figcaption></figcaption>
+{% set chartIdRandomized = 'piechart' ~ random() %}
+<figure id="{{ chartIdRandomized }}" class="text-center">
+  <canvas id="{{ chartIdRandomized }}canvas" width="950" height="400"></canvas>
+  <figcaption class="text-left"></figcaption>
 </figure>
 
 <script src="{{ absolute_url(asset('js/lib/Chart.js/Chart.min.js')) }}"></script>
@@ -50,7 +51,7 @@
       return mutatedData;
     }
 
-    var ctx = document.querySelector('#chart canvas').getContext('2d');
+    var ctx = document.querySelector('#{{ chartIdRandomized }} canvas').getContext('2d');
     var options = {
       segmentShowStroke : true,
       segmentStrokeColor : "#fff",
@@ -63,5 +64,8 @@
     };
     var data = prepareData(injectedData, colors);
 
-    new Chart(ctx).Pie(data, options);
+    var piechart = new Chart(ctx).Pie(data, options);
+    {% if (show_legend) %}
+    document.querySelector('#{{ chartIdRandomized }} figcaption').innerHTML = piechart.generateLegend();
+    {% endif %}
   }())</script>

@@ -150,8 +150,172 @@ class PdfExport {
       'rapport' => $rapport,
     ));
 
+    // Data for energiFordeling pie chart.
+    $energiFordeling = array(
+      array(
+        'label' => 'El',
+        'value' => $rapport->getBaselineEl(),
+      ),
+      array(
+        'label' => 'Varme',
+        'value' => $rapport->getBaselineVarme(),
+      ),
+      array(
+        'label' => 'Brændstof',
+        'value' => $rapport->getBaselineBraendstof(),
+      ),
+    );
+    $pieChartData['energiFordeling'] = $energiFordeling;
+
+    // Data for overordnetForrug pie chart.
+    $overordnetForrug = array(
+      array(
+        'label' => $rapport->getVirksomhed()->__toString(),
+        'value' => $rapport->calculateSamletEnergiForbrug(),
+      ),
+    );
+    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+      if (empty($datterSelskab->getRapport())) {
+        continue;
+      }
+      $overordnetForrug[] = array(
+        'label' => $datterSelskab->getRapport()->getVirksomhed()->__toString(),
+        'value' => $datterSelskab->getRapport()->calculateSamletEnergiForbrug(),
+      );
+    }
+    $pieChartData['overordnetForrug'] = $overordnetForrug;
+
+    // Data for elForrug pie chart.
+    $elForrug = array(
+      array(
+        'label' => $rapport->getVirksomhed()->__toString(),
+        'value' => $rapport->getBaselineEl(),
+        'erhvervsareal' => $rapport->getErhvervsareal(),
+      ),
+    );
+    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+      if (empty($datterSelskab->getRapport())) {
+        continue;
+      }
+      $elForrug[] = array(
+        'label' => $datterSelskab->getRapport()->getVirksomhed()->__toString(),
+        'value' => $datterSelskab->getRapport()->getBaselineEl(),
+        'erhvervsareal' => $datterSelskab->getRapport()->getErhvervsareal(),
+      );
+    }
+    $pieChartData['elForrug'] = $elForrug;
+
+    // Data for varmeForrug pie chart.
+    $varmeForrug = array(
+      array(
+        'label' => $rapport->getVirksomhed()->__toString(),
+        'value' => $rapport->getBaselineVarme(),
+        'erhvervsareal' => $rapport->getOpvarmetareal(),
+      ),
+    );
+    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+      if (empty($datterSelskab->getRapport())) {
+        continue;
+      }
+      $varmeForrug[] = array(
+        'label' => $datterSelskab->getRapport()->getVirksomhed()->__toString(),
+        'value' => $datterSelskab->getRapport()->getBaselineVarme(),
+        'erhvervsareal' => $datterSelskab->getRapport()->getOpvarmetareal(),
+      );
+    }
+    $pieChartData['varmeForrug'] = $varmeForrug;
+
+    // Data for varmeForrug pie chart.
+    $braendstofForrug = array(
+      array(
+        'label' => $rapport->getVirksomhed()->__toString(),
+        'value' => $rapport->getBaselineVarme(),
+        'erhvervsareal' => $rapport->getOpvarmetareal(),
+      ),
+    );
+    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+      if (empty($datterSelskab->getRapport())) {
+        continue;
+      }
+      $braendstofForrug[] = array(
+        'label' => $datterSelskab->getRapport()->getVirksomhed()->__toString(),
+        'value' => $datterSelskab->getRapport()->getBaselineVarme(),
+        'erhvervsareal' => $datterSelskab->getRapport()->getOpvarmetareal(),
+      );
+    }
+    $pieChartData['braendstofForbrug'] = $braendstofForrug;
+
+    // Data for beplarelseSluanvendelse pie chart.
+    $labels = $rapport->getBesparelseSlutanvendelserLabels();
+    $chartData = array();
+    foreach ($rapport->getBesparelseSlutanvendelser(1) as $key => $value) {
+      $chartData[] = array(
+        'label' => $labels[$key],
+        'value' => $value,
+      );
+    }
+    $beplarelseSluanvendelse = array(
+      array(
+        'name' => $rapport->getVirksomhed()->getName(),
+        'data' => $chartData,
+      ),
+    );
+
+    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+      if (empty($datterSelskab->getRapport())) {
+        continue;
+      }
+      $chartData = array();
+      foreach ($datterSelskab->getRapport()->getBesparelseSlutanvendelser(1) as $key => $value) {
+        $chartData[] = array(
+          'label' => $labels[$key],
+          'value' => $value,
+        );
+      }
+      $beplarelseSluanvendelse[] = array(
+        'name' => $datterSelskab->getName(),
+        'data' => $chartData,
+      );
+    }
+    $pieChartData['beplarelseSluanvendelse'] = $beplarelseSluanvendelse;
+
+    // Data for elForbrugSluanvendelse pie chart.
+    $labels = $rapport->getBesparelseSlutanvendelserLabels();
+    $chartData = array();
+    foreach ($rapport->getVirksomhed()->getKortlaegning()->getSlutanvendelser() as $key => $value) {
+      $chartData[] = array(
+        'label' => $labels[$key],
+        'value' => $value['forbrug'],
+      );
+    }
+    $elForbrugSluanvendelse = array(
+      array(
+        'name' => $rapport->getVirksomhed()->getName(),
+        'data' => $chartData,
+      ),
+    );
+
+    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+      if (empty($datterSelskab->getKortlaegning())) {
+        continue;
+      }
+      $chartData = array();
+      foreach ($datterSelskab->getKortlaegning()->getSlutanvendelser() as $key => $value) {
+        $chartData[] = array(
+          'label' => $labels[$key],
+          'value' => $value['forbrug'],
+        );
+      }
+      $elForbrugSluanvendelse[] = array(
+        'name' => $datterSelskab->getName(),
+        'data' => $chartData,
+      );
+    }
+    $pieChartData['elForbrugSluanvendelse'] = $elForbrugSluanvendelse;
+
     $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegning.html.twig', array(
       'rapport' => $rapport,
+      'pie_chart_data' => $pieChartData,
     ));
 
     if ($test) {

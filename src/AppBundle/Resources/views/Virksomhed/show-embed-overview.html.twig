@@ -4,10 +4,14 @@
   </div>
   {% for bygning in entity.getBygninger() %}
     {{ bygning }}, {{ bygning.adresse }}, {{ bygning.postnummer }} {{ bygning.postBy }}
-    <ol>
-      {% for tiltag in bygning.rapport.getTilvalgteTiltag() %}
-        <li>{{ tiltag }}</li>
-      {% endfor %}
-    </ol>
+    {% if bygning.rapport.getTilvalgteTiltag() is not empty %}
+      <ol>
+        {% for tiltag in bygning.rapport.getTilvalgteTiltag() %}
+          <li>{{ tiltag }}</li>
+        {% endfor %}
+      </ol>
+    {% else %}
+      <p>Ingen tiltag i {{ entity.name }} virksomhed rapport</p>
+    {% endif %}
   {% endfor %}
 {% endblock %}

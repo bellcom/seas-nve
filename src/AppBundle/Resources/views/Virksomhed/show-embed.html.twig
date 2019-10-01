@@ -18,5 +18,5 @@
   {% if entity.contactPersons[0].phoneNumber %}
     Telefon: {{ entity.contactPersons[0].phoneNumber }}<br/>
   {% endif %}
-  Email: {{ entity.contactPersons[0].mail }}
+  Email: <a href="mailto:{{ entity.contactPersons[0].mail }}">{{ entity.contactPersons[0].mail }}</a>
 {% endblock %}
