@@ -38,6 +38,7 @@ class PdfExport {
 
     $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', array(
       'rapport' => $rapport,
+      'typenavn' => ucfirst($virksomhed->getTypeName()),
     ));
 
     $html = $this->renderView('AppBundle:Rapport:showPdf2.html.twig', array(
@@ -77,6 +78,7 @@ class PdfExport {
 
     $cover = $this->renderView('AppBundle:Rapport:showPdf5Cover.html.twig', array(
       'rapport' => $rapport,
+      'typenavn' => ucfirst($virksomhed->getTypeName()),
     ));
 
     $html = $this->renderView('AppBundle:Rapport:showPdf5.html.twig', array(
