@@ -36,9 +36,11 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', array(
-      'rapport' => $rapport,
-    ));
+    $coverParams = array('rapport' => $rapport);
+    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeName()) {
+      $coverParams['typenavn'] = ucfirst($virksomhedsType);
+    }
+    $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', $coverParams);
 
     $html = $this->renderView('AppBundle:Rapport:showPdf2.html.twig', array(
       'rapport' => $rapport,
@@ -75,9 +77,11 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $cover = $this->renderView('AppBundle:Rapport:showPdf5Cover.html.twig', array(
-      'rapport' => $rapport,
-    ));
+    $coverParams = array('rapport' => $rapport);
+    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeName()) {
+      $coverParams['typenavn'] = ucfirst($virksomhedsType);
+    }
+    $cover = $this->renderView('AppBundle:Rapport:showPdf5Cover.html.twig', $coverParams);
 
     $html = $this->renderView('AppBundle:Rapport:showPdf5.html.twig', array(
       'rapport' => $rapport,
@@ -111,9 +115,11 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdf2Cover.html.twig', array(
-      'rapport' => $rapport,
-    ));
+    $coverParams = array('rapport' => $rapport);
+    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeName()) {
+      $coverParams['typenavn'] = ucfirst($virksomhedsType);
+    }
+    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdf2Cover.html.twig', $coverParams);
 
     $html = $this->renderView('AppBundle:VirksomhedRapport:showPdf2.html.twig', array(
       'rapport' => $rapport,
@@ -146,9 +152,11 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegningCover.html.twig', array(
-      'rapport' => $rapport,
-    ));
+    $coverParams = array('rapport' => $rapport);
+    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeName()) {
+      $coverParams['typenavn'] = ucfirst($virksomhedsType);
+    }
+    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegningCover.html.twig', $coverParams);
 
     // Data for energiFordeling pie chart.
     $energiFordeling = array(
@@ -365,9 +373,11 @@ class PdfExport {
       ));
     }
 
-    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailarkCover.html.twig', array(
-      'rapport' => $rapport,
-    ));
+    $coverParams = array('rapport' => $rapport);
+    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeName()) {
+      $coverParams['typenavn'] = ucfirst($virksomhedsType);
+    }
+    $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailarkCover.html.twig', $coverParams);
 
     return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('orientation'=>'Landscape',
