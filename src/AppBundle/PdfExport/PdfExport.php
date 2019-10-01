@@ -218,7 +218,7 @@ class PdfExport {
       array(
         'label' => $rapport->getVirksomhed()->__toString(),
         'value' => $rapport->getBaselineVarme(),
-        'erhvervsareal' => $rapport->getOpvarmetareal(),
+        'opvarmetareal' => $rapport->getOpvarmetareal(),
       ),
     );
     foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
@@ -228,7 +228,7 @@ class PdfExport {
       $varmeForrug[] = array(
         'label' => $datterSelskab->getRapport()->getVirksomhed()->__toString(),
         'value' => $datterSelskab->getRapport()->getBaselineVarme(),
-        'erhvervsareal' => $datterSelskab->getRapport()->getOpvarmetareal(),
+        'erhvervsareal' => $datterSelskab->getRapport()->getErhvervsareal(),
       );
     }
     $pieChartData['varmeForrug'] = $varmeForrug;

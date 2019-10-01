@@ -59,7 +59,7 @@
           <tr>
             <td>Sum energi</td>
             <td>{{ rapport.calculateSamletEnergiForbrug }}</td>
-            <td>100</td>
+            <td>100%</td>
           </tr>
         </table>
 
@@ -77,7 +77,7 @@
         <p>Langt det største besparelsespotentiale ligger på produktionsenhederne, hvor både tekniske løsninger og brugervaner kan være medvirkende til bedre energieffektivitet.</p>
 
         <h3>Energibesparelser på el og varme i bygninger.</h3>
-        <p>Det samlede besparelsespotentiale på el og varme i bygninger udgør i alt <strong>{{ rapport.samletEnergibesparelse }}</strong> {{ rapport.samletEnergibesparelse.unit }}.</p>
+        <p>Det samlede besparelsespotentiale på el og varme i bygninger udgør i alt <strong>{{ rapport.samletEnergibesparelse | format_decimal(0) }} kWh/år</strong>.</p>
         <p>Besparelsen svarer til ca. 8 % af det samlede forbrug af el og varme i bygninger.</p>
         <p>Herudover er der medtaget en solcelleberegning.</p>
 
