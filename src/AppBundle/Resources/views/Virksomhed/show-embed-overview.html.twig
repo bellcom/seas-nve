@@ -1,17 +1,21 @@
 {% block virksomhed_embed_overview -%}
   <div>
-    <strong>{{ entity }}</strong>
+    <h3>{{ entity }}</h3>
   </div>
-  {% for bygning in entity.getBygninger() %}
-    {{ bygning }}, {{ bygning.adresse }}, {{ bygning.postnummer }} {{ bygning.postBy }}
-    {% if bygning.rapport.getTilvalgteTiltag() is not empty %}
-      <ol>
-        {% for tiltag in bygning.rapport.getTilvalgteTiltag() %}
-          <li>{{ tiltag }}</li>
-        {% endfor %}
-      </ol>
-    {% else %}
-      <p>Ingen tiltag i {{ entity.name }} virksomhed rapport</p>
-    {% endif %}
-  {% endfor %}
+  {% if entity.getBygninger() is not empty %}
+    {% for bygning in entity.getBygninger() %}
+      <h4>{{ bygning }}, {{ bygning.adresse }}, {{ bygning.postnummer }} {{ bygning.postBy }}</h4>
+      {% if bygning.rapport.getTilvalgteTiltag() is not empty %}
+        <ol>
+          {% for tiltag in bygning.rapport.getTilvalgteTiltag() %}
+            <li>{{ tiltag }}</li>
+          {% endfor %}
+        </ol>
+      {% else %}
+        <p>Ingen tiltag i {{ entity.name }} virksomhed rapport.</p>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <p>Ingen tilknutede bygninger i {{ entity.name }} virksomhed.</p>
+  {% endif %}
 {% endblock %}

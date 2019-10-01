@@ -2445,6 +2445,7 @@ class Rapport {
           'varmeGAF' => 0,
           'varmeGUF' => 0,
           'braendStof' => 0,
+          'total' => 0,
         );
       }
 
@@ -2454,6 +2455,8 @@ class Rapport {
       if (method_exists($tiltag, 'getBesparelseBraendstof')) {
         $values[$slutanvendelseType]['braendStof'] += $tiltag->getBesparelseBraendstof();
       }
+      unset($values[$slutanvendelseType]['total']);
+      $values[$slutanvendelseType]['total'] = array_sum($values[$slutanvendelseType]);
     }
     return $values;
   }
