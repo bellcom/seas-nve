@@ -4,7 +4,7 @@
 
   <div class="portrait">
 
-    {% include 'AppBundle:Rapport:contactpersons-embed.html.twig' %}
+    {% include 'AppBundle:Rapport:kundeinformation-embed.html.twig' %}
 
     <div class="row">
       <div class="col-xs-12">
@@ -18,6 +18,14 @@
 
         <h4>Tilskud</h4>
         <p>SEAS-NVE yder et engangstilskud til jer på {{ rapport.getVirksomhedTilskudstorellse() | format_decimal }} kr. pr. kWh, der spares i kraft af de gennemførte fælles projekter. Dette tilskud vil i jeres tilfælde samlet set beløbe sig til kr. {{ rapport.calculateSamletEnergiBesparelseTilfaeld() | format_decimal }}</p>
+
+        <h4>Slutanvendelser</h4>
+        {% set slutanvendelseLabels = rapport.getBesparelseSlutanvendelserLabels() %}
+        <ul>
+          {% for type, slutanvendelse in rapport.besparelseSlutanvendelser %}
+            <li>{{ slutanvendelseLabels[type] }}: {{ slutanvendelse.total | format_decimal(0)}} kWh/år</li>
+          {% endfor %}
+        </ul>
 
         <h4>Jeres overordnede udbytte</h4>
         <p>Tæt samarbejde med en ansvarlig og kompetent partner omkring energioptimering hos jer. Vores fælles projekter vil sikre jer en stærkere bundlinje gennem besparelserne.</p>

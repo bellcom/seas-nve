@@ -29,16 +29,27 @@
       {% endif %}
     </div>
   </div>
+  <div class="col-xs-12">
+    <h3>Analyserede adresse</h3>
+    <hr>
+    <div class="row">
+      <div class="col-xs-4">
+        {{ include ('AppBundle:Bygning:show-embed.html.twig', { bygning : rapport.bygning}) }}
+      </div>
+    </div>
+  </div>
 
-  {% if rapport.bygning.contactPersons.length %}
+  {% if rapport.bygning.energiRaadgiver is not empty %}
     <br>
     <div class="col-xs-12">
-      <h3>Analyserede emner</h3>
+      <h3>Energirådgiver</h3>
       <hr>
       <div class="row">
-        {% for contactPerson in rapport.bygning.contactPersons %}
+        {% for user in rapport.bygning.energiRaadgiver %}
           <div class="col-xs-4">
-            {{ include ('AppBundle:ContactPerson:show-building-embed.html.twig') }}
+            {{ user.name }}
+              <div>{{ user.name }}</div>
+              <div><a href="mailto:{{ user.email }}">{{ user.email }}</a></div>
           </div>
         {% endfor %}
       </div>

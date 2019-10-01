@@ -3,7 +3,7 @@
 {% endif %}
 
 {% if contactPerson.mail %}
-  <div>{{ contactPerson.mail }}</div>
+  <div><a href="mailto:{{ contactPerson.mail }}">{{ contactPerson.mail }}</a></div>
 {% endif %}
 
 {% if contactPerson.phoneNumber %}

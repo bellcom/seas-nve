@@ -1355,6 +1355,7 @@ class VirksomhedRapport
         }
         return $besparelseSlutanvendelser;
     }
+
     /**
      * Get besparelseSlutanvendelser labels
      *

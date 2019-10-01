@@ -868,6 +868,25 @@ class Virksomhed
     }
 
     /**
+     * Get all bygninger raadgivers
+     *
+     * @return ArrayCollection
+     */
+    public function getAllRaadgivers() {
+        $raadgivers = new ArrayCollection();
+        /** @var Bygning $bygning */
+        foreach ($this->getAllBygninger() as $bygning) {
+            foreach ($bygning->getEnergiRaadgiver() as $user) {
+                if (!$raadgivers->contains($user)) {
+                    $raadgivers->add($user);
+                }
+            }
+        }
+
+        return $raadgivers;
+    }
+
+    /**
      * Get erhvervsareal accumulated value from bygninger.
      *
      * @return array|float

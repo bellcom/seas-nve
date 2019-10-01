@@ -1195,6 +1195,16 @@ class Rapport {
   }
 
   /**
+   * Get besparelseSlutanvendelser labels
+   *
+   * @return array
+   */
+  public function getBesparelseSlutanvendelserLabels()
+  {
+    return SlutanvendelseType::getChoices();
+  }
+
+  /**
    * Get besparelseCO2
    *
    * @return float
