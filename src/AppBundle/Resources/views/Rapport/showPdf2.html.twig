@@ -8,33 +8,19 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <h4>Sammenfatning</h4>
-        <p>Sammenfatning tekst </p>
+        <h2>Sammenfatning efter besøg</h2>
+        <p>Jeres samlede årlige besparelsespotentiale er beregnet til kr. {{ rapport.samletEnergiBesparelse | format_decimal }}. Dette tal er med udgangspunkt i jeres aktuelle forbrug omregnet med den aktuelle energipris.</p>
 
-        <p>Energirådgiveren fra SEAS-NVE har nu gennemgået jeres bygninger samt installationer for at afdække potentielle energibesparelser.</p>
-
-        <h5>Overordnede konklusioner fra energigennemgangen</h5>
-        <p>Nedenstående tabel viser summen af samtlige optimeringsprojekter. Med udgangspunkt i jeres ønske om tilbagebetalingstid m.v. er nedenstående udvalgt som projektområder.</p>
-
-        <p>Jeres samlede årlige besparelsespotentiale er beregnet til kr. {{ rapport.samletEnergiBesparelse | format_decimal }} . Dette tal er med udgangspunkt i jeres aktuelle forbrug omregnet med den aktuelle energipris.</p>
-
-        <p>Grundlaget er en reduktion i energiforbruget på [xxxx] kWh.<br>
-        Den samlede engangsinvestering beløber sig til kr. [xxxx].<br>
-        Tilbagebetalingstiden på den samlede investering bliver ca. [xxxx] år i gennemsnit.</p>
-
-        <h5>Det videre forløb</h5>
+        <h4>Det videre forløb</h4>
         <p>Næste skridt i processen er, at der tages stilling til hvilke projekter der vurderes som mest attraktive og dermed iværksættes først.</p>
-
         <p>SEAS-NVE kan drive de valgte tiltag som projektledere, herunder kontakt til de forskellige leverandører. Vi sikrer dermed, at alle de valgte projekter gennemføres inden for de fastlagte terminer.</p>
-
         <p>Vi kender markedet og dermed den optimale løsning. I sikres dermed den størst mulige effekt af besparelsesprojekterne.</p>
 
-        <h5>Tilskud</h5>
+        <h4>Tilskud</h4>
         <p>SEAS-NVE yder et engangstilskud til jer på {{ rapport.getVirksomhedTilskudstorellse() | format_decimal }} kr. pr. kWh, der spares i kraft af de gennemførte fælles projekter. Dette tilskud vil i jeres tilfælde samlet set beløbe sig til kr. {{ rapport.calculateSamletEnergiBesparelseTilfaeld() | format_decimal }}</p>
 
-        <h5>Jeres overordnede udbytte</h5>
+        <h4>Jeres overordnede udbytte</h4>
         <p>Tæt samarbejde med en ansvarlig og kompetent partner omkring energioptimering hos jer. Vores fælles projekter vil sikre jer en stærkere bundlinje gennem besparelserne.</p>
-
         <p>I vil kunne sænke jeres omkostninger, og dermed forbedre jeres konkurrencekraft kombineret med at kunne markedsføre budskabet om, at I er en energiansvarlig virksomhed. Vores fælles mål med arbejdet omkring energioptimering er at gøre det til en relevant og integreret del af Jeres hverdag.</p>
         <p>Jeg kontakter dig inden for kort tid for at gennemgå det fremsendte materiale med dig og for at drøfte det videre forløb.</p>
 
@@ -44,6 +30,7 @@
         {% endif %}
       </div>
     </div>
+
     <div class="panel panel-default">
       <div class="panel-heading"><h3 class="panel-title">Energibesparelser</h3></div>
 
@@ -379,6 +366,28 @@
 
     <div class="panel panel-default">
       {% include 'AppBundle::_includes/finansiering_likviditetsoverblik_pdf.html.twig' with {'entity': rapport} %}
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+
+        <h3>Sådan kommer du videre</h3>
+
+        <strong>Dokumentationsgrundlag for energispare tilskud</strong>
+        <p>Med SEAS-NVE køb af energibesparelse kræves følgende dokumentation:</p>
+
+        <ul>
+          <li>energispare aftale med overdragelse af energibesparelsen til SEAS-NVE.</li>
+          <li>dokumentation af energibesparelse med beskrivelse af før og efter situation/energiforbrug – screeningsrapport.</li>
+          <li>tilbud på energieffektiviseringstiltag (ved projekt id. skal dette foreligge hos kunde/dig).</li>
+          <li>faktura for energieffektiviseringstiltag (ved projekt id. skal dette foreligge hos kunde/dig).</li>
+          <li>faktura for udbetalt energispare tilskud (ved projekt id. energispare tilskud via besparelseslink).</li>
+        </ul>
+
+        <p>- alle aftaler og dokumentation skal forefindes i ovenstående kronologiske rækkefølge.</p>
+
+        <p>For yderligere oplysninger om SEAS-NVE køb og dokumentation af energibesparelser, henvises til brochure ”Energispare tilskud til offentlige og private virksomheder”.</p>
+      </div>
     </div>
 
     <div class="row">
