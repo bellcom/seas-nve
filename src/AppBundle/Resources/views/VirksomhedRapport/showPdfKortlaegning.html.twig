@@ -14,27 +14,33 @@
         <h2>Forudsætninger for energisynet</h2>
         <p>[[ Forudsætninger for energisynet teksten]]</p>
         <h4>Energifordeling:</h4>
+        {% set energiFordeling = [
+          {
+            'label': 'El',
+            'value': rapport.besparelseEl
+          },
+          {
+            'label': 'Varme',
+            'value': rapport.getBesparelseVarme()
+          },
+          {
+            'label': 'ndstof',
+            'value': rapport.besparelseBraendstof()
+          }
+        ] %}
         <table>
           <tr>
             <th>Energiart</th>
             <th>kWh/år</th>
             <th>%</th>
           </tr>
-          <tr>
-            <td>EL</td>
-            <td>{{ rapport.besparelseEl }}</td>
-            <td>{{ rapport.besparelseEl | format_percent_of(rapport.samletEnergibesparelse) }} </td>
-          </tr>
-          <tr>
-            <td>Varme</td>
-            <td>{{ rapport.getBesparelseVarme() }}</td>
-            <td>{{ rapport.getBesparelseVarme() | format_percent_of(rapport.samletEnergibesparelse) }} </td>
-          </tr>
-          <tr>
-            <td>Brændstof</td>
-            <td>{{ rapport.besparelseBraendstof }}</td>
-            <td>{{ rapport.besparelseBraendstof | format_percent_of(rapport.samletEnergibesparelse) }} </td>
-          </tr>
+          {% for row in energiFordeling %}
+            <tr>
+              <td>{{ row.label }}</td>
+              <td>{{ row.value }}</td>
+              <td>{{ row.value | format_percent_of(rapport.samletEnergibesparelse) }} </td>
+            </tr>
+          {% endfor %}
           <tr>
             <td>Sum energi</td>
             <td>{{ rapport.samletEnergibesparelse }}</td>
@@ -42,8 +48,9 @@
           </tr>
         </table>
 
-        [[ lagkagediagram ]]
-        <p>[[ lagkagediagram analyse]]</p>
+        <p>{{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: energiFordeling }) }}</p>
+
+        <p>Som det fremgår af oversigten udgør el og varmeforbruget langt den største del af det samlede energiforbrug og brændstofforbrug udgør langt under 1%. </p>
 
       </div>
     </div>

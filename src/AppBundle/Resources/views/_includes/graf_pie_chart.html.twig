@@ -21,22 +21,10 @@
       '#A1DCE5',
       '#74766C',
       '#CCECDC',
-      '#A1DCE5'];
-
-    var injectedData = [
-      {
-        label: 'My label',
-        value: 300
-      },
-      {
-        label: 'My label',
-        value: 200
-      },
-      {
-        label: 'My label',
-        value: 350
-      }
+      '#A1DCE5'
     ];
+
+    var injectedData = {{ pie_chart_data | json_encode | raw }};
 
     function prepareData(data, colors) {
       var iteration = 0;
