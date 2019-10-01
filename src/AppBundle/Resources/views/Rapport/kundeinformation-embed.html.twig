@@ -4,7 +4,7 @@
   </div>
   <div class="col-xs-12">
     <h3>Kunde</h3>
-    <hr>
+    <hr class="dark">
     <div class="row">
       {% if rapport.virksomhed %}
         <div class="col-xs-4">
@@ -30,8 +30,10 @@
     </div>
   </div>
   <div class="col-xs-12">
-    <h3>Analyserede adresse</h3>
-    <hr>
+    <br>
+    <br>
+    <h3>Analyserede adresse(r)</h3>
+    <hr class="dark">
     <div class="row">
       <div class="col-xs-4">
         {{ include ('AppBundle:Bygning:show-embed.html.twig', { bygning : rapport.bygning}) }}
@@ -40,10 +42,11 @@
   </div>
 
   {% if rapport.bygning.energiRaadgiver is not empty %}
-    <br>
     <div class="col-xs-12">
+      <br>
+      <br>
       <h3>Energirådgiver</h3>
-      <hr>
+      <hr class="dark">
       <div class="row">
         {% for user in rapport.bygning.energiRaadgiver %}
           <div class="col-xs-4">
@@ -57,10 +60,11 @@
   {% endif %}
 
   {% if rapport.datering %}
-    <br>
     <div class="col-xs-12">
+      <br>
+      <br>
       <h3>Dato for gennemgang</h3>
-      <hr>
+      <hr class="dark">
       <div class="row">
         <div class="col-xs-4">
           {{ rapport.datering | date('d.m.Y') }}

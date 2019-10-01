@@ -71,6 +71,12 @@ hr.pdf-heading {
   border: 0;
 }
 
+hr.dark {
+  background-color: #4A4D45;
+  height: 1px;
+  border: 0;
+}
+
 .page-break-after {
   page-break-after: always;
 }
@@ -255,4 +261,9 @@ tr.highlight {
 
 p {
   margin: 0 0 20px;
+}
+
+a {
+  color: #000;
+  text-decoration: underline;
 }
