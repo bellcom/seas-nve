@@ -12,11 +12,16 @@
   {% if entity.region %}
     {{ entity.region }}<br/>
   {% endif %}
-  CVR nr.: {{ entity.cvrNumber }}<br/>
-  <br/>
-  Kontaktperson:  {{ entity.contactPersons[0].name }}<br/>
+  {% if entity.cvrNumber %}
+    CVR nr.: {{ entity.cvrNumber }}<br/><br/>
+  {% endif %}
+  {% if entity.contactPersons[0].name %}
+    Kontaktperson: {{ entity.contactPersons[0].name }}<br/>
+  {% endif %}
   {% if entity.contactPersons[0].phoneNumber %}
     Telefon: {{ entity.contactPersons[0].phoneNumber }}<br/>
   {% endif %}
-  Email: <a href="mailto:{{ entity.contactPersons[0].mail }}">{{ entity.contactPersons[0].mail }}</a>
+  {% if entity.contactPersons[0].mail %}
+    Email: <a href="mailto:{{ entity.contactPersons[0].mail }}">{{ entity.contactPersons[0].mail }}</a>
+  {% endif %}
 {% endblock %}

@@ -42,26 +42,30 @@
         <p>Opgørelse over det samlede energiforbrug og energiudgifter for alle afdelinger og maskiner fremgår af følgende oversigt.
         Varmeforbrugene er korrigeret for graddage med faktor 1,25 for 2014 i forhold til et normalår.</p>
 
-        <h4>Energifordeling:</h4>
-        <table>
-          <tr>
-            <th>Energiart</th>
-            <th>kWh/år</th>
-            <th>%</th>
-          </tr>
-          {% for row in pie_chart_data.energiFordeling %}
+        <div class="panel panel-default">
+          <div class="panel-heading"><h3 class="panel-title">Energifordeling:</h3></div>
+          <table class="table table-condensed results">
+            <tbody>
             <tr>
-              <td>{{ row.label }}</td>
-              <td>{{ row.value | format_decimal(0) }}</td>
-              <td>{{ row.value | format_percent_of(rapport.calculateSamletEnergiForbrug, 0) }} </td>
+              <th>Energiart</th>
+              <th>kWh/år</th>
+              <th>%</th>
             </tr>
-          {% endfor %}
-          <tr>
-            <td>Sum energi</td>
-            <td>{{ rapport.calculateSamletEnergiForbrug }}</td>
-            <td>100%</td>
-          </tr>
-        </table>
+            {% for row in pie_chart_data.energiFordeling %}
+              <tr>
+                <th>{{ row.label }}</th>
+                <td>{{ row.value | format_decimal(0) }}</td>
+                <td>{{ row.value | format_percent_of(rapport.calculateSamletEnergiForbrug, 0) }} </td>
+              </tr>
+            {% endfor %}
+            <tr>
+              <th>Sum energi</th>
+              <td>{{ rapport.calculateSamletEnergiForbrug }}</td>
+              <td>100%</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
 
         <h3 class="text-center">{{ rapport.virksomhed.name }}</h3>
         {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.energiFordeling }) }}
@@ -96,7 +100,8 @@
       <div class="col-xs-12">
         <h2>Underskrifter</h2>
         <p>Før energisynsrapporten indsendes til Energistyrelsen, skal den underskrives af virksomhedens ejer og energisynskonsulenten.</p>
-        <table style="text-align:center; width:100%;">
+        <table class="table table-bordered" style="text-align:center; width:100%;">
+          <tbody>
           <tr>
             <td>For <strong>{{ rapport.virksomhed.name }}</strong><br/>
               Facility Manager<br/>
@@ -105,12 +110,14 @@
             <td>For <strong>SEAS-NVE</strong>
               <br/>
               {{ rapport.virksomhed.kam }}
+              <br><br><br><br><br><br>
             </td>
           </tr>
           <tr>
             <td>Dato: {{ rapport.Datering|date('d F Y') }}</td>
             <td>Dato: {{ rapport.Datering|date('d F Y') }}</td>
           </tr>
+          </tbody>
         </table>
       </div>
     </div>
@@ -119,10 +126,14 @@
       <div class="col-xs-12">
         <h2>Virksomhedsdata</h2>
         <p>{{ include ('AppBundle:Virksomhed:show-embed.html.twig', {entity: rapport.virksomhed}) }}</p>
+
+        <br>
         <h3>Datterselskaber</h3>
-        {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-          <p>{{ include ('AppBundle:Virksomhed:show-embed.html.twig', {entity: datterSelskab}) }}</p>
-        {% endfor %}
+        <div class="row">
+          {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+            <div class="col-xs-4">{{ include ('AppBundle:Virksomhed:show-embed.html.twig', {entity: datterSelskab}) }}</div>
+          {% endfor %}
+        </div>
       </div>
     </div>
 
@@ -145,20 +156,28 @@
         <p>Energi portefølje omfatter forbrug af el og varme til bygninger og brændstof til biler og maskiner.</p>
         <p>I det følgende er de enkelte afsnit opdelt i elforbrug, varmeforbrug og i brændstofforbrug.</p>
 
-        <h3 class="text-center">Overordnet forbrug</h3>
-        {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.overordnetForrug }) }}
-        <table>
-          <tr>
-            <th>Afdeling</th>
-            <th>Overordnet forbrug, kWh/år</th>
-          </tr>
-          {% for row in pie_chart_data.overordnetForrug %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Overordnet forbrug</h3>
+          </div>
+
+          {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.overordnetForrug }) }}
+
+          <table class="table table-condensed">
+            <tbody>
             <tr>
-              <td>{{ row.label }}</td>
-              <td>{{ row.value }}</td>
+              <th>Afdeling</th>
+              <th>Overordnet forbrug, kWh/år</th>
             </tr>
-          {% endfor %}
-        </table>
+            {% for row in pie_chart_data.overordnetForrug %}
+              <tr>
+                <th>{{ row.label }}</th>
+                <td>{{ row.value }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -168,24 +187,33 @@
         <p>Fordeling af elforbruget for hver afdeling fremgår desuden af følgende diagram.<p>
 
         {% if pie_chart_data.elForrug %}
-          <h3 class="text-center">El</h3>
-          {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.elForrug }) }}
-          <table>
-            <tr>
-              <th>Afdeling</th>
-              <th>El, kWh/år</th>
-              <th>Erhvervsareal m2</th>
-              <th>KPI</th>
-            </tr>
-            {% for row in pie_chart_data.elForrug %}
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">El</h3>
+            </div>
+
+            {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.elForrug }) }}
+
+            <table class="table table-condensed">
+              <tbody>
               <tr>
-                <td>{{ row.label }}</td>
-                <td>{{ row.value }}</td>
-                <td>{{ row.erhvervsareal }}</td>
-                <td>[x]</td>
+                <th>Afdeling</th>
+                <th>El, kWh/år</th>
+                <th>Erhvervsareal m2</th>
+                <th>KPI</th>
               </tr>
-            {% endfor %}
-          </table>
+              {% for row in pie_chart_data.elForrug %}
+                <tr>
+                  <th>{{ row.label }}</th>
+                  <td>{{ row.value }}</td>
+                  <td>{{ row.erhvervsareal }}</td>
+                  <td>[x]</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
         {% else %}
           <p>Ingen elforbrug.</p>
         {% endif %}
@@ -199,51 +227,67 @@
         <p>Samtlige forbrug er opgjort i kWh så de er sammenlignelige.</p>
 
         {% if pie_chart_data.varmeForrug %}
-          <h3 class="text-center">Varme</h3>
-          {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.varmeForrug }) }}
-          <table>
-            <tr>
-              <th>Afdeling</th>
-              <th>Varme, kWh/år</th>
-              <th>Opvarmetareal m2</th>
-              <th>KPI</th>
-            </tr>
-            {% for row in pie_chart_data.varmeForrug %}
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Varme</h3>
+            </div>
+
+            {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.varmeForrug }) }}
+
+            <table class="table table-condensed">
+              <tbody>
               <tr>
-                <td>{{ row.label }}</td>
-                <td>{{ row.value }}</td>
-                <td>{{ row.opvarmetareal }}</td>
-                <td>[x]</td>
+                <th>Afdeling</th>
+                <th>Varme, kWh/år</th>
+                <th>Opvarmetareal m2</th>
+                <th>KPI</th>
               </tr>
-            {% endfor %}
-          </table>
+              {% for row in pie_chart_data.varmeForrug %}
+                <tr>
+                  <th>{{ row.label }}</th>
+                  <td>{{ row.value }}</td>
+                  <td>{{ row.opvarmetareal }}</td>
+                  <td>[x]</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
         {% else %}
           <p>Ingen varmeforbrug.</p>
-        {% endif %}      </div>
+        {% endif %}
+      </div>
     </div>
 
     <div class="row page-break-before">
       <div class="col-xs-12">
         <h2>Brændstof, alle afdelinger</h2>
         {% if pie_chart_data.braendstofForbrug %}
-          <h3 class="text-center">Brændstof</h3>
-          {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.braendstofForbrug }) }}
-          <table>
-            <tr>
-              <th>Afdeling</th>
-              <th>Brændstof, kWh/år</th>
-              <th>Erhvervsareal m2</th>
-              <th>KPI</th>
-            </tr>
-            {% for row in pie_chart_data.braendstofForbrug %}
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Brændstof</h3>
+            </div>
+
+            {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.braendstofForbrug }) }}
+
+            <table class="table table-condensed results">
               <tr>
-                <td>{{ row.label }}</td>
-                <td>{{ row.value }}</td>
-                <td>{{ row.erhvervsareal }}</td>
-                <td>[x]</td>
+                <th>Afdeling</th>
+                <th>Brændstof, kWh/år</th>
+                <th>Erhvervsareal m2</th>
+                <th>KPI</th>
               </tr>
-            {% endfor %}
-          </table>
+              {% for row in pie_chart_data.braendstofForbrug %}
+                <tr>
+                  <th>{{ row.label }}</th>
+                  <td>{{ row.value }}</td>
+                  <td>{{ row.erhvervsareal }}</td>
+                  <td>[x]</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
         {% else %}
           <p>Ingen brændstofforbrug</p>
         {% endif %}
@@ -254,12 +298,23 @@
       <div class="col-xs-12">
         <h2>Besparelser opdelt i afdelinger</h2>
         {% for beplarelseSluanvendelse in pie_chart_data.beplarelseSluanvendelse %}
-          <h3 class="text-center">{{ beplarelseSluanvendelse.name }}</h3>
-          {% if beplarelseSluanvendelse.data %}
-            {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: beplarelseSluanvendelse.data }) }}
-          {% else %}
-            <p>Ingen Besparelser i {{ beplarelseSluanvendelse.name }} afdeling.</p>
-          {% endif %}
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ beplarelseSluanvendelse.name }}</h3>
+            </div>
+
+            {% if beplarelseSluanvendelse.data %}
+              {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: beplarelseSluanvendelse.data }) }}
+            {% else %}
+              <table class="table table-condensed">
+                <tbody>
+                <tr>
+                  <td>Ingen Besparelser i {{ beplarelseSluanvendelse.name }} afdeling.</td>
+                </tr>
+                </tbody>
+              </table>
+            {% endif %}
+          </div>
         {% endfor %}
       </div>
     </div>
@@ -270,27 +325,36 @@
         <p>I følgende skema er vist det samlede energiforbrug for alle afdelinger.
           Samtlige forbrug er opgjort i kWh/år så de er sammenlignelige.</p>
         {% if pie_chart_data.energiFordeling %}
-          <h3 class="text-center">{{ rapport.virksomhed.name }}</h3>
-          {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.energiFordeling }) }}
-          <table>
-            <tr>
-              <th>Energiart</th>
-              <th>kWh/år</th>
-              <th>%</th>
-            </tr>
-            {% for row in pie_chart_data.energiFordeling %}
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ rapport.virksomhed.name }}</h3>
+            </div>
+
+            {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.energiFordeling }) }}
+
+            <table class="table table-condensed results">
+              <tbody>
               <tr>
-                <td>{{ row.label }}</td>
-                <td>{{ row.value | format_decimal(0) }}</td>
-                <td>{{ row.value | format_percent_of(rapport.calculateSamletEnergiForbrug, 0) }} </td>
+                <th>Energiart</th>
+                <th>kWh/år</th>
+                <th>%</th>
               </tr>
-            {% endfor %}
-            <tr>
-              <td>Sum energi</td>
-              <td>{{ rapport.calculateSamletEnergiForbrug }}</td>
-              <td>100</td>
-            </tr>
-          </table>
+              {% for row in pie_chart_data.energiFordeling %}
+                <tr>
+                  <th>{{ row.label }}</th>
+                  <td>{{ row.value | format_decimal(0) }}</td>
+                  <td>{{ row.value | format_percent_of(rapport.calculateSamletEnergiForbrug, 0) }} </td>
+                </tr>
+              {% endfor %}
+              <tr>
+                <th>Sum energi</th>
+                <td>{{ rapport.calculateSamletEnergiForbrug }}</td>
+                <td>100</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         {% else %}
           <p>Ingen energiforbrug og brændstofudgifter.</p>
         {% endif %}
@@ -305,56 +369,68 @@
 
         {% for elForbrugSluanvendelse in pie_chart_data.elForbrugSluanvendelse %}
           {% if elForbrugSluanvendelse.data %}
-          <h3 class="text-center">{{ elForbrugSluanvendelse.name }}</h3>
-          {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: elForbrugSluanvendelse.data }) }}
-          <table>
-            <tr>
-              <td>Slutanvendelse</td>
-              <td>kWh/år</td>
-            </tr>
-            {% for row in elForbrugSluanvendelse.data %}
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ elForbrugSluanvendelse.name }}</h3>
+            </div>
+
+            {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: elForbrugSluanvendelse.data }) }}
+
+            <table class="table table-condensed results">
               <tr>
-                <td>{{ row.label }}</td>
-                <td>{{ row.value  | format_decimal }}</td>
+                <td>Slutanvendelse</td>
+                <td>kWh/år</td>
               </tr>
-            {% endfor %}
-          </table>
+              {% for row in elForbrugSluanvendelse.data %}
+                <tr>
+                  <th>{{ row.label }}</th>
+                  <td>{{ row.value  | format_decimal }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
           {% else %}
             <p>Ingen elbesparelse i {{ elForbrugSluanvendelse.name }} afdeling.</p>
           {% endif %}
         {% endfor %}
 
-        <h3>Nøgletal elforbrug, kWh/m2</h3>
-        <table>
-          <tr>
-            <th>Afdeling</th>
-            <th>{{ rapport.virksomhed }}</th>
-            {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-              <th>{{ datterSelskab }}</th>
-            {% endfor %}
-          </tr>
-          <tr>
-            <td>El</td>
-            <td>{{ rapport.virksomhed.kortlaegning.totalForbrug }}</td>
-            {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-              <td>{{ datterSelskab.kortlaegning.totalForbrug }}</td>
-            {% endfor %}
-          </tr>
-          <tr>
-            <td>Erhvervsareal</td>
-            <td>{{ rapport.erhvervsareal }}</td>
-            {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-              <td>{{ datterSelskab.rapport.erhvervsareal }}</td>
-            {% endfor %}
-          </tr>
-          <tr>
-            <td>KPI</td>
-            <td>[x]</td>
-            {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Nøgletal elforbrug, kWh/m2</h3>
+          </div>
+
+          <table class="table table-condensed">
+            <tr>
+              <th>Afdeling</th>
+              <th>{{ rapport.virksomhed }}</th>
+              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+                <th>{{ datterSelskab }}</th>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>El</td>
+              <td>{{ rapport.virksomhed.kortlaegning.totalForbrug }}</td>
+              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+                <td>{{ datterSelskab.kortlaegning.totalForbrug }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>Erhvervsareal</td>
+              <td>{{ rapport.erhvervsareal }}</td>
+              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+                <td>{{ datterSelskab.rapport.erhvervsareal }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>KPI</td>
               <td>[x]</td>
-            {% endfor %}
-          </tr>
-        </table>
+              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+                <td>[x]</td>
+              {% endfor %}
+            </tr>
+          </table>
+        </div>
         <p>Som det fremgår af ovenstående varierer nøgletallene fra 93 – 406 kWh/m2.</p>
         <p>Nøgletallene variere på grund af de forskellige anvendelser der forgår på de forskellige adresser.</p>
       </div>
@@ -396,7 +472,6 @@
         <p>Screening af energibesparelser fremgår af bilag 1 som del 2 til energisynsrapporten.</p>
       </div>
     </div>
-
 
   </div>
 

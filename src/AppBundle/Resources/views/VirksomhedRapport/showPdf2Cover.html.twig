@@ -2,64 +2,63 @@
 
 {% block body -%}
 
-  <div class="portrait">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
-    <p class="text-right">
-      <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.jpg')) }}" height="60">
-    </p>
+  <h1 class="pdf-enlarged">
+    {% if rapport.virksomhed.name %}
+      {{ rapport.virksomhed.name }}
+    {% endif %}
+  </h1>
 
-    <hr class="pdf-heading">
+  {% if typenavn %}
+    <h2>{{ typenavn }}</h2>
+  {% endif %}
 
-    <div class="row">
-      <div class="col-xs-7">
-        <h1>Dokument 2<br>
-          Resultatoversigt</h1>
-      </div>
-      <div class="col-xs-5">
-        <h1 class="grey text-right text-uppercase">Energirapport</h1>
-      </div>
-    </div>
-    <div class="row heading">
-      <div class="col-xs-8">
-          {{ icon('briefcase') }} <strong>{{ rapport.virksomhed.name }}</strong><br>
-      </div>
-      <div class="col-xs-4 text-right">
-        <p>{{ 'common.genereted'| trans }}: {{ 'now'|date }}</p>
-      </div>
-    </div>
+  <br><br>
 
-    <hr class="pdf-heading">
+  <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
 
-    <div class="row">
-      <div class="col-xs-12">
-        <h3>1. Overordnede resultat af energianalyser</h3>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
-        <p>Nedenfor ses resultatet for de energisparetiltag som Aa+ projektsekretariatet anbefaler at gennemføre på
-          ejendommen (tilvalgte energisparetiltag), samt resultatet for de energitiltag, der aktuelt er fravalgte
-          for
-          ejendommen.</p>
+  {% if not rapport.bygning.virksomhed.navn %}
+    <br><br><br><br><br>
+  {% endif %}
 
-        <p>Resultatet er ikke et udtryk for det endelige omfang af energisparetiltag, der udføres på ejendommen da
-          brugere, teknisk personale mv. kan komme med input efter gennemlæsning af nærværende resultatoversigt samt
-          øvrige dokumenter, der er udleveret for ejendommen (for oversigt over disse dokumenter, se læsevejledningen i
-          dokument 1).</p>
-
-        <p>På baggrund af disse input, samt tekniske, brugermæssige og/eller økonomiske betragtninger, beslutter
-          magistratsafdelingen i samarbejde med Aa+ Projektsekretariatet hvilke tiltag, der skal udføres på
-          ejendommen. Sker der større ændringer af tilvalg/fravalg i denne beslutningsproces, udsendes nærværende
-          dokument i en opdateret version hvor Aa+ Projektsekretariatet informerer om, at der dermed er tale om
-          endelige tilvalg/fravalg.</p>
-
-        <p>Bagerst i nærværende dokument ses en liste over energisparetiltag, som energirådgiveren har identificeret på
-          ejendommen. Listen viser om tiltaget aktuelt er tilvalgt/fravalgt samt tiltagets besparelse og
-          økonomi. Tiltagene er forsynet med et "Detailark nr." der henviser til et detailark i dokument 5, hvor hvert
-          enkelt tiltag beskrives nærmere. Detailarkene i dokument 5 er indsat i samme rækkefølge, som de fremgår
-          af bruttolisten.</p>
-
-        <p>Alle beløb er ekskl. moms.</p>
-      </div>
-    </div>
-
+  <div class="text-right">
+    <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
   </div>
 
 {% endblock %}
