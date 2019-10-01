@@ -8,6 +8,9 @@
   <br>
   <h1 class="pdf-enlarged">{{ rapport.virksomhed.name }}</h1>
   <h2>Virksomhed bygninger detailark</h2>
+  {% if typenavn %}
+    <h3>{{ typenavn }}</h3>
+  {% endif %}
   <br>
   <br>
   <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>

@@ -37,8 +37,8 @@ class PdfExport {
     }
 
     $coverParams = array('rapport' => $rapport);
-    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeName()) {
-      $coverParams['typenavn'] = ucfirst($virksomhedsType);
+    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
+      $coverParams['typenavn'] = $virksomhedsType;
     }
     $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', $coverParams);
 
@@ -78,8 +78,8 @@ class PdfExport {
     }
 
     $coverParams = array('rapport' => $rapport);
-    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeName()) {
-      $coverParams['typenavn'] = ucfirst($virksomhedsType);
+    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
+      $coverParams['typenavn'] = $virksomhedsType;
     }
     $cover = $this->renderView('AppBundle:Rapport:showPdf5Cover.html.twig', $coverParams);
 
@@ -101,7 +101,7 @@ class PdfExport {
 
   public function exportVirksomhedRapport2(VirksomhedRapport $rapport, array $options = array()) {
     $data = array();
-    $virksomhed = $rapport;
+    $virksomhed = $rapport->getVirksomhed();
 
     if ($virksomhed && $virksomhedsNavn = $virksomhed->getName()) {
       $data[] = $virksomhedsNavn;
@@ -116,8 +116,8 @@ class PdfExport {
     }
 
     $coverParams = array('rapport' => $rapport);
-    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeName()) {
-      $coverParams['typenavn'] = ucfirst($virksomhedsType);
+    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
+      $coverParams['typenavn'] = $virksomhedsType;
     }
     $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdf2Cover.html.twig', $coverParams);
 
@@ -138,7 +138,7 @@ class PdfExport {
 
   public function exportVirksomhedRapportKortlaegning(VirksomhedRapport $rapport, array $options = array(), $test = FALSE) {
     $data = array();
-    $virksomhed = $rapport;
+    $virksomhed = $rapport->getVirksomhed();
 
     if ($virksomhed && $virksomhedsNavn = $virksomhed->getName()) {
       $data[] = $virksomhedsNavn;
@@ -153,8 +153,8 @@ class PdfExport {
     }
 
     $coverParams = array('rapport' => $rapport);
-    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeName()) {
-      $coverParams['typenavn'] = ucfirst($virksomhedsType);
+    if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
+      $coverParams['typenavn'] = $virksomhedsType;
     }
     $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegningCover.html.twig', $coverParams);
 

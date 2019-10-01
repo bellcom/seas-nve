@@ -644,6 +644,17 @@ class Virksomhed
     }
 
     /**
+     * Get type name label
+     *
+     * @return string
+     */
+    public function getTypeNameLabel($inherit = FALSE) {
+        $choices = VirksomhedTypeType::getChoices();
+        $typeName = $this->getTypeName($inherit);
+        return isset($choices[$typeName]) ? $choices[$typeName] : '';
+    }
+
+    /**
      * Set rapport
      *
      * @param VirksomhedRapport $rapport
