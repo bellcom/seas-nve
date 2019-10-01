@@ -1,3 +1,11 @@
-<div>{{ contactPerson.name }}</div>
-<div>{{ contactPerson.mail }}</div>
-<div>{{ contactPerson.phoneNumber }}</div>
+{% if contactPerson.name %}
+  <div>{{ contactPerson.name }}</div>
+{% endif %}
+
+{% if contactPerson.mail %}
+  <div>{{ contactPerson.mail }}</div>
+{% endif %}
+
+{% if contactPerson.phoneNumber %}
+  <div>{{ contactPerson.phoneNumber }}</div>
+{% endif %}

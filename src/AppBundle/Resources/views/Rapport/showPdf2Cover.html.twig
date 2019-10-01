@@ -18,7 +18,9 @@
     {{ rapport.bygning.navn }}
   </h1>
 
-  <h2>{{ typenavn }}</h2>
+  {% if typenavn %}
+    <h2>{{ typenavn }}</h2>
+  {% endif %}
 
   <br><br>
 
