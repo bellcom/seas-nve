@@ -1,76 +1,56 @@
-{% if dummy %}
-  {% set dummy_path = '/img/dummy-piechart' ~ random(5) ~ '.png' %}
-<div class="text-center"><img src="{{ absolute_url(dummy_path) }}"/></div>
-{% else %}
-{% set chartIdRandomized = 'piechart' ~ random() %}
-<figure id="{{ chartIdRandomized }}" class="text-center">
-  <canvas id="{{ chartIdRandomized }}canvas" width="950" height="400"></canvas>
-  <figcaption class="text-left"></figcaption>
-</figure>
+{% set chartIdRandomized = 'highchart_' ~ random() %}
+<div class="text-center">
+  <div id="{{ chartIdRandomized }}" width="950" height="400"></div>
+</div>
 
-<script src="{{ absolute_url(asset('js/lib/Chart.js/Chart.min.js')) }}"></script>
 <script>
   (function() {
-    var colors = [
-      '#FE9029',
-      '#FFDE2F',
-      '#74766C',
-      '#62C5D3',
-      '#A7CB11',
-      '#006F55',
-      '#009E50',
-      '#CAE070',
-      '#FFEB82',
-      '#99D8B9',
-      '#FEA654',
-      '#A1DCE5',
-      '#74766C',
-      '#CCECDC',
-      '#A1DCE5'
-    ];
 
-    var injectedData = {{ pie_chart_data | json_encode | raw }};
-
-    function prepareData(data, colors) {
-      var iteration = 0;
+    function prepareData(data) {
       var mutatedData = [];
 
       for (var item of data) {
         mutatedData.push({
-          label: item.label,
-          value: item.value,
-          color: colors[iteration],
-          highlight: colors[iteration]
+          name: item.label,
+          y: parseInt(item.value)
         });
-
-        // Reset if index does not exist.
-        if (typeof colors[iteration] === 'undefined') {
-          iteration = 0;
-        }
-        else {
-          iteration++;
-        }
       }
 
       return mutatedData;
     }
 
-    var ctx = document.querySelector('#{{ chartIdRandomized }} canvas').getContext('2d');
-    var options = {
-      segmentShowStroke : true,
-      segmentStrokeColor : "#fff",
-      segmentStrokeWidth : 2,
-      percentageInnerCutout : 0,
-      animationSteps : 100,
-      animationEasing : "easeOutBounce",
-      animateRotate : false,
-      animateScale : false,
-    };
-    var data = prepareData(injectedData, colors);
+    var injectedData = {{ pie_chart_data | json_encode | raw }};
+    var data = prepareData(injectedData);
 
-    var piechart = new Chart(ctx).Pie(data, options);
-    {% if (show_legend) %}
-    document.querySelector('#{{ chartIdRandomized }} figcaption').innerHTML = piechart.generateLegend();
-    {% endif %}
-  }())</script>
-{% endif %}
+    Highcharts.chart('{{ chartIdRandomized }}', {
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: ''
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <strong>{point.percentage:.1f}%</strong>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: false
+          },
+          showInLegend: true,
+          animations: false,
+        }
+      },
+      series: [{
+        name: 'Amount',
+        colorByPoint: true,
+        data: data
+      }]
+    });
+  }());
+</script>
