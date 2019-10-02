@@ -2033,7 +2033,7 @@ abstract class Tiltag {
   protected function calculateNutidsvaerdiSetOver15AarKrExpr() {
     return $this->sumExpr($this->calculateNutidsvaerdiSetOver15AarKr(TRUE));
   }
-  
+
   /**
    * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
    */
@@ -2085,7 +2085,7 @@ abstract class Tiltag {
   public function getRapportElKrKWh() {
     return $this->getRapport()->getElKrKWh();
   }
-  
+
   public function getRapportVarmeKrKWh() {
     return $this->getRapport()->getVarmeKrKWh();
   }
@@ -2132,7 +2132,7 @@ abstract class Tiltag {
       $result[] = (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
       return $result;
     });
-  
+
     if ($expression) {
       return $this->sumExpr($result);
     }

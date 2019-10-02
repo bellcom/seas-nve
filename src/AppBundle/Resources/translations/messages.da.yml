@@ -656,6 +656,7 @@ virksomhed_rapporter:
     download_files: "Hent alle bilag og filer"
     edit: "Baseline og energibudget"
     edit_kortlaegning: "Rediger Kortlægning"
+    edit_tekster: "Tekster"
     filer: "Filer"
     pdf2: "Resultatoversigt"
     pdf_detailark: "Detailark"
@@ -677,6 +678,7 @@ virksomhed_rapporter:
     related_reports: "Relaterede rapporter"
   groups:
     baseline_data: "Baseline data"
+    kortlaegning_tekster: "Kortlaegning tekster"
 virksomhed_kortlaegning:
   label:
     plural: "Kortlægninger"
@@ -2249,6 +2251,8 @@ appbundle:
     opvarmetareal.unit: "m²"
     uOpvarmetareal: "Uopvarmet areal"
     uOpvarmetareal.unit: "m²"
+    kortlaegningKonklusionTekst: "Konklusion tekst"
+    kortlaegningVirksomhedBeskrivelse: "Beskrivelse af virksomhed"
   virksomhedkortlaegning:
     aar: "År"
     slutanvendelser: "Slutanvendelser"

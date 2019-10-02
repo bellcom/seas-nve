@@ -1,0 +1,30 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% import 'AppBundle::_includes/aaplus.html.twig' as aaplus %}
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'virksomhed_rapporter.actions.edit_kortlaegning' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+    </div>
+
+  </div>
+
+  {{ form_start(show_form) }}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ 'virksomhed_rapporter.groups.kortlaegning_tekster' | trans }}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-12">
+        {{ form_row(show_form.kortlaegningKonklusionTekst) }}
+        {{ form_row(show_form.kortlaegningVirksomhedBeskrivelse) }}
+      </div>
+    </div>
+  </div>
+
+  {{ form_rest(show_form) }}
+  {{ form_end(show_form) }}
+
+{% endblock %}
