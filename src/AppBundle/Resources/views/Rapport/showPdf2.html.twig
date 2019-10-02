@@ -23,7 +23,9 @@
         {% set slutanvendelseLabels = rapport.getBesparelseSlutanvendelserLabels() %}
         <ul>
           {% for type, slutanvendelse in rapport.besparelseSlutanvendelser %}
-            <li>{{ slutanvendelseLabels[type] }}: {{ slutanvendelse.total | format_decimal(0)}} kWh/år</li>
+            {% if slutanvendelse.total != 0 %}
+              <li>{{ slutanvendelseLabels[type] }}: {{ slutanvendelse.total | format_decimal(0)}} kWh/år</li>
+            {% endif %}
           {% endfor %}
         </ul>
 
