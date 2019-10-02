@@ -271,14 +271,14 @@ class Virksomhed
     protected $forsyningsvaerkEl;
 
     /**
-     * @ORM\OneToOne(targetEntity="VirksomhedKortlaegning", mappedBy="virksomhed", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="VirksomhedKortlaegning", inversedBy="virksomhed", fetch="EAGER", cascade={"persist"})
      * @JoinColumn(name="virksomhed_id", referencedColumnName="id", nullable=true)
      * @JMS\Exclude
      **/
     protected $kortlaegning;
 
     /**
-     * @ORM\OneToOne(targetEntity="Baseline", mappedBy="virksomhed", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Baseline", inversedBy="virksomhed", fetch="EAGER")
      * @JoinColumn(name="baseline_id", referencedColumnName="id", nullable=true)
      * @JMS\Exclude
      **/

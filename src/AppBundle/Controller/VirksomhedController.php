@@ -513,6 +513,14 @@ class VirksomhedController extends BaseController
               $em->remove($contactPerson);
             }
 
+            if (!empty($virksomhed->getBaseline())) {
+                $em->remove($virksomhed->getBaseline());
+            }
+
+            if (!empty($virksomhed->getKortlaegning())) {
+                $em->remove($virksomhed->getKortlaegning());
+            }
+
             $em->remove($entity);
             $em->flush();
         }
