@@ -2,7 +2,9 @@
 !web/filer/.htaccess
 /web/uploads/*
 !web/uploads/.htaccess
+!web/uploads/content/.htaccess
 /web/bundles/
+/web/assets/
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml

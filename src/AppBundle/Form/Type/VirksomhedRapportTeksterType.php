@@ -29,8 +29,8 @@ class VirksomhedRapportTeksterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('kortlaegningKonklusionTekst', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
-            ->add('kortlaegningVirksomhedBeskrivelse', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE));
+            ->add('kortlaegningKonklusionTekst', 'ckeditor', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+            ->add('kortlaegningVirksomhedBeskrivelse', 'ckeditor', array('attr' => array('maxlength' => 10000), 'required' => FALSE));
     }
 
     /**
