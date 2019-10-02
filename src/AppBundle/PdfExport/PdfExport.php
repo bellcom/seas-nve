@@ -324,6 +324,7 @@ class PdfExport {
     $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegning.html.twig', array(
       'rapport' => $rapport,
       'pie_chart_data' => $pieChartData,
+      'dummy' => !$test,
     ));
 
     if ($test) {

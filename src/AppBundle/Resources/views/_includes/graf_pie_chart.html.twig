@@ -1,3 +1,7 @@
+{% if dummy %}
+  {% set dummy_path = '/img/dummy-piechart' ~ random(5) ~ '.png' %}
+<div class="text-center"><img src="{{ absolute_url(dummy_path) }}"/></div>
+{% else %}
 {% set chartIdRandomized = 'piechart' ~ random() %}
 <figure id="{{ chartIdRandomized }}" class="text-center">
   <canvas id="{{ chartIdRandomized }}canvas" width="950" height="400"></canvas>
@@ -69,3 +73,4 @@
     document.querySelector('#{{ chartIdRandomized }} figcaption').innerHTML = piechart.generateLegend();
     {% endif %}
   }())</script>
+{% endif %}
