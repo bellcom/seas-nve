@@ -2,10 +2,10 @@
   <div>{{ contactPerson.name }}</div>
 {% endif %}
 
+  {% if contactPerson.phoneNumber %}
+    <div>{{ contactPerson.phoneNumber }}</div>
+  {% endif %}
+
 {% if contactPerson.mail %}
   <div><a href="mailto:{{ contactPerson.mail }}">{{ contactPerson.mail }}</a></div>
-{% endif %}
-
-{% if contactPerson.phoneNumber %}
-  <div>{{ contactPerson.phoneNumber }}</div>
 {% endif %}
