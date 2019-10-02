@@ -129,6 +129,7 @@
 
         <br>
         <h3>Datterselskaber</h3>
+        <hr class="dark">
         <div class="row">
           {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
             <div class="col-xs-4">{{ include ('AppBundle:Virksomhed:show-embed.html.twig', {entity: datterSelskab}) }}</div>

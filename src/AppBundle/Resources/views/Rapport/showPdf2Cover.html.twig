@@ -10,8 +10,8 @@
   <br>
 
   <h1 class="pdf-enlarged">
-    {% if rapport.bygning.virksomhed.navn %}
-      {{ rapport.bygning.virksomhed.navn }}
+    {% if rapport.bygning.virksomhed.name %}
+      {{ rapport.bygning.virksomhed.name }}
       <br>
     {% endif %}
 
@@ -56,7 +56,7 @@
   <br>
   <br>
 
-  {% if not rapport.bygning.virksomhed.navn %}
+  {% if rapport.bygning.virksomhed.name is empty %}
     <br><br><br><br><br>
   {% endif %}
 
