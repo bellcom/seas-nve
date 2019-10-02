@@ -2124,6 +2124,13 @@ class VirksomhedRapport
     }
 
     /**
+     * Get Virksomhed Tilskudstorellse.
+     */
+    public function getVirksomhedTilskudstorellse() {
+        return $this->getVirksomhed() ? $this->getVirksomhed()->getTilskudstorelse() : 0;
+    }
+
+    /**
      * Check if calculating this Rapport makes sense.
      * Some values may be required to make a meaningful calculation.
      */

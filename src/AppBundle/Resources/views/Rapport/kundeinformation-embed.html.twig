@@ -50,9 +50,8 @@
       <div class="row">
         {% for user in rapport.bygning.energiRaadgiver %}
           <div class="col-xs-4">
-            {{ user.name }}
-              <div>{{ user.name }}</div>
-              <div><a href="mailto:{{ user.email }}">{{ user.email }}</a></div>
+            <div>{{ user }}</div>
+            <div><a href="mailto:{{ user.email }}">{{ user.email }}</a></div>
           </div>
         {% endfor %}
       </div>
