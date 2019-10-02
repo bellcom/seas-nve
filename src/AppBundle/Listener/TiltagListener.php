@@ -97,6 +97,9 @@ class TiltagListener {
       return  !in_array($target, $uow->getScheduledEntityDeletions());
     });
     foreach ($targets as $target) {
+      if (empty($target)) {
+        continue;
+      }
       // We need to set the configuration before calculating a Rapport.
       if ($target instanceof Rapport) {
         $target->setConfiguration($em->getRepository(Configuration::class)->getConfiguration());

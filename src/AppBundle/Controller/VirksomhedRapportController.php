@@ -10,6 +10,7 @@ use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\Type\VirksomhedRapportSearchType;
 use AppBundle\Form\Type\VirksomhedRapportBaselineType;
+use AppBundle\Form\Type\VirksomhedRapportTeksterType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -187,6 +188,79 @@ class VirksomhedRapportController extends BaseController {
       'entity' => $rapport,
       'show_form' => $editForm->createView(),
     );
+  }
+
+  /**
+   * Finds and displays Baseline for a VirksomhedRapport entity.
+   *
+   * @Route("/{id}/tekster", name="virksomhed_rapport_tekster_values")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('VIRKSOMHED_RAPPORT_EDIT', rapport)")
+   * @param VirksomhedRapport $rapport
+   * @return array
+   */
+  public function teksterAction(VirksomhedRapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('virksomhed_rapporter.actions.edit_tekster', $this->generateUrl('virksomhed_rapport_tekster_values', array('id' => $rapport->getId())));
+
+    $showForm = $this->createEditTeksterForm($rapport);
+    return array(
+      'entity' => $rapport,
+      'show_form' => $showForm->createView(),
+    );
+  }
+
+  /**
+   * Updates tekster values for a VirksomhedRapport entity.
+   *
+   * @Route("/{id}/tekster", name="virksomhed_rapport_tekster_values_update")
+   * @Method("PUT")
+   * @Security("is_granted('VIRKSOMHED_RAPPORT_EDIT', rapport)")
+   * @Template("AppBundle:VirksomhedRapport:tekster.html.twig")
+   * @param VirksomhedRapport $rapport
+   * @return RedirectResponse|array
+   */
+  public function teksterUpdateAction(Request $request, VirksomhedRapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('virksomhed_rapporter.actions.edit_tekster', $this->generateUrl('virksomhed_rapport_tekster_values', array('id' => $rapport->getId())));
+
+    $editForm = $this->createEditTeksterForm($rapport);
+    $editForm->handleRequest($request);
+
+    if ($editForm->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      /** @var Bygning $bygning */
+      foreach ($rapport->getVirksomhed()->getAllBygninger() as $bygning) {
+        $bygningRapport = $bygning->getRapport();
+        $em->persist($bygningRapport);
+      }
+      $em->flush();
+
+      return $this->redirect($this->generateUrl('virksomhed_rapport_tekster_values', array('id' => $rapport->getId())));
+    }
+    return array(
+      'entity' => $rapport,
+      'show_form' => $editForm->createView(),
+    );
+  }
+
+  /**
+   * Creates a form to edit a VirksomhedRapport entity.
+   *
+   * @param VirksomhedRapport $rapport The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditTeksterForm(VirksomhedRapport $rapport) {
+    $form = $this->createForm(new VirksomhedRapportTeksterType($this->get('security.context'), $rapport), $rapport, array(
+      'action' => '#',
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_tekster_values', array('id' => $rapport->getId())));
+
+    return $form;
   }
 
   /**

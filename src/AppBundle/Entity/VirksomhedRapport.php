@@ -28,6 +28,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use PHPExcel_Calculation_Financial as Excel;
 use PHPExcel_Calculation_Functions as ExcelError;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * VirksomhedRapport
@@ -613,6 +615,30 @@ class VirksomhedRapport
     protected $uOpvarmetareal;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="kortlaegningKonklusionTekst", type="text", nullable=true)
+     *
+     * @Assert\Length(
+     *  max = 10000,
+     *  maxMessage = "maxLength"
+     * )
+     */
+    protected $kortlaegningKonklusionTekst;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="kortlaegningVirksomhedBeskrivelse", type="text", nullable=true)
+     *
+     * @Assert\Length(
+     *  max = 10000,
+     *  maxMessage = "maxLength"
+     * )
+     */
+    protected $kortlaegningVirksomhedBeskrivelse;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -633,7 +659,7 @@ class VirksomhedRapport
         /** @var Virksomhed $virksomhed */
         $virksomhed = $this->getVirksomhed();
         if ($virksomhed->getAddress()) {
-            return $virksomhed->getAddress();
+            return $virksomhed->getName() . ', ' .$virksomhed->getAddress();
         }
         if ($virksomhed->getName()) {
             return $virksomhed->getName();
@@ -2054,6 +2080,48 @@ class VirksomhedRapport
             $this->setUOpvarmetareal($this->calculateByFormula('uOpvarmetareal'));
         }
         return $this->uOpvarmetareal;
+    }
+
+    /**
+     * Set kortlaegningKonklusionTekst
+     *
+     * @param string $kortlaegningKonklusionTekst
+     * @return VirksomhedRapport
+     */
+    public function setKortlaegningKonklusionTekst($kortlaegningKonklusionTekst) {
+        $this->kortlaegningKonklusionTekst = $kortlaegningKonklusionTekst;
+
+        return $this;
+    }
+
+    /**
+     * Get kortlaegningVirksomhedBeskrivelse
+     *
+     * @return string
+     */
+    public function getKortlaegningVirksomhedBeskrivelse() {
+        return $this->kortlaegningVirksomhedBeskrivelse;
+    }
+
+    /**
+     * Set kortlaegningVirksomhedBeskrivelse
+     *
+     * @param string $kortlaegningVirksomhedBeskrivelse
+     * @return VirksomhedRapport
+     */
+    public function setKortlaegningVirksomhedBeskrivelse($kortlaegningVirksomhedBeskrivelse) {
+        $this->kortlaegningVirksomhedBeskrivelse = $kortlaegningVirksomhedBeskrivelse;
+
+        return $this;
+    }
+
+    /**
+     * Get kortlaegningKonklusionTekst
+     *
+     * @return string
+     */
+    public function getKortlaegningKonklusionTekst() {
+        return $this->kortlaegningKonklusionTekst;
     }
 
     /**
