@@ -36,8 +36,14 @@
       <br>
       <br>
       <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
 
-      {% if not rapport.bygning.virksomhed.navn %}
+      {% if rapport.bygning.virksomhed.navn is empty %}
         <br><br><br><br><br>
       {% endif %}
 
