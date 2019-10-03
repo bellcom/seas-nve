@@ -77,7 +77,11 @@
     <div class="row page-break-before">
       <div class="col-xs-12">
         <h2>Konklusion</h2>
-        {{ rapport.kortlaegningKonklusionTekst | raw }}
+        {% if rapport.kortlaegningKonklusionTekst %}
+          {{ rapport.kortlaegningKonklusionTekst | raw }}
+        {%  else %}
+          {{ 'virksomhed_rapporter.strings.kortlaegning_konklusion_tekst_empty' | trans }} [{{ absolute_url(path('virksomhed_rapport_tekster_values', { 'id': rapport.id })) }}]
+        {%  endif %}
       </div>
     </div>
 

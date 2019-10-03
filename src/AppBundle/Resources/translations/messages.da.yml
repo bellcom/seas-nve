@@ -677,6 +677,7 @@ virksomhed_rapporter:
     no_files: "Rapporten har ingen filer tilknyttet"
   strings:
     related_reports: "Relaterede rapporter"
+    kortlaegning_konklusion_tekst_empty: "Dette felt er ikke udfyldt - tryk på linket for at tilføje:"
   groups:
     baseline_data: "Baseline data"
     kortlaegning_tekster: "Kortlaegning tekster"
