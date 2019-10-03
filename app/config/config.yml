@@ -235,6 +235,15 @@ app:
     default_file_path: %app.pdf_export.default_file_path
 
 trsteel_ckeditor:
+    toolbar: ['document', 'clipboard', 'editing', 'insert', '/', 'styles', 'basicstyles', 'paragraph', 'links']
+    toolbar_groups:
+        document: ['Source']
+        clipboard: ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo']
+        editing: ['Find','Replace','-','SelectAll']
+        basicstyles: ['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat']
+        paragraph: ['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft', 'JustifyCenter','JustifyRight','JustifyBlock']
+        links: ['Link','Unlink','Anchor']
+        insert: ['Image']
     filebrowser_image_browse_url:
         route: elfinder
         route_parameters:

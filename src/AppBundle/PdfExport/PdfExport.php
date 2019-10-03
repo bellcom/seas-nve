@@ -290,18 +290,20 @@ class PdfExport {
     // Data for elForbrugSluanvendelse pie chart.
     $labels = $rapport->getBesparelseSlutanvendelserLabels();
     $chartData = array();
-    foreach ($rapport->getVirksomhed()->getKortlaegning()->getSlutanvendelser() as $key => $value) {
-      $chartData[] = array(
-        'label' => $labels[$key],
-        'value' => $value['forbrug'],
+    if (!empty($rapport->getVirksomhed()->getKortlaegning())) {
+      foreach ($rapport->getVirksomhed()->getKortlaegning()->getSlutanvendelser() as $key => $value) {
+        $chartData[] = array(
+          'label' => $labels[$key],
+          'value' => $value['forbrug'],
+        );
+      }
+      $elForbrugSluanvendelse = array(
+        array(
+          'name' => $rapport->getVirksomhed()->getName(),
+          'data' => $chartData,
+        ),
       );
     }
-    $elForbrugSluanvendelse = array(
-      array(
-        'name' => $rapport->getVirksomhed()->getName(),
-        'data' => $chartData,
-      ),
-    );
 
     foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
       if (empty($datterSelskab->getKortlaegning())) {
@@ -320,11 +322,19 @@ class PdfExport {
       );
     }
     $pieChartData['elForbrugSluanvendelse'] = $elForbrugSluanvendelse;
+    $base_url = $this->container->get('request')->getSchemeAndHttpHost();
+    $fm_elfinder_config = $this->container->getParameter('fm_elfinder');
+    $uploadsPath =  '/' . $fm_elfinder_config['instances']['default']['connector']['roots']['uploads']['path'];
+    if (!empty($uploadsPath)) {
+      $uploadsUrl = $base_url . $uploadsPath;
+      $rapport->setKortlaegningKonklusionTekst(str_replace('"' . $uploadsPath, '"' . $uploadsUrl, $rapport->getKortlaegningKonklusionTekst()));
+      $rapport->setKortlaegningVirksomhedBeskrivelse(str_replace('"' . $uploadsPath, '"' . $uploadsUrl, $rapport->getKortlaegningVirksomhedBeskrivelse()));
+    }
 
     $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegning.html.twig', array(
       'rapport' => $rapport,
       'pie_chart_data' => $pieChartData,
-      'dummy' => !$test,
+      'show_legend' => TRUE,
     ));
 
     if ($test) {
@@ -338,7 +348,7 @@ class PdfExport {
             'cover' => $cover,
             'header-left' => implode(' | ', $data),
             'header-right' => "Side [page] af [toPage]",
-            'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdfKortlaegningFooter.html'),
+            'footer-html' => $base_url .'/html/pdfKortlaegningFooter.html'),
       $options));
   }
 

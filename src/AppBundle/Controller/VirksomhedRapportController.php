@@ -230,14 +230,9 @@ class VirksomhedRapportController extends BaseController {
 
     if ($editForm->isValid()) {
       $em = $this->getDoctrine()->getManager();
-      /** @var Bygning $bygning */
-      foreach ($rapport->getVirksomhed()->getAllBygninger() as $bygning) {
-        $bygningRapport = $bygning->getRapport();
-        $em->persist($bygningRapport);
-      }
       $em->flush();
-
-      return $this->redirect($this->generateUrl('virksomhed_rapport_tekster_values', array('id' => $rapport->getId())));
+      $this->flash->success('virksomhed_rapporter.confirmation.tekster_opdateret');
+      return $this->redirect($this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
     }
     return array(
       'entity' => $rapport,
