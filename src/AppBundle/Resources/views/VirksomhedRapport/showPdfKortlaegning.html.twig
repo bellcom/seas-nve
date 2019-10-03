@@ -90,7 +90,7 @@
         <h3>Energibesparelser på maskiner og køretøjer.</h3>
         <p>Da virksomhedens energiforbrug til transport udgør under 1 %, er brændstofforbruget ikke analyseret nærmere og er ikke beskrevet yderligere i rapporten.</p>
 
-        {{ rapport.kortlaegningKonklusionTekst }}
+        {{ rapport.kortlaegningKonklusionTekst | raw }}
       </div>
     </div>
 
@@ -151,7 +151,7 @@
         <p>Virksomheden producere power enheder, fremdrivningsanlæg samt servicere og renovere leveret udstyr.
           Der er endvidere en stor reservedelsfremstilling på primært København og Frederikshavn sitene.</p>
 
-        {{ rapport.kortlaegningVirksomhedBeskrivelse }}
+        {{ rapport.kortlaegningVirksomhedBeskrivelse | raw }}
       </div>
     </div>
 

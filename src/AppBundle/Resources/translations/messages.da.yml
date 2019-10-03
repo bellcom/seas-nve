@@ -670,6 +670,7 @@ virksomhed_rapporter:
   confirmation:
     re-calculate: "Er du sikker på at du vil genberegne bygningsrapporten?"
     calculated: "Virksomhed rapport beregnet"
+    tekster_opdateret: "Virksomhed rapport tekster blev opdateret"
   error:
     beregn_fejl: "Fejl under beregning af rapport"
   messages:

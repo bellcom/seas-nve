@@ -31,6 +31,8 @@ class AppKernel extends Kernel
       new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
       new MewesK\TwigExcelBundle\MewesKTwigExcelBundle(),
       new ItkDev\DatabaseBundle\ItkDevDatabaseBundle(),
+      new Trsteel\CkeditorBundle\TrsteelCkeditorBundle(),
+      new FM\ElfinderBundle\FMElfinderBundle(),
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {
