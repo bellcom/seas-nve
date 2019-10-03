@@ -267,3 +267,25 @@ a {
   color: #000;
   text-decoration: underline;
 }
+
+.piechart-legend {
+  padding-left: 0;
+  margin-top: 15pt;
+  margin-left: -5pt;
+
+  list-style: none;
+}
+.piechart-legend li {
+  display: inline-block;
+
+  padding-right: 5pt;
+  padding-left: 5pt;
+}
+.piechart-legend span {
+  float: left;
+
+  width: 14pt;
+  height: 14pt;
+
+  margin-right: 5pt;
+}
