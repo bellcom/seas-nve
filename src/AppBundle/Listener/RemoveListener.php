@@ -17,7 +17,7 @@ class RemoveListener {
       }
     }
 
-    if ($entity instanceof Tiltag) {
+    if ($entity instanceof Tiltag && $entity->getRapport()) {
       $rapport = $entity->getRapport();
       $rapport->getTiltag()->removeElement($entity);
       $rapport->calculate();

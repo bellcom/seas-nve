@@ -9,6 +9,7 @@ namespace AppBundle\Controller;
 use AppBundle\DataExport\ExcelExport;
 use AppBundle\Entity\BygningRepository;
 use AppBundle\Entity\ContactPerson;
+use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\VirksomhedType;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -395,6 +396,47 @@ class BygningController extends BaseController implements InitControllerInterfac
 
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
+      $rapport = $bygning->getRapport();
+      if (!empty($rapport)) {
+        // Arrays to collect orphaned tiltags and details.
+        $detailsToDelete = array();
+        $tiltagsToDelete = array();
+
+        /** @var Tiltag $tiltag */
+        foreach ($rapport->getTiltag() as $tiltag) {
+          /** @var Tiltag $detail */
+          foreach ($tiltag->getDetails() as $detail) {
+            // Detaching details from tiltag.
+            $detail->setTiltag(NULL);
+            $tiltag->removeDetail($detail);
+            $detailsToDelete[] = $detail;
+          }
+          $em->persist($tiltag);
+
+          // Detaching tiltag from rapport.
+          $tiltag->setRapport(NULL);
+          $rapport->removeTiltag($tiltag);
+          $em->flush();
+          $tiltagsToDelete[] = $tiltag;
+        }
+        $em->persist($rapport);
+        $em->flush();
+
+        // Removing orphaned tiltags and details.
+        foreach ($tiltagsToDelete as $tiltag) {
+          $em->remove($tiltag);
+        }
+        foreach ($detailsToDelete as $detail) {
+          $em->remove($detail);
+        }
+        $em->flush();
+        $this->flash->success('bygning_rapporter.confirmation.deleted_forslags');
+
+        // Removing rapport.
+        $em->remove($rapport);
+        $em->flush();
+        $this->flash->success('bygning_rapporter.confirmation.deleted');
+      }
 
       // Contact persons are not handled by Doctrine ORM.
       // We have to update it here.
@@ -404,6 +446,9 @@ class BygningController extends BaseController implements InitControllerInterfac
 
       $em->remove($bygning);
       $em->flush();
+      // @TODO remove revisions.
+
+      $this->flash->success('bygninger.confirmation.deleted');
     }
 
     return $this->redirect($this->generateUrl('bygning'));
@@ -418,18 +463,11 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createDeleteForm(Bygning $bygning) {
-    $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bygning');
-    $message = $repository->getRemoveErrorMessage($bygning);
-
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('bygning_delete', array('id' => $bygning->getId())))
       ->setMethod('DELETE')
       ->add('submit', 'submit', array(
         'label' => 'Delete',
-        'disabled' => $message,
-        'attr' => array(
-          'disabled_message' => $message,
-        ),
       ))
       ->getForm();
   }

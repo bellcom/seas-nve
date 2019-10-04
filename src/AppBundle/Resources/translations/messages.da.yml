@@ -178,6 +178,7 @@ bygninger:
   confirmation:
     bygning_infoert: "Bygnings data verificeret"
     raadgiver_tilknyttet: "Rådgiver tilknyttet"
+    deleted: "Bygning slettet"
   error:
     bind_virksomhed_by_cvr: "Bygning allerede tilknutet til Virksomhed. Fjern bygning fra Virksomhed først."
   labels:
@@ -221,6 +222,8 @@ bygning_rapporter:
     retur: "Bygning rapport returneret til rådgiver"
     submitted: "Bygning rapport afleveret til Aa+"
     verified: "Bygning rapport verificeret af Aa+"
+    deleted: "Bygning rapport slettet"
+    deleted_forslags: "Bygning rapport forslags blev slettet"
   messages:
     no_files: "Bygning rapporten har ingen filer tilknyttet"
     baseline_value_disabled: "This value has been defined in Virksomhed rapport baseline or Virksomhed baseline"
@@ -640,6 +643,7 @@ virksomhed:
   confirmation:
     created: "Ny virksomhed er oprettet."
     rapport_created: "Ny virksomhedsrapport er oprettet."
+    deleted: "Virksomhed slettet"
   messages:
     empty:
       contactPersons: "Ingen kontaktpersoner"
