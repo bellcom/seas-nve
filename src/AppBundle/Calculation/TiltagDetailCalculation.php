@@ -27,6 +27,10 @@ class TiltagDetailCalculation extends Calculation {
       return;
     }
 
+    if (empty($entity->getTiltag())) {
+      return;
+    }
+
     $this->calculate($entity);
   }
 

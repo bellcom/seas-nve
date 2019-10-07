@@ -4,14 +4,48 @@
 
   <div class="portrait">
 
-    {# ##### Tilvalgte Tiltag ####### #}
+    {% include 'AppBundle:VirksomhedRapport:kundeinformation-embed.html.twig' %}
 
-    <div class="row">
+    <div class="row page-break-before">
       <div class="col-xs-12">
-        <h4>Tilvalgte tiltag</h4>
+        <h2>Sammenfatning efter besøg</h2>
+        <p>Jeres samlede årlige besparelsespotentiale er beregnet til kr. {{ rapport.samletEnergiBesparelse | format_decimal }}. Dette tal er med udgangspunkt i jeres aktuelle forbrug omregnet med den aktuelle energipris.</p>
+
+        <h4>Det videre forløb</h4>
+        <p>Næste skridt i processen er, at der tages stilling til hvilke projekter der vurderes som mest attraktive og dermed iværksættes først.</p>
+        <p>SEAS-NVE kan drive de valgte tiltag som projektledere, herunder kontakt til de forskellige leverandører. Vi sikrer dermed, at alle de valgte projekter gennemføres inden for de fastlagte terminer.</p>
+        <p>Vi kender markedet og dermed den optimale løsning. I sikres dermed den størst mulige effekt af besparelsesprojekterne.</p>
+
+        <h4>Tilskud</h4>
+        <p>SEAS-NVE yder et engangstilskud til jer på {{ rapport.getVirksomhedTilskudstorellse() | format_decimal }} kr. pr. kWh, der spares i kraft af de gennemførte fælles projekter. Dette tilskud vil i jeres tilfælde samlet set beløbe sig til kr. {{ rapport.calculateSamletEnergiBesparelseTilfaeld() | format_decimal }}</p>
+
+        <h4>Slutanvendelser</h4>
+        {% set slutanvendelseLabels = rapport.getBesparelseSlutanvendelserLabels() %}
+        <ul>
+          {% for type, slutanvendelse in rapport.besparelseSlutanvendelser %}
+            {% if slutanvendelse.total != 0 %}
+              <li>{{ slutanvendelseLabels[type] }}: {{ slutanvendelse.total | format_decimal(0)}} kWh/år</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+
+        <h4>Jeres overordnede udbytte</h4>
+        <p>Tæt samarbejde med en ansvarlig og kompetent partner omkring energioptimering hos jer. Vores fælles projekter vil sikre jer en stærkere bundlinje gennem besparelserne.</p>
+        <p>I vil kunne sænke jeres omkostninger, og dermed forbedre jeres konkurrencekraft kombineret med at kunne markedsføre budskabet om, at I er en energiansvarlig virksomhed. Vores fælles mål med arbejdet omkring energioptimering er at gøre det til en relevant og integreret del af Jeres hverdag.</p>
+        <p>Jeg kontakter dig inden for kort tid for at gennemgå det fremsendte materiale med dig og for at drøfte det videre forløb.</p>
+
+        {% if rapport.virksomhed and rapport.virksomhed.kam %}
+          <br>
+          <p>Men venlig hilsen<br>{{ rapport.virksomhed.kam }}</p>
+        {% endif %}
       </div>
     </div>
 
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Forbrug, nøgletal og energipriser</h2>
+      </div>
+    </div>
     <div class="panel panel-default">
       <div class="panel-heading"><h3 class="panel-title">Energibesparelser</h3></div>
 
@@ -207,42 +241,6 @@
 
     </div>
 
-    <div class="row">
-      <div class="col-xs-12">
-        <h4>Ordforklaring</h4>
-
-        <p>
-          <em>Nutidsværdi</em><br>
-          Beløbet er den "nutidige værdi" af de kommende indtægter fra energibesparelsen samt udgifterne til service mv.
-          i 15 år, hvor der er taget hensyn til inflation, energiprisstigninger, renteudgifter til
-          lånoptagning, reinvesteringer samt tiltagenes eventuelle restværdi i år 15.<br>
-          En positiv nutidsværdi beskriver dermed den totale gevinst ved en investering, set over 15 år, mens en negativ
-          nutidsværdi viser den
-          totale udgift set over 15 år.
-        </p>
-
-        <p><em>Øvrige omkostninger</em><br>
-          Udover investeringen er der indregnet øvrige omkostninger til:
-        <ul>
-          <li>Energiscreening, som er udgiften til Energirådgiver for at gennemgå bygningen samt beskrive og beregne
-            tiltagene i tiltagslisten.
-          </li>
-          <li>MTM fællesudgifter, som bl.a. omfatter udgifter til bl.a. energiledelse, bygherrerådgivning og Aa+
-            sekretariatet
-          </li>
-          <li>Implementeringsomkostninger, som omfatter bl.a. projektering og byggeledelse.</li>
-        </ul>
-        </p>
-
-        <p><em>Forventet timeforbrug for lokalpersonalet</em><br>
-          I forbindelse med gennemførslen af projektet forventes der et øget timeforbrug for lokalpersonalet direkte
-          relateret til projektet, bl.a. i forbindelse med møder,
-          kordinering, energiledelse og uddannelse.
-        </p>
-
-      </div>
-    </div>
-
     <div class="row page-break-before">
       <div class="col-xs-12">
         <h3>2. Samtidighed</h3>
@@ -388,6 +386,73 @@
 
     <div class="panel panel-default">
       {% include 'AppBundle::_includes/finansiering_likviditetsoverblik_pdf.html.twig' with {'entity': rapport} %}
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+
+        <h3>Sådan kommer du videre</h3>
+
+        <strong>Dokumentationsgrundlag for energispare tilskud</strong>
+        <p>Med SEAS-NVE køb af energibesparelse kræves følgende dokumentation:</p>
+
+        <ul>
+          <li>energispare aftale med overdragelse af energibesparelsen til SEAS-NVE.</li>
+          <li>dokumentation af energibesparelse med beskrivelse af før og efter situation/energiforbrug – screeningsrapport.</li>
+          <li>tilbud på energieffektiviseringstiltag (ved projekt id. skal dette foreligge hos kunde/dig).</li>
+          <li>faktura for energieffektiviseringstiltag (ved projekt id. skal dette foreligge hos kunde/dig).</li>
+          <li>faktura for udbetalt energispare tilskud (ved projekt id. energispare tilskud via besparelseslink).</li>
+        </ul>
+
+        <p>- alle aftaler og dokumentation skal forefindes i ovenstående kronologiske rækkefølge.</p>
+
+        <p>For yderligere oplysninger om SEAS-NVE køb og dokumentation af energibesparelser, henvises til brochure ”Energispare tilskud til offentlige og private virksomheder”.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h4>Ordforklaring</h4>
+
+        <p>
+          <em>Nutidsværdi</em><br>
+          Beløbet er den "nutidige værdi" af de kommende indtægter fra
+          energibesparelsen samt udgifterne til service mv.
+          i 15 år, hvor der er taget hensyn til inflation, energiprisstigninger,
+          renteudgifter til
+          lånoptagning, reinvesteringer samt tiltagenes eventuelle restværdi i
+          år 15.<br>
+          En positiv nutidsværdi beskriver dermed den totale gevinst ved en
+          investering, set over 15 år, mens en negativ
+          nutidsværdi viser den
+          totale udgift set over 15 år.
+        </p>
+
+        <p><em>Øvrige omkostninger</em><br>
+          Udover investeringen er der indregnet øvrige omkostninger til:
+        <ul>
+          <li>Energiscreening, som er udgiften til Energirådgiver for at
+            gennemgå bygningen samt beskrive og beregne
+            tiltagene i tiltagslisten.
+          </li>
+          <li>MTM fællesudgifter, som bl.a. omfatter udgifter til bl.a.
+            energiledelse, bygherrerådgivning og Aa+
+            sekretariatet
+          </li>
+          <li>Implementeringsomkostninger, som omfatter bl.a. projektering og
+            byggeledelse.
+          </li>
+        </ul>
+        </p>
+
+        <p><em>Forventet timeforbrug for lokalpersonalet</em><br>
+          I forbindelse med gennemførslen af projektet forventes der et øget
+          timeforbrug for lokalpersonalet direkte
+          relateret til projektet, bl.a. i forbindelse med møder,
+          kordinering, energiledelse og uddannelse.
+        </p>
+
+      </div>
     </div>
 
   </div>

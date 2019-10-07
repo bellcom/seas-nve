@@ -27,6 +27,10 @@ class TiltagCalculation extends Calculation {
       return;
     }
 
+    if (empty($entity->getRapport())) {
+      return;
+    }
+
     $this->calculate($entity);
   }
 

@@ -1755,6 +1755,7 @@ abstract class Tiltag {
     'forsyningEl',
     'levetid',
     'faktorForReinvesteringer',
+    'slutanvendelse',
   ];
 
   public function getPropertiesRequiredForCalculation() {
@@ -2032,7 +2033,7 @@ abstract class Tiltag {
   protected function calculateNutidsvaerdiSetOver15AarKrExpr() {
     return $this->sumExpr($this->calculateNutidsvaerdiSetOver15AarKr(TRUE));
   }
-  
+
   /**
    * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
    */
@@ -2084,7 +2085,7 @@ abstract class Tiltag {
   public function getRapportElKrKWh() {
     return $this->getRapport()->getElKrKWh();
   }
-  
+
   public function getRapportVarmeKrKWh() {
     return $this->getRapport()->getVarmeKrKWh();
   }
@@ -2131,7 +2132,7 @@ abstract class Tiltag {
       $result[] = (is_callable($f) ? $f($detail) : $detail->{'get' . $f}());
       return $result;
     });
-  
+
     if ($expression) {
       return $this->sumExpr($result);
     }
@@ -2346,14 +2347,14 @@ abstract class Tiltag {
     $virksomhed = $this->getRapport()->getBygning()->getVirksomhed();
 
     if ($virksomhed) {
-      if ($virksomhed->getSubsidySize()) {
-        return $virksomhed->getSubsidySize();
+      if ($virksomhed->getTilskudstorelse()) {
+        return $virksomhed->getTilskudstorelse();
       }
 
       // Check if parent has it.
       $parent = $virksomhed->getParent();
-      if ($parent && $parent->getSubsidySize()) {
-        return $parent->getSubsidySize();
+      if ($parent && $parent->getTilskudstorelse()) {
+        return $parent->getTilskudstorelse();
       }
     }
 

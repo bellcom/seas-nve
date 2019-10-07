@@ -17,7 +17,7 @@ use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
  * InternProduktion
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\EnergiforsyningRepository")
+ * @ORM\Entity()
  */
 class InternProduktion {
   /**
@@ -119,6 +119,6 @@ class InternProduktion {
   }
 
   public function __toString() {
-    return Prisgrundlag::getReadableValue($this->prisgrundlag);
+    return PrisgrundlagType::getReadableValue($this->prisgrundlag);
   }
 }

@@ -29,6 +29,7 @@ class FormatExtension extends \Twig_Extension {
       new Twig_SimpleFilter('format_one_decimal', [$this, 'formatOneDecimal'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_percent', [$this, 'formatPercent'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('format_percent_nounit', [$this, 'formatPercentNoUnit'], ['is_safe' => ['all']]),
+      new Twig_SimpleFilter('format_percent_of', [$this, 'formatPercentOf'], ['is_safe' => ['all']]),
     );
   }
 
@@ -86,6 +87,16 @@ class FormatExtension extends \Twig_Extension {
     $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $numberOfDecimals);
     $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $numberOfDecimals);
     return $formatter->format($number);
+  }
+
+  public function formatPercentOf($number, $ofValue, $numberOfDecimals = 2) {
+    if ($number === NULL || empty($ofValue)) {
+      return '–';
+    }
+    $formatter = $this->getNumberFormatter(null, \NumberFormatter::PERCENT);
+    $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $numberOfDecimals);
+    $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $numberOfDecimals);
+    return $formatter->format($number / $ofValue);
   }
 
   public function formatPercentNoUnit($number, $numberOfDecimals = 2) {

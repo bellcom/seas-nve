@@ -3,396 +3,470 @@
 {% block body -%}
 
   <div class="portrait">
-
-    {# ##### Tilvalgte Tiltag ####### #}
-
-    <div class="row">
+    <div class="row page-break-before">
       <div class="col-xs-12">
-        <h4>Tilvalgte tiltag</h4>
+        <h2>Indledning</h2>
+        <p>Nærværende rapport omfatter udarbejdelse af lovpligtigt energisyn på virksomheden {{ rapport.virksomhed.name }}</p>
+        <p>Energisynet er udført i henhold til Energistyrelsens bekendtgørelse nr. 1212 af november 2014.</p>
+        <p>Energisynet omfatter besigtigelse og kortlægning af virksomhedens elforbrug varmeforbrug og brændstofforbrug på virksomhedens køretøjer og maskiner.</p>
+        <p>Energisynet er udført af SEAS-NVE Strømmen A/S, i henhold til aftale om Teknisk rådgivning og bistand samt tilhørende ydelsesbeskrivelse af 13.04.15.</p>
+        <p>Besigtigelse og gennemgang blev påbegyndt den 11. maj på hovedkontoret i København. Efterfølgende er der besigtiget de øvrige afdelinger i landet, i alt 4 afdelinger inklusiv hovedkontoret.</p>
+        <p>Forud for besigtigelserne har der været afholdt et opstartsmøde med dialog om fremsendte data og oplysninger om de enkelte afdelinger.</p>
+
+        <p>Kontaktperson og koordinator hos MAN Diesel & Turbo har været Facility Manager Peter Jacobsen</p>
+        <p>Der har desuden været besigtigelse med:<br/>
+          Tom Christensen T41<br/>
+          Denni Kragh T35<br/>
+          Michael Blak Pedersen Holeby<br/>
+          Johnny Thomsen Frederikshavn<br/>
+        </p>
+      </div>
+    </div>
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Forudsætninger for energisynet</h2>
+        <p>{{ rapport.virksomhed.name }} er en fremstillingsvirksomhed med mange års erfaring.</p>
+        <p>Virksomheden har hovedkontor i København og yderligere 3 afdelinger rundt omkring i Danmark.</p>
+        <p>Der er i alt {{ rapport.virksomhed.aarsVaerk }} ansatte i Danmark</p>
+        <p>Virksomheden har en lille vognpark med 57 motorkøretøjer af forskellig type og størrelse.</p>
+
+        <p>Virksomheden udfører ingeniør og fremstillingsarbejde i forbindelse med en bred vifte af motorinstallationer til forskellige formål, samt reservedele til samme.</p>
+        <p>Der er indhentet oplysninger om energiforbruget og udarbejdet en oversigt over fordeling af energi forbruget, fordelt på el, varme og brændstof.</p>
+
+        <p>Alle energiarter er omregnet til kWh, så de er direkte sammenlignelige.</p>
+        <p>Elprisen er sat til 1,00 kr/kWh eksklusiv afgifter</p>
+        <p>El rumvarmeprisen er sat til 1,00 kr/kWh eksklusiv moms</p>
+        <p>Varmeprisen er sat til 1,00 kr/kWh, eksklusiv moms</p>
+        <p>Brændstofprisen er sat til 0,68 kr/kWh, eksklusiv moms</p>
+
+        <p>Opgørelse over det samlede energiforbrug og energiudgifter for alle afdelinger og maskiner fremgår af følgende oversigt.
+        Varmeforbrugene er korrigeret for graddage med faktor 1,25 for 2014 i forhold til et normalår.</p>
+
+        <div class="panel panel-default">
+          <div class="panel-heading"><h3 class="panel-title">Energifordeling:</h3></div>
+          <table class="table table-condensed results">
+            <tbody>
+            <tr>
+              <th>Energiart</th>
+              <th>kWh/år</th>
+              <th>%</th>
+            </tr>
+            {% for row in pie_chart_data.energiFordeling %}
+              <tr>
+                <th>{{ row.label }}</th>
+                <td>{{ row.value | format_decimal(0) }}</td>
+                <td>{{ row.value | format_percent_of(rapport.calculateSamletEnergiForbrug, 0) }} </td>
+              </tr>
+            {% endfor %}
+            <tr>
+              <th>Sum energi</th>
+              <td>{{ rapport.calculateSamletEnergiForbrug }}</td>
+              <td>100%</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-center">{{ rapport.virksomhed.name }}</h3>
+        {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.energiFordeling }) }}
+
+        <p>Som det fremgår af oversigten udgør el og varmeforbruget langt den største del af det samlede energiforbrug og brændstofforbrug udgør langt under 1%. </p>
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3 class="panel-title">Energibesparelser</h3></div>
-
-      <table class="table table-condensed results">
-        <tbody>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.besparelseEl' | trans }}</th>
-          <td class="text-right">{{ rapport.besparelseEl | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.besparelseEl.unit' | trans }}</td>
-        </tr>
-        <tr class="no-border">
-          <th>{{ 'appbundle.virksomhed_rapport.besparelseVarme' | trans }}</th>
-          <td class="text-right">{{ rapport.besparelseVarme | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.besparelseVarme.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.besparelseAarEtPdf' | trans }}</th>
-          <td class="text-right">{{ rapport.besparelseAarEt | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.besparelseAarEtPdf.unit' | trans }}</td>
-        </tr>
-        <tr class="no-border">
-          <th>{{ 'appbundle.virksomhed_rapport.BaselineVarme' | trans }}</th>
-          <td class="text-right">{{ rapport.BaselineBraendstof | format_zeros }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.BaselineBraendstof.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.besparelseCO2' | trans }}</th>
-          <td class="text-right">{{ rapport.besparelseCO2 | number_format }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2.unit' | trans }}</td>
-        </tr>
-        <tr class="no-border">
-          <th>{{ 'appbundle.virksomhed_rapport.besparelseCO2relative' | trans }}</th>
-          <td class="text-right">{{ rapport.co2BesparelseSamletFaktor | format_percent_nounit }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2relative.unit' | trans }}</td>
-        </tr>
-        </tbody>
-      </table>
-
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Konklusion</h2>
+        {% if rapport.kortlaegningKonklusionTekst %}
+          {{ rapport.kortlaegningKonklusionTekst | raw }}
+        {%  else %}
+          {{ 'virksomhed_rapporter.strings.kortlaegning_konklusion_tekst_empty' | trans }} [{{ absolute_url(path('virksomhed_rapport_tekster_values', { 'id': rapport.id })) }}]
+        {%  endif %}
+      </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3 class="panel-title">Økonomi</h3></div>
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Bilagsoversigt</h2>
+        <p>Bilag 1: Energiscreening af el og varme i bygninger</p>
+      </div>
+      <div class="col-xs-12">
+        <h2>Underskrifter</h2>
+        <p>Før energisynsrapporten indsendes til Energistyrelsen, skal den underskrives af virksomhedens ejer og energisynskonsulenten.</p>
+        <table class="table table-bordered" style="text-align:center; width:100%;">
+          <tbody>
+          <tr>
+            <td>For <strong>{{ rapport.virksomhed.name }}</strong><br/>
+              Facility Manager<br/>
+              {{ rapport.virksomhed.contactPersons[0] }}
+            </td>
+            <td>For <strong>SEAS-NVE</strong>
+              <br/>
+              {{ rapport.virksomhed.kam }}
+              <br><br><br><br><br><br>
+            </td>
+          </tr>
+          <tr>
+            <td>Dato: {{ rapport.Datering|date('d F Y') }}</td>
+            <td>Dato: {{ rapport.Datering|date('d F Y') }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-      <table class="table table-condensed results">
-        <tbody>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.totalEntreprisesum' | trans }}</th>
-          <td class="text-right">{{ rapport.anlaegsinvestering | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.totalEntreprisesum.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.investeringEksFaellesomkostninger' | trans }}</th>
-          <td class="text-right">{{ rapport.investeringEksFaellesomkostninger | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.investeringEksFaellesomkostninger.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.oevrigeOmkostninger' | trans }}</th>
-          <td class="text-right"></td>
-          <td></td>
-        </tr>
-        <tr>
-          <th class="indent">- {{ 'appbundle.virksomhed_rapport.energiscreening' | trans }}</th>
-          <td class="text-right">{{ rapport.energiscreening | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.energiscreening.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th class="indent">- {{ 'appbundle.virksomhed_rapport.mtmFaellesomkostninger' | trans }}</th>
-          <td class="text-right">{{ rapport.mtmFaellesomkostninger | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.mtmFaellesomkostninger.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th class="indent">- {{ 'appbundle.virksomhed_rapport.implementering' | trans }}</th>
-          <td class="text-right">{{ rapport.implementering | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.implementering.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.sumOevrige' | trans }}</th>
-          <td class="text-right">{{ rapport.tilvalgtSum | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.sumOevrige.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.genopretningsandel' | trans }}</th>
-          <td class="text-right">{{ rapport.genopretning | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.genopretningsandel.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.genopretningForImplementeringsomkostninger' | trans }}</th>
-          <td class="text-right">{{ rapport.genopretningForImplementeringsomkostninger | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.genopretningForImplementeringsomkostninger.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.modernisering' | trans }}</th>
-          <td class="text-right">{{ rapport.modernisering | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.modernisering.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.nutidsvaerdi' | trans }}</th>
-          <td class="text-right">{{ rapport.nutidsvaerdiSetOver15AarKr | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.nutidsvaerdi.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.internRenteInklFaellesomkostninger' | trans }}</th>
-          <td class="text-right">
-            {% if rapport.internRenteInklFaellesomkostninger < 100 %}
-              {{ rapport.internRenteInklFaellesomkostninger | format_percent_nounit }}
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Virksomhedsdata</h2>
+        <p>{{ include ('AppBundle:Virksomhed:show-embed.html.twig', {entity: rapport.virksomhed}) }}</p>
+
+        <br>
+        <h3>Datterselskaber</h3>
+        <hr class="dark">
+        <div class="row">
+          {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+            <div class="col-xs-4">{{ include ('AppBundle:Virksomhed:show-embed.html.twig', {entity: datterSelskab}) }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Beskrivelse af virksomheden</h2>
+        <p>{{ rapport.virksomhed.name }} er en ingeniør og produktionsvirksomhed med mange års erfaring.</p>
+        <p>Virksomheden har hovedkontor på Teglholmen og desuden 3 afdelinger rundt omkring i Danmark.</p>
+        <p>Der er i alt {{ rapport.virksomhed.aarsVaerk }} ansatte i Danmark.</p>
+
+        <p>Virksomheden har en mindre vognpark. Den omfatter personbiler samt varevogne og enkelte lastvogne.</p>
+        <p>Virksomheden producere power enheder, fremdrivningsanlæg samt servicere og renovere leveret udstyr.
+          Der er endvidere en stor reservedelsfremstilling på primært København og Frederikshavn sitene.</p>
+
+        {{ rapport.kortlaegningVirksomhedBeskrivelse | raw }}
+      </div>
+    </div>
+
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Energiportefølge</h2>
+        <p>Energi portefølje omfatter forbrug af el og varme til bygninger og brændstof til biler og maskiner.</p>
+        <p>I det følgende er de enkelte afsnit opdelt i elforbrug, varmeforbrug og i brændstofforbrug.</p>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Overordnet forbrug</h3>
+          </div>
+
+          {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.overordnetForrug }) }}
+
+          <table class="table table-condensed">
+            <tbody>
+            <tr>
+              <th>Afdeling</th>
+              <th>Overordnet forbrug, kWh/år</th>
+            </tr>
+            {% for row in pie_chart_data.overordnetForrug %}
+              <tr>
+                <th>{{ row.label }}</th>
+                <td>{{ row.value }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Elforbrug, alle afdelinger</h2>
+        <p>Fordeling af elforbruget for hver afdeling fremgår desuden af følgende diagram.<p>
+
+        {% if pie_chart_data.elForrug %}
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">El</h3>
+            </div>
+
+            {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.elForrug }) }}
+
+            <table class="table table-condensed">
+              <tbody>
+              <tr>
+                <th>Afdeling</th>
+                <th>El, kWh/år</th>
+                <th>Erhvervsareal m2</th>
+                <th>KPI</th>
+              </tr>
+              {% for row in pie_chart_data.elForrug %}
+                <tr>
+                  <th>{{ row.label }}</th>
+                  <td>{{ row.value }}</td>
+                  <td>{{ row.erhvervsareal }}</td>
+                  <td>[x]</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <p>Ingen elforbrug.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Varmeforbrug, alle afdelinger</h2>
+        <p>På tilsvarende måde er varmeforbruget opgjort til hver afdeling og vist i følgende skema og efterfølgende diagram med fordeling på hver afdeling.</p>
+        <p>Samtlige forbrug er opgjort i kWh så de er sammenlignelige.</p>
+
+        {% if pie_chart_data.varmeForrug %}
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Varme</h3>
+            </div>
+
+            {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.varmeForrug }) }}
+
+            <table class="table table-condensed">
+              <tbody>
+              <tr>
+                <th>Afdeling</th>
+                <th>Varme, kWh/år</th>
+                <th>Opvarmetareal m2</th>
+                <th>KPI</th>
+              </tr>
+              {% for row in pie_chart_data.varmeForrug %}
+                <tr>
+                  <th>{{ row.label }}</th>
+                  <td>{{ row.value }}</td>
+                  <td>{{ row.opvarmetareal }}</td>
+                  <td>[x]</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <p>Ingen varmeforbrug.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Brændstof, alle afdelinger</h2>
+        {% if pie_chart_data.braendstofForbrug %}
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Brændstof</h3>
+            </div>
+
+            {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.braendstofForbrug }) }}
+
+            <table class="table table-condensed results">
+              <tr>
+                <th>Afdeling</th>
+                <th>Brændstof, kWh/år</th>
+                <th>Erhvervsareal m2</th>
+                <th>KPI</th>
+              </tr>
+              {% for row in pie_chart_data.braendstofForbrug %}
+                <tr>
+                  <th>{{ row.label }}</th>
+                  <td>{{ row.value }}</td>
+                  <td>{{ row.erhvervsareal }}</td>
+                  <td>[x]</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        {% else %}
+          <p>Ingen brændstofforbrug</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Besparelser opdelt i afdelinger</h2>
+        {% for beplarelseSluanvendelse in pie_chart_data.beplarelseSluanvendelse %}
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ beplarelseSluanvendelse.name }}</h3>
+            </div>
+
+            {% if beplarelseSluanvendelse.data %}
+              {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: beplarelseSluanvendelse.data }) }}
             {% else %}
-              --
+              <table class="table table-condensed">
+                <tbody>
+                <tr>
+                  <td>Ingen Besparelser i {{ beplarelseSluanvendelse.name }} afdeling.</td>
+                </tr>
+                </tbody>
+              </table>
             {% endif %}
-          </td>
-          <td>{{ 'appbundle.virksomhed_rapport.internRenteInklFaellesomkostninger.unit' | trans }}</td>
-        </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-    {# ##### Fravalgte Tiltag ####### #}
-
-    <div class="row">
-      <div class="col-xs-12">
-        <h4>Fravalgte tiltag</h4>
+          </div>
+        {% endfor %}
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3 class="panel-title">Energi- og D & V - besparelse</h3></div>
-
-      <table class="table table-condensed results">
-        <tbody>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.besparelseEl' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtBesparelseEl | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.besparelseEl.unit' | trans }}</td>
-        </tr>
-        <tr class="no-border">
-          <th>{{ 'appbundle.virksomhed_rapport.besparelseVarme' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtBesparelseVarme | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.besparelseVarme.unit' | trans }}</td>
-        </tr>
-        <tr class="no-border">
-          <th>{{ 'appbundle.virksomhed_rapport.besparelseBraendstof' | trans }}</th>
-          <td class="text-right">{{ rapport.besparelseBraendstof | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.besparelseBraendstof.unit' | trans }}</td>
-        </tr>
-        <tr class="no-border">
-          <th>{{ 'appbundle.virksomhed_rapport.fravalgtBesparelseDriftOgVedligeholdelse' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtBesparelseDriftOgVedligeholdelse | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.fravalgtBesparelseDriftOgVedligeholdelse.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.besparelseAarEt' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtBesparelseAarEt | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.besparelseAarEt.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.besparelseCO2' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtBesparelseCO2 | number_format }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2.unit' | trans }}</td>
-        </tr>
-        <tr class="no-border">
-          <th>{{ 'appbundle.virksomhed_rapport.besparelseCO2relative' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtCo2BesparelseSamletFaktor | format_percent_nounit }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2relative.unit' | trans }}</td>
-        </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3 class="panel-title">Økonomi</h3></div>
-
-      <table class="table table-condensed results">
-        <tbody>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.investeringEkslFaelles' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtInvesteringEksFaellesomkostninger | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.investeringEkslFaelles.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.implementering' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtImplementering | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.implementering.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.sum' | trans }}</th>
-
-          <td class="text-right">{{ rapport.fravalgtSum | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.sum.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.nutidsvaerdi' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtNutidsvaerdiSetOver15AarKr | format_hundreds }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.nutidsvaerdi.unit' | trans }}</td>
-        </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-    <div class="row">
+    <div class="row page-break-before">
       <div class="col-xs-12">
-        <h4>Ordforklaring</h4>
+        <h2>Sum energiforbrug og brændstofudgifter</h2>
+        <p>I følgende skema er vist det samlede energiforbrug for alle afdelinger.
+          Samtlige forbrug er opgjort i kWh/år så de er sammenlignelige.</p>
+        {% if pie_chart_data.energiFordeling %}
 
-        <p>
-          <em>Nutidsværdi</em><br>
-          Beløbet er den "nutidige værdi" af de kommende indtægter fra energibesparelsen samt udgifterne til service mv.
-          i 15 år, hvor der er taget hensyn til inflation, energiprisstigninger, renteudgifter til
-          lånoptagning, reinvesteringer samt tiltagenes eventuelle restværdi i år 15.<br>
-          En positiv nutidsværdi beskriver dermed den totale gevinst ved en investering, set over 15 år, mens en negativ
-          nutidsværdi viser den
-          totale udgift set over 15 år.
-        </p>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ rapport.virksomhed.name }}</h3>
+            </div>
 
-        <p><em>Øvrige omkostninger</em><br>
-          Udover investeringen er der indregnet øvrige omkostninger til:
+            {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.energiFordeling }) }}
+
+            <table class="table table-condensed results">
+              <tbody>
+              <tr>
+                <th>Energiart</th>
+                <th>kWh/år</th>
+                <th>%</th>
+              </tr>
+              {% for row in pie_chart_data.energiFordeling %}
+                <tr>
+                  <th>{{ row.label }}</th>
+                  <td>{{ row.value | format_decimal(0) }}</td>
+                  <td>{{ row.value | format_percent_of(rapport.calculateSamletEnergiForbrug, 0) }} </td>
+                </tr>
+              {% endfor %}
+              <tr>
+                <th>Sum energi</th>
+                <td>{{ rapport.calculateSamletEnergiForbrug }}</td>
+                <td>100</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <p>Ingen energiforbrug og brændstofudgifter.</p>
+        {% endif %}
+      </div>
+    </div>
+    {% set slutanvendelser = rapport.getBesparelseSlutanvendelserLabels() %}
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h2>Kortlægning og analyser</h2>
+        <h3>Kortlægning og analyse af elbesparelse i afdelinger</h3>
+        <p>Ud fra besigtigelse og registrering er elbesparelse kortlagt og fordelt efter anvendelse.</p>
+
+        {% for elForbrugSluanvendelse in pie_chart_data.elForbrugSluanvendelse %}
+          {% if elForbrugSluanvendelse.data %}
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ elForbrugSluanvendelse.name }}</h3>
+            </div>
+
+            {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: elForbrugSluanvendelse.data }) }}
+
+            <table class="table table-condensed results">
+              <tr>
+                <td>Slutanvendelse</td>
+                <td>kWh/år</td>
+              </tr>
+              {% for row in elForbrugSluanvendelse.data %}
+                <tr>
+                  <th>{{ row.label }}</th>
+                  <td>{{ row.value  | format_decimal }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+          {% else %}
+            <p>Ingen elbesparelse i {{ elForbrugSluanvendelse.name }} afdeling.</p>
+          {% endif %}
+        {% endfor %}
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Nøgletal elforbrug, kWh/m2</h3>
+          </div>
+
+          <table class="table table-condensed">
+            <tr>
+              <th>Afdeling</th>
+              <th>{{ rapport.virksomhed }}</th>
+              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+                <th>{{ datterSelskab }}</th>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>El</td>
+              <td>{{ rapport.virksomhed.kortlaegning.totalForbrug }}</td>
+              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+                <td>{{ datterSelskab.kortlaegning.totalForbrug }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>Erhvervsareal</td>
+              <td>{{ rapport.erhvervsareal }}</td>
+              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+                <td>{{ datterSelskab.rapport.erhvervsareal }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>KPI</td>
+              <td>[x]</td>
+              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+                <td>[x]</td>
+              {% endfor %}
+            </tr>
+          </table>
+        </div>
+        <p>Som det fremgår af ovenstående varierer nøgletallene fra 93 – 406 kWh/m2.</p>
+        <p>Nøgletallene variere på grund af de forskellige anvendelser der forgår på de forskellige adresser.</p>
+      </div>
+    </div>
+
+    <div class="row page-break-before">
+      <div class="col-xs-12">
+        <h3>Kortlægning og analyse af varmeforbrug i bygninger og forslag til energibesparelser</h3>
+        <p>Ud fra besigtigelse og registrering er varmeforbrug kortlagt og fordelt efter anvendelse.</p>
+        <p>Ud fra besigtigelse og registrering, er varmeforbruget kortlagt og fordelt efter anvendelse.</p>
+        <p>I varmeforbruget indgår alle de benyttede opvarmningsformer:</p>
         <ul>
-          <li>Energiscreening, som er udgiften til Energirådgiver for at gennemgå bygningen samt beskrive og beregne
-            tiltagene i tiltagslisten.
-          </li>
-          <li>MTM fællesudgifter, som bl.a. omfatter udgifter til bl.a. energiledelse, bygherrerådgivning og Aa+
-            sekretariatet
-          </li>
-          <li>Implementeringsomkostninger, som omfatter bl.a. projektering og byggeledelse.</li>
+          <li>Fjernvarme</li>
+          <li>Naturgas</li>
+          <li>El rumvarme</li>
         </ul>
-        </p>
-
-        <p><em>Forventet timeforbrug for lokalpersonalet</em><br>
-          I forbindelse med gennemførslen af projektet forventes der et øget timeforbrug for lokalpersonalet direkte
-          relateret til projektet, bl.a. i forbindelse med møder,
-          kordinering, energiledelse og uddannelse.
-        </p>
-
+        <p>Samtlige opvarmningsformer er omregnet til kWh, så de er sammenlignelige. Der anvendes primært fjernvarme og naturgas til opvarmning. Det er ganske få steder hvor der er el-radiatorer, de udgør varmemæssigt under 1% af varmeforbruget.
+        Varmeforbruget er korrigeret for graddage i forhold til et normalår.</p>
       </div>
     </div>
 
     <div class="row page-break-before">
       <div class="col-xs-12">
-        <h3>2. Samtidighed</h3>
-
-        <p>
-          Samtidighed er en faktor der indregnes i den totale sum af varmebesparelser for de energisparetiltag, der er
-          tilvalgt for bygningen. Faktoren regnes ind, da forskellige varmebesparelser ofte har indflydelse på
-          hinanden. Eksempelvis skal energibesparelsen ved natsænkning (sænkning af rumtemperaturen udenfor brugstiden)
-          reduceres, såfremt der efterisoleres samtidigt. <br>
-          De enkelte detailark indregner denne samtidighed på SUM-niveau.
-        </p>
+        <h2>Forslag til energibesparelser på el og varme</h2>
+        <div>
+          {{ include ('AppBundle:Virksomhed:show-embed-overview.html.twig', {entity: rapport.virksomhed}) }}
+        </div>
+        {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+          <div>
+            {{ include ('AppBundle:Virksomhed:show-embed-overview.html.twig', {entity: datterSelskab}) }}
+          </div>
+        {% endfor %}
       </div>
     </div>
-
-    <div class="panel panel-default">
-
-      <table class="table table-condensed results">
-        <tbody>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.samtidighedsfaktor' | trans }}</th>
-          <td class="text-right">{{ rapport.faktorPaaVarmebesparelse | number_format }}</td>
-          <td></td>
-        </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-    <div class="row">
-      <div class="col-xs-12">
-        <h3>3. Baseline</h3>
-
-        <p>
-          Baseline er det energiforbrug som energibesparelserne er regnet på baggrund af.<br>
-          Baseline fastlægges med udgangspunkt i ejendommens seneste 3 års energiforbrug. <br>
-          Energiforbruget korrigeres for ændringer i ejendommen, der er under 1 år gamle og dermed ikke er slået fuldt
-          igennem i nyeste årsopgørelse fra forsyningsselskaberne. Eksempelvis korrigeres der for længere
-          åbningstid, da det medfører længere brugstid på belysning mv.
-        </p>
-
-        <p>
-          Korrektionerne har energirådgiver fastlagt ud fra interview af det lokale personale og ved
-          bygningsgennemgangen. Korrektionerne er angivet i dokument 3, afsnit 1.1 og 1.2
-        </p>
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3 class="panel-title">Ejendommens baseline inkl. korrektioner er fastlagt til
-          følgende:</h3></div>
-
-      <table class="table table-condensed results">
-        <tbody>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.BaselineEl' | trans }}</th>
-          <td class="text-right">{{ rapport.BaselineEl | format_zeros }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.BaselineEl.unit' | trans }}</td>
-        </tr>
-        <tr class="no-border">
-          <th>{{ 'appbundle.virksomhed_rapport.BaselineVarme' | trans }}</th>
-          <td class="text-right">{{ rapport.BaselineVarme | format_zeros }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.BaselineVarme.unit' | trans }}</td>
-        </tr>
-        <tr class="no-border">
-          <th>{{ 'appbundle.virksomhed_rapport.BaselineBraendstof' | trans }}</th>
-          <td class="text-right">{{ rapport.BaselineBraendstof | format_zeros }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.BaselineBraendstof.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.BaselineStrafAfkoeling' | trans }}</th>
-          <td class="text-right">{{ rapport.BaselineStrafAfkoeling | format_zeros }}</td>
-          <td>{{ 'appbundle.virksomhed_rapport.BaselineStrafAfkoeling.unit' | trans }}</td>
-        </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-    <div class="row">
-      <div class="col-xs-12">
-        <p>Varmeforbruget er angivet for et "normalår". Varmeforbruget i specielt varme eller kolde år er dermed
-          omregnet til et fast defineret normalår, hvilket gør forbrugene i de forskellige år sammenlignelige.</p>
-
-        <p>Strafafkøling er en strafafgift, som fjernvarmeforsyningsselskabet pålægger fjernvarmeforsynede bygninger,
-          hvor afkølingen af fjernvarmevandet ikke lever op til forsyningsselskabets krav.</p>
-      </div>
-    </div>
-
-    {% if rapport.tiltag is not empty %}
-      {% include 'AppBundle::Rapport/_valgteTiltagTablePdf2.html.twig' with {'tiltag': rapport.tiltag, 'pdf': true, 'type': 'tilvalg' } %}
-    {% endif %}
 
     <div class="row page-break-before">
       <div class="col-xs-12">
-        <h3>4. Tilnærmet likviditetsoverblik</h3>
+        <h2>Bilag 2: Screening af energibesparelser på el, varme og brændstof</h2>
+        <p>Screening af energibesparelser fremgår af bilag 1 som del 2 til energisynsrapporten.</p>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-12">
-        <p>Den følgende graf viser en tilnærmet likviditetsoversigt for tilvalgte tiltag fra forrige skema.<br>
-          Vandret vises tidsperioden i år, lodret vises den årlige ydelse til lån, og den årlige besparelse.<br>
-          Grafen viser forløbet såfremt der optages et 15-årigt lån til 3 % p.a. til finansering af udførslen af de
-          tilvalgte tiltag, hvorfor ydelsen til lånet
-          falder til 0 kr. i år 15.</p>
-
-        <p>Der indregnes besparelser fra energisparetiltagene indenfor deres forventede levetid. Når den forventede
-          levetid for disse nye energisparetiltag er
-          udløbet, indregnes der hverken energibesparelser eller udgifter til reinvesteringer i nye installationer og
-          bygningsdele fremadrettet.<br>
-          Der indregnes besparelser på drift og vedligehold (D&V), såfremt den pågældende magistratsafdeling har
-          ansvaret og dermed budgettet herfor.<br>
-          Dog indregnes besparelser i form af mindre timeforbrug til drift ikke.<br>
-          Der indregnes også eventuelle nye udgifter til D&V i form af f.eks. nye serviceaftaler mv. som i nogle
-          tilfælde kræves til vedligehold af de nye installationer mv.<br>
-          Samlet set vurderes grafen derfor at være et konservativt bud på en oversigt over totaløkonomien i
-          energisparetiltagene.
-        </p>
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3
-            class="panel-title">{{ icon('line-chart') }} {{ 'appbundle.virksomhed_rapport.likviditetsoversigt' | trans }}</h3>
-      </div>
-
-      <div class="panel-body">
-        {% include 'AppBundle::_includes/finansiering_graf_pdf.html.twig' with {'entity': rapport} %}
-
-
-        {{ 'appbundle.virksomhed_rapport.laanLoebetid' | trans }}:
-        {{ rapport.laanLoebetid }} {{ 'appbundle.virksomhed_rapport.laanLoebetid.unit' | trans }}
-
-
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-12">
-        <p>I det følgende vises ovenstående værdier i tabelform for de første 15 år, svarende til lånets løbetid.</p>
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      {% include 'AppBundle::_includes/finansiering_likviditetsoverblik_pdf.html.twig' with {'entity': rapport} %}
     </div>
 
   </div>

@@ -50,10 +50,10 @@
       </div>
     </div>
   </div>
+
   {{ form_rest(form) }}
   {{ form_end(form) }}
 
-  <script src="{{ absolute_url(asset('js/lib/Chart.js/Chart.min.js')) }}"></script>
   <script>
     // Update usageField whenever percentageField is updated.
     var totalSpend = document.getElementById('appbundle_virksomhedkortlaegning_totalForbrug');
@@ -93,67 +93,21 @@
   </script>
   <script>
     var colors = [
-      {
-        color: '#FE9029',
-        highlight: '#FE9029',
-      },
-      {
-        color: '#FFDE2F',
-        highlight: '#FFDE2F',
-      },
-      {
-        color: '#74766C',
-        highlight: '#74766C',
-      },
-      {
-        color: '#62C5D3',
-        highlight: '#62C5D3',
-      },
-      {
-        color: '#A7CB11',
-        highlight: '#A7CB11',
-      },
-      {
-        color: '#006F55',
-        highlight: '#006F55',
-      },
-      {
-        color: '#009E50',
-        highlight: '#009E50',
-      },
-      {
-        color: '#CAE070',
-        highlight: '#CAE070',
-      },
-      {
-        color: '#FFEB82',
-        highlight: '#FFEB82',
-      },
-      {
-        color: '#99D8B9',
-        highlight: '#99D8B9',
-      },
-      {
-        color: '#FEA654',
-        highlight: '#FEA654',
-      },
-      {
-        color: '#A1DCE5',
-        highlight: '#A1DCE5',
-      },
-      {
-        color: '#74766C',
-        highlight: '#74766C',
-      },
-      {
-        color: '#CCECDC',
-        highlight: '#CCECDC',
-      },
-      {
-        color: '#A1DCE5',
-        highlight: '#A1DCE5',
-      }
-    ];
+      '#FE9029',
+      '#FFDE2F',
+      '#74766C',
+      '#62C5D3',
+      '#A7CB11',
+      '#006F55',
+      '#009E50',
+      '#CAE070',
+      '#FFEB82',
+      '#99D8B9',
+      '#FEA654',
+      '#A1DCE5',
+      '#74766C',
+      '#CCECDC',
+      '#A1DCE5'];
 
     function grabData() {
       var data = [];
@@ -173,8 +127,8 @@
         data.push({
           value: parseInt(input.value),
           label: label,
-          color: colors[int].color,
-          highlight: colors[int].highlight,
+          color: colors[int],
+          highlight: colors[int],
         });
 
         int++;
@@ -205,7 +159,7 @@
     }
 
     // Total percentage.
-    function getTotalPercentage() {
+    function calculatePercentageSum() {
       var percentageFields = document.querySelectorAll('.js-percentage');
       var sum = 0;
 
@@ -222,7 +176,7 @@
       return sum;
     }
     function setTotalPercentage() {
-      var total = getTotalPercentage();
+      var total = calculatePercentageSum();
       var percentageTotal = document.getElementById('js-percentage-total');
 
       percentageTotal.innerText = '(' + total + '%)';
@@ -244,7 +198,7 @@
       var parent = field.parentElement.parentElement;
       var colorField = parent.querySelector('.js-chart-slutanvendelse-color');
 
-      colorField.style.backgroundColor = colors[colorIteration].color;
+      colorField.style.backgroundColor = colors[colorIteration];
 
       colorIteration++;
     }

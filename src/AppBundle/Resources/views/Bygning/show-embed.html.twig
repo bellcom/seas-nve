@@ -1,0 +1,15 @@
+{% if bygning.virksomhed.name %}
+  <div>{{ bygning.virksomhed.name }}</div>
+{% endif %}
+
+{% if bygning.adresse %}
+  <div>{{ bygning.adresse }}</div>
+{% endif %}
+
+{% if bygning.postnummer and bygning.postBy %}
+  <div>{{ bygning.postnummer }} {{ bygning.postBy }}</div>
+{% endif %}
+
+{% if bygning.contactPersons[0].name %}
+  <div>{{ bygning.contactPersons[0].name }}</div>
+{% endif %}

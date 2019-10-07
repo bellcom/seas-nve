@@ -178,6 +178,7 @@ bygninger:
   confirmation:
     bygning_infoert: "Bygnings data verificeret"
     raadgiver_tilknyttet: "Rådgiver tilknyttet"
+    deleted: "Bygning slettet"
   error:
     bind_virksomhed_by_cvr: "Bygning allerede tilknutet til Virksomhed. Fjern bygning fra Virksomhed først."
   labels:
@@ -221,6 +222,8 @@ bygning_rapporter:
     retur: "Bygning rapport returneret til rådgiver"
     submitted: "Bygning rapport afleveret til Aa+"
     verified: "Bygning rapport verificeret af Aa+"
+    deleted: "Bygning rapport slettet"
+    deleted_forslags: "Bygning rapport forslags blev slettet"
   messages:
     no_files: "Bygning rapporten har ingen filer tilknyttet"
     baseline_value_disabled: "This value has been defined in Virksomhed rapport baseline or Virksomhed baseline"
@@ -640,6 +643,7 @@ virksomhed:
   confirmation:
     created: "Ny virksomhed er oprettet."
     rapport_created: "Ny virksomhedsrapport er oprettet."
+    deleted: "Virksomhed slettet"
   messages:
     empty:
       contactPersons: "Ingen kontaktpersoner"
@@ -655,10 +659,12 @@ virksomhed_rapporter:
     create: "Opret virksomhedsrapport"
     download_files: "Hent alle bilag og filer"
     edit: "Baseline og energibudget"
+    edit_kortlaegning: "Rediger Kortlægning"
+    edit_tekster: "Tekster"
     filer: "Filer"
     pdf2: "Resultatoversigt"
-    pdf5: "Detailark"
-    pdf_kortlaegning: "Kortlaegning"
+    pdf_detailark: "Detailark"
+    pdf_kortlaegning: "Kortlægning"
     re-calculate: "Genberegn"
     show: "Vis virksomhedsrapport"
   labels:
@@ -668,14 +674,17 @@ virksomhed_rapporter:
   confirmation:
     re-calculate: "Er du sikker på at du vil genberegne bygningsrapporten?"
     calculated: "Virksomhed rapport beregnet"
+    tekster_opdateret: "Virksomhed rapport tekster blev opdateret"
   error:
     beregn_fejl: "Fejl under beregning af rapport"
   messages:
     no_files: "Rapporten har ingen filer tilknyttet"
   strings:
     related_reports: "Relaterede rapporter"
+    kortlaegning_konklusion_tekst_empty: "Dette felt er ikke udfyldt - tryk på linket for at tilføje:"
   groups:
     baseline_data: "Baseline data"
+    kortlaegning_tekster: "Kortlaegning tekster"
 virksomhed_kortlaegning:
   label:
     plural: "Kortlægninger"
@@ -1656,6 +1665,10 @@ appbundle:
     oevrigeOmkostninger: "Øvrige omkostninger"
     samtidighedsfaktor: "På ejendommen er indregnet en samtidighedsfaktor på"
     status.ava: "AVA-støtte"
+    samletEnergiBesparelse: "Samlet energibesparelse"
+    samletEnergiBesparelse.unit: "kWh/år "
+    samletEnergiBesparelseKr: "Samlet energibesparelse"
+    samletEnergiBesparelseKr.unit: "kr/år "
     sum: "Sum"
     sum.unit: "kr"
     sumOevrige: "Sum, investering inkl. øvrige omkostninger"
@@ -2082,7 +2095,8 @@ appbundle:
     beregn_oplysninger: "Beregningsoplysninger"
     naceCode: "Nace kode"
     dsmCode: "DSM kode"
-    subsidySize: "Tilskudsstørrelse"
+    tilskudstorelse: "Tilskudsstørrelse"
+    tilskudstorelse.unit: "kr"
     aarsVaerk: "Årsværk"
     forbrug: "Forbrug"
     kam: "KAM"
@@ -2219,6 +2233,10 @@ appbundle:
     nutidsvaerdiSetOver15AarKr: "Nutidsværdi over 15 år"
     oevrigeOmkostninger: "Øvrige omkostninger"
     samtidighedsfaktor: "På ejendommen er indregnet en samtidighedsfaktor på"
+    samletEnergiBesparelse: "Samlet energibesparelse"
+    samletEnergiBesparelse.unit: "kWh/år "
+    samletEnergiBesparelseKr: "Samlet energibesparelse"
+    samletEnergiBesparelseKr.unit: "kr/år "
     status.ava: "AVA-støtte"
     sum: "Sum"
     sum.unit: "kr"
@@ -2239,6 +2257,8 @@ appbundle:
     opvarmetareal.unit: "m²"
     uOpvarmetareal: "Uopvarmet areal"
     uOpvarmetareal.unit: "m²"
+    kortlaegningKonklusionTekst: "Konklusion tekst"
+    kortlaegningVirksomhedBeskrivelse: "Beskrivelse af virksomhed"
   virksomhedkortlaegning:
     aar: "År"
     slutanvendelser: "Slutanvendelser"

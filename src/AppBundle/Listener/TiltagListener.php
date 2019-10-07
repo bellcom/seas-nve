@@ -41,7 +41,7 @@ class TiltagListener {
     );
 
     foreach ($entities as $entity) {
-      if ($entity instanceof Baseline) {
+      if ($entity instanceof Baseline && $entity->getVirksomhed()) {
         $this->addTarget($entity);
         /** @var Bygning $bygning */
         foreach ($entity->getBygninger() as $bygning) {
@@ -49,7 +49,7 @@ class TiltagListener {
         }
         $this->addTarget($entity->getVirksomhed()->getRapport());
       }
-      if ($entity instanceof BaselineKorrektion) {
+      if ($entity instanceof BaselineKorrektion && $entity->getBaseline()) {
         $targets[] = $entity->getBaseline();
         /** @var Bygning $bygning */
         foreach ($entity->getBaseline()->getBygninger() as $bygning) {
@@ -57,7 +57,7 @@ class TiltagListener {
         }
         $this->addTarget($entity->getBaseline()->getVirksomhed()->getRapport());
       }
-      if ($entity instanceof Tiltag) {
+      if ($entity instanceof Tiltag && $entity->getRapport()) {
         $this->addTarget($entity);
         $this->addTarget($entity->getRapport());
 
@@ -73,12 +73,12 @@ class TiltagListener {
           }
         }
       }
-      elseif ($entity instanceof TiltagDetail) {
+      elseif ($entity instanceof TiltagDetail && $entity->getTiltag()) {
         $this->addTarget($entity);
         $this->addTarget($entity->getTiltag());
         $this->addTarget($entity->getTiltag()->getRapport());
       }
-      elseif ($entity instanceof Rapport) {
+      elseif ($entity instanceof Rapport && $entity->getBygning()) {
         $changeSet = $uow->getEntityChangeSet($entity);
         // Add each Tiltag from Rapport that has changes in select values.
         foreach (self::$rapportFieldsThatTriggerRecalculationOfTiltag as $field) {
@@ -97,6 +97,9 @@ class TiltagListener {
       return  !in_array($target, $uow->getScheduledEntityDeletions());
     });
     foreach ($targets as $target) {
+      if (empty($target)) {
+        continue;
+      }
       // We need to set the configuration before calculating a Rapport.
       if ($target instanceof Rapport) {
         $target->setConfiguration($em->getRepository(Configuration::class)->getConfiguration());

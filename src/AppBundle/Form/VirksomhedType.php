@@ -114,7 +114,7 @@ class VirksomhedType extends AbstractType
             ))
             ->add('naceCode')
             ->add('dsmCode')
-            ->add('subsidySize')
+            ->add('tilskudstorelse')
             ->add('aarsVaerk')
             ->add('forbrug')
             ->add('kam')

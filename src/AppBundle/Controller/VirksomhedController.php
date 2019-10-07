@@ -510,11 +510,38 @@ class VirksomhedController extends BaseController
             // Contact persons are not handled by Doctrine ORM.
             // We have to update it here.
             foreach ($virksomhed->getContactPersons() as $contactPerson) {
-              $em->remove($contactPerson);
+                $em->remove($contactPerson);
+            }
+
+            if (!empty($virksomhed->getBaseline())) {
+                $em->remove($virksomhed->getBaseline());
+            }
+
+            if (!empty($virksomhed->getKortlaegning())) {
+                $em->remove($virksomhed->getKortlaegning());
+            }
+
+            /** @var Virksomhed $datterSelskab */
+            foreach ($virksomhed->getDatterSelskaber() as $datterSelskab) {
+              $datterSelskab->setParent(NULL);
+              $em->persist($datterSelskab);
+            }
+
+            /** @var Bygning $bygning */
+            foreach ($virksomhed->getBygninger() as $bygning) {
+                $bygning->setVirksomhed(NULL);
+                $em->persist($bygning);
+            }
+
+            if (!empty($virksomhed->getRapport())) {
+                $em->remove($virksomhed->getRapport());
             }
 
             $em->remove($entity);
             $em->flush();
+            // @TODO remove revisions.
+
+            $this->flash->success('virksomhed.confirmation.deleted');
         }
 
         return $this->redirect($this->generateUrl('virksomhed'));
@@ -529,20 +556,11 @@ class VirksomhedController extends BaseController
      */
     private function createDeleteForm($virksomhed)
     {
-        $bygnings = $virksomhed->getBygninger();
-        $message = NULL;
-        if (!empty($bygnings->toArray())) {
-            $message = 'virksomhed.error.in_use';
-        }
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('virksomhed_delete', array('id' => $virksomhed->getId())))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array(
                 'label' => 'Delete',
-                'disabled' => $message,
-                'attr' => array(
-                    'disabled_message' => $message,
-                ),
             ))
             ->getForm()
         ;

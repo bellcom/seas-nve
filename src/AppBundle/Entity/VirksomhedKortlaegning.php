@@ -30,7 +30,7 @@ class VirksomhedKortlaegning
     private $titel;
 
     /**
-     * @ORM\OneToOne(targetEntity="Virksomhed", inversedBy="kortlaegning", fetch="EAGER")
+     * @ORM\OneToOne(targetEntity="Virksomhed", mappedBy="kortlaegning")
      **/
     protected $virksomhed;
 

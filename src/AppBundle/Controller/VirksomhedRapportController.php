@@ -10,6 +10,7 @@ use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\Type\VirksomhedRapportSearchType;
 use AppBundle\Form\Type\VirksomhedRapportBaselineType;
+use AppBundle\Form\Type\VirksomhedRapportTeksterType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -190,6 +191,74 @@ class VirksomhedRapportController extends BaseController {
   }
 
   /**
+   * Finds and displays Baseline for a VirksomhedRapport entity.
+   *
+   * @Route("/{id}/tekster", name="virksomhed_rapport_tekster_values")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('VIRKSOMHED_RAPPORT_EDIT', rapport)")
+   * @param VirksomhedRapport $rapport
+   * @return array
+   */
+  public function teksterAction(VirksomhedRapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('virksomhed_rapporter.actions.edit_tekster', $this->generateUrl('virksomhed_rapport_tekster_values', array('id' => $rapport->getId())));
+
+    $showForm = $this->createEditTeksterForm($rapport);
+    return array(
+      'entity' => $rapport,
+      'show_form' => $showForm->createView(),
+    );
+  }
+
+  /**
+   * Updates tekster values for a VirksomhedRapport entity.
+   *
+   * @Route("/{id}/tekster", name="virksomhed_rapport_tekster_values_update")
+   * @Method("PUT")
+   * @Security("is_granted('VIRKSOMHED_RAPPORT_EDIT', rapport)")
+   * @Template("AppBundle:VirksomhedRapport:tekster.html.twig")
+   * @param VirksomhedRapport $rapport
+   * @return RedirectResponse|array
+   */
+  public function teksterUpdateAction(Request $request, VirksomhedRapport $rapport) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('virksomhed_rapporter.actions.edit_tekster', $this->generateUrl('virksomhed_rapport_tekster_values', array('id' => $rapport->getId())));
+
+    $editForm = $this->createEditTeksterForm($rapport);
+    $editForm->handleRequest($request);
+
+    if ($editForm->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $em->flush();
+      $this->flash->success('virksomhed_rapporter.confirmation.tekster_opdateret');
+      return $this->redirect($this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+    }
+    return array(
+      'entity' => $rapport,
+      'show_form' => $editForm->createView(),
+    );
+  }
+
+  /**
+   * Creates a form to edit a VirksomhedRapport entity.
+   *
+   * @param VirksomhedRapport $rapport The entity
+   *
+   * @return \Symfony\Component\Form\Form The form
+   */
+  private function createEditTeksterForm(VirksomhedRapport $rapport) {
+    $form = $this->createForm(new VirksomhedRapportTeksterType($this->get('security.context'), $rapport), $rapport, array(
+      'action' => '#',
+      'method' => 'PUT',
+    ));
+
+    $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_tekster_values', array('id' => $rapport->getId())));
+
+    return $form;
+  }
+
+  /**
    * Creates a form to edit a VirksomhedRapport entity.
    *
    * @param VirksomhedRapport $rapport The entity
@@ -221,6 +290,8 @@ class VirksomhedRapportController extends BaseController {
    * @return Response
    */
   public function showPdf2Action(VirksomhedRapport $rapport) {
+    // We need more time!
+    set_time_limit(0);
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->exportVirksomhedRapport2($rapport);
 
@@ -244,6 +315,8 @@ class VirksomhedRapportController extends BaseController {
    * @return Response
    */
   public function showPdfKortlaegningAction(VirksomhedRapport $rapport) {
+    // We need more time!
+    set_time_limit(0);
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->exportVirksomhedRapportKortlaegning($rapport);
 
@@ -256,9 +329,24 @@ class VirksomhedRapportController extends BaseController {
   }
 
   /**
+   * Finds and displays a VirksomhedRapport entity.
+   *
+   * @Route("/{id}/pdf_kortlaegning_test", name="virksomhed_rapport_show_pdf_kortlaegning_test")
+   * @Method("GET")
+   * @Template()
+   * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
+   * @param VirksomhedRapport $rapport
+   * @return Response
+   */
+  public function showPdfKortlaegningTestAction(VirksomhedRapport $rapport) {
+    $exporter = $this->get('aaplus.pdf_export');
+    return new Response($exporter->exportVirksomhedRapportKortlaegning($rapport, array(), TRUE));
+  }
+
+  /**
    * Finds and displays a VirksomhedRapport entity in PDF form. (Detailark)
    *
-   * @Route("/{id}/pdf5", name="virksomhed_rapport_show_pdf5")
+   * @Route("/{id}/pdf_detailark", name="virksomhed_rapport_show_pdf_detailark")
    * @Method("GET")
    * @Template()
    * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
@@ -266,9 +354,11 @@ class VirksomhedRapportController extends BaseController {
    *
    * @return Response
    */
-  public function showPdf5Action(VirksomhedRapport $rapport) {
+  public function showPdfDetailarkAction(VirksomhedRapport $rapport) {
+    // We need more time!
+    set_time_limit(0);
     $exporter = $this->get('aaplus.pdf_export');
-    $pdf = $exporter->exportVirksomhedRapport5($rapport);
+    $pdf = $exporter->exportVirksomhedRapportDetailark($rapport);
 
     $pdfName = $rapport->getVirksomhed()->getAddress() . '-Dokument 5-' . date('Y-m-d') . '-Status ' . $rapport->getVirksomhed() . '-Itt ' . $rapport->getVersion();
 
@@ -289,25 +379,6 @@ class VirksomhedRapportController extends BaseController {
    * @return array
    */
   public function showPdf2TestAction(VirksomhedRapport $rapport) {
-
-    return array(
-      'rapport' => $rapport,
-      'entity' => $rapport,
-    );
-
-  }
-
-  /**
-   * Finds and displays a VirksomhedRapport entity.
-   *
-   * @Route("/{id}/pdf5test", name="virksomhed_rapport_show_pdf5test")
-   * @Method("GET")
-   * @Template()
-   * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
-   * @param VirksomhedRapport $rapport
-   * @return array
-   */
-  public function showPdf5TestAction(VirksomhedRapport $rapport) {
 
     return array(
       'rapport' => $rapport,

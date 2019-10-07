@@ -11,6 +11,7 @@ use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\Energiforsyning\NavnType;
 use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
+use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
 use AppBundle\Entity\Energiforsyning;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
@@ -178,6 +179,30 @@ class Rapport {
    * @ORM\Column(name="besparelseBraendstof", type="float", nullable=true)
    */
   protected $besparelseBraendstof;
+
+  /**
+   * @var array
+   *
+   * @ORM\Column(name="besparelseSlutanvendelser", type="array")
+   */
+  private $besparelseSlutanvendelser = array();
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="samletEnergibesparelse", type="float", nullable=true)
+   * @Formula("$this->besparelseEl + $this->besparelseVarmeGAF + $this->besparelseVarmeGUF + $this->besparelseBraendstof")
+   */
+  protected $samletEnergibesparelse;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="samletEnergibesparelseKr", type="float", nullable=true)
+   */
+  protected $samletEnergibesparelseKr;
 
   /**
    * @var float
@@ -745,6 +770,50 @@ class Rapport {
   }
 
   /**
+   * Set samletEnergibesparelse
+   *
+   * @param float $samletEnergibesparelse
+   * @return Rapport
+   */
+  public function setSamletEnergibesparelse($samletEnergibesparelse)
+  {
+    $this->samletEnergibesparelse = $samletEnergibesparelse;
+    return $this;
+  }
+
+  /**
+   * Get samletEnergibesparelse
+   *
+   * @return float
+   */
+  public function getSamletEnergibesparelse()
+  {
+    return $this->samletEnergibesparelse;
+  }
+
+  /**
+   * Set samletEnergibesparelseKr
+   *
+   * @param float $samletEnergibesparelseKr
+   * @return Rapport
+   */
+  public function setSamletEnergibesparelseKr($samletEnergibesparelseKr)
+  {
+    $this->samletEnergibesparelseKr = $samletEnergibesparelseKr;
+    return $this;
+  }
+
+  /**
+   * Get samletEnergibesparelseKr
+   *
+   * @return float
+   */
+  public function getSamletEnergibesparelseKr()
+  {
+    return $this->samletEnergibesparelseKr;
+  }
+
+  /**
    * @var array
    *
    * @Calculated
@@ -761,6 +830,7 @@ class Rapport {
     $this->bilag = new \Doctrine\Common\Collections\ArrayCollection();
     $this->datering = new \DateTime();
     $this->version = 1;
+    $this->besparelseSlutanvendelser = array();
   }
 
   /**
@@ -1098,6 +1168,40 @@ class Rapport {
    */
   public function getFravalgtBesparelseVarmeGAF() {
     return $this->fravalgtBesparelseVarmeGAF;
+  }
+
+  /**
+   * Set besparelseSlutanvendelser
+   *
+   * @param array $besparelseSlutanvendelser
+   *
+   * @return Rapport
+   */
+  public function setBesparelseSlutanvendelser($besparelseSlutanvendelser)
+  {
+    $this->besparelseSlutanvendelser = $besparelseSlutanvendelser;
+
+    return $this;
+  }
+
+  /**
+   * Get besparelseSlutanvendelser
+   *
+   * @return array
+   */
+  public function getBesparelseSlutanvendelser()
+  {
+    return $this->besparelseSlutanvendelser;
+  }
+
+  /**
+   * Get besparelseSlutanvendelser labels
+   *
+   * @return array
+   */
+  public function getBesparelseSlutanvendelserLabels()
+  {
+    return SlutanvendelseType::getChoices();
   }
 
   /**
@@ -1913,6 +2017,27 @@ class Rapport {
   }
 
   /**
+   * Get bygning Virksomhed
+   */
+  public function getVirksomhed() {
+    return $this->bygning->getVirksomhed();
+  }
+
+  /**
+   * Get bygning Virksomhed Tilskudstorellse.
+   */
+  public function getVirksomhedTilskudstorellse() {
+    return $this->bygning->getVirksomhed() ? $this->bygning->getVirksomhed()->getTilskudstorelse() : 0;
+  }
+
+  /**
+   * Calculates SamletEnergiBesparelseTilfaeld.
+   */
+  public function calculateSamletEnergiBesparelseTilfaeld() {
+    return $this->getVirksomhedTilskudstorellse() * $this->getSamletEnergibesparelseKr() ;
+  }
+
+  /**
    * Get sum of solcelleproduktion from all SolcelleTiltag.
    */
   public function getSolcelleproduktion() {
@@ -2046,6 +2171,8 @@ class Rapport {
     $this->besparelseBraendstof = $this->calculateBesparelseBraendstof();
     $this->fravalgtBesparelseBraendstof = $this->calculateFravalgtBesparelseBraendstof();
 
+    $this->besparelseSlutanvendelser = $this->calculateBesparelseSlutanvendelser();
+
     $this->co2BesparelseEl = $this->calculateCo2BesparelseEl();
     $this->co2BesparelseVarme = $this->calculateCo2BesparelseVarme();
     $this->co2BesparelseBraendstofITon = $this->calculateCo2BesparelseBraendstofITon();
@@ -2085,6 +2212,9 @@ class Rapport {
     $this->energibudgetVarme = $this->calculateEnergibudgetVarme();
     $this->energibudgetEl = $this->calculateEnergibudgetEl();
     $this->energibudgetBraendstof = $this->calculateEnergibudgetBraendstof();
+
+    $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
+    $this->samletEnergibesparelseKr = $this->calculateSamletEnergiBesparelseKr();
   }
 
   private function calculateCashFlow15() {
@@ -2305,6 +2435,40 @@ class Rapport {
       }
     }
     return $expression ? $this->sumExpr($values) : array_sum($values);
+  }
+
+  /**
+   * Calculates besparelseSlutanvendelser by slutanvendelse type.
+   */
+  private function calculateBesparelseSlutanvendelser() {
+    $values = array();
+    /** @var Tiltag $tiltag */
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      if (empty($tiltag->getSlutanvendelse())) {
+        continue;
+      }
+
+      $slutanvendelseType = (string) $tiltag->getSlutanvendelse();
+      if (!isset($values[$slutanvendelseType])) {
+        $values[$slutanvendelseType] = array(
+          'el' => 0,
+          'varmeGAF' => 0,
+          'varmeGUF' => 0,
+          'braendStof' => 0,
+          'total' => 0,
+        );
+      }
+
+      $values[$slutanvendelseType]['el'] += $tiltag->getElbesparelse();
+      $values[$slutanvendelseType]['varmeGAF'] += $tiltag->getVarmebesparelseGAF();
+      $values[$slutanvendelseType]['varmeGUF'] += $tiltag->getVarmebesparelseGUF();
+      if (method_exists($tiltag, 'getBesparelseBraendstof')) {
+        $values[$slutanvendelseType]['braendStof'] += $tiltag->getBesparelseBraendstof();
+      }
+      unset($values[$slutanvendelseType]['total']);
+      $values[$slutanvendelseType]['total'] = array_sum($values[$slutanvendelseType]);
+    }
+    return $values;
   }
 
   private function calculateBaselineCO2El() {
@@ -2729,6 +2893,26 @@ class Rapport {
     }
 
     return $result;
+  }
+
+  /**
+   * Calculates expression for SamletEnergiBesparelse value
+   */
+  protected function calculateSamletEnergiBesparelseKrExp() {
+    return $this->calculateSamletEnergiBesparelseKr(TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateSamletEnergiBesparelseKrExp()")
+   */
+  protected function calculateSamletEnergiBesparelseKr($expression = FALSE) {
+    $result = array();
+
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      $result[] = $tiltag->getSamletEnergibesparelse();
+    }
+
+    return $expression ? $this->sumExpr($result) : array_sum($result);
   }
 
   /**

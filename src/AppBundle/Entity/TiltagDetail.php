@@ -223,7 +223,7 @@ abstract class TiltagDetail {
    * @return Rapport
    */
   public function getRapport() {
-    return $this->getTiltag()->getRapport();
+    return empty($this->getTiltag()) ? NULL : $this->getTiltag()->getRapport();
   }
 
   /**

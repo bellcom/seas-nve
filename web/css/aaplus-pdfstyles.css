@@ -71,6 +71,12 @@ hr.pdf-heading {
   border: 0;
 }
 
+hr.dark {
+  background-color: #4A4D45;
+  height: 1px;
+  border: 0;
+}
+
 .page-break-after {
   page-break-after: always;
 }
@@ -255,4 +261,31 @@ tr.highlight {
 
 p {
   margin: 0 0 20px;
+}
+
+a {
+  color: #000;
+  text-decoration: underline;
+}
+
+.piechart-legend {
+  padding-left: 0;
+  margin-top: 15pt;
+  margin-left: -5pt;
+
+  list-style: none;
+}
+.piechart-legend li {
+  display: inline-block;
+
+  padding-right: 5pt;
+  padding-left: 5pt;
+}
+.piechart-legend span {
+  float: left;
+
+  width: 14pt;
+  height: 14pt;
+
+  margin-right: 5pt;
 }

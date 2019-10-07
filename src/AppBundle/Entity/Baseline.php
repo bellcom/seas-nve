@@ -49,7 +49,7 @@ class Baseline {
   protected $id;
 
   /**
-   * @ORM\OneToOne(targetEntity="Virksomhed", inversedBy="baseline", fetch="EAGER")
+   * @ORM\OneToOne(targetEntity="Virksomhed", mappedBy="baseline")
    **/
   protected $virksomhed;
 
@@ -2551,7 +2551,9 @@ class Baseline {
     $this->braendstofForbrugKorrigeret = $this->calculateBraendstofForbrugKorrigeret();
     $this->varmeStrafafkoelingsafgiftKorrigeret = $this->calculateVarmeStrafafkoelingsafgiftKorrigeret();
 
-    $this->getVirksomhed()->getRapport()->updateBaselineValues($this);
+    if ($this->getVirksomhed()->getRapport() instanceof VirksomhedRapport) {
+      $this->getVirksomhed()->getRapport()->updateBaselineValues($this);
+    }
   }
 
   /**

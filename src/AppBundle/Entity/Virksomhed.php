@@ -146,9 +146,9 @@ class Virksomhed
 
     /**
      * @var float
-     * @ORM\Column(name="subsidy_size", type="decimal", scale=4, nullable=true)
+     * @ORM\Column(name="tilskudstorelse", type="decimal", scale=4, nullable=true)
      */
-    protected $subsidySize;
+    protected $tilskudstorelse;
 
     /**
      * @var float
@@ -271,14 +271,14 @@ class Virksomhed
     protected $forsyningsvaerkEl;
 
     /**
-     * @ORM\OneToOne(targetEntity="VirksomhedKortlaegning", mappedBy="virksomhed", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="VirksomhedKortlaegning", inversedBy="virksomhed", fetch="EAGER", cascade={"persist"})
      * @JoinColumn(name="virksomhed_id", referencedColumnName="id", nullable=true)
      * @JMS\Exclude
      **/
     protected $kortlaegning;
 
     /**
-     * @ORM\OneToOne(targetEntity="Baseline", mappedBy="virksomhed", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Baseline", inversedBy="virksomhed", fetch="EAGER")
      * @JoinColumn(name="baseline_id", referencedColumnName="id", nullable=true)
      * @JMS\Exclude
      **/
@@ -644,6 +644,17 @@ class Virksomhed
     }
 
     /**
+     * Get type name label
+     *
+     * @return string
+     */
+    public function getTypeNameLabel($inherit = FALSE) {
+        $choices = VirksomhedTypeType::getChoices();
+        $typeName = $this->getTypeName($inherit);
+        return isset($choices[$typeName]) ? $choices[$typeName] : '';
+    }
+
+    /**
      * Set rapport
      *
      * @param VirksomhedRapport $rapport
@@ -717,27 +728,27 @@ class Virksomhed
     }
 
     /**
-     * Set subsidy size
+     * Set tilskudstorelse
      *
-     * @param float $subsidySize
+     * @param float $tilskudstorelse
      *
      * @return Virksomhed
      */
-    public function setSubsidySize($subsidySize)
+    public function setTilskudstorelse($tilskudstorelse)
     {
-        $this->subsidySize = $subsidySize;
+        $this->tilskudstorelse = $tilskudstorelse;
 
         return $this;
     }
 
     /**
-     * Get subsidy size
+     * Get tilskudstorelse
      *
      * @return float
      */
-    public function getSubsidySize()
+    public function getTilskudstorelse()
     {
-        return $this->subsidySize;
+        return $this->tilskudstorelse;
     }
 
     /**
@@ -857,6 +868,25 @@ class Virksomhed
     }
 
     /**
+     * Get all bygninger raadgivers
+     *
+     * @return ArrayCollection
+     */
+    public function getAllRaadgivers() {
+        $raadgivers = new ArrayCollection();
+        /** @var Bygning $bygning */
+        foreach ($this->getAllBygninger() as $bygning) {
+            foreach ($bygning->getEnergiRaadgiver() as $user) {
+                if (!$raadgivers->contains($user)) {
+                    $raadgivers->add($user);
+                }
+            }
+        }
+
+        return $raadgivers;
+    }
+
+    /**
      * Get erhvervsareal accumulated value from bygninger.
      *
      * @return array|float
@@ -864,8 +894,23 @@ class Virksomhed
     public function getBygningerErhvervsareal($array = FALSE) {
         $result = array();
         /** @var Bygning $bygning */
-        foreach ($this->getAllBygninger() as $bygning) {
+        foreach ($this->getBygninger() as $bygning) {
             $result[] = $bygning->getErhvervsareal();
+        }
+
+        return $array ? $result : array_sum($result);
+    }
+
+    /**
+     * Get Opvarmetareal accumulated value from bygninger.
+     *
+     * @return array|float
+     */
+    public function getBygningerOpvarmetareal($array = FALSE) {
+        $result = array();
+        /** @var Bygning $bygning */
+        foreach ($this->getBygninger() as $bygning) {
+            $result[] = $bygning->getOpvarmetareal();
         }
 
         return $array ? $result : array_sum($result);
