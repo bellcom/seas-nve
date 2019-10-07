@@ -63,6 +63,8 @@ common:
   download: "Download"
   downloadExcel: "Hent som Excel"
   downloadCsv: "Hent som csv"
+  downloadPdf: "Hent som PDF"
+  save_history: "Gem fil i historien"
   import: "Import"
   edit: "Rediger"
   empty: "Blank"

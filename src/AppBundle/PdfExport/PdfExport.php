@@ -16,7 +16,7 @@ class PdfExport {
     $this->templating = $this->container->get('templating');
   }
 
-  public function export2(Rapport $rapport, array $options = array()) {
+  public function export2(Rapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getBygning()->getVirksomhed();
 
@@ -36,7 +36,10 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $coverParams = array('rapport' => $rapport);
+    $coverParams = array(
+      'rapport' => $rapport,
+      'review' => $review,
+    );
     if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
       $coverParams['typenavn'] = $virksomhedsType;
     }
@@ -44,9 +47,10 @@ class PdfExport {
 
     $html = $this->renderView('AppBundle:Rapport:showPdf2.html.twig', array(
       'rapport' => $rapport,
+      'review' => $review,
     ));
 
-    return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+    return $review ? ($cover . $html) :  $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('lowquality' => false,
             'encoding' => 'utf-8',
             'images' => true,
@@ -57,7 +61,7 @@ class PdfExport {
       $options));
   }
 
-  public function export5(Rapport $rapport, array $options = array()) {
+  public function export5(Rapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getBygning()->getVirksomhed();
 
@@ -77,7 +81,10 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $coverParams = array('rapport' => $rapport);
+    $coverParams = array(
+      'rapport' => $rapport,
+      'review' => $review,
+    );
     if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
       $coverParams['typenavn'] = $virksomhedsType;
     }
@@ -85,9 +92,10 @@ class PdfExport {
 
     $html = $this->renderView('AppBundle:Rapport:showPdf5.html.twig', array(
       'rapport' => $rapport,
+      'review' => $review,
     ));
 
-    return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+    return $review ? ($cover . $html) :  $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('orientation'=>'Landscape',
             'lowquality' => false,
             'encoding' => 'utf-8',
@@ -99,7 +107,7 @@ class PdfExport {
       $options));
   }
 
-  public function exportVirksomhedRapport2(VirksomhedRapport $rapport, array $options = array()) {
+  public function exportVirksomhedRapport2(VirksomhedRapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getVirksomhed();
 
@@ -115,7 +123,10 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $coverParams = array('rapport' => $rapport);
+    $coverParams = array(
+      'rapport' => $rapport,
+      'review' => $review,
+      );
     if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
       $coverParams['typenavn'] = $virksomhedsType;
     }
@@ -123,9 +134,10 @@ class PdfExport {
 
     $html = $this->renderView('AppBundle:VirksomhedRapport:showPdf2.html.twig', array(
       'rapport' => $rapport,
+      'review' => $review,
     ));
 
-    return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+    return $review ? ($cover . $html) : $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('lowquality' => false,
             'encoding' => 'utf-8',
             'images' => true,
@@ -136,7 +148,7 @@ class PdfExport {
       $options));
   }
 
-  public function exportVirksomhedRapportKortlaegning(VirksomhedRapport $rapport, array $options = array(), $test = FALSE) {
+  public function exportVirksomhedRapportKortlaegning(VirksomhedRapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getVirksomhed();
 
@@ -152,7 +164,11 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $coverParams = array('rapport' => $rapport);
+    $coverParams = array(
+      'rapport' => $rapport,
+      'review' => $review,
+    );
+
     if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
       $coverParams['typenavn'] = $virksomhedsType;
     }
@@ -289,6 +305,7 @@ class PdfExport {
 
     // Data for elForbrugSluanvendelse pie chart.
     $labels = $rapport->getBesparelseSlutanvendelserLabels();
+    $elForbrugSluanvendelse = array();
     $chartData = array();
     if (!empty($rapport->getVirksomhed()->getKortlaegning())) {
       foreach ($rapport->getVirksomhed()->getKortlaegning()->getSlutanvendelser() as $key => $value) {
@@ -297,11 +314,9 @@ class PdfExport {
           'value' => $value['forbrug'],
         );
       }
-      $elForbrugSluanvendelse = array(
-        array(
-          'name' => $rapport->getVirksomhed()->getName(),
-          'data' => $chartData,
-        ),
+      $elForbrugSluanvendelse[] = array(
+        'name' => $rapport->getVirksomhed()->getName(),
+        'data' => $chartData,
       );
     }
 
@@ -334,14 +349,10 @@ class PdfExport {
     $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegning.html.twig', array(
       'rapport' => $rapport,
       'pie_chart_data' => $pieChartData,
-      'show_legend' => TRUE,
+      'review' => $review,
     ));
 
-    if ($test) {
-      return $cover . $html;
-    }
-
-    return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+    return $review ? ($cover . $html) : $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('lowquality' => false,
             'encoding' => 'utf-8',
             'images' => true,
@@ -352,7 +363,7 @@ class PdfExport {
       $options));
   }
 
-  public function exportVirksomhedRapportDetailark(VirksomhedRapport $rapport, array $options = array()) {
+  public function exportVirksomhedRapportDetailark(VirksomhedRapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getVirksomhed();
 
@@ -381,16 +392,20 @@ class PdfExport {
 
       $html .= $this->renderView('AppBundle:Rapport:showPdf5Body.html.twig', array(
         'rapport' => $bygningRaport,
+        'review' => $review,
       ));
     }
 
-    $coverParams = array('rapport' => $rapport);
+    $coverParams = array(
+      'rapport' => $rapport,
+      'review' => $review,
+    );
     if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
       $coverParams['typenavn'] = ucfirst($virksomhedsType);
     }
     $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailarkCover.html.twig', $coverParams);
 
-    return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+    return $review ? ($cover . $html) :  $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('orientation'=>'Landscape',
             'lowquality' => false,
             'encoding' => 'utf-8',

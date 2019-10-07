@@ -188,10 +188,45 @@ class RapportController extends BaseController {
   }
 
   /**
+   * Generates review page for PDF rapport.
+   *
+   * @Route("/{id}/pdfreview/{type}", name="rapport_pdf_review")
+   * @Method("GET")
+   * @Template("AppBundle::rapport_review.html.twig")
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Rapport $rapport
+   * @param string $type
+   * @return array
+   */
+  public function showPdfReviewAction(Rapport $rapport, $type)
+  {
+    $exporter = $this->get('aaplus.pdf_export');
+    switch ($type) {
+      case 'resultatoversigt':
+        $html = $exporter->export2($rapport, [], TRUE);
+        $pdf_export_route = 'rapport_show_pdf2';
+        break;
+
+      case 'detailark':
+        $html = $exporter->export5($rapport, [], TRUE);
+        $pdf_export_route = 'rapport_show_pdf5';
+        break;
+
+      default:
+        throw $this->createNotFoundException('Report type not found');
+    }
+
+    return array(
+      'html' => $html,
+      'pdf_export_url' => $pdf_export_route ? $this->generateUrl($pdf_export_route, array('id' => $rapport->getId())) : '',
+    );
+  }
+
+  /**
    * Finds and displays a Rapport entity in PDF form. (Resultatoversigt)
    *
    * @Route("/{id}/pdf2", name="rapport_show_pdf2")
-   * @Method("GET")
+   * @Method("POST")
    * @Template()
    * @Security("is_granted('RAPPORT_VIEW', rapport)")
    * @param Rapport $rapport
@@ -213,7 +248,7 @@ class RapportController extends BaseController {
    * Finds and displays a Rapport entity in PDF form. (Detailark)
    *
    * @Route("/{id}/pdf5", name="rapport_show_pdf5")
-   * @Method("GET")
+   * @Method("POST")
    * @Template()
    * @Security("is_granted('RAPPORT_VIEW', rapport)")
    * @param Rapport $rapport

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('favicon.ico')) }}" />
+
+    <title>{% block title %}SEAS-NVE Strømmen A/S{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link href="{{ absolute_url(asset('css/lib/bootstrap.min.css')) }}" type="text/css" rel="stylesheet" />
+        <link href="{{ absolute_url(asset('css/lib/font-awesome.min.css')) }}" type="text/css" rel="stylesheet" />
+        <link href="{{ absolute_url(asset('css/lib/sticky-footer-navbar.css')) }}" type="text/css" rel="stylesheet" />
+        <link href="{{ absolute_url(asset('css/aaplus-styles.css')) }}" type="text/css" rel="stylesheet" />
+        <link href="{{ absolute_url(asset('css/aaplus-pdfstyles.css')) }}" type="text/css" rel="stylesheet"/>
+    {% endblock %}
+
+    <script src="{{ absolute_url(asset('js/lib/Chart.js/Chart.min.js')) }}"></script>
+
+</head>
+
+<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/"><img src="{{ absolute_url(asset('img/seas-nve-logo.png')) }}" class="navbar-brand--logo"/> </a>
+        </div>
+        <div class="navbar-right">
+            {% if pdf_export_url %}
+                <form method="POST" action="{{ pdf_export_url }}" style="margin-top:10px;">
+                    <label for="form_history" style="font-weight:normal;">
+                        <input type="checkbox" id="form_history" name="form[history]" value="1" checked>
+                        {{ 'common.save_history' | trans }}
+                    </label>
+                    <button type="submit" class="btn btn-default">{{ icon('file-pdf-o') }} {{ 'common.downloadPdf' | trans }}</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+{% macro header(key) %}
+    {% set calculation = key|get_calculation %}
+
+    <th class="rotate">
+        <div>
+            {% if calculation is null %}
+                <span>{{ key | trans }}</span>
+            {% else %}
+                <span data-calculation="{{ calculation }}">{{ key | trans }}</span>
+            {% endif %}
+        </div>
+    </th>
+{% endmacro %}
+
+{% macro header_unit(key, border_right=false) %}
+    {% set translation = key|get_unit %}
+    {% set border = border_right ? 'border-right' : '' %}
+
+    <th class="unit {{ border }}">
+        {{ translation }}
+    </th>
+{% endmacro %}
+
+{% macro header_span(key, span) %}
+    {% set translation = key|trans %}
+
+    <th colspan="{{ span }}" class="text-center border-right">
+        {{ translation }}
+    </th>
+{% endmacro %}
+
+{% import _self as helper %}
+
+<!-- Begin page content -->
+
+{{ html | raw }}
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+{% block javascripts %}
+
+{% endblock %}
+
+</body>
+</html>

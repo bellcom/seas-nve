@@ -7,10 +7,12 @@ body {
 
 div.portrait {
   width: 1000px;
+  margin: 0 auto;
 }
 
 div.landscape {
   width: 1400px;
+  margin: 0 auto;
 }
 
 h1 {

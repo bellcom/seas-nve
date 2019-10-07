@@ -1,4 +1,4 @@
-{% extends 'AppBundle::pdf.html.twig' %}
+{% extends review == false ? 'AppBundle::pdf.html.twig' : 'AppBundle:_includes:rapport_review_container.html.twig' %}
 
 {% block body -%}
 
