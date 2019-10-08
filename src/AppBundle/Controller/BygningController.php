@@ -432,6 +432,12 @@ class BygningController extends BaseController implements InitControllerInterfac
         $em->flush();
         $this->flash->success('bygning_rapporter.confirmation.deleted_forslags');
 
+        // Removing rapport files.
+        $files = $em->getRepository('AppBundle:Fil')->findByEntity($rapport);
+        foreach ($files as $file) {
+          $em->remove($file);
+        }
+
         // Removing rapport.
         $em->remove($rapport);
         $em->flush();

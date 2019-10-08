@@ -9,13 +9,14 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
-
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * Fil
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\FilRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Fil {
   use BlameableEntity;
@@ -39,6 +40,12 @@ class Fil {
    * @ORM\Column(name="type", type="string", nullable=true)
    */
   protected $type;
+
+  /**
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\FilCategoryType")
+   * @ORM\Column(name="category", type="string", nullable=true)
+   */
+  protected $category;
 
   /**
    * @var string
@@ -70,9 +77,29 @@ class Fil {
 
   /**
    * @param string $navn
+   *
+   * @return Fil
    */
   public function setNavn($navn) {
     $this->navn = $navn;
+
+    return $this;
+  }
+
+  /**
+   * @return string
+   */
+  public function getCategory() {
+    return $this->category;
+  }
+
+  /**
+   * @param string $category
+   *
+   * @return Fil
+   */
+  public function setCategory($category) {
+    $this->category = $category;
 
     return $this;
   }
@@ -161,5 +188,15 @@ class Fil {
    */
   public function getType() {
     return $this->type;
+  }
+
+  /**
+   * @ORM\PreRemove()
+   */
+  public function preRemoveEvent()
+  {
+    if (file_exists($this->getFilepath())) {
+      unlink($this->getFilepath());
+    }
   }
 }

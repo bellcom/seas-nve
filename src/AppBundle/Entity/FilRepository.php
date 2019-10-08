@@ -7,6 +7,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -26,11 +27,11 @@ class FilRepository extends EntityRepository {
     $fil->setType($file->getMimeType());
   }
 
-  public function findByEntity($entity) {
-    $query = $this->_em->createQuery('SELECT f FROM AppBundle:Fil f WHERE f.entityType = :entity_type AND f.entityId = :entity_id ORDER BY f.createdAt');
+  public function findByEntity($entity, $returnQuery = FALSE) {
+    $query = $this->_em->createQuery('SELECT f FROM AppBundle:Fil f WHERE f.entityType = :entity_type AND f.entityId = :entity_id ORDER BY f.createdAt DESC');
     $query->setParameter('entity_type', get_class($entity));
     $query->setParameter('entity_id', $entity->getId());
 
-    return $query->getResult();
+    return $returnQuery ? $query : $query->getResult();
   }
 }

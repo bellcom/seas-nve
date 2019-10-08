@@ -7,12 +7,14 @@
 namespace AppBundle\Controller;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\DBAL\Types\FilCategoryType;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\RapportSearchType;
 use AppBundle\Form\Type\RapportShowType;
 use AppBundle\Form\Type\RapportStatusType;
 use AppBundle\Form\Type\TiltagDatoForDriftType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
@@ -229,14 +231,29 @@ class RapportController extends BaseController {
    * @Method("POST")
    * @Template()
    * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Request $request
    * @param Rapport $rapport
-   * @return array
+   * @return Response
    */
-  public function showPdf2Action(Rapport $rapport) {
+  public function showPdf2Action(Request $request, Rapport $rapport) {
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->export2($rapport);
 
-    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion();
+    $pdfName = $rapport->getBygning()->getAdresse() . '-resultatoversigt-' . date('Y-m-d-His') . '-Status-'.$rapport->getBygning()->getNummericStatus().'-Itt-'.$rapport->getVersion();
+
+    if ($request->get('save-pdf')) {
+      $fil = new Fil();
+      $fil
+        ->setNavn($pdfName)
+        ->setCategory(FilCategoryType::RAPPORT_DETAILARK)
+        ->setEntity($rapport);
+      $em = $this->getDoctrine()->getManager();
+      $em->getRepository('AppBundle:Fil')->saveContent($pdf, $fil, $this->container);
+      $em->persist($fil);
+      $em->flush();
+      $this->flash->success('bygning_rapporter.confirmation.rapport_file_saved');
+      return $this->redirect($this->generateUrl('rapport_filer', array('id' => $rapport->getId())));
+    }
 
     return new Response($pdf, 200, array(
       'Content-Type'          => 'application/pdf',
@@ -251,21 +268,35 @@ class RapportController extends BaseController {
    * @Method("POST")
    * @Template()
    * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Request $request
    * @param Rapport $rapport
-   * @return array
+   * @return Response
    */
-  public function showPdf5Action(Rapport $rapport) {
+  public function showPdf5Action(Request $request, Rapport $rapport) {
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->export5($rapport);
 
-    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion();
+    $pdfName = $rapport->getBygning()->getAdresse() . '-detailark-' . date('Y-m-d-His') . '-Status-'.$rapport->getBygning()->getNummericStatus().'-Itt-'.$rapport->getVersion();
+
+    if ($request->get('save-pdf')) {
+      $fil = new Fil();
+      $fil
+        ->setNavn($pdfName)
+        ->setCategory(FilCategoryType::RAPPORT_DETAILARK)
+        ->setEntity($rapport);
+      $em = $this->getDoctrine()->getManager();
+      $em->getRepository('AppBundle:Fil')->saveContent($pdf, $fil, $this->container);
+      $em->persist($fil);
+      $em->flush();
+      $this->flash->success('bygning_rapporter.confirmation.rapport_file_saved');
+      return $this->redirect($this->generateUrl('rapport_filer', array('id' => $rapport->getId())));
+    }
 
     return new Response($pdf, 200, array(
       'Content-Type'          => 'application/pdf',
       'Content-Disposition'   => 'attachment; filename="' . $pdfName .'.pdf"'
     ));
   }
-
 
   /**
    * Finds and displays a Rapport entity.
@@ -576,21 +607,23 @@ class RapportController extends BaseController {
       $filRepository = $em->getRepository('AppBundle:Fil');
 
       $pdf = $exporter->export2($rapport);
-      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion() . '.pdf';
+      $pdfName = $rapport->getBygning()->getAdresse() . '-resultatoversigt-' . date('Y-m-d-His') . '-Status-'.$rapport->getBygning()->getNummericStatus().'-Itt-'.$rapport->getVersion() . '.pdf';
 
       $fil = new Fil();
       $fil
         ->setNavn($pdfName)
+        ->setCategory(FilCategoryType::RAPPORT_RESULTATOVERSIGT)
         ->setEntity($rapport);
-      $filRepository->saveContent($pdf, $fil, $this->container);
+      $filRepository->saveContent($pdf, $fil);
       $em->persist($fil);
 
       $pdf = $exporter->export5($rapport);
-      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion() . '.pdf';
+      $pdfName = $rapport->getBygning()->getAdresse() . '-detailark-' . date('Y-m-d-His') . '-Status-'.$rapport->getBygning()->getNummericStatus().'-Itt-'.$rapport->getVersion() . '.pdf';
 
       $fil = new Fil();
       $fil
         ->setNavn($pdfName)
+        ->setCategory(FilCategoryType::RAPPORT_DETAILARK)
         ->setEntity($rapport);
       $filRepository->saveContent($pdf, $fil, $this->container);
       $em->persist($fil);
@@ -822,16 +855,22 @@ class RapportController extends BaseController {
    */
   public function showFilerAction(Request $request, Rapport $rapport) {
     $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
-    $this->breadcrumbs->addItem('filer', $this->generateUrl('rapport_filer', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('Filer', $this->generateUrl('rapport_filer', array('id' => $rapport->getId())));
 
     $em = $this->getDoctrine()->getManager();
     $filRepository = $em->getRepository('AppBundle:Fil');
 
-    $filer = $filRepository->findByEntity($rapport);
+    $query = $filRepository->findByEntity($rapport, TRUE);
 
+    $paginator = $this->get('knp_paginator');
+    $pagination = $paginator->paginate(
+      $query,
+      $request->query->get('page', 1),
+      20
+    );
     return array(
       'entity' => $rapport,
-      'filer' => $filer,
+      'pagination' => $pagination,
     );
   }
 

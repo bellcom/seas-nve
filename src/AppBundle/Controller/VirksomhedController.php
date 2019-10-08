@@ -534,6 +534,12 @@ class VirksomhedController extends BaseController
             }
 
             if (!empty($virksomhed->getRapport())) {
+                // Removing rapport files.
+                $files = $em->getRepository('AppBundle:Fil')->findByEntity($virksomhed->getRapport());
+                foreach ($files as $file) {
+                  $em->remove($file);
+                }
+
                 $em->remove($virksomhed->getRapport());
             }
 

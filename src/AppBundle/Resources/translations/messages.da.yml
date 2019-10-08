@@ -64,7 +64,7 @@ common:
   downloadExcel: "Hent som Excel"
   downloadCsv: "Hent som csv"
   downloadPdf: "Hent som PDF"
-  save_history: "Gem fil i historien"
+  savePdf: "Gem PDF-fil"
   import: "Import"
   edit: "Rediger"
   empty: "Blank"
@@ -226,6 +226,7 @@ bygning_rapporter:
     verified: "Bygning rapport verificeret af Aa+"
     deleted: "Bygning rapport slettet"
     deleted_forslags: "Bygning rapport forslags blev slettet"
+    rapport_file_saved: "Bygning rapport fil blev gemt"
   messages:
     no_files: "Bygning rapporten har ingen filer tilknyttet"
     baseline_value_disabled: "This value has been defined in Virksomhed rapport baseline or Virksomhed baseline"
@@ -677,6 +678,7 @@ virksomhed_rapporter:
     re-calculate: "Er du sikker på at du vil genberegne bygningsrapporten?"
     calculated: "Virksomhed rapport beregnet"
     tekster_opdateret: "Virksomhed rapport tekster blev opdateret"
+    rapport_file_saved: "Bygning rapport fil blev gemt"
   error:
     beregn_fejl: "Fejl under beregning af rapport"
   messages:

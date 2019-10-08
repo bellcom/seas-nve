@@ -33,11 +33,8 @@
         <div class="navbar-right">
             {% if pdf_export_url %}
                 <form method="POST" action="{{ pdf_export_url }}" style="margin-top:10px;">
-                    <label for="form_history" style="font-weight:normal;">
-                        <input type="checkbox" id="form_history" name="form[history]" value="1" checked>
-                        {{ 'common.save_history' | trans }}
-                    </label>
-                    <button type="submit" class="btn btn-default">{{ icon('file-pdf-o') }} {{ 'common.downloadPdf' | trans }}</button>
+                    <button type="submit" class="btn btn-default" name="save-pdf" value="1">{{ icon('file-pdf-o') }} {{ 'common.savePdf' | trans }}</button>
+                    <button type="submit" class="btn btn-default" name="download-pdf" value="1">{{ icon('file-pdf-o') }} {{ 'common.downloadPdf' | trans }}</button>
                 </form>
             {% endif %}
         </div>

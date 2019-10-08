@@ -6,6 +6,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\DBAL\Types\FilCategoryType;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Form\Type\VirksomhedRapportSearchType;
@@ -324,18 +325,32 @@ class VirksomhedRapportController extends BaseController {
    * @Method("POST")
    * @Template()
    * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
+   * @param Request $request
    * @param VirksomhedRapport $rapport
    *
    * @return Response
    */
-  public function showPdf2Action(VirksomhedRapport $rapport) {
+  public function showPdf2Action(Request $request, VirksomhedRapport $rapport) {
     // We need more time!
     set_time_limit(0);
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->exportVirksomhedRapport2($rapport);
 
-    $pdfName = $rapport->getVirksomhed()->getAddress() . '-Dokument 2-' . date('Y-m-d') . '-Status ' . $rapport->getVirksomhed() . '-Itt ' . $rapport->getVersion();
+    $pdfName = $rapport->getVirksomhed() . '-resultatoversigt-' . date('Y-m-d-His');
 
+    if ($request->get('save-pdf')) {
+      $fil = new Fil();
+      $fil
+        ->setNavn($pdfName)
+        ->setCategory(FilCategoryType::RAPPORT_RESULTATOVERSIGT)
+        ->setEntity($rapport);
+      $em = $this->getDoctrine()->getManager();
+      $em->getRepository('AppBundle:Fil')->saveContent($pdf, $fil, $this->container);
+      $em->persist($fil);
+      $em->flush();
+      $this->flash->success('virksomhed_rapporter.confirmation.rapport_file_saved');
+      return $this->redirect($this->generateUrl('virksomhed_rapport_filer', array('id' => $rapport->getId())));
+    }
     return new Response($pdf, 200, array(
       'Content-Type'          => 'application/pdf',
       'Content-Disposition'   => 'attachment; filename="' . $pdfName . '.pdf"',
@@ -349,17 +364,32 @@ class VirksomhedRapportController extends BaseController {
    * @Method("POST")
    * @Template()
    * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
+   * @param Request $request
    * @param VirksomhedRapport $rapport
    *
    * @return Response
    */
-  public function showPdfKortlaegningAction(VirksomhedRapport $rapport) {
+  public function showPdfKortlaegningAction(Request $request, VirksomhedRapport $rapport) {
     // We need more time!
     set_time_limit(0);
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->exportVirksomhedRapportKortlaegning($rapport);
 
-    $pdfName = $rapport->getVirksomhed()->getAddress() . '-kortlaegning-' . date('Y-m-d') . '-Status ' . $rapport->getVirksomhed() . '-Itt ' . $rapport->getVersion();
+    $pdfName = $rapport->getVirksomhed() . '-kortlaegning-' . date('Y-m-d-His');
+
+    if ($request->get('save-pdf')) {
+      $fil = new Fil();
+      $fil
+        ->setNavn($pdfName)
+        ->setCategory(FilCategoryType::RAPPORT_DETAILARK)
+        ->setEntity($rapport);
+      $em = $this->getDoctrine()->getManager();
+      $em->getRepository('AppBundle:Fil')->saveContent($pdf, $fil, $this->container);
+      $em->persist($fil);
+      $em->flush();
+      $this->flash->success('virksomhed_rapporter.confirmation.rapport_file_saved');
+      return $this->redirect($this->generateUrl('virksomhed_rapport_filer', array('id' => $rapport->getId())));
+    }
 
     return new Response($pdf, 200, array(
       'Content-Type'          => 'application/pdf',
@@ -374,17 +404,32 @@ class VirksomhedRapportController extends BaseController {
    * @Method("POST")
    * @Template()
    * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
+   * @param Request $request
    * @param VirksomhedRapport $rapport
    *
    * @return Response
    */
-  public function showPdfDetailarkAction(VirksomhedRapport $rapport) {
+  public function showPdfDetailarkAction(Request $request, VirksomhedRapport $rapport) {
     // We need more time!
     set_time_limit(0);
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->exportVirksomhedRapportDetailark($rapport);
 
-    $pdfName = $rapport->getVirksomhed()->getAddress() . '-Dokument 5-' . date('Y-m-d') . '-Status ' . $rapport->getVirksomhed() . '-Itt ' . $rapport->getVersion();
+    $pdfName = $rapport->getVirksomhed() . '-detailark-' . date('Y-m-d-His');
+
+    if ($request->get('save-pdf')) {
+      $fil = new Fil();
+      $fil
+        ->setNavn($pdfName)
+        ->setCategory(FilCategoryType::RAPPORT_KORTLAEGNING)
+        ->setEntity($rapport);
+      $em = $this->getDoctrine()->getManager();
+      $em->getRepository('AppBundle:Fil')->saveContent($pdf, $fil, $this->container);
+      $em->persist($fil);
+      $em->flush();
+      $this->flash->success('virksomhed_rapporter.confirmation.rapport_file_saved');
+      return $this->redirect($this->generateUrl('virksomhed_rapport_filer', array('id' => $rapport->getId())));
+    }
 
     return new Response($pdf, 200, array(
       'Content-Type'          => 'application/pdf',
@@ -549,16 +594,22 @@ class VirksomhedRapportController extends BaseController {
    */
   public function showFilerAction(Request $request, VirksomhedRapport $rapport) {
     $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
-    $this->breadcrumbs->addItem('filer', $this->generateUrl('virksomhed_rapport_filer', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('Filer', $this->generateUrl('virksomhed_rapport_filer', array('id' => $rapport->getId())));
 
     $em = $this->getDoctrine()->getManager();
     $filRepository = $em->getRepository('AppBundle:Fil');
 
-    $filer = $filRepository->findByEntity($rapport);
+    $query = $filRepository->findByEntity($rapport, TRUE);
 
+    $paginator = $this->get('knp_paginator');
+    $pagination = $paginator->paginate(
+      $query,
+      $request->query->get('page', 1),
+      20
+    );
     return array(
       'entity' => $rapport,
-      'filer' => $filer,
+      'pagination' => $pagination,
     );
   }
 
