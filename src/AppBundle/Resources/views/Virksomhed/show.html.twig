@@ -182,7 +182,7 @@
             <th>{{ 'appbundle.virksomhed.user.customer_url' | trans }}</th>
             <td>
               {% if entity.user %}
-              <a href="mailto:?subject=SEAS-NVE Rapport&body={{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}">Sent rapport adgang til kunden</a></td>
+              <a target="_blank" href="mailto:{{ entity.getContactPersons()[0].mail }}?subject=SEAS-NVE Rapport&body={{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}">Send rapport adgang til kunden</a></td>
             {% endif %}
           </tr>
           <tr>
