@@ -624,10 +624,14 @@ class VirksomhedRapportController extends BaseController {
     $path = $fil->getFilepath();
     $file = new File($path);
     $response = new BinaryFileResponse($file->getRealPath());
+    $ext_suffix = '';
+    if ($fil->getType() == 'application/pdf') {
+      $ext_suffix  = '.pdf';
+    }
     if ($request->query->getBoolean('download', false)) {
       $response->setContentDisposition(
         ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-        $fil->getNavn()
+        $fil->getNavn() . $ext_suffix
       );
     }
     return $response;
