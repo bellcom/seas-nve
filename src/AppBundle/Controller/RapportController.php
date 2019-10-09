@@ -614,7 +614,7 @@ class RapportController extends BaseController {
         ->setNavn($pdfName)
         ->setCategory(FilCategoryType::RAPPORT_RESULTATOVERSIGT)
         ->setEntity($rapport);
-      $filRepository->saveContent($pdf, $fil);
+      $filRepository->saveContent($pdf, $fil, $this->container);
       $em->persist($fil);
 
       $pdf = $exporter->export5($rapport);
