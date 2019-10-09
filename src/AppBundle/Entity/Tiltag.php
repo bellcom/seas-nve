@@ -706,6 +706,9 @@ abstract class Tiltag {
    * @return \AppBundle\DBAL\Types\SlutanvendelseType
    */
   public function getSlutanvendelse() {
+    if (isset(SlutanvendelseType::$detaultValues[get_class($this)])) {
+      $this->slutanvendelse = SlutanvendelseType::$detaultValues[get_class($this)];
+    }
     return $this->slutanvendelse;
   }
 
@@ -2145,6 +2148,9 @@ abstract class Tiltag {
   public function __construct() {
     $this->details = new \Doctrine\Common\Collections\ArrayCollection();
     $this->bilag = new \Doctrine\Common\Collections\ArrayCollection();
+    if (isset(SlutanvendelseType::$detaultValues[get_class($this)])) {
+      $this->slutanvendelse = SlutanvendelseType::$detaultValues[get_class($this)];
+    }
   }
 
   /**
