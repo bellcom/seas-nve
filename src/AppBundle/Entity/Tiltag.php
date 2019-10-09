@@ -2074,6 +2074,9 @@ abstract class Tiltag {
    * @Formula("$this->tilskudsstoerrelse * ((($this->getKonverteringsfaktorFoer() * $this->getForbrugFoer()) - ($this->getKonverteringsfaktorEfter() * $this->getForbrugEfter())) * $this->getPrioriteringsfaktor())")
    */
   protected function calculateTilskudsstoerrelse() {
+    if ($this->simpelTilbagebetalingstidAar < 1) {
+      return 0;
+    }
     // tilskudsstørrelse * (((getKonverteringsfaktorFoer * forbrugFoer) - (getKonverteringsfaktorEfter * forbrugEfter)) * prioteringsFaktor);
     return $this->getTilskudsstoerrelse() * ((($this->getKonverteringsfaktorFoer() * $this->getForbrugFoer()) - ($this->getKonverteringsfaktorEfter() * $this->getForbrugEfter())) * $this->getPrioriteringsfaktor());
   }
