@@ -159,6 +159,10 @@
             <td>{{ entity.tilskudstorelse | format_decimal }} {{ 'appbundle.virksomhed.tilskudstorelse' | get_unit }}</td>
           </tr>
           <tr>
+            <th>{{ 'appbundle.virksomhed.aarsVaerk' | trans }}</th>
+            <td>{{ entity.aarsVaerk | format_integer }} {{ 'appbundle.virksomhed.aarsVaerk' | get_unit }}</td>
+          </tr>
+          <tr>
             <th>{{ 'appbundle.virksomhed.forbrug' | trans }}</th>
             <td>{{ entity.forbrug }}</td>
           </tr>

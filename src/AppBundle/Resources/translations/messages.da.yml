@@ -2101,6 +2101,7 @@ appbundle:
     dsmCode: "DSM kode"
     tilskudstorelse: "Tilskudsstørrelse"
     tilskudstorelse.unit: "kr/kWh"
+    aarsVaerk: "ÅrsVærk"
     forbrug: "Forbrug"
     kam: "KAM"
     kalkulationsrente: "Kalkulationsrente"
