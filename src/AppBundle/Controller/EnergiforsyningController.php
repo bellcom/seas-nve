@@ -243,7 +243,7 @@ class EnergiforsyningController extends BaseController {
 
     return array(
       'entity' => $entity,
-      'form' => $form->createView(),
+      'edit_form' => $form->createView(),
     );
   }
 
