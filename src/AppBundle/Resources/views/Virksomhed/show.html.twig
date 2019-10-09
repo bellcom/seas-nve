@@ -156,7 +156,7 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.tilskudstorelse' | trans }}</th>
-            <td>{{ entity.tilskudstorelse }}</td>
+            <td>{{ entity.tilskudstorelse | format_decimal }} {{ 'appbundle.virksomhed.tilskudstorelse' | get_unit }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.forbrug' | trans }}</th>
