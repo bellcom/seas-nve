@@ -210,62 +210,71 @@ class PdfExport {
     $pieChartData['overordnetForrug'] = $overordnetForrug;
 
     // Data for elForrug pie chart.
-    $elForrug = array(
-      array(
-        'label' => $rapport->getVirksomhed()->__toString(),
-        'value' => $rapport->getBaselineEl(),
-        'erhvervsareal' => $rapport->getErhvervsareal(),
-      ),
+    $elForrug = array();
+    $row = array(
+      'label' => $rapport->getVirksomhed()->__toString(),
+      'value' => $rapport->getBaselineEl(),
+      'erhvervsareal' => $rapport->getErhvervsareal(),
     );
+    $row['kpi'] = $row['erhvervsareal'] ? $row['value'] / $row['erhvervsareal'] : NULL;
+    $elForrug[] = $row;
     foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
-      $elForrug[] = array(
+      $row = array(
         'label' => $datterSelskab->getRapport()->getVirksomhed()->__toString(),
         'value' => $datterSelskab->getRapport()->getBaselineEl(),
         'erhvervsareal' => $datterSelskab->getRapport()->getErhvervsareal(),
       );
+      $row['kpi'] = $row['erhvervsareal'] ? $row['value'] / $row['erhvervsareal'] : NULL;
+      $elForrug[] = $row;
     }
     $pieChartData['elForrug'] = $elForrug;
 
     // Data for varmeForrug pie chart.
-    $varmeForrug = array(
-      array(
-        'label' => $rapport->getVirksomhed()->__toString(),
-        'value' => $rapport->getBaselineVarme(),
-        'opvarmetareal' => $rapport->getOpvarmetareal(),
-      ),
+    $varmeForrug = array();
+    $row = array(
+      'label' => $rapport->getVirksomhed()->__toString(),
+      'value' => $rapport->getBaselineVarme(),
+      'opvarmetareal' => $rapport->getOpvarmetareal(),
     );
+    $row['kpi'] = $row['opvarmetareal'] ? $row['value'] / $row['opvarmetareal'] : NULL;
+    $varmeForrug[] = $row;
     foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
-      $varmeForrug[] = array(
+      $row = array(
         'label' => $datterSelskab->getRapport()->getVirksomhed()->__toString(),
         'value' => $datterSelskab->getRapport()->getBaselineVarme(),
-        'erhvervsareal' => $datterSelskab->getRapport()->getErhvervsareal(),
+        'opvarmetareal' => $datterSelskab->getRapport()->getOpvarmetareal(),
       );
+      $row['kpi'] = $row['opvarmetareal'] ? $row['value'] / $row['opvarmetareal'] : NULL;
+      $varmeForrug[] = $row;
     }
     $pieChartData['varmeForrug'] = $varmeForrug;
 
     // Data for varmeForrug pie chart.
-    $braendstofForrug = array(
-      array(
-        'label' => $rapport->getVirksomhed()->__toString(),
-        'value' => $rapport->getBaselineVarme(),
-        'erhvervsareal' => $rapport->getOpvarmetareal(),
-      ),
+    $braendstofForrug = array();
+    $row = array(
+      'label' => $rapport->getVirksomhed()->__toString(),
+      'value' => $rapport->getBaselineVarme(),
+      'erhvervsareal' => $rapport->getOpvarmetareal(),
     );
+    $row['kpi'] = $row['erhvervsareal'] ? $row['value'] / $row['erhvervsareal'] : NULL;
+    $braendstofForrug[] = $row;
     foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
-      $braendstofForrug[] = array(
+      $row = array(
         'label' => $datterSelskab->getRapport()->getVirksomhed()->__toString(),
         'value' => $datterSelskab->getRapport()->getBaselineVarme(),
         'erhvervsareal' => $datterSelskab->getRapport()->getOpvarmetareal(),
       );
+      $row['kpi'] = $row['erhvervsareal'] ? $row['value'] / $row['erhvervsareal'] : NULL;
+      $braendstofForrug[] = $row;
     }
     $pieChartData['braendstofForbrug'] = $braendstofForrug;
 
