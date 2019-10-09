@@ -202,9 +202,9 @@
               {% for row in pie_chart_data.elForrug %}
                 <tr>
                   <th>{{ row.label }}</th>
-                  <td>{{ row.value }}</td>
-                  <td>{{ row.erhvervsareal }}</td>
-                  <td>[x]</td>
+                  <td>{{ row.value | format_decimal }}</td>
+                  <td>{{ row.erhvervsareal | format_decimal }}</td>
+                  <td>{{ row.kpi | format_decimal }}</td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -242,9 +242,9 @@
               {% for row in pie_chart_data.varmeForrug %}
                 <tr>
                   <th>{{ row.label }}</th>
-                  <td>{{ row.value }}</td>
-                  <td>{{ row.opvarmetareal }}</td>
-                  <td>[x]</td>
+                  <td>{{ row.value | format_decimal }}</td>
+                  <td>{{ row.opvarmetareal | format_decimal }}</td>
+                  <td>{{ row.kpi | format_decimal }}</td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -277,9 +277,9 @@
               {% for row in pie_chart_data.braendstofForbrug %}
                 <tr>
                   <th>{{ row.label }}</th>
-                  <td>{{ row.value }}</td>
-                  <td>{{ row.erhvervsareal }}</td>
-                  <td>[x]</td>
+                  <td>{{ row.value | format_decimal }}</td>
+                  <td>{{ row.erhvervsareal | format_decimal }}</td>
+                  <td>{{ row.kpi | format_decimal }}</td>
                 </tr>
               {% endfor %}
             </table>
@@ -406,23 +406,23 @@
             </tr>
             <tr>
               <td>El</td>
-              <td>{{ rapport.virksomhed.kortlaegning.totalForbrug }}</td>
+              <td>{{ rapport.virksomhed.kortlaegning.totalForbrug | format_decimal }}</td>
               {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-                <td>{{ datterSelskab.kortlaegning.totalForbrug }}</td>
+                <td>{{ datterSelskab.kortlaegning.totalForbrug | format_decimal }}</td>
               {% endfor %}
             </tr>
             <tr>
               <td>Erhvervsareal</td>
-              <td>{{ rapport.erhvervsareal }}</td>
+              <td>{{ rapport.erhvervsareal | format_decimal}}</td>
               {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-                <td>{{ datterSelskab.rapport.erhvervsareal }}</td>
+                <td>{{ datterSelskab.rapport.erhvervsareal | format_decimal }}</td>
               {% endfor %}
             </tr>
             <tr>
               <td>KPI</td>
-              <td>[x]</td>
+              <td>{% if rapport.erhvervsareal %}{{ (rapport.virksomhed.kortlaegning.totalForbrug / rapport.erhvervsareal) | format_decimal }}{% else %}–{% endif %}</td>
               {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-                <td>[x]</td>
+                <td>{% if datterSelskab.rapport.erhvervsareal %}{{ (datterSelskab.kortlaegning.totalForbrug / datterSelskab.rapport.erhvervsareal) | format_decimal }}{% else %}–{% endif %}</td>
               {% endfor %}
             </tr>
           </table>
