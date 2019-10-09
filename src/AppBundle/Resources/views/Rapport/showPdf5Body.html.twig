@@ -19,7 +19,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">
-            {{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}
+            {{ 'common.result_overview' | trans }}
             <span
                 class="float-right">{{ t.tilvalgt ? 'appbundle.tiltag.tilvalgt' | trans : 'appbundle.tiltag.fravalgt' | trans }}</span>
           </h3>
@@ -193,7 +193,7 @@
       {% if t.details is not empty %}
         {% set template = 'AppBundle:' ~ tiltag_type(t) ~ 'Tiltag:_detailTablePdf.html.twig' %}
         <div class="panel panel-default page-break-before">
-          <div class="panel-heading"><h3 class="panel-title">{{ icon('list') }} Skema til: {{ t.title }}</h3></div>
+          <div class="panel-heading"><h3 class="panel-title">Skema til: {{ t.title }}</h3></div>
           {% include template with {'entity': t} %}
         </div>
       {% endif %}
