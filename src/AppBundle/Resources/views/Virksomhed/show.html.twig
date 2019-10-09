@@ -55,15 +55,21 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.crmNumber' | trans }}</th>
-            <td>{{ entity.getCrmNumber(TRUE) }}</td>
+            <td>{{ entity.getCrmNumber(TRUE) }}
+              {% if entity.isInherited('crmNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.customerNumber' | trans }}</th>
-            <td>{{ entity.getCustomerNumber(TRUE) }}</td>
+            <td>{{ entity.getCustomerNumber(TRUE) }}
+              {% if entity.isInherited('customerNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.projectNumber' | trans }}</th>
-            <td>{{ entity.getProjectNumber(TRUE) }}</td>
+            <td>{{ entity.getProjectNumber(TRUE) }}
+              {% if entity.isInherited('projectNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.aftagerNumber' | trans }}</th>
@@ -71,7 +77,9 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.typeName' | trans }}</th>
-            <td>{{ entity.getTypeName(TRUE) }}</td>
+            <td>{{ entity.getTypeName(TRUE) }}
+              {% if entity.isInherited('projectNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           </tbody>
         </table>
@@ -156,7 +164,9 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.tilskudstorelse' | trans }}</th>
-            <td>{{ entity.tilskudstorelse | format_decimal }} {{ 'appbundle.virksomhed.tilskudstorelse' | get_unit }}</td>
+            <td>{{ entity.getTilskudstorelse(TRUE) | format_decimal }} {{ 'appbundle.virksomhed.tilskudstorelse' | get_unit }}
+              {% if entity.isInherited('tilskudstorelse') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.aarsVaerk' | trans }}</th>

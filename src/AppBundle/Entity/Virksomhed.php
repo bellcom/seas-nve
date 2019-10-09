@@ -474,7 +474,7 @@ class Virksomhed
         }
 
         if (!empty($this->getParent())) {
-            return $this->getParent()->getCrmNumber();
+            return $this->getParent()->getCrmNumber($inherit);
         }
 
         return NULL;
@@ -551,7 +551,7 @@ class Virksomhed
         }
 
         if (!empty($this->getParent())) {
-            return $this->getParent()->getCustomerNumber();
+            return $this->getParent()->getCustomerNumber($inherit);
         }
 
         return NULL;
@@ -583,7 +583,7 @@ class Virksomhed
         }
 
         if (!empty($this->getParent())) {
-            return $this->getParent()->getProjectNumber();
+            return $this->getParent()->getProjectNumber($inherit);
         }
 
         return NULL;
@@ -637,7 +637,7 @@ class Virksomhed
         }
 
         if (!empty($this->getParent())) {
-            return $this->getParent()->getTypeName();
+            return $this->getParent()->getTypeName($inherit);
         }
 
         return NULL;
@@ -742,12 +742,20 @@ class Virksomhed
     }
 
     /**
-     * Get tilskudstorelse
+     * Get inherited tilskudstorelse.
      *
      * @return float
      */
-    public function getTilskudstorelse()
+    public function getTilskudstorelse($inherit = FALSE)
     {
+        if ($this->tilskudstorelse || !$inherit) {
+            return $this->tilskudstorelse;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getTilskudstorelse($inherit);
+        }
+
         return $this->tilskudstorelse;
     }
 
@@ -963,8 +971,21 @@ class Virksomhed
      *
      * @return ArrayCollection
      */
-    public function getDatterSelskaber() {
-        return $this->datterSelskaber;
+    public function getDatterSelskaber($check_depth = FALSE) {
+        $datterSelskaber = $this->datterSelskaber;
+        if ($check_depth) {
+            $datterSelskaber = clone $this->datterSelskaber;
+            /** @var Virksomhed $datterSelskab */
+            foreach ($datterSelskaber as $datterSelskab) {
+                foreach ($datterSelskab->getDatterSelskaber(TRUE) as $virksomhed) {
+                    if ($datterSelskaber->contains($virksomhed)) {
+                        continue;
+                    }
+                    $datterSelskaber->add($virksomhed);
+                }
+            }
+        }
+        return $datterSelskaber;
     }
 
     /**
@@ -1356,6 +1377,20 @@ class Virksomhed
      * Sets default values for entity if they are empty.
      */
     public function setDefaultValues() {
+    }
+
+    /**
+     * Check inheritance for empty values.
+     */
+    public function isInherited($propertyName) {
+        $getMethod = 'get' . ucfirst($propertyName);
+        if (method_exists($this, $getMethod)
+            && empty(call_user_func(array($this, $getMethod)))
+            && !empty(call_user_func(array($this, $getMethod), TRUE))
+        ) {
+            return TRUE;
+        }
+        return FALSE;
     }
 
     /**

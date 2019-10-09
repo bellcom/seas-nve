@@ -28,6 +28,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use PHPExcel_Calculation_Financial as Excel;
 use PHPExcel_Calculation_Functions as ExcelError;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -55,6 +57,8 @@ class VirksomhedRapport
     protected $id;
 
     /**
+     * @var Virksomhed
+     *
      * @OneToOne(targetEntity="Virksomhed", inversedBy="rapport", fetch="EAGER")
      **/
     protected $virksomhed;
@@ -172,6 +176,14 @@ class VirksomhedRapport
      * @Formula("$this->calculateBesparelseBraendstofExp()")
      */
     protected $besparelseBraendstof;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="fravalgtBesparelseBraendstof", type="float", nullable=true)
+     */
+    protected $fravalgtBesparelseBraendstof;
 
     /**
      * @var float
@@ -637,6 +649,13 @@ class VirksomhedRapport
      * )
      */
     protected $kortlaegningVirksomhedBeskrivelse;
+
+    /**
+     * @var array
+     * @Calculated
+     * @ORM\Column(name="summarizedRapportValues", type="array", nullable=true)
+     */
+    protected $summarizedRapportValues;
 
     /**
      * Constructor
@@ -1219,6 +1238,28 @@ class VirksomhedRapport
     public function getFravalgtBesparelseVarmeGAF()
     {
         return $this->fravalgtBesparelseVarmeGAF;
+    }
+
+    /**
+     * Set fravalgtBesparelseBraendstof
+     *
+     * @param float $fravalgtBesparelseBraendstof
+     * @return VirksomhedRapport
+     */
+    public function setFravalgtBesparelseBraendstof($fravalgtBesparelseBraendstof)
+    {
+        $this->fravalgtBesparelseBraendstof = $fravalgtBesparelseBraendstof;
+        return $this;
+    }
+
+    /**
+     * Get fravalgtBesparelseBraendstof for fravalgte tiltag
+     *
+     * @return float
+     */
+    public function getFravalgtBesparelseBraendstof()
+    {
+        return $this->fravalgtBesparelseBraendstof;
     }
 
     /**
@@ -2169,6 +2210,28 @@ class VirksomhedRapport
     }
 
     /**
+     * Set summarizedRapportValues
+     *
+     * @param array $summarizedRapportValues
+     * @return VirksomhedRapport
+     */
+    public function setSummarizedRapportValues($summarizedRapportValues)
+    {
+        $this->summarizedRapportValues = $summarizedRapportValues;
+        return $this;
+    }
+
+    /**
+     * Get summarizedRapportValues
+     *
+     * @return array
+     */
+    public function getSummarizedRapportValues()
+    {
+        return $this->summarizedRapportValues;
+    }
+
+    /**
      * Fetchs array with all associated rapporter
      *
      * @return ArrayCollection
@@ -2311,6 +2374,40 @@ class VirksomhedRapport
             $setMethod = 'set' . ucfirst($property);
             call_user_func(array($this, $setMethod), $value);
         }
+
+        // Summarizing values for all virksomheder.
+        $virksomhederList = $this->virksomhed->getDatterSelskaber(TRUE);
+        $virksomhederList->add($this->getVirksomhed());
+        /** @var Virksomhed $virksomhed */
+        foreach ($virksomhederList as $virksomhed) {
+            if (empty($virksomhed->getRapport())) {
+                $virksomhederList->removeElement($virksomhed);
+            }
+        }
+        /** @var PropertyAccessor $accessor */
+        $accessor = PropertyAccess::createPropertyAccessor();
+        $summarizedValues = array();
+        foreach ($this->calculationRapportProperties as $property) {
+            $value = 0;
+            foreach ($virksomhederList as $virksomhed) {
+                switch ($property) {
+                    case 'cashFlow':
+                    case 'cashFlow15':
+                    case 'cashFlow30':
+                    case 'besparelseSlutanvendelser':
+                        if (empty($value)) {
+                            $value = array();
+                        }
+                        $value = $this->summarizeArrayValues($value, $accessor->getValue($virksomhed->getRapport(), $property));
+                        break;
+
+                    default:
+                        $value += $accessor->getValue($virksomhed->getRapport(), $property);
+                }
+            }
+            $summarizedValues[$property] = $value;
+        }
+        $this->setSummarizedRapportValues($summarizedValues);
     }
 
     protected function calculateBaselineCO2El() {
@@ -2453,7 +2550,7 @@ class VirksomhedRapport
     private function calculateOpvarmetareal($expression = FALSE) {
         $result = array();
         /** @var Bygning $bygning */
-        foreach ($this->getVirksomhed()->getAllBygninger() as $bygning) {
+        foreach ($this->getVirksomhed()->getBygninger() as $bygning) {
             $result[] = $bygning->getOpvarmetareal();
         }
 
@@ -2515,6 +2612,39 @@ class VirksomhedRapport
             $rapport->updateBaselineValuesFromVirksomherRapport($this);
         }
         return $this;
+    }
+
+    /**
+     * Recursive function to summarize multidimensional arrays with the same structure.
+     *
+     * @param array $arrayTo
+     * @param array $arrayFrom
+     * @return array
+     */
+    public function summarizeArrayValues($arrayTo, $arrayFrom) {
+        if (!is_array($arrayFrom)) {
+            return $arrayTo;
+        }
+
+        foreach ($arrayFrom as $keyFrom => $valueFrom) {
+            if (empty($arrayTo[$keyFrom])) {
+                $arrayTo[$keyFrom] = $valueFrom;
+                continue;
+            }
+
+            if (empty($valueFrom)) {
+                continue;
+            }
+
+            if (is_array($valueFrom)) {
+                $arrayTo[$keyFrom] = $this->summarizeArrayValues($arrayTo[$keyFrom], $valueFrom);
+                continue;
+            }
+
+            $arrayTo[$keyFrom] += $valueFrom;
+        }
+
+        return $arrayTo;
     }
 
     /**

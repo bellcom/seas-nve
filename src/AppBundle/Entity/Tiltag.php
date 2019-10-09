@@ -2356,14 +2356,8 @@ abstract class Tiltag {
     $virksomhed = $this->getRapport()->getBygning()->getVirksomhed();
 
     if ($virksomhed) {
-      if ($virksomhed->getTilskudstorelse()) {
-        return $virksomhed->getTilskudstorelse();
-      }
-
-      // Check if parent has it.
-      $parent = $virksomhed->getParent();
-      if ($parent && $parent->getTilskudstorelse()) {
-        return $parent->getTilskudstorelse();
+      if ($virksomhed->getTilskudstorelse(TRUE)) {
+        return $virksomhed->getTilskudstorelse(TRUE);
       }
     }
 

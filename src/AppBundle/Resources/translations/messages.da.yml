@@ -105,6 +105,7 @@ common:
   your_buildings: "Dine bygninger"
   your_segments: "Dine segmenter"
   toggle: "Vis/Skjul"
+  inherited: "nedarvet"
 dashboard:
   besparelseCO2: "CO2 besparelse"
   besparelseEl: "El besparelse"
