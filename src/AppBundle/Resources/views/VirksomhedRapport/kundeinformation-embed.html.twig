@@ -33,7 +33,6 @@
   {% if rapport.virksomhed.getDatterSelskaber() is not empty %}
     <div class="col-xs-12">
       <br>
-      <br>
       <h3>DatterSelskaber</h3>
         {% for datterSelskab in rapport.virksomhed.getDatterSelskaber() %}
         <hr class="dark">
@@ -64,7 +63,6 @@
   {% if rapport.virksomhed.getAllBygninger() is not empty %}
     <div class="col-xs-12">
       <br>
-      <br>
       <h3>Analyserede adresse(r)</h3>
       <hr class="dark">
       <div class="row">
@@ -79,7 +77,6 @@
 
   {% if rapport.virksomhed.getAllRaadgivers() is not empty %}
     <div class="col-xs-12">
-      <br>
       <br>
       <h3>Energirådgiver</h3>
       <hr class="dark">
@@ -96,7 +93,6 @@
 
   {% if rapport.datering %}
     <div class="col-xs-12">
-      <br>
       <br>
       <h3>Dato for gennemgang</h3>
       <hr class="dark">
