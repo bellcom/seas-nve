@@ -2112,6 +2112,7 @@ class Rapport {
       ->setPrisgrundlag(PrisgrundlagType::EL);
     $forsyningEl->addInternProduktion($internProduktionEl);
     $forsyningEl->calculate();
+    $this->addEnergiforsyning($forsyningEl);
 
     // Init with preset energiforsyning Varme
     $forsyningVarme = new Energiforsyning();
@@ -2126,9 +2127,83 @@ class Rapport {
       ->setPrisgrundlag(PrisgrundlagType::VARME);
     $forsyningVarme->addInternProduktion($internProduktionVarme);
     $forsyningVarme->calculate();
-
-    $this->addEnergiforsyning($forsyningEl);
     $this->addEnergiforsyning($forsyningVarme);
+
+    // Init with preset energiforsyning Oliefyr
+    $forsyningOliefyr = new Energiforsyning();
+    $forsyningOliefyr
+      ->setNavn(NavnType::OLIEFYR)
+      ->setBeskrivelse("Oliefyr");
+    $internProduktionOliefyr = new InternProduktion();
+    $internProduktionOliefyr
+      ->setNavn("Oliefyr")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::VARME);
+    $forsyningOliefyr->addInternProduktion($internProduktionOliefyr);
+    $forsyningOliefyr->calculate();
+    $this->addEnergiforsyning($forsyningOliefyr);
+
+    // Init with preset energiforsyning Træpillefyr
+    $forsyningTraepillefyr = new Energiforsyning();
+    $forsyningTraepillefyr
+      ->setNavn(NavnType::TRAEPILLEFYR)
+      ->setBeskrivelse("Træpillefyr");
+    $internProduktionTraepillefyr= new InternProduktion();
+    $internProduktionTraepillefyr
+      ->setNavn("Træpillefyr")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::VARME);
+    $forsyningTraepillefyr->addInternProduktion($internProduktionTraepillefyr);
+    $forsyningTraepillefyr->calculate();
+    $this->addEnergiforsyning($forsyningTraepillefyr);
+
+    // Init with preset energiforsyning Varmepumpe
+    $forsyningVarmepumpe = new Energiforsyning();
+    $forsyningVarmepumpe
+      ->setNavn(NavnType::VARMEPUMPE)
+      ->setBeskrivelse("Varmepumpe");
+    $internProduktionVarmepumpe = new InternProduktion();
+    $internProduktionVarmepumpe
+      ->setNavn("Varmepumpe El")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::EL);
+    $forsyningVarmepumpe->addInternProduktion($internProduktionVarmepumpe);
+    $forsyningVarmepumpe->calculate();
+    $this->addEnergiforsyning($forsyningVarmepumpe);
+
+    // Init with preset energiforsyning Gas
+    $forsyningGas = new Energiforsyning();
+    $forsyningGas
+      ->setNavn(NavnType::GAS)
+      ->setBeskrivelse("Gas");
+    $internProduktionGas = new InternProduktion();
+    $internProduktionGas
+      ->setNavn("Gas")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::VARME);
+    $forsyningGas->addInternProduktion($internProduktionGas);
+    $forsyningGas->calculate();
+    $this->addEnergiforsyning($forsyningGas);
+
+    // Init with preset energiforsyning Flis
+    $forsyningFlis = new Energiforsyning();
+    $forsyningFlis
+      ->setNavn(NavnType::FLIS)
+      ->setBeskrivelse("Flis");
+    $internProduktionFlis = new InternProduktion();
+    $internProduktionFlis
+      ->setNavn("Flis")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::VARME);
+    $forsyningFlis->addInternProduktion($internProduktionFlis);
+    $forsyningFlis->calculate();
+    $this->addEnergiforsyning($forsyningFlis);
+
     $event->getEntityManager()->flush();
   }
 
