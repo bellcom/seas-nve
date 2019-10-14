@@ -230,11 +230,15 @@
           <tbody>
           <tr>
             <th>{{ 'appbundle.bygning.forsyningsvaerkEl' | trans }}</th>
-            <td>{{ entity.forsyningsvaerkEl }}</td>
+            <td>{{ entity.getForsyningsvaerkEl(TRUE) }}
+              {% if entity.isInherited('forsyningsvaerkEl') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.bygning.forsyningsvaerkVarme' | trans }}</th>
-            <td>{{ entity.forsyningsvaerkVarme }}</td>
+            <td>{{ entity.getForsyningsvaerkVarme(TRUE) }}
+              {% if entity.isInherited('forsyningsvaerkVarme') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           </tbody>
         </table>

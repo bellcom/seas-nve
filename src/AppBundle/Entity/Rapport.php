@@ -1635,14 +1635,8 @@ class Rapport {
       return $kalkulationrente;
     }
 
-    if (!empty($virksomhed->getKalkulationsrente())) {
-      $kalkulationrente = $virksomhed->getKalkulationsrente();
-    }
-
-    // Inherit Kalkulationsrente from parentVirksomhed.
-    $parentVirksomhed = $virksomhed->getParent();
-    if (!empty($parentVirksomhed) && !empty($parentVirksomhed->getKalkulationsrente())) {
-      $kalkulationrente = $parentVirksomhed->getKalkulationsrente();
+    if (!empty($virksomhed->getKalkulationsrente(TRUE))) {
+      $kalkulationrente = $virksomhed->getKalkulationsrente(TRUE);
     }
 
     return $kalkulationrente;
@@ -1697,14 +1691,8 @@ class Rapport {
         return $inflation;
     }
 
-    if (!empty($virksomhed->getInflation())) {
-        $inflation = $virksomhed->getInflation();
-    }
-
-    // Inherit Inflation from parentVirksomhed.
-    $parentVirksomhed = $virksomhed->getParent();
-    if (!empty($parentVirksomhed) && !empty($parentVirksomhed->getInflation())) {
-        $inflation = $parentVirksomhed->getInflation();
+    if (!empty($virksomhed->getInflation(TRUE))) {
+        $inflation = $virksomhed->getInflation(TRUE);
     }
 
     return $inflation;
@@ -1725,15 +1713,10 @@ class Rapport {
       return $lobetid;
     }
 
-    if (!empty($virksomhed->getLobetid())) {
-      $lobetid = $virksomhed->getLobetid();
+    if (!empty($virksomhed->getLobetid(TRUE))) {
+      $lobetid = $virksomhed->getLobetid(TRUE);
     }
 
-    // Inherit Lobetid from parentVirksomhed.
-    $parentVirksomhed = $virksomhed->getParent();
-    if (!empty($parentVirksomhed) && !empty($parentVirksomhed->getLobetid())) {
-      $lobetid = $parentVirksomhed->getLobetid();
-    }
     return $lobetid;
   }
 

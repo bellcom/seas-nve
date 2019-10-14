@@ -157,7 +157,7 @@ class TiltagType extends AbstractType {
 //        'choices_as_values' => TRUE,
         'empty_value' => '--',
         'required' => TRUE,
-        'attr' => $this->tiltag->getSlutanvendelse() ? array('disabled' => 'disabled'): array()
+        'attr' => isset(SlutanvendelseType::$detaultValues[get_class($this->tiltag)]) ? array('disabled' => 'disabled'): array()
     ));
 
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {

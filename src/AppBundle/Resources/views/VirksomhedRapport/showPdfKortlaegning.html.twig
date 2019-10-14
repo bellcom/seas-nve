@@ -125,7 +125,7 @@
         <h3>Datterselskaber</h3>
         <hr class="dark">
         <div class="row">
-          {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+          {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
             <div class="col-xs-4">{{ include ('AppBundle:Virksomhed:show-embed.html.twig', {entity: datterSelskab}) }}</div>
           {% endfor %}
         </div>
@@ -401,28 +401,28 @@
             <tr>
               <th><strong>Afdeling</strong></th>
               <th><strong>{{ rapport.virksomhed }}</strong></th>
-              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+              {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
                 <th><strong>{{ datterSelskab }}</strong></th>
               {% endfor %}
             </tr>
             <tr>
               <td>El</td>
               <td>{{ rapport.virksomhed.kortlaegning.totalForbrug | format_decimal }}</td>
-              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+              {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
                 <td>{{ datterSelskab.kortlaegning.totalForbrug | format_decimal }}</td>
               {% endfor %}
             </tr>
             <tr>
               <td>Erhvervsareal</td>
               <td>{{ rapport.erhvervsareal | format_decimal}}</td>
-              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+              {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
                 <td>{{ datterSelskab.rapport.erhvervsareal | format_decimal }}</td>
               {% endfor %}
             </tr>
             <tr>
               <td>KPI</td>
               <td>{% if rapport.erhvervsareal %}{{ (rapport.virksomhed.kortlaegning.totalForbrug / rapport.erhvervsareal) | format_decimal }}{% else %}–{% endif %}</td>
-              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+              {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
                 <td>{% if datterSelskab.rapport.erhvervsareal %}{{ (datterSelskab.kortlaegning.totalForbrug / datterSelskab.rapport.erhvervsareal) | format_decimal }}{% else %}–{% endif %}</td>
               {% endfor %}
             </tr>
@@ -455,7 +455,7 @@
         <div>
           {{ include ('AppBundle:Virksomhed:show-embed-overview.html.twig', {entity: rapport.virksomhed}) }}
         </div>
-        {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+        {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
           <div>
             {{ include ('AppBundle:Virksomhed:show-embed-overview.html.twig', {entity: datterSelskab}) }}
           </div>

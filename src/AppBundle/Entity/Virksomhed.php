@@ -778,8 +778,16 @@ class Virksomhed
      *
      * @return float
      */
-    public function getKalkulationsrente()
+    public function getKalkulationsrente($inherit = FALSE)
     {
+        if ($this->kalkulationsrente || !$inherit) {
+            return $this->kalkulationsrente;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getKalkulationsrente($inherit);
+        }
+
         return $this->kalkulationsrente;
     }
 
@@ -802,8 +810,15 @@ class Virksomhed
      *
      * @return float
      */
-    public function getInflation()
+    public function getInflation($inherit = FALSE)
     {
+        if ($this->inflation || !$inherit) {
+            return $this->inflation;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getInflation($inherit);
+        }
         return $this->inflation;
     }
 
@@ -826,8 +841,15 @@ class Virksomhed
      *
      * @return float
      */
-    public function getLobetid()
+    public function getLobetid($inherit = FALSE)
     {
+        if ($this->lobetid || !$inherit) {
+            return $this->lobetid;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getLobetid($inherit);
+        }
         return $this->lobetid;
     }
 
@@ -863,7 +885,7 @@ class Virksomhed
             $bygninger[$bygning->getId()] = $bygning;
         }
         /** @var Virksomhed $datterSelskab */
-        foreach ($this->getDatterSelskaber() as $datterSelskab) {
+        foreach ($this->getDatterSelskaber(TRUE) as $datterSelskab) {
             foreach ($datterSelskab->getBygninger() as $bygning) {
                 if (isset($bygninger[$bygning->getId()])) {
                     continue;
@@ -1266,7 +1288,15 @@ class Virksomhed
      *
      * @return Forsyningsvaerk
      */
-    public function getForsyningsvaerkVand() {
+    public function getForsyningsvaerkVand($inherit = FALSE) {
+        if ($this->forsyningsvaerkVand || !$inherit) {
+            return $this->forsyningsvaerkVand;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getForsyningsvaerkVand($inherit);
+        }
+
         return $this->forsyningsvaerkVand;
     }
 
@@ -1287,7 +1317,14 @@ class Virksomhed
      *
      * @return Forsyningsvaerk
      */
-    public function getForsyningsvaerkVarme() {
+    public function getForsyningsvaerkVarme($inherit = FALSE) {
+        if ($this->forsyningsvaerkVarme || !$inherit) {
+            return $this->forsyningsvaerkVarme;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getForsyningsvaerkVarme($inherit);
+        }
         return $this->forsyningsvaerkVarme;
     }
 
@@ -1308,7 +1345,14 @@ class Virksomhed
      *
      * @return Forsyningsvaerk
      */
-    public function getForsyningsvaerkEl() {
+    public function getForsyningsvaerkEl($inherit = FALSE) {
+        if ($this->forsyningsvaerkEl || !$inherit) {
+            return $this->forsyningsvaerkEl;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getForsyningsvaerkEl($inherit);
+        }
         return $this->forsyningsvaerkEl;
     }
 
@@ -1391,6 +1435,22 @@ class Virksomhed
             return TRUE;
         }
         return FALSE;
+    }
+
+    /**
+     * Return trail with parent virksomheds included current.
+     */
+    public function getVirksomhedsTrail($level = 1) {
+        if (empty($this->getParent()) || $level > 10) {
+            $trail = new ArrayCollection();
+            $trail->add($this);
+            return $trail;
+        }
+        $trail = $this->getParent()->getVirksomhedsTrail($level + 1);
+        if (!$trail->contains($this)) {
+            $trail->add($this);
+        }
+        return $trail;
     }
 
     /**

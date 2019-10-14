@@ -151,6 +151,7 @@ class PdfExport {
   public function exportVirksomhedRapportKortlaegning(VirksomhedRapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getVirksomhed();
+    $datterSelskaber = $rapport->getVirksomhed()->getDatterSelskaber(TRUE);
 
     if ($virksomhed && $virksomhedsNavn = $virksomhed->getName()) {
       $data[] = $virksomhedsNavn;
@@ -198,7 +199,7 @@ class PdfExport {
         'value' => $rapport->calculateSamletEnergiForbrug(),
       ),
     );
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
@@ -218,7 +219,7 @@ class PdfExport {
     );
     $row['kpi'] = $row['erhvervsareal'] ? $row['value'] / $row['erhvervsareal'] : NULL;
     $elForrug[] = $row;
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
@@ -241,7 +242,7 @@ class PdfExport {
     );
     $row['kpi'] = $row['opvarmetareal'] ? $row['value'] / $row['opvarmetareal'] : NULL;
     $varmeForrug[] = $row;
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
@@ -264,7 +265,7 @@ class PdfExport {
     );
     $row['kpi'] = $row['erhvervsareal'] ? $row['value'] / $row['erhvervsareal'] : NULL;
     $braendstofForrug[] = $row;
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
@@ -294,7 +295,7 @@ class PdfExport {
       ),
     );
 
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
@@ -329,7 +330,7 @@ class PdfExport {
       );
     }
 
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getKortlaegning())) {
         continue;
       }
@@ -390,7 +391,7 @@ class PdfExport {
 
     $html = '';
     /** @var Bygning $bygning */
-    foreach ($virksomhed->getBygninger() as $bygning) {
+    foreach ($virksomhed->getAllBygninger() as $bygning) {
       $bygningRaport = $bygning->getRapport();
       if (empty($bygningRaport)) {
         continue;

@@ -1736,7 +1736,7 @@ abstract class Tiltag {
    * Set dato for drift
    *
    * @param \DateTime $datoForDrift
-   * @return Rapport
+   * @return Tiltag
    */
   public function setDatoForDrift($datoForDrift) {
     $this->datoForDrift = $datoForDrift;

@@ -723,17 +723,11 @@ class Bygning {
    * @return Forsyningsvaerk
    */
   public function getForsyningsvaerkVand($inherit = FALSE) {
-    if (empty($this->forsyningsvaerkVand) && $inherit) {
-      if ($this->getVirksomhed() && $this->getVirksomhed()->getForsyningsvaerkVand()) {
-        return $this->getVirksomhed()->getForsyningsvaerkVand();
-      }
-
-      if ($this->getVirksomhed()
-        && $this->getVirksomhed()->getParent()
-        && $this->getVirksomhed()->getParent()->getForsyningsvaerkVand()
-      ) {
-        return $this->getVirksomhed()->getParent()->getForsyningsvaerkVand();
-      }
+    if ($this->forsyningsvaerkVand || !$inherit) {
+        return $this->forsyningsvaerkVand;
+    }
+    if (!empty($this->getVirksomhed())) {
+      return $this->getVirksomhed()->getForsyningsvaerkVand($inherit);
     }
 
     return $this->forsyningsvaerkVand;
@@ -759,17 +753,11 @@ class Bygning {
    * @return Forsyningsvaerk
    */
   public function getForsyningsvaerkVarme($inherit = FALSE) {
-    if (empty($this->forsyningsvaerkVarme) && $inherit) {
-      if ($this->getVirksomhed() && $this->getVirksomhed()->getForsyningsvaerkVarme()) {
-        return $this->getVirksomhed()->getForsyningsvaerkVarme();
-      }
-
-      if ($this->getVirksomhed()
-        && $this->getVirksomhed()->getParent()
-        && $this->getVirksomhed()->getParent()->getForsyningsvaerkVarme()
-      ) {
-        return $this->getVirksomhed()->getParent()->getForsyningsvaerkVarme();
-      }
+    if ($this->forsyningsvaerkVarme || !$inherit) {
+      return $this->forsyningsvaerkVarme;
+    }
+    if (!empty($this->getVirksomhed())) {
+      return $this->getVirksomhed()->getForsyningsvaerkVarme($inherit);
     }
 
     return $this->forsyningsvaerkVarme;
@@ -795,16 +783,11 @@ class Bygning {
    * @return Forsyningsvaerk
    */
   public function getForsyningsvaerkEl($inherit = FALSE) {
-    if (empty($this->forsyningsvaerkEl) && $inherit) {
-      if ($this->getVirksomhed() && $this->getVirksomhed()->getForsyningsvaerkEl()) {
-        return $this->getVirksomhed()->getForsyningsvaerkEl();
-      }
-      if ($this->getVirksomhed()
-        && $this->getVirksomhed()->getParent()
-        && $this->getVirksomhed()->getParent()->getForsyningsvaerkEl()
-      ) {
-        return $this->getVirksomhed()->getParent()->getForsyningsvaerkEl();
-      }
+    if ($this->forsyningsvaerkEl || !$inherit) {
+      return $this->forsyningsvaerkEl;
+    }
+    if (!empty($this->getVirksomhed())) {
+      return $this->getVirksomhed()->getForsyningsvaerkEl($inherit);
     }
 
     return $this->forsyningsvaerkEl;
@@ -1196,6 +1179,20 @@ class Bygning {
   public function removeContactPerson(ContactPerson $contactPerson)
   {
     $this->contactPersons->removeElement($contactPerson);
+  }
+
+  /**
+   * Check inheritance for empty values.
+   */
+  public function isInherited($propertyName) {
+    $getMethod = 'get' . ucfirst($propertyName);
+    if (method_exists($this, $getMethod)
+        && empty(call_user_func(array($this, $getMethod)))
+        && !empty(call_user_func(array($this, $getMethod), TRUE))
+    ) {
+      return TRUE;
+    }
+    return FALSE;
   }
 
   /**

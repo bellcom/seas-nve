@@ -129,6 +129,26 @@
                   {% else %}
                     <div class="indent">{{ 'virksomhed.messages.empty.bygninger' | trans }}</div>
                   {% endif %}
+                  {% set datterDatterSelskaber = datterSelskab.getDatterSelskaber() %}
+                  {% if datterDatterSelskaber | length %}
+                    {% for datterDatterSelskab in datterDatterSelskaber %}
+                      <div class="indent">{{ icon('briefcase') }} <a href="{{ path_with_access_token('virksomhed_show', { 'id': datterDatterSelskab.id }) }}">{{ datterDatterSelskab }}</a></div>
+                      {% set bygninger = datterDatterSelskab.getBygninger() %}
+                      {% if bygninger | length %}
+                        {% for bygning in bygninger %}
+                          <div class="indent">
+                            <div class="indent">{{ icon('home') }} <a href="{{ path_with_access_token('bygning_show', { 'id': bygning.id }) }}">{{ bygning }}</a></div>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <div class="indent">
+                          <div class="indent">{{ 'virksomhed.messages.empty.bygninger' | trans }}</div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  {% else %}
+                    <div class="indent">{{ 'virksomhed.messages.empty.datterSelskaber' | trans }}</div>
+                  {% endif %}
                 {% endfor %}
               {% else %}
                 {{ 'virksomhed.messages.empty.datterSelskaber' | trans }}

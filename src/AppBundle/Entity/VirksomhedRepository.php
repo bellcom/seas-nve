@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -15,15 +16,23 @@ class VirksomhedRepository extends EntityRepository
   public function getDatterSelskabReferenceList($currentVirksomhed)
   {
     $virksomheder = $this->findAll();
-    /** @var Virksomhed $virksomheder */
+    $virksomhedTrail = new ArrayCollection();
+    if ($currentVirksomhed instanceof Virksomhed) {
+      $virksomhedTrail = $currentVirksomhed->getVirksomhedsTrail();
+    }
+    /** @var Virksomhed $virksomhed */
     foreach ($virksomheder as $key => $virksomhed) {
       if ($currentVirksomhed instanceof Virksomhed) {
-        if ($virksomhed->getId() == $currentVirksomhed->getId()) {
+        if ($virksomhedTrail->contains($virksomhed)) {
+          unset($virksomheder[$key]);
+        }
+
+        if (!empty($virksomhed->getParent()) && $virksomhed->getParent()->getId() != $currentVirksomhed->getId()) {
           unset($virksomheder[$key]);
         }
       }
     }
     return $virksomheder;
   }
-  
+
 }
