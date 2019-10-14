@@ -125,7 +125,7 @@
           <h4>Risikovurdering:</h4>
 
           {% if t.risikovurderingBrugsmoenster or t.risikovurderingDatagrundlag  or t.risikovurderingTeknisk or t.risikovurderingDiverse %}
-            <table class="table-fixed"><tr>
+            <table class="table table-condensed table-fixed"><tr>
             {% if t.risikovurderingTeknisk %}
               <td><strong>{{ 'appbundle.tiltag.risikovurderingTeknisk' | trans }}:</strong> {{ ('common.risikovurdering.' ~ t.risikovurderingTeknisk) | trans }}</td>
             {% endif %}

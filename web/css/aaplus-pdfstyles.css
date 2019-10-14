@@ -46,11 +46,15 @@ h4 {
 }
 
 h5 {
+  margin-bottom: 5px;
+
   font-size: 1.2em;
   font-weight: bold;
 }
 
 h6 {
+  margin-bottom: 5px;
+
   font-size: 1em;
   font-weight: bold;
 }
@@ -80,6 +84,9 @@ hr.pdf-heading {
 }
 
 hr.dark {
+  margin-top: 10px;
+  margin-bottom: 10px;
+
   background-color: #4A4D45;
   height: 1px;
   border: 0;
@@ -207,7 +214,7 @@ th.unit {
 }
 
 tbody th {
-  font-weight: bold;
+  font-weight: normal;
 }
 
 td.selected {
@@ -231,6 +238,10 @@ th.border-right, td.border-right {
 
 th.border-right:last-child, td.border-right:last-child {
   border-right: 0;
+}
+
+.table-normal-font-size > thead > tr > td, .table-normal-font-size > tbody > tr > td, .table-normal-font-size > tfoot > tr > td {
+  font-size: inherit;
 }
 
 /** Panels **/
@@ -296,4 +307,8 @@ a {
   height: 14pt;
 
   margin-right: 5pt;
+}
+
+.pie-chart {
+  margin-top: 7px;
 }

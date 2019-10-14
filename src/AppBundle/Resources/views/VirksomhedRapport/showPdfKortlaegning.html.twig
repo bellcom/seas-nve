@@ -47,9 +47,9 @@
           <table class="table table-condensed results">
             <tbody>
             <tr>
-              <th>Energiart</th>
-              <th>kWh/år</th>
-              <th>%</th>
+              <th><strong>Energiart</strong></th>
+              <th><strong>kWh/år</strong></th>
+              <th><strong>%</strong></th>
             </tr>
             {% for row in pie_chart_data.energiFordeling %}
               <tr>
@@ -67,6 +67,7 @@
           </table>
         </div>
 
+        <br>
         <h3 class="text-center">{{ rapport.virksomhed.name }}</h3>
         {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.energiFordeling }) }}
 
@@ -93,7 +94,7 @@
       <div class="col-xs-12">
         <h2>Underskrifter</h2>
         <p>Før energisynsrapporten indsendes til Energistyrelsen, skal den underskrives af virksomhedens ejer og energisynskonsulenten.</p>
-        <table class="table table-bordered" style="text-align:center; width:100%;">
+        <table class="table table-bordered table-normal-font-size" style="text-align:center; width:100%;">
           <tbody>
           <tr>
             <td>For <strong>{{ rapport.virksomhed.name }}</strong><br/>
@@ -162,8 +163,8 @@
           <table class="table table-condensed">
             <tbody>
             <tr>
-              <th>Afdeling</th>
-              <th>Overordnet forbrug, kWh/år</th>
+              <th><strong>Afdeling</strong></th>
+              <th><strong>Overordnet forbrug, kWh/år</strong></th>
             </tr>
             {% for row in pie_chart_data.overordnetForrug %}
               <tr>
@@ -194,10 +195,10 @@
             <table class="table table-condensed">
               <tbody>
               <tr>
-                <th>Afdeling</th>
-                <th>El, kWh/år</th>
-                <th>Erhvervsareal m2</th>
-                <th>KPI</th>
+                <th><strong>Afdeling</strong></th>
+                <th><strong>El, kWh/år</strong></th>
+                <th><strong>Erhvervsareal m2</strong></th>
+                <th><strong>KPI</strong></th>
               </tr>
               {% for row in pie_chart_data.elForrug %}
                 <tr>
@@ -234,10 +235,10 @@
             <table class="table table-condensed">
               <tbody>
               <tr>
-                <th>Afdeling</th>
-                <th>Varme, kWh/år</th>
-                <th>Opvarmetareal m2</th>
-                <th>KPI</th>
+                <th><strong>Afdeling</strong></th>
+                <th><strong>Varme, kWh/år</strong></th>
+                <th><strong>Opvarmetareal m2</strong></th>
+                <th><strong>KPI</strong></th>
               </tr>
               {% for row in pie_chart_data.varmeForrug %}
                 <tr>
@@ -269,10 +270,10 @@
 
             <table class="table table-condensed results">
               <tr>
-                <th>Afdeling</th>
-                <th>Brændstof, kWh/år</th>
-                <th>Erhvervsareal m2</th>
-                <th>KPI</th>
+                <th><strong>Afdeling</strong></th>
+                <th><strong>Brændstof, kWh/år</strong></th>
+                <th><strong>Erhvervsareal m2</strong></th>
+                <th><strong>KPI</strong></th>
               </tr>
               {% for row in pie_chart_data.braendstofForbrug %}
                 <tr>
@@ -332,9 +333,9 @@
             <table class="table table-condensed results">
               <tbody>
               <tr>
-                <th>Energiart</th>
-                <th>kWh/år</th>
-                <th>%</th>
+                <th><strong>Energiart</strong></th>
+                <th><strong>kWh/år</strong></th>
+                <th><strong>%</strong></th>
               </tr>
               {% for row in pie_chart_data.energiFordeling %}
                 <tr>
@@ -375,8 +376,8 @@
 
             <table class="table table-condensed results">
               <tr>
-                <td>Slutanvendelse</td>
-                <td>kWh/år</td>
+                <td><strong>Slutanvendelse</strong></td>
+                <td><strong>kWh/år</strong></td>
               </tr>
               {% for row in elForbrugSluanvendelse.data %}
                 <tr>
@@ -398,10 +399,10 @@
 
           <table class="table table-condensed">
             <tr>
-              <th>Afdeling</th>
-              <th>{{ rapport.virksomhed }}</th>
+              <th><strong>Afdeling</strong></th>
+              <th><strong>{{ rapport.virksomhed }}</strong></th>
               {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-                <th>{{ datterSelskab }}</th>
+                <th><strong>{{ datterSelskab }}</strong></th>
               {% endfor %}
             </tr>
             <tr>
