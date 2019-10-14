@@ -113,7 +113,15 @@ class VirksomhedType extends AbstractType
                 'required' => TRUE,
             ))
             ->add('naceCode')
-            ->add('dsmCode')
+            ->add('dsmCode', 'choice', array(
+              'choices' => array(
+                'Handel og service' => 'Handel og service',
+                'Husholdninger' => 'Husholdninger',
+                'Offentlig sektor' => 'Offentlig sektor',
+                'Produktionserhverv' => 'Produktionserhverv',
+              ),
+              'required' => TRUE,
+            ))
             ->add('tilskudstorelse')
             ->add('aarsVaerk')
             ->add('forbrug')

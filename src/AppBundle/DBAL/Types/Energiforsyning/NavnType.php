@@ -11,6 +11,8 @@ class NavnType extends AbstractEnumType
   const OLIEFYR           = 'oliefyr';
   const TRAEPILLEFYR      = 'traepillefyr';
   const VARMEPUMPE        = 'varmepumpe';
+  const GAS               = 'gas';
+  const FLIS              = 'flis';
 
   protected static $choices = [
     self::NONE              => '',
@@ -19,5 +21,7 @@ class NavnType extends AbstractEnumType
     self::OLIEFYR           => 'Oliefyr',
     self::TRAEPILLEFYR      => 'Træpillefyr',
     self::VARMEPUMPE        => 'Varmepumpe',
+    self::GAS               => 'Gas',
+    self::FLIS              => 'Flis',
   ];
 }

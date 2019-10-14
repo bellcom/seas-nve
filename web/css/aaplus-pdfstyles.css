@@ -30,21 +30,31 @@ h2 {
 }
 
 h3 {
+  margin-top: 25px;
+  margin-bottom: 5px;
+
   font-size: 1.5em;
   font-weight: bold;
 }
 
 h4 {
+  margin-top: 25px;
+  margin-bottom: 5px;
+
   font-size: 1.35em;
   font-weight: bold;
 }
 
 h5 {
+  margin-bottom: 5px;
+
   font-size: 1.2em;
   font-weight: bold;
 }
 
 h6 {
+  margin-bottom: 5px;
+
   font-size: 1em;
   font-weight: bold;
 }
@@ -74,6 +84,9 @@ hr.pdf-heading {
 }
 
 hr.dark {
+  margin-top: 10px;
+  margin-bottom: 10px;
+
   background-color: #4A4D45;
   height: 1px;
   border: 0;
@@ -119,7 +132,7 @@ thead {
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   border-top: 1pt solid #E5E5E1;
-  font-size: 8pt;
+  font-size: 10pt;
 }
 
 .table > thead > tr > th {
@@ -155,11 +168,11 @@ thead {
 }
 
 .table-header-rotated > thead > tr > th, .table-header-rotated > tbody > tr > th, .table-header-rotated > tfoot > tr > th {
-  font-size: 8pt;
+  font-size: 10pt;
 }
 
 .table-header-rotated > thead > tr > td, .table-header-rotated > tbody > tr > td, .table-header-rotated > tfoot > tr > td {
-  font-size: 6pt;
+  font-size: 10pt;
 }
 
 .table-header-rotated th.rotate > div {
@@ -177,7 +190,7 @@ thead {
 }
 
 .table > thead > tr > th.unit {
-  font-size: 6pt
+  font-size: 9pt
 }
 
 .table-header-rotated td:nth-child(even),
@@ -227,6 +240,10 @@ th.border-right:last-child, td.border-right:last-child {
   border-right: 0;
 }
 
+.table-normal-font-size > thead > tr > td, .table-normal-font-size > tbody > tr > td, .table-normal-font-size > tfoot > tr > td {
+  font-size: inherit;
+}
+
 /** Panels **/
 .panel {
   border: 1pt solid #E5E5E1;
@@ -262,7 +279,7 @@ tr.highlight {
 }
 
 p {
-  margin: 0 0 20px;
+  margin: 0 0 12px;
 }
 
 a {
@@ -290,4 +307,8 @@ a {
   height: 14pt;
 
   margin-right: 5pt;
+}
+
+.pie-chart {
+  margin-top: 7px;
 }

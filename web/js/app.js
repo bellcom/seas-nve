@@ -38,3 +38,38 @@ function toggleCalculationExpressions(event) {
 for (var button of buttons) {
   button.addEventListener('click', toggleCalculationExpressions);
 }
+
+(function() {
+  var forms = document.querySelectorAll('form');
+
+  function passifySubmit(e) {
+    var form = e.target;
+    var submits = form.querySelectorAll('[type=submit]');
+
+    for (i = 0; i < submits.length; i++) {
+      var submit = submits[i];
+      var icon = submit.querySelector('.fa');
+
+      // Change icon to a spinner.
+      if (icon !== null) {
+        icon.className = ''; // Removes ALL classes.
+        icon.classList.add('fa', 'fa-refresh', 'fa-spin');
+      } else {
+        icon = document.createElement('SPAN');
+        icon.classList.add('fa', 'fa-refresh', 'fa-spin', 'appended');
+
+        submit.appendChild(icon);
+      }
+
+      // Disable button.
+      submit.setAttribute('disabled', 'true');
+    }
+  }
+
+  // Loop over all forms upon page load.
+  for (i = 0; i < forms.length; i++) {
+    var form = forms[i];
+
+    form.addEventListener('submit', passifySubmit);
+  }
+})();
