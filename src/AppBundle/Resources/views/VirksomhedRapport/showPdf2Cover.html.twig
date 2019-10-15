@@ -9,11 +9,11 @@
   <br>
   <br>
 
-  <h1 class="pdf-enlarged">
-    {% if rapport.virksomhed.name %}
+  {% if rapport.virksomhed.name %}
+    <h1 class="pdf-enlarged">
       {{ rapport.virksomhed.name }}
-    {% endif %}
-  </h1>
+    </h1>
+  {% endif %}
 
   {% if typenavn %}
     <h2>{{ typenavn }}</h2>
@@ -23,6 +23,11 @@
 
   <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
 
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
   <br>
   <br>
   <br>
