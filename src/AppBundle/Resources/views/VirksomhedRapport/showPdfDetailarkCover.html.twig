@@ -1,32 +1,57 @@
 {% extends review == false ? 'AppBundle::pdf.html.twig' : 'AppBundle:_includes:rapport_review_container.html.twig' %}
 
 {% block body -%}
-<div class="landscape">
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <h1 class="pdf-enlarged">{{ rapport.virksomhed.name }}</h1>
-  <h2>Virksomhed bygninger detailark</h2>
-  {% if typenavn %}
-    <h3>{{ typenavn }}</h3>
-  {% endif %}
-  <br>
-  <br>
-  <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <div class="text-right">
-    <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
+  <!-- VirksomhedRapport/showPdfDetailarkCover.html.twig -->
+  <div class="landscape">
+    <div class="page-break-before">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+      {% if rapport.virksomhed.name %}
+        <h1 class="pdf-enlarged">
+          {{ rapport.virksomhed.name }}
+        </h1>
+      {% endif %}
+      <h1>
+        Detailark
+      </h1>
+
+      {% if typenavn %}
+        <h2>{{ typenavn }}</h2>
+      {% endif %}
+
+      <br><br>
+
+      <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+      {% if rapport.virksomhed.name is empty %}
+        <br><br><br><br><br>
+      {% endif %}
+
+      <div class="text-right">
+        <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
+      </div>
+    </div>
   </div>
-</div>
 {% endblock %}

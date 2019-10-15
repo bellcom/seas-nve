@@ -1,52 +1,53 @@
-<div class="landscape">
-  <div class="row page-break-before">
-    <div class="col-xs-12">
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+<!-- Rapport/showPdf5CoverBody.html.twig -->
+<div class="page-break-before page-break-after">
+  <div class="landscape">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
+    {% if rapport.bygning.virksomhed.name %}
       <h1 class="pdf-enlarged">
-        {% if rapport.bygning.virksomhed.navn %}
-          {{ rapport.bygning.virksomhed.navn }}
-          <br>
-        {% endif %}
-
-        {{ rapport.bygning.navn }}
+        {{ rapport.bygning.virksomhed.name }}
       </h1>
+    {% endif %}
+    <h1>
+      {{ rapport.bygning.navn }}
+    </h1>
 
-      {% if typenavn %}
-        <h2>{{ typenavn }}</h2>
-      {% endif %}
+    {% if typenavn %}
+      <h2>{{ typenavn }}</h2>
+    {% endif %}
 
-      <br><br>
+    <br><br>
 
-      <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+    <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
-      {% if rapport.bygning.virksomhed.navn is empty %}
-        <br><br><br><br><br>
-      {% endif %}
+    {% if rapport.bygning.virksomhed.name is empty %}
+      <br><br><br><br><br>
+    {% endif %}
 
-      <div class="text-right">
-        <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
-      </div>
+    <div class="text-right">
+      <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
     </div>
   </div>
 </div>
