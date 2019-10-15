@@ -260,6 +260,7 @@ tr.highlight {
 }
 
 .panel-heading {
+  padding: 10px 5px;
   border-bottom: 1pt solid #E5E5E1;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
