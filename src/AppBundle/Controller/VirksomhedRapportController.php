@@ -6,6 +6,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Calculation\SummarizedRapportData;
 use AppBundle\DBAL\Types\FilCategoryType;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Virksomhed;
@@ -123,6 +124,7 @@ class VirksomhedRapportController extends BaseController {
 
     $twigVars = array(
       'entity' => $rapport,
+      'samlet_data' => new SummarizedRapportData($rapport),
       'edit_form' => $editForm ? $editForm->createView() : NULL,
       'calculate_form' => $calculateForm,
       'calculation_changes' => $calculationChanges,

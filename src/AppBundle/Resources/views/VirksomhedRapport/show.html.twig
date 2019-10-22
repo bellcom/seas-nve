@@ -115,17 +115,19 @@
     </table>
   </div>
   <div role="tabpanel">
+    {% if entity.virksomhed.datterSelskaber is not empty %}
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#tilknutede_bygninger" aria-controls="home" role="tab" data-toggle="tab">Tilknytede bygninger</a></li>
       <li role="presentation"><a href="#samlet_data" aria-controls="home" role="tab" data-toggle="tab">Samlet rapport data</a></li>
     </ul>
+    {% endif %}
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="tilknutede_bygninger">
         {% include('AppBundle::VirksomhedRapport/report_data.html.twig') %}
       </div>
       <div role="tabpanel" class="tab-pane" id="samlet_data">
-        {% include 'AppBundle::VirksomhedRapport/report_data.html.twig' with  { 'entity' : entity.summarizedRapportValues} %}
+        {% include 'AppBundle::VirksomhedRapport/report_data.html.twig' with  { 'entity' : samlet_data } %}
       </div>
     </div>
   </div>

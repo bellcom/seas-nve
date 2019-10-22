@@ -9,14 +9,14 @@
     <div class="row page-break-before">
       <div class="col-xs-12">
         <h2>Sammenfatning efter besøg</h2>
-        <p>Jeres samlede årlige besparelsespotentiale er beregnet til kr. {{ rapport.samletEnergiBesparelse | format_decimal }}. Dette tal er med udgangspunkt i jeres aktuelle forbrug omregnet med den aktuelle energipris.</p>
+        <p>Jeres samlede årlige besparelsespotentiale er beregnet til kr. {{ rapport.summarizedRapportValues.samletEnergibesparelse | format_decimal }}. Dette tal er med udgangspunkt i jeres aktuelle forbrug omregnet med den aktuelle energipris.</p>
 
         <h4>Det videre forløb</h4>
         <p>Næste skridt i processen er, at der tages stilling til hvilke projekter der vurderes som mest attraktive og dermed iværksættes først.</p>
         <p>SEAS-NVE kan drive de valgte tiltag som projektledere, herunder kontakt til de forskellige leverandører. Vi sikrer dermed, at alle de valgte projekter gennemføres inden for de fastlagte terminer.</p>
         <p>Vi kender markedet og dermed den optimale løsning. I sikres dermed den størst mulige effekt af besparelsesprojekterne.</p>
 
-        {% set samletTilskud = rapport.calculateSamletEnergiBesparelseTilfaeld() %}
+        {% set samletTilskud = rapport.summarizedRapportValues.samletEnergiBesparelseTilfaeld %}
         {% if samletTilskud > 0 %}
           <h4>Tilskud</h4>
           <p>SEAS-NVE yder et engangstilskud til jer på {{ rapport.getVirksomhedTilskudstorellse() | format_decimal }} kr. pr. kWh, der spares i kraft af de gennemførte fælles projekter. Dette tilskud vil i jeres tilfælde samlet set beløbe sig til kr. {{ samletTilskud | format_decimal }}</p>
@@ -25,7 +25,7 @@
         <h4>Slutanvendelser</h4>
         {% set slutanvendelseLabels = rapport.getBesparelseSlutanvendelserLabels() %}
         <ul>
-          {% for type, slutanvendelse in rapport.besparelseSlutanvendelser %}
+          {% for type, slutanvendelse in rapport.summarizedRapportValues.besparelseSlutanvendelser %}
             {% if slutanvendelse.total != 0 %}
               <li>{{ slutanvendelseLabels[type] }}: {{ slutanvendelse.total | format_decimal(0)}} kWh/år</li>
             {% endif %}
@@ -56,27 +56,27 @@
         <tbody>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.besparelseEl' | trans }}</th>
-          <td class="text-right">{{ rapport.besparelseEl | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.besparelseEl | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseEl.unit' | trans }}</td>
         </tr>
         <tr class="no-border">
           <th>{{ 'appbundle.virksomhed_rapport.besparelseVarme' | trans }}</th>
-          <td class="text-right">{{ rapport.besparelseVarme | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.besparelseVarme | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseVarme.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.besparelseAarEtPdf' | trans }}</th>
-          <td class="text-right">{{ rapport.besparelseAarEt | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.besparelseAarEt | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseAarEtPdf.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.besparelseCO2' | trans }}</th>
-          <td class="text-right">{{ rapport.besparelseCO2 | number_format }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.besparelseCO2 | number_format }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2.unit' | trans }}</td>
         </tr>
         <tr class="no-border">
           <th>{{ 'appbundle.virksomhed_rapport.besparelseCO2relative' | trans }}</th>
-          <td class="text-right">{{ rapport.co2BesparelseSamletFaktor | format_percent_nounit }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.co2BesparelseSamletFaktor | format_percent_nounit }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2relative.unit' | trans }}</td>
         </tr>
         </tbody>
@@ -91,12 +91,12 @@
         <tbody>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.totalEntreprisesum' | trans }}</th>
-          <td class="text-right">{{ rapport.anlaegsinvestering | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.anlaegsinvestering | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.totalEntreprisesum.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.investeringEksFaellesomkostninger' | trans }}</th>
-          <td class="text-right">{{ rapport.investeringEksFaellesomkostninger | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.investeringEksFaellesomkostninger | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.investeringEksFaellesomkostninger.unit' | trans }}</td>
         </tr>
         <tr>
@@ -106,49 +106,49 @@
         </tr>
         <tr>
           <th class="indent">- {{ 'appbundle.virksomhed_rapport.energiscreening' | trans }}</th>
-          <td class="text-right">{{ rapport.energiscreening | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.energiscreening | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.energiscreening.unit' | trans }}</td>
         </tr>
         <tr>
           <th class="indent">- {{ 'appbundle.virksomhed_rapport.mtmFaellesomkostninger' | trans }}</th>
-          <td class="text-right">{{ rapport.mtmFaellesomkostninger | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.mtmFaellesomkostninger | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.mtmFaellesomkostninger.unit' | trans }}</td>
         </tr>
         <tr>
           <th class="indent">- {{ 'appbundle.virksomhed_rapport.implementering' | trans }}</th>
-          <td class="text-right">{{ rapport.implementering | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.implementering | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.implementering.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.sumOevrige' | trans }}</th>
-          <td class="text-right">{{ rapport.tilvalgtSum | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.tilvalgtSum | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.sumOevrige.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.genopretningsandel' | trans }}</th>
-          <td class="text-right">{{ rapport.genopretning | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.genopretning | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.genopretningsandel.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.genopretningForImplementeringsomkostninger' | trans }}</th>
-          <td class="text-right">{{ rapport.genopretningForImplementeringsomkostninger | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.genopretningForImplementeringsomkostninger | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.genopretningForImplementeringsomkostninger.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.modernisering' | trans }}</th>
-          <td class="text-right">{{ rapport.modernisering | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.modernisering | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.modernisering.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.nutidsvaerdi' | trans }}</th>
-          <td class="text-right">{{ rapport.nutidsvaerdiSetOver15AarKr | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.nutidsvaerdiSetOver15AarKr | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.nutidsvaerdi.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.internRenteInklFaellesomkostninger' | trans }}</th>
           <td class="text-right">
-            {% if rapport.internRenteInklFaellesomkostninger < 100 %}
-              {{ rapport.internRenteInklFaellesomkostninger | format_percent_nounit }}
+            {% if rapport.summarizedRapportValues.internRenteInklFaellesomkostninger < 100 %}
+              {{ rapport.summarizedRapportValues.internRenteInklFaellesomkostninger | format_percent_nounit }}
             {% else %}
               --
             {% endif %}
@@ -175,37 +175,37 @@
         <tbody>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.besparelseEl' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtBesparelseEl | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.fravalgtBesparelseEl | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseEl.unit' | trans }}</td>
         </tr>
         <tr class="no-border">
           <th>{{ 'appbundle.virksomhed_rapport.besparelseVarme' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtBesparelseVarme | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.fravalgtBesparelseVarme | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseVarme.unit' | trans }}</td>
         </tr>
         <tr class="no-border">
           <th>{{ 'appbundle.virksomhed_rapport.besparelseBraendstof' | trans }}</th>
-          <td class="text-right">{{ rapport.besparelseBraendstof | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.besparelseBraendstof | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseBraendstof.unit' | trans }}</td>
         </tr>
         <tr class="no-border">
           <th>{{ 'appbundle.virksomhed_rapport.fravalgtBesparelseDriftOgVedligeholdelse' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtBesparelseDriftOgVedligeholdelse | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.fravalgtBesparelseDriftOgVedligeholdelse | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.fravalgtBesparelseDriftOgVedligeholdelse.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.besparelseAarEt' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtBesparelseAarEt | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.fravalgtBesparelseAarEt | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseAarEt.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.besparelseCO2' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtBesparelseCO2 | number_format }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.fravalgtBesparelseCO2 | number_format }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2.unit' | trans }}</td>
         </tr>
         <tr class="no-border">
           <th>{{ 'appbundle.virksomhed_rapport.besparelseCO2relative' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtCo2BesparelseSamletFaktor | format_percent_nounit }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.fravalgtCo2BesparelseSamletFaktor | format_percent_nounit }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseCO2relative.unit' | trans }}</td>
         </tr>
         </tbody>
@@ -220,23 +220,23 @@
         <tbody>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.investeringEkslFaelles' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtInvesteringEksFaellesomkostninger | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.fravalgtInvesteringEksFaellesomkostninger | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.investeringEkslFaelles.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.implementering' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtImplementering | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.fravalgtImplementering | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.implementering.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.sum' | trans }}</th>
 
-          <td class="text-right">{{ rapport.fravalgtSum | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.fravalgtSum | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.sum.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.nutidsvaerdi' | trans }}</th>
-          <td class="text-right">{{ rapport.fravalgtNutidsvaerdiSetOver15AarKr | format_hundreds }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.fravalgtNutidsvaerdiSetOver15AarKr | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.nutidsvaerdi.unit' | trans }}</td>
         </tr>
         </tbody>
@@ -264,7 +264,7 @@
         <tbody>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.samtidighedsfaktor' | trans }}</th>
-          <td class="text-right">{{ rapport.faktorPaaVarmebesparelse | number_format }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.faktorPaaVarmebesparelse | number_format }}</td>
           <td></td>
         </tr>
         </tbody>
@@ -299,22 +299,22 @@
         <tbody>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.BaselineEl' | trans }}</th>
-          <td class="text-right">{{ rapport.BaselineEl | format_zeros }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.BaselineEl | format_zeros }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.BaselineEl.unit' | trans }}</td>
         </tr>
         <tr class="no-border">
           <th>{{ 'appbundle.virksomhed_rapport.BaselineVarme' | trans }}</th>
-          <td class="text-right">{{ rapport.BaselineVarme | format_zeros }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.BaselineVarme | format_zeros }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.BaselineVarme.unit' | trans }}</td>
         </tr>
         <tr class="no-border">
           <th>{{ 'appbundle.virksomhed_rapport.BaselineBraendstof' | trans }}</th>
-          <td class="text-right">{{ rapport.BaselineBraendstof | format_zeros }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.BaselineBraendstof | format_zeros }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.BaselineBraendstof.unit' | trans }}</td>
         </tr>
         <tr>
           <th>{{ 'appbundle.virksomhed_rapport.BaselineStrafAfkoeling' | trans }}</th>
-          <td class="text-right">{{ rapport.BaselineStrafAfkoeling | format_zeros }}</td>
+          <td class="text-right">{{ rapport.summarizedRapportValues.BaselineStrafAfkoeling | format_zeros }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.BaselineStrafAfkoeling.unit' | trans }}</td>
         </tr>
         </tbody>
@@ -371,11 +371,11 @@
       </div>
 
       <div class="panel-body">
-        {% include 'AppBundle::_includes/finansiering_graf_pdf.html.twig' with {'entity': rapport} %}
+        {% include 'AppBundle::_includes/finansiering_graf_pdf.html.twig' with {'entity': rapport.summarizedRapportValues } %}
 
 
         {{ 'appbundle.virksomhed_rapport.laanLoebetid' | trans }}:
-        {{ rapport.laanLoebetid }} {{ 'appbundle.virksomhed_rapport.laanLoebetid.unit' | trans }}
+        {{ rapport.summarizedRapportValues.laanLoebetid }} {{ 'appbundle.virksomhed_rapport.laanLoebetid.unit' | trans }}
 
 
       </div>
@@ -388,7 +388,7 @@
     </div>
 
     <div class="panel panel-default">
-      {% include 'AppBundle::_includes/finansiering_likviditetsoverblik_pdf.html.twig' with {'entity': rapport} %}
+      {% include 'AppBundle::_includes/finansiering_likviditetsoverblik_pdf.html.twig' with {'entity': rapport.summarizedRapportValues } %}
     </div>
 
     <div class="row page-break-before">

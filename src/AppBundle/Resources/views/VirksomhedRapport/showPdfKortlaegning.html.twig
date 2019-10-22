@@ -55,12 +55,12 @@
               <tr>
                 <th>{{ row.label }}</th>
                 <td>{{ row.value | format_decimal(0) }}</td>
-                <td>{{ row.value | format_percent_of(rapport.calculateSamletEnergiForbrug, 0) }} </td>
+                <td>{{ row.value | format_percent_of(rapport.getSummarized('samletEnergiForbrug'), 0) }} </td>
               </tr>
             {% endfor %}
             <tr>
               <th>Sum energi</th>
-              <td>{{ rapport.calculateSamletEnergiForbrug }}</td>
+              <td>{{ rapport.getSummarized('samletEnergiForbrug') }}</td>
               <td>100%</td>
             </tr>
             </tbody>
@@ -342,13 +342,13 @@
                 <tr>
                   <th>{{ row.label }}</th>
                   <td>{{ row.value | format_decimal(0) }}</td>
-                  <td>{{ row.value | format_percent_of(rapport.calculateSamletEnergiForbrug, 0) }} </td>
+                  <td>{{ row.value | format_percent_of(rapport.getSummarized('samletEnergiForbrug'), 0) }} </td>
                 </tr>
               {% endfor %}
               <tr>
                 <th>Sum energi</th>
-                <td>{{ rapport.calculateSamletEnergiForbrug }}</td>
-                <td>100</td>
+                <td>{{ rapport.getSummarized('samletEnergiForbrug') }}</td>
+                <td>100%</td>
               </tr>
               </tbody>
             </table>

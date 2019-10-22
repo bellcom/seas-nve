@@ -175,24 +175,24 @@ class PdfExport {
     }
     $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegningCover.html.twig', $coverParams);
 
-    // Data for energiFordeling pie chart.
+    // Summarized data for energiFordeling pie chart.
     $energiFordeling = array(
       array(
         'label' => 'El',
-        'value' => $rapport->getBaselineEl(),
+        'value' => $rapport->getSummarized('BaselineEl'),
       ),
       array(
         'label' => 'Varme',
-        'value' => $rapport->getBaselineVarme(),
+        'value' =>  $rapport->getSummarized('BaselineVarme'),
       ),
       array(
         'label' => 'Brændstof',
-        'value' => $rapport->getBaselineBraendstof(),
+        'value' =>  $rapport->getSummarized('BaselineBraendstof'),
       ),
     );
     $pieChartData['energiFordeling'] = $energiFordeling;
 
-    // Data for overordnetForrug pie chart.
+    // Split data for overordnetForrug pie chart for each virksomhed.
     $overordnetForrug = array(
       array(
         'label' => $rapport->getVirksomhed()->__toString(),
@@ -210,7 +210,7 @@ class PdfExport {
     }
     $pieChartData['overordnetForrug'] = $overordnetForrug;
 
-    // Data for elForrug pie chart.
+    // Split data for elForrug pie chart for each virksomhed.
     $elForrug = array();
     $row = array(
       'label' => $rapport->getVirksomhed()->__toString(),
@@ -233,7 +233,7 @@ class PdfExport {
     }
     $pieChartData['elForrug'] = $elForrug;
 
-    // Data for varmeForrug pie chart.
+    // Split data for varmeForrug pie chart for each virksomhed.
     $varmeForrug = array();
     $row = array(
       'label' => $rapport->getVirksomhed()->__toString(),
@@ -256,7 +256,7 @@ class PdfExport {
     }
     $pieChartData['varmeForrug'] = $varmeForrug;
 
-    // Data for varmeForrug pie chart.
+    // Split data for varmeForrug pie chart for each virksomhed.
     $braendstofForrug = array();
     $row = array(
       'label' => $rapport->getVirksomhed()->__toString(),
@@ -279,7 +279,7 @@ class PdfExport {
     }
     $pieChartData['braendstofForbrug'] = $braendstofForrug;
 
-    // Data for beplarelseSluanvendelse pie chart.
+    // Split data for beplarelseSluanvendelse pie chart for each virksomhed.
     $labels = $rapport->getBesparelseSlutanvendelserLabels();
     $chartData = array();
     foreach ($rapport->getBesparelseSlutanvendelser(1) as $key => $value) {
@@ -313,7 +313,7 @@ class PdfExport {
     }
     $pieChartData['beplarelseSluanvendelse'] = $beplarelseSluanvendelse;
 
-    // Data for elForbrugSluanvendelse pie chart.
+    // Split data for elForbrugSluanvendelse pie chart for each virksomhed.
     $labels = $rapport->getBesparelseSlutanvendelserLabels();
     $elForbrugSluanvendelse = array();
     $chartData = array();

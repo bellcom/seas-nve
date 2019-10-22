@@ -655,7 +655,14 @@ class VirksomhedRapport
      * @Calculated
      * @ORM\Column(name="summarizedRapportValues", type="array", nullable=true)
      */
-    protected $summarizedRapportValues;
+    protected $summarizedRapportValues = array();
+
+    /**
+     * @var ArrayCollection
+     *
+     * Stores all virksomheder involved in rapport.
+     */
+    private $virksomhederList;
 
     /**
      * Constructor
@@ -2228,7 +2235,7 @@ class VirksomhedRapport
      */
     public function getSummarizedRapportValues()
     {
-        return $this->summarizedRapportValues;
+        return $this->summarizedRapportValues ?: array();
     }
 
     /**
@@ -2236,7 +2243,7 @@ class VirksomhedRapport
      *
      * @return ArrayCollection
      */
-    public function getRapporter() {
+    public function getBygningerRapporter() {
         if (!empty($this->rapporter)) {
             return $this->rapporter;
         }
@@ -2354,12 +2361,22 @@ class VirksomhedRapport
     /**
      * General calculation function.
      */
-    public function calculate()
+    public function calculate($withDatterselskaber = TRUE)
     {
         /** @var Rapport $rapport */
-        foreach ($this->getRapporter() as $rapport) {
+        foreach ($this->getBygningerRapporter() as $rapport) {
             if (!empty($rapport->getCalculationWarnings())) {
                 $rapport->calculate();
+            }
+        }
+
+        if ($withDatterselskaber) {
+            /** @var Virksomhed $datterSelskab */
+            foreach ($this->getVirksomhed()->getDatterSelskaber(TRUE) as $datterSelskab) {
+                $rapport = $datterSelskab->getRapport();
+                if (!empty($rapport) && !empty($rapport->getCalculationWarnings())) {
+                    $rapport->calculate(FALSE);
+                }
             }
         }
 
@@ -2387,25 +2404,18 @@ class VirksomhedRapport
         /** @var PropertyAccessor $accessor */
         $accessor = PropertyAccess::createPropertyAccessor();
         $summarizedValues = array();
-        foreach ($this->calculationRapportProperties as $property) {
-            $value = 0;
-            foreach ($virksomhederList as $virksomhed) {
-                switch ($property) {
-                    case 'cashFlow':
-                    case 'cashFlow15':
-                    case 'cashFlow30':
-                    case 'besparelseSlutanvendelser':
-                        if (empty($value)) {
-                            $value = array();
-                        }
-                        $value = $this->summarizeArrayValues($value, $accessor->getValue($virksomhed->getRapport(), $property));
-                        break;
-
-                    default:
-                        $value += $accessor->getValue($virksomhed->getRapport(), $property);
-                }
-            }
-            $summarizedValues[$property] = $value;
+        $summarizeProperties = array_merge($this->calculationRapportProperties, array(
+            'BaselineEl',
+            'BaselineVarme',
+            'BaselineBraendstof',
+            'BaselineStrafAfkoeling',
+            'besparelseVarme',
+            'uOpvarmetareal',
+            'samletEnergiForbrug',
+            'samletEnergiBesparelseTilfaeld',
+        ));
+        foreach ($summarizeProperties as $property) {
+            $summarizedValues[$property] = $this->calculateSummarized($property);
         }
         $this->setSummarizedRapportValues($summarizedValues);
     }
@@ -2434,7 +2444,7 @@ class VirksomhedRapport
     protected function calculateCashFlow() {
         $flow = array();
         /** @var Rapport $rapport */
-        foreach ($this->getRapporter() as $rapport) {
+        foreach ($this->getBygningerRapporter() as $rapport) {
            foreach ($rapport->getCashFlow() as  $flowProperty => $flowValue) {
                if (empty($flow[$flowProperty])) {
                    $flow[$flowProperty] = $flowValue;
@@ -2459,7 +2469,7 @@ class VirksomhedRapport
     protected function calculateCashFlow15($expression = FALSE) {
         $flow = array();
         /** @var Rapport $rapport */
-        foreach ($this->getRapporter() as $rapport) {
+        foreach ($this->getBygningerRapporter() as $rapport) {
             foreach ($rapport->getCashFlow15() as $flowProperty => $flowValue) {
                 if (empty($flow[$flowProperty])) {
                     $flow[$flowProperty] = $flowValue;
@@ -2478,7 +2488,7 @@ class VirksomhedRapport
     protected function calculateCashFlow30($expression = FALSE) {
         $flow = array();
         /** @var Rapport $rapport */
-        foreach ($this->getRapporter() as $rapport) {
+        foreach ($this->getBygningerRapporter() as $rapport) {
             foreach ($rapport->getCashFlow30() as  $flowProperty => $flowValue) {
                 if (empty($flow[$flowProperty])) {
                     $flow[$flowProperty] = $flowValue;
@@ -2499,7 +2509,7 @@ class VirksomhedRapport
     {
         $result = array();
         /** @var Rapport $rapport */
-        foreach ($this->getRapporter() as $rapport) {
+        foreach ($this->getBygningerRapporter() as $rapport) {
             foreach ($rapport->getBesparelseSlutanvendelser() as $slutanvendelseType => $values) {
                 if (empty($result[$slutanvendelseType])) {
                     $result[$slutanvendelseType] = $values;
@@ -2647,6 +2657,70 @@ class VirksomhedRapport
         return $arrayTo;
     }
 
+    public function getSummarized($property) {
+        return isset($this->summarizedRapportValues[$property]) ? $this->summarizedRapportValues[$property] : NULL;
+    }
+
+    public function calculateSummarized($property, $expr = FALSE) {
+        /** @var PropertyAccessor $accessor */
+        $accessor = PropertyAccess::createPropertyAccessor();
+        $value = array();
+        $is_array = FALSE;
+        foreach ($this->getVirksomhederList() as $virksomhed) {
+            /** @var VirksomhedRapport $rapport */
+            $rapport = $virksomhed->getRapport();
+            if (empty($rapport)) {
+                continue;
+            }
+            switch ($property) {
+                case 'cashFlow':
+                case 'cashFlow15':
+                case 'cashFlow30':
+                case 'besparelseSlutanvendelser':
+                    $is_array = TRUE;
+                    $value = $this->summarizeArrayValues($value, $accessor->getValue($rapport, $property));
+                    break;
+
+                case 'samletEnergiForbrug':
+                    $value[] = $rapport->calculateSamletEnergiForbrug();
+                    break;
+
+                case 'samletEnergiBesparelseTilfaeld':
+                    $value[] = $rapport->calculateSamletEnergiBesparelseTilfaeld();
+                    break;
+
+                default:
+                    $value[] = $accessor->getValue($rapport, $property);
+            }
+        }
+
+        if ($is_array) {
+            return $value;
+        }
+
+        return $expr ? $this->sumExpr($value) : array_sum($value);
+    }
+
+    /**
+     * Returns all virksomheder involved in rapport.
+     *
+     * @return ArrayCollection
+     */
+    private function getVirksomhederList() {
+        if ($this->virksomhederList) {
+            return $this->virksomhederList;
+        }
+        $this->virksomhederList = $this->virksomhed->getDatterSelskaber(TRUE);
+        $this->virksomhederList->add($this->getVirksomhed());
+        /** @var Virksomhed $virksomhed */
+        foreach ($this->virksomhederList as $virksomhed) {
+            if (empty($virksomhed->getRapport())) {
+                $this->virksomhederList->removeElement($virksomhed);
+            }
+        }
+        return $this->virksomhederList;
+    }
+
     /**
      * Post load handler.
      *
@@ -2671,7 +2745,7 @@ class VirksomhedRapport
       $values = array();
       $getMethod = str_replace('calculate', 'get', $name);
       /** @var Rapport $rapport */
-      foreach ($this->getRapporter() as $rapport) {
+      foreach ($this->getBygningerRapporter() as $rapport) {
         if (method_exists($rapport, $getMethod)) {
           $values[] = call_user_func(array($rapport, $getMethod));
         }
