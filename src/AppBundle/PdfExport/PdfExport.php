@@ -414,6 +414,10 @@ class PdfExport {
       $coverParams['typenavn'] = ucfirst($virksomhedsType);
     }
     $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailarkCover.html.twig', $coverParams);
+    $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailark.html.twig', array(
+      'html' => $html,
+      'review' => $review,
+    ));
 
     return $review ? ($cover . $html) :  $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('orientation'=>'Landscape',
