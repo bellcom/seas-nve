@@ -1,5 +1,7 @@
-<figure id="chart">
-  <canvas id="chart-canvas" width="400" height="400"></canvas>
+{% set chartIdRandomized = 'linechart' ~ random() %}
+
+<figure id="{{ chartIdRandomized }}">
+  <canvas id="chart-canvas" width="400" height="400" style="height: 400px;"></canvas>
   <figcaption></figcaption>
 </figure>
 
@@ -50,7 +52,7 @@
           bezierCurve : true,
           bezierCurveTension : 0.2
         },
-        ctx = document.querySelector('#chart canvas').getContext('2d'),
+        ctx = document.querySelector('#{{ chartIdRandomized }} canvas').getContext('2d'),
         chart = new Chart(ctx).Line(data, options);
-    document.querySelector('#chart figcaption').innerHTML = chart.generateLegend();
+    document.querySelector('#{{ chartIdRandomized }} figcaption').innerHTML = chart.generateLegend();
   }())</script>
