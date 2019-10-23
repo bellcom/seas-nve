@@ -169,6 +169,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
+   * @Formula("$this->calculateTilskudsstoerrelse()")
    * @ORM\Column(name="samletTilskud", type="float", nullable=true)
    */
   protected $samletTilskud;
@@ -1812,6 +1813,7 @@ abstract class Tiltag {
     // Calculating values by formulas from annotation.
     $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
     $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
+    $this->samletTilskud = $this->calculateByFormula('samletTilskud');
 
     // This may be computed, may be an input
     if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
