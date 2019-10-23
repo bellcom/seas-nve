@@ -195,7 +195,7 @@ abstract class Tiltag {
    *
    * @ORM\Column(name="faktorForReinvesteringer", type="integer", nullable=true)
    */
-  protected $faktorForReinvesteringer;
+  protected $faktorForReinvesteringer = 1;
 
   /**
    * @var float
@@ -223,14 +223,14 @@ abstract class Tiltag {
    *
    * @ORM\Column(name="forbrugFoer", type="integer", nullable=true)
    */
-  protected $forbrugFoer;
+  protected $forbrugFoer = 0;
 
   /**
    * @var float
    *
    * @ORM\Column(name="forbrugEfter", type="integer", nullable=true)
    */
-  protected $forbrugEfter;
+  protected $forbrugEfter = 0;
 
   /**
    * Enterprisesum
@@ -260,14 +260,14 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="anlaegsinvesteringExRisiko", type="float", nullable=true)
    */
-  protected $anlaegsinvesteringExRisiko;
+  protected $anlaegsinvesteringExRisiko = 0;
 
   /**
    * @var float
    *
    * @ORM\Column(name="opstartsomkostninger", type="decimal", nullable=true)
    */
-  protected $opstartsomkostninger;
+  protected $opstartsomkostninger = 0;
 
   /**
    * @var float
@@ -275,7 +275,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="reelAnlaegsinvestering", type="float", nullable=true)
    */
-  protected $reelAnlaegsinvestering;
+  protected $reelAnlaegsinvestering = 0;
 
   /**
    * @var float
@@ -283,7 +283,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="besparelseDriftOgVedligeholdelse", type="float", nullable=true)
    */
-  protected $besparelseDriftOgVedligeholdelse;
+  protected $besparelseDriftOgVedligeholdelse = 0;
 
   /**
    * @var float
@@ -291,7 +291,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="besparelseStrafafkoelingsafgift", type="float", nullable=true)
    */
-  protected $besparelseStrafafkoelingsafgift;
+  protected $besparelseStrafafkoelingsafgift = 0;
 
   /**
    * @var float
@@ -598,21 +598,21 @@ abstract class Tiltag {
    *
    * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
    */
-  protected $genopretning;
+  protected $genopretning = 0;
 
   /**
    * @var float
    *
    * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
    */
-  protected $genopretningForImplementeringsomkostninger;
+  protected $genopretningForImplementeringsomkostninger = 0;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
    */
-  protected $modernisering;
+  protected $modernisering = 0;
 
   /**
    * @OneToMany(targetEntity="Bilag", mappedBy="tiltag", cascade={"remove"})
