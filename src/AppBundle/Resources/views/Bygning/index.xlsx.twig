@@ -20,7 +20,6 @@
 
   {% xlsrow %}
     {% xlscell %}{{ bygning.bygId }}{% endxlscell %}
-    {% xlscell %}{{ bygning.enhedsys }}{% endxlscell %}
     {% xlscell %}{{ bygning.navn }}{% endxlscell %}
     {% xlscell %}{{ bygning.adresse }}{% endxlscell %}
     {% xlscell %}{{ bygning.postnummer }}{% endxlscell %}
@@ -185,7 +184,6 @@
     {# Column headers #}
     {% xlsrow %}
       {% xlscell %}{{ 'ID' | trans }}{% endxlscell %}
-      {% xlscell %}{{ 'Enhedsys' | trans }}{% endxlscell %}
       {% xlscell %}{{ 'Navn' | trans }}{% endxlscell %}
       {% xlscell %}{{ 'Adresse' | trans }}{% endxlscell %}
       {% xlscell %}{{ 'Postnummer' | trans }}{% endxlscell %}
