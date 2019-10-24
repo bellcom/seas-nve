@@ -35,4 +35,56 @@ class VirksomhedRepository extends EntityRepository
     return $virksomheder;
   }
 
+  /**
+   * Cleans up bygnign references in virksomhed.
+   *
+   * @param Virksomhed $virksomhed
+   */
+  public function cleanupBygningReferences(Virksomhed $virksomhed)
+  {
+      $bygningRepository = $this->_em->getRepository(Bygning::class);
+      // Cleanup CVR bygninger reference on Virksomhed.
+      $bygningerByCvrNumber = $virksomhed->getBygningerByCvrNumber();
+      /** @var Bygning $bygning */
+      foreach ($bygningerByCvrNumber as $key => $bygning_id) {
+          $bygning = $bygningRepository->find($bygning_id);
+          if (empty($bygning) || empty($bygning->getVirksomhed())) {
+              unset($bygningerByCvrNumber[$key]);
+              continue;
+          }
+          if ($bygning->getVirksomhed()->getId() != $virksomhed->getId()) {
+              unset($bygningerByCvrNumber[$key]);
+          }
+      }
+      $virksomhed->setBygningerByCvrNumber(array_unique($bygningerByCvrNumber));
+
+      // Cleanup EAN bygninger reference on Virksomhed.
+      $bygningerByEanNumber = $virksomhed->getBygningerByEanNumber();
+      foreach ($bygningerByEanNumber as $key => $bygning_id) {
+          $bygning = $bygningRepository->find($bygning_id);
+          if (empty($bygning) || empty($bygning->getVirksomhed())) {
+              unset($bygningerByEanNumber[$key]);
+              continue;
+          }
+          if ($bygning->getVirksomhed()->getId() != $virksomhed->getId()) {
+              unset($bygningerByEanNumber[$key]);
+          }
+      }
+      $virksomhed->setBygningerByEanNumber(array_unique($bygningerByEanNumber));
+
+      // Cleanup P bygninger reference on Virksomhed.
+      $bygningerByPNumber = $virksomhed->getBygningerByPNumber();
+      foreach ($bygningerByPNumber as $key => $bygning_id) {
+          $bygning = $bygningRepository->find($bygning_id);
+          if (empty($bygning) || empty($bygning->getVirksomhed())) {
+              unset($bygningerByPNumber[$key]);
+              continue;
+          }
+          if ($bygning->getVirksomhed()->getId() != $virksomhed->getId()) {
+              unset($bygningerByPNumber[$key]);
+          }
+      }
+      $virksomhed->setBygningerByPNumber(array_unique($bygningerByPNumber));
+  }
+
 }

@@ -385,6 +385,8 @@ class VirksomhedController extends BaseController
     private function createEditForm(Virksomhed $entity)
     {
         $entity->setDefaultValues();
+
+        $this->getDoctrine()->getManager()->getRepository(Virksomhed::class)->cleanupBygningReferences($entity);
         $form = $this->createForm(new VirksomhedType(), $entity, array(
             'action' => $this->generateUrl('virksomhed_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -466,6 +468,8 @@ class VirksomhedController extends BaseController
                     $em->persist($child_virksomhed);
                 }
             }
+
+            $em->getRepository(Virksomhed::class)->cleanupBygningReferences($virksomhed);
 
             $em->persist($virksomhed);
             $em->flush();

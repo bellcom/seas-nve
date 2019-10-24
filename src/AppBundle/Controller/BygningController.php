@@ -450,9 +450,17 @@ class BygningController extends BaseController implements InitControllerInterfac
         $em->remove($contactPerson);
       }
 
+      $virksomhed = $bygning->getVirksomhed();
       $em->remove($bygning);
       $em->flush();
       // @TODO remove revisions.
+
+      // Cleanup bygning reference on Virksomhed.
+      if ($virksomhed) {
+          $em->getRepository(Virksomhed::class)->cleanupBygningReferences($virksomhed);
+          $em->persist($virksomhed);
+          $em->flush();
+      }
 
       $this->flash->success('bygninger.confirmation.deleted');
     }
