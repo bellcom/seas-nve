@@ -24,9 +24,11 @@ class VirksomhedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $virksomheder = array();
+        $bygningerByCvrNumber = array();
         $bygningerByEanNumber = array();
         $bygningerByPNumber = array();
         $em = $options['entityManager'];
+        $bygningRepository = $em->getRepository('AppBundle:Bygning');
         if (!empty($em)) {
             /** @var BygningRepository $bygningRepository */
             $bygningRepository = $em->getRepository('AppBundle:Bygning');
@@ -34,6 +36,11 @@ class VirksomhedType extends AbstractType
             $bygningerByCvrNumber = $bygningRepository->getCvrNumberReferenceList($options['data']->getId());
             $bygningerByPNumber = $bygningRepository->getPNumberReferenceList($options['data']->getId());
             $bygningerByEanNumber = $bygningRepository->getEanNumberReferenceList($options['data']->getId());
+        }
+        $bygningerByCvrNumberChoicesAttr = array();
+        /** @var Bygning $bygning */
+        foreach ($bygningerByCvrNumber as $bygning_id => $bygning_value) {
+            $bygningerByCvrNumberChoicesAttr[] = array('data-cvrnumber' => $bygningRepository->find($bygning_id)->getCvrNumber());
         }
         $builder
             ->add('name')
@@ -43,7 +50,11 @@ class VirksomhedType extends AbstractType
                 'options'      => array(
                     'placeholder' => 'appbundle.virksomhed.bygningerByCvrNumber.placeholder',
                     'choices' => $bygningerByCvrNumber,
+//                    'choice_attr' => $bygningerByCvrNumberChoicesAttr,
                     'label' => FALSE,
+                    'attr' => array(
+                        'class' => 'bygningerByCvrNumber'
+                    ),
                 ),
                 'allow_add' => TRUE,
                 'allow_delete' => TRUE,

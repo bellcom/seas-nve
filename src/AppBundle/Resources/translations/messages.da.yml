@@ -182,14 +182,13 @@ bygninger:
     bygning_infoert: "Bygnings data verificeret"
     raadgiver_tilknyttet: "Rådgiver tilknyttet"
     deleted: "Bygning slettet"
-  error:
-    bind_virksomhed_by_cvr: "Bygning allerede tilknutet til Virksomhed. Fjern bygning fra Virksomhed først."
   labels:
     plural: "Bygninger"
     singular: "Bygning"
   strings:
     ingen: "Ingen bygninger fundet"
     ingen_rapporter: "Ingen tilknyttede rapporter"
+    search_by_cvr: "Vælg eksisterende virksomhed."
 bygning_rapporter:
   labels:
     plural: "Bygningsrapporter"

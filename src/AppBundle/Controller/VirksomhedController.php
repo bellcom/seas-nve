@@ -156,8 +156,10 @@ class VirksomhedController extends BaseController
                 $entity->getBygningerByPNumber()
             )));
             $entity->setBygninger(new ArrayCollection());
+            /** @var Bygning $bygning */
             foreach ($bygninger as $bygning) {
                 $entity->addBygninger($bygning);
+                $bygning->setCvrNumber($entity->getCvrNumber());
             }
 
             // Creating customer user to get ability use customer URL.
@@ -442,8 +444,10 @@ class VirksomhedController extends BaseController
                 $virksomhed->getBygningerByPNumber()
             )));
             $virksomhed->setBygninger(new ArrayCollection());
+            /** @var Bygning $bygning */
             foreach ($bygninger as $bygning) {
                 $virksomhed->addBygninger($bygning);
+                $bygning->setCvrNumber($virksomhed->getCvrNumber());
             }
 
             /** @var Bygning $bygning */

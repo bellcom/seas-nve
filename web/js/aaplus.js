@@ -251,4 +251,18 @@
   addMore($('.p_numbers'), '/bygning/pnumm-list');
   addMore($('.bygning_by_cvr_number'), '/bygning/cvrnumm-list');
 
+  $('.cvr-search').change(function () {
+    $('#appbundle_bygning_cvrNumber').val(this.value);
+  });
+
+  $(document).on('change', '.bygningerByCvrNumber', function () {
+    $wrapper = $(this).parents('div.form-group:first > div');
+    $wrapper.find('.help-block').remove();
+    if (this.value == '') {
+      return;
+    }
+    if ($(this).find('option[value=' + this.value + ']').data('cvrnumber') != $('#appbundle_virksomhed_cvrNumber').val()) {
+      $wrapper.append('<span class="help-block"><strong>OBS!!!</strong> Vælgt bygningen og virkosmhed har forskelige CVRnr. Bygningen vil være opdateret med virksomheds CVR.</span>');
+    }
+  });
 }(jQuery));
