@@ -541,7 +541,18 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail {
     if ($this->eksistIsolMm === null || $this->roerstoerrelseMmAekvivalent == 0) {
       return 0;
     } else {
-      return 2*((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*$this->varmeledningsevnePaaEksistIsoleringWMK*$this->getKonvektivVarmeovergangskoefficient()*PI()/(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)*log(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000)/($this->roerstoerrelseMmAekvivalent/1000))*$this->getKonvektivVarmeovergangskoefficient()+2*$this->varmeledningsevnePaaEksistIsoleringWMK);
+      return $this->divide(
+          (2 * ((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000) * $this->varmeledningsevnePaaEksistIsoleringWMK * $this->getKonvektivVarmeovergangskoefficient() * PI()),
+          (
+              ((2*$this->eksistIsolMm/1000) + $this->roerstoerrelseMmAekvivalent/1000)
+              *
+              log($this->divide(((2*$this->eksistIsolMm/1000)+$this->roerstoerrelseMmAekvivalent/1000), ($this->roerstoerrelseMmAekvivalent/1000)))
+              *
+              $this->getKonvektivVarmeovergangskoefficient()
+              +
+              2 * $this->varmeledningsevnePaaEksistIsoleringWMK
+          )
+      );
     }
   }
 
