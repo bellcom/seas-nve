@@ -411,7 +411,7 @@ class VirksomhedController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
         /** @var Virksomhed $originalVirksomhed */
-        $originalVirksomhed = $em->getRepository(Virksomhed::class)->find($virksomhed->getId());
+        $originalVirksomhed = clone $em->getRepository(Virksomhed::class)->find($virksomhed->getId());
 
         $originalBygninger = new ArrayCollection();
         foreach ($originalVirksomhed->getBygninger() as $bygning) {
@@ -462,6 +462,27 @@ class VirksomhedController extends BaseController
             foreach ($originalContactPersons as $contactPerson) {
                 if (false === $virksomhed->getContactPersons()->contains($contactPerson)) {
                     $em->remove($contactPerson);
+                }
+            }
+
+            // Update customer user if data have been changed.
+            $contactPerson = $virksomhed->getContactPersons()->first();
+            $customerUser = $virksomhed->getUser();
+            if (!empty($contactPerson) && !empty($customerUser)
+                && $originalVirksomhed->getCvrNumber() == $customerUser->getFirstname()) {
+                /** @var User $existingUser */
+                $existingUser = $em->getRepository(User::class)->findOneBy(array('email' => $contactPerson->getMail()));
+                if (empty($existingUser) || $existingUser->getId() == $customerUser->getId()) {
+                    $customerUser->setUsername($virksomhed->getCvrNumber());
+                    $customerUser->setFirstname($virksomhed->getCvrNumber());
+                    $customerUser->setEmail($contactPerson->getMail());
+                    $em->persist($customerUser);
+                }
+                else {
+                    $virksomhed->setUser($existingUser);
+                    $this->flash->success($this->translator->trans('virksomhed.messages.attached_existing_user', array(
+                        '%userMail' => $existingUser->getEmail(),
+                    )));
                 }
             }
 

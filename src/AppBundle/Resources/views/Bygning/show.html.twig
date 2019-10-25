@@ -84,19 +84,27 @@
           {% if entity.virksomhed %}
             <tr>
               <th class="indent">{{ 'appbundle.virksomhed.crmNumber' | trans }}</th>
-              <td>{{ entity.virksomhed.getCrmNumber(TRUE) }}</td>
+              <td>{{ entity.virksomhed.getCrmNumber(TRUE) }}
+                {% if entity.virksomhed.isInherited('crmNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+              </td>
             </tr>
             <tr>
               <th class="indent">{{ 'appbundle.virksomhed.projectNumber' | trans }}</th>
-              <td>{{ entity.virksomhed.getProjectNumber(TRUE) }}</td>
+              <td>{{ entity.virksomhed.getProjectNumber(TRUE) }}
+                {% if entity.virksomhed.isInherited('projectNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+              </td>
             </tr>
             <tr>
               <th class="indent">{{ 'appbundle.virksomhed.customerNumber' | trans }}</th>
-              <td>{{ entity.virksomhed.getCustomerNumber(TRUE) }}</td>
+              <td>{{ entity.virksomhed.getCustomerNumber(TRUE) }}
+                {% if entity.virksomhed.isInherited('customerNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+              </td>
             </tr>
             <tr>
               <th class="indent">{{ 'appbundle.virksomhed.typeName' | trans }}</th>
-              <td>{{ entity.virksomhed.getTypeName(TRUE) }}</td>
+              <td>{{ entity.virksomhed.getTypeName(TRUE) }}
+                {% if entity.virksomhed.isInherited('typeName') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+              </td>
             </tr>
           {% endif %}
           <tr>
