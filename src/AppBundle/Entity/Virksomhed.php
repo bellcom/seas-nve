@@ -421,7 +421,7 @@ class Virksomhed
      */
     public function getBygningerByEanNumber()
     {
-        return $this->bygningerByEanNumber;
+        return empty($this->bygningerByEanNumber) ? array() : $this->bygningerByEanNumber;
     }
 
     /**
@@ -445,7 +445,7 @@ class Virksomhed
      */
     public function getBygningerByPNumber()
     {
-        return $this->bygningerByPNumber;
+        return empty($this->bygningerByPNumber) ? array() : $this->bygningerByPNumber;
     }
 
     /**
