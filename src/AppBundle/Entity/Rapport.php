@@ -2017,7 +2017,7 @@ class Rapport {
    * Calculates SamletEnergiBesparelseTilfaeld.
    */
   public function calculateSamletEnergiBesparelseTilfaeld() {
-    return $this->getVirksomhedTilskudstorellse() * $this->getSamletEnergibesparelseKr() ;
+    return $this->getVirksomhedTilskudstorellse() * $this->getSamletEnergibesparelse() ;
   }
 
   /**

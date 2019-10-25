@@ -2574,7 +2574,7 @@ class VirksomhedRapport
         if (empty($this->getVirksomhed())) {
             return 0;
         }
-        return $this->getVirksomhed()->getTilskudstorelse() * $this->getSamletEnergibesparelseKr() ;
+        return $this->getVirksomhed()->getTilskudstorelse() * $this->getSamletEnergibesparelse() ;
     }
 
     /**
