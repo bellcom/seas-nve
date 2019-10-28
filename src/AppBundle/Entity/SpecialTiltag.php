@@ -38,7 +38,7 @@ class SpecialTiltag extends Tiltag {
   protected $samletCo2besparelse;
 
   /**
-   * @Formula("$this->besparelseBraendstof * $this->calculateTilskudsstoerrelse()")
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF + $this->elbesparelse + $this->besparelseBraendstof) * $this->calculateTilskudsstoerrelse()")
    */
   protected $samletTilskud;
 

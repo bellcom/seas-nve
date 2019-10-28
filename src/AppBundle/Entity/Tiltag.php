@@ -169,7 +169,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @Formula("$this->calculateTilskudsstoerrelse()")
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF + $this->elbesparelse) * $this->calculateTilskudsstoerrelse()")
    * @ORM\Column(name="samletTilskud", type="float", nullable=true)
    */
   protected $samletTilskud;
