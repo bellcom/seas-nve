@@ -47,7 +47,7 @@ class VirksomhedRepository extends EntityRepository
       $bygningerByCvrNumber = $virksomhed->getBygningerByCvrNumber();
       /** @var Bygning $bygning */
       foreach ($bygningerByCvrNumber as $key => $bygning_id) {
-          $bygning = $bygningRepository->find($bygning_id);
+          $bygning = $bygningRepository->find($bygning_id ?: FALSE);
           if (empty($bygning) || empty($bygning->getVirksomhed())) {
               unset($bygningerByCvrNumber[$key]);
               continue;
@@ -61,7 +61,7 @@ class VirksomhedRepository extends EntityRepository
       // Cleanup EAN bygninger reference on Virksomhed.
       $bygningerByEanNumber = $virksomhed->getBygningerByEanNumber();
       foreach ($bygningerByEanNumber as $key => $bygning_id) {
-          $bygning = $bygningRepository->find($bygning_id);
+          $bygning = $bygningRepository->find($bygning_id ?: FALSE);
           if (empty($bygning) || empty($bygning->getVirksomhed())) {
               unset($bygningerByEanNumber[$key]);
               continue;
@@ -75,7 +75,7 @@ class VirksomhedRepository extends EntityRepository
       // Cleanup P bygninger reference on Virksomhed.
       $bygningerByPNumber = $virksomhed->getBygningerByPNumber();
       foreach ($bygningerByPNumber as $key => $bygning_id) {
-          $bygning = $bygningRepository->find($bygning_id);
+          $bygning = $bygningRepository->find($bygning_id ?: FALSE);
           if (empty($bygning) || empty($bygning->getVirksomhed())) {
               unset($bygningerByPNumber[$key]);
               continue;
