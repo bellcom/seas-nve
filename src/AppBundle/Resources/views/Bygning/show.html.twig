@@ -124,10 +124,6 @@
             <td>{{ entity.aaplusAnsvarlig }}</td>
           </tr>
           <tr>
-            <th>{{ 'appbundle.bygning.projektleder' | trans }}</th>
-            <td>{{ entity.projektleder }}</td>
-          </tr>
-          <tr>
             <th>{{ 'appbundle.bygning.energiRaadgiver' | trans }}</th>
             <td>
               {% set energiRaadgiver = entity.getEnergiRaadgiver() %}
@@ -137,10 +133,6 @@
                 {% endfor %}
               {% endif %}
             </td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.bygning.projekterende' | trans }}</th>
-            <td>{{ entity.projekterende }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.bygning.afdelingsnavn' | trans }}</th>
