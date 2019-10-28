@@ -41,6 +41,12 @@
             {{ form_row(edit_form.energiRaadgiver ) }}
             {{ form_row(edit_form.projekterende ) }}
             {{ form_row(edit_form.afdelingsnavn ) }}
+            <span class="hidden">
+              {{ form_row(edit_form.ejerA ) }}
+              {{ form_row(edit_form.divisionnavn ) }}
+              {{ form_row(edit_form.omraadenavn ) }}
+              {{ form_row(edit_form.ejerforhold ) }}
+            </span>
           </div>
         </div>
       </div>
@@ -50,6 +56,9 @@
           <div class="panel-heading">{{ icon('info-circle') }} {{ 'common.data' | trans }}</div>
           <div class="panel-body">
             {{ form_row(edit_form.bygId ) }}
+            <span class="hidden">
+              {{ form_row(edit_form.enhedsys ) }}
+            </span>
             {{ form_row(edit_form.type ) }}
             {{ form_row(edit_form.OpfoerselsAar ) }}
             {{ form_row(edit_form.anvendelse ) }}
