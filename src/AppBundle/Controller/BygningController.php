@@ -290,8 +290,11 @@ class BygningController extends BaseController implements InitControllerInterfac
     $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('bygning'));
 
+    $em = $this->getDoctrine()->getManager();
+    $virksomheder = $em->getRepository(Virksomhed::class)->findAll();
     return array(
       'entity' => $bygning,
+      'virksomheder' => $virksomheder,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
@@ -339,12 +342,6 @@ class BygningController extends BaseController implements InitControllerInterfac
     $editForm = $this->createEditForm($bygning);
 
     $editForm->handleRequest($request);
-
-    if (!empty($bygning->getCvrNumber())
-      && !empty($originalVirksomhed)
-      && $bygning->getCvrNumber() != $originalVirksomhed->getCvrNumber()) {
-      $editForm->get('cvrNumber')->addError(new FormError($this->translator->trans('bygninger.error.bind_virksomhed_by_cvr')));
-    }
 
     if ($editForm->isValid()) {
       /** @var ContactPerson $contactPerson */

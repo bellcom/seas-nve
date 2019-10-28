@@ -182,14 +182,13 @@ bygninger:
     bygning_infoert: "Bygnings data verificeret"
     raadgiver_tilknyttet: "Rådgiver tilknyttet"
     deleted: "Bygning slettet"
-  error:
-    bind_virksomhed_by_cvr: "Bygning allerede tilknutet til Virksomhed. Fjern bygning fra Virksomhed først."
   labels:
     plural: "Bygninger"
     singular: "Bygning"
   strings:
     ingen: "Ingen bygninger fundet"
     ingen_rapporter: "Ingen tilknyttede rapporter"
+    search_by_cvr: "Vælg eksisterende virksomhed."
 bygning_rapporter:
   labels:
     plural: "Bygningsrapporter"
@@ -746,7 +745,7 @@ appbundle:
     elForbrugsdataSekundaerNoegetal: "Nøgletal for sekundær kilde"
     elForbrugsdataSekundaerNoegetal.unit: "kWh/m² pr år"
     elForbrugsdataSekundaerNoter: "Evt. bemærkninger"
-    elGenerelt: "Baseline til udbudsmateriale, årlig (El)"
+    elGenerelt: "Baseline-årlig (El)"
     elPrimaer: "Primær kilde (El)"
     elSekundaer: "Sekundær kilde (El)"
     eloElTotalForbrug: "ELO-nøgletal for valgt kategori"
@@ -806,7 +805,7 @@ appbundle:
     varmeForbrugsdataSekundaerNoter: "Evt. bemærkninger"
     varmeGAFForbrug: "GAF-forbrug"
     varmeGAFForbrug.unit: "kWh/år"
-    varmeGenerelt: "Baseline til udbudsmateriale, årlig (Varme)"
+    varmeGenerelt: "Baseline-årlig (Varme)"
     varmeGUFForbrug: "GUF-forbrug"
     varmeGUFForbrug.unit: "kWh/år"
     varmePrimaer: "Primær kilde (Varme)"
