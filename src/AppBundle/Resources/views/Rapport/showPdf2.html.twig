@@ -343,9 +343,9 @@
       <div class="col-xs-12">
         <p>Den følgende graf viser en tilnærmet likviditetsoversigt for tilvalgte forslag fra forrige skema.<br>
           Vandret vises tidsperioden i år, lodret vises den årlige ydelse til lån, og den årlige besparelse.<br>
-          Grafen viser forløbet såfremt der optages et 15-årigt lån til 3 % p.a. til finansering af udførslen af de
+          Grafen viser forløbet såfremt der optages et {{ rapport.laanLoebetid }}-årigt lån til 3 % p.a. til finansering af udførslen af de
           tilvalgte forslag, hvorfor ydelsen til lånet
-          falder til 0 kr. i år 15.</p>
+          falder til 0 kr. i år {{ rapport.laanLoebetid }}.</p>
 
         <p>Der indregnes besparelser fra energispareforslagene indenfor deres forventede levetid. Når den forventede
           levetid for disse nye energispareforslag er
@@ -378,7 +378,7 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <p>I det følgende vises ovenstående værdier i tabelform for de første 15 år, svarende til lånets løbetid.</p>
+        <p>I det følgende vises ovenstående værdier i tabelform for de første {{ rapport.laanLoebetid }} år, svarende til lånets løbetid.</p>
       </div>
     </div>
 
@@ -416,14 +416,14 @@
           <strong>Nutidsværdi</strong><br>
           Beløbet er den "nutidige værdi" af de kommende indtægter fra
           energibesparelsen samt udgifterne til service mv.
-          i 15 år, hvor der er taget hensyn til inflation, energiprisstigninger,
+          i {{ rapport.laanLoebetid }} år, hvor der er taget hensyn til inflation, energiprisstigninger,
           renteudgifter til
           lånoptagning, reinvesteringer samt tiltagenes eventuelle restværdi i
-          år 15.<br>
+          år {{ rapport.laanLoebetid }}.<br>
           En positiv nutidsværdi beskriver dermed den totale gevinst ved en
-          investering, set over 15 år, mens en negativ
+          investering, set over {{ rapport.laanLoebetid }} år, mens en negativ
           nutidsværdi viser den
-          totale udgift set over 15 år.
+          totale udgift set over {{ rapport.laanLoebetid }} år.
         </p>
 
         <p><strong>Øvrige omkostninger</strong><br>
@@ -434,8 +434,7 @@
             tiltagene i tiltagslisten.
           </li>
           <li>MTM fællesudgifter, som bl.a. omfatter udgifter til bl.a.
-            energiledelse, bygherrerådgivning og Aa+
-            sekretariatet
+            energiledelse, bygherrerådgivning og SEAS-NVE sekretariatet
           </li>
           <li>Implementeringsomkostninger, som omfatter bl.a. projektering og
             byggeledelse.

@@ -374,8 +374,7 @@
         {% include 'AppBundle::_includes/finansiering_graf_pdf.html.twig' with {'entity': rapport.summarizedRapportValues } %}
 
 
-        {{ 'appbundle.virksomhed_rapport.laanLoebetid' | trans }}:
-        {{ rapport.summarizedRapportValues.laanLoebetid }} {{ 'appbundle.virksomhed_rapport.laanLoebetid.unit' | trans }}
+        {{ 'appbundle.virksomhed_rapport.laanLoebetid' | trans }}: 15 {{ 'appbundle.virksomhed_rapport.laanLoebetid.unit' | trans }}
 
 
       </div>
@@ -439,7 +438,7 @@
             tiltagene i tiltagslisten.
           </li>
           <li>MTM fællesudgifter, som bl.a. omfatter udgifter til bl.a.
-            energiledelse, bygherrerådgivning og Aa+
+            energiledelse, bygherrerådgivning og SEAS-NVE
             sekretariatet
           </li>
           <li>Implementeringsomkostninger, som omfatter bl.a. projektering og
