@@ -163,7 +163,7 @@ class BygningController extends BaseController implements InitControllerInterfac
       return $this->redirect($this->generateUrl('bygning_show', array('id' => $entity->getId())));
     }
 
-    $virksomheder = $em->getRepository(Virksomhed::class)->findAll();
+    $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
     return array(
       'entity' => $entity,
       'virksomheder' => $virksomheder,
@@ -201,7 +201,7 @@ class BygningController extends BaseController implements InitControllerInterfac
     $entity = new Bygning();
     $form = $this->createCreateForm($entity);
     $em = $this->getDoctrine()->getManager();
-    $virksomheder = $em->getRepository(Virksomhed::class)->findAll();
+    $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
 
     return array(
       'entity' => $entity,
@@ -296,7 +296,7 @@ class BygningController extends BaseController implements InitControllerInterfac
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('bygning'));
 
     $em = $this->getDoctrine()->getManager();
-    $virksomheder = $em->getRepository(Virksomhed::class)->findAll();
+    $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
     return array(
       'entity' => $bygning,
       'virksomheder' => $virksomheder,
@@ -378,7 +378,7 @@ class BygningController extends BaseController implements InitControllerInterfac
       return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
     }
 
-    $virksomheder = $em->getRepository(Virksomhed::class)->findAll();
+    $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
     return array(
       'entity' => $bygning,
       'virksomheder' => $virksomheder,

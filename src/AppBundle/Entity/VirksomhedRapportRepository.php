@@ -64,7 +64,7 @@ class VirksomhedRapportRepository extends BaseRepository {
                 ->setParameter('version', $search['version']);
         }
 
-        $qb->addOrderBy('v.name');
+        $qb->addOrderBy('v.id', 'desc');
 
         return $qb->getQuery();
     }

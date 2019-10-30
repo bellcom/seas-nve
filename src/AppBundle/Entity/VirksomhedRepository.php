@@ -15,7 +15,7 @@ class VirksomhedRepository extends EntityRepository
 {
   public function getDatterSelskabReferenceList($currentVirksomhed)
   {
-    $virksomheder = $this->findAll();
+    $virksomheder = $this->findBy(array(), array('id' => 'desc'));
     $virksomhedTrail = new ArrayCollection();
     if ($currentVirksomhed instanceof Virksomhed) {
       $virksomhedTrail = $currentVirksomhed->getVirksomhedsTrail();

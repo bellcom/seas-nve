@@ -64,6 +64,7 @@ class BygningRepository extends BaseRepository {
 
       $qb->where('b.' . $column . ' IS NOT NULL');
       $qb->andWhere('b.' . $column . ' <> \'\'');
+      $qb->addOrderBy('b.createdAt', 'desc');
 
       $query = $qb->getQuery();
       return $returnQuery ? $query : $query->getResult();
