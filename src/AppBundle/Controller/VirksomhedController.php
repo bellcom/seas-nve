@@ -272,7 +272,10 @@ class VirksomhedController extends BaseController
         $virksomheder = $repository->getDatterSelskabReferenceList($current_virksomhed);
         /** @var Virksomhed $virksomhed */
         foreach ($virksomheder as $virksomhed) {
-            $result[$virksomhed->getId()] = $virksomhed->getCvrReferenceLabel();
+            $result[] = array(
+                'id' => $virksomhed->getId(),
+                'value' => $virksomhed->getCvrReferenceLabel(),
+            );
         }
 
         $response = new Response();

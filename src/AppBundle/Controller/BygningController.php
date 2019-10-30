@@ -220,8 +220,14 @@ class BygningController extends BaseController implements InitControllerInterfac
   public function cvrNumListAction() {
     /** @var BygningRepository $repository */
     $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
-    $result = $repository->getCvrNumberReferenceList();
     $response = new Response();
+    $result = array();
+    foreach ($repository->getCvrNumberReferenceList() as $id => $value) {
+      $result[] = array(
+        'id' => $id,
+        'value' => $value,
+      );
+    }
     $response->setContent(json_encode($result));
     $response->headers->set('Content-Type', 'application/json');
     return $response;
@@ -237,8 +243,14 @@ class BygningController extends BaseController implements InitControllerInterfac
   public function eanNumListAction() {
     /** @var BygningRepository $repository */
     $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
-    $result = $repository->getEanNumberReferenceList();
     $response = new Response();
+    $result = array();
+    foreach ($repository->getEanNumberReferenceList() as $id => $value) {
+      $result[] = array(
+        'id' => $id,
+        'value' => $value,
+      );
+    }
     $response->setContent(json_encode($result));
     $response->headers->set('Content-Type', 'application/json');
     return $response;
@@ -254,8 +266,14 @@ class BygningController extends BaseController implements InitControllerInterfac
   public function pNumListAction() {
     /** @var BygningRepository $repository */
     $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
-    $result = $repository->getPNumberReferenceList();
     $response = new Response();
+    $result = array();
+    foreach ($repository->getPNumberReferenceList() as $id => $value) {
+      $result[] = array(
+        'id' => $id,
+        'value' => $value,
+      );
+    }
     $response->setContent(json_encode($result));
     $response->headers->set('Content-Type', 'application/json');
     return $response;

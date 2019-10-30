@@ -182,8 +182,8 @@
           }
         });
         if ($data) {
-          for ($value in $data) {
-            $select.append($("<option>").attr('value', $value).text($data[$value]));
+          for ($key in $data) {
+            $select.append($("<option>").attr('value', $data[$key].id).text($data[$key].value));
           }
         }
         addMoreFormCallback($collectionHolder, $newLinkL, newForm.html());
