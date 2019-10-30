@@ -1,5 +1,37 @@
-<div class="landscape">
+{% macro header(key) %}
+  {% set calculation = key|get_calculation %}
 
+  <th class="rotate">
+    <div>
+      {% if calculation is null %}
+        <span>{{ key | trans }}</span>
+      {% else %}
+        <span data-calculation="{{ calculation }}">{{ key | trans }}</span>
+      {% endif %}
+    </div>
+  </th>
+{% endmacro %}
+
+{% macro header_unit(key, border_right=false) %}
+  {% set translation = key|get_unit %}
+  {% set border = border_right ? 'border-right' : '' %}
+
+  <th class="unit {{ border }}">
+    {{ translation }}
+  </th>
+{% endmacro %}
+
+{% macro header_span(key, span) %}
+  {% set translation = key|trans %}
+
+  <th colspan="{{ span }}" class="text-center border-right">
+    {{ translation }}
+  </th>
+{% endmacro %}
+
+{% import _self as helper %}
+
+<div class="landscape">
   {% include 'AppBundle:Rapport:kundeinformation-embed.html.twig' %}
 
   <div class="row page-break-before">
