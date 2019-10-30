@@ -82,6 +82,9 @@ class VirksomhedController extends BaseController
         // build the query from the given form object
         $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
 
+        // By default show the latest records first.
+        $filterBuilder->addOrderBy('v.id', 'DESC');
+
         /** @var Query $query */
         $query = $filterBuilder->getQuery();
 

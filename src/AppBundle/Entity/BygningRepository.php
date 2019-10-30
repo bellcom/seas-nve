@@ -155,7 +155,8 @@ class BygningRepository extends BaseRepository {
 
     $this->limitQueryToUserAccess($user, $qb);
 
-    $qb->addOrderBy('b.navn');
+    // By default show the latest records first.
+    $qb->addOrderBy('b.createdAt', 'desc');
 
     return $qb->getQuery();
   }
