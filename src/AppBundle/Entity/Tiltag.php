@@ -2025,10 +2025,10 @@ abstract class Tiltag {
   }
 
   /**
-   * @Formula("$this->aaplusInvestering / ($this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift)")
+   * @Formula("($this->aaplusInvestering - $this->samletTilskud) / ($this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift)")
    */
   protected function calculateSimpelTilbagebetalingstidAar() {
-    return $this->divide($this->aaplusInvestering,
+    return $this->divide(($this->aaplusInvestering - $this->samletTilskud),
       $this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift);
   }
 

@@ -89,9 +89,14 @@ class TiltagType extends AbstractType {
             ->add('faktorForReinvesteringer')
             ->add('opstartsomkostninger');
 
+    $attr = array();
+    if ($this->tiltag instanceof SpecialTiltag) {
+      $attr = array('disabled' => 'disabled');
+    }
+
     $builder
       ->add('forbrugFoer')
-      ->add('forbrugEfter')
+      ->add('forbrugEfter', 'text', array('attr' => $attr))
       ->add('prioriteringsfaktor', 'choice', array(
         'choices' => array(
           '0.5' => '0,5',
