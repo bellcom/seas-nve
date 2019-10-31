@@ -91,7 +91,10 @@ class TiltagType extends AbstractType {
 
     $attr = array();
     if ($this->tiltag instanceof SpecialTiltag) {
-      $attr = array('disabled' => 'disabled');
+      $attr = array(
+        'help_text' => 'Besparelse varme GAF + Besparelse varme GUF',
+        'disabled' => 'disabled',
+      );
     }
 
     $builder
