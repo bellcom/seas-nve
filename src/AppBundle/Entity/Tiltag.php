@@ -169,7 +169,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF + $this->elbesparelse) * $this->calculateTilskudsstoerrelse()")
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF + $this->elbesparelse) * $this->getPrioriteringsfaktor() * $this->getTilskudsstoerrelse()")
    * @ORM\Column(name="samletTilskud", type="float", nullable=true)
    */
   protected $samletTilskud;
@@ -2075,15 +2075,8 @@ abstract class Tiltag {
     return NULL;
   }
 
-  /**
-   * @Formula("$this->tilskudsstoerrelse * ((($this->getKonverteringsfaktorFoer() * $this->getForbrugFoer()) - ($this->getKonverteringsfaktorEfter() * $this->getForbrugEfter())) * $this->getPrioriteringsfaktor())")
-   */
   protected function calculateTilskudsstoerrelse() {
-    if ($this->simpelTilbagebetalingstidAar < 1) {
-      return 0;
-    }
-    // tilskudsstørrelse * (((getKonverteringsfaktorFoer * forbrugFoer) - (getKonverteringsfaktorEfter * forbrugEfter)) * prioteringsFaktor);
-    return $this->getTilskudsstoerrelse() * ((($this->getKonverteringsfaktorFoer() * $this->getForbrugFoer()) - ($this->getKonverteringsfaktorEfter() * $this->getForbrugEfter())) * $this->getPrioriteringsfaktor());
+    return $this->getTilskudsstoerrelse();
   }
 
   protected function calculateEnhed() {
