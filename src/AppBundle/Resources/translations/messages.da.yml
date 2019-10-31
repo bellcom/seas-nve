@@ -1957,7 +1957,7 @@ appbundle:
     tilskudsstoerrelse.unit: "kr/kWh"
     tilskudsstoerrelse.help: "Hvis ingen angives, arves værdien fra virksomheden."
     samletTilskud: "Samlet tilskud"
-    samletTilskud.unit: "kr/år"
+    samletTilskud.unit: "kr"
   tiltagdatofordrift:
     datoForDrift: "Dato for drift"
   tiltagdetail:
