@@ -394,6 +394,14 @@ class VirksomhedRapport
     protected $samletEnergibesparelseKr;
 
     /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="samletTilskud", type="float", nullable=true)
+     */
+    protected $samletTilskud;
+
+    /**
      * Get investering eksl. genopretning og modernisering
      *
      * (Aa+ Investering eks. Øvrige omkostninger)
@@ -2217,6 +2225,28 @@ class VirksomhedRapport
     }
 
     /**
+     * Set samletTilskud
+     *
+     * @param float $samletTilskud
+     * @return Rapport
+     */
+    public function setSamletTilskud($samletTilskud)
+    {
+        $this->samletTilskud = $samletTilskud;
+        return $this;
+    }
+
+    /**
+     * Get SamletTilskud
+     *
+     * @return float
+     */
+    public function getSamletTilskud()
+    {
+        return $this->samletTilskud;
+    }
+
+    /**
      * Set summarizedRapportValues
      *
      * @param array $summarizedRapportValues
@@ -2346,6 +2376,7 @@ class VirksomhedRapport
 
         'samletEnergibesparelse',
         'samletEnergibesparelseKr',
+        'samletTilskud',
 
         'besparelseSlutanvendelser',
         'besparelseAarEt',

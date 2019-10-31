@@ -74,7 +74,7 @@
         {% endif %}
           <tr>
             <td>{{ 'appbundle.tiltag.samletTilskud' | trans }} <div class="calculation-expression hidden">{{ entity.expr('samletTilskud') }}</td>
-            <td class="text-right">{{ entity.samletTilskud | format_amount }}</td>
+            <td class="text-right">{{ entity.getSamletTilskud(FALSE) | format_amount }}</td>
             <td>{{ 'appbundle.tiltag.samletTilskud.unit' | trans }}</td>
           </tr>
         </tbody>

@@ -1472,8 +1472,12 @@ abstract class Tiltag {
    *
    * @return float
    */
-  public function getSamletTilskud() {
-    return $this->samletTilskud;
+  public function getSamletTilskud($skip_tbt_check = TRUE) {
+    if ($skip_tbt_check) {
+      return $this->samletTilskud;
+    }
+    // Do not give tilskud if TBT < 1.
+    return $this->getSimpelTilbagebetalingstidAar() < 1 ? 0 : $this->samletTilskud;
   }
 
   /**

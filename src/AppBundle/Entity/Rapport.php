@@ -208,6 +208,14 @@ class Rapport {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="samletTilskud", type="float", nullable=true)
+   */
+  protected $samletTilskud;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="fravalgtBesparelseEl", type="float", nullable=true)
    */
   protected $fravalgtBesparelseEl;
@@ -811,6 +819,28 @@ class Rapport {
   public function getSamletEnergibesparelseKr()
   {
     return $this->samletEnergibesparelseKr;
+  }
+
+  /**
+   * Set samletTilskud
+   *
+   * @param float $samletTilskud
+   * @return Rapport
+   */
+  public function setSamletTilskud($samletTilskud)
+  {
+    $this->samletTilskud = $samletTilskud;
+    return $this;
+  }
+
+  /**
+   * Get SamletTilskud
+   *
+   * @return float
+   */
+  public function getSamletTilskud()
+  {
+    return $this->samletTilskud;
   }
 
   /**
@@ -2273,6 +2303,7 @@ class Rapport {
 
     $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
     $this->samletEnergibesparelseKr = $this->calculateSamletEnergiBesparelseKr();
+    $this->samletTilskud = $this->calculateSamletTilskud();
   }
 
   private function calculateCashFlow15() {
@@ -2968,6 +2999,25 @@ class Rapport {
 
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
       $result[] = $tiltag->getSamletEnergibesparelse();
+    }
+
+    return $expression ? $this->sumExpr($result) : array_sum($result);
+  }
+
+  /**
+   * Calculates expression for SamletEnergiBesparelse value
+   */
+  protected function calculateSamletTilskudExp() {
+    return $this->calculateSamletTilskud(TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateSamletTilskudExp()")
+   */
+  protected function calculateSamletTilskud($expression = FALSE) {
+    $result = array();
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      $result[] = $tiltag->getSamletTilskud(FALSE);
     }
 
     return $expression ? $this->sumExpr($result) : array_sum($result);
