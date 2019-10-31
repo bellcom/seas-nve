@@ -54,9 +54,9 @@ class Bygning {
   protected $id;
 
   /**
-   * @var integer
+   * @var string
    *
-   * @ORM\Column(name="BygId", type="integer", nullable=true)
+   * @ORM\Column(name="BygId", type="string", nullable=true)
    */
   protected $bygId;
 
