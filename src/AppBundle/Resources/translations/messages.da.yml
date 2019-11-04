@@ -619,6 +619,7 @@ user:
     singular: "Bruger"
   strings:
     segmenteroggrupper: "Segmenter / Grupper"
+    grupper: "Grupper"
   messages:
     error:
       email: "Bruger med adresse %email findes allerede"
