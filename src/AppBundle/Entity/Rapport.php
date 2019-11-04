@@ -2103,6 +2103,7 @@ class Rapport {
       ->getRepository('AppBundle:Configuration');
     $this->setConfiguration($repository->getConfiguration());
     $this->initFormulableCalculation();
+    $this->tranlsationSuffix = 'appbundle.rapport.';
   }
 
   /**
@@ -2840,7 +2841,7 @@ class Rapport {
   /**
    * Calculates expression for nutidsvaerdiSetOver15AarKr value
    */
-  protected function calculateNutidsvaerdiSetOver15AarKrExpr() {
+  protected function calculateNutidsvaerdiSetOver15AarKrExp() {
     return $this->sumExpr($this->calculateNutidsvaerdiSetOver15AarKr(TRUE));
   }
 
@@ -2848,7 +2849,7 @@ class Rapport {
    * Calculate using sum of cash flows from Tiltag with "Øvrige omkostninger"
    * added in year 1.
    *
-   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
+   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExp()")
    */
   protected function calculateNutidsvaerdiSetOver15AarKr($array = FALSE) {
     $numberOfYears = 15;

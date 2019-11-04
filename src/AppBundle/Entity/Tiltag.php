@@ -2377,6 +2377,7 @@ abstract class Tiltag {
    */
   public function postLoad() {
     $this->initFormulableCalculation();
+    $this->tranlsationSuffix = 'appbundle.tiltag.';
   }
 
 }

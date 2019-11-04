@@ -25,6 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\Translation\TranslatorInterface;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Bilag;
@@ -37,8 +38,14 @@ use Doctrine\ORM\Mapping\Entity;
  * @Route("/rapport")
  */
 class RapportController extends BaseController {
+  /**
+   * @var TranslatorInterface $tranlator
+   */
+  private $translator;
+
   public function init(Request $request) {
     parent::init($request);
+    $this->translator = $this->container->get('translator');
     $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
   }
 
@@ -110,6 +117,28 @@ class RapportController extends BaseController {
 
     return $form;
   }
+
+    /**
+     * Download all files for Rapport.
+     *
+     * @Route("/formulas-list", name="rapport_formulas")
+     * @Template("AppBundle:Rapport:formula-list.html.twig")
+     * @Method("GET")
+     */
+    public function formulasList() {
+        $rapport = new Rapport();
+        $rapport->initFormulableCalculation();
+        $rapport->setTranslator($this->translator);
+        $rapport->tranlsationSuffix = 'appbundle.rapport.';
+        $formulas = array();
+        foreach ($rapport->getFx() as $key => $formula) {
+            $formulas[$key] = $rapport->getFormula($key);
+        }
+        $i = 1;
+        return array(
+            'formulas' => $formulas,
+        );
+    }
 
   /**
    * Finds and displays a Rapport entity.
