@@ -22,6 +22,7 @@ class Version20191106083011 extends AbstractMigration
                       (NULL, 'Varmeanlæg - generelt'),
                       (NULL, 'Belysning'),
                       (NULL, 'Klimaskærm'),
+                      (NULL, 'NyKlimaskærm'),
                       (NULL, 'Pumper'),
                       (NULL, 'Vinduer, ovenlys, døre')
                       ");
@@ -36,6 +37,9 @@ class Version20191106083011 extends AbstractMigration
 
         $this->addSql("UPDATE Tiltag SET primaerEnterprise = 't/i' WHERE discr = 'klimaskærm' AND primaerEnterprise = ''");
         $this->addSql("UPDATE Tiltag SET kategori_id = (SELECT id FROM TiltagsKategori WHERE navn = 'Klimaskærm') WHERE discr = 'klimaskærm' AND kategori_id IS NULL");
+
+        $this->addSql("UPDATE Tiltag SET primaerEnterprise = 't/i' WHERE discr = 'nyklimaskærm' AND primaerEnterprise = ''");
+        $this->addSql("UPDATE Tiltag SET kategori_id = (SELECT id FROM TiltagsKategori WHERE navn = 'NyKlimaskærm') WHERE discr = 'nyklimaskærm' AND kategori_id IS NULL");
 
         $this->addSql("UPDATE Tiltag SET primaerEnterprise = 'vvs' WHERE discr = 'pumpe' AND primaerEnterprise = ''");
         $this->addSql("UPDATE Tiltag SET kategori_id = (SELECT id FROM TiltagsKategori WHERE navn = 'Pumper') WHERE discr = 'pumpe' AND kategori_id IS NULL");
@@ -53,6 +57,9 @@ class Version20191106083011 extends AbstractMigration
 
         $this->addSql("UPDATE Tiltag_audit SET primaerEnterprise = 't/i' WHERE discr = 'klimaskærm' AND primaerEnterprise = ''");
         $this->addSql("UPDATE Tiltag_audit SET kategori_id = (SELECT id FROM TiltagsKategori WHERE navn = 'Klimaskærm') WHERE discr = 'klimaskærm' AND kategori_id IS NULL");
+
+        $this->addSql("UPDATE Tiltag_audit SET primaerEnterprise = 't/i' WHERE discr = 'nyklimaskærm' AND primaerEnterprise = ''");
+        $this->addSql("UPDATE Tiltag_audit SET kategori_id = (SELECT id FROM TiltagsKategori WHERE navn = 'NyKlimaskærm') WHERE discr = 'nyklimaskærm' AND kategori_id IS NULL");
 
         $this->addSql("UPDATE Tiltag_audit SET primaerEnterprise = 'vvs' WHERE discr = 'pumpe' AND primaerEnterprise = ''");
         $this->addSql("UPDATE Tiltag_audit SET kategori_id = (SELECT id FROM TiltagsKategori WHERE navn = 'Pumper') WHERE discr = 'pumpe' AND kategori_id IS NULL");

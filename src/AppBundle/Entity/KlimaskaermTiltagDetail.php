@@ -38,7 +38,8 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    *
    * @Assert\Expression(
    *  "(this.getKlimaskaerm() !== null || this.getKlimaskaermOverskrevetPris() !== null) || this.isBatchEdit()",
-   *  message="appbundle.klimaskaermtiltagdetail.klimaskaermOverskrevetPris.validation"
+   *  message="appbundle.klimaskaermtiltagdetail.klimaskaermOverskrevetPris.validation",
+   *  groups={"klimaskaerm"}
    * )
    */
   protected $klimaskaermOverskrevetPris;

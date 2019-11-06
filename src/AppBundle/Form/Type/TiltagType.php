@@ -8,6 +8,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\AppBundle;
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\Entity\NyKlimaskaermTiltag;
 use AppBundle\Form\Type\RisikovurderingType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
@@ -186,7 +187,7 @@ class TiltagType extends AbstractType {
       $builder
         ->add('levetid');
     }
-    elseif ($this->tiltag instanceof KlimaskaermTiltag) {
+    elseif ($this->tiltag instanceof KlimaskaermTiltag || $this->tiltag instanceof NyKlimaskaermTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse');
     }

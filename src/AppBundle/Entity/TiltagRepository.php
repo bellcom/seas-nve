@@ -51,6 +51,10 @@ class TiltagRepository extends EntityRepository
                 $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::TOEMRER_ISOLATOER);
                 $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Klimaskærm'));
                 break;
+            case 'Nyklimaskaerm':
+                $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::TOEMRER_ISOLATOER);
+                $tiltag->setTiltagskategori($this->getTiltagskategoriByName('NyKlimaskærm'));
+                break;
             case 'Pumpe':
                 $tiltag->setPrimaerEnterprise(PrimaerEnterpriseType::VVS);
                 $tiltag->setTiltagskategori($this->getTiltagskategoriByName('Pumper'));
