@@ -30,6 +30,8 @@ class BygningType extends AbstractType {
    * @inheritDoc
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
+    $data = $builder->getData();
+
     $builder
       ->add('bygId')
       ->add('navn')
@@ -118,8 +120,10 @@ class BygningType extends AbstractType {
         'sub_widget_col'     => 10,
         'button_col'         => 2
       ));
+
     // Only show the editable status field to super admins
-    if ($this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
+    $disallowed_statuses = array(BygningStatusType::IKKE_STARTET, BygningStatusType::DATA_VERIFICERET);
+    if ($this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN') && !in_array($data->getStatus(), $disallowed_statuses)) {
       $builder->add('status');
     }
     else {

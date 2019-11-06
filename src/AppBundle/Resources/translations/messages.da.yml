@@ -1676,7 +1676,7 @@ appbundle:
     samletEnergibesparelse: "Samlet energibesparelse"
     samletEnergiBesparelse: "Samlet energibesparelse"
     samletEnergiBesparelse.unit: "kWh/år "
-    samletEnergiBesparelseKr: "Samlet energibesparelse"
+    samletEnergiBesparelseKr: "Samlet besparelse"
     samletEnergiBesparelseKr.unit: "kr/år "
     samletTilskud: "Samlet tilskud"
     samletTilskud.unit: "kr"
