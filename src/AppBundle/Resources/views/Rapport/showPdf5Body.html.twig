@@ -125,41 +125,42 @@
 
       <div class="row">
         <div class="col-xs-12">
-          <h4>Beskrivelse:</h4>
+          {% if (t.beskrivelseNuvaerende is not empty)
+            or (t.beskrivelseNuvaerende is not empty)
+            or (t.beskrivelseForslag is not empty)
+            or (t.beskrivelseOevrige is not empty)
+          %}
+            <h4>Beskrivelse:</h4>
 
-          <p>
-            <strong>Nuværende forhold:</strong><br>
-            {% if t.beskrivelseNuvaerende is not empty %}
-              {{ t.beskrivelseNuvaerende }}
-            {% else %}
-              --
-            {% endif %}
-          </p>
+            <p>
+              {% if t.beskrivelseNuvaerende is not empty %}
+                <strong>Nuværende forhold:</strong><br>
+                {{ t.beskrivelseNuvaerende }}
+              {% endif %}
+            </p>
 
-          <p>
-            <strong>Forslag:</strong><br>
-            {% if t.beskrivelseForslag is not empty %}
-              {{ t.beskrivelseForslag }}
-            {% else %}
-              --
-            {% endif %}
-          </p>
+            <p>
+              {% if t.beskrivelseForslag is not empty %}
+                <strong>Forslag:</strong><br>
+                {{ t.beskrivelseForslag }}
+              {% endif %}
+            </p>
 
-          <p>
-            <strong>Øvrige bemærkninger:</strong><br>
-            {% if t.beskrivelseOevrige is not empty %}
-              {{ t.beskrivelseOevrige }}
-            {% else %}
-              --
-            {% endif %}
-          </p>
-
+            <p>
+              {% if t.beskrivelseOevrige is not empty %}
+                <strong>Øvrige bemærkninger:</strong><br>
+                {{ t.beskrivelseOevrige }}
+              {% endif %}
+            </p>
+          {% endif %}
         </div>
       </div>
 
       <div class="row">
         <div class="col-xs-12">
-          <h4>Risikovurdering:</h4>
+          {% if t.risikovurderingBrugsmoenster or t.risikovurderingDatagrundlag  or t.risikovurderingTeknisk or t.risikovurderingDiverse or t.risikovurdering is not empty %}
+            <h4>Risikovurdering:</h4>
+          {% endif %}
 
           {% if t.risikovurderingBrugsmoenster or t.risikovurderingDatagrundlag  or t.risikovurderingTeknisk or t.risikovurderingDiverse %}
             <table class="table table-condensed table-fixed"><tr>
@@ -182,8 +183,6 @@
             {% endif %}
           {% elseif t.risikovurdering is not empty %}
             <p>{{ t.risikovurdering }}</p>
-          {% else %}
-            <p>--</p>
           {% endif %}
 
         </div>
@@ -191,12 +190,9 @@
 
       <div class="row">
         <div class="col-xs-12">
-          <h4>Placering jf. oversigtstegning:</h4>
-
           {% if t.placering is not empty %}
+            <h4>Placering jf. oversigtstegning:</h4>
             <p>{{ t.placering }}</p>
-          {% else %}
-            <p>--</p>
           {% endif %}
 
         </div>
@@ -204,12 +200,9 @@
 
       <div class="row">
         <div class="col-xs-12">
-          <h4>Beskrivelse af ændringer til D&V udgifter samt fremtidigt timeforbrug for driftspersonale:</h4>
-
           {% if t.beskrivelseDriftOgVedligeholdelse is not empty %}
+            <h4>Beskrivelse af ændringer til D&V udgifter samt fremtidigt timeforbrug for driftspersonale:</h4>
             <p>{{ t.beskrivelseDriftOgVedligeholdelse }}</p>
-          {% else %}
-            <p>--</p>
           {% endif %}
 
         </div>
@@ -217,12 +210,9 @@
 
       <div class="row page-break-after">
         <div class="col-xs-12">
-          <h4>Indeklima/brugere:</h4>
-
           {% if t.indeklima is not empty %}
+            <h4>Indeklima/brugere:</h4>
             <p>{{ t.indeklima }}</p>
-          {% else %}
-            <p>--</p>
           {% endif %}
 
         </div>
