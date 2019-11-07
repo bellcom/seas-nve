@@ -771,7 +771,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
         return 0;
       }
       else {
-        return $this->fordelbesparelse($this->besparelseKWhAar, $this->tiltag->getForsyningEl(), 'EL');
+        return $this->fordelbesparelse($this->besparelseKWhAar, $this->tiltag->getForsyningVarme(), 'EL');
       }
     }
     else {
