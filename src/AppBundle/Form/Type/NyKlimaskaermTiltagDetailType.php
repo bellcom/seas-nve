@@ -47,7 +47,8 @@ class NyKlimaskaermTiltagDetailType extends TiltagDetailType
             ))
             ->add('tOpvarmningTimerAar', 'number', array(
                 'precision' => 1,
-                'attr' => $tOpwaarmingAttr
+                'attr' => $tOpwaarmingAttr,
+                'required' => FALSE,
             ))
             ->add('samletInvesteringKr')
             ->add('levetidAar');
