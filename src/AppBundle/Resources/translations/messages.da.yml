@@ -1503,6 +1503,7 @@ appbundle:
     tIndeC.unit: "°C"
     titel: "Titel"
     beskrivelse: "Beskrivelse"
+    graddageFordeling: "Graddage-fordeling"
     tOpvarmningTimerAar: "t_opvarmning"
     tOpvarmningTimerAar.unit: "timer/år"
     tUdeC: "T_ude"

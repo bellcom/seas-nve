@@ -17,13 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class NyKlimaskaermTiltagDetail extends KlimaskaermTiltagDetail
 {
     /**
-     * @var float
-     *
-     * @ORM\Column(name="klimaskaermOverskrevetPris", type="decimal", scale=4, nullable=true)
-     */
-    protected $klimaskaermOverskrevetPris;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=255, nullable=true)
@@ -48,6 +41,14 @@ class NyKlimaskaermTiltagDetail extends KlimaskaermTiltagDetail
      * @ORM\Column(name="titel", type="string")
      */
     protected $titel;
+
+    /**
+     * @var GraddageFordeling
+     *
+     * @ORM\ManyToOne(targetEntity="GraddageFordeling", fetch="EAGER")
+     * @ORM\JoinColumn(name="graddageFordeling", referencedColumnName="id", nullable=true)
+     **/
+    protected $graddageFordeling;
 
     /**
      * Constructor
@@ -102,6 +103,27 @@ class NyKlimaskaermTiltagDetail extends KlimaskaermTiltagDetail
         return $this->beskrivelse;
     }
 
+    /**
+     * Set graddageFordeling
+     *
+     * @param GraddageFordeling $graddageFordeling
+     * @return KlimaskaermTiltagDetail
+     */
+    public function setGraddageFordeling($graddageFordeling) {
+        $this->graddageFordeling = $graddageFordeling;
+
+        return $this;
+    }
+
+    /**
+     * Get graddageFordeling
+     *
+     * @return GraddageFordeling
+     */
+    public function getGraddageFordeling() {
+        return $this->graddageFordeling;
+    }
+
     protected $propertiesRequiredForCalculation = [
         'antalStk',
         'breddeM',
@@ -111,6 +133,34 @@ class NyKlimaskaermTiltagDetail extends KlimaskaermTiltagDetail
         'tUdeC',
         'uEksWM2K',
         'uNyWM2K',
+        'samletInvesteringKr',
     ];
+
+    /**
+     * We do not calculate SamletInvesteringKr in NyKlimaskaermTiltagDetail.
+     *
+     * @return float
+     */
+    protected function calculateSamletInvesteringKr() {
+        return $this->getSamletInvesteringKr();
+    }
+
+    /**
+     * Summarize heating hours for current year.
+     *
+     * @return float
+     */
+    private function calculateTOpvarmningTimerAar() {
+        if (!empty($this->getGraddageFordeling())) {
+            return round($this->getGraddageFordeling()->getSumAar());
+        }
+
+        return $this->getTOpvarmningTimerAar();
+    }
+
+    public function calculate() {
+        $this->tOpvarmningTimerAar = $this->calculateTOpvarmningTimerAar();
+        parent::calculate();
+    }
 
 }

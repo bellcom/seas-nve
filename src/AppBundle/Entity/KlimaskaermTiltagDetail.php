@@ -614,6 +614,18 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   }
 
   /**
+   * Set samletInvesteringKr
+   *
+   * @param float $samletInvesteringKr
+   * @return KlimaskaermTiltagDetail
+   */
+  public function setSamletInvesteringKr($samletInvesteringKr) {
+    $this->samletInvesteringKr = $samletInvesteringKr;
+
+    return $this;
+  }
+
+  /**
    * Get samletInvesteringKr
    *
    * @return float
@@ -734,7 +746,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
     }
   }
 
-  private function calculateSamletInvesteringKr() {
+  protected function calculateSamletInvesteringKr() {
     // "AE": "Samlet investering (kr)"
     return $this->getEnhedsprisEksklMoms() * $this->prisfaktor * $this->arealM2;
   }

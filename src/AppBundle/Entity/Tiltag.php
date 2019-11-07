@@ -2350,7 +2350,7 @@ abstract class Tiltag {
    * @return float
    */
   public function getTilskudsstoerrelse() {
-    if ($this->tilskudsstoerrelse) {
+    if (!empty($this->tilskudsstoerrelse) || $this->tilskudsstoerrelse == '0') {
       return $this->tilskudsstoerrelse;
     }
 
