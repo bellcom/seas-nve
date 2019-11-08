@@ -8,12 +8,14 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\DBAL\Types\KlimaskaermType;
 
+use AppBundle\Entity\Configuration;
 use AppBundle\Entity\GraddageFordeling;
 use AppBundle\Entity\NyKlimaskaermTiltagDetail;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class NyKlimaskaermTiltagDetailType
@@ -30,25 +32,65 @@ class NyKlimaskaermTiltagDetailType extends TiltagDetailType
             $tOpwaarmingAttr['disabled'] = 'disabled';
             $tOpwaarmingAttr['help_text'] = 'Beregnet fra graddøgn.';
         }
+        /** @var Configuration $configuration */
+        $configuration = $this->container->get('doctrine')->getRepository('AppBundle:Configuration')->getConfiguration();
+        /** @var TranslatorInterface $translator */
+        $translator = $this->container->get('translator');
         $builder
             ->add('titel')
             ->add('beskrivelse', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
             ->add('hoejdeElLaengdeM')
             ->add('breddeM')
+            ->add('fradragM')
             ->add('antalStk')
             ->add('uEksWM2K')
             ->add('uNyWM2K')
             ->add('tIndeC')
-            ->add('tUdeC')
-            ->add('graddageFordeling', 'entity', array(
-                'class' => GraddageFordeling::class,
-                'empty_value' => '--',
+            ->add('tIndeDetailed', 'checkbox', array(
+                'label' => $translator->trans('appbundle.nyklimaskaermtiltagdetail.tIndeDetailed'),
                 'required' => FALSE,
             ))
-            ->add('tOpvarmningTimerAar', 'number', array(
-                'precision' => 1,
-                'attr' => $tOpwaarmingAttr,
+            ->add('tIndeMonthly','collection', array(
+                'type' => 'number',
+                'options' => array(
+                    'precision' => 1,
+                    'attr' => array(
+                        'class' => 'tindemonthly'
+                    ),
+                ),
+                'label' => FALSE,
                 'required' => FALSE,
+            ))
+            ->add('tUdeC')
+            ->add('tUdeDetailed', 'checkbox', array(
+                'label' => $translator->trans('appbundle.nyklimaskaermtiltagdetail.tUdeDetailed'),
+                'required' => FALSE,
+            ))
+            ->add('tUdeMonthly','collection', array(
+                'type' => 'number',
+                'options' => array(
+                    'precision' => 1,
+                    'attr' => array(
+                        'class' => 'tudemonthly'
+                    ),
+                ),
+                'label' => FALSE,
+                'required' => FALSE,
+                'attr' => array(
+                    'data-tjord' => json_encode($configuration->getTJordMonthly()),
+                    'data-tudemonthly' => json_encode($configuration->getTUdeMonthly())
+                ),
+            ))
+            ->add('graddageFordeling', 'entity', array(
+                'class' => GraddageFordeling::class,
+                'empty_value' => 'Indtaste timer',
+                'required' => FALSE,
+            ))
+            ->add('tOpvarmningTimerAarMonthly','collection', array(
+                'type' => 'number',
+                'label' => FALSE,
+                'required' => FALSE,
+                'attr' => array('data-topvarmningtimeraarMonthly' => json_encode($configuration->getTOpvarmningTimerAarMonthly())),
             ))
             ->add('samletInvesteringKr')
             ->add('levetidAar');

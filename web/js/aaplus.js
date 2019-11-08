@@ -265,4 +265,50 @@
       $wrapper.append('<span class="help-block"><strong>OBS!!!</strong> Vælgt bygningen og virkosmhed har forskelige CVRnr. Bygningen vil være opdateret med virksomheds CVR.</span>');
     }
   });
+
+  $('#appbundle_nyklimaskaermtiltagdetail_tIndeDetailed').change(function() {
+      $('.monthly-inde')[this.checked ? "show" : "hide"]();
+  });
+
+  $('#appbundle_nyklimaskaermtiltagdetail_tUdeDetailed').change(function() {
+      $('.monthly-ude')[this.checked ? "show" : "hide"]();
+  });
+
+  $('#appbundle_nyklimaskaermtiltagdetail_graddageFordeling').change(function() {
+      $('.tOpvarmningTimerAarMonthly')[this.value == '' ? "show" : "hide"]();
+  });
+
+  $('#setDefaultTOpvarmningTimerAarMonthly').click(function($e) {
+      $e.preventDefault();
+      var $tOpvarmningTimerAarMonthly = $(this).data('topvarmningtimeraarmonthly');
+      for (var $key in $tOpvarmningTimerAarMonthly) {
+          $('#appbundle_nyklimaskaermtiltagdetail_tOpvarmningTimerAarMonthly_' + $key).val($tOpvarmningTimerAarMonthly[$key]);
+      }
+  });
+  $('#setDefaultTjordMonthly').click(function($e) {
+      $e.preventDefault();
+      var $tjord = $(this).data('tjord');
+      for (var $key in $tjord) {
+          $('#appbundle_nyklimaskaermtiltagdetail_tUdeMonthly_' + $key).val($tjord[$key]);
+      }
+  });
+  $('#appbundle_nyklimaskaermtiltagdetail_tIndeC').keyup(function() {
+      if (document.getElementById('appbundle_nyklimaskaermtiltagdetail_tIndeDetailed').checked) {
+          return;
+      }
+      $('.tindemonthly').val($(this).val());
+  });
+  $('#appbundle_nyklimaskaermtiltagdetail_tUdeC').keyup(function() {
+      if (document.getElementById('appbundle_nyklimaskaermtiltagdetail_tUdeDetailed').checked) {
+          return;
+      }
+      $('.tudemonthly').val($(this).val());
+  });
+  $('#setDefaultTUdeMonthly').click(function($e) {
+      $e.preventDefault();
+      var $tudemonthly = $(this).data('tudemonthly');
+      for (var $key in $tudemonthly) {
+          $('#appbundle_nyklimaskaermtiltagdetail_tUdeMonthly_' + $key).val($tudemonthly[$key]);
+      }
+  });
 }(jQuery));

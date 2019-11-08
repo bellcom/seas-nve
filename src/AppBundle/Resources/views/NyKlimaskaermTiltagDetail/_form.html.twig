@@ -23,14 +23,29 @@
           <div class="col-md-6">
             {{ form_row(edit_form.antalStk) }}
             {{ form_row(edit_form.graddageFordeling) }}
-            {{ form_row(edit_form.tOpvarmningTimerAar) }}
-            {{ form_row(edit_form.tIndeC) }}
-            {{ form_row(edit_form.uEksWM2K) }}
+            <div class="row tOpvarmningTimerAarMonthly" {% if (entity.graddageFordeling is not empty) %}style="display:none;"{% endif %}>
+              <div class="col-xs-12" style="padding-bottom: 10px">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h4>{{ 'appbundle.nyklimaskaermtiltagdetail.timerne' | trans }}</h4>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <div class="form-group"><div class="checkbox">
+                      <a href="#" id="setDefaultTOpvarmningTimerAarMonthly" data-topvarmningtimeraarmonthly='{{ edit_form.tOpvarmningTimerAarMonthly.vars.attr['data-topvarmningtimeraarMonthly'] | raw }}' >{{ 'nyklimaskaermtiltagdetail.strings.standard_opvarmingtimer' | trans }}</a>
+                    </div></div>
+                  </div>
+                </div>
+              </div>
+              {% for row in edit_form.tOpvarmningTimerAarMonthly %}
+                <div class="col-xs-3 col-md-2 padding">{{ form_row(row) }}</div>
+              {% endfor %}
+            </div>
           </div>
           <div class="col-md-6">
             {{ form_row(edit_form.breddeM) }}
             {{ form_row(edit_form.hoejdeElLaengdeM) }}
-            {{ form_row(edit_form.tUdeC) }}
+            {{ form_row(edit_form.fradragM) }}
+            {{ form_row(edit_form.uEksWM2K) }}
             {{ form_row(edit_form.uNyWM2K) }}
           </div>
         </div>
@@ -39,6 +54,53 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'nyklimaskaermtiltagdetail.strings.temperatur' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            {{ form_row(edit_form.tIndeC) }}
+            {{ form_row(edit_form.tIndeDetailed) }}
+            <div class="row monthly-inde" {% if (entity.tIndeDetailed == 0) %}style="display:none;"{% endif %}>
+              {% for row in edit_form.tIndeMonthly %}
+                <div class="col-xs-3 col-md-2 padding">{{ form_row(row) }}</div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="col-md-6">
+            {{ form_row(edit_form.tUdeC) }}
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="col-md-4">
+                  {{ form_row(edit_form.tUdeDetailed) }}
+                </div>
+                <div class="col-md-4 monthly-ude" {% if (entity.tUdeDetailed == 0) %}style="display:none;"{% endif %}>
+                  <div class="form-group"><div class="checkbox">
+                    <a href="#" id="setDefaultTjordMonthly" data-tjord='{{ edit_form.tUdeMonthly.vars.attr['data-tjord'] | raw }}' >{{ 'nyklimaskaermtiltagdetail.strings.standard_tjord' | trans }}</a>
+                  </div></div>
+                </div>
+                <div class="col-md-4 monthly-ude" {% if (entity.tUdeDetailed == 0) %}style="display:none;"{% endif %}>
+                  <div class="form-group"><div class="checkbox">
+                    <a href="#" id="setDefaultTUdeMonthly" data-tudemonthly='{{ edit_form.tUdeMonthly.vars.attr['data-tudemonthly'] | raw }}' >{{ 'nyklimaskaermtiltagdetail.strings.standard_tude' | trans }}</a>
+                  </div></div>
+                </div>
+              </div>
+            </div>
+            <div class="row monthly-ude" {% if (entity.tUdeDetailed == 0) %}style="display:none;"{% endif %}>
+              {% for row in edit_form.tUdeMonthly %}
+                <div class="col-xs-3 col-md-2 padding">{{ form_row(row) }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">

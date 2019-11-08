@@ -23,6 +23,7 @@
               {{ helper.header('appbundle.nyklimaskaermtiltagdetail.beskrivelse') }}
               {{ helper.header('appbundle.nyklimaskaermtiltagdetail.hoejdeElLaengdeM') }}
               {{ helper.header('appbundle.nyklimaskaermtiltagdetail.breddeM') }}
+              {{ helper.header('appbundle.nyklimaskaermtiltagdetail.fradragM') }}
               {{ helper.header('appbundle.nyklimaskaermtiltagdetail.antalStk') }}
               {{ helper.header('appbundle.nyklimaskaermtiltagdetail.arealM2') }}
               {{ helper.header('appbundle.nyklimaskaermtiltagdetail.uEksWM2K') }}
@@ -44,6 +45,7 @@
               {{ helper.header_unit('appbundle.tiltagdetail.beskrivelse') }}
               {{ helper.header_unit('appbundle.nyklimaskaermtiltagdetail.hoejdeElLaengdeM', 'hoejdeElLaengdeM', 'number') }}
               {{ helper.header_unit('appbundle.nyklimaskaermtiltagdetail.breddeM', 'breddeM', 'number') }}
+              {{ helper.header_unit('appbundle.nyklimaskaermtiltagdetail.fradragM', 'fradragM', 'number') }}
               {{ helper.header_unit('appbundle.nyklimaskaermtiltagdetail.antalStk', 'antalStk', 'number') }}
               {{ helper.header_unit('appbundle.nyklimaskaermtiltagdetail.arealM2', 'arealM2', 'number') }}
               {{ helper.header_unit('appbundle.nyklimaskaermtiltagdetail.uEksWM2K', 'uEksWM2K', 'number') }}
@@ -68,6 +70,7 @@
               {{ helper.header_filter() }}
               {{ helper.header_filter('hoejdeElLaengdeM', 'number') }}
               {{ helper.header_filter('breddeM', 'number') }}
+              {{ helper.header_filter('fradragM', 'number') }}
               {{ helper.header_filter('antalStk', 'number') }}
               {{ helper.header_filter('arealM2', 'number') }}
               {{ helper.header_filter('uEksWM2K', 'number') }}
@@ -98,6 +101,7 @@
                 <td class="beskrivelse">{{ detail.beskrivelse }}</td>
                 <td class="hoejdeElLaengdeM number">{{ detail.hoejdeElLaengdeM | format_decimal }}</td>
                 <td class="breddeM number">{{ detail.breddeM | format_decimal }}</td>
+                <td class="antalStk number">{{ detail.fradragM | format_integer }}</td>
                 <td class="antalStk number">{{ detail.antalStk | format_integer }}</td>
                 <td class="arealM2 number">{{ detail.arealM2 | format_decimal }}</td>
                 <td class="uEksWM2K number">{{ detail.uEksWM2K | format_decimal }}</td>
