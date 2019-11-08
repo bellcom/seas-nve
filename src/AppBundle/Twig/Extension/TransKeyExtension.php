@@ -29,6 +29,7 @@ class TransKeyExtension extends \Twig_Extension {
     return array(
       new Twig_SimpleFilter('get_trans', [$this, 'getTranslation'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('get_help', [$this, 'getHelpText'], ['is_safe' => ['all']]),
+      new Twig_SimpleFilter('get_explanation', [$this, 'getExplanationText'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('get_calculation', [$this, 'getCalculation'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('get_unit', [$this, 'getUnit'], ['is_safe' => ['all']]),
       new Twig_SimpleFilter('trans_field', [$this, 'getFieldTranslation'], ['is_safe' => ['all']]),
@@ -79,6 +80,25 @@ class TransKeyExtension extends \Twig_Extension {
   public function getHelpText($key) {
     $key = str_replace('_', '.', $key);
     $key .= '.help';
+    $trans = $this->translator->trans($key);
+
+    // Adjusting Virksomhed rapprt helptext.
+    if (preg_match('/\.[^.]*?virksomhed\.rapport\./', $key)) {
+      $key = preg_replace('/\.[^.]*?virksomhed\.rapport\./', '.virksomhed_rapport.', $key);
+      $trans = $this->translator->trans($key);
+    }
+
+    if($key === $trans) {
+      $key = preg_replace('/\.[^.]*?tiltag\./', '.tiltag.', $key);
+      $trans = $this->translator->trans($key);
+    }
+
+    return ($key === $trans) ? '' : $trans;
+  }
+
+  public function getExplanationText($key) {
+    $key = str_replace('_', '.', $key);
+    $key .= '.explanation';
     $trans = $this->translator->trans($key);
 
     // Adjusting Virksomhed rapprt helptext.

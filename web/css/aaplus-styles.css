@@ -782,3 +782,12 @@ form .alert ul {
 .aaplus-calculation-changes .aaplus-calculation-changes {
   margin-left: 1em;
 }
+
+label + .explanation-toggle {
+  margin-left: 5px;
+}
+.explanation-toggle {
+  display: inline-block;
+
+  cursor: pointer;
+}

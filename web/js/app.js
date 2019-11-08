@@ -1,6 +1,9 @@
 jQuery(function ($) {
   'use strict';
 
+  // Popover.
+  $('[data-toggle="popover"]').popover();
+
   // Select 2.
   $('select.select2').select2();
   $('select.form-control').select2();

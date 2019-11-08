@@ -19,6 +19,65 @@
   {% endspaceless %}
 {% endblock form_help %}
 
+{% block form_explanation %}
+  {% spaceless %}
+    {% set explanation_text = attr.explanation_text is defined and attr.explanation_text is not empty ? attr.explanation_text : id|get_explanation %}
+
+    {% if explanation_text is not empty %}
+      <span class="explanation-toggle" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ explanation_text }}">
+        <span class="fa fa-question-circle"></span>
+      </span>
+    {% endif %}
+
+  {% endspaceless %}
+{% endblock form_explanation %}
+
+{% block form_row %}
+  {% spaceless %}
+    {% set style = style|default(bootstrap_get_style()) %}
+    {% set col_size = col_size|default(bootstrap_get_col_size()) %}
+
+    {% if attr.label_col is defined and attr.label_col is not empty %}
+      {% set label_col = attr.label_col %}
+    {% endif %}
+    {% if attr.widget_col is defined and attr.widget_col is not empty %}
+      {% set widget_col = attr.widget_col %}
+      {% if label is same as (false) and label_col is defined %}
+        {% set widget_col = widget_col + label_col %}
+      {% endif %}
+    {% endif %}
+    {% if attr.col_size is defined and attr.col_size is not empty %}
+      {% set col_size = attr.col_size %}
+    {% endif %}
+    {% if attr.style is defined and attr.style is not empty %}
+      {% set style = attr.style %}
+    {% endif %}
+
+    {% set label_col = label_col|default(bootstrap_get_label_col()) %}
+    {% set widget_col = widget_col|default(bootstrap_get_widget_col()) %}
+
+    <div class="form-group{% if form.vars.errors|length > 0 %} has-error{% endif %}">
+      {% if style == 'horizontal' %}
+        {{ form_label(form) }}
+        {{ block('form_explanation') }}
+        <div class="col-{{ col_size }}-{{ widget_col }}">
+          {{ block('form_input_group') }}
+          {{ block('form_help') }}
+          {{ form_errors(form) }}
+        </div>
+      {% else %}
+        {{ form_label(form) }}
+        {{ block('form_explanation') }}
+        {{ block('form_input_group') }}
+        {{ block('form_help') }}
+        {{ form_errors(form) }}
+      {% endif %}
+    </div>
+
+    {% if style == 'inline' %}&nbsp;{% endif %}
+  {% endspaceless %}
+{% endblock form_row %}
+
 {% block form_errors %}
   {% spaceless %}
     {% set global_errors = global_errors|default(false) %}
