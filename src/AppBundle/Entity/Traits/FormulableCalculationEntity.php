@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Traits;
 
 use AppBundle\Annotations\Formula;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * FormulableCalculationEntity class.
@@ -16,7 +17,21 @@ trait FormulableCalculationEntity {
    */
   protected $fx;
 
-  private function initFormulableCalculation() {
+  /**
+   * Suffix for translation file.
+   *
+   * @var string
+   */
+  public $tranlsationSuffix;
+
+  /**
+   * Translator object.
+   *
+   * @var TranslatorInterface
+   */
+  protected $translator;
+
+  public function initFormulableCalculation() {
     $this->fx = Formula::parseAnnotation($this);
   }
 
@@ -122,6 +137,70 @@ trait FormulableCalculationEntity {
   public function expr($propertyName) {
     $expression = $this->calculateByFormula($propertyName, TRUE);
     return str_replace('.', ',', $expression);
+  }
+
+  public function setTranslator(TranslatorInterface $tranlsator) {
+      $this->translator = $tranlsator;
+  }
+
+  /**
+   * Get array with fxs.
+   *
+   * @return array;
+   */
+  public function getFx() {
+      return $this->fx;
+  }
+
+  /**
+   * Get the formula.
+   *
+   * @param $propertyName
+   * @return string|null
+   */
+  public function getFormula($propertyName) {
+      $formulaKey = $propertyName;
+      if (empty($this->translator)) {
+          return '';
+      }
+
+      $string = NULL;
+      if (isset($this->fx[$formulaKey])) {
+          $string = $this->fx[$formulaKey];
+      }
+      elseif (isset($this->fx['calculate' . ucfirst( $formulaKey)])) {
+          $string = $this->fx['calculate' . ucfirst( $formulaKey)];
+      }
+      elseif (isset($this->fx['get' . ucfirst( $formulaKey)])) {
+          $string = $this->fx['get' . ucfirst( $formulaKey)];
+      }
+      else {
+          return NULL;
+      }
+      // Matching properties and methods.
+      preg_match_all('/\\$this->(\\w*)/im', $string, $matches);
+      foreach ($matches[1] as $key => $match) {
+          $matched_str = $matches[0][$key];
+          if (strpos($match, 'get') !== FALSE
+              && method_exists($this, $match)) {
+              $replaceTo = $this->translator->trans($this->tranlsationSuffix . lcfirst(substr($match, 3)));
+          }
+          elseif (strpos($match, 'Exp') == (strlen($match) - 3) && method_exists($this, $match)) {
+            continue;
+          }
+          elseif (strpos($match, 'calculate') !== FALSE && method_exists($this, $match)) {
+              $replaceTo = $this->translator->trans($this->tranlsationSuffix . lcfirst(substr($match, 9)));
+          }
+          elseif (method_exists($this, 'get' . ucfirst($match))) {
+              $replaceTo = $this->translator->trans($this->tranlsationSuffix . $match);
+          } else {
+              continue;
+          }
+          $string = str_replace($matched_str, str_replace(' ', '', $replaceTo),  $string);
+          $string = str_replace('()', '',  $string);
+      }
+
+    return $string;
   }
 
   /**

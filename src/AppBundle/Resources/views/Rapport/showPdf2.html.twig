@@ -9,15 +9,18 @@
     <div class="row">
       <div class="col-xs-12">
         <h2>Sammenfatning efter besøg</h2>
-        <p>Jeres samlede årlige besparelsespotentiale er beregnet til kr. {{ rapport.samletEnergiBesparelse | format_decimal }}. Dette tal er med udgangspunkt i jeres aktuelle forbrug omregnet med den aktuelle energipris.</p>
+        <p>Jeres samlede årlige besparelsespotentiale er beregnet til {{ rapport.samletEnergiBesparelse | format_decimal }} kWh/år svarede til {{ rapport.samletEnergiBesparelseKr | format_decimal }} kr/år. Dette tal er med udgangspunkt i jeres aktuelle forbrug omregnet med den aktuelle energipris.</p>
 
         <h4>Det videre forløb</h4>
         <p>Næste skridt i processen er, at der tages stilling til hvilke projekter der vurderes som mest attraktive og dermed iværksættes først.</p>
         <p>SEAS-NVE kan drive de valgte tiltag som projektledere, herunder kontakt til de forskellige leverandører. Vi sikrer dermed, at alle de valgte projekter gennemføres inden for de fastlagte terminer.</p>
         <p>Vi kender markedet og dermed den optimale løsning. I sikres dermed den størst mulige effekt af besparelsesprojekterne.</p>
 
-        <h4>Tilskud</h4>
-        <p>SEAS-NVE yder et engangstilskud til jer på {{ rapport.getVirksomhedTilskudstorellse() | format_decimal }} kr. pr. kWh, der spares i kraft af de gennemførte fælles projekter. Dette tilskud vil i jeres tilfælde samlet set beløbe sig til kr. {{ rapport.calculateSamletEnergiBesparelseTilfaeld() | format_decimal }}</p>
+        {% set samletTilskud = rapport.calculateSamletEnergiBesparelseTilfaeld() %}
+        {% if samletTilskud > 0 %}
+          <h4>Tilskud</h4>
+          <p>SEAS-NVE yder et engangstilskud til jer på {{ rapport.getVirksomhedTilskudstorellse() | format_decimal }} kr. pr. kWh, der spares i kraft af de gennemførte fælles projekter. Dette tilskud vil i jeres tilfælde samlet set beløbe sig til kr. {{ samletTilskud | format_decimal }}</p>
+        {% endif %}
 
         <h4>Slutanvendelser</h4>
         {% set slutanvendelseLabels = rapport.getBesparelseSlutanvendelserLabels() %}
@@ -238,7 +241,7 @@
 
     <div class="row page-break-before">
       <div class="col-xs-12">
-        <h3>2. Samtidighed</h3>
+        <h3>Samtidighed</h3>
 
         <p>
           Samtidighed er en faktor der indregnes i den totale sum af varmebesparelser for de energisparetiltag, der er
@@ -266,7 +269,7 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <h3>3. Baseline</h3>
+        <h3>Baseline</h3>
 
         <p>
           Baseline er det energiforbrug som energibesparelserne er regnet på baggrund af.<br>
@@ -322,7 +325,7 @@
 
     <div class="row page-break-before">
       <div class="col-xs-12">
-        <h3>4. Forslagsliste</h3>
+        <h3>Forslagsliste</h3>
       </div>
     </div>
 
@@ -332,7 +335,7 @@
 
     <div class="row page-break-before">
       <div class="col-xs-12">
-        <h3>5. Tilnærmet likviditetsoverblik</h3>
+        <h3>Tilnærmet likviditetsoverblik</h3>
       </div>
     </div>
 
@@ -340,9 +343,9 @@
       <div class="col-xs-12">
         <p>Den følgende graf viser en tilnærmet likviditetsoversigt for tilvalgte forslag fra forrige skema.<br>
           Vandret vises tidsperioden i år, lodret vises den årlige ydelse til lån, og den årlige besparelse.<br>
-          Grafen viser forløbet såfremt der optages et 15-årigt lån til 3 % p.a. til finansering af udførslen af de
+          Grafen viser forløbet såfremt der optages et {{ rapport.laanLoebetid }}-årigt lån til 3 % p.a. til finansering af udførslen af de
           tilvalgte forslag, hvorfor ydelsen til lånet
-          falder til 0 kr. i år 15.</p>
+          falder til 0 kr. i år {{ rapport.laanLoebetid }}.</p>
 
         <p>Der indregnes besparelser fra energispareforslagene indenfor deres forventede levetid. Når den forventede
           levetid for disse nye energispareforslag er
@@ -375,7 +378,7 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <p>I det følgende vises ovenstående værdier i tabelform for de første 15 år, svarende til lånets løbetid.</p>
+        <p>I det følgende vises ovenstående værdier i tabelform for de første {{ rapport.laanLoebetid }} år, svarende til lånets løbetid.</p>
       </div>
     </div>
 
@@ -383,7 +386,7 @@
       {% include 'AppBundle::_includes/finansiering_likviditetsoverblik_pdf.html.twig' with {'entity': rapport} %}
     </div>
 
-    <div class="row">
+    <div class="row page-break-before">
       <div class="col-xs-12">
 
         <h3>Sådan kommer du videre</h3>
@@ -410,20 +413,20 @@
         <h4>Ordforklaring</h4>
 
         <p>
-          <em>Nutidsværdi</em><br>
+          <strong>Nutidsværdi</strong><br>
           Beløbet er den "nutidige værdi" af de kommende indtægter fra
           energibesparelsen samt udgifterne til service mv.
-          i 15 år, hvor der er taget hensyn til inflation, energiprisstigninger,
+          i {{ rapport.laanLoebetid }} år, hvor der er taget hensyn til inflation, energiprisstigninger,
           renteudgifter til
           lånoptagning, reinvesteringer samt tiltagenes eventuelle restværdi i
-          år 15.<br>
+          år {{ rapport.laanLoebetid }}.<br>
           En positiv nutidsværdi beskriver dermed den totale gevinst ved en
-          investering, set over 15 år, mens en negativ
+          investering, set over {{ rapport.laanLoebetid }} år, mens en negativ
           nutidsværdi viser den
-          totale udgift set over 15 år.
+          totale udgift set over {{ rapport.laanLoebetid }} år.
         </p>
 
-        <p><em>Øvrige omkostninger</em><br>
+        <p><strong>Øvrige omkostninger</strong><br>
           Udover investeringen er der indregnet øvrige omkostninger til:
         <ul>
           <li>Energiscreening, som er udgiften til Energirådgiver for at
@@ -431,8 +434,7 @@
             tiltagene i tiltagslisten.
           </li>
           <li>MTM fællesudgifter, som bl.a. omfatter udgifter til bl.a.
-            energiledelse, bygherrerådgivning og Aa+
-            sekretariatet
+            energiledelse, bygherrerådgivning og SEAS-NVE sekretariatet
           </li>
           <li>Implementeringsomkostninger, som omfatter bl.a. projektering og
             byggeledelse.
@@ -440,7 +442,7 @@
         </ul>
         </p>
 
-        <p><em>Forventet timeforbrug for lokalpersonalet</em><br>
+        <p><strong>Forventet timeforbrug for lokalpersonalet</strong><br>
           I forbindelse med gennemførslen af projektet forventes der et øget
           timeforbrug for lokalpersonalet direkte
           relateret til projektet, bl.a. i forbindelse med møder,

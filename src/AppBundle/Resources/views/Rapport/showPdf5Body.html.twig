@@ -1,5 +1,37 @@
-<div class="landscape">
+{% macro header(key) %}
+  {% set calculation = key|get_calculation %}
 
+  <th class="rotate">
+    <div>
+      {% if calculation is null %}
+        <span>{{ key | trans }}</span>
+      {% else %}
+        <span data-calculation="{{ calculation }}">{{ key | trans }}</span>
+      {% endif %}
+    </div>
+  </th>
+{% endmacro %}
+
+{% macro header_unit(key, border_right=false) %}
+  {% set translation = key|get_unit %}
+  {% set border = border_right ? 'border-right' : '' %}
+
+  <th class="unit {{ border }}">
+    {{ translation }}
+  </th>
+{% endmacro %}
+
+{% macro header_span(key, span) %}
+  {% set translation = key|trans %}
+
+  <th colspan="{{ span }}" class="text-center border-right">
+    {{ translation }}
+  </th>
+{% endmacro %}
+
+{% import _self as helper %}
+
+<div class="landscape">
   {% include 'AppBundle:Rapport:kundeinformation-embed.html.twig' %}
 
   <div class="row page-break-before">
@@ -19,9 +51,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">
-            {{ icon('balance-scale') }} {{ 'common.result_overview' | trans }}
-            <span
-                class="float-right">{{ t.tilvalgt ? 'appbundle.tiltag.tilvalgt' | trans : 'appbundle.tiltag.fravalgt' | trans }}</span>
+            {{ 'common.result_overview' | trans }}
+            <span class="float-right">{{ t.tilvalgt ? 'appbundle.tiltag.tilvalgt' | trans : 'appbundle.tiltag.fravalgt' | trans }}</span>
           </h3>
         </div>
 
@@ -94,38 +125,45 @@
 
       <div class="row">
         <div class="col-xs-12">
-          <h4>Beskrivelse:</h4>
+          {% if (t.beskrivelseNuvaerende is not empty)
+            or (t.beskrivelseNuvaerende is not empty)
+            or (t.beskrivelseForslag is not empty)
+            or (t.beskrivelseOevrige is not empty)
+          %}
+            <h4>Beskrivelse:</h4>
 
-          <h5>Nuværende forhold:</h5>
-          {% if t.beskrivelseNuvaerende is not empty %}
-            <p>{{ t.beskrivelseNuvaerende }}</p>
-          {% else %}
-            <p>--</p>
+            <p>
+              {% if t.beskrivelseNuvaerende is not empty %}
+                <strong>Nuværende forhold:</strong><br>
+                {{ t.beskrivelseNuvaerende }}
+              {% endif %}
+            </p>
+
+            <p>
+              {% if t.beskrivelseForslag is not empty %}
+                <strong>Forslag:</strong><br>
+                {{ t.beskrivelseForslag }}
+              {% endif %}
+            </p>
+
+            <p>
+              {% if t.beskrivelseOevrige is not empty %}
+                <strong>Øvrige bemærkninger:</strong><br>
+                {{ t.beskrivelseOevrige }}
+              {% endif %}
+            </p>
           {% endif %}
-
-          <h5>Forslag:</h5>
-          {% if t.beskrivelseForslag is not empty %}
-            <p>{{ t.beskrivelseForslag }}</p>
-          {% else %}
-            <p>--</p>
-          {% endif %}
-
-          <h5>Øvrige bemærkninger:</h5>
-          {% if t.beskrivelseOevrige is not empty %}
-            <p>{{ t.beskrivelseOevrige }}</p>
-          {% else %}
-            <p>--</p>
-          {% endif %}
-
         </div>
       </div>
 
       <div class="row">
         <div class="col-xs-12">
-          <h4>Risikovurdering:</h4>
+          {% if t.risikovurderingBrugsmoenster or t.risikovurderingDatagrundlag  or t.risikovurderingTeknisk or t.risikovurderingDiverse or t.risikovurdering is not empty %}
+            <h4>Risikovurdering:</h4>
+          {% endif %}
 
           {% if t.risikovurderingBrugsmoenster or t.risikovurderingDatagrundlag  or t.risikovurderingTeknisk or t.risikovurderingDiverse %}
-            <table class="table-fixed"><tr>
+            <table class="table table-condensed table-fixed"><tr>
             {% if t.risikovurderingTeknisk %}
               <td><strong>{{ 'appbundle.tiltag.risikovurderingTeknisk' | trans }}:</strong> {{ ('common.risikovurdering.' ~ t.risikovurderingTeknisk) | trans }}</td>
             {% endif %}
@@ -145,8 +183,6 @@
             {% endif %}
           {% elseif t.risikovurdering is not empty %}
             <p>{{ t.risikovurdering }}</p>
-          {% else %}
-            <p>--</p>
           {% endif %}
 
         </div>
@@ -154,12 +190,9 @@
 
       <div class="row">
         <div class="col-xs-12">
-          <h4>Placering jf. oversigtstegning:</h4>
-
           {% if t.placering is not empty %}
+            <h4>Placering jf. oversigtstegning:</h4>
             <p>{{ t.placering }}</p>
-          {% else %}
-            <p>--</p>
           {% endif %}
 
         </div>
@@ -167,12 +200,9 @@
 
       <div class="row">
         <div class="col-xs-12">
-          <h4>Beskrivelse af ændringer til D&V udgifter samt fremtidigt timeforbrug for driftspersonale:</h4>
-
           {% if t.beskrivelseDriftOgVedligeholdelse is not empty %}
+            <h4>Beskrivelse af ændringer til D&V udgifter samt fremtidigt timeforbrug for driftspersonale:</h4>
             <p>{{ t.beskrivelseDriftOgVedligeholdelse }}</p>
-          {% else %}
-            <p>--</p>
           {% endif %}
 
         </div>
@@ -180,12 +210,9 @@
 
       <div class="row page-break-after">
         <div class="col-xs-12">
-          <h4>Indeklima/brugere:</h4>
-
           {% if t.indeklima is not empty %}
+            <h4>Indeklima/brugere:</h4>
             <p>{{ t.indeklima }}</p>
-          {% else %}
-            <p>--</p>
           {% endif %}
 
         </div>
@@ -193,7 +220,7 @@
       {% if t.details is not empty %}
         {% set template = 'AppBundle:' ~ tiltag_type(t) ~ 'Tiltag:_detailTablePdf.html.twig' %}
         <div class="panel panel-default page-break-before">
-          <div class="panel-heading"><h3 class="panel-title">{{ icon('list') }} Skema til: {{ t.title }}</h3></div>
+          <div class="panel-heading"><h3 class="panel-title">Skema til: {{ t.title }}</h3></div>
           {% include template with {'entity': t} %}
         </div>
       {% endif %}

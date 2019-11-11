@@ -51,7 +51,7 @@ class SolcelleTiltag extends Tiltag {
   protected $solcelleproduktion;
 
   public function getSalgTilNettetAar1() {
-    return $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }) / $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+    return $this->divide($this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }), $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh());
   }
 
   public function getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {
@@ -61,14 +61,14 @@ class SolcelleTiltag extends Tiltag {
   public function calculateSalgTilNettetAar1SumExpr() {
     return $this->sum(function($detail) { return $detail->getCashFlow()['Salg til nettet'][1]; }, TRUE);
   }
-  
+
   /**
    * @Formula("$this->calculateSalgTilNettetAar1SumExpr() / $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()")
    */
   public function calculateSalgTilNettetAar1() {
     return $this->getSalgTilNettetAar1();
   }
-  
+
   public function getSolcelleproduktion() {
     return $this->solcelleproduktion;
   }
@@ -110,7 +110,7 @@ class SolcelleTiltag extends Tiltag {
   protected function calculateAnlaegsinvesteringValueExpr() {
     return $this->sum('investeringKr') . ' + ' . $this->sum('screeningOgProjekteringKr');
   }
-  
+
   /**
    * @inheritDoc
    * @Formula("$this->calculateAnlaegsinvesteringValueExpr() * $this->calculateAnlaegsinvesteringFaktor()")

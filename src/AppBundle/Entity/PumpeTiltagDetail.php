@@ -512,6 +512,10 @@ class PumpeTiltagDetail extends TiltagDetail {
   ];
 
   public function calculate() {
+    if (empty($this->getPumpe())) {
+      return;
+    }
+    
     $this->pristillaeg = $this->calculatePristillaeg();
     $this->samletInvesteringInklPristillaeg = $this->calculateSamletInvesteringInklPristillaeg();
     $this->elforbrugVedNyeDriftstidKWhAar = $this->calculateElforbrugVedNyeDriftstidKWhAar();

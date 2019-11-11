@@ -182,8 +182,8 @@
           }
         });
         if ($data) {
-          for ($value in $data) {
-            $select.append($("<option>").attr('value', $value).text($data[$value]));
+          for ($key in $data) {
+            $select.append($("<option>").attr('value', $data[$key].id).text($data[$key].value));
           }
         }
         addMoreFormCallback($collectionHolder, $newLinkL, newForm.html());
@@ -251,4 +251,64 @@
   addMore($('.p_numbers'), '/bygning/pnumm-list');
   addMore($('.bygning_by_cvr_number'), '/bygning/cvrnumm-list');
 
+  $('.cvr-search').change(function () {
+    $('#appbundle_bygning_cvrNumber').val(this.value);
+  });
+
+  $(document).on('change', '.bygningerByCvrNumber', function () {
+    $wrapper = $(this).parents('div.form-group:first > div');
+    $wrapper.find('.help-block').remove();
+    if (this.value == '') {
+      return;
+    }
+    if ($(this).find('option[value=' + this.value + ']').data('cvrnumber') != $('#appbundle_virksomhed_cvrNumber').val()) {
+      $wrapper.append('<span class="help-block"><strong>OBS!!!</strong> Vælgt bygningen og virkosmhed har forskelige CVRnr. Bygningen vil være opdateret med virksomheds CVR.</span>');
+    }
+  });
+
+  $('#appbundle_nyklimaskaermtiltagdetail_tIndeDetailed').change(function() {
+      $('.monthly-inde')[this.checked ? "show" : "hide"]();
+  });
+
+  $('#appbundle_nyklimaskaermtiltagdetail_tUdeDetailed').change(function() {
+      $('.monthly-ude')[this.checked ? "show" : "hide"]();
+  });
+
+  $('#appbundle_nyklimaskaermtiltagdetail_graddageFordeling').change(function() {
+      $('.tOpvarmningTimerAarMonthly')[this.value == '' ? "show" : "hide"]();
+  });
+
+  $('#setDefaultTOpvarmningTimerAarMonthly').click(function($e) {
+      $e.preventDefault();
+      var $tOpvarmningTimerAarMonthly = $(this).data('topvarmningtimeraarmonthly');
+      for (var $key in $tOpvarmningTimerAarMonthly) {
+          $('#appbundle_nyklimaskaermtiltagdetail_tOpvarmningTimerAarMonthly_' + $key).val($tOpvarmningTimerAarMonthly[$key]);
+      }
+  });
+  $('#setDefaultTjordMonthly').click(function($e) {
+      $e.preventDefault();
+      var $tjord = $(this).data('tjord');
+      for (var $key in $tjord) {
+          $('#appbundle_nyklimaskaermtiltagdetail_tUdeMonthly_' + $key).val($tjord[$key]);
+      }
+  });
+  $('#appbundle_nyklimaskaermtiltagdetail_tIndeC').keyup(function() {
+      if (document.getElementById('appbundle_nyklimaskaermtiltagdetail_tIndeDetailed').checked) {
+          return;
+      }
+      $('.tindemonthly').val($(this).val());
+  });
+  $('#appbundle_nyklimaskaermtiltagdetail_tUdeC').keyup(function() {
+      if (document.getElementById('appbundle_nyklimaskaermtiltagdetail_tUdeDetailed').checked) {
+          return;
+      }
+      $('.tudemonthly').val($(this).val());
+  });
+  $('#setDefaultTUdeMonthly').click(function($e) {
+      $e.preventDefault();
+      var $tudemonthly = $(this).data('tudemonthly');
+      for (var $key in $tudemonthly) {
+          $('#appbundle_nyklimaskaermtiltagdetail_tUdeMonthly_' + $key).val($tudemonthly[$key]);
+      }
+  });
 }(jQuery));

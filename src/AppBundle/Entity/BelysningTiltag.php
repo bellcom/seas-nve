@@ -83,7 +83,7 @@ class BelysningTiltag extends Tiltag {
   protected function calculateAnlaegsinvesteringValueExpr() {
     return $this->sum('investeringAlleLokalerKr', TRUE);
   }
-  
+
   /**
    * @inheritDoc
    * @Formula("$this->calculateAnlaegsinvesteringValueExpr() * $this->calculateAnlaegsinvesteringFaktor()")

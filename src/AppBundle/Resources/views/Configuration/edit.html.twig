@@ -60,6 +60,44 @@
     </div>
   </div>
 
+  <h2>NyKlimaskaerm</h2>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ 'appbundle.configuration.tJordMonthly.label' | trans}}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        {% for row in edit_form.tJordMonthly %}
+          <div class="col-xs-3 col-md-2 padding">{{ form_row(row) }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ 'appbundle.configuration.tUdeMonthly.label' | trans}}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        {% for row in edit_form.tUdeMonthly %}
+          <div class="col-xs-3 col-md-2 padding">{{ form_row(row) }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ 'appbundle.configuration.tOpvarmningTimerAarMonthly.label' | trans}}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        {% for row in edit_form.tOpvarmningTimerAarMonthly %}
+          <div class="col-xs-3 col-md-2 padding">{{ form_row(row) }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
   {{ form_rest(edit_form) }}
   {{ form_end(edit_form) }}
 {% endblock %}

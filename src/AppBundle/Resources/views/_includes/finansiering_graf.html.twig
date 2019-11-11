@@ -1,10 +1,17 @@
-<figure id="chart">
-  <canvas id="chart-canvas" width="400" height="400"></canvas>
-  <figcaption></figcaption>
-</figure>
+{% set chartIdRandomized = 'linechart' ~ random() %}
 
-<script>(function() {
-    var formatData = function(data) {
+<div style="padding-bottom: 50px;">
+  <figure id="{{ chartIdRandomized }}" height="400" style="height: 400px;">
+    <canvas width="400" height="400" style="height: 400px;"></canvas>
+    <figcaption></figcaption>
+  </figure>
+</div>
+
+<script>
+  (function() {
+
+    function createGraph() {
+      var formatData = function(data) {
           var formatted = [], key;
           for (key in data) {
             if (key > 0) {
@@ -50,7 +57,22 @@
           bezierCurve : true,
           bezierCurveTension : 0.2
         },
-        ctx = document.querySelector('#chart canvas').getContext('2d'),
+        ctx = document.querySelector('#{{ chartIdRandomized }} canvas').getContext('2d'),
         chart = new Chart(ctx).Line(data, options);
-    document.querySelector('#chart figcaption').innerHTML = chart.generateLegend();
-  }())</script>
+      document.querySelector('#{{ chartIdRandomized }} figcaption').innerHTML = chart.generateLegend();
+    }
+
+    // Run on load.
+    createGraph();
+
+    // Before we can listen for jQuery events, we need the DOM to
+    // be fully loaded.
+    document.addEventListener('DOMContentLoaded', function(e) {
+
+      // Event listener for jQuery.
+      jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        createGraph();
+      });
+    });
+  }())
+</script>

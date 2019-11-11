@@ -124,7 +124,7 @@ class RapportRepository extends BaseRepository {
 
     $this->limitQueryToUserAccess($user, $qb);
 
-    $qb->addOrderBy('b.navn');
+    $qb->addOrderBy('b.createdAt', 'desc');
 
     return $qb->getQuery();
   }

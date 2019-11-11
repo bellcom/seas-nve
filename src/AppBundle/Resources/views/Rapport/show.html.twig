@@ -70,10 +70,10 @@
       <a class="btn btn-default" href="{{ path('rapport_download_files', { 'id': entity.id }) }}">
         {{ icon('download') }} {{ 'bygning_rapporter.actions.download_files' | trans }}
       </a>
-      <a href="{{ path('rapport_show_pdf2', { 'id': entity.id }) }}" class="btn btn-default">
+      <a href="{{ path_with_access_token('rapport_pdf_review', { 'id': entity.id, 'type': 'resultatoversigt' }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'bygning_rapporter.actions.pdf2' | trans }}
       </a>
-      <a href="{{ path('rapport_show_pdf5', { 'id': entity.id }) }}" class="btn btn-default">
+      <a href="{{ path_with_access_token('rapport_pdf_review', { 'id': entity.id, 'type': 'detailark' }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'bygning_rapporter.actions.pdf5' | trans }}
       </a>
       <a class="btn btn-default" href="{{ path('rapport_filer', { 'id': entity.id }) }}">
@@ -218,7 +218,15 @@
         <td></td>
       </tr>
       <tr>
-        <td colspan="3" rowspan="4">
+        <th>{{ 'appbundle.rapport.samletTilskud' | trans }}<div class="calculation-expression hidden">{{ entity.expr('samletTilskud') }}</div></th>
+        <td class="text-right">{{ entity.samletTilskud | format_decimal }}</td>
+        <td>{{ 'appbundle.rapport.samletTilskud.unit' | trans }}</td>
+        <th class="indent">{{ 'appbundle.rapport.besparelseCO2' | trans }}<div class="calculation-expression hidden">{{ entity.expr('besparelseCO2') }}</div></th>
+        <td class="text-right">{{ entity.besparelseCO2 | format_decimal }}</td>
+        <td>{{ 'appbundle.rapport.besparelseCO2.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <td colspan="3" rowspan="3">
           {% if entity.calculationWarnings and is_granted('RAPPORT_EDIT', entity) %}
             <div class="alert alert-warning">
               <p><strong>{{ icon('warning') }} {{ 'Incomplete calculation' | trans }}</strong></p>
@@ -233,12 +241,6 @@
             </div>
           {% endif %}
         </td>
-        <th class="indent">{{ 'appbundle.rapport.besparelseCO2' | trans }}<div class="calculation-expression hidden">{{ entity.expr('besparelseCO2') }}</div></th>
-        <td class="text-right">{{ entity.besparelseCO2 | format_decimal }}</td>
-        <td>{{ 'appbundle.rapport.besparelseCO2.unit' | trans }}</td>
-      </tr>
-      <tr>
-
         <th class="indent">{{ 'appbundle.rapport.besparelseCO2el' | trans }}<div class="calculation-expression hidden">{{ entity.expr('co2BesparelseEl') }}</div></th>
         <td class="text-right">{{ entity.co2BesparelseEl | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.besparelseCO2el.unit' | trans }}</td>
@@ -383,7 +385,7 @@
     <div class="col-md-2"><h2>{{ 'tiltag.labels.singular' | trans }}</h2></div>
     <div class="col-md-10 text-right">
       {% if is_granted('RAPPORT_EDIT', entity) %}
-        {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'vindue', 'solcelle', 'tekniskisolering', 'special' ] %}
+        {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'nyklimaskaerm', 'vindue', 'solcelle', 'tekniskisolering', 'special' ] %}
           <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': type }) }}" class="inline-block">
             <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('bygning_rapporter.strings.' ~ type ~ 'tiltag') | trans }}</button>
           </form>

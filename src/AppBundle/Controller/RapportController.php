@@ -7,12 +7,14 @@
 namespace AppBundle\Controller;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\DBAL\Types\FilCategoryType;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\RapportSearchType;
 use AppBundle\Form\Type\RapportShowType;
 use AppBundle\Form\Type\RapportStatusType;
 use AppBundle\Form\Type\TiltagDatoForDriftType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\Translation\TranslatorInterface;
 use Yavin\Symfony\Controller\InitControllerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Bilag;
@@ -35,8 +38,14 @@ use Doctrine\ORM\Mapping\Entity;
  * @Route("/rapport")
  */
 class RapportController extends BaseController {
+  /**
+   * @var TranslatorInterface $tranlator
+   */
+  private $translator;
+
   public function init(Request $request) {
     parent::init($request);
+    $this->translator = $this->container->get('translator');
     $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
   }
 
@@ -108,6 +117,28 @@ class RapportController extends BaseController {
 
     return $form;
   }
+
+    /**
+     * Download all files for Rapport.
+     *
+     * @Route("/formulas-list", name="rapport_formulas")
+     * @Template("AppBundle:Rapport:formula-list.html.twig")
+     * @Method("GET")
+     */
+    public function formulasList() {
+        $rapport = new Rapport();
+        $rapport->initFormulableCalculation();
+        $rapport->setTranslator($this->translator);
+        $rapport->tranlsationSuffix = 'appbundle.rapport.';
+        $formulas = array();
+        foreach ($rapport->getFx() as $key => $formula) {
+            $formulas[$key] = $rapport->getFormula($key);
+        }
+        $i = 1;
+        return array(
+            'formulas' => $formulas,
+        );
+    }
 
   /**
    * Finds and displays a Rapport entity.
@@ -188,20 +219,70 @@ class RapportController extends BaseController {
   }
 
   /**
+   * Generates review page for PDF rapport.
+   *
+   * @Route("/{id}/pdfreview/{type}", name="rapport_pdf_review")
+   * @Method("GET")
+   * @Template("AppBundle::rapport_review.html.twig")
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Rapport $rapport
+   * @param string $type
+   * @return array
+   */
+  public function showPdfReviewAction(Rapport $rapport, $type)
+  {
+    $exporter = $this->get('aaplus.pdf_export');
+    switch ($type) {
+      case 'resultatoversigt':
+        $html = $exporter->export2($rapport, [], TRUE);
+        $pdf_export_route = 'rapport_show_pdf2';
+        break;
+
+      case 'detailark':
+        $html = $exporter->export5($rapport, [], TRUE);
+        $pdf_export_route = 'rapport_show_pdf5';
+        break;
+
+      default:
+        throw $this->createNotFoundException('Report type not found');
+    }
+
+    return array(
+      'html' => $html,
+      'pdf_export_url' => $pdf_export_route ? $this->generateUrl($pdf_export_route, array('id' => $rapport->getId())) : '',
+    );
+  }
+
+  /**
    * Finds and displays a Rapport entity in PDF form. (Resultatoversigt)
    *
    * @Route("/{id}/pdf2", name="rapport_show_pdf2")
-   * @Method("GET")
+   * @Method("POST")
    * @Template()
    * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Request $request
    * @param Rapport $rapport
-   * @return array
+   * @return Response
    */
-  public function showPdf2Action(Rapport $rapport) {
+  public function showPdf2Action(Request $request, Rapport $rapport) {
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->export2($rapport);
 
-    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion();
+    $pdfName = $rapport->getBygning()->getAdresse() . '-resultatoversigt-' . date('Y-m-d-His') . '-Status-'.$rapport->getBygning()->getNummericStatus().'-Itt-'.$rapport->getVersion();
+
+    if ($request->get('save-pdf')) {
+      $fil = new Fil();
+      $fil
+        ->setNavn($pdfName)
+        ->setCategory(FilCategoryType::RAPPORT_DETAILARK)
+        ->setEntity($rapport);
+      $em = $this->getDoctrine()->getManager();
+      $em->getRepository('AppBundle:Fil')->saveContent($pdf, $fil, $this->container);
+      $em->persist($fil);
+      $em->flush();
+      $this->flash->success('bygning_rapporter.confirmation.rapport_file_saved');
+      return $this->redirect($this->generateUrl('rapport_filer', array('id' => $rapport->getId())));
+    }
 
     return new Response($pdf, 200, array(
       'Content-Type'          => 'application/pdf',
@@ -213,24 +294,38 @@ class RapportController extends BaseController {
    * Finds and displays a Rapport entity in PDF form. (Detailark)
    *
    * @Route("/{id}/pdf5", name="rapport_show_pdf5")
-   * @Method("GET")
+   * @Method("POST")
    * @Template()
    * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Request $request
    * @param Rapport $rapport
-   * @return array
+   * @return Response
    */
-  public function showPdf5Action(Rapport $rapport) {
+  public function showPdf5Action(Request $request, Rapport $rapport) {
     $exporter = $this->get('aaplus.pdf_export');
     $pdf = $exporter->export5($rapport);
 
-    $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion();
+    $pdfName = $rapport->getBygning()->getAdresse() . '-detailark-' . date('Y-m-d-His') . '-Status-'.$rapport->getBygning()->getNummericStatus().'-Itt-'.$rapport->getVersion();
+
+    if ($request->get('save-pdf')) {
+      $fil = new Fil();
+      $fil
+        ->setNavn($pdfName)
+        ->setCategory(FilCategoryType::RAPPORT_DETAILARK)
+        ->setEntity($rapport);
+      $em = $this->getDoctrine()->getManager();
+      $em->getRepository('AppBundle:Fil')->saveContent($pdf, $fil, $this->container);
+      $em->persist($fil);
+      $em->flush();
+      $this->flash->success('bygning_rapporter.confirmation.rapport_file_saved');
+      return $this->redirect($this->generateUrl('rapport_filer', array('id' => $rapport->getId())));
+    }
 
     return new Response($pdf, 200, array(
       'Content-Type'          => 'application/pdf',
       'Content-Disposition'   => 'attachment; filename="' . $pdfName .'.pdf"'
     ));
   }
-
 
   /**
    * Finds and displays a Rapport entity.
@@ -541,21 +636,23 @@ class RapportController extends BaseController {
       $filRepository = $em->getRepository('AppBundle:Fil');
 
       $pdf = $exporter->export2($rapport);
-      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 2-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion() . '.pdf';
+      $pdfName = $rapport->getBygning()->getAdresse() . '-resultatoversigt-' . date('Y-m-d-His') . '-Status-'.$rapport->getBygning()->getNummericStatus().'-Itt-'.$rapport->getVersion() . '.pdf';
 
       $fil = new Fil();
       $fil
         ->setNavn($pdfName)
+        ->setCategory(FilCategoryType::RAPPORT_RESULTATOVERSIGT)
         ->setEntity($rapport);
       $filRepository->saveContent($pdf, $fil, $this->container);
       $em->persist($fil);
 
       $pdf = $exporter->export5($rapport);
-      $pdfName = $rapport->getBygning()->getAdresse() . '-Dokument 5-' . date('Y-m-d') . '-Status '.$rapport->getBygning()->getNummericStatus().'-Itt '.$rapport->getVersion() . '.pdf';
+      $pdfName = $rapport->getBygning()->getAdresse() . '-detailark-' . date('Y-m-d-His') . '-Status-'.$rapport->getBygning()->getNummericStatus().'-Itt-'.$rapport->getVersion() . '.pdf';
 
       $fil = new Fil();
       $fil
         ->setNavn($pdfName)
+        ->setCategory(FilCategoryType::RAPPORT_DETAILARK)
         ->setEntity($rapport);
       $filRepository->saveContent($pdf, $fil, $this->container);
       $em->persist($fil);
@@ -787,16 +884,22 @@ class RapportController extends BaseController {
    */
   public function showFilerAction(Request $request, Rapport $rapport) {
     $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
-    $this->breadcrumbs->addItem('filer', $this->generateUrl('rapport_filer', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem('Filer', $this->generateUrl('rapport_filer', array('id' => $rapport->getId())));
 
     $em = $this->getDoctrine()->getManager();
     $filRepository = $em->getRepository('AppBundle:Fil');
 
-    $filer = $filRepository->findByEntity($rapport);
+    $query = $filRepository->findByEntity($rapport, TRUE);
 
+    $paginator = $this->get('knp_paginator');
+    $pagination = $paginator->paginate(
+      $query,
+      $request->query->get('page', 1),
+      20
+    );
     return array(
       'entity' => $rapport,
-      'filer' => $filer,
+      'pagination' => $pagination,
     );
   }
 
@@ -810,11 +913,15 @@ class RapportController extends BaseController {
   public function filAction(Request $request, Rapport $rapport, Fil $fil) {
     $path = $fil->getFilepath();
     $file = new File($path);
+    $ext_suffix = '';
+    if ($fil->getType() == 'application/pdf') {
+      $ext_suffix  = '.pdf';
+    }
     $response = new BinaryFileResponse($file->getRealPath());
     if ($request->query->getBoolean('download', false)) {
       $response->setContentDisposition(
         ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-        $fil->getNavn()
+        $fil->getNavn() . $ext_suffix
       );
     }
     return $response;

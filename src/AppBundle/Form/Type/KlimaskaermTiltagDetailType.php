@@ -8,7 +8,10 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\DBAL\Types\KlimaskaermType;
 
+use AppBundle\Entity\KlimaskaermTiltag;
+use AppBundle\Entity\KlimaskaermTiltagDetail;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -52,7 +55,14 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
 
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\KlimaskaermTiltagDetail'
+      'data_class' => 'AppBundle\Entity\KlimaskaermTiltagDetail',
+        'validation_groups' => function (FormInterface $form) {
+            $data = $form->getData();
+            if ($data instanceof KlimaskaermTiltagDetail) {
+                return array('Default', 'klimaskaerm');
+            }
+            return array('Default');
+        },
     ));
   }
 

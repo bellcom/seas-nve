@@ -2,8 +2,6 @@
 
 {% block body -%}
   <h1>{{ 'Filer' | trans }}</h1>
-
-  {% if filer %}
     <table class="table">
       <thead>
         <tr>
@@ -15,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for fil in filer %}
+        {% for fil in pagination %}
           <tr>
             <td>{{ fil.createdAt | date('Y-m-d H:i:s') }}</td>
             <td>{{ fil.createdBy }}</td>
@@ -23,10 +21,13 @@
             <td><a href="{{ path('rapport_fil', { id: entity.id, fil: fil.id }) }}">{{ fil.navn }}</a></td>
             <td class="text-right"><a class="btn btn-default btn-xs" href="{{ path('rapport_fil', { id: entity.id, fil: fil.id, download: true }) }}">{{ icon('download') }} {{ 'common.download' | trans }}</a></td>
           </tr>
+        {% else %}
+          <tr>
+            <td colspan="5">
+              <div class="alert alert-info">{{ 'Ingen filer' | trans }}</div>
+            </td>
+          </tr>
         {% endfor %}
       </tbody>
     </table>
-  {% else %}
-    <div class="alert alert-info">{{ 'Ingen filer' | trans }}</div>
-  {% endif %}
 {% endblock %}

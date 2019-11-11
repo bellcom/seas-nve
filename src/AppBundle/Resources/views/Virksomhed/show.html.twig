@@ -55,15 +55,21 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.crmNumber' | trans }}</th>
-            <td>{{ entity.getCrmNumber(TRUE) }}</td>
+            <td>{{ entity.getCrmNumber(TRUE) }}
+              {% if entity.isInherited('crmNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.customerNumber' | trans }}</th>
-            <td>{{ entity.getCustomerNumber(TRUE) }}</td>
+            <td>{{ entity.getCustomerNumber(TRUE) }}
+              {% if entity.isInherited('customerNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.projectNumber' | trans }}</th>
-            <td>{{ entity.getProjectNumber(TRUE) }}</td>
+            <td>{{ entity.getProjectNumber(TRUE) }}
+              {% if entity.isInherited('projectNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.aftagerNumber' | trans }}</th>
@@ -71,7 +77,9 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.typeName' | trans }}</th>
-            <td>{{ entity.getTypeName(TRUE) }}</td>
+            <td>{{ entity.getTypeName(TRUE) }}
+              {% if entity.isInherited('projectNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           </tbody>
         </table>
@@ -121,6 +129,26 @@
                   {% else %}
                     <div class="indent">{{ 'virksomhed.messages.empty.bygninger' | trans }}</div>
                   {% endif %}
+                  {% set datterDatterSelskaber = datterSelskab.getDatterSelskaber() %}
+                  {% if datterDatterSelskaber | length %}
+                    {% for datterDatterSelskab in datterDatterSelskaber %}
+                      <div class="indent">{{ icon('briefcase') }} <a href="{{ path_with_access_token('virksomhed_show', { 'id': datterDatterSelskab.id }) }}">{{ datterDatterSelskab }}</a></div>
+                      {% set bygninger = datterDatterSelskab.getBygninger() %}
+                      {% if bygninger | length %}
+                        {% for bygning in bygninger %}
+                          <div class="indent">
+                            <div class="indent">{{ icon('home') }} <a href="{{ path_with_access_token('bygning_show', { 'id': bygning.id }) }}">{{ bygning }}</a></div>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <div class="indent">
+                          <div class="indent">{{ 'virksomhed.messages.empty.bygninger' | trans }}</div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  {% else %}
+                    <div class="indent">{{ 'virksomhed.messages.empty.datterSelskaber' | trans }}</div>
+                  {% endif %}
                 {% endfor %}
               {% else %}
                 {{ 'virksomhed.messages.empty.datterSelskaber' | trans }}
@@ -156,11 +184,13 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.tilskudstorelse' | trans }}</th>
-            <td>{{ entity.tilskudstorelse }}</td>
+            <td>{{ entity.getTilskudstorelse(TRUE) | format_decimal }} {{ 'appbundle.virksomhed.tilskudstorelse' | get_unit }}
+              {% if entity.isInherited('tilskudstorelse') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           <tr>
-            <th>{{ 'appbundle.virksomhed.forbrug' | trans }}</th>
-            <td>{{ entity.forbrug }}</td>
+            <th>{{ 'appbundle.virksomhed.aarsVaerk' | trans }}</th>
+            <td>{{ entity.aarsVaerk | format_integer }} {{ 'appbundle.virksomhed.aarsVaerk' | get_unit }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.kam' | trans }}</th>
@@ -182,7 +212,7 @@
             <th>{{ 'appbundle.virksomhed.user.customer_url' | trans }}</th>
             <td>
               {% if entity.user %}
-              <a href="{{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}">{{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}</a></td>
+              <a target="_blank" href="mailto:{{ entity.getContactPersons()[0].mail }}?subject=SEAS-NVE Rapport&body={{ url_with_access_token('virksomhed_show', { 'id': entity.id, 'token': entity.user.getToken() }) }}">Send rapport adgang til kunden</a></td>
             {% endif %}
           </tr>
           <tr>
@@ -207,11 +237,15 @@
           <tbody>
           <tr>
             <th>{{ 'appbundle.virksomhed.forsyningsvaerkEl' | trans }}</th>
-            <td>{{ entity.forsyningsvaerkEl }}</td>
+            <td>{{ entity.getForsyningsvaerkEl(TRUE) }}
+              {% if entity.isInherited('forsyningsvaerkEl') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.forsyningsvaerkVarme' | trans }}</th>
-            <td>{{ entity.forsyningsvaerkVarme }}</td>
+            <td>{{ entity.getForsyningsvaerkVarme(TRUE) }}
+              {% if entity.isInherited('forsyningsvaerkVarme') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           </tbody>
         </table>

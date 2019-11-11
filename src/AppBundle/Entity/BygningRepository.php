@@ -64,6 +64,7 @@ class BygningRepository extends BaseRepository {
 
       $qb->where('b.' . $column . ' IS NOT NULL');
       $qb->andWhere('b.' . $column . ' <> \'\'');
+      $qb->addOrderBy('b.createdAt', 'desc');
 
       $query = $qb->getQuery();
       return $returnQuery ? $query : $query->getResult();
@@ -155,7 +156,8 @@ class BygningRepository extends BaseRepository {
 
     $this->limitQueryToUserAccess($user, $qb);
 
-    $qb->addOrderBy('b.navn');
+    // By default show the latest records first.
+    $qb->addOrderBy('b.createdAt', 'desc');
 
     return $qb->getQuery();
   }

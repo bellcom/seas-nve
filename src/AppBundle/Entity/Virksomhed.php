@@ -421,7 +421,7 @@ class Virksomhed
      */
     public function getBygningerByEanNumber()
     {
-        return $this->bygningerByEanNumber;
+        return empty($this->bygningerByEanNumber) ? array() : $this->bygningerByEanNumber;
     }
 
     /**
@@ -445,7 +445,7 @@ class Virksomhed
      */
     public function getBygningerByPNumber()
     {
-        return $this->bygningerByPNumber;
+        return empty($this->bygningerByPNumber) ? array() : $this->bygningerByPNumber;
     }
 
     /**
@@ -474,7 +474,7 @@ class Virksomhed
         }
 
         if (!empty($this->getParent())) {
-            return $this->getParent()->getCrmNumber();
+            return $this->getParent()->getCrmNumber($inherit);
         }
 
         return NULL;
@@ -551,7 +551,7 @@ class Virksomhed
         }
 
         if (!empty($this->getParent())) {
-            return $this->getParent()->getCustomerNumber();
+            return $this->getParent()->getCustomerNumber($inherit);
         }
 
         return NULL;
@@ -583,7 +583,7 @@ class Virksomhed
         }
 
         if (!empty($this->getParent())) {
-            return $this->getParent()->getProjectNumber();
+            return $this->getParent()->getProjectNumber($inherit);
         }
 
         return NULL;
@@ -637,7 +637,7 @@ class Virksomhed
         }
 
         if (!empty($this->getParent())) {
-            return $this->getParent()->getTypeName();
+            return $this->getParent()->getTypeName($inherit);
         }
 
         return NULL;
@@ -742,12 +742,20 @@ class Virksomhed
     }
 
     /**
-     * Get tilskudstorelse
+     * Get inherited tilskudstorelse.
      *
      * @return float
      */
-    public function getTilskudstorelse()
+    public function getTilskudstorelse($inherit = FALSE)
     {
+        if ($this->tilskudstorelse || !$inherit) {
+            return $this->tilskudstorelse;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getTilskudstorelse($inherit);
+        }
+
         return $this->tilskudstorelse;
     }
 
@@ -770,8 +778,16 @@ class Virksomhed
      *
      * @return float
      */
-    public function getKalkulationsrente()
+    public function getKalkulationsrente($inherit = FALSE)
     {
+        if ($this->kalkulationsrente || !$inherit) {
+            return $this->kalkulationsrente;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getKalkulationsrente($inherit);
+        }
+
         return $this->kalkulationsrente;
     }
 
@@ -794,8 +810,15 @@ class Virksomhed
      *
      * @return float
      */
-    public function getInflation()
+    public function getInflation($inherit = FALSE)
     {
+        if ($this->inflation || !$inherit) {
+            return $this->inflation;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getInflation($inherit);
+        }
         return $this->inflation;
     }
 
@@ -818,8 +841,15 @@ class Virksomhed
      *
      * @return float
      */
-    public function getLobetid()
+    public function getLobetid($inherit = FALSE)
     {
+        if ($this->lobetid || !$inherit) {
+            return $this->lobetid;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getLobetid($inherit);
+        }
         return $this->lobetid;
     }
 
@@ -855,7 +885,7 @@ class Virksomhed
             $bygninger[$bygning->getId()] = $bygning;
         }
         /** @var Virksomhed $datterSelskab */
-        foreach ($this->getDatterSelskaber() as $datterSelskab) {
+        foreach ($this->getDatterSelskaber(TRUE) as $datterSelskab) {
             foreach ($datterSelskab->getBygninger() as $bygning) {
                 if (isset($bygninger[$bygning->getId()])) {
                     continue;
@@ -963,8 +993,21 @@ class Virksomhed
      *
      * @return ArrayCollection
      */
-    public function getDatterSelskaber() {
-        return $this->datterSelskaber;
+    public function getDatterSelskaber($check_depth = FALSE) {
+        $datterSelskaber = $this->datterSelskaber;
+        if ($check_depth) {
+            $datterSelskaber = clone $this->datterSelskaber;
+            /** @var Virksomhed $datterSelskab */
+            foreach ($datterSelskaber as $datterSelskab) {
+                foreach ($datterSelskab->getDatterSelskaber(TRUE) as $virksomhed) {
+                    if ($datterSelskaber->contains($virksomhed)) {
+                        continue;
+                    }
+                    $datterSelskaber->add($virksomhed);
+                }
+            }
+        }
+        return $datterSelskaber;
     }
 
     /**
@@ -1245,7 +1288,15 @@ class Virksomhed
      *
      * @return Forsyningsvaerk
      */
-    public function getForsyningsvaerkVand() {
+    public function getForsyningsvaerkVand($inherit = FALSE) {
+        if ($this->forsyningsvaerkVand || !$inherit) {
+            return $this->forsyningsvaerkVand;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getForsyningsvaerkVand($inherit);
+        }
+
         return $this->forsyningsvaerkVand;
     }
 
@@ -1266,7 +1317,14 @@ class Virksomhed
      *
      * @return Forsyningsvaerk
      */
-    public function getForsyningsvaerkVarme() {
+    public function getForsyningsvaerkVarme($inherit = FALSE) {
+        if ($this->forsyningsvaerkVarme || !$inherit) {
+            return $this->forsyningsvaerkVarme;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getForsyningsvaerkVarme($inherit);
+        }
         return $this->forsyningsvaerkVarme;
     }
 
@@ -1287,7 +1345,14 @@ class Virksomhed
      *
      * @return Forsyningsvaerk
      */
-    public function getForsyningsvaerkEl() {
+    public function getForsyningsvaerkEl($inherit = FALSE) {
+        if ($this->forsyningsvaerkEl || !$inherit) {
+            return $this->forsyningsvaerkEl;
+        }
+
+        if (!empty($this->getParent())) {
+            return $this->getParent()->getForsyningsvaerkEl($inherit);
+        }
         return $this->forsyningsvaerkEl;
     }
 
@@ -1356,6 +1421,36 @@ class Virksomhed
      * Sets default values for entity if they are empty.
      */
     public function setDefaultValues() {
+    }
+
+    /**
+     * Check inheritance for empty values.
+     */
+    public function isInherited($propertyName) {
+        $getMethod = 'get' . ucfirst($propertyName);
+        if (method_exists($this, $getMethod)
+            && empty(call_user_func(array($this, $getMethod)))
+            && !empty(call_user_func(array($this, $getMethod), TRUE))
+        ) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    /**
+     * Return trail with parent virksomheds included current.
+     */
+    public function getVirksomhedsTrail($level = 1) {
+        if (empty($this->getParent()) || $level > 10) {
+            $trail = new ArrayCollection();
+            $trail->add($this);
+            return $trail;
+        }
+        $trail = $this->getParent()->getVirksomhedsTrail($level + 1);
+        if (!$trail->contains($this)) {
+            $trail->add($this);
+        }
+        return $trail;
     }
 
     /**

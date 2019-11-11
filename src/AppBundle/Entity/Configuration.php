@@ -6,6 +6,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\DBAL\Types\MonthType;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
@@ -14,257 +15,427 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ConfigurationRepository")
+ * @ORM\HasLifecycleCallbacks
  */
-class Configuration {
-  /**
-   * @var integer
-   *
-   * @ORM\Column(name="id", type="integer")
-   * @ORM\Id
-   */
-  protected $id;
+class Configuration
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     */
+    protected $id;
 
-  /**
-   * @var float
-   * @ORM\Column(name="rapport_kalkulationsrente", type="decimal", scale=4, nullable=true)
-   */
-  protected $rapportKalkulationsrente;
+    /**
+     * @var float
+     * @ORM\Column(name="rapport_kalkulationsrente", type="decimal", scale=4, nullable=true)
+     */
+    protected $rapportKalkulationsrente;
 
-  /**
-   * @var float
-   * @ORM\Column(name="rapport_inflation", type="decimal", scale=4, nullable=true)
-   */
-  protected $rapportInflation;
+    /**
+     * @var float
+     * @ORM\Column(name="rapport_inflation", type="decimal", scale=4, nullable=true)
+     */
+    protected $rapportInflation;
 
-  /**
-   * @var float
-   * @ORM\Column(name="rapport_lobetid", type="decimal", scale=4, nullable=true)
-   */
-  protected $rapportLobetid;
+    /**
+     * @var float
+     * @ORM\Column(name="rapport_lobetid", type="decimal", scale=4, nullable=true)
+     */
+    protected $rapportLobetid;
 
-  /**
-   * @var float
-   * @ORM\Column(name="rapport_driftomkosningerfaktor", type="decimal", scale=4, nullable=true)
-   */
-  protected $rapportDriftomkostningerfaktor;
+    /**
+     * @var float
+     * @ORM\Column(name="rapport_driftomkosningerfaktor", type="decimal", scale=4, nullable=true)
+     */
+    protected $rapportDriftomkostningerfaktor;
 
-  /**
-   * @var float
-   * @ORM\Column(name="rapport_nominelEnergiprisstigning", type="decimal", scale=4, nullable=true)
-   */
-  protected $rapportNominelEnergiprisstigning;
+    /**
+     * @var float
+     * @ORM\Column(name="rapport_nominelEnergiprisstigning", type="decimal", scale=4, nullable=true)
+     */
+    protected $rapportNominelEnergiprisstigning;
 
-  /**
-   * @var float
-   * @ORM\Column(name="rapport_procentAfInvestering", type="decimal", scale=4, nullable=true)
-   */
-  protected $rapportProcentAfInvestering = 0.1;
+    /**
+     * @var float
+     * @ORM\Column(name="rapport_procentAfInvestering", type="decimal", scale=4, nullable=true)
+     */
+    protected $rapportProcentAfInvestering = 0.1;
 
-  /**
-   * @var float
-   * @ORM\Column(name="tekniskisolering_varmeledningsevneEksistLamelmaatter", type="decimal", scale=4, nullable=true)
-   */
-  protected $tekniskisoleringVarmeledningsevneEksistLamelmaatter;
+    /**
+     * @var float
+     * @ORM\Column(name="tekniskisolering_varmeledningsevneEksistLamelmaatter", type="decimal", scale=4, nullable=true)
+     */
+    protected $tekniskisoleringVarmeledningsevneEksistLamelmaatter;
 
-  /**
-   * @var float
-   * @ORM\Column(name="tekniskisolering_varmeledningsevneNyIsolering", type="decimal", scale=4, nullable=true)
-   */
-  protected $tekniskisoleringVarmeledningsevneNyIsolering;
+    /**
+     * @var float
+     * @ORM\Column(name="tekniskisolering_varmeledningsevneNyIsolering", type="decimal", scale=4, nullable=true)
+     */
+    protected $tekniskisoleringVarmeledningsevneNyIsolering;
 
-  /**
-   * @var float
-   * @ORM\Column(name="solcelletiltagdetail_energiprisstigningPctPrAar", type="decimal", scale=4, nullable=true)
-   */
-  protected $solcelletiltagdetailEnergiprisstigningPctPrAar;
+    /**
+     * @var float
+     * @ORM\Column(name="solcelletiltagdetail_energiprisstigningPctPrAar", type="decimal", scale=4, nullable=true)
+     */
+    protected $solcelletiltagdetailEnergiprisstigningPctPrAar;
 
-	/**
-   * @var float
-   * @ORM\Column(name="solcelletiltagdetail_salgsprisFoerste10AarKrKWh", type="decimal", scale=4, nullable=true)
-   */
-  protected $solcelletiltagdetailSalgsprisFoerste10AarKrKWh;
+    /**
+     * @var float
+     * @ORM\Column(name="solcelletiltagdetail_salgsprisFoerste10AarKrKWh", type="decimal", scale=4, nullable=true)
+     */
+    protected $solcelletiltagdetailSalgsprisFoerste10AarKrKWh;
 
-	/**
-   * @var float
-   * @ORM\Column(name="solcelletiltagdetail_salgsprisEfter10AarKrKWh", type="decimal", scale=4, nullable=true)
-   */
-  protected $solcelletiltagdetailSalgsprisEfter10AarKrKWh;
+    /**
+     * @var float
+     * @ORM\Column(name="solcelletiltagdetail_salgsprisEfter10AarKrKWh", type="decimal", scale=4, nullable=true)
+     */
+    protected $solcelletiltagdetailSalgsprisEfter10AarKrKWh;
 
-	/**
-   * @var float
-   * @ORM\Column(type="decimal", scale=4, nullable=true)
-   */
-  protected $mtmFaellesomkostningerGrundpris = 5000;
+    /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=4, nullable=true)
+     */
+    protected $mtmFaellesomkostningerGrundpris = 5000;
 
-  /**
-   * @var float
-   * @ORM\Column(type="decimal", scale=4, nullable=true)
-   */
-  protected $mtmFaellesomkostningerPrisPrM2 = 5.0000;
+    /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=4, nullable=true)
+     */
+    protected $mtmFaellesomkostningerPrisPrM2 = 5.0000;
 
-  /**
-   * @var float
-   * @ORM\Column(type="float")
-   */
-  protected $mtmFaellesomkostningerNulHvisArealMindreEnd;
+    /**
+     * @var float
+     * @ORM\Column(type="float")
+     */
+    protected $mtmFaellesomkostningerNulHvisArealMindreEnd;
 
-  /**
-   * @var float
-   * @ORM\Column(type="float")
-   */
-  protected $mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd;
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="tOpvarmningTimerAarMonthly", type="array")
+     */
+    protected $tOpvarmningTimerAarMonthly;
 
-  public function setId($id) {
-    $this->id = $id;
-  }
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="tJordMonthly", type="array")
+     */
+    private $tJordMonthly;
 
-  public function setRapportKalkulationsrente($kalkulationsrente) {
-    $this->rapportKalkulationsrente = $kalkulationsrente;
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="tUdeMonthly", type="array")
+     */
+    private $tUdeMonthly;
 
-    return $this;
-  }
+    /**
+     * @var float
+     * @ORM\Column(type="float")
+     */
+    protected $mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd;
 
-  public function getRapportKalkulationsrente() {
-    return $this->rapportKalkulationsrente;
-  }
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        foreach (MonthType::getChoices() as $key => $value) {
+            if (empty($key)) {
+                continue;
+            }
+            $this->tJordMonthly[$key] = '';
+            $this->tUdeMonthly[$key] = '';
+            $this->tOpvarmningTimerAarMonthly[$key] = '';
+        }
+    }
 
-  public function setRapportInflation($inflation) {
-    $this->rapportInflation = $inflation;
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
-    return $this;
-  }
+    public function setRapportKalkulationsrente($kalkulationsrente)
+    {
+        $this->rapportKalkulationsrente = $kalkulationsrente;
 
-  public function getRapportInflation() {
-    return $this->rapportInflation;
-  }
+        return $this;
+    }
 
-  public function setRapportLobetid($lobetid) {
-    $this->rapportLobetid = $lobetid;
+    public function getRapportKalkulationsrente()
+    {
+        return $this->rapportKalkulationsrente;
+    }
 
-    return $this;
-  }
+    public function setRapportInflation($inflation)
+    {
+        $this->rapportInflation = $inflation;
 
-  public function getRapportLobetid() {
-    return $this->rapportLobetid;
-  }
+        return $this;
+    }
 
-  public function setRapportDriftomkostningerfaktor($faktor) {
-    $this->rapportDriftomkostningerfaktor = $faktor;
+    public function getRapportInflation()
+    {
+        return $this->rapportInflation;
+    }
 
-    return $this;
-  }
+    public function setRapportLobetid($lobetid)
+    {
+        $this->rapportLobetid = $lobetid;
 
-  public function getRapportDriftomkostningerfaktor() {
-    return $this->rapportDriftomkostningerfaktor;
-  }
+        return $this;
+    }
 
-  public function setRapportNominelEnergiprisstigning($rapport_nominelEnergiprisstigning) {
-    $this->rapportNominelEnergiprisstigning = $rapport_nominelEnergiprisstigning;
+    public function getRapportLobetid()
+    {
+        return $this->rapportLobetid;
+    }
 
-    return $this;
-  }
+    public function setRapportDriftomkostningerfaktor($faktor)
+    {
+        $this->rapportDriftomkostningerfaktor = $faktor;
 
-  public function getRapportNominelEnergiprisstigning() {
-    return $this->rapportNominelEnergiprisstigning;
-  }
+        return $this;
+    }
 
-  public function setRapportProcentAfInvestering($rapport_procentAfInvestering) {
-    $this->rapportProcentAfInvestering = $rapport_procentAfInvestering;
+    public function getRapportDriftomkostningerfaktor()
+    {
+        return $this->rapportDriftomkostningerfaktor;
+    }
 
-    return $this;
-  }
+    public function setRapportNominelEnergiprisstigning($rapport_nominelEnergiprisstigning)
+    {
+        $this->rapportNominelEnergiprisstigning = $rapport_nominelEnergiprisstigning;
 
-  public function getRapportProcentAfInvestering() {
-    return $this->rapportProcentAfInvestering;
-  }
+        return $this;
+    }
 
-  public function setTekniskIsoleringVarmeledningsevneEksistLamelmaatter($varmeledningsevneEksistLamelmaatter) {
-    $this->tekniskisoleringVarmeledningsevneEksistLamelmaatter = $varmeledningsevneEksistLamelmaatter;
+    public function getRapportNominelEnergiprisstigning()
+    {
+        return $this->rapportNominelEnergiprisstigning;
+    }
 
-    return $this;
-  }
+    public function setRapportProcentAfInvestering($rapport_procentAfInvestering)
+    {
+        $this->rapportProcentAfInvestering = $rapport_procentAfInvestering;
 
-  public function getTekniskIsoleringVarmeledningsevneEksistLamelmaatter() {
-    return $this->tekniskisoleringVarmeledningsevneEksistLamelmaatter;
-  }
+        return $this;
+    }
 
-  public function setTekniskIsoleringVarmeledningsevneNyIsolering($varmeledningsevneNyIsolering) {
-    $this->tekniskisoleringVarmeledningsevneNyIsolering = $varmeledningsevneNyIsolering;
+    public function getRapportProcentAfInvestering()
+    {
+        return $this->rapportProcentAfInvestering;
+    }
 
-    return $this;
-  }
+    public function setTekniskIsoleringVarmeledningsevneEksistLamelmaatter($varmeledningsevneEksistLamelmaatter)
+    {
+        $this->tekniskisoleringVarmeledningsevneEksistLamelmaatter = $varmeledningsevneEksistLamelmaatter;
 
-  public function getTekniskIsoleringVarmeledningsevneNyIsolering() {
-    return $this->tekniskisoleringVarmeledningsevneNyIsolering;
-  }
+        return $this;
+    }
 
-  public function setSolcelletiltagdetailEnergiprisstigningPctPrAar($solcelletiltagdetailEnergiprisstigningPctPrAar) {
-    $this->solcelletiltagdetailEnergiprisstigningPctPrAar = $solcelletiltagdetailEnergiprisstigningPctPrAar;
+    public function getTekniskIsoleringVarmeledningsevneEksistLamelmaatter()
+    {
+        return $this->tekniskisoleringVarmeledningsevneEksistLamelmaatter;
+    }
 
-    return $this;
-  }
+    public function setTekniskIsoleringVarmeledningsevneNyIsolering($varmeledningsevneNyIsolering)
+    {
+        $this->tekniskisoleringVarmeledningsevneNyIsolering = $varmeledningsevneNyIsolering;
 
-  public function getSolcelletiltagdetailEnergiprisstigningPctPrAar() {
-    return $this->solcelletiltagdetailEnergiprisstigningPctPrAar;
-  }
+        return $this;
+    }
 
-  public function setSolcelletiltagdetailSalgsprisFoerste10AarKrKWh($solcelletiltagdetailSalgsprisFoerste10AarKrKWh) {
-    $this->solcelletiltagdetailSalgsprisFoerste10AarKrKWh = $solcelletiltagdetailSalgsprisFoerste10AarKrKWh;
+    public function getTekniskIsoleringVarmeledningsevneNyIsolering()
+    {
+        return $this->tekniskisoleringVarmeledningsevneNyIsolering;
+    }
 
-    return $this;
-  }
+    public function setSolcelletiltagdetailEnergiprisstigningPctPrAar($solcelletiltagdetailEnergiprisstigningPctPrAar)
+    {
+        $this->solcelletiltagdetailEnergiprisstigningPctPrAar = $solcelletiltagdetailEnergiprisstigningPctPrAar;
 
-  public function getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {
-    return $this->solcelletiltagdetailSalgsprisFoerste10AarKrKWh;
-  }
+        return $this;
+    }
 
-  public function setSolcelletiltagdetailSalgsprisEfter10AarKrKWh($solcelletiltagdetailSalgsprisEfter10AarKrKWh) {
-    $this->solcelletiltagdetailSalgsprisEfter10AarKrKWh = $solcelletiltagdetailSalgsprisEfter10AarKrKWh;
+    public function getSolcelletiltagdetailEnergiprisstigningPctPrAar()
+    {
+        return $this->solcelletiltagdetailEnergiprisstigningPctPrAar;
+    }
 
-    return $this;
-  }
+    public function setSolcelletiltagdetailSalgsprisFoerste10AarKrKWh($solcelletiltagdetailSalgsprisFoerste10AarKrKWh)
+    {
+        $this->solcelletiltagdetailSalgsprisFoerste10AarKrKWh = $solcelletiltagdetailSalgsprisFoerste10AarKrKWh;
 
-  public function getSolcelletiltagdetailSalgsprisEfter10AarKrKWh() {
-    return $this->solcelletiltagdetailSalgsprisEfter10AarKrKWh;
-  }
+        return $this;
+    }
 
-  public function setMtmFaellesomkostningerGrundpris($mtmFaellesomkostningerGrundpris) {
-    $this->mtmFaellesomkostningerGrundpris = $mtmFaellesomkostningerGrundpris;
+    public function getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()
+    {
+        return $this->solcelletiltagdetailSalgsprisFoerste10AarKrKWh;
+    }
 
-    return $this;
-  }
+    public function setSolcelletiltagdetailSalgsprisEfter10AarKrKWh($solcelletiltagdetailSalgsprisEfter10AarKrKWh)
+    {
+        $this->solcelletiltagdetailSalgsprisEfter10AarKrKWh = $solcelletiltagdetailSalgsprisEfter10AarKrKWh;
 
-  public function getMtmFaellesomkostningerGrundpris() {
-    return $this->mtmFaellesomkostningerGrundpris;
-  }
+        return $this;
+    }
 
-  public function setMtmFaellesomkostningerPrisPrM2($mtmFaellesomkostningerPrisPrM2) {
-    $this->mtmFaellesomkostningerPrisPrM2 = $mtmFaellesomkostningerPrisPrM2;
+    public function getSolcelletiltagdetailSalgsprisEfter10AarKrKWh()
+    {
+        return $this->solcelletiltagdetailSalgsprisEfter10AarKrKWh;
+    }
 
-    return $this;
-  }
+    public function setMtmFaellesomkostningerGrundpris($mtmFaellesomkostningerGrundpris)
+    {
+        $this->mtmFaellesomkostningerGrundpris = $mtmFaellesomkostningerGrundpris;
 
-  public function getMtmFaellesomkostningerPrisPrM2() {
-    return $this->mtmFaellesomkostningerPrisPrM2;
-  }
+        return $this;
+    }
 
-  public function setMtmFaellesomkostningerNulHvisArealMindreEnd($mtmFaellesomkostningerNulHvisArealMindreEnd) {
-      $this->mtmFaellesomkostningerNulHvisArealMindreEnd = $mtmFaellesomkostningerNulHvisArealMindreEnd;
+    public function getMtmFaellesomkostningerGrundpris()
+    {
+        return $this->mtmFaellesomkostningerGrundpris;
+    }
 
-      return $this;
-  }
+    public function setMtmFaellesomkostningerPrisPrM2($mtmFaellesomkostningerPrisPrM2)
+    {
+        $this->mtmFaellesomkostningerPrisPrM2 = $mtmFaellesomkostningerPrisPrM2;
 
-  public function getMtmFaellesomkostningerNulHvisArealMindreEnd() {
-      return $this->mtmFaellesomkostningerNulHvisArealMindreEnd;
-  }
+        return $this;
+    }
 
-  public function setMtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd($mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd) {
-      $this->mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd = $mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd;
+    public function getMtmFaellesomkostningerPrisPrM2()
+    {
+        return $this->mtmFaellesomkostningerPrisPrM2;
+    }
 
-      return $this;
-  }
+    public function setMtmFaellesomkostningerNulHvisArealMindreEnd($mtmFaellesomkostningerNulHvisArealMindreEnd)
+    {
+        $this->mtmFaellesomkostningerNulHvisArealMindreEnd = $mtmFaellesomkostningerNulHvisArealMindreEnd;
 
-  public function getMtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd() {
-      return $this->mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd;
-  }
+        return $this;
+    }
+
+    public function getMtmFaellesomkostningerNulHvisArealMindreEnd()
+    {
+        return $this->mtmFaellesomkostningerNulHvisArealMindreEnd;
+    }
+
+    public function setMtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd($mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd)
+    {
+        $this->mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd = $mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd;
+
+        return $this;
+    }
+
+    public function getMtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd()
+    {
+        return $this->mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd;
+    }
+
+    /**
+     * Set tOpvarmningTimerAarMonthly
+     *
+     * @param array $tOpvarmningTimerAarMonthly
+     *
+     * @return Configuration
+     */
+    public function setTOpvarmningTimerAarMonthly($tOpvarmningTimerAarMonthly)
+    {
+        $this->tOpvarmningTimerAarMonthly = $tOpvarmningTimerAarMonthly;
+        return $this;
+    }
+
+    /**
+     * Get tOpvarmningTimerAarMonthly
+     *
+     * @return array
+     */
+    public function getTOpvarmningTimerAarMonthly()
+    {
+        return $this->tOpvarmningTimerAarMonthly;
+    }
+    /**
+     * Set tJordMonthly
+     *
+     * @param array $tJordMonthly
+     *
+     * @return Configuration
+     */
+    public function setTJordMonthly($tJordMonthly)
+    {
+        $this->tJordMonthly = $tJordMonthly;
+        return $this;
+    }
+
+    /**
+     * Get tJordMonthly
+     *
+     * @return array
+     */
+    public function getTJordMonthly()
+    {
+        return $this->tJordMonthly;
+    }
+
+    /**
+     * Set tUdeMonthly
+     *
+     * @param array $tUdeMonthly
+     *
+     * @return Configuration
+     */
+    public function setTUdeMonthly($tUdeMonthly)
+    {
+        $this->tUdeMonthly = $tUdeMonthly;
+        return $this;
+    }
+
+    /**
+     * Get tUdeMonthly
+     *
+     * @return array
+     */
+    public function getTUdeMonthly()
+    {
+        return $this->tUdeMonthly;
+    }
+
+    /**
+     * @ORM\PostLoad()
+     */
+    public function postLoad() {
+        if (empty($this->tUdeMonthly)) {
+            $this->tUdeMonthly = array();
+            foreach (MonthType::getChoices() as $key => $value) {
+                if (empty($key)) {
+                    continue;
+                }
+                $this->tUdeMonthly[$key] = NULL;
+            }
+        }
+        if (empty($this->tJordMonthly)) {
+            $this->tJordMonthly = array();
+            foreach (MonthType::getChoices() as $key => $value) {
+                if (empty($key)) {
+                    continue;
+                }
+                $this->tJordMonthly[$key] = NULL;
+            }
+        }
+        if (empty($this->tOpvarmningTimerAarMonthly)) {
+            $this->tOpvarmningTimerAarMonthly = array();
+            foreach (MonthType::getChoices() as $key => $value) {
+                if (empty($key)) {
+                    continue;
+                }
+                $this->tOpvarmningTimerAarMonthly[$key] = NULL;
+            }
+        }
+    }
+
 }

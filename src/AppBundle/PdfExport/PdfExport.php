@@ -16,7 +16,7 @@ class PdfExport {
     $this->templating = $this->container->get('templating');
   }
 
-  public function export2(Rapport $rapport, array $options = array()) {
+  public function export2(Rapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getBygning()->getVirksomhed();
 
@@ -36,7 +36,10 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $coverParams = array('rapport' => $rapport);
+    $coverParams = array(
+      'rapport' => $rapport,
+      'review' => $review,
+    );
     if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
       $coverParams['typenavn'] = $virksomhedsType;
     }
@@ -44,9 +47,10 @@ class PdfExport {
 
     $html = $this->renderView('AppBundle:Rapport:showPdf2.html.twig', array(
       'rapport' => $rapport,
+      'review' => $review,
     ));
 
-    return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+    return $review ? ($cover . $html) :  $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('lowquality' => false,
             'encoding' => 'utf-8',
             'images' => true,
@@ -57,7 +61,7 @@ class PdfExport {
       $options));
   }
 
-  public function export5(Rapport $rapport, array $options = array()) {
+  public function export5(Rapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getBygning()->getVirksomhed();
 
@@ -77,7 +81,10 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $coverParams = array('rapport' => $rapport);
+    $coverParams = array(
+      'rapport' => $rapport,
+      'review' => $review,
+    );
     if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
       $coverParams['typenavn'] = $virksomhedsType;
     }
@@ -85,9 +92,10 @@ class PdfExport {
 
     $html = $this->renderView('AppBundle:Rapport:showPdf5.html.twig', array(
       'rapport' => $rapport,
+      'review' => $review,
     ));
 
-    return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+    return $review ? ($cover . $html) :  $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('orientation'=>'Landscape',
             'lowquality' => false,
             'encoding' => 'utf-8',
@@ -99,7 +107,7 @@ class PdfExport {
       $options));
   }
 
-  public function exportVirksomhedRapport2(VirksomhedRapport $rapport, array $options = array()) {
+  public function exportVirksomhedRapport2(VirksomhedRapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getVirksomhed();
 
@@ -115,7 +123,10 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $coverParams = array('rapport' => $rapport);
+    $coverParams = array(
+      'rapport' => $rapport,
+      'review' => $review,
+      );
     if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
       $coverParams['typenavn'] = $virksomhedsType;
     }
@@ -123,9 +134,10 @@ class PdfExport {
 
     $html = $this->renderView('AppBundle:VirksomhedRapport:showPdf2.html.twig', array(
       'rapport' => $rapport,
+      'review' => $review,
     ));
 
-    return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+    return $review ? ($cover . $html) : $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('lowquality' => false,
             'encoding' => 'utf-8',
             'images' => true,
@@ -136,9 +148,10 @@ class PdfExport {
       $options));
   }
 
-  public function exportVirksomhedRapportKortlaegning(VirksomhedRapport $rapport, array $options = array(), $test = FALSE) {
+  public function exportVirksomhedRapportKortlaegning(VirksomhedRapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getVirksomhed();
+    $datterSelskaber = $rapport->getVirksomhed()->getDatterSelskaber(TRUE);
 
     if ($virksomhed && $virksomhedsNavn = $virksomhed->getName()) {
       $data[] = $virksomhedsNavn;
@@ -152,37 +165,41 @@ class PdfExport {
       $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
     }
 
-    $coverParams = array('rapport' => $rapport);
+    $coverParams = array(
+      'rapport' => $rapport,
+      'review' => $review,
+    );
+
     if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
       $coverParams['typenavn'] = $virksomhedsType;
     }
     $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegningCover.html.twig', $coverParams);
 
-    // Data for energiFordeling pie chart.
+    // Summarized data for energiFordeling pie chart.
     $energiFordeling = array(
       array(
         'label' => 'El',
-        'value' => $rapport->getBaselineEl(),
+        'value' => $rapport->getSummarized('BaselineEl'),
       ),
       array(
         'label' => 'Varme',
-        'value' => $rapport->getBaselineVarme(),
+        'value' =>  $rapport->getSummarized('BaselineVarme'),
       ),
       array(
         'label' => 'Brændstof',
-        'value' => $rapport->getBaselineBraendstof(),
+        'value' =>  $rapport->getSummarized('BaselineBraendstof'),
       ),
     );
     $pieChartData['energiFordeling'] = $energiFordeling;
 
-    // Data for overordnetForrug pie chart.
+    // Split data for overordnetForrug pie chart for each virksomhed.
     $overordnetForrug = array(
       array(
         'label' => $rapport->getVirksomhed()->__toString(),
         'value' => $rapport->calculateSamletEnergiForbrug(),
       ),
     );
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
@@ -193,67 +210,76 @@ class PdfExport {
     }
     $pieChartData['overordnetForrug'] = $overordnetForrug;
 
-    // Data for elForrug pie chart.
-    $elForrug = array(
-      array(
-        'label' => $rapport->getVirksomhed()->__toString(),
-        'value' => $rapport->getBaselineEl(),
-        'erhvervsareal' => $rapport->getErhvervsareal(),
-      ),
+    // Split data for elForrug pie chart for each virksomhed.
+    $elForrug = array();
+    $row = array(
+      'label' => $rapport->getVirksomhed()->__toString(),
+      'value' => $rapport->getBaselineEl(),
+      'erhvervsareal' => $rapport->getErhvervsareal(),
     );
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    $row['kpi'] = $row['erhvervsareal'] ? $row['value'] / $row['erhvervsareal'] : NULL;
+    $elForrug[] = $row;
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
-      $elForrug[] = array(
+      $row = array(
         'label' => $datterSelskab->getRapport()->getVirksomhed()->__toString(),
         'value' => $datterSelskab->getRapport()->getBaselineEl(),
         'erhvervsareal' => $datterSelskab->getRapport()->getErhvervsareal(),
       );
+      $row['kpi'] = $row['erhvervsareal'] ? $row['value'] / $row['erhvervsareal'] : NULL;
+      $elForrug[] = $row;
     }
     $pieChartData['elForrug'] = $elForrug;
 
-    // Data for varmeForrug pie chart.
-    $varmeForrug = array(
-      array(
-        'label' => $rapport->getVirksomhed()->__toString(),
-        'value' => $rapport->getBaselineVarme(),
-        'opvarmetareal' => $rapport->getOpvarmetareal(),
-      ),
+    // Split data for varmeForrug pie chart for each virksomhed.
+    $varmeForrug = array();
+    $row = array(
+      'label' => $rapport->getVirksomhed()->__toString(),
+      'value' => $rapport->getBaselineVarme(),
+      'opvarmetareal' => $rapport->getOpvarmetareal(),
     );
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    $row['kpi'] = $row['opvarmetareal'] ? $row['value'] / $row['opvarmetareal'] : NULL;
+    $varmeForrug[] = $row;
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
-      $varmeForrug[] = array(
+      $row = array(
         'label' => $datterSelskab->getRapport()->getVirksomhed()->__toString(),
         'value' => $datterSelskab->getRapport()->getBaselineVarme(),
-        'erhvervsareal' => $datterSelskab->getRapport()->getErhvervsareal(),
+        'opvarmetareal' => $datterSelskab->getRapport()->getOpvarmetareal(),
       );
+      $row['kpi'] = $row['opvarmetareal'] ? $row['value'] / $row['opvarmetareal'] : NULL;
+      $varmeForrug[] = $row;
     }
     $pieChartData['varmeForrug'] = $varmeForrug;
 
-    // Data for varmeForrug pie chart.
-    $braendstofForrug = array(
-      array(
-        'label' => $rapport->getVirksomhed()->__toString(),
-        'value' => $rapport->getBaselineVarme(),
-        'erhvervsareal' => $rapport->getOpvarmetareal(),
-      ),
+    // Split data for varmeForrug pie chart for each virksomhed.
+    $braendstofForrug = array();
+    $row = array(
+      'label' => $rapport->getVirksomhed()->__toString(),
+      'value' => $rapport->getBaselineVarme(),
+      'erhvervsareal' => $rapport->getOpvarmetareal(),
     );
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    $row['kpi'] = $row['erhvervsareal'] ? $row['value'] / $row['erhvervsareal'] : NULL;
+    $braendstofForrug[] = $row;
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
-      $braendstofForrug[] = array(
+      $row = array(
         'label' => $datterSelskab->getRapport()->getVirksomhed()->__toString(),
         'value' => $datterSelskab->getRapport()->getBaselineVarme(),
         'erhvervsareal' => $datterSelskab->getRapport()->getOpvarmetareal(),
       );
+      $row['kpi'] = $row['erhvervsareal'] ? $row['value'] / $row['erhvervsareal'] : NULL;
+      $braendstofForrug[] = $row;
     }
     $pieChartData['braendstofForbrug'] = $braendstofForrug;
 
-    // Data for beplarelseSluanvendelse pie chart.
+    // Split data for beplarelseSluanvendelse pie chart for each virksomhed.
     $labels = $rapport->getBesparelseSlutanvendelserLabels();
     $chartData = array();
     foreach ($rapport->getBesparelseSlutanvendelser(1) as $key => $value) {
@@ -269,7 +295,7 @@ class PdfExport {
       ),
     );
 
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getRapport())) {
         continue;
       }
@@ -287,8 +313,9 @@ class PdfExport {
     }
     $pieChartData['beplarelseSluanvendelse'] = $beplarelseSluanvendelse;
 
-    // Data for elForbrugSluanvendelse pie chart.
+    // Split data for elForbrugSluanvendelse pie chart for each virksomhed.
     $labels = $rapport->getBesparelseSlutanvendelserLabels();
+    $elForbrugSluanvendelse = array();
     $chartData = array();
     if (!empty($rapport->getVirksomhed()->getKortlaegning())) {
       foreach ($rapport->getVirksomhed()->getKortlaegning()->getSlutanvendelser() as $key => $value) {
@@ -297,15 +324,13 @@ class PdfExport {
           'value' => $value['forbrug'],
         );
       }
-      $elForbrugSluanvendelse = array(
-        array(
-          'name' => $rapport->getVirksomhed()->getName(),
-          'data' => $chartData,
-        ),
+      $elForbrugSluanvendelse[] = array(
+        'name' => $rapport->getVirksomhed()->getName(),
+        'data' => $chartData,
       );
     }
 
-    foreach ($rapport->getVirksomhed()->getDatterSelskaber() as $datterSelskab) {
+    foreach ($datterSelskaber as $datterSelskab) {
       if (empty($datterSelskab->getKortlaegning())) {
         continue;
       }
@@ -334,14 +359,10 @@ class PdfExport {
     $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegning.html.twig', array(
       'rapport' => $rapport,
       'pie_chart_data' => $pieChartData,
-      'show_legend' => TRUE,
+      'review' => $review,
     ));
 
-    if ($test) {
-      return $cover . $html;
-    }
-
-    return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+    return $review ? ($cover . $html) : $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('lowquality' => false,
             'encoding' => 'utf-8',
             'images' => true,
@@ -352,7 +373,7 @@ class PdfExport {
       $options));
   }
 
-  public function exportVirksomhedRapportDetailark(VirksomhedRapport $rapport, array $options = array()) {
+  public function exportVirksomhedRapportDetailark(VirksomhedRapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getVirksomhed();
 
@@ -370,7 +391,7 @@ class PdfExport {
 
     $html = '';
     /** @var Bygning $bygning */
-    foreach ($virksomhed->getBygninger() as $bygning) {
+    foreach ($virksomhed->getAllBygninger() as $bygning) {
       $bygningRaport = $bygning->getRapport();
       if (empty($bygningRaport)) {
         continue;
@@ -381,16 +402,24 @@ class PdfExport {
 
       $html .= $this->renderView('AppBundle:Rapport:showPdf5Body.html.twig', array(
         'rapport' => $bygningRaport,
+        'review' => $review,
       ));
     }
 
-    $coverParams = array('rapport' => $rapport);
+    $coverParams = array(
+      'rapport' => $rapport,
+      'review' => $review,
+    );
     if ($virksomhed && $virksomhedsType = $virksomhed->getTypeNameLabel()) {
       $coverParams['typenavn'] = ucfirst($virksomhedsType);
     }
     $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailarkCover.html.twig', $coverParams);
+    $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailark.html.twig', array(
+      'html' => $html,
+      'review' => $review,
+    ));
 
-    return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+    return $review ? ($cover . $html) :  $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
       array('orientation'=>'Landscape',
             'lowquality' => false,
             'encoding' => 'utf-8',

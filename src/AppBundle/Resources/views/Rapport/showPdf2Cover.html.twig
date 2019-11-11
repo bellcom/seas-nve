@@ -1,67 +1,86 @@
 {% extends 'AppBundle::pdf.html.twig' %}
 
 {% block body -%}
-
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-
-  <h1 class="pdf-enlarged">
-    {% if rapport.bygning.virksomhed.name %}
-      {{ rapport.bygning.virksomhed.name }}
+  <!-- Rapport/showPdf2Cover.html.twig -->
+  <div class="page-break-after">
+    <div class="portrait">
       <br>
-    {% endif %}
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
 
-    {{ rapport.bygning.navn }}
-  </h1>
+      {% if rapport.bygning.virksomhed.name %}
+        <h1 class="pdf-enlarged">
+          {{ rapport.bygning.virksomhed.name }}
+        </h1>
+      {% endif %}
+      <h1>
+        {{ rapport.bygning.navn }}
+      </h1>
 
-  {% if typenavn %}
-    <h2>{{ typenavn }}</h2>
-  {% endif %}
+      {% if typenavn %}
+        <h2>{{ typenavn }}</h2>
+      {% endif %}
 
-  <br><br>
+      <br><br>
 
-  <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
+      <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
 
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
 
-  {% if rapport.bygning.virksomhed.name is empty %}
-    <br><br><br><br><br>
-  {% endif %}
+      {% if rapport.bygning.virksomhed.name is empty %}
+        <br><br><br><br><br>
+      {% endif %}
 
-  <div class="text-right">
-    <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
+      <div class="text-right">
+        <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
+      </div>
+    </div>
   </div>
-
 {% endblock %}

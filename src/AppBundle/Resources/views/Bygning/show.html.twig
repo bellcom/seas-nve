@@ -84,19 +84,27 @@
           {% if entity.virksomhed %}
             <tr>
               <th class="indent">{{ 'appbundle.virksomhed.crmNumber' | trans }}</th>
-              <td>{{ entity.virksomhed.getCrmNumber(TRUE) }}</td>
+              <td>{{ entity.virksomhed.getCrmNumber(TRUE) }}
+                {% if entity.virksomhed.isInherited('crmNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+              </td>
             </tr>
             <tr>
               <th class="indent">{{ 'appbundle.virksomhed.projectNumber' | trans }}</th>
-              <td>{{ entity.virksomhed.getProjectNumber(TRUE) }}</td>
+              <td>{{ entity.virksomhed.getProjectNumber(TRUE) }}
+                {% if entity.virksomhed.isInherited('projectNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+              </td>
             </tr>
             <tr>
               <th class="indent">{{ 'appbundle.virksomhed.customerNumber' | trans }}</th>
-              <td>{{ entity.virksomhed.getCustomerNumber(TRUE) }}</td>
+              <td>{{ entity.virksomhed.getCustomerNumber(TRUE) }}
+                {% if entity.virksomhed.isInherited('customerNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+              </td>
             </tr>
             <tr>
               <th class="indent">{{ 'appbundle.virksomhed.typeName' | trans }}</th>
-              <td>{{ entity.virksomhed.getTypeName(TRUE) }}</td>
+              <td>{{ entity.virksomhed.getTypeName(TRUE) }}
+                {% if entity.virksomhed.isInherited('typeName') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+              </td>
             </tr>
           {% endif %}
           <tr>
@@ -116,10 +124,6 @@
             <td>{{ entity.aaplusAnsvarlig }}</td>
           </tr>
           <tr>
-            <th>{{ 'appbundle.bygning.projektleder' | trans }}</th>
-            <td>{{ entity.projektleder }}</td>
-          </tr>
-          <tr>
             <th>{{ 'appbundle.bygning.energiRaadgiver' | trans }}</th>
             <td>
               {% set energiRaadgiver = entity.getEnergiRaadgiver() %}
@@ -131,28 +135,8 @@
             </td>
           </tr>
           <tr>
-            <th>{{ 'appbundle.bygning.projekterende' | trans }}</th>
-            <td>{{ entity.projekterende }}</td>
-          </tr>
-          <tr>
             <th>{{ 'appbundle.bygning.afdelingsnavn' | trans }}</th>
             <td>{{ entity.afdelingsnavn }}</td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.bygning.ejerA' | trans }}</th>
-            <td>{{ entity.ejerA }}</td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.bygning.divisionnavn' | trans }}</th>
-            <td>{{ entity.divisionnavn }}</td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.bygning.omraadenavn' | trans }}</th>
-            <td>{{ entity.omraadenavn }}</td>
-          </tr>
-          <tr>
-            <th>{{ 'appbundle.bygning.ejerforhold' | trans }}</th>
-            <td>{{ entity.ejerforhold }}</td>
           </tr>
           </tbody>
         </table>
@@ -167,10 +151,6 @@
           <tr>
             <th>{{ 'appbundle.bygning.bygId' | trans }}</th>
             <td>{{ entity.bygId }}</td>
-          </tr>
-          <tr class="hidden">
-            <th>{{ 'appbundle.bygning.enhedsys' | trans }}</th>
-            <td>{{ entity.enhedsys }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.bygning.type' | trans }}</th>
@@ -230,11 +210,15 @@
           <tbody>
           <tr>
             <th>{{ 'appbundle.bygning.forsyningsvaerkEl' | trans }}</th>
-            <td>{{ entity.forsyningsvaerkEl }}</td>
+            <td>{{ entity.getForsyningsvaerkEl(TRUE) }}
+              {% if entity.isInherited('forsyningsvaerkEl') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           <tr>
             <th>{{ 'appbundle.bygning.forsyningsvaerkVarme' | trans }}</th>
-            <td>{{ entity.forsyningsvaerkVarme }}</td>
+            <td>{{ entity.getForsyningsvaerkVarme(TRUE) }}
+              {% if entity.isInherited('forsyningsvaerkVarme') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
+            </td>
           </tr>
           </tbody>
         </table>

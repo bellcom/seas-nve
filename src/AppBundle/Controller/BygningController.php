@@ -135,9 +135,9 @@ class BygningController extends BaseController implements InitControllerInterfac
     $entity = new Bygning();
     $form = $this->createCreateForm($entity);
     $form->handleRequest($request);
+    $em = $this->getDoctrine()->getManager();
 
     if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
       $em->persist($entity);
 
       // Binding bygning to already created virksomhed by cvr number.
@@ -163,8 +163,10 @@ class BygningController extends BaseController implements InitControllerInterfac
       return $this->redirect($this->generateUrl('bygning_show', array('id' => $entity->getId())));
     }
 
+    $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
     return array(
       'entity' => $entity,
+      'virksomheder' => $virksomheder,
       'form' => $form->createView(),
     );
   }
@@ -198,9 +200,12 @@ class BygningController extends BaseController implements InitControllerInterfac
   public function newAction() {
     $entity = new Bygning();
     $form = $this->createCreateForm($entity);
+    $em = $this->getDoctrine()->getManager();
+    $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
 
     return array(
       'entity' => $entity,
+      'virksomheder' => $virksomheder,
       'form' => $form->createView(),
     );
   }
@@ -215,8 +220,14 @@ class BygningController extends BaseController implements InitControllerInterfac
   public function cvrNumListAction() {
     /** @var BygningRepository $repository */
     $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
-    $result = $repository->getCvrNumberReferenceList();
     $response = new Response();
+    $result = array();
+    foreach ($repository->getCvrNumberReferenceList() as $id => $value) {
+      $result[] = array(
+        'id' => $id,
+        'value' => $value,
+      );
+    }
     $response->setContent(json_encode($result));
     $response->headers->set('Content-Type', 'application/json');
     return $response;
@@ -232,8 +243,14 @@ class BygningController extends BaseController implements InitControllerInterfac
   public function eanNumListAction() {
     /** @var BygningRepository $repository */
     $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
-    $result = $repository->getEanNumberReferenceList();
     $response = new Response();
+    $result = array();
+    foreach ($repository->getEanNumberReferenceList() as $id => $value) {
+      $result[] = array(
+        'id' => $id,
+        'value' => $value,
+      );
+    }
     $response->setContent(json_encode($result));
     $response->headers->set('Content-Type', 'application/json');
     return $response;
@@ -249,8 +266,14 @@ class BygningController extends BaseController implements InitControllerInterfac
   public function pNumListAction() {
     /** @var BygningRepository $repository */
     $repository = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Bygning');
-    $result = $repository->getPNumberReferenceList();
     $response = new Response();
+    $result = array();
+    foreach ($repository->getPNumberReferenceList() as $id => $value) {
+      $result[] = array(
+        'id' => $id,
+        'value' => $value,
+      );
+    }
     $response->setContent(json_encode($result));
     $response->headers->set('Content-Type', 'application/json');
     return $response;
@@ -290,8 +313,11 @@ class BygningController extends BaseController implements InitControllerInterfac
     $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('bygning'));
 
+    $em = $this->getDoctrine()->getManager();
+    $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
     return array(
       'entity' => $bygning,
+      'virksomheder' => $virksomheder,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
@@ -340,12 +366,6 @@ class BygningController extends BaseController implements InitControllerInterfac
 
     $editForm->handleRequest($request);
 
-    if (!empty($bygning->getCvrNumber())
-      && !empty($originalVirksomhed)
-      && $bygning->getCvrNumber() != $originalVirksomhed->getCvrNumber()) {
-      $editForm->get('cvrNumber')->addError(new FormError($this->translator->trans('bygninger.error.bind_virksomhed_by_cvr')));
-    }
-
     if ($editForm->isValid()) {
       /** @var ContactPerson $contactPerson */
       foreach ($originalContactPersons as $contactPerson) {
@@ -376,8 +396,10 @@ class BygningController extends BaseController implements InitControllerInterfac
       return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
     }
 
+    $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
     return array(
       'entity' => $bygning,
+      'virksomheder' => $virksomheder,
       'edit_form' => $editForm->createView(),
       'delete_form' => $deleteForm->createView(),
     );
@@ -432,6 +454,12 @@ class BygningController extends BaseController implements InitControllerInterfac
         $em->flush();
         $this->flash->success('bygning_rapporter.confirmation.deleted_forslags');
 
+        // Removing rapport files.
+        $files = $em->getRepository('AppBundle:Fil')->findByEntity($rapport);
+        foreach ($files as $file) {
+          $em->remove($file);
+        }
+
         // Removing rapport.
         $em->remove($rapport);
         $em->flush();
@@ -444,9 +472,17 @@ class BygningController extends BaseController implements InitControllerInterfac
         $em->remove($contactPerson);
       }
 
+      $virksomhed = $bygning->getVirksomhed();
       $em->remove($bygning);
       $em->flush();
       // @TODO remove revisions.
+
+      // Cleanup bygning reference on Virksomhed.
+      if ($virksomhed) {
+          $em->getRepository(Virksomhed::class)->cleanupBygningReferences($virksomhed);
+          $em->persist($virksomhed);
+          $em->flush();
+      }
 
       $this->flash->success('bygninger.confirmation.deleted');
     }

@@ -20,7 +20,6 @@
 
   {% xlsrow %}
     {% xlscell %}{{ bygning.bygId }}{% endxlscell %}
-    {% xlscell %}{{ bygning.enhedsys }}{% endxlscell %}
     {% xlscell %}{{ bygning.navn }}{% endxlscell %}
     {% xlscell %}{{ bygning.adresse }}{% endxlscell %}
     {% xlscell %}{{ bygning.postnummer }}{% endxlscell %}
@@ -33,11 +32,7 @@
       {% xlscell %}{{ bygning.type }}{% endxlscell %}
       {% xlscell %}{{ bygning.OpfoerselsAar }}{% endxlscell %}
       {% xlscell %}{{ bygning.afdelingsnavn }}{% endxlscell %}
-      {% xlscell %}{{ bygning.ejerA }}{% endxlscell %}
       {% xlscell %}{{ bygning.anvendelse }}{% endxlscell %}
-      {% xlscell %}{{ bygning.divisionnavn }}{% endxlscell %}
-      {% xlscell %}{{ bygning.omraadenavn }}{% endxlscell %}
-      {% xlscell %}{{ bygning.ejerforhold }}{% endxlscell %}
       {% xlscell %}{{ bygning.segment.navn | default }}{% endxlscell %}
       {% xlscell %}{{ bygning.segment ? bygning.segment.forkortelse : null }}{% endxlscell %}
       {% xlscell %}{{ bygning.segment ? bygning.segment.magistrat : null }}{% endxlscell %}
@@ -189,7 +184,6 @@
     {# Column headers #}
     {% xlsrow %}
       {% xlscell %}{{ 'ID' | trans }}{% endxlscell %}
-      {% xlscell %}{{ 'Enhedsys' | trans }}{% endxlscell %}
       {% xlscell %}{{ 'Navn' | trans }}{% endxlscell %}
       {% xlscell %}{{ 'Adresse' | trans }}{% endxlscell %}
       {% xlscell %}{{ 'Postnummer' | trans }}{% endxlscell %}
@@ -204,9 +198,7 @@
         {% xlscell %}{{ 'Afdelingsnavn' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Ejer/Lejer' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Anvendelse' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Divisionnavn' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Områdenavn' | trans }}{% endxlscell %}
-        {% xlscell %}{{ 'Ejerforhold' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Segment Navn' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Magistrat Forkortelse' | trans }}{% endxlscell %}
         {% xlscell %}{{ 'Segment Magistrat' | trans }}{% endxlscell %}

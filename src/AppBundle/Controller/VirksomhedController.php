@@ -82,6 +82,9 @@ class VirksomhedController extends BaseController
         // build the query from the given form object
         $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
 
+        // By default show the latest records first.
+        $filterBuilder->addOrderBy('v.id', 'DESC');
+
         /** @var Query $query */
         $query = $filterBuilder->getQuery();
 
@@ -156,8 +159,10 @@ class VirksomhedController extends BaseController
                 $entity->getBygningerByPNumber()
             )));
             $entity->setBygninger(new ArrayCollection());
+            /** @var Bygning $bygning */
             foreach ($bygninger as $bygning) {
                 $entity->addBygninger($bygning);
+                $bygning->setCvrNumber($entity->getCvrNumber());
             }
 
             // Creating customer user to get ability use customer URL.
@@ -267,7 +272,10 @@ class VirksomhedController extends BaseController
         $virksomheder = $repository->getDatterSelskabReferenceList($current_virksomhed);
         /** @var Virksomhed $virksomhed */
         foreach ($virksomheder as $virksomhed) {
-            $result[$virksomhed->getId()] = $virksomhed->getCvrReferenceLabel();
+            $result[] = array(
+                'id' => $virksomhed->getId(),
+                'value' => $virksomhed->getCvrReferenceLabel(),
+            );
         }
 
         $response = new Response();
@@ -385,6 +393,8 @@ class VirksomhedController extends BaseController
     private function createEditForm(Virksomhed $entity)
     {
         $entity->setDefaultValues();
+
+        $this->getDoctrine()->getManager()->getRepository(Virksomhed::class)->cleanupBygningReferences($entity);
         $form = $this->createForm(new VirksomhedType(), $entity, array(
             'action' => $this->generateUrl('virksomhed_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -407,7 +417,7 @@ class VirksomhedController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
         /** @var Virksomhed $originalVirksomhed */
-        $originalVirksomhed = $em->getRepository(Virksomhed::class)->find($virksomhed->getId());
+        $originalVirksomhed = clone $em->getRepository(Virksomhed::class)->find($virksomhed->getId());
 
         $originalBygninger = new ArrayCollection();
         foreach ($originalVirksomhed->getBygninger() as $bygning) {
@@ -440,8 +450,10 @@ class VirksomhedController extends BaseController
                 $virksomhed->getBygningerByPNumber()
             )));
             $virksomhed->setBygninger(new ArrayCollection());
+            /** @var Bygning $bygning */
             foreach ($bygninger as $bygning) {
                 $virksomhed->addBygninger($bygning);
+                $bygning->setCvrNumber($virksomhed->getCvrNumber());
             }
 
             /** @var Bygning $bygning */
@@ -459,6 +471,27 @@ class VirksomhedController extends BaseController
                 }
             }
 
+            // Update customer user if data have been changed.
+            $contactPerson = $virksomhed->getContactPersons()->first();
+            $customerUser = $virksomhed->getUser();
+            if (!empty($contactPerson) && !empty($customerUser)
+                && $originalVirksomhed->getCvrNumber() == $customerUser->getFirstname()) {
+                /** @var User $existingUser */
+                $existingUser = $em->getRepository(User::class)->findOneBy(array('email' => $contactPerson->getMail()));
+                if (empty($existingUser) || $existingUser->getId() == $customerUser->getId()) {
+                    $customerUser->setUsername($virksomhed->getCvrNumber());
+                    $customerUser->setFirstname($virksomhed->getCvrNumber());
+                    $customerUser->setEmail($contactPerson->getMail());
+                    $em->persist($customerUser);
+                }
+                else {
+                    $virksomhed->setUser($existingUser);
+                    $this->flash->success($this->translator->trans('virksomhed.messages.attached_existing_user', array(
+                        '%userMail' => $existingUser->getEmail(),
+                    )));
+                }
+            }
+
             /** @var Virksomhed $child_virksomhed */
             foreach ($originalDatterSelskaber as $datter_selskab) {
                 if (false === $virksomhed->getDatterSelskaber()->contains($datter_selskab)) {
@@ -466,6 +499,8 @@ class VirksomhedController extends BaseController
                     $em->persist($child_virksomhed);
                 }
             }
+
+            $em->getRepository(Virksomhed::class)->cleanupBygningReferences($virksomhed);
 
             $em->persist($virksomhed);
             $em->flush();
@@ -534,6 +569,12 @@ class VirksomhedController extends BaseController
             }
 
             if (!empty($virksomhed->getRapport())) {
+                // Removing rapport files.
+                $files = $em->getRepository('AppBundle:Fil')->findByEntity($virksomhed->getRapport());
+                foreach ($files as $file) {
+                  $em->remove($file);
+                }
+
                 $em->remove($virksomhed->getRapport());
             }
 

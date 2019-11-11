@@ -2,6 +2,8 @@
 
 namespace AppBundle\Form\BelysningTiltagDetail;
 
+use AppBundle\DBAL\Types\BelysningTiltagDetail\LykilderUdgiftForkobling;
+use AppBundle\DBAL\Types\BelysningTiltagDetail\LykilderUdgiftType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -16,8 +18,12 @@ class LyskildeType extends AbstractType
     {
         $builder
           ->add('navn')
-          ->add('type')
-          ->add('forkobling')
+          ->add('type', 'choice', array(
+              'choices' => LykilderUdgiftType::getChoices(),
+          ))
+          ->add('forkobling', 'choice', array(
+              'choices' => LykilderUdgiftForkobling::getChoices(),
+          ))
           ->add('udgift')
           ->add('levetid');
     }

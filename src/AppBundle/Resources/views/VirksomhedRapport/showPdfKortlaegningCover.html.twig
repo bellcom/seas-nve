@@ -1,52 +1,72 @@
-{% extends 'AppBundle::pdf.html.twig' %}
+{% extends review == false ? 'AppBundle::pdf.html.twig' : 'AppBundle:_includes:rapport_review_container.html.twig' %}
 
 {% block body -%}
+  <!-- VirksomhedRapport/showPdfKortlaegningCover.html.twig -->
+  <div class="portrait">
 
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <h1>Kortlægning</h1>
-  <h2>{{ rapport.virksomhed.name }}</h2>
-  {% if typenavn %}
-    <h3>{{ typenavn }}</h3>
-  {% endif %}
-  <br><br>
-  <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="pdf-enlarged">Kortlægning</h1>
+    <h1>{{ rapport.virksomhed.name }}</h1>
 
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <div class="text-right">
-    <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
+    {% if typenavn %}
+      <h2>{{ typenavn }}</h2>
+    {% endif %}
+
+    <br><br>
+
+    <p>{{ 'common.genereted'| trans }}: {{ 'now' | date }}</p>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="text-right">
+      <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
+    </div>
   </div>
-
 {% endblock %}

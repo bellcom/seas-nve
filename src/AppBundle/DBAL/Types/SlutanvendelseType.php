@@ -38,4 +38,12 @@ class SlutanvendelseType extends AbstractEnumType
     self::KEDLER_UDSKIFTNING  => 'Kedler - udskiftning',
     self::KEDLER_SERVICEEFTERSYN  => 'Kedler - serviceeftersyn',
   ];
+
+  public static $detaultValues = [
+    'AppBundle\Entity\PumpeTiltag' => self::PUMPER,
+    'AppBundle\Entity\BelysningTiltag' =>  self::BELYSNING,
+    'AppBundle\Entity\KlimaskaermTiltag' => self::KLIMASKAERM,
+    'AppBundle\Entity\NyKlimaskaermTiltag' => self::KLIMASKAERM,
+    'AppBundle\Entity\VindueTiltag' => self::VINDUER,
+  ];
 }

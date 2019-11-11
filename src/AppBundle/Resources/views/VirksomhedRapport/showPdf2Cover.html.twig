@@ -1,7 +1,8 @@
-{% extends 'AppBundle::pdf.html.twig' %}
+{% extends review == false ? 'AppBundle::pdf.html.twig' : 'AppBundle:_includes:rapport_review_container.html.twig' %}
 
 {% block body -%}
-
+  <!-- VirksomhedRapport/showPd2Cover.html.twig -->
+<div class="portrait">
   <br>
   <br>
   <br>
@@ -9,11 +10,11 @@
   <br>
   <br>
 
-  <h1 class="pdf-enlarged">
-    {% if rapport.virksomhed.name %}
+  {% if rapport.virksomhed.name %}
+    <h1 class="pdf-enlarged">
       {{ rapport.virksomhed.name }}
-    {% endif %}
-  </h1>
+    </h1>
+  {% endif %}
 
   {% if typenavn %}
     <h2>{{ typenavn }}</h2>
@@ -52,13 +53,27 @@
   <br>
   <br>
   <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
-  {% if not rapport.bygning.virksomhed.navn %}
+  {% if not rapport.bygning.virksomhed.name %}
     <br><br><br><br><br>
   {% endif %}
 
   <div class="text-right">
     <img src="{{ absolute_url(asset('img/seas-nve-logo-pdf.png')) }}" height="60">
   </div>
-
+</div>
 {% endblock %}

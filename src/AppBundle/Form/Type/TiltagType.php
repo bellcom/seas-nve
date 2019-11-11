@@ -8,6 +8,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\AppBundle;
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\Entity\NyKlimaskaermTiltag;
 use AppBundle\Form\Type\RisikovurderingType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
@@ -20,7 +21,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Validator\Constraints\False;
 use AppBundle\DBAL\Types\SlutanvendelseType;
 
 /**
@@ -90,9 +90,17 @@ class TiltagType extends AbstractType {
             ->add('faktorForReinvesteringer')
             ->add('opstartsomkostninger');
 
+    $attr = array();
+    if ($this->tiltag instanceof SpecialTiltag) {
+      $attr = array(
+        'help_text' => 'Besparelse varme GAF + Besparelse varme GUF',
+        'disabled' => 'disabled',
+      );
+    }
+
     $builder
       ->add('forbrugFoer')
-      ->add('forbrugEfter')
+      ->add('forbrugEfter', 'text', array('attr' => $attr))
       ->add('prioriteringsfaktor', 'choice', array(
         'choices' => array(
           '0.5' => '0,5',
@@ -157,7 +165,8 @@ class TiltagType extends AbstractType {
 //        'choices_as_values' => TRUE,
         'empty_value' => '--',
         'required' => TRUE,
-      ));
+        'attr' => isset(SlutanvendelseType::$detaultValues[get_class($this->tiltag)]) ? array('disabled' => 'disabled'): array()
+    ));
 
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder
@@ -178,7 +187,7 @@ class TiltagType extends AbstractType {
       $builder
         ->add('levetid');
     }
-    elseif ($this->tiltag instanceof KlimaskaermTiltag) {
+    elseif ($this->tiltag instanceof KlimaskaermTiltag || $this->tiltag instanceof NyKlimaskaermTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse');
     }

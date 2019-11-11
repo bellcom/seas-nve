@@ -208,6 +208,14 @@ class Rapport {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="samletTilskud", type="float", nullable=true)
+   */
+  protected $samletTilskud;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="fravalgtBesparelseEl", type="float", nullable=true)
    */
   protected $fravalgtBesparelseEl;
@@ -811,6 +819,28 @@ class Rapport {
   public function getSamletEnergibesparelseKr()
   {
     return $this->samletEnergibesparelseKr;
+  }
+
+  /**
+   * Set samletTilskud
+   *
+   * @param float $samletTilskud
+   * @return Rapport
+   */
+  public function setSamletTilskud($samletTilskud)
+  {
+    $this->samletTilskud = $samletTilskud;
+    return $this;
+  }
+
+  /**
+   * Get SamletTilskud
+   *
+   * @return float
+   */
+  public function getSamletTilskud()
+  {
+    return $this->samletTilskud;
   }
 
   /**
@@ -1635,14 +1665,8 @@ class Rapport {
       return $kalkulationrente;
     }
 
-    if (!empty($virksomhed->getKalkulationsrente())) {
-      $kalkulationrente = $virksomhed->getKalkulationsrente();
-    }
-
-    // Inherit Kalkulationsrente from parentVirksomhed.
-    $parentVirksomhed = $virksomhed->getParent();
-    if (!empty($parentVirksomhed) && !empty($parentVirksomhed->getKalkulationsrente())) {
-      $kalkulationrente = $parentVirksomhed->getKalkulationsrente();
+    if (!empty($virksomhed->getKalkulationsrente(TRUE))) {
+      $kalkulationrente = $virksomhed->getKalkulationsrente(TRUE);
     }
 
     return $kalkulationrente;
@@ -1697,14 +1721,8 @@ class Rapport {
         return $inflation;
     }
 
-    if (!empty($virksomhed->getInflation())) {
-        $inflation = $virksomhed->getInflation();
-    }
-
-    // Inherit Inflation from parentVirksomhed.
-    $parentVirksomhed = $virksomhed->getParent();
-    if (!empty($parentVirksomhed) && !empty($parentVirksomhed->getInflation())) {
-        $inflation = $parentVirksomhed->getInflation();
+    if (!empty($virksomhed->getInflation(TRUE))) {
+        $inflation = $virksomhed->getInflation(TRUE);
     }
 
     return $inflation;
@@ -1725,15 +1743,10 @@ class Rapport {
       return $lobetid;
     }
 
-    if (!empty($virksomhed->getLobetid())) {
-      $lobetid = $virksomhed->getLobetid();
+    if (!empty($virksomhed->getLobetid(TRUE))) {
+      $lobetid = $virksomhed->getLobetid(TRUE);
     }
 
-    // Inherit Lobetid from parentVirksomhed.
-    $parentVirksomhed = $virksomhed->getParent();
-    if (!empty($parentVirksomhed) && !empty($parentVirksomhed->getLobetid())) {
-      $lobetid = $parentVirksomhed->getLobetid();
-    }
     return $lobetid;
   }
 
@@ -2034,7 +2047,7 @@ class Rapport {
    * Calculates SamletEnergiBesparelseTilfaeld.
    */
   public function calculateSamletEnergiBesparelseTilfaeld() {
-    return $this->getVirksomhedTilskudstorellse() * $this->getSamletEnergibesparelseKr() ;
+    return $this->getVirksomhedTilskudstorellse() * $this->getSamletEnergibesparelse() ;
   }
 
   /**
@@ -2090,6 +2103,7 @@ class Rapport {
       ->getRepository('AppBundle:Configuration');
     $this->setConfiguration($repository->getConfiguration());
     $this->initFormulableCalculation();
+    $this->tranlsationSuffix = 'appbundle.rapport.';
   }
 
   /**
@@ -2112,6 +2126,7 @@ class Rapport {
       ->setPrisgrundlag(PrisgrundlagType::EL);
     $forsyningEl->addInternProduktion($internProduktionEl);
     $forsyningEl->calculate();
+    $this->addEnergiforsyning($forsyningEl);
 
     // Init with preset energiforsyning Varme
     $forsyningVarme = new Energiforsyning();
@@ -2126,9 +2141,83 @@ class Rapport {
       ->setPrisgrundlag(PrisgrundlagType::VARME);
     $forsyningVarme->addInternProduktion($internProduktionVarme);
     $forsyningVarme->calculate();
-
-    $this->addEnergiforsyning($forsyningEl);
     $this->addEnergiforsyning($forsyningVarme);
+
+    // Init with preset energiforsyning Oliefyr
+    $forsyningOliefyr = new Energiforsyning();
+    $forsyningOliefyr
+      ->setNavn(NavnType::OLIEFYR)
+      ->setBeskrivelse("Oliefyr");
+    $internProduktionOliefyr = new InternProduktion();
+    $internProduktionOliefyr
+      ->setNavn("Oliefyr")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::VARME);
+    $forsyningOliefyr->addInternProduktion($internProduktionOliefyr);
+    $forsyningOliefyr->calculate();
+    $this->addEnergiforsyning($forsyningOliefyr);
+
+    // Init with preset energiforsyning Træpillefyr
+    $forsyningTraepillefyr = new Energiforsyning();
+    $forsyningTraepillefyr
+      ->setNavn(NavnType::TRAEPILLEFYR)
+      ->setBeskrivelse("Træpillefyr");
+    $internProduktionTraepillefyr= new InternProduktion();
+    $internProduktionTraepillefyr
+      ->setNavn("Træpillefyr")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::VARME);
+    $forsyningTraepillefyr->addInternProduktion($internProduktionTraepillefyr);
+    $forsyningTraepillefyr->calculate();
+    $this->addEnergiforsyning($forsyningTraepillefyr);
+
+    // Init with preset energiforsyning Varmepumpe
+    $forsyningVarmepumpe = new Energiforsyning();
+    $forsyningVarmepumpe
+      ->setNavn(NavnType::VARMEPUMPE)
+      ->setBeskrivelse("Varmepumpe");
+    $internProduktionVarmepumpe = new InternProduktion();
+    $internProduktionVarmepumpe
+      ->setNavn("Varmepumpe El")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::EL);
+    $forsyningVarmepumpe->addInternProduktion($internProduktionVarmepumpe);
+    $forsyningVarmepumpe->calculate();
+    $this->addEnergiforsyning($forsyningVarmepumpe);
+
+    // Init with preset energiforsyning Gas
+    $forsyningGas = new Energiforsyning();
+    $forsyningGas
+      ->setNavn(NavnType::GAS)
+      ->setBeskrivelse("Gas");
+    $internProduktionGas = new InternProduktion();
+    $internProduktionGas
+      ->setNavn("Gas")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::VARME);
+    $forsyningGas->addInternProduktion($internProduktionGas);
+    $forsyningGas->calculate();
+    $this->addEnergiforsyning($forsyningGas);
+
+    // Init with preset energiforsyning Flis
+    $forsyningFlis = new Energiforsyning();
+    $forsyningFlis
+      ->setNavn(NavnType::FLIS)
+      ->setBeskrivelse("Flis");
+    $internProduktionFlis = new InternProduktion();
+    $internProduktionFlis
+      ->setNavn("Flis")
+      ->setFordeling(1.0)
+      ->setEffektivitet(1.0)
+      ->setPrisgrundlag(PrisgrundlagType::VARME);
+    $forsyningFlis->addInternProduktion($internProduktionFlis);
+    $forsyningFlis->calculate();
+    $this->addEnergiforsyning($forsyningFlis);
+
     $event->getEntityManager()->flush();
   }
 
@@ -2215,6 +2304,7 @@ class Rapport {
 
     $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
     $this->samletEnergibesparelseKr = $this->calculateSamletEnergiBesparelseKr();
+    $this->samletTilskud = $this->calculateSamletTilskud();
   }
 
   private function calculateCashFlow15() {
@@ -2751,7 +2841,7 @@ class Rapport {
   /**
    * Calculates expression for nutidsvaerdiSetOver15AarKr value
    */
-  protected function calculateNutidsvaerdiSetOver15AarKrExpr() {
+  protected function calculateNutidsvaerdiSetOver15AarKrExp() {
     return $this->sumExpr($this->calculateNutidsvaerdiSetOver15AarKr(TRUE));
   }
 
@@ -2759,7 +2849,7 @@ class Rapport {
    * Calculate using sum of cash flows from Tiltag with "Øvrige omkostninger"
    * added in year 1.
    *
-   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
+   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExp()")
    */
   protected function calculateNutidsvaerdiSetOver15AarKr($array = FALSE) {
     $numberOfYears = 15;
@@ -2910,6 +3000,25 @@ class Rapport {
 
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
       $result[] = $tiltag->getSamletEnergibesparelse();
+    }
+
+    return $expression ? $this->sumExpr($result) : array_sum($result);
+  }
+
+  /**
+   * Calculates expression for SamletEnergiBesparelse value
+   */
+  protected function calculateSamletTilskudExp() {
+    return $this->calculateSamletTilskud(TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateSamletTilskudExp()")
+   */
+  protected function calculateSamletTilskud($expression = FALSE) {
+    $result = array();
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      $result[] = $tiltag->getSamletTilskud(FALSE);
     }
 
     return $expression ? $this->sumExpr($result) : array_sum($result);

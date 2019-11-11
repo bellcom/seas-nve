@@ -1,4 +1,4 @@
-{% extends 'AppBundle::pdf.html.twig' %}
+{% extends review == false ? 'AppBundle::pdf.html.twig' : 'AppBundle:_includes:rapport_review_container.html.twig' %}
 
 {% block body -%}
 
@@ -47,26 +47,27 @@
           <table class="table table-condensed results">
             <tbody>
             <tr>
-              <th>Energiart</th>
-              <th>kWh/år</th>
-              <th>%</th>
+              <th><strong>Energiart</strong></th>
+              <th><strong>kWh/år</strong></th>
+              <th><strong>%</strong></th>
             </tr>
             {% for row in pie_chart_data.energiFordeling %}
               <tr>
                 <th>{{ row.label }}</th>
                 <td>{{ row.value | format_decimal(0) }}</td>
-                <td>{{ row.value | format_percent_of(rapport.calculateSamletEnergiForbrug, 0) }} </td>
+                <td>{{ row.value | format_percent_of(rapport.getSummarized('samletEnergiForbrug'), 0) }} </td>
               </tr>
             {% endfor %}
             <tr>
               <th>Sum energi</th>
-              <td>{{ rapport.calculateSamletEnergiForbrug }}</td>
+              <td>{{ rapport.getSummarized('samletEnergiForbrug') }}</td>
               <td>100%</td>
             </tr>
             </tbody>
           </table>
         </div>
 
+        <br>
         <h3 class="text-center">{{ rapport.virksomhed.name }}</h3>
         {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: pie_chart_data.energiFordeling }) }}
 
@@ -93,7 +94,7 @@
       <div class="col-xs-12">
         <h2>Underskrifter</h2>
         <p>Før energisynsrapporten indsendes til Energistyrelsen, skal den underskrives af virksomhedens ejer og energisynskonsulenten.</p>
-        <table class="table table-bordered" style="text-align:center; width:100%;">
+        <table class="table table-bordered table-normal-font-size" style="text-align:center; width:100%;">
           <tbody>
           <tr>
             <td>For <strong>{{ rapport.virksomhed.name }}</strong><br/>
@@ -118,13 +119,14 @@
     <div class="row page-break-before">
       <div class="col-xs-12">
         <h2>Virksomhedsdata</h2>
+        <hr class="dark">
         <p>{{ include ('AppBundle:Virksomhed:show-embed.html.twig', {entity: rapport.virksomhed}) }}</p>
 
         <br>
         <h3>Datterselskaber</h3>
         <hr class="dark">
         <div class="row">
-          {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+          {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
             <div class="col-xs-4">{{ include ('AppBundle:Virksomhed:show-embed.html.twig', {entity: datterSelskab}) }}</div>
           {% endfor %}
         </div>
@@ -148,8 +150,8 @@
 
     <div class="row page-break-before">
       <div class="col-xs-12">
-        <h2>Energiportefølge</h2>
-        <p>Energi portefølje omfatter forbrug af el og varme til bygninger og brændstof til biler og maskiner.</p>
+        <h2>Energiportefølje</h2>
+        <p>Energiportefølje omfatter forbrug af el og varme til bygninger og brændstof til biler og maskiner.</p>
         <p>I det følgende er de enkelte afsnit opdelt i elforbrug, varmeforbrug og i brændstofforbrug.</p>
 
         <div class="panel panel-default">
@@ -162,8 +164,8 @@
           <table class="table table-condensed">
             <tbody>
             <tr>
-              <th>Afdeling</th>
-              <th>Overordnet forbrug, kWh/år</th>
+              <th><strong>Afdeling</strong></th>
+              <th><strong>Overordnet forbrug, kWh/år</strong></th>
             </tr>
             {% for row in pie_chart_data.overordnetForrug %}
               <tr>
@@ -194,17 +196,17 @@
             <table class="table table-condensed">
               <tbody>
               <tr>
-                <th>Afdeling</th>
-                <th>El, kWh/år</th>
-                <th>Erhvervsareal m2</th>
-                <th>KPI</th>
+                <th><strong>Afdeling</strong></th>
+                <th><strong>El, kWh/år</strong></th>
+                <th><strong>Erhvervsareal m2</strong></th>
+                <th><strong>KPI, kWh/år*m2</strong></th>
               </tr>
               {% for row in pie_chart_data.elForrug %}
                 <tr>
                   <th>{{ row.label }}</th>
-                  <td>{{ row.value }}</td>
-                  <td>{{ row.erhvervsareal }}</td>
-                  <td>[x]</td>
+                  <td>{{ row.value | format_decimal }}</td>
+                  <td>{{ row.erhvervsareal | format_decimal }}</td>
+                  <td>{{ row.kpi | format_decimal }}</td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -234,17 +236,17 @@
             <table class="table table-condensed">
               <tbody>
               <tr>
-                <th>Afdeling</th>
-                <th>Varme, kWh/år</th>
-                <th>Opvarmetareal m2</th>
-                <th>KPI</th>
+                <th><strong>Afdeling</strong></th>
+                <th><strong>Varme, kWh/år</strong></th>
+                <th><strong>Opvarmetareal m2</strong></th>
+                <th><strong>KPI, kWh/år*m2</strong></th>
               </tr>
               {% for row in pie_chart_data.varmeForrug %}
                 <tr>
                   <th>{{ row.label }}</th>
-                  <td>{{ row.value }}</td>
-                  <td>{{ row.opvarmetareal }}</td>
-                  <td>[x]</td>
+                  <td>{{ row.value | format_decimal }}</td>
+                  <td>{{ row.opvarmetareal | format_decimal }}</td>
+                  <td>{{ row.kpi | format_decimal }}</td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -269,17 +271,17 @@
 
             <table class="table table-condensed results">
               <tr>
-                <th>Afdeling</th>
-                <th>Brændstof, kWh/år</th>
-                <th>Erhvervsareal m2</th>
-                <th>KPI</th>
+                <th><strong>Afdeling</strong></th>
+                <th><strong>Brændstof, kWh/år</strong></th>
+                <th><strong>Erhvervsareal m2</strong></th>
+                <th><strong>KPI, kWh/år*m2</strong></th>
               </tr>
               {% for row in pie_chart_data.braendstofForbrug %}
                 <tr>
                   <th>{{ row.label }}</th>
-                  <td>{{ row.value }}</td>
-                  <td>{{ row.erhvervsareal }}</td>
-                  <td>[x]</td>
+                  <td>{{ row.value | format_decimal }}</td>
+                  <td>{{ row.erhvervsareal | format_decimal }}</td>
+                  <td>{{ row.kpi | format_decimal }}</td>
                 </tr>
               {% endfor %}
             </table>
@@ -332,21 +334,21 @@
             <table class="table table-condensed results">
               <tbody>
               <tr>
-                <th>Energiart</th>
-                <th>kWh/år</th>
-                <th>%</th>
+                <th><strong>Energiart</strong></th>
+                <th><strong>kWh/år</strong></th>
+                <th><strong>%</strong></th>
               </tr>
               {% for row in pie_chart_data.energiFordeling %}
                 <tr>
                   <th>{{ row.label }}</th>
                   <td>{{ row.value | format_decimal(0) }}</td>
-                  <td>{{ row.value | format_percent_of(rapport.calculateSamletEnergiForbrug, 0) }} </td>
+                  <td>{{ row.value | format_percent_of(rapport.getSummarized('samletEnergiForbrug'), 0) }} </td>
                 </tr>
               {% endfor %}
               <tr>
                 <th>Sum energi</th>
-                <td>{{ rapport.calculateSamletEnergiForbrug }}</td>
-                <td>100</td>
+                <td>{{ rapport.getSummarized('samletEnergiForbrug') }}</td>
+                <td>100%</td>
               </tr>
               </tbody>
             </table>
@@ -375,8 +377,8 @@
 
             <table class="table table-condensed results">
               <tr>
-                <td>Slutanvendelse</td>
-                <td>kWh/år</td>
+                <td><strong>Slutanvendelse</strong></td>
+                <td><strong>kWh/år</strong></td>
               </tr>
               {% for row in elForbrugSluanvendelse.data %}
                 <tr>
@@ -398,31 +400,31 @@
 
           <table class="table table-condensed">
             <tr>
-              <th>Afdeling</th>
-              <th>{{ rapport.virksomhed }}</th>
-              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-                <th>{{ datterSelskab }}</th>
+              <th><strong>Afdeling</strong></th>
+              <th><strong>{{ rapport.virksomhed }}</strong></th>
+              {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
+                <th><strong>{{ datterSelskab }}</strong></th>
               {% endfor %}
             </tr>
             <tr>
               <td>El</td>
-              <td>{{ rapport.virksomhed.kortlaegning.totalForbrug }}</td>
-              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-                <td>{{ datterSelskab.kortlaegning.totalForbrug }}</td>
+              <td>{{ rapport.virksomhed.kortlaegning.totalForbrug | format_decimal }}</td>
+              {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
+                <td>{{ datterSelskab.kortlaegning.totalForbrug | format_decimal }}</td>
               {% endfor %}
             </tr>
             <tr>
               <td>Erhvervsareal</td>
-              <td>{{ rapport.erhvervsareal }}</td>
-              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-                <td>{{ datterSelskab.rapport.erhvervsareal }}</td>
+              <td>{{ rapport.erhvervsareal | format_decimal}}</td>
+              {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
+                <td>{{ datterSelskab.rapport.erhvervsareal | format_decimal }}</td>
               {% endfor %}
             </tr>
             <tr>
               <td>KPI</td>
-              <td>[x]</td>
-              {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
-                <td>[x]</td>
+              <td>{% if rapport.erhvervsareal %}{{ (rapport.virksomhed.kortlaegning.totalForbrug / rapport.erhvervsareal) | format_decimal }}{% else %}–{% endif %}</td>
+              {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
+                <td>{% if datterSelskab.rapport.erhvervsareal %}{{ (datterSelskab.kortlaegning.totalForbrug / datterSelskab.rapport.erhvervsareal) | format_decimal }}{% else %}–{% endif %}</td>
               {% endfor %}
             </tr>
           </table>
@@ -454,7 +456,7 @@
         <div>
           {{ include ('AppBundle:Virksomhed:show-embed-overview.html.twig', {entity: rapport.virksomhed}) }}
         </div>
-        {% for datterSelskab in rapport.virksomhed.datterSelskaber %}
+        {% for datterSelskab in rapport.virksomhed.getDatterSelskaber(TRUE) %}
           <div>
             {{ include ('AppBundle:Virksomhed:show-embed-overview.html.twig', {entity: datterSelskab}) }}
           </div>
@@ -464,7 +466,7 @@
 
     <div class="row page-break-before">
       <div class="col-xs-12">
-        <h2>Bilag 2: Screening af energibesparelser på el, varme og brændstof</h2>
+        <h2>Bilag 2<br>Screening af energibesparelser på el, varme og brændstof</h2>
         <p>Screening af energibesparelser fremgår af bilag 1 som del 2 til energisynsrapporten.</p>
       </div>
     </div>

@@ -1,0 +1,20 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block body -%}
+<div class="row heading">
+  <div class="col-md-9">
+    <h1>Bygning rapporter beregning oversigt</h1>
+  </div>
+  <div class="col-md-12">
+    <table class="table table-condensed table-fixed">
+      <tbody>
+    {% for key, formula in formulas %}
+      <tr>
+        <td>{{ ('appbundle.rapport.' ~ key) | trans }}</td>
+        <td>{{ formula }}</td>
+      </tr>
+    {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

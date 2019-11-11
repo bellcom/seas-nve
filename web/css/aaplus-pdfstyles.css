@@ -7,10 +7,12 @@ body {
 
 div.portrait {
   width: 1000px;
+  margin: 0 auto;
 }
 
 div.landscape {
   width: 1400px;
+  margin: 0 auto;
 }
 
 h1 {
@@ -21,6 +23,9 @@ h1 {
 h1.pdf-enlarged {
   font-size: 4em;
 }
+h1.pdf-enlarged + h1 {
+  margin-top: 0;
+}
 
 h2 {
   font-size: 2em;
@@ -28,21 +33,31 @@ h2 {
 }
 
 h3 {
+  margin-top: 25px;
+  margin-bottom: 5px;
+
   font-size: 1.5em;
   font-weight: bold;
 }
 
 h4 {
+  margin-top: 25px;
+  margin-bottom: 5px;
+
   font-size: 1.35em;
   font-weight: bold;
 }
 
 h5 {
+  margin-bottom: 5px;
+
   font-size: 1.2em;
   font-weight: bold;
 }
 
 h6 {
+  margin-bottom: 5px;
+
   font-size: 1em;
   font-weight: bold;
 }
@@ -72,6 +87,9 @@ hr.pdf-heading {
 }
 
 hr.dark {
+  margin-top: 10px;
+  margin-bottom: 10px;
+
   background-color: #4A4D45;
   height: 1px;
   border: 0;
@@ -117,7 +135,7 @@ thead {
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   border-top: 1pt solid #E5E5E1;
-  font-size: 8pt;
+  font-size: 10pt;
 }
 
 .table > thead > tr > th {
@@ -153,29 +171,29 @@ thead {
 }
 
 .table-header-rotated > thead > tr > th, .table-header-rotated > tbody > tr > th, .table-header-rotated > tfoot > tr > th {
-  font-size: 8pt;
+  font-size: 10pt;
 }
 
 .table-header-rotated > thead > tr > td, .table-header-rotated > tbody > tr > td, .table-header-rotated > tfoot > tr > td {
-  font-size: 6pt;
+  font-size: 10pt;
 }
 
 .table-header-rotated th.rotate > div {
-  transform: translate(-15px, 15px) rotate(-45deg);
-  -webkit-transform: translate(-15px, 15px) rotate(-45deg);
+  transform: translate(-15px, 15px) rotate(-50deg);
+  -webkit-transform: translate(-15px, 15px) rotate(-50deg);
   position: relative;
   -webkit-transform-origin: 0% 0%;
   transform-origin: 0% 0%;
   left: 50%;
   top: 0;
   margin-right: -999px;
-  width: 200px;
+  width: 260px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .table > thead > tr > th.unit {
-  font-size: 6pt
+  font-size: 9pt
 }
 
 .table-header-rotated td:nth-child(even),
@@ -225,6 +243,10 @@ th.border-right:last-child, td.border-right:last-child {
   border-right: 0;
 }
 
+.table-normal-font-size > thead > tr > td, .table-normal-font-size > tbody > tr > td, .table-normal-font-size > tfoot > tr > td {
+  font-size: inherit;
+}
+
 /** Panels **/
 .panel {
   border: 1pt solid #E5E5E1;
@@ -241,6 +263,7 @@ tr.highlight {
 }
 
 .panel-heading {
+  padding: 10px 5px;
   border-bottom: 1pt solid #E5E5E1;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -260,7 +283,7 @@ tr.highlight {
 }
 
 p {
-  margin: 0 0 20px;
+  margin: 0 0 12px;
 }
 
 a {
@@ -288,4 +311,8 @@ a {
   height: 14pt;
 
   margin-right: 5pt;
+}
+
+.pie-chart {
+  margin-top: 7px;
 }

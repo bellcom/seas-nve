@@ -29,6 +29,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *    "special" = "SpecialTiltagDetail",
  *    "belysning" = "BelysningTiltagDetail",
  *    "klimaskærm" = "KlimaskaermTiltagDetail",
+ *    "nyklimaskærm" = "NyKlimaskaermTiltagDetail",
  *    "vindue" = "VindueTiltagDetail",
  *    "tekniskisolering" = "TekniskIsoleringTiltagDetail",
  *    "solcelle" = "SolcelleTiltagDetail",
@@ -39,6 +40,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *    "special": "AppBundle\Entity\SpecialTiltagDetail",
  *    "belysning" = "AppBundle\Entity\BelysningTiltagDetail",
  *    "klimaskærm" = "AppBundle\Entity\KlimaskaermTiltagDetail",
+ *    "nyklimaskærm" = "AppBundle\Entity\NyKlimaskaermTiltagDetail",
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltagDetail",
  *    "solcelle" = "AppBundle\Entity\SolcelleTiltagDetail",
  * })

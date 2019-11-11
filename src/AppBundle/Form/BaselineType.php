@@ -38,7 +38,7 @@ class BaselineType extends AbstractType
             ->add('elForbrugsdataSekundaer3Aarstal')
             ->add('elForbrugsdataSekundaer3Forbrug')
             ->add('elForbrugsdataSekundaerNoter',  'textarea', array('attr' => array('maxlength' => 750), 'required' => FALSE))
-            ->add('elBaselineFastsatForEjendom')
+            ->add('elBaselineFastsatForEjendom', 'text', array('required' => TRUE))
             ->add('elBaselineNoter',  'textarea', array('attr' => array('maxlength' => 750), 'required' => FALSE))
             ->add('varmeForbrugsdataPrimaerKilde')
             ->add('varmeForbrugsdataPrimaer1Aarstal')
@@ -70,14 +70,14 @@ class BaselineType extends AbstractType
             ->add('varmeForbrugsdataSekundaer2GDPeriode')
             ->add('varmeForbrugsdataSekundaer3GDPeriode')
             ->add('varmeForbrugsdataSekundaerNoter', 'textarea', array('attr' => array('maxlength' => 750), 'required' => FALSE))
-            ->add('varmeGAFForbrug')
-            ->add('varmeGUFForbrug')
+            ->add('varmeGAFForbrug', 'text', array('required' => TRUE))
+            ->add('varmeGUFForbrug', 'text', array('required' => TRUE))
             ->add('varmeStrafafkoelingsafgift')
             ->add('varmeBaselineNoter',  'textarea', array('attr' => array('maxlength' => 750), 'required' => FALSE))
             ->add('virksomhed', null, array('disabled' => 'disabled', 'required' => false))
             ->add('eloKategori')
             ->add('save_changed', 'submit', array('disabled' => 'disabled', 'label' => 'appbundle.baseline.changed_submit', 'attr' => array('icon' => 'calculator')))
-            ->add('braendstofForbrug')
+            ->add('braendstofForbrug', 'text', array('required' => TRUE))
         ;
     }
 

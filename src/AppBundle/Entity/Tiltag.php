@@ -37,6 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    "special" = "SpecialTiltag",
  *    "belysning" = "BelysningTiltag",
  *    "klimaskærm" = "KlimaskaermTiltag",
+ *    "nyklimaskærm" = "NyKlimaskaermTiltag",
  *    "vindue" = "VindueTiltag",
  *    "tekniskisolering" = "TekniskIsoleringTiltag",
  *    "solcelle" = "SolcelleTiltag",
@@ -47,6 +48,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    "special": "AppBundle\Entity\SpecialTiltag",
  *    "belysning": "AppBundle\Entity\BelysningTiltag",
  *    "klimaskærm" = "AppBundle\Entity\KlimaskaermTiltag",
+ *    "nyklimaskærm" = "AppBundle\Entity\NyKlimaskaermTiltag",
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltag",
  *    "solcelle" = "AppBundle\Entity\SolcelleTiltag",
  * })
@@ -169,6 +171,7 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF + $this->elbesparelse) * $this->getPrioriteringsfaktor() * $this->getTilskudsstoerrelse()")
    * @ORM\Column(name="samletTilskud", type="float", nullable=true)
    */
   protected $samletTilskud;
@@ -194,7 +197,7 @@ abstract class Tiltag {
    *
    * @ORM\Column(name="faktorForReinvesteringer", type="integer", nullable=true)
    */
-  protected $faktorForReinvesteringer;
+  protected $faktorForReinvesteringer = 1;
 
   /**
    * @var float
@@ -222,14 +225,14 @@ abstract class Tiltag {
    *
    * @ORM\Column(name="forbrugFoer", type="integer", nullable=true)
    */
-  protected $forbrugFoer;
+  protected $forbrugFoer = 0;
 
   /**
    * @var float
    *
    * @ORM\Column(name="forbrugEfter", type="integer", nullable=true)
    */
-  protected $forbrugEfter;
+  protected $forbrugEfter = 0;
 
   /**
    * Enterprisesum
@@ -259,14 +262,14 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="anlaegsinvesteringExRisiko", type="float", nullable=true)
    */
-  protected $anlaegsinvesteringExRisiko;
+  protected $anlaegsinvesteringExRisiko = 0;
 
   /**
    * @var float
    *
    * @ORM\Column(name="opstartsomkostninger", type="decimal", nullable=true)
    */
-  protected $opstartsomkostninger;
+  protected $opstartsomkostninger = 0;
 
   /**
    * @var float
@@ -274,7 +277,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="reelAnlaegsinvestering", type="float", nullable=true)
    */
-  protected $reelAnlaegsinvestering;
+  protected $reelAnlaegsinvestering = 0;
 
   /**
    * @var float
@@ -282,7 +285,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="besparelseDriftOgVedligeholdelse", type="float", nullable=true)
    */
-  protected $besparelseDriftOgVedligeholdelse;
+  protected $besparelseDriftOgVedligeholdelse = 0;
 
   /**
    * @var float
@@ -290,7 +293,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="besparelseStrafafkoelingsafgift", type="float", nullable=true)
    */
-  protected $besparelseStrafafkoelingsafgift;
+  protected $besparelseStrafafkoelingsafgift = 0;
 
   /**
    * @var float
@@ -597,21 +600,21 @@ abstract class Tiltag {
    *
    * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
    */
-  protected $genopretning;
+  protected $genopretning = 0;
 
   /**
    * @var float
    *
    * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
    */
-  protected $genopretningForImplementeringsomkostninger;
+  protected $genopretningForImplementeringsomkostninger = 0;
 
   /**
    * @var string
    *
    * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
    */
-  protected $modernisering;
+  protected $modernisering = 0;
 
   /**
    * @OneToMany(targetEntity="Bilag", mappedBy="tiltag", cascade={"remove"})
@@ -706,6 +709,9 @@ abstract class Tiltag {
    * @return \AppBundle\DBAL\Types\SlutanvendelseType
    */
   public function getSlutanvendelse() {
+    if (isset(SlutanvendelseType::$detaultValues[get_class($this)])) {
+      $this->slutanvendelse = SlutanvendelseType::$detaultValues[get_class($this)];
+    }
     return $this->slutanvendelse;
   }
 
@@ -1468,8 +1474,12 @@ abstract class Tiltag {
    *
    * @return float
    */
-  public function getSamletTilskud() {
-    return $this->samletTilskud;
+  public function getSamletTilskud($skip_tbt_check = TRUE) {
+    if ($skip_tbt_check) {
+      return $this->samletTilskud;
+    }
+    // Do not give tilskud if TBT < 1.
+    return $this->getSimpelTilbagebetalingstidAar() < 1 ? 0 : $this->samletTilskud;
   }
 
   /**
@@ -1733,7 +1743,7 @@ abstract class Tiltag {
    * Set dato for drift
    *
    * @param \DateTime $datoForDrift
-   * @return Rapport
+   * @return Tiltag
    */
   public function setDatoForDrift($datoForDrift) {
     $this->datoForDrift = $datoForDrift;
@@ -1809,6 +1819,7 @@ abstract class Tiltag {
     // Calculating values by formulas from annotation.
     $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
     $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
+    $this->samletTilskud = $this->calculateByFormula('samletTilskud');
 
     // This may be computed, may be an input
     if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
@@ -2020,10 +2031,10 @@ abstract class Tiltag {
   }
 
   /**
-   * @Formula("$this->aaplusInvestering / ($this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift)")
+   * @Formula("($this->aaplusInvestering - $this->samletTilskud) / ($this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift)")
    */
   protected function calculateSimpelTilbagebetalingstidAar() {
-    return $this->divide($this->aaplusInvestering,
+    return $this->divide(($this->aaplusInvestering - $this->samletTilskud),
       $this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift);
   }
 
@@ -2070,12 +2081,8 @@ abstract class Tiltag {
     return NULL;
   }
 
-  /**
-   * @Formula("$this->tilskudsstoerrelse * ((($this->getKonverteringsfaktorFoer() * $this->getForbrugFoer()) - ($this->getKonverteringsfaktorEfter() * $this->getForbrugEfter())) * $this->getPrioriteringsfaktor())")
-   */
   protected function calculateTilskudsstoerrelse() {
-    // tilskudsstørrelse * (((getKonverteringsfaktorFoer * forbrugFoer) - (getKonverteringsfaktorEfter * forbrugEfter)) * prioteringsFaktor);
-    return $this->tilskudsstoerrelse * ((($this->getKonverteringsfaktorFoer() * $this->getForbrugFoer()) - ($this->getKonverteringsfaktorEfter() * $this->getForbrugEfter())) * $this->getPrioriteringsfaktor());
+    return $this->getTilskudsstoerrelse();
   }
 
   protected function calculateEnhed() {
@@ -2142,6 +2149,9 @@ abstract class Tiltag {
   public function __construct() {
     $this->details = new \Doctrine\Common\Collections\ArrayCollection();
     $this->bilag = new \Doctrine\Common\Collections\ArrayCollection();
+    if (isset(SlutanvendelseType::$detaultValues[get_class($this)])) {
+      $this->slutanvendelse = SlutanvendelseType::$detaultValues[get_class($this)];
+    }
   }
 
   /**
@@ -2340,21 +2350,15 @@ abstract class Tiltag {
    * @return float
    */
   public function getTilskudsstoerrelse() {
-    if ($this->tilskudsstoerrelse) {
+    if (!empty($this->tilskudsstoerrelse) || $this->tilskudsstoerrelse == '0') {
       return $this->tilskudsstoerrelse;
     }
 
     $virksomhed = $this->getRapport()->getBygning()->getVirksomhed();
 
     if ($virksomhed) {
-      if ($virksomhed->getTilskudstorelse()) {
-        return $virksomhed->getTilskudstorelse();
-      }
-
-      // Check if parent has it.
-      $parent = $virksomhed->getParent();
-      if ($parent && $parent->getTilskudstorelse()) {
-        return $parent->getTilskudstorelse();
+      if ($virksomhed->getTilskudstorelse(TRUE)) {
+        return $virksomhed->getTilskudstorelse(TRUE);
       }
     }
 
@@ -2375,6 +2379,7 @@ abstract class Tiltag {
    */
   public function postLoad() {
     $this->initFormulableCalculation();
+    $this->tranlsationSuffix = 'appbundle.tiltag.';
   }
 
 }

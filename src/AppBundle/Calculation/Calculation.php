@@ -191,7 +191,7 @@ abstract class Calculation {
     foreach ($values as $year => $value) {
       $npv_result[] = $value / pow(1 + $rate, $year);
     }
-    
+
     if ($array) {
       foreach ($npv_result as &$value) {
         $value = round($value, 2);

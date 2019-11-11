@@ -1,12 +1,14 @@
+{% set idRandomized = 'finansiering-likviditetsoverblik-' ~ random() %}
+
 <div class="finansiering-likviditetsoverblik">
   <header>
-    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#finansiering-likviditetsoverblik">
+    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#{{ idRandomized }}">
       {{ icon('table') }}
       {{ 'Likviditetsoverblik' | trans }}
     </button>
   </header>
 
-  <div class="collapse" id="finansiering-likviditetsoverblik">
+  <div class="collapse" id="{{ idRandomized }}">
     {% set slices = [
     entity.cashFlow['cash flow'] | keys | slice(0, 15),
     entity.cashFlow['cash flow'] | keys | slice(15, 15)
