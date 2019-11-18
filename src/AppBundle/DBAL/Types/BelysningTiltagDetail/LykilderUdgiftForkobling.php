@@ -11,7 +11,7 @@ class LykilderUdgiftForkobling extends AbstractEnumType
     const HF = 'hf';
 
     protected static $choices = [
-        self::NONE => self::NONE,
+        self::NONE => '--',
         self::KONV => self::KONV,
         self::HF => self::HF,
     ];
