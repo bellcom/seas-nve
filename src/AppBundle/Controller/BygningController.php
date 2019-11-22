@@ -139,17 +139,6 @@ class BygningController extends BaseController implements InitControllerInterfac
 
     if ($form->isValid()) {
       $em->persist($entity);
-
-      // Binding bygning to already created virksomhed by cvr number.
-      if (!empty($entity->getCvrNumber()) && empty($entity->getVirksomhed())) {
-        $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array('cvrNumber' => $entity->getCvrNumber()));
-        if ($virksomheder[0] instanceof Virksomhed) {
-          $virksomheder[0]->addBygningerByCvrNumber($entity->getId());
-          $virksomheder[0]->addBygninger($entity);
-          $em->persist($virksomheder[0]);
-        }
-      }
-
       $em->flush();
 
       // Contact persons are not handled by Doctrine ORM.
@@ -371,16 +360,6 @@ class BygningController extends BaseController implements InitControllerInterfac
       foreach ($originalContactPersons as $contactPerson) {
         if (false === $bygning->getContactPersons()->contains($contactPerson)) {
           $em->remove($contactPerson);
-        }
-      }
-
-      // Binding bygning to already created virksomhed by cvr number.
-      if (!empty($bygning->getCvrNumber())) {
-        $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array('cvrNumber' => $bygning->getCvrNumber()));
-        if ($virksomheder[0] instanceof Virksomhed) {
-          $virksomheder[0]->addBygningerByCvrNumber($bygning->getId());
-          $virksomheder[0]->addBygninger($bygning);
-          $em->persist($virksomheder[0]);
         }
       }
 

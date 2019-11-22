@@ -252,7 +252,11 @@
   addMore($('.bygning_by_cvr_number'), '/bygning/cvrnumm-list');
 
   $('.cvr-search').change(function () {
-    $('#appbundle_bygning_cvrNumber').val(this.value);
+    var $cvrNumber = '';
+    if (this.value) {
+        var $cvrNumber = $(this).find('option[value=' + this.value + ']').data('cvrnumber');
+    }
+    $('#appbundle_bygning_cvrNumber').val($cvrNumber);
   });
 
   $(document).on('change', '.bygningerByCvrNumber', function () {
