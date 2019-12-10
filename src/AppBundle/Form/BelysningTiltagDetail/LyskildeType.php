@@ -20,9 +20,11 @@ class LyskildeType extends AbstractType
           ->add('navn')
           ->add('type', 'choice', array(
               'choices' => LykilderUdgiftType::getChoices(),
+              'required' => FALSE,
           ))
           ->add('forkobling', 'choice', array(
               'choices' => LykilderUdgiftForkobling::getChoices(),
+              'required' => FALSE,
           ))
           ->add('udgift')
           ->add('levetid');

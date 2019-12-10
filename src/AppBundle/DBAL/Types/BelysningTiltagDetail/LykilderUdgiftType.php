@@ -16,7 +16,7 @@ class LykilderUdgiftType extends AbstractEnumType
     const HAL = 'Hal.';
 
     protected static $choices = [
-        self::NONE => self::NONE,
+        self::NONE => '--',
         self::LER_ROER => self::LER_ROER,
         self::LED_PAERE => self::LED_PAERE,
         self::Gl => self::Gl,
