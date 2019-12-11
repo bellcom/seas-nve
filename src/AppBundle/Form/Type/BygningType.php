@@ -55,6 +55,7 @@ class BygningType extends AbstractType {
           'required' => FALSE,
           'attr' => $virksomhedAttr,
       ))
+      ->add('cvrNumber', 'hidden')
       ->add('eanNumber', null, $this->tilknutning ? array() : array('disabled' => 'disabled'))
       ->add('pNumber', null, $this->tilknutning ? array() : array('disabled' => 'disabled'))
       ->add('OpfoerselsAar')
