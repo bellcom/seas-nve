@@ -1,0 +1,12 @@
+#!/bin/bash
+
+SSH_CRED=seas-nve
+SSH_DOCROOT_PATH="/var/www/test-seas-nve.bellcom.dk"
+DB_NAME=db_temp_dump
+
+ssh $SSH_CRED "cd ${SSH_DOCROOT_PATH} && SYMFONY_ENV=prod app/console itk-dev:database:dump | gzip -9 > ~/${DB_NAME}.sql.gz"
+scp $SSH_CRED:~/$DB_NAME* ./
+
+fin exec "app/console --env=prod doctrine:schema:drop --full-database --force"
+fin exec "zcat < ${DB_NAME}.sql.gz | mysql -uroot -proot -hdb default"
+fin exec "rm ${DB_NAME}.sql.gz"

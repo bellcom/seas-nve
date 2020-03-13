@@ -20,5 +20,9 @@
 /export_files/*
 !/export_files/.gitkeep
 !/export_files/README.md
+
+/logs/*
+!/logs/.gitkeep
+
 .idea/
 .DS_Store
