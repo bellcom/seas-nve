@@ -1,0 +1,13 @@
+{% extends 'AppBundle:TiltagDetail:new.html.twig' %}
+
+{% if edit_form.batchEditIdArray is defined %}
+  {% set heading = 'ventilationtiltagdetail.actions.batch_edit' %}
+{% else %}
+  {% set heading = 'ventilationtiltagdetail.actions.add' %}
+{% endif %}
+
+{% block edit_form %}
+
+  {% include 'AppBundle:VentilationTiltagDetail:_form.html.twig' %}
+
+{% endblock %}

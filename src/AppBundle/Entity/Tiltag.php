@@ -39,6 +39,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    "klimaskærm" = "KlimaskaermTiltag",
  *    "nyklimaskærm" = "NyKlimaskaermTiltag",
  *    "vindue" = "VindueTiltag",
+ *    "ventilation" = "VentilationTiltag",
  *    "tekniskisolering" = "TekniskIsoleringTiltag",
  *    "solcelle" = "SolcelleTiltag",
  * })
@@ -49,6 +50,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    "belysning": "AppBundle\Entity\BelysningTiltag",
  *    "klimaskærm" = "AppBundle\Entity\KlimaskaermTiltag",
  *    "nyklimaskærm" = "AppBundle\Entity\NyKlimaskaermTiltag",
+ *    "ventilation" = "AppBundle\Entity\VentilationTiltag",
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltag",
  *    "solcelle" = "AppBundle\Entity\SolcelleTiltag",
  * })

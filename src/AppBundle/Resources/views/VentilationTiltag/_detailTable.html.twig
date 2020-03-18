@@ -1,0 +1,47 @@
+<table class="table table-condensed table-header-rotated table-hover">
+  <thead>
+  <tr>
+    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header('appbundle.ventilationtiltagdetail.udeluftbehov.total') }}
+    {{ helper.header('appbundle.ventilationtiltagdetail.co2PpmIRum') }}
+    {{ helper.header('appbundle.ventilationtiltagdetail.varmeForbrugKwhAarFoer') }}
+    {{ helper.header('appbundle.ventilationtiltagdetail.varmeForbrugKwhAarEfter') }}
+    {{ helper.header('appbundle.ventilationtiltagdetail.varmebespKwhAar') }}
+    {{ helper.header('appbundle.ventilationtiltagdetail.varmebespKwhAarProcent') }}
+    {{ helper.header('appbundle.ventilationtiltagdetail.elForbrugKwhAarFoer') }}
+    {{ helper.header('appbundle.ventilationtiltagdetail.elForbrugKwhAarEfter') }}
+    {{ helper.header('appbundle.ventilationtiltagdetail.elbespKwhAar') }}
+    {{ helper.header() }}
+  </tr>
+  <tr>
+    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header_unit('appbundle.ventilationtiltagdetail.udeluftbehov.total') }}
+    {{ helper.header_unit('appbundle.ventilationtiltagdetail.co2PpmIRum') }}
+    {{ helper.header_unit('appbundle.ventilationtiltagdetail.varmeForbrugKwhAarFoer') }}
+    {{ helper.header_unit('appbundle.ventilationtiltagdetail.varmeForbrugKwhAarEfter') }}
+    {{ helper.header_unit('appbundle.ventilationtiltagdetail.varmebespKwhAar') }}
+    {{ helper.header_unit('appbundle.ventilationtiltagdetail.varmebespKwhAarProcent') }}
+    {{ helper.header_unit('appbundle.ventilationtiltagdetail.elForbrugKwhAarFoer') }}
+    {{ helper.header_unit('appbundle.ventilationtiltagdetail.elForbrugKwhAarEfter') }}
+    {{ helper.header_unit('appbundle.ventilationtiltagdetail.elbespKwhAar') }}
+    {{ helper.header_unit() }}
+  </tr>
+  </thead>
+  <tbody>
+  {% for detail in entity.details %}
+    <tr>
+      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
+      <td class="udeluftbehovTotal number">{{ detail.udeluftbehov.total | format_decimal(0) }}</td>
+      <td class="co2PpmIRum number">{{ detail.co2PpmIRum | format_decimal(0) }}</td>
+      <td class="varmeForbrugKwhAarFoer number">{{ detail.varmeForbrugKwhAarFoer | format_decimal(0) }}</td>
+      <td class="varmeForbrugKwhAarEfter number">{{ detail.varmeForbrugKwhAarEfter | format_decimal(0) }}</td>
+      <td class="varmebespKwhAar number">{{ detail.varmebespKwhAar | format_decimal(0) }}</td>
+      <td class="varmebespKwhAarProcent number">{{ detail.varmebespKwhAarProcent | format_percent_nounit(0) }}</td>
+      <td class="elForbrugKwhAarFoer number">{{ detail.elForbrugKwhAarFoer | format_decimal(0) }}</td>
+      <td class="elForbrugKwhAarEfter number">{{ detail.elForbrugKwhAarEfter | format_decimal(0) }}</td>
+      <td class="elbespKwhAar number">{{ detail.elbespKwhAar | format_decimal(0) }}</td>
+      <td class="last"></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

@@ -27,6 +27,7 @@
       <div class="panel-heading">
         <h3 class="panel-title">{{ 'appbundle.tiltag.besparelsesoverblik' | trans }}</h3>
       </div>
+      {% block tiltag_besparelsesoverblik -%}
       <table class="table">
         <tbody>
         <tr>
@@ -112,6 +113,7 @@
         </tr>
         </tfoot>
       </table>
+      {% endblock %}
     </div>
   </div>
   <div class="col-xs-12 col-md-6">

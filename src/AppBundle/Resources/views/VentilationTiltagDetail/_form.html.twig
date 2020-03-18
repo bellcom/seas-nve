@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'ventilationtiltagdetail.groups.dimensioner' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        {{ form_row(edit_form.laengdeVentileretRum) }}
+        {{ form_row(edit_form.breddeVentileretRum) }}
+        {{ form_row(edit_form.hoejdeVentileterRum) }}
+      </div>
+    </div>
+  </div>  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'ventilationtiltagdetail.groups.personbelastning' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        {{ form_row(edit_form.antalPersoner) }}
+        {{ form_row(edit_form.udeluftTilfoersel) }}
+        {{ form_row(edit_form.forurening) }}
+        {{ form_row(edit_form.kvalitet) }}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'ventilationtiltagdetail.groups.tilstandfoer' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        {% for key, row in edit_form.indDataFoer %}
+          {{ form_row(row) }}
+        {% endfor %}
+      </div>
+    </div>
+  </div>  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'ventilationtiltagdetail.groups.tilstandefter' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        {% for key, row in edit_form.indDataEfter %}
+          {{ form_row(row) }}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
