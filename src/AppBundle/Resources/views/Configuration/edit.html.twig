@@ -97,6 +97,56 @@
       </div>
     </div>
   </div>
+  <h2>Ventilation</h2>
+  <div class="row">
+    <div class="col-md-6 col-xs-12">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'appbundle.configuration.grundventilationMatrix.label' | trans}}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet' | trans}}</div>
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
+          </div>
+          {% for key, row in edit_form.grundventilationMatrix %}
+            <div class="row">
+              <div class="col-xs-3 padding">{{ ('appbundle.configuration.grundventilationMatrix.' ~ key) | trans}}</div>
+                {% for kvalitet in row %}
+                  <div class="col-xs-3 padding">{{ form_widget(kvalitet) }}</div>
+                {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'appbundle.configuration.udeluftTilfoerselMatrix.label' | trans}}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet' | trans}}</div>
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
+          </div>
+          {% for key, row in edit_form.udeluftTilfoerselMatrix %}
+            <div class="row">
+              <div class="col-xs-3 padding">{{ ('appbundle.configuration.udeluftTilfoerselMatrix.' ~ key) | trans}}</div>
+                {% for kvalitet in row %}
+                  <div class="col-xs-3 padding">{{ form_widget(kvalitet) }}</div>
+                {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
 
   {{ form_rest(edit_form) }}
   {{ form_end(edit_form) }}

@@ -1190,6 +1190,19 @@ appbundle:
       oktober: "Oktober"
       november: "November"
       december: "December"
+    kvalitet: "Luftkvalitet"
+    kvalitet_1: "1"
+    kvalitet_2: "2"
+    kvalitet_3: "3"
+    grundventilationMatrix:
+      label: "Grundventilation l/s/m2"
+      A: "A"
+      B: "B"
+      C: "C"
+    udeluftTilfoerselMatrix:
+      label: "Udelufttilførsel i l/s til personer"
+      del_utilfredse_personer: "Utilfredse personer i procent"
+      lps_per_person: "Personer (l/s pr. person)"
   elofordeling:
     januar: "Januar"
     februar: "Februar"

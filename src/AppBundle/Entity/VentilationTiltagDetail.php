@@ -182,24 +182,8 @@ class VentilationTiltagDetail extends TiltagDetail
      *
      * @return array
      */
-    public static function getGrundventilationMatrix() {
-        return array(
-            ForureningType::A => array(
-                KvalitetType::_1 => 0.5,
-                KvalitetType::_2 => 0.35,
-                KvalitetType::_3 => 0.3,
-            ),
-            ForureningType::B => array(
-                KvalitetType::_1 => 1,
-                KvalitetType::_2 => 0.7,
-                KvalitetType::_3 => 0.4,
-            ),
-            ForureningType::C => array(
-                KvalitetType::_1 => 1,
-                KvalitetType::_2 => 0.7,
-                KvalitetType::_3 => 0.4,
-            ),
-        );
+    public function getGrundventilationMatrix() {
+        return $this->getConfiguration()->getGrundventilationMatrix();
     }
 
     /**
@@ -210,8 +194,8 @@ class VentilationTiltagDetail extends TiltagDetail
      *
      * @return float|integer|null
      */
-    public static function getGrundventilationMatrixValue($forunering, $kvalitet) {
-        $matrix = self::getGrundventilationMatrix();
+    public function getGrundventilationMatrixValue($forunering, $kvalitet) {
+        $matrix = $this->getGrundventilationMatrix();
         return isset($matrix[$forunering][$kvalitet]) ? $matrix[$forunering][$kvalitet] : NULL;
     }
 
@@ -221,7 +205,7 @@ class VentilationTiltagDetail extends TiltagDetail
      * @return float|integer|null
      */
     public function getCurrentGrundventilationMatrixValue() {
-        return self::getGrundventilationMatrixValue($this->getForurening(), $this->getKvalitet());
+        return $this->getGrundventilationMatrixValue($this->getForurening(), $this->getKvalitet());
     }
 
     /**
@@ -231,21 +215,8 @@ class VentilationTiltagDetail extends TiltagDetail
      *
      * @return array
      */
-    public static function getUdeluftTilfoerselMatrix() {
-        return array(
-            // Utilfredse personer i procent.
-            'del_utilfredse_personer' => array(
-                KvalitetType::_1 => 0.15,
-                KvalitetType::_2 => 0.20,
-                KvalitetType::_3 => 0.30,
-            ),
-            // Personer (l/s pr. person).
-            'lps_per_person' => array(
-                KvalitetType::_1 => 10,
-                KvalitetType::_2 => 7,
-                KvalitetType::_3 => 4,
-            )
-        );
+    public function getUdeluftTilfoerselMatrix() {
+        return $this->getConfiguration()->getUdeluftTilfoerselMatrix();
     }
 
     /**
@@ -256,8 +227,8 @@ class VentilationTiltagDetail extends TiltagDetail
      *
      * @return float|integer|null
      */
-    public static function getUdeluftTilfoerselMatrixValue($type, $kvalitet) {
-        $matrix = self::getUdeluftTilfoerselMatrix();
+    public function getUdeluftTilfoerselMatrixValue($type, $kvalitet) {
+        $matrix = $this->getUdeluftTilfoerselMatrix();
         return isset($matrix[$type][$kvalitet]) ? $matrix[$type][$kvalitet] : NULL;
     }
 
@@ -267,7 +238,7 @@ class VentilationTiltagDetail extends TiltagDetail
      * @return float
      */
     public function getCurrentUdeluftTilfoerselLpsValue() {
-        return self::getUdeluftTilfoerselMatrixValue('lps_per_person', $this->getKvalitet());
+        return $this->getUdeluftTilfoerselMatrixValue('lps_per_person', $this->getKvalitet());
     }
 
     /**
@@ -276,7 +247,7 @@ class VentilationTiltagDetail extends TiltagDetail
      * @return float
      */
     public function getCurrentUdeluftTilfoerselMatrixValue() {
-        return self::getUdeluftTilfoerselMatrixValue('del_utilfredse_personer', $this->getKvalitet());
+        return $this->getUdeluftTilfoerselMatrixValue('del_utilfredse_personer', $this->getKvalitet());
     }
 
     /**
@@ -594,6 +565,17 @@ class VentilationTiltagDetail extends TiltagDetail
     public function getUdeluftbehov()
     {
         return $this->udeluftbehov;
+    }
+
+    /**
+     * Set udeluftbehov Total l/s
+     *
+     * @return VentilationTiltagDetail
+     */
+    public function setUdeluftbehovTotalLps($udeluftbehovTotalLps)
+    {
+        $this->udeluftbehov['total'] = $udeluftbehovTotalLps;
+        return $this;
     }
 
     /**
@@ -928,6 +910,7 @@ class VentilationTiltagDetail extends TiltagDetail
     public function calculate() {
         $this->setUdeluftbehovGrundLps($this->calculateUdeluftBehovGrundLps());
         $this->setUdeluftbehovPersonLps($this->calculateUdeluftBehovPersonLps());
+        $this->setUdeluftbehovTotalLps($this->calculateUdeluftBehovTotalLps());
         $this->co2PpmIRum = $this->calculateByFormula('co2PpmIRum');
         $this->indDataEfter['trykabAnlaeg'] = $this->calculateTrykabAnlaegEfter();
         $this->elForbrugKwhAarFoer = $this->calculateElForbrugKwhAarFoer();
@@ -941,6 +924,13 @@ class VentilationTiltagDetail extends TiltagDetail
         $this->varmeForbrugKwhAarEfter = $this->calculateVarmeForbrugKwhAarEfter();
         $this->varmebespKwhAar = $this->calculateByFormula('varmebespKwhAar');
         $this->varmebespKwhAarProcent = $this->calculateByFormula('varmebespKwhAarProcent');
+    }
+
+    /**
+     * @Formula("$this->getUdeluftbehovGrundLps() + $this->getUdeluftbehovPersonLps()")
+     */
+    protected function calculateUdeluftBehovTotalLps() {
+        return $this->getUdeluftbehovGrundLps() + $this->getUdeluftbehovPersonLps();
     }
 
     /**
@@ -1014,7 +1004,6 @@ class VentilationTiltagDetail extends TiltagDetail
         foreach ($months as $month => $days) {
             $varmeForbrug = 0;
             if (($this->getIndDataFoerRumtemperatur() - $this->getIndDataFoerOpvarmingIVentilator() - $tUdeMontly[$month] ) >= $this->getIndDataFoerSommerUnderkoeling()) {
-                $monthMaxDay = date('t', strtotime($month));
                 $varmeForbrug = 0.000336 * $this->getIndDataFoerLuftflow()
                     * ($this->getIndDataFoerRumtemperatur() - $this->getIndDataFoerOpvarmingIVentilator() - $tUdeMontly[$month])
                     * (1 - $this->getIndDataFoerGenvindings()) * $this->getIndDataFoerDriftstimerDag() * $this->getIndDataFoerDriftsdageUge() / 7 * $days;

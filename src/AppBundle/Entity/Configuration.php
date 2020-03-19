@@ -7,6 +7,8 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\MonthType;
+use AppBundle\DBAL\Types\VentilationTiltagDetail\ForureningType;
+use AppBundle\DBAL\Types\VentilationTiltagDetail\KvalitetType;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
@@ -133,6 +135,20 @@ class Configuration
     private $tUdeMonthly;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="grundventilationMatrix", type="array")
+     */
+    private $grundventilationMatrix;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="udeluftTilfoerselMatrix", type="array")
+     */
+    private $udeluftTilfoerselMatrix;
+
+    /**
      * @var float
      * @ORM\Column(type="float")
      */
@@ -142,13 +158,73 @@ class Configuration
      * Constructor
      */
     public function __construct() {
-        foreach (MonthType::getChoices() as $key => $value) {
-            if (empty($key)) {
-                continue;
+        $this->setDefaultValues();
+    }
+
+    public function setDefaultValues() {
+        if (empty($this->tUdeMonthly)) {
+            $this->tUdeMonthly = array();
+            foreach (MonthType::getChoices() as $key => $value) {
+                if (empty($key)) {
+                    continue;
+                }
+                $this->tUdeMonthly[$key] = NULL;
             }
-            $this->tJordMonthly[$key] = '';
-            $this->tUdeMonthly[$key] = '';
-            $this->tOpvarmningTimerAarMonthly[$key] = '';
+        }
+        if (empty($this->tJordMonthly)) {
+            $this->tJordMonthly = array();
+            foreach (MonthType::getChoices() as $key => $value) {
+                if (empty($key)) {
+                    continue;
+                }
+                $this->tJordMonthly[$key] = NULL;
+            }
+        }
+        if (empty($this->tOpvarmningTimerAarMonthly)) {
+            $this->tOpvarmningTimerAarMonthly = array();
+            foreach (MonthType::getChoices() as $key => $value) {
+                if (empty($key)) {
+                    continue;
+                }
+                $this->tOpvarmningTimerAarMonthly[$key] = NULL;
+            }
+        }
+
+        if (empty($this->udeluftTilfoerselMatrix)) {
+            $this->setUdeluftTilfoerselMatrix(array(
+                // Utilfredse personer i procent.
+                'del_utilfredse_personer' => array(
+                    KvalitetType::_1 => 0.15,
+                    KvalitetType::_2 => 0.20,
+                    KvalitetType::_3 => 0.30,
+                ),
+                // Personer (l/s pr. person).
+                'lps_per_person' => array(
+                    KvalitetType::_1 => 10,
+                    KvalitetType::_2 => 7,
+                    KvalitetType::_3 => 4,
+                )
+            ));
+        }
+
+        if (empty($this->grundventilationMatrix)) {
+            $this->setGrundventilationMatrix(array(
+                ForureningType::A => array(
+                    KvalitetType::_1 => 0.5,
+                    KvalitetType::_2 => 0.35,
+                    KvalitetType::_3 => 0.3,
+                ),
+                ForureningType::B => array(
+                    KvalitetType::_1 => 1,
+                    KvalitetType::_2 => 0.7,
+                    KvalitetType::_3 => 0.4,
+                ),
+                ForureningType::C => array(
+                    KvalitetType::_1 => 1,
+                    KvalitetType::_2 => 0.7,
+                    KvalitetType::_3 => 0.4,
+                ),
+            ));
         }
     }
 
@@ -406,36 +482,56 @@ class Configuration
     }
 
     /**
+     * Set grundventilationMatrix
+     *
+     * @param array $grundventilationMatrix
+     *
+     * @return Configuration
+     */
+    public function setGrundventilationMatrix($grundventilationMatrix)
+    {
+        $this->grundventilationMatrix = $grundventilationMatrix;
+        return $this;
+    }
+
+    /**
+     * Get grundventilationMatrix
+     *
+     * @return array
+     */
+    public function getGrundventilationMatrix()
+    {
+        return $this->grundventilationMatrix;
+    }
+
+    /**
+     * Set udeluftTilfoerselMatrix
+     *
+     * @param array $udeluftTilfoerselMatrix
+     *
+     * @return Configuration
+     */
+    public function setUdeluftTilfoerselMatrix($udeluftTilfoerselMatrix)
+    {
+        $this->udeluftTilfoerselMatrix = $udeluftTilfoerselMatrix;
+        return $this;
+    }
+
+    /**
+     * Get udeluftTilfoerselMatrix
+     *
+     * @return array
+     */
+    public function getUdeluftTilfoerselMatrix()
+    {
+        return $this->udeluftTilfoerselMatrix;
+    }
+
+    /**
      * @ORM\PostLoad()
      */
     public function postLoad() {
-        if (empty($this->tUdeMonthly)) {
-            $this->tUdeMonthly = array();
-            foreach (MonthType::getChoices() as $key => $value) {
-                if (empty($key)) {
-                    continue;
-                }
-                $this->tUdeMonthly[$key] = NULL;
-            }
-        }
-        if (empty($this->tJordMonthly)) {
-            $this->tJordMonthly = array();
-            foreach (MonthType::getChoices() as $key => $value) {
-                if (empty($key)) {
-                    continue;
-                }
-                $this->tJordMonthly[$key] = NULL;
-            }
-        }
-        if (empty($this->tOpvarmningTimerAarMonthly)) {
-            $this->tOpvarmningTimerAarMonthly = array();
-            foreach (MonthType::getChoices() as $key => $value) {
-                if (empty($key)) {
-                    continue;
-                }
-                $this->tOpvarmningTimerAarMonthly[$key] = NULL;
-            }
-        }
+        $this->setDefaultValues();
     }
 
 }
