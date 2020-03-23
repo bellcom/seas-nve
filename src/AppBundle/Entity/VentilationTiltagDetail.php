@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @file
+ * VentilationTiltagDetail entity.
+ *
+ * See calculation file xls/VentilationTiltagDetail/Ventilation2.xlsx.
+ */
+
 namespace AppBundle\Entity;
 
 use AppBundle\Annotations\Calculated;
@@ -111,6 +118,8 @@ class VentilationTiltagDetail extends TiltagDetail
      * @var integer
      * @Formula("1000000 * ($this->getAntalPersoner() * 19 + $this->getUdeluftTilfoersel() * 100) / 3600 / $this->getUdeluftbehovTotalLps() + 350")
      * @ORM\Column(name="co2PpmIRum", type="integer")
+     *
+     * See calculation file, cell I16.
      */
     private $co2PpmIRum;
 
@@ -120,6 +129,8 @@ class VentilationTiltagDetail extends TiltagDetail
      * @Calculated
      * @Formula("$this->getVarmeForbrugKwhAarFoer() - $this->getVarmeForbrugKwhAarEfter()")
      * @ORM\Column(name="varmebespKwhAar", type="float")
+     *
+     * See calculation file, cell L49.
      */
     protected $varmebespKwhAar;
 
@@ -127,6 +138,8 @@ class VentilationTiltagDetail extends TiltagDetail
      * @var float
      *
      * @Formula("($this->getVarmeForbrugKwhAarFoer() - $this->getVarmeForbrugKwhAarEfter())/$this->getVarmeForbrugKwhAarFoer()")
+     *
+     * See calculation file, cell L50.
      */
     protected $varmebespKwhAarProcent;
 
@@ -146,6 +159,8 @@ class VentilationTiltagDetail extends TiltagDetail
      * @Calculated
      * @Formula("$this->getElForbrugKwhAarFoer() - $this->getElForbrugKwhAarEfter()")
      * @ORM\Column(name="elbespKwhAar", type="float")
+     *
+     * See calculation file, cell E47.
      */
     protected $elbespKwhAar;
 
@@ -586,13 +601,15 @@ class VentilationTiltagDetail extends TiltagDetail
     public function getUdeluftbehovTotalLps()
     {
         if (!isset($this->udeluftbehov['total'])) {
-            $this->udeluftbehov['total'] = $this->getUdeluftbehovGrundLps() + $this->getUdeluftbehovPersonLps();
+            $this->udeluftbehov['total'] = $this->calculateUdeluftBehovTotalLps();
         }
         return $this->udeluftbehov['total'];
     }
 
     /**
      * Get udeluftbehov total m3/h
+     *
+     * See calculation file, cell F15.
      *
      * @return float
      */
@@ -603,6 +620,8 @@ class VentilationTiltagDetail extends TiltagDetail
 
     /**
      * Get udeluftbehov total luftskifte per time
+     *
+     * See calculation file, cell F16.
      *
      * @return float
      */
@@ -635,6 +654,8 @@ class VentilationTiltagDetail extends TiltagDetail
     /**
      * Get udeluftbehov Grund m3/h
      *
+     * See calculation file, cell D15.
+     *
      * @return float
      */
     public function getUdeluftbehovGrundM3h()
@@ -644,6 +665,8 @@ class VentilationTiltagDetail extends TiltagDetail
 
     /**
      * Get udeluftbehov Grund luftskifte per time
+     *
+     * See calculation file, cell D16.
      *
      * @return float
      */
@@ -676,6 +699,8 @@ class VentilationTiltagDetail extends TiltagDetail
     /**
      * Get udeluftbehov Person m3/h
      *
+     * See calculation file, cell E15.
+     *
      * @return float
      */
     public function getUdeluftbehovPersonM3h()
@@ -685,6 +710,8 @@ class VentilationTiltagDetail extends TiltagDetail
 
     /**
      * Get udeluftbehov Person luftskifte per time
+     *
+     * See calculation file, cell E16.
      *
      * @return float
      */
@@ -906,6 +933,8 @@ class VentilationTiltagDetail extends TiltagDetail
 
     /**
      * Calculate stuff.
+     *
+     * See calculation file xls/VentilationTiltagDetail/Ventilation2.xlsx
      */
     public function calculate() {
         $this->setUdeluftbehovGrundLps($this->calculateUdeluftBehovGrundLps());
@@ -928,6 +957,8 @@ class VentilationTiltagDetail extends TiltagDetail
 
     /**
      * @Formula("$this->getUdeluftbehovGrundLps() + $this->getUdeluftbehovPersonLps()")
+     *
+     * See calculation file, cell F14.
      */
     protected function calculateUdeluftBehovTotalLps() {
         return $this->getUdeluftbehovGrundLps() + $this->getUdeluftbehovPersonLps();
@@ -935,6 +966,8 @@ class VentilationTiltagDetail extends TiltagDetail
 
     /**
      * @Formula("$this->getCurrentGrundventilationMatrixValue() * $this->getLaengdeVentileretRum() * $this->getBreddeVentileretRum()")
+     *
+     * See calculation file, cell D14.
      */
     protected function calculateUdeluftBehovGrundLps() {
         return $this->getCurrentGrundventilationMatrixValue() * $this->getLaengdeVentileretRum() * $this->getBreddeVentileretRum();
@@ -942,6 +975,8 @@ class VentilationTiltagDetail extends TiltagDetail
 
     /**
      * @Formula("$this->getCurrentUdeluftTilfoerselLpsValue() * $this->getAntalPersoner() +  $this->getCurrentUdeluftTilfoerselLpsValue() * $this->getBreddeVentileretRum()")
+     *
+     * See calculation file, cell E14.
      */
     protected function calculateUdeluftBehovPersonLps() {
         return $this->getCurrentUdeluftTilfoerselLpsValue() * $this->getAntalPersoner() +  $this->getCurrentUdeluftTilfoerselLpsValue() * $this->getBreddeVentileretRum();
@@ -949,11 +984,16 @@ class VentilationTiltagDetail extends TiltagDetail
 
     /**
      * @Formula("$this->getLaengdeVentileretRum() * $this->getBreddeVentileretRum() * $this->getHoejdeVentileterRum()")
+     *
+     * See calculation file, cell H14.
      */
     protected function calculateVolumen() {
         return $this->getLaengdeVentileretRum() * $this->getBreddeVentileretRum() * $this->getHoejdeVentileterRum();
     }
 
+    /**
+     * See calculation file, cell E42.
+     */
     protected function calculateTrykabAnlaegEfter() {
         if (empty($this->getIndDataFoerTrykabAnlaeg()) || empty($this->getIndDataFoerLuftflow()) || empty($this->getIndDataEfterLuftflow())) {
             return 0;
@@ -961,6 +1001,9 @@ class VentilationTiltagDetail extends TiltagDetail
         return $this->getIndDataFoerTrykabAnlaeg() * ($this->getIndDataEfterLuftflow() / $this->getIndDataFoerLuftflow()) ** 2;
     }
 
+    /**
+     * See calculation file, cell D46.
+     */
     protected function calculateElForbrugKwhAarFoer() {
         if (empty($this->getIndDataFoerVirkningsgradVentilator())) {
             return 0;
@@ -968,6 +1011,9 @@ class VentilationTiltagDetail extends TiltagDetail
         return ($this->getIndDataFoerLuftflow() / 3600 * $this->getIndDataFoerTrykabAnlaeg() / $this->getIndDataFoerVirkningsgradVentilator() / 1000) * 2 * $this->getIndDataFoerDriftstimerDag() * $this->getIndDataFoerDriftsdageUge() / 7 * 365;
     }
 
+    /**
+     * See calculation file, cell E46.
+     */
     protected function calculateElForbrugKwhAarEfter() {
         if (empty($this->getIndDataEfterVirkningsgradVentilator())) {
             return 0;
@@ -975,6 +1021,9 @@ class VentilationTiltagDetail extends TiltagDetail
         return ($this->getIndDataEfterLuftflow() / 3600 * $this->getIndDataEfterTrykabAnlaeg() / $this->getIndDataEfterVirkningsgradVentilator() / 1000) * 2 * $this->getIndDataEfterDriftstimerDag() * $this->getIndDataEfterDriftsdageUge() / 7 * 365;
     }
 
+    /**
+     * See calculation file, cell D44.
+     */
     protected function calculateOpvarmingIVentilatorFoer() {
         if (empty($this->getIndDataFoerLuftflow())
             || empty($this->getElForbrugKwhAarFoer())
@@ -986,6 +1035,9 @@ class VentilationTiltagDetail extends TiltagDetail
         return $this->getElForbrugKwhAarFoer()/2/($this->getIndDataFoerDriftstimerDag()*$this->getIndDataFoerDriftsdageUge()/7*365)/$this->getIndDataFoerLuftflow() / 0.000336;
     }
 
+    /**
+     * See calculation file, cell E44.
+     */
     protected function calculateOpvarmingIVentilatorEfter() {
         if (empty($this->getIndDataEfterLuftflow())
             || empty($this->getElForbrugKwhAarEfter())
@@ -997,6 +1049,9 @@ class VentilationTiltagDetail extends TiltagDetail
         return $this->getElForbrugKwhAarEfter() / 2 / ($this->getIndDataEfterDriftstimerDag() * $this->getIndDataEfterDriftsdageUge() / 7 * 365) / $this->getIndDataEfterLuftflow() / 0.000336;
     }
 
+    /**
+     * See calculation file, cells K36 - K47.
+     */
     protected function calculateVarmeForbrugMaaneligeFoer() {
         $months = MonthType::getMonthDays();
         $tUdeMontly = $this->getConfiguration()->getTUdeMonthly();
@@ -1013,10 +1068,16 @@ class VentilationTiltagDetail extends TiltagDetail
         return $varmeForbrugMaanelige;
     }
 
+    /**
+     * See calculation file, cell K48.
+     */
     protected function calculateVarmeForbrugKwhAarFoer() {
         return array_sum($this->getVarmeForbrugMaaneligeFoer());
     }
 
+    /**
+     * See calculation file, cells L36 - L47.
+     */
     protected function calculateVarmeForbrugMaaneligeEfter() {
         $months = MonthType::getMonthDays();
         $tUdeMontly = $this->getConfiguration()->getTUdeMonthly();
@@ -1033,6 +1094,9 @@ class VentilationTiltagDetail extends TiltagDetail
         return $varmeForbrugMaanelige;
     }
 
+    /**
+     * See calculation file, cell L48.
+     */
     protected function calculateVarmeForbrugKwhAarEfter() {
         return array_sum($this->getVarmeForbrugMaaneligeEfter());
     }
