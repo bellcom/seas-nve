@@ -19,4 +19,5 @@ services:
 
   cli:
     environment:
-      - APP_ENV=prod
+      - APP_ENV=dev
+      - SYMFONY_ENV=dev
