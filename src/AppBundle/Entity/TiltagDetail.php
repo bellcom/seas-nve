@@ -33,6 +33,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *    "vindue" = "VindueTiltagDetail",
  *    "ventilation" = "VentilationTiltagDetail",
  *    "tekniskisolering" = "TekniskIsoleringTiltagDetail",
+ *    "trykluft" = "TrykluftTiltagDetail",
  *    "solcelle" = "SolcelleTiltagDetail",
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TiltagDetailRepository")
@@ -43,6 +44,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *    "klimaskærm" = "AppBundle\Entity\KlimaskaermTiltagDetail",
  *    "nyklimaskærm" = "AppBundle\Entity\NyKlimaskaermTiltagDetail",
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltagDetail",
+ *    "trykluft" = "AppBundle\Entity\TrykluftTiltagDetail",
  *    "ventilation" = "AppBundle\Entity\VentilationTiltagDetail",
  *    "solcelle" = "AppBundle\Entity\SolcelleTiltagDetail",
  * })

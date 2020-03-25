@@ -9,6 +9,7 @@ namespace AppBundle\Form\Type;
 use AppBundle\AppBundle;
 use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\Entity\NyKlimaskaermTiltag;
+use AppBundle\Entity\TrykluftTiltag;
 use AppBundle\Form\Type\RisikovurderingType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
@@ -182,6 +183,14 @@ class TiltagType extends AbstractType {
     if ($this->tiltag instanceof VindueTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse');
+    }
+    if ($this->tiltag instanceof TrykluftTiltag) {
+      $builder
+        ->add('priserOverride', 'collection', array(
+            'type' => PrisOverrideType::class,
+            'label' => FALSE,
+            'required' => FALSE,
+        ));
     }
     elseif ($this->tiltag instanceof SolcelleTiltag) {
       $builder

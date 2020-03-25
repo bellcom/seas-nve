@@ -385,7 +385,7 @@
     <div class="col-md-2"><h2>{{ 'tiltag.labels.singular' | trans }}</h2></div>
     <div class="col-md-10 text-right">
       {% if is_granted('RAPPORT_EDIT', entity) %}
-        {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'nyklimaskaerm', 'vindue', 'solcelle', 'tekniskisolering', 'ventilation', 'special' ] %}
+        {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'nyklimaskaerm', 'vindue', 'solcelle', 'tekniskisolering', 'ventilation', 'trykluft', 'special' ] %}
           <form method="POST" action="{{ path('tiltag_create', { 'id': entity.id, 'type': type }) }}" class="inline-block">
             <button type="submit" class="btn btn-default">{{ icon('plus') }} {{ ('bygning_rapporter.strings.' ~ type ~ 'tiltag') | trans }}</button>
           </form>

@@ -187,8 +187,12 @@ simple_things_entity_audit:
         - AppBundle\Entity\SpecialTiltagDetail
         - AppBundle\Entity\TekniskIsoleringTiltag
         - AppBundle\Entity\TekniskIsoleringTiltagDetail
+        - AppBundle\Entity\TrykluftTiltag
+        - AppBundle\Entity\TrykluftTiltagDetail
         - AppBundle\Entity\VindueTiltag
         - AppBundle\Entity\VindueTiltagDetail
+        - AppBundle\Entity\VentilationTiltag
+        - AppBundle\Entity\VentilationTiltagDetail
         - AppBundle\Entity\Tiltag
         - AppBundle\Entity\TiltagDetail
         - AppBundle\Entity\Segment
