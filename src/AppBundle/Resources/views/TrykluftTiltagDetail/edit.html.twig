@@ -1,0 +1,15 @@
+{% extends 'AppBundle:TiltagDetail:edit.html.twig' %}
+
+{% set heading = 'tryklufttiltagdetail.actions.edit' %}
+
+{% block edit_form %}
+
+  {% include 'AppBundle:TrykluftTiltagDetail:_form.html.twig' %}
+
+{% endblock %}
+
+{% block documentReady %}
+  {{ parent() }}
+
+  {% include 'AppBundle:_includes:textAreaCountdown.js.twig' %}
+{% endblock documentReady %}

@@ -315,4 +315,15 @@
           $('#appbundle_nyklimaskaermtiltagdetail_tUdeMonthly_' + $key).val($tudemonthly[$key]);
       }
   });
+
+
+  $(document).on('change', '#appbundle_tryklufttiltagdetail_indData_type input', function () {
+    $('.appbundle_tryklufttiltagdetail_indData .hidden').removeClass('hidden');
+    console.log($(this).val());
+    $('.' + $(this).val() + '-hidden').each(function() {
+        $(this).parents('div.form-group:first').addClass('hidden');
+    });
+
+  });
+  $('#appbundle_tryklufttiltagdetail_indData_type input[checked=checked]').change();
 }(jQuery));

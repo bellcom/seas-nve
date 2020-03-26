@@ -203,7 +203,7 @@ thead {
 
 .table-header-rotated tr:nth-child(odd),
 .table-header-rotated tr:nth-child(odd) td {
-  background: none !important;
+  background: none;
 }
 
 .table-header-rotated tr:nth-child(even),
@@ -220,7 +220,7 @@ tbody th {
   font-weight: normal;
 }
 
-td.selected {
+table tr td.selected, .table tr td.selected {
   text-align: center;
   background-color: #5fb859;
 }

@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'tryklufttiltagdetail.groups.indData' | trans }}</h3>
+      </div>
+      <div class="panel-body appbundle_tryklufttiltagdetail_indData">
+        {{ form_row(edit_form.indData.type) }}
+        {{ form_row(edit_form.indData.kompressorNavn) }}
+        {{ form_row(edit_form.indData.paastempelEffekt) }}
+        {{ form_row(edit_form.indData.tidsmaalingBelastet) }}
+        {{ form_row(edit_form.indData.tidsmaalingAflastet) }}
+        {{ form_row(edit_form.indData.gennemsnitligBelastning) }}
+        {{ form_row(edit_form.noter) }}
+        {{ form_row(edit_form.indData.driftstimerDag) }}
+        {{ form_row(edit_form.indData.driftsdageUge) }}
+        {{ form_row(edit_form.indData.driftsUgeAar) }}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'tryklufttiltagdetail.groups.elReduktion' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        {% for row in edit_form.elReduktion %}
+        <div class="row">
+          <div class="col-md-12">
+            {{ form_row(row.enabled) }}
+          </div>
+          <div class="col-md-6 col-sm-12">
+            {{ form_row(row.reduktion) }}
+          </div>
+          <div class="col-md-6 col-sm-12">
+            {{ form_row(row.investering) }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'tryklufttiltagdetail.groups.varmeReduktion' | trans }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            {{ form_row(edit_form.varmeReduktion.type) }}
+          </div>
+          <div class="col-md-6 col-sm-12">
+            {{ form_row(edit_form.varmeReduktion.reduktion) }}
+          </div>
+          <div class="col-md-6 col-sm-12">
+            {{ form_row(edit_form.varmeReduktion.investering) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
