@@ -69,8 +69,8 @@ SYMFONY_ENV=prod app/console fos:user:create --super-admin
 
 Finally, set up a web server as described on https://symfony.com/doc/2.7/setup/web_server_configuration.html.
 
-№# Maintenance
-№## Audit tables cleanup
+## Maintenance
+### Audit tables cleanup
 
 The solution is keeping the record or audit of entries in special tables (suffixed by **_audit**).
 
