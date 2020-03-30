@@ -6,6 +6,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Form\Type\TrykluftTiltagDetail\ElForbrugType;
 use AppBundle\Form\Type\TrykluftTiltagDetail\ElReduktionType;
 use AppBundle\Form\Type\TrykluftTiltagDetail\IndDataType;
 use AppBundle\Form\Type\TrykluftTiltagDetail\VarmeReduktionType;
@@ -22,6 +23,7 @@ class TrykluftTiltagDetailType extends TiltagDetailType {
     $builder
       ->add('noter', null, array('required' => false))
       ->add('indData', IndDataType::class, array('label' => FALSE))
+      ->add('elForbrug', ElForbrugType::class, array('label' => FALSE))
       ->add('elReduktion', 'collection', array(
           'type' => ElReduktionType::class,
           'label' => FALSE,

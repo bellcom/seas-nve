@@ -316,14 +316,23 @@
       }
   });
 
-
-  $(document).on('change', '#appbundle_tryklufttiltagdetail_indData_type input', function () {
-    $('.appbundle_tryklufttiltagdetail_indData .hidden').removeClass('hidden');
-    console.log($(this).val());
-    $('.' + $(this).val() + '-hidden').each(function() {
-        $(this).parents('div.form-group:first').addClass('hidden');
-    });
-
+  $(document).ready(function() {
+      conditionalFormElements('.appbundle_tryklufttiltagdetail_indData');
   });
-  $('#appbundle_tryklufttiltagdetail_indData_type input[checked=checked]').change();
+
+  function conditionalFormElements($wrapper) {
+      $(document).on('change', $wrapper + ' input[type=radio]', function () {
+          $($wrapper + ' .hidden').removeClass('hidden');
+          $($wrapper + ' input[type=radio]:checked').each(function() {
+              $value = $(this).val();
+              if ($value) {
+                  $('.' + $value + '-hidden').each(function() {
+                      $(this).parents('div.form-group:first').not('.hidden').addClass('hidden');
+                  });
+              }
+          });
+      });
+      $($wrapper + ' input:checked').change();
+  }
+
 }(jQuery));

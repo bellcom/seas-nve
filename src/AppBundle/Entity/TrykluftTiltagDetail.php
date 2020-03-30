@@ -156,6 +156,7 @@ class TrykluftTiltagDetail extends TiltagDetail
         return array(
             'type',
             'kompressorNavn',
+            'elForbrugBeregning',
             'paastempelEffekt',
             'tidsmaalingBelastet',
             'tidsmaalingAflastet',
@@ -178,6 +179,7 @@ class TrykluftTiltagDetail extends TiltagDetail
 
     public function getIndDataType() { return $this->getIndDataKeyValue('type'); }
     public function getIndDataKompressorNavn() { return $this->getIndDataKeyValue('kompressorNavn'); }
+    public function getIndDataElForbrugBeregning() { return $this->getIndDataKeyValue('elForbrugBeregning'); }
     public function getIndDataPaastempelEffekt() { return $this->getIndDataKeyValue('paastempelEffekt'); }
     public function getIndDataTidsmaalingBelastet() { return $this->getIndDataKeyValue('tidsmaalingBelastet'); }
     public function getIndDataTidsmaalingAflastet() { return $this->getIndDataKeyValue('tidsmaalingAflastet'); }
@@ -215,6 +217,19 @@ class TrykluftTiltagDetail extends TiltagDetail
     }
 
     /**
+     * Get elForbrug keys that should be filled in form.
+     *
+     * @return array
+     */
+    public static function getElForbrugInputKeys()
+    {
+        return array(
+            'herafBelastet',
+            'herafAflastet',
+        );
+    }
+
+    /**
      * Get elForbrug default value
      *
      * @return array
@@ -238,14 +253,16 @@ class TrykluftTiltagDetail extends TiltagDetail
     }
 
     public function getElForbrugHerafBelastet() {
-        if ($this->getElForbrugKeyValue('herafBelastet') == NULL) {
+        if ($this->getIndDataElForbrugBeregning() == 'calculated'
+            && $this->getElForbrugKeyValue('herafBelastet') == NULL) {
             $this->elForbrug['herafBelastet'] = $this->calculateHerafBelastet();
         }
         return $this->getElForbrugKeyValue('herafBelastet');
     }
 
     public function getElForbrugHerafAflastet() {
-        if ($this->getElForbrugKeyValue('herafAflastet') == NULL) {
+        if ($this->getIndDataElForbrugBeregning() == 'calculated'
+            && $this->getElForbrugKeyValue('herafAflastet') == NULL) {
             $this->elForbrug['herafAflastet'] = $this->calculateHerafAflastet();
         }
         return $this->getElForbrugKeyValue('herafAflastet');
@@ -574,8 +591,10 @@ class TrykluftTiltagDetail extends TiltagDetail
      * See calculation file xls/TrykluftTiltagDetail/Energibesparelsesberegning_trykluftkompressor.xlsx
      */
     public function calculate() {
-        $this->elForbrug['herafBelastet'] = $this->calculateHerafBelastet();
-        $this->elForbrug['herafAflastet'] = $this->calculateHerafAflastet();
+        if ($this->getIndDataElForbrugBeregning() == 'calculated') {
+            $this->elForbrug['herafBelastet'] = $this->calculateHerafBelastet();
+            $this->elForbrug['herafAflastet'] = $this->calculateHerafAflastet();
+        }
         $this->elForbrug['skoennetAarsforbrug'] = $this->calculateSkoennetAarsforbrug();
         $this->elReduktion['tryk']['besparelseKwh'] = $this->calculateElReduktionTrykBesparelseKwh();
         $this->elReduktion['tryk']['besparelseKr'] = $this->calculateElKwhToKr($this->getElReduktionTrykBesparelseKwh());
