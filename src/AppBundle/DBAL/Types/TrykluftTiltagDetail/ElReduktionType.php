@@ -18,6 +18,6 @@ class ElReduktionType extends AbstractEnumType
     self::TEMPERATUR => 'Red. af temperatur luftindsugning, 1% el-besparelse ved red. af temp. 40 -> 35 °C',
     self::LAEKAGETAB => 'Lækagetab. Afhænger også af afgangstryk på luftkompressor',
     self::STOP => 'Stop af anlæg uden for arbejdstid => mindsket lækagetab => stop andel',
-    self::FREKVENSSTYRING => 'Reduktion af el-forbrug ved frekvenstyring af 1 af kompressorerne',
+    self::FREKVENSSTYRING => 'Reduktion af aflastet elforbrug ved frekvensstyring (Maks 90%)',
   ];
 }

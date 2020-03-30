@@ -70,19 +70,23 @@
                   {% for key, value in detail.elForbrug %}
                     {{ ('appbundle.tryklufttiltagdetail.elForbrug.' ~ key) | trans }} {{ value | format_decimal(0) }}<br/>
                   {% endfor %}
+                  {% if detail.indData.type == 'on_off' %}
+                    Note: {{ 'appbundle.tryklufttiltagdetail.indData.herafAflastet.explanation' | trans }}
+                  {% endif %}
                 </td>
                 <td class="elreduktion">
-                  <strong>Elreduktion</strong><br/>
                   {% for type, reduktion in detail.elReduktion %}
                     {% if reduktion.enabled %}
-                      {{ ('appbundle.tryklufttiltagdetail.elReduktion.' ~ type ~ '.label') | trans }}<br/>
+                      {{ ('appbundle.tryklufttiltagdetail.elReduktion.' ~ type ~ '.label') | trans }}:
+                      {{ reduktion.reduktion }} {{ ('appbundle.tryklufttiltagdetail.elReduktion.' ~ type ~ '.reduktion.unit') | trans }}
+                      <br/>
                     {% endif %}
                   {% endfor %}
                   <strong>Varmereduktion</strong><br/>
-                  {{ ('appbundle.tryklufttiltagdetail.varmeReduktion.' ~ detail.varmeReduktion.type) | trans }}<br/>
+                  {{ ('appbundle.tryklufttiltagdetail.varmeReduktion.' ~ detail.varmeReduktion.type) | trans }}:
+                  {{ detail.varmeReduktion.reduktion | format_percent(0) }}
                 </td>
                 <td class="elreduktion-besparelseKwh number">
-                  <br/>
                   {% for type, reduktion in detail.elReduktion %}
                     {% if reduktion.enabled %}
                       {{ reduktion.besparelseKwh | format_decimal }}<br/>
@@ -92,7 +96,6 @@
                   {{ detail.varmeReduktion.besparelseKwh | format_decimal }}
                 </td>
                 <td class="elreduktion-besparelseKr number">
-                  <br/>
                   {% for type, reduktion in detail.elReduktion %}
                     {% if reduktion.enabled %}
                       {{ reduktion.besparelseKr | format_decimal }}<br/>
@@ -102,7 +105,6 @@
                   {{ detail.varmeReduktion.besparelseKr | format_decimal }}
                 </td>
                 <td class="elreduktion-tbt number">
-                  <br/>
                   {% for type, reduktion in detail.elReduktion %}
                     {% if reduktion.enabled %}
                       {{ reduktion.TBT | format_decimal }}<br/>

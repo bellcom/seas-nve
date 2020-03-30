@@ -9,7 +9,7 @@ class VarmeReduktionType extends AbstractEnumType
   const VAND_BASERET = 'vandbaseret';
 
   protected static $choices = [
-    self::LUFT_BASERET => 'Luftbaseret varmegenvinding, luften føres ind i lokalet eller til tilstødende lokaler.',
-    self::VAND_BASERET => 'Vandbaseret varmegenvinding via oliekøler.',
+    self::LUFT_BASERET => 'Luftbaseret varmegenvinding, luften føres ind i lokalet eller til tilstødende lokaler. (Potentiale 80%)',
+    self::VAND_BASERET => 'Vandbaseret varmegenvinding via oliekøler. (Potentiale 65%)',
   ];
 }

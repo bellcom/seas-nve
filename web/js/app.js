@@ -2,7 +2,7 @@ jQuery(function ($) {
   'use strict';
 
   // Popover.
-  $('[data-toggle="popover"]').popover();
+  $('[data-toggle="popover"]').popover({'html' : true});
 
   // Select 2.
   $('select.select2').select2();
