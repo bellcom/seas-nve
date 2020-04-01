@@ -2330,7 +2330,9 @@ appbundle:
       label: "Elforbrug"
       unit: "kWh"
       herafBelastet: "Heraf belastet"
+      herafBelastet.unit: "kWh/år"
       herafAflastet: "Heraf aflastet"
+      herafAflastet.unit: "kWh/år"
       skoennetAarsforbrug: "Skønnet årsforbrug"
   user:
     bygninger: "Bygninger"

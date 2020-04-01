@@ -14,6 +14,7 @@
     {{ helper.header('appbundle.tryklufttiltagdetail.elbespKrAar') }}
     {{ helper.header('appbundle.tryklufttiltagdetail.varmebespKwhAar') }}
     {{ helper.header('appbundle.tryklufttiltagdetail.varmebespKrAar') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.simpelTilbagebetalingstidAar') }}
     {{ helper.header() }}
   </tr>
   <tr>
@@ -30,6 +31,7 @@
     {{ helper.header_unit('appbundle.tryklufttiltagdetail.elbespKrAar') }}
     {{ helper.header_unit('appbundle.tryklufttiltagdetail.varmebespKwhAar') }}
     {{ helper.header_unit('appbundle.tryklufttiltagdetail.varmebespKrAar') }}
+    {{ helper.header_unit('appbundle.tryklufttiltagdetail.simpelTilbagebetalingstidAar') }}
     {{ helper.header_unit() }}
   </tr>
   </thead>
@@ -96,6 +98,7 @@
       <td class="elbespKrAar number">{{ detail.elbespKrAar | format_decimal(0) }}</td>
       <td class="varmebespKwhAar number">{{ detail.varmebespKwhAar | format_decimal(0) }}</td>
       <td class="varmebespKrAar number">{{ detail.varmebespKrAar | format_decimal(0) }}</td>
+      <td class="TBT number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
       <td class="last"></td>
     </tr>
   {% endfor %}
