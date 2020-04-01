@@ -397,7 +397,7 @@ class TrykluftTiltagDetail extends TiltagDetail
      */
     public function getVarmeReduktionDefault() {
         return array(
-            'type' => NULL,
+            'type' => 'none',
             'reduktion' => NULL,
             'besparelseKwh' => NULL,
             'besparelseKr' => NULL,
@@ -753,7 +753,11 @@ class TrykluftTiltagDetail extends TiltagDetail
      * See calculation file, cell E33.
      */
     function calculateVarmeReduktionBesparelseKwh() {
-        return $this->getElForbrugHerafBelastet() * $this->getVarmeReduktionReduktion();
+        $besparelse = 0;
+        if ($this->getVarmeReduktionType() && $this->getVarmeReduktionType() != 'none') {
+            $besparelse = $this->getElForbrugHerafBelastet() * $this->getVarmeReduktionReduktion();
+        }
+        return $besparelse;
     }
 
     /**
