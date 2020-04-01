@@ -64,7 +64,7 @@
       <td class="elreduktion-besparelseKwh number">
         {% for type, reduktion in detail.elReduktion %}
           {% if reduktion.enabled %}
-            {{ reduktion.besparelseKwh }}<br/>
+            {{ reduktion.besparelseKwh | format_decimal }}<br/>
           {% endif %}
         {% endfor %}
         {% if detail.varmeReduktion.type != 'none' %}
@@ -75,7 +75,7 @@
       <td class="elreduktion-besparelseKr number">
         {% for type, reduktion in detail.elReduktion %}
           {% if reduktion.enabled %}
-            {{ reduktion.besparelseKr }}<br/>
+            {{ reduktion.besparelseKr | format_decimal }}<br/>
           {% endif %}
         {% endfor %}
         {% if detail.varmeReduktion.type != 'none' %}
