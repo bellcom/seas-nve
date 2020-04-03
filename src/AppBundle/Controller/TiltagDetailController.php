@@ -159,7 +159,9 @@ class TiltagDetailController extends BaseController {
       $em->flush();
 
       $this->flash->success('tiltagdetail.confirmation.updated');
-
+      if ($request->get('continue')) {
+          return $this->redirect($this->generateUrl('tiltag_detail_edit', array('id' => $tiltagdetail->getId())));
+      }
       return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltagdetail->getTiltag()->getId())) . '#' . $tiltagdetail->getId());
     }
 

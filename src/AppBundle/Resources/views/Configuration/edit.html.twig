@@ -109,8 +109,8 @@
           <div class="row">
             <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet' | trans}}</div>
             <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
-            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
-            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_2' | trans}}</div>
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_3' | trans}}</div>
           </div>
           {% for key, row in edit_form.grundventilationMatrix %}
             <div class="row">
@@ -132,8 +132,8 @@
           <div class="row">
             <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet' | trans}}</div>
             <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
-            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
-            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_1' | trans}}</div>
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_2' | trans}}</div>
+            <div class="col-xs-3 padding">{{ 'appbundle.configuration.kvalitet_3' | trans}}</div>
           </div>
           {% for key, row in edit_form.udeluftTilfoerselMatrix %}
             <div class="row">
@@ -147,7 +147,59 @@
       </div>
     </div>
   </div>
-
+  <h2>Varme</h2>
+  <div class="row">
+    <div class="col-md-6 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'appbundle.configuration.varmeEnergiFaktor.label' | trans}}</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-condensed">
+            <thead>
+            <tr>
+              <th>{{ 'appbundle.configuration.varmeEnergiFaktor.type' | trans}}</th>
+              <th>{{ 'appbundle.configuration.varmeEnergiFaktor.faktor' | trans}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for type, faktor in edit_form.varmeEnergiFaktor %}
+              <tr>
+                <td>{{ ('appbundle.varmetiltagdetail.energiType.' ~ type ) | trans }}</td>
+                <td>{{ form_widget(faktor) }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'appbundle.configuration.varmePumpeFaktor.label' | trans}}</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-condensed">
+            <thead>
+            <tr>
+              <th>{{ 'appbundle.configuration.varmePumpeFaktor.type' | trans}}</th>
+              <th>{{ 'appbundle.configuration.varmePumpeFaktor.faktor' | trans}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for type, faktor in edit_form.varmePumpeFaktor %}
+              <tr>
+                <td>{{ ('appbundle.varmetiltagdetail.varmePumpeType.' ~ type ) | trans }}</td>
+                <td>{{ form_widget(faktor) }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
   {{ form_rest(edit_form) }}
   {{ form_end(edit_form) }}
 {% endblock %}

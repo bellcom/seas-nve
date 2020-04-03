@@ -1,0 +1,143 @@
+<div id="varmepumpetiltagdetail">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default appbundle_varmepumpetiltagdetail">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmepumpetiltagdetail.groups.foerForbrug' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(edit_form.energiTypePrimaerFoer) }}
+          <div class="form-group">
+            <div class="hidden naturgas-hidden fjernvarme-hidden traepiller-hidden elvarme-hidden varmepumpe-hidden">
+              {{ form_widget(edit_form.energiForbrugPrimaerFoer.olie) }}
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.olie.forbrugKWh' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.olie.forbrugKWh }} {{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.olie.forbrugKWh.unit' | trans }} </div>
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.olie.forbrugKr' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.olie.forbrugKr }} {{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.olie.forbrugKr.unit' | trans }} </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="hidden olie-hidden fjernvarme-hidden traepiller-hidden elvarme-hidden varmepumpe-hidden">
+              {{ form_widget(edit_form.energiForbrugPrimaerFoer.naturgas) }}
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.naturgas.forbrugKWh' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.naturgas.forbrugKWh }} {{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.naturgas.forbrugKWh.unit' | trans }} </div>
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.naturgas.forbrugKr' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.naturgas.forbrugKr }} {{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.naturgas.forbrugKr.unit' | trans }} </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="hidden naturgas-hidden olie-hidden traepiller-hidden elvarme-hidden varmepumpe-hidden">
+              {{ form_widget(edit_form.energiForbrugPrimaerFoer.fjernvarme) }}
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.fjernvarme.forbrugKWh' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.fjernvarme.forbrugKWh }} {{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.fjernvarme.forbrugKWh.unit' | trans }} </div>
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.fjernvarme.forbrugKr' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.fjernvarme.forbrugKr }} {{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.fjernvarme.forbrugKr.unit' | trans }} </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="hidden naturgas-hidden fjernvarme-hidden olie-hidden elvarme-hidden varmepumpe-hidden">
+              {{ form_widget(edit_form.energiForbrugPrimaerFoer.traepiller) }}
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.traepiller.forbrugKWh' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.traepiller.forbrugKWh }} {{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.traepiller.forbrugKWh.unit' | trans }} </div>
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.traepiller.forbrugKr' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.traepiller.forbrugKr }} {{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.traepiller.forbrugKr.unit' | trans }} </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="hidden naturgas-hidden fjernvarme-hidden traepiller-hidden olie-hidden varmepumpe-hidden">
+              {{ form_widget(edit_form.energiForbrugPrimaerFoer.elvarme) }}
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.elvarme.forbrugKWh' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.elvarme.forbrugKWh }} {{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.elvarme.forbrugKWh.unit' | trans }} </div>
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.elvarme.forbrugKr' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.elvarme.forbrugKr }} {{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.elvarme.forbrugKr.unit' | trans }} </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="hidden naturgas-hidden fjernvarme-hidden traepiller-hidden elvarme-hidden olie-hidden">
+              {{ form_widget(edit_form.energiForbrugPrimaerFoer.varmepumpe) }}
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.varmepumpe.forbrugKWh' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.varmepumpe.forbrugKWh }}{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.varmepumpe.forbrugKWh.unit' | trans }} </div>
+              <div>{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.varmepumpe.forbrugKr' | trans }}
+                : {{ entity.energiForbrugPrimaerFoer.varmepumpe.forbrugKr }}{{ 'appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.varmepumpe.forbrugKr.unit' | trans }} </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmepumpetiltagdetail.groups.forudsaetning' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(edit_form.varmePumpeForbrug.opvarmetArealBrutto) }}
+          <div class="form-group">
+            Vejledende værdier ved fastsættelse af varmepumpestørrelse
+            <br>Fastsættes i forhold til Klimaskærm, loftshøjde og anvendelse
+            <br>Nettoareal = ca. Brutto - 15%
+            <ul>
+              <li>Nye huse: 20-30 Watt/m2 netto areal</li>
+              <li>0-10 år.: 35-45 Watt/m2 netto areal</li>
+              <li>10-20 år: 45-55 Watt/m2 netto areal</li>
+              <li>20 år-30 år: >55 Watt/m2 nettoareal</li>
+              <li>30 år og ældre: >65 Watt/m2 nettoareal</li>
+            </ul>
+          </div>
+          {{ form_row(edit_form.varmePumpeForbrug.varmeTabM2) }}
+          <div>
+            Bygningens årlige nettoenergibehov varme og brugsvand kan sammenlignes med
+            Beregning 1 olie/naturgas/fjernvarme osv. Netto kWh.
+          </div>
+        </div>
+        <table class="table">
+          <tr>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.opvarmetArealNetto' | trans }}</td>
+            <td class="text-right">{{ entity.varmePumpeForbrug.opvarmetArealNetto| format_decimal }}</td>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.opvarmetArealNetto.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.varmeTab' | trans }}</td>
+            <td class="text-right">{{ entity.varmePumpeForbrug.varmeTab| format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.varmeTab.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.opvarmingForbrug' | trans }}</td>
+            <td class="text-right">{{ entity.varmePumpeForbrug.opvarmingForbrug| format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.opvarmingForbrug.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.vandOpvarmingForbrug' | trans }}</td>
+            <td class="text-right">{{ entity.varmePumpeForbrug.vandOpvarmingForbrug| format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.vandOpvarmingForbrug.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.nettoEnergiforbrug' | trans }}</td>
+            <td class="text-right">{{ entity.varmePumpeForbrug.nettoEnergiforbrug | format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.nettoEnergiforbrug.unit' | trans }} </td>
+          </tr>
+        </table>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmepumpetiltagdetail.groups.varmepumpeforbrugsberegning' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(edit_form.varmePumpeForbrug.type) }}
+          {{ form_row(edit_form.varmePumpeForbrug.effektFaktor) }}
+        </div>
+        <table class="table">
+          <tr>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.forbrugKWh' | trans }}</td>
+            <td class="text-right">{{ entity.varmePumpeForbrug.forbrugKWh| format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.forbrugKWh.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.forbrugKr' | trans }}</td>
+            <td class="text-right">{{ entity.varmePumpeForbrug.forbrugKr| format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmepumpetiltagdetail.varmePumpeForbrug.forbrugKr.unit' | trans }} </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

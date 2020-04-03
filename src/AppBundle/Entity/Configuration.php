@@ -7,6 +7,8 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\MonthType;
+use AppBundle\DBAL\Types\VarmePumpeTiltag\EnergiType;
+use AppBundle\DBAL\Types\VarmePumpeTiltag\VarmePumpeType;
 use AppBundle\DBAL\Types\VentilationTiltagDetail\ForureningType;
 use AppBundle\DBAL\Types\VentilationTiltagDetail\KvalitetType;
 use Doctrine\ORM\Mapping as ORM;
@@ -155,6 +157,20 @@ class Configuration
     protected $mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="varmeEnergiFaktor", type="array")
+     */
+    private $varmeEnergiFaktor;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="varmePumpeFaktor", type="array")
+     */
+    private $varmePumpeFaktor;
+
+    /**
      * Constructor
      */
     public function __construct() {
@@ -193,12 +209,16 @@ class Configuration
         if (empty($this->udeluftTilfoerselMatrix)) {
             $this->setUdeluftTilfoerselMatrix(array(
                 // Utilfredse personer i procent.
+                // Static numbers from calculation file, cells K29 - M29
+                // See xls/VentilationTiltagDetail/Ventilation2.xlsx
                 'del_utilfredse_personer' => array(
                     KvalitetType::_1 => 0.15,
                     KvalitetType::_2 => 0.20,
                     KvalitetType::_3 => 0.30,
                 ),
                 // Personer (l/s pr. person).
+                // Static numbers from calculation file, cells K30 - M30
+                // See xls/VentilationTiltagDetail/Ventilation2.xlsx
                 'lps_per_person' => array(
                     KvalitetType::_1 => 10,
                     KvalitetType::_2 => 7,
@@ -208,6 +228,8 @@ class Configuration
         }
 
         if (empty($this->grundventilationMatrix)) {
+            // Static numbers from calculation file, cells L23 - N25
+            // See xls/VentilationTiltagDetail/Ventilation2.xlsx
             $this->setGrundventilationMatrix(array(
                 ForureningType::A => array(
                     KvalitetType::_1 => 0.5,
@@ -224,6 +246,30 @@ class Configuration
                     KvalitetType::_2 => 0.7,
                     KvalitetType::_3 => 0.4,
                 ),
+            ));
+        }
+
+        if (empty($this->varmeEnergiFaktor)) {
+            // Static numbers from calculation file, cells L23 - N25
+            // See xls/VarmePumpe/Bereging_af_armepumpe_redigeret_til_screeningsvaerktoej_V.1.xls
+            $this->setVarmeEnergiFaktor(array(
+                EnergiType::OLIE => 10,
+                EnergiType::NATURGAS => 11,
+                EnergiType::FJERMVARME => 1000,
+                EnergiType::TRAEPILLER => 4.8,
+                EnergiType::ELVARME => 1,
+                EnergiType::VARMEPUMPE => 1,
+            ));
+        }
+
+        if (empty($this->varmePumpeFaktor)) {
+            // Static numbers from calculation file, cells P39 - P51
+            // See xls/VarmePumpe/Bereging_af_armepumpe_redigeret_til_screeningsvaerktoej_V.1.xls
+            $this->setVarmePumpeFaktor(array(
+                VarmePumpeType::JORD_MED_GULV => 4.5,
+                VarmePumpeType::JORD_MED_RADIATOR => 3.8,
+                VarmePumpeType::LUFTVAND_MED_JORD => 3.9,
+                VarmePumpeType::LUFTVAND_MED_RADIATOR => 3.3,
             ));
         }
     }
@@ -525,6 +571,52 @@ class Configuration
     public function getUdeluftTilfoerselMatrix()
     {
         return $this->udeluftTilfoerselMatrix;
+    }
+
+    /**
+     * Set varmeEnergiFaktor
+     *
+     * @param array $varmeEnergiFaktor
+     *
+     * @return Configuration
+     */
+    public function setVarmeEnergiFaktor($varmeEnergiFaktor)
+    {
+        $this->varmeEnergiFaktor = $varmeEnergiFaktor;
+        return $this;
+    }
+
+    /**
+     * Get varmeEnergiFaktor
+     *
+     * @return array
+     */
+    public function getVarmeEnergiFaktor()
+    {
+        return $this->varmeEnergiFaktor;
+    }
+
+    /**
+     * Set varmePumpeFaktor
+     *
+     * @param array $varmePumpeFaktor
+     *
+     * @return Configuration
+     */
+    public function setVarmePumpeFaktor($varmePumpeFaktor)
+    {
+        $this->varmePumpeFaktor = $varmePumpeFaktor;
+        return $this;
+    }
+
+    /**
+     * Get varmePumpeFaktor
+     *
+     * @return array
+     */
+    public function getVarmePumpeFaktor()
+    {
+        return $this->varmePumpeFaktor;
     }
 
     /**

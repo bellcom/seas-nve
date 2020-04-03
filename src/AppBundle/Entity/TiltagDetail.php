@@ -30,6 +30,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *    "belysning" = "BelysningTiltagDetail",
  *    "klimaskærm" = "KlimaskaermTiltagDetail",
  *    "nyklimaskærm" = "NyKlimaskaermTiltagDetail",
+ *    "varmepumpe" = "VarmePumpeTiltagDetail",
  *    "vindue" = "VindueTiltagDetail",
  *    "ventilation" = "VentilationTiltagDetail",
  *    "tekniskisolering" = "TekniskIsoleringTiltagDetail",
@@ -46,6 +47,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltagDetail",
  *    "trykluft" = "AppBundle\Entity\TrykluftTiltagDetail",
  *    "ventilation" = "AppBundle\Entity\VentilationTiltagDetail",
+ *    "varmepumpe" = "AppBundle\Entity\VarmePumpeTiltagDetail",
  *    "solcelle" = "AppBundle\Entity\SolcelleTiltagDetail",
  * })
  * @ORM\HasLifecycleCallbacks

@@ -82,6 +82,7 @@ common:
   overview: "Oversigt"
   personer: "Personer"
   printed: "Udskrevet"
+  priser: "Priser"
   projektleder_for: "Projektleder for"
   projekterende_for: "Projekterende for"
   replace_file: "Vælg ny fil"
@@ -240,6 +241,7 @@ bygning_rapporter:
     tekniskisoleringtiltag: "Teknisk isolering"
     tiltag: "Forslag"
     tilvalgt: "Tilvalgt"
+    varmepumpetiltag: "Varmepumpe"
     vinduetiltag: "Vindue"
     ventilationtiltag: "Ventilation"
     tryklufttiltag: "Trykluft"
@@ -654,6 +656,21 @@ user:
   messages:
     error:
       email: "Bruger med adresse %email findes allerede"
+varmepumpetiltag:
+  actions:
+    edit: "Rediger varmepumpeforslag"
+  confirmation:
+    created: "Nyt varmepumpeforslag oprettet"
+varmepumpetiltagdetail:
+  actions:
+    add: "Tilføj varmepumpeforslag"
+    batch_edit: "Rediger valgte varmepumpeforslag"
+    copy: "Kopier varmepumpeforslag"
+    edit: "Rediger varmepumpeforslag"
+  groups:
+    foerForbrug: "Før forbrug"
+    forudsaetning: "Forudsætning for vejledende dimensionering af varmepumpeanlægget"
+    varmepumpeforbrugsberegning: "Varmepumpe forbrugsberegning"
 ventilationtiltagdetail:
   actions:
     add: "Tilføj ventilationforslag"
@@ -1214,6 +1231,14 @@ appbundle:
       label: "Udelufttilførsel i l/s til personer"
       del_utilfredse_personer: "Utilfredse personer i procent"
       lps_per_person: "Personer (l/s pr. person)"
+    varmeEnergiFaktor:
+      label: "Energi faktor"
+      type: "Energi type"
+      faktor: "faktor"
+    varmepUMPEFaktor:
+      label: "Varmepumpe faktor"
+      type: "Pumpe type"
+      faktor: "Effektfaktor/Cop"
   elofordeling:
     januar: "Januar"
     februar: "Februar"
@@ -2193,6 +2218,20 @@ appbundle:
       varme.pris.unit: "kr/kWh"
       el: "Tilsidesæt elpris"
       el.pris.unit: "kr/kWh"
+      elrumvarme: "El pris for rumvarme"
+      elrumvarme.pris.unit: "kr/kWh"
+      olie: "Olie"
+      olie.pris.unit: "kr/L"
+      naturgas: "Naturgas"
+      naturgas.pris.unit: "kr/m3"
+      fjernvarme: "Fjernvarme"
+      fjernvarme.pris.unit: "kr/MWh"
+      traepiller: "Træpiller"
+      traepiller.pris.unit: "kg/kWh"
+      elvarme: "Elvarme"
+      elvarme.pris.unit: "kr/kWh"
+      varmepumpe: "Varmepumpe"
+      varmepumpe.pris.unit: "kr/kWh"
   tiltagdatofordrift:
     datoForDrift: "Dato for drift"
   tiltagdetail:
@@ -2350,6 +2389,99 @@ appbundle:
     plainPassword.second: "Gentag kodeord"
     profile: "Profil"
     segmenter: "Segmentansvarlig for (Aa+ brugere):"
+  varmetiltagdetail:
+    energiType:
+      olie: 'Olie'
+      naturgas: 'Naturgas'
+      fjernvarme: 'Fjernvarme'
+      traepiller: 'Træpiller'
+      elvarme: 'Elvarme'
+      varmepumpe: 'Varmepumpe'
+    varmePumpeType:
+      jord_med_gulv: "Jordvarme med gulvvarme"
+      jord_med_radiator: "Jordvarme med radiator"
+      luftvand_med_gulv: "Luft-vand varmepumpe med gulvvarme"
+      luftvand_med_radiator: "Luft-vand varmepumpe med radiator"
+  varmepumpetiltagdetail:
+    energiTypePrimaerFoer: "Energitype"
+    energiForbrugPrimaerFoer:
+      forbrugKWh: "Producered energi"
+      forbrugKWh.unit: "kWh"
+      forbrugKr: "Energi omkostninger"
+      forbrugKr.unit: "kr"
+      olie:
+        forbrug: "Forbrug"
+        forbrug.unit: "L"
+        faktor: "Kedelvirkningsgrad"
+        forbrugKWh: "Producered energi"
+        forbrugKWh.unit: "kWh"
+        forbrugKr: "Energi omkostninger"
+        forbrugKr.unit: "kr"
+      naturgas:
+        forbrug: "Forbrug"
+        forbrug.unit: "m3"
+        faktor: "Kedelvirkningsgrad"
+        forbrugKWh: "Producered energi"
+        forbrugKWh.unit: "kWh"
+        forbrugKr: "Energi omkostninger"
+        forbrugKr.unit: "kr"
+      fjernvarme:
+        forbrug: "Forbrug"
+        forbrug.unit: "MWh"
+        faktor: "Virkningsgrad"
+        forbrugKWh: "Producered energi"
+        forbrugKWh.unit: "kWh"
+        forbrugKr: "Energi omkostninger"
+        forbrugKr.unit: "kr"
+      traepiller:
+        forbrug: "Forbrug"
+        forbrug.unit: "kg"
+        faktor: "Kedelvirkningsgrad"
+        forbrugKWh: "Producered energi"
+        forbrugKWh.unit: "kWh"
+        forbrugKr: "Energi omkostninger"
+        forbrugKr.unit: "kr"
+      elvarme:
+        forbrug: "Forbrug"
+        forbrug.unit: "L"
+        faktor: "Kedelvirkningsgrad"
+        forbrugKWh: "Producered energi"
+        forbrugKWh.unit: "kWh"
+        forbrugKr: "Energi omkostninger"
+        forbrugKr.unit: "kr"
+      varmepumpe:
+        forbrug: "Forbrug"
+        forbrug.unit: "L"
+        faktor: "COP faktor"
+        forbrugKWh: "Producered energi"
+        forbrugKWh.unit: "kWh"
+        forbrugKr: "Energi omkostninger"
+        forbrugKr.unit: "kr"
+    varmePumpeForbrug:
+      opvarmetArealNetto: "Opvarmet areal netto"
+      opvarmetArealNetto.unit: "m2"
+      opvarmetArealBrutto: "Opvarmet areal brutto"
+      opvarmetArealBrutto.unit: "m2"
+      varmeTabM2: "Varmetab"
+      varmeTabM2.unit: "Watt/m2"
+      varmeTab: "Varmetab"
+      varmeTab.unit: "Watt"
+      opvarmingForbrug: "Forbrug opvarmning"
+      opvarmingForbrug.unit: "kWh"
+      vandOpvarmingForbrug: "Forbrug Varmt brugsvand"
+      vandOpvarmingForbrug.unit: "kWh"
+      nettoEnergiforbrug: "Netto energiforbrug"
+      nettoEnergiforbrug.unit: "kWh"
+      type: "Varmepumpe type"
+      effektFaktor: "Effektfaktor/Cop"
+      forbrugKWh: "Varmepumpe forbrug"
+      forbrugKWh.unit: "kWh"
+      forbrugKr: "Årlig omkostning for drift"
+      forbrugKr.unit: "kr"
+    varmebespKwhAar: "Varmebesp."
+    varmebespKwhAar.unit: "kWh/år"
+    varmebespKrAar: "Varmebesp."
+    varmebespKrAar.unit: "kr/år"
   ventilationtiltagdetail:
     laengdeVentileretRum: "Længde ventileret rum"
     breddeVentileretRum: "Bredde ventileret rum"
