@@ -234,6 +234,7 @@ bygning_rapporter:
   strings:
     belysningtiltag: "Belysning"
     klimaskaermtiltag: "Klimaskærm"
+    koelingtiltag: "Køling"
     nyklimaskaermtiltag: "NyKlimaskærm"
     pumpetiltag: "Pumper"
     solcelletiltag: "Solcelle"
@@ -373,6 +374,22 @@ klimaskaermtiltagdetail:
     batch_edit: "Rediger valgte klimaskærmsforslag"
     copy: "Kopier klimaskærmsforslag"
     edit: "Rediger klimaskærmsforslag"
+koelingtiltag:
+  actions:
+    add: "Tilføj kølingforlslag"
+    copy: "Kopier kølingforlslag"
+    edit: "Rediger kølingforlslag"
+  confirmation:
+    created: "Nyt kølingforlslag oprettet"
+koelingtiltagdetail:
+  actions:
+    add: "Tilføj kølingforlslag"
+    batch_edit: "Rediger valgte kølingforlslag"
+    copy: "Kopier kølingforlslag"
+    edit: "Rediger kølingforlslag"
+  groups:
+    tilstandfoer: "Tilstand Før"
+    tilstandefter: "Tilstand Efter"
 nyklimaskaermtiltag:
   actions:
     add: "Tilføj klimaskærmsforslag"
@@ -1552,6 +1569,57 @@ appbundle:
     vaegtetLevetidForTiltagetAfrundet: "Vægtet levetid for forslaget (afrundet)"
     yderligereBesparelserPct: "Yderligere besparelser"
     yderligereBesparelserPct.unit: "%"
+  koelingtiltagdetail:
+    tableHeader:
+      etotReduktion: "Reduktion af Etot fra tilstand før"
+      etotReduktion.unit: "%"
+      samlerBesparelse: "Samlet besparelse"
+      samlerBesparelse.unit: "kWh"
+    tilstandDataFoer:
+      to: "To"
+      to.unit: "C"
+      tc: "Tc"
+      tc.unit: "C"
+      etaC: "ETA_C"
+      etaKapa: "ETA_kapa"
+      ek: "Ek"
+      ek.unit: "kWh"
+      ehjK: "Ehj,k"
+      ehjK.unit: "kWh"
+      ehjV: "Ehj,v"
+      ehjV.unit: "kWh"
+      kuldetab: "Kuldetab"
+      kuldetab.unit: "kWh"
+      tableHeader:
+        ek: "Ek (før)"
+        ek.unit: "kWh"
+        qbehov: "Qbehov (før)"
+        qbehov.unit: "kWh"
+        etot: "Etot (før)"
+        etot.unit: "kWh"
+    tilstandDataEfter:
+      efter: "efter"
+      to: "To"
+      to.unit: "C"
+      tc: "Tc"
+      tc.unit: "C"
+      etaC: "ETA_C"
+      etaKapa: "ETA_kapa"
+      ek: "Ek"
+      ek.unit: "kWh"
+      ehjK: "Ehj,k"
+      ehjK.unit: "kWh"
+      ehjV: "Ehj,v"
+      ehjV.unit: "kWh"
+      kuldetab: "Kuldetab"
+      kuldetab.unit: "kWh"
+      tableHeader:
+        ek: "Ek (efter)"
+        ek.unit: "kWh"
+        qbehov: "Qbehov (efter)"
+        qbehov.unit: "kWh"
+        etot: "Etot (efter)"
+        etot.unit: "kWh"
   nyklimaskaermtiltagdetail:
     add: "Tilføj"
     andelAfArealDerEfterisoleres: "Andel af areal der efterisoleres"

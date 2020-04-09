@@ -1,0 +1,15 @@
+{% extends 'AppBundle:TiltagDetail:edit.html.twig' %}
+
+{% set heading = 'koelingtiltagdetail.actions.edit' %}
+
+{% block edit_form %}
+
+  {% include 'AppBundle:KoelingTiltagDetail:_form.html.twig' %}
+
+{% endblock %}
+
+{% block documentReady %}
+  {{ parent() }}
+
+  {% include 'AppBundle:_includes:textAreaCountdown.js.twig' %}
+{% endblock documentReady %}
