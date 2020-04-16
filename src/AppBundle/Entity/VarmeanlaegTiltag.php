@@ -8,7 +8,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Annotations\Calculated;
 use AppBundle\Annotations\Formula;
-use AppBundle\DBAL\Types\VarmePumpeTiltag\EnergiType;
+use AppBundle\DBAL\Types\VarmeanlaegTiltag\EnergiType;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  */
-abstract class VarmeTiltag extends Tiltag {
+class VarmeanlaegTiltag extends Tiltag {
 
     /**
      * @Formula("$this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh()")
@@ -43,6 +43,7 @@ abstract class VarmeTiltag extends Tiltag {
     */
     public function __construct() {
         parent::__construct();
+        $this->setTitle('Varmeanlæg');
         $this->setDefault();
     }
 
@@ -54,7 +55,7 @@ abstract class VarmeTiltag extends Tiltag {
      * Set priserOverride
      *
      * @param array $priserOverride
-     * @return VarmeTiltag
+     * @return VarmeanlaegTiltag
      */
     public function setPriserOverride($priserOverride) {
         $this->priserOverride = $priserOverride;

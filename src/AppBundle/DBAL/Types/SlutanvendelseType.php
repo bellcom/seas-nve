@@ -45,7 +45,7 @@ class SlutanvendelseType extends AbstractEnumType
     'AppBundle\Entity\KlimaskaermTiltag' => self::KLIMASKAERM,
     'AppBundle\Entity\KoelingTiltag' => self::KOELING,
     'AppBundle\Entity\NyKlimaskaermTiltag' => self::KLIMASKAERM,
-    'AppBundle\Entity\VarmePumpeTiltag' => self::VARMEANLAEG,
+    'AppBundle\Entity\VarmeanlaegTiltag' => self::VARMEANLAEG,
     'AppBundle\Entity\VindueTiltag' => self::VINDUER,
     'AppBundle\Entity\VentilationTiltag' => self::VENTILATION,
     'AppBundle\Entity\TrykluftTiltag' => self::TRYKLUFT,

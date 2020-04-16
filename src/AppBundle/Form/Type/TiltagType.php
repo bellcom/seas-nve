@@ -10,7 +10,7 @@ use AppBundle\AppBundle;
 use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\Entity\NyKlimaskaermTiltag;
 use AppBundle\Entity\TrykluftTiltag;
-use AppBundle\Entity\VarmePumpeTiltag;
+use AppBundle\Entity\VarmeAnlaegTiltag;
 use AppBundle\Form\Type\RisikovurderingType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
@@ -193,7 +193,7 @@ class TiltagType extends AbstractType {
             'required' => FALSE,
         ));
     }
-    if ($this->tiltag instanceof VarmePumpeTiltag) {
+    if ($this->tiltag instanceof VarmeAnlaegTiltag) {
       $builder
         ->add('priserOverride', 'collection', array(
           'type' => PrisOverrideType::class,

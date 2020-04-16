@@ -19,24 +19,24 @@
           <tr>
             {{ helper.header() }}
             {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
-            {{ helper.header('appbundle.varmepumpetiltagdetail.energiTypePrimaerFoer') }}
-            {{ helper.header('appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.forbrugKWh') }}
-            {{ helper.header('appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.forbrugKr') }}
-            {{ helper.header('appbundle.varmepumpetiltagdetail.varmePumpeForbrug.forbrugKWh') }}
-            {{ helper.header('appbundle.varmepumpetiltagdetail.varmePumpeForbrug.forbrugKr') }}
-            {{ helper.header('appbundle.varmepumpetiltagdetail.varmebespKwhAar') }}
-            {{ helper.header('appbundle.varmepumpetiltagdetail.varmebespKrAar') }}
+            {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiTypePrimaerFoer') }}
+            {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerFoer.forbrugKWh') }}
+            {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerFoer.forbrugKr') }}
+            {{ helper.header('appbundle.varmeanlaegtiltagdetail.varmePumpeForbrug.forbrugKWh') }}
+            {{ helper.header('appbundle.varmeanlaegtiltagdetail.varmePumpeForbrug.forbrugKr') }}
+            {{ helper.header('appbundle.varmeanlaegtiltagdetail.varmebespKwhAar') }}
+            {{ helper.header('appbundle.varmeanlaegtiltagdetail.varmebespKrAar') }}
           </tr>
           <tr>
             {{ helper.header_unit() }}
             {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
-            {{ helper.header_unit('appbundle.varmepumpetiltagdetail.energiTypePrimaerFoer') }}
-            {{ helper.header_unit('appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.forbrugKWh') }}
-            {{ helper.header_unit('appbundle.varmepumpetiltagdetail.energiForbrugPrimaerFoer.forbrugKr') }}
-            {{ helper.header_unit('appbundle.varmepumpetiltagdetail.varmePumpeForbrug.forbrugKWh') }}
-            {{ helper.header_unit('appbundle.varmepumpetiltagdetail.varmePumpeForbrug.forbrugKr') }}
-            {{ helper.header_unit('appbundle.varmepumpetiltagdetail.varmebespKwhAar') }}
-            {{ helper.header_unit('appbundle.varmepumpetiltagdetail.varmebespKrAar') }}
+            {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.energiTypePrimaerFoer') }}
+            {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerFoer.forbrugKWh') }}
+            {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerFoer.forbrugKr') }}
+            {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.varmePumpeForbrug.forbrugKWh') }}
+            {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.varmePumpeForbrug.forbrugKr') }}
+            {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.varmebespKwhAar') }}
+            {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.varmebespKrAar') }}
           </tr>
           </thead>
           <tbody class="list">
@@ -52,8 +52,8 @@
                 <td class="energiTypePrimaerFoer number">{{ ('appbundle.varmetiltagdetail.energiType.' ~ detail.energiTypePrimaerFoer) | trans }}</td>
                 <td class="energiTypePrimaerFoerKwh number">{{ detail.getEnergiForbrugPrimaerFoerKwh() | format_decimal(0) }}</td>
                 <td class="energiTypePrimaerFoerKr number">{{ detail.getEnergiForbrugPrimaerFoerKr() | format_decimal(0) }}</td>
-                <td class="varmePumpeForbrugKWh number">{{ detail.getVarmePumpeForbrugKWh() | format_decimal(0) }}</td>
-                <td class="varmePumpeForbrugKr number">{{ detail.getVarmePumpeForbrugKr() | format_decimal(0) }}</td>
+                <td class="varmePumpeForbrugKWh number">{{ detail.getVarmeanlaegForbrugKWh() | format_decimal(0) }}</td>
+                <td class="varmePumpeForbrugKr number">{{ detail.getVarmeanlaegForbrugKr() | format_decimal(0) }}</td>
                 <td class="varmebespKwhAar number">{{ detail.varmebespKwhAar | format_decimal(0) }}</td>
                 <td class="varmebespKrAar number">{{ detail.varmebespKrAar | format_decimal(0) }}</td>
               </tr>

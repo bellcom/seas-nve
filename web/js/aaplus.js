@@ -318,14 +318,18 @@
 
   $(document).ready(function() {
       conditionalRadioFormElements('.appbundle_tryklufttiltagdetail_indData');
-      conditionalDropdownFormElements('.appbundle_varmepumpetiltagdetail');
+      conditionalDropdownFormElements('#energiTypePrimaerFoer');
+      conditionalDropdownFormElements('#energiTypeSekundaerFoer');
+      conditionalDropdownFormElements('#energiTypePrimaerEfter');
+      conditionalDropdownFormElements('#energiTypeSekundaerEfter');
+
       $('#appbundle_varmepumpetiltagdetail_varmePumpeForbrug_type').change(function() {
           var $value = $(this).val();
           var $faktor = $(this).find('option[value=' + $value + ']').data('faktor');
           $('#appbundle_varmepumpetiltagdetail_varmePumpeForbrug_effektFaktor').val($faktor);
       });
 
-      var $varmePumpeForm = $('#varmepumpetiltagdetail').parents('form:first');
+      var $varmePumpeForm = $('#varmeanlaegtiltagdetail').parents('form:first');
       if ($varmePumpeForm.length) {
           $varmePumpeForm.find('.form-group:last').append('<button type="submit" class="btn btn-primary save-and-continue">Gem og rediger videre</button>');
           $varmePumpeForm.find('.save-and-continue').click(function() {
@@ -355,17 +359,16 @@
           $($wrapper + ' .hidden').removeClass('hidden');
           $($wrapper + ' select').each(function() {
               $value = $(this).val();
-              if ($value) {
-                  $('.' + $value + '-hidden').each(function() {
-                      $(this).parents('div.form-group:first').not('.hidden').addClass('hidden');
-                  });
+              if ($value == null) {
+                  $value = '';
               }
+              $($wrapper + ' .' + $value + '-hidden').each(function() {
+                  $(this).parents('div.form-group:first').not('.hidden').addClass('hidden');
+              });
           });
       });
       $($wrapper + ' select').each(function() {
-          if ($(this).val()) {
-              $(this).change();
-          }
+          $(this).change();
       });
   }
 
