@@ -18,6 +18,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class KoelingTiltag extends Tiltag {
 
+  /**
+   * @Formula("$this->elbesparelse * $this->getRapportElKrKWh()")
+   */
+  protected $samletEnergibesparelse;
 
   /**
    * Constructor
