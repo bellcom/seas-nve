@@ -56,10 +56,10 @@
             <td colspan="4"></td>
           </tr>
           <tr>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning.table_label' | trans }}</th>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeOmkostning.table_label' | trans }}</th>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.driftOmkostning.table_label' | trans }}</th>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.samletOmkostning.table_label' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.driftOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.samletOmkostning' | trans }}</th>
           </tr>
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
@@ -146,10 +146,10 @@
             <td colspan="4"></td>
           </tr>
           <tr>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning.table_label' | trans }}</th>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeOmkostning.table_label' | trans }}</th>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.driftOmkostning.table_label' | trans }}</th>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.samletOmkostning.table_label' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.driftOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.samletOmkostning' | trans }}</th>
           </tr>
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
@@ -182,11 +182,11 @@
         </div>
         <table class="table">
           <tr>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning.table_label' | trans }}</th>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeKWh.table_label' | trans }}</th>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeOmkostning.table_label' | trans }}</th>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.driftOmkostning.table_label' | trans }}</th>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.samletOmkostning.table_label' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeKWh' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.driftOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.samletOmkostning' | trans }}</th>
           </tr>
           <tr>
             <th>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugFoer.label' | trans}}</th>
@@ -212,8 +212,58 @@
         </table>
       </div>
     </div>
+    <div class="col-md-6">
+      <div class="panel-body">
+        <strong>NOTE:</strong>Her beregnes besparelsen i kWh og kr. Årsagen til at besparelsen nu vises som negativ, er at alle primære og sekundære energiformer er valgt for den nye løsning. I screeningsværktøjet, skal der kun vælges den ene det skal være, og så er det den der tæller.
+        Det er kun disse tal der er nødvendige for at beregne besparlse til screeningsværktøj. Øvrige beregninger efter denne er for beregning af størrelse og pris på nyt varmeanlæg
+      </div>
+    </div>
   </div>
-  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.6_varmekilde_stoerelse' | trans }}</h3>
+        </div>
+        <table class="table">
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.bruttoVarmeForbrug' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.boligopvarmning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.erhverv_og_skoler' | trans }}</th>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
+            <td>{{ entity.nyPrimaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
+            <td>{{ entity.primaerBoligOpvarmingKW | format_decimal }}</td>
+            <td>{{ entity.primaerErhSkOpvarmingKW | format_decimal }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
+            <td>{{ entity.nySekundaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
+            <td>{{ entity.sekundaerBoligOpvarmingKW | format_decimal }}</td>
+            <td>{{ entity.sekundaerErhSkOpvarmingKW | format_decimal }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.samlet_effektbehov-12' | trans}}</th>
+            <td></td>
+            <td>{{ entity.samletBoligOpvarmingKW | format_decimal }}</td>
+            <td>{{ entity.samletErhSkOpvarmingKW | format_decimal }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel-body">
+        <strong>NOTE:</strong> Beregning er kun hjælp til beregning, er ikke synlig for kunde.<br>
+        Beregning viser 2 resultater, alt efter om det er boligopvarmning, eller skole og Erhverv.<br>
+        kW er varmekildens minimums effektbehov ved -12 ud fra nuværende og fremtidigt varmeforbrug. Husk tillæg på kedel og varmepumpe som sikkerhed margien.  Eksempel: Bygningens varmebehov ved -12 er 10kw. Men en 10 kW luft-vand varmepumpe yder ikke 10kW ved - 12. Så varmepumpen skal derfor være større for at leverer 10kW ved - 12.<br>
+        Hvis brugsvands produktion, udgøre mere end 30 % af det samlede årsforbrug, skal varmekildens størrelse kompenseres i forhold til dette.<br>
+        Faktortal på 2334,75 fremkommer af den omvente beregning hvor Watt, omregnes til kWh årsforbrug:<br>
+        Watt * 1,1 * 2830 * 24/32/1000
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">
@@ -221,75 +271,125 @@
           <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.7_kontrol' | trans }}</h3>
         </div>
         <div class="panel-body">
-          {{ form_row(edit_form.forbrugBeregningKontrol.opvarmetArealBrutto) }}
-          <div class="form-group">
-            Vejledende værdier ved fastsættelse af varmeanlaegstørrelse
-            <br>Fastsættes i forhold til Klimaskærm, loftshøjde og anvendelse
-            <br>Nettoareal = ca. Brutto - 15%
-            <ul>
-              <li>Nye huse: 20-30 Watt/m2 netto areal</li>
-              <li>0-10 år.: 35-45 Watt/m2 netto areal</li>
-              <li>10-20 år: 45-55 Watt/m2 netto areal</li>
-              <li>20 år-30 år: >55 Watt/m2 nettoareal</li>
-              <li>30 år og ældre: >65 Watt/m2 nettoareal</li>
-            </ul>
-          </div>
-          {{ form_row(edit_form.forbrugBeregningKontrol.varmeTabM2) }}
-          <div>
-            Bygningens årlige nettoenergibehov varme og brugsvand kan sammenlignes med
-            Beregning 1 olie/naturgas/fjernvarme osv. Netto kWh.
-          </div>
+          {{ form_row(edit_form.forbrugBeregningKontrol.primaerFuldlastTimer) }}
+          {{ form_row(edit_form.forbrugBeregningKontrol.sekundaerFuldlastTimer) }}
         </div>
         <table class="table">
           <tr>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealNetto' | trans }}</td>
-            <td class="text-right">{{ entity.forbrugBeregningKontrol.opvarmetArealNetto| format_decimal }}</td>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealNetto.unit' | trans }} </td>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.bruttoVarmeForbrug' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.boligopvarmning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.effektKW' | trans }}</th>
           </tr>
           <tr>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.varmeTab' | trans }}</td>
-            <td class="text-right">{{ entity.forbrugBeregningKontrol.varmeTab| format_decimal(0) }}</td>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.varmeTab.unit' | trans }} </td>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
+            <td>{{ entity.nyPrimaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugBeregningKontrol.primaerFuldlastTimer | format_decimal(0) }}</td>
+            <td>{{ entity.primaerEffektMetode1 | format_decimal }}</td>
           </tr>
           <tr>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmingForbrug' | trans }}</td>
-            <td class="text-right">{{ entity.forbrugBeregningKontrol.opvarmingForbrug| format_decimal(0) }}</td>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmingForbrug.unit' | trans }} </td>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
+            <td>{{ entity.nySekundaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugBeregningKontrol.sekundaerFuldlastTimer | format_decimal(0) }}</td>
+            <td>{{ entity.sekundaerEffektMetode1 | format_decimal }}</td>
           </tr>
           <tr>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.vandOpvarmingForbrug' | trans }}</td>
-            <td class="text-right">{{ entity.forbrugBeregningKontrol.vandOpvarmingForbrug| format_decimal(0) }}</td>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.vandOpvarmingForbrug.unit' | trans }} </td>
-          </tr>
-          <tr>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.nettoEnergiforbrug' | trans }}</td>
-            <td class="text-right">{{ entity.forbrugBeregningKontrol.nettoEnergiforbrug | format_decimal(0) }}</td>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.nettoEnergiforbrug.unit' | trans }} </td>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.samlet_effektbehov-12' | trans}}</th>
+            <td></td>
+            <td></td>
+            <td>{{ entity.samletEffektMetode1 | format_decimal }}</td>
           </tr>
         </table>
       </div>
     </div>
     <div class="col-md-6">
+      <div class="panel-body">
+        <strong>NOTE:</strong> Beregning er kun hjælp til beregning, er ikke synlig for kunde.<br>
+        Denne kontrolberegning udføres som en alternativ metode for beregning af varmekildens effektbehov ved -12.<br>
+        Beregning bruges som en kontrol af beregninsmetode under punkt 6, og summen af disse 2 beregninger bruges til at fastsætte varmekildens størrelse.<br>
+        Fuldlasttimer justeres i horhold til bygningsanvendelse. Privatboligopvarmning er typisk omkring 2200 fuldlasttimer. og Erhverv/skoler er omkring 1800 fuldlasttimer.
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.varmeanlaegforbrugsberegning' | trans }}</h3>
+          <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.8_kontrol' | trans }}</h3>
         </div>
         <div class="panel-body">
-          {{ form_row(edit_form.forbrugBeregningKontrol.type) }}
-          {{ form_row(edit_form.forbrugBeregningKontrol.effektFaktor) }}
+          {{ form_row(edit_form.forbrugBeregningKontrol.opvarmetArealBrutto) }}
+          <div class="form-group">
+          </div>
+          {{ form_row(edit_form.forbrugBeregningKontrol.varmeTabM2) }}
+          {{ form_row(edit_form.forbrugBeregningKontrol.brugsvandsandel) }}
         </div>
         <table class="table">
           <tr>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.forbrugKWh' | trans }}</td>
-            <td class="text-right">{{ entity.forbrugBeregningKontrol.forbrugKWh| format_decimal(0) }}</td>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.forbrugKWh.unit' | trans }} </td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealBrutto' | trans }}</td>
+            <td class="text-right">{{ entity.forbrugBeregningKontrol.opvarmetArealBrutto| format_decimal }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealBrutto.unit' | trans }} </td>
           </tr>
           <tr>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.forbrugKr' | trans }}</td>
-            <td class="text-right">{{ entity.forbrugBeregningKontrol.forbrugKr| format_decimal(0) }}</td>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.forbrugKr.unit' | trans }} </td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealNetto' | trans }}</td>
+            <td class="text-right">{{ entity.forbrugBeregningKontrolOpvarmetArealNetto| format_decimal }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealNetto.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealNetto' | trans }}</td>
+            <td class="text-right">{{ entity.forbrugBeregningKontrol.varmeTabM2 | format_decimal }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealNetto.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.effektBehovKW' | trans }}</td>
+            <td class="text-right">{{ entity.forbrugBeregningKontrolEffektBehov| format_decimal }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.effektBehovKW.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <th colspan="3">{{ 'varmeanlaegtiltagdetail.strings.beregning_effekt' | trans}}</th>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.effektBehovW' | trans }}</td>
+            <td class="text-right">{{ ( entity.forbrugBeregningKontrolEffektBehov * 1000 ) | format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.effektBehovW.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmingForbrugKWh' | trans }}</td>
+            <td class="text-right">{{ ( entity.forbrugBeregningKontrolOpvarmingForbrugKWh ) | format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmingForbrugKWh.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.brugsvandsandel' | trans }}</td>
+            <td class="text-right">{{ ( entity.forbrugBeregningKontrol.brugsvandsandel ) | format_percent_nounit(0) }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.brugsvandsandel.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.forbrugKWh' | trans }}</td>
+            <td class="text-right">{{ ( entity.forbrugBeregningKontrolForbrugKWh ) | format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.forbrugKWh.unit' | trans }} </td>
           </tr>
         </table>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel-body">
+        <strong>NOTE:</strong> Vurderinge af Watt/m2 ud fra alder, isolering og loftshøjde<br>
+        Skema herunder er til boligopvarmning<br>
+        <ul>
+          <li>Nye huse: 20-30 Watt/m2 netto areal</li>
+          <li>0-10 år.: 35-45 Watt/m2 netto areal</li>
+          <li>10-20 år: 45-55 Watt/m2 netto areal</li>
+          <li>20 år-30 år: >55 Watt/m2 nettoareal</li>
+          <li>30 år og ældre: >65 Watt/m2 nettoareal</li>
+        </ul>
+
+        Nettoareal = ca. Brutto - 15%<br>
+        Beregning er kun hjælp til beregning, er ikke synlig for kunde.<br>
+        Denne kontrolberegning udføres som en alternativ metode for beregning af varmekildens effektbehov ved -12, samt årsforbruget.<br>
+        Beregning bruges som en kontrol af beregninsmetode under punkt 6, og summen af disse 2 beregninger bruges til at fastsætte varmekildens størrelse, og kontrol af årsforbrug.<br>
+        Watt/m2, vurderes i forhold til bygningens isoleringsgrad, rumhøjde og alder<br>
+        Brugsvandsandel indtastes som % i forhold til varmeforbruget. typisk et sted mellem 10-30%<br>
+        Beregning af kWh, er netto kWh, det vil sige at tab af kedelvirkningsgrad ikke er medregnet<br>
       </div>
     </div>
   </div>

@@ -37,19 +37,8 @@ class VarmePumpeForbrugType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $elementOptions) {
         foreach (VarmeanlaegTiltagDetail::getForbrugBeregningKontrolInputKeys() as $key) {
-            if ($key == 'type') {
-                /** @var Configuration $configuration */
-                $configuration = $this->container->get('doctrine')->getRepository('AppBundle:Configuration')->getConfiguration();
-                $varmePumpeFaktorAttr = array();
-                foreach ($configuration->getVarmePumpeFaktor() as $varmePumpeFaktor) {
-                    $varmePumpeFaktorAttr[] = array('data-faktor' => $varmePumpeFaktor);
-                }
-                $builder->add($key, 'choice',  array(
-                    'choices' => VarmePumpeType::getChoices(),
-                    'choice_attr' => $varmePumpeFaktorAttr,
-                    'empty_value' => 'common.none',
-                    'required' => TRUE,
-                ));
+            if ($key == 'brugsvandsandel') {
+                $builder->add($key, 'percent');
                 continue;
             }
             $builder->add($key, 'number',  array(

@@ -833,8 +833,9 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
         return array(
             'opvarmetArealBrutto',
             'varmeTabM2',
-            'type',
-            'effektFaktor',
+            'brugsvandsandel',
+            'primaerFuldlastTimer',
+            'sekundaerFuldlastTimer',
         );
     }
 
@@ -847,16 +848,11 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     {
         return array(
             'opvarmetArealBrutto' => NULL,
-            'opvarmetArealNetto' => NULL,
             'varmeTabM2' => NULL,
-            'varmeTab' => NULL,
-            'opvarmingForbrug' => NULL,
-            'vandOpvarmingForbrug' => NULL,
-            'nettoEnergiforbrug' => NULL,
-            'forbrugKWh' => NULL,
-            'type' => NULL,
-            'effektFaktor' => NULL,
-            'forbrugKr' => NULL,
+            'effektBehov' => NULL,
+            'brugsvandsandel' => NULL,
+            'primaerFuldlastTimer' => NULL,
+            'sekundaerFuldlastTimer' => NULL,
         );
     }
 
@@ -872,16 +868,10 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
 
     // Set of get functions for forbrugBeregningKontrol.
     public function getForbrugBeregningKontrolOpvarmetArealBrutto() { return $this->getForbrugBeregningKontrolKeyValue('opvarmetArealBrutto'); }
-    public function getForbrugBeregningKontrolOpvarmetArealNetto() { return $this->getForbrugBeregningKontrolKeyValue('opvarmetArealNetto'); }
     public function getForbrugBeregningKontrolVarmeTabM2() { return $this->getForbrugBeregningKontrolKeyValue('varmeTabM2'); }
-    public function getForbrugBeregningKontrolVarmeTab() { return $this->getForbrugBeregningKontrolKeyValue('varmeTab'); }
-    public function getForbrugBeregningKontrolOpvarmingForbrug() { return $this->getForbrugBeregningKontrolKeyValue('opvarmingForbrug'); }
-    public function getForbrugBeregningKontrolVandOpvarmingForbrug() { return $this->getForbrugBeregningKontrolKeyValue('vandOpvarmingForbrug'); }
-    public function getForbrugBeregningKontrolNettoEnergiforbrug() { return $this->getForbrugBeregningKontrolKeyValue('nettoEnergiforbrug'); }
-    public function getForbrugBeregningKontrolEffektFaktor() { return $this->getForbrugBeregningKontrolKeyValue('effektFaktor'); }
-    public function getForbrugBeregningKontrolType() { return $this->getForbrugBeregningKontrolKeyValue('type'); }
-    public function getForbrugBeregningKontrolKWh() { return $this->getForbrugBeregningKontrolKeyValue('forbrugKWh'); }
-    public function getForbrugBeregningKontrolKr() { return $this->getForbrugBeregningKontrolKeyValue('forbrugKr'); }
+    public function getForbrugBeregningKontrolBrugsvandsandel() { return $this->getForbrugBeregningKontrolKeyValue('brugsvandsandel'); }
+    public function getForbrugBeregningKontrolPrimaerFuldlastTimer() { return $this->getForbrugBeregningKontrolKeyValue('primaerFuldlastTimer'); }
+    public function getForbrugBeregningKontrolSekundaerFuldlastTimer() { return $this->getForbrugBeregningKontrolKeyValue('sekundaerFuldlastTimer'); }
 
     /**
      * Sets configuration.
@@ -981,19 +971,6 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
         $this->varmebespKWhAar = $this->calculateVarmebespKWhAar();
         $this->varmebespKrAar = $this->calculateVarmebespKrAar();
         $this->samletBesparelse = $this->calculateSamletBesparelse();
-
-
-        //$this->calculatEnergiForbrugPrimaerEfterForbrugKWh();
-        //$this->calculatEnergiForbrugSekundaerEfterForbrugKWh();
-        //$this->calculateVarmeTab();
-        //$this->calculateOpvarmingForbrug();
-        //$this->calculateVandOpvarmingForbrug();
-        //$this->calculateNettoEnergiForbrug();
-        //$this->calculateForbrugBeregningKontrolKWh();
-        //$this->calculateForbrugBeregningKontrolKr();
-        //$this->calculateVarmebespKWhAar();
-        //$this->calculateVarmebespKrAar();
-
     }
 
     /** BEGIN Step 1 calculation */
@@ -1103,21 +1080,21 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     /** BEGIN Step 3 calculation */
 
     /**
-     * See calculation file, cell H9 - H29.
+     * See calculation file, cell S9 - S29.
      */
     public function calculatEnergiForbrugPrimaerEfterForbrugNettoKWh() {
         return $this->getForbrugFoerNettoKWh() * $this->getNyVarmeKildePrimaerAndel();
     }
 
     /**
-     * See calculation file, cell S9 - 29.
+     * See calculation file, cell AA9 - AA29.
      */
     public function calculatEnergiForbrugPrimaerEfterForbrugKWh() {
-        return $this->getEnergiForbrugPrimaerEfterNettoKWh() / $this->getEnergiForbrugPrimaerEfterFaktor();
+        return $this->divide($this->getEnergiForbrugPrimaerEfterNettoKWh(), $this->getEnergiForbrugPrimaerEfterFaktor());
     }
 
     /**
-     * See calculation file, cell S9 - 29.
+     * See calculation file, cell Z10 - Z30.
      */
     public function calculatEnergiForbrugPrimaerEfterForbrug() {
         $varmeEnergiFaktor = $this->getConfiguration()->getVarmeEnergiFaktor();
@@ -1125,35 +1102,35 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     }
 
     /**
-     * See calculation file, cell [].
+     * See calculation file, cell AB9 - AB29.
      */
     public function calculatEnergiForbrugPrimaerEfterForbrugKr() {
         return $this->getEnergiForbrugPrimaerEfterForbrug() * $this->getEnergiForbrugPrimaerEfterPris();
     }
 
     /**
-     * See calculation file, cell [].
+     * See calculation file, cell AD9 - AD29.
      */
     public function calculatEnergiForbrugPrimaerEfterForbrugSamletOmkostning() {
         return $this->getEnergiForbrugPrimaerEfterKr() + $this->getEnergiForbrugPrimaerEfterDriftOmkostning();
     }
 
     /**
-     * See calculation file, cell H9 - H29.
+     * See calculation file, cell S34 - S54.
      */
     public function calculatEnergiForbrugSekundaerEfterForbrugNettoKWh() {
         return $this->getForbrugFoerNettoKWh() * $this->getNyVarmeKildeSekundaerAndel();
     }
 
     /**
-     * See calculation file, cell S34 - S54.
+     * See calculation file, cell AA34 - AA54.
      */
     public function calculatEnergiForbrugSekundaerEfterForbrugKWh() {
-        return $this->getEnergiForbrugSekundaerEfterNettoKWh() / $this->getEnergiForbrugSekundaerEfterFaktor();
+        return $this->divide($this->getEnergiForbrugSekundaerEfterNettoKWh(), $this->getEnergiForbrugSekundaerEfterFaktor());
     }
 
     /**
-     * See calculation file, cell S34 - S54.
+     * See calculation file, cell Z35 - Z55.
      */
     public function calculatEnergiForbrugSekundaerEfterForbrug() {
         $varmeEnergiFaktor = $this->getConfiguration()->getVarmeEnergiFaktor();
@@ -1161,14 +1138,14 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     }
 
     /**
-     * See calculation file, cell [].
+     * See calculation file, cell AB34 - AB54.
      */
     public function calculatEnergiForbrugSekundaerEfterForbrugKr() {
         return  $this->getEnergiForbrugSekundaerEfterForbrug() * $this->getEnergiForbrugSekundaerEfterPris();
     }
 
     /**
-     * See calculation file, cell [].
+     * See calculation file, cell AD34 - AD54.
      */
     public function calculatEnergiForbrugSekundaerEfterForbrugSamletOmkostning() {
         return $this->getEnergiForbrugSekundaerEfterKr() + $this->getEnergiForbrugSekundaerEfterDriftOmkostning();
@@ -1180,35 +1157,28 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     /** BEGIN Step 4 calculation */
 
     /**
-     * See calculation file, cell [].
+     * See calculation file, cell U65.
      */
     public function calculatForbrugEfterKWh() {
         return $this->getEnergiForbrugPrimaerEfterKWh() + $this->getEnergiForbrugSekundaerEfterKWh();
     }
 
     /**
-     * See calculation file, cell [].
-     */
-    public function calculatForbrugEfterNettoKWh() {
-        return $this->getEnergiForbrugPrimaerEfterNettoKWh() + $this->getEnergiForbrugSekundaerEfterNettoKWh();
-    }
-
-    /**
-     * See calculation file, cell [].
+     * See calculation file, cell AB65.
      */
     public function calculatForbrugEfterVarmeOmkostning() {
         return $this->getEnergiForbrugPrimaerEfterKr() + $this->getEnergiForbrugSekundaerEfterKr();
     }
 
     /**
-     * See calculation file, cell [].
+     * See calculation file, cell AC65.
      */
     public function calculatForbrugEfterDriftOmkostning() {
         return $this->getEnergiForbrugPrimaerEfterDriftOmkostning() + $this->getEnergiForbrugSekundaerEfterDriftOmkostning();
     }
 
     /**
-     * See calculation file, cell [].
+     * See calculation file, cell AD65.
      */
     public function calculatForbrugEfterSamletOmkostning() {
         return $this->getEnergiForbrugPrimaerEfterSamletOmkostning() + $this->getEnergiForbrugSekundaerEfterSamletOmkostning();
@@ -1220,21 +1190,21 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     /** BEGIN Step 5 calculation */
 
     /**
-     * See calculation file, cell U38.
+     * See calculation file, cell H74.
      */
     public function calculateVarmebespKWhAar() {
         return $this->getForbrugFoerKWh() - $this->getForbrugEfterKWh();
     }
 
     /**
-     * See calculation file, cell U39.
+     * See calculation file, cell H75.
      */
     public function calculateVarmebespKrAar() {
         return $this->getForbrugFoerVarmeOmkostning() - $this->getForbrugEfterVarmeOmkostning();
     }
 
     /**
-     * See calculation file, cell U39.
+     * See calculation file, cell H76.
      */
     public function calculateDriftbespKrAar() {
         return $this->getForbrugFoerDriftOmkostning() - $this->getForbrugEfterDriftOmkostning();
@@ -1249,56 +1219,158 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
 
     /** END Step 5 calculation */
 
+    /** BEGIN Step 6 calculation */
+
+    /**
+     * Gets NyPrimaerBruttoVarmeForbrugKWh.
+     *
+     * @return float
+     */
+    public function getNyPrimaerBruttoVarmeForbrugKWh() {
+        if ($this->getEnergiTypePrimaerEfter() == 'varmepumpe') {
+            return $this->getEnergiForbrugPrimaerFoerNettoKWh();
+        }
+        return $this->getEnergiForbrugPrimaerFoerKWh();
+    }
+
+    /**
+     * Gets NySekundaerBruttoVarmeForbrugKWh.
+     *
+     * @return float
+     */
+    public function getNySekundaerBruttoVarmeForbrugKWh() {
+        if ($this->getEnergiTypeSekundaerEfter() == 'varmepumpe') {
+            return $this->getEnergiForbrugSekundaerEfterNettoKWh();
+        }
+        return $this->getEnergiForbrugSekundaerEfterKWh();
+    }
+
+    /**
+     * Gets nyPrimaerBoligopvarmingKW.
+     *
+     * @return float
+     */
+    public function getPrimaerBoligOpvarmingKW() {
+        return $this->getNyPrimaerBruttoVarmeForbrugKWh() / 2334.75;
+    }
+
+    /**
+     * Gets nySekundaerBoligopvarmingKW.
+     *
+     * @return float
+     */
+    public function getSekundaerBoligOpvarmingKW() {
+        return $this->getNySekundaerBruttoVarmeForbrugKWh() / 2334.75;
+    }
+
+    /**
+     * Gets nyPrimaerErhSkOpvarmingKW.
+     *
+     * @return float
+     */
+    public function getPrimaerErhSkOpvarmingKW() {
+        return $this->getPrimaerBoligopvarmingKW() * 1.2222;
+    }
+
+    /**
+     * Gets nySekundaerErhSkOpvarmingKW.
+     *
+     * @return float
+     */
+    public function getSekundaerErhSkOpvarmingKW() {
+        return $this->getSekundaerBoligopvarmingKW() * 1.2222;
+    }
+
+    /**
+     * Gets SamletBoligOpvarmingKW.
+     *
+     * @return float
+     */
+    public function getSamletBoligOpvarmingKW() {
+        return $this->getPrimaerBoligOpvarmingKW() + $this->getSekundaerBoligOpvarmingKW();
+    }
+
+    /**
+     * Gets nySekundaerErhSkOpvarmingKW.
+     *
+     * @return float
+     */
+    public function getSamletErhSkOpvarmingKW() {
+        return $this->getPrimaerErhSkOpvarmingKW() + $this->getSekundaerErhSkOpvarmingKW();
+    }
+
+    /** END Step 6 calculation */
+
+    /** BEGIN Step 7 calculation */
+
+    /**
+     * Gets primaerEffektMetode1.
+     *
+     * @return float
+     */
+    public function getPrimaerEffektMetode1() {
+        return $this->divide($this->getNyPrimaerBruttoVarmeForbrugKWh(), $this->getForbrugBeregningKontrolPrimaerFuldlastTimer());
+    }
+
+    /**
+     * Gets sekundaerEffektMetode1.
+     *
+     * @return float
+     */
+    public function getSekundaerEffektMetode1() {
+        return $this->divide($this->getNySekundaerBruttoVarmeForbrugKWh(), $this->getForbrugBeregningKontrolSekundaerFuldlastTimer());
+    }
+
+    /**
+     * Gets samletEffektMetode1.
+     *
+     * @return float
+     */
+    public function getSamletEffektMetode1() {
+        return $this->getPrimaerEffektMetode1() + $this->getSekundaerEffektMetode1();
+    }
+
+    /** END Step 7 calculation */
 
     /** BEGIN Step 8 calculation */
 
     /**
-     * See calculation file, cell U16.
+     * Gets OpvarmetArealNetto.
+     *
+     * @return float
      */
-    public function calculateVarmeTab() {
-        $this->forbrugBeregningKontrol['opvarmetArealNetto'] = $this->getForbrugBeregningKontrolOpvarmetArealBrutto() * (1 - 0.15);
-        $this->forbrugBeregningKontrol['varmeTab'] = $this->getForbrugBeregningKontrolOpvarmetArealNetto() * $this->getForbrugBeregningKontrolVarmeTabM2();
+    public function getForbrugBeregningKontrolOpvarmetArealNetto() {
+        return $this->getForbrugBeregningKontrolOpvarmetArealBrutto() * 0.85;
     }
 
     /**
-     * See calculation file, cell O23.
+     * Gets EffektBehov.
+     *
+     * @return float
      */
-    public function calculateOpvarmingForbrug() {
-        $this->forbrugBeregningKontrol['opvarmingForbrug'] = $this->getForbrugBeregningKontrolVarmeTab() * 1.1 * 2830 * 24/32/1000;
+    public function getForbrugBeregningKontrolEffektBehov() {
+        return $this->getForbrugBeregningKontrolOpvarmetArealNetto() * $this->getForbrugBeregningKontrolVarmeTabM2() / 1000;
     }
 
     /**
-     * See calculation file, cell T28.
+     * Gets OpvarmingForbrugKWh.
+     *
+     * @return float
      */
-    public function calculateVandOpvarmingForbrug() {
-        $this->forbrugBeregningKontrol['vandOpvarmingForbrug'] = 4 * 1000;
+    public function getForbrugBeregningKontrolOpvarmingForbrugKWh() {
+        return $this->getForbrugBeregningKontrolEffektBehov() * 1.1 * 2830 * 24 / 32;
     }
 
     /**
-     * See calculation file, cell T30.
+     * Gets forbrugKWh.
+     *
+     * @return float
      */
-    public function calculateNettoEnergiForbrug() {
-        $this->forbrugBeregningKontrol['nettoEnergiforbrug'] = $this->getForbrugBeregningKontrolOpvarmingForbrug() + $this->getForbrugBeregningKontrolVandOpvarmingForbrug();
-    }
-
-    /**
-     * See calculation file, cell R35.
-     */
-    public function calculateForbrugBeregningKontrolKWh() {
-        $this->forbrugBeregningKontrol['forbrugKWh'] = $this->divide($this->getForbrugBeregningKontrolNettoEnergiforbrug(), $this->getForbrugBeregningKontrolEffektFaktor());
-    }
-
-    /**
-     * See calculation file, cell U35.
-     */
-    public function calculateForbrugBeregningKontrolKr() {
-        $priser = $this->getTiltag()->getPriserOverride();
-        $this->forbrugBeregningKontrol['forbrugKr'] = $this->getForbrugBeregningKontrolKWh() * $priser['elrumvarme']['pris'];
+    public function getForbrugBeregningKontrolForbrugKWh() {
+        return ($this->getForbrugBeregningKontrolBrugsvandsandel() + 1) * $this->getForbrugBeregningKontrolOpvarmingForbrugKWh();
     }
 
     /** END Step 8 calculation */
-
-
 
     /**
      * Pre persist handler.

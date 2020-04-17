@@ -78,12 +78,6 @@ class VarmeanlaegTiltag extends Tiltag {
      * @return array
      */
     public function getPriserOverrideDefault() {
-        $default = array(
-            'elrumvarme' => array(
-                'pris' => NULL,
-            )
-        );
-
         $energiTyper = array_filter(array_keys(EnergiType::getChoices()));
         foreach ($energiTyper as $type) {
             $default[$type] = array(
