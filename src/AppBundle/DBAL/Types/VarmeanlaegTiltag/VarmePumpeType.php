@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\DBAL\Types\VarmePumpeTiltag;
+namespace AppBundle\DBAL\Types\VarmeanlaegTiltag;
 
 use Fresh\DoctrineEnumBundle\DBAL\Types\AbstractEnumType;
 

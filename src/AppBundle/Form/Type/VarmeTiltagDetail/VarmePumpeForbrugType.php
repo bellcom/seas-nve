@@ -6,9 +6,9 @@
 
 namespace AppBundle\Form\Type\VarmeTiltagDetail;
 
-use AppBundle\DBAL\Types\VarmePumpeTiltag\VarmePumpeType;
+use AppBundle\DBAL\Types\VarmeanlaegTiltag\VarmePumpeType;
 use AppBundle\Entity\Configuration;
-use AppBundle\Entity\VarmePumpeTiltagDetail;
+use AppBundle\Entity\VarmeanlaegTiltagDetail;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -36,20 +36,9 @@ class VarmePumpeForbrugType extends AbstractType {
      * {@inheritDoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $elementOptions) {
-        foreach (VarmePumpeTiltagDetail::getVarmePumpeForbrugInputKeys() as $key) {
-            if ($key == 'type') {
-                /** @var Configuration $configuration */
-                $configuration = $this->container->get('doctrine')->getRepository('AppBundle:Configuration')->getConfiguration();
-                $varmePumpeFaktorAttr = array();
-                foreach ($configuration->getVarmePumpeFaktor() as $varmePumpeFaktor) {
-                    $varmePumpeFaktorAttr[] = array('data-faktor' => $varmePumpeFaktor);
-                }
-                $builder->add($key, 'choice',  array(
-                    'choices' => VarmePumpeType::getChoices(),
-                    'choice_attr' => $varmePumpeFaktorAttr,
-                    'empty_value' => 'common.none',
-                    'required' => TRUE,
-                ));
+        foreach (VarmeanlaegTiltagDetail::getForbrugBeregningKontrolInputKeys() as $key) {
+            if ($key == 'brugsvandsandel') {
+                $builder->add($key, 'percent');
                 continue;
             }
             $builder->add($key, 'number',  array(

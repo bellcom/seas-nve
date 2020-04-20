@@ -39,7 +39,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    "klimaskærm" = "KlimaskaermTiltag",
  *    "koeling" = "KoelingTiltag",
  *    "nyklimaskærm" = "NyKlimaskaermTiltag",
- *    "varmepumpe" = "VarmePumpeTiltag",
+ *    "varmeanlaeg" = "VarmeanlaegTiltag",
  *    "vindue" = "VindueTiltag",
  *    "ventilation" = "VentilationTiltag",
  *    "tekniskisolering" = "TekniskIsoleringTiltag",
@@ -57,7 +57,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    "ventilation" = "AppBundle\Entity\VentilationTiltag",
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltag",
  *    "trykluft" = "AppBundle\Entity\TrykluftTiltag",
- *    "varmepumpe" = "AppBundle\Entity\VarmePumpeTiltag",
+ *    "varmeanlaeg" = "AppBundle\Entity\VarmeanlaegTiltag",
  *    "solcelle" = "AppBundle\Entity\SolcelleTiltag",
  * })
  * @ORM\HasLifecycleCallbacks()

@@ -7,8 +7,8 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\MonthType;
-use AppBundle\DBAL\Types\VarmePumpeTiltag\EnergiType;
-use AppBundle\DBAL\Types\VarmePumpeTiltag\VarmePumpeType;
+use AppBundle\DBAL\Types\VarmeanlaegTiltag\EnergiType;
+use AppBundle\DBAL\Types\VarmeanlaegTiltag\VarmePumpeType;
 use AppBundle\DBAL\Types\VentilationTiltagDetail\ForureningType;
 use AppBundle\DBAL\Types\VentilationTiltagDetail\KvalitetType;
 use Doctrine\ORM\Mapping as ORM;
