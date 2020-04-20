@@ -1228,9 +1228,9 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
      */
     public function getNyPrimaerBruttoVarmeForbrugKWh() {
         if ($this->getEnergiTypePrimaerEfter() == 'varmepumpe') {
-            return $this->getEnergiForbrugPrimaerFoerNettoKWh();
+            return $this->getEnergiForbrugPrimaerEfterNettoKWh();
         }
-        return $this->getEnergiForbrugPrimaerFoerKWh();
+        return $this->getEnergiForbrugPrimaerEfterKWh();
     }
 
     /**
