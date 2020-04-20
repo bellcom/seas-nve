@@ -2481,6 +2481,7 @@ appbundle:
     segmenter: "Segmentansvarlig for (Aa+ brugere):"
   varmeanlaegtiltagdetail:
     energiType:
+      label: 'Energitype'
       olie: 'Olie'
       naturgas: 'Naturgas'
       fjernvarme: 'Fjernvarme'
@@ -2494,6 +2495,7 @@ appbundle:
       luftvand_med_radiator: "Luft-vand varmeanlaeg med radiator"
     energiTypePrimaerFoer: "Energitype primær"
     energiForbrugPrimaerFoer:
+      label: "Nuvarende primær"
       forbrugKWh: "Producered energi"
       forbrugKWh.unit: "kWh"
       forbrugKr: "Varmeomkostning"
@@ -2581,6 +2583,7 @@ appbundle:
         samletOmkostning.unit: "kr"
     energiTypeSekundaerFoer: "Energitype sekundær"
     energiForbrugSekundaerFoer:
+      label: "Nuvarende sekundær"
       forbrugKWh: "Producered energi"
       forbrugKWh.unit: "kWh"
       forbrugKr: "Varmeomkostning"
@@ -2668,6 +2671,7 @@ appbundle:
         samletOmkostning.unit: "kr"
     energiTypePrimaerEfter: "Energitype primær"
     energiForbrugPrimaerEfter:
+      label: "Ny primær"
       forbrugKWh: "Producered energi"
       forbrugKWh.unit: "kWh"
       forbrugKr: "Varmeomkostning"
@@ -2755,6 +2759,7 @@ appbundle:
         samletOmkostning.unit: "kr"
     energiTypeSekundaerEfter: "Energitype sekundær"
     energiForbrugSekundaerEfter:
+      label: "Ny sekundær"
       forbrugKWh: "Producered energi"
       forbrugKWh.unit: "kWh"
       forbrugKr: "Varmeomkostning"
@@ -2886,10 +2891,18 @@ appbundle:
       effektBehovW.unit: "Watt"
       opvarmingForbrugKWh: "Effektbehov"
       opvarmingForbrugKWh.unit: "kWh"
-    varmebespKwhAar: "Varmebesp."
-    varmebespKwhAar.unit: "kWh/år"
+    varmebespKWhAar: "Varmebesp."
+    varmebespKWhAar.unit: "kWh/år"
     varmebespKrAar: "Varmebesp."
     varmebespKrAar.unit: "kr/år"
+    driftbespKrAar: "Driftbesp."
+    driftbespKrAar.unit: "kr/år"
+    samletBesparelse: "Samletbesp."
+    samletBesparelse.unit: "kr/år"
+    nuvarendeVarmeKildePrimaerAndel: "Andel af primær forbrug"
+    nuvarendeVarmeKildePrimaerAndel.unit: "%"
+    nuvarendeVarmeKildeSekundaerAndel: "Andel sekundært forbrug"
+    nuvarendeVarmeKildeSekundaerAndel.unit: "%"
     nyVarmeKildePrimaerAndel: "Andel af primær forbrug"
     nyVarmeKildePrimaerAndel.unit: "%"
     nyVarmeKildeSekundaerAndel: "Andel sekundært forbrug"

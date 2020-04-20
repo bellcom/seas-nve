@@ -116,25 +116,6 @@ class VarmeanlaegTiltag extends Tiltag {
     }
 
     /**
-     * Calculates value that is using in elbesparelse calculation.
-     *
-     * @return float
-     */
-    protected function calculateElbesparelseValue() {
-        return  $this->sum('elbespKwhAar');
-    }
-
-    /**
-     * @inheritDoc
-     * @Formula("$this->calculateElbesparelseValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
-     */
-    protected function calculateElbesparelse($value = null) {
-        $value = $this->calculateElbesparelseValue();
-
-        return parent::calculateElbesparelse($value);
-    }
-
-    /**
      * Calculates value that is using in varmebesparelseGAF calculation.
      *
      * @return float
@@ -155,12 +136,54 @@ class VarmeanlaegTiltag extends Tiltag {
 
 
     /**
-     * Accumulate varmebespKrAar and elbespKrAar from tiltagDetails .
+     * Calculate values in this Tiltag
+     */
+    public function calculate() {
+        $this->varmebesparelseGUF = $this->calculateVarmebesparelseGUF();
+        $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
+
+        // Calculating values by formulas from annotation.
+        $this->samletEnergibesparelse = $this->calculateSamletEnergibesparelse();
+        $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
+        $this->samletTilskud = $this->calculateByFormula('samletTilskud');
+
+        // This may be computed, may be an input
+        if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
+            $this->besparelseDriftOgVedligeholdelse = $value;
+        }
+        // This may be computed, may be an input
+        if (($value = $this->calculateLevetid()) !== NULL) {
+            $this->levetid = $value;
+        }
+        $this->antalReinvesteringer = $this->calculateAntalReinvesteringer();
+        $this->anlaegsinvestering_beregnet = $this->calculateAnlaegsinvestering();
+        $this->anlaegsinvestering = $this->anlaegsinvestering_beregnet;
+        if ($this->reelAnlaegsinvestering > 0) {
+            $this->anlaegsinvestering = $this->reelAnlaegsinvestering;
+        }
+        if ($this->opstartsomkostninger > 0) {
+            $this->anlaegsinvestering += $this->opstartsomkostninger;
+        }
+        $this->aaplusInvestering = $this->calculateAaplusInvestering();
+        $this->reinvestering = $this->calculateReinvestering();
+        $this->scrapvaerdi = $this->calculateScrapvaerdi();
+        $this->cashFlow15 = $this->calculateCashFlow(15);
+        $this->cashFlow30 = $this->calculateCashFlow(30);
+        $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
+        $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
+        $this->besparelseAarEt = $this->calculateSavingsForYear(1);
+        $this->maengde = $this->calculateMaengde();
+        $this->tilskudsstoerrelse = $this->getTilskudsstoerrelse();
+        $this->enhed = $this->calculateEnhed();
+    }
+
+    /**
+     * Accumulate samletBesparelse from tiltagDetails .
      *
      * @return float
      */
     protected function calculateSamletEnergibesparelse() {
-        return $this->sum('varmebespKrAar') +  $this->sum('elbespKrAar');
+        return $this->sum('samletBesparelse');
     }
 
     /**
