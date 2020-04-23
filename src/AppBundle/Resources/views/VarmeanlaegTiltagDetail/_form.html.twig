@@ -128,19 +128,19 @@
             <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
             <td></td>
             <td>{{ entity.energiForbrugPrimaerEfterKWh | format_decimal(0) }}</td>
-            <td>{{ entity.nyVarmeKildePrimaerAndel | format_percent(0) }}</td>
+            <td>{{ entity.beregnetNyVarmeKildePrimaerAndel | format_percent(0) }}</td>
           </tr>
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
             <td></td>
             <td>{{ entity.energiForbrugSekundaerEfterKWh | format_decimal(0) }}</td>
-            <td>{{ entity.nyVarmeKildeSekundaerAndel | format_percent(0) }}</td>
+            <td>{{ entity.beregnetNyVarmeKildeSekundaerAndel | format_percent(0) }}</td>
           </tr>
           <tr>
             <th>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugEfter.label' | trans}}</th>
             <td></td>
             <td>{{ entity.forbrugEfterKWh | format_decimal(0) }}</td>
-            <td>{{ (entity.nyVarmeKildePrimaerAndel + entity.nyVarmeKildeSekundaerAndel) | format_percent(0) }}</td>
+            <td>{{ (entity.beregnetNyVarmeKildePrimaerAndel + entity.beregnetNyVarmeKildeSekundaerAndel) | format_percent(0) }}</td>
           </tr>
           <tr>
             <td colspan="4"></td>
@@ -154,8 +154,8 @@
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
             <td>{{ entity.energiForbrugPrimaerEfterKr | format_decimal(0) }}</td>
-            <td>{{ entity.energiForbrugPrimaerFoerDriftOmkostning | format_decimal(0) }}</td>
-            <td>{{ entity.energiForbrugPrimaerFoerSamletOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugPrimaerEfterDriftOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugPrimaerEfterSamletOmkostning | format_decimal(0) }}</td>
           </tr>
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
@@ -235,20 +235,20 @@
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
             <td>{{ entity.nyPrimaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
-            <td>{{ entity.primaerBoligOpvarmingKW | format_decimal }}</td>
-            <td>{{ entity.primaerErhSkOpvarmingKW | format_decimal }}</td>
+            <td>{{ entity.primaerBoligOpvarmingKW | format_decimal(1) }}</td>
+            <td>{{ entity.primaerErhSkOpvarmingKW | format_decimal(1) }}</td>
           </tr>
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
             <td>{{ entity.nySekundaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
-            <td>{{ entity.sekundaerBoligOpvarmingKW | format_decimal }}</td>
-            <td>{{ entity.sekundaerErhSkOpvarmingKW | format_decimal }}</td>
+            <td>{{ entity.sekundaerBoligOpvarmingKW | format_decimal(1) }}</td>
+            <td>{{ entity.sekundaerErhSkOpvarmingKW | format_decimal(1) }}</td>
           </tr>
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.samlet_effektbehov-12' | trans}}</th>
             <td></td>
-            <td>{{ entity.samletBoligOpvarmingKW | format_decimal }}</td>
-            <td>{{ entity.samletErhSkOpvarmingKW | format_decimal }}</td>
+            <td>{{ entity.samletBoligOpvarmingKW | format_decimal(1) }}</td>
+            <td>{{ entity.samletErhSkOpvarmingKW | format_decimal(1) }}</td>
           </tr>
         </table>
       </div>
@@ -278,26 +278,26 @@
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning' | trans }}</th>
             <th>{{ 'varmeanlaegtiltagdetail.strings.bruttoVarmeForbrug' | trans }}</th>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.boligopvarmning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.fuldlasttimer' | trans }}</th>
             <th>{{ 'varmeanlaegtiltagdetail.strings.effektKW' | trans }}</th>
           </tr>
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
             <td>{{ entity.nyPrimaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
             <td>{{ entity.forbrugBeregningKontrol.primaerFuldlastTimer | format_decimal(0) }}</td>
-            <td>{{ entity.primaerEffektMetode1 | format_decimal }}</td>
+            <td>{{ entity.primaerEffektMetode1 | format_decimal(1) }}</td>
           </tr>
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
             <td>{{ entity.nySekundaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
             <td>{{ entity.forbrugBeregningKontrol.sekundaerFuldlastTimer | format_decimal(0) }}</td>
-            <td>{{ entity.sekundaerEffektMetode1 | format_decimal }}</td>
+            <td>{{ entity.sekundaerEffektMetode1 | format_decimal(1) }}</td>
           </tr>
           <tr>
             <th>{{ 'varmeanlaegtiltagdetail.strings.samlet_effektbehov-12' | trans}}</th>
             <td></td>
             <td></td>
-            <td>{{ entity.samletEffektMetode1 | format_decimal }}</td>
+            <td>{{ entity.samletEffektMetode1 | format_decimal(1) }}</td>
           </tr>
         </table>
       </div>
@@ -342,7 +342,7 @@
           </tr>
           <tr>
             <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.effektBehovKW' | trans }}</td>
-            <td class="text-right">{{ entity.forbrugBeregningKontrolEffektBehov| format_decimal }}</td>
+            <td class="text-right">{{ entity.forbrugBeregningKontrolEffektBehov| format_decimal(1) }}</td>
             <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.effektBehovKW.unit' | trans }} </td>
           </tr>
           <tr>

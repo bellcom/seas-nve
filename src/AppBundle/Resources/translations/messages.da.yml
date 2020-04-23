@@ -710,6 +710,7 @@ varmeanlaegtiltagdetail:
     samlet_effektbehov-12: "Samlet effektbehov ved - 12"
     effektKW: "Effekt, kW"
     beregning_effekt: "Beregning af årsforbrug i fra bygningens kW effekt."
+    fuldlasttimer: "Fuldlasttimer"
 ventilationtiltagdetail:
   actions:
     add: "Tilføj ventilationforslag"

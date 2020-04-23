@@ -1184,6 +1184,20 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
         return $this->getEnergiForbrugPrimaerEfterSamletOmkostning() + $this->getEnergiForbrugSekundaerEfterSamletOmkostning();
     }
 
+    /**
+     * See calculation file, cell V63.
+     */
+    public function getBeregnetNyVarmeKildePrimaerAndel() {
+        return $this->getEnergiForbrugPrimaerEfterKWh() / $this->getForbrugEfterKWh() ;
+    }
+
+    /**
+     * See calculation file, cell V63.
+     */
+    public function getBeregnetNyVarmeKildeSekundaerAndel() {
+        return $this->getEnergiForbrugSekundaerEfterKWh() / $this->getForbrugEfterKWh() ;
+    }
+
     /** END Step 4 calculation */
 
 
