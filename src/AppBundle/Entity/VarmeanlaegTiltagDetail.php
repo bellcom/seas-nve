@@ -1441,6 +1441,14 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
         $repository = $event->getEntityManager()
             ->getRepository('AppBundle:Configuration');
         $this->setConfiguration($repository->getConfiguration());
+        foreach (array_filter(array_keys(EnergiType::getChoices())) as $key) {
+            if (in_array($key, array('elvarme', 'fjernvarme'))) {
+                $this->energiForbrugPrimaerFoer[$key]['faktor'] = 1;
+                $this->energiForbrugSekundaerFoer[$key]['faktor'] = 1;
+                $this->energiForbrugPrimaerEfter[$key]['faktor'] = 1;
+                $this->energiForbrugSekundaerEfter[$key]['faktor'] = 1;
+            }
+        }
     }
 
 }
