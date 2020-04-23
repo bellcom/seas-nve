@@ -29,6 +29,13 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     use FormulableCalculationEntity;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="Title", type="string", length=255, nullable=true)
+     */
+    protected $title;
+
+    /**
      * @var float
      *
      * @Calculated
@@ -174,15 +181,40 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     public function __construct() {
         parent::__construct();
         foreach (array_filter(array_keys(EnergiType::getChoices())) as $key) {
-            $this->energiForbrugPrimaerFoer[$key] = $this->getEnergiForbrugTypeDefault();
-            $this->energiForbrugSekundaerFoer[$key] = $this->getEnergiForbrugTypeDefault();
-            $this->energiForbrugPrimaerEfter[$key] = $this->getEnergiForbrugTypeDefault();
-            $this->energiForbrugSekundaerEfter[$key] = $this->getEnergiForbrugTypeDefault();
+            $energiForbrugDefault = $this->getEnergiForbrugTypeDefault();
+            if (in_array($key, array('elvarme', 'fjernvarme'))) {
+                $energiForbrugDefault['faktor'] = 1;
+            }
+            $this->energiForbrugPrimaerFoer[$key] = $energiForbrugDefault;
+            $this->energiForbrugSekundaerFoer[$key] = $energiForbrugDefault;
+            $this->energiForbrugPrimaerEfter[$key] = $energiForbrugDefault;
+            $this->energiForbrugSekundaerEfter[$key] = $energiForbrugDefault;
         }
         $this->forbrugBeregningKontrol = $this->getForbrugBeregningKontrolDefault();
         if ($this->nyVarmeKildePrimaerAndel == NULL) {
             $this->nyVarmeKildePrimaerAndel = 1;
         }
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return VarmeanlaegTiltagDetail
+     */
+    public function setTitle($title) {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle() {
+        return $this->title;
     }
 
     /**
@@ -1188,14 +1220,14 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
      * See calculation file, cell V63.
      */
     public function getBeregnetNyVarmeKildePrimaerAndel() {
-        return $this->getEnergiForbrugPrimaerEfterKWh() / $this->getForbrugEfterKWh() ;
+        return $this->divide($this->getEnergiForbrugPrimaerEfterKWh(), $this->getForbrugEfterKWh());
     }
 
     /**
      * See calculation file, cell V63.
      */
     public function getBeregnetNyVarmeKildeSekundaerAndel() {
-        return $this->getEnergiForbrugSekundaerEfterKWh() / $this->getForbrugEfterKWh() ;
+        return $this->divide($this->getEnergiForbrugSekundaerEfterKWh(), $this->getForbrugEfterKWh());
     }
 
     /** END Step 4 calculation */

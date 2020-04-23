@@ -19,6 +19,7 @@
           <tr>
             {{ helper.header() }}
             {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+            {{ helper.header('appbundle.varmeanlaegtiltagdetail.title') }}
             {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerFoer.label') }}
             {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerFoer.label') }}
             {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerEfter.label') }}
@@ -30,6 +31,7 @@
             {{ helper.header() }}
           </tr>
           <tr>
+            {{ helper.header_unit() }}
             {{ helper.header_unit() }}
             {{ helper.header_unit() }}
             {{ helper.header_unit() }}
@@ -52,6 +54,9 @@
                 </td>
                 <td class="tilvalgt" data-value="{{ detail.tilvalgt }}">
                   {{ block('tiltag_detail_tilvalgt') }}
+                </td>
+                <td class="title">
+                  {{ detail.title }}
                 </td>
                 <td class="energiTypePrimaerFoer">
                   {% if detail.energiTypePrimaerFoer %}

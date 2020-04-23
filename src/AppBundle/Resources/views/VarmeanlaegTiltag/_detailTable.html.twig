@@ -2,6 +2,7 @@
   <thead>
   <tr>
     {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header('appbundle.varmeanlaegtiltagdetail.title') }}
     {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerFoer.label') }}
     {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerFoer.label') }}
     {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerEfter.label') }}
@@ -18,6 +19,7 @@
     {{ helper.header_unit() }}
     {{ helper.header_unit() }}
     {{ helper.header_unit() }}
+    {{ helper.header_unit() }}
     {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.varmebespKWhAar') }}
     {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.varmebespKrAar') }}
     {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.driftbespKrAar') }}
@@ -29,6 +31,7 @@
   {% for detail in entity.details %}
     <tr>
       <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
+      <td class="title">{{ detail.title }}</td>
       <td class="energiTypePrimaerFoer">
         {% if detail.energiTypePrimaerFoer %}
           {{ ('appbundle.varmeanlaegtiltagdetail.energiType.label') | trans }}:

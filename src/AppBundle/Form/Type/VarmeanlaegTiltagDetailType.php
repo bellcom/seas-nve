@@ -23,6 +23,9 @@ class VarmeanlaegTiltagDetailType extends TiltagDetailType
     {
         parent::buildForm($builder, $options);
         $builder
+            ->add('title', 'text', array(
+                'required' => FALSE,
+            ))
             ->add('energiTypePrimaerFoer', 'choice', array(
                 'choices' => EnergiType::getChoices(),
                 'required' => FALSE,
@@ -57,10 +60,10 @@ class VarmeanlaegTiltagDetailType extends TiltagDetailType
                 'empty_value' => 'common.none',
             ))
             ->add('nyVarmeKildePrimaerAndel', 'percent', array(
-                'scale' => 2,
+                'scale' => 0,
             ))
             ->add('nyVarmeKildeSekundaerAndel', 'percent', array(
-                'scale' => 2,
+                'scale' => 0,
                 'disabled' => TRUE,
             ))
             ->add('energiForbrugPrimaerEfter', 'collection', array(

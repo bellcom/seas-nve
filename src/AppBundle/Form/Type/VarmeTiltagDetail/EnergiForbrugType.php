@@ -25,6 +25,11 @@ class EnergiForbrugType extends AbstractType {
             $options = array(
                 'required' => FALSE,
             );
+
+            if ($key == 'faktor' && in_array($elementOptions['property_path'], array('[fjernvarme]', '[elvarme]'))) {
+                $options['disabled'] = TRUE;
+            }
+
             if ($key == 'faktor' && $elementOptions['property_path'] != '[varmepumpe]') {
                 $builder->add($key, 'percent',  $options);
                 continue;
@@ -33,6 +38,7 @@ class EnergiForbrugType extends AbstractType {
             if ($key == 'forbrug' &&
                 in_array($elementOptions['field_name'], array('energiForbrugPrimaerEfter', 'energiForbrugSekundaerEfter'))) {
                 $options['disabled'] = TRUE;
+                $options['scale'] = 0;
             }
             $builder->add($key, 'number', $options);
         }

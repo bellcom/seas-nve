@@ -1,5 +1,15 @@
 <div id="varmeanlaegtiltagdetail">
   <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(edit_form.title) }}
+        </div>
+      </div>
+    </div>
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -203,7 +213,7 @@
             <td>{{ entity.forbrugEfter.samletOmkostning | format_decimal(0) }}</td>
           </tr>
           <tr>
-            <th>{{ 'varmeanlaegtiltagdetail.strings.besparelse  ' | trans}}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.besparelse' | trans}}</th>
             <td>{{ entity.varmebespKWhAar | format_decimal(0) }}</td>
             <td>{{ entity.varmebespKrAar | format_decimal(0) }}</td>
             <td>{{ entity.driftbespKrAar | format_decimal(0) }}</td>
@@ -336,9 +346,9 @@
             <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealNetto.unit' | trans }} </td>
           </tr>
           <tr>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealNetto' | trans }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.varmeTabM2' | trans }}</td>
             <td class="text-right">{{ entity.forbrugBeregningKontrol.varmeTabM2 | format_decimal }}</td>
-            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealNetto.unit' | trans }} </td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.varmeTabM2.unit' | trans }} </td>
           </tr>
           <tr>
             <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.effektBehovKW' | trans }}</td>
