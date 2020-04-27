@@ -29,20 +29,22 @@ jQuery(function ($) {
 });
 
 // Toggle calculation expression.
-var containers = document.getElementsByClassName('calculation-expression');
-var buttons = document.getElementsByClassName('calculation-expression-toggle');
+(function() {
+  var containers = document.getElementsByClassName('calculation-expression');
+  var buttons = document.getElementsByClassName('calculation-expression-toggle');
 
-function toggleCalculationExpressions(event) {
-  for (i = 0; i < containers.length; i++) {
-    var container = containers[i];
+  function toggleCalculationExpressions(event) {
+    for (i = 0; i < containers.length; i++) {
+      var container = containers[i];
 
-    container.classList.toggle('hidden');
+      container.classList.toggle('hidden');
+    }
   }
-}
 
-for (var button of buttons) {
-  button.addEventListener('click', toggleCalculationExpressions);
-}
+  for (var button of buttons) {
+    button.addEventListener('click', toggleCalculationExpressions);
+  }
+})();
 
 (function() {
   var forms = document.querySelectorAll('form');
