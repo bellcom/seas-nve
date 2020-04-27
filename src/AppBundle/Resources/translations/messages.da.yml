@@ -2957,7 +2957,7 @@ appbundle:
       genvindings.unit: "%"
       sommerUnderkoeling: "Sommer underkøling"
       sommerUnderkoeling.unit: "C"
-      trykabAnlaeg: "Trykab anlæg"
+      trykabAnlaeg: "Tryktab anlæg"
       trykabAnlaeg.unit: "Pa"
       virkningsgradVentilator: "Virkningsgrad ventilator"
     indDataEfter:
@@ -2973,7 +2973,7 @@ appbundle:
       genvindings.unit: "%"
       sommerUnderkoeling: "Sommer underkøling"
       sommerUnderkoeling.unit: "C"
-      trykabAnlaeg: "Trykab anlæg"
+      trykabAnlaeg: "Tryktab anlæg"
       trykabAnlaeg.unit: "Pa"
       virkningsgradVentilator: "Virkningsgrad ventilator"
     varmeForbrugKwhAarFoer: "Varmeforbrug før"
