@@ -33,7 +33,9 @@ var containers = document.getElementsByClassName('calculation-expression');
 var buttons = document.getElementsByClassName('calculation-expression-toggle');
 
 function toggleCalculationExpressions(event) {
-  for (var container of containers) {
+  for (i = 0; i < containers.length; i++) {
+    var container = containers[i];
+
     container.classList.toggle('hidden');
   }
 }
