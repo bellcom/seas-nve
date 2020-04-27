@@ -41,7 +41,9 @@ jQuery(function ($) {
     }
   }
 
-  for (var button of buttons) {
+  for (i = 0; i < buttons.length; i++) {
+    var button = buttons[i];
+
     button.addEventListener('click', toggleCalculationExpressions);
   }
 })();
