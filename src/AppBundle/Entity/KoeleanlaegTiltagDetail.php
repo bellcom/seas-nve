@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * KoelingTiltagDetail
+ * KoeleanlaegTiltagDetail
  *
  * @ORM\Table()
  * @ORM\Entity()
  */
-class KoelingTiltagDetail extends TiltagDetail {
+class KoeleanlaegTiltagDetail extends TiltagDetail {
 
   /**
    * @var array
@@ -104,7 +104,6 @@ class KoelingTiltagDetail extends TiltagDetail {
       'ek',
       'ehjK',
       'ehjV',
-      'kuldetab',
     );
   }
 
@@ -125,7 +124,6 @@ class KoelingTiltagDetail extends TiltagDetail {
   public function getTilstandDataFoerEk() { return $this->getTilstandDataFoerKeyValue('ek'); }
   public function getTilstandDataFoerEhjK() { return $this->getTilstandDataFoerKeyValue('ehjK'); }
   public function getTilstandDataFoerEhjV() { return $this->getTilstandDataFoerKeyValue('ehjV'); }
-  public function getTilstandDataFoerKuldetab() { return $this->getTilstandDataFoerKeyValue('kuldetab'); }
   public function getTilstandDataFoerQbehov() { return $this->getTilstandDataFoerKeyValue('qbehov'); }
   public function getTilstandDataFoerEtot() { return $this->getTilstandDataFoerKeyValue('etot'); }
 
@@ -143,7 +141,6 @@ class KoelingTiltagDetail extends TiltagDetail {
       'etaKapa',
       'ehjK',
       'ehjV',
-      'kuldetab',
     );
   }
 
@@ -164,7 +161,6 @@ class KoelingTiltagDetail extends TiltagDetail {
   public function getTilstandDataEfterEk() { return $this->getTilstandDataEfterKeyValue('ek'); }
   public function getTilstandDataEfterEhjK() { return $this->getTilstandDataEfterKeyValue('ehjK'); }
   public function getTilstandDataEfterEhjV() { return $this->getTilstandDataEfterKeyValue('ehjV'); }
-  public function getTilstandDataEfterKuldetab() { return $this->getTilstandDataEfterKeyValue('kuldetab'); }
   public function getTilstandDataEfterQbehov() { return $this->getTilstandDataEfterKeyValue('qbehov'); }
   public function getTilstandDataEfterEtot() { return $this->getTilstandDataEfterKeyValue('etot'); }
 
@@ -195,7 +191,7 @@ class KoelingTiltagDetail extends TiltagDetail {
   /**
    * Calculate stuff.
    *
-   * TODO: See calculation file xls/KoelingTiltagDetail/Beregning_og_Nøgletal_for_Køleanlæg.xlsx
+   * TODO: See calculation file xls/KoeleanlaegTiltagDetail/Beregning_og_Nøgletal_for_Køleanlæg.xlsx
    */
   public function calculate() {
     $this->tilstandDataFoer['qbehov'] = $this->calculateQbehovFoer();

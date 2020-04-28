@@ -179,8 +179,8 @@ simple_things_entity_audit:
         - AppBundle\Entity\BelysningTiltagDetail
         - AppBundle\Entity\KlimaskaermTiltag
         - AppBundle\Entity\KlimaskaermTiltagDetail
-        - AppBundle\Entity\KoelingTiltag
-        - AppBundle\Entity\KoelingTiltagDetail
+        - AppBundle\Entity\KoeleanlaegTiltag
+        - AppBundle\Entity\KoeleanlaegTiltagDetail
         - AppBundle\Entity\PumpeTiltag
         - AppBundle\Entity\PumpeTiltagDetail
         - AppBundle\Entity\SolcelleTiltag

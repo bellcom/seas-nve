@@ -2,7 +2,7 @@
 
 /**
  * @file
- * KoelingTiltag.
+ * KoeleanlaegTiltag.
  */
 
 namespace AppBundle\Entity;
@@ -11,12 +11,12 @@ use AppBundle\Annotations\Formula;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * KoelingTiltag.
+ * KoeleanlaegTiltag.
  *
  * @ORM\Table()
  * @ORM\Entity()
  */
-class KoelingTiltag extends Tiltag {
+class KoeleanlaegTiltag extends Tiltag {
 
   /**
    * @Formula("$this->elbesparelse * $this->getRapportElKrKWh()")
@@ -30,7 +30,7 @@ class KoelingTiltag extends Tiltag {
     parent::__construct();
 
     // @Todo: Find af way to use the translations system or move this to some place else....
-    $this->setTitle('Køling');
+    $this->setTitle('Køleanlæg');
   }
 
   /**
