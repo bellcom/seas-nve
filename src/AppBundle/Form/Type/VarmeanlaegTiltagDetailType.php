@@ -56,15 +56,21 @@ class VarmeanlaegTiltagDetailType extends TiltagDetailType
             ))
             ->add('energiTypePrimaerEfter', 'choice', array(
                 'choices' => EnergiType::getChoices(),
-                'required' => TRUE,
+                'required' => FALSE,
                 'empty_value' => 'common.none',
             ))
             ->add('nyVarmeKildePrimaerAndel', 'percent', array(
                 'scale' => 0,
+                'required' => FALSE,
+                'attr' => array(
+                    'min' => 0,
+                    'max' => 100,
+                ),
             ))
             ->add('nyVarmeKildeSekundaerAndel', 'percent', array(
                 'scale' => 0,
                 'disabled' => TRUE,
+                'required' => FALSE,
             ))
             ->add('energiForbrugPrimaerEfter', 'collection', array(
                 'type' => EnergiForbrugType::class,

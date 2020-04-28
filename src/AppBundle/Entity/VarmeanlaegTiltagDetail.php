@@ -866,8 +866,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
             'opvarmetArealBrutto',
             'varmeTabM2',
             'brugsvandsandel',
-            'primaerFuldlastTimer',
-            'sekundaerFuldlastTimer',
+            'fuldlastTimer',
         );
     }
 
@@ -883,8 +882,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
             'varmeTabM2' => NULL,
             'effektBehov' => NULL,
             'brugsvandsandel' => NULL,
-            'primaerFuldlastTimer' => NULL,
-            'sekundaerFuldlastTimer' => NULL,
+            'fuldlastTimer' => NULL,
         );
     }
 
@@ -902,8 +900,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     public function getForbrugBeregningKontrolOpvarmetArealBrutto() { return $this->getForbrugBeregningKontrolKeyValue('opvarmetArealBrutto'); }
     public function getForbrugBeregningKontrolVarmeTabM2() { return $this->getForbrugBeregningKontrolKeyValue('varmeTabM2'); }
     public function getForbrugBeregningKontrolBrugsvandsandel() { return $this->getForbrugBeregningKontrolKeyValue('brugsvandsandel'); }
-    public function getForbrugBeregningKontrolPrimaerFuldlastTimer() { return $this->getForbrugBeregningKontrolKeyValue('primaerFuldlastTimer'); }
-    public function getForbrugBeregningKontrolSekundaerFuldlastTimer() { return $this->getForbrugBeregningKontrolKeyValue('sekundaerFuldlastTimer'); }
+    public function getForbrugBeregningKontrolfuldlastTimer() { return $this->getForbrugBeregningKontrolKeyValue('fuldlastTimer'); }
 
     /**
      * Sets configuration.
@@ -1355,7 +1352,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
      * @return float
      */
     public function getPrimaerEffektMetode1() {
-        return $this->divide($this->getNyPrimaerBruttoVarmeForbrugKWh(), $this->getForbrugBeregningKontrolPrimaerFuldlastTimer());
+        return $this->divide($this->getNyPrimaerBruttoVarmeForbrugKWh(), $this->getForbrugBeregningKontrolfuldlastTimer());
     }
 
     /**
@@ -1364,7 +1361,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
      * @return float
      */
     public function getSekundaerEffektMetode1() {
-        return $this->divide($this->getNySekundaerBruttoVarmeForbrugKWh(), $this->getForbrugBeregningKontrolSekundaerFuldlastTimer());
+        return $this->divide($this->getNySekundaerBruttoVarmeForbrugKWh(), $this->getForbrugBeregningKontrolfuldlastTimer());
     }
 
     /**
@@ -1395,7 +1392,16 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
      * @return float
      */
     public function getForbrugBeregningKontrolEffektBehov() {
-        return $this->getForbrugBeregningKontrolOpvarmetArealNetto() * $this->getForbrugBeregningKontrolVarmeTabM2() / 1000;
+        return $this->getForbrugBeregningKontrolOpvarmetArealNetto() * $this->getForbrugBeregningKontrolVarmeTabM2();
+    }
+
+    /**
+     * Gets EffektBehov med vand.
+     *
+     * @return float
+     */
+    public function getForbrugBeregningKontrolEffektBehovMedVand() {
+        return $this->getForbrugBeregningKontrolEffektBehov() * $this->getForbrugBeregningKontrolBrugsvandsandel() + $this->getForbrugBeregningKontrolEffektBehov();
     }
 
     /**
@@ -1408,12 +1414,12 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     }
 
     /**
-     * Gets forbrugKWh.
+     * Gets OpvarmingForbrugMedVandKWh.
      *
      * @return float
      */
-    public function getForbrugBeregningKontrolForbrugKWh() {
-        return ($this->getForbrugBeregningKontrolBrugsvandsandel() + 1) * $this->getForbrugBeregningKontrolOpvarmingForbrugKWh();
+    public function getForbrugBeregningKontrolOpvarmingForbrugMedVandKWh() {
+        return $this->getForbrugBeregningKontrolEffektBehovMedVand() * 1.1 * 2830 * 24 / 32;
     }
 
     /** END Step 8 calculation */
