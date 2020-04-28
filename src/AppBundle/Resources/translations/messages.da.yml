@@ -234,7 +234,7 @@ bygning_rapporter:
   strings:
     belysningtiltag: "Belysning"
     klimaskaermtiltag: "Klimaskærm"
-    koelingtiltag: "Køling"
+    koeleanlaegtiltag: "Køleanlæg"
     nyklimaskaermtiltag: "NyKlimaskærm"
     pumpetiltag: "Pumper"
     solcelletiltag: "Solcelle"
@@ -374,19 +374,19 @@ klimaskaermtiltagdetail:
     batch_edit: "Rediger valgte klimaskærmsforslag"
     copy: "Kopier klimaskærmsforslag"
     edit: "Rediger klimaskærmsforslag"
-koelingtiltag:
+koeleanlaegtiltag:
   actions:
-    add: "Tilføj kølingforlslag"
-    copy: "Kopier kølingforlslag"
-    edit: "Rediger kølingforlslag"
+    add: "Tilføj køleforlslag"
+    copy: "Kopier køleforlslag"
+    edit: "Rediger køleforlslag"
   confirmation:
-    created: "Nyt kølingforlslag oprettet"
-koelingtiltagdetail:
+    created: "Nyt køleforlslag oprettet"
+koeleanlaegtiltagdetail:
   actions:
-    add: "Tilføj kølingforlslag"
-    batch_edit: "Rediger valgte kølingforlslag"
-    copy: "Kopier kølingforlslag"
-    edit: "Rediger kølingforlslag"
+    add: "Tilføj køleforlslag"
+    batch_edit: "Rediger valgte køleforlslag"
+    copy: "Kopier køleforlslag"
+    edit: "Rediger køleforlslag"
   groups:
     tilstandfoer: "Tilstand Før"
     tilstandefter: "Tilstand Efter"
@@ -1592,7 +1592,7 @@ appbundle:
     vaegtetLevetidForTiltagetAfrundet: "Vægtet levetid for forslaget (afrundet)"
     yderligereBesparelserPct: "Yderligere besparelser"
     yderligereBesparelserPct.unit: "%"
-  koelingtiltagdetail:
+  koeleanlaegtiltagdetail:
     tableHeader:
       etotReduktion: "Reduktion af Etot fra tilstand før"
       etotReduktion.unit: "%"
@@ -1618,8 +1618,6 @@ appbundle:
       ehjV: "Ehj,v"
       ehjV.unit: "kWh"
       ehjV.explanation: "Elforbrug til pumper eller ventilatorer på varm side"
-      kuldetab: "Kuldetab"
-      kuldetab.unit: "kWh"
       tableHeader:
         ek: "Ek (før)"
         ek.unit: "kWh"
@@ -1648,8 +1646,6 @@ appbundle:
       ehjV: "Ehj,v"
       ehjV.unit: "kWh"
       ehjV.explanation: "Elforbrug til pumper eller ventilatorer på varm side"
-      kuldetab: "Kuldetab"
-      kuldetab.unit: "kWh"
       tableHeader:
         ek: "Ek (efter)"
         ek.unit: "kWh"

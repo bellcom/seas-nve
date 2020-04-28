@@ -1,40 +1,39 @@
 <?php
 /**
  * @file
- * KoelingTiltagDetail object
+ * KoeleanlaegTiltagDetail object
  */
-
 
 namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\KoelingTiltagDetail;
+use AppBundle\Entity\KoeleanlaegTiltagDetail;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class KoelingTiltagDetailType
+ * Class KoeleanlaegTiltagDetailType
  * @package AppBundle\Form
  */
-class KoelingTiltagDetailType extends TiltagDetailType {
+class KoeleanlaegTiltagDetailType extends TiltagDetailType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     parent::buildForm($builder, $options);
     $builder
       ->add('tilstandDataFoer', VentilationTiltagDetailIndDataType::class, array(
-          'fields' => KoelingTiltagDetail::getTilstandDataFoerInputKeys(),
+          'fields' => KoeleanlaegTiltagDetail::getTilstandDataFoerInputKeys(),
         ))
       ->add('tilstandDataEfter', VentilationTiltagDetailIndDataType::class, array(
-          'fields' => KoelingTiltagDetail::getTilstandDataEfterInputKeys(),
+          'fields' => KoeleanlaegTiltagDetail::getTilstandDataEfterInputKeys(),
       ))
     ;
   }
 
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'AppBundle\Entity\KoelingTiltagDetail'
+      'data_class' => 'AppBundle\Entity\KoeleanlaegTiltagDetail'
     ));
   }
 
   public function getName() {
-    return 'appbundle_koelingtiltagdetail';
+    return 'appbundle_koeleanlaegtiltagdetail';
   }
 }
