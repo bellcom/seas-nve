@@ -685,7 +685,7 @@ varmeanlaegtiltagdetail:
     copy: "Kopier varmeanlaegforslag"
     edit: "Rediger varmeanlægforslag"
   groups:
-    1_nuvaerendeVarmekilde: "1: Nuværende varmekilde. Forbrug og omkostning"
+    1_nuvaerendeVarmekilde: "1: Nuværende varmekilde, forbrug og driftsomkostning"
     2_sammentaellingFoer: "2: Sammentælling nuværende varmekilde"
     3_nyVarmekilde: "3: Ny varmekilde, forbrug og driftsomkostning"
     4_sammentaellingEfter: "4: Sammentælling ny varmekilde"
@@ -709,7 +709,7 @@ varmeanlaegtiltagdetail:
     erhverv_og_skoler: "Erhverv og skoler, kW "
     samlet_effektbehov-12: "Samlet effektbehov ved - 12"
     effektKW: "Effekt, kW"
-    beregning_effekt: "Beregning af årsforbrug ud fra bygningens kW effekt."
+    beregning_effekt: "Beregning af års varmeproduktion ud fra bygnings kW effekt. Resultat er Netto produktion = uden eventuelt tab til kedel"
     fuldlasttimer: "Fuldlasttimer"
 ventilationtiltagdetail:
   actions:
@@ -2328,7 +2328,7 @@ appbundle:
       fjernvarme: "Fjernvarme"
       fjernvarme.pris.unit: "kr/MWh"
       traepiller: "Træpiller"
-      traepiller.pris.unit: "kg/kWh"
+      traepiller.pris.unit: "kr/kg"
       elvarme: "Elvarme"
       elvarme.pris.unit: "kr/kWh"
       varmepumpe: "Varmepumpe"
@@ -2907,9 +2907,9 @@ appbundle:
       effektBehov.unit: "kW"
       effektBehovMedVand: "Bygningens effektbehov ved - 12, med brugsvand"
       effektBehovMedVand.unit: "kW"
-      opvarmingForbrugKWh: "Netto årsforbrug uden brugsvand"
+      opvarmingForbrugKWh: "Års varmeproduktion uden brugsvand"
       opvarmingForbrugKWh.unit: "kWh"
-      opvarmingForbrugMedVandKWh: "Netto årsforbrug inkl. brugsvand"
+      opvarmingForbrugMedVandKWh: "Års varmeproduktion inkl. brugsvand"
       opvarmingForbrugMedVandKWh.unit: "kWh"
     varmebespKWhAar: "Varmebesp."
     varmebespKWhAar.unit: "kWh/år"
