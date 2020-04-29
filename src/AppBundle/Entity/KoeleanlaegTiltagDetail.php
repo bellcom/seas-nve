@@ -187,11 +187,11 @@ class KoeleanlaegTiltagDetail extends TiltagDetail {
     }
     return $this->samletBesparelse;
   }
-  
+
   /**
    * Calculate stuff.
    *
-   * TODO: See calculation file xls/KoeleanlaegTiltagDetail/Beregning_og_Nøgletal_for_Køleanlæg.xlsx
+   * See calculation file xls/KoeleanlaegTiltagDetail/Beregning_og_Noegletal_for_Koeleanlaeg.xlsx
    */
   public function calculate() {
     $this->tilstandDataFoer['qbehov'] = $this->calculateQbehovFoer();
@@ -292,7 +292,5 @@ class KoeleanlaegTiltagDetail extends TiltagDetail {
 
     return $etotFoer - $etotEfter;
   }
-
-
 
 }

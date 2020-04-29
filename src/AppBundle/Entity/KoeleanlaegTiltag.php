@@ -52,5 +52,4 @@ class KoeleanlaegTiltag extends Tiltag {
     return parent::calculateElbesparelse($value);
   }
 
-
 }

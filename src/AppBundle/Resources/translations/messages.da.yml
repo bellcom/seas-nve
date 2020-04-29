@@ -376,17 +376,17 @@ klimaskaermtiltagdetail:
     edit: "Rediger klimaskærmsforslag"
 koeleanlaegtiltag:
   actions:
-    add: "Tilføj køleforlslag"
-    copy: "Kopier køleforlslag"
-    edit: "Rediger køleforlslag"
+    add: "Tilføj køleforslag"
+    copy: "Kopier køleforslag"
+    edit: "Rediger køleforslag"
   confirmation:
-    created: "Nyt køleforlslag oprettet"
+    created: "Nyt køleforslag oprettet"
 koeleanlaegtiltagdetail:
   actions:
-    add: "Tilføj køleforlslag"
-    batch_edit: "Rediger valgte køleforlslag"
-    copy: "Kopier køleforlslag"
-    edit: "Rediger køleforlslag"
+    add: "Tilføj køleforslag"
+    batch_edit: "Rediger valgte køleforslag"
+    copy: "Kopier køleforslag"
+    edit: "Rediger køleforslag"
   groups:
     tilstandfoer: "Tilstand Før"
     tilstandefter: "Tilstand Efter"
