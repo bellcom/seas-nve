@@ -680,7 +680,7 @@ varmeanlaegtiltag:
     created: "Nyt varmeanlaegforslag oprettet"
 varmeanlaegtiltagdetail:
   actions:
-    add: "Tilføj varmeanlaegforslag"
+    add: "Tilføj varmeanlægforslag"
     batch_edit: "Rediger valgte varmeanlaegforslag"
     copy: "Kopier varmeanlaegforslag"
     edit: "Rediger varmeanlægforslag"
@@ -2503,8 +2503,8 @@ appbundle:
     varmePumpeType:
       jord_med_gulv: "Jordvarme med gulvvarme"
       jord_med_radiator: "Jordvarme med radiator"
-      luftvand_med_gulv: "Luft-vand varmeanlaeg med gulvvarme"
-      luftvand_med_radiator: "Luft-vand varmeanlaeg med radiator"
+      luftvand_med_gulv: "Luft-vand varmeanlæg med gulvvarme"
+      luftvand_med_radiator: "Luft-vand varmeanlæg med radiator"
     energiTypePrimaerFoer: "Energitype primær"
     energiForbrugPrimaerFoer:
       label: "Nuværende primær"
@@ -2903,7 +2903,7 @@ appbundle:
       fuldlastTimer.unit: "timer"
       brugsvandsandel: "Brugsvandsandel"
       brugsvandsandel.unit: "%"
-      effektBehov: "Bygningnns effektbehov ved -12, uden brugsvand"
+      effektBehov: "Bygningnns effektbehov ved - 12, uden brugsvand"
       effektBehov.unit: "kW"
       effektBehovMedVand: "Bygningens effektbehov ved - 12, med brugsvand"
       effektBehovMedVand.unit: "kW"

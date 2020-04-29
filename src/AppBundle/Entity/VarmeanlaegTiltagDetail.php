@@ -1380,6 +1380,8 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     /**
      * Gets OpvarmetArealNetto.
      *
+     * See calculation file, cell E111.
+     *
      * @return float
      */
     public function getForbrugBeregningKontrolOpvarmetArealNetto() {
@@ -1389,14 +1391,18 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     /**
      * Gets EffektBehov.
      *
+     * See calculation file, cell E114.
+     *
      * @return float
      */
     public function getForbrugBeregningKontrolEffektBehov() {
-        return $this->getForbrugBeregningKontrolOpvarmetArealNetto() * $this->getForbrugBeregningKontrolVarmeTabM2();
+        return $this->getForbrugBeregningKontrolOpvarmetArealNetto() * $this->getForbrugBeregningKontrolVarmeTabM2() / 1000;
     }
 
     /**
      * Gets EffektBehov med vand.
+     *
+     * See calculation file, cell E115.
      *
      * @return float
      */
@@ -1407,19 +1413,23 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     /**
      * Gets OpvarmingForbrugKWh.
      *
+     * See calculation file, cell E118.
+     *
      * @return float
      */
     public function getForbrugBeregningKontrolOpvarmingForbrugKWh() {
-        return $this->getForbrugBeregningKontrolEffektBehov() * 1.1 * 2830 * 24 / 32;
+        return $this->getForbrugBeregningKontrolEffektBehov() * 1000 * 1.1 * 2830 * 24 / 32 / 1000;
     }
 
     /**
      * Gets OpvarmingForbrugMedVandKWh.
      *
+     * See calculation file, cell E119.
+     *
      * @return float
      */
     public function getForbrugBeregningKontrolOpvarmingForbrugMedVandKWh() {
-        return $this->getForbrugBeregningKontrolEffektBehovMedVand() * 1.1 * 2830 * 24 / 32;
+        return $this->getForbrugBeregningKontrolEffektBehovMedVand() * 1000 * 1.1 * 2830 * 24 / 32 / 1000;
     }
 
     /** END Step 8 calculation */
