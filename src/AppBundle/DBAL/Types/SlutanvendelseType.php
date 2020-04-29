@@ -8,7 +8,7 @@ class SlutanvendelseType extends AbstractEnumType
   const BELYSNING = 'belysning';
   const VENTILATION = 'ventilation';
   const PUMPER = 'pumper';
-  const KOELEANLAEG = 'koeleanlaeg';
+  const KOELING = 'koeling';
   const TRYKLUFT = 'trykluft';
   const PROCESUDSTYR = 'procesudstyr';
   const VARMEANLAEG = 'varmeanlaeg';
@@ -25,7 +25,7 @@ class SlutanvendelseType extends AbstractEnumType
     self::BELYSNING  => 'Belysning',
     self::VENTILATION  => 'Ventilation',
     self::PUMPER  => 'Pumper',
-    self::KOELEANLAEG  => 'Køleanlæg',
+    self::KOELING  => 'Køling',
     self::TRYKLUFT  => 'Trykluft',
     self::PROCESUDSTYR  => 'Procesudstyr',
     self::VARMEANLAEG  => 'Varmeanlæg',
@@ -43,7 +43,7 @@ class SlutanvendelseType extends AbstractEnumType
     'AppBundle\Entity\PumpeTiltag' => self::PUMPER,
     'AppBundle\Entity\BelysningTiltag' =>  self::BELYSNING,
     'AppBundle\Entity\KlimaskaermTiltag' => self::KLIMASKAERM,
-    'AppBundle\Entity\KoeleanlaegTiltag' => self::KOELEANLAEG,
+    'AppBundle\Entity\KoeleanlaegTiltag' => self::KOELING,
     'AppBundle\Entity\NyKlimaskaermTiltag' => self::KLIMASKAERM,
     'AppBundle\Entity\VarmeanlaegTiltag' => self::VARMEANLAEG,
     'AppBundle\Entity\VindueTiltag' => self::VINDUER,
