@@ -170,16 +170,34 @@ class TiltagType extends AbstractType {
         'attr' => isset(SlutanvendelseType::$detaultValues[get_class($this->tiltag)]) ? array('disabled' => 'disabled'): array()
     ));
 
+    $levetid_options = array(
+      5 => '5',
+      10 => '10',
+      15 => '15',
+      20 => '20',
+      25 => '25',
+      30 => '30',
+      40 => '40',
+    );
+
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
         ->add('besparelseStrafafkoelingsafgift')
-        ->add('levetid');
+        ->add('levetid', 'choice', array(
+          'choices' => $levetid_options,
+          'empty_value' => '--',
+          'required' => TRUE,
+        ));
     }
     if ($this->tiltag instanceof PumpeTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
-        ->add('levetid');
+        ->add('levetid', 'choice', array(
+          'choices' => $levetid_options,
+          'empty_value' => '--',
+          'required' => TRUE,
+        ));
     }
     if ($this->tiltag instanceof VindueTiltag) {
       $builder
@@ -206,7 +224,11 @@ class TiltagType extends AbstractType {
     }
     elseif ($this->tiltag instanceof SolcelleTiltag) {
       $builder
-        ->add('levetid');
+        ->add('levetid', 'choice', array(
+          'choices' => $levetid_options,
+          'empty_value' => '--',
+          'required' => TRUE,
+        ));
     }
     elseif ($this->tiltag instanceof KlimaskaermTiltag || $this->tiltag instanceof NyKlimaskaermTiltag) {
       $builder
@@ -224,7 +246,11 @@ class TiltagType extends AbstractType {
         ->add('besparelseCo2BraendstofITon')
         ->add('besparelseBraendstof')
         ->add('yderligereBesparelse')
-        ->add('levetid');
+        ->add('levetid', 'choice', array(
+          'choices' => $levetid_options,
+          'empty_value' => '--',
+          'required' => TRUE,
+        ));
 
       $builder->add('primaerEnterprise')
         ->add('tiltagskategori');
