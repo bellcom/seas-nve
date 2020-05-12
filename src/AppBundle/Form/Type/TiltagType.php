@@ -8,6 +8,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\AppBundle;
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\DBAL\Types\LevetidType;
 use AppBundle\Entity\NyKlimaskaermTiltag;
 use AppBundle\Entity\TrykluftTiltag;
 use AppBundle\Entity\VarmeAnlaegTiltag;
@@ -169,22 +170,12 @@ class TiltagType extends AbstractType {
         'attr' => isset(SlutanvendelseType::$detaultValues[get_class($this->tiltag)]) ? array('disabled' => 'disabled'): array()
     ));
 
-    $levetid_options = array(
-      5 => '5',
-      10 => '10',
-      15 => '15',
-      20 => '20',
-      25 => '25',
-      30 => '30',
-      40 => '40',
-    );
-
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
         ->add('besparelseStrafafkoelingsafgift')
         ->add('levetid', 'choice', array(
-          'choices' => $levetid_options,
+          'choices' => LevetidType::getChoices(),
           'empty_value' => '--',
           'required' => TRUE,
         ));
@@ -193,7 +184,7 @@ class TiltagType extends AbstractType {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
         ->add('levetid', 'choice', array(
-          'choices' => $levetid_options,
+          'choices' => LevetidType::getChoices(),
           'empty_value' => '--',
           'required' => TRUE,
         ));
@@ -246,7 +237,7 @@ class TiltagType extends AbstractType {
         ->add('besparelseBraendstof')
         ->add('yderligereBesparelse')
         ->add('levetid', 'choice', array(
-          'choices' => $levetid_options,
+          'choices' => LevetidType::getChoices(),
           'empty_value' => '--',
           'required' => TRUE,
         ));

@@ -85,6 +85,7 @@ doctrine:
         mapping_types:
             enum: string
         types:
+            LevetidType: AppBundle\DBAL\Types\LevetidType
             CardinalDirectionType: AppBundle\DBAL\Types\CardinalDirectionType
             NavnType: AppBundle\DBAL\Types\Energiforsyning\NavnType
             PrisgrundlagType: AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType
