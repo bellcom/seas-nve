@@ -179,15 +179,6 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
-   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF + $this->elbesparelse) * $this->getPrioriteringsfaktor() * $this->getTilskudsstoerrelse()")
-   * @ORM\Column(name="samletTilskud", type="float", nullable=true)
-   */
-  protected $samletTilskud;
-
-  /**
-   * @var float
-   *
-   * @Calculated
    * @ORM\Column(name="besparelseAarEt", type="float", scale=4, nullable=true)
    */
   protected $besparelseAarEt;
@@ -638,14 +629,6 @@ abstract class Tiltag {
    * @ORM\Column(name="maengde", type="float", nullable=true)
    */
   protected $maengde;
-
-  /**
-   * @var float
-   *
-   * @Calculated
-   * @ORM\Column(name="tilskudsstoerrelse", type="float", nullable=true)
-   */
-  protected $tilskudsstoerrelse;
 
   /**
    * @var string
@@ -1478,19 +1461,6 @@ abstract class Tiltag {
   }
 
   /**
-   * Get samletTilskud
-   *
-   * @return float
-   */
-  public function getSamletTilskud($skip_tbt_check = TRUE) {
-    if ($skip_tbt_check) {
-      return $this->samletTilskud;
-    }
-    // Do not give tilskud if TBT < 1.
-    return $this->getSimpelTilbagebetalingstidAar() < 1 ? 0 : $this->samletTilskud;
-  }
-
-  /**
    * Get antalReinvesteringer
    *
    * @return integer
@@ -1827,7 +1797,6 @@ abstract class Tiltag {
     // Calculating values by formulas from annotation.
     $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
     $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
-    $this->samletTilskud = $this->calculateByFormula('samletTilskud');
 
     // This may be computed, may be an input
     if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
@@ -1855,7 +1824,6 @@ abstract class Tiltag {
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->besparelseAarEt = $this->calculateSavingsForYear(1);
     $this->maengde = $this->calculateMaengde();
-    $this->tilskudsstoerrelse = $this->getTilskudsstoerrelse();
     $this->enhed = $this->calculateEnhed();
   }
 
@@ -2039,10 +2007,10 @@ abstract class Tiltag {
   }
 
   /**
-   * @Formula("($this->aaplusInvestering - $this->samletTilskud) / ($this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift)")
+   * @Formula("($this->aaplusInvestering) / ($this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift)")
    */
   protected function calculateSimpelTilbagebetalingstidAar() {
-    return $this->divide(($this->aaplusInvestering - $this->samletTilskud),
+    return $this->divide(($this->aaplusInvestering),
       $this->samletEnergibesparelse + $this->besparelseDriftOgVedligeholdelse + $this->besparelseStrafafkoelingsafgift);
   }
 
@@ -2087,10 +2055,6 @@ abstract class Tiltag {
 
   protected function calculateMaengde() {
     return NULL;
-  }
-
-  protected function calculateTilskudsstoerrelse() {
-    return $this->getTilskudsstoerrelse();
   }
 
   protected function calculateEnhed() {
@@ -2343,34 +2307,6 @@ abstract class Tiltag {
    */
   public function getMaengde() {
     return $this->maengde;
-  }
-
-  /**
-   * @param float $tilskudsstoerrelse
-   */
-  public function setTilskudsstoerrelse($tilskudsstoerrelse) {
-    $this->tilskudsstoerrelse = $tilskudsstoerrelse;
-  }
-
-  /**
-   * Get tilskudsstoerrelse
-   *
-   * @return float
-   */
-  public function getTilskudsstoerrelse() {
-    if (!empty($this->tilskudsstoerrelse) || $this->tilskudsstoerrelse == '0') {
-      return $this->tilskudsstoerrelse;
-    }
-
-    $virksomhed = $this->getRapport()->getBygning()->getVirksomhed();
-
-    if ($virksomhed) {
-      if ($virksomhed->getTilskudstorelse(TRUE)) {
-        return $virksomhed->getTilskudstorelse(TRUE);
-      }
-    }
-
-    return 0;
   }
 
   /**

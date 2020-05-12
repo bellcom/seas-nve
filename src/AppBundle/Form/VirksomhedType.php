@@ -133,7 +133,6 @@ class VirksomhedType extends AbstractType
               ),
               'required' => TRUE,
             ))
-            ->add('tilskudstorelse')
             ->add('aarsVaerk')
             ->add('forbrug')
             ->add('kam')
