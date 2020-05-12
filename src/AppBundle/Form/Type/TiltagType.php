@@ -134,7 +134,6 @@ class TiltagType extends AbstractType {
       ->add('modernisering')
       ->add('reelAnlaegsinvestering');
 
-    $builder->add('tilskudsstoerrelse', NULL);
     $builder->add('reelAnlaegsinvestering')
       ->add('forsyningVarme', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',

@@ -38,11 +38,6 @@ class SpecialTiltag extends Tiltag {
   protected $samletCo2besparelse;
 
   /**
-   * @Formula("((($this->getKonverteringsfaktorFoer() * $this->getForbrugFoer()) - ($this->getKonverteringsfaktorEfter() * $this->getForbrugEfter())) * $this->getPrioriteringsfaktor() * $this->getTilskudsstoerrelse())")
-   */
-  protected $samletTilskud;
-
-  /**
    * @var float
    *
    * @ORM\Column(name="besparelseGUF", type="decimal", scale=4, precision=14)
@@ -81,7 +76,7 @@ class SpecialTiltag extends Tiltag {
    * @var float
    *
    * @ORM\Column(name="besparelseBraendstof", type="decimal", scale=4, precision=14, nullable=true)
-   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + ($this->besparelseBraendstof * $this->tilskudsstoerrelse)")
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + $this->besparelseBraendstof")
    */
   protected $besparelseBraendstof = 0;
 
@@ -290,7 +285,6 @@ class SpecialTiltag extends Tiltag {
   }
 
   public function calculate() {
-    $this->samletTilskud = $this->calculateByFormula('samletTilskud');
     $this->forbrugEfter = $this->calculateByFormula('forbrugEfter');
     parent::calculate();
   }

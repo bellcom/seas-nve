@@ -145,7 +145,6 @@ class VarmeanlaegTiltag extends Tiltag {
         // Calculating values by formulas from annotation.
         $this->samletEnergibesparelse = $this->calculateSamletEnergibesparelse();
         $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
-        $this->samletTilskud = $this->calculateByFormula('samletTilskud');
 
         // This may be computed, may be an input
         if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
@@ -173,7 +172,6 @@ class VarmeanlaegTiltag extends Tiltag {
         $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
         $this->besparelseAarEt = $this->calculateSavingsForYear(1);
         $this->maengde = $this->calculateMaengde();
-        $this->tilskudsstoerrelse = $this->getTilskudsstoerrelse();
         $this->enhed = $this->calculateEnhed();
     }
 

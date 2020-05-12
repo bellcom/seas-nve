@@ -394,14 +394,6 @@ class VirksomhedRapport
     protected $samletEnergibesparelseKr;
 
     /**
-     * @var float
-     *
-     * @Calculated
-     * @ORM\Column(name="samletTilskud", type="float", nullable=true)
-     */
-    protected $samletTilskud;
-
-    /**
      * Get investering eksl. genopretning og modernisering
      *
      * (Aa+ Investering eks. Øvrige omkostninger)
@@ -2225,28 +2217,6 @@ class VirksomhedRapport
     }
 
     /**
-     * Set samletTilskud
-     *
-     * @param float $samletTilskud
-     * @return Rapport
-     */
-    public function setSamletTilskud($samletTilskud)
-    {
-        $this->samletTilskud = $samletTilskud;
-        return $this;
-    }
-
-    /**
-     * Get SamletTilskud
-     *
-     * @return float
-     */
-    public function getSamletTilskud()
-    {
-        return $this->samletTilskud;
-    }
-
-    /**
      * Set summarizedRapportValues
      *
      * @param array $summarizedRapportValues
@@ -2289,13 +2259,6 @@ class VirksomhedRapport
             $this->rapporter[$rapport->getId()] = $rapport;
         }
         return $this->rapporter;
-    }
-
-    /**
-     * Get Virksomhed Tilskudstorellse.
-     */
-    public function getVirksomhedTilskudstorellse() {
-        return $this->getVirksomhed() ? $this->getVirksomhed()->getTilskudstorelse() : 0;
     }
 
     /**
@@ -2376,7 +2339,6 @@ class VirksomhedRapport
 
         'samletEnergibesparelse',
         'samletEnergibesparelseKr',
-        'samletTilskud',
 
         'besparelseSlutanvendelser',
         'besparelseAarEt',
@@ -2443,7 +2405,6 @@ class VirksomhedRapport
             'besparelseVarme',
             'uOpvarmetareal',
             'samletEnergiForbrug',
-            'samletEnergiBesparelseTilfaeld',
         ));
         foreach ($summarizeProperties as $property) {
             $summarizedValues[$property] = $this->calculateSummarized($property);
@@ -2599,16 +2560,6 @@ class VirksomhedRapport
     }
 
     /**
-     * Calculates SamletEnergiBesparelseTilfaeld.
-     */
-    public function calculateSamletEnergiBesparelseTilfaeld() {
-        if (empty($this->getVirksomhed())) {
-            return 0;
-        }
-        return $this->getVirksomhed()->getTilskudstorelse() * $this->getSamletEnergibesparelse() ;
-    }
-
-    /**
      * Calculates SamletEnergiBesparelseForbrug.
      */
     public function calculateSamletEnergiForbrug() {
@@ -2714,10 +2665,6 @@ class VirksomhedRapport
 
                 case 'samletEnergiForbrug':
                     $value[] = $rapport->calculateSamletEnergiForbrug();
-                    break;
-
-                case 'samletEnergiBesparelseTilfaeld':
-                    $value[] = $rapport->calculateSamletEnergiBesparelseTilfaeld();
                     break;
 
                 default:
