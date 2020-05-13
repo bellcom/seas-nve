@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\DBAL\Types\VarmeanlaegTiltag\EnergiType;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Entity\TekniskIsoleringTiltagDetail\NyttiggjortVarme;
@@ -208,6 +210,31 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
      * @ORM\Column(name="kwhBesparelseVarmeFraVaerket", type="float")
      */
     protected $kwhBesparelseVarmeFraVaerket;
+
+    /**
+     * @var float
+     * @ORM\Column(name="varmeledningsevneEksistLamelmaatter", type="decimal", scale=4, nullable=true)
+     */
+    protected $varmeledningsevneEksistLamelmaatter;
+
+    /**
+     * @var float
+     * @ORM\Column(name="varmeledningsevneNyIsolering", type="decimal", scale=4, nullable=true)
+     */
+    protected $varmeledningsevneNyIsolering;
+
+    /**
+     * @var Configuration
+     */
+    protected $configuration;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->varmeledningsevneEksistLamelmaatter;
+    }
 
     public function setBeskrivelseType($beskrivelseType)
     {
@@ -420,6 +447,51 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
         return $this->kwhBesparelseVarmeFraVaerket;
     }
 
+    public function setVarmeledningsevneEksistLamelmaatter($varmeledningsevneEksistLamelmaatter)
+    {
+        $this->varmeledningsevneEksistLamelmaatter = $varmeledningsevneEksistLamelmaatter;
+
+        return $this;
+    }
+
+    public function getVarmeledningsevneEksistLamelmaatter()
+    {
+        return $this->varmeledningsevneEksistLamelmaatter;
+    }
+
+    public function setVarmeledningsevneNyIsolering($varmeledningsevneNyIsolering)
+    {
+        $this->varmeledningsevneNyIsolering = $varmeledningsevneNyIsolering;
+
+        return $this;
+    }
+
+    public function getVarmeledningsevneNyIsolering()
+    {
+        return $this->varmeledningsevneNyIsolering;
+    }
+
+    /**
+     * Sets configuration.
+     *
+     * @param Configuration $configuration
+     * @return $this
+     */
+    public function setConfiguration(Configuration $configuration) {
+        $this->configuration = $configuration;
+
+        return $this;
+    }
+
+    /**
+     * Gets configuration.
+     *
+     * @return Configuration
+     */
+    public function getConfiguration() {
+        return $this->configuration;
+    }
+
     /**
      * Set nyttiggjortVarme
      *
@@ -627,6 +699,18 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
     {
         // '$AC$25':
         return 9;
+    }
+
+    /**
+     * Post load handler.
+     *
+     * @ORM\PostLoad
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+     */
+    public function postLoad(LifecycleEventArgs $event) {
+        $repository = $event->getEntityManager()
+            ->getRepository('AppBundle:Configuration');
+        $this->setConfiguration($repository->getConfiguration());
     }
 
 }
