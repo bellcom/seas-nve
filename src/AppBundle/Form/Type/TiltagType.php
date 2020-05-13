@@ -215,7 +215,7 @@ class TiltagType extends AbstractType {
     elseif ($this->tiltag instanceof SolcelleTiltag) {
       $builder
         ->add('levetid', 'choice', array(
-          'choices' => $levetid_options,
+          'choices' => LevetidType::getChoices(),
           'empty_value' => '--',
           'required' => TRUE,
         ));
