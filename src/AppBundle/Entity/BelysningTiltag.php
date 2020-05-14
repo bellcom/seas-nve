@@ -39,25 +39,38 @@ class BelysningTiltag extends Tiltag
         $this->setTitle('Belysning');
     }
 
+
     /**
-     * Calculates value that is using in varmebesparelseGAF calculation.
-     *
-     * @return float
+     * Calculate values in this Tiltag
      */
-    protected function calculateVarmebesparelseGAFValue()
+    public function calculate() {
+        parent::calculate();
+        $this->forbrugFoer = $this->calculateForbrugFoer();
+        $this->forbrugEfter = $this->calculateForbrugEfter();
+    }
+
+    /**
+     * Calculates forbrug før value.
+     */
+    protected function calculateForbrugFoer($value = null)
     {
-        return $this->sum('kWhBesparelseVarmeFraVarmevaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+        return $this->sum('elforbrugkWtAar');
+    }
+
+    /**
+     * Calculates forbrug efter value.
+     */
+    protected function calculateForbrugEfter($value = null)
+    {
+        return $this->sum('nytElforbrugkWtAar');
     }
 
     /**
      * @inheritDoc
-     * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
      */
     protected function calculateVarmebesparelseGAF($value = null)
     {
-        $value = $this->calculateVarmebesparelseGAFValue();
-
-        return parent::calculateVarmebesparelseGAF($value);
+        return 0;
     }
 
     /**
@@ -65,9 +78,9 @@ class BelysningTiltag extends Tiltag
      *
      * @return float
      */
-    protected function calculateElbesparelseValueExpr()
+    protected function calculateElbesparelseValueExpr($exp = TRUE)
     {
-        return $this->sum('kwhBesparelseEl', TRUE);
+        return $this->sum('kwhBesparelseEl', $exp);
     }
 
     /**
@@ -76,7 +89,7 @@ class BelysningTiltag extends Tiltag
      */
     protected function calculateElbesparelse($value = null)
     {
-        $value = $this->sum('kwhBesparelseEl');
+        $value = $this->calculateElbesparelseValueExpr(FALSE);
 
         return parent::calculateElbesparelse($value);
     }

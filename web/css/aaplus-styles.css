@@ -788,6 +788,15 @@ label + .explanation-toggle {
 }
 .explanation-toggle {
   display: inline-block;
-
   cursor: pointer;
 }
+
+.popover {
+    max-width: 100%;
+}
+
+
+.popover-content table td {
+    padding: 2px 4px;
+}
+

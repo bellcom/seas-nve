@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\BelysningTiltagDetail\Lyskilde as BelysningTiltagDetailLyskilde;
 use AppBundle\DBAL\Types\BelysningTiltagDetail\PlaceringType;
 use AppBundle\DBAL\Types\BelysningTiltagDetail\StyringType;
+use AppBundle\Entity\BelysningTiltagDetail\NyStyring;
 use AppBundle\DBAL\Types\BelysningTiltagDetail\TiltagType;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
@@ -73,9 +74,16 @@ class BelysningTiltagDetail extends TiltagDetail
     /**
      * @var integer
      *
-     * @ORM\Column(name="lyskildeStkArmatur", type="integer")
+     * @ORM\Column(name="lyskildeStkArmatur", type="integer", nullable=true )
      */
     protected $lyskildeStkArmatur;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="lyskildeStk", type="integer")
+     */
+    protected $lyskildeStk;
 
     /**
      * @var integer
@@ -83,6 +91,21 @@ class BelysningTiltagDetail extends TiltagDetail
      * @ORM\Column(name="lyskildeWLyskilde", type="integer")
      */
     protected $lyskildeWLyskilde;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="benyttelsesFaktor", type="float")
+     */
+    protected $benyttelsesFaktor;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="installeretEffektW", type="float")
+     */
+    protected $installeretEffektW;
 
     /**
      * @var integer
@@ -94,7 +117,7 @@ class BelysningTiltagDetail extends TiltagDetail
     /**
      * @var integer
      *
-     * @ORM\Column(name="armaturerStkLokale", type="integer")
+     * @ORM\Column(name="armaturerStkLokale", type="integer", nullable=true)
      */
     protected $armaturerStkLokale;
 
@@ -105,6 +128,14 @@ class BelysningTiltagDetail extends TiltagDetail
      * @ORM\Column(name="elforbrugWM2", type="float")
      */
     protected $elforbrugWM2;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="elforbrugkWtAar", type="float")
+     */
+    protected $elforbrugkWtAar;
 
     /**
      * @var string
@@ -163,13 +194,6 @@ class BelysningTiltagDetail extends TiltagDetail
     /**
      * @var float
      *
-     * @ORM\Column(name="reduktionAfDrifttid", type="decimal", scale=4, nullable=true)
-     */
-    protected $reduktionAfDrifttid;
-
-    /**
-     * @var float
-     *
      * @Calculated
      * @ORM\Column(name="nyDriftstid", type="float")
      */
@@ -210,6 +234,13 @@ class BelysningTiltagDetail extends TiltagDetail
     /**
      * @var integer
      *
+     * @ORM\Column(name="nyLyskildeStk", type="integer", nullable=true)
+     */
+    protected $nyLyskildeStk;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="nyLyskildeStkArmatur", type="integer", nullable=true)
      */
     protected $nyLyskildeStkArmatur;
@@ -220,6 +251,13 @@ class BelysningTiltagDetail extends TiltagDetail
      * @ORM\Column(name="nyLyskildeWLyskilde", type="integer", nullable=true)
      */
     protected $nyLyskildeWLyskilde;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="nyBenyttelsesFaktor", type="float")
+     */
+    protected $nyBenyttelsesFaktor;
 
     /**
      * @var integer
@@ -237,6 +275,14 @@ class BelysningTiltagDetail extends TiltagDetail
     protected $nyArmatureffektWStk;
 
     /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="nyInstalleretEffektW", type="float")
+     */
+    protected $nyInstalleretEffektW;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="nyeArmaturerStkLokale", type="integer", nullable=true)
@@ -244,7 +290,7 @@ class BelysningTiltagDetail extends TiltagDetail
     protected $nyeArmaturerStkLokale;
 
     /**
-     * @var BelysningTiltagDetailNyStyring
+     * @var NyStyring
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NyStyring")
      * ORM\JoinColumn(name="nyStyring_id", referencedColumnName="id", nullable=true)
@@ -252,7 +298,7 @@ class BelysningTiltagDetail extends TiltagDetail
     protected $nyStyring;
 
     /**
-     * @var BelysningTiltagDetailNytArmatur
+     * @var \AppBundle\Entity\BelysningTiltagDetail\NytArmatur
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\BelysningTiltagDetail\NytArmatur", fetch="EAGER")
      * ORM\JoinColumn(name="nytArmatur_id", referencedColumnName="id", nullable=true)
@@ -301,6 +347,14 @@ class BelysningTiltagDetail extends TiltagDetail
      * @var float
      *
      * @Calculated
+     * @ORM\Column(name="nytElforbrugkWtAar", type="float")
+     */
+    protected $nytElforbrugkWtAar;
+
+    /**
+     * @var float
+     *
+     * @Calculated
      * @ORM\Column(name="driftsbesparelseTilLyskilderKrAar", type="float")
      */
     protected $driftsbesparelseTilLyskilderKrAar;
@@ -344,6 +398,16 @@ class BelysningTiltagDetail extends TiltagDetail
      * @ORM\Column(name="kWhBesparelseVarmeFraVarmevaerket", type="float")
      */
     protected $kWhBesparelseVarmeFraVarmevaerket;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="elbespKrAar", type="float")
+     *
+     * See calculation file, cell [].
+     */
+    protected $elbespKrAar;
 
     /**
      * Constructor
@@ -555,6 +619,29 @@ class BelysningTiltagDetail extends TiltagDetail
     }
 
     /**
+     * Set lyskildeStk
+     *
+     * @param integer $lyskildeStk
+     * @return BelysningTiltagDetail
+     */
+    public function setLyskildeStk($lyskildeStk)
+    {
+        $this->lyskildeStk = $lyskildeStk;
+
+        return $this;
+    }
+
+    /**
+     * Get lyskildeStk
+     *
+     * @return integer
+     */
+    public function getLyskildeStk()
+    {
+        return $this->lyskildeStk;
+    }
+
+    /**
      * Set lyskildeWLyskilde
      *
      * @param integer $lyskildeWLyskilde
@@ -601,6 +688,52 @@ class BelysningTiltagDetail extends TiltagDetail
     }
 
     /**
+     * Set benyttelsesFaktor
+     *
+     * @param integer $benyttelsesFaktor
+     * @return BelysningTiltagDetail
+     */
+    public function setBenyttelsesFaktor($benyttelsesFaktor)
+    {
+        $this->benyttelsesFaktor = $benyttelsesFaktor;
+
+        return $this;
+    }
+
+    /**
+     * Get benyttelsesFaktor
+     *
+     * @return integer
+     */
+    public function getBenyttelsesFaktor()
+    {
+        return $this->benyttelsesFaktor;
+    }
+
+    /**
+     * Set installeretEffektW
+     *
+     * @param integer $installeretEffektW
+     * @return BelysningTiltagDetail
+     */
+    public function setInstalleretEffektW($installeretEffektW)
+    {
+        $this->installeretEffektW = $installeretEffektW;
+
+        return $this;
+    }
+
+    /**
+     * Get installeretEffektW
+     *
+     * @return integer
+     */
+    public function getInstalleretEffektW()
+    {
+        return $this->installeretEffektW;
+    }
+
+    /**
      * Set armaturerStkLokale
      *
      * @param integer $armaturerStkLokale
@@ -631,6 +764,27 @@ class BelysningTiltagDetail extends TiltagDetail
     public function getElforbrugWM2()
     {
         return $this->elforbrugWM2;
+    }
+
+    /**
+     * Set elforbrugkWtAar
+     *
+     * @param string $elforbrugkWtAar
+     * @return BelysningTiltagDetail
+     */
+    public function setElforbrugkWtAar($elforbrugkWtAar)
+    {
+        $this->elforbrugkWtAar = $elforbrugkWtAar;
+        return $this;
+    }
+    /**
+     * Get elforbrugkWtAar
+     *
+     * @return float
+     */
+    public function getElforbrugkWtAar()
+    {
+        return $this->elforbrugkWtAar;
     }
 
     /**
@@ -773,26 +927,16 @@ class BelysningTiltagDetail extends TiltagDetail
     }
 
     /**
-     * Set reduktionAfDrifttid
+     * Set nyDriftstid
      *
-     * @param string $reduktionAfDrifttid
+     * @param string $nyDriftstid
      * @return BelysningTiltagDetail
      */
-    public function setReduktionAfDrifttid($reduktionAfDrifttid)
+    public function setNyDriftstid($nyDriftstid)
     {
-        $this->reduktionAfDrifttid = $reduktionAfDrifttid;
+        $this->nyDriftstid = $nyDriftstid;
 
         return $this;
-    }
-
-    /**
-     * Get reduktionAfDrifttid
-     *
-     * @return float
-     */
-    public function getReduktionAfDrifttid()
-    {
-        return $this->reduktionAfDrifttid;
     }
 
     /**
@@ -900,6 +1044,29 @@ class BelysningTiltagDetail extends TiltagDetail
     }
 
     /**
+     * Set nyLyskildeStk
+     *
+     * @param integer $nyLyskildeStk
+     * @return BelysningTiltagDetail
+     */
+    public function setNyLyskildeStk($nyLyskildeStk)
+    {
+        $this->nyLyskildeStk = $nyLyskildeStk;
+
+        return $this;
+    }
+
+    /**
+     * Get nyLyskildeStk
+     *
+     * @return integer
+     */
+    public function getNyLyskildeStk()
+    {
+        return $this->nyLyskildeStk;
+    }
+
+    /**
      * Set nyLyskildeWLyskilde
      *
      * @param integer $nyLyskildeWLyskilde
@@ -943,6 +1110,52 @@ class BelysningTiltagDetail extends TiltagDetail
     public function getNyForkoblingStkArmatur()
     {
         return $this->nyForkoblingStkArmatur;
+    }
+
+    /**
+     * Set nyBenyttelsesFaktor
+     *
+     * @param integer $nyBenyttelsesFaktor
+     * @return BelysningTiltagDetail
+     */
+    public function setNyBenyttelsesFaktor($nyBenyttelsesFaktor)
+    {
+        $this->nyBenyttelsesFaktor = $nyBenyttelsesFaktor;
+
+        return $this;
+    }
+
+    /**
+     * Get nyBenyttelsesFaktor
+     *
+     * @return integer
+     */
+    public function getNyBenyttelsesFaktor()
+    {
+        return $this->nyBenyttelsesFaktor;
+    }
+
+    /**
+     * Set nyInstalleretEffektW
+     *
+     * @param integer $nyInstalleretEffektW
+     * @return BelysningTiltagDetail
+     */
+    public function setNyInstalleretEffektW($nyInstalleretEffektW)
+    {
+        $this->nyInstalleretEffektW = $nyInstalleretEffektW;
+
+        return $this;
+    }
+
+    /**
+     * Get nyNyInstalleretEffektW
+     *
+     * @return integer
+     */
+    public function getNyInstalleretEffektW()
+    {
+        return $this->nyInstalleretEffektW;
     }
 
     /**
@@ -1055,6 +1268,28 @@ class BelysningTiltagDetail extends TiltagDetail
     }
 
     /**
+     * Set nytElforbrugkWtAar
+     *
+     * @param string $nytElforbrugkWtAar
+     * @return BelysningTiltagDetail
+     */
+    public function setNytElforbrugkWtAar($nytElforbrugkWtAar)
+    {
+        $this->nytElforbrugkWtAar = $nytElforbrugkWtAar;
+        return $this;
+    }
+
+    /**
+     * Get nytElforbrugkWtAar
+     *
+     * @return float
+     */
+    public function getNytElforbrugkWtAar()
+    {
+        return $this->nytElforbrugkWtAar;
+    }
+
+    /**
      * Get driftsbesparelseTilLyskilderKrAar
      *
      * @return float
@@ -1162,21 +1397,39 @@ class BelysningTiltagDetail extends TiltagDetail
         $this->erstatningsLyskilde = $erstatningsLyskilde;
     }
 
+    /**
+     * Set elbespKrAar
+     *
+     * @param integer $elbespKrAar
+     *
+     * @return BelysningTiltagDetail
+     */
+    public function setElbespKrAar($elbespKrAar)
+    {
+        $this->elbespKrAar = $elbespKrAar;
+
+        return $this;
+    }
+
+    /**
+     * Get elbespKrAar
+     *
+     * @return float
+     */
+    public function getElbespKrAar() {
+        return $this->elbespKrAar;
+    }
+
     protected $propertiesRequiredForCalculation = [
         'lokaleNavn',
-        'lyskilde',
-        'placering',
         'drifttidTAar',
-        'lyskildeStkArmatur',
+        'lyskildeStk',
         'lyskildeWLyskilde',
-        'forkoblingStkArmatur',
-        'armaturerStkLokale',
-        'belysningstiltag',
-        'reduktionAfDrifttid',
-        'nyLyskildeStkArmatur',
+        'benyttelsesFaktor',
+        'nyDriftstid',
+        'nyLyskildeStk',
         'nyLyskildeWLyskilde',
-        'nyForkoblingStkArmatur',
-        'prisfaktor',
+        'nyBenyttelsesFaktor',
     ];
 
     public function getPropertiesRequiredForCalculation()
@@ -1191,9 +1444,6 @@ class BelysningTiltagDetail extends TiltagDetail
         $tiltag = $this->getBelysningstiltag();
         switch ($tiltag) {
             case TiltagType::ARMATUR:
-                $properties[] = 'nytArmatur';
-                $properties[] = 'nyeArmaturerStkLokale';
-                $properties[] = 'standardinvestArmaturKrStk';
                 break;
 
             case TiltagType::LED_I_EKSIST_ARM:
@@ -1208,19 +1458,48 @@ class BelysningTiltagDetail extends TiltagDetail
 
     public function calculate()
     {
+        $this->installeretEffektW = $this->calculateInstalleretEffektW();
+        $this->nyInstalleretEffektW = $this->calculateNyInstalleretEffektW();
+        $this->elforbrugkWtAar = $this->calculateElforbrugkWtAar();
+        $this->nytElforbrugkWtAar = $this->calculateNytElforbrugkWtAar();
+        $this->kWhBesparelseEl = $this->calculateKwhBesparelseEl();
+        $this->elbespKrAar = $this->calculateElbespKrAar();
+
         $this->elforbrugWM2 = $this->calculateElforbrugWM2();
-        // $this->nyDriftstid = $this->calculateNyDriftstid();
         $this->nyArmatureffektWStk = $this->calculateNyArmatureffektWStk();
         $this->prisfaktorTillaegKrLokale = $this->calculatePrisfaktorTillaegKrLokale();
         $this->investeringAlleLokalerKr = $this->calculateInvesteringAlleLokalerKr();
         $this->nytElforbrugWM2 = $this->calculateNytElforbrugWM2();
-        //$this->driftsbesparelseTilLyskilderKrAar = $this->calculateDriftsbesparelseTilLyskilderKrAar();
-        $this->kWhBesparelseEl = $this->calculateKwhBesparelseEl();
-        //$this->kWhBesparelseVarmeFraVarmevaerket = $this->calculateKwhBesparelseVarmeFraVarmevaerket();
+        $this->driftsbesparelseTilLyskilderKrAar = $this->calculateDriftsbesparelseTilLyskilderKrAar();
         $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
-        // $this->vaegtetLevetidAar = $this->calculateVaegtetLevetidAar();
-        // $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
+        $this->vaegtetLevetidAar = $this->calculateVaegtetLevetidAar();
+        $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
         parent::calculate();
+    }
+
+    private function calculateInstalleretEffektW()
+    {
+        return $this->getLyskildeStk() * $this->getLyskildeWLyskilde();
+    }
+
+    private function calculateNyInstalleretEffektW()
+    {
+        return $this->getNyLyskildeStk() * $this->getNyLyskildeWLyskilde();
+    }
+
+    private function calculateElforbrugkWtAar()
+    {
+        return $this->getInstalleretEffektW() * $this->getDrifttidTAar() * $this->getBenyttelsesFaktor() / 1000;
+    }
+
+    private function calculateNytElforbrugkWtAar()
+    {
+        return $this->getNyInstalleretEffektW() * $this->getNyDriftstid() * $this->getNyBenyttelsesFaktor() / 1000;
+    }
+
+    private function calculateElbespKrAar()
+    {
+        return $this->kWhBesparelseEl * $this->getRapport()->getElKrKWh();
     }
 
     private function calculateElforbrugWM2()
@@ -1232,16 +1511,6 @@ class BelysningTiltagDetail extends TiltagDetail
             return 0;
         } else {
             return $armaturEffekt * $this->armaturerStkLokale / $this->rumstoerrelseM2;
-        }
-    }
-
-    private function calculateNyDriftstid()
-    {
-        // AN
-        if ($this->drifttidTAar == 0 || $this->belysningstiltag == TiltagType::NONE) {
-            return 0;
-        } else {
-            return $this->drifttidTAar - $this->reduktionAfDrifttid * $this->drifttidTAar;
         }
     }
 
@@ -1298,6 +1567,7 @@ class BelysningTiltagDetail extends TiltagDetail
 
     private function calculateDriftsbesparelseTilLyskilderKrAar()
     {
+
         // BK
         $lyskilde = $this->getLyskilde(true);
         $nyLyskilde = $this->getNyLyskilde(true);
@@ -1323,23 +1593,10 @@ class BelysningTiltagDetail extends TiltagDetail
 
     private function calculateKwhBesparelseEl()
     {
-        // BT
-        $elbesparelse = $this->_computeElbesparelseAlleLokaler();
-        $varmebesparelse = $this->_computeVarmebesparelseAlleLokaler();
-
-        if ($elbesparelse == 0 && $varmebesparelse == 0) {
-            return 0;
-        } elseif ($this->getRapport()->getStandardforsyning()) {
-            return $elbesparelse;
-        } else {
-            return $this->fordelbesparelse($varmebesparelse, $this->tiltag->getForsyningVarme(), 'EL') + $elbesparelse;
-        }
-    }
-
-    private function _computeElbesparelseAlleLokaler()
-    {
-        // BE
-        $computeElforbrugPrLokale = function () {
+        return $this->getElforbrugkWtAar() - $this->getNytElforbrugkWtAar();
+        // @TODO Review/Remove old calculation.
+        /* Old calculation.
+                $computeElforbrugPrLokale = function () {
             // AB
             $armaturEffekt = $this->_computeArmaturEffekt($this->getLyskilde(true));
             if ($armaturEffekt == 0 || $this->armaturerStkLokale == 0) {
@@ -1369,41 +1626,13 @@ class BelysningTiltagDetail extends TiltagDetail
         } else {
             return ($elforbrug - $nytElforbrug) * $this->lokale_antal;
         }
-    }
-
-    private function _computeVarmebesparelseAlleLokaler()
-    {
-        // BF
-        $elbesparelse = $this->_computeElbesparelseAlleLokaler();
-        if ($elbesparelse == 0) {
-            return 0;
-        } else {
-            return $elbesparelse * -$this->nyttiggjortVarmeAfElBesparelse;
-        }
-    }
-
-    private function calculateKwhBesparelseVarmeFraVarmevaerket()
-    {
-        // BU
-        $varmebesparelse = $this->_computeVarmebesparelseAlleLokaler();
-        if ($varmebesparelse == 0) {
-            return 0;
-        } elseif ($this->getRapport()->getStandardforsyning()) {
-            return $varmebesparelse;
-        } else {
-            return $this->fordelbesparelse($varmebesparelse, $this->tiltag->getForsyningVarme(), 'VARME');
-        }
+        */
     }
 
     private function calculateSimpelTilbagebetalingstidAar()
     {
-        // BL
-        if ($this->investeringAlleLokalerKr == 0) {
-            return 0;
-        } else {
-            return $this->divide($this->investeringAlleLokalerKr,
-                $this->kWhBesparelseEl * $this->getRapport()->getElKrKWh() + $this->kWhBesparelseVarmeFraVarmevaerket * $this->getRapport()->getVarmeKrKWh() + $this->driftsbesparelseTilLyskilderKrAar);
-        }
+        return $this->divide($this->investeringAlleLokalerKr,
+            $this->getElbespKrAar() + $this->driftsbesparelseTilLyskilderKrAar);
     }
 
     private function calculateVaegtetLevetidAar()

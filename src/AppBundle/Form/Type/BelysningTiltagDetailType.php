@@ -6,6 +6,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\DBAL\Types\BelysningTiltagDetail\LykilderBenyttelsesFaktor;
 use AppBundle\Entity\BelysningTiltagDetail;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormBuilder;
@@ -41,9 +42,14 @@ class BelysningTiltagDetailType extends TiltagDetailType
             ->add('lokale_antal')
             ->add('drifttidTAar')
             ->add('lyskilde')
-            ->add('lyskildeStkArmatur')
+            ->add('lyskildeStk')
             ->add('lyskildeWLyskilde')
-            ->add('forkoblingStkArmatur')
+            ->add('benyttelsesFaktor','choice', array(
+                'choices' => LykilderBenyttelsesFaktor::getChoices(),
+                'empty_value' => 'common.none',
+                'required' => TRUE,
+            ))
+            ->add('lyskildeStkArmatur')
             ->add('armaturerStkLokale')
             ->add('placering')
             ->add('styring')
@@ -53,22 +59,25 @@ class BelysningTiltagDetailType extends TiltagDetailType
                 'required' => FALSE,
                 'empty_value' => 'common.none',
             ))
-            ->add('erstatningsLyskilde')
             ->add('nytArmatur')
             ->add('noter')
             ->add('noterForNyBelysning')
-            ->add('belysningstiltag')
             ->add('nyeSensorerStkLokale')
             ->add('standardinvestSensorKrStk')
-            ->add('reduktionAfDrifttid', 'percent', array('scale' => 2, 'required' => false))
             ->add('standardinvestArmaturKrStk')
             ->add('standardinvestLyskildeKrStk')
+            ->add('belysningstiltag')
             ->add('nyLyskilde')
-            ->add('nyLyskildeStkArmatur')
+            ->add('nyLyskildeStk')
             ->add('nyLyskildeWLyskilde')
-            ->add('nyForkoblingStkArmatur')
+            ->add('nyBenyttelsesFaktor','choice', array(
+                'choices' => LykilderBenyttelsesFaktor::getChoices(),
+                'empty_value' => 'common.none',
+                'required' => FALSE,
+            ))
+            ->add('nyLyskildeStkArmatur')
             ->add('nyeArmaturerStkLokale')
-            ->add('nyttiggjortVarmeAfElBesparelse', 'percent', array('scale' => 2, 'required' => false))
+            ->add('nyDriftstid')
             ->add('prisfaktor');
 
     }
