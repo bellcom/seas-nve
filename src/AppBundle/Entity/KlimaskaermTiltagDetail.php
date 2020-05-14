@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotations\Calculated;
 use AppBundle\DBAL\Types\CardinalDirectionType;
+use AppBundle\DBAL\Types\LevetidType;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -145,7 +146,8 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var integer
    *
-   * @ORM\Column(name="levetidAar", type="integer", nullable=true)
+   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\LevetidType")
+   * @ORM\Column(name="levetidAar", type="LevetidType", nullable=true)
    */
   protected $levetidAar;
 

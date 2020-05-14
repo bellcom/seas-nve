@@ -16,12 +16,6 @@
         <p>SEAS-NVE kan drive de valgte tiltag som projektledere, herunder kontakt til de forskellige leverandører. Vi sikrer dermed, at alle de valgte projekter gennemføres inden for de fastlagte terminer.</p>
         <p>Vi kender markedet og dermed den optimale løsning. I sikres dermed den størst mulige effekt af besparelsesprojekterne.</p>
 
-        {% set samletTilskud = rapport.summarizedRapportValues.samletEnergiBesparelseTilfaeld %}
-        {% if samletTilskud > 0 %}
-          <h4>Tilskud</h4>
-          <p>SEAS-NVE yder et engangstilskud til jer på {{ rapport.getVirksomhedTilskudstorellse() | format_decimal }} kr. pr. kWh, der spares i kraft af de gennemførte fælles projekter. Dette tilskud vil i jeres tilfælde samlet set beløbe sig til kr. {{ samletTilskud | format_decimal }}</p>
-        {% endif %}
-
         <h4>Slutanvendelser</h4>
         {% set slutanvendelseLabels = rapport.getBesparelseSlutanvendelserLabels() %}
         <ul>
@@ -388,28 +382,6 @@
 
     <div class="panel panel-default">
       {% include 'AppBundle::_includes/finansiering_likviditetsoverblik_pdf.html.twig' with {'entity': rapport.summarizedRapportValues } %}
-    </div>
-
-    <div class="row page-break-before">
-      <div class="col-xs-12">
-
-        <h3>Sådan kommer du videre</h3>
-
-        <strong>Dokumentationsgrundlag for energispare tilskud</strong>
-        <p>Med SEAS-NVE køb af energibesparelse kræves følgende dokumentation:</p>
-
-        <ul>
-          <li>energispare aftale med overdragelse af energibesparelsen til SEAS-NVE.</li>
-          <li>dokumentation af energibesparelse med beskrivelse af før og efter situation/energiforbrug – screeningsrapport.</li>
-          <li>tilbud på energieffektiviseringstiltag (ved projekt id. skal dette foreligge hos kunde/dig).</li>
-          <li>faktura for energieffektiviseringstiltag (ved projekt id. skal dette foreligge hos kunde/dig).</li>
-          <li>faktura for udbetalt energispare tilskud (ved projekt id. energispare tilskud via besparelseslink).</li>
-        </ul>
-
-        <p>- alle aftaler og dokumentation skal forefindes i ovenstående kronologiske rækkefølge.</p>
-
-        <p>For yderligere oplysninger om SEAS-NVE køb og dokumentation af energibesparelser, henvises til brochure ”Energispare tilskud til offentlige og private virksomheder”.</p>
-      </div>
     </div>
 
     <div class="row">

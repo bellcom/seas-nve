@@ -168,6 +168,113 @@
           </div>
         </div>
       </div>
+
+      <h2>Ventilation</h2>
+      <div class="row">
+        <div class="col-md-6 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ 'appbundle.configuration.grundventilationMatrix.label' | trans}}</h3>
+            </div>
+            <table class="table table-condensed">
+              <thead>
+              <tr>
+                  <th>{{ 'appbundle.configuration.kvalitet' | trans}}</th>
+                  <th>{{ 'appbundle.configuration.kvalitet_1' | trans}}</th>
+                  <th>{{ 'appbundle.configuration.kvalitet_2' | trans}}</th>
+                  <th>{{ 'appbundle.configuration.kvalitet_3' | trans}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for key, row in entity.grundventilationMatrix %}
+                <tr>
+                  <td>{{ ('appbundle.configuration.grundventilationMatrix.' ~ key) | trans}}</td>
+                  {% for kvalitet in row %}
+                    <td>{% if kvalitet is empty %}--{% else %}{{ kvalitet }}{% endif %}</td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ 'appbundle.configuration.udeluftTilfoerselMatrix.label' | trans}}</h3>
+            </div>
+            <table class="table table-condensed">
+              <thead>
+              <tr>
+                  <th>{{ 'appbundle.configuration.kvalitet' | trans}}</th>
+                  <th>{{ 'appbundle.configuration.kvalitet_1' | trans}}</th>
+                  <th>{{ 'appbundle.configuration.kvalitet_2' | trans}}</th>
+                  <th>{{ 'appbundle.configuration.kvalitet_3' | trans}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for key, row in entity.udeluftTilfoerselMatrix %}
+                <tr>
+                  <td>{{ ('appbundle.configuration.udeluftTilfoerselMatrix.' ~ key) | trans}}</td>
+                  {% for kvalitet in row %}
+                    <td>{% if kvalitet is empty %}--{% else %}{{ kvalitet }}{% endif %}</td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <h2>Varme</h2>
+      <div class="row">
+        <div class="col-md-6 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ 'appbundle.configuration.varmeEnergiFaktor.label' | trans}}</h3>
+            </div>
+            <table class="table table-condensed">
+              <thead>
+              <tr>
+                <th>{{ 'appbundle.configuration.varmeEnergiFaktor.type' | trans}}</th>
+                <th>{{ 'appbundle.configuration.varmeEnergiFaktor.faktor' | trans}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for type, faktor in entity.varmeEnergiFaktor %}
+                <tr>
+                  <td>{{ ('appbundle.varmetiltagdetail.energiType.' ~ type ) | trans }}</td>
+                  <td>{% if faktor is empty %}--{% else %}{{ faktor }}{% endif %}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ 'appbundle.configuration.varmePumpeFaktor.label' | trans}}</h3>
+            </div>
+            <table class="table table-condensed">
+              <thead>
+              <tr>
+                <th>{{ 'appbundle.configuration.varmePumpeFaktor.type' | trans}}</th>
+                <th>{{ 'appbundle.configuration.varmePumpeFaktor.faktor' | trans}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for type, faktor in entity.varmePumpeFaktor %}
+                <tr>
+                  <td>{{ ('appbundle.varmetiltagdetail.varmePumpeType.' ~ type ) | trans }}</td>
+                  <td>{% if faktor is empty %}--{% else %}{{ faktor }}{% endif %}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

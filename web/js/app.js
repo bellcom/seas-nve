@@ -2,7 +2,7 @@ jQuery(function ($) {
   'use strict';
 
   // Popover.
-  $('[data-toggle="popover"]').popover();
+  $('[data-toggle="popover"]').popover({'html' : true});
 
   // Select 2.
   $('select.select2').select2();
@@ -29,18 +29,24 @@ jQuery(function ($) {
 });
 
 // Toggle calculation expression.
-var containers = document.getElementsByClassName('calculation-expression');
-var buttons = document.getElementsByClassName('calculation-expression-toggle');
+(function() {
+  var containers = document.getElementsByClassName('calculation-expression');
+  var buttons = document.getElementsByClassName('calculation-expression-toggle');
 
-function toggleCalculationExpressions(event) {
-  for (var container of containers) {
-    container.classList.toggle('hidden');
+  function toggleCalculationExpressions(event) {
+    for (i = 0; i < containers.length; i++) {
+      var container = containers[i];
+
+      container.classList.toggle('hidden');
+    }
   }
-}
 
-for (var button of buttons) {
-  button.addEventListener('click', toggleCalculationExpressions);
-}
+  for (i = 0; i < buttons.length; i++) {
+    var button = buttons[i];
+
+    button.addEventListener('click', toggleCalculationExpressions);
+  }
+})();
 
 (function() {
   var forms = document.querySelectorAll('form');

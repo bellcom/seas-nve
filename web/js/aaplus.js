@@ -252,7 +252,11 @@
   addMore($('.bygning_by_cvr_number'), '/bygning/cvrnumm-list');
 
   $('.cvr-search').change(function () {
-    $('#appbundle_bygning_cvrNumber').val(this.value);
+    var $cvrNumber = '';
+    if (this.value) {
+        var $cvrNumber = $(this).find('option[value=' + this.value + ']').data('cvrnumber');
+    }
+    $('#appbundle_bygning_cvrNumber').val($cvrNumber);
   });
 
   $(document).on('change', '.bygningerByCvrNumber', function () {
@@ -311,4 +315,61 @@
           $('#appbundle_nyklimaskaermtiltagdetail_tUdeMonthly_' + $key).val($tudemonthly[$key]);
       }
   });
+
+  $(document).ready(function() {
+      conditionalRadioFormElements('.appbundle_tryklufttiltagdetail_indData');
+      conditionalDropdownFormElements('#energiTypePrimaerFoer');
+      conditionalDropdownFormElements('#energiTypeSekundaerFoer');
+      conditionalDropdownFormElements('#energiTypePrimaerEfter');
+      conditionalDropdownFormElements('#energiTypeSekundaerEfter');
+
+      $('#appbundle_varmepumpetiltagdetail_varmePumpeForbrug_type').change(function() {
+          var $value = $(this).val();
+          var $faktor = $(this).find('option[value=' + $value + ']').data('faktor');
+          $('#appbundle_varmepumpetiltagdetail_varmePumpeForbrug_effektFaktor').val($faktor);
+      });
+
+      var $varmePumpeForm = $('#varmeanlaegtiltagdetail').parents('form:first');
+      if ($varmePumpeForm.length) {
+          $varmePumpeForm.find('.form-group:last').append('<button type="submit" class="btn btn-primary save-and-continue">Gem og rediger videre</button>');
+          $varmePumpeForm.find('.save-and-continue').click(function() {
+              $action = $varmePumpeForm.attr('action');
+              $varmePumpeForm.attr('action', $action + '?continue=1').submit();
+          });
+      }
+  });
+
+  function conditionalRadioFormElements($wrapper) {
+      $(document).on('change', $wrapper + ' input[type=radio]', function () {
+          $($wrapper + ' .hidden').removeClass('hidden');
+          $($wrapper + ' input[type=radio]:checked').each(function() {
+              $value = $(this).val();
+              if ($value) {
+                  $('.' + $value + '-hidden').each(function() {
+                      $(this).parents('div.form-group:first').not('.hidden').addClass('hidden');
+                  });
+              }
+          });
+      });
+      $($wrapper + ' input:checked').change();
+  }
+
+  function conditionalDropdownFormElements($wrapper) {
+      $(document).on('change', $wrapper + ' select', function () {
+          $($wrapper + ' .hidden').removeClass('hidden');
+          $($wrapper + ' select').each(function() {
+              $value = $(this).val();
+              if ($value == null) {
+                  $value = '';
+              }
+              $($wrapper + ' .' + $value + '-hidden').each(function() {
+                  $(this).parents('div.form-group:first').not('.hidden').addClass('hidden');
+              });
+          });
+      });
+      $($wrapper + ' select').each(function() {
+          $(this).change();
+      });
+  }
+
 }(jQuery));

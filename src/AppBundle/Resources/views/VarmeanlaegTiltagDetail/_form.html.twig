@@ -1,0 +1,411 @@
+<div id="varmeanlaegtiltagdetail">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(edit_form.title) }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.1_nuvaerendeVarmekilde' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          <h3>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</h3>
+          <div id="energiTypePrimaerFoer">
+            {{ form_row(edit_form.energiTypePrimaerFoer) }}
+            {% include 'AppBundle:VarmeanlaegTiltagDetail:_energi_forbrug.html.twig' with {
+              'field_name': 'energiForbrugPrimaerFoer'
+            } %}
+          </div>
+          <hr>
+          <h3>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</h3>
+          <div id="energiTypeSekundaerFoer">
+            {{ form_row(edit_form.energiTypeSekundaerFoer) }}
+            {% include 'AppBundle:VarmeanlaegTiltagDetail:_energi_forbrug.html.twig' with {
+              'field_name': 'energiForbrugSekundaerFoer'
+            } %}
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.2_sammentaellingFoer' | trans }}</h3>
+        </div>
+        <table class="table">
+          <tr>
+            <th></th>
+            <th>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugFoerKWh' | trans}}</th>
+            <th>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugFoerNettoKWh' | trans}}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.forbrug_andel' | trans}}</th>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
+            <td>{{ entity.energiForbrugPrimaerFoerKWh | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugPrimaerFoerNettoKWh | format_decimal(0) }}</td>
+            <td>{{ entity.nuvarendeVarmeKildePrimaerAndel | format_percent(0) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
+            <td>{{ entity.energiForbrugSekundaerFoerKWh | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugSekundaerFoerNettoKWh | format_decimal(0) }}</td>
+            <td>{{ entity.nuvarendeVarmeKildeSekundaerAndel | format_percent(0) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugFoer.label' | trans}}</th>
+            <td>{{ entity.forbrugFoerKWh | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugFoerNettoKWh | format_decimal(0) }}</td>
+            <td>{{ (entity.nuvarendeVarmeKildePrimaerAndel + entity.nuvarendeVarmeKildeSekundaerAndel) | format_percent(0) }}</td>
+          </tr>
+          <tr>
+            <td colspan="4"></td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.driftOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.samletOmkostning' | trans }}</th>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
+            <td>{{ entity.energiForbrugPrimaerFoerKr | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugPrimaerFoerDriftOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugPrimaerFoerSamletOmkostning | format_decimal(0) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
+            <td>{{ entity.energiForbrugSekundaerFoerKr | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugSekundaerFoerDriftOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugSekundaerFoerSamletOmkostning | format_decimal(0) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugFoer.label' | trans}}</th>
+            <td>{{ entity.forbrugFoer.varmeOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugFoer.driftOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugFoer.samletOmkostning | format_decimal(0) }}</td>
+          </tr>
+        </table>
+        <div class="panel-body">
+          <strong>NOTE:</strong> Brutto, kWh er total forbrug inkl. Virkningsgrad tab til kedel.
+          Netto, kWh, er total forbrug, fratrukket virkningsgrad tab til kedel.
+          For varmepumper er Brutto, kWh el brugt til varmepumpen, og Netto, kWh er varme produceret af varmepumpen.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.3_nyVarmekilde' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6">
+              {{ form_row(edit_form.nyVarmeKildePrimaerAndel, { 'type':'number' }) }}
+            </div>
+            <div class="col-md-6">
+              {{ form_row(edit_form.nyVarmeKildeSekundaerAndel) }}
+            </div>
+          </div>
+          <h3>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</h3>
+          <div id="energiTypePrimaerEfter">
+            {{ form_row(edit_form.energiTypePrimaerEfter) }}
+            {% include 'AppBundle:VarmeanlaegTiltagDetail:_energi_forbrug.html.twig' with {
+              'field_name': 'energiForbrugPrimaerEfter'
+            } %}
+          </div>
+          <hr>
+          <h3>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</h3>
+          <div id="energiTypeSekundaerEfter">
+            {{ form_row(edit_form.energiTypeSekundaerEfter) }}
+            {% include 'AppBundle:VarmeanlaegTiltagDetail:_energi_forbrug.html.twig' with {
+              'field_name': 'energiForbrugSekundaerEfter'
+            } %}
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.4_sammentaellingEfter' | trans }}</h3>
+        </div>
+        <table class="table">
+          <tr>
+            <th></th>
+            <th></th>
+            <th>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugEfterKWh' | trans}}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.forbrug_andel' | trans}}</th>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
+            <td></td>
+            <td>{{ entity.energiForbrugPrimaerEfterKWh | format_decimal(0) }}</td>
+            <td>{{ entity.beregnetNyVarmeKildePrimaerAndel | format_percent(0) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
+            <td></td>
+            <td>{{ entity.energiForbrugSekundaerEfterKWh | format_decimal(0) }}</td>
+            <td>{{ entity.beregnetNyVarmeKildeSekundaerAndel | format_percent(0) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugEfter.label' | trans}}</th>
+            <td></td>
+            <td>{{ entity.forbrugEfterKWh | format_decimal(0) }}</td>
+            <td>{{ (entity.beregnetNyVarmeKildePrimaerAndel + entity.beregnetNyVarmeKildeSekundaerAndel) | format_percent(0) }}</td>
+          </tr>
+          <tr>
+            <td colspan="4"></td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.driftOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.samletOmkostning' | trans }}</th>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
+            <td>{{ entity.energiForbrugPrimaerEfterKr | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugPrimaerEfterDriftOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugPrimaerEfterSamletOmkostning | format_decimal(0) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
+            <td>{{ entity.energiForbrugSekundaerEfterKr | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugSekundaerEfterDriftOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.energiForbrugSekundaerEfterSamletOmkostning | format_decimal(0) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugEfter.label' | trans}}</th>
+            <td>{{ entity.forbrugEfter.varmeOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugEfter.driftOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugEfter.samletOmkostning | format_decimal(0) }}</td>
+          </tr>
+        </table>
+        <div class="panel-body">
+          <strong>NOTE:</strong> Brutto, kWh er total forbrug inkl. Virkningsgrad tab til kedel.
+          Netto, kWh, er total forbrug, fratrukket virkningsgrad tab til kedel.
+          For varmepumper er Brutto, kWh el brugt til varmepumpen, og Netto, kWh er varme produceret af varmepumpen.
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.5_besparelse' | trans }}</h3>
+        </div>
+        <table class="table">
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeKWh' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.varmeOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.driftOmkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.samletOmkostning' | trans }}</th>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugFoer.label' | trans}}</th>
+            <td>{{ entity.forbrugFoer.kWh | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugFoer.varmeOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugFoer.driftOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugFoer.samletOmkostning | format_decimal(0) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugEfter.label' | trans}}</th>
+            <td>{{ entity.forbrugEfter.kWh | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugEfter.varmeOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugEfter.driftOmkostning | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugEfter.samletOmkostning | format_decimal(0) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.besparelse' | trans}}</th>
+            <td>{{ entity.varmebespKWhAar | format_decimal(0) }}</td>
+            <td>{{ entity.varmebespKrAar | format_decimal(0) }}</td>
+            <td>{{ entity.driftbespKrAar | format_decimal(0) }}</td>
+            <td>{{ entity.samletBesparelse | format_decimal(0) }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.6_varmekilde_stoerelse' | trans }}</h3>
+        </div>
+        <table class="table">
+          <tr>
+            <th></th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.bruttoVarmeForbrug' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.boligopvarmning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.erhverv_og_skoler' | trans }}</th>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
+            <td>{{ entity.nyPrimaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
+            <td>{{ entity.primaerBoligOpvarmingKW | format_decimal(1) }}</td>
+            <td>{{ entity.primaerErhSkOpvarmingKW | format_decimal(1) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
+            <td>{{ entity.nySekundaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
+            <td>{{ entity.sekundaerBoligOpvarmingKW | format_decimal(1) }}</td>
+            <td>{{ entity.sekundaerErhSkOpvarmingKW | format_decimal(1) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.samlet_effektbehov-12' | trans}}</th>
+            <td></td>
+            <td>{{ entity.samletBoligOpvarmingKW | format_decimal(1) }}</td>
+            <td>{{ entity.samletErhSkOpvarmingKW | format_decimal(1) }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel-body">
+        <strong>NOTE:</strong> Beregning er hjælp til fastsættelse af den endelige størrelse på varmekilde, og er ikke synlig for kunde.<br/>
+        Beregning viser 2 resultater, alt efter om det er boligopvarmning, eller skole og Erhverv.<br/>
+        Beregnet kW er varmekildens minimums effektbehov ved -12 ud fra nuværende og fremtidigt varmeforbrug.
+        Husk tillæg på kedel og varmepumpe som sikkerhedsmargin. Eksempel: Bygningens varmebehov ved -12 er 10kw.
+        Men en 10 kW luft-vand varmepumpe yder ikke 10kW ved - 12. Så varmepumpen skal derfor være større for at leverer 10kW ved - 12.<br/>
+        Hvis brugsvandsproduktion, udgøre mere end 30 % af det samlede årsforbrug, skal varmekildens størrelse kompenseres i forhold til dette.<br/>
+        For beregning af kW anvendes faktortal på 2334,75 som fremkommer af den omvendte beregning hvor Watt effekt, omregnes til kWh årsforbrug:<br/>
+        Watt * 1,1 * 2830 * 24/32/1000
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.7_kontrol' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(edit_form.forbrugBeregningKontrol.fuldlastTimer) }}
+        </div>
+        <table class="table">
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.omkostning' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.bruttoVarmeForbrug' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.fuldlasttimer' | trans }}</th>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.effektKW' | trans }}</th>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.primaer_forsyning' | trans}}</th>
+            <td>{{ entity.nyPrimaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugBeregningKontrol.fuldlastTimer | format_decimal(0) }}</td>
+            <td>{{ entity.primaerEffektMetode1 | format_decimal(1) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.sekundaer_forsyning' | trans}}</th>
+            <td>{{ entity.nySekundaerBruttoVarmeForbrugKWh | format_decimal(0) }}</td>
+            <td>{{ entity.forbrugBeregningKontrol.fuldlastTimer | format_decimal(0) }}</td>
+            <td>{{ entity.sekundaerEffektMetode1 | format_decimal(1) }}</td>
+          </tr>
+          <tr>
+            <th>{{ 'varmeanlaegtiltagdetail.strings.samlet_effektbehov-12' | trans}}</th>
+            <td></td>
+            <td></td>
+            <td>{{ entity.samletEffektMetode1 | format_decimal(1) }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel-body">
+        <strong>NOTE:</strong> Beregning er hjælp til fastsættelse af den endelige størrelse på varmekilde, og er ikke synlig for kunde.<br/>
+        Denne kontrolberegning udføres som en alternativ metode for beregning af varmekildens effektbehov ved -12.<br/>
+        Fuldlasttimer justeres i forhold til bygningsanvendelse.
+        Privatbolig opvarmning er typisk omkring 2200 fuldlasttimer. og Erhverv og skoler er omkring 1800 fuldlasttimer.
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'varmeanlaegtiltagdetail.groups.8_kontrol' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(edit_form.forbrugBeregningKontrol.opvarmetArealBrutto) }}
+          <div class="form-group">
+          </div>
+          {{ form_row(edit_form.forbrugBeregningKontrol.varmeTabM2) }}
+          {{ form_row(edit_form.forbrugBeregningKontrol.brugsvandsandel) }}
+        </div>
+        <table class="table">
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealBrutto' | trans }}</td>
+            <td class="text-right">{{ entity.forbrugBeregningKontrol.opvarmetArealBrutto| format_decimal }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealBrutto.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealNetto' | trans }}</td>
+            <td class="text-right">{{ entity.forbrugBeregningKontrolOpvarmetArealNetto| format_decimal }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmetArealNetto.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.varmeTabM2' | trans }}</td>
+            <td class="text-right">{{ entity.forbrugBeregningKontrol.varmeTabM2 | format_decimal }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.varmeTabM2.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.brugsvandsandel' | trans }}</td>
+            <td class="text-right">{{ ( entity.forbrugBeregningKontrol.brugsvandsandel ) | format_percent_nounit(0) }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.brugsvandsandel.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.effektBehov' | trans }}</td>
+            <td class="text-right">{{ entity.forbrugBeregningKontrolEffektBehov| format_decimal(1) }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.effektBehov.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.effektBehovMedVand' | trans }}</td>
+            <td class="text-right">{{ ( entity.forbrugBeregningKontrolEffektBehovMedVand ) | format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.effektBehovMedVand.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <th colspan="3">{{ 'varmeanlaegtiltagdetail.strings.beregning_effekt' | trans}}</th>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmingForbrugKWh' | trans }}</td>
+            <td class="text-right">{{ ( entity.forbrugBeregningKontrolOpvarmingForbrugKWh ) | format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmingForbrugKWh.unit' | trans }} </td>
+          </tr>
+          <tr>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmingForbrugMedVandKWh' | trans }}</td>
+            <td class="text-right">{{ ( entity.forbrugBeregningKontrolOpvarmingForbrugMedVandKWh ) | format_decimal(0) }}</td>
+            <td>{{ 'appbundle.varmeanlaegtiltagdetail.forbrugBeregningKontrol.opvarmingForbrugMedVandKWh.unit' | trans }} </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel-body">
+        <strong>NOTE:</strong> Beregning er hjælp til fastsættelse af den endelige størrelse på varmekilde og årsforbrug, og er ikke synlig for kunde.<br>
+        Denne kontrolberegning udføres som en alternativ metode for beregning af varmekildens effektbehov ved -12, samt årsforbruget, med og uden brugsvands andel, og bruges eksempelvis, hvis det oplyste årsforbrug er usikkert.<br>
+        Bygningens opvarmede m2 indtastes. Brutto er = udvendig mål på bygning = BBR oplysning.<br>
+        Bygningens varmetab Watt/m2 ved -12, vurderes i forhold til bygningens isolerings grad, rumhøjde og alder<br>
+        Brugsvandsandel indtastes som % i forhold til varmeforbruget. typisk et sted mellem 10-30% Brugsvandsandel skal også indeholde cirkulationstab til brugsvand.<br>
+        <br/>
+        Hjælp til vurderinge af Watt/m2 ud fra alder, isolering og loftshøjde<br/>
+        Skema herunder er til boligopvarmning
+        <ul>
+          <li>Nye huse: 20-30 Watt/m2 netto areal</li>
+          <li>0-10 år.: 35-45 Watt/m2 netto areal</li>
+          <li>10-20 år: 45-55 Watt/m2 netto areal</li>
+          <li>20 år-30 år: >55 Watt/m2 netto areal</li>
+          <li>30 år og ældre: >65 Watt/m2 netto areal</li>
+        </ul>
+        For beregning af kWh årsforbrug, ud fra kW effekt anvedes følgende formel.<br/>
+        Watt * 1,1 * 2830 * 24/32/1000
+      </div>
+    </div>
+  </div>
+</div>

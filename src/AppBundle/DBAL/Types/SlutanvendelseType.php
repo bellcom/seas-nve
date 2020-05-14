@@ -43,7 +43,11 @@ class SlutanvendelseType extends AbstractEnumType
     'AppBundle\Entity\PumpeTiltag' => self::PUMPER,
     'AppBundle\Entity\BelysningTiltag' =>  self::BELYSNING,
     'AppBundle\Entity\KlimaskaermTiltag' => self::KLIMASKAERM,
+    'AppBundle\Entity\KoeleanlaegTiltag' => self::KOELING,
     'AppBundle\Entity\NyKlimaskaermTiltag' => self::KLIMASKAERM,
+    'AppBundle\Entity\VarmeanlaegTiltag' => self::VARMEANLAEG,
     'AppBundle\Entity\VindueTiltag' => self::VINDUER,
+    'AppBundle\Entity\VentilationTiltag' => self::VENTILATION,
+    'AppBundle\Entity\TrykluftTiltag' => self::TRYKLUFT,
   ];
 }

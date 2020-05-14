@@ -1,0 +1,119 @@
+<table class="table table-condensed table-header-rotated table-hover">
+  <thead>
+  <tr>
+    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header('appbundle.varmeanlaegtiltagdetail.title') }}
+    {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerFoer.label') }}
+    {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerFoer.label') }}
+    {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerEfter.label') }}
+    {{ helper.header('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerEfter.label') }}
+    {{ helper.header('appbundle.varmeanlaegtiltagdetail.varmebespKWhAar') }}
+    {{ helper.header('appbundle.varmeanlaegtiltagdetail.varmebespKrAar') }}
+    {{ helper.header('appbundle.varmeanlaegtiltagdetail.driftbespKrAar') }}
+    {{ helper.header('appbundle.varmeanlaegtiltagdetail.samletBesparelse') }}
+    {{ helper.header() }}
+  </tr>
+  <tr>
+    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header_unit() }}
+    {{ helper.header_unit() }}
+    {{ helper.header_unit() }}
+    {{ helper.header_unit() }}
+    {{ helper.header_unit() }}
+    {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.varmebespKWhAar') }}
+    {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.varmebespKrAar') }}
+    {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.driftbespKrAar') }}
+    {{ helper.header_unit('appbundle.varmeanlaegtiltagdetail.samletBesparelse') }}
+    {{ helper.header_unit() }}
+  </tr>
+  </thead>
+  <tbody>
+  {% for detail in entity.details %}
+    <tr>
+      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
+      <td class="title">{{ detail.title }}</td>
+      <td class="energiTypePrimaerFoer">
+        {% if detail.energiTypePrimaerFoer %}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiType.label') | trans }}:
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiType.' ~ detail.energiTypePrimaerFoer) | trans }}
+          <br/>
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerFoer.forbrugKWh') | trans }}:
+          {{ detail.energiForbrugPrimaerFoerKWh | format_decimal(0) }}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerFoer.forbrugKWh.unit') | trans }}
+          <br/>
+          {{ ('varmeanlaegtiltagdetail.strings.forbrug_andel') | trans }}:
+          {{ detail.nuvarendeVarmeKildePrimaerAndel | format_percent(0) }}
+          <br/>
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerFoer.samletOmkostning') | trans }}:
+          {{ detail.energiForbrugPrimaerFoerSamletOmkostning | format_decimal(0) }}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerFoer.samletOmkostning.unit') | trans }}
+        {% else %}
+          –
+        {% endif %}
+      </td>
+      <td class="energiTypeSekundaerFoer ">
+        {% if detail.energiTypeSekundaerFoer %}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiType.label') | trans }}:
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiType.' ~ detail.energiTypeSekundaerFoer) | trans }}
+          <br/>
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerFoer.forbrugKWh') | trans }}:
+          {{ detail.energiForbrugSekundaerFoerKWh | format_decimal(0) }}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerFoer.forbrugKWh.unit') | trans }}
+          <br/>
+          {{ ('varmeanlaegtiltagdetail.strings.forbrug_andel') | trans }}:
+          {{ detail.nuvarendeVarmeKildeSekundaerAndel | format_percent(0) }}
+          <br/>
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerFoer.samletOmkostning') | trans }}:
+          {{ detail.energiForbrugSekundaerFoerSamletOmkostning | format_decimal(0) }}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerFoer.samletOmkostning.unit') | trans }}
+        {% else %}
+          –
+        {% endif %}
+      </td>
+      <td class="energiTypePrimaerEfter ">
+        {% if detail.energiTypePrimaerEfter %}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiType.label') | trans }}:
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiType.' ~ detail.energiTypePrimaerEfter) | trans }}
+          <br/>
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerEfter.forbrugKWh') | trans }}:
+          {{ detail.energiForbrugPrimaerEfterKWh | format_decimal(0) }}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerEfter.forbrugKWh.unit') | trans }}
+          <br/>
+          {{ ('varmeanlaegtiltagdetail.strings.forbrug_andel') | trans }}:
+          {{ detail.nyVarmeKildePrimaerAndel | format_percent(0) }}
+          <br/>
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerEfter.samletOmkostning') | trans }}:
+          {{ detail.energiForbrugPrimaerEfterSamletOmkostning | format_decimal(0) }}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugPrimaerEfter.samletOmkostning.unit') | trans }}
+        {% else %}
+          –
+        {% endif %}
+      </td>
+      <td class="energiTypeSekundaerEfter">
+        {% if detail.energiTypeSekundaerEfter %}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiType.label') | trans }}:
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiType.' ~ detail.energiTypeSekundaerEfter) | trans }}
+          <br/>
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerEfter.forbrugKWh') | trans }}:
+          {{ detail.energiForbrugSekundaerEfterKWh | format_decimal(0) }}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerEfter.forbrugKWh.unit') | trans }}
+          <br/>
+          {{ ('varmeanlaegtiltagdetail.strings.forbrug_andel') | trans }}:
+          {{ detail.nyVarmeKildeSekundaerAndel | format_percent(0) }}
+          <br/>
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerEfter.samletOmkostning') | trans }}:
+          {{ detail.energiForbrugSekundaerEfterSamletOmkostning | format_decimal(0) }}
+          {{ ('appbundle.varmeanlaegtiltagdetail.energiForbrugSekundaerEfter.samletOmkostning.unit') | trans }}
+        {% else %}
+          –
+        {% endif %}
+      </td>
+      <td class="number">{{ detail.varmebespKWhAar | format_decimal(0) }} </td>
+      <td class="number">{{ detail.varmebespKrAar | format_decimal(0) }}</td>
+      <td class="number">{{ detail.driftbespKrAar | format_decimal(0) }}</td>
+      <td class="number">{{ detail.samletBesparelse | format_decimal(0) }}</td>
+      <td class="last"></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

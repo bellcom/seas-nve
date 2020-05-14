@@ -67,7 +67,18 @@ class ConfigurationType extends AbstractType
             ->add('tOpvarmningTimerAarMonthly', 'collection', array(
                 'type' => 'number',
                 'required' => FALSE,
-            ));
+            ))
+            ->add('grundventilationMatrix', GrundventilationMatrixType::class)
+            ->add('udeluftTilfoerselMatrix', UdeluftTilfoerselMatrixType::class)
+            ->add('varmeEnergiFaktor', 'collection', array(
+                'type' => 'number',
+                'required' => FALSE,
+            ))
+            ->add('varmePumpeFaktor', 'collection', array(
+                'type' => 'number',
+                'required' => FALSE,
+            ))
+        ;
     }
 
     /**

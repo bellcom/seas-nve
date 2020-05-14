@@ -13,7 +13,7 @@
     {% set help_text = attr.help_text is defined and attr.help_text is not empty ? attr.help_text : id|get_help %}
 
     {% if help_text is not empty %}
-      <span class="help-block">{{ help_text }}</span>
+      <span class="help-block">{{ help_text|nl2br }}</span>
     {% endif %}
 
   {% endspaceless %}
@@ -289,11 +289,11 @@
           {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
         {% endif %}
 
-        {% if label is empty %}
-          {% set label = name|humanize %}
+        {% set label = id|get_trans %}
+        {% if new_label is not empty %}
+          {% set label = new_label|get_trans %}
         {% endif %}
-
-        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ id|get_trans }}{% if required %} <span class="required">{{ icon('asterisk') }}</span>{% endif %}</label>
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label }}{% if required %} <span class="required">{{ icon('asterisk') }}</span>{% endif %}</label>
       {% endif %}
     {% endspaceless %}
 {% endblock form_label %}

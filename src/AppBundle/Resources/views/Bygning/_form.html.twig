@@ -28,22 +28,10 @@
         <div class="panel panel-default">
           <div class="panel-heading">{{ icon('briefcase') }} {{ 'appbundle.bygning.virksomhed' | trans }} </div>
           <div class="panel-body">
-            <div class="form-group">
-              {{ form_label(edit_form.cvrNumber ) }}
-              <div class="col-lg-10">
-                <div style="padding-bottom: 15px;">
-                  <select class="form-control cvr-search">
-                    <option value="">{{ 'bygninger.strings.search_by_cvr' | trans }}</option>
-                    {% for virksomhed in virksomheder %}
-                      <option value="{{ virksomhed.cvrNumber }}" {% if virksomhed.id == entity.virksomhed.id %}selected{% endif %}>{{ virksomhed.name }} ({{ virksomhed.cvrNumber }})</option>
-                    {% endfor %}
-                  </select>
-                </div>
-                {{ form_widget(edit_form.cvrNumber, {'attr': {'class': 'task_field', 'data-default-value': entity.cvrNumber }}  ) }}
-              </div>
-            </div>
+            {{ form_row(edit_form.virksomhed, {'new_label' : 'appbundle.bygning.cvrNumber'})}}
             {{ form_row(edit_form.eanNumber ) }}
             {{ form_row(edit_form.pNumber ) }}
+            {{ form_widget(edit_form.cvrNumber ) }}
           </div>
         </div>
         <div class="panel panel-default">

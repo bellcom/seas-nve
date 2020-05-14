@@ -34,4 +34,21 @@ class MonthType extends AbstractEnumType
     self::NOVEMBER => 'November',
     self::DECEMBER => 'December',
   ];
+
+  public static function getMonthDays() {
+    return [
+      self::JANUAR => 31,
+      self::FEBRUAR => 28,
+      self::MARTS => 31,
+      self::APRIL => 30,
+      self::MAJ => 31,
+      self::JUNI => 30,
+      self::JULI => 31,
+      self::AUGUST => 31,
+      self::SEPTEMBER => 30,
+      self::OKTOBER => 31,
+      self::NOVEMBER => 30,
+      self::DECEMBER => 31,
+    ];
+  }
 }

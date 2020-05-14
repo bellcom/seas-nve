@@ -1,0 +1,30 @@
+<div class="form-group">
+  <div class="-hidden naturgas-hidden fjernvarme-hidden traepiller-hidden elvarme-hidden varmepumpe-hidden">
+    {% include 'AppBundle:VarmeanlaegTiltagDetail:_energi_forbrug_type.html.twig' with {'energi_type': 'olie'} %}
+  </div>
+</div>
+<div class="form-group">
+  <div class="-hidden olie-hidden fjernvarme-hidden traepiller-hidden elvarme-hidden varmepumpe-hidden">
+    {% include 'AppBundle:VarmeanlaegTiltagDetail:_energi_forbrug_type.html.twig' with {'energi_type': 'naturgas'} %}
+  </div>
+</div>
+<div class="form-group">
+  <div class="-hidden naturgas-hidden olie-hidden traepiller-hidden elvarme-hidden varmepumpe-hidden">
+    {% include 'AppBundle:VarmeanlaegTiltagDetail:_energi_forbrug_type.html.twig' with {'energi_type': 'fjernvarme'} %}
+  </div>
+</div>
+<div class="form-group">
+  <div class="-hidden naturgas-hidden fjernvarme-hidden olie-hidden elvarme-hidden varmepumpe-hidden">
+    {% include 'AppBundle:VarmeanlaegTiltagDetail:_energi_forbrug_type.html.twig' with {'energi_type': 'traepiller'} %}
+  </div>
+</div>
+<div class="form-group">
+  <div class="-hidden naturgas-hidden fjernvarme-hidden traepiller-hidden olie-hidden varmepumpe-hidden">
+    {% include 'AppBundle:VarmeanlaegTiltagDetail:_energi_forbrug_type.html.twig' with {'energi_type': 'elvarme'} %}
+  </div>
+</div>
+<div class="form-group">
+  <div class="-hidden naturgas-hidden fjernvarme-hidden traepiller-hidden elvarme-hidden olie-hidden">
+    {% include 'AppBundle:VarmeanlaegTiltagDetail:_energi_forbrug_type.html.twig' with {'energi_type': 'varmepumpe'} %}
+  </div>
+</div>

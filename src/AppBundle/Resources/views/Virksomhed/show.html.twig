@@ -183,12 +183,6 @@
             <td>{{ entity.dsmCode }}</td>
           </tr>
           <tr>
-            <th>{{ 'appbundle.virksomhed.tilskudstorelse' | trans }}</th>
-            <td>{{ entity.getTilskudstorelse(TRUE) | format_decimal }} {{ 'appbundle.virksomhed.tilskudstorelse' | get_unit }}
-              {% if entity.isInherited('tilskudstorelse') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
-            </td>
-          </tr>
-          <tr>
             <th>{{ 'appbundle.virksomhed.aarsVaerk' | trans }}</th>
             <td>{{ entity.aarsVaerk | format_integer }} {{ 'appbundle.virksomhed.aarsVaerk' | get_unit }}</td>
           </tr>

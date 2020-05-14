@@ -29,9 +29,13 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *    "special" = "SpecialTiltagDetail",
  *    "belysning" = "BelysningTiltagDetail",
  *    "klimaskærm" = "KlimaskaermTiltagDetail",
+ *    "køleanlæg" = "KoeleanlaegTiltagDetail",
  *    "nyklimaskærm" = "NyKlimaskaermTiltagDetail",
+ *    "varmeanlaeg" = "VarmeanlaegTiltagDetail",
  *    "vindue" = "VindueTiltagDetail",
+ *    "ventilation" = "VentilationTiltagDetail",
  *    "tekniskisolering" = "TekniskIsoleringTiltagDetail",
+ *    "trykluft" = "TrykluftTiltagDetail",
  *    "solcelle" = "SolcelleTiltagDetail",
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TiltagDetailRepository")
@@ -40,8 +44,12 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *    "special": "AppBundle\Entity\SpecialTiltagDetail",
  *    "belysning" = "AppBundle\Entity\BelysningTiltagDetail",
  *    "klimaskærm" = "AppBundle\Entity\KlimaskaermTiltagDetail",
+ *    "køleanlæg" = "AppBundle\Entity\KoeleanlaegTiltagDetail",
  *    "nyklimaskærm" = "AppBundle\Entity\NyKlimaskaermTiltagDetail",
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltagDetail",
+ *    "trykluft" = "AppBundle\Entity\TrykluftTiltagDetail",
+ *    "ventilation" = "AppBundle\Entity\VentilationTiltagDetail",
+ *    "varmeanlaeg" = "AppBundle\Entity\VarmeanlaegTiltagDetail",
  *    "solcelle" = "AppBundle\Entity\SolcelleTiltagDetail",
  * })
  * @ORM\HasLifecycleCallbacks

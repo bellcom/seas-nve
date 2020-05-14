@@ -85,6 +85,7 @@ doctrine:
         mapping_types:
             enum: string
         types:
+            LevetidType: AppBundle\DBAL\Types\LevetidType
             CardinalDirectionType: AppBundle\DBAL\Types\CardinalDirectionType
             NavnType: AppBundle\DBAL\Types\Energiforsyning\NavnType
             PrisgrundlagType: AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType
@@ -179,6 +180,8 @@ simple_things_entity_audit:
         - AppBundle\Entity\BelysningTiltagDetail
         - AppBundle\Entity\KlimaskaermTiltag
         - AppBundle\Entity\KlimaskaermTiltagDetail
+        - AppBundle\Entity\KoeleanlaegTiltag
+        - AppBundle\Entity\KoeleanlaegTiltagDetail
         - AppBundle\Entity\PumpeTiltag
         - AppBundle\Entity\PumpeTiltagDetail
         - AppBundle\Entity\SolcelleTiltag
@@ -187,8 +190,14 @@ simple_things_entity_audit:
         - AppBundle\Entity\SpecialTiltagDetail
         - AppBundle\Entity\TekniskIsoleringTiltag
         - AppBundle\Entity\TekniskIsoleringTiltagDetail
+        - AppBundle\Entity\TrykluftTiltag
+        - AppBundle\Entity\TrykluftTiltagDetail
+        - AppBundle\Entity\VarmePumpeTiltag
+        - AppBundle\Entity\VarmePumpeTiltagDetail
         - AppBundle\Entity\VindueTiltag
         - AppBundle\Entity\VindueTiltagDetail
+        - AppBundle\Entity\VentilationTiltag
+        - AppBundle\Entity\VentilationTiltagDetail
         - AppBundle\Entity\Tiltag
         - AppBundle\Entity\TiltagDetail
         - AppBundle\Entity\Segment

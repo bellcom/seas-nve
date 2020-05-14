@@ -7,6 +7,10 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\MonthType;
+use AppBundle\DBAL\Types\VarmeanlaegTiltag\EnergiType;
+use AppBundle\DBAL\Types\VarmeanlaegTiltag\VarmePumpeType;
+use AppBundle\DBAL\Types\VentilationTiltagDetail\ForureningType;
+use AppBundle\DBAL\Types\VentilationTiltagDetail\KvalitetType;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
@@ -133,22 +137,140 @@ class Configuration
     private $tUdeMonthly;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="grundventilationMatrix", type="array")
+     */
+    private $grundventilationMatrix;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="udeluftTilfoerselMatrix", type="array")
+     */
+    private $udeluftTilfoerselMatrix;
+
+    /**
      * @var float
      * @ORM\Column(type="float")
      */
     protected $mtmFaellesomkostningerNulHvisTotalEntreprisesumMindreEnd;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="varmeEnergiFaktor", type="array")
+     */
+    private $varmeEnergiFaktor;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="varmePumpeFaktor", type="array")
+     */
+    private $varmePumpeFaktor;
+
+    /**
      * Constructor
      */
     public function __construct() {
-        foreach (MonthType::getChoices() as $key => $value) {
-            if (empty($key)) {
-                continue;
+        $this->setDefaultValues();
+    }
+
+    public function setDefaultValues() {
+        if (empty($this->tUdeMonthly)) {
+            $this->tUdeMonthly = array();
+            foreach (MonthType::getChoices() as $key => $value) {
+                if (empty($key)) {
+                    continue;
+                }
+                $this->tUdeMonthly[$key] = NULL;
             }
-            $this->tJordMonthly[$key] = '';
-            $this->tUdeMonthly[$key] = '';
-            $this->tOpvarmningTimerAarMonthly[$key] = '';
+        }
+        if (empty($this->tJordMonthly)) {
+            $this->tJordMonthly = array();
+            foreach (MonthType::getChoices() as $key => $value) {
+                if (empty($key)) {
+                    continue;
+                }
+                $this->tJordMonthly[$key] = NULL;
+            }
+        }
+        if (empty($this->tOpvarmningTimerAarMonthly)) {
+            $this->tOpvarmningTimerAarMonthly = array();
+            foreach (MonthType::getChoices() as $key => $value) {
+                if (empty($key)) {
+                    continue;
+                }
+                $this->tOpvarmningTimerAarMonthly[$key] = NULL;
+            }
+        }
+
+        if (empty($this->udeluftTilfoerselMatrix)) {
+            $this->setUdeluftTilfoerselMatrix(array(
+                // Utilfredse personer i procent.
+                // Static numbers from calculation file, cells K29 - M29
+                // See xls/VentilationTiltagDetail/Ventilation2.xlsx
+                'del_utilfredse_personer' => array(
+                    KvalitetType::_1 => 0.15,
+                    KvalitetType::_2 => 0.20,
+                    KvalitetType::_3 => 0.30,
+                ),
+                // Personer (l/s pr. person).
+                // Static numbers from calculation file, cells K30 - M30
+                // See xls/VentilationTiltagDetail/Ventilation2.xlsx
+                'lps_per_person' => array(
+                    KvalitetType::_1 => 10,
+                    KvalitetType::_2 => 7,
+                    KvalitetType::_3 => 4,
+                )
+            ));
+        }
+
+        if (empty($this->grundventilationMatrix)) {
+            // Static numbers from calculation file, cells L23 - N25
+            // See xls/VentilationTiltagDetail/Ventilation2.xlsx
+            $this->setGrundventilationMatrix(array(
+                ForureningType::A => array(
+                    KvalitetType::_1 => 0.5,
+                    KvalitetType::_2 => 0.35,
+                    KvalitetType::_3 => 0.3,
+                ),
+                ForureningType::B => array(
+                    KvalitetType::_1 => 1,
+                    KvalitetType::_2 => 0.7,
+                    KvalitetType::_3 => 0.4,
+                ),
+                ForureningType::C => array(
+                    KvalitetType::_1 => 1,
+                    KvalitetType::_2 => 0.7,
+                    KvalitetType::_3 => 0.4,
+                ),
+            ));
+        }
+
+        if (empty($this->varmeEnergiFaktor)) {
+            // Static numbers from calculation file, cells L23 - N25
+            // See xls/VarmePumpe/Bereging_af_armepumpe_redigeret_til_screeningsvaerktoej_V.1.xls
+            $this->setVarmeEnergiFaktor(array(
+                EnergiType::OLIE => 10,
+                EnergiType::NATURGAS => 11,
+                EnergiType::FJERMVARME => 1000,
+                EnergiType::TRAEPILLER => 4.8,
+                EnergiType::ELVARME => 1,
+                EnergiType::VARMEPUMPE => 1,
+            ));
+        }
+
+        if (empty($this->varmePumpeFaktor)) {
+            // Static numbers from calculation file, cells P39 - P51
+            // See xls/VarmePumpe/Bereging_af_armepumpe_redigeret_til_screeningsvaerktoej_V.1.xls
+            $this->setVarmePumpeFaktor(array(
+                VarmePumpeType::JORD_MED_GULV => 4.5,
+                VarmePumpeType::JORD_MED_RADIATOR => 3.8,
+                VarmePumpeType::LUFTVAND_MED_JORD => 3.9,
+                VarmePumpeType::LUFTVAND_MED_RADIATOR => 3.3,
+            ));
         }
     }
 
@@ -406,36 +528,102 @@ class Configuration
     }
 
     /**
+     * Set grundventilationMatrix
+     *
+     * @param array $grundventilationMatrix
+     *
+     * @return Configuration
+     */
+    public function setGrundventilationMatrix($grundventilationMatrix)
+    {
+        $this->grundventilationMatrix = $grundventilationMatrix;
+        return $this;
+    }
+
+    /**
+     * Get grundventilationMatrix
+     *
+     * @return array
+     */
+    public function getGrundventilationMatrix()
+    {
+        return $this->grundventilationMatrix;
+    }
+
+    /**
+     * Set udeluftTilfoerselMatrix
+     *
+     * @param array $udeluftTilfoerselMatrix
+     *
+     * @return Configuration
+     */
+    public function setUdeluftTilfoerselMatrix($udeluftTilfoerselMatrix)
+    {
+        $this->udeluftTilfoerselMatrix = $udeluftTilfoerselMatrix;
+        return $this;
+    }
+
+    /**
+     * Get udeluftTilfoerselMatrix
+     *
+     * @return array
+     */
+    public function getUdeluftTilfoerselMatrix()
+    {
+        return $this->udeluftTilfoerselMatrix;
+    }
+
+    /**
+     * Set varmeEnergiFaktor
+     *
+     * @param array $varmeEnergiFaktor
+     *
+     * @return Configuration
+     */
+    public function setVarmeEnergiFaktor($varmeEnergiFaktor)
+    {
+        $this->varmeEnergiFaktor = $varmeEnergiFaktor;
+        return $this;
+    }
+
+    /**
+     * Get varmeEnergiFaktor
+     *
+     * @return array
+     */
+    public function getVarmeEnergiFaktor()
+    {
+        return $this->varmeEnergiFaktor;
+    }
+
+    /**
+     * Set varmePumpeFaktor
+     *
+     * @param array $varmePumpeFaktor
+     *
+     * @return Configuration
+     */
+    public function setVarmePumpeFaktor($varmePumpeFaktor)
+    {
+        $this->varmePumpeFaktor = $varmePumpeFaktor;
+        return $this;
+    }
+
+    /**
+     * Get varmePumpeFaktor
+     *
+     * @return array
+     */
+    public function getVarmePumpeFaktor()
+    {
+        return $this->varmePumpeFaktor;
+    }
+
+    /**
      * @ORM\PostLoad()
      */
     public function postLoad() {
-        if (empty($this->tUdeMonthly)) {
-            $this->tUdeMonthly = array();
-            foreach (MonthType::getChoices() as $key => $value) {
-                if (empty($key)) {
-                    continue;
-                }
-                $this->tUdeMonthly[$key] = NULL;
-            }
-        }
-        if (empty($this->tJordMonthly)) {
-            $this->tJordMonthly = array();
-            foreach (MonthType::getChoices() as $key => $value) {
-                if (empty($key)) {
-                    continue;
-                }
-                $this->tJordMonthly[$key] = NULL;
-            }
-        }
-        if (empty($this->tOpvarmningTimerAarMonthly)) {
-            $this->tOpvarmningTimerAarMonthly = array();
-            foreach (MonthType::getChoices() as $key => $value) {
-                if (empty($key)) {
-                    continue;
-                }
-                $this->tOpvarmningTimerAarMonthly[$key] = NULL;
-            }
-        }
+        $this->setDefaultValues();
     }
 
 }

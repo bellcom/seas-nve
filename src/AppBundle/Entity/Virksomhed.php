@@ -146,12 +146,6 @@ class Virksomhed
 
     /**
      * @var float
-     * @ORM\Column(name="tilskudstorelse", type="decimal", scale=4, nullable=true)
-     */
-    protected $tilskudstorelse;
-
-    /**
-     * @var float
      * @ORM\Column(name="kalkulationsrente", type="decimal", scale=4, nullable=true)
      */
     protected $kalkulationsrente;
@@ -725,38 +719,6 @@ class Virksomhed
     public function getDsmCode()
     {
         return $this->dsmCode;
-    }
-
-    /**
-     * Set tilskudstorelse
-     *
-     * @param float $tilskudstorelse
-     *
-     * @return Virksomhed
-     */
-    public function setTilskudstorelse($tilskudstorelse)
-    {
-        $this->tilskudstorelse = $tilskudstorelse;
-
-        return $this;
-    }
-
-    /**
-     * Get inherited tilskudstorelse.
-     *
-     * @return float
-     */
-    public function getTilskudstorelse($inherit = FALSE)
-    {
-        if ($this->tilskudstorelse || !$inherit) {
-            return $this->tilskudstorelse;
-        }
-
-        if (!empty($this->getParent())) {
-            return $this->getParent()->getTilskudstorelse($inherit);
-        }
-
-        return $this->tilskudstorelse;
     }
 
     /**

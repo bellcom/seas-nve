@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\Virksomhed;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,11 +32,30 @@ class BygningType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $data = $builder->getData();
-
+    $virksomheder = $this->doctrine->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
+    foreach ($virksomheder as $virksomhed) {
+      $virksomhederChoicesAttr[] = array('data-cvrnumber' => $virksomhed->getCvrNumber());
+    }
+    $virksomhedAttr = array('class' => 'cvr-search');
+    if (!$this->tilknutning) {
+        $virksomhedAttr['disabled'] = 'disabled';
+    }
     $builder
       ->add('bygId')
       ->add('navn')
-      ->add('cvrNumber', null, $this->tilknutning ? array() : array('disabled' => 'disabled'))
+      ->add('virksomhed', 'entity', array(
+          'class' => 'AppBundle:Virksomhed',
+          'empty_value' => 'bygninger.strings.search_by_cvr',
+          'choices' => $virksomheder,
+          'choice_attr' => $virksomhederChoicesAttr,
+          'choice_label' => function($virksomhed, $key, $index) {
+              /** @var Virksomhed $virksomhed */
+              return $virksomhed->getName() . ' (' . $virksomhed->getCvrNumber() . ')';
+          },
+          'required' => FALSE,
+          'attr' => $virksomhedAttr,
+      ))
+      ->add('cvrNumber', 'hidden')
       ->add('eanNumber', null, $this->tilknutning ? array() : array('disabled' => 'disabled'))
       ->add('pNumber', null, $this->tilknutning ? array() : array('disabled' => 'disabled'))
       ->add('OpfoerselsAar')

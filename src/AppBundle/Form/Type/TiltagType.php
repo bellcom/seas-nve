@@ -8,7 +8,10 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\AppBundle;
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\DBAL\Types\LevetidType;
 use AppBundle\Entity\NyKlimaskaermTiltag;
+use AppBundle\Entity\TrykluftTiltag;
+use AppBundle\Entity\VarmeAnlaegTiltag;
 use AppBundle\Form\Type\RisikovurderingType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
@@ -132,7 +135,6 @@ class TiltagType extends AbstractType {
       ->add('modernisering')
       ->add('reelAnlaegsinvestering');
 
-    $builder->add('tilskudsstoerrelse', NULL);
     $builder->add('reelAnlaegsinvestering')
       ->add('forsyningVarme', 'entity', array(
         'class' => 'AppBundle:Energiforsyning',
@@ -172,20 +174,51 @@ class TiltagType extends AbstractType {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
         ->add('besparelseStrafafkoelingsafgift')
-        ->add('levetid');
+        ->add('levetid', 'choice', array(
+          'choices' => LevetidType::getChoices(),
+          'empty_value' => '--',
+          'required' => TRUE,
+        ));
     }
     if ($this->tiltag instanceof PumpeTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
-        ->add('levetid');
+        ->add('levetid', 'choice', array(
+          'choices' => LevetidType::getChoices(),
+          'empty_value' => '--',
+          'required' => TRUE,
+        ));
     }
     if ($this->tiltag instanceof VindueTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse');
     }
+    if ($this->tiltag instanceof TrykluftTiltag) {
+      $builder
+        ->add('priserOverride', 'collection', array(
+            'type' => PrisOverrideType::class,
+            'label' => FALSE,
+            'required' => FALSE,
+        ));
+    }
+    if ($this->tiltag instanceof VarmeAnlaegTiltag) {
+      $builder
+        ->add('priserOverride', 'collection', array(
+          'type' => PrisOverrideType::class,
+          'options' => array(
+            'overriden_checkbox' => FALSE,
+          ),
+          'label' => FALSE,
+          'required' => FALSE,
+        ));
+    }
     elseif ($this->tiltag instanceof SolcelleTiltag) {
       $builder
-        ->add('levetid');
+        ->add('levetid', 'choice', array(
+          'choices' => LevetidType::getChoices(),
+          'empty_value' => '--',
+          'required' => TRUE,
+        ));
     }
     elseif ($this->tiltag instanceof KlimaskaermTiltag || $this->tiltag instanceof NyKlimaskaermTiltag) {
       $builder
@@ -203,7 +236,11 @@ class TiltagType extends AbstractType {
         ->add('besparelseCo2BraendstofITon')
         ->add('besparelseBraendstof')
         ->add('yderligereBesparelse')
-        ->add('levetid');
+        ->add('levetid', 'choice', array(
+          'choices' => LevetidType::getChoices(),
+          'empty_value' => '--',
+          'required' => TRUE,
+        ));
 
       $builder->add('primaerEnterprise')
         ->add('tiltagskategori');
