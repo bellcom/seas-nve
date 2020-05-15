@@ -282,9 +282,7 @@
   {% endif %}
 
   {% if entity.fravalgteTiltag is not empty %}
-    <span class="hidden">
     {% include 'AppBundle::Rapport/_valgteTiltagTable.html.twig' with {'rapport': entity, 'tiltag': entity.fravalgteTiltag, 'pdf': false, 'type': 'fravalg', 'valgt_form_array': fravalgt_form_array } %}
-    </span>
   {% endif %}
 
   <div class="panel panel-default">

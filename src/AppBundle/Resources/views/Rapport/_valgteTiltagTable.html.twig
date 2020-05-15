@@ -12,9 +12,9 @@
     <tr>
       <th></th>
       <th>{{ 'appbundle.tiltag.title' | trans }}</th>
-      <th>{{ 'appbundle.tiltag.tilvalgtAfRaadgiver.th' | trans }}</th>
+      <th class="hidden">{{ 'appbundle.tiltag.tilvalgtAfRaadgiver.th' | trans }}</th>
       <th class="hidden">{{ 'appbundle.tiltag.tilvalgtAfAaPlus.th' | trans }}</th>
-      <th class="hidden">{{ 'appbundle.tiltag.tilvalgtAfMagistrat.th' | trans }}</th>
+      <th>{{ 'appbundle.tiltag.tilvalgtAfMagistrat.th' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr' | trans }}</th>
@@ -35,7 +35,7 @@
       <tr>
         <td class="number index">{{ t.indexNumber }}</td>
         <td>{{ t.title }}</td>
-        <td>{{ t.tilvalgtAfRaadgiver | b2icon }}</td>
+        <td class="hidden">{{ t.tilvalgtAfRaadgiver | b2icon }}</td>
         <td class="hidden">
           {{ t.tilvalgtAfAaPlus | b2icon }}
           {% if t.tilvalgtbegrundelse %}
@@ -44,7 +44,7 @@
             </span>
           {% endif %}
         </td>
-        <td class="hidden">
+        <td>
           {{ t.tilvalgtAfMagistrat | b2icon }}
           {% if t.tilvalgtBegrundelseMagistrat %}
             <span class="popover-trigger" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ t.tilvalgtBegrundelseMagistrat }}">
