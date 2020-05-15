@@ -145,7 +145,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
      *
      * @ORM\Column(name="prisfaktor", type="decimal", scale=4, nullable=true)
      */
-    protected $prisfaktor;
+    protected $prisfaktor = 1;
 
     /**
      * @var float
@@ -671,6 +671,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
         // '$AC$25':
         return 9;
     }
+
     /**
      * @inheritdoc
      */
