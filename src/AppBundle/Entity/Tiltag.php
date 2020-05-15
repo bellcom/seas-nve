@@ -2309,6 +2309,16 @@ abstract class Tiltag {
     return $this->maengde;
   }
 
+
+  /**
+   * Initialize a new Tiltag.
+   *
+   * Can be used for setting default values, say.
+   */
+  public function init(Rapport $rapport) {
+      $this->setRapport($rapport);
+  }
+
   /**
    * Get enhed
    *

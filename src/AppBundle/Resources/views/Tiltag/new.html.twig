@@ -1,7 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% if heading is not defined %}
-  {% set heading = 'tryklufttiltag.actions.edit' %}
+  {% set heading = 'tiltag.actions.new' %}
 {% endif %}
 
 {% block body -%}
@@ -11,16 +11,11 @@
     <div class="col-md-8">
       <h1>{{ heading | trans }}</h1>
     </div>
-    <div class="col-md-4 text-right">
-      {% if is_granted('ROLE_RAPPORT_EDIT') %}
-        {{ form(delete_form) }}
-      {% endif %}
-    </div>
   </div>
 
   {{ form_start(edit_form) }}
   {% block edit_form %}
-    {% include 'AppBundle:TrykluftTiltag:_form.html.twig' %}
+    {% include 'AppBundle:Tiltag:_form.html.twig' %}
   {% endblock %}
 
   {{ form_rest(edit_form) }}

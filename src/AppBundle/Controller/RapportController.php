@@ -9,6 +9,7 @@ namespace AppBundle\Controller;
 use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\DBAL\Types\FilCategoryType;
 use AppBundle\Entity\Bygning;
+use AppBundle\Entity\Tiltag;
 use AppBundle\Form\Type\RapportSearchType;
 use AppBundle\Form\Type\RapportShowType;
 use AppBundle\Form\Type\RapportStatusType;
@@ -690,6 +691,7 @@ class RapportController extends BaseController {
   /**
    * Creates a new Tiltag entity.
    *
+   * @deprecated Should be deleted in next versions
    * @Route("/{id}/tiltag/new/{type}", name="tiltag_create")
    * @Method("POST")
    * @Template("AppBundle:Tiltag:new.html.twig")
@@ -707,6 +709,119 @@ class RapportController extends BaseController {
     $this->flash->success( $type.'tiltag.confirmation.created');
 
     return $this->redirect($this->generateUrl('tiltag_edit', array('id' => $tiltag->getId())));
+  }
+
+  /**
+   * Creates a new Tiltag entity without form.
+   *
+   * @Route("/{id}/tiltagnew/{type}", name="tiltag_new")
+   * @Method("GET")
+   * @Template("AppBundle:Tiltag:new.html.twig")
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
+   */
+  public function newTiltagNewAction(Request $request, Rapport $rapport, $type) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem($type . 'tiltag.actions.add');
+
+    $em = $this->getDoctrine()->getManager();
+    $tiltag = $em->getRepository('AppBundle:Tiltag')->create($type);
+    $tiltag->init($rapport);
+    $form = $this->createTiltagCreateForm($rapport, $tiltag, $type);
+    $template = $this->getTiltagTemplate($tiltag, 'new');
+
+    return $this->render($template, array(
+      'entity' => $tiltag,
+      'edit_form' => $form->createView(),
+    ));
+  }
+
+  /**
+   * Creates a new Detail entity from form data
+   *
+   * @Route("/{id}/tiltagnew/{type}", name="tiltag_new_create")
+   * @Method("POST")
+   * @Template()
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
+   */
+  public function createTiltagAction(Request $request, Rapport $rapport, $type) {
+    $em = $this->getDoctrine()->getManager();
+    /** @var Tiltag $tiltag */
+    $tiltag = $em->getRepository('AppBundle:Tiltag')->create($type);
+    $tiltag->init($rapport);
+    $form =$this->createTiltagCreateForm($rapport, $tiltag, $type);
+    $form->handleRequest($request);
+
+    if ($form->isValid()) {
+      $tiltag->init($rapport);
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($tiltag);
+      $em->flush();
+
+      $this->flash->success('tiltag.confirmation.created');
+      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+    }
+
+    $template = $this->getTiltagTemplate($tiltag, 'new');
+    return $this->render($template, array(
+      'entity' => $tiltag,
+      'edit_form' => $form->createView(),
+    ));
+  }
+
+  /**
+   * Get form type class name for a entity
+   *
+   * @param Tiltag $tiltag
+   * @return string
+   */
+  private function getFormTypeClassName($tiltag) {
+    $className = '\\AppBundle\\Form\\Type\\' . $this->getEntityName($tiltag) . 'Type';
+    if (!class_exists($className)) {
+      $className = '\\AppBundle\\Form\\Type\\TiltagType';
+    }
+    return $className;
+  }
+
+  /**
+   * Get name of an entity
+   *
+   * @param object $entity
+   * @return string
+   */
+  private function getEntityName($entity) {
+    $className = get_class($entity);
+    if (preg_match('@\\\\([^\\\\]+)$@', $className, $matches)) {
+      return $matches[1];
+    }
+    return $className;
+  }
+
+  private function createTiltagCreateForm(Rapport $rapport, Tiltag $tiltag, $type) {
+    $formClass = $this->getFormTypeClassName($tiltag);
+    $form = $this->createForm(new $formClass($tiltag, $this->get('security.context')), $tiltag, array(
+      'action' => $this->generateUrl('tiltag_new_create', array('id' => $rapport->getId(), 'type' => $type)),
+      'method' => 'POST',
+    ));
+
+    $form->add('submit', 'submit', array('label' => 'Create'));
+    return $form;
+  }
+
+  /**
+   * Get template for an tiltag and an action.
+   * If a specific template for the entity does not exist, a fallback template is returned.
+   *
+   * @param Tiltag $entity
+   * @param string $action
+   * @return string
+   */
+  private function getTiltagTemplate(Tiltag $entity, $action) {
+    $className = $this->getEntityName($entity);
+    $template = 'AppBundle:' . $className . ':' . $action . '.html.twig';
+    if (!$this->get('templating')->exists($template)) {
+        $template = 'AppBundle:Tiltag:' . $action . '.html.twig';
+    }
+    return $template;
   }
 
   //---------------- Regninger -------------------//

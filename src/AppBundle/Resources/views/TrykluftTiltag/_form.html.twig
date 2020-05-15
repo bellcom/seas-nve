@@ -1,0 +1,198 @@
+<div class="panel panel-default hidden">
+  <div class="panel-body">
+    <div class="col-xs-12 col-md-6 ">
+      {% if edit_form.tilvalgtAfRaadgiver is defined %}
+        {{ form_row(edit_form.tilvalgtAfRaadgiver) }}
+      {% endif %}
+
+      {% if edit_form.tilvalgtAfAaPlus is defined %}
+        {{ form_row(edit_form.tilvalgtAfAaPlus) }}
+      {% endif %}
+      {% if edit_form.tilvalgtbegrundelse is defined %}
+        {{ form_row(edit_form.tilvalgtbegrundelse) }}
+      {% endif %}
+
+      {% if edit_form.tilvalgtAfMagistrat is defined %}
+        {{ form_row(edit_form.tilvalgtAfMagistrat) }}
+      {% endif %}
+
+      {% if edit_form.tilvalgtbegrundelse is defined %}
+        {{ form_row(edit_form.tilvalgtBegrundelseMagistrat) }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-xs-12 col-md-6">
+      {{ form_row(edit_form.title) }}
+      {{ form_row(edit_form.placering) }}
+
+      {% if edit_form.datoForDrift is defined %}
+        {{ form_row(edit_form.datoForDrift) }}
+      {% endif %}
+
+      {% if edit_form.slutanvendelse is defined %}
+        {{ form_row(edit_form.slutanvendelse) }}
+      {% endif %}
+      {{ form_row(edit_form.forsyningVarme) }}
+      {{ form_row(edit_form.priserOverride.varme) }}
+      {{ form_row(edit_form.forsyningEl) }}
+      {{ form_row(edit_form.priserOverride.el) }}
+      {% if edit_form.tiltagskategori is defined %}
+        {{ form_row(edit_form.tiltagskategori) }}
+      {% endif %}
+    </div>
+    <div class="col-xs-12 col-md-6">
+      {{ form_row(edit_form.forbrugFoer) }}
+      {{ form_row(edit_form.forbrugEfter) }}
+      {{ form_row(edit_form.prioriteringsfaktor) }}
+      {{ form_row(edit_form.konverteringsfaktorFoer) }}
+      {{ form_row(edit_form.konverteringsfaktorEfter) }}
+      {% if edit_form.primaerEnterprise is defined %}
+        {{ form_row(edit_form.primaerEnterprise) }}
+      {% endif %}
+      {% if edit_form.levetid is defined %}
+        {{ form_row(edit_form.levetid) }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if edit_form.besparelseGUF is defined %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ 'common.besparelse' | trans }}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-12 col-md-6">
+        {% if edit_form.besparelseEl is defined %}
+          {{ form_row(edit_form.besparelseEl) }}
+        {% endif %}
+        {% if edit_form.besparelseBraendstof is defined %}
+          {{ form_row(edit_form.besparelseBraendstof) }}
+        {% endif %}
+        {% if edit_form.besparelseInvestering is defined %}
+          {{ form_row(edit_form.besparelseInvestering) }}
+        {% endif %}
+        {% if edit_form.besparelseVedligehold is defined %}
+          {{ form_row(edit_form.besparelseVedligehold) }}
+        {% endif %}
+        {% if edit_form.besparelseCo2Braendstof is defined %}
+          {{ form_row(edit_form.besparelseCo2Braendstof) }}
+        {% endif %}
+        {% if edit_form.besparelseCo2BraendstofITon is defined %}
+          {{ form_row(edit_form.besparelseCo2BraendstofITon) }}
+        {% endif %}
+      </div>
+      <div class="col-xs-12 col-md-6">
+        {% if edit_form.besparelseGAF is defined %}
+          {{ form_row(edit_form.besparelseGAF) }}
+        {% endif %}
+        {% if edit_form.besparelseGUF is defined %}
+          {{ form_row(edit_form.besparelseGUF) }}
+        {% endif %}
+        {% if edit_form.yderligereBesparelse is defined %}
+          {{ form_row(edit_form.yderligereBesparelse) }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{ 'common.oekonomi' | trans }}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-xs-12 col-md-6">
+      {{ form_row(edit_form.faktorForReinvesteringer) }}
+      {% if edit_form.genopretning is defined %}
+        {{ form_row(edit_form.genopretning) }}
+      {% endif %}
+      {{ form_row(edit_form.genopretningForImplementeringsomkostninger) }}
+      {% if edit_form.besparelseDriftOgVedligeholdelse is defined %}
+        {{ form_row(edit_form.besparelseDriftOgVedligeholdelse) }}
+      {% endif %}
+      {% if edit_form.opstartsomkostninger is defined %}
+        {{ form_row(edit_form.opstartsomkostninger) }}
+      {% endif %}
+    </div>
+    <div class="col-xs-12 col-md-6">
+      {% if edit_form.reelAnlaegsinvestering is defined %}
+        {{ form_row(edit_form.reelAnlaegsinvestering) }}
+      {% endif %}
+      {% if edit_form.anlaegsinvesteringExRisiko is defined %}
+        {{ form_row(edit_form.anlaegsinvesteringExRisiko) }}
+      {% endif %}
+      {% if edit_form.modernisering is defined %}
+        {{ form_row(edit_form.modernisering) }}
+      {% endif %}
+      {% if edit_form.besparelseStrafafkoelingsafgift is defined %}
+        {{ form_row(edit_form.besparelseStrafafkoelingsafgift) }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{ 'common.beskrivelsesamtforudsætninger' | trans }}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-xs-12 col-md-6">
+      {{ form_row(edit_form.beskrivelseNuvaerende) }}
+      {{ form_row(edit_form.beskrivelseOevrige) }}
+      {{ form_row(edit_form.beskrivelseForslag) }}
+      {{ form_row(edit_form.beskrivelseDriftOgVedligeholdelse) }}
+      {{ form_row(edit_form.indeklima) }}
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <label>{{ 'common.risikovurdering' | trans }}</label>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <table class="table">
+            <thead>
+            <tr>
+              <th></th>
+              <th class="text-center">{{ 'common.risikovurdering.lav' | trans }}</th>
+              <th class="text-center">{{ 'common.risikovurdering.mellem' | trans }}</th>
+              <th class="text-center">{{ 'common.risikovurdering.hoej' | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{ form_row(edit_form.risikovurderingTeknisk) }}
+            {{ form_row(edit_form.risikovurderingBrugsmoenster) }}
+            {{ form_row(edit_form.risikovurderingDatagrundlag) }}
+            {{ form_row(edit_form.risikovurderingDiverse) }}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          {{ form_row(edit_form.risikovurderingAendringIBesparelseFaktor) }}
+        </div>
+        <div class="col-xs-12 col-md-6">
+          {{ form_row(edit_form.risikovurderingOekonomiskKompenseringIftInvesteringFaktor) }}
+        </div>
+      </div>
+      {{ form_row(edit_form.risikovurdering) }}
+
+      {% if edit_form.energiledelseAendringIBesparelseFaktor is defined and edit_form.energiledelseNoter is defined %}
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <label>{{ 'common.energiledelse' | trans }}</label>
+            {{ form_row(edit_form.energiledelseAendringIBesparelseFaktor) }}
+            {{ form_row(edit_form.energiledelseNoter) }}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% if heading is not defined %}
-  {% set heading = 'tryklufttiltag.actions.edit' %}
+  {% set heading = 'tryklufttiltag.actions.add' %}
 {% endif %}
 
 {% block body -%}
@@ -10,11 +10,6 @@
   <div class="row heading">
     <div class="col-md-8">
       <h1>{{ heading | trans }}</h1>
-    </div>
-    <div class="col-md-4 text-right">
-      {% if is_granted('ROLE_RAPPORT_EDIT') %}
-        {{ form(delete_form) }}
-      {% endif %}
     </div>
   </div>
 
