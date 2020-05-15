@@ -228,13 +228,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
      */
     protected $configuration;
 
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->varmeledningsevneEksistLamelmaatter;
-    }
 
     public function setBeskrivelseType($beskrivelseType)
     {
@@ -373,9 +366,23 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
         return $this->nyIsolMm;
     }
 
+    public function setVarmeledningsevnePaaEksistIsoleringWMK($varmeledningsevnePaaEksistIsoleringWMK)
+    {
+        $this->varmeledningsevnePaaEksistIsoleringWMK = $varmeledningsevnePaaEksistIsoleringWMK;
+
+        return $this;
+    }
+
     public function getVarmeledningsevnePaaEksistIsoleringWMK()
     {
         return $this->varmeledningsevnePaaEksistIsoleringWMK;
+    }
+
+    public function setVarmeledningsevnePaaNyIsoleringWMK($varmeledningsevnePaaNyIsoleringWMK)
+    {
+        $this->varmeledningsevnePaaNyIsoleringWMK = $varmeledningsevnePaaNyIsoleringWMK;
+
+        return $this;
     }
 
     public function getVarmeledningsevnePaaNyIsoleringWMK()
@@ -445,30 +452,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
     public function getKwhBesparelseVarmeFraVaerket()
     {
         return $this->kwhBesparelseVarmeFraVaerket;
-    }
-
-    public function setVarmeledningsevneEksistLamelmaatter($varmeledningsevneEksistLamelmaatter)
-    {
-        $this->varmeledningsevneEksistLamelmaatter = $varmeledningsevneEksistLamelmaatter;
-
-        return $this;
-    }
-
-    public function getVarmeledningsevneEksistLamelmaatter()
-    {
-        return $this->varmeledningsevneEksistLamelmaatter;
-    }
-
-    public function setVarmeledningsevneNyIsolering($varmeledningsevneNyIsolering)
-    {
-        $this->varmeledningsevneNyIsolering = $varmeledningsevneNyIsolering;
-
-        return $this;
-    }
-
-    public function getVarmeledningsevneNyIsolering()
-    {
-        return $this->varmeledningsevneNyIsolering;
     }
 
     /**
@@ -544,8 +527,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
     public function calculate()
     {
         $this->roerstoerrelseMmAekvivalent = $this->calculateRoerstoerrelseMmAekvivalent();
-        $this->varmeledningsevnePaaEksistIsoleringWMK = $this->calculateVarmeledningsevnePaaEksistIsoleringWMK();
-        $this->varmeledningsevnePaaNyIsoleringWMK = $this->calculateVarmeledningsevnePaaNyIsoleringWMK();
         $this->investeringKr = $this->calculateInvesteringKr();
         $this->eksistVarmetabKwh = $this->calculateEksistVarmetabKwh();
         $this->nytVarmetabKwh = $this->calculateNytVarmetabKwh();
@@ -562,16 +543,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
     private function calculateRoerstoerrelseMmAekvivalent()
     {
         return $this->udvDiameterMm;
-    }
-
-    private function calculateVarmeledningsevnePaaEksistIsoleringWMK()
-    {
-        return $this->getRapport()->getConfiguration()->getTekniskIsoleringVarmeledningsevneEksistLamelmaatter();
-    }
-
-    private function calculateVarmeledningsevnePaaNyIsoleringWMK()
-    {
-        return $this->getRapport()->getConfiguration()->getTekniskIsoleringVarmeledningsevneNyIsolering();
     }
 
     private function calculateInvesteringKr()
@@ -699,6 +670,15 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
     {
         // '$AC$25':
         return 9;
+    }
+    /**
+     * @inheritdoc
+     */
+    public function init(Tiltag $tiltag)
+    {
+        $configuration = $tiltag->getRapport()->getConfiguration();
+        $this->varmeledningsevnePaaEksistIsoleringWMK = $configuration->getTekniskIsoleringVarmeledningsevneEksistLamelmaatter();
+        $this->varmeledningsevnePaaNyIsoleringWMK = $configuration->getTekniskIsoleringVarmeledningsevneNyIsolering();
     }
 
     /**

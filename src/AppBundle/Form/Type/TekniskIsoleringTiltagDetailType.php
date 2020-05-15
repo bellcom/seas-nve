@@ -33,6 +33,8 @@ class TekniskIsoleringTiltagDetailType extends TiltagDetailType {
       ->add('nyIsolMm')
       ->add('standardinvestKrM2EllerKrM')
       ->add('overskrevetPris')
+      ->add('varmeledningsevnePaaEksistIsoleringWMK')
+      ->add('varmeledningsevnePaaNyIsoleringWMK')
       ->add('prisfaktor');
 
     if($this->isBatchEdit) {
