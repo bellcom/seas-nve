@@ -22,7 +22,6 @@ class PumpeTiltagDetailType extends TiltagDetailType {
       ->add('pumpeID')
       ->add('forsyningsomraade')
       ->add('placering')
-      ->add('applikation')
       ->add('isoleringskappe', null, array('required' => false))
       ->add('nyttiggjortVarme', null, array(
         'required' => true,
@@ -30,7 +29,6 @@ class PumpeTiltagDetailType extends TiltagDetailType {
       ->add('noter', null, array('required' => false))
       ->add('eksisterendeDrifttid')
       ->add('nyDrifttid')
-      ->add('prisfaktor')
       ->add('overskrevetPris', null, array('required' => false))
       ->add('varmetabIftAekvivalentRoerstoerrelse', 'choice', array(
         'choices' => $this->getRoerstoerrelser(),

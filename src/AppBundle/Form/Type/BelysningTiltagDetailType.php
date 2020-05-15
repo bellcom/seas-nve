@@ -77,8 +77,7 @@ class BelysningTiltagDetailType extends TiltagDetailType
             ))
             ->add('nyLyskildeStkArmatur')
             ->add('nyeArmaturerStkLokale')
-            ->add('nyDriftstid')
-            ->add('prisfaktor');
+            ->add('nyDriftstid');
 
     }
 

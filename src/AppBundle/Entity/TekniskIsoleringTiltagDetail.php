@@ -411,7 +411,7 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
 
     public function getPrisfaktor()
     {
-        return $this->prisfaktor;
+        return empty($this->prisfaktor) ? 1 : $this->prisfaktor;
     }
 
     public function getInvesteringKr()

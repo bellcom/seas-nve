@@ -95,7 +95,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    *
    * @ORM\Column(name="Prisfaktor", type="decimal", scale=4)
    */
-  protected $prisfaktor;
+  protected $prisfaktor = 1;
 
   /**
    * @ManyToOne(targetEntity="Pumpe")
@@ -408,7 +408,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * @return string
    */
   public function getPrisfaktor() {
-    return $this->prisfaktor;
+    return empty($this->prisfaktor) ? 1 : $this->prisfaktor;
   }
 
   /**
@@ -515,7 +515,7 @@ class PumpeTiltagDetail extends TiltagDetail {
     if (empty($this->getPumpe())) {
       return;
     }
-    
+
     $this->pristillaeg = $this->calculatePristillaeg();
     $this->samletInvesteringInklPristillaeg = $this->calculateSamletInvesteringInklPristillaeg();
     $this->elforbrugVedNyeDriftstidKWhAar = $this->calculateElforbrugVedNyeDriftstidKWhAar();

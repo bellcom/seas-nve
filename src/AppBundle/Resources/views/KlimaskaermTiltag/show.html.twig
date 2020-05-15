@@ -37,7 +37,6 @@
               {{ helper.header('appbundle.klimaskaermtiltagdetail.tOpvarmningTimerAar') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.yderligereBesparelserPct') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.besparelseKWhAar') }}
-              {{ helper.header('appbundle.klimaskaermtiltagdetail.prisfaktor') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.samletInvesteringKr') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar') }}
               {{ helper.header('appbundle.klimaskaermtiltagdetail.levetidAar') }}
@@ -68,7 +67,6 @@
               {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.tOpvarmningTimerAar', 'tOpvarmningTimerAar', 'number') }}
               {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.yderligereBesparelserPct', 'yderligereBesparelserPct', 'number') }}
               {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.besparelseKWhAar', 'besparelseKWhAar', 'number') }}
-              {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.prisfaktor', 'prisfaktor', 'number') }}
               {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.samletInvesteringKr', 'samletInvesteringKr', 'number') }}
               {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.simpelTilbagebetalingstidAar', 'simpelTilbagebetalingstidAar', 'number') }}
               {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.levetidAar', 'levetidAar', 'number') }}
@@ -102,7 +100,6 @@
               {{ helper.header_filter('tOpvarmningTimerAar', 'number') }}
               {{ helper.header_filter('yderligereBesparelserPct', 'number') }}
               {{ helper.header_filter('besparelseKWhAar', 'number') }}
-              {{ helper.header_filter('prisfaktor', 'number') }}
               {{ helper.header_filter('samletInvesteringKr', 'number') }}
               {{ helper.header_filter('simpelTilbagebetalingstidAar', 'number') }}
               {{ helper.header_filter('levetidAar', 'number') }}
@@ -148,7 +145,6 @@
                 <td class="tOpvarmningTimerAar number">{{ detail.tOpvarmningTimerAar | format_decimal }}</td>
                 <td class="yderligereBesparelserPct number">{{ detail.yderligereBesparelserPct | format_percent }}</td>
                 <td class="besparelseKWhAar number">{{ detail.besparelseKWhAar | format_decimal }}</td>
-                <td class="prisfaktor number">{{ detail.prisfaktor | format_decimal }}</td>
                 <td class="samletInvesteringKr number">{{ detail.samletInvesteringKr | format_amount }}</td>
                 <td class="simpelTilbagebetalingstidAar number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
                 <td class="levetidAar number">{{ detail.levetidAar | format_decimal }}</td>
