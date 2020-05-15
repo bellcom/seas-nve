@@ -212,18 +212,6 @@ class TekniskIsoleringTiltagDetail extends TiltagDetail
     protected $kwhBesparelseVarmeFraVaerket;
 
     /**
-     * @var float
-     * @ORM\Column(name="varmeledningsevneEksistLamelmaatter", type="decimal", scale=4, nullable=true)
-     */
-    protected $varmeledningsevneEksistLamelmaatter;
-
-    /**
-     * @var float
-     * @ORM\Column(name="varmeledningsevneNyIsolering", type="decimal", scale=4, nullable=true)
-     */
-    protected $varmeledningsevneNyIsolering;
-
-    /**
      * @var Configuration
      */
     protected $configuration;
