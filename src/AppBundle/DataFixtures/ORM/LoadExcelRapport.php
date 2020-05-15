@@ -815,7 +815,6 @@ class LoadExcelRapport extends LoadData {
       // 'AJ' => '',
       'AK' => 'nyeSensorerStkLokale',
       'AL' => 'standardinvestSensorKrStk',
-      'AM' => 'reduktionAfDrifttid',
       'AO' => 'standardinvestArmaturKrStk',
       'AP' => 'standardinvestLyskildeKrStk',
       'AQ' => array('nyLyskilde', function($value) { return $this->getEntityReference('lyskilde', $value); }),

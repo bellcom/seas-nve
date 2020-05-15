@@ -28,11 +28,14 @@
         {{ form_row(edit_form.placering) }}
         {{ form_row(edit_form.drifttidTAar) }}
         <div class="row">
-          <div class="col-md-4">{{ form_row(edit_form.lyskildeStkArmatur) }}</div>
+          <div class="col-md-4">{{ form_row(edit_form.lyskildeStk) }}</div>
           <div class="col-md-4">{{ form_row(edit_form.lyskildeWLyskilde) }}</div>
-          <div class="col-md-4">{{ form_row(edit_form.forkoblingStkArmatur) }}</div>
+          <div class="col-md-4">{{ form_row(edit_form.benyttelsesFaktor) }}</div>
         </div>
-        {{ form_row(edit_form.armaturerStkLokale) }}
+        <div class="row">
+          <div class="col-md-6">{{ form_row(edit_form.lyskildeStkArmatur) }}</div>
+          <div class="col-md-6">{{ form_row(edit_form.armaturerStkLokale) }}</div>
+        </div>
         {{ form_row(edit_form.styring) }}
         {{ form_row(edit_form.noter) }}
       </div>
@@ -46,18 +49,19 @@
       <div class="panel-body">
         {{ form_row(edit_form.belysningstiltag) }}
         {{ form_row(edit_form.nyLyskilde) }}
-        {{ form_row(edit_form.reduktionAfDrifttid) }}
-        {{ form_row(edit_form.erstatningsLyskilde) }}
+        {{ form_row(edit_form.nyDriftstid) }}
         <div class="row">
-          <div class="col-md-4">{{ form_row(edit_form.nyLyskildeStkArmatur) }}</div>
+          <div class="col-md-4">{{ form_row(edit_form.nyLyskildeStk) }}</div>
           <div class="col-md-4">{{ form_row(edit_form.nyLyskildeWLyskilde) }}</div>
-          <div class="col-md-4">{{ form_row(edit_form.nyForkoblingStkArmatur) }}</div>
+          <div class="col-md-4">{{ form_row(edit_form.nyBenyttelsesFaktor) }}</div>
         </div>
         {{ form_row(edit_form.nytArmatur) }}
-        {{ form_row(edit_form.nyeArmaturerStkLokale) }}
+        <div class="row">
+          <div class="col-md-6">{{ form_row(edit_form.nyLyskildeStkArmatur) }}</div>
+          <div class="col-md-6">{{ form_row(edit_form.nyeArmaturerStkLokale) }}</div>
+        </div>
         {{ form_row(edit_form.nyStyring) }}
         {{ form_row(edit_form.nyeSensorerStkLokale) }}
-        {{ form_row(edit_form.nyttiggjortVarmeAfElBesparelse) }}
         {{ form_row(edit_form.noterForNyBelysning) }}
       </div>
     </div>
