@@ -66,7 +66,8 @@ class RapportType extends AbstractType
       ->add('BaselineStrafAfkoeling', null, ($this->isAllowed('BaselineStrafAfkoeling') ? array() : $disabled_options))
       ->add('bygning', new BygningBaselineEmbedType(), array('label' => false))
       ->add('faktorPaaVarmebesparelse')
-      ->add('energiscreening');
+      ->add('energiscreening')
+      ->add('visGraphPDF');
 
     if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       $builder->add('elena');

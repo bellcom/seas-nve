@@ -526,6 +526,13 @@ class Rapport {
   protected $fravalgtBesparelseDriftOgVedligeholdelse;
 
   /**
+   * @var bool
+   *
+   * @ORM\Column(name="visGraphPDF", type="boolean")
+   */
+  protected $visGraphPDF = TRUE;
+
+  /**
    * @return float
    */
   public function getfravalgtBesparelseDriftOgVedligeholdelse()
@@ -2022,6 +2029,20 @@ class Rapport {
     return $this->accumulate(function($tiltag, $value) {
       return $value + ($tiltag instanceof SolcelleTiltag ? $tiltag->getSalgTilNettetAar1() : 0);
     }, 0);
+  }
+
+  /**
+   * @return boolean
+   */
+  public function getVisGraphPDF() {
+    return $this->visGraphPDF;
+  }
+
+  /**
+   * @param boolean $visGraphPDF
+   */
+  public function setVisGraphPDF($visGraphPDF) {
+    $this->visGraphPDF = $visGraphPDF;
   }
 
   /**

@@ -2061,6 +2061,7 @@ appbundle:
     bygningForsyningsvaerkVarmeKgCo2MWh: "ForsyningVarmeCO2"
     bygningForsyningsvaerkElKgCo2MWh: "ForsyningElCO2"
     calculateSamletEnergiBesparelseKr: "Beregnet Samlet Energi Besparelse i kr"
+    visGraphPDF: "Vis grapher i PDF"
   segment:
     add: "Opret Segment"
     edit: "Rediger Segment"
