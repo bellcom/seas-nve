@@ -49,9 +49,6 @@
     <div class="col-xs-12 col-md-6">
       {{ form_row(edit_form.forbrugFoer) }}
       {{ form_row(edit_form.forbrugEfter) }}
-      {{ form_row(edit_form.prioriteringsfaktor) }}
-      {{ form_row(edit_form.konverteringsfaktorFoer) }}
-      {{ form_row(edit_form.konverteringsfaktorEfter) }}
       {% if edit_form.primaerEnterprise is defined %}
         {{ form_row(edit_form.primaerEnterprise) }}
       {% endif %}
@@ -109,7 +106,6 @@
   </div>
   <div class="panel-body">
     <div class="col-xs-12 col-md-6">
-      {{ form_row(edit_form.faktorForReinvesteringer) }}
       {% if edit_form.genopretning is defined %}
         {{ form_row(edit_form.genopretning) }}
       {% endif %}
