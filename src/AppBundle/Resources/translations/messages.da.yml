@@ -2359,7 +2359,7 @@ appbundle:
   tiltagtilvalgt:
     tilvalgt: "Tilvalgt"
     tilvalgtAfAaPlus: "Tilvalgt af Aa+"
-    tilvalgtAfMagistrat: "Tilvalgt af Magistrat"
+    tilvalgtAfMagistrat: "Tilvalgt"
     tilvalgtAfRaadgiver: "Tilvalgt af Rådgiver"
     tilvalgtbegrundelse: "Bemærkning Aa+"
     tilvalgtBegrundelseMagistrat: "Bemærkning Magistrat"
