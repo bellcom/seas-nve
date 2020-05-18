@@ -48,7 +48,12 @@
           maintainAspectRatio: false,
           datasetFill: false,
           bezierCurve : true,
-          bezierCurveTension : 0.2
+          bezierCurveTension : 0.2,
+          {% raw %}
+            tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= formatNumberSeparators(value) %>",
+          {% endraw %}
+          scaleLabel: "<%= formatNumberSeparators(value) %>",
+          multiTooltipTemplate: "<%= formatNumberSeparators(value) %>"
         },
         ctx = document.querySelector('#chart canvas').getContext('2d'),
         chart = new Chart(ctx).Line(data, options);
