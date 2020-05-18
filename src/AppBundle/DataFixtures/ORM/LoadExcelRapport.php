@@ -539,7 +539,6 @@ class LoadExcelRapport extends LoadData {
       ->setForsyningEl($this->getEntityReference('energiforsyning', $sheet->getCell('F13')->getValue()))
       ->setFaktorForReinvesteringer($this->getCellValue($sheet->getCell('C11')))
       ->setTiltagskategori($this->getEntityReference('tiltagskategori', $sheet->getCell('D12')->getValue()))
-      ->setPrimaerEnterprise($this->getCellValue($sheet->getCell('B12')))
       ->setPlacering($this->getCellValue($sheet->getCell('C19')))
       ->setBeskrivelseDriftOgVedligeholdelse($this->getCellValue($sheet->getCell('A21')))
       ->setIndeklima($this->getCellValue($sheet->getCell('A23')));

@@ -2261,7 +2261,6 @@ appbundle:
     nutidsvaerdiSetOver15AarKr.unit: "kr"
     oekonomioverblik: "Økonomioverblik"
     placering: "Placering"
-    primaerEnterprise: "Primær entreprise"
     rapport: "Rapport"
     reelAnlaegsinvestering: "Faktisk Entreprisesum"
     reelAnlaegsinvestering.unit: "kr"

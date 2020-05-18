@@ -9,7 +9,6 @@ namespace AppBundle\Entity;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
-use AppBundle\DBAL\Types\PrimaerEnterpriseType;
 use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -319,14 +318,6 @@ abstract class Tiltag {
    * @ORM\Column(name="reinvestering", type="float", nullable=true)
    */
   protected $reinvestering;
-
-  /**
-   * @var string
-   *
-   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\PrimaerEnterpriseType")
-   * @ORM\Column(name="primaerEnterprise", type="PrimaerEnterpriseType")
-   */
-  protected $primaerEnterprise = PrimaerEnterpriseType::NONE;
 
   /**
    * @ManyToOne(targetEntity="TiltagsKategori")
@@ -819,28 +810,6 @@ abstract class Tiltag {
       ];
     }
     return $data;
-  }
-
-  /**
-   * Set primaerEnterprise
-   *
-   * @param \AppBundle\DBAL\Types\PrimaerenterpriseType $primaerEnterprise
-   *
-   * @return Tiltag
-   */
-  public function setPrimaerEnterprise($primaerEnterprise) {
-    $this->primaerEnterprise = $primaerEnterprise;
-
-    return $this;
-  }
-
-  /**
-   * Get primaerEnterprise
-   *
-   * @return \AppBundle\DBAL\Types\PrimaerenterpriseType
-   */
-  public function getPrimaerEnterprise() {
-    return $this->primaerEnterprise;
   }
 
   /**

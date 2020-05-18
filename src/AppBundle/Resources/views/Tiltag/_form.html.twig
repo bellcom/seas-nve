@@ -49,9 +49,6 @@
     <div class="col-xs-12 col-md-6">
       {{ form_row(edit_form.forbrugFoer) }}
       {{ form_row(edit_form.forbrugEfter) }}
-      {% if edit_form.primaerEnterprise is defined %}
-        {{ form_row(edit_form.primaerEnterprise) }}
-      {% endif %}
       {% if edit_form.levetid is defined %}
         {{ form_row(edit_form.levetid) }}
       {% endif %}

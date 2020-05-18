@@ -201,9 +201,6 @@ class TiltagType extends AbstractType {
           'empty_value' => '--',
           'required' => TRUE,
         ));
-
-      $builder->add('primaerEnterprise')
-        ->add('tiltagskategori');
     }
   }
 
