@@ -531,9 +531,6 @@ class SolcelleTiltagDetail extends TiltagDetail
         $flow['Investering'][1] = -$this->tiltag->getAnlaegsinvestering();
 
         $tilNettetPct = $this->tilNettetPct;
-        if (!empty($this->tiltag->getRisikovurderingAendringIBesparelseFaktor())) {
-            $tilNettetPct *= 1 + $this->tiltag->getRisikovurderingAendringIBesparelseFaktor();
-        }
 
         for ($year = 1; $year <= $numberOfYears; $year++) {
             $flow['Drift'][$year] = -$this->totalDriftomkostningerPrAar * pow(1 + $inflation, $year);

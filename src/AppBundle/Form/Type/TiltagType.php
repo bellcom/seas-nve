@@ -12,7 +12,6 @@ use AppBundle\DBAL\Types\LevetidType;
 use AppBundle\Entity\NyKlimaskaermTiltag;
 use AppBundle\Entity\TrykluftTiltag;
 use AppBundle\Entity\VarmeAnlaegTiltag;
-use AppBundle\Form\Type\RisikovurderingType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\SolcelleTiltag;
@@ -144,17 +143,10 @@ class TiltagType extends AbstractType {
       ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
       ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
       ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
-      ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
       ->add('placering', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
       ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
       ->add('indeklima', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => false));
 
-    $builder->add('risikovurderingTeknisk', new RisikovurderingType(), array());
-    $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
-    $builder->add('risikovurderingDatagrundlag', new RisikovurderingType(), array());
-    $builder->add('risikovurderingDiverse', new RisikovurderingType(), array());
-    $builder->add('risikovurderingAendringIBesparelseFaktor', 'percent', array('required' => FALSE));
-    $builder->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor', 'percent', array('required' => FALSE));
     $builder->add('slutanvendelse', 'choice', array(
         'choices' => SlutanvendelseType::getChoices(),
 //        'choices_as_values' => TRUE,
