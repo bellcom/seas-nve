@@ -12,7 +12,7 @@
     <tr>
       <th></th>
       <th>{{ 'appbundle.tiltag.title' | trans }}</th>
-      <th>{{ 'appbundle.tiltag.tilvalgtAfRaadgiver.th' | trans }}</th>
+      <th class="hidden">{{ 'appbundle.tiltag.tilvalgtAfRaadgiver.th' | trans }}</th>
       <th class="hidden">{{ 'appbundle.tiltag.tilvalgtAfAaPlus.th' | trans }}</th>
       <th class="hidden">{{ 'appbundle.tiltag.tilvalgtAfMagistrat.th' | trans }}</th>
       <th class="text-right">{{ 'appbundle.tiltag.levetid' | trans }}</th>
@@ -22,10 +22,10 @@
       <th class="text-right">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</th>
       {% if is_granted('RAPPORT_EDIT', entity) and is_granted('ROLE_ADMIN') and pdf == false %}
         {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
-          <th class="text-right">{{ 'appbundle.tiltag.datoForDrift' | trans }}</th>
+          <th class="text-right hidden">{{ 'appbundle.tiltag.datoForDrift' | trans }}</th>
         {% endif %}
         {% if type == 'fravalg' %}
-          <th></th>
+          <th class="hidden"></th>
         {% endif %}
       {% endif %}
     </tr>
@@ -35,7 +35,7 @@
       <tr>
         <td class="number index">{{ t.indexNumber }}</td>
         <td>{{ t.title }}</td>
-        <td>{{ t.tilvalgtAfRaadgiver | b2icon }}</td>
+        <td class="hidden">{{ t.tilvalgtAfRaadgiver | b2icon }}</td>
         <td class="hidden">
           {{ t.tilvalgtAfAaPlus | b2icon }}
           {% if t.tilvalgtbegrundelse %}
@@ -59,14 +59,14 @@
         <td class="text-right">{{ t.anlaegsinvestering | format_amount }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</td>
         {% if is_granted('RAPPORT_EDIT', entity) and is_granted('ROLE_ADMIN') and pdf == false %}
           {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
-            <td class="text-right">
+            <td class="text-right hidden">
               <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#datoForDriftModal-{{ t.id }}">
                 {{ t.datoForDrift ?  t.datoForDrift | date('Y-m-d') : 'appbundle.tiltag.datoForDrift' | trans }}
               </button>
             </td>
           {% endif %}
           {% if type == 'fravalg' %}
-            <td class="text-right">
+            <td class="text-right hidden">
               <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#tilvalgtModal-{{ t.id }}">
                 {% if type == 'tilvalg' %}
                   {{ 'common.deselect' | trans }}
@@ -83,7 +83,7 @@
     <tfoot>
     <tr>
       <th></th>
-      <th colspan="6">{{ 'appbundle.tiltag.ialt' | trans }}</th>
+      <th colspan="5">{{ 'appbundle.tiltag.ialt' | trans }}</th>
       <th class="text-right">
         {% if type == 'tilvalg' %}
           {{ rapport.anlaegsinvestering | format_amount }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}
@@ -93,10 +93,10 @@
       </th>
       {% if is_granted('RAPPORT_EDIT', entity) and is_granted('ROLE_ADMIN') and pdf == false %}
         {% if type == 'tilvalg' and dato_for_drift_form_array is not empty %}
-          <th></th>
+          <th class="hidden"></th>
         {% endif %}
         {% if type == 'fravalg' %}
-          <th></th>
+          <th class="hidden"></th>
         {% endif %}
       {% endif %}
     </tr>

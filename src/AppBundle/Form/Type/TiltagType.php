@@ -60,14 +60,7 @@ class TiltagType extends AbstractType {
         'empty_value' => '--',
         'required' => FALSE
       ));
-      $builder->add('tilvalgtAfMagistrat', 'choice', array(
-        'choices' => array(
-          '0' => 'Fravalgt',
-          '1' => 'Tilvalgt',
-        ),
-        'empty_value' => '--',
-        'required' => FALSE
-      ));
+      $builder->add('tilvalgtAfMagistrat');
       $builder->add('tilvalgtbegrundelse', NULL, array('required' => FALSE));
       $builder->add('tilvalgtBegrundelseMagistrat', NULL, array('required' => FALSE));
 
