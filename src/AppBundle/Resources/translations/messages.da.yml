@@ -597,6 +597,7 @@ tiltag:
     oversigt: "Oversigt"
     regning: "Regning"
     ingen: "Ingen forslag fundet"
+    linje_graf_titel: "Energiudgift med og uden investering"
   validation:
     error: "Fejl i forslaget - ret venligst de nævnte fejl"
 tiltagdetail:

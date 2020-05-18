@@ -47,7 +47,16 @@
           <h3>{{ key + 1 }}. {{ t.title }}</h3>
         </div>
       </div>
-
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            {{ 'tiltag.strings.linje_graf_titel' | trans }}
+          </h3>
+        </div>
+        <div class="panel-body">
+          {{ include ('AppBundle:_includes:linje_graf.html.twig') }}
+        </div>
+      </div>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">
