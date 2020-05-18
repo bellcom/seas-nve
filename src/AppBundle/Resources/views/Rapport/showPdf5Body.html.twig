@@ -55,7 +55,7 @@
             </h3>
           </div>
           <div class="panel-body">
-            {{ include ('AppBundle:_includes:linje_graf.html.twig') }}
+            {% include 'AppBundle::_includes/linje_graf.html.twig' with { 'linje_graf_data' : t.getForbrugFoerEfter15() } %}
           </div>
         </div>
       {% endif %}

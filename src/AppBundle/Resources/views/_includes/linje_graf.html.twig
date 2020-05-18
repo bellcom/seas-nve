@@ -8,6 +8,8 @@
 </div>
 
 <script>
-  (function() {
+    (function() {
+      var linje_graf_data = {{ linje_graf_data | json_encode | raw }};
+      console.log(linje_graf_data);
   }())
 </script>

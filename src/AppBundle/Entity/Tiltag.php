@@ -995,6 +995,19 @@ abstract class Tiltag {
   }
 
   /**
+   * Get forbrugFoer extrapolated for 15 years.
+   *
+   * @return array
+   */
+  public function getForbrugFoer15() {
+    $data = [];
+    for ($i = 1; $i <= 15; $i++) {
+      $data[$i] = $this->forbrugFoer * $i;
+    }
+      return $data;
+  }
+
+  /**
    * Set forbrugEfter
    *
    * @param integer $forbrugEfter
@@ -1013,6 +1026,37 @@ abstract class Tiltag {
    */
   public function getForbrugEfter() {
     return $this->forbrugEfter;
+  }
+
+  /**
+   * Get forbrugEfter extrapolated for 15 years.
+   *
+   * @return array
+   */
+  public function getForbrugEfter15() {
+    $data = [];
+    for ($i = 1; $i <= 15; $i++) {
+      $data[$i] = $this->forbrugEfter * $i;
+    }
+    return $data;
+  }
+
+  /**
+   * Get forbrugFoer and forbrugEfter extrapolated for 15 years.
+   *
+   * @return array
+   */
+  public function getForbrugFoerEfter15() {
+    $data = [];
+    $forbrugFoer15 = $this->getForbrugFoer15();
+    $forbrugEfter15 = $this->getForbrugEfter15();
+    for ($i = 1; $i <= 15; $i++) {
+      $data[$i] = [
+        'foer' => $forbrugFoer15[$i],
+        'efter' => $forbrugEfter15[$i],
+      ];
+    }
+    return $data;
   }
 
   /**

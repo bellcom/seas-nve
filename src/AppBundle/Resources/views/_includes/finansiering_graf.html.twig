@@ -9,7 +9,8 @@
 
 <script>
   (function() {
-
+    var samledeTiltagGrafData = {{ samledeTiltagGrafData | json_encode | raw }};
+    console.log(samledeTiltagGrafData);
     function createGraph() {
       var formatData = function(data) {
           var formatted = [], key;

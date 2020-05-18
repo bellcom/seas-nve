@@ -205,6 +205,15 @@ class RapportController extends BaseController {
     $calculationChanges = $this->container->get('aaplus.rapport_calculation')->getChanges($rapport);
     $calculateForm = $this->createCalculateForm($rapport, $calculationChanges)->createView();
 
+    $slutanvendelseLabels = $rapport->getBesparelseSlutanvendelserLabels();
+    $samledeTiltagGrafData = [];
+    foreach($rapport->getBesparelseSlutanvendelser() as $type => $slutanvendelse) {
+      $samledeTiltagGrafData[$type] = [
+          'label' => $slutanvendelseLabels[$type],
+          'value' => $slutanvendelse['total'],
+      ];
+    }
+
     $twigVars = array(
       'entity' => $rapport,
       'tilvalgteTiltag' => $this->sortTiltags($rapport->getTilvalgteTiltag()),
@@ -217,6 +226,7 @@ class RapportController extends BaseController {
       'calculate_form' => $calculateForm,
       'calculation_changes' => $calculationChanges,
       'calculation_warnings' => $rapport->getCalculationWarnings(),
+      'samledeTiltagGrafData' => $samledeTiltagGrafData,
     );
 
     return array_merge($twigVars, $formArray);
