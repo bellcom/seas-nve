@@ -1,24 +1,25 @@
-<div class="panel panel-default hidden">
+<div class="panel panel-default">
   <div class="panel-body">
     <div class="col-xs-12 col-md-6 ">
-      {% if edit_form.tilvalgtAfRaadgiver is defined %}
-        {{ form_row(edit_form.tilvalgtAfRaadgiver) }}
-      {% endif %}
-
-      {% if edit_form.tilvalgtAfAaPlus is defined %}
-        {{ form_row(edit_form.tilvalgtAfAaPlus) }}
-      {% endif %}
-      {% if edit_form.tilvalgtbegrundelse is defined %}
-        {{ form_row(edit_form.tilvalgtbegrundelse) }}
-      {% endif %}
-
       {% if edit_form.tilvalgtAfMagistrat is defined %}
-        {{ form_row(edit_form.tilvalgtAfMagistrat) }}
+        {{ form_row(edit_form.tilvalgtAfMagistrat, { 'label': 'appbundle.tiltagtilvalgt.tilvalgt' | trans }) }}
       {% endif %}
+      <div class="hidden">
+        {% if edit_form.tilvalgtAfRaadgiver is defined %}
+          {{ form_row(edit_form.tilvalgtAfRaadgiver) }}
+        {% endif %}
 
-      {% if edit_form.tilvalgtbegrundelse is defined %}
-        {{ form_row(edit_form.tilvalgtBegrundelseMagistrat) }}
-      {% endif %}
+        {% if edit_form.tilvalgtAfAaPlus is defined %}
+          {{ form_row(edit_form.tilvalgtAfAaPlus) }}
+        {% endif %}
+        {% if edit_form.tilvalgtbegrundelse is defined %}
+          {{ form_row(edit_form.tilvalgtbegrundelse) }}
+        {% endif %}
+
+        {% if edit_form.tilvalgtbegrundelse is defined %}
+          {{ form_row(edit_form.tilvalgtBegrundelseMagistrat) }}
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>

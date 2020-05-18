@@ -7,6 +7,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;

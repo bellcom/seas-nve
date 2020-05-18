@@ -15,6 +15,7 @@ use AppBundle\Form\Type\RapportShowType;
 use AppBundle\Form\Type\RapportStatusType;
 use AppBundle\Form\Type\TiltagDatoForDriftType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
@@ -206,6 +207,8 @@ class RapportController extends BaseController {
 
     $twigVars = array(
       'entity' => $rapport,
+      'tilvalgteTiltag' => $this->sortTiltags($rapport->getTilvalgteTiltag()),
+      'fravalgteTiltag' => $this->sortTiltags($rapport->getFravalgteTiltag()),
       'dato_for_drift_form_array' => $tiltagDatoForDriftFormArray,
       'tilvalgt_form_array' => $tilvalgtFormArray,
       'fravalgt_form_array' => $fravalgtFormArray,
@@ -1100,5 +1103,21 @@ class RapportController extends BaseController {
         }
       }
     }
+  }
+
+  /**
+   * Sorts tiltags array collection.
+   *
+   * @param ArrayCollection $tiltags
+
+   * @return ArrayCollection
+   */
+  protected function sortTiltags($tiltags) {
+    $iterator = $tiltags->getIterator();
+    $iterator->uasort(function ($a, $b) {
+        return ($a->getSimpelTilbagebetalingstidAar() < $b->getSimpelTilbagebetalingstidAar()) ? -1 : 1;
+    });
+
+    return new ArrayCollection(iterator_to_array($iterator));
   }
 }

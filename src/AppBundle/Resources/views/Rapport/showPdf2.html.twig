@@ -324,7 +324,7 @@
     </div>
 
     {% if rapport.tiltag is not empty %}
-      {% include 'AppBundle::Rapport/_valgteTiltagTablePdf2.html.twig' with {'tiltag': rapport.tiltag, 'pdf': true, 'type': 'tilvalg' } %}
+      {% include 'AppBundle::Rapport/_valgteTiltagTablePdf2.html.twig' with {'tiltag': rapport_tiltag, 'pdf': true, 'type': 'tilvalg' } %}
     {% endif %}
 
     <div class="row page-break-before">
