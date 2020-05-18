@@ -2,7 +2,7 @@
   <div class="panel-body">
     <div class="col-xs-12 col-md-6 ">
       {% if edit_form.tilvalgtAfMagistrat is defined %}
-        {{ form_row(edit_form.tilvalgtAfMagistrat) }}
+        {{ form_row(edit_form.tilvalgtAfMagistrat, { 'label': 'appbundle.tiltagtilvalgt.tilvalgt' | trans }) }}
       {% endif %}
       <div class="hidden">
       {% if edit_form.tilvalgtAfRaadgiver is defined %}
