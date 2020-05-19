@@ -83,7 +83,6 @@ class RapportController extends BaseController {
     $search['adresse'] = $rapport->getBygning()->getAdresse();
     $search['postnummer'] = $rapport->getBygning()->getPostnummer();
     $search['segment'] = $rapport->getBygning()->getSegment();
-    $search['status'] = $rapport->getBygning()->getStatus();
     $search['datering'] = $rapport->getDatering();
     $search['version'] = $rapport->getVersion();
 
@@ -162,18 +161,6 @@ class RapportController extends BaseController {
 
     // Bygning Status forms
     $formArray = array();
-    if($status == BygningStatusType::TILKNYTTET_RAADGIVER) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_submit', 'bygning_rapporter.actions.submit')->createView();
-    } else if ($status == BygningStatusType::AFLEVERET_RAADGIVER) {
-      $formArray['prev_status_form'] = $this->createStatusForm($rapport, 'rapport_retur', 'bygning_rapporter.actions.retur')->createView();
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_verify', 'bygning_rapporter.actions.verify')->createView();
-    } else if ($status == BygningStatusType::AAPLUS_VERIFICERET) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_approve', 'bygning_rapporter.actions.approve')->createView();
-    } else if ($status == BygningStatusType::GODKENDT_AF_MAGISTRAT) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_implementation', 'bygning_rapporter.actions.implementation')->createView();
-    } else if ($status == BygningStatusType::UNDER_UDFOERSEL) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_operation', 'bygning_rapporter.actions.operation')->createView();
-    }
 
     // Tiltag tilvalgt/fravalgt forms
     $tilvalgtFormArray = array();
@@ -568,6 +555,7 @@ class RapportController extends BaseController {
   /**
    * Aaplus verifies a Rapport entity.
    *
+   * @deprecated This method is deprecated. Status property is hidden from rendering.
    * @Route("/{id}/verify", name="rapport_verify")
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")
@@ -585,6 +573,7 @@ class RapportController extends BaseController {
   /**
    * Magistrat Godkendt
    *
+   * @deprecated This method is deprecated. Status property is hidden from rendering.
    * @Route("/{id}/approve", name="rapport_approve")
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")
@@ -602,6 +591,7 @@ class RapportController extends BaseController {
   /**
    * Under udførsel
    *
+   * @deprecated This value property is deprecated. Hidden from rendering.
    * @Route("/{id}/implementation", name="rapport_implementation")
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")
@@ -619,6 +609,7 @@ class RapportController extends BaseController {
   /**
    * Drift
    *
+   * @deprecated This method is deprecated. Status property is hidden from rendering.
    * @Route("/{id}/operation", name="rapport_operation")
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")

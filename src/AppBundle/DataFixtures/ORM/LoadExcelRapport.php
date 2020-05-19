@@ -340,7 +340,7 @@ class LoadExcelRapport extends LoadData {
       ), $values);
 
       $this->setEntityReference('bygning', $bygning->getEnhedsys(), $bygning);
-      $bygning->setStatus(BygningStatusType::IKKE_STARTET);
+      $bygning->setStatus(BygningStatusType::GODKENDT_AF_MAGISTRAT);
 
       $this->persist($bygning);
     }

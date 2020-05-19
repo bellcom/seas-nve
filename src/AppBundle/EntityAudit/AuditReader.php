@@ -26,7 +26,7 @@ class AuditReader extends BaseAuditReader {
     if ($this->filter) {
       switch ($className) {
         case 'AppBundle\Entity\Bygning':
-          $fieldNames = ['navn', 'adresse', 'postnummer', 'status'];
+          $fieldNames = ['navn', 'adresse', 'postnummer'];
           foreach ($fieldNames as $fieldName) {
             if ($this->filter->has($fieldName)) {
               $value = $this->filter->get($fieldName)->getNormData();

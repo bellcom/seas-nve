@@ -140,19 +140,6 @@ class BygningType extends AbstractType {
         'sub_widget_col'     => 10,
         'button_col'         => 2
       ));
-
-    // Only show the editable status field to super admins
-    $disallowed_statuses = array(BygningStatusType::IKKE_STARTET, BygningStatusType::DATA_VERIFICERET);
-    if ($this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN') && !in_array($data->getStatus(), $disallowed_statuses)) {
-      $builder->add('status');
-    }
-    else {
-      $builder->add('status', 'hidden', array(
-        'read_only' => TRUE
-      ));
-    }
-
-    //->add('users', null, array('by_reference' => false, 'expanded' => true , 'multiple' => true));
   }
 
   private function getUsersFromGroup($groupname) {
@@ -169,18 +156,6 @@ class BygningType extends AbstractType {
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
       'data_class' => 'AppBundle\Entity\Bygning',
-      'validation_groups' => function (FormInterface $form) {
-        $data = $form->getData();
-
-        if (BygningStatusType::DATA_VERIFICERET == $data->getStatus()) {
-          return array('Default', 'DATA_VERIFICERET');
-        }
-        else if (BygningStatusType::TILKNYTTET_RAADGIVER == $data->getStatus()) {
-          return array('Default', 'TILKNYTTET_RAADGIVER');
-        }
-
-        return array('Default');
-      },
     ));
   }
 

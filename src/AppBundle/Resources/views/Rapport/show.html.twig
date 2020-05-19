@@ -87,31 +87,8 @@
           {{ icon('edit') }} {{ 'bygning_rapporter.actions.edit' | trans }}
         </a>
       {% endif %}
-
-      {# BUTTONS #}
-      {% if prev_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ prev_status_form.vars.action | replace({'/': ''}) }}">
-          {{ icon('caret-square-o-right') }} {{ prev_status_form.children.buttons.submit.vars.label | trans }}
-        </button>
-      {% endif %}
-      {% if next_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ next_status_form.vars.action | replace({'/': ''}) }}">
-          {{ icon('caret-square-o-right') }} {{ next_status_form.children.buttons.submit.vars.label | trans }}
-        </button>
-      {% endif %}
-
     </div>
   </div>
-
-  {# MODALS #}
-  {% if prev_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
-    {% form_theme prev_status_form 'AppBundle:Form:status-modal-form.html.twig' %}
-    {{ form( prev_status_form ) }}
-  {% endif %}
-  {% if next_status_form is defined and is_granted('RAPPORT_EDIT', entity) %}
-    {% form_theme next_status_form 'AppBundle:Form:status-modal-form.html.twig' %}
-    {{ form( next_status_form ) }}
-  {% endif %}
 
   <div class="panel panel-default">
     <div class="panel-heading"><h3 class="panel-title">{{ icon('home') }} {{ 'common.data' | trans }}</h3></div>
@@ -142,12 +119,6 @@
         <td>{{ entity.datering | date('Y-m-d') }}</td>
         <th>{{ 'appbundle.bygning.projektleder' | trans }}</th>
         <td>{{ entity.bygning.projektleder }}</td>
-      </tr>
-      <tr>
-        <th><span class="hidden">{{ 'appbundle.rapport.elena' | trans }}</span></th>
-        <td><span class="hidden">{{ entity.elena | b2icon }}</span></td>
-        <th>{{ 'appbundle.bygning.status' | trans }}</th>
-        <td>{{ entity.bygning.status | readable }}</td>
       </tr>
       <tr>
         <th><span class="hidden">{{ 'appbundle.rapport.ava' | trans }}</span></th>

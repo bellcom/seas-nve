@@ -24,7 +24,6 @@
     {% xlscell %}{{ bygning.adresse }}{% endxlscell %}
     {% xlscell %}{{ bygning.postnummer }}{% endxlscell %}
     {% xlscell %}{{ bygning.postBy }}{% endxlscell %}
-    {% xlscell %}{{ bygning.status | readable('BygningStatusType') }}{% endxlscell %}
     {% xlscell %}{{ rapport ? rapport.version : null }}{% endxlscell %}
     {% xlscell %}{{ rapport ? rapport.updatedAt|date : null }}{% endxlscell %}
 
@@ -183,7 +182,6 @@
       {% xlscell %}{{ 'Adresse' | trans }}{% endxlscell %}
       {% xlscell %}{{ 'Postnummer' | trans }}{% endxlscell %}
       {% xlscell %}{{ 'By' | trans }}{% endxlscell %}
-      {% xlscell %}{{ 'Status' | trans }}{% endxlscell %}
       {% xlscell %}{{ 'Version' | trans }}{% endxlscell %}
       {% xlscell %}{{ 'Opdateret' | trans }}{% endxlscell %}
 

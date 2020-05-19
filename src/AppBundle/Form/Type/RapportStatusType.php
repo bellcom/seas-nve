@@ -36,7 +36,9 @@ class RapportStatusType extends AbstractType {
    *   @TODO: Missing description.
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-
+    /**
+     * @deprecated  Status property is hidden from rendering.
+     */
     if($this->status === BygningStatusType::UNDER_UDFOERSEL && $this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
       $builder->add('ava', 'choice', array(
         'choices' => array(

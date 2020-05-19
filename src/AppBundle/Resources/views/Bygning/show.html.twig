@@ -20,21 +20,12 @@
           {{ 'appbundle.bygning.baseline' | trans }}
         </a>
       {% endif %}
-      {% if entity.rapport %}
-        <a href="{{ path('rapport_show', { 'id': entity.rapport.id }) }}" class="btn btn-default">{{ icon('caret-square-o-right') }} {{ 'appbundle.virksomhed.rapport' | trans }}</a>
-      {% endif %}
+      <a href="{{ path_with_access_token('bygning_rapport', { 'id': entity.id }) }}" class="btn btn-default">
+        {{ icon('caret-square-o-right') }} {{ 'bygninger.strings.rapport' | trans }}
+      </a>
       {% if is_granted('ROLE_BYGNING_EDIT') %}
         <a href="{{ path('bygning_edit', { 'id': entity.id }) }}" class="btn btn-default">
           {{ icon('edit') }} {{ 'common.edit' | trans }}
-        </a>
-      {% endif %}
-      {% if is_granted('ROLE_BYGNING_EDIT') and entity.status == '1_IS' %}
-        <a href="{{ path('bygning_indfoer', { 'id': entity.id }) }}" class="btn btn-primary">
-          {{ icon('caret-square-o-right') }} {{ 'bygninger.actions.indfoer' | trans }}
-        </a>
-      {% elseif is_granted('ROLE_BYGNING_EDIT') and entity.status == '2_DV' %}
-        <a href="{{ path('bygning_tilknyt', { 'id': entity.id }) }}" class="btn btn-primary">
-          {{ icon('caret-square-o-right') }} {{ 'bygninger.actions.tilknyt_raadgiver' | trans }}
         </a>
       {% endif %}
       </p>
@@ -177,15 +168,9 @@
             <td>{{ entity.opvarmetareal }}</td>
           </tr>
           <tr>
-            <th>{{ 'appbundle.bygning.status' | trans }}</th>
-            <td>{{ entity.status | readable }}</td>
-          </tr>
-          <tr>
             <th>{{ 'bygning_rapporter.labels.singular' | trans }}</th>
             <td>
-              {% if entity.rapport %}
-                <a href="{{ path('rapport_show', { 'id': entity.rapport.id }) }}">{{ entity.rapport }} - {{ 'appbundle.rapport.version' | trans }} {{ entity.rapport.version }}</a>
-              {% endif %}
+              <a href="{{ path_with_access_token('bygning_rapport', { 'id': entity.id }) }}">{{ entity.rapport }}</a>
             </td>
           </tr>
           <tr>

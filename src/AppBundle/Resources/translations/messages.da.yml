@@ -175,14 +175,17 @@ bygninger:
     indfoer: "Indfør Bygning"
     show: "Vis Bygning"
     tilknyt_raadgiver: "Tilknyt Rådgiver"
+    create_rapport: "Opret bygning rapport"
   confirmation:
     bygning_infoert: "Bygnings data verificeret"
     raadgiver_tilknyttet: "Rådgiver tilknyttet"
     deleted: "Bygning slettet"
+    rapport_created: "Bygning rapport oprettet"
   labels:
     plural: "Bygninger"
     singular: "Bygning"
   strings:
+    rapport: "Rapport"
     ingen: "Ingen bygninger fundet"
     ingen_rapporter: "Ingen tilknyttede rapporter"
     search_by_cvr: "Vælg eksisterende virksomhed."

@@ -63,23 +63,6 @@ class TiltagType extends AbstractType {
       $builder->add('tilvalgtbegrundelse', NULL, array('required' => FALSE));
       $builder->add('tilvalgtBegrundelseMagistrat', NULL, array('required' => FALSE));
 
-      $status = $this->tiltag->getRapport()->getBygning()->getStatus();
-
-      // Dato for drift
-      if($status === BygningStatusType::UNDER_UDFOERSEL || $status === BygningStatusType::DRIFT) {
-        $builder->add('datoForDrift', 'date', array(
-          // render as a single text box
-          'widget' => 'single_text',
-          'required' => false
-        ));
-      }
-
-      // Energiledelse faktor/noter
-      if($status === BygningStatusType::DRIFT) {
-        $builder->add('energiledelseAendringIBesparelseFaktor', 'percent', array('required' => FALSE));
-        $builder->add('energiledelseNoter');
-      }
-
     }
     $builder->add('title')
             ->add('opstartsomkostninger');

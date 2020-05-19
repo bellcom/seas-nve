@@ -281,10 +281,11 @@ class Bygning {
   /**
    * @var string
    *
+   * @deprecated This value property is deprecated. Hidden from rendering.
    * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\BygningStatusType")
    * @ORM\Column(name="status", type="BygningStatusType")
    **/
-  protected $status = BygningStatusType::IKKE_STARTET;
+  protected $status = BygningStatusType::GODKENDT_AF_MAGISTRAT;
 
   /**
    * Contact persons reference.
@@ -921,6 +922,7 @@ class Bygning {
   /**
    * Set status
    *
+   * @deprecated This value property is deprecated. Hidden from rendering.
    * @param \AppBundle\DBAL\Types\BygningStatusType status
    *
    * @return Bygning
@@ -938,6 +940,7 @@ class Bygning {
   /**
    * Get status
    *
+   * @deprecated This value property is deprecated. Hidden from rendering.
    * @return \AppBundle\DBAL\Types\BygningStatusType
    */
   public function getStatus() {
@@ -947,6 +950,7 @@ class Bygning {
   /**
    * Get nummeric status i.e. the first char from the status
    *
+   * @deprecated This value property is deprecated. Hidden from rendering.
    * @return string
    */
   public function getNummericStatus() {
