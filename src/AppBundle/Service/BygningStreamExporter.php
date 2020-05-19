@@ -171,8 +171,6 @@ class BygningStreamExporter {
       $this->addFormatedStringCell('%s (%s)', ['CO2-besparelse El', $this->trans('appbundle.rapport.besparelseCO2el.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Samlet CO2-besparelse', $this->trans('appbundle.rapport.besparelseCO2.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Total Entreprisesum', $this->trans('appbundle.rapport.anlaegsinvestering.unit')]);
-      $this->addFormatedStringCell('%s (%s)', ['Genopretning', $this->trans('appbundle.rapport.genopretning.unit')]);
-      $this->addFormatedStringCell('%s (%s)', ['Modernisering', $this->trans('appbundle.rapport.modernisering.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Aa+ Investering eksl. øvrige omkostninger', $this->trans('appbundle.rapport.investeringEksFaellesomkostninger.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['MTM fællesomkostninger', $this->trans('appbundle.rapport.mtmFaellesomkostninger.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Energiscreeningspris', $this->trans('appbundle.rapport.energiscreening.unit')]);
@@ -220,9 +218,6 @@ class BygningStreamExporter {
       $this->addFormatedStringCell('%s (%s)', ['CO2-besparelse', $this->trans('appbundle.tiltag.samletCo2besparelse.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Faktisk Entreprisesum', $this->trans('appbundle.tiltag.anlaegsInvestering.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Entreprisesum', $this->trans('appbundle.tiltag.anlaegsInvestering.unit')]);
-      $this->addFormatedStringCell('%s (%s)', ['Genopretning', $this->trans('appbundle.tiltag.genopretning.unit')]);
-      $this->addFormatedStringCell('%s (%s)', ['Genopretning for implementeringsomkostninger', $this->trans('appbundle.tiltag.genopretningForImplementeringsomkostninger.unit')]);
-      $this->addFormatedStringCell('%s (%s)', ['Modernisering', $this->trans('appbundle.tiltag.modernisering.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Aa+ investering eksl. øvrige omk.', $this->trans('appbundle.tiltag.aaplusInvestering.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Simpel tilbagebetalingstid', $this->trans('appbundle.tiltag.simpelTilbagebetalingstidAar.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Nutidsværdi set over 15 år', $this->trans('appbundle.tiltag.nutidsvaerdiSetOver15AarKr.unit')]);
@@ -309,8 +304,6 @@ class BygningStreamExporter {
         $this->addCell($rapport->getCo2BesparelseEl());
         $this->addCell($rapport->getCo2BesparelseVarme() + $rapport->getCo2BesparelseEl());
         $this->addCell($rapport->getAnlaegsinvestering());
-        $this->addCell($rapport->getGenopretning());
-        $this->addCell($rapport->getModernisering());
         $this->addCell($rapport->getinvesteringEksFaellesomkostninger());
         $this->addCell($rapport->getMtmFaellesomkostninger());
         $this->addCell($rapport->getEnergiscreening());
@@ -374,9 +367,6 @@ class BygningStreamExporter {
       $this->addCell($tiltag->getSamletCo2besparelse());
       $this->addCell($tiltag->getReelAnlaegsinvestering());
       $this->addCell($tiltag->getAnlaegsinvestering());
-      $this->addCell($tiltag->getGenopretning());
-      $this->addCell($tiltag->getGenopretningForImplementeringsomkostninger());
-      $this->addCell($tiltag->getModernisering());
       $this->addCell($tiltag->getAaplusInvestering());
       $this->addCell($tiltag->getSimpelTilbagebetalingstidAar());
       $this->addCell($tiltag->getNutidsvaerdiSetOver15AarKr());

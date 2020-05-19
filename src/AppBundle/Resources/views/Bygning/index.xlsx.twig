@@ -87,8 +87,6 @@
         {% xlscell %}{{ (rapport ? rapport.co2BesparelseEl : null) }}{% endxlscell %}
         {% xlscell %}{{ (rapport ? rapport.co2BesparelseVarme + rapport.co2BesparelseEl : null) }}{% endxlscell %}
         {% xlscell %}{{ (rapport ? rapport.anlaegsinvestering : null) }}{% endxlscell %}
-        {% xlscell %}{{ (rapport ? rapport.genopretning : null) }}{% endxlscell %}
-        {% xlscell %}{{ (rapport ? rapport.modernisering : null) }}{% endxlscell %}
         {% xlscell %}{{ (rapport ? rapport.investeringEksFaellesomkostninger : null) }}{% endxlscell %}
         {% xlscell %}{{ (rapport ? rapport.mtmFaellesomkostninger : null) }}{% endxlscell %}
         {% xlscell %}{{ (rapport ? rapport.energiscreening : null) }}{% endxlscell %}
@@ -145,9 +143,6 @@
       {% xlscell %}{{ tiltag.samletCo2besparelse }}{% endxlscell %}
       {% xlscell %}{{ tiltag.reelAnlaegsinvestering }}{% endxlscell %}
       {% xlscell %}{{ tiltag.anlaegsinvestering }}{% endxlscell %}
-      {% xlscell %}{{ tiltag.genopretning }}{% endxlscell %}
-      {% xlscell %}{{ tiltag.genopretningForImplementeringsomkostninger }}{% endxlscell %}
-      {% xlscell %}{{ tiltag.modernisering }}{% endxlscell %}
       {% xlscell %}{{ tiltag.aaplusInvestering }}{% endxlscell %}
       {% xlscell %}{{ tiltag.simpelTilbagebetalingstidAar }}{% endxlscell %}
       {% xlscell %}{{ tiltag.nutidsvaerdiSetOver15AarKr }}{% endxlscell %}
@@ -240,8 +235,6 @@
         {% xlscell %}{{ 'CO2-besparelse El' | trans }} ({{ 'appbundle.rapport.besparelseCO2el.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Samlet CO2-besparelse' | trans }} ({{ 'appbundle.rapport.besparelseCO2.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Total Entreprisesum' | trans }} ({{ 'appbundle.rapport.anlaegsinvestering.unit' | trans }}){% endxlscell %}
-        {% xlscell %}{{ 'Genopretning' | trans }} ({{ 'appbundle.rapport.genopretning.unit' | trans }}){% endxlscell %}
-        {% xlscell %}{{ 'Modernisering' | trans }} ({{ 'appbundle.rapport.modernisering.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Aa+ Investering eksl. øvrige omkostninger' | trans }} ({{ 'appbundle.rapport.investeringEksFaellesomkostninger.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'MTM fællesomkostninger' | trans }} ({{ 'appbundle.rapport.mtmFaellesomkostninger.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Energiscreeningspris' | trans }} ({{ 'appbundle.rapport.energiscreening.unit' | trans }}){% endxlscell %}
@@ -285,9 +278,6 @@
         {% xlscell %}{{ 'CO2-besparelse' | trans }} ({{ 'appbundle.tiltag.samletCo2besparelse.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Faktisk Entreprisesum' | trans }} ({{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Entreprisesum' | trans }} ({{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}){% endxlscell %}
-        {% xlscell %}{{ 'Genopretning' | trans }} ({{ 'appbundle.tiltag.genopretning.unit' | trans }}){% endxlscell %}
-        {% xlscell %}{{ 'Genopretning for implementeringsomkostninger' | trans }} ({{ 'appbundle.tiltag.genopretningForImplementeringsomkostninger.unit' | trans }}){% endxlscell %}
-        {% xlscell %}{{ 'Modernisering' | trans }} ({{ 'appbundle.tiltag.modernisering.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Aa+ investering eksl. øvrige omk.' | trans }} ({{ 'appbundle.tiltag.aaplusInvestering.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Simpel tilbagebetalingstid' | trans }} ({{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}){% endxlscell %}
         {% xlscell %}{{ 'Nutidsværdi set over 15 år' | trans }} ({{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr.unit' | trans }}){% endxlscell %}

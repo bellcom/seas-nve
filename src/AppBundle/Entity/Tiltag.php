@@ -495,27 +495,6 @@ abstract class Tiltag {
   protected $budgetteredeUdgifter;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
-   */
-  protected $genopretning = 0;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
-   */
-  protected $genopretningForImplementeringsomkostninger = 0;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
-   */
-  protected $modernisering = 0;
-
-  /**
    * @OneToMany(targetEntity="Bilag", mappedBy="tiltag", cascade={"remove"})
    * @OrderBy({"id" = "ASC"})
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Bilag>")
@@ -1380,72 +1359,6 @@ abstract class Tiltag {
   }
 
   /**
-   * Set genopretning
-   *
-   * @param string $genopretning
-   *
-   * @return Tiltag
-   */
-  public function setGenopretning($genopretning) {
-    $this->genopretning = $genopretning;
-
-    return $this;
-  }
-
-  /**
-   * Get genopretning
-   *
-   * @return float
-   */
-  public function getGenopretning() {
-    return $this->genopretning;
-  }
-
-  /**
-   * Set genopretningForImplementeringsomkostninger
-   *
-   * @param string $genopretningForImplementeringsomkostninger
-   *
-   * @return Tiltag
-   */
-  public function setGenopretningForImplementeringsomkostninger($genopretningForImplementeringsomkostninger) {
-    $this->genopretningForImplementeringsomkostninger = $genopretningForImplementeringsomkostninger;
-
-    return $this;
-  }
-
-  /**
-   * Get genopretningForImplementeringsomkostninger
-   *
-   * @return string
-   */
-  public function getGenopretningForImplementeringsomkostninger() {
-    return $this->genopretningForImplementeringsomkostninger;
-  }
-
-  /**
-   * Set modernisering
-   *
-   * @param string $modernisering
-   *
-   * @return Tiltag
-   */
-  public function setModernisering($modernisering) {
-    $this->modernisering = $modernisering;
-
-    return $this;
-  }
-
-  /**
-   * Get modernisering
-   *
-   * @return float
-   */
-  public function getModernisering() {
-    return $this->modernisering;
-  }
-
-  /**
    * Get all selected TiltagDetails.
    *
    * @return ArrayCollection
@@ -1583,10 +1496,10 @@ abstract class Tiltag {
 
   /**
    * @inheritDoc
-   * @Formula("$this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering())")
+   * @Formula("$this->getAnlaegsinvestering()")
    */
   protected function calculateAaplusInvestering() {
-    return $this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering());
+    return $this->getAnlaegsinvestering();
   }
 
   protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {

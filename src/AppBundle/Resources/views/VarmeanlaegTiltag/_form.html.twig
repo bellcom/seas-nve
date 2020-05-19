@@ -118,10 +118,6 @@
   </div>
   <div class="panel-body">
     <div class="col-xs-12 col-md-6">
-      {% if edit_form.genopretning is defined %}
-        {{ form_row(edit_form.genopretning) }}
-      {% endif %}
-      {{ form_row(edit_form.genopretningForImplementeringsomkostninger) }}
       {% if edit_form.besparelseDriftOgVedligeholdelse is defined %}
         {{ form_row(edit_form.besparelseDriftOgVedligeholdelse) }}
       {% endif %}
@@ -135,9 +131,6 @@
       {% endif %}
       {% if edit_form.anlaegsinvesteringExRisiko is defined %}
         {{ form_row(edit_form.anlaegsinvesteringExRisiko) }}
-      {% endif %}
-      {% if edit_form.modernisering is defined %}
-        {{ form_row(edit_form.modernisering) }}
       {% endif %}
       {% if edit_form.besparelseStrafafkoelingsafgift is defined %}
         {{ form_row(edit_form.besparelseStrafafkoelingsafgift) }}

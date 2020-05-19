@@ -372,7 +372,7 @@ class VirksomhedRapport
     protected $anlaegsinvestering;
 
     /**
-     * @Formula("$this->getAnlaegsinvestering() - ($this->getModernisering() + $this->getGenopretning())")
+     * @Formula("$this->getAnlaegsinvestering()")
      */
     protected $investeringEksFaellesomkostninger;
 
@@ -558,44 +558,6 @@ class VirksomhedRapport
      * @var ArrayCollection $rapporter
      */
     protected $rapporter = array();
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
-     * @Formula("$this->calculateBesparelseElExp()")
-     */
-    protected $genopretning;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
-     * @Formula("$this->calculateBesparelseElExp()")
-     */
-    protected $genopretningForImplementeringsomkostninger;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
-     * @Formula("$this->calculateBesparelseElExp()")
-     */
-    protected $modernisering;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="FravalgtGenopretning", type="decimal", nullable=true)
-     */
-    protected $fravalgtGenopretning;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="FravalgtModernisering", type="decimal", nullable=true)
-     */
-    protected $fravalgtModernisering;
 
     /**
      * @var array
@@ -1787,111 +1749,6 @@ class VirksomhedRapport
     }
 
     /**
-     * Set genopretning
-     *
-     * @param float $genopretning
-     * @return VirksomhedRapport
-     */
-    public function setGenopretning($genopretning)
-    {
-        $this->genopretning = $genopretning;
-        return $this;
-    }
-
-    /**
-     * Get genopretning
-     *
-     * @return float
-     */
-    public function getGenopretning()
-    {
-        return $this->genopretning;
-    }
-
-    /**
-     * Set genopretningForImplementeringsomkostninger
-     *
-     * @param float $genopretningForImplementeringsomkostninger
-     * @return VirksomhedRapport
-     */
-    public function setGenopretningForImplementeringsomkostninger($genopretningForImplementeringsomkostninger)
-    {
-        $this->genopretningForImplementeringsomkostninger = $genopretningForImplementeringsomkostninger;
-        return $this;
-    }
-
-    public function getGenopretningForImplementeringsomkostninger()
-    {
-        return $this->genopretningForImplementeringsomkostninger;
-    }
-
-    /**
-     * Set modernisering
-     *
-     * @param float $modernisering
-     * @return VirksomhedRapport
-     */
-    public function setModernisering($modernisering)
-    {
-        $this->modernisering = $modernisering;
-        return $this;
-    }
-
-    /**
-     * Get modernisering
-     *
-     * @return float
-     */
-    public function getModernisering()
-    {
-        return $this->modernisering;
-    }
-
-    /**
-     * Set fravalgtGenopretning
-     *
-     * @param float $fravalgtGenopretning
-     * @return VirksomhedRapport
-     */
-    public function setFravalgtGenopretning($fravalgtGenopretning)
-    {
-        $this->fravalgtGenopretning = $fravalgtGenopretning;
-        return $this;
-    }
-
-    /**
-     * Get genopretning for fravalgte tiltag
-     *
-     * @return float
-     */
-    public function getFravalgtGenopretning()
-    {
-        return $this->fravalgtGenopretning;
-    }
-
-    /**
-     * Set fravalgtModernisering
-     *
-     * @param float $fravalgtModernisering
-     * @return VirksomhedRapport
-     */
-    public function setFravalgtModernisering($fravalgtModernisering)
-    {
-        $this->fravalgtModernisering = $fravalgtModernisering;
-        return $this;
-    }
-
-    /**
-     * Get moderniseringfor fravalgte tiltag
-     *
-     * @return float
-     */
-    public function getFravalgtModernisering()
-    {
-        return $this->fravalgtModernisering;
-    }
-
-    /**
      * @param boolean $ava
      */
     public function setAva($ava)
@@ -2319,8 +2176,6 @@ class VirksomhedRapport
 
         'mtmFaellesomkostninger',
         'implementering',
-        'fravalgtGenopretning',
-        'fravalgtModernisering',
         'fravalgtImplementering',
         'faellesomkostninger',
         'fravalgtBesparelseDriftOgVedligeholdelse',
@@ -2328,9 +2183,6 @@ class VirksomhedRapport
         'fravalgtAnlaegsinvestering',
         'nutidsvaerdiSetOver15AarKr',
         'fravalgtNutidsvaerdiSetOver15AarKr',
-        'genopretning',
-        'genopretningForImplementeringsomkostninger',
-        'modernisering',
         'internRenteInklFaellesomkostninger',
 
         'energibudgetEl',

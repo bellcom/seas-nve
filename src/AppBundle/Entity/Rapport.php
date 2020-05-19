@@ -1535,81 +1535,6 @@ class Rapport {
   }
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
-   */
-  protected $genopretning;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
-   */
-  protected $genopretningForImplementeringsomkostninger;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
-   */
-  protected $modernisering;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="FravalgtGenopretning", type="decimal", nullable=true)
-   */
-  protected $fravalgtGenopretning;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="FravalgtModernisering", type="decimal", nullable=true)
-   */
-  protected $fravalgtModernisering;
-
-  /**
-   * Get genopretning
-   *
-   * @return string
-   */
-  public function getGenopretning() {
-    return $this->genopretning;
-  }
-
-  public function getGenopretningForImplementeringsomkostninger() {
-    return $this->genopretningForImplementeringsomkostninger;
-  }
-
-  /**
-   * Get modernisering
-   *
-   * @return string
-   */
-  public function getModernisering() {
-    return $this->modernisering;
-  }
-
-  /**
-   * Get genopretning for fravalgte tiltag
-   *
-   * @return string
-   */
-  public function getFravalgtGenopretning() {
-    return $this->fravalgtGenopretning;
-  }
-
-  /**
-   * Get moderniseringfor fravalgte tiltag
-   *
-   * @return string
-   */
-  public function getFravalgtModernisering() {
-    return $this->fravalgtModernisering;
-  }
-
-  /**
    * Get elena
    *
    * @return boolean
@@ -1954,18 +1879,19 @@ class Rapport {
    * Get investering eksl. genopretning og modernisering
    */
   public function getInvesteringEkslGenopretningOgModernisering() {
-    return $this->anlaegsinvestering - ($this->genopretning + $this->modernisering);
+    return $this->anlaegsinvestering;
   }
 
   /**
    * Get investering eksl. genopretning og modernisering
+   *
    */
   public function getFravalgtInvesteringEkslGenopretningOgModernisering() {
-    return $this->fravalgtAnlaegsinvestering - ($this->fravalgtGenopretning + $this->fravalgtModernisering);
+    return $this->fravalgtAnlaegsinvestering;
   }
 
   /**
-   * @Formula("$this->getAnlaegsinvestering() - ($this->getModernisering() + $this->getGenopretning())")
+   * @Formula("$this->getAnlaegsinvestering()")
    */
   protected $investeringEksFaellesomkostninger;
 
@@ -2253,8 +2179,6 @@ class Rapport {
 
     $this->mtmFaellesomkostninger = $this->calculateMtmFaellesomkostninger();
     $this->implementering = $this->calculateImplementering();
-    $this->fravalgtGenopretning = $this->calculateFravalgtGenopretning();
-    $this->fravalgtModernisering = $this->calculateFravalgtModernisering();
     $this->fravalgtImplementering = $this->calculateFravalgtImplementering();
     $this->faellesomkostninger = $this->calculateFaellesomkostninger();
     $this->fravalgtBesparelseDriftOgVedligeholdelse = $this->calculateFravalgtBesparelseDriftOgVedligeholdelse();
@@ -2266,9 +2190,6 @@ class Rapport {
     $this->fravalgtAnlaegsinvestering = $this->calculateFravalgtAnlaegsinvestering();
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->fravalgtNutidsvaerdiSetOver15AarKr = $this->calculateFravalgtNutidsvaerdiSetOver15AarKr();
-    $this->genopretning = $this->calculateGenopretning();
-    $this->genopretningForImplementeringsomkostninger = $this->calculateGenopretningForImplementeringsomkostninger();
-    $this->modernisering = $this->calculateModernisering();
 
     $this->cashFlow15 = $this->calculateCashFlow15();
     $this->cashFlow30 = $this->calculateCashFlow30();
@@ -2309,77 +2230,6 @@ class Rapport {
     }
 
     return $result;
-  }
-
-  /**
-   * Calculates expression for genopretning value
-   */
-  protected function calculateGenopretningExp() {
-    return $this->calculateGenopretning(TRUE);
-  }
-
-  /**
-   * @Formula("$this->calculateGenopretningExp()")
-   */
-  protected function calculateGenopretning($expression = FALSE) {
-    $value = array();
-    foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      $value[] = $tiltag->getGenopretning();
-    }
-    return $expression ? $this->sumExpr($value) : array_sum($value);
-  }
-
-  /**
-   * Calculates expression for genopretningForImplementeringsomkostninger value
-   */
-  protected function calculateGenopretningForImplementeringsomkostningerExp() {
-    return $this->calculateGenopretningForImplementeringsomkostninger(TRUE);
-  }
-
-  /**
-   * @Formula("$this->calculateGenopretningForImplementeringsomkostningerExp()")
-   */
-  private function calculateGenopretningForImplementeringsomkostninger($expression = FALSE) {
-    $result = $this->accumulateArray(function($tiltag, array $result) {
-      $result[] = $tiltag->getGenopretningForImplementeringsomkostninger();
-      return $result;
-    });
-
-    return $expression ? $this->sumExpr($result) : array_sum($result);
-  }
-
-  /**
-   * Calculates expression for modernisering value
-   */
-  protected function calculateModerniseringExp() {
-    return $this->calculateModernisering(TRUE);
-  }
-
-  /**
-   * @Formula("$this->calculateModerniseringExp()")
-   */
-  private function calculateModernisering($expression = FALSE) {
-    $result = array();
-    foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      $result[] = $tiltag->getModernisering();
-    }
-    return $expression ? $this->sumExpr($result) : array_sum($result);
-  }
-
-  private function calculateFravalgtGenopretning() {
-    $value = 0;
-    foreach ($this->getFravalgteTiltag() as $tiltag) {
-      $value += $tiltag->getGenopretning();
-    }
-    return $value;
-  }
-
-  private function calculateFravalgtModernisering() {
-    $value = 0;
-    foreach ($this->getFravalgteTiltag() as $tiltag) {
-      $value += $tiltag->getModernisering();
-    }
-    return $value;
   }
 
   /**
@@ -2745,9 +2595,6 @@ class Rapport {
     foreach ($this->getFravalgteTiltag() as $tiltag) {
       $sum += $tiltag->getAaplusInvestering();
     }
-
-    $sum -= $this->fravalgtGenopretning;
-    $sum -= $this->fravalgtModernisering;
 
     return $sum * $this->getProcentAfInvestering();
   }

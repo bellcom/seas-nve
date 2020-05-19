@@ -97,9 +97,6 @@ class TiltagType extends AbstractType {
       ->add('forbrugEfter', 'text', array('attr' => $attr));
 
     $builder
-      ->add('genopretning')
-      ->add('genopretningForImplementeringsomkostninger')
-      ->add('modernisering')
       ->add('reelAnlaegsinvestering');
 
     $builder->add('reelAnlaegsinvestering')
