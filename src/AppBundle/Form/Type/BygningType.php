@@ -123,10 +123,6 @@ class BygningType extends AbstractType {
         'required' => FALSE,
         'empty_value' => 'common.none',
       ))
-      ->add('users', null, array(
-        'expanded' => TRUE,
-        'choices' => $this->getUsersFromGroup("Interessent"),
-        ))
       ->add('contactPersons', 'bootstrap_collection', array(
         'property_path' => 'ContactPersons',
         'label' => FALSE,
