@@ -41,8 +41,6 @@ class BelysningTiltagDetailType extends TiltagDetailType
             ->add('rumstoerrelseM2')
             ->add('lokale_antal')
             ->add('drifttidTAar')
-            ->add('lyskilde')
-            ->add('lyskildeStk')
             ->add('lyskildeWLyskilde')
             ->add('benyttelsesFaktor','choice', array(
                 'choices' => LykilderBenyttelsesFaktor::getChoices(),
@@ -59,6 +57,7 @@ class BelysningTiltagDetailType extends TiltagDetailType
                 'required' => FALSE,
                 'empty_value' => 'common.none',
             ))
+            ->add('erstatningsLyskilde')
             ->add('nytArmatur')
             ->add('noter')
             ->add('noterForNyBelysning')
@@ -67,8 +66,6 @@ class BelysningTiltagDetailType extends TiltagDetailType
             ->add('standardinvestArmaturKrStk')
             ->add('standardinvestLyskildeKrStk')
             ->add('belysningstiltag')
-            ->add('nyLyskilde')
-            ->add('nyLyskildeStk')
             ->add('nyLyskildeWLyskilde')
             ->add('nyBenyttelsesFaktor','choice', array(
                 'choices' => LykilderBenyttelsesFaktor::getChoices(),

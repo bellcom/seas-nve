@@ -66,6 +66,15 @@ function changeNytArmatur() {
         });
       }
 
+      wattage = $('#appbundle_belysningtiltagdetail_nyLyskildeWLyskilde');
+      if(wattage.val() != erstatningsvalues[selected_val].wattage) {
+        wattage.val(erstatningsvalues[selected_val].wattage);
+        wattage.parent().addClass('has-info');
+        wattage.focusout(function() {
+          wattage.parent().removeClass('has-info');
+        });
+      }
+
       noter = $('#appbundle_belysningtiltagdetail_noterForNyBelysning');
       noter.val(JSON.parse(erstatningsvalues[selected_val].noter));
       noter.parent().addClass('has-info');

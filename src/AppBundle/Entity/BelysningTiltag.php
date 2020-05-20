@@ -124,27 +124,6 @@ class BelysningTiltag extends Tiltag
         }
     }
 
-    protected function calculateBesparelseDriftOgVedligeholdelseExpr()
-    {
-        return $this->sum('driftsbesparelseTilLyskilderKrAar', TRUE);
-    }
-
-    /**
-     * @Formula("$this->calculateBesparelseDriftOgVedligeholdelseExpr()")
-     */
-    protected function calculateBesparelseDriftOgVedligeholdelse()
-    {
-        return $this->sum('driftsbesparelseTilLyskilderKrAar');
-    }
-
-    protected function calculateLevetid()
-    {
-        return round($this->divide($this->sum(function ($detail) {
-                return $detail->getUdgiftSensorer() * $detail->getLevetidSensor();
-            }) + $this->sum('armaturvaegtning') + $this->sum('lyskildevaegtning'),
-            $this->sum('udgiftSensorer') + $this->sum('udgiftArmaturer') + $this->sum('udgiftLyskilde')));
-    }
-
     protected function calculateMaengde()
     {
         return $this->sum('rumstoerrelseM2');
@@ -153,6 +132,14 @@ class BelysningTiltag extends Tiltag
     protected function calculateEnhed()
     {
         return 'm2';
+    }
+
+    /**
+     * @Formula("$this->aaplusInvestering / $this->samletEnergibesparelse")
+     */
+    protected function calculateSimpelTilbagebetalingstidAar() {
+        return $this->divide(($this->aaplusInvestering),
+            $this->samletEnergibesparelse);
     }
 
 }
