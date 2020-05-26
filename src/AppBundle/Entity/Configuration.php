@@ -171,6 +171,13 @@ class Configuration
     private $varmePumpeFaktor;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="nutidsvaerdiBeregnAar", type="decimal")
+     */
+    private $nutidsvaerdiBeregnAar = 25;
+
+    /**
      * Constructor
      */
     public function __construct() {
@@ -617,6 +624,29 @@ class Configuration
     public function getVarmePumpeFaktor()
     {
         return $this->varmePumpeFaktor;
+    }
+
+    /**
+     * Set nutidsvaerdiBeregnAar
+     *
+     * @param integer $nutidsvaerdiBeregnAar
+     *
+     * @return Configuration
+     */
+    public function setNutidsvaerdiBeregnAar($nutidsvaerdiBeregnAar)
+    {
+        $this->nutidsvaerdiBeregnAar = $nutidsvaerdiBeregnAar;
+        return $this;
+    }
+
+    /**
+     * Get nutidsvaerdiBeregnAar
+     *
+     * @return integer
+     */
+    public function getNutidsvaerdiBeregnAar()
+    {
+        return empty($this->nutidsvaerdiBeregnAar) ? 25 : $this->nutidsvaerdiBeregnAar;
     }
 
     /**

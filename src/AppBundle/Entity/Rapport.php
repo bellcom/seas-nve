@@ -409,6 +409,22 @@ class Rapport {
   protected $nutidsvaerdiSetOver15AarKr;
 
   /**
+   * @var array
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdiSet", type="array", nullable=true)
+   */
+  protected $nutidsvaerdiSet;
+
+  /**
+   * @var array
+   *
+   * @Calculated
+   * @ORM\Column(name="akkumuleretNutidsvaerdiSet", type="array", nullable=true)
+   */
+  protected $akkumuleretNutidsvaerdiSet;
+
+  /**
    * @var float
    *
    * @Calculated
@@ -476,6 +492,14 @@ class Rapport {
    * @ORM\Column(name="ava", type="boolean", nullable=true)
    */
   protected $ava = FALSE;
+
+  /**
+   * @var array of float
+   *
+   * @Calculated
+   * @ORM\Column(name="cashFlow", type="array")
+   */
+  protected $cashFlow;
 
   /**
    * @var array of float
@@ -821,12 +845,32 @@ class Rapport {
   }
 
   /**
-   * @var array
-   *
-   * @Calculated
-   * @ORM\Column(name="cashFlow", type="array")
+   * @param array $nutidsvaerdiSet
    */
-  protected $cashFlow;
+  public function setNutidsvaerdiSet($nutidsvaerdiSet) {
+    $this->nutidsvaerdiSet = $nutidsvaerdiSet;
+  }
+
+  /**
+   * @return array
+   */
+  public function getNutidsvaerdiSet() {
+    return $this->nutidsvaerdiSet;
+  }
+
+  /**
+   * @param array $akkumuleretNutidsvaerdiSet
+   */
+  public function setAkkumuleretNutidsvaerdiSet($akkumuleretNutidsvaerdiSet) {
+    $this->akkumuleretNutidsvaerdiSet = $akkumuleretNutidsvaerdiSet;
+  }
+
+  /**
+   * @return array
+   */
+  public function getAkkumuleretNutidsvaerdiSet() {
+    return $this->akkumuleretNutidsvaerdiSet;
+  }
 
   /**
    * Constructor
@@ -2194,6 +2238,9 @@ class Rapport {
     $this->cashFlow15 = $this->calculateCashFlow15();
     $this->cashFlow30 = $this->calculateCashFlow30();
 
+    $this->nutidsvaerdiSet = $this->calculateNutidsvaerdiSet();
+    $this->akkumuleretNutidsvaerdiSet = $this->calculateAkkumuleterNutidsvaerdiSet();
+
     $this->internRenteInklFaellesomkostninger = $this->calculateInternRenteInklFaellesomkostninger();
 
     $this->energibudgetVarme = $this->calculateEnergibudgetVarme();
@@ -2226,6 +2273,19 @@ class Rapport {
         for($i = 1; $i <= 30; $i++) {
           $result[$i] += $cashflow[$i];
         }
+      }
+    }
+
+    return $result;
+  }
+
+  private function calculateCashFlowSet() {
+    $nutidsvaerdiBeregnAar = $this->getConfiguration()->getNutidsvaerdiBeregnAar();
+    $result = array_fill(1, $nutidsvaerdiBeregnAar, 0);
+    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+      $cashflow = $tiltag->getCashFlowSet();
+      for ($i = 1; $i <= $nutidsvaerdiBeregnAar; $i++) {
+        $result[$i] += isset($cashflow[$i]) ? $cashflow[$i] : 0;
       }
     }
 
@@ -2688,6 +2748,32 @@ class Rapport {
     return Calculation::npv($this->getKalkulationsrente(), $cashFlow, $array);
   }
 
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSet")
+   */
+  protected function calculateNutidsvaerdiSet() {
+    $years = $this->getConfiguration()->getNutidsvaerdiBeregnAar();
+    $cashFlow = $this->calculateCashFlow($years);
+    return Calculation::npv($this->getKalkulationsrente(), $cashFlow['cash flow'], TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
+   */
+  protected function calculateAkkumuleterNutidsvaerdiSet() {
+    $years = $this->getConfiguration()->getNutidsvaerdiBeregnAar();
+    $nutidsvaerdiSet = $this->getNutidsvaerdiSet();
+    $result = array_fill(0, $years, 0);
+    $value = - ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering());
+    $result[0] = $value;
+    for ($i = 1; $i <= $years; $i++) {
+      $value += isset($nutidsvaerdiSet[$i]) ? $nutidsvaerdiSet[$i] : 0;
+      $result[$i] = $value;
+    }
+
+    return $result;
+  }
+
   protected function calculateFravalgtNutidsvaerdiSetOver15AarKr() {
     $result = 0;
     foreach ($this->getFravalgteTiltag() as $tiltag) {
@@ -2743,8 +2829,7 @@ class Rapport {
     return $this->BaselineBraendstof - $this->besparelseBraendstof;
   }
 
-  private function calculateCashFlow() {
-    $numberOfYears = 30;
+  private function calculateCashFlow($numberOfYears = 30) {
     $maxTiltagLevetid = $this->accumulate(function($tiltag, $value) {
       return $tiltag->getLevetid() > $value ? $tiltag->getLevetid() : $value;
     }, 0);
@@ -2773,7 +2858,7 @@ class Rapport {
       $flow['ydelse laan'][$year] = ($year <= $loebetid) ? -$samletAarligYdelseTilLaan : NULL;
       $flow['laan til faellesomkostninger'][$year] = ($year <= $loebetid) ? -Calculation::pmt($rente, $loebetid, $this->faellesomkostninger) : NULL;
       $flow['ydelse laan inkl. faellesomkostninger'][$year] = $flow['ydelse laan'][$year] + $flow['laan til faellesomkostninger'][$year];
-      $besparelse = $year > $maxTiltagLevetid ? NULL : $this->accumulate(function($tiltag, $value) use ($year) {
+      $besparelse = $this->accumulate(function($tiltag, $value) use ($year) {
         return $value + $tiltag->calculateSavingsForYear($year);
       }, 0);
 

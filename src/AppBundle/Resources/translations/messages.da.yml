@@ -1295,10 +1295,12 @@ appbundle:
       label: "Energi faktor"
       type: "Energi type"
       faktor: "faktor"
-    varmepUMPEFaktor:
+    varmePumpeFaktor:
       label: "Varmepumpe faktor"
       type: "Pumpe type"
       faktor: "Effektfaktor/Cop"
+    nutidsvaerdiBeregnAar: "Nutidsværdi beregn år"
+    nutidsvaerdiBeregnAar.unit: "år"
   elofordeling:
     januar: "Januar"
     februar: "Februar"
