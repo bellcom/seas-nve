@@ -21,9 +21,14 @@
                     return formatted;
                 },
                 data = {
-                    labels: {{ linje_graf_data | keys | json_encode | raw }},
+                    labels: (function(years) {
+                        var currentYear = (new Date()).getFullYear();
+                        return years.map(function(y) {
+                            return y + currentYear;
+                        });
+                    }({{ linje_graf_data | keys | json_encode | raw }})),
                     datasets: [ {
-                        label: {{ 'Besparelse' | trans | json_encode | raw }},
+                        label: {{ linje_graf_label | trans | json_encode | raw }},
                         strokeColor: 'rgb(116, 118, 108)',
                         pointColor: 'rgb(116, 118, 108)',
                         pointStrokeColor: 'rgb(116, 118, 108)',

@@ -854,8 +854,8 @@ class Rapport {
   /**
    * @return array
    */
-  public function getNutidsvaerdiSet() {
-    return $this->nutidsvaerdiSet;
+  public function getNutidsvaerdiSet($value = FALSE) {
+    return $value ? array_sum($this->nutidsvaerdiSet) : $this->nutidsvaerdiSet;
   }
 
   /**
@@ -2181,6 +2181,10 @@ class Rapport {
     return $this->propertiesRequiredForCalculation;
   }
 
+  public function getNutidsvaerdiBeregnAar() {
+    return $this->getConfiguration()->getNutidsvaerdiBeregnAar();
+  }
+
   /**
    * Check if calculating this Rapport makes sense.
    * Some values may be required to make a meaningful calculation.
@@ -2280,7 +2284,7 @@ class Rapport {
   }
 
   private function calculateCashFlowSet() {
-    $nutidsvaerdiBeregnAar = $this->getConfiguration()->getNutidsvaerdiBeregnAar();
+    $nutidsvaerdiBeregnAar = $this->getNutidsvaerdiBeregnAar();
     $result = array_fill(1, $nutidsvaerdiBeregnAar, 0);
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
       $cashflow = $tiltag->getCashFlowSet();
@@ -2752,7 +2756,7 @@ class Rapport {
    * @Formula("$this->calculateNutidsvaerdiSet")
    */
   protected function calculateNutidsvaerdiSet() {
-    $years = $this->getConfiguration()->getNutidsvaerdiBeregnAar();
+    $years = $this->getNutidsvaerdiBeregnAar();
     $cashFlow = $this->calculateCashFlow($years);
     return Calculation::npv($this->getKalkulationsrente(), $cashFlow['cash flow'], TRUE);
   }
@@ -2761,7 +2765,7 @@ class Rapport {
    * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
    */
   protected function calculateAkkumuleterNutidsvaerdiSet() {
-    $years = $this->getConfiguration()->getNutidsvaerdiBeregnAar();
+    $years = $this->getNutidsvaerdiBeregnAar();
     $nutidsvaerdiSet = $this->getNutidsvaerdiSet();
     $result = array_fill(0, $years, 0);
     $value = - ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering());

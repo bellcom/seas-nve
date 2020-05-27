@@ -2055,6 +2055,10 @@ appbundle:
     bygningForsyningsvaerkElKgCo2MWh: "ForsyningElCO2"
     calculateSamletEnergiBesparelseKr: "Beregnet Samlet Energi Besparelse i kr"
     visGraphPDF: "Vis grapher i PDF"
+    nutidsvaerdiSet: "Nutidsværdi set over "
+    nutidsvaerdiSet.unit: "kr"
+    akkumuleretNutidsvaerdiSet: "Akkumuleret nutidsværdi"
+    akkumuleretNutidsvaerdiSet.unit: "kr"
   segment:
     add: "Opret Segment"
     edit: "Rediger Segment"
@@ -2328,6 +2332,10 @@ appbundle:
       elvarme.pris.unit: "kr/kWh"
       varmepumpe: "Varmepumpe"
       varmepumpe.pris.unit: "kr/kWh"
+    nutidsvaerdiSet: "Nutidsværdi set over "
+    nutidsvaerdiSet.unit: "kr"
+    akkumuleretNutidsvaerdiSet: "Akkumuleret nutidsværdi"
+    akkumuleretNutidsvaerdiSet.unit: "kr"
   tiltagdatofordrift:
     datoForDrift: "Dato for drift"
   tiltagdetail:

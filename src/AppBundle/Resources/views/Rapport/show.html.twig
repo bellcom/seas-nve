@@ -231,20 +231,11 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading"><h3 class="panel-title">{{ icon('line-chart') }} {{ 'appbundle.rapport.likviditetsoversigt' | trans }}</h3></div>
+    <div class="panel-heading"><h3 class="panel-title">{{ icon('line-chart') }} {{ 'appbundle.rapport.akkumuleretNutidsvaerdiSet' | trans }}</h3></div>
 
     <div class="panel-body">
-      {% include('AppBundle::_includes/finansiering_graf.html.twig') %}
-
-      {% if is_granted('RAPPORT_EDIT', entity) and edit_form %}
-        {% form_theme edit_form 'AppBundle:Form:aaplus-bootstrap.html.twig' %}
-        {{ form(edit_form, { 'style': 'inline' }) }}
-      {% else %}
-        {{ 'appbundle.rapport.laanLoebetid' | trans }}:
-        {{ entity.laanLoebetid }} {{ 'appbundle.rapport.laanLoebetid.unit' | trans }}
-      {% endif %}
-
-      {% include('AppBundle::_includes/finansiering_likviditetsoverblik.html.twig') %}
+      {%  set linje_graf_label = (('appbundle.rapport.akkumuleretNutidsvaerdiSet' | trans) ~ ', ' ~ ('appbundle.rapport.akkumuleretNutidsvaerdiSet.unit' | trans)) %}
+      {% include 'AppBundle::_includes/linje_graf_years.html.twig' with { 'linje_graf_data' : entity.akkumuleretNutidsvaerdiSet } %}
     </div>
   </div>
 
@@ -289,8 +280,8 @@
         <td class="indent">{{ 'appbundle.rapport.implementering' | trans }}</td>
         <td class="text-right">{{ entity.implementering | format_amount }}</td>
         <td>{{ 'appbundle.rapport.implementering.unit' | trans }}</td>
-        <th>{{ 'appbundle.rapport.nutidsvaerdiInklFaellesomkostninger' | trans }} <div class="calculation-expression hidden">{{ entity.expr('nutidsvaerdiSetOver15AarKr') }}</div></th>
-        <td class="text-right">{{ entity.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
+        <th>{{ 'appbundle.rapport.nutidsvaerdiSet' | trans }} {{ entity.getNutidsvaerdiBeregnAar() | format_decimal(0) }} {{ 'appbundle.configuration.nutidsvaerdiBeregnAar.unit' | trans }} <div class="calculation-expression hidden">{{ entity.expr('nutidsvaerdiSet') }}</div></th>
+        <td class="text-right">{{ entity.getNutidsvaerdiSet(1) | format_amount }}</td>
         <td>{{ 'appbundle.rapport.nutidsvaerdiInklFaellesomkostninger.unit' | trans }}</td>
       </tr>
       <tr>
