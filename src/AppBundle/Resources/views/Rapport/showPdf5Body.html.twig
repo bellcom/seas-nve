@@ -51,11 +51,12 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              {{ 'tiltag.strings.linje_graf_titel' | trans }}
+              {{ 'appbundle.tiltag.akkumuleretNutidsvaerdiSet' | trans }}
             </h3>
           </div>
           <div class="panel-body">
-            {% include 'AppBundle::_includes/linje_graf.html.twig' with { 'linje_graf_data' : t.getForbrugFoerEfter15() } %}
+            {%  set linje_graf_label = (('appbundle.tiltag.akkumuleretNutidsvaerdiSet' | trans) ~ ', ' ~ ('appbundle.tiltag.akkumuleretNutidsvaerdiSet.unit' | trans)) %}
+            {% include 'AppBundle::_includes/linje_graf_years.html.twig' with { 'linje_graf_data' : t.akkumuleretNutidsvaerdiSet } %}
           </div>
         </div>
       {% endif %}

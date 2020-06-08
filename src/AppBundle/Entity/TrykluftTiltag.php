@@ -9,6 +9,7 @@ namespace AppBundle\Entity;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Annotations\Formula;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -216,9 +217,10 @@ class TrykluftTiltag extends Tiltag {
 
     /**
      * @ORM\PostLoad()
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
      */
-    public function postLoad() {
-        parent::postLoad();
+  public function postLoad(LifecycleEventArgs $event) {
+        parent::postLoad($event);
         $this->setDefault();
     }
 

@@ -36,6 +36,11 @@
           <td>{{ entity.rapportProcentAfInvestering | format_percent_nounit }}</td>
           <td>{{ 'appbundle.configuration.rapportProcentAfInvestering' | get_unit }}</td>
         </tr>
+        <tr>
+          <td>{{ 'appbundle.configuration.nutidsvaerdiBeregnAar' | trans }}</td>
+          <td>{{ entity.nutidsvaerdiBeregnAar | format_decimal(0) }}</td>
+          <td>{{ 'appbundle.configuration.nutidsvaerdiBeregnAar' | get_unit }}</td>
+        </tr>
       </table>
 
       <h2>Teknisk isolering</h2>
@@ -243,7 +248,7 @@
               <tbody>
               {% for type, faktor in entity.varmeEnergiFaktor %}
                 <tr>
-                  <td>{{ ('appbundle.varmetiltagdetail.energiType.' ~ type ) | trans }}</td>
+                  <td>{{ ('appbundle.varmeanlaegtiltagdetail.energiType.' ~ type ) | trans }}</td>
                   <td>{% if faktor is empty %}--{% else %}{{ faktor }}{% endif %}</td>
                 </tr>
               {% endfor %}
@@ -266,7 +271,7 @@
               <tbody>
               {% for type, faktor in entity.varmePumpeFaktor %}
                 <tr>
-                  <td>{{ ('appbundle.varmetiltagdetail.varmePumpeType.' ~ type ) | trans }}</td>
+                  <td>{{ ('appbundle.varmeanlaegtiltagdetail.varmePumpeType.' ~ type ) | trans }}</td>
                   <td>{% if faktor is empty %}--{% else %}{{ faktor }}{% endif %}</td>
                 </tr>
               {% endfor %}
