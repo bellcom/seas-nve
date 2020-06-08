@@ -484,6 +484,9 @@ class BygningController extends BaseController implements InitControllerInterfac
       ->setMethod('DELETE')
       ->add('submit', 'submit', array(
         'label' => 'Delete',
+        'attr' => [
+          'class' => 'pinned',
+        ],
       ))
       ->getForm();
   }

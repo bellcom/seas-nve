@@ -46,6 +46,7 @@ abstract class BaseController extends Controller implements InitControllerInterf
           'button_class' => 'default',
           'attr' => array(
             'onclick' => 'document.location.href = \'' . $cancelUrl . '\'',
+            'class' => 'pinned',
           ),
         ),
       );
@@ -54,6 +55,9 @@ abstract class BaseController extends Controller implements InitControllerInterf
       'type' => 'submit',
       'options' => array(
         'label' => $submitLabel,
+        'attr' => array(
+          'class' => 'pinned',
+        ),
       ),
     );
 

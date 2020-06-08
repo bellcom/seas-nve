@@ -337,6 +337,13 @@
               $varmePumpeForm.attr('action', $action + '?continue=1').submit();
           });
       }
+
+      pinFormButtons();
+  });
+
+  $(document).on('click', '.pinned-buttons a', function () {
+      $id = $(this).attr('id');
+      $('button.pinned[data-id=' + $id + ']').click();
   });
 
   function conditionalRadioFormElements($wrapper) {
@@ -370,6 +377,17 @@
       $($wrapper + ' select').each(function() {
           $(this).change();
       });
+  }
+
+  function pinFormButtons() {
+      $buttons = $('form button.pinned')
+      for (var $key in $buttons) {
+          $this = $($buttons[$key]);
+          $classes = $this.attr("class").replace(/pinned/g, '');
+          $id = 'pinned-button-' + $key;
+          $('.pinned-buttons').append('<a href="#" id="' + $id +'" class="' + $classes + '">' + $this.html() + '</a>');
+          $this.attr('data-id', $id).hide();
+      }
   }
 
 }(jQuery));

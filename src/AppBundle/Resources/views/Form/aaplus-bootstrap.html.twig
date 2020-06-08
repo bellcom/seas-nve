@@ -157,7 +157,7 @@
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{ form_id }}" {{ block('button_attributes') }}>{{ icon('trash-o') }} {{ label|trans({}, translation_domain) }}</button>
         </div>
       {% else %}
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{ form_id }}" {{ block('button_attributes') }}>{{ icon('trash-o') }} {{ label|trans({}, translation_domain) }}</button>
+        <button type="button" class="btn btn-danger {% if attr.class %} {{ attr.class }} {% endif %}" data-toggle="modal" data-target="#modal-{{ form_id }}" {{ block('button_attributes') }}>{{ icon('trash-o') }} {{ label|trans({}, translation_domain) }}</button>
       {% endif %}
       {% if form_id is defined %}
         <!-- Modal -->
