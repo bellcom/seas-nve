@@ -500,7 +500,6 @@ class PumpeTiltagDetail extends TiltagDetail {
   }
 
   protected $propertiesRequiredForCalculation = [
-    'applikation',
     'eksisterendeDrifttid',
     'forsyningsomraade',
     'nyDrifttid',
