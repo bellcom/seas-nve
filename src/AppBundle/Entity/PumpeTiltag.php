@@ -48,9 +48,9 @@ class PumpeTiltag extends Tiltag {
    * @return float
    */
   protected function calculateVarmebesparelseGAFValue() {
-    return $this->sum('kwhBesparelseVarmeFraVaerket') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+    return $this->sum('kwhBesparelseVarmeFraVaerket');
   }
-  
+
   /**
    * @inheritDoc
    * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
@@ -69,7 +69,7 @@ class PumpeTiltag extends Tiltag {
   protected function calculateElbesparelseValue() {
     return $this->sum('kwhBesparelseElFraVaerket');
   }
-  
+
   /**
    * @inheritDoc
    * @Formula("$this->calculateElbesparelseValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
@@ -88,7 +88,7 @@ class PumpeTiltag extends Tiltag {
   protected function calculateAnlaegsinvesteringValue() {
     return $this->sum('samletInvesteringInklPristillaeg');
   }
-  
+
   /**
    * @inheritDoc
    * @Formula("$this->calculateAnlaegsinvesteringValue() * $this->calculateAnlaegsinvesteringFaktor()")

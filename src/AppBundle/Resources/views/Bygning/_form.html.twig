@@ -4,12 +4,6 @@
 
   {{ form_errors(edit_form) }}
 
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="active"><a href="#generelt" role="tab" data-toggle="tab">{{ 'common.generelt' | trans }}</a></li>
-  <li role="presentation"><a href="#interessenter" role="tab" data-toggle="tab">{{ 'appbundle.bygning.users' | trans }}</a></li>
-</ul>
-
 <!-- Tab panes -->
 <div class="tab-content">
   <div role="tabpanel" class="tab-pane active" id="generelt">
@@ -66,7 +60,6 @@
             {{ form_row(edit_form.bruttoetageareal ) }}
             {{ form_row(edit_form.erhvervsareal ) }}
             {{ form_row(edit_form.opvarmetareal ) }}
-            {{ form_row(edit_form.status ) }}
             <span class="hidden">
               {{ form_row(edit_form.segment ) }}
             </span>
@@ -90,18 +83,6 @@
           </div>
           <div class="panel-body">
             {{ form_widget(edit_form.contactPersons) }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div role="tabpanel" class="tab-pane" id="interessenter">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">{{ icon('users') }} {{ 'appbundle.bygning.users' | trans }}</div>
-          <div class="panel-body">
-            {{ form_row(edit_form.users) }}
           </div>
         </div>
       </div>

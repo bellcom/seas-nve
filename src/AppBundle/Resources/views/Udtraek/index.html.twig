@@ -67,7 +67,6 @@
         <th class="text-center">{{ 'udtraek.bygning.rapport.datering' | trans }}</th>
         <th class="hidden">{{ 'udtraek.bygning.rapport.elena' | trans }}</th>
         <th class="hidden">{{ 'udtraek.bygning.rapport.ava' | trans }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.status'|trans, 'b.status') }}</th>
         <th></th>
       </tr>
 
@@ -79,7 +78,6 @@
         <th class="text-center">{{ form_row(form.rapport.datering) }}</th>
         <th class="hidden">{{ form_row(form.rapport.elena) }}</th>
         <th class="hidden">{{ form_row(form.rapport.ava) }}</th>
-        <th>{{ form_row(form.status) }}</th>
         <th>{{ form_row(form.Søg) }}</th>
       </tr>
 
@@ -108,7 +106,6 @@
             {{ bygning.rapport.ava | b2icon }}
           {% endif %}
         </td>
-        <td>{{ bygning.status  | readable }}</td>
         <td class="text-right">
           <a href="{{ path('bygning_show', { 'id': bygning.id }) }}" class="btn btn-default btn-xs">{{ 'common.show' | trans }}</a>
         </td>

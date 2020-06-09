@@ -202,7 +202,6 @@ class SpecialTiltag extends Tiltag {
     'forsyningEl',
     'forsyningVarme',
     'levetid',
-    'primaerEnterprise',
     'tiltagskategori',
     'yderligereBesparelse',
     'slutanvendelse',
@@ -214,7 +213,7 @@ class SpecialTiltag extends Tiltag {
    * @return float
    */
   protected function calculateVarmebesparelseGUFValue() {
-    return ($this->rapport->getStandardForsyning() ? $this->besparelseGUF : $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
+    return ($this->rapport->getStandardForsyning() ? $this->besparelseGUF : $this->fordelbesparelse($this->besparelseGUF, $this->getForsyningVarme(), 'VARME'));
   }
 
   /**
@@ -232,7 +231,7 @@ class SpecialTiltag extends Tiltag {
    * @return float
    */
   protected function calculateVarmebesparelseGAFValue() {
-    return ($this->rapport->getStandardForsyning() ? $this->besparelseGAF : $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME')) * $this->rapport->getFaktorPaaVarmebesparelse();
+    return ($this->rapport->getStandardForsyning() ? $this->besparelseGAF : $this->fordelbesparelse($this->besparelseGAF, $this->getForsyningVarme(), 'VARME'));
   }
 
   /**

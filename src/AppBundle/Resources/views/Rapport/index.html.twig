@@ -24,7 +24,6 @@
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.adresse'|trans, 'b.adresse') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.postnummer'|trans, 'b.postnummer') }}</th>
       <th class="hidden">{{ knp_pagination_sortable(pagination, 'appbundle.bygning.segment'|trans, 's.navn') }}</th>
-      <th>{{ knp_pagination_sortable(pagination, 'appbundle.bygning.status'|trans, 'b.status') }}</th>
       <th>{{ knp_pagination_sortable(pagination, 'appbundle.rapport.version'|trans, 'r.version') }}</th>
       {% if form.elena is defined %}
         <th class="hidden">{{ knp_pagination_sortable(pagination, 'appbundle.rapport.elena'|trans, 'r.elena') }}</th>
@@ -41,7 +40,6 @@
       <th>{{ form_row(form.bygning.adresse) }}</th>
       <th>{{ form_row(form.bygning.postnummer) }}</th>
       <th class="hidden">{{ form_row(form.bygning.segment) }}</th>
-      <th>{{ form_row(form.bygning.status) }}</th>
       <th>{{ form_row(form.version) }}</th>
       {% if form.elena is defined %}
         <th class="hidden">{{ form_row(form.elena) }}</th>
@@ -59,7 +57,6 @@
       <td>{{ rapport.bygning.adresse }}</td>
       <td>{{ rapport.bygning.postnummer }}</td>
       <td class="hidden">{{ rapport.bygning.segment }}</td>
-      <td>{{ rapport.bygning.status  | readable }}</td>
       <td class="text-center">{{ rapport.version }}</td>
       {% if form.elena is defined %}
         <td class="hidden text-center">{{ rapport.elena | b2icon }}</td>

@@ -41,6 +41,7 @@ class ConfigurationType extends AbstractType
             ->add('rapportLobetid')
             ->add('rapportProcentAfInvestering', 'percent', array('scale' => 2))
             ->add('rapportNominelEnergiprisstigning')
+            ->add('nutidsvaerdiBeregnAar')
             ->add('tekniskisoleringVarmeledningsevneEksistLamelmaatter')
             ->add('tekniskisoleringVarmeledningsevneNyIsolering')
             ->add('solcelletiltagdetailEnergiprisstigningPctPrAar', 'percent', array('scale' => 2))

@@ -20,6 +20,21 @@
     <link href="{{ absolute_url(asset('css/bellcom.css')) }}" type="text/css" rel="stylesheet" />
   {% endblock %}
 
+  <script>
+    function formatNumberSeparators(nStr) {
+      nStr += '';
+      x = nStr.split('.');
+      x1 = x[0];
+      x2 = x.length > 1 ? ',' + x[1] : '';
+      var rgx = /(\d+)(\d{3})/;
+
+      while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + '.' + '$2');
+      }
+
+      return x1 + x2;
+    }
+  </script>
   <script src="{{ absolute_url(asset('js/lib/Chart.js/Chart.min.js')) }}"></script>
 
 </head>

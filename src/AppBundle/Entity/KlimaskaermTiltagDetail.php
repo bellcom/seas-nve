@@ -134,7 +134,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    *
    * @ORM\Column(name="prisfaktor", type="decimal", scale=4, nullable=true)
    */
-  protected $prisfaktor;
+  protected $prisfaktor = 1;
 
   /**
    * @var string
@@ -531,7 +531,7 @@ class KlimaskaermTiltagDetail extends TiltagDetail {
    * @return float
    */
   public function getPrisfaktor() {
-    return $this->prisfaktor;
+      return empty($this->prisfaktor) ? 1 : $this->prisfaktor;
   }
 
   /**

@@ -1,0 +1,75 @@
+{% set chartIdRandomized = 'linjegraf' ~ random() %}
+
+<div style="padding-bottom: 50px;">
+  <figure id="{{ chartIdRandomized }}" height="400" style="height: 400px;">
+    <canvas width="400" height="400" style="height: 400px;"></canvas>
+    <figcaption></figcaption>
+  </figure>
+</div>
+<script>
+    (function() {
+        var linje_graf_data = {{ linje_graf_data | json_encode | raw }};
+        console.log(linje_graf_data);
+        function createGraph() {
+            var formatData = function(data) {
+                    var formatted = [], key;
+                    for (key in data) {
+                        if (key > 0) {
+                            formatted[key-1] = data[key] ? data[key].toFixed(2) : null;
+                        }
+                    }
+                    return formatted;
+                },
+                data = {
+                    labels: (function(years) {
+                        var currentYear = (new Date()).getFullYear();
+                        return years.map(function(y) {
+                            return y + currentYear;
+                        });
+                    }({{ linje_graf_data | keys | json_encode | raw }})),
+                    datasets: [ {
+                        label: {{ linje_graf_label | trans | json_encode | raw }},
+                        strokeColor: 'rgb(116, 118, 108)',
+                        pointColor: 'rgb(116, 118, 108)',
+                        pointStrokeColor: 'rgb(116, 118, 108)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgb(116, 118, 108)',
+                        data: formatData({{ linje_graf_data | json_encode | raw }})
+                    } ]
+                },
+                options = {
+                    datasetStrokeWidth: 3,
+                    pointDotRadius : 2,
+                    scaleGridLineColor: 'rgb(0, 0, 0)',
+                    scaleShowVerticalLines: false,
+                    animation: !true,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    datasetFill: false,
+                    bezierCurve : true,
+                    bezierCurveTension : 0.2,
+                  {% raw %}
+                    tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= formatNumberSeparators(value) %>",
+                  {% endraw %}
+                    scaleLabel: "<%= formatNumberSeparators(value) %>",
+                    multiTooltipTemplate: "<%= formatNumberSeparators(value) %>"
+                },
+                ctx = document.querySelector('#{{ chartIdRandomized }} canvas').getContext('2d'),
+                chart = new Chart(ctx).Line(data, options);
+            document.querySelector('#{{ chartIdRandomized }} figcaption').innerHTML = chart.generateLegend();
+        }
+
+        // Run on load.
+        createGraph();
+
+        // Before we can listen for jQuery events, we need the DOM to
+        // be fully loaded.
+        document.addEventListener('DOMContentLoaded', function(e) {
+
+            // Event listener for jQuery.
+            jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                createGraph();
+            });
+        });
+    }())
+</script>

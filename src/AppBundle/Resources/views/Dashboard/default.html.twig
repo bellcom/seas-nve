@@ -65,7 +65,6 @@
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.adresse'|trans, 'b.adresse') }}</th>
           <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.postnummer'|trans, 'b.postnummer') }}</th>
           <th class="hidden">{{ knp_pagination_sortable(pagination, 'udtraek.bygning.segment.forkortelse'|trans, 's.forkortelse') }}</th>
-          <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.status'|trans, 'b.status') }}</th>
           {% if tab == 'aaplusAnsvarlig' %}
             <th>{{ knp_pagination_sortable(pagination, 'udtraek.bygning.energiRaadgiver'|trans, 'b.energiRaadgiver') }}</th>
           {% else %}
@@ -81,7 +80,6 @@
           <th>{{ form_row(form.adresse) }}</th>
           <th>{{ form_row(form.postnummer) }}</th>
           <th class="hidden">{{ form_row(form.segment) }}</th>
-          <th>{{ form_row(form.status) }}</th>
           {% if tab == 'aaplusAnsvarlig' %}
             <th>{{ form_row(form.energiRaadgiver) }}</th>
           {% else %}
@@ -102,7 +100,6 @@
               {{ bygning.segment.forkortelse }}
             {% endif %}
           </td>
-          <td>{{ bygning.status  | readable }}</td>
           {% if tab == 'aaplusAnsvarlig' %}
             <td>{% if bygning.energiRaadgiver is not empty %}{{ bygning.getEnergiRaadgiverStr() }}{% endif %}</td>
           {% else %}

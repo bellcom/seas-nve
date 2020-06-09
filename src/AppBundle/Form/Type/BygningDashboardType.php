@@ -46,7 +46,7 @@ class BygningDashboardType extends AbstractType {
       ->add('navn', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
       ->add('adresse', 'filter_text', array('condition_pattern' => FilterOperands::STRING_BOTH, 'label' => false))
       ->add('postnummer', 'filter_text', array('condition_pattern' => FilterOperands::STRING_STARTS, 'label' => false))
-      ->add('status', null, array('required' => false, 'label' => false));
+    ;
 
     $builder->add('segment', new SegmentUdtraekType(), array('label' => false,
       'add_shared' => function (FilterBuilderExecuterInterface $qbe) {

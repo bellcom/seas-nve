@@ -12,7 +12,6 @@ use AppBundle\DBAL\Types\LevetidType;
 use AppBundle\Entity\NyKlimaskaermTiltag;
 use AppBundle\Entity\TrykluftTiltag;
 use AppBundle\Entity\VarmeAnlaegTiltag;
-use AppBundle\Form\Type\RisikovurderingType;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\PumpeTiltag;
 use AppBundle\Entity\SolcelleTiltag;
@@ -60,37 +59,12 @@ class TiltagType extends AbstractType {
         'empty_value' => '--',
         'required' => FALSE
       ));
-      $builder->add('tilvalgtAfMagistrat', 'choice', array(
-        'choices' => array(
-          '0' => 'Fravalgt',
-          '1' => 'Tilvalgt',
-        ),
-        'empty_value' => '--',
-        'required' => FALSE
-      ));
+      $builder->add('tilvalgtAfMagistrat');
       $builder->add('tilvalgtbegrundelse', NULL, array('required' => FALSE));
       $builder->add('tilvalgtBegrundelseMagistrat', NULL, array('required' => FALSE));
 
-      $status = $this->tiltag->getRapport()->getBygning()->getStatus();
-
-      // Dato for drift
-      if($status === BygningStatusType::UNDER_UDFOERSEL || $status === BygningStatusType::DRIFT) {
-        $builder->add('datoForDrift', 'date', array(
-          // render as a single text box
-          'widget' => 'single_text',
-          'required' => false
-        ));
-      }
-
-      // Energiledelse faktor/noter
-      if($status === BygningStatusType::DRIFT) {
-        $builder->add('energiledelseAendringIBesparelseFaktor', 'percent', array('required' => FALSE));
-        $builder->add('energiledelseNoter');
-      }
-
     }
     $builder->add('title')
-            ->add('faktorForReinvesteringer')
             ->add('opstartsomkostninger');
 
     $attr = array();
@@ -103,36 +77,9 @@ class TiltagType extends AbstractType {
 
     $builder
       ->add('forbrugFoer')
-      ->add('forbrugEfter', 'text', array('attr' => $attr))
-      ->add('prioriteringsfaktor', 'choice', array(
-        'choices' => array(
-          '0.5' => '0,5',
-          '1' => '1,0',
-          '1.5' => '1,5',
-        ),
-        'required' => TRUE
-      ))
-      ->add('konverteringsfaktorFoer', 'choice', array(
-        'choices' => array(
-          '0.8' => '0,8',
-          '1' => '1,0',
-          '1.8' => '1,8',
-        ),
-        'required' => TRUE
-      ))
-      ->add('konverteringsfaktorEfter', 'choice', array(
-        'choices' => array(
-          '0.8' => '0,8',
-          '1' => '1,0',
-          '1.8' => '1,8',
-        ),
-        'required' => TRUE
-      ));
+      ->add('forbrugEfter', 'text', array('attr' => $attr));
 
     $builder
-      ->add('genopretning')
-      ->add('genopretningForImplementeringsomkostninger')
-      ->add('modernisering')
       ->add('reelAnlaegsinvestering');
 
     $builder->add('reelAnlaegsinvestering')
@@ -151,17 +98,10 @@ class TiltagType extends AbstractType {
       ->add('beskrivelseNuvaerende', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
       ->add('beskrivelseForslag', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
       ->add('beskrivelseOevrige', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
-      ->add('risikovurdering', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
       ->add('placering', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
       ->add('beskrivelseDriftOgVedligeholdelse', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
       ->add('indeklima', 'textarea', array('attr' => array('maxlength' => 10000), 'required' => false));
 
-    $builder->add('risikovurderingTeknisk', new RisikovurderingType(), array());
-    $builder->add('risikovurderingBrugsmoenster', new RisikovurderingType(), array());
-    $builder->add('risikovurderingDatagrundlag', new RisikovurderingType(), array());
-    $builder->add('risikovurderingDiverse', new RisikovurderingType(), array());
-    $builder->add('risikovurderingAendringIBesparelseFaktor', 'percent', array('required' => FALSE));
-    $builder->add('risikovurderingOekonomiskKompenseringIftInvesteringFaktor', 'percent', array('required' => FALSE));
     $builder->add('slutanvendelse', 'choice', array(
         'choices' => SlutanvendelseType::getChoices(),
 //        'choices_as_values' => TRUE,
@@ -241,9 +181,6 @@ class TiltagType extends AbstractType {
           'empty_value' => '--',
           'required' => TRUE,
         ));
-
-      $builder->add('primaerEnterprise')
-        ->add('tiltagskategori');
     }
   }
 

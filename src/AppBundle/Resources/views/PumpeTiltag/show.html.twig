@@ -33,7 +33,6 @@
               {{ helper.header('appbundle.pumpetiltagdetail.nyTilslutning') }}
               {{ helper.header('appbundle.pumpetiltagdetail.nytVVSnr') }}
               {{ helper.header('appbundle.pumpetiltagdetail.nyDrifttid') }}
-              {{ helper.header('appbundle.pumpetiltagdetail.prisfaktor') }}
               {{ helper.header('appbundle.pumpetiltagdetail.pristillaeg') }}
               {{ helper.header('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg') }}
               {{ helper.header('appbundle.pumpetiltagdetail.elforbrugVedNyeDriftstidKWhAar') }}
@@ -62,7 +61,6 @@
               {{ helper.header_unit('appbundle.pumpetiltagdetail.nyTilslutning', 'nyTilslutning') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.nytVVSnr', 'nytVVSnr') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.nyDrifttid', 'nyDrifttid', 'number') }}
-              {{ helper.header_unit('appbundle.pumpetiltagdetail.prisfaktor', 'prisfaktor', 'number') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.pristillaeg', 'pristillaeg', 'number') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg', 'samletInvesteringInklPristillaeg', 'number') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.elforbrugVedNyeDriftstidKWhAar', 'elforbrugVedNyeDriftstidKWhAar', 'number') }}
@@ -94,7 +92,6 @@
               {{ helper.header_filter('nyTilslutning') }}
               {{ helper.header_filter('nytVVSnr') }}
               {{ helper.header_filter('nyDrifttid', 'number') }}
-              {{ helper.header_filter('prisfaktor', 'number') }}
               {{ helper.header_filter('pristillaeg', 'number') }}
               {{ helper.header_filter('samletInvesteringInklPristillaeg', 'number') }}
               {{ helper.header_filter('elforbrugVedNyeDriftstidKWhAar', 'number') }}
@@ -134,7 +131,6 @@
                 <td class="nyTilslutning">{{ detail.pumpe ? detail.pumpe.nyTilslutning : '' }}</td>
                 <td class="nytVVSnr">{{ detail.pumpe ? detail.pumpe.VvsNr : '' }}</td>
                 <td class="nyDrifttid number">{{ detail.nyDrifttid | format_decimal }}</td>
-                <td class="prisfaktor number">{{ detail.prisfaktor | format_decimal }}</td>
                 <td class="pristillaeg number">{{ detail.pristillaeg | format_amount }}</td>
                 <td class="samletInvesteringInklPristillaeg number">{{ detail.samletInvesteringInklPristillaeg | format_amount }}</td>
                 <td class="elforbrugVedNyeDriftstidKWhAar number">{{ detail.elforbrugVedNyeDriftstidKWhAar | format_decimal }}</td>

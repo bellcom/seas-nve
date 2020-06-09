@@ -349,13 +349,6 @@ class VirksomhedRapport
     /**
      * @var float
      *
-     * @ORM\Column(name="faktorPaaVarmebesparelse", type="decimal", scale=4, nullable=true)
-     */
-    protected $faktorPaaVarmebesparelse;
-
-    /**
-     * @var float
-     *
      * @ORM\Column(name="energiscreening", type="decimal", precision=16, scale=4, nullable=true)
      */
     protected $energiscreening;
@@ -372,7 +365,7 @@ class VirksomhedRapport
     protected $anlaegsinvestering;
 
     /**
-     * @Formula("$this->getAnlaegsinvestering() - ($this->getModernisering() + $this->getGenopretning())")
+     * @Formula("$this->getAnlaegsinvestering()")
      */
     protected $investeringEksFaellesomkostninger;
 
@@ -434,6 +427,22 @@ class VirksomhedRapport
      * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExp()")
      */
     protected $nutidsvaerdiSetOver15AarKr;
+
+    /**
+     * @var array
+     *
+     * @Calculated
+     * @ORM\Column(name="nutidsvaerdiSet", type="array", nullable=true)
+     */
+    protected $nutidsvaerdiSet;
+
+    /**
+     * @var array
+     *
+     * @Calculated
+     * @ORM\Column(name="akkumuleretNutidsvaerdiSet", type="array", nullable=true)
+     */
+    protected $akkumuleretNutidsvaerdiSet;
 
     /**
      * @var float
@@ -558,44 +567,6 @@ class VirksomhedRapport
      * @var ArrayCollection $rapporter
      */
     protected $rapporter = array();
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
-     * @Formula("$this->calculateBesparelseElExp()")
-     */
-    protected $genopretning;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
-     * @Formula("$this->calculateBesparelseElExp()")
-     */
-    protected $genopretningForImplementeringsomkostninger;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
-     * @Formula("$this->calculateBesparelseElExp()")
-     */
-    protected $modernisering;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="FravalgtGenopretning", type="decimal", nullable=true)
-     */
-    protected $fravalgtGenopretning;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="FravalgtModernisering", type="decimal", nullable=true)
-     */
-    protected $fravalgtModernisering;
 
     /**
      * @var array
@@ -1651,29 +1622,6 @@ class VirksomhedRapport
     }
 
     /**
-     * Set faktorPaaVarmebesparelse
-     *
-     * @param float $faktorPaaVarmebesparelse
-     * @return VirksomhedRapport
-     */
-    public function setFaktorPaaVarmebesparelse($faktorPaaVarmebesparelse)
-    {
-        $this->faktorPaaVarmebesparelse = $faktorPaaVarmebesparelse;
-
-        return $this;
-    }
-
-    /**
-     * Get faktorPaaVarmebesparelse
-     *
-     * @return float
-     */
-    public function getFaktorPaaVarmebesparelse()
-    {
-        return $this->faktorPaaVarmebesparelse;
-    }
-
-    /**
      * Set energiscreening
      *
      * @param integer $energiscreening
@@ -1784,111 +1732,6 @@ class VirksomhedRapport
     public function getElena()
     {
         return $this->elena;
-    }
-
-    /**
-     * Set genopretning
-     *
-     * @param float $genopretning
-     * @return VirksomhedRapport
-     */
-    public function setGenopretning($genopretning)
-    {
-        $this->genopretning = $genopretning;
-        return $this;
-    }
-
-    /**
-     * Get genopretning
-     *
-     * @return float
-     */
-    public function getGenopretning()
-    {
-        return $this->genopretning;
-    }
-
-    /**
-     * Set genopretningForImplementeringsomkostninger
-     *
-     * @param float $genopretningForImplementeringsomkostninger
-     * @return VirksomhedRapport
-     */
-    public function setGenopretningForImplementeringsomkostninger($genopretningForImplementeringsomkostninger)
-    {
-        $this->genopretningForImplementeringsomkostninger = $genopretningForImplementeringsomkostninger;
-        return $this;
-    }
-
-    public function getGenopretningForImplementeringsomkostninger()
-    {
-        return $this->genopretningForImplementeringsomkostninger;
-    }
-
-    /**
-     * Set modernisering
-     *
-     * @param float $modernisering
-     * @return VirksomhedRapport
-     */
-    public function setModernisering($modernisering)
-    {
-        $this->modernisering = $modernisering;
-        return $this;
-    }
-
-    /**
-     * Get modernisering
-     *
-     * @return float
-     */
-    public function getModernisering()
-    {
-        return $this->modernisering;
-    }
-
-    /**
-     * Set fravalgtGenopretning
-     *
-     * @param float $fravalgtGenopretning
-     * @return VirksomhedRapport
-     */
-    public function setFravalgtGenopretning($fravalgtGenopretning)
-    {
-        $this->fravalgtGenopretning = $fravalgtGenopretning;
-        return $this;
-    }
-
-    /**
-     * Get genopretning for fravalgte tiltag
-     *
-     * @return float
-     */
-    public function getFravalgtGenopretning()
-    {
-        return $this->fravalgtGenopretning;
-    }
-
-    /**
-     * Set fravalgtModernisering
-     *
-     * @param float $fravalgtModernisering
-     * @return VirksomhedRapport
-     */
-    public function setFravalgtModernisering($fravalgtModernisering)
-    {
-        $this->fravalgtModernisering = $fravalgtModernisering;
-        return $this;
-    }
-
-    /**
-     * Get moderniseringfor fravalgte tiltag
-     *
-     * @return float
-     */
-    public function getFravalgtModernisering()
-    {
-        return $this->fravalgtModernisering;
     }
 
     /**
@@ -2048,6 +1891,34 @@ class VirksomhedRapport
     public function getCashFlow()
     {
         return $this->cashFlow;
+    }
+
+    /**
+     * @param array $nutidsvaerdiSet
+     */
+    public function setNutidsvaerdiSet($nutidsvaerdiSet) {
+        $this->nutidsvaerdiSet = $nutidsvaerdiSet;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNutidsvaerdiSet($value = FALSE) {
+        return $value ? array_sum($this->nutidsvaerdiSet) : $this->nutidsvaerdiSet;
+    }
+
+    /**
+     * @param array $akkumuleretNutidsvaerdiSet
+     */
+    public function setAkkumuleretNutidsvaerdiSet($akkumuleretNutidsvaerdiSet) {
+        $this->akkumuleretNutidsvaerdiSet = $akkumuleretNutidsvaerdiSet;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAkkumuleretNutidsvaerdiSet() {
+        return $this->akkumuleretNutidsvaerdiSet;
     }
 
     protected $propertiesRequiredForCalculation = [
@@ -2319,8 +2190,6 @@ class VirksomhedRapport
 
         'mtmFaellesomkostninger',
         'implementering',
-        'fravalgtGenopretning',
-        'fravalgtModernisering',
         'fravalgtImplementering',
         'faellesomkostninger',
         'fravalgtBesparelseDriftOgVedligeholdelse',
@@ -2328,10 +2197,10 @@ class VirksomhedRapport
         'fravalgtAnlaegsinvestering',
         'nutidsvaerdiSetOver15AarKr',
         'fravalgtNutidsvaerdiSetOver15AarKr',
-        'genopretning',
-        'genopretningForImplementeringsomkostninger',
-        'modernisering',
         'internRenteInklFaellesomkostninger',
+
+        'nutidsvaerdiSet',
+        'akkumuleretNutidsvaerdiSet',
 
         'energibudgetEl',
         'energibudgetVarme',
@@ -2482,6 +2351,46 @@ class VirksomhedRapport
         /** @var Rapport $rapport */
         foreach ($this->getBygningerRapporter() as $rapport) {
             foreach ($rapport->getCashFlow30() as  $flowProperty => $flowValue) {
+                if (empty($flow[$flowProperty])) {
+                    $flow[$flowProperty] = $flowValue;
+                    continue;
+                }
+
+                $flow[$flowProperty] += $flowValue;
+            }
+        }
+
+        return $expression ? $this->sumExpr($flow) : $flow;
+    }
+
+    /**
+     * Fetchs nutidsvaerdiSet data from reports into array.
+     */
+    protected function calculateNutidsvaerdiSet($expression = FALSE) {
+        $flow = array();
+        /** @var Rapport $rapport */
+        foreach ($this->getBygningerRapporter() as $rapport) {
+            foreach ($rapport->getNutidsvaerdiSet() as  $flowProperty => $flowValue) {
+                if (empty($flow[$flowProperty])) {
+                    $flow[$flowProperty] = $flowValue;
+                    continue;
+                }
+
+                $flow[$flowProperty] += $flowValue;
+            }
+        }
+
+        return $expression ? $this->sumExpr($flow) : $flow;
+    }
+
+    /**
+     * Fetchs akkumuleretNutidsvaerdiSet data from reports into array.
+     */
+    protected function calculateAkkumuleretNutidsvaerdiSet($expression = FALSE) {
+        $flow = array();
+        /** @var Rapport $rapport */
+        foreach ($this->getBygningerRapporter() as $rapport) {
+            foreach ($rapport->getAkkumuleretNutidsvaerdiSet() as  $flowProperty => $flowValue) {
                 if (empty($flow[$flowProperty])) {
                     $flow[$flowProperty] = $flowValue;
                     continue;

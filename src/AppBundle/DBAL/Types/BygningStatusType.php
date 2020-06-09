@@ -1,5 +1,8 @@
 <?php
 namespace AppBundle\DBAL\Types;
+/**
+ * @deprecated This type is deprecated. Hidden from rendering.
+ */
 
 use Fresh\DoctrineEnumBundle\DBAL\Types\AbstractEnumType;
 

@@ -7,6 +7,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;
@@ -23,6 +24,7 @@ class RapportRepository extends BaseRepository {
   /**
    * Check if a User has edit rights to a Rapport
    *
+   * @deprecated This method is deprecated. Status property is hidden from rendering.
    * @param User $user
    * @param Rapport $rapport
    * @return bool
@@ -105,11 +107,6 @@ class RapportRepository extends BaseRepository {
     if (!empty($search['postnummer'])) {
       $qb->andWhere('b.postnummer = :postnummer')
         ->setParameter('postnummer', $search['postnummer']);
-    }
-
-    if (!empty($search['status'])) {
-      $qb->andWhere('b.status = :status')
-        ->setParameter('status', $search['status']);
     }
 
     if (!empty($search['version'])) {

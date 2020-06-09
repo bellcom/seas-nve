@@ -369,13 +369,6 @@ class Rapport {
   /**
    * @var float
    *
-   * @ORM\Column(name="faktorPaaVarmebesparelse", type="decimal", scale=4, nullable=true)
-   */
-  protected $faktorPaaVarmebesparelse;
-
-  /**
-   * @var float
-   *
    * @ORM\Column(name="energiscreening", type="decimal", precision=16, scale=4, nullable=true)
    */
   protected $energiscreening;
@@ -407,6 +400,22 @@ class Rapport {
    * @ORM\Column(name="nutidsvaerdiSetOver15AarKr", type="float", nullable=true)
    */
   protected $nutidsvaerdiSetOver15AarKr;
+
+  /**
+   * @var array
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdiSet", type="array", nullable=true)
+   */
+  protected $nutidsvaerdiSet;
+
+  /**
+   * @var array
+   *
+   * @Calculated
+   * @ORM\Column(name="akkumuleretNutidsvaerdiSet", type="array", nullable=true)
+   */
+  protected $akkumuleretNutidsvaerdiSet;
 
   /**
    * @var float
@@ -481,6 +490,14 @@ class Rapport {
    * @var array of float
    *
    * @Calculated
+   * @ORM\Column(name="cashFlow", type="array")
+   */
+  protected $cashFlow;
+
+  /**
+   * @var array of float
+   *
+   * @Calculated
    * @ORM\Column(name="cashFlow15", type="array")
    */
   protected $cashFlow15;
@@ -524,6 +541,13 @@ class Rapport {
    * @ORM\Column(name="fravalgtBesparelseDriftOgVedligeholdelse", type="float", nullable=true)
    */
   protected $fravalgtBesparelseDriftOgVedligeholdelse;
+
+  /**
+   * @var bool
+   *
+   * @ORM\Column(name="visGraphPDF", type="boolean")
+   */
+  protected $visGraphPDF = TRUE;
 
   /**
    * @return float
@@ -814,12 +838,32 @@ class Rapport {
   }
 
   /**
-   * @var array
-   *
-   * @Calculated
-   * @ORM\Column(name="cashFlow", type="array")
+   * @param array $nutidsvaerdiSet
    */
-  protected $cashFlow;
+  public function setNutidsvaerdiSet($nutidsvaerdiSet) {
+    $this->nutidsvaerdiSet = $nutidsvaerdiSet;
+  }
+
+  /**
+   * @return array
+   */
+  public function getNutidsvaerdiSet($value = FALSE) {
+    return $value ? array_sum($this->nutidsvaerdiSet) : $this->nutidsvaerdiSet;
+  }
+
+  /**
+   * @param array $akkumuleretNutidsvaerdiSet
+   */
+  public function setAkkumuleretNutidsvaerdiSet($akkumuleretNutidsvaerdiSet) {
+    $this->akkumuleretNutidsvaerdiSet = $akkumuleretNutidsvaerdiSet;
+  }
+
+  /**
+   * @return array
+   */
+  public function getAkkumuleretNutidsvaerdiSet() {
+    return $this->akkumuleretNutidsvaerdiSet;
+  }
 
   /**
    * Constructor
@@ -1435,27 +1479,6 @@ class Rapport {
   }
 
   /**
-   * Set faktorPaaVarmebesparelse
-   *
-   * @param float $faktorPaaVarmebesparelse
-   * @return Rapport
-   */
-  public function setFaktorPaaVarmebesparelse($faktorPaaVarmebesparelse) {
-    $this->faktorPaaVarmebesparelse = $faktorPaaVarmebesparelse;
-
-    return $this;
-  }
-
-  /**
-   * Get faktorPaaVarmebesparelse
-   *
-   * @return float
-   */
-  public function getFaktorPaaVarmebesparelse() {
-    return $this->faktorPaaVarmebesparelse;
-  }
-
-  /**
    * Set energiscreening
    *
    * @param integer $energiscreening
@@ -1525,81 +1548,6 @@ class Rapport {
     $this->elena = $elena;
 
     return $this;
-  }
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
-   */
-  protected $genopretning;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
-   */
-  protected $genopretningForImplementeringsomkostninger;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
-   */
-  protected $modernisering;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="FravalgtGenopretning", type="decimal", nullable=true)
-   */
-  protected $fravalgtGenopretning;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="FravalgtModernisering", type="decimal", nullable=true)
-   */
-  protected $fravalgtModernisering;
-
-  /**
-   * Get genopretning
-   *
-   * @return string
-   */
-  public function getGenopretning() {
-    return $this->genopretning;
-  }
-
-  public function getGenopretningForImplementeringsomkostninger() {
-    return $this->genopretningForImplementeringsomkostninger;
-  }
-
-  /**
-   * Get modernisering
-   *
-   * @return string
-   */
-  public function getModernisering() {
-    return $this->modernisering;
-  }
-
-  /**
-   * Get genopretning for fravalgte tiltag
-   *
-   * @return string
-   */
-  public function getFravalgtGenopretning() {
-    return $this->fravalgtGenopretning;
-  }
-
-  /**
-   * Get moderniseringfor fravalgte tiltag
-   *
-   * @return string
-   */
-  public function getFravalgtModernisering() {
-    return $this->fravalgtModernisering;
   }
 
   /**
@@ -1947,18 +1895,19 @@ class Rapport {
    * Get investering eksl. genopretning og modernisering
    */
   public function getInvesteringEkslGenopretningOgModernisering() {
-    return $this->anlaegsinvestering - ($this->genopretning + $this->modernisering);
+    return $this->anlaegsinvestering;
   }
 
   /**
    * Get investering eksl. genopretning og modernisering
+   *
    */
   public function getFravalgtInvesteringEkslGenopretningOgModernisering() {
-    return $this->fravalgtAnlaegsinvestering - ($this->fravalgtGenopretning + $this->fravalgtModernisering);
+    return $this->fravalgtAnlaegsinvestering;
   }
 
   /**
-   * @Formula("$this->getAnlaegsinvestering() - ($this->getModernisering() + $this->getGenopretning())")
+   * @Formula("$this->getAnlaegsinvestering()")
    */
   protected $investeringEksFaellesomkostninger;
 
@@ -2022,6 +1971,20 @@ class Rapport {
     return $this->accumulate(function($tiltag, $value) {
       return $value + ($tiltag instanceof SolcelleTiltag ? $tiltag->getSalgTilNettetAar1() : 0);
     }, 0);
+  }
+
+  /**
+   * @return boolean
+   */
+  public function getVisGraphPDF() {
+    return $this->visGraphPDF;
+  }
+
+  /**
+   * @param boolean $visGraphPDF
+   */
+  public function setVisGraphPDF($visGraphPDF) {
+    $this->visGraphPDF = $visGraphPDF;
   }
 
   /**
@@ -2183,11 +2146,14 @@ class Rapport {
     'BaselineVarmeGAF',
     'BaselineVarmeGUF',
     'energiscreening',
-    'faktorPaaVarmebesparelse',
   ];
 
   public function getPropertiesRequiredForCalculation() {
     return $this->propertiesRequiredForCalculation;
+  }
+
+  public function getNutidsvaerdiBeregnAar() {
+    return $this->getConfiguration()->getNutidsvaerdiBeregnAar();
   }
 
   /**
@@ -2232,8 +2198,6 @@ class Rapport {
 
     $this->mtmFaellesomkostninger = $this->calculateMtmFaellesomkostninger();
     $this->implementering = $this->calculateImplementering();
-    $this->fravalgtGenopretning = $this->calculateFravalgtGenopretning();
-    $this->fravalgtModernisering = $this->calculateFravalgtModernisering();
     $this->fravalgtImplementering = $this->calculateFravalgtImplementering();
     $this->faellesomkostninger = $this->calculateFaellesomkostninger();
     $this->fravalgtBesparelseDriftOgVedligeholdelse = $this->calculateFravalgtBesparelseDriftOgVedligeholdelse();
@@ -2245,12 +2209,12 @@ class Rapport {
     $this->fravalgtAnlaegsinvestering = $this->calculateFravalgtAnlaegsinvestering();
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->fravalgtNutidsvaerdiSetOver15AarKr = $this->calculateFravalgtNutidsvaerdiSetOver15AarKr();
-    $this->genopretning = $this->calculateGenopretning();
-    $this->genopretningForImplementeringsomkostninger = $this->calculateGenopretningForImplementeringsomkostninger();
-    $this->modernisering = $this->calculateModernisering();
 
     $this->cashFlow15 = $this->calculateCashFlow15();
     $this->cashFlow30 = $this->calculateCashFlow30();
+
+    $this->nutidsvaerdiSet = $this->calculateNutidsvaerdiSet();
+    $this->akkumuleretNutidsvaerdiSet = $this->calculateAkkumuleterNutidsvaerdiSet();
 
     $this->internRenteInklFaellesomkostninger = $this->calculateInternRenteInklFaellesomkostninger();
 
@@ -2290,75 +2254,17 @@ class Rapport {
     return $result;
   }
 
-  /**
-   * Calculates expression for genopretning value
-   */
-  protected function calculateGenopretningExp() {
-    return $this->calculateGenopretning(TRUE);
-  }
-
-  /**
-   * @Formula("$this->calculateGenopretningExp()")
-   */
-  protected function calculateGenopretning($expression = FALSE) {
-    $value = array();
+  private function calculateCashFlowSet() {
+    $nutidsvaerdiBeregnAar = $this->getNutidsvaerdiBeregnAar();
+    $result = array_fill(1, $nutidsvaerdiBeregnAar, 0);
     foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      $value[] = $tiltag->getGenopretning();
+      $cashflow = $tiltag->getCashFlowSet();
+      for ($i = 1; $i <= $nutidsvaerdiBeregnAar; $i++) {
+        $result[$i] += isset($cashflow[$i]) ? $cashflow[$i] : 0;
+      }
     }
-    return $expression ? $this->sumExpr($value) : array_sum($value);
-  }
 
-  /**
-   * Calculates expression for genopretningForImplementeringsomkostninger value
-   */
-  protected function calculateGenopretningForImplementeringsomkostningerExp() {
-    return $this->calculateGenopretningForImplementeringsomkostninger(TRUE);
-  }
-
-  /**
-   * @Formula("$this->calculateGenopretningForImplementeringsomkostningerExp()")
-   */
-  private function calculateGenopretningForImplementeringsomkostninger($expression = FALSE) {
-    $result = $this->accumulateArray(function($tiltag, array $result) {
-      $result[] = $tiltag->getGenopretningForImplementeringsomkostninger();
-      return $result;
-    });
-
-    return $expression ? $this->sumExpr($result) : array_sum($result);
-  }
-
-  /**
-   * Calculates expression for modernisering value
-   */
-  protected function calculateModerniseringExp() {
-    return $this->calculateModernisering(TRUE);
-  }
-
-  /**
-   * @Formula("$this->calculateModerniseringExp()")
-   */
-  private function calculateModernisering($expression = FALSE) {
-    $result = array();
-    foreach ($this->getTilvalgteTiltag() as $tiltag) {
-      $result[] = $tiltag->getModernisering();
-    }
-    return $expression ? $this->sumExpr($result) : array_sum($result);
-  }
-
-  private function calculateFravalgtGenopretning() {
-    $value = 0;
-    foreach ($this->getFravalgteTiltag() as $tiltag) {
-      $value += $tiltag->getGenopretning();
-    }
-    return $value;
-  }
-
-  private function calculateFravalgtModernisering() {
-    $value = 0;
-    foreach ($this->getFravalgteTiltag() as $tiltag) {
-      $value += $tiltag->getModernisering();
-    }
-    return $value;
+    return $result;
   }
 
   /**
@@ -2725,9 +2631,6 @@ class Rapport {
       $sum += $tiltag->getAaplusInvestering();
     }
 
-    $sum -= $this->fravalgtGenopretning;
-    $sum -= $this->fravalgtModernisering;
-
     return $sum * $this->getProcentAfInvestering();
   }
 
@@ -2820,6 +2723,32 @@ class Rapport {
     return Calculation::npv($this->getKalkulationsrente(), $cashFlow, $array);
   }
 
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSet")
+   */
+  protected function calculateNutidsvaerdiSet() {
+    $years = $this->getNutidsvaerdiBeregnAar();
+    $cashFlow = $this->calculateCashFlow($years);
+    return Calculation::npv($this->getKalkulationsrente(), $cashFlow['cash flow'], TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
+   */
+  protected function calculateAkkumuleterNutidsvaerdiSet() {
+    $years = $this->getNutidsvaerdiBeregnAar();
+    $nutidsvaerdiSet = $this->getNutidsvaerdiSet();
+    $result = array_fill(0, $years, 0);
+    $value = - ($this->getEnergiscreening() + $this->getMtmFaellesomkostninger() + $this->getImplementering());
+    $result[0] = $value;
+    for ($i = 1; $i <= $years; $i++) {
+      $value += isset($nutidsvaerdiSet[$i]) ? $nutidsvaerdiSet[$i] : 0;
+      $result[$i] = $value;
+    }
+
+    return $result;
+  }
+
   protected function calculateFravalgtNutidsvaerdiSetOver15AarKr() {
     $result = 0;
     foreach ($this->getFravalgteTiltag() as $tiltag) {
@@ -2875,8 +2804,7 @@ class Rapport {
     return $this->BaselineBraendstof - $this->besparelseBraendstof;
   }
 
-  private function calculateCashFlow() {
-    $numberOfYears = 30;
+  private function calculateCashFlow($numberOfYears = 30) {
     $maxTiltagLevetid = $this->accumulate(function($tiltag, $value) {
       return $tiltag->getLevetid() > $value ? $tiltag->getLevetid() : $value;
     }, 0);
@@ -2905,7 +2833,7 @@ class Rapport {
       $flow['ydelse laan'][$year] = ($year <= $loebetid) ? -$samletAarligYdelseTilLaan : NULL;
       $flow['laan til faellesomkostninger'][$year] = ($year <= $loebetid) ? -Calculation::pmt($rente, $loebetid, $this->faellesomkostninger) : NULL;
       $flow['ydelse laan inkl. faellesomkostninger'][$year] = $flow['ydelse laan'][$year] + $flow['laan til faellesomkostninger'][$year];
-      $besparelse = $year > $maxTiltagLevetid ? NULL : $this->accumulate(function($tiltag, $value) use ($year) {
+      $besparelse = $this->accumulate(function($tiltag, $value) use ($year) {
         return $value + $tiltag->calculateSavingsForYear($year);
       }, 0);
 

@@ -56,17 +56,17 @@ class FormatExtension extends \Twig_Extension {
     return $this->formatDecimal($number, 0);
   }
 
-  public function formatAmount($number, $numberOfDecimals = 0) {
-    return $this->formatDecimal($number, $numberOfDecimals);
+  public function formatAmount($number, $numberOfDecimals = 0, $nullValue = '–') {
+    return $this->formatDecimal($number, $numberOfDecimals, $nullValue);
   }
 
   public function formatOneDecimal($number) {
     return $this->formatDecimal($number, 1);
   }
 
-  public function formatDecimal($number, $numberOfDecimals = 2) {
+  public function formatDecimal($number, $numberOfDecimals = 2, $nullValue = '–') {
     if ($number === NULL) {
-      return '–';
+      return $nullValue;
     }
     // if number is smaller then what we can display with the given decimals
     if ($number < (1/pow(10, $numberOfDecimals) && $number > (-1/pow(10, $numberOfDecimals)))) {

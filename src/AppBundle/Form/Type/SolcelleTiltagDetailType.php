@@ -25,20 +25,10 @@ class SolcelleTiltagDetailType extends TiltagDetailType {
       ->add('investeringKr')
       ->add('screeningOgProjekteringKr')
       ->add('omkostningTilMaalerKr')
-      ->add('forringetYdeevnePrAar', 'percent', array('scale' => 2));
-
-    if ($this->authorizationChecker && $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-      $builder
-        ->add('energiprisstigningPctPrAar', 'percent', array('scale' => 2))
-        ->add('salgsprisFoerste10AarKrKWh')
-        ->add('salgsprisEfter10AarKrKWh');
-    } else {
-      // We need these hidden fields to persist default values.
-      $builder
-        ->add('energiprisstigningPctPrAar', 'hidden')
-        ->add('salgsprisFoerste10AarKrKWh', 'hidden')
-        ->add('salgsprisEfter10AarKrKWh', 'hidden');
-    }
+      ->add('forringetYdeevnePrAar', 'percent', array('scale' => 2))
+      ->add('energiprisstigningPctPrAar', 'percent', array('scale' => 2))
+      ->add('salgsprisFoerste10AarKrKWh')
+      ->add('salgsprisEfter10AarKrKWh');
   }
 
   public function configureOptions(OptionsResolver $resolver) {

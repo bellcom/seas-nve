@@ -9,11 +9,13 @@ namespace AppBundle\Controller;
 use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\DBAL\Types\FilCategoryType;
 use AppBundle\Entity\Bygning;
+use AppBundle\Entity\Tiltag;
 use AppBundle\Form\Type\RapportSearchType;
 use AppBundle\Form\Type\RapportShowType;
 use AppBundle\Form\Type\RapportStatusType;
 use AppBundle\Form\Type\TiltagDatoForDriftType;
 use AppBundle\Form\Type\TiltagTilvalgtType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
@@ -81,7 +83,6 @@ class RapportController extends BaseController {
     $search['adresse'] = $rapport->getBygning()->getAdresse();
     $search['postnummer'] = $rapport->getBygning()->getPostnummer();
     $search['segment'] = $rapport->getBygning()->getSegment();
-    $search['status'] = $rapport->getBygning()->getStatus();
     $search['datering'] = $rapport->getDatering();
     $search['version'] = $rapport->getVersion();
 
@@ -160,18 +161,6 @@ class RapportController extends BaseController {
 
     // Bygning Status forms
     $formArray = array();
-    if($status == BygningStatusType::TILKNYTTET_RAADGIVER) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_submit', 'bygning_rapporter.actions.submit')->createView();
-    } else if ($status == BygningStatusType::AFLEVERET_RAADGIVER) {
-      $formArray['prev_status_form'] = $this->createStatusForm($rapport, 'rapport_retur', 'bygning_rapporter.actions.retur')->createView();
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_verify', 'bygning_rapporter.actions.verify')->createView();
-    } else if ($status == BygningStatusType::AAPLUS_VERIFICERET) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_approve', 'bygning_rapporter.actions.approve')->createView();
-    } else if ($status == BygningStatusType::GODKENDT_AF_MAGISTRAT) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_implementation', 'bygning_rapporter.actions.implementation')->createView();
-    } else if ($status == BygningStatusType::UNDER_UDFOERSEL) {
-      $formArray['next_status_form'] = $this->createStatusForm($rapport, 'rapport_operation', 'bygning_rapporter.actions.operation')->createView();
-    }
 
     // Tiltag tilvalgt/fravalgt forms
     $tilvalgtFormArray = array();
@@ -203,8 +192,19 @@ class RapportController extends BaseController {
     $calculationChanges = $this->container->get('aaplus.rapport_calculation')->getChanges($rapport);
     $calculateForm = $this->createCalculateForm($rapport, $calculationChanges)->createView();
 
+    $slutanvendelseLabels = $rapport->getBesparelseSlutanvendelserLabels();
+    $samledeTiltagGrafData = [];
+    foreach($rapport->getBesparelseSlutanvendelser() as $type => $slutanvendelse) {
+      $samledeTiltagGrafData[$type] = [
+          'label' => $slutanvendelseLabels[$type],
+          'value' => $slutanvendelse['total'],
+      ];
+    }
+
     $twigVars = array(
       'entity' => $rapport,
+      'tilvalgteTiltag' => $this->sortTiltags($rapport->getTilvalgteTiltag()),
+      'fravalgteTiltag' => $this->sortTiltags($rapport->getFravalgteTiltag()),
       'dato_for_drift_form_array' => $tiltagDatoForDriftFormArray,
       'tilvalgt_form_array' => $tilvalgtFormArray,
       'fravalgt_form_array' => $fravalgtFormArray,
@@ -213,6 +213,7 @@ class RapportController extends BaseController {
       'calculate_form' => $calculateForm,
       'calculation_changes' => $calculationChanges,
       'calculation_warnings' => $rapport->getCalculationWarnings(),
+      'samledeTiltagGrafData' => $samledeTiltagGrafData,
     );
 
     return array_merge($twigVars, $formArray);
@@ -554,6 +555,7 @@ class RapportController extends BaseController {
   /**
    * Aaplus verifies a Rapport entity.
    *
+   * @deprecated This method is deprecated. Status property is hidden from rendering.
    * @Route("/{id}/verify", name="rapport_verify")
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")
@@ -571,6 +573,7 @@ class RapportController extends BaseController {
   /**
    * Magistrat Godkendt
    *
+   * @deprecated This method is deprecated. Status property is hidden from rendering.
    * @Route("/{id}/approve", name="rapport_approve")
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")
@@ -588,6 +591,7 @@ class RapportController extends BaseController {
   /**
    * Under udførsel
    *
+   * @deprecated This value property is deprecated. Hidden from rendering.
    * @Route("/{id}/implementation", name="rapport_implementation")
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")
@@ -605,6 +609,7 @@ class RapportController extends BaseController {
   /**
    * Drift
    *
+   * @deprecated This method is deprecated. Status property is hidden from rendering.
    * @Route("/{id}/operation", name="rapport_operation")
    * @Method("PUT")
    * @Security("has_role('ROLE_ADMIN')")
@@ -690,6 +695,7 @@ class RapportController extends BaseController {
   /**
    * Creates a new Tiltag entity.
    *
+   * @deprecated Should be deleted in next versions
    * @Route("/{id}/tiltag/new/{type}", name="tiltag_create")
    * @Method("POST")
    * @Template("AppBundle:Tiltag:new.html.twig")
@@ -707,6 +713,119 @@ class RapportController extends BaseController {
     $this->flash->success( $type.'tiltag.confirmation.created');
 
     return $this->redirect($this->generateUrl('tiltag_edit', array('id' => $tiltag->getId())));
+  }
+
+  /**
+   * Creates a new Tiltag entity without form.
+   *
+   * @Route("/{id}/tiltagnew/{type}", name="tiltag_new")
+   * @Method("GET")
+   * @Template("AppBundle:Tiltag:new.html.twig")
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
+   */
+  public function newTiltagNewAction(Request $request, Rapport $rapport, $type) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+    $this->breadcrumbs->addItem($type . 'tiltag.actions.add');
+
+    $em = $this->getDoctrine()->getManager();
+    $tiltag = $em->getRepository('AppBundle:Tiltag')->create($type);
+    $tiltag->init($rapport);
+    $form = $this->createTiltagCreateForm($rapport, $tiltag, $type);
+    $template = $this->getTiltagTemplate($tiltag, 'new');
+
+    return $this->render($template, array(
+      'entity' => $tiltag,
+      'edit_form' => $form->createView(),
+    ));
+  }
+
+  /**
+   * Creates a new Detail entity from form data
+   *
+   * @Route("/{id}/tiltagnew/{type}", name="tiltag_new_create")
+   * @Method("POST")
+   * @Template()
+   * @Security("is_granted('RAPPORT_EDIT', rapport)")
+   */
+  public function createTiltagAction(Request $request, Rapport $rapport, $type) {
+    $em = $this->getDoctrine()->getManager();
+    /** @var Tiltag $tiltag */
+    $tiltag = $em->getRepository('AppBundle:Tiltag')->create($type);
+    $tiltag->init($rapport);
+    $form =$this->createTiltagCreateForm($rapport, $tiltag, $type);
+    $form->handleRequest($request);
+
+    if ($form->isValid()) {
+      $tiltag->init($rapport);
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($tiltag);
+      $em->flush();
+
+      $this->flash->success('tiltag.confirmation.created');
+      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+    }
+
+    $template = $this->getTiltagTemplate($tiltag, 'new');
+    return $this->render($template, array(
+      'entity' => $tiltag,
+      'edit_form' => $form->createView(),
+    ));
+  }
+
+  /**
+   * Get form type class name for a entity
+   *
+   * @param Tiltag $tiltag
+   * @return string
+   */
+  private function getFormTypeClassName($tiltag) {
+    $className = '\\AppBundle\\Form\\Type\\' . $this->getEntityName($tiltag) . 'Type';
+    if (!class_exists($className)) {
+      $className = '\\AppBundle\\Form\\Type\\TiltagType';
+    }
+    return $className;
+  }
+
+  /**
+   * Get name of an entity
+   *
+   * @param object $entity
+   * @return string
+   */
+  private function getEntityName($entity) {
+    $className = get_class($entity);
+    if (preg_match('@\\\\([^\\\\]+)$@', $className, $matches)) {
+      return $matches[1];
+    }
+    return $className;
+  }
+
+  private function createTiltagCreateForm(Rapport $rapport, Tiltag $tiltag, $type) {
+    $formClass = $this->getFormTypeClassName($tiltag);
+    $form = $this->createForm(new $formClass($tiltag, $this->get('security.context')), $tiltag, array(
+      'action' => $this->generateUrl('tiltag_new_create', array('id' => $rapport->getId(), 'type' => $type)),
+      'method' => 'POST',
+    ));
+
+    $form->add('submit', 'submit', array('label' => 'Create'));
+    return $form;
+  }
+
+  /**
+   * Get template for an tiltag and an action.
+   * If a specific template for the entity does not exist, a fallback template is returned.
+   *
+   * @param Tiltag $entity
+   * @param string $action
+   * @return string
+   */
+  private function getTiltagTemplate(Tiltag $entity, $action) {
+    $className = $this->getEntityName($entity);
+    $template = 'AppBundle:' . $className . ':' . $action . '.html.twig';
+    if (!$this->get('templating')->exists($template)) {
+        $template = 'AppBundle:Tiltag:' . $action . '.html.twig';
+    }
+    return $template;
   }
 
   //---------------- Regninger -------------------//
@@ -985,5 +1104,21 @@ class RapportController extends BaseController {
         }
       }
     }
+  }
+
+  /**
+   * Sorts tiltags array collection.
+   *
+   * @param ArrayCollection $tiltags
+
+   * @return ArrayCollection
+   */
+  protected function sortTiltags($tiltags) {
+    $iterator = $tiltags->getIterator();
+    $iterator->uasort(function ($a, $b) {
+        return ($a->getSimpelTilbagebetalingstidAar() < $b->getSimpelTilbagebetalingstidAar()) ? -1 : 1;
+    });
+
+    return new ArrayCollection(iterator_to_array($iterator));
   }
 }

@@ -4,6 +4,7 @@ namespace AppBundle\PdfExport;
 
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\VirksomhedRapport;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Entity\Rapport;
 
@@ -48,6 +49,7 @@ class PdfExport {
     $html = $this->renderView('AppBundle:Rapport:showPdf2.html.twig', array(
       'rapport' => $rapport,
       'review' => $review,
+      'rapport_tiltag' => $this->sortTiltags($rapport->getTiltag()),
     ));
 
     return $review ? ($cover . $html) :  $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
@@ -434,4 +436,21 @@ class PdfExport {
   private function renderView($view, array $parameters = array()) {
     return $this->templating->render($view, $parameters);
   }
+
+  /**
+   * Sorts tiltags array collection.
+   *
+   * @param ArrayCollection $tiltags
+   *
+   * @return ArrayCollection
+   */
+  protected function sortTiltags($tiltags) {
+    $iterator = $tiltags->getIterator();
+    $iterator->uasort(function ($a, $b) {
+      return ($a->getSimpelTilbagebetalingstidAar() < $b->getSimpelTilbagebetalingstidAar()) ? -1 : 1;
+    });
+
+    return new ArrayCollection(iterator_to_array($iterator));
+  }
+
 }

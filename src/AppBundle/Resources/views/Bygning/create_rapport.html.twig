@@ -1,0 +1,38 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-8">
+      <h1>{{ 'bygninger.actions.create_rapport' | trans }}</h1>
+    </div>
+    <div class="col-md-4 text-right">
+
+    </div>
+  </div>
+
+
+  {{ form_start(edit_form) }}
+  {{ form_errors(edit_form) }}
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ icon('file') }} {{ 'bygning_rapporter.labels.singular' | trans }}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.rapport.datering) }}
+        <span class="hidden">{{ form_row(edit_form.rapport.elena) }}</span>
+        {% if edit_form.rapport.ava is defined %}
+          <span class="hidden">{{ form_row(edit_form.rapport.ava) }}</span>
+        {% endif %}
+      </div>
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.rapport.energiscreening) }}
+      </div>
+    </div>
+  </div>
+
+  {{ form_rest(edit_form) }}
+  {{ form_start(edit_form) }}
+
+{% endblock %}

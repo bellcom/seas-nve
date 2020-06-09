@@ -29,7 +29,7 @@ class RapportSearchBygningEmbedType extends AbstractType {
       ->add('adresse', null, array('label' => false))
       ->add('postnummer', null, array('label' => false))
       ->add('segment', null, array('label' => false, 'required' => false))
-      ->add('status', null, array('label' => false, 'required' => false, 'data' => null));
+    ;
   }
 
   /**

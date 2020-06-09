@@ -47,7 +47,19 @@
           <h3>{{ key + 1 }}. {{ t.title }}</h3>
         </div>
       </div>
-
+      {% if rapport.visGraphPDF %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              {{ 'appbundle.tiltag.akkumuleretNutidsvaerdiSet' | trans }}
+            </h3>
+          </div>
+          <div class="panel-body">
+            {%  set linje_graf_label = (('appbundle.tiltag.akkumuleretNutidsvaerdiSet' | trans) ~ ', ' ~ ('appbundle.tiltag.akkumuleretNutidsvaerdiSet.unit' | trans)) %}
+            {% include 'AppBundle::_includes/linje_graf_years.html.twig' with { 'linje_graf_data' : t.akkumuleretNutidsvaerdiSet } %}
+          </div>
+        </div>
+      {% endif %}
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">
@@ -153,38 +165,6 @@
               {% endif %}
             </p>
           {% endif %}
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12">
-          {% if t.risikovurderingBrugsmoenster or t.risikovurderingDatagrundlag  or t.risikovurderingTeknisk or t.risikovurderingDiverse or t.risikovurdering is not empty %}
-            <h4>Risikovurdering:</h4>
-          {% endif %}
-
-          {% if t.risikovurderingBrugsmoenster or t.risikovurderingDatagrundlag  or t.risikovurderingTeknisk or t.risikovurderingDiverse %}
-            <table class="table table-condensed table-fixed"><tr>
-            {% if t.risikovurderingTeknisk %}
-              <td><strong>{{ 'appbundle.tiltag.risikovurderingTeknisk' | trans }}:</strong> {{ ('common.risikovurdering.' ~ t.risikovurderingTeknisk) | trans }}</td>
-            {% endif %}
-            {% if t.risikovurderingBrugsmoenster %}
-              <td><strong>{{ 'appbundle.tiltag.risikovurderingBrugsmoenster' | trans }}:</strong> {{ ('common.risikovurdering.' ~ t.risikovurderingBrugsmoenster) | trans }}</td>
-            {% endif %}
-            {% if t.risikovurderingDatagrundlag %}
-              <td><strong>{{ 'appbundle.tiltag.risikovurderingDatagrundlag' | trans }}:</strong> {{ ('common.risikovurdering.' ~ t.risikovurderingDatagrundlag) | trans }}</td>
-            {% endif %}
-            {% if t.risikovurderingDiverse %}
-              <td><strong>{{ 'appbundle.tiltag.risikovurderingDiverse' | trans }}:</strong> {{ t.risikovurderingDiverse }}</td>
-            {% endif %}
-              </tr></table>
-            {% if t.risikovurdering is not empty %}
-              <p><strong>{{ 'appbundle.tiltag.risikovurdering' | trans }}:</strong><p>
-              <p>{{ t.risikovurdering }}</p>
-            {% endif %}
-          {% elseif t.risikovurdering is not empty %}
-            <p>{{ t.risikovurdering }}</p>
-          {% endif %}
-
         </div>
       </div>
 

@@ -9,10 +9,10 @@ namespace AppBundle\Entity;
 use AppBundle\Annotations\Calculated;
 use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
-use AppBundle\DBAL\Types\PrimaerEnterpriseType;
 use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
@@ -201,27 +201,6 @@ abstract class Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="prioriteringsfaktor", type="float")
-   */
-  protected $prioriteringsfaktor = 1;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="konverteringsfaktorFoer", type="float")
-   */
-  protected $konverteringsfaktorFoer = 1;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="konverteringsfaktorEfter", type="float")
-   */
-  protected $konverteringsfaktorEfter = 1;
-
-  /**
-   * @var float
-   *
    * @ORM\Column(name="forbrugFoer", type="integer", nullable=true)
    */
   protected $forbrugFoer = 0;
@@ -318,6 +297,22 @@ abstract class Tiltag {
   protected $nutidsvaerdiSetOver15AarKr;
 
   /**
+   * @var array
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdiSet", type="array", nullable=true)
+   */
+  protected $nutidsvaerdiSet;
+
+  /**
+   * @var array
+   *
+   * @Calculated
+   * @ORM\Column(name="akkumuleretNutidsvaerdiSet", type="array", nullable=true)
+   */
+  protected $akkumuleretNutidsvaerdiSet;
+
+  /**
    * @var float
    *
    * @Calculated
@@ -340,14 +335,6 @@ abstract class Tiltag {
    * @ORM\Column(name="reinvestering", type="float", nullable=true)
    */
   protected $reinvestering;
-
-  /**
-   * @var string
-   *
-   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\PrimaerEnterpriseType")
-   * @ORM\Column(name="primaerEnterprise", type="PrimaerEnterpriseType")
-   */
-  protected $primaerEnterprise = PrimaerEnterpriseType::NONE;
 
   /**
    * @ManyToOne(targetEntity="TiltagsKategori")
@@ -406,76 +393,6 @@ abstract class Tiltag {
    * )
    */
   protected $beskrivelseOevrige;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="risikovurdering", type="text", nullable=true)
-   *
-   * @Assert\Length(
-   *  max = 10000,
-   *  maxMessage = "maxLength"
-   * )
-   */
-  protected $risikovurdering;
-
-  /**
-   * @var string
-   *
-   * Tekniske forhold / kompleksitet
-   *
-   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
-   * @ORM\Column(name="risikovurderingTeknisk", type="RisikovurderingType", nullable=true)
-   */
-  protected $risikovurderingTeknisk;
-
-  /**
-   * @var string
-   *
-   * Brugsmønster
-   *
-   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
-   * @ORM\Column(name="risikovurderingBrugsmoenster", type="RisikovurderingType", nullable=true)
-   */
-  protected $risikovurderingBrugsmoenster;
-
-  /**
-   * @var string
-   *
-   * Datagrundlag
-   *
-   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
-   * @ORM\Column(name="risikovurderingDatagrundlag", type="RisikovurderingType", nullable=true)
-   */
-  protected $risikovurderingDatagrundlag;
-
-  /**
-   * @var string
-   *
-   * Div. (Beskrives i noter.)
-   *
-   * @DoctrineAssert\Enum(entity="AppBundle\DBAL\Types\RisikovurderingType")
-   * @ORM\Column(name="risikovurderingDiverse", type="RisikovurderingType", nullable=true)
-   */
-  protected $risikovurderingDiverse;
-
-  /**
-   * @var float
-   *
-   * Ændring i besparelse i forhold til risikovurdering
-   *
-   * @ORM\Column(name="risikovurderingAendringIBesparelseFaktor", type="float", nullable=true)
-   */
-  protected $risikovurderingAendringIBesparelseFaktor;
-
-  /**
-   * @var float
-   *
-   * Økonomisk kompensering ift. investering
-   *
-   * @ORM\Column(name="risikovurderingOekonomiskKompenseringIftInvesteringFaktor", type="float", nullable=true)
-   */
-  protected $risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
 
   /**
    * @var float
@@ -546,6 +463,14 @@ abstract class Tiltag {
   protected $cashFlow30;
 
   /**
+   * @var array of float
+   *
+   * @Calculated
+   * @ORM\Column(name="cashFlowSet", type="array")
+   */
+  protected $cashFlowSet;
+
+  /**
    * @var Rapport
    *
    * @ManyToOne(targetEntity="Rapport", inversedBy="tiltag")
@@ -595,27 +520,6 @@ abstract class Tiltag {
   protected $budgetteredeUdgifter;
 
   /**
-   * @var string
-   *
-   * @ORM\Column(name="Genopretning", type="decimal", nullable=true)
-   */
-  protected $genopretning = 0;
-
-  /**
-   * @var float
-   *
-   * @ORM\Column(name="genopretningForImplementeringsomkostninger", type="decimal", nullable=true)
-   */
-  protected $genopretningForImplementeringsomkostninger = 0;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="Modernisering", type="decimal", nullable=true)
-   */
-  protected $modernisering = 0;
-
-  /**
    * @OneToMany(targetEntity="Bilag", mappedBy="tiltag", cascade={"remove"})
    * @OrderBy({"id" = "ASC"})
    * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\Bilag>")
@@ -644,6 +548,11 @@ abstract class Tiltag {
    * @ORM\Column(name="DatoForDrift", type="date", nullable=true)
    */
   protected $datoForDrift;
+
+  /**
+   * @var Configuration
+   */
+  protected $configuration;
 
   /**
    * Get Name
@@ -704,90 +613,6 @@ abstract class Tiltag {
       $this->slutanvendelse = SlutanvendelseType::$detaultValues[get_class($this)];
     }
     return $this->slutanvendelse;
-  }
-
-  /**
-   * @return string
-   */
-  public function getRisikovurderingTeknisk() {
-    return $this->risikovurderingTeknisk;
-  }
-
-  /**
-   * @param string $risikovurderingTeknisk
-   */
-  public function setRisikovurderingTeknisk($risikovurderingTeknisk) {
-    $this->risikovurderingTeknisk = $risikovurderingTeknisk;
-  }
-
-  /**
-   * @return string
-   */
-  public function getRisikovurderingBrugsmoenster() {
-    return $this->risikovurderingBrugsmoenster;
-  }
-
-  /**
-   * @param string $risikovurderingBrugsmoenster
-   */
-  public function setRisikovurderingBrugsmoenster($risikovurderingBrugsmoenster) {
-    $this->risikovurderingBrugsmoenster = $risikovurderingBrugsmoenster;
-  }
-
-  /**
-   * @return string
-   */
-  public function getRisikovurderingDatagrundlag() {
-    return $this->risikovurderingDatagrundlag;
-  }
-
-  /**
-   * @param string $risikovurderingDatagrundlag
-   */
-  public function setRisikovurderingDatagrundlag($risikovurderingDatagrundlag) {
-    $this->risikovurderingDatagrundlag = $risikovurderingDatagrundlag;
-  }
-
-  /**
-   * @return string
-   */
-  public function getRisikovurderingDiverse() {
-    return $this->risikovurderingDiverse;
-  }
-
-  /**
-   * @param string $risikovurderingDiverse
-   */
-  public function setRisikovurderingDiverse($risikovurderingDiverse) {
-    $this->risikovurderingDiverse = $risikovurderingDiverse;
-  }
-
-  /**
-   * @return float
-   */
-  public function getRisikovurderingAendringIBesparelseFaktor() {
-    return $this->risikovurderingAendringIBesparelseFaktor;
-  }
-
-  /**
-   * @param float $risikovurderingAendringIBesparelseFaktor
-   */
-  public function setRisikovurderingAendringIBesparelseFaktor($risikovurderingAendringIBesparelseFaktor) {
-    $this->risikovurderingAendringIBesparelseFaktor = $risikovurderingAendringIBesparelseFaktor;
-  }
-
-  /**
-   * @return float
-   */
-  public function getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() {
-    return $this->risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
-  }
-
-  /**
-   * @param float $risikovurderingOekonomiskKompenseringIftInvesteringFaktor
-   */
-  public function setRisikovurderingOekonomiskKompenseringIftInvesteringFaktor($risikovurderingOekonomiskKompenseringIftInvesteringFaktor) {
-    $this->risikovurderingOekonomiskKompenseringIftInvesteringFaktor = $risikovurderingOekonomiskKompenseringIftInvesteringFaktor;
   }
 
   /**
@@ -911,69 +736,6 @@ abstract class Tiltag {
   }
 
   /**
-   * Set prioriteringsfaktor
-   *
-   * @param integer $prioriteringsfaktor
-   * @return Tiltag
-   */
-  public function setPrioriteringsfaktor($prioriteringsfaktor) {
-    $this->prioriteringsfaktor = $prioriteringsfaktor;
-
-    return $this;
-  }
-
-  /**
-   * Get prioriteringsfaktor
-   *
-   * @return integer
-   */
-  public function getPrioriteringsfaktor() {
-    return $this->prioriteringsfaktor;
-  }
-
-  /**
-   * Set konverteringsfaktorFoer
-   *
-   * @param integer $konverteringsfaktorFoer
-   * @return Tiltag
-   */
-  public function setKonverteringsfaktorFoer($konverteringsfaktorFoer) {
-    $this->konverteringsfaktorFoer = $konverteringsfaktorFoer;
-
-    return $this;
-  }
-
-  /**
-   * Get konverteringsfaktorFoer
-   *
-   * @return integer
-   */
-  public function getKonverteringsfaktorFoer() {
-    return $this->konverteringsfaktorFoer;
-  }
-
-  /**
-   * Set konverteringsfaktorEfter
-   *
-   * @param integer $konverteringsfaktorEfter
-   * @return Tiltag
-   */
-  public function setKonverteringsfaktorEfter($konverteringsfaktorEfter) {
-    $this->konverteringsfaktorEfter = $konverteringsfaktorEfter;
-
-    return $this;
-  }
-
-  /**
-   * Get konverteringsfaktorEfter
-   *
-   * @return integer
-   */
-  public function getKonverteringsfaktorEfter() {
-    return $this->konverteringsfaktorEfter;
-  }
-
-  /**
    * Set forbrugFoer
    *
    * @param integer $forbrugFoer
@@ -992,6 +754,19 @@ abstract class Tiltag {
    */
   public function getForbrugFoer() {
     return $this->forbrugFoer;
+  }
+
+  /**
+   * Get forbrugFoer extrapolated for 15 years.
+   *
+   * @return array
+   */
+  public function getForbrugFoer15() {
+    $data = [];
+    for ($i = 1; $i <= 15; $i++) {
+      $data[$i] = $this->forbrugFoer * $i;
+    }
+      return $data;
   }
 
   /**
@@ -1016,25 +791,34 @@ abstract class Tiltag {
   }
 
   /**
-   * Set primaerEnterprise
+   * Get forbrugEfter extrapolated for 15 years.
    *
-   * @param \AppBundle\DBAL\Types\PrimaerenterpriseType $primaerEnterprise
-   *
-   * @return Tiltag
+   * @return array
    */
-  public function setPrimaerEnterprise($primaerEnterprise) {
-    $this->primaerEnterprise = $primaerEnterprise;
-
-    return $this;
+  public function getForbrugEfter15() {
+    $data = [];
+    for ($i = 1; $i <= 15; $i++) {
+      $data[$i] = $this->forbrugEfter * $i;
+    }
+    return $data;
   }
 
   /**
-   * Get primaerEnterprise
+   * Get forbrugFoer and forbrugEfter extrapolated for 15 years.
    *
-   * @return \AppBundle\DBAL\Types\PrimaerenterpriseType
+   * @return array
    */
-  public function getPrimaerEnterprise() {
-    return $this->primaerEnterprise;
+  public function getForbrugFoerEfter15() {
+    $data = [];
+    $forbrugFoer15 = $this->getForbrugFoer15();
+    $forbrugEfter15 = $this->getForbrugEfter15();
+    for ($i = 1; $i <= 15; $i++) {
+      $data[$i] = [
+        'foer' => $forbrugFoer15[$i],
+        'efter' => $forbrugEfter15[$i],
+      ];
+    }
+    return $data;
   }
 
   /**
@@ -1293,27 +1077,6 @@ abstract class Tiltag {
   }
 
   /**
-   * Set risikovurdering
-   *
-   * @param string $risikovurdering
-   * @return Tiltag
-   */
-  public function setRisikovurdering($risikovurdering) {
-    $this->risikovurdering = $risikovurdering;
-
-    return $this;
-  }
-
-  /**
-   * Get risikovurdering
-   *
-   * @return string
-   */
-  public function getRisikovurdering() {
-    return $this->risikovurdering;
-  }
-
-  /**
    * Set placering
    *
    * @param string $placering
@@ -1392,6 +1155,27 @@ abstract class Tiltag {
    */
   public function getCashFlow30() {
     return $this->cashFlow30;
+  }
+
+  /**
+   * Set cashFlowSet
+   *
+   * @param array $cashFlowSet
+   * @return Tiltag
+   */
+  public function setCashFlowSet($cashFlowSet) {
+    $this->cashFlowSet = $cashFlowSet;
+
+    return $this;
+  }
+
+  /**
+   * Get cashFlowSet
+   *
+   * @return array of float
+   */
+  public function getCashFlowSet() {
+    return $this->cashFlowSet;
   }
 
   /**
@@ -1485,6 +1269,37 @@ abstract class Tiltag {
    */
   public function getNutidsvaerdiSetOver15AarKr() {
     return $this->nutidsvaerdiSetOver15AarKr;
+  }
+
+  /**
+   * @param array $nutidsvaerdiSet
+   */
+  public function setNutidsvaerdiSet($nutidsvaerdiSet) {
+    $this->nutidsvaerdiSet = $nutidsvaerdiSet;
+  }
+
+  /**
+   * @return float|array
+   */
+  public function getNutidsvaerdiSet($value = FALSE) {
+    if (empty($this->nutidsvaerdiSet)) {
+      $this->nutidsvaerdiSet = [];
+    }
+    return $value ? array_sum($this->nutidsvaerdiSet) : $this->nutidsvaerdiSet;
+  }
+
+  /**
+   * @param array $akkumuleretNutidsvaerdiSet
+   */
+  public function setAkkumuleretNutidsvaerdiSet($akkumuleretNutidsvaerdiSet) {
+    $this->akkumuleretNutidsvaerdiSet = $akkumuleretNutidsvaerdiSet;
+  }
+
+  /**
+   * @return array
+   */
+  public function getAkkumuleretNutidsvaerdiSet() {
+    return $this->akkumuleretNutidsvaerdiSet;
   }
 
   /**
@@ -1626,72 +1441,6 @@ abstract class Tiltag {
   }
 
   /**
-   * Set genopretning
-   *
-   * @param string $genopretning
-   *
-   * @return Tiltag
-   */
-  public function setGenopretning($genopretning) {
-    $this->genopretning = $genopretning;
-
-    return $this;
-  }
-
-  /**
-   * Get genopretning
-   *
-   * @return float
-   */
-  public function getGenopretning() {
-    return $this->genopretning;
-  }
-
-  /**
-   * Set genopretningForImplementeringsomkostninger
-   *
-   * @param string $genopretningForImplementeringsomkostninger
-   *
-   * @return Tiltag
-   */
-  public function setGenopretningForImplementeringsomkostninger($genopretningForImplementeringsomkostninger) {
-    $this->genopretningForImplementeringsomkostninger = $genopretningForImplementeringsomkostninger;
-
-    return $this;
-  }
-
-  /**
-   * Get genopretningForImplementeringsomkostninger
-   *
-   * @return string
-   */
-  public function getGenopretningForImplementeringsomkostninger() {
-    return $this->genopretningForImplementeringsomkostninger;
-  }
-
-  /**
-   * Set modernisering
-   *
-   * @param string $modernisering
-   *
-   * @return Tiltag
-   */
-  public function setModernisering($modernisering) {
-    $this->modernisering = $modernisering;
-
-    return $this;
-  }
-
-  /**
-   * Get modernisering
-   *
-   * @return float
-   */
-  public function getModernisering() {
-    return $this->modernisering;
-  }
-
-  /**
    * Get all selected TiltagDetails.
    *
    * @return ArrayCollection
@@ -1786,6 +1535,27 @@ abstract class Tiltag {
   }
 
   /**
+   * Sets configuration.
+   *
+   * @param Configuration $configuration
+   * @return $this
+   */
+  public function setConfiguration(Configuration $configuration) {
+    $this->configuration = $configuration;
+
+    return $this;
+  }
+
+  /**
+   * Gets configuration.
+   *
+   * @return Configuration
+   */
+  public function getConfiguration() {
+    return $this->configuration;
+  }
+
+  /**
    * Calculate values in this Tiltag
    */
   public function calculate() {
@@ -1820,7 +1590,10 @@ abstract class Tiltag {
     $this->scrapvaerdi = $this->calculateScrapvaerdi();
     $this->cashFlow15 = $this->calculateCashFlow(15);
     $this->cashFlow30 = $this->calculateCashFlow(30);
+    $this->cashFlowSet = $this->calculateCashFlow($this->getConfiguration()->getNutidsvaerdiBeregnAar());
     $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
+    $this->nutidsvaerdiSet = $this->calculateNutidsvaerdiSet();
+    $this->akkumuleretNutidsvaerdiSet = $this->calculateAkkumuleterNutidsvaerdiSet();
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->besparelseAarEt = $this->calculateSavingsForYear(1);
     $this->maengde = $this->calculateMaengde();
@@ -1829,10 +1602,10 @@ abstract class Tiltag {
 
   /**
    * @inheritDoc
-   * @Formula("$this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering())")
+   * @Formula("$this->getAnlaegsinvestering()")
    */
   protected function calculateAaplusInvestering() {
-    return $this->getAnlaegsinvestering() - ($this->getGenopretning() + $this->getModernisering());
+    return $this->getAnlaegsinvestering();
   }
 
   protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
@@ -1863,17 +1636,6 @@ abstract class Tiltag {
                                              : $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisEfter10AarKrKWh());
       }
 
-      if ($year == 1) {
-        $value -= $aaplusinvestering;
-      }
-      else {
-        if ($this->levetid + 1 == $year) {
-          $value -= $this->aaplusInvestering * $this->faktorForReinvesteringer * pow(1 + $inflation, $year);
-        }
-        if ($numberOfYears == 15 && $year == $numberOfYears) {
-          $value += $scrapvaerdi;
-        }
-      }
       $cashFlow[$year] = $value + $yderligereBesparelseKrAar;
     }
 
@@ -1881,19 +1643,7 @@ abstract class Tiltag {
   }
 
   public function calculateSavingsForYear($year) {
-    if ($year > $this->levetid) {
-      return 0;
-    }
-
-    $varmepris = $this->calculateVarmepris($year);
-    $besparelse = // $this->getIndtaegtSalgAfEnergibesparelse()
-                +($this->getVarmebesparelseGUF() + $this->getVarmebesparelseGAF()) * $varmepris
-                + $this->getElbesparelse() * $this->rapport->getElKrKWh($year)
-                + $this->getVandbesparelse() * $this->rapport->getVandKrKWh($year)
-                + ($this->getBesparelseStrafafkoelingsafgift() + $this->getBesparelseDriftOgVedligeholdelse()) * pow(1 + $this->rapport->getInflation(), $year)
-                ;
-
-    return $besparelse;
+    return isset($this->cashFlowSet[$year]) ? $this->cashFlowSet[$year] : 0;
   }
 
   public function calculateBesparelseVarmeForYear($year) {
@@ -1950,7 +1700,7 @@ abstract class Tiltag {
    * @return float
    */
   protected function calculateAnlaegsinvesteringFaktor() {
-    return $this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() ? ($this->getRisikovurderingOekonomiskKompenseringIftInvesteringFaktor() + 1) : 1;
+    return 1;
   }
 
   protected function calculateAnlaegsinvestering($value = NULL) {
@@ -1990,7 +1740,7 @@ abstract class Tiltag {
    * @return float|int
    */
   protected function calculateRisikoFaktor() {
-    return $this->getRisikovurderingAendringIBesparelseFaktor() ? (1 - $this->getRisikovurderingAendringIBesparelseFaktor()) : 1;
+    return 1;
   }
 
   /**
@@ -2027,6 +1777,37 @@ abstract class Tiltag {
   protected function calculateNutidsvaerdiSetOver15AarKr($array = FALSE) {
     return Calculation::npv($this->getRapport()
       ->getKalkulationsrente(), $this->cashFlow15, $array);
+  }
+
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSet")
+   */
+  protected function calculateNutidsvaerdiSet() {
+    $cashFlow = $this->getCashFlowSet();
+    return Calculation::npv($this->getRapport()
+      ->getKalkulationsrente(), $cashFlow, TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
+   */
+  protected function calculateAkkumuleterNutidsvaerdiSet() {
+    $inflation = $this->getRapport()->getInflation();
+    $years = $this->getConfiguration()->getNutidsvaerdiBeregnAar();
+    $nutidsvaerdiSet = $this->getNutidsvaerdiSet();
+    $result = array_fill(0, $years, 0);
+    $value = - $this->getAnlaegsinvestering();
+    $result[0] = $value;
+    for ($i = 1; $i <= $years; $i++) {
+      $value += isset($nutidsvaerdiSet[$i]) ? $nutidsvaerdiSet[$i] : 0;
+      /**
+      if ($i == 10) {
+        $value -= $this->getAnlaegsinvestering() * $this->faktorForReinvesteringer * pow(1 + $inflation, 10);
+      }
+       */
+      $result[$i] = $value;
+    }
+    return $result;
   }
 
   protected function calculateScrapvaerdi() {
@@ -2309,6 +2090,16 @@ abstract class Tiltag {
     return $this->maengde;
   }
 
+
+  /**
+   * Initialize a new Tiltag.
+   *
+   * Can be used for setting default values, say.
+   */
+  public function init(Rapport $rapport) {
+      $this->setRapport($rapport);
+  }
+
   /**
    * Get enhed
    *
@@ -2319,11 +2110,28 @@ abstract class Tiltag {
   }
 
   /**
-   * @ORM\PostLoad()
+   * Pre persist handler.
+   *
+   * @ORM\PrePersist
+   * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
    */
-  public function postLoad() {
+  public function prePersist(LifecycleEventArgs $event) {
+    $repository = $event->getEntityManager()
+      ->getRepository('AppBundle:Configuration');
+    $this->setConfiguration($repository->getConfiguration());
+  }
+
+  /**
+   * @ORM\PostLoad()
+   * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+   */
+  public function postLoad(LifecycleEventArgs $event) {
     $this->initFormulableCalculation();
     $this->tranlsationSuffix = 'appbundle.tiltag.';
+    $repository = $event->getEntityManager()
+      ->getRepository('AppBundle:Configuration');
+    $this->setConfiguration($repository->getConfiguration());
+
   }
 
 }

@@ -32,7 +32,6 @@ class BygningSearchType extends AbstractType {
       ->add('postBy', null, array('label' => false))
       ->add('virksomhed', null, array('label' => false, 'required' => false, 'data' => null))
       ->add('segment', null, array('label' => false, 'required' => false))
-      ->add('status', null, array('label' => false, 'required' => false, 'data' => null))
       ->add('Søg', 'submit');
   }
 

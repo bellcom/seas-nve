@@ -7,10 +7,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\DataExport\ExcelExport;
+use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\Entity\BygningRepository;
 use AppBundle\Entity\ContactPerson;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\Virksomhed;
+use AppBundle\Form\Type\BygningRapportType;
 use AppBundle\Form\VirksomhedType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
@@ -78,7 +80,6 @@ class BygningController extends BaseController implements InitControllerInterfac
     $search['postBy'] = $bygning->getPostBy();
     $search['virksomhed'] = $bygning->getVirksomhed();
     $search['segment'] = $bygning->getSegment();
-    $search['status'] = $bygning->getStatus();
 
     $user = $this->get('security.context')->getToken()->getUser();
     /** @var Query $query */
@@ -486,5 +487,79 @@ class BygningController extends BaseController implements InitControllerInterfac
       ))
       ->getForm();
   }
+
+  /**
+   * Lists all Bygning entities.
+   *
+   * @Route("/{id}/rapport", name="bygning_rapport")
+   * @Method("GET")
+   * @Template("AppBundle:Bygning:create_rapport.html.twig")
+   */
+  public function rapportAction(Bygning $bygning) {
+    $this->breadcrumbs->addItem($bygning, $this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+    $this->breadcrumbs->addItem('bygninger.actions.create_rapport');
+
+    //Set next status to trigger validation group
+    $bygning->setStatus(BygningStatusType::TILKNYTTET_RAADGIVER);
+    $rapport = $bygning->getRapport();
+    if (!$rapport) {
+      $bygning->setRapport(new Rapport());
+      $editForm = $this->createRapportForm($bygning);
+      return array(
+        'entity' => $bygning,
+        'edit_form' => $editForm->createView(),
+      );
+    }
+    return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+  }
+
+  /**
+   * Edits an existing Bygning entity.
+   *
+   * @Route("/{id}/rapport", name="bygning_rapport_create")
+   * @Method("PUT")
+   * @Template("AppBundle:Bygning:create_rapport.html.twig")
+   */
+  public function rapportCreateAction(Request $request, Bygning $bygning) {
+    if (empty($bygning->getRapport())) {
+      $rapport = new Rapport();
+      $rapport->setBygning($bygning);
+    }
+
+    $editForm = $this->createRapportForm($bygning);
+    $editForm->handleRequest($request);
+
+    if ($editForm->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $em->flush();
+
+      $this->flash->success('bygninger.confirmation.rapport_created');
+      return $this->redirect($this->generateUrl('bygning_rapport', array('id' => $bygning->getId())));
+    }
+
+    $this->flash->error('common.form_error');
+    return array(
+      'entity' => $bygning,
+      'edit_form' => $editForm->createView(),
+    );
+  }
+
+    /**
+     * Creates a form to edit a Bygning entity.
+     *
+     * @param Bygning $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createRapportForm(Bygning $entity) {
+        $form = $this->createForm(new BygningRapportType($this->getDoctrine(), $this->get('security.context')), $entity, array(
+            'action' => $this->generateUrl('bygning_rapport_create', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $this->addUpdate($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
+
+        return $form;
+    }
 
 }

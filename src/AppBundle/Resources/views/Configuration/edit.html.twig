@@ -13,6 +13,7 @@
       {{ form_row(edit_form.rapportLobetid) }}
       {{ form_row(edit_form.rapportProcentAfInvestering) }}
       {{ form_row(edit_form.rapportNominelEnergiprisstigning) }}
+      {{ form_row(edit_form.nutidsvaerdiBeregnAar) }}
     </div>
   </div>
 
@@ -165,7 +166,7 @@
             <tbody>
             {% for type, faktor in edit_form.varmeEnergiFaktor %}
               <tr>
-                <td>{{ ('appbundle.varmetiltagdetail.energiType.' ~ type ) | trans }}</td>
+                <td>{{ ('appbundle.varmeanlaegtiltagdetail.energiType.' ~ type ) | trans }}</td>
                 <td>{{ form_widget(faktor) }}</td>
               </tr>
             {% endfor %}
@@ -190,7 +191,7 @@
             <tbody>
             {% for type, faktor in edit_form.varmePumpeFaktor %}
               <tr>
-                <td>{{ ('appbundle.varmetiltagdetail.varmePumpeType.' ~ type ) | trans }}</td>
+                <td>{{ ('appbundle.varmeanlaegtiltagdetail.varmePumpeType.' ~ type ) | trans }}</td>
                 <td>{{ form_widget(faktor) }}</td>
               </tr>
             {% endfor %}

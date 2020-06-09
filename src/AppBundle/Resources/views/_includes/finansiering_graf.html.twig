@@ -9,7 +9,8 @@
 
 <script>
   (function() {
-
+    var samledeTiltagGrafData = {{ samledeTiltagGrafData | json_encode | raw }};
+    console.log(samledeTiltagGrafData);
     function createGraph() {
       var formatData = function(data) {
           var formatted = [], key;
@@ -55,7 +56,12 @@
           maintainAspectRatio: false,
           datasetFill: false,
           bezierCurve : true,
-          bezierCurveTension : 0.2
+          bezierCurveTension : 0.2,
+          {% raw %}
+            tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= formatNumberSeparators(value) %>",
+          {% endraw %}
+          scaleLabel: "<%= formatNumberSeparators(value) %>",
+          multiTooltipTemplate: "<%= formatNumberSeparators(value) %>"
         },
         ctx = document.querySelector('#{{ chartIdRandomized }} canvas').getContext('2d'),
         chart = new Chart(ctx).Line(data, options);

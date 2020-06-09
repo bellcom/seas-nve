@@ -139,11 +139,6 @@ class BygningRepository extends BaseRepository {
         ->setParameter('postnummer', $search['postnummer']);
     }
 
-    if (!empty($search['status'])) {
-      $qb->andWhere('b.status = :status')
-        ->setParameter('status', $search['status']);
-    }
-
     if (!empty($search['segment'])) {
       $qb->andWhere('b.segment = :segment')
         ->setParameter('segment', $search['segment']);

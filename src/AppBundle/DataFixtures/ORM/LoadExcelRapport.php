@@ -340,7 +340,7 @@ class LoadExcelRapport extends LoadData {
       ), $values);
 
       $this->setEntityReference('bygning', $bygning->getEnhedsys(), $bygning);
-      $bygning->setStatus(BygningStatusType::IKKE_STARTET);
+      $bygning->setStatus(BygningStatusType::GODKENDT_AF_MAGISTRAT);
 
       $this->persist($bygning);
     }
@@ -405,8 +405,6 @@ class LoadExcelRapport extends LoadData {
       ->setBygning($bygning)
       ->setVersion($sheet->getCell('C24')->getOldCalculatedValue())
       ->setDatering($this->getDateTime($sheet->getCell('F23')))
-      ->setFaktorPaaVarmebesparelse($this->getCellValue($sheet->getCell('F21')))
-      ->setLaanLoebetid($this->getCellValue($this->getCell('TiltagslisteBruger', 'Q108')))
       ->setConfiguration($this->configuration);
 
     $this->setCalculatedValues($rapport, array(
@@ -539,8 +537,6 @@ class LoadExcelRapport extends LoadData {
       ->setForsyningEl($this->getEntityReference('energiforsyning', $sheet->getCell('F13')->getValue()))
       ->setFaktorForReinvesteringer($this->getCellValue($sheet->getCell('C11')))
       ->setTiltagskategori($this->getEntityReference('tiltagskategori', $sheet->getCell('D12')->getValue()))
-      ->setPrimaerEnterprise($this->getCellValue($sheet->getCell('B12')))
-      ->setRisikovurdering($this->getCellValue($sheet->getCell('C17')))
       ->setPlacering($this->getCellValue($sheet->getCell('C19')))
       ->setBeskrivelseDriftOgVedligeholdelse($this->getCellValue($sheet->getCell('A21')))
       ->setIndeklima($this->getCellValue($sheet->getCell('A23')));
@@ -815,7 +811,6 @@ class LoadExcelRapport extends LoadData {
       // 'AJ' => '',
       'AK' => 'nyeSensorerStkLokale',
       'AL' => 'standardinvestSensorKrStk',
-      'AM' => 'reduktionAfDrifttid',
       'AO' => 'standardinvestArmaturKrStk',
       'AP' => 'standardinvestLyskildeKrStk',
       'AQ' => array('nyLyskilde', function($value) { return $this->getEntityReference('lyskilde', $value); }),

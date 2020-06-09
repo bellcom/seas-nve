@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Bygning;
 use AppBundle\Form\Type\BygningType;
-use AppBundle\Form\Type\BygningTilknytRaadgiverType;
+use AppBundle\Form\Type\BygningRaportType;
 use AppBundle\Form\Type\BygningSearchType;
 use AppBundle\Entity\Rapport;
 use AppBundle\Form\Type\RapportType;
@@ -103,7 +103,7 @@ class BygningAaPlusVerificeret extends BaseController implements InitControllerI
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(Bygning $entity) {
-    $form = $this->createForm(new BygningTilknytRaadgiverType($this->getDoctrine(), $this->get('security.context')), $entity, array(
+    $form = $this->createForm(new BygningRaportType($this->getDoctrine(), $this->get('security.context')), $entity, array(
       'action' => $this->generateUrl('bygning_tilknyt_update', array('id' => $entity->getId())),
       'method' => 'PUT',
     ));

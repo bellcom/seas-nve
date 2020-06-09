@@ -81,11 +81,6 @@
           <th>{{ 'appbundle.tiltag.samletEnergibesparelse.unit' | trans }}</th>
         </tr>
         <tr>
-          <td>{{ 'common.risikovurdering' | trans }}: {{ 'appbundle.tiltag.risikovurderingAendringIBesparelseFaktor' | trans }}</td>
-          <td class="text-right">{{ entity.risikovurderingAendringIBesparelseFaktor | format_percent_nounit }}</td>
-          <td>{{ 'appbundle.tiltag.risikovurderingAendringIBesparelseFaktor.unit' | trans }}</td>
-        </tr>
-        <tr>
           <td>{{ 'common.energiledelse' | trans }}: {{ 'appbundle.tiltag.energiledelseAendringIBesparelseFaktor' | trans }}</td>
           <td class="text-right">{{ entity.energiledelseAendringIBesparelseFaktor | format_percent_nounit }}</td>
           <td>{{ 'appbundle.tiltag.energiledelseAendringIBesparelseFaktor.unit' | trans }}</td>
@@ -141,28 +136,6 @@
           <td>{{ 'appbundle.tiltag.aaplusInvestering' | trans }} <div class="calculation-expression hidden">{{ entity.expr('aaplusInvestering') }}</div></td>
           <td class="text-right">{{ entity.aaplusInvestering | format_amount }}</td>
           <td>{{ 'appbundle.tiltag.aaplusInvestering.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <td>{{ 'common.risikovurdering' | trans }}: {{ 'appbundle.tiltag.risikovurderingOekonomiskKompenseringIftInvesteringFaktor' | trans }}</td>
-          <td class="text-right">{{ entity.risikovurderingOekonomiskKompenseringIftInvesteringFaktor | format_percent_nounit }}</td>
-          <td>{{ 'appbundle.tiltag.risikovurderingOekonomiskKompenseringIftInvesteringFaktor.unit' | trans }}</td>
-        </tr>
-        <tr>
-          <td>{{ 'appbundle.tiltag.genopretning' | trans }}</td>
-          <td class="text-right">{{ entity.genopretning | format_amount }}</td>
-          <td>{{ 'appbundle.tiltag.genopretning.unit' | trans }}</td>
-        </tr>
-        {% if extended is defined and extended %}
-          <tr>
-            <td>{{ 'appbundle.tiltag.genopretningForImplementeringsomkostninger' | trans }}</td>
-            <td class="text-right">{{ entity.genopretningForImplementeringsomkostninger | format_amount }}</td>
-            <td>{{ 'appbundle.tiltag.genopretningForImplementeringsomkostninger.unit' | trans }}</td>
-          </tr>
-        {% endif %}
-        <tr>
-          <td>{{ 'appbundle.tiltag.modernisering' | trans }}</td>
-          <td class="text-right">{{ entity.modernisering | format_amount }}</td>
-          <td>{{ 'appbundle.tiltag.modernisering.unit' | trans }}</td>
         </tr>
         <tr>
           <td>{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }} <div class="calculation-expression hidden">{{ entity.expr('simpelTilbagebetalingstidAar') }}</div></td>
@@ -251,11 +224,6 @@
           <td>{{ 'appbundle.tiltag.levetid.unit' | trans }}</td>
         </tr>
         <tr>
-          <th>{{ 'appbundle.tiltag.primaerEnterprise' | trans }}</th>
-          <td class="text-right">{{ entity.primaerEnterprise | readable('PrimaerEnterpriseType') }}</td>
-          <td></td>
-        </tr>
-        <tr>
           <th>{{ 'appbundle.tiltag.tiltagskategori' | trans }}</th>
           <td class="text-right">{{ entity.tiltagskategori }}</td>
           <td></td>
@@ -268,41 +236,6 @@
         <tr>
           <th>{{ 'appbundle.tiltag.datoForDrift' | trans }}</th>
           <td class="text-right">{{ entity.datoForDrift is empty ? "" : entity.datoForDrift | date('Y-m-d') }}</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>{{ 'common.risikovurdering' | trans }} {{ 'appbundle.tiltag.risikovurderingTeknisk' | trans }}</th>
-          <td class="text-right">{{ entity.risikovurderingTeknisk ? entity.risikovurderingTeknisk | readable : "" }}</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>{{ 'common.risikovurdering' | trans }} {{ 'appbundle.tiltag.risikovurderingBrugsmoenster' | trans }}</th>
-          <td class="text-right">{{ entity.risikovurderingBrugsmoenster ? entity.risikovurderingBrugsmoenster | readable : "" }}</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>{{ 'common.risikovurdering' | trans }} {{ 'appbundle.tiltag.risikovurderingDatagrundlag' | trans }}</th>
-          <td class="text-right">{{ entity.risikovurderingDatagrundlag ? entity.risikovurderingDatagrundlag | readable : "" }}</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>{{ 'common.risikovurdering' | trans }} {{ 'appbundle.tiltag.risikovurderingDiverse' | trans }}</th>
-          <td class="text-right">{{ entity.risikovurderingDiverse ? entity.risikovurderingDiverse | readable : "" }}</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>{{ 'common.risikovurdering' | trans }} {{ 'appbundle.tiltag.risikovurderingAendringIBesparelseFaktor' | trans }}</th>
-          <td class="text-right">{{ entity.risikovurderingAendringIBesparelseFaktor | format_percent }}</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>{{ 'common.risikovurdering' | trans }} {{ 'appbundle.tiltag.risikovurderingOekonomiskKompenseringIftInvesteringFaktor' | trans }}</th>
-          <td class="text-right">{{ entity.risikovurderingOekonomiskKompenseringIftInvesteringFaktor | format_percent }}</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>{{ 'appbundle.tiltag.risikovurdering' | trans }}</th>
-          <td class="text-right">{{ entity.risikovurdering }}</td>
           <td></td>
         </tr>
         <tr>

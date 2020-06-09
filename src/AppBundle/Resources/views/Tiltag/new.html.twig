@@ -1,0 +1,29 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% if heading is not defined %}
+  {% set heading = 'tiltag.actions.new' %}
+{% endif %}
+
+{% block body -%}
+  {% include 'AppBundle:_includes:calculation_warnings.html.twig' %}
+
+  <div class="row heading">
+    <div class="col-md-8">
+      <h1>{{ heading | trans }}</h1>
+    </div>
+  </div>
+
+  {{ form_start(edit_form) }}
+  {% block edit_form %}
+    {% include 'AppBundle:Tiltag:_form.html.twig' %}
+  {% endblock %}
+
+  {{ form_rest(edit_form) }}
+  {{ form_end(edit_form) }}
+{% endblock %}
+
+{% block documentReady %}
+  {{ parent() }}
+
+  {% include 'AppBundle:_includes:textAreaCountdown.js.twig' %}
+{% endblock documentReady %}
