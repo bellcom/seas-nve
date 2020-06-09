@@ -349,13 +349,6 @@ class VirksomhedRapport
     /**
      * @var float
      *
-     * @ORM\Column(name="faktorPaaVarmebesparelse", type="decimal", scale=4, nullable=true)
-     */
-    protected $faktorPaaVarmebesparelse;
-
-    /**
-     * @var float
-     *
      * @ORM\Column(name="energiscreening", type="decimal", precision=16, scale=4, nullable=true)
      */
     protected $energiscreening;
@@ -1610,29 +1603,6 @@ class VirksomhedRapport
     public function getBaselineStrafAfkoeling()
     {
         return $this->BaselineStrafAfkoeling;
-    }
-
-    /**
-     * Set faktorPaaVarmebesparelse
-     *
-     * @param float $faktorPaaVarmebesparelse
-     * @return VirksomhedRapport
-     */
-    public function setFaktorPaaVarmebesparelse($faktorPaaVarmebesparelse)
-    {
-        $this->faktorPaaVarmebesparelse = $faktorPaaVarmebesparelse;
-
-        return $this;
-    }
-
-    /**
-     * Get faktorPaaVarmebesparelse
-     *
-     * @return float
-     */
-    public function getFaktorPaaVarmebesparelse()
-    {
-        return $this->faktorPaaVarmebesparelse;
     }
 
     /**

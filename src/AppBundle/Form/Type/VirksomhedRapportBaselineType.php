@@ -40,7 +40,6 @@ class VirksomhedRapportBaselineType extends AbstractType
       ->add('BaselineVarmeGAF', null, empty($baseline) ? array() : array('disabled' => 'disabled'))
       ->add('BaselineBraendstof', null, empty($baseline) ? array() : array('disabled' => 'disabled'))
       ->add('BaselineStrafAfkoeling', null, empty($baseline) ? array() : array('disabled' => 'disabled'))
-      ->add('faktorPaaVarmebesparelse', null, empty($baseline) ? array() : array('disabled' => 'disabled'))
       ->add('energiscreening', null, empty($baseline) ? array() : array('disabled' => 'disabled'));
   }
 

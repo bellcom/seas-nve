@@ -38,7 +38,6 @@ class RapportEmbedType extends AbstractType {
           // render as a single HTML5 text box
           'widget' => 'single_text')
       )
-      ->add('faktorPaaVarmebesparelse')
       ->add('energiscreening')
       ->add('elena');
 

@@ -16,7 +16,7 @@ use AppBundle\Entity\TiltagDetail;
 
 class TiltagListener {
 
-  private static $rapportFieldsThatTriggerRecalculationOfTiltag = [ 'faktorPaaVarmebesparelse' ];
+  private static $rapportFieldsThatTriggerRecalculationOfTiltag = [];
 
   /** @var ArrayCollection */
   private $targets;
