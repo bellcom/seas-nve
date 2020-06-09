@@ -1279,9 +1279,12 @@ abstract class Tiltag {
   }
 
   /**
-   * @return array
+   * @return float|array
    */
   public function getNutidsvaerdiSet($value = FALSE) {
+    if (empty($this->nutidsvaerdiSet)) {
+      $this->nutidsvaerdiSet = [];
+    }
     return $value ? array_sum($this->nutidsvaerdiSet) : $this->nutidsvaerdiSet;
   }
 
