@@ -3253,6 +3253,10 @@ appbundle:
     uOpvarmetareal.unit: "m²"
     kortlaegningKonklusionTekst: "Konklusion tekst"
     kortlaegningVirksomhedBeskrivelse: "Beskrivelse af virksomhed"
+    nutidsvaerdiSet: "Nutidsværdi set over "
+    nutidsvaerdiSet.unit: "kr"
+    akkumuleretNutidsvaerdiSet: "Akkumuleret nutidsværdi"
+    akkumuleretNutidsvaerdiSet.unit: "kr"
   virksomhedkortlaegning:
     aar: "År"
     slutanvendelser: "Slutanvendelser"

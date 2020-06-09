@@ -429,6 +429,22 @@ class VirksomhedRapport
     protected $nutidsvaerdiSetOver15AarKr;
 
     /**
+     * @var array
+     *
+     * @Calculated
+     * @ORM\Column(name="nutidsvaerdiSet", type="array", nullable=true)
+     */
+    protected $nutidsvaerdiSet;
+
+    /**
+     * @var array
+     *
+     * @Calculated
+     * @ORM\Column(name="akkumuleretNutidsvaerdiSet", type="array", nullable=true)
+     */
+    protected $akkumuleretNutidsvaerdiSet;
+
+    /**
      * @var float
      *
      * @Calculated
@@ -1877,6 +1893,34 @@ class VirksomhedRapport
         return $this->cashFlow;
     }
 
+    /**
+     * @param array $nutidsvaerdiSet
+     */
+    public function setNutidsvaerdiSet($nutidsvaerdiSet) {
+        $this->nutidsvaerdiSet = $nutidsvaerdiSet;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNutidsvaerdiSet($value = FALSE) {
+        return $value ? array_sum($this->nutidsvaerdiSet) : $this->nutidsvaerdiSet;
+    }
+
+    /**
+     * @param array $akkumuleretNutidsvaerdiSet
+     */
+    public function setAkkumuleretNutidsvaerdiSet($akkumuleretNutidsvaerdiSet) {
+        $this->akkumuleretNutidsvaerdiSet = $akkumuleretNutidsvaerdiSet;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAkkumuleretNutidsvaerdiSet() {
+        return $this->akkumuleretNutidsvaerdiSet;
+    }
+
     protected $propertiesRequiredForCalculation = [
         'BaselineEl',
         'BaselineStrafAfkoeling',
@@ -2155,6 +2199,9 @@ class VirksomhedRapport
         'fravalgtNutidsvaerdiSetOver15AarKr',
         'internRenteInklFaellesomkostninger',
 
+        'nutidsvaerdiSet',
+        'akkumuleretNutidsvaerdiSet',
+
         'energibudgetEl',
         'energibudgetVarme',
         'energibudgetBraendstof',
@@ -2304,6 +2351,46 @@ class VirksomhedRapport
         /** @var Rapport $rapport */
         foreach ($this->getBygningerRapporter() as $rapport) {
             foreach ($rapport->getCashFlow30() as  $flowProperty => $flowValue) {
+                if (empty($flow[$flowProperty])) {
+                    $flow[$flowProperty] = $flowValue;
+                    continue;
+                }
+
+                $flow[$flowProperty] += $flowValue;
+            }
+        }
+
+        return $expression ? $this->sumExpr($flow) : $flow;
+    }
+
+    /**
+     * Fetchs nutidsvaerdiSet data from reports into array.
+     */
+    protected function calculateNutidsvaerdiSet($expression = FALSE) {
+        $flow = array();
+        /** @var Rapport $rapport */
+        foreach ($this->getBygningerRapporter() as $rapport) {
+            foreach ($rapport->getNutidsvaerdiSet() as  $flowProperty => $flowValue) {
+                if (empty($flow[$flowProperty])) {
+                    $flow[$flowProperty] = $flowValue;
+                    continue;
+                }
+
+                $flow[$flowProperty] += $flowValue;
+            }
+        }
+
+        return $expression ? $this->sumExpr($flow) : $flow;
+    }
+
+    /**
+     * Fetchs akkumuleretNutidsvaerdiSet data from reports into array.
+     */
+    protected function calculateAkkumuleretNutidsvaerdiSet($expression = FALSE) {
+        $flow = array();
+        /** @var Rapport $rapport */
+        foreach ($this->getBygningerRapporter() as $rapport) {
+            foreach ($rapport->getAkkumuleretNutidsvaerdiSet() as  $flowProperty => $flowValue) {
                 if (empty($flow[$flowProperty])) {
                     $flow[$flowProperty] = $flowValue;
                     continue;
