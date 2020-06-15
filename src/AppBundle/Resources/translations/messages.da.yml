@@ -3339,8 +3339,8 @@ Cannot calculate rapport: "Fejl under beregning af rapport"
 
 Incomplete calculation: "Beregningen er ikke komplet"
 Fields required for calculation: "Udfyld følgende felter"
-Tiltag required for calculation: "Opdater forslag nr"
-Details required for calculation: "Opdater detail nr"
+Tiltag required for calculation: "Tjekk forslag"
+Details required for calculation: "Tjekk detailer"
 
 roles:
   labels:

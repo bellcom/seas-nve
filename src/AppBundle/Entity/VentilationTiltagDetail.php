@@ -137,7 +137,7 @@ class VentilationTiltagDetail extends TiltagDetail
     /**
      * @var float
      *
-     * @Formula("($this->getVarmeForbrugKwhAarFoer() - $this->getVarmeForbrugKwhAarEfter())/$this->getVarmeForbrugKwhAarFoer()")
+     * @Formula("($this->getVarmeForbrugKwhAarFoer() - $this->getVarmeForbrugKwhAarEfter()) / $this->getVarmeForbrugKwhAarFoer()")
      *
      * See calculation file, cell L50.
      */

@@ -13,6 +13,10 @@
   cursor: pointer;
 }
 
+.modal-link-text {
+  text-decoration: underline;
+}
+
 span.calculattion-warning {
   cursor: pointer;
 }

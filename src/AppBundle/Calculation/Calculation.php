@@ -163,8 +163,10 @@ abstract class Calculation {
 
     if (!empty($subEntities)) {
       foreach ($subEntities as $e) {
-        if($e->getCalculationWarnings()) {
-          $errors[$prefix][] = $e->getIndexNumber();
+        $warning = $e->getCalculationWarnings();
+        if ($warning) {
+          $errors[$prefix][$e->getId()] = $e->getIndexNumber();
+          $errors[$prefix . '_warnings'][$e->getId()] = $warning;
         }
       }
     }
