@@ -937,6 +937,7 @@ appbundle:
     createdAt: "Oprettet"
     updatedAt: "Opdateret"
     bygning: "Bygning"
+    virksomhed: "Virksomhed"
     eloKategori: "ELO-kategori"
   baselinekorrektion:
     aarligkorrektion: "Årlig korrektion af forbrug +/-"
