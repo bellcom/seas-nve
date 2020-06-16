@@ -1,24 +1,3 @@
-.calculation-expression-toggle {
-  position: fixed;
-
-  z-index: 800;
-
-  right: 15px;
-  bottom: 15px;
-
-  padding: 10px 20px;
-
-  outline: 0;
-
-  border-radius: 25px;
-
-  background-color: #f7f7f7;
-  border: 1px solid #aaaaaa;
-}
-.calculation-expression-toggle:hover {
-  background-color: #eee;
-}
-
 #appbundle_bygning_energiRaadgiver .bc-collection li:first-child .row {margin-top: 0;}
 
 .js-chart-slutanvendelse-color {
@@ -35,4 +14,31 @@
 
 [type="submit"] .fa.appended {
   margin-left: 5px;
+}
+.pinned-buttons {
+    display: none;
+    position: fixed;
+    z-index: 500;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    padding: 10px 15px;
+
+    background-color: #fff;
+    border-top: 1px solid #eee;
+
+    text-align: right;
+}
+.pinned-buttons .btn + .btn {
+    margin-left: 15px;
+}
+
+body.with-pinned-buttons {
+    margin-bottom: 115px;
+}
+
+body.with-pinned-buttons footer {
+    margin-bottom: 55px;
 }

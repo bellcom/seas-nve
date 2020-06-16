@@ -429,7 +429,12 @@ class RapportController extends BaseController {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('rapport_delete', array('id' => $id)))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'attr' => [
+          'class' => 'pinned',
+        ],
+      ))
       ->getForm();
   }
 

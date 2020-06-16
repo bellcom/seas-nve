@@ -156,7 +156,10 @@ class RapportBilagController extends BaseController {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('rapport_bilag_delete', array('rapport_id' => $rapport->getId(), 'bilag_id' => $bilag->getId())))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'class' => 'pinned',
+      ))
       ->getForm();
   }
 

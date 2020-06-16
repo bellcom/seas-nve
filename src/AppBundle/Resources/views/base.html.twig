@@ -191,9 +191,6 @@
   <div class="aaplus-flashes">
     {% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
   </div>
-  <div class="row">
-    <div class="col-md-12 pinned-buttons text-right"></div>
-  </div>
 
   {% block body %}{% endblock %}
 </div>
@@ -207,10 +204,7 @@
     </div>
   </div>
 </footer>
-
-<button class="calculation-expression-toggle">
-  Vis/skjul formler
-</button>
+<div class="pinned-buttons"></div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

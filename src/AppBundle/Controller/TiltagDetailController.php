@@ -210,7 +210,10 @@ class TiltagDetailController extends BaseController {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('tiltag_detail_delete', array('id' => $entity->getId())))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'class' => 'pinned',
+      ))
       ->getForm();
   }
 

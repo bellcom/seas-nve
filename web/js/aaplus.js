@@ -380,13 +380,23 @@
   }
 
   function pinFormButtons() {
-      $buttons = $('form button.pinned')
-      for (var $key in $buttons) {
-          $this = $($buttons[$key]);
-          $classes = $this.attr("class").replace(/pinned/g, '');
-          $id = 'pinned-button-' + $key;
-          $('.pinned-buttons').append('<a href="#" id="' + $id +'" class="' + $classes + '">' + $this.html() + '</a>');
-          $this.attr('data-id', $id).hide();
+      $buttons = $('button.pinned');
+      if ($buttons.length) {
+          $('body').addClass('with-pinned-buttons');
+          $pinned_wrapper = $('.pinned-buttons');
+          $pinned_wrapper.show()
+          for (var $key in $buttons) {
+              $this = $($buttons[$key]);
+              $classes = $this.attr("class").replace(/pinned/g, '');
+              $id = 'pinned-button-' + $key;
+              $pinned_wrapper.append('<a id="' + $id +'" class="' + $classes + '">' + $this.html() + '</a>');
+              $this.attr('data-id', $id).hide();
+
+              $wrapper = $this.parents('.form-group:first');
+              if ($wrapper.find('*:visible, .modal').length == 0) {
+                  $wrapper.hide();
+              }
+          }
       }
   }
 

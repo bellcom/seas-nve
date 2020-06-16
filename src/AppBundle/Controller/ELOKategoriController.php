@@ -253,7 +253,10 @@ class ELOKategoriController extends BaseController
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('elokategori_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array(
+              'label' => 'Delete',
+              'class' => 'pinned',
+            ))
             ->getForm()
         ;
     }

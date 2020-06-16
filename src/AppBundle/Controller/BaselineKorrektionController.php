@@ -164,7 +164,10 @@ class BaselineKorrektionController extends BaseController {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('baselinekorrektion_delete', array('id' => $id)))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'class' => 'pinned',
+      ))
       ->getForm();
   }
 }

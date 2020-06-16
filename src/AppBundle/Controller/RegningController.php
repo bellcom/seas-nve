@@ -241,7 +241,10 @@ class RegningController extends BaseController
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('regning_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array(
+                'label' => 'Delete',
+                'class' => 'pinned',
+            ))
             ->getForm()
         ;
     }

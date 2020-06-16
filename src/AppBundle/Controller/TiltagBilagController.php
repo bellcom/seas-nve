@@ -171,7 +171,10 @@ class TiltagBilagController extends BaseController {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('tiltag_bilag_delete', array('tiltag_id' => $tiltag->getId(), 'bilag_id' => $bilag->getId())))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'class' => 'pinned',
+      ))
       ->getForm();
   }
 

@@ -602,6 +602,9 @@ class VirksomhedController extends BaseController
             ->setMethod('DELETE')
             ->add('submit', 'submit', array(
                 'label' => 'Delete',
+                'attr' => [
+                    'class' => 'pinned',
+                ],
             ))
             ->getForm()
         ;
