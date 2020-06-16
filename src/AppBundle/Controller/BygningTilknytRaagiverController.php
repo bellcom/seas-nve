@@ -87,7 +87,11 @@ class BygningTilknytRaagiverController extends BaseController implements InitCon
 
       $this->flash->success('bygninger.confirmation.raadgiver_tilknyttet');
 
-      return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     $this->flash->error('common.form_error');
@@ -112,6 +116,7 @@ class BygningTilknytRaagiverController extends BaseController implements InitCon
     ));
 
     $this->addUpdate($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
 
     return $form;
   }

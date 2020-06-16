@@ -86,7 +86,7 @@ class ForsyningsvaerkController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('forsyningsvaerk'));
+        $this->addCreate($form, $this->generateUrl('forsyningsvaerk'));
 
         return $form;
     }
@@ -178,14 +178,15 @@ class ForsyningsvaerkController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('forsyningsvaerk_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('forsyningsvaerk'));
+        $this->addUpdateAndExit($form, $this->generateUrl('forsyningsvaerk'));
 
         return $form;
     }
     /**
      * Edits an existing Forsyningsvaerk entity.
      *
-     * @Route("/{id}", name="forsyningsvaerk_update")
+     * @Route("/{id}/edit", name="forsyningsvaerk_update")
      * @Method("PUT")
      * @Template("AppBundle:Forsyningsvaerk:edit.html.twig")
      */
@@ -206,7 +207,13 @@ class ForsyningsvaerkController extends BaseController
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('forsyningsvaerk'));
+            $this->flash->success('forsyningsvaerk.confirmation.updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(

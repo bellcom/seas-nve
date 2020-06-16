@@ -55,8 +55,10 @@
 {% block editform_button_row %}
   {% if is_granted('TILTAG_EDIT', entity) %}
     {{ form_row(edit_form.buttons) }}
-    {{ form_widget(edit_form.select_all_button, { 'attr': {'class': 'batch-edit'} }) }}
-    {{ form_widget(edit_form.batch_edit_button, { 'attr': {'class': 'batch-edit'} }) }}
+    <div class="form-group">
+      {{ form_widget(edit_form.select_all_button, { 'attr': {'class': 'batch-edit'} }) }}
+      {{ form_widget(edit_form.batch_edit_button, { 'attr': {'class': 'batch-edit'} }) }}
+    </div>
     {{ form_rest(edit_form) }}
     {{ form_end(edit_form) }}
   {% endif %}

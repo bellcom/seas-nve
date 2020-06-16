@@ -226,7 +226,7 @@ class VirksomhedController extends BaseController
             'entityManager' => $this->getDoctrine()->getManager(),
         ));
 
-        $this->addUpdate($form, $this->generateUrl('virksomhed'));
+        $this->addCreate($form, $this->generateUrl('virksomhed'));
 
         return $form;
     }
@@ -402,13 +402,14 @@ class VirksomhedController extends BaseController
         ));
 
         $this->addUpdate($form, $this->generateUrl('virksomhed_show', array('id' => $entity->getId())));
+        $this->addUpdateAndExit($form, $this->generateUrl('virksomhed_show', array('id' => $entity->getId())));
 
         return $form;
     }
     /**
      * Edits an existing Virksomhed entity.
      *
-     * @Route("/{id}", name="virksomhed_update")
+     * @Route("/{id}/edit", name="virksomhed_update")
      * @Method("PUT")
      * @Template("AppBundle:Virksomhed:edit.html.twig")
      * @Security("is_granted('VIRKSOMHED_EDIT', virksomhed)")
@@ -512,7 +513,13 @@ class VirksomhedController extends BaseController
             }
             $em->flush();
 
-            return $this->redirect($this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+            $this->flash->success('virksomhed.confirmation.updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+              $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -696,7 +703,7 @@ class VirksomhedController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_show', $params));
+        $this->addCreate($form, $this->generateUrl('virksomhed_rapport_show', $params));
 
         return $form;
     }

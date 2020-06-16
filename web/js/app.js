@@ -52,8 +52,14 @@ jQuery(function ($) {
   var forms = document.querySelectorAll('form');
 
   function passifySubmit(e) {
-    var form = e.target;
-    var submits = form.querySelectorAll('[type=submit]');
+    var submitter = e.submitter;
+    var submits = new Array(
+        submitter
+    );
+    var pinned_button = document.querySelector('#' + $(submitter).data('id'));
+    if (pinned_button !== null) {
+        submits.push(pinned_button);
+    }
 
     for (i = 0; i < submits.length; i++) {
       var submit = submits[i];
@@ -69,9 +75,6 @@ jQuery(function ($) {
 
         submit.appendChild(icon);
       }
-
-      // Disable button.
-      submit.setAttribute('disabled', 'true');
     }
   }
 

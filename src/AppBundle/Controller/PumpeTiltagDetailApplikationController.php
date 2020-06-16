@@ -87,7 +87,7 @@ class PumpeTiltagDetailApplikationController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('pumpetiltagdetailapplikation'));
+        $this->addCreate($form, $this->generateUrl('pumpetiltagdetailapplikation'));
 
         return $form;
     }
@@ -179,14 +179,15 @@ class PumpeTiltagDetailApplikationController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('pumpetiltagdetailapplikation_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('pumpetiltagdetailapplikation'));
+        $this->addUpdateAndExit($form, $this->generateUrl('pumpetiltagdetailapplikation'));
 
         return $form;
     }
     /**
      * Edits an existing PumpeTiltagDetailApplikation entity.
      *
-     * @Route("/{id}", name="pumpetiltagdetailapplikation_update")
+     * @Route("/{id}/edit", name="pumpetiltagdetailapplikation_update")
      * @Method("PUT")
      * @Template("AppBundle:PumpeTiltagDetailApplikation:edit.html.twig")
      */
@@ -206,8 +207,14 @@ class PumpeTiltagDetailApplikationController extends BaseController
 
         if ($editForm->isValid()) {
             $em->flush();
+
             $this->flash->success('pumpetiltagdetailapplikation.confirmation.updated');
-            return $this->redirect($this->generateUrl('pumpetiltagdetailapplikation'));
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(

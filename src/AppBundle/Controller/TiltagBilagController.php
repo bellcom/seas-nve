@@ -137,7 +137,8 @@ class TiltagBilagController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('tiltag_bilag_edit', array('tiltag_id' => $tiltag->getId(), 'bilag_id' => $bilag->getId())));
+    $this->addUpdate($form, $this->generateUrl('tiltag_bilag_get', array('tiltag_id' => $tiltag->getId(), 'bilag_id' => $bilag->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('tiltag_bilag_get', array('tiltag_id' => $tiltag->getId(), 'bilag_id' => $bilag->getId())));
 
     return $form;
   }
@@ -173,7 +174,9 @@ class TiltagBilagController extends BaseController {
       ->setMethod('DELETE')
       ->add('submit', 'submit', array(
         'label' => 'Delete',
-        'class' => 'pinned',
+        'attr' => array(
+          'class' => 'pinned',
+        ),
       ))
       ->getForm();
   }
@@ -191,7 +194,7 @@ class TiltagBilagController extends BaseController {
   /**
    * Edits an existing Bilag entity.
    *
-   * @Route("/{bilag_id}", name="tiltag_bilag_update")
+   * @Route("/{bilag_id}/edit", name="tiltag_bilag_update")
    * @Method("PUT")
    * @Template("AppBundle:TiltagBilag:edit.html.twig")
    * @ParamConverter("bilag", class="AppBundle:Bilag", options={"id" = "bilag_id"})
@@ -208,7 +211,11 @@ class TiltagBilagController extends BaseController {
 
       $this->flash->success('bilag.confirmation.updated');
 
-      return $this->redirect($this->generateUrl('tiltag_bilag_get', array('tiltag_id' => $tiltag->getId())));
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     return array(

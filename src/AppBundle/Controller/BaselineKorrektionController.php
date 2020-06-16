@@ -90,6 +90,7 @@ class BaselineKorrektionController extends BaseController {
     ));
 
     $this->addUpdate($form, $this->generateUrl('baseline_show', array('id' => $entity->getBaseline()->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('baseline_show', array('id' => $entity->getBaseline()->getId())));
 
     return $form;
   }
@@ -97,7 +98,7 @@ class BaselineKorrektionController extends BaseController {
   /**
    * Edits an existing BaselineKorrektion entity.
    *
-   * @Route("/{id}", name="baselinekorrektion_update")
+   * @Route("/{id}/edit", name="baselinekorrektion_update")
    * @Method("PUT")
    * @Template("AppBundle:BaselineKorrektion:edit.html.twig")
    */
@@ -117,7 +118,13 @@ class BaselineKorrektionController extends BaseController {
     if ($editForm->isValid()) {
       $em->flush();
 
-      return $this->redirect($this->generateUrl('baseline_show', array('id' => $entity->getBaseline()->getId())));
+      $this->flash->success('baselinekorrektioner.confirmation.updated');
+
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     return array(
@@ -148,6 +155,7 @@ class BaselineKorrektionController extends BaseController {
 
       $em->remove($entity);
       $em->flush();
+      $this->flash->success('baselinekorrektioner.confirmation.deleted');
     }
 
     return $this->redirect($this->generateUrl('baseline_show', array('id' => $entity->getBaseline()->getId())));
@@ -166,7 +174,9 @@ class BaselineKorrektionController extends BaseController {
       ->setMethod('DELETE')
       ->add('submit', 'submit', array(
         'label' => 'Delete',
-        'class' => 'pinned',
+        'attr' => array(
+          'class' => 'pinned',
+        ),
       ))
       ->getForm();
   }

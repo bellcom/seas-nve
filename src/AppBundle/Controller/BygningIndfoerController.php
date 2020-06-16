@@ -77,7 +77,11 @@ class BygningIndfoerController extends BaseController implements InitControllerI
 
       $this->flash->success('bygninger.confirmation.bygning_infoert');
 
-      return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     $this->flash->error('common.form_error');
@@ -102,6 +106,7 @@ class BygningIndfoerController extends BaseController implements InitControllerI
     ));
 
     $this->addUpdate($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
 
     return $form;
   }

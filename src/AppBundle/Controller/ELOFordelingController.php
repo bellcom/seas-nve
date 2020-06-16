@@ -21,10 +21,10 @@ use AppBundle\Controller\BaseController;
 class ELOFordelingController extends BaseController
 {
 
-  public function init(Request $request) {
-    parent::init($request);
-    $this->breadcrumbs->addItem('elofordeling.labels.singular', $this->generateUrl('elofordeling'));
-}
+    public function init(Request $request) {
+        parent::init($request);
+        $this->breadcrumbs->addItem('elofordeling.labels.singular', $this->generateUrl('elofordeling'));
+    }
 
 
     /**
@@ -86,7 +86,7 @@ class ELOFordelingController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('elofordeling'));
+        $this->addCreate($form, $this->generateUrl('elofordeling'));
 
         return $form;
     }
@@ -147,8 +147,8 @@ class ELOFordelingController extends BaseController
      */
     public function editAction(ELOFordeling $entity)
     {
-        $this->breadcrumbs->addItem($entity, $this->generateUrl('elofordeling_show', array('id' => $entity->getId())));
-        $this->breadcrumbs->addItem('common.edit', $this->generateUrl('elofordeling_show', array('id' => $entity->getId())));
+        $this->breadcrumbs->addItem($entity, $this->generateUrl('elofordeling'));
+        $this->breadcrumbs->addItem('common.edit', $this->generateUrl('elofordeling'));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ELOFordeling entity.');
@@ -178,14 +178,15 @@ class ELOFordelingController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('elofordeling_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('elofordeling'));
+        $this->addUpdateAndExit($form, $this->generateUrl('elofordeling'));
 
         return $form;
     }
     /**
      * Edits an existing ELOFordeling entity.
      *
-     * @Route("/{id}", name="elofordeling_update")
+     * @Route("/{id}/edit", name="elofordeling_update")
      * @Method("PUT")
      * @Template("AppBundle:ELOFordeling:edit.html.twig")
      */
@@ -206,7 +207,13 @@ class ELOFordelingController extends BaseController
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('elofordeling'));
+            $this->flash->success('elofordeling.confirmation.updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -255,7 +262,9 @@ class ELOFordelingController extends BaseController
             ->setMethod('DELETE')
             ->add('submit', 'submit', array(
               'label' => 'Delete',
-              'class' => 'pinned',
+              'attr' => array(
+                'class' => 'pinned',
+              )
             ))
             ->getForm()
         ;

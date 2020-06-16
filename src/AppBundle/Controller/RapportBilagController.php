@@ -122,7 +122,8 @@ class RapportBilagController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('rapport_bilag_edit', array('rapport_id' => $rapport->getId(), 'bilag_id' => $bilag->getId())));
+    $this->addUpdate($form, $this->generateUrl('rapport_bilag_get', array('rapport_id' => $rapport->getId(), 'bilag_id' => $bilag->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('rapport_bilag_get', array('rapport_id' => $rapport->getId(), 'bilag_id' => $bilag->getId())));
 
     return $form;
   }
@@ -158,7 +159,9 @@ class RapportBilagController extends BaseController {
       ->setMethod('DELETE')
       ->add('submit', 'submit', array(
         'label' => 'Delete',
-        'class' => 'pinned',
+        'attr' => array(
+          'class' => 'pinned',
+        ),
       ))
       ->getForm();
   }
@@ -176,7 +179,7 @@ class RapportBilagController extends BaseController {
   /**
    * Edits an existing Bilag entity.
    *
-   * @Route("/{bilag_id}", name="rapport_bilag_update")
+   * @Route("/{bilag_id}/edit", name="rapport_bilag_update")
    * @Method("PUT")
    * @Template("AppBundle:RapportBilag:edit.html.twig")
    * @ParamConverter("bilag", class="AppBundle:Bilag", options={"id" = "bilag_id"})
@@ -193,7 +196,11 @@ class RapportBilagController extends BaseController {
 
       $this->flash->success('bilag.confirmation.updated');
 
-      return $this->redirect($this->generateUrl('rapport_bilag_get', array('rapport_id' => $rapport->getId())));
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     return array(

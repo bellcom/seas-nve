@@ -127,7 +127,7 @@ class BaselineController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
+    $this->addUpdate($form);
 
     return $form;
   }
@@ -182,6 +182,7 @@ class BaselineController extends BaseController {
     ));
 
     $this->addUpdate($form, $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('baseline_show', array('id' => $baseline->getId())));
 
     return $form;
   }
@@ -189,7 +190,7 @@ class BaselineController extends BaseController {
   /**
    * Edits an existing Baseline entity.
    *
-   * @Route("/{id}", name="baseline_update")
+   * @Route("/{id}/edit", name="baseline_update")
    * @Method("PUT")
    * @Template("AppBundle:Baseline:edit.html.twig")
    * @Security("is_granted('BASELINE_EDIT', baseline)")
@@ -210,8 +211,14 @@ class BaselineController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
+      $this->flash->success('baseline.confirmation.updated');
+
       if (!$editForm->get('save_changed')->isClicked()) {
-        return $this->redirect($this->generateUrl('baseline_show', array('id' => $baseline->getId())));
+        $destination = $request->getRequestUri();
+        if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+          $destination = $button_destination;
+        }
+        return $this->redirect($destination);
       }
 
     }

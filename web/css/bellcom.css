@@ -32,7 +32,11 @@
     text-align: right;
 }
 .pinned-buttons .btn + .btn {
-    margin-left: 15px;
+    margin-left: 5px;
+}
+
+.pinned-buttons .btn span {
+    margin-left: 5px;
 }
 
 body.with-pinned-buttons {

@@ -17,6 +17,7 @@ use AppBundle\Form\VirksomhedType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Form\ButtonBuilder;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -327,6 +328,7 @@ class BygningController extends BaseController implements InitControllerInterfac
     ));
 
     $this->addUpdate($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
 
     return $form;
   }
@@ -334,7 +336,7 @@ class BygningController extends BaseController implements InitControllerInterfac
   /**
    * Edits an existing Bygning entity.
    *
-   * @Route("/{id}", name="bygning_update")
+   * @Route("/{id}/edit", name="bygning_update")
    * @Method("PUT")
    * @Template("AppBundle:Bygning:edit.html.twig")
    * @Security("is_granted('BYGNING_EDIT', bygning)")
@@ -373,7 +375,13 @@ class BygningController extends BaseController implements InitControllerInterfac
       }
       $em->flush();
 
-      return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+      $this->flash->success('bygninger.confirmation.updated');
+
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
@@ -560,7 +568,7 @@ class BygningController extends BaseController implements InitControllerInterfac
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
+        $this->addCreate($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
 
         return $form;
     }

@@ -86,7 +86,7 @@ class LyskildeController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('belysningtiltagdetail_lyskilde'));
+        $this->addCreate($form, $this->generateUrl('belysningtiltagdetail_lyskilde'));
 
         return $form;
     }
@@ -178,14 +178,15 @@ class LyskildeController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('belysningtiltagdetail_lyskilde_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('belysningtiltagdetail_lyskilde'));
+        $this->addUpdateAndExit($form, $this->generateUrl('belysningtiltagdetail_lyskilde'));
 
         return $form;
     }
     /**
      * Edits an existing BelysningTiltagDetail\Lyskilde entity.
      *
-     * @Route("/{id}", name="belysningtiltagdetail_lyskilde_update")
+     * @Route("/{id}/edit", name="belysningtiltagdetail_lyskilde_update")
      * @Method("PUT")
      * @Template("AppBundle:BelysningTiltagDetail\Lyskilde:edit.html.twig")
      */
@@ -206,7 +207,13 @@ class LyskildeController extends BaseController
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('belysningtiltagdetail_lyskilde'));
+            $this->flash->success('lyskilde.confirmation.updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(

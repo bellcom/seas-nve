@@ -32,7 +32,8 @@ Edit: "Rediger"
 Show: "Vis"
 Create: "Opret"
 Cancel: "Annuller"
-Update: "Opdater"
+Save: "Gem"
+Save and exit: "Gem og afslut"
 Delete: "Slet"
 Add: "Tilføj"
 Add more: "Tiløj flere"
@@ -138,6 +139,8 @@ baselinekorrektioner:
     edit: "Rediger Korrektion"
   confirmation:
     created: "Korrektion oprettet"
+    updated: "Korrektion opdateret"
+    deleted: "Korrektion slettet"
   labels:
     singular: "Korrektion"
   strings:
@@ -180,6 +183,7 @@ bygninger:
     bygning_infoert: "Bygnings data verificeret"
     raadgiver_tilknyttet: "Rådgiver tilknyttet"
     deleted: "Bygning slettet"
+    updated: "Bygning opdateret"
     rapport_created: "Bygning rapport oprettet"
   labels:
     plural: "Bygninger"
@@ -227,6 +231,7 @@ bygning_rapporter:
     deleted: "Bygning rapport slettet"
     deleted_forslags: "Bygning rapport forslags blev slettet"
     rapport_file_saved: "Bygning rapport fil blev gemt"
+    updated: "Bygning rapport opdateret"
   messages:
     no_files: "Bygning rapporten har ingen filer tilknyttet"
     baseline_value_disabled: "This value has been defined in Virksomhed rapport baseline or Virksomhed baseline"
@@ -252,6 +257,8 @@ configuration:
     plural: "Indstillinger"
     singular: "Indstillinger"
   strings:
+  confirmation:
+    updated: "Indstillinger opdateret"
 elofordeling:
   actions:
     add: "Tilføj ELO-fordeling"
@@ -261,6 +268,7 @@ elofordeling:
     show: "Vis ELO-fordeling"
   confirmation:
     baseline_infoert: "ELO-fordeling data verificeret"
+    updated: "ELO-fordeling opdateret"
   labels:
     plural: "ELO-fordelinger"
     singular: "ELO-fordeling"
@@ -275,6 +283,7 @@ elokategori:
     show: "Vis ELO-kategori"
   confirmation:
     baseline_infoert: "ELO-kategori data verificeret"
+    updated: "ELO-kategori opdateret"
   labels:
     plural: "ELO-kategorier"
     singular: "ELO-kategori"
@@ -287,6 +296,7 @@ energiforsyninger:
     edit: "Rediger energiforsyning"
   confirmation:
     deleted: "Energiforsyning slettet"
+    updated: "Energiforsyning opdateret"
   error:
     cannot_delete: "Energiforsyning kan ikke slettes"
     in_use: "Kan ikke slettes. Bruges af forslag."
@@ -320,6 +330,8 @@ forsyningsvaerk:
   labels:
     plural: "Forsyningsværker"
     singular: "Forsyningsværk"
+  confirmation:
+    updated: "Forsyningværk opdateret"
 graddagefordeling:
   actions:
     add: "Tilføj Graddage-fordeling"
@@ -329,6 +341,7 @@ graddagefordeling:
     show: "Vis Graddage-fordeling"
   confirmation:
     baseline_infoert: "Graddage-fordeling data verificeret"
+    updated: "Graddage-fordeling opdateret"
   labels:
     plural: "Graddage-fordelinger"
     singular: "Graddage-fordeling"
@@ -340,9 +353,16 @@ group:
   actions:
     add: "Tilføj gruppe"
     edit: "Rediger gruppe"
+    edit_roles: "Rediger gruppe roller"
+    save_roles: "Gem gruppe roller"
+  error:
+    in_use: "Kan ikke slettes. Bruges af forslag."
   labels:
     plural: "Grupper"
     singular: "Gruppe"
+  confirmation:
+    updated: "Gruppe opdateret"
+    roles_updated: "Gruppe roller opdateret"
 klimaskaerm:
   actions:
     add: "Tilføj klimaskærm"
@@ -417,6 +437,8 @@ komponent:
   labels:
     plural: "Komponenter"
     singular: "Komponent"
+  confirmation:
+    updated: "Komponent opdateret"
 lyskilde:
   actions:
     add: "Tilføj lyskilde"
@@ -426,6 +448,8 @@ lyskilde:
   labels:
     plural: "Lyskilder"
     singular: "Lyskilde"
+  confirmation:
+    updated: "Lyskilde opdateret"
 nytArmatur:
   actions:
     add: "Tilføj armatur"
@@ -452,6 +476,8 @@ nyttiggjortvarme:
   labels:
     plural: "Faktorer for nyttiggjort varme (Teknisk Iso.)"
     singular: "Faktor for nyttiggjort varme (Teknisk Iso.)"
+  confirmation:
+    updated: "Nyttiggjortvarme opdateret"
 pumpe:
   actions:
     add: "Tilføj Pumpe"
@@ -758,6 +784,7 @@ virksomhed:
     in_use: "Kan ikke slettes da den bruges af en bygning."
   confirmation:
     created: "Ny virksomhed er oprettet."
+    updated: "Virksomhed opdateret"
     rapport_created: "Ny virksomhedsrapport er oprettet."
     deleted: "Virksomhed slettet"
   messages:
@@ -791,7 +818,9 @@ virksomhed_rapporter:
     re-calculate: "Er du sikker på at du vil genberegne bygningsrapporten?"
     calculated: "Virksomhed rapport beregnet"
     tekster_opdateret: "Virksomhed rapport tekster blev opdateret"
-    rapport_file_saved: "Bygning rapport fil blev gemt"
+    rapport_file_saved: "Virksomhed rapport fil blev gemt"
+    updated: "Virksomhed rapport opdateret"
+    baseline_values_updated: "Virksomhed rapport baseline opdateret"
   error:
     beregn_fejl: "Fejl under beregning af rapport"
   messages:
@@ -1532,7 +1561,7 @@ appbundle:
   group:
     name: "Navn"
     name.help: "BEMÆRK: Du kan ikke bruge navn: Projektleder, Projekterende, Interessent. Alle de grupe er servicegrupper."
-    roles: "Roles"
+    roles: "Roller"
   klimaskaerm:
     arbejdeOmfang: "Arbejde/omfang"
     enhed: "Enhed"

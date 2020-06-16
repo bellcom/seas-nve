@@ -120,7 +120,7 @@ class KlimaskaermController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('klimaskaerm'));
+        $this->addCreate($form, $this->generateUrl('klimaskaerm'));
 
         return $form;
     }
@@ -327,14 +327,15 @@ class KlimaskaermController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('klimaskaerm_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('klimaskaerm'));
+        $this->addUpdateAndExit($form, $this->generateUrl('klimaskaerm'));
 
         return $form;
     }
     /**
      * Edits an existing Klimaskaerm entity.
      *
-     * @Route("/{id}", name="klimaskaerm_update")
+     * @Route("/{id}/edit", name="klimaskaerm_update")
      * @Method("PUT")
      * @Template("AppBundle:Klimaskaerm:edit.html.twig")
      */
@@ -354,9 +355,14 @@ class KlimaskaermController extends BaseController
 
         if ($editForm->isValid()) {
             $em->flush();
+
             $this->flash->success('klimaskaerm.confirmation.updated');
 
-            return $this->redirect($this->generateUrl('klimaskaerm'));
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(

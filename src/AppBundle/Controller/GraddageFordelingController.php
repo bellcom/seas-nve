@@ -86,7 +86,7 @@ class GraddageFordelingController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('graddage'));
+        $this->addCreate($form, $this->generateUrl('graddage'));
 
         return $form;
     }
@@ -173,14 +173,15 @@ class GraddageFordelingController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('graddage_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('graddage'));
+        $this->addUpdateAndExit($form, $this->generateUrl('graddage'));
 
         return $form;
     }
     /**
      * Edits an existing GraddageFordeling entity.
      *
-     * @Route("/{id}", name="graddage_update")
+     * @Route("/{id}/edit", name="graddage_update")
      * @Method("PUT")
      * @Template("AppBundle:GraddageFordeling:edit.html.twig")
      */
@@ -200,7 +201,13 @@ class GraddageFordelingController extends BaseController
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('graddage'));
+            $this->flash->success('graddagefordeling.confirmation.updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(

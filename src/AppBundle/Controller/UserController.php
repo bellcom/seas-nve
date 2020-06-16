@@ -177,6 +177,7 @@ class UserController extends BaseController {
     ));
 
     $this->addUpdate($form, $this->generateUrl('user'));
+    $this->addUpdateAndExit($form, $this->generateUrl('user'));
 
     return $form;
   }
@@ -184,7 +185,7 @@ class UserController extends BaseController {
   /**
    * Edits an existing User entity.
    *
-   * @Route("/{id}", name="user_update")
+   * @Route("/{id}/edit", name="user_update")
    * @Method("PUT")
    * @Template("AppBundle:User:edit.html.twig")
    */
@@ -207,7 +208,11 @@ class UserController extends BaseController {
 
       $this->flash->success('user.confirmation.updated');
 
-      return $this->redirect($this->generateUrl('user'));
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     $this->reportErrors($editForm);

@@ -243,7 +243,9 @@ class RegningController extends BaseController
             ->setMethod('DELETE')
             ->add('submit', 'submit', array(
                 'label' => 'Delete',
-                'class' => 'pinned',
+                'attr' => array(
+                    'class' => 'pinned',
+                ),
             ))
             ->getForm()
         ;

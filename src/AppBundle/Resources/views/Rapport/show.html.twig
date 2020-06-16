@@ -365,7 +365,7 @@
                   </a>
                 {% endif %}
                 {% if is_granted('RAPPORT_EDIT', entity) %}
-                  <a href="{{ path('tiltag_edit', { 'id': t.id }) }}" class="btn btn-default">
+                  <a href="{{ path('tiltag_edit', { 'id': t.id, 'destination': path('rapport_show', { 'id': entity.id}) }) }}" class="btn btn-default">
                     {{ icon('edit') }} {{ 'common.edit' | trans }}: {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
                   </a>
                 {% endif %}

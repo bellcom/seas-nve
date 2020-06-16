@@ -77,7 +77,7 @@ class ConfigurationController extends BaseController {
   /**
    * Edits an existing Configuration entity.
    *
-   * @Route("/", name="configuration_update")
+   * @Route("/edit", name="configuration_update")
    * @Method("PUT")
    * @Template("AppBundle:Configuration:edit.html.twig")
    */
@@ -99,7 +99,13 @@ class ConfigurationController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('configuration'));
+      $this->flash->success('configuration.confirmation.updated');
+
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     return array(
@@ -122,6 +128,7 @@ class ConfigurationController extends BaseController {
     ));
 
     $this->addUpdate($form, $this->generateUrl('configuration'));
+    $this->addUpdateAndExit($form, $this->generateUrl('configuration'));
 
     return $form;
   }

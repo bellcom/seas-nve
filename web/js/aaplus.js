@@ -380,15 +380,16 @@
   }
 
   function pinFormButtons() {
-      $buttons = $('button.pinned');
+      var $buttons = $('button.pinned');
+      console.log($buttons);
       if ($buttons.length) {
           $('body').addClass('with-pinned-buttons');
           $pinned_wrapper = $('.pinned-buttons');
-          $pinned_wrapper.show()
-          for (var $key in $buttons) {
-              $this = $($buttons[$key]);
+          $pinned_wrapper.show();
+          for (var $i = 0; $i < $buttons.length; ++$i) {
+              $this = $($buttons[$i]);
               $classes = $this.attr("class").replace(/pinned/g, '');
-              $id = 'pinned-button-' + $key;
+              $id = 'pinned-button-' + $i;
               $pinned_wrapper.append('<a id="' + $id +'" class="' + $classes + '">' + $this.html() + '</a>');
               $this.attr('data-id', $id).hide();
 
