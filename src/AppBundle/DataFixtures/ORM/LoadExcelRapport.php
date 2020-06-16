@@ -405,8 +405,6 @@ class LoadExcelRapport extends LoadData {
       ->setBygning($bygning)
       ->setVersion($sheet->getCell('C24')->getOldCalculatedValue())
       ->setDatering($this->getDateTime($sheet->getCell('F23')))
-      ->setFaktorPaaVarmebesparelse($this->getCellValue($sheet->getCell('F21')))
-      ->setLaanLoebetid($this->getCellValue($this->getCell('TiltagslisteBruger', 'Q108')))
       ->setConfiguration($this->configuration);
 
     $this->setCalculatedValues($rapport, array(

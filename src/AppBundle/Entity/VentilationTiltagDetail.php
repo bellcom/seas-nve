@@ -136,8 +136,7 @@ class VentilationTiltagDetail extends TiltagDetail
 
     /**
      * @var float
-     *
-     * @Formula("($this->getVarmeForbrugKwhAarFoer() - $this->getVarmeForbrugKwhAarEfter())/$this->getVarmeForbrugKwhAarFoer()")
+     * @Calculated
      *
      * See calculation file, cell L50.
      */
@@ -952,7 +951,7 @@ class VentilationTiltagDetail extends TiltagDetail
         $this->varmeForbrugMaaneligeEfter = $this->calculateVarmeForbrugMaaneligeEfter();
         $this->varmeForbrugKwhAarEfter = $this->calculateVarmeForbrugKwhAarEfter();
         $this->varmebespKwhAar = $this->calculateByFormula('varmebespKwhAar');
-        $this->varmebespKwhAarProcent = $this->calculateByFormula('varmebespKwhAarProcent');
+        $this->varmebespKwhAarProcent = $this->calculateVarmebespKwhAarProcent();
     }
 
     /**
@@ -989,6 +988,15 @@ class VentilationTiltagDetail extends TiltagDetail
      */
     protected function calculateVolumen() {
         return $this->getLaengdeVentileretRum() * $this->getBreddeVentileretRum() * $this->getHoejdeVentileterRum();
+    }
+
+    /**
+     * @Formula("($this->getVarmeForbrugKwhAarFoer() - $this->getVarmeForbrugKwhAarEfter()) / $this->getVarmeForbrugKwhAarFoer()")
+     *
+     * See calculation file, cell L50.
+     */
+    protected function calculateVarmebespKwhAarProcent() {
+        return $this->divide($this->getVarmeForbrugKwhAarFoer() - $this->getVarmeForbrugKwhAarEfter(), $this->getVarmeForbrugKwhAarFoer());
     }
 
     /**

@@ -90,23 +90,15 @@
         </tbody>
       </table>
     </div>
-      <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title">{{ icon('line-chart') }} {{ 'appbundle.virksomhed_rapport.likviditetsoversigt' | trans }}</h3></div>
-        <div class="panel-body">
-          {% include('AppBundle::_includes/finansiering_graf.html.twig') %}
-          {% if entity.calculate is defined %}
-            {% if is_granted('VIRKSOMHED_RAPPORT_EDIT', entity) and edit_form %}
-              {% form_theme edit_form 'AppBundle:Form:aaplus-bootstrap.html.twig' %}
-              {{ form(edit_form, { 'style': 'inline' }) }}
-            {% else %}
-              {{ 'appbundle.virksomhed_rapport.laanLoebetid' | trans }}:
-              {{ entity.laanLoebetid }} {{ 'appbundle.virksomhed_rapport.laanLoebetid.unit' | trans }}
-            {% endif %}
-          {% endif %}
 
-          {% include('AppBundle::_includes/finansiering_likviditetsoverblik.html.twig') %}
-        </div>
+    <div class="panel panel-default">
+      <div class="panel-heading"><h3 class="panel-title">{{ icon('line-chart') }} {{ 'appbundle.virksomhed_rapport.akkumuleretNutidsvaerdiSet' | trans }}</h3></div>
+
+      <div class="panel-body">
+        {%  set linje_graf_label = (('appbundle.virksomhed_rapport.akkumuleretNutidsvaerdiSet' | trans) ~ ', ' ~ ('appbundle.virksomhed_rapport.akkumuleretNutidsvaerdiSet.unit' | trans)) %}
+        {% include 'AppBundle::_includes/linje_graf_years.html.twig' with { 'linje_graf_data' : entity.akkumuleretNutidsvaerdiSet } %}
       </div>
+    </div>
 
     <div class="panel panel-default">
       <div class="panel-heading"><h3 class="panel-title">{{ icon('dollar') }} {{ 'common.finans' | trans }}</h3></div>

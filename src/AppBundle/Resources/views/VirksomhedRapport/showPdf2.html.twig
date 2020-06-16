@@ -25,6 +25,16 @@
             {% endif %}
           {% endfor %}
         </ul>
+        <br/>
+        <br/>
+        <div class="panel panel-default">
+          <div class="panel-heading"><h3 class="panel-title">{{ 'appbundle.virksomhed_rapport.akkumuleretNutidsvaerdiSet' | trans }}</h3></div>
+
+          <div class="panel-body">
+            {%  set linje_graf_label = (('appbundle.virksomhed_rapport.akkumuleretNutidsvaerdiSet' | trans) ~ ', ' ~ ('appbundle.virksomhed_rapport.akkumuleretNutidsvaerdiSet.unit' | trans)) %}
+            {% include 'AppBundle::_includes/linje_graf_years.html.twig' with { 'linje_graf_data' : rapport.akkumuleretNutidsvaerdiSet } %}
+          </div>
+        </div>
 
         <h4>Jeres overordnede udbytte</h4>
         <p>Tæt samarbejde med en ansvarlig og kompetent partner omkring energioptimering hos jer. Vores fælles projekter vil sikre jer en stærkere bundlinje gennem besparelserne.</p>
@@ -240,20 +250,6 @@
           De enkelte detailark indregner denne samtidighed på SUM-niveau.
         </p>
       </div>
-    </div>
-
-    <div class="panel panel-default">
-
-      <table class="table table-condensed results">
-        <tbody>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.samtidighedsfaktor' | trans }}</th>
-          <td class="text-right">{{ rapport.summarizedRapportValues.faktorPaaVarmebesparelse | number_format }}</td>
-          <td></td>
-        </tr>
-        </tbody>
-      </table>
-
     </div>
 
     <div class="row">

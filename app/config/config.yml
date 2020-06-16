@@ -192,8 +192,8 @@ simple_things_entity_audit:
         - AppBundle\Entity\TekniskIsoleringTiltagDetail
         - AppBundle\Entity\TrykluftTiltag
         - AppBundle\Entity\TrykluftTiltagDetail
-        - AppBundle\Entity\VarmePumpeTiltag
-        - AppBundle\Entity\VarmePumpeTiltagDetail
+        - AppBundle\Entity\VarmeanlaegTiltag
+        - AppBundle\Entity\VarmeanlaegTiltagDetail
         - AppBundle\Entity\VindueTiltag
         - AppBundle\Entity\VindueTiltagDetail
         - AppBundle\Entity\VentilationTiltag

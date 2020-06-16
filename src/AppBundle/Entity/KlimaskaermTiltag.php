@@ -43,7 +43,7 @@ class KlimaskaermTiltag extends Tiltag {
    * @return float
    */
   protected function calculateVarmebesparelseGAFValue() {
-    return $this->sum('kWhBesparVarmevaerkEksternEnergikilde') * $this->getRapport()->getFaktorPaaVarmebesparelse();
+    return $this->sum('kWhBesparVarmevaerkEksternEnergikilde');
   }
 
   /**
@@ -83,7 +83,7 @@ class KlimaskaermTiltag extends Tiltag {
   protected function calculateAnlaegsinvesteringValue() {
     return  $this->sum('samletInvesteringKr');
   }
-  
+
   /**
    * @inheritDoc
    * @Formula("$this->calculateAnlaegsinvesteringValue() * $this->calculateAnlaegsinvesteringFaktor()")

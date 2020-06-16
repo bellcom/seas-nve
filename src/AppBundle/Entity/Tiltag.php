@@ -12,6 +12,7 @@ use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
@@ -296,6 +297,22 @@ abstract class Tiltag {
   protected $nutidsvaerdiSetOver15AarKr;
 
   /**
+   * @var array
+   *
+   * @Calculated
+   * @ORM\Column(name="nutidsvaerdiSet", type="array", nullable=true)
+   */
+  protected $nutidsvaerdiSet;
+
+  /**
+   * @var array
+   *
+   * @Calculated
+   * @ORM\Column(name="akkumuleretNutidsvaerdiSet", type="array", nullable=true)
+   */
+  protected $akkumuleretNutidsvaerdiSet;
+
+  /**
    * @var float
    *
    * @Calculated
@@ -446,6 +463,14 @@ abstract class Tiltag {
   protected $cashFlow30;
 
   /**
+   * @var array of float
+   *
+   * @Calculated
+   * @ORM\Column(name="cashFlowSet", type="array")
+   */
+  protected $cashFlowSet;
+
+  /**
    * @var Rapport
    *
    * @ManyToOne(targetEntity="Rapport", inversedBy="tiltag")
@@ -523,6 +548,11 @@ abstract class Tiltag {
    * @ORM\Column(name="DatoForDrift", type="date", nullable=true)
    */
   protected $datoForDrift;
+
+  /**
+   * @var Configuration
+   */
+  protected $configuration;
 
   /**
    * Get Name
@@ -1128,6 +1158,27 @@ abstract class Tiltag {
   }
 
   /**
+   * Set cashFlowSet
+   *
+   * @param array $cashFlowSet
+   * @return Tiltag
+   */
+  public function setCashFlowSet($cashFlowSet) {
+    $this->cashFlowSet = $cashFlowSet;
+
+    return $this;
+  }
+
+  /**
+   * Get cashFlowSet
+   *
+   * @return array of float
+   */
+  public function getCashFlowSet() {
+    return $this->cashFlowSet;
+  }
+
+  /**
    * Set rapport
    *
    * @param \AppBundle\Entity\Rapport $rapport
@@ -1218,6 +1269,37 @@ abstract class Tiltag {
    */
   public function getNutidsvaerdiSetOver15AarKr() {
     return $this->nutidsvaerdiSetOver15AarKr;
+  }
+
+  /**
+   * @param array $nutidsvaerdiSet
+   */
+  public function setNutidsvaerdiSet($nutidsvaerdiSet) {
+    $this->nutidsvaerdiSet = $nutidsvaerdiSet;
+  }
+
+  /**
+   * @return float|array
+   */
+  public function getNutidsvaerdiSet($value = FALSE) {
+    if (empty($this->nutidsvaerdiSet)) {
+      $this->nutidsvaerdiSet = [];
+    }
+    return $value ? array_sum($this->nutidsvaerdiSet) : $this->nutidsvaerdiSet;
+  }
+
+  /**
+   * @param array $akkumuleretNutidsvaerdiSet
+   */
+  public function setAkkumuleretNutidsvaerdiSet($akkumuleretNutidsvaerdiSet) {
+    $this->akkumuleretNutidsvaerdiSet = $akkumuleretNutidsvaerdiSet;
+  }
+
+  /**
+   * @return array
+   */
+  public function getAkkumuleretNutidsvaerdiSet() {
+    return $this->akkumuleretNutidsvaerdiSet;
   }
 
   /**
@@ -1453,6 +1535,27 @@ abstract class Tiltag {
   }
 
   /**
+   * Sets configuration.
+   *
+   * @param Configuration $configuration
+   * @return $this
+   */
+  public function setConfiguration(Configuration $configuration) {
+    $this->configuration = $configuration;
+
+    return $this;
+  }
+
+  /**
+   * Gets configuration.
+   *
+   * @return Configuration
+   */
+  public function getConfiguration() {
+    return $this->configuration;
+  }
+
+  /**
    * Calculate values in this Tiltag
    */
   public function calculate() {
@@ -1487,7 +1590,10 @@ abstract class Tiltag {
     $this->scrapvaerdi = $this->calculateScrapvaerdi();
     $this->cashFlow15 = $this->calculateCashFlow(15);
     $this->cashFlow30 = $this->calculateCashFlow(30);
+    $this->cashFlowSet = $this->calculateCashFlow($this->getConfiguration()->getNutidsvaerdiBeregnAar());
     $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
+    $this->nutidsvaerdiSet = $this->calculateNutidsvaerdiSet();
+    $this->akkumuleretNutidsvaerdiSet = $this->calculateAkkumuleterNutidsvaerdiSet();
     $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
     $this->besparelseAarEt = $this->calculateSavingsForYear(1);
     $this->maengde = $this->calculateMaengde();
@@ -1530,17 +1636,6 @@ abstract class Tiltag {
                                              : $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisEfter10AarKrKWh());
       }
 
-      if ($year == 1) {
-        $value -= $aaplusinvestering;
-      }
-      else {
-        if ($this->levetid + 1 == $year) {
-          $value -= $this->aaplusInvestering * $this->faktorForReinvesteringer * pow(1 + $inflation, $year);
-        }
-        if ($numberOfYears == 15 && $year == $numberOfYears) {
-          $value += $scrapvaerdi;
-        }
-      }
       $cashFlow[$year] = $value + $yderligereBesparelseKrAar;
     }
 
@@ -1548,19 +1643,7 @@ abstract class Tiltag {
   }
 
   public function calculateSavingsForYear($year) {
-    if ($year > $this->levetid) {
-      return 0;
-    }
-
-    $varmepris = $this->calculateVarmepris($year);
-    $besparelse = // $this->getIndtaegtSalgAfEnergibesparelse()
-                +($this->getVarmebesparelseGUF() + $this->getVarmebesparelseGAF()) * $varmepris
-                + $this->getElbesparelse() * $this->rapport->getElKrKWh($year)
-                + $this->getVandbesparelse() * $this->rapport->getVandKrKWh($year)
-                + ($this->getBesparelseStrafafkoelingsafgift() + $this->getBesparelseDriftOgVedligeholdelse()) * pow(1 + $this->rapport->getInflation(), $year)
-                ;
-
-    return $besparelse;
+    return isset($this->cashFlowSet[$year]) ? $this->cashFlowSet[$year] : 0;
   }
 
   public function calculateBesparelseVarmeForYear($year) {
@@ -1694,6 +1777,37 @@ abstract class Tiltag {
   protected function calculateNutidsvaerdiSetOver15AarKr($array = FALSE) {
     return Calculation::npv($this->getRapport()
       ->getKalkulationsrente(), $this->cashFlow15, $array);
+  }
+
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSet")
+   */
+  protected function calculateNutidsvaerdiSet() {
+    $cashFlow = $this->getCashFlowSet();
+    return Calculation::npv($this->getRapport()
+      ->getKalkulationsrente(), $cashFlow, TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSetOver15AarKrExpr()")
+   */
+  protected function calculateAkkumuleterNutidsvaerdiSet() {
+    $inflation = $this->getRapport()->getInflation();
+    $years = $this->getConfiguration()->getNutidsvaerdiBeregnAar();
+    $nutidsvaerdiSet = $this->getNutidsvaerdiSet();
+    $result = array_fill(0, $years, 0);
+    $value = - $this->getAnlaegsinvestering();
+    $result[0] = $value;
+    for ($i = 1; $i <= $years; $i++) {
+      $value += isset($nutidsvaerdiSet[$i]) ? $nutidsvaerdiSet[$i] : 0;
+      /**
+      if ($i == 10) {
+        $value -= $this->getAnlaegsinvestering() * $this->faktorForReinvesteringer * pow(1 + $inflation, 10);
+      }
+       */
+      $result[$i] = $value;
+    }
+    return $result;
   }
 
   protected function calculateScrapvaerdi() {
@@ -1996,11 +2110,28 @@ abstract class Tiltag {
   }
 
   /**
-   * @ORM\PostLoad()
+   * Pre persist handler.
+   *
+   * @ORM\PrePersist
+   * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
    */
-  public function postLoad() {
+  public function prePersist(LifecycleEventArgs $event) {
+    $repository = $event->getEntityManager()
+      ->getRepository('AppBundle:Configuration');
+    $this->setConfiguration($repository->getConfiguration());
+  }
+
+  /**
+   * @ORM\PostLoad()
+   * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+   */
+  public function postLoad(LifecycleEventArgs $event) {
     $this->initFormulableCalculation();
     $this->tranlsationSuffix = 'appbundle.tiltag.';
+    $repository = $event->getEntityManager()
+      ->getRepository('AppBundle:Configuration');
+    $this->setConfiguration($repository->getConfiguration());
+
   }
 
 }
