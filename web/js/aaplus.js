@@ -272,15 +272,27 @@
 
   $('#appbundle_nyklimaskaermtiltagdetail_tIndeDetailed').change(function() {
       $('.monthly-inde')[this.checked ? "show" : "hide"]();
-  });
+      if (this.checked) {
+          $('#appbundle_nyklimaskaermtiltagdetail_tIndeC').attr('disabled', 'disabled');
+      }
+      else {
+          $('#appbundle_nyklimaskaermtiltagdetail_tIndeC').removeAttr('disabled');
+      }
+  }).change();
 
   $('#appbundle_nyklimaskaermtiltagdetail_tUdeDetailed').change(function() {
       $('.monthly-ude')[this.checked ? "show" : "hide"]();
-  });
+      if (this.checked) {
+          $('#appbundle_nyklimaskaermtiltagdetail_tUdeC').attr('disabled', 'disabled');
+      }
+      else {
+          $('#appbundle_nyklimaskaermtiltagdetail_tUdeC').removeAttr('disabled');
+      }
+  }).change();
 
   $('#appbundle_nyklimaskaermtiltagdetail_graddageFordeling').change(function() {
       $('.tOpvarmningTimerAarMonthly')[this.value == '' ? "show" : "hide"]();
-  });
+  }).change();
 
   $('#setDefaultTOpvarmningTimerAarMonthly').click(function($e) {
       $e.preventDefault();
