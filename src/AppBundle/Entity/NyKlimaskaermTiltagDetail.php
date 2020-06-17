@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\MonthType;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotations\Calculated;
 use AppBundle\DBAL\Types\CardinalDirectionType;
@@ -425,12 +426,12 @@ class NyKlimaskaermTiltagDetail extends KlimaskaermTiltagDetail
     }
 
     /**
-     * PreUpdate handler.
+     * PreFlush handler.
      *
-     * @ORM\PreUpdate
-     * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+     * @ORM\PreFlush
+     * @param \Doctrine\ORM\Event\PreFlushEventArgs $event
      */
-    public function preUpdate(LifecycleEventArgs $event) {
+    public function preFlush(PreFlushEventArgs $event) {
         if ($this->tIndeDetailed && !empty($this->getTIndeMonthly())) {
              $this->tIndeC = array_sum($this->getTIndeMonthly()) / count($this->getTIndeMonthly());
         }

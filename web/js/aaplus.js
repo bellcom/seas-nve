@@ -393,7 +393,6 @@
 
   function pinFormButtons() {
       var $buttons = $('button.pinned');
-      console.log($buttons);
       if ($buttons.length) {
           $('body').addClass('with-pinned-buttons');
           $pinned_wrapper = $('.pinned-buttons');
