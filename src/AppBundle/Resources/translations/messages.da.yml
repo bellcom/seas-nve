@@ -425,8 +425,8 @@ nyklimaskaermtiltagdetail:
   strings:
     temperatur: "Temperatur instillinger"
     standard_opvarmingtimer: "Få standard opvarming Timer"
-    standard_tude: "Få standard udefor månedstemperatur"
-    standard_tjord: "Få standard jord månedstemperatur"
+    standard_tude: "Vælg udetemperatur (normalår)"
+    standard_tjord: "Vælg jordtemperatur (normalår)"
 komponent:
   actions:
     add: "Tilføj komponent"
@@ -1717,7 +1717,7 @@ appbundle:
     besparelseKWhAar.unit: "kWh/år"
     breddeM: "Bredde"
     breddeM.unit: "m"
-    fradragM: "Fradrag"
+    fradragM: "Fradrag (vinduesarealer, dørarealer mv.)"
     fradragM.unit: "m²"
     delprisKrM2: "Delpris"
     delprisKrM2.unit: "kr/m2"
