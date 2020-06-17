@@ -29,9 +29,10 @@ class VentilationTiltagDetailIndDataType extends AbstractType {
         }
         foreach ($options['fields'] as $key) {
             switch ($key) {
+                case 'virkningsgradVentilator':
                 case 'genvindings':
                     $builder->add($key, 'percent', array(
-                        'scale' => 2,
+                        'scale' => 0,
                         'required' => FALSE,
                     ));
                     break;

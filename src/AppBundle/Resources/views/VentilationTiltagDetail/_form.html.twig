@@ -20,6 +20,7 @@
         {{ form_row(edit_form.udeluftTilfoersel) }}
         {{ form_row(edit_form.forurening) }}
         {{ form_row(edit_form.kvalitet) }}
+        {% include 'AppBundle:Configuration:kvalitet-table.html.twig' with { 'entity' : entity.configuration } %}
       </div>
     </div>
   </div>

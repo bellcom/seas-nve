@@ -208,26 +208,7 @@
             <div class="panel-heading">
               <h3 class="panel-title">{{ 'appbundle.configuration.udeluftTilfoerselMatrix.label' | trans}}</h3>
             </div>
-            <table class="table table-condensed">
-              <thead>
-              <tr>
-                  <th>{{ 'appbundle.configuration.kvalitet' | trans}}</th>
-                  <th>{{ 'appbundle.configuration.kvalitet_1' | trans}}</th>
-                  <th>{{ 'appbundle.configuration.kvalitet_2' | trans}}</th>
-                  <th>{{ 'appbundle.configuration.kvalitet_3' | trans}}</th>
-              </tr>
-              </thead>
-              <tbody>
-              {% for key, row in entity.udeluftTilfoerselMatrix %}
-                <tr>
-                  <td>{{ ('appbundle.configuration.udeluftTilfoerselMatrix.' ~ key) | trans}}</td>
-                  {% for kvalitet in row %}
-                    <td>{% if kvalitet is empty %}--{% else %}{{ kvalitet }}{% endif %}</td>
-                  {% endfor %}
-                </tr>
-              {% endfor %}
-              </tbody>
-            </table>
+            {% include 'AppBundle:Configuration:kvalitet-table.html.twig' %}
           </div>
         </div>
       </div>
