@@ -46,3 +46,7 @@ body.with-pinned-buttons {
 body.with-pinned-buttons footer {
     margin-bottom: 55px;
 }
+
+.baseline-tabs select + span.select2 {
+    width: 100% !important;
+}
