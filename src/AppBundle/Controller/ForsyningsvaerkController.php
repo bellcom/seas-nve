@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\Type\ForsyningsvaerkSearchType;
+use AppBundle\Form\VirksomhedType;
+use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -11,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Forsyningsvaerk;
 use AppBundle\Form\Type\ForsyningsvaerkType;
 use AppBundle\Controller\BaseController;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Forsyningsvaerk controller.
@@ -20,8 +24,13 @@ use AppBundle\Controller\BaseController;
  */
 class ForsyningsvaerkController extends BaseController
 {
+  /**
+   * @var Request
+   */
+  protected $request;
 
   public function init(Request $request) {
+    $this->request = $request;
     parent::init($request);
     $this->breadcrumbs->addItem('forsyningsvaerk.labels.plural', $this->generateUrl('forsyningsvaerk'));
 }
@@ -34,16 +43,46 @@ class ForsyningsvaerkController extends BaseController
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $entity = new Forsyningsvaerk();
+        $form = $this->createSearchForm($entity);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()) {
+          $this->breadcrumbs->addItem('Søg', $this->generateUrl('bygning'));
+        }
+
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Forsyningsvaerk')->findAll();
+        $search = array();
 
+        $search['navn'] = $entity->getNavn();
+        $search['energiform'] = $entity->getEnergiform();
+        $entities = $em->getRepository('AppBundle:Forsyningsvaerk')->search($search);
         return array(
             'entities' => $entities,
+            'form' => $form->createView(),
+            'forsyningvaerk_search' => array_filter($search),
         );
     }
+
+    /**
+     * Creates a form to search Rapport entities.
+     *
+     * @param Forsyningsvaerk $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createSearchForm(Forsyningsvaerk $entity) {
+      $form = $this->createForm(new ForsyningsvaerkSearchType(), $entity, array(
+        'action' => $this->generateUrl('forsyningsvaerk'),
+        'method' => 'GET',
+      ));
+
+      return $form;
+    }
+
     /**
      * Creates a new Forsyningsvaerk entity.
      *
@@ -173,13 +212,21 @@ class ForsyningsvaerkController extends BaseController
     */
     private function createEditForm(Forsyningsvaerk $entity)
     {
+        $params = array('id' => $entity->getId());
+
+        // Getting desired destination for form redirect.
+        $destination = $this->generateUrl('forsyningsvaerk');
+        if ($this->request->get('destination')) {
+            $destination = $this->request->get('destination');
+            $params['destination'] = $destination;
+        }
         $form = $this->createForm(new ForsyningsvaerkType(), $entity, array(
-            'action' => $this->generateUrl('forsyningsvaerk_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('forsyningsvaerk_update', $params),
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('forsyningsvaerk'));
-        $this->addUpdateAndExit($form, $this->generateUrl('forsyningsvaerk'));
+        $this->addUpdate($form, $destination);
+        $this->addUpdateAndExit($form, $destination);
 
         return $form;
     }

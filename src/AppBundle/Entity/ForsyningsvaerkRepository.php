@@ -31,4 +31,29 @@ class ForsyningsvaerkRepository extends EntityRepository {
 
     return null;
   }
+
+  /**
+   * Search Forsyningværker.
+   *
+   * @param array $search
+   * @return array
+   */
+  public function search($search) {
+    $qb = $this->_em->createQueryBuilder();
+    $qb->select('f')
+      ->from('AppBundle:Forsyningsvaerk', 'f');
+
+    if (!empty($search['navn'])) {
+      $qb->andWhere('f.navn LIKE :navn')
+        ->setParameter('navn', '%' . $search['navn'] . '%');
+    }
+
+    if (!empty($search['energiform'])) {
+      $qb->andWhere('f.energiform LIKE :energiform')
+        ->setParameter('energiform', '%' . $search['energiform'] . '%');
+    }
+
+    return $qb->getQuery()->getResult();
+  }
+
 }
