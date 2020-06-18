@@ -178,7 +178,7 @@ bygninger:
     indfoer: "Indfør Bygning"
     show: "Vis Bygning"
     tilknyt_raadgiver: "Tilknyt Rådgiver"
-    create_rapport: "Opret bygning rapport"
+    create_rapport: "Opret Rapport"
   confirmation:
     bygning_infoert: "Bygnings data verificeret"
     raadgiver_tilknyttet: "Rådgiver tilknyttet"
@@ -776,7 +776,8 @@ virksomhed:
   actions:
     add: "Tilføj virksomhed"
     edit: "Rediger virksomhed"
-    create_rapport: "Opret virksomhedsrapport"
+    create_rapport: "Opret Rapport"
+    create_baseline: "Opret Baseline"
   labels:
     plural: "Virksomheder"
     singular: "Virksomhed"
