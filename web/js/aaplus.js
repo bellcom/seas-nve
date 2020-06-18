@@ -225,20 +225,25 @@
     if (!$collectionHolder.length) {
       return;
     }
-    var $addLink = $('<a href="#" class="btn btn-primary add-link">Tilføj flere</a>');
-    var $newLinkRow = $('<div class="row"><div class="col-sm-12"></div></div>').find('div').append($addLink).end();
-    if ($addNewUrl) {
-      var $addNewLink = $('<a href="' + $addNewUrl +'" class="btn btn-primary" target="_blank">Opret nyt</a>');
-      $newLinkRow.find('div').append('&nbsp;').append($addNewLink).end();
-    }
+
     $collectionHolder.find('.row').each(function() {
       addDeleteLink($(this));
     });
 
-    $collectionHolder.append($newLinkRow);
+    var $newLinkRow = $collectionHolder.find('.add-new-row');
+    if ($newLinkRow.length == 0) {
+      var $newLinkRow = $('<div class="row add-new-row"><div class="col-sm-12"><a href="#" class="btn btn-primary add-link">Tilføj flere</a></div></div>');
+      $collectionHolder.append($newLinkRow);
+    }
+
+    if ($addNewUrl) {
+      var $addNewLink = $('<a href="' + $addNewUrl +'" class="btn btn-primary" target="_blank">Opret nyt</a>');
+      $newLinkRow.find('div').append('&nbsp;').append($addNewLink).end();
+    }
+
     $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-    $addLink.on('click', function(e) {
+    $newLinkRow.find('.add-link').on('click', function(e) {
       e.preventDefault();
       $(this).addClass('disabled');
       addMoreForm($collectionHolder, $newLinkRow, $ajaxSrc);
@@ -246,7 +251,7 @@
   }
 
   addMore($('.contact_persons'));
-  addMore($('.datter_selskaber'), '/virksomhed/datterselskab-list', '/virksomhed/new');
+  addMore($('.datter_selskaber'), '/virksomhed/datterselskab-list');
   addMore($('.ean_numbers'), '/bygning/eannumm-list');
   addMore($('.p_numbers'), '/bygning/pnumm-list');
   addMore($('.bygning_by_cvr_number'), '/bygning/cvrnumm-list');
@@ -257,7 +262,7 @@
         var $cvrNumber = $(this).find('option[value=' + this.value + ']').data('cvrnumber');
     }
     $('#appbundle_bygning_cvrNumber').val($cvrNumber);
-  });
+  }).change();
 
   $(document).on('change', '.bygningerByCvrNumber', function () {
     $wrapper = $(this).parents('div.form-group:first > div');

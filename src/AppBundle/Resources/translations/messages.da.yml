@@ -775,6 +775,8 @@ vinduetiltagdetail:
 virksomhed:
   actions:
     add: "Tilføj virksomhed"
+    add_datterselskab: "Opret nyt virksomhed som datterselskab"
+    add_bygning: "Opret ny bygning"
     edit: "Rediger virksomhed"
     create_rapport: "Opret Rapport"
     create_baseline: "Opret Baseline"
@@ -798,6 +800,8 @@ virksomhed:
       bygninger: "Ingen tilknyttede bygninger"
     delete_user: "Fjern tilknyttet bruger?"
     attached_existing_user: "Der var tilknyttet en eksisterende bruger med email adresse %userMail"
+  strings:
+    current_changes_saved_info: "Aktuel virksomhedsinformation gemmes ved oprettelse"
 virksomhed_rapporter:
   actions:
     create: "Opret virksomhedsrapport"

@@ -82,8 +82,8 @@ abstract class BaseController extends Controller implements InitControllerInterf
     return $form;
   }
 
-  protected function addCreate(Form $form, $cancelUrl = NULL, $pinned = TRUE) {
-    return $this->addSubmit($form, 'Create','submit', array('pinned' => $pinned), $cancelUrl, 'Cancel');
+  protected function addCreate(Form $form, $cancelUrl = NULL, $options = array(), $pinned = TRUE) {
+    return $this->addSubmit($form, 'Create','submit', array_merge_recursive(array('pinned' => $pinned), $options), $cancelUrl, 'Cancel');
   }
 
   protected function addUpdate(Form $form, $cancelUrl = NULL, $label = 'Save', $pinned = TRUE) {
