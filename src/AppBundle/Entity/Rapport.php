@@ -2783,7 +2783,10 @@ class Rapport {
       return $this->mathArrayExpr($cashFlow, '; ', 'IRR(',  ')');
     }
 
-    $irr = Excel::IRR($cashFlow);
+    $irr = NULL;
+    if (!empty(array_filter($cashFlow))) {
+      $irr = Excel::IRR($cashFlow);
+    }
 
     if(ExcelError::IS_ERR($irr)) {
       return NULL;
