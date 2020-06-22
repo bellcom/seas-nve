@@ -85,3 +85,63 @@ jQuery(function ($) {
     form.addEventListener('submit', passifySubmit);
   }
 })();
+
+// Form errors.
+(function() {
+  function generateAlert(text, errors) {
+    var alert = document.createElement('div');
+    alert.classList.add('alert', 'alert-danger');
+
+    alert.appendChild(document.createTextNode(text));
+
+    return alert;
+  }
+
+  var submits = document.querySelectorAll('[type="submit"');
+
+  for (var i = 0; i < submits.length; i++) {
+    var submit = submits[i];
+
+    submit.addEventListener('click', function(e) {
+      var element = this;
+      var form = element.closest('form');
+      var validity = form.checkValidity();
+
+      // Remove all previously added content to wrapper.
+      var wrapper = document.querySelector('.aaplus-flashes');
+      if (wrapper) {
+        wrapper.innerHTML = '';
+      }
+
+      // Remove errors from inputs.
+      var inputErrors = document.querySelectorAll('.form-group.has-error');
+
+      for (var i = 0; i < inputErrors.length; i++) {
+        var inputError = inputErrors[i];
+
+        inputError.classList.remove('has-error');
+      }
+
+      // Form is not valid.
+      if (!validity) {
+        var inputs = form.querySelectorAll('.form-control');
+
+        for (var i = 0; i < inputs.length; i++) {
+          var input = inputs[i];
+
+          // Input is not valid.
+          if (!input.checkValidity()) {
+            var group = input.closest('.form-group');
+
+            group.classList.add('has-error');
+          }
+        }
+
+        // Show errors.
+        var alert = generateAlert('Der er opstået én eller flere fejl.');
+
+        wrapper.appendChild(alert);
+      }
+    });
+  }
+})();
