@@ -117,7 +117,7 @@ class TiltagController extends BaseController {
     $params = array('id' => $tiltag->getId());
 
     // Getting desired destination for form redirect.
-    $destination = $this->generateUrl('tiltag_show', array('id' => $tiltag->getId()));
+    $destination = $this->generateUrl('rapport_show', array('id' => $tiltag->getRapport()->getId()));
     if ($this->request->get('destination')) {
       $destination = $this->request->get('destination');
       $params['destination'] = $destination;
