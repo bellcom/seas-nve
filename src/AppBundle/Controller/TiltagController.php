@@ -410,7 +410,7 @@ class TiltagController extends BaseController {
       'method' => 'POST',
     ));
 
-    $this->addCreate($form);
+    $this->addCreate($form, $this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
 
     return $form;
   }

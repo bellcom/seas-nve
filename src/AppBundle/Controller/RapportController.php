@@ -818,7 +818,7 @@ class RapportController extends BaseController {
       'method' => 'POST',
     ));
 
-    $this->addCreate($form);
+    $this->addCreate($form, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     return $form;
   }
 
