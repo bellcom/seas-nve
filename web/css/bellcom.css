@@ -50,3 +50,7 @@ body.with-pinned-buttons footer {
 .baseline-tabs select + span.select2 {
     width: 100% !important;
 }
+
+body .select2-container--default .select2-results > ul[id*='levetid'].select2-results__options {
+    max-height: 300px;
+}
