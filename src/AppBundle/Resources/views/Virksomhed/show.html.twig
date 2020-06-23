@@ -83,7 +83,7 @@
           </tr>
           <tr>
             <th>{{ 'appbundle.virksomhed.typeName' | trans }}</th>
-            <td>{{ entity.getTypeName(TRUE) }}
+            <td>{{ entity.getTypeNameLabel(TRUE) }}
               {% if entity.isInherited('projectNumber') %}<small>{{ 'common.inherited' | trans }}</small>{% endif %}
             </td>
           </tr>
