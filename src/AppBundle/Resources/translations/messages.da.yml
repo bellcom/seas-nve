@@ -508,20 +508,6 @@ pumpetiltag:
     plural: "Pumpeforslag"
     singular: "Pumpeforslag"
     title: "Pumpeudskiftninger"
-pumpetiltagdetailapplikation:
-  actions:
-    add: "Tilføj Pumpeforslags applikation"
-    create: "Opret Pumpeforslags applikation"
-    edit: "Rediger Pumpeforslags applikation"
-  confirmation:
-    created: "Nyt Pumpeforslags applikation oprettet"
-    updated: "Pumpeforslags applikation opdateret"
-    deleted: "Pumpeforslags applikation slettet"
-  error:
-    in_use: "Kan ikke slettes. Bruges af pumpeforslags."
-  labels:
-    plural: "Pumpeforslags applikationer"
-    singular: "Pumpeforslags applikation"
 pumpetiltagdetail:
   actions:
     add: "Tilføj Pumpeforslag"
@@ -1879,7 +1865,6 @@ appbundle:
     import:
       filepath: "Vælg fil med import pumper data"
   pumpetiltag:
-    applikation: "Applikation"
     nyttiggjortVarme: "Nyttiggjort varme"
     eksisterendeDrifttid: "Eksisterende Drifttid"
     forsyningsomraade: "Forsyningsområde"
@@ -1891,7 +1876,6 @@ appbundle:
     pumpeID: "ID"
   pumpetiltagdetail:
     add: "Tilføj pumpe"
-    applikation: "Applikation"
     bFaktor: "B-Faktor"
     nyttiggjortVarme: "Nyttiggjort varme"
     eksisterendeDrifttid: "Eksisterende drifttid"
@@ -1943,8 +1927,6 @@ appbundle:
     varmebespIsokappeKWh: "Varmebesp. iso.kappe"
     varmebespIsokappeKWh.unit: "kWh"
     varmetabIftAekvivalentRoerstoerrelse: "Overskreven varmetab ift. ækvivalent rørstørrelse (Pumpetilslutning)"
-  pumpetiltagdetailapplikation:
-    navn: "Navn"
   rapport:
     ava: "AVA"
     anlaegsinvestering: "Entreprisesum"

@@ -998,8 +998,6 @@ class LoadExcelRapport extends LoadData {
       'K' => 'pumpeID',
       'L' => 'forsyningsomraade',
       'M' => 'placering',
-      'N' => 'applikation',
-      'N' => array('applikation', function($value, $row) { return $this->getEntityReference('PumpeTiltagDetailApplikation', $value); }),
       'O' => 'isoleringskappe',
       'P' => 'bFaktor',
       'Q' => 'noter',
