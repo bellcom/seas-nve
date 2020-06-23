@@ -73,11 +73,11 @@ class TiltagType extends AbstractType {
         'help_text' => 'Besparelse varme GAF + Besparelse varme GUF',
         'disabled' => 'disabled',
       );
+      $builder
+        ->add('forbrugFoer')
+        ->add('forbrugEfter', 'text', array('attr' => $attr));
     }
 
-    $builder
-      ->add('forbrugFoer')
-      ->add('forbrugEfter', 'text', array('attr' => $attr));
 
     $builder
       ->add('reelAnlaegsinvestering');
