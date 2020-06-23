@@ -743,6 +743,9 @@ class RapportController extends BaseController {
     $tiltag->init($rapport);
     $form = $this->createTiltagCreateForm($rapport, $tiltag, $type);
     $template = $this->getTiltagTemplate($tiltag, 'new');
+    if ($type == 'klimaskaerm') {
+      $this->flash->error($this->translator->trans('klimaskaerm.strings.tobedeleted'));
+    }
 
     return $this->render($template, array(
       'entity' => $tiltag,
