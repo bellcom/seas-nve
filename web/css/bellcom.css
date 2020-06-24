@@ -50,3 +50,11 @@ body.with-pinned-buttons footer {
 .baseline-tabs select + span.select2 {
     width: 100% !important;
 }
+
+.nav-tabs a.has-error,
+.nav-tabs a.has-error:focus,
+.nav-tabs a.has-error:hover,
+.nav-tabs a.has-error:visited {
+    color: #a94442;
+    border-color: #a94442;
+}

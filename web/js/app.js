@@ -96,6 +96,13 @@ jQuery(function ($) {
 
     return alert;
   }
+  function findWrapperTab(element) {
+    var pane = element.closest('.tab-pane');
+    var id = pane.getAttribute('id');
+    var tab = document.querySelector('.nav-tabs a[href="#' + id + '"]');
+
+    return tab;
+  }
 
   var submits = document.querySelectorAll('[type="submit"');
 
@@ -111,6 +118,12 @@ jQuery(function ($) {
       var wrapper = document.querySelector('.aaplus-flashes');
       if (wrapper) {
         wrapper.innerHTML = '';
+      }
+      var tabLinks = document.querySelectorAll('.nav-tabs a.has-error');
+      for(var i = 0; i < tabLinks.length; i++) {
+        var tabLink = tabLinks[i];
+
+        tabLink.classList.remove('has-error');
       }
 
       // Remove errors from inputs.
@@ -134,6 +147,12 @@ jQuery(function ($) {
             var group = input.closest('.form-group');
 
             group.classList.add('has-error');
+
+            // Check if input is a child of a tab.
+            var pane = findWrapperTab(input);
+            if (pane !== null) {
+              pane.classList.add('has-error');
+            }
           }
         }
 
