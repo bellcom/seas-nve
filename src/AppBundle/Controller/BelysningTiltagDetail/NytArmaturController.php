@@ -119,7 +119,7 @@ class NytArmaturController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('belysningtiltagdetail_nytarmatur'));
+        $this->addCreate($form, $this->generateUrl('belysningtiltagdetail_nytarmatur'));
 
         return $form;
     }
@@ -326,14 +326,15 @@ class NytArmaturController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('belysningtiltagdetail_nytarmatur_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('belysningtiltagdetail_nytarmatur'));
+        $this->addUpdateAndExit($form, $this->generateUrl('belysningtiltagdetail_nytarmatur'));
 
         return $form;
     }
     /**
      * Edits an existing BelysningTiltagDetail\NytArmatur entity.
      *
-     * @Route("/{id}", name="belysningtiltagdetail_nytarmatur_update")
+     * @Route("/{id}/edit", name="belysningtiltagdetail_nytarmatur_update")
      * @Method("PUT")
      * @Template("AppBundle:BelysningTiltagDetail\NytArmatur:edit.html.twig")
      */
@@ -353,9 +354,14 @@ class NytArmaturController extends BaseController
 
         if ($editForm->isValid()) {
             $em->flush();
+
             $this->flash->success('nytArmatur.confirmation.updated');
 
-            return $this->redirect($this->generateUrl('belysningtiltagdetail_nytarmatur'));
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -412,6 +418,7 @@ class NytArmaturController extends BaseController
                 'disabled' => $message,
                 'attr' => array(
                     'disabled_message' => $message,
+                    'class' => 'pinned',
                 ),
             ))
             ->getForm()

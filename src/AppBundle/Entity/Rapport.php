@@ -371,7 +371,7 @@ class Rapport {
    *
    * @ORM\Column(name="energiscreening", type="decimal", precision=16, scale=4, nullable=true)
    */
-  protected $energiscreening;
+  protected $energiscreening = 0;
 
   /**
    * Tilvalgt TotalInvestering = sum af alle tiltags anlægsinvesteringer
@@ -848,6 +848,9 @@ class Rapport {
    * @return array
    */
   public function getNutidsvaerdiSet($value = FALSE) {
+    if ($this->nutidsvaerdiSet == NULL) {
+      $this->nutidsvaerdiSet = array();
+    }
     return $value ? array_sum($this->nutidsvaerdiSet) : $this->nutidsvaerdiSet;
   }
 
@@ -2783,7 +2786,10 @@ class Rapport {
       return $this->mathArrayExpr($cashFlow, '; ', 'IRR(',  ')');
     }
 
-    $irr = Excel::IRR($cashFlow);
+    $irr = NULL;
+    if (!empty(array_filter($cashFlow))) {
+      $irr = Excel::IRR($cashFlow);
+    }
 
     if(ExcelError::IS_ERR($irr)) {
       return NULL;

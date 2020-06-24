@@ -9,8 +9,9 @@
   <div class="row heading">
     <div class="col-md-6"><h1>{% if entity.title is empty %}{{ 'tiltag.title.missing' | trans }}{% else %}{{ entity.title }}{% endif %}</h1></div>
     <div class="col-md-6 text-right">
+      <a href="{{ path('rapport_show', { 'id': entity.rapport.id }) }}" class="btn btn-default">{{ 'rapporter.labels.singular' | trans }}</a>
       {% if is_granted('TILTAG_EDIT', entity) %}
-        <a class="btn btn-default" href="{{ path('tiltag_edit', { 'id': entity.id }) }}">{{ icon('edit') }} {{ 'tiltag.actions.edit' | trans }}</a>
+        <a class="btn btn-default" href="{{ path('tiltag_edit', { 'id': entity.id, 'destination': path('tiltag_show', { 'id': entity.id}) }) }}">{{ icon('edit') }} {{ 'tiltag.actions.edit' | trans }}</a>
         <a href="{{ path('tiltag_detail_new', { 'id': entity.id }) }}" class="btn btn-primary">{{ icon('plus') }} {{ add_action | trans }}</a>
       {% endif %}
     </div>
@@ -55,8 +56,10 @@
 {% block editform_button_row %}
   {% if is_granted('TILTAG_EDIT', entity) %}
     {{ form_row(edit_form.buttons) }}
-    {{ form_widget(edit_form.select_all_button, { 'attr': {'class': 'batch-edit'} }) }}
-    {{ form_widget(edit_form.batch_edit_button, { 'attr': {'class': 'batch-edit'} }) }}
+    <div class="form-group">
+      {{ form_widget(edit_form.select_all_button, { 'attr': {'class': 'batch-edit'} }) }}
+      {{ form_widget(edit_form.batch_edit_button, { 'attr': {'class': 'batch-edit'} }) }}
+    </div>
     {{ form_rest(edit_form) }}
     {{ form_end(edit_form) }}
   {% endif %}

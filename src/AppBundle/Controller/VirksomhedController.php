@@ -201,7 +201,15 @@ class VirksomhedController extends BaseController
             }
             $em->flush();
 
-          return $this->redirect($this->generateUrl('virksomhed_show', array('id' => $entity->getId())));
+            $destination = $this->generateUrl('virksomhed_show', array('id' => $entity->getId()));
+            $button = $form->getClickedButton();
+            if ($button_destination = $this->getButtonDestination($button)) {
+                $destination = $button_destination;
+                if (in_array($button->getName(), array('opret_bygning', 'opret_datterselskab'))) {
+                  $destination = str_replace('newVirksomhedDestination', $this->generateUrl('virksomhed_edit', array('id' => $entity->getId())) . '&virksomhed_id=' . $entity->getId(), $destination);
+                }
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -220,13 +228,52 @@ class VirksomhedController extends BaseController
     private function createCreateForm(Virksomhed $entity)
     {
         $entity->setDefaultValues();
+        $em = $this->getDoctrine()->getManager();
+
+        // Getting desired destination for form redirect.
+        $params = array();
+        if ($this->request->get('destination')) {
+          $destination = $this->request->get('destination');
+          $params['destination'] = $destination;
+        }
+
+        // Settings parent if entity create with reference to parent.
+        if (!empty($this->request->get('virksomhed_id'))) {
+            /** @var Virksomhed $virksomhed */
+            $virksomhed = $em->getRepository(Virksomhed::class)->find($this->request->get('virksomhed_id'));
+            $entity->setParent($virksomhed);
+            $params['virksomhed_id'] = $virksomhed->getId();
+        }
+
         $form = $this->createForm(new VirksomhedType(), $entity, array(
-            'action' => $this->generateUrl('virksomhed_create'),
+            'action' => $this->generateUrl('virksomhed_create', $params),
             'method' => 'POST',
             'entityManager' => $this->getDoctrine()->getManager(),
         ));
 
-        $this->addUpdate($form, $this->generateUrl('virksomhed'));
+        $this->addCreate($form, $this->generateUrl('virksomhed'), !empty($destination) ? array(
+          'attr' => array(
+            'destination' => $destination,
+          ),
+        ) : array());
+
+        $form->add('opret_bygning', 'submit', array(
+          'button_class' => 'btn btn-default',
+          'attr' => array(
+            'destination' => $this->generateUrl('bygning_new', array(
+              'destination' => 'newVirksomhedDestination'
+            )),
+          ),
+        ));
+
+        $form->add('opret_datterselskab', 'submit', array(
+          'button_class' => 'btn btn-default',
+          'attr' => array(
+            'destination' => $this->generateUrl('virksomhed_new', array(
+              'destination' => 'newVirksomhedDestination'
+            )),
+          ),
+        ));
 
         return $form;
     }
@@ -248,7 +295,7 @@ class VirksomhedController extends BaseController
         // It's required to have at least one contact person.
         $entity->setContactPersons(new ArrayCollection(array(new ContactPerson())));
 
-        $form   = $this->createCreateForm($entity);
+        $form  = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
@@ -401,14 +448,35 @@ class VirksomhedController extends BaseController
             'entityManager' => $this->getDoctrine()->getManager(),
         ));
 
+        $form->add('opret_bygning', 'submit', array(
+          'button_class' => 'btn btn-default',
+          'attr' => array(
+            'destination' => $this->generateUrl('bygning_new', array(
+              'destination' => $this->generateUrl('virksomhed_edit', array('id' => $entity->getId())),
+              'virksomhed_id' => $entity->getId(),
+            )),
+          ),
+        ));
+
+        $form->add('opret_datterselskab', 'submit', array(
+          'button_class' => 'btn btn-default',
+          'attr' => array(
+            'destination' => $this->generateUrl('virksomhed_new', array(
+              'destination' => $this->generateUrl('virksomhed_edit', array('id' => $entity->getId())),
+              'virksomhed_id' => $entity->getId(),
+            )),
+          ),
+        ));
+
         $this->addUpdate($form, $this->generateUrl('virksomhed_show', array('id' => $entity->getId())));
+        $this->addUpdateAndExit($form, $this->generateUrl('virksomhed_show', array('id' => $entity->getId())));
 
         return $form;
     }
     /**
      * Edits an existing Virksomhed entity.
      *
-     * @Route("/{id}", name="virksomhed_update")
+     * @Route("/{id}/edit", name="virksomhed_update")
      * @Method("PUT")
      * @Template("AppBundle:Virksomhed:edit.html.twig")
      * @Security("is_granted('VIRKSOMHED_EDIT', virksomhed)")
@@ -512,7 +580,13 @@ class VirksomhedController extends BaseController
             }
             $em->flush();
 
-            return $this->redirect($this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+            $this->flash->success('virksomhed.confirmation.updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+              $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -602,6 +676,9 @@ class VirksomhedController extends BaseController
             ->setMethod('DELETE')
             ->add('submit', 'submit', array(
                 'label' => 'Delete',
+                'attr' => [
+                    'class' => 'pinned',
+                ],
             ))
             ->getForm()
         ;
@@ -693,7 +770,7 @@ class VirksomhedController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_show', $params));
+        $this->addCreate($form, $this->generateUrl('virksomhed_rapport_show', $params));
 
         return $form;
     }

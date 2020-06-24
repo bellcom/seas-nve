@@ -21,11 +21,10 @@ use AppBundle\Controller\BaseController;
 class ELOKategoriController extends BaseController
 {
 
-  public function init(Request $request) {
-    parent::init($request);
-    $this->breadcrumbs->addItem('elokategori.labels.singular', $this->generateUrl('elokategori'));
-}
-
+    public function init(Request $request) {
+        parent::init($request);
+        $this->breadcrumbs->addItem('elokategori.labels.singular', $this->generateUrl('elokategori'));
+    }
 
     /**
      * Lists all ELOKategori entities.
@@ -86,7 +85,7 @@ class ELOKategoriController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('elokategori'));
+        $this->addCreate($form, $this->generateUrl('elokategori'));
 
         return $form;
     }
@@ -178,14 +177,15 @@ class ELOKategoriController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('elokategori_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('elokategori'));
+        $this->addUpdateAndExit($form, $this->generateUrl('elokategori'));
 
         return $form;
     }
     /**
      * Edits an existing ELOKategori entity.
      *
-     * @Route("/{id}", name="elokategori_update")
+     * @Route("/{id}/edit", name="elokategori_update")
      * @Method("PUT")
      * @Template("AppBundle:ELOKategori:edit.html.twig")
      */
@@ -206,7 +206,13 @@ class ELOKategoriController extends BaseController
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('elokategori'));
+            $this->flash->success('elokategori.confirmation.updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -253,7 +259,12 @@ class ELOKategoriController extends BaseController
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('elokategori_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array(
+              'label' => 'Delete',
+              'attr' => array(
+                'class' => 'pinned',
+              ),
+            ))
             ->getForm()
         ;
     }

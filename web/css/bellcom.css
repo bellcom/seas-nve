@@ -1,24 +1,3 @@
-.calculation-expression-toggle {
-  position: fixed;
-
-  z-index: 800;
-
-  right: 15px;
-  bottom: 15px;
-
-  padding: 10px 20px;
-
-  outline: 0;
-
-  border-radius: 25px;
-
-  background-color: #f7f7f7;
-  border: 1px solid #aaaaaa;
-}
-.calculation-expression-toggle:hover {
-  background-color: #eee;
-}
-
 #appbundle_bygning_energiRaadgiver .bc-collection li:first-child .row {margin-top: 0;}
 
 .js-chart-slutanvendelse-color {
@@ -36,3 +15,57 @@
 [type="submit"] .fa.appended {
   margin-left: 5px;
 }
+.pinned-buttons {
+    display: none;
+    position: fixed;
+    z-index: 500;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    padding: 10px 15px;
+
+    background-color: #fff;
+    border-top: 1px solid #eee;
+
+    text-align: right;
+}
+.pinned-buttons .btn + .btn {
+    margin-left: 5px;
+}
+
+.pinned-buttons .btn span {
+    margin-left: 5px;
+}
+
+body.with-pinned-buttons {
+    margin-bottom: 115px;
+}
+
+body.with-pinned-buttons footer {
+    margin-bottom: 55px;
+}
+
+.baseline-tabs select + span.select2 {
+    width: 100% !important;
+}
+
+body .select2-container--default .select2-results > ul[id*='levetid'].select2-results__options {
+    max-height: 300px;
+}
+
+.nav-tabs a.has-error,
+.nav-tabs a.has-error:focus,
+.nav-tabs a.has-error:hover,
+.nav-tabs a.has-error:visited {
+    color: #a94442;
+    border-color: #a94442;
+}
+
+body .table-header-rotated th.rotate > div {
+    left: 10%;
+}
+
+body .table-header-rotated th.unit {
+    border-left: #ccc 1px solid;

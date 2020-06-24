@@ -127,7 +127,7 @@ class VarmeanlaegTiltag extends Tiltag {
 
     /**
      * @inheritDoc
-     * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+     * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateEnergiledelseFaktor()")
      */
     protected function calculateVarmebesparelseGAF($value = null) {
         $value = $this->calculateVarmebesparelseGAFValue();

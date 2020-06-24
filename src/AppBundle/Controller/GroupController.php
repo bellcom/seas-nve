@@ -79,7 +79,7 @@ class GroupController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('group_list'));
+        $this->addCreate($form, $this->generateUrl('group_list'));
         return $form;
     }
 
@@ -183,13 +183,14 @@ class GroupController extends BaseController
         ));
 
         $this->addUpdate($form, $this->generateUrl('group_show', array('id' => $entity->getId())));
+        $this->addUpdateAndExit($form, $this->generateUrl('group_show', array('id' => $entity->getId())));
         return $form;
     }
 
     /**
      * Edits an existing Group entity.
      *
-     * @Route("/{id}", name="group_update")
+     * @Route("/{id}/edit", name="group_update")
      * @Method("PUT")
      * @Template("AppBundle:Group:edit.html.twig")
      */
@@ -206,7 +207,14 @@ class GroupController extends BaseController
 
         if ($edit_form->isValid()) {
             $em->flush();
-            return $this->redirect($this->generateUrl('group_list'));
+
+            $this->flash->success('group.confirmation.updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($edit_form->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -230,14 +238,15 @@ class GroupController extends BaseController
             'action' => $this->generateUrl('group_update_roles', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $this->addUpdate($roles_form);
+        $this->addUpdate($roles_form, $this->generateUrl('group_list'), 'group.actions.save_roles');
+        $this->addUpdateAndExit($roles_form, $this->generateUrl('group_list'));
         return $roles_form;
     }
 
     /**
      * Edits an existing Group entity.
      *
-     * @Route("/{id}/roles", name="group_update_roles")
+     * @Route("/{id}", name="group_update_roles")
      * @Method("PUT")
      * @Template("AppBundle:Group:show.html.twig")
      */
@@ -254,7 +263,14 @@ class GroupController extends BaseController
 
         if ($roles_form->isValid()) {
             $em->flush();
-            return $this->redirect($this->generateUrl('group_show', array('id' => $entity->getId())));
+
+            $this->flash->success('group.confirmation.roles_updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($roles_form->getClickedButton())) {
+              $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -313,6 +329,7 @@ class GroupController extends BaseController
                 'disabled' => $message,
                 'attr' => array(
                     'disabled_message' => $message,
+                    'class' => 'pinned',
                 ),
             ))
             ->getForm();

@@ -133,6 +133,7 @@ class TiltagDetailController extends BaseController {
     }
 
     $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $entity->getTiltag()->getId())) . '#' . $entity->getId());
+    $this->addUpdateAndExit($form, $this->generateUrl('tiltag_show', array('id' => $entity->getTiltag()->getId())) . '#' . $entity->getId());
 
     return $form;
   }
@@ -140,7 +141,7 @@ class TiltagDetailController extends BaseController {
   /**
    * Edits an existing TiltagDetail entity.
    *
-   * @Route("/{id}", name="tiltag_detail_update")
+   * @Route("/{id}/edit", name="tiltag_detail_update")
    * @Method("PUT")
    * @Template("AppBundle:TiltagDetail:edit.html.twig")
    * @param Request $request
@@ -159,10 +160,12 @@ class TiltagDetailController extends BaseController {
       $em->flush();
 
       $this->flash->success('tiltagdetail.confirmation.updated');
-      if ($request->get('continue')) {
-          return $this->redirect($this->generateUrl('tiltag_detail_edit', array('id' => $tiltagdetail->getId())));
+
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
       }
-      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltagdetail->getTiltag()->getId())) . '#' . $tiltagdetail->getId());
+      return $this->redirect($destination);
     }
 
     $template = $this->getTemplate($tiltagdetail, 'edit');
@@ -210,7 +213,12 @@ class TiltagDetailController extends BaseController {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('tiltag_detail_delete', array('id' => $entity->getId())))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'attr' => array(
+          'class' => 'pinned',
+        ),
+      ))
       ->getForm();
   }
 

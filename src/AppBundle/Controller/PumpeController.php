@@ -121,7 +121,7 @@ class PumpeController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('pumpe'));
+        $this->addCreate($form, $this->generateUrl('pumpe'));
 
         return $form;
     }
@@ -256,7 +256,7 @@ class PumpeController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('pumpe'));
+        $this->addCreate($form, $this->generateUrl('pumpe'));
 
         return $form;
     }
@@ -328,14 +328,15 @@ class PumpeController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('pumpe_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('pumpe'));
+        $this->addUpdateAndExit($form, $this->generateUrl('pumpe'));
 
         return $form;
     }
     /**
      * Edits an existing Pumpe entity.
      *
-     * @Route("/{id}", name="pumpe_update")
+     * @Route("/{id}/edit", name="pumpe_update")
      * @Method("PUT")
      * @Template("AppBundle:Pumpe:edit.html.twig")
      */
@@ -355,9 +356,14 @@ class PumpeController extends BaseController
 
         if ($editForm->isValid()) {
             $em->flush();
+
             $this->flash->success('pumpe.confirmation.updated');
 
-            return $this->redirect($this->generateUrl('pumpe'));
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -415,6 +421,7 @@ class PumpeController extends BaseController
                 'disabled' => $message,
                 'attr' => array(
                     'disabled_message' => $message,
+                    'class' => 'pinned',
                 ),
             ))
             ->getForm()

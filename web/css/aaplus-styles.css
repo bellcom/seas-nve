@@ -13,6 +13,10 @@
   cursor: pointer;
 }
 
+.modal-link-text {
+  text-decoration: underline;
+}
+
 span.calculattion-warning {
   cursor: pointer;
 }
@@ -52,10 +56,6 @@ div.tab-content div.details-overview:first-child {
 span.popover-trigger {
   cursor: pointer;
   margin: 0 1em;
-}
-
-button.batch-edit {
-  margin-top: -89px;
 }
 
 .float-right {
@@ -741,6 +741,7 @@ form .alert ul {
 
 .column-sort {
   position: relative;
+  z-index: -1;
 }
 
 .column-sort::before {

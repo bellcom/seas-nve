@@ -73,21 +73,19 @@
           </div>
           <div class="col-md-6">
             {{ form_row(edit_form.tUdeC) }}
-            <div class="col-xs-12">
-              <div class="row">
-                <div class="col-md-4">
-                  {{ form_row(edit_form.tUdeDetailed) }}
-                </div>
-                <div class="col-md-4 monthly-ude" {% if (entity.tUdeDetailed == 0) %}style="display:none;"{% endif %}>
-                  <div class="form-group"><div class="checkbox">
-                    <a href="#" id="setDefaultTjordMonthly" data-tjord='{{ edit_form.tUdeMonthly.vars.attr['data-tjord'] | raw }}' >{{ 'nyklimaskaermtiltagdetail.strings.standard_tjord' | trans }}</a>
-                  </div></div>
-                </div>
-                <div class="col-md-4 monthly-ude" {% if (entity.tUdeDetailed == 0) %}style="display:none;"{% endif %}>
-                  <div class="form-group"><div class="checkbox">
-                    <a href="#" id="setDefaultTUdeMonthly" data-tudemonthly='{{ edit_form.tUdeMonthly.vars.attr['data-tudemonthly'] | raw }}' >{{ 'nyklimaskaermtiltagdetail.strings.standard_tude' | trans }}</a>
-                  </div></div>
-                </div>
+            <div class="row">
+              <div class="col-md-4">
+                {{ form_row(edit_form.tUdeDetailed) }}
+              </div>
+              <div class="col-md-4 monthly-ude" {% if (entity.tUdeDetailed == 0) %}style="display:none;"{% endif %}>
+                <div class="form-group"><div class="checkbox">
+                  <a href="#" id="setDefaultTjordMonthly" data-tjord='{{ edit_form.tUdeMonthly.vars.attr['data-tjord'] | raw }}' >{{ 'nyklimaskaermtiltagdetail.strings.standard_tjord' | trans }}</a>
+                </div></div>
+              </div>
+              <div class="col-md-4 monthly-ude" {% if (entity.tUdeDetailed == 0) %}style="display:none;"{% endif %}>
+                <div class="form-group"><div class="checkbox">
+                  <a href="#" id="setDefaultTUdeMonthly" data-tudemonthly='{{ edit_form.tUdeMonthly.vars.attr['data-tudemonthly'] | raw }}' >{{ 'nyklimaskaermtiltagdetail.strings.standard_tude' | trans }}</a>
+                </div></div>
               </div>
             </div>
             <div class="row monthly-ude" {% if (entity.tUdeDetailed == 0) %}style="display:none;"{% endif %}>

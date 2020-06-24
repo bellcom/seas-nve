@@ -172,14 +172,15 @@ class LeverandoerController extends BaseController
             'action' => $this->generateUrl('leverandoer_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $this->addUpdate($form, $this->generateUrl('leverandoer_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('leverandoer'));
+        $this->addUpdateAndExit($form, $this->generateUrl('leverandoer'));
 
         return $form;
     }
     /**
      * Edits an existing Leverandoer entity.
      *
-     * @Route("/{id}", name="leverandoer_update")
+     * @Route("/{id}/edit", name="leverandoer_update")
      * @Method("PUT")
      * @Template("AppBundle:Leverandoer:edit.html.twig")
      */
@@ -199,9 +200,14 @@ class LeverandoerController extends BaseController
 
         if ($editForm->isValid()) {
             $em->flush();
+
             $this->flash->success('leverandoer.confirmation.updated');
 
-            return $this->redirect($this->generateUrl('leverandoer_edit', array('id' => $id)));
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -250,7 +256,12 @@ class LeverandoerController extends BaseController
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('leverandoer_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array(
+              'label' => 'Delete',
+              'attr' => array(
+                'class' => 'pinned',
+              ),
+            ))
             ->getForm()
         ;
     }

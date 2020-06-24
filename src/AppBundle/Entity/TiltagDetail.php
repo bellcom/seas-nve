@@ -69,7 +69,9 @@ abstract class TiltagDetail {
    *
    * Can be used for setting default values, say.
    */
-  public function init(Tiltag $tiltag) {}
+  public function init(Tiltag $tiltag) {
+    $this->setTiltag($tiltag);
+  }
 
   /**
    * @var integer

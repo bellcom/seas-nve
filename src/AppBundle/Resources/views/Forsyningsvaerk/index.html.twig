@@ -15,7 +15,8 @@
 
     </div>
 
-
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_errors(form) }}
     <table class="table table-condensed table-header-rotated">
       <thead>
       <tr>
@@ -162,12 +163,23 @@
         {{ helper.header_unit('2075') }}
         {{ helper.header_unit() }}
       </tr>
+      <tr class="search">
+        <th>{{ form_row(form.Søg) }}</th>
+        <th colspan="3">{{ form_row(form.navn) }}</th>
+        <th colspan="3">{{ form_row(form.energiform) }}</th>
+        <th>
+          {% if forsyningvaerk_search %}
+            <a class="btn btn-default" href="{{ path('forsyningsvaerk') }}">{{ icon('close') }}</a>
+          {% endif %}
+        </th>
+        <th colspan="61"></th>
+      </tr>
       </thead>
       <tbody>
       {% for entity in entities %}
         <tr id="{{ entity.id }}">
           <td rowspan="2">
-            <a class="btn btn-default btn-xs" href="{{ path('forsyningsvaerk_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+            <a class="btn btn-default btn-xs" href="{{ path('forsyningsvaerk_edit', { 'id': entity.id, 'destination' : forsyningvaerk_search ? path('forsyningsvaerk', { 'forsyningvaerk_search' : forsyningvaerk_search }) : null }) }}">{{ 'common.edit' | trans }}</a>
           </td>
           <td rowspan="2">{{ entity.navn }}</td>
           <td rowspan="2">{{ entity.energiform }}</td>
@@ -307,5 +319,6 @@
       {% endfor %}
       </tbody>
     </table>
+    {{ form_end(form) }}
 
   {% endblock %}

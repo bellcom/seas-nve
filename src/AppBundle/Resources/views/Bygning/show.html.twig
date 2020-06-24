@@ -15,14 +15,20 @@
     </div>
     <div class="col-md-4 text-right">
       <p>
-        {% if entity.baseline is not null %}
+      {% if entity.baseline is not null %}
         <a href="{{ path('baseline_show', { 'id': entity.baseline.id }) }}" class="btn btn-default">
           {{ 'appbundle.bygning.baseline' | trans }}
         </a>
       {% endif %}
-      <a href="{{ path_with_access_token('bygning_rapport', { 'id': entity.id }) }}" class="btn btn-default">
-        {{ icon('caret-square-o-right') }} {{ 'bygninger.strings.rapport' | trans }}
-      </a>
+      {% if entity.rapport is not null %}
+        <a href="{{ path_with_access_token('bygning_rapport', { 'id': entity.id }) }}" class="btn btn-default">
+          {{ icon('caret-square-o-right') }} {{ 'bygninger.strings.rapport' | trans }}
+        </a>
+      {% else %}
+        <a href="{{ path_with_access_token('bygning_rapport', { 'id': entity.id }) }}" class="btn btn-primary">
+          {{ icon('plus') }} {{ 'bygninger.actions.create_rapport' | trans }}
+        </a>
+      {% endif %}
       {% if is_granted('ROLE_BYGNING_EDIT') %}
         <a href="{{ path('bygning_edit', { 'id': entity.id }) }}" class="btn btn-default">
           {{ icon('edit') }} {{ 'common.edit' | trans }}

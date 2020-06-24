@@ -391,7 +391,7 @@ class RapportController extends BaseController {
   /**
    * Edits an existing Rapport entity.
    *
-   * @Route("/{id}", name="rapport_update")
+   * @Route("/{id}/edit", name="rapport_update")
    * @Method("PUT")
    * @Template("AppBundle:Rapport:edit.html.twig")
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
@@ -408,7 +408,13 @@ class RapportController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
 
-      return $this->redirect($this->generateUrl('rapport_show', array('id' => $rapport->getId())));
+      $this->flash->success('bygning_rapporter.confirmation.updated');
+
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     return array(
@@ -429,7 +435,12 @@ class RapportController extends BaseController {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('rapport_delete', array('id' => $id)))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'attr' => [
+          'class' => 'pinned',
+        ],
+      ))
       ->getForm();
   }
 
@@ -472,6 +483,7 @@ class RapportController extends BaseController {
     ));
 
     $this->addUpdate($form, $this->generateUrl('rapport_show', array('id' => $entity->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('rapport_show', array('id' => $entity->getId())));
 
     return $form;
   }
@@ -490,7 +502,7 @@ class RapportController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form);
+    $this->addUpdate($form, NULL, 'Update', FALSE);
 
     return $form;
   }
@@ -509,8 +521,7 @@ class RapportController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form);
-    //$form->add('submit', 'submit', array('label' => 'Create'));
+    $this->addUpdate($form, NULL, 'Update', FALSE);
 
     return $form;
   }
@@ -684,7 +695,7 @@ class RapportController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, null, $label);
+    $this->addUpdate($form, NULL, $label, FALSE);
 
     return $form;
 
@@ -732,6 +743,9 @@ class RapportController extends BaseController {
     $tiltag->init($rapport);
     $form = $this->createTiltagCreateForm($rapport, $tiltag, $type);
     $template = $this->getTiltagTemplate($tiltag, 'new');
+    if ($type == 'klimaskaerm') {
+      $this->flash->error($this->translator->trans('klimaskaerm.strings.tobedeleted'));
+    }
 
     return $this->render($template, array(
       'entity' => $tiltag,
@@ -807,7 +821,7 @@ class RapportController extends BaseController {
       'method' => 'POST',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Create'));
+    $this->addCreate($form, $this->generateUrl('rapport_show', array('id' => $rapport->getId())));
     return $form;
   }
 
@@ -909,7 +923,7 @@ class RapportController extends BaseController {
       ))
       ->getForm();
 
-    $this->addUpdate($form);
+    $this->addUpdate($form, NULL, 'Update', FALSE);
 
     return $form;
   }

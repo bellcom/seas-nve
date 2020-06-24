@@ -86,7 +86,7 @@ class NyttiggjortVarmeController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('nyttiggjortvarme'));
+        $this->addCreate($form, $this->generateUrl('nyttiggjortvarme'));
 
         return $form;
     }
@@ -178,14 +178,15 @@ class NyttiggjortVarmeController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('nyttiggjortvarme_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('nyttiggjortvarme'));
+        $this->addUpdateAndExit($form, $this->generateUrl('nyttiggjortvarme'));
 
         return $form;
     }
     /**
      * Edits an existing TekniskIsoleringTiltagDetail\NyttiggjortVarme entity.
      *
-     * @Route("/{id}", name="nyttiggjortvarme_update")
+     * @Route("/{id}/edit", name="nyttiggjortvarme_update")
      * @Method("PUT")
      * @Template("AppBundle:TekniskIsoleringTiltagDetail\NyttiggjortVarme:edit.html.twig")
      */
@@ -206,7 +207,13 @@ class NyttiggjortVarmeController extends BaseController
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('nyttiggjortvarme'));
+            $this->flash->success('nyttiggjortvarme.confirmation.updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -262,6 +269,7 @@ class NyttiggjortVarmeController extends BaseController
                 'disabled' => $message,
                 'attr' => array(
                     'disabled_message' => $message,
+                    'class' => 'pinned',
                 ),
             ))
             ->getForm()

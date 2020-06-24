@@ -24,7 +24,7 @@ class NyKlimaskaermTiltag extends KlimaskaermTiltag {
         parent::__construct();
 
         // @Todo: Find af way to use the translations system or move this to some place else....
-        $this->setTitle('NyKlimaskærm');
+        $this->setTitle('Klimaskærm');
     }
 
 }

@@ -197,7 +197,7 @@
               {% if calculation_warnings['errors'] is defined and calculation_warnings['errors'] is not empty %}
                 <p>
                   <a href="{{ path('rapport_edit', {'id': entity.id}) }}" class="btn btn-warning">
-                    {{ icon('edit') }} {{ (params.edit_title is defined ? params.edit_title : 'common.edit') | trans }}
+                    {{ icon('edit') }} {{ (params.edit_title is defined ? params.edit_title : 'bygning_rapporter.actions.edit') | trans }}
                   </a>
                 </p>
               {% endif %}
@@ -318,7 +318,7 @@
     <div class="col-md-2"><h2>{{ 'tiltag.labels.singular' | trans }}</h2></div>
     <div class="col-md-10 text-right">
       {% if is_granted('RAPPORT_EDIT', entity) %}
-        {% for type in [ 'pumpe', 'belysning', 'klimaskaerm', 'nyklimaskaerm', 'vindue', 'solcelle', 'tekniskisolering', 'ventilation', 'trykluft', 'varmeanlaeg', 'koeleanlaeg', 'special' ] %}
+        {% for type in [ 'pumpe', 'belysning', 'nyklimaskaerm', 'vindue', 'solcelle', 'tekniskisolering', 'ventilation', 'trykluft', 'varmeanlaeg', 'koeleanlaeg', 'special' ] %}
           <a href="{{ path('tiltag_new', { 'id': entity.id, 'type': type }) }}" class="btn btn-default">
             {{ icon('plus') }} {{ ('bygning_rapporter.strings.' ~ type ~ 'tiltag') | trans }}
           </a>
@@ -335,7 +335,7 @@
       <ul class="nav nav-tabs" role="tablist">
         {% for key, t in entity.tiltag %}
           <li role="presentation" {% if key == 0 %} class="active" {% endif %}>
-            <a href="#tiltag{{ key }}" aria-controls="home" role="tab" data-toggle="tab">
+            <a href="#tiltag{{ key + 1 }}" aria-controls="home" role="tab" data-toggle="tab">
               {{ key + 1 }}. {{ t.title | slice(0, 15) }}{% if t.title | length > 15 %}...{% endif %}
               {% if is_granted('TILTAG_EDIT', t) %}
                 {{ calculationWarnings.renderIcon(t.calculationWarnings) }}
@@ -348,21 +348,15 @@
       <!-- Tab panes -->
       <div class="tab-content">
         {% for key, t in entity.tiltag %}
-          <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key }}">
+          <div role="tabpanel" class="tab-pane {% if key == 0 %}active{% endif %}" id="tiltag{{ key + 1 }}">
             <div class="row">
               <div class="col-md-6">
                 <h3>
                   {{ t.title }}
                   {% if is_granted('TILTAG_EDIT', t) %}
-                    {{ calculationWarnings.renderIcon(t.calculationWarnings, key) }}
+                    {{ calculationWarnings.renderIcon(t.calculationWarnings, key + 1) }}
                   {% endif %}
                 </h3>
-                {% if is_granted('TILTAG_EDIT', t) %}
-                  {{ calculationWarnings.renderMessagesPopup(t.calculationWarnings, key, {
-                    edit_url: (t.calculationWarnings['errors'] is defined and t.calculationWarnings['errors'] is not empty) ? path('tiltag_edit', { 'id': t.id }) : null,
-                    details_url: path('tiltag_show', { 'id': t.id }) })
-                  }}
-                {% endif %}
               </div>
               <div class="col-md-6 text-right">
                 {% if tiltag_type(t) != 'Special' %}
@@ -382,6 +376,12 @@
             </div>
             {{ include ('AppBundle:Tiltag:show-include.html.twig', {entity: t}, with_context = false) }}
           </div>
+          {{ calculationWarnings.renderMessagesPopup(t.calculationWarnings, key + 1, {
+              edit_url: (t.calculationWarnings['errors'] is defined and t.calculationWarnings['errors'] is not empty) ? path('tiltag_edit', { 'id': t.id }) : null,
+              details_url: path('tiltag_show', { 'id': t.id }),
+              is_granted: is_granted('TILTAG_EDIT', t)
+            })
+          }}
         {% endfor %}
       </div>
 
@@ -393,6 +393,7 @@
 
   {% endif %}
 
+  <button class="calculation-expression-toggle pinned btn btn-default">Vis/skjul formler</button>
 {% endblock %}
 
 {% block documentReady %}

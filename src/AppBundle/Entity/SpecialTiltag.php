@@ -218,7 +218,7 @@ class SpecialTiltag extends Tiltag {
 
   /**
    * @inheritDoc
-   * @Formula("$this->calculateVarmebesparelseGUFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   * @Formula("$this->calculateVarmebesparelseGUFValue() * $this->calculateEnergiledelseFaktor()")
    */
   protected function calculateVarmebesparelseGUF($value = null) {
     $value = $this->calculateVarmebesparelseGUFValue();
@@ -236,7 +236,7 @@ class SpecialTiltag extends Tiltag {
 
   /**
    * @inheritDoc
-   * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateEnergiledelseFaktor()")
    */
   protected function calculateVarmebesparelseGAF($value = null) {
     $value = $this->calculateVarmebesparelseGAFValue();
@@ -260,7 +260,7 @@ class SpecialTiltag extends Tiltag {
 
   /**
    * @inheritDoc
-   * @Formula("$this->calculateElbesparelseValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   * @Formula("$this->calculateElbesparelseValue() * $this->calculateEnergiledelseFaktor()")
    */
   protected function calculateElbesparelse($value = null) {
     $value = $this->calculateElbesparelseValue();

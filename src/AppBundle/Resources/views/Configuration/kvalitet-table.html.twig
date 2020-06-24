@@ -1,0 +1,30 @@
+<table class="table table-condensed">
+  <thead>
+  <tr>
+    <th>{{ 'appbundle.configuration.kvalitet' | trans}}</th>
+    <th>{{ 'appbundle.configuration.kvalitet_1' | trans}}</th>
+    <th>{{ 'appbundle.configuration.kvalitet_2' | trans}}</th>
+    <th>{{ 'appbundle.configuration.kvalitet_3' | trans}}</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for key, row in entity.udeluftTilfoerselMatrix %}
+    <tr>
+      <td>{{ ('appbundle.configuration.udeluftTilfoerselMatrix.' ~ key) | trans}}</td>
+      {% for kvalitet in row %}
+        <td>
+          {% if kvalitet is empty %}
+            --
+          {% else %}
+            {% if key == 'del_utilfredse_personer' %}
+              {{ kvalitet|format_percent_nounit(0)}}
+            {% else %}
+              {{ kvalitet }}
+            {% endif %}
+          {% endif %}
+        </td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

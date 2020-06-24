@@ -86,7 +86,7 @@ class KomponentController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('komponent'));
+        $this->addCreate($form, $this->generateUrl('komponent'));
 
         return $form;
     }
@@ -178,14 +178,15 @@ class KomponentController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('komponent_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('komponent'));
+        $this->addUpdateAndExit($form, $this->generateUrl('komponent'));
 
         return $form;
     }
     /**
      * Edits an existing TekniskIsoleringTiltagDetail\Komponent entity.
      *
-     * @Route("/{id}", name="komponent_update")
+     * @Route("/{id}/edit", name="komponent_update")
      * @Method("PUT")
      * @Template("AppBundle:TekniskIsoleringTiltagDetail\Komponent:edit.html.twig")
      */
@@ -206,7 +207,13 @@ class KomponentController extends BaseController
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('komponent'));
+            $this->flash->success('komponent.confirmation.updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -262,6 +269,7 @@ class KomponentController extends BaseController
                 'disabled' => $message,
                 'attr' => array(
                     'disabled_message' => $message,
+                    'class' => 'pinned',
                 ),
             ))
             ->getForm()

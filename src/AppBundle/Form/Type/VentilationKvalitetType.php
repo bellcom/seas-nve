@@ -18,7 +18,12 @@ class VentilationKvalitetType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $kvalitetTypes = array_filter(array_keys(KvalitetType::getChoices()));
         foreach ($kvalitetTypes as $type) {
-            $builder->add($type, 'number');
+            if (in_array($builder->getName(), array('del_utilfredse_personer'))) {
+              $builder->add($type, 'percent', array('scale' => 0));
+            }
+            else {
+              $builder->add($type, 'number');
+            }
         }
     }
 

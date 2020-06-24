@@ -127,7 +127,8 @@ class EnergiforsyningController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('energiforsyning_show', array('rapport_id' => $entity->getRapport()->getId(), 'id' => $entity->getId())));
+    $this->addUpdate($form, $this->generateUrl('energiforsyning', array('rapport_id' => $entity->getRapport()->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('energiforsyning', array('rapport_id' => $entity->getRapport()->getId())));
 
     return $form;
   }
@@ -135,7 +136,7 @@ class EnergiforsyningController extends BaseController {
   /**
    * Edits an existing Energiforsyning entity.
    *
-   * @Route("/{id}", name="energiforsyning_update")
+   * @Route("/{id}/edit", name="energiforsyning_update")
    * @Method("PUT")
    * @Template("AppBundle:Energiforsyning:edit.html.twig")
    * @Security("is_granted('RAPPORT_EDIT', rapport)")
@@ -161,7 +162,13 @@ class EnergiforsyningController extends BaseController {
       $em->persist($entity);
       $em->flush();
 
-      return $this->redirect($this->generateUrl('energiforsyning_show', array('rapport_id' => $entity->getRapport()->getId(), 'id' => $entity->getId())));
+      $this->flash->success('energiforsyninger.confirmation.updated');
+
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     return array(
@@ -214,6 +221,7 @@ class EnergiforsyningController extends BaseController {
         'disabled' => $message,
         'attr' => array(
           'disabled_message' => $message,
+          'class' => 'pinned',
         ),
       ))
       ->getForm();
@@ -238,7 +246,7 @@ class EnergiforsyningController extends BaseController {
       $em->persist($entity);
       $em->flush();
 
-      return $this->redirect($this->generateUrl('energiforsyning_show', array('rapport_id' => $entity->getRapport()->getId(), 'id' => $entity->getId())));
+      return $this->redirect($this->generateUrl('energiforsyning', array('rapport_id' => $entity->getRapport()->getId())));
     }
 
     return array(

@@ -121,7 +121,7 @@ class SolcelleController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('solcelle'));
+        $this->addCreate($form, $this->generateUrl('solcelle'));
 
         return $form;
     }
@@ -328,7 +328,8 @@ class SolcelleController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('solcelle_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('solcelle'));
+        $this->addUpdateAndExit($form, $this->generateUrl('solcelle'));
 
         return $form;
     }
@@ -336,7 +337,7 @@ class SolcelleController extends BaseController
     /**
      * Edits an existing Solcelle entity.
      *
-     * @Route("/{id}", name="solcelle_update")
+     * @Route("/{id}/edit", name="solcelle_update")
      * @Method("PUT")
      * @Template("AppBundle:Solcelle:edit.html.twig")
      */
@@ -354,11 +355,16 @@ class SolcelleController extends BaseController
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em->flush();
+
             $this->flash->success('solcelle.confirmation.updated');
 
-            return $this->redirect($this->generateUrl('solcelle'));
+          $destination = $request->getRequestUri();
+          if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+            $destination = $button_destination;
+          }
+          return $this->redirect($destination);
         }
 
         return array(
@@ -416,6 +422,7 @@ class SolcelleController extends BaseController
                 'disabled' => $message,
                 'attr' => array(
                     'disabled_message' => $message,
+                    'class' => 'pinned',
                 ),
             ))
             ->getForm();

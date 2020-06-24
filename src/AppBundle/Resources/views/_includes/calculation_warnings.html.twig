@@ -1,7 +1,6 @@
 {% macro renderMessages(messages) %}
   {% if messages['errors'] is defined and messages['errors'] is not empty %}
-    <p>{{ 'Fields required for calculation' | trans }}</p>
-
+    <p>{{ 'Fields required for calculation' | trans }}:</p>
     <ul>
       {% for message in messages['errors'] %}
         <li>{{ message | trans }}</li>
@@ -20,11 +19,23 @@
     {% endif %}
     {% if messages['tiltag'] is defined and messages['tiltag'] is not empty %}
       {{ 'Details required for calculation' | trans }}:
-      <em>
-        {% for message in messages['tiltag'] %}
-          {{ message | trans }}{% if not loop.last %}, {% endif %}
+      <ul>
+        {% for detail_id, message in messages['tiltag'] %}
+          <li>
+            Detail {{ message }} (<a href="{{ path('tiltag_detail_edit', { id: detail_id }) }}">rediger</a>)
+            {% if messages['tiltag_warnings'] is defined and messages['tiltag_warnings'][detail_id]['errors'] is defined %}
+              <div>
+                {{ 'Fields required for calculation' | trans }}:
+                <ul>
+                  {% for message in messages['tiltag_warnings'][detail_id]['errors'] %}
+                    <li>{{ message | trans }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          </li>
         {% endfor %}
-      </em>
+      </ul>
     {% endif %}
   </p>
 {% endmacro %}
@@ -32,28 +43,43 @@
 {% macro renderMessagesInline(messages) %}
   <p>
     {% if messages['errors'] is defined and messages['errors'] is not empty %}
-      {{ 'Fields required for calculation' | trans }}:
-      <em>
-        {% for message in messages['errors'] %}
-          {{ message | trans }}{% if not loop.last %}, {% else %}. {% endif %}
-        {% endfor %}
-      </em>
+      <div>
+        {{ 'Fields required for calculation' | trans }}:
+        <em>
+          {% for message in messages['errors'] %}
+            {{ message | trans }}{% if not loop.last %}, {% else %}. {% endif %}
+          {% endfor %}
+        </em>
+      </div>
     {% endif %}
     {% if messages['rapport'] is defined and messages['rapport'] is not empty %}
-      {{ 'Tiltag required for calculation' | trans }}:
-      <em>
-        {% for message in messages['rapport'] %}
-          {{ message | trans }}{% if not loop.last %}, {% endif %}
-        {% endfor %}
-      </em>
+      <div>
+        {{ 'Tiltag required for calculation' | trans }}:
+        <em>
+          {% for message in messages['rapport'] %}
+            <span class="modal-link modal-link-text" data-toggle="modal" data-target="#modal-calculation-warning-{{ message }}">{{ message | trans }}</span>{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </em>
+      </div>
     {% endif %}
     {% if messages['tiltag'] is defined and messages['tiltag'] is not empty %}
-      {{ 'Details required for calculation' | trans }}:
-      <em>
-        {% for message in messages['tiltag'] %}
-          {{ message | trans }}{% if not loop.last %}, {% endif %}
-        {% endfor %}
-      </em>
+      <div>
+        {{ 'Details required for calculation' | trans }}:
+        <ul>
+          {% for detail_id, message in messages['tiltag'] %}
+            <li>
+              Detail {{ message }} (<a href="{{ path('tiltag_detail_edit', { id: detail_id }) }}">rediger</a>)
+              {% if messages['tiltag_warnings'] is defined and messages['tiltag_warnings'][detail_id]['errors'] is defined %}
+                <ul>
+                  {% for message in messages['tiltag_warnings'][detail_id]['errors'] %}
+                    <li>{{ message | trans }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
     {% endif %}
   </p>
 {% endmacro %}
@@ -81,12 +107,12 @@
             {{ this.renderMessages(messages) }}
           </div>
           <div class="modal-footer">
-            {% if messages['tiltag'] is defined and params.details_url is defined and params.details_url is not empty %}
+            {% if messages['tiltag'] is defined and params.details_url is defined and params.details_url is not empty and params.is_granted %}
               <a href="{{ params.details_url }}" class="btn btn-default">
                 {{ icon('list') }} {{ 'bygning_rapporter.labels.detailark' | trans }}
               </a>
             {% endif %}
-            {% if params.edit_url is defined and params.edit_url is not empty %}
+            {% if params.edit_url is defined and params.edit_url is not empty and params.is_granted %}
               <a href="{{ params.edit_url }}" class="btn btn-primary">
                 {{ icon('edit') }} {{ (params.edit_title is defined ? params.edit_title : 'common.edit') | trans }}
               </a>

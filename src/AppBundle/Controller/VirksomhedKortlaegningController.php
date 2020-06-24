@@ -78,9 +78,14 @@ class VirksomhedKortlaegningController extends BaseController
                 $em->persist($virksomhed);
             }
             $em->flush();
+
             $this->flash->success('virksomhed_kortlaegning.confirmation.updated');
 
-            return $this->redirect($this->generateUrl('virksomhed_show', array('id' => $virksomhed->getId())));
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($form->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -104,6 +109,7 @@ class VirksomhedKortlaegningController extends BaseController
         ));
 
         $this->addUpdate($form, $this->generateUrl('virksomhed_show', array('id' => $entity->getVirksomhed()->getId())));
+        $this->addUpdateAndExit($form, $this->generateUrl('virksomhed_show', array('id' => $entity->getVirksomhed()->getId())));
 
         return $form;
     }

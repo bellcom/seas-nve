@@ -185,7 +185,13 @@ class VirksomhedRapportController extends BaseController {
       }
       $em->flush();
 
-      return $this->redirect($this->generateUrl('virksomhed_rapport_baseline_values', array('id' => $rapport->getId())));
+      $this->flash->success('virksomhed_rapporter.confirmation.baseline_values_updated');
+
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
     return array(
       'entity' => $rapport,
@@ -234,8 +240,14 @@ class VirksomhedRapportController extends BaseController {
     if ($editForm->isValid()) {
       $em = $this->getDoctrine()->getManager();
       $em->flush();
+
       $this->flash->success('virksomhed_rapporter.confirmation.tekster_opdateret');
-      return $this->redirect($this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
     return array(
       'entity' => $rapport,
@@ -256,7 +268,8 @@ class VirksomhedRapportController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_tekster_values', array('id' => $rapport->getId())));
+    $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
 
     return $form;
   }
@@ -275,7 +288,8 @@ class VirksomhedRapportController extends BaseController {
     ));
 
     if (empty($rapport->getVirksomhed()->getBaseline())) {
-      $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_baseline_values', array('id' => $rapport->getId())));
+      $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+      $this->addUpdateAndExit($form, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
     }
 
     return $form;
@@ -510,7 +524,7 @@ class VirksomhedRapportController extends BaseController {
       ))
       ->getForm();
 
-    $this->addUpdate($form);
+    $this->addUpdate($form, NULL, 'Update', FALSE);
 
     return $form;
   }

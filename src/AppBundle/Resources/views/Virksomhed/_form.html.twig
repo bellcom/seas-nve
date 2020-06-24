@@ -30,9 +30,10 @@
             <div class="row">
                 <div class="col-sm-6"><h3 style="margin-top:0;">{{ icon('home') }} {{ 'appbundle.virksomhed.bygning' | trans }}</h3></div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{ path('bygning_new') }}" class="btn btn-default" target="_blank">
-                        {{ icon('plus') }} {{ 'bygninger.actions.add' | trans }}
-                    </a>
+                  {% if form.opret_bygning is defined %}
+                    {{ form_row(form.opret_bygning, {'label': ('virksomhed.actions.add_bygning') | trans }) }}
+                    <small>{{ 'virksomhed.strings.current_changes_saved_info' | trans }}</small>
+                  {% endif %}
                 </div>
             </div>
         </div>
@@ -118,6 +119,17 @@
                             <div class="col-sm-2"></div>
                         </div>
                     {% endfor %}
+                    <div class="row add-new-row">
+                        <div class="col-sm-12">
+                            <a href="#" class="btn btn-primary add-link">Tilføj flere</a>
+                            {% if form.opret_datterselskab is defined %}
+                                {{ form_widget(form.opret_datterselskab, {'label': ('virksomhed.actions.add_datterselskab') | trans }) }}
+                                <div>
+                                    <small>{{ 'virksomhed.strings.current_changes_saved_info' | trans }}</small>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
                 {% do form.datterSelskaber.setRendered %}
             </div>

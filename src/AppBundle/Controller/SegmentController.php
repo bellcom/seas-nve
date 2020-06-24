@@ -82,7 +82,7 @@ class SegmentController extends BaseController {
       'method' => 'POST',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('segment'));
+    $this->addCreate($form, $this->generateUrl('segment'));
 
     return $form;
   }
@@ -170,7 +170,8 @@ class SegmentController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('segment_show', array('id' => $entity->getId())));
+    $this->addUpdate($form, $this->generateUrl('segment'));
+    $this->addUpdateAndExit($form, $this->generateUrl('segment'));
 
     return $form;
   }
@@ -178,7 +179,7 @@ class SegmentController extends BaseController {
   /**
    * Edits an existing Segment entity.
    *
-   * @Route("/{id}", name="segment_update")
+   * @Route("/{id}/edit", name="segment_update")
    * @Method("PUT")
    * @Template("AppBundle:Segment:edit.html.twig")
    */
@@ -198,7 +199,13 @@ class SegmentController extends BaseController {
     if ($editForm->isValid()) {
       $em->flush();
 
-      return $this->redirect($this->generateUrl('segment'));
+      $this->flash->success('segment.confirmation.updated');
+
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     return array(
@@ -253,6 +260,7 @@ class SegmentController extends BaseController {
         'disabled' => $message,
         'attr' => array(
           'disabled_message' => $message,
+          'class' => 'pinned',
         ),
       ))
       ->getForm();

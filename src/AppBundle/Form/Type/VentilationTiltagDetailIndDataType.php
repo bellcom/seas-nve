@@ -29,11 +29,22 @@ class VentilationTiltagDetailIndDataType extends AbstractType {
         }
         foreach ($options['fields'] as $key) {
             switch ($key) {
+                case 'virkningsgradVentilator':
                 case 'genvindings':
                     $builder->add($key, 'percent', array(
-                        'scale' => 2,
+                        'scale' => 0,
                         'required' => FALSE,
                     ));
+                    break;
+
+                case 'trykabAnlaeg':
+                    $options = array(
+                       'required' => FALSE,
+                    );
+                    if ($builder->getName() == 'indDataEfter') {
+                        $options['disabled'] = TRUE;
+                    }
+                    $builder->add($key, 'number', $options);
                     break;
 
                 default:

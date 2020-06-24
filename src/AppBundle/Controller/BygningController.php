@@ -17,6 +17,7 @@ use AppBundle\Form\VirksomhedType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Form\ButtonBuilder;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,7 +47,13 @@ class BygningController extends BaseController implements InitControllerInterfac
    */
   private $translator;
 
+  /**
+   * @var Request
+   */
+  protected $request;
+
   public function init(Request $request) {
+    $this->request = $request;
     parent::init($request);
     $this->breadcrumbs->addItem('Bygninger', $this->generateUrl('bygning'));
     $this->translator = $this->container->get('translator');
@@ -150,7 +157,21 @@ class BygningController extends BaseController implements InitControllerInterfac
       }
       $em->flush();
 
-      return $this->redirect($this->generateUrl('bygning_show', array('id' => $entity->getId())));
+      // Update Virksomhed by CVR attachments.
+      $virksomhed = $entity->getVirksomhed();
+      if (!empty($virksomhed)) {
+        $bygninger = $virksomhed->getBygningerByCvrNumber();
+        $bygninger[] = $entity->getId();
+        $virksomhed->setBygningerByCvrNumber($bygninger);
+        $em->persist($virksomhed);
+        $em->flush();
+      }
+
+      $destination = $this->generateUrl('bygning_show', array('id' => $entity->getId()));
+      if ($button_destination = $this->getButtonDestination($form->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
@@ -169,12 +190,22 @@ class BygningController extends BaseController implements InitControllerInterfac
    * @return \Symfony\Component\Form\Form The form
    */
   private function createCreateForm(Bygning $entity) {
+    // Getting desired destination for form redirect.
+    $params = array();
+    if ($this->request->get('destination')) {
+      $destination = $this->request->get('destination');
+      $params['destination'] = $destination;
+    }
     $form = $this->createForm(new BygningType($this->getDoctrine(), $this->get('security.authorization_checker'), TRUE), $entity, array(
-      'action' => $this->generateUrl('bygning_create'),
+      'action' => $this->generateUrl('bygning_create', $params),
       'method' => 'POST',
     ));
 
-    $this->addCreate($form, $this->generateUrl('bygning'));
+    $this->addCreate($form, $this->generateUrl('bygning'), !empty($destination) ? array(
+      'attr' => array(
+        'destination' => $destination,
+      ),
+    ) : array());
 
     return $form;
   }
@@ -189,9 +220,17 @@ class BygningController extends BaseController implements InitControllerInterfac
    */
   public function newAction() {
     $entity = new Bygning();
-    $form = $this->createCreateForm($entity);
     $em = $this->getDoctrine()->getManager();
-    $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
+    $virksomhedRepository = $em->getRepository(Virksomhed::class);
+
+    // Settings virksomhed if entity create with reference to virksomhed.
+    if (!empty($this->request->get('virksomhed_id'))) {
+      /** @var Virksomhed $virksomhed */
+      $virksomhed = $virksomhedRepository->find($this->request->get('virksomhed_id'));
+      $virksomhed->addBygninger($entity);
+    }
+    $form = $this->createCreateForm($entity);
+    $virksomheder = $virksomhedRepository->findBy(array(), array('id' => 'desc'));
 
     return array(
       'entity' => $entity,
@@ -327,6 +366,7 @@ class BygningController extends BaseController implements InitControllerInterfac
     ));
 
     $this->addUpdate($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
 
     return $form;
   }
@@ -334,7 +374,7 @@ class BygningController extends BaseController implements InitControllerInterfac
   /**
    * Edits an existing Bygning entity.
    *
-   * @Route("/{id}", name="bygning_update")
+   * @Route("/{id}/edit", name="bygning_update")
    * @Method("PUT")
    * @Template("AppBundle:Bygning:edit.html.twig")
    * @Security("is_granted('BYGNING_EDIT', bygning)")
@@ -373,7 +413,23 @@ class BygningController extends BaseController implements InitControllerInterfac
       }
       $em->flush();
 
-      return $this->redirect($this->generateUrl('bygning_show', array('id' => $bygning->getId())));
+      // Update Virksomhed by CVR attachments.
+      $virksomhed = $bygning->getVirksomhed();
+      if (!empty($virksomhed)) {
+        $bygninger = $virksomhed->getBygningerByCvrNumber();
+        $bygninger[] = $bygning->getId();
+        $virksomhed->setBygningerByCvrNumber($bygninger);
+      }
+      $em->persist($virksomhed);
+      $em->flush();
+
+      $this->flash->success('bygninger.confirmation.updated');
+
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     $virksomheder = $em->getRepository(Virksomhed::class)->findBy(array(), array('id' => 'desc'));
@@ -484,6 +540,9 @@ class BygningController extends BaseController implements InitControllerInterfac
       ->setMethod('DELETE')
       ->add('submit', 'submit', array(
         'label' => 'Delete',
+        'attr' => [
+          'class' => 'pinned',
+        ],
       ))
       ->getForm();
   }
@@ -557,7 +616,7 @@ class BygningController extends BaseController implements InitControllerInterfac
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
+        $this->addCreate($form, $this->generateUrl('bygning_show', array('id' => $entity->getId())));
 
         return $form;
     }

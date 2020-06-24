@@ -87,7 +87,7 @@ class TiltagsKategoriController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('tiltagskategori'));
+        $this->addCreate($form, $this->generateUrl('tiltagskategori'));
 
         return $form;
     }
@@ -179,14 +179,15 @@ class TiltagsKategoriController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('tiltagskategori_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('tiltagskategori'));
+        $this->addUpdateAndExit($form, $this->generateUrl('tiltagskategori'));
 
         return $form;
     }
     /**
      * Edits an existing TiltagsKategori entity.
      *
-     * @Route("/{id}", name="tiltagskategori_update")
+     * @Route("/{id}/edit", name="tiltagskategori_update")
      * @Method("PUT")
      * @Template("AppBundle:TiltagsKategori:edit.html.twig")
      */
@@ -206,9 +207,14 @@ class TiltagsKategoriController extends BaseController
 
         if ($editForm->isValid()) {
             $em->flush();
+
             $this->flash->success('tiltagskategori.confirmation.updated');
 
-            return $this->redirect($this->generateUrl('tiltagskategori'));
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -267,6 +273,7 @@ class TiltagsKategoriController extends BaseController
                 'disabled' => $message,
                 'attr' => array(
                     'disabled_message' => $message,
+                    'class' => 'pinned',
                 ),
             ))
             ->getForm()

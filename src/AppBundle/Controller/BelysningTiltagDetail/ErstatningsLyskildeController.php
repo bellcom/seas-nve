@@ -119,7 +119,7 @@ class ErstatningsLyskildeController extends BaseController
             'method' => 'POST',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('belysningtiltagdetail_erstatningslyskilde'));
+        $this->addCreate($form, $this->generateUrl('belysningtiltagdetail_erstatningslyskilde'));
 
         return $form;
     }
@@ -326,14 +326,15 @@ class ErstatningsLyskildeController extends BaseController
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('belysningtiltagdetail_erstatningslyskilde_show', array('id' => $entity->getId())));
+        $this->addUpdate($form, $this->generateUrl('belysningtiltagdetail_erstatningslyskilde'));
+        $this->addUpdateAndExit($form, $this->generateUrl('belysningtiltagdetail_erstatningslyskilde'));
 
         return $form;
     }
     /**
      * Edits an existing BelysningTiltagDetail\ErstatningsLyskilde entity.
      *
-     * @Route("/{id}", name="belysningtiltagdetail_erstatningslyskilde_update")
+     * @Route("/{id}/edit", name="belysningtiltagdetail_erstatningslyskilde_update")
      * @Method("PUT")
      * @Template("AppBundle:BelysningTiltagDetail\ErstatningsLyskilde:edit.html.twig")
      */
@@ -354,7 +355,13 @@ class ErstatningsLyskildeController extends BaseController
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('belysningtiltagdetail_erstatningslyskilde'));
+            $this->flash->success('erstatningslyskilde.confirmation.updated');
+
+            $destination = $request->getRequestUri();
+            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+                $destination = $button_destination;
+            }
+            return $this->redirect($destination);
         }
 
         return array(
@@ -410,6 +417,7 @@ class ErstatningsLyskildeController extends BaseController
                 'disabled' => $message,
                 'attr' => array(
                     'disabled_message' => $message,
+                    'class' => 'pinned',
                 ),
             ))
             ->getForm()

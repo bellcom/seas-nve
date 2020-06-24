@@ -6,6 +6,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\KlimaskaermTiltag;
 use AppBundle\Entity\Regning;
 use AppBundle\Form\Type\TiltagDatoForDriftType;
 use AppBundle\Form\Type\TiltagOverviewDetailType;
@@ -27,8 +28,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @Route("/tiltag")
  */
 class TiltagController extends BaseController {
+
+  /**
+   * @var Request
+   */
+  protected $request;
+
+  /**
+   * @var TranslatorInterface $tranlator
+   */
+  private $translator;
+
   public function init(Request $request) {
+    $this->request = $request;
     parent::init($request);
+    $this->translator = $this->container->get('translator');
     $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
   }
 
@@ -83,6 +97,10 @@ class TiltagController extends BaseController {
    * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
   public function editAction(Tiltag $tiltag) {
+    if ($tiltag instanceof KlimaskaermTiltag) {
+      $this->flash->error($this->translator->trans('klimaskaerm.strings.tobedeleted'));
+    }
+
     $this->setBreadcrumb($tiltag);
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('tiltag_edit', array('id' => $tiltag->getId())));
 
@@ -107,12 +125,23 @@ class TiltagController extends BaseController {
    */
   private function createEditForm(Tiltag $tiltag) {
     $className = $this->getFormTypeClassName($tiltag);
+    $params = array('id' => $tiltag->getId());
+
+    // Getting desired destination for form redirect.
+    $destination = $this->generateUrl('rapport_show', array('id' => $tiltag->getRapport()->getId()));
+    if ($this->request->get('destination')) {
+      $destination = $this->request->get('destination');
+      $params['destination'] = $destination;
+    }
+
     $form = $this->createForm(new $className($tiltag, $this->get('security.context')), $tiltag, array(
-      'action' => $this->generateUrl('tiltag_update', array('id' => $tiltag->getId())),
+      'action' => $this->generateUrl('tiltag_update', $params),
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+    $this->addUpdate($form, $destination);
+    $this->addUpdateAndExit($form, $destination);
+    $this->addLinkButton($form, 'detailark', $this->generateUrl('tiltag_show', array('id' => $tiltag->getId())), 'Deatilark');
 
     return $form;
   }
@@ -130,7 +159,7 @@ class TiltagController extends BaseController {
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+    $this->addUpdate($form);
 
     return $form;
   }
@@ -138,7 +167,7 @@ class TiltagController extends BaseController {
   /**
    * Edits an existing Tiltag entity.
    *
-   * @Route("/{id}", name="tiltag_update")
+   * @Route("/{id}/edit", name="tiltag_update")
    * @Method("PUT")
    * @Template("AppBundle:Tiltag:edit.html.twig")
    * @Security("is_granted('TILTAG_EDIT', tiltag)")
@@ -154,7 +183,11 @@ class TiltagController extends BaseController {
 
       $this->flash->success('tiltag.confirmation.updated');
 
-      return $this->redirect($this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
+      $destination = $request->getRequestUri();
+      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        $destination = $button_destination;
+      }
+      return $this->redirect($destination);
     }
 
     $this->flash->error('tiltag.validation.error');
@@ -294,7 +327,12 @@ class TiltagController extends BaseController {
     return $this->createFormBuilder()
       ->setAction($this->generateUrl('tiltag_delete', array('id' => $tiltag->getId())))
       ->setMethod('DELETE')
-      ->add('submit', 'submit', array('label' => 'Delete'))
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+        'attr' => array(
+          'class' => 'pinned',
+        ),
+      ))
       ->getForm();
   }
 
@@ -383,7 +421,7 @@ class TiltagController extends BaseController {
       'method' => 'POST',
     ));
 
-    $form->add('submit', 'submit', array('label' => 'Create'));
+    $this->addCreate($form, $this->generateUrl('tiltag_show', array('id' => $tiltag->getId())));
 
     return $form;
   }

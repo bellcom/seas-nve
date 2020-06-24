@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\MonthType;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotations\Calculated;
 use AppBundle\DBAL\Types\CardinalDirectionType;
@@ -15,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class NyKlimaskaermTiltagDetail extends KlimaskaermTiltagDetail
 {
@@ -344,9 +347,6 @@ class NyKlimaskaermTiltagDetail extends KlimaskaermTiltagDetail
      * @inheritDoc
      */
     public function getTIndeC() {
-        if ($this->tIndeDetailed && !empty($this->getTIndeMonthly())) {
-            return array_sum($this->getTIndeMonthly()) / count($this->getTIndeMonthly());
-        }
         return $this->tIndeC;
     }
 
@@ -354,9 +354,6 @@ class NyKlimaskaermTiltagDetail extends KlimaskaermTiltagDetail
      * @inheritDoc
      */
     public function getTUdeC() {
-        if ($this->tUdeDetailed && !empty($this->getTUdeMonthly())) {
-            return array_sum($this->getTUdeMonthly()) / count($this->getTUdeMonthly());
-        }
         return $this->tUdeC;
     }
 
@@ -426,6 +423,22 @@ class NyKlimaskaermTiltagDetail extends KlimaskaermTiltagDetail
     public function calculate() {
         $this->tOpvarmningTimerAar = $this->calculateTOpvarmningTimerAar();
         parent::calculate();
+    }
+
+    /**
+     * PreFlush handler.
+     *
+     * @ORM\PreFlush
+     * @param \Doctrine\ORM\Event\PreFlushEventArgs $event
+     */
+    public function preFlush(PreFlushEventArgs $event) {
+        if ($this->tIndeDetailed && !empty($this->getTIndeMonthly())) {
+             $this->tIndeC = array_sum($this->getTIndeMonthly()) / count($this->getTIndeMonthly());
+        }
+
+        if ($this->tUdeDetailed && !empty($this->getTUdeMonthly())) {
+            $this->tUdeC = array_sum($this->getTUdeMonthly()) / count($this->getTUdeMonthly());
+        }
     }
 
 }
