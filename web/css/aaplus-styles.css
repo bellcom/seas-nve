@@ -741,6 +741,7 @@ form .alert ul {
 
 .column-sort {
   position: relative;
+  z-index: -1;
 }
 
 .column-sort::before {
