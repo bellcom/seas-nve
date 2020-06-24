@@ -44,7 +44,7 @@ class KoeleanlaegTiltag extends Tiltag {
 
   /**
    * @inheritDoc
-   * @Formula("$this->calculateElbesparelseValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   * @Formula("$this->calculateElbesparelseValue() * $this->calculateEnergiledelseFaktor()")
    */
   protected function calculateElbesparelse($value = null) {
     $value = $this->calculateElbesparelseValue();

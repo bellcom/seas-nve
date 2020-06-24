@@ -48,7 +48,7 @@ class KlimaskaermTiltag extends Tiltag {
 
   /**
    * @inheritDoc
-   * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateEnergiledelseFaktor()")
    */
   protected function calculateVarmebesparelseGAF($value = null) {
     $value = $this->calculateVarmebesparelseGAFValue();
@@ -67,7 +67,7 @@ class KlimaskaermTiltag extends Tiltag {
 
   /**
    * @inheritDoc
-   * @Formula("$this->calculateElbesparelseValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   * @Formula("$this->calculateElbesparelseValue() * $this->calculateEnergiledelseFaktor()")
    */
   protected function calculateElbesparelse($value = null) {
     $value = $this->calculateElbesparelseValue();

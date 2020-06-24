@@ -85,7 +85,7 @@ class BelysningTiltag extends Tiltag
 
     /**
      * @inheritDoc
-     * @Formula("$this->calculateElbesparelseValueExpr() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+     * @Formula("$this->calculateElbesparelseValueExpr() * $this->calculateEnergiledelseFaktor()")
      */
     protected function calculateElbesparelse($value = null)
     {

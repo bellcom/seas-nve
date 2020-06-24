@@ -52,7 +52,7 @@ class TekniskIsoleringTiltag extends Tiltag
 
     /**
      * @inheritDoc
-     * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+     * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateEnergiledelseFaktor()")
      */
     protected function calculateVarmebesparelseGAF($value = null)
     {
@@ -73,7 +73,7 @@ class TekniskIsoleringTiltag extends Tiltag
 
     /**
      * @inheritDoc
-     * @Formula("$this->calculateElbesparelseValue() * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+     * @Formula("$this->calculateElbesparelseValue() * $this->calculateEnergiledelseFaktor()")
      */
     protected function calculateElbesparelse($value = null)
     {

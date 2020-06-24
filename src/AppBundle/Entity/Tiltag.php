@@ -1720,7 +1720,7 @@ abstract class Tiltag {
   }
 
   /**
-   * @Formula("$value * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor()")
+   * @Formula("$value * $this->calculateEnergiledelseFaktor()")
    */
   protected function calculateElbesparelse($value = null) {
     return $this->calculateBesparelseFromAendringIBesparelseFaktor($value);
@@ -1730,17 +1730,8 @@ abstract class Tiltag {
     if($value === NULL) {
       return NULL;
     } else {
-      return $value * $this->calculateRisikoFaktor() * $this->calculateEnergiledelseFaktor();
+      return $value * $this->calculateEnergiledelseFaktor();
     }
-  }
-
-  /**
-   * Helper function to simplify calculation.
-   *
-   * @return float|int
-   */
-  protected function calculateRisikoFaktor() {
-    return 1;
   }
 
   /**
