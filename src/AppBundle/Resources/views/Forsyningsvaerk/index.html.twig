@@ -165,9 +165,14 @@
       </tr>
       <tr class="search">
         <th>{{ form_row(form.Søg) }}</th>
-        <th style="width:100px;">{{ form_row(form.navn) }}</th>
-        <th style="width:100px;">{{ form_row(form.energiform) }}</th>
-        <th colspan="66"></th>
+        <th colspan="3">{{ form_row(form.navn) }}</th>
+        <th colspan="3">{{ form_row(form.energiform) }}</th>
+        <th>
+          {% if forsyningvaerk_search %}
+            <a class="btn btn-default" href="{{ path('forsyningsvaerk') }}">{{ icon('close') }}</a>
+          {% endif %}
+        </th>
+        <th colspan="61"></th>
       </tr>
       </thead>
       <tbody>

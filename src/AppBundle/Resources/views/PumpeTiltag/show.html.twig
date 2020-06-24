@@ -23,7 +23,6 @@
               {{ helper.header('appbundle.pumpetiltagdetail.pumpeID') }}
               {{ helper.header('appbundle.pumpetiltagdetail.forsyningsomraade') }}
               {{ helper.header('appbundle.pumpetiltagdetail.placering') }}
-              {{ helper.header('appbundle.pumpetiltagdetail.applikation') }}
               {{ helper.header('appbundle.pumpetiltagdetail.isoleringskappe') }}
               {{ helper.header('appbundle.pumpetiltagdetail.nyttiggjortVarme') }}
               {{ helper.header('appbundle.pumpetiltagdetail.eksisterendePumpe') }}
@@ -51,7 +50,6 @@
               {{ helper.header_unit('appbundle.pumpetiltagdetail.pumpeID', 'pumpeID') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.forsyningsomraade', 'forsyningsomraade') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.placering', 'placering') }}
-              {{ helper.header_unit('appbundle.pumpetiltagdetail.applikation', 'applikation') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.isoleringskappe', 'isoleringskappe') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.nyttiggjortVarme', 'nyttiggjortVarme', 'number') }}
               {{ helper.header_unit('appbundle.pumpetiltagdetail.eksisterendePumpe', 'eksisterendePumpe') }}
@@ -82,7 +80,6 @@
               {{ helper.header_filter('pumpeID') }}
               {{ helper.header_filter('forsyningsomraade') }}
               {{ helper.header_filter('placering') }}
-              {{ helper.header_filter('applikation') }}
               {{ helper.header_filter('isoleringskappe') }}
               {{ helper.header_filter('nyttiggjortVarme', 'number') }}
               {{ helper.header_filter('eksisterendePumpe') }}
@@ -119,7 +116,6 @@
                 <td class="pumpeID">{{ detail.pumpeID }}</td>
                 <td class="forsyningsomraade">{{ detail.forsyningsomraade }}</td>
                 <td class="placering">{{ detail.placering }}</td>
-                <td class="applikation">{{ detail.applikation }}</td>
                 <td class="isoleringskappe">{{ detail.isoleringskappe | b2icon }}</td>
                 <td class="nyttiggjortVarme number">
                   {{ (detail.nyttiggjortVarme is null ? detail.bFaktor : detail.nyttiggjortVarme.faktor) | format_decimal }}

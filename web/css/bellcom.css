@@ -51,6 +51,8 @@ body.with-pinned-buttons footer {
     width: 100% !important;
 }
 
+body .select2-container--default .select2-results > ul[id*='levetid'].select2-results__options {
+    max-height: 300px;
 .nav-tabs a.has-error,
 .nav-tabs a.has-error:focus,
 .nav-tabs a.has-error:hover,

@@ -6,6 +6,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\KlimaskaermTiltag;
 use AppBundle\Entity\Regning;
 use AppBundle\Form\Type\TiltagDatoForDriftType;
 use AppBundle\Form\Type\TiltagOverviewDetailType;
@@ -33,9 +34,15 @@ class TiltagController extends BaseController {
    */
   protected $request;
 
+  /**
+   * @var TranslatorInterface $tranlator
+   */
+  private $translator;
+
   public function init(Request $request) {
     $this->request = $request;
     parent::init($request);
+    $this->translator = $this->container->get('translator');
     $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
   }
 
@@ -90,6 +97,10 @@ class TiltagController extends BaseController {
    * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
   public function editAction(Tiltag $tiltag) {
+    if ($tiltag instanceof KlimaskaermTiltag) {
+      $this->flash->error($this->translator->trans('klimaskaerm.strings.tobedeleted'));
+    }
+
     $this->setBreadcrumb($tiltag);
     $this->breadcrumbs->addItem('common.edit', $this->generateUrl('tiltag_edit', array('id' => $tiltag->getId())));
 

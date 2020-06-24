@@ -22,8 +22,18 @@ class ForsyningsvaerkSearchType extends AbstractType {
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('navn', null, array('label' => false))
-      ->add('energiform', null, array('label' => false))
+      ->add('navn', null, array(
+        'label' => false,
+        'attr' => array(
+          'placeholder' => 'Navn',
+        )
+      ))
+      ->add('energiform', null, array(
+        'label' => false,
+        'attr' => array(
+          'placeholder' => 'Energiform',
+        )
+      ))
       ->add('Søg', 'submit');
   }
 

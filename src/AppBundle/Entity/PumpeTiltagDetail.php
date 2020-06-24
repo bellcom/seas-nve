@@ -40,12 +40,6 @@ class PumpeTiltagDetail extends TiltagDetail {
   protected $placering;
 
   /**
-   * @ManyToOne(targetEntity="PumpeTiltagDetailApplikation")
-   * @JoinColumn(name="applikation_id", referencedColumnName="id")
-   **/
-  protected $applikation;
-
-  /**
    * @var boolean
    *
    * @ORM\Column(name="Isoleringskappe", type="boolean")
@@ -250,27 +244,6 @@ class PumpeTiltagDetail extends TiltagDetail {
    */
   public function getPlacering() {
     return $this->placering;
-  }
-
-  /**
-   * Set applikation
-   *
-   * @param string $applikation
-   * @return PumpeDetail
-   */
-  public function setApplikation($applikation) {
-    $this->applikation = $applikation;
-
-    return $this;
-  }
-
-  /**
-   * Get applikation
-   *
-   * @return string
-   */
-  public function getApplikation() {
-    return $this->applikation;
   }
 
   /**
