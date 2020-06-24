@@ -533,6 +533,7 @@ class VentilationTiltagDetail extends TiltagDetail
             'driftsdageUge',
             'genvindings',
             'sommerUnderkoeling',
+            'trykabAnlaeg',
             'virkningsgradVentilator',
         );
     }

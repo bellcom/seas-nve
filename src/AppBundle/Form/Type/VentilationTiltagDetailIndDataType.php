@@ -37,6 +37,16 @@ class VentilationTiltagDetailIndDataType extends AbstractType {
                     ));
                     break;
 
+                case 'trykabAnlaeg':
+                    $options = array(
+                       'required' => FALSE,
+                    );
+                    if ($builder->getName() == 'indDataEfter') {
+                        $options['disabled'] = TRUE;
+                    }
+                    $builder->add($key, 'number', $options);
+                    break;
+
                 default:
                     $builder->add($key, 'number', array(
                         'required' => FALSE,

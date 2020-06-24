@@ -12,7 +12,17 @@
     <tr>
       <td>{{ ('appbundle.configuration.udeluftTilfoerselMatrix.' ~ key) | trans}}</td>
       {% for kvalitet in row %}
-        <td>{% if kvalitet is empty %}--{% else %}{{ kvalitet }}{% endif %}</td>
+        <td>
+          {% if kvalitet is empty %}
+            --
+          {% else %}
+            {% if key == 'del_utilfredse_personer' %}
+              {{ kvalitet|format_percent_nounit(0)}}
+            {% else %}
+              {{ kvalitet }}
+            {% endif %}
+          {% endif %}
+        </td>
       {% endfor %}
     </tr>
   {% endfor %}
