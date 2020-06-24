@@ -2160,7 +2160,7 @@ appbundle:
     oekonomioverblik: "Økonomioverblik"
     placering: "Placering"
     rapport: "Rapport"
-    reelAnlaegsinvestering: "Faktisk Entreprisesum"
+    reelAnlaegsinvestering: "Skønnet Entreprisesum"
     reelAnlaegsinvestering.unit: "kr"
     reinvestering: "Reinvestering"
     reinvestering.unit: "kr"
