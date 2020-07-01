@@ -85,7 +85,7 @@ class BygningAaPlusVerificeret extends BaseController implements InitControllerI
       $this->flash->success('bygninger.confirmation.raadgiver_tilknyttet');
 
       $destination = $request->getRequestUri();
-      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+      if ($button_destination = $this->getButtonDestination($editForm)) {
         $destination = $button_destination;
       }
       return $this->redirect($destination);

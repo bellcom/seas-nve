@@ -360,7 +360,7 @@ class PumpeController extends BaseController
             $this->flash->success('pumpe.confirmation.updated');
 
             $destination = $request->getRequestUri();
-            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+            if ($button_destination = $this->getButtonDestination($editForm)) {
                 $destination = $button_destination;
             }
             return $this->redirect($destination);

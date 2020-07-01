@@ -188,7 +188,7 @@ class VirksomhedRapportController extends BaseController {
       $this->flash->success('virksomhed_rapporter.confirmation.baseline_values_updated');
 
       $destination = $request->getRequestUri();
-      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+      if ($button_destination = $this->getButtonDestination($editForm)) {
         $destination = $button_destination;
       }
       return $this->redirect($destination);
@@ -244,7 +244,7 @@ class VirksomhedRapportController extends BaseController {
       $this->flash->success('virksomhed_rapporter.confirmation.tekster_opdateret');
 
       $destination = $request->getRequestUri();
-      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+      if ($button_destination = $this->getButtonDestination($editForm)) {
         $destination = $button_destination;
       }
       return $this->redirect($destination);

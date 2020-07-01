@@ -215,7 +215,7 @@ class BaselineController extends BaseController {
 
       if (!$editForm->get('save_changed')->isClicked()) {
         $destination = $request->getRequestUri();
-        if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+        if ($button_destination = $this->getButtonDestination($editForm)) {
           $destination = $button_destination;
         }
         return $this->redirect($destination);

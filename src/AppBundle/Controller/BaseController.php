@@ -127,7 +127,8 @@ abstract class BaseController extends Controller implements InitControllerInterf
     return $this->redirect($request->headers->get('referer'));
   }
 
-  public function getButtonDestination(Button $button) {
+  public function getButtonDestination(Form $form) {
+    $button = $form->getClickedButton();
     if (!empty($button) && $button->getConfig() instanceof ButtonBuilder) {
       $attr = $button->getConfig()->getOption('attr');
     }
