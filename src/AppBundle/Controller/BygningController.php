@@ -168,7 +168,7 @@ class BygningController extends BaseController implements InitControllerInterfac
       }
 
       $destination = $this->generateUrl('bygning_show', array('id' => $entity->getId()));
-      if ($button_destination = $this->getButtonDestination($form->getClickedButton())) {
+      if ($button_destination = $this->getButtonDestination($form)) {
         $destination = $button_destination;
       }
       return $this->redirect($destination);
@@ -426,7 +426,7 @@ class BygningController extends BaseController implements InitControllerInterfac
       $this->flash->success('bygninger.confirmation.updated');
 
       $destination = $request->getRequestUri();
-      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+      if ($button_destination = $this->getButtonDestination($editForm)) {
         $destination = $button_destination;
       }
       return $this->redirect($destination);

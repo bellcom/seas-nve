@@ -211,7 +211,7 @@ class GroupController extends BaseController
             $this->flash->success('group.confirmation.updated');
 
             $destination = $request->getRequestUri();
-            if ($button_destination = $this->getButtonDestination($edit_form->getClickedButton())) {
+            if ($button_destination = $this->getButtonDestination($edit_form)) {
                 $destination = $button_destination;
             }
             return $this->redirect($destination);
@@ -267,7 +267,7 @@ class GroupController extends BaseController
             $this->flash->success('group.confirmation.roles_updated');
 
             $destination = $request->getRequestUri();
-            if ($button_destination = $this->getButtonDestination($roles_form->getClickedButton())) {
+            if ($button_destination = $this->getButtonDestination($roles_form)) {
               $destination = $button_destination;
             }
             return $this->redirect($destination);

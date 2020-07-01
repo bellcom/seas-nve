@@ -82,7 +82,7 @@ class VirksomhedKortlaegningController extends BaseController
             $this->flash->success('virksomhed_kortlaegning.confirmation.updated');
 
             $destination = $request->getRequestUri();
-            if ($button_destination = $this->getButtonDestination($form->getClickedButton())) {
+            if ($button_destination = $this->getButtonDestination($form)) {
                 $destination = $button_destination;
             }
             return $this->redirect($destination);

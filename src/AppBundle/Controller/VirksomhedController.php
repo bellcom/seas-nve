@@ -202,11 +202,11 @@ class VirksomhedController extends BaseController
             $em->flush();
 
             $destination = $this->generateUrl('virksomhed_show', array('id' => $entity->getId()));
-            $button = $form->getClickedButton();
-            if ($button_destination = $this->getButtonDestination($button)) {
+            if ($button_destination = $this->getButtonDestination($form)) {
                 $destination = $button_destination;
-                if (in_array($button->getName(), array('opret_bygning', 'opret_datterselskab'))) {
-                  $destination = str_replace('newVirksomhedDestination', $this->generateUrl('virksomhed_edit', array('id' => $entity->getId())) . '&virksomhed_id=' . $entity->getId(), $destination);
+                $button = $form->getClickedButton();
+                if (!empty($button) && in_array($button->getName(), array('opret_bygning', 'opret_datterselskab'))) {
+                    $destination = str_replace('newVirksomhedDestination', $this->generateUrl('virksomhed_edit', array('id' => $entity->getId())) . '&virksomhed_id=' . $entity->getId(), $destination);
                 }
             }
             return $this->redirect($destination);
@@ -583,7 +583,7 @@ class VirksomhedController extends BaseController
             $this->flash->success('virksomhed.confirmation.updated');
 
             $destination = $request->getRequestUri();
-            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+            if ($button_destination = $this->getButtonDestination($editForm)) {
               $destination = $button_destination;
             }
             return $this->redirect($destination);

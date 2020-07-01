@@ -2711,7 +2711,8 @@ class Baseline {
       return null;
     }
     else {
-      if (!isset($samletVarmeforbrugJuniJuliAugust) || $GUFFastsaettesEfterType == GUFFastsaettesEfterType::GUF_ANDEL_I_PROCENT_PBA_ELO_NOEGLETAL) {
+      if (!empty($this->getEloKategori())
+        && (!isset($samletVarmeforbrugJuniJuliAugust) || $GUFFastsaettesEfterType == GUFFastsaettesEfterType::GUF_ANDEL_I_PROCENT_PBA_ELO_NOEGLETAL)) {
         return $this->getEloKategori()->getAndelVarmeGUFFaktor() * $forbrugUkorrigeret;
       }
       else {

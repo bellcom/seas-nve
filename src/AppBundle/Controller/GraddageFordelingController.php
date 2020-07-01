@@ -204,7 +204,7 @@ class GraddageFordelingController extends BaseController
             $this->flash->success('graddagefordeling.confirmation.updated');
 
             $destination = $request->getRequestUri();
-            if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+            if ($button_destination = $this->getButtonDestination($editForm)) {
                 $destination = $button_destination;
             }
             return $this->redirect($destination);

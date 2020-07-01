@@ -78,7 +78,7 @@ class BygningIndfoerController extends BaseController implements InitControllerI
       $this->flash->success('bygninger.confirmation.bygning_infoert');
 
       $destination = $request->getRequestUri();
-      if ($button_destination = $this->getButtonDestination($editForm->getClickedButton())) {
+      if ($button_destination = $this->getButtonDestination($editForm)) {
         $destination = $button_destination;
       }
       return $this->redirect($destination);
