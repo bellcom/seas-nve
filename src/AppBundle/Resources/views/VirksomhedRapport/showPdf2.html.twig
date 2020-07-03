@@ -345,21 +345,6 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3
-            class="panel-title">{{ 'appbundle.virksomhed_rapport.likviditetsoversigt' | trans }}</h3>
-      </div>
-
-      <div class="panel-body">
-        {% include 'AppBundle::_includes/finansiering_graf_pdf.html.twig' with {'entity': rapport.summarizedRapportValues } %}
-
-
-        {{ 'appbundle.virksomhed_rapport.laanLoebetid' | trans }}: 15 {{ 'appbundle.virksomhed_rapport.laanLoebetid.unit' | trans }}
-
-
-      </div>
-    </div>
-
     <div class="row">
       <div class="col-xs-12">
         <p>I det følgende vises ovenstående værdier i tabelform for de første 15 år, svarende til lånets løbetid.</p>
