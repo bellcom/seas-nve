@@ -46,7 +46,8 @@
     "itk-dev/database-bundle": "^1.2",
     "league/csv": "^8.2",
     "trsteel/ckeditor-bundle": "~1.11",
-    "helios-ag/fm-elfinder-bundle": "~6"
+    "helios-ag/fm-elfinder-bundle": "~6",
+    "phpoffice/phpword": "^0.17.0"
   },
   "require-dev": {
   },
