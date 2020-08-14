@@ -215,8 +215,16 @@ services:
     fos_user.doctrine_registry:
         alias: doctrine
 
+    aaplus.bygning_rapport_exporter:
+        class: AppBundle\Service\BygningRapportExporter
+        arguments: [ "@service_container" ]
+
     aaplus.pdf_export:
         class: AppBundle\PdfExport\PdfExport
+        arguments: [ "@service_container" ]
+
+    aaplus.docx_export:
+        class: AppBundle\Service\DocxExporter
         arguments: [ "@service_container" ]
 
     aaplus.entityaudit.manager:

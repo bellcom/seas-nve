@@ -61,7 +61,7 @@
         {{ 'virksomhed_rapporter.actions.edit_kortlaegning' | trans }}
       </a>
       {% if entity.virksomhed.getAllBygninger() is not empty %}
-        <a href="{{ path_with_access_token('virksomhed_rapport_pdf_review', { 'id': entity.id, 'type': 'resultatoversigt' }) }}" class="btn btn-default">
+        <a href="{{ path_with_access_token('virksomhed_rapport_review', { 'id': entity.id, 'type': 'resultatoversigt' }) }}" class="btn btn-default">
           {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf2' | trans }}
         </a>
         <a href="{{ path_with_access_token('virksomhed_rapport_pdf_review', { 'id': entity.id, 'type': 'detailark' }) }}" class="btn btn-default">

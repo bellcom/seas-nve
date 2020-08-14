@@ -1,7 +1,6 @@
-{% extends 'AppBundle::pdf.html.twig' %}
+{% extends review == false ? 'AppBundle::base_export.html.twig' : 'AppBundle:_includes:rapport_review_container.html.twig' %}
 
 {% block body -%}
-  <!-- Rapport/showPdf2Cover.html.twig -->
   <div class="page-break-after">
     <div class="portrait">
       <br>

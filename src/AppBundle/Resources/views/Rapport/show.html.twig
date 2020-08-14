@@ -70,10 +70,10 @@
       <a class="btn btn-default" href="{{ path('rapport_download_files', { 'id': entity.id }) }}">
         {{ icon('download') }} {{ 'bygning_rapporter.actions.download_files' | trans }}
       </a>
-      <a href="{{ path_with_access_token('rapport_pdf_review', { 'id': entity.id, 'type': 'resultatoversigt' }) }}" class="btn btn-default">
+      <a href="{{ path_with_access_token('rapport_review', { 'id': entity.id, 'type': 'resultatoversigt' }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'bygning_rapporter.actions.pdf2' | trans }}
       </a>
-      <a href="{{ path_with_access_token('rapport_pdf_review', { 'id': entity.id, 'type': 'detailark' }) }}" class="btn btn-default">
+      <a href="{{ path_with_access_token('rapport_review', { 'id': entity.id, 'type': 'detailark' }) }}" class="btn btn-default">
         {{ icon('file-pdf-o') }} {{ 'bygning_rapporter.actions.pdf5' | trans }}
       </a>
       <a class="btn btn-default" href="{{ path('rapport_filer', { 'id': entity.id }) }}">

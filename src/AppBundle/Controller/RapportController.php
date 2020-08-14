@@ -222,7 +222,7 @@ class RapportController extends BaseController {
   /**
    * Generates review page for PDF rapport.
    *
-   * @Route("/{id}/pdfreview/{type}", name="rapport_pdf_review")
+   * @Route("/{id}/review/{type}", name="rapport_review")
    * @Method("GET")
    * @Template("AppBundle::rapport_review.html.twig")
    * @Security("is_granted('RAPPORT_VIEW', rapport)")
@@ -230,13 +230,14 @@ class RapportController extends BaseController {
    * @param string $type
    * @return array
    */
-  public function showPdfReviewAction(Rapport $rapport, $type)
+  public function showReviewAction(Rapport $rapport, $type)
   {
-    $exporter = $this->get('aaplus.pdf_export');
+    $exporter = $this->get('aaplus.bygning_rapport_exporter');
     switch ($type) {
       case 'resultatoversigt':
-        $html = $exporter->export2($rapport, [], TRUE);
+        $html = $exporter->export2($rapport);
         $pdf_export_route = 'rapport_show_pdf2';
+        $docx_export_route = 'rapport_show_docx2';
         break;
 
       case 'detailark':
@@ -251,6 +252,7 @@ class RapportController extends BaseController {
     return array(
       'html' => $html,
       'pdf_export_url' => $pdf_export_route ? $this->generateUrl($pdf_export_route, array('id' => $rapport->getId())) : '',
+      'docx_export_url' => $docx_export_route ? $this->generateUrl($docx_export_route, array('id' => $rapport->getId())) : '',
     );
   }
 
@@ -288,6 +290,29 @@ class RapportController extends BaseController {
     return new Response($pdf, 200, array(
       'Content-Type'          => 'application/pdf',
       'Content-Disposition'   => 'attachment; filename="' . $pdfName . '.pdf"'
+    ));
+  }
+
+  /**
+   * Finds and displays a Rapport entity in DOCX form. (Resultatoversigt)
+   *
+   * @Route("/{id}/docx2", name="rapport_show_docx2")
+   * @Method("POST")
+   * @Template()
+   * @Security("is_granted('RAPPORT_VIEW', rapport)")
+   * @param Request $request
+   * @param Rapport $rapport
+   * @return Response
+   */
+  public function showDocx2Action(Request $request, Rapport $rapport) {
+    $exporter = $this->get('aaplus.docx_export');
+    $docx = $exporter->export2($rapport);
+
+    $docxName = $rapport->getBygning()->getAdresse() . '-resultatoversigt-' . date('Y-m-d-His') . '-Status-'.$rapport->getBygning()->getNummericStatus().'-Itt-'.$rapport->getVersion();
+
+    return new Response($docx, 200, array(
+      'Content-Type'          => 'application/docx',
+      'Content-Disposition'   => 'attachment; filename="' . $docxName . '.docx"'
     ));
   }
 

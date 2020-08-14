@@ -65,6 +65,7 @@ common:
   downloadExcel: "Hent som Excel"
   downloadCsv: "Hent som csv"
   downloadPdf: "Hent som PDF"
+  downloadDocx: "Hent som DOCx"
   savePdf: "Gem PDF-fil"
   import: "Import"
   edit: "Rediger"
