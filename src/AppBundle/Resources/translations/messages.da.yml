@@ -365,6 +365,22 @@ group:
 klimaskaerm:
   strings:
     tobedeleted: "Den slags as Klimaskærm forslag er udløbet og bruges ikke mere. Slet det gerne."
+  actions:
+    add: "Tilføj klimaskærm"
+    create: "Opret klimaskærm"
+    edit: "Rediger klimaskærm"
+    import: "Import klimaskærme"
+  error:
+    in_use: "Kan ikke slettes. Bruges af klimaskærmsforslag."
+    import_file: "Import filen er forkert."
+  confirmation:
+    created: "Klimaskærm oprettet"
+    updated: "Klimaskærm opdateret"
+    deleted: "Klimaskærm slettet"
+    imported: "Der var oprettet %created og opdateret %updated erstatnings klimaskærme."
+  labels:
+    plural: "Klimaskærme"
+    singular: "Klimaskærm"
 koeleanlaegtiltag:
   actions:
     add: "Tilføj køleforslag"
@@ -1525,6 +1541,16 @@ appbundle:
     name: "Navn"
     name.help: "BEMÆRK: Du kan ikke bruge navn: Projektleder, Projekterende, Interessent. Alle de grupe er servicegrupper."
     roles: "Roller"
+  klimaskaerm:
+    arbejdeOmfang: "Arbejde/omfang"
+    enhed: "Enhed"
+    enhedsprisEksklMoms: "Estimat for enhedspris excl moms"
+    klimaskaerm: "Klimaskærm"
+    noter: "Noter"
+    post: "Post"
+    type: "Type"
+    import:
+      filepath: "Vælg fil med import klimaskærme data"
   koeleanlaegtiltagdetail:
     tableHeader:
       etotReduktion: "Reduktion af Etot fra tilstand før"

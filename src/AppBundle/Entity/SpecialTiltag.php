@@ -202,7 +202,6 @@ class SpecialTiltag extends Tiltag {
     'forsyningEl',
     'forsyningVarme',
     'levetid',
-    'tiltagskategori',
     'yderligereBesparelse',
     'slutanvendelse',
   ];

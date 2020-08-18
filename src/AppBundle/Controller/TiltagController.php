@@ -97,7 +97,7 @@ class TiltagController extends BaseController {
    * @Security("is_granted('TILTAG_EDIT', tiltag)")
    */
   public function editAction(Tiltag $tiltag) {
-    if ($tiltag instanceof KlimaskaermTiltag) {
+    if (get_class($tiltag) == 'AppBundle\Entity\KlimaskaermTiltag') {
       $this->flash->error($this->translator->trans('klimaskaerm.strings.tobedeleted'));
     }
 
