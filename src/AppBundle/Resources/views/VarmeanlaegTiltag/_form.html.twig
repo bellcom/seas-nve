@@ -41,9 +41,6 @@
       {% endif %}
       {{ form_row(edit_form.forsyningVarme) }}
       {{ form_row(edit_form.forsyningEl) }}
-      {% if edit_form.tiltagskategori is defined %}
-        {{ form_row(edit_form.tiltagskategori) }}
-      {% endif %}
     </div>
     <div class="col-xs-12 col-md-6">
       {% if edit_form.forbrugFoer is defined %}
