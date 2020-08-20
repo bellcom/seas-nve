@@ -2727,19 +2727,12 @@ class Rapport {
   }
 
   /**
-   * Calculates expression for nutidsvaerdiSetOver15AarKr value
+   * @Formula("$this->calculateNutidsvaerdiSet")
    */
-  protected function calculateNutidsvaerdiExp() {
-    return $this->sumExpr($this->calculateNutidsvaerdiSet(TRUE));
-  }
-
-  /**
-   * @Formula("$this->calculateNutidsvaerdiExp()")
-   */
-  protected function calculateNutidsvaerdiSet($array = FALSE) {
+  protected function calculateNutidsvaerdiSet() {
     $years = $this->getNutidsvaerdiBeregnAar();
     $cashFlow = $this->calculateCashFlow($years);
-    return Calculation::npv($this->getKalkulationsrente(), $cashFlow['cash flow'], $array);
+    return Calculation::npv($this->getKalkulationsrente(), $cashFlow['cash flow'], TRUE);
   }
 
   /**
