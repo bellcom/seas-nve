@@ -98,7 +98,16 @@
         </tr>
         <tr>
           <th>{{ 'appbundle.tiltag.samletCo2besparelse' | trans }} <div class="calculation-expression hidden">{{ entity.expr('samletCo2besparelse') }}</div></th>
-          <th class="text-right">{{ entity.samletCo2besparelse | number_format }}</th>
+          <th class="text-right">
+            {% if entity.samletCo2besparelse < 0.01 %}
+              <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">( {{ entity.samletCo2besparelse }} )</span> <span
+                    class="aaplus-note-marker"></span>
+              {{ entity.samletCo2besparelse | number_format }}
+              </span>
+            {% else %}
+              {{ entity.samletCo2besparelse | number_format }}
+            {% endif %}
+          </th>
           <th>{{ 'appbundle.tiltag.samletCo2besparelse.unit' | trans }}</th>
         </tr>
         </tfoot>
