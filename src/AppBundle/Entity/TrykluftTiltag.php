@@ -150,7 +150,7 @@ class TrykluftTiltag extends Tiltag {
         if ($this->isVarmePrisOverriden()) {
             return $this->getVarmePrisOverriden();
         }
-        return $this->getRapportVarmeKrKWh();
+        return $this->calculateVarmepris();
     }
 
     /**
@@ -162,7 +162,7 @@ class TrykluftTiltag extends Tiltag {
         if ($this->isElPrisOverriden()) {
             return $this->getElPrisOverriden();
         }
-        return $this->getRapportElKrKWh();
+        return $this->calculateElpris();
     }
 
     /**
@@ -189,7 +189,7 @@ class TrykluftTiltag extends Tiltag {
         if ($this->isVarmeCo2Overriden()) {
             return $this->getVarmeCo2Overriden();
         }
-        return $this->getRapportVarmeKgCo2MWh();
+        return $this->calculateVarmeCo2();
     }
 
     /**
@@ -201,7 +201,7 @@ class TrykluftTiltag extends Tiltag {
         if ($this->isElCo2Overriden()) {
             return $this->getElCo2Overriden();
         }
-        return $this->getRapportElKgCo2MWh();
+        return $this->calculateElCo2();
     }
 
     /**
@@ -298,7 +298,7 @@ class TrykluftTiltag extends Tiltag {
      * @ORM\PostLoad()
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
      */
-  public function postLoad(LifecycleEventArgs $event) {
+    public function postLoad(LifecycleEventArgs $event) {
         parent::postLoad($event);
         $this->setDefault();
     }

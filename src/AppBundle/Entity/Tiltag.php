@@ -1624,9 +1624,9 @@ abstract class Tiltag {
 
     for ($year = 1; $year <= $numberOfYears; $year++) {
       $varmepris = $this->calculateVarmepris($year);
+      $elpris = $this->calculateElpris($year);
       $value = ($varmebesparelseGUF + $varmebesparelseGAF) * $varmepris
-        + $elbesparelse * $this->getRapport()->getElKrKWh($year)
-        + $vandbesparelse * $this->getRapport()->getVandKrKWh($year)
+        + $elbesparelse * $elpris
         + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
 
       if ($this instanceof SolcelleTiltag) {
@@ -1664,9 +1664,46 @@ abstract class Tiltag {
 
   protected function calculateVarmepris($year = 1) {
     if ($this->forsyningVarme) {
+      /** @var Forsyningsvaerk $forsyningsvaerk */
       $forsyningsvaerk = $this->forsyningVarme->getForsyningsvaerk();
       if ($forsyningsvaerk) {
         return $forsyningsvaerk->getKrKWh($this->rapport->getDatering()->format('Y') - 1 + $year);
+      }
+    }
+
+    return 0;
+  }
+
+  protected function calculateVarmeCo2($year = 1) {
+    if ($this->forsyningVarme) {
+      /** @var Forsyningsvaerk $forsyningsvaerk */
+      $forsyningsvaerk = $this->forsyningVarme->getForsyningsvaerk();
+      if ($forsyningsvaerk) {
+        return $forsyningsvaerk->getKgCo2MWh($this->rapport->getDatering()->format('Y') - 1 + $year);
+      }
+    }
+
+    return 0;
+  }
+
+  protected function calculateElpris($year = 1) {
+    if ($this->forsyningEl) {
+      /** @var Forsyningsvaerk $forsyningsvaerk */
+      $forsyningsvaerk = $this->forsyningEl->getForsyningsvaerk();
+      if ($forsyningsvaerk) {
+        return $forsyningsvaerk->getKrKWh($this->rapport->getDatering()->format('Y') - 1 + $year);
+      }
+    }
+
+    return 0;
+  }
+
+  protected function calculateElCo2($year = 1) {
+    if ($this->forsyningEl) {
+      /** @var Forsyningsvaerk $forsyningsvaerk */
+      $forsyningsvaerk = $this->forsyningEl->getForsyningsvaerk();
+      if ($forsyningsvaerk) {
+        return $forsyningsvaerk->getKgCo2MWh($this->rapport->getDatering()->format('Y') - 1 + $year);
       }
     }
 

@@ -133,7 +133,9 @@ class TiltagType extends AbstractType {
       $builder
         ->add('besparelseDriftOgVedligeholdelse');
     }
-    if ($this->tiltag instanceof TrykluftTiltag) {
+    if ($this->tiltag instanceof TrykluftTiltag
+    || $this->tiltag instanceof PumpeTiltag
+    ) {
       $builder
         ->add('priserOverride', 'collection', array(
             'type' => PrisOverrideType::class,
