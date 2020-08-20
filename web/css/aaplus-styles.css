@@ -796,8 +796,13 @@ label + .explanation-toggle {
     max-width: 100%;
 }
 
-
 .popover-content table td {
     padding: 2px 4px;
 }
 
+div.form-group.override .form-group {
+    margin:0;
+}
+div.form-group.override .form-group .checkbox {
+    margin:0;
+}

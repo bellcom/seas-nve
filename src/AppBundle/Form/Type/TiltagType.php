@@ -139,6 +139,11 @@ class TiltagType extends AbstractType {
             'type' => PrisOverrideType::class,
             'label' => FALSE,
             'required' => FALSE,
+        ))
+        ->add('co2Override', 'collection', array(
+            'type' => Co2OverrideType::class,
+            'label' => FALSE,
+            'required' => FALSE,
         ));
     }
     if ($this->tiltag instanceof VarmeAnlaegTiltag) {

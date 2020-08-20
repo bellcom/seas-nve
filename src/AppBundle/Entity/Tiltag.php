@@ -1837,16 +1837,32 @@ abstract class Tiltag {
     return $this->getRapport()->getElKrKWh();
   }
 
+  public function getElKrKWh() {
+    return $this->getRapportElKrKWh();
+  }
+
   public function getRapportVarmeKrKWh() {
     return $this->getRapport()->getVarmeKrKWh();
+  }
+
+  public function getVarmeKrKWh() {
+    return $this->getRapportVarmeKrKWh();
   }
 
   public function getRapportElKgCo2MWh() {
     return $this->getRapport()->getElKgCo2MWh();
   }
 
+  public function getElKgCo2MWh() {
+    return $this->getRapportElKgCo2MWh();
+  }
+
   public function getRapportVarmeKgCo2MWh() {
     return $this->getRapport()->getVarmeKgCo2MWh();
+  }
+
+  public function getVarmeKgCo2MWh() {
+    return $this->getRapportVarmeKgCo2MWh();
   }
 
   public function getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {

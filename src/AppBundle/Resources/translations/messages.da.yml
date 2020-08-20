@@ -1378,6 +1378,7 @@ appbundle:
       filepath: "Vælg fil med import erstatningslyskilder data"
   forsyningsvaerk:
     co2: "CO2"
+    co2.unit: "kg/MWh"
     co2Noter: "Noter (CO2)"
     co2y2009: "CO2, 2009"
     co2y2010: "CO2, 2010"
@@ -1451,6 +1452,7 @@ appbundle:
     noter: "Noter"
     noterTBeregningAfRabat: "Noter til rabat"
     pris: "Pris"
+    pris.unit: "kr/kWh"
     pris2009: "Pris, 2009"
     pris2010: "Pris, 2010"
     pris2011: "Pris, 2011"
@@ -2261,6 +2263,11 @@ appbundle:
       elvarme.pris.unit: "kr/kWh"
       varmepumpe: "Varmepumpe"
       varmepumpe.pris.unit: "kr/kWh"
+    co2Override:
+      varme: "Tilsidesæt varme CO2"
+      varme.value.unit: "kg/MWh"
+      el: "Tilsidesæt el CO2"
+      el.value.unit: "kg/MWh"
     nutidsvaerdiSet: "Nutidsværdi set over "
     nutidsvaerdiSet.unit: "kr"
     akkumuleretNutidsvaerdiSet: "Akkumuleret nutidsværdi"

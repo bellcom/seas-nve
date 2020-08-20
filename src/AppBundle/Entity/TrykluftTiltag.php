@@ -22,12 +22,12 @@ use Doctrine\ORM\Mapping as ORM;
 class TrykluftTiltag extends Tiltag {
 
     /**
-     * @Formula("$this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh()")
+     * @Formula("$this->varmebesparelseGAF * $this->getVarmePris() + $this->elbesparelse * $this->getElPris()")
      */
     protected $samletEnergibesparelse;
 
     /**
-     * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
+     * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getElKgCo2MWh()) / 1000")
      */
     protected $samletCo2besparelse;
 
@@ -37,6 +37,13 @@ class TrykluftTiltag extends Tiltag {
      * @ORM\Column(name="priserOverride", type="array")
      */
     protected $priserOverride;
+
+    /**
+     *
+     * @var array
+     * @ORM\Column(name="co2Override", type="array")
+     */
+    protected $co2Override;
 
     /**
     * Constructor
@@ -59,12 +66,25 @@ class TrykluftTiltag extends Tiltag {
                 ),
             );
         }
+        if ($this->getCo2Override() == NULL) {
+            $this->co2Override = array(
+                'el' => array(
+                    'overriden' => FALSE,
+                    'value' => NULL,
+                ),
+                'varme' => array(
+                    'overriden' => FALSE,
+                    'value' => NULL,
+                ),
+            );
+        }
 
         if ($this->getTitle() == NULL) {
             // @Todo: Find af way to use the translations system or move this to some place else....
             $this->setTitle('Trykluft');
         }
     }
+
     /**
      * Set priserOverride
      *
@@ -84,6 +104,26 @@ class TrykluftTiltag extends Tiltag {
      */
     public function getPriserOverride() {
         return $this->priserOverride;
+    }
+    /**
+     * Set co2Override
+     *
+     * @param array $co2Override
+     * @return TrykluftTiltag
+     */
+    public function setCo2Override($co2Override) {
+        $this->co2Override = $co2Override;
+
+        return $this;
+    }
+
+    /**
+     * Get CO2
+     *
+     * @return array
+     */
+    public function getCo2Override() {
+        return $this->co2Override;
     }
 
     /**
@@ -123,6 +163,45 @@ class TrykluftTiltag extends Tiltag {
             return $this->getElPrisOverriden();
         }
         return $this->getRapportElKrKWh();
+    }
+
+    /**
+     * Get CO2
+     *
+     * @return float
+     */
+    public function getCo2OverrideKeyValue($type, $key) {
+        $co2 = $this->getCo2Override();
+        return isset($co2[$type][$key]) ? $co2[$type][$key] : NULL;
+    }
+
+    public function getVarmeCo2Overriden() { return $this->getCo2OverrideKeyValue('varme', 'value'); }
+    public function isVarmeCo2Overriden() { return $this->getCo2OverrideKeyValue('varme', 'overriden'); }
+    public function getElCo2Overriden() { return $this->getCo2OverrideKeyValue('el', 'value'); }
+    public function isElCo2Overriden() { return $this->getCo2OverrideKeyValue('el', 'overriden'); }
+
+    /**
+     * Get varmeCo2
+     *
+     * @return float
+     */
+    public function getVarmeKgCo2MWh() {
+        if ($this->isVarmeCo2Overriden()) {
+            return $this->getVarmeCo2Overriden();
+        }
+        return $this->getRapportVarmeKgCo2MWh();
+    }
+
+    /**
+     * Get elPris
+     *
+     * @return float
+     */
+    public function getElKgCo2MWh() {
+        if ($this->isElCo2Overriden()) {
+            return $this->getElCo2Overriden();
+        }
+        return $this->getRapportElKgCo2MWh();
     }
 
     /**
