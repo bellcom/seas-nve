@@ -23,14 +23,9 @@ use Doctrine\ORM\Mapping as ORM;
 class VarmeanlaegTiltag extends Tiltag {
 
     /**
-     * @Formula("$this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh()")
+     * @Formula("$this->calculateSamletEnergibesparelserExpr()")
      */
     protected $samletEnergibesparelse;
-
-    /**
-     * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
-     */
-    protected $samletCo2besparelse;
 
     /**
      *
@@ -49,6 +44,7 @@ class VarmeanlaegTiltag extends Tiltag {
     }
 
     protected function setDefault() {
+        parent::setDefault();
         $this->setPriserOverride($this->getPriserOverride() + $this->getPriserOverrideDefault());
     }
 
@@ -74,12 +70,13 @@ class VarmeanlaegTiltag extends Tiltag {
     }
 
     /**
-     * Get elReduktion default value
+     * Get Priser Override default value
      *
      * @return array
      */
     public function getPriserOverrideDefault() {
         $energiTyper = array_filter(array_keys(EnergiType::getChoices()));
+        $default = parent::getPriserOverrideDefault();
         foreach ($energiTyper as $type) {
             $default[$type] = array(
                 'pris' => NULL,
@@ -96,24 +93,6 @@ class VarmeanlaegTiltag extends Tiltag {
     public function getPriserOverrideKeyValue($type, $key) {
         $priser = $this->getPriserOverride();
         return isset($priser[$type][$key]) ? $priser[$type][$key] : NULL;
-    }
-
-    /**
-     * Get varmePris
-     *
-     * @return float
-     */
-    public function getVarmePris() {
-        return $this->getRapportVarmeKrKWh();
-    }
-
-    /**
-     * Get elPris
-     *
-     * @return float
-     */
-    public function getElPris() {
-        return $this->getRapportElKrKWh();
     }
 
     /**
@@ -135,6 +114,12 @@ class VarmeanlaegTiltag extends Tiltag {
         return parent::calculateVarmebesparelseGAF($value);
     }
 
+    /**
+     * @Formula("0")
+     */
+    protected function calculateElbesparelse($value = null) {
+      return parent::calculateElbesparelse($value);
+    }
 
     /**
      * Calculate values in this Tiltag
@@ -176,13 +161,17 @@ class VarmeanlaegTiltag extends Tiltag {
         $this->enhed = $this->calculateEnhed();
     }
 
+    function calculateSamletEnergibesparelserExpr() {
+      return $this->calculateSamletEnergibesparelse(TRUE);
+    }
+
     /**
      * Accumulate samletBesparelse from tiltagDetails .
      *
      * @return float
      */
-    protected function calculateSamletEnergibesparelse() {
-        return $this->sum('samletBesparelse');
+    protected function calculateSamletEnergibesparelse($exp = FALSE) {
+        return $this->sum('samletBesparelse', $exp);
     }
 
     /**

@@ -27,11 +27,6 @@ class VindueTiltag extends KlimaskaermTiltag {
     $this->setTitle('Vindue');
   }
 
-  /**
-   * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
-   */
-  protected $samletCo2besparelse;
-
   protected function calculateLevetid() {
     return round($this->divide(
       $this->sum(function($detail) {

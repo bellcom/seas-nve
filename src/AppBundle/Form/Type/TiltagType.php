@@ -110,6 +110,25 @@ class TiltagType extends AbstractType {
         'attr' => isset(SlutanvendelseType::$detaultValues[get_class($this->tiltag)]) ? array('disabled' => 'disabled'): array()
     ));
 
+    $builder
+      ->add('priserOverride', 'collection', array(
+        'type' => PrisOverrideType::class,
+        'options' => array(
+          'overriden_checkbox' => array(
+            'el',
+            'varme',
+          ),
+        ),
+        'label' => FALSE,
+        'required' => FALSE,
+      ))
+      ->add('co2Override', 'collection', array(
+        'type' => Co2OverrideType::class,
+        'label' => FALSE,
+        'required' => FALSE,
+      ));
+
+
     if ($this->tiltag instanceof TekniskIsoleringTiltag) {
       $builder
         ->add('besparelseDriftOgVedligeholdelse')
@@ -133,33 +152,8 @@ class TiltagType extends AbstractType {
       $builder
         ->add('besparelseDriftOgVedligeholdelse');
     }
-    if ($this->tiltag instanceof TrykluftTiltag
-    || $this->tiltag instanceof PumpeTiltag
-    ) {
-      $builder
-        ->add('priserOverride', 'collection', array(
-            'type' => PrisOverrideType::class,
-            'label' => FALSE,
-            'required' => FALSE,
-        ))
-        ->add('co2Override', 'collection', array(
-            'type' => Co2OverrideType::class,
-            'label' => FALSE,
-            'required' => FALSE,
-        ));
-    }
-    if ($this->tiltag instanceof VarmeAnlaegTiltag) {
-      $builder
-        ->add('priserOverride', 'collection', array(
-          'type' => PrisOverrideType::class,
-          'options' => array(
-            'overriden_checkbox' => FALSE,
-          ),
-          'label' => FALSE,
-          'required' => FALSE,
-        ));
-    }
-    elseif ($this->tiltag instanceof SolcelleTiltag) {
+
+    if ($this->tiltag instanceof SolcelleTiltag) {
       $builder
         ->add('levetid', 'choice', array(
           'choices' => LevetidType::getChoices(),

@@ -28,14 +28,9 @@ class SpecialTiltag extends Tiltag {
   }
 
   /**
-    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse")
+    * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->getVarmePris() + $this->elbesparelse * $this->getElPris() + $this->yderligereBesparelse")
     */
   protected $samletEnergibesparelse;
-
-  /**
-   * @Formula("((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKrKWh()) / 1000")
-   */
-  protected $samletCo2besparelse;
 
   /**
    * @var float
@@ -76,7 +71,6 @@ class SpecialTiltag extends Tiltag {
    * @var float
    *
    * @ORM\Column(name="besparelseBraendstof", type="decimal", scale=4, precision=14, nullable=true)
-   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh() + $this->yderligereBesparelse + $this->besparelseInvestering + $this->besparelseVedligehold + $this->besparelseBraendstof")
    */
   protected $besparelseBraendstof = 0;
 

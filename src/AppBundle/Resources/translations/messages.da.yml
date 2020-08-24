@@ -84,6 +84,7 @@ common:
   personer: "Personer"
   printed: "Udskrevet"
   priser: "Priser"
+  varme_priser: "Varmepriser"
   projektleder_for: "Projektleder for"
   projekterende_for: "Projekterende for"
   replace_file: "Vælg ny fil"

@@ -25,7 +25,7 @@ class SolcelleTiltag extends Tiltag
 {
 
     /**
-     * @Formula("$this->solcelleproduktion * $this->getRapportElKrKWh() + $this->getSalgTilNettetAar1() * $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()")
+     * @Formula("$this->solcelleproduktion * $this->getElPris() + $this->getSalgTilNettetAar1() * $this->getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()")
      */
     protected $samletEnergibesparelse;
 
@@ -112,12 +112,6 @@ class SolcelleTiltag extends Tiltag
         return 0;
     }
 
-    protected function calculateelKgCo2MWh()
-    {
-        $forsyningsvaerk = $this->getRapport()->getBygning()->getForsyningsvaerkEl(TRUE);
-        return !$forsyningsvaerk ? 0 : $forsyningsvaerk->getKgCo2MWh(2015);
-    }
-
     /**
      * Calculates value that is using in Anlaegsinvestering calculation.
      *
@@ -177,7 +171,7 @@ class SolcelleTiltag extends Tiltag
         }
 
         return parent::calculateSavingsForYear($year)
-            + $this->getSolcelleproduktion() * $this->getRapport()->getElKrKWh($year)
+            + $this->getSolcelleproduktion() * $this->getElPris($year)
             + $this->getSalgTilNettetAar1() * $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
     }
 

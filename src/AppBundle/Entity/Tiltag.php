@@ -164,6 +164,7 @@ abstract class Tiltag {
    *
    * @Calculated
    * @ORM\Column(name="samletEnergibesparelse", type="float", nullable=true)
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->getVarmePris() + $this->elbesparelse * $this->getElPris()")
    */
   protected $samletEnergibesparelse;
 
@@ -172,6 +173,7 @@ abstract class Tiltag {
    *
    * @Calculated
    * @ORM\Column(name="samletCo2besparelse", type="float", nullable=true)
+   * @Formula("((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getElKgCo2MWh()) / 1000")
    */
   protected $samletCo2besparelse;
 
@@ -553,6 +555,20 @@ abstract class Tiltag {
    * @var Configuration
    */
   protected $configuration;
+
+  /**
+   *
+   * @var array
+   * @ORM\Column(name="priserOverride", type="array")
+   */
+  protected $priserOverride;
+
+  /**
+   *
+   * @var array
+   * @ORM\Column(name="co2Override", type="array")
+   */
+  protected $co2Override;
 
   /**
    * Get Name
@@ -1890,16 +1906,8 @@ abstract class Tiltag {
     return $this->getRapport()->getElKgCo2MWh();
   }
 
-  public function getElKgCo2MWh() {
-    return $this->getRapportElKgCo2MWh();
-  }
-
   public function getRapportVarmeKgCo2MWh() {
     return $this->getRapport()->getVarmeKgCo2MWh();
-  }
-
-  public function getVarmeKgCo2MWh() {
-    return $this->getRapportVarmeKgCo2MWh();
   }
 
   public function getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {
@@ -1944,11 +1952,167 @@ abstract class Tiltag {
   }
 
   public function __construct() {
+    $this->setDefault();
     $this->details = new \Doctrine\Common\Collections\ArrayCollection();
     $this->bilag = new \Doctrine\Common\Collections\ArrayCollection();
     if (isset(SlutanvendelseType::$detaultValues[get_class($this)])) {
       $this->slutanvendelse = SlutanvendelseType::$detaultValues[get_class($this)];
     }
+  }
+
+  protected function setDefault() {
+    if ($this->getPriserOverride() == NULL) {
+      $this->priserOverride = $this->getPriserOverrideDefault();
+    }
+    if ($this->getCo2Override() == NULL) {
+      $this->co2Override = array(
+        'el' => array(
+          'overriden' => FALSE,
+          'value' => NULL,
+        ),
+        'varme' => array(
+          'overriden' => FALSE,
+          'value' => NULL,
+        ),
+      );
+    }
+  }
+
+  /**
+   * Set priserOverride
+   *
+   * @param array $priserOverride
+   * @return Tiltag
+   */
+  public function setPriserOverride($priserOverride) {
+    $this->priserOverride = $priserOverride;
+
+    return $this;
+  }
+
+  /**
+   * Get priser
+   *
+   * @return array
+   */
+  public function getPriserOverride() {
+    return $this->priserOverride;
+  }
+  /**
+   * Set co2Override
+   *
+   * @param array $co2Override
+   * @return Tiltag
+   */
+  public function setCo2Override($co2Override) {
+    $this->co2Override = $co2Override;
+
+    return $this;
+  }
+
+  /**
+   * Get Priser Override default value
+   *
+   * @return array
+   */
+  public function getPriserOverrideDefault() {
+    return array(
+      'el' => array(
+        'overriden' => FALSE,
+        'pris' => NULL,
+      ),
+      'varme' => array(
+        'overriden' => FALSE,
+        'pris' => NULL,
+      ),
+    );
+  }
+
+  /**
+   * Get CO2
+   *
+   * @return array
+   */
+  public function getCo2Override() {
+    return $this->co2Override;
+  }
+
+  /**
+   * Get priser
+   *
+   * @return float
+   */
+  public function getPriserOverrideKeyValue($type, $key) {
+    $priser = $this->getPriserOverride();
+    return isset($priser[$type][$key]) ? $priser[$type][$key] : NULL;
+  }
+
+  public function getVarmePrisOverriden() { return $this->getPriserOverrideKeyValue('varme', 'pris'); }
+  public function isVarmePrisOverriden() { return $this->getPriserOverrideKeyValue('varme', 'overriden'); }
+  public function getElPrisOverriden() { return $this->getPriserOverrideKeyValue('el', 'pris'); }
+  public function isElPrisOverriden() { return $this->getPriserOverrideKeyValue('el', 'overriden'); }
+
+  /**
+   * Get varmePris
+   *
+   * @return float
+   */
+  public function getVarmePris($year = 1) {
+    if ($this->isVarmePrisOverriden()) {
+      return $this->getVarmePrisOverriden();
+    }
+    return $this->calculateVarmepris($year);
+  }
+
+  /**
+   * Get elPris
+   *
+   * @return float
+   */
+  public function getElPris($year = 1) {
+    if ($this->isElPrisOverriden()) {
+      return $this->getElPrisOverriden();
+    }
+    return $this->calculateElpris($year);
+  }
+
+  /**
+   * Get CO2
+   *
+   * @return float
+   */
+  public function getCo2OverrideKeyValue($type, $key) {
+    $co2 = $this->getCo2Override();
+    return isset($co2[$type][$key]) ? $co2[$type][$key] : NULL;
+  }
+
+  public function getVarmeCo2Overriden() { return $this->getCo2OverrideKeyValue('varme', 'value'); }
+  public function isVarmeCo2Overriden() { return $this->getCo2OverrideKeyValue('varme', 'overriden'); }
+  public function getElCo2Overriden() { return $this->getCo2OverrideKeyValue('el', 'value'); }
+  public function isElCo2Overriden() { return $this->getCo2OverrideKeyValue('el', 'overriden'); }
+
+  /**
+   * Get varmeCo2
+   *
+   * @return float
+   */
+  public function getVarmeKgCo2MWh() {
+    if ($this->isVarmeCo2Overriden()) {
+      return $this->getVarmeCo2Overriden();
+    }
+    return $this->calculateVarmeCo2();
+  }
+
+  /**
+   * Get elPris
+   *
+   * @return float
+   */
+  public function getElKgCo2MWh() {
+    if ($this->isElCo2Overriden()) {
+      return $this->getElCo2Overriden();
+    }
+    return $this->calculateElCo2();
   }
 
   /**
@@ -2175,7 +2339,7 @@ abstract class Tiltag {
     $repository = $event->getEntityManager()
       ->getRepository('AppBundle:Configuration');
     $this->setConfiguration($repository->getConfiguration());
-
+    $this->setDefault();
   }
 
 }

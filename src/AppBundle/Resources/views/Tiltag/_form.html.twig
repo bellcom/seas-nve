@@ -29,56 +29,62 @@
     <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
   </div>
   <div class="panel-body">
-    <div class="col-xs-12 col-md-6">
-      {{ form_row(edit_form.title) }}
-      {{ form_row(edit_form.placering) }}
+    <div class="row" style="margin:0">
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.title) }}
+        {{ form_row(edit_form.placering) }}
 
-      {% if edit_form.datoForDrift is defined %}
-        {{ form_row(edit_form.datoForDrift) }}
-      {% endif %}
+        {% if edit_form.datoForDrift is defined %}
+          {{ form_row(edit_form.datoForDrift) }}
+        {% endif %}
 
-      {% if edit_form.slutanvendelse is defined %}
-        {{ form_row(edit_form.slutanvendelse) }}
-      {% endif %}
-
-      {{ form_row(edit_form.forsyningVarme) }}
-      {% if edit_form.priserOverride.varme is defined %}
-        <div class="form-group override">
-          <label class="control-label">{{ 'appbundle.tiltag.priserOverride.varme' | trans }}: {{ entity.getRapportVarmeKrKWh }} {{ 'appbundle.forsyningsvaerk.pris.unit' | trans }} </label>
-          {{ form_widget(edit_form.priserOverride.varme) }}
-        </div>
-      {% endif %}
-      {% if edit_form.co2Override.varme is defined %}
-        <div class="form-group override">
-          <label class="control-label">{{ 'appbundle.tiltag.co2Override.varme' | trans }}: {{ entity.getRapportVarmeKgCo2MWh }} {{ 'appbundle.forsyningsvaerk.co2.unit' | trans }} </label>
-          {{ form_widget(edit_form.co2Override.varme) }}
-        </div>
-      {% endif %}
-
-      {{ form_row(edit_form.forsyningEl) }}
-      {% if edit_form.priserOverride.el is defined %}
-        <div class="form-group override">
-          <label class="control-label">{{ 'appbundle.tiltag.priserOverride.el' | trans }}: {{ entity.getRapportElKrKWh }} {{ 'appbundle.forsyningsvaerk.pris.unit' | trans }} </label>
-          {{ form_widget(edit_form.priserOverride.el) }}
-        </div>
-      {% endif %}
-      {% if edit_form.co2Override.el is defined %}
-        <div class="form-group override">
-          <label class="control-label">{{ 'appbundle.tiltag.co2Override.el' | trans }}: {{ entity.getRapportElKgCo2MWh }} {{ 'appbundle.forsyningsvaerk.co2.unit' | trans }} </label>
-          {{ form_widget(edit_form.co2Override.el) }}
-        </div>
-      {% endif %}
+        {% if edit_form.slutanvendelse is defined %}
+          {{ form_row(edit_form.slutanvendelse) }}
+        {% endif %}
+      </div>
+      <div class="col-xs-12 col-md-6">
+        {% if edit_form.forbrugFoer is defined %}
+          {{ form_row(edit_form.forbrugFoer) }}
+        {% endif %}
+        {% if edit_form.forbrugEfter is defined %}
+          {{ form_row(edit_form.forbrugEfter) }}
+        {% endif %}
+        {% if edit_form.levetid is defined %}
+          {{ form_row(edit_form.levetid) }}
+        {% endif %}
+      </div>
     </div>
-    <div class="col-xs-12 col-md-6">
-      {% if edit_form.forbrugFoer is defined %}
-        {{ form_row(edit_form.forbrugFoer) }}
-      {% endif %}
-      {% if edit_form.forbrugEfter is defined %}
-        {{ form_row(edit_form.forbrugEfter) }}
-      {% endif %}
-      {% if edit_form.levetid is defined %}
-        {{ form_row(edit_form.levetid) }}
-      {% endif %}
+    <div class="row" style="margin:0">
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.forsyningVarme) }}
+        {% if edit_form.priserOverride.varme is defined %}
+          <div class="form-group override">
+            <label class="control-label">{{ 'appbundle.tiltag.priserOverride.varme' | trans }}: {{ entity.getRapportVarmeKrKWh | number_format }} {{ 'appbundle.forsyningsvaerk.pris.unit' | trans }} </label>
+            {{ form_widget(edit_form.priserOverride.varme) }}
+          </div>
+        {% endif %}
+        {% if edit_form.co2Override.varme is defined %}
+          <div class="form-group override">
+            <label class="control-label">{{ 'appbundle.tiltag.co2Override.varme' | trans }}: {{ entity.getRapportVarmeKgCo2MWh | number_format }} {{ 'appbundle.forsyningsvaerk.co2.unit' | trans }} </label>
+            {{ form_widget(edit_form.co2Override.varme) }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="col-xs-12 col-md-6">
+        {{ form_row(edit_form.forsyningEl) }}
+        {% if edit_form.priserOverride.el is defined %}
+          <div class="form-group override">
+            <label class="control-label">{{ 'appbundle.tiltag.priserOverride.el' | trans }}: {{ entity.getRapportElKrKWh | number_format }} {{ 'appbundle.forsyningsvaerk.pris.unit' | trans }} </label>
+            {{ form_widget(edit_form.priserOverride.el) }}
+          </div>
+        {% endif %}
+        {% if edit_form.co2Override.el is defined %}
+          <div class="form-group override">
+            <label class="control-label">{{ 'appbundle.tiltag.co2Override.el' | trans }}: {{ entity.getRapportElKgCo2MWh | number_format }} {{ 'appbundle.forsyningsvaerk.co2.unit' | trans }} </label>
+            {{ form_widget(edit_form.co2Override.el) }}
+          </div>
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>

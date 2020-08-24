@@ -20,7 +20,7 @@ class PrisOverrideType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        if ($options['overriden_checkbox']) {
+        if (in_array(str_replace(array('[', ']'), array('', ''), $options['property_path']), $options['overriden_checkbox'])) {
             $builder->add('overriden', 'checkbox', array('label' => FALSE));
         }
         $builder->add('pris', 'number', array('label' => FALSE));
