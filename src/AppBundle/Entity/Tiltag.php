@@ -1639,14 +1639,14 @@ abstract class Tiltag {
     $cashFlow = array_fill(1, $numberOfYears, 0);
 
     for ($year = 1; $year <= $numberOfYears; $year++) {
-      $varmepris = $this->calculateVarmepris($year);
-      $elpris = $this->calculateElpris($year);
+      $varmepris = $this->getVarmePris($year);
+      $elpris = $this->getElPris($year);
       $value = ($varmebesparelseGUF + $varmebesparelseGAF) * $varmepris
         + $elbesparelse * $elpris
         + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
 
       if ($this instanceof SolcelleTiltag) {
-        $value += $this->getSolcelleproduktion() * $this->getRapport()->getElKrKWh($year)
+        $value += $this->getSolcelleproduktion() * $this->getElPris($year)
           + $this->getSalgTilNettetAar1() * ($year <= 10
                                              ? $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()
                                              : $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisEfter10AarKrKWh());

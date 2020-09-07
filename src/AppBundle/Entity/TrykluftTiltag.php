@@ -78,11 +78,35 @@ class TrykluftTiltag extends Tiltag {
         $this->scrapvaerdi = $this->calculateScrapvaerdi();
         $this->cashFlow15 = $this->calculateCashFlow(15);
         $this->cashFlow30 = $this->calculateCashFlow(30);
+        $this->cashFlowSet = $this->calculateCashFlow($this->getConfiguration()->getNutidsvaerdiBeregnAar());
         $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
+        $this->nutidsvaerdiSet = $this->calculateNutidsvaerdiSet();
+        $this->akkumuleretNutidsvaerdiSet = $this->calculateAkkumuleterNutidsvaerdiSet();
         $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
         $this->besparelseAarEt = $this->calculateSavingsForYear(1);
         $this->maengde = $this->calculateMaengde();
         $this->enhed = $this->calculateEnhed();
+    }
+
+    /**
+     * Cashflow calculation.
+     *
+     * @param $numberOfYears
+     * @param int $yderligereBesparelseKrAar
+     * @return array
+     */
+    protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
+        $inflation = $this->getRapport()->getInflation();
+        $besparelseStrafafkoelingsafgift = floatval($this->besparelseStrafafkoelingsafgift);
+        $besparelseDriftOgVedligeholdelse = floatval($this->besparelseDriftOgVedligeholdelse);
+
+        $cashFlow = array_fill(1, $numberOfYears, 0);
+        for ($year = 1; $year <= $numberOfYears; $year++) {
+            $value = $this->getSamletEnergibesparelse() + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
+            $cashFlow[$year] = $value + $yderligereBesparelseKrAar;
+        }
+
+        return $cashFlow;
     }
 
     /**
