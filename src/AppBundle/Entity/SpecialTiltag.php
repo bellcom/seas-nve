@@ -264,10 +264,6 @@ class SpecialTiltag extends Tiltag {
     return parent::calculateCashFlow($numberOfYears, $this->getYderligereBesparelse());
   }
 
-  public function calculateSavingsForYear($year) {
-    return parent::calculateSavingsForYear($year) + $this->getYderligereBesparelse();
-  }
-
   /**
    * @inheritDoc
    * @Formula("$this->getAnlaegsinvesteringExRisiko() * $this->calculateAnlaegsinvesteringFaktor()")
