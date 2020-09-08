@@ -38,14 +38,18 @@ class VarmeanlaegTiltag extends Tiltag {
     * Constructor
     */
     public function __construct() {
+        global $kernel;
+        $configuration = $kernel->getContainer()->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Configuration')->getConfiguration();
+        $this->setConfiguration($configuration);
         parent::__construct();
         $this->setTitle('Varmeanlæg');
         $this->setDefault();
+
     }
 
     protected function setDefault() {
-        parent::setDefault();
         $this->setPriserOverride($this->getPriserOverride() + $this->getPriserOverrideDefault());
+        $this->setCo2Override($this->getCo2Override() + $this->getCo2OverrideDefault());
     }
 
     /**
@@ -76,7 +80,7 @@ class VarmeanlaegTiltag extends Tiltag {
      */
     public function getPriserOverrideDefault() {
         $energiTyper = array_filter(array_keys(EnergiType::getChoices()));
-        $default = parent::getPriserOverrideDefault();
+        $default = [];
         foreach ($energiTyper as $type) {
             $default[$type] = array(
                 'pris' => NULL,
@@ -93,6 +97,23 @@ class VarmeanlaegTiltag extends Tiltag {
     public function getPriserOverrideKeyValue($type, $key) {
         $priser = $this->getPriserOverride();
         return isset($priser[$type][$key]) ? $priser[$type][$key] : NULL;
+    }
+
+    /**
+     * Get Priser Override default value
+     *
+     * @return array
+     */
+    public function getCo2OverrideDefault() {
+        $varmeEnergiCo2 = $this->configuration->getVarmeEnergiCo2();
+        $energiTyper = array_filter(array_keys(EnergiType::getChoices()));
+        $default = [];
+        foreach ($energiTyper as $type) {
+            $default[$type] = array(
+                'value' => isset($varmeEnergiCo2[$type]) ? $varmeEnergiCo2[$type] : NULL,
+            );
+        }
+        return $default;
     }
 
     /**

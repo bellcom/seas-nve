@@ -118,21 +118,44 @@
     </div>
   </div>
 </div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{ 'common.varme_priser' | trans }}</h3>
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'common.varme_priser' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="col-xs-12 col-md-6">
+            {{ form_row(edit_form.priserOverride.olie) }}
+            {{ form_row(edit_form.priserOverride.naturgas) }}
+            {{ form_row(edit_form.priserOverride.fjernvarme) }}
+          </div>
+          <div class="col-xs-12 col-md-6">
+            {{ form_row(edit_form.priserOverride.traepiller) }}
+            {{ form_row(edit_form.priserOverride.elvarme) }}
+            {{ form_row(edit_form.priserOverride.varmepumpe) }}
+          </div>
+        </div>
+      </div>
   </div>
-  <div class="panel-body">
-    <div class="col-xs-12 col-md-6">
-      {{ form_row(edit_form.priserOverride.olie) }}
-      {{ form_row(edit_form.priserOverride.naturgas) }}
-      {{ form_row(edit_form.priserOverride.fjernvarme) }}
-    </div>
-    <div class="col-xs-12 col-md-6">
-      {{ form_row(edit_form.priserOverride.traepiller) }}
-      {{ form_row(edit_form.priserOverride.elvarme) }}
-      {{ form_row(edit_form.priserOverride.varmepumpe) }}
-    </div>
+  <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'common.varme_co2' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="col-xs-12 col-md-6">
+            {{ form_row(edit_form.co2Override.olie) }}
+            {{ form_row(edit_form.co2Override.naturgas) }}
+            {{ form_row(edit_form.co2Override.fjernvarme) }}
+          </div>
+          <div class="col-xs-12 col-md-6">
+            {{ form_row(edit_form.co2Override.traepiller) }}
+            {{ form_row(edit_form.co2Override.elvarme) }}
+            {{ form_row(edit_form.co2Override.varmepumpe) }}
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 {% if edit_form.besparelseGUF is defined %}

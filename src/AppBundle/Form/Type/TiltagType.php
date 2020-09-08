@@ -124,6 +124,12 @@ class TiltagType extends AbstractType {
       ))
       ->add('co2Override', 'collection', array(
         'type' => Co2OverrideType::class,
+        'options' => array(
+          'overriden_checkbox' => array(
+            'el',
+            'varme',
+          ),
+        ),
         'label' => FALSE,
         'required' => FALSE,
       ));

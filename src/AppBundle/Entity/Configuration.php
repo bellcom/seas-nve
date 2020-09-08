@@ -178,6 +178,13 @@ class Configuration
     private $nutidsvaerdiBeregnAar = 25;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="varmeEnergiCo2", type="array")
+     */
+    private $varmeEnergiCo2;
+
+    /**
      * Constructor
      */
     public function __construct() {
@@ -278,6 +285,15 @@ class Configuration
                 VarmePumpeType::LUFTVAND_MED_JORD => 3.9,
                 VarmePumpeType::LUFTVAND_MED_RADIATOR => 3.3,
             ));
+        }
+
+        if (empty($this->varmeEnergiCo2)) {
+            $energiTyper = array_filter(array_keys(EnergiType::getChoices()));
+            $varmeEnergiCo2 = [];
+            foreach ($energiTyper as $type) {
+                $varmeEnergiCo2[$type] = NULL;
+            }
+            $this->setVarmeEnergiCo2($varmeEnergiCo2);
         }
     }
 
@@ -624,6 +640,29 @@ class Configuration
     public function getVarmePumpeFaktor()
     {
         return $this->varmePumpeFaktor;
+    }
+
+    /**
+     * Set varmeEnergiCo2
+     *
+     * @param array $varmeEnergiCo2
+     *
+     * @return Configuration
+     */
+    public function setVarmeEnergiCo2($varmeEnergiCo2)
+    {
+        $this->varmeEnergiCo2 = $varmeEnergiCo2;
+        return $this;
+    }
+
+    /**
+     * Get varmeEnergiCo2
+     *
+     * @return array
+     */
+    public function getVarmeEnergiCo2()
+    {
+        return $this->varmeEnergiCo2;
     }
 
     /**

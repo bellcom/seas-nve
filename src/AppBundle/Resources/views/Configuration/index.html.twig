@@ -261,6 +261,31 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-6 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ 'common.varme_co2' | trans}}</h3>
+            </div>
+            <table class="table table-condensed">
+              <thead>
+              <tr>
+                <th>{{ 'appbundle.configuration.varmeEnergiCo2.type.label' | trans}}</th>
+                <th>{{ 'appbundle.configuration.varmeEnergiCo2.unit' | trans}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for type, value in entity.varmeEnergiCo2 %}
+                <tr>
+                  <td>{{ ('appbundle.varmeanlaegtiltagdetail.energiType.' ~ type ) | trans }}</td>
+                  <td>{% if value is empty %}--{% else %}{{ value }}{% endif %}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

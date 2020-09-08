@@ -2034,7 +2034,7 @@ abstract class Tiltag {
    * @return array
    */
   public function getCo2Override() {
-    return $this->co2Override;
+    return $this->co2Override == NULL ? array() : $this->co2Override;
   }
 
   /**
