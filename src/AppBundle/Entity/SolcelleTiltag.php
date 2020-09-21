@@ -30,7 +30,7 @@ class SolcelleTiltag extends Tiltag
     protected $samletEnergibesparelse;
 
     /**
-     * @Formula("($this->solcelleproduktion + $this->getSalgTilNettetAar1()) / 1000 * $this->calculateelKgCo2MWh() / 1000")
+     * @Formula("($this->solcelleproduktion + $this->getSalgTilNettetAar1()) / 1000 * $this->getElKgCo2MWh() / 1000")
      */
     protected $samletCo2besparelse;
 
