@@ -246,7 +246,7 @@ app:
 trsteel_ckeditor:
     toolbar: ['document', 'clipboard', 'editing', 'insert', '/', 'styles', 'basicstyles', 'paragraph', 'links']
     toolbar_groups:
-        document: ['Source']
+        document: ['Source','Code']
         clipboard: ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo']
         editing: ['Find','Replace','-','SelectAll']
         basicstyles: ['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat']
@@ -257,6 +257,9 @@ trsteel_ckeditor:
         route: elfinder
         route_parameters:
             instance: default
+    external_plugins:
+        syntaxhighlight:
+            path: js/ckeditor/plugins/syntaxhighlight
 
 fm_elfinder:
     #assets_path: / # default is /assets, this is where css/js elfinder files are
