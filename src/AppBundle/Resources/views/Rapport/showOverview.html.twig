@@ -1,0 +1,8 @@
+{% extends 'AppBundle::pdf.html.twig' %}
+
+{% block body -%}
+  {% for section in sections %}
+    {% set type = section.type ? section.type : 'base' %}
+      {% include 'AppBundle::Rapport/sections/' ~ type ~ '.html.twig' with section %}
+  {% endfor %}
+{% endblock %}

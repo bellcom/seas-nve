@@ -17,6 +17,35 @@ class PdfExport {
     $this->templating = $this->container->get('templating');
   }
 
+  /**
+   * Temporary implementation of rapport view function before render
+   *
+   * @param Rapport $rapport
+   * @param array $options
+   * @param false $review
+   * @return mixed
+   */
+  public function rapportView(Rapport $rapport, array $options = array(), $review = FALSE) {
+      $sections = array(
+          'test' => array(
+              'page' => array(
+                  'landscape' => TRUE,
+              ),
+              'title' => 'test title',
+              'text' => 'test text',
+          ),
+          'test2' => array(
+              'type' => 'test',
+              'edit_url' => TRUE,
+              'title' => 'test title',
+              'text' => 'test text',
+          ),
+      );
+      return $this->renderView('AppBundle:Rapport:showOverview.html.twig', array(
+          'sections' => $sections,
+      ));
+  }
+
   public function export2(Rapport $rapport, array $options = array(), $review = FALSE) {
     $data = array();
     $virksomhed = $rapport->getBygning()->getVirksomhed();
