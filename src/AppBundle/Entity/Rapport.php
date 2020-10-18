@@ -15,6 +15,7 @@ use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
 use AppBundle\Entity\Energiforsyning;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -550,6 +551,13 @@ class Rapport {
   protected $visGraphPDF = TRUE;
 
   /**
+   * @OneToMany(targetEntity="AppBundle\Entity\RapportSektioner\RapportSektion", mappedBy="bygningOversigtRapport", cascade={"persist", "remove"})
+   * @OrderBy({"id" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\RapportSektioner\RapportSektion>")
+   */
+  protected $rapportOversigtSektioner;
+
+  /**
    * @return float
    */
   public function getfravalgtBesparelseDriftOgVedligeholdelse()
@@ -878,6 +886,7 @@ class Rapport {
     $this->datering = new \DateTime();
     $this->version = 1;
     $this->besparelseSlutanvendelser = array();
+    $this->rapportOversigtSektioner = new ArrayCollection();
   }
 
   /**
@@ -2015,6 +2024,29 @@ class Rapport {
   }
 
   /**
+   * Set rapportOversigtSektioner
+   *
+   * @param ArrayCollection $rapportOversigtSektioner
+   * @return Rapport
+   */
+  public function setRapportOversigtSektioner($rapportOversigtSektioner)
+  {
+    $this->rapportOversigtSektioner = $rapportOversigtSektioner;
+    return $this;
+  }
+
+  /**
+   * Get rapportOversigtSektioner
+   *
+   * @return float
+   */
+  public function getRapportOversigtSektioner()
+  {
+    return $this->rapportOversigtSektioner;
+  }
+
+
+    /**
    * Post load handler.
    *
    * @ORM\PostLoad

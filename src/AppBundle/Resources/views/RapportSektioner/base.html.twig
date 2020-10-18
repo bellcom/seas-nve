@@ -1,0 +1,24 @@
+<div class="{% if page.landscape %}landscape{% else %}portrait{% endif %}">
+  <div class="row{% if page.break %} page-break-before{% endif %}">
+    <div class="col-xs-12">
+      {% if edit_url and preview %}
+        <div class="float-right"><a href="#">edit</a></div>
+      {% endif %}
+      {% block section -%}
+        {% if title %}
+          {% block section_title -%}
+            <h2 class="section-title">{{ title }}</h2>
+          {% endblock %}
+        {% endif %}
+
+        {% block section_content -%}
+          {% if text %}
+            <div class="section-text">
+              {{ text }}
+            </div>
+          {% endif %}
+        {% endblock %}
+      {% endblock %}
+    </div>
+  </div>
+</div>

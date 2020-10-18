@@ -9,13 +9,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Entity\Rapport;
 
 class PdfExport {
-  private $container;
-  private $templating;
 
-  public function __construct(ContainerInterface $container) {
-    $this->container = $container;
-    $this->templating = $this->container->get('templating');
-  }
+  use PdfExportTrait;
 
   /**
    * Temporary implementation of rapport view function before render
@@ -460,26 +455,6 @@ class PdfExport {
             'header-right' => "Side [page] af [toPage]",
             'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdfVirksomhedDetailarkFooter.html'),
       $options));
-  }
-
-  private function renderView($view, array $parameters = array()) {
-    return $this->templating->render($view, $parameters);
-  }
-
-  /**
-   * Sorts tiltags array collection.
-   *
-   * @param ArrayCollection $tiltags
-   *
-   * @return ArrayCollection
-   */
-  protected function sortTiltags($tiltags) {
-    $iterator = $tiltags->getIterator();
-    $iterator->uasort(function ($a, $b) {
-      return ($a->getSimpelTilbagebetalingstidAar() < $b->getSimpelTilbagebetalingstidAar()) ? -1 : 1;
-    });
-
-    return new ArrayCollection(iterator_to_array($iterator));
   }
 
 }

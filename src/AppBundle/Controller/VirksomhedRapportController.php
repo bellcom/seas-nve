@@ -307,20 +307,20 @@ class VirksomhedRapportController extends BaseController {
    * @return array
    */
   public function showPdfReviewAction(VirksomhedRapport $rapport, $type) {
-    $exporter = $this->get('aaplus.pdf_export');
+    $exporter = $this->get('aaplus.virksomhed_pdf_export');
     switch ($type) {
       case 'resultatoversigt':
-        $html = $exporter->exportVirksomhedRapport2($rapport, array(), TRUE);
-        $pdf_export_route = 'virksomhed_rapport_show_pdf2';
+        $html = $exporter->rapportView($rapport, array(), TRUE);
+        $pdf_export_route = 'virksomhed_rapport_show_overview';
         break;
 
       case 'detailark':
-        $html = $exporter->exportVirksomhedRapportDetailark($rapport, array(), TRUE);
+        $html = $exporter->exportDetailark($rapport, array(), TRUE);
         $pdf_export_route = 'virksomhed_rapport_show_pdf_detailark';
         break;
 
       case 'kortlaegning':
-        $html = $exporter->exportVirksomhedRapportKortlaegning($rapport, array(), TRUE);
+        $html = $exporter->exportKortlaegning($rapport, array(), TRUE);
         $pdf_export_route = 'virksomhed_rapport_show_pdf_kortlaegning';
         break;
 
@@ -337,7 +337,7 @@ class VirksomhedRapportController extends BaseController {
   /**
    * Finds and displays a VirksomhedRapport entity in PDF form. (Resultatoversigt)
    *
-   * @Route("/{id}/pdf2", name="virksomhed_rapport_show_pdf2")
+   * @Route("/{id}/overview", name="virksomhed_rapport_show_overview")
    * @Method("POST")
    * @Template()
    * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
@@ -346,10 +346,10 @@ class VirksomhedRapportController extends BaseController {
    *
    * @return Response
    */
-  public function showPdf2Action(Request $request, VirksomhedRapport $rapport) {
+  public function showPdfOverviewAction(Request $request, VirksomhedRapport $rapport) {
     // We need more time!
     set_time_limit(0);
-    $exporter = $this->get('aaplus.pdf_export');
+    $exporter = $this->get('aaplus.virksomhed_pdf_export');
     $pdf = $exporter->exportVirksomhedRapport2($rapport);
 
     $pdfName = $rapport->getVirksomhed() . '-resultatoversigt-' . date('Y-m-d-His');

@@ -629,11 +629,25 @@ class VirksomhedRapport
     protected $summarizedRapportValues = array();
 
     /**
+     * @OneToMany(targetEntity="AppBundle\Entity\RapportSektioner\RapportSektion", mappedBy="rapport", cascade={"persist", "remove"})
+     * @OrderBy({"id" = "ASC"})
+     * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\RapportSektioner\RapportSektion>")
+     */
+    protected $rapportOversigtSektioner;
+
+    /**
      * @var ArrayCollection
      *
      * Stores all virksomheder involved in rapport.
      */
     private $virksomhederList;
+
+    /**
+     * Schema for sections
+     */
+    const RAPPORT_SEKTIONER = array(
+        'opsummering'
+    );
 
     /**
      * Constructor
@@ -644,6 +658,7 @@ class VirksomhedRapport
         $this->version = 1;
         $this->rapporter = array();
         $this->besparelseSlutanvendelser = array();
+        $this->rapportOversigtSektioner = new ArrayCollection();
     }
 
     /**
@@ -2066,6 +2081,28 @@ class VirksomhedRapport
     }
 
     /**
+     * Set rapport sections
+     *
+     * @param ArrayCollection $rapportOversigtSektioner
+     * @return VirksomhedRapport
+     */
+    public function setRapportOversigtSektioner($rapportOversigtSektioner)
+    {
+      $this->rapportOversigtSektioner = $rapportOversigtSektioner;
+      return $this;
+    }
+
+    /**
+     * Get RapportOversigtSektioner
+     *
+     * @return float
+     */
+    public function getRapportOversigtSektioner()
+    {
+        return $this->rapportOversigtSektioner;
+    }
+
+    /**
      * Set samletEnergibesparelseKr
      *
      * @param float $samletEnergibesparelseKr
@@ -2615,7 +2652,11 @@ class VirksomhedRapport
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
      */
     public function postLoad() {
-      $this->initFormulableCalculation();
+        $this->initFormulableCalculation();
+        $sektioner = $this->getRapportOversigtSektioner();
+        foreach (self::RAPPORT_SEKTIONER as $sektion) {
+
+        }
     }
 
     public function __call($name, $arguments = array())

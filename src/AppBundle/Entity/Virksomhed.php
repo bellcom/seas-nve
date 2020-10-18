@@ -1114,6 +1114,23 @@ class Virksomhed
     }
 
     /**
+     * Get full address line.
+     *
+     * @return string
+     */
+    public function getFullAddress()
+    {
+        $address_arr = [
+            'kommune' => $this->getKommune(),
+            'region' => $this->getRegion(),
+            'by' => $this->getByNavn(),
+            'address' => $this->getAddress(),
+        ];
+
+        return array_filter($address_arr) ? ('Danmark, ' . implode(', ', array_filter($address_arr))) : NULL;
+    }
+
+    /**
      * Set postnummer
      *
      * @param string $postnummer
