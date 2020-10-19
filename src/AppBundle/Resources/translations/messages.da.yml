@@ -505,6 +505,32 @@ pumpetiltagdetail:
     copy: "Kopier Pumpeforslag"
     create: "Opret Pumpeforslag"
     edit: "Rediger Pumpeforslag"
+reportimage:
+  labels:
+    plural: "Rapport billeder"
+  tabs:
+    main: "Forsides hoved billeder"
+    recommendation: "Anbefaling billeder"
+    suggestions: "Forslagsbilleder"
+    pumpe: "Pumpe billeder"
+    belysning: "Belysning billeder"
+    nyklimaskaerm: "Klimaskaerm billeder"
+    vindue: "Vindue billeder"
+    solcelle: "Solcelle billeder"
+    tekniskisolering: "Teknist isolering billeder"
+    ventilation: "Ventilation billeder"
+    trykluft: "Trykluft billeder"
+    varmeanlaeg: "Varmeanlæg billeder"
+    koeleanlaeg: "Køleanlag billeder"
+    special: "Special billeder"
+  actions:
+    add: "Nyt billede upload"
+    mark_standard: "Markér som standard"
+  confirmation:
+    created: "Rapport billede oprettet"
+  error:
+    general: "Rapport billede kan ikke oprettes"
+    filetype: "Tilladte filtyper er: jpg, jpeg, png"
 rapporter:
   labels:
     plural: "Rapporter"
@@ -1996,6 +2022,11 @@ appbundle:
     nutidsvaerdiSet.unit: "kr"
     akkumuleretNutidsvaerdiSet: "Akkumuleret nutidsværdi"
     akkumuleretNutidsvaerdiSet.unit: "kr"
+  reportimage:
+    title: "Titel"
+    filepath: "Fil"
+    filepath.help: "Tilladte filtyper er jpg, jpeg, png"
+    standard: "Standard"
   segment:
     add: "Opret Segment"
     edit: "Rediger Segment"

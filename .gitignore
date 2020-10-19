@@ -3,6 +3,7 @@
 /web/uploads/*
 !web/uploads/.htaccess
 !web/uploads/content/.htaccess
+!web/uploads/report_images/.htaccess
 /web/bundles/
 /web/assets/
 /app/bootstrap.php.cache
