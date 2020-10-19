@@ -525,6 +525,7 @@ reportimage:
     special: "Special billeder"
   actions:
     add: "Nyt billede upload"
+    mark_standard: "Markér som standard"
   confirmation:
     created: "Rapport billede oprettet"
   error:
@@ -2025,6 +2026,7 @@ appbundle:
     title: "Titel"
     filepath: "Fil"
     filepath.help: "Tilladte filtyper er jpg, jpeg, png"
+    standard: "Standard"
   segment:
     add: "Opret Segment"
     edit: "Rediger Segment"

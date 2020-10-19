@@ -2,19 +2,9 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\DBAL\Types\SlutanvendelseType;
-use AppBundle\Entity\BelysningTiltagDetail\Lyskilde;
-use AppBundle\Entity\Bilag;
-use AppBundle\Entity\Bygning;
-use AppBundle\Entity\Rapport;
 use AppBundle\Entity\ReportImage;
-use AppBundle\Form\BelysningTiltagDetail\LyskildeType;
-use AppBundle\Form\Type\RapportBilagType;
-use AppBundle\Form\Type\RapportSearchType;
-use AppBundle\Form\Type\ReportImageMarkStandardType;
 use AppBundle\Form\Type\ReportImageType;
 use Gedmo\Exception\UploadableInvalidMimeTypeException;
-use mysql_xdevapi\Exception;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -37,7 +27,9 @@ class ReportImageController extends BaseController {
   }
 
   /**
-   * Lists all BelysningTiltagDetail\Lyskilde entities.
+   * Redirects to report_image_get
+   *
+   * @see listAction.
    *
    * @Route("/", name="report_image")
    * @Method("GET")
@@ -46,13 +38,10 @@ class ReportImageController extends BaseController {
   public function indexAction()
   {
     return $this->redirect($this->generateUrl('report_image_get',array('image_type' => 'main')));
-
-    var_dump('test');
-    //\Doctrine\Common\Util\Debug::dump($entities);
   }
 
   /**
-   * Lists all BelysningTiltagDetail\Lyskilde entities.
+   * Lists all ReportImage of chosen category.
    *
    * @Route("/{image_type}", name="report_image_get")
    * @Method("GET")
@@ -86,14 +75,13 @@ class ReportImageController extends BaseController {
 
     $image_elements = array();
     foreach ($uploaded_images as $image) {
-      $mark_form = $this->createForm(new ReportImageMarkStandardType($image), $image, array(
-        'action' => $this->generateUrl('report_image_mark_standard', array('report_image_id' => $image->getId())),
-        'method' => 'PUT',
-      ));
+      $mark_form = $this->markStandardForm($image);
+      $delete_form = $this->createDeleteForm($image->getId());
 
       $image_elements[$image->getId()] = array(
         'image' => $image,
-        'mark_standard_form' => $mark_form->createView()
+        'mark_standard_form' => $mark_form->createView(),
+        'delete_form' => $delete_form->createView()
       );
     }
 
@@ -137,7 +125,7 @@ class ReportImageController extends BaseController {
       }
     }
 
-    return $this->redirect($this->generateUrl('report_image', array('image_type' => $image_type)));
+    return $this->redirect($this->generateUrl('report_image_get', array('image_type' => $image_type)));
   }
 
   /**
@@ -169,15 +157,53 @@ class ReportImageController extends BaseController {
     $em->flush();
     $this->flash->success('reportimage.confirmation.created');
 
-    return $this->redirect($this->generateUrl('report_image', array('image_type' => $reportImage->getType())));
+    return $this->redirect($this->generateUrl('report_image_get', array('image_type' => $reportImage->getType())));
   }
 
   /**
-   * Creates a form to create a Bilag entity.
+   * Deletes a Report Image entity.
    *
-   * @param Bilag $bilag The entity
+   * @Route("/{id}", name="report_image_delete")
+   * @Method("DELETE")
+   */
+  public function deleteAction(Request $request, $id) {
+    $form = $this->createDeleteForm($id);
+    $form->handleRequest($request);
+
+    $reportImage = NULL;
+
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $reportImage = $em->getRepository('AppBundle:ReportImage')->find($id);
+
+      if (!$reportImage) {
+        throw $this->createNotFoundException('Unable to find Report entity.');
+      }
+
+      $em->remove($reportImage);
+      $em->flush();
+    }
+
+    if ($reportImage) {
+      $redirectUrl = $this->generateUrl('report_image_get', array('image_type' => $reportImage->getType()));
+    }
+    else {
+      $redirectUrl = $this->generateUrl('report_image_get',array('image_type' => 'main'));
+    }
+
+    return $this->redirect($redirectUrl);
+  }
+
+  /**
+   * Creates a form to create a Report Image entity.
    *
-   * @return \Symfony\Component\Form\Form The form
+   * @param string $reportImageType
+   *   Report image type.
+   * @param \AppBundle\Entity\ReportImage $reportImage
+   *   Empty report Image entity.
+   *
+   * @return \Symfony\Component\Form\Form
+   *   Create new form.
    */
   private function createNewForm($reportImageType, ReportImage $reportImage) {
     $form = $this->createForm(new ReportImageType($reportImage), $reportImage, array(
@@ -191,16 +217,79 @@ class ReportImageController extends BaseController {
   }
 
   /**
+   * Creates a form to mark Image as standard.
+   *
+   * If image is already standard, the submit button will be disabled.
+   *
+   * @param ReportImage $reportImage
+   *   Report image entity.
+   *
+   * @return \Symfony\Component\Form\Form
+   *   Mark standard form.
+   */
+  private function markStandardForm(ReportImage $reportImage) {
+    if (!$reportImage->isStandard()) {
+      $form = $this->createFormBuilder()
+        ->setAction($this->generateUrl('report_image_mark_standard', array('report_image_id' => $reportImage->getId())))
+        ->setMethod('PUT')
+        ->add('submit', 'submit', array(
+          'label' => 'reportimage.actions.mark_standard',
+          'button_class' => 'default',
+          'attr' => [
+            'icon' => 'check',
+          ],
+        ))
+        ->getForm();
+    }
+    else {
+      $form = $this->createFormBuilder()
+        ->setAction($this->generateUrl('report_image_mark_standard', array('report_image_id' => $reportImage->getId())))
+        ->setMethod('PUT')
+        ->add('submit', 'submit', array(
+          'label' => 'appbundle.reportimage.standard',
+          'attr' => [
+            'class' => 'disabled',
+            'icon' => 'check',
+          ],
+          'button_class' => 'success'
+        ))
+        ->getForm();
+    }
+
+    return $form;
+  }
+
+  /**
+   * Creates a form to delete a Report Image by id.
+   *
+   * @param mixed $id
+   *   The entity id.
+   *
+   * @return \Symfony\Component\Form\Form
+   *   The delete form.
+   */
+  private function createDeleteForm($id) {
+    return $this->createFormBuilder()
+      ->setAction($this->generateUrl('report_image_delete', array('id' => $id)))
+      ->setMethod('DELETE')
+      ->add('submit', 'submit', array(
+        'label' => 'Delete',
+      ))
+      ->getForm();
+  }
+
+  /**
    * Handles the upload of the image.
    *
-   * @param $manager
+   * @param \AppBundle\Entity\ReportImage $reportImage
+   *   Report image entity.
    */
   protected function handleUploads(ReportImage $reportImage) {
     $fileInfo = $reportImage->getFilepath();
 
     if (is_object($fileInfo) && $fileInfo instanceof UploadedFile) {
       $manager = $this->get('stof_doctrine_extensions.uploadable.manager');
-      $manager->markEntityToUpload($this, $fileInfo);
+      $manager->markEntityToUpload($reportImage, $fileInfo);
     }
   }
 }

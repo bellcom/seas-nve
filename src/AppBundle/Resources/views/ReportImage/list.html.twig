@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-6 text-right">
             {% for type in report_image_types %}
-                <a href="{{ path('report_image_get', { 'image_type': type }) }}" class="btn btn-default {% if selected_image_type ==  type%}active{% endif %}">
+                <a href="{{ path('report_image_get', { 'image_type': type }) }}" class="btn btn-default {% if selected_image_type == type%}active{% endif %}">
                     {{ "reportimage.tabs.#{ type }" | trans }}
                 </a>
             {% endfor %}
@@ -38,15 +38,20 @@
                     <div class="col-xs-6 col-md-2">
                         <p class="text-center">{{ element.image.title }}</p>
 
-                        <img src="{{ asset(element.image.filepath) }}" class="img-rounded image-swatch">
+                        <a href="{{ asset(element.image.filepath) }}" target="_blank">
+                            <img src="{{ asset(element.image.filepath) }}" class="img-rounded image-swatch">
+                        </a>
 
-                        <p class="text-center">
-                            <a href="{{ asset(element.image.filepath) }}" target="_blank">Vis</a> |
-                            <a href="{{ path('report_image_mark_standard', {'report_image_id': element.image.id }) }}">Markér som Standard</a> |
-                            Slet
-                        </p>
+                        <div class="text-center">
+                            <div class="btn-group">
+                                    {{ form(element.mark_standard_form) }}
+                            </div>
 
-                        {{ form(element.mark_standard_form) }}
+                            <div class="btn-group">
+                                {{ form(element.delete_form) }}
+                            </div>
+                        </div>
+
                     </div>
                 {% endfor %}
             </div>
