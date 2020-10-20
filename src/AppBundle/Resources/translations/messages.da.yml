@@ -531,6 +531,17 @@ reportimage:
   error:
     general: "Rapport billede kan ikke oprettes"
     filetype: "Tilladte filtyper er: jpg, jpeg, png"
+reporttext:
+  labels:
+    plural: "Rapport tekster"
+  actions:
+    add: "Ny rapport tekst"
+    create: "Opret rapport tekst"
+    edit: "Rediger rapport tekst"
+  confirmation:
+    created: "Rapport tekst oprettet"
+    updated: "Rapport tekst opdateret"
+    deleted: "Rapport tekst slettet"
 rapporter:
   labels:
     plural: "Rapporter"
@@ -2027,6 +2038,11 @@ appbundle:
     filepath: "Fil"
     filepath.help: "Tilladte filtyper er jpg, jpeg, png"
     standard: "Standard"
+  reporttext:
+    title: "Titel"
+    body: "Tekst"
+    updated_by: "Redigeret af"
+    updated_at: "Redigeringstidspunkt"
   segment:
     add: "Opret Segment"
     edit: "Rediger Segment"
