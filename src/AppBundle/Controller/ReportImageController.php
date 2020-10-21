@@ -129,7 +129,7 @@ class ReportImageController extends BaseController {
   }
 
   /**
-   * Edits an existing Bilag entity.
+   * Marks ReportImage as standard.
    *
    * @Route("/{report_image_id}/mark-default", name="report_image_mark_standard")
    * @Method("PUT")

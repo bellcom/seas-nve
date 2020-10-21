@@ -506,6 +506,14 @@ pumpetiltagdetail:
     create: "Opret Pumpeforslag"
     edit: "Rediger Pumpeforslag"
 reportimage:
+  actions:
+    add: "Nyt billede upload"
+    mark_standard: "Markér som standard"
+  confirmation:
+    created: "Rapport billede oprettet"
+  error:
+    general: "Rapport billede kan ikke oprettes"
+    filetype: "Tilladte filtyper er: jpg, jpeg, png"
   labels:
     plural: "Rapport billeder"
   tabs:
@@ -523,25 +531,21 @@ reportimage:
     varmeanlaeg: "Varmeanlæg billeder"
     koeleanlaeg: "Køleanlag billeder"
     special: "Special billeder"
-  actions:
-    add: "Nyt billede upload"
-    mark_standard: "Markér som standard"
-  confirmation:
-    created: "Rapport billede oprettet"
-  error:
-    general: "Rapport billede kan ikke oprettes"
-    filetype: "Tilladte filtyper er: jpg, jpeg, png"
 reporttext:
-  labels:
-    plural: "Rapport tekster"
   actions:
     add: "Ny rapport tekst"
     create: "Opret rapport tekst"
     edit: "Rediger rapport tekst"
+    mark_standard: "Markér som standard"
   confirmation:
     created: "Rapport tekst oprettet"
     updated: "Rapport tekst opdateret"
     deleted: "Rapport tekst slettet"
+  labels:
+    plural: "Rapport tekster"
+  tabs:
+    main: "Forside"
+    summary: "Opsummering"
 rapporter:
   labels:
     plural: "Rapporter"
@@ -2041,6 +2045,7 @@ appbundle:
   reporttext:
     title: "Titel"
     body: "Tekst"
+    standard: "Standard"
     updated_by: "Redigeret af"
     updated_at: "Redigeringstidspunkt"
   segment:

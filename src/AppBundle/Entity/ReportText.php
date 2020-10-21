@@ -56,6 +56,20 @@ class ReportText {
   protected $body;
 
   /**
+   * @var string
+   *
+   * @ORM\Column(name="type", type="string", length=255, nullable=true)
+   */
+  protected $type;
+
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="standard", type="boolean", nullable=true)
+   */
+  protected $standard;
+
+  /**
    * @return string
    */
   public function getTitle() {
@@ -95,6 +109,36 @@ class ReportText {
    */
   public function setBody($body) {
     $this->body = $body;
+  }
+
+  /**
+   * @return string
+   */
+  public function getType() {
+    return $this->type;
+  }
+
+  /**
+   * @param string $type
+   */
+  public function setType($type) {
+    $this->type = $type;
+  }
+
+  /**
+   * Sets is standard.
+   *
+   * @param boolean $standard
+   */
+  public function setStandard($standard) {
+    $this->standard = $standard;
+  }
+
+  /**
+   * @return boolean
+   */
+  public function isStandard() {
+    return $this->standard;
   }
 
 }

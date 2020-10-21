@@ -17,9 +17,11 @@ use Symfony\Component\Form\AbstractType;
  * @package AppBundle\Form
  */
 class ReportTextType extends AbstractType {
+  protected $type;
   protected $reportText;
 
-  public function __construct(ReportText $reportText) {
+  public function __construct($type, ReportText $reportText) {
+    $this->type = $type;
     $this->reportText = $reportText;
   }
 
@@ -28,7 +30,10 @@ class ReportTextType extends AbstractType {
       ->add('title', 'text', array(
         'required' => TRUE,
       ))
-      ->add('body', 'ckeditor', array('attr' => array('maxlength' => 10000), 'required' => FALSE));
+      ->add('body', 'ckeditor', array('attr' => array('maxlength' => 10000), 'required' => FALSE))
+      ->add('type', 'hidden', array(
+        'data' => $this->type,
+      ));
   }
 
   public function configureOptions(OptionsResolver $resolver) {

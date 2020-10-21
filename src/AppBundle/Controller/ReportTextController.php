@@ -25,34 +25,68 @@ class ReportTextController extends BaseController {
   }
 
   /**
-   * Lists os report texts.
+   * Redirects to report_image_get
+   *
+   * @see listAction.
    *
    * @Route("/", name="report_text")
    * @Method("GET")
-   * @Template("AppBundle:ReportText:index.html.twig")
+   * @Template()
    */
   public function indexAction()
   {
-    $em = $this->getDoctrine()->getManager();
-    $entities = $em->getRepository('AppBundle:ReportText')->findAll();
-
-    return array(
-      'entities' => $entities,
-    );
+    return $this->redirect($this->generateUrl('report_text_get',array('type' => 'main')));
   }
 
   /**
+   * Lists all ReportImage of chosen category.
+   *
+   * @Route("/{type}", name="report_text_get")
+   * @Method("GET")
+   * @Template("AppBundle:ReportText:list.html.twig")
+   */
+  public function listAction($type) {
+    $types = array(
+      'main',
+      'summary',
+    );
+
+    $em = $this->getDoctrine()->getManager();
+    $reportTexts = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $type));
+
+    $elements = array();
+    foreach ($reportTexts as $reportText) {
+      $mark_form = $this->markStandardForm($reportText);
+      $delete_form = $this->createDeleteForm($reportText);
+
+      $elements[$reportText->getId()] = array(
+        'entity' => $reportText,
+        'mark_standard_form' => $mark_form->createView(),
+        'delete_form' => $delete_form->createView()
+      );
+    }
+
+    return array(
+      'selected_type' => $type,
+      'report_text_types' => $types,
+      'elements' => $elements,
+    );
+  }
+
+
+  /**
    * Displays a form to create a new Bilag entity.
-   *1
-   * @Route("/new", name="report_text_new")
+   *
+   * @Route("/new/{type}", name="report_text_new")
    * @Method("GET")
    * @Template("AppBundle:ReportText:new.html.twig")
    */
-  public function createReportTextAction() {
+  public function createReportTextAction($type) {
     $this->breadcrumbs->addItem('common.create');
 
     $reportText = new ReportText();
-    $editForm = $this->createNewForm($reportText);
+    $reportText->setType($type);
+    $editForm = $this->createNewForm($type, $reportText);
 
     return array(
       'entity' => $reportText,
@@ -69,7 +103,7 @@ class ReportTextController extends BaseController {
    */
   public function newReportTextAction(Request $request) {
     $reportText = new ReportText();
-    $editForm = $this->createNewForm($reportText);
+    $editForm = $this->createNewForm("",$reportText);
 
     $editForm->handleRequest($request);
 
@@ -80,7 +114,7 @@ class ReportTextController extends BaseController {
 
       $this->flash->success('reporttext.confirmation.created');
 
-      return $this->redirect($this->generateUrl('report_text'));
+      return $this->redirect($this->generateUrl('report_text_get', array('type' => $reportText->getType())));
     }
 
     return array(
@@ -144,6 +178,38 @@ class ReportTextController extends BaseController {
   }
 
   /**
+   * Edits an existing ReportText as standard.
+   *
+   * @Route("/{report_text_id}/mark-default", name="report_text_mark_standard")
+   * @Method("PUT")
+   * @ParamConverter("reportText", class="AppBundle:ReportText",
+   *   options={"id" = "report_text_id"})
+   */
+  public function markStandardAction(Request $request, ReportText $reportText) {
+    // Getting all images of that type.
+    $em = $this->getDoctrine()->getManager();
+    $uploaded_images = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $reportText->getType()));
+
+    /** @var ReportText $text */
+    foreach ($uploaded_images as $text) {
+      // Setting standard for the selected text.
+      if ($text->getId() == $reportText->getId()) {
+        $text->setStandard(TRUE);
+      }
+      else {
+        $text->setStandard(FALSE);
+      }
+
+      $em->persist($text);
+    }
+
+    $em->flush();
+    $this->flash->success('reporttext.confirmation.updated');
+
+    return $this->redirect($this->generateUrl('report_text_get', array('type' => $reportText->getType())));
+  }
+
+  /**
    * Deletes a ReportText entity.
    *
    * @Route("/{report_text_id}", name="report_text_delete")
@@ -162,19 +228,21 @@ class ReportTextController extends BaseController {
       $this->flash->success('reporttext.confirmation.deleted');
     }
 
-    return $this->redirect($this->generateUrl('report_text'));
+    return $this->redirect($this->generateUrl('report_text_get', array('type' => $reportText->getType())));
   }
 
   /**
    * Creates a form to create a ReportText entity.
    *
+   * @param string $type
+   *   The type of report text..
    * @param ReportText $reportText
    *   The entity.
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createNewForm(ReportText $reportText) {
-    $form = $this->createForm(new ReportTextType($reportText), $reportText, array(
+  private function createNewForm($type, ReportText $reportText) {
+    $form = $this->createForm(new ReportTextType($type, $reportText), $reportText, array(
       'action' => $this->generateUrl('report_text_create'),
       'method' => 'POST',
     ));
@@ -192,13 +260,56 @@ class ReportTextController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(ReportText $reportText) {
-    $form = $this->createForm(new ReportTextType($reportText), $reportText, array(
+    $form = $this->createForm(new ReportTextType($reportText->getType(), $reportText), $reportText, array(
       'action' => $this->generateUrl('report_text_update', array('report_text_id' => $reportText->getId())),
       'method' => 'PUT',
     ));
 
-    $this->addUpdate($form, $this->generateUrl('report_text'));
-    $this->addUpdateAndExit($form, $this->generateUrl('report_text'));
+    $this->addUpdate($form, $this->generateUrl('report_text_get', array('type' => $reportText->getType())));
+    $this->addUpdateAndExit($form, $this->generateUrl('report_text_get', array('type' => $reportText->getType())));
+
+    return $form;
+  }
+
+  /**
+   * Creates a form to mark ReportText as standard.
+   *
+   * If text is already standard, the submit button will be disabled.
+   *
+   * @param ReportText $reportText
+   *   Report text entity.
+   *
+   * @return \Symfony\Component\Form\Form
+   *   Mark standard form.
+   */
+  private function markStandardForm(ReportText $reportText) {
+    if (!$reportText->isStandard()) {
+      $form = $this->createFormBuilder()
+        ->setAction($this->generateUrl('report_text_mark_standard', array('report_text_id' => $reportText->getId())))
+        ->setMethod('PUT')
+        ->add('submit', 'submit', array(
+          'label' => 'reporttext.actions.mark_standard',
+          'button_class' => 'default',
+          'attr' => [
+            'icon' => 'check',
+          ],
+        ))
+        ->getForm();
+    }
+    else {
+      $form = $this->createFormBuilder()
+        ->setAction($this->generateUrl('report_text_mark_standard', array('report_text_id' => $reportText->getId())))
+        ->setMethod('PUT')
+        ->add('submit', 'submit', array(
+          'label' => 'appbundle.reporttext.standard',
+          'attr' => [
+            'class' => 'disabled',
+            'icon' => 'check',
+          ],
+          'button_class' => 'success'
+        ))
+        ->getForm();
+    }
 
     return $form;
   }

@@ -1,0 +1,62 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1>{{ "reporttext.tabs.#{ selected_type }" | trans }}</h1>
+        </div>
+        <div class="col-md-6 text-right">
+            {% for type in report_text_types %}
+                <a href="{{ path('report_text_get', { 'type': type }) }}" class="btn btn-default {% if selected_type == type%}active{% endif %}">
+                    {{ "reporttext.tabs.#{ type }" | trans }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <table class="table table-condensed">
+                <tbody>
+                <tr>
+                    <th>{{ 'appbundle.reporttext.title' | trans }}</th>
+                    <th>{{ 'appbundle.reporttext.body' | trans }}</th>
+                    <th>{{ 'appbundle.reporttext.updated_by' | trans }}</th>
+                    <th>{{ 'appbundle.reporttext.updated_at' | trans }}</th>
+                    <th></th>
+                </tr>
+                {% for element in elements %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('report_text_edit', { 'report_text_id': element.entity.id}) }}">{{ element.entity.title }}</a>
+                        </td>
+                        <td>
+                            {{ element.entity.body|striptags|truncate(50) }}
+                        </td>
+                        <td>{{ element.entity.updatedBy }}</td>
+                        <td>{{ element.entity.updatedAt | date('F j, Y H:i') }}</td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                {{ form_start(element.mark_standard_form) }}
+                                {{ form_widget(element.mark_standard_form.submit) }}
+                                {{ form_end(element.mark_standard_form) }}
+                            </div>
+                            <div class="btn-group">
+                                <a href="{{ path('report_text_edit', { 'report_text_id': element.entity.id}) }}" class="btn btn-default">{{ 'common.show' | trans }}</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="{{ path('report_text_new', {'type': selected_type}) }}">
+                {{ icon('plus') }} {{ 'reporttext.actions.create' | trans }}
+            </a>
+
+        </div>
+    </div>
+
+{% endblock %}
