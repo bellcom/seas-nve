@@ -310,7 +310,7 @@ class VirksomhedRapportController extends BaseController {
     $exporter = $this->get('aaplus.virksomhed_pdf_export');
     switch ($type) {
       case 'resultatoversigt':
-        $html = $exporter->rapportView($rapport, array(), TRUE);
+        $html = $exporter->exportOverview($rapport, array(), TRUE);
         $pdf_export_route = 'virksomhed_rapport_show_overview';
         break;
 
@@ -350,7 +350,7 @@ class VirksomhedRapportController extends BaseController {
     // We need more time!
     set_time_limit(0);
     $exporter = $this->get('aaplus.virksomhed_pdf_export');
-    $pdf = $exporter->exportVirksomhedRapport2($rapport);
+    $pdf = $exporter->exportOverview($rapport);
 
     $pdfName = $rapport->getVirksomhed() . '-resultatoversigt-' . date('Y-m-d-His');
 
