@@ -629,7 +629,7 @@ class VirksomhedRapport
     protected $summarizedRapportValues = array();
 
     /**
-     * @OneToMany(targetEntity="AppBundle\Entity\RapportSektioner\RapportSektion", mappedBy="rapport", cascade={"persist", "remove"})
+     * @OneToMany(targetEntity="AppBundle\Entity\RapportSektioner\RapportSektion", mappedBy="virksomhedOversigtRapport", cascade={"persist", "remove"})
      * @OrderBy({"id" = "ASC"})
      * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\RapportSektioner\RapportSektion>")
      */

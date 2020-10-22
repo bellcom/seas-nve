@@ -38,7 +38,6 @@ class VirksomhedOversigtSektionerController extends BaseController
      */
     public function indexAction(VirksomhedRapport $virksomhed_rapport)
     {
-
         $entities = $virksomhed_rapport->getRapportOversigtSektioner();
         return array(
             'entities' => $entities,
@@ -148,12 +147,12 @@ class VirksomhedOversigtSektionerController extends BaseController
     {
 
         $form = $this->createForm(new RapportSektionType(), $entity, array(
-            'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_update', array('virksomhed_rapport' => $entity->getVirksomhedRapport()->getId(), 'id' => $entity->getId())),
+            'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_update', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId(), 'id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedRapport()->getId())));
-        $this->addUpdateAndExit($form, $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedRapport()->getId())));
+        $this->addUpdate($form, $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())));
+        $this->addUpdateAndExit($form, $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())));
 
         return $form;
     }
@@ -176,7 +175,7 @@ class VirksomhedOversigtSektionerController extends BaseController
             throw $this->createNotFoundException('Unable to find RapportSektion entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($entity->getVirksomhedRapport(), $id);
+        $deleteForm = $this->createDeleteForm($entity->getVirksomhedOversigtRapport(), $id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 

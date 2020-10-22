@@ -79,7 +79,8 @@ class BygningOversigtSektionerController extends BaseController
      */
     private function createCreateForm(RapportSektion $entity)
     {
-        $form = $this->createForm(new RapportSektionType(), $entity, array(
+        $formType = $entity->getFormType();
+        $form = $this->createForm($formType, $entity, array(
             'action' => $this->generateUrl('bygning_oversigt_rapport_sektioner_create', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId())),
             'method' => 'POST',
         ));
@@ -143,8 +144,9 @@ class BygningOversigtSektionerController extends BaseController
      */
     private function createEditForm(RapportSektion $entity)
     {
+        $formType = $entity->getFormType();
 
-        $form = $this->createForm(new RapportSektionType(), $entity, array(
+        $form = $this->createForm($formType, $entity, array(
             'action' => $this->generateUrl('bygning_oversigt_rapport_sektioner_update', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId(), 'id' => $entity->getId())),
             'method' => 'PUT',
         ));

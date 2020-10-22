@@ -544,8 +544,8 @@ reporttext:
   labels:
     plural: "Rapport tekster"
   tabs:
-    main: "Forside"
-    summary: "Opsummering"
+    standard: "Standard"
+    opsummering: "Opsummering"
 rapporter:
   labels:
     plural: "Rapporter"

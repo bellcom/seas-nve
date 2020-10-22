@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\ReportText;
 use AppBundle\Form\Type\ReportTextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +36,8 @@ class ReportTextController extends BaseController {
    */
   public function indexAction()
   {
-    return $this->redirect($this->generateUrl('report_text_get',array('type' => 'main')));
+    $types = RapportSektion::getRapportSektionTypes();
+    return $this->redirect($this->generateUrl('report_text_get',array('type' => $types[0])));
   }
 
   /**
@@ -46,10 +48,7 @@ class ReportTextController extends BaseController {
    * @Template("AppBundle:ReportText:list.html.twig")
    */
   public function listAction($type) {
-    $types = array(
-      'main',
-      'summary',
-    );
+    $types = RapportSektion::getRapportSektionTypes();
 
     $em = $this->getDoctrine()->getManager();
     $reportTexts = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $type));

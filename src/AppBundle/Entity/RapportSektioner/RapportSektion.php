@@ -4,6 +4,8 @@ namespace AppBundle\Entity\RapportSektioner;
 
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\VirksomhedRapport;
+use AppBundle\Form\Type\RapportSektion\RapportSektionType;
+use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
@@ -64,7 +66,7 @@ class RapportSektion {
     /**
      * Rapport oversigt section reference to Virksomhed rapport
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VirksomhedRapport", inversedBy="rapportSektioner")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VirksomhedRapport", inversedBy="rapportOversigtSektioner")
      * @ORM\JoinColumn(name="virksomhed_oversigt_rapport_id", referencedColumnName="id")
      */
     protected $virksomhedOversigtRapport;
@@ -191,6 +193,49 @@ class RapportSektion {
      */
     public function getVirksomhedOversigtRapport() {
         return $this->virksomhedOversigtRapport;
+    }
+
+    /**
+     * Returns the possible types of RapportSektion.
+     *
+     * Values are parses from DiscriminatorMap annotation.
+     *
+     * @return array
+     *   DiscriminatorMap annotation values.
+     *
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \ReflectionException
+     */
+    public static function getRapportSektionTypes() {
+      $refClass = new \ReflectionClass(RapportSektion::class);
+      $annotationReader = new AnnotationReader();
+
+      /** @var DiscriminatorMap $discriminatorMapAnn */
+      $discriminatorMapAnn = $annotationReader->getClassAnnotation($refClass, 'Doctrine\ORM\Mapping\DiscriminatorMap');
+
+      return array_keys($discriminatorMapAnn->value);
+    }
+
+    /**
+     * Returns the FormType for this RapportSektion.
+     *
+     * @return \AppBundle\Form\Type\RapportSektion\RapportSektionType
+     *   Dedicated FormType.
+     */
+    public function getFormType() {
+      return new RapportSektionType();
+    }
+
+    /**
+     * Returns the type of this RapportSektion.
+     *
+     * This is a value stored in the descriminator field.
+     *
+     * @return string
+     *   Section Type.
+     */
+    public function getType() {
+      return 'standard';
     }
 
 }
