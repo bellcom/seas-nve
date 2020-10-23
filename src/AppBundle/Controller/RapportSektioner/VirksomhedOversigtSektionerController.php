@@ -288,6 +288,9 @@ class VirksomhedOversigtSektionerController extends BaseController
      *   Rapport sektion entity.
      */
     protected function handleUploads(RapportSektion $entity) {
+        if (!property_exists($entity, 'filepath')) {
+            return;
+        }
         $fileInfo = $entity->getFilepath();
         if (is_object($fileInfo) && $fileInfo instanceof UploadedFile) {
             $manager = $this->get('stof_doctrine_extensions.uploadable.manager');
