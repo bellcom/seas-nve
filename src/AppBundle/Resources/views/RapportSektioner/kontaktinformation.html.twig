@@ -1,0 +1,108 @@
+{% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+
+{% block section_content -%}
+  {% if section.text %}
+    <div class="section-text">
+      {{ section.text | raw }}
+    </div>
+  {% endif %}
+  {% set rapport = section.rapport %}
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Kunde</h3>
+      <div class="row">
+        {% if rapport.virksomhed %}
+          <div class="col-xs-4">
+            {% if rapport.virksomhed.name %}
+              <div>{{ rapport.virksomhed.name }}</div>
+            {% endif %}
+
+            {% if rapport.virksomhed.address %}
+              <div>{{ rapport.virksomhed.address }}</div>
+            {% endif %}
+
+            {% if rapport.virksomhed.postnummer and rapport.virsomhed.byNavn %}
+              <div>{{ rapport.virksomhed.postnummer }} {{ rapport.virsomhed.byNavn }}</div>
+            {% endif %}
+          </div>
+
+          {% for contactPerson in rapport.virksomhed.contactPersons %}
+            <div class="col-xs-4">
+              {{ include ('AppBundle:ContactPerson:show-embed.html.twig') }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    {% if rapport.virksomhed.getDatterSelskaber() is not empty %}
+      <div class="col-xs-12">
+        <br>
+        <h3>Datterselskaber</h3>
+        {% for datterSelskab in rapport.virksomhed.getDatterSelskaber() %}
+          <div class="row">
+            <div class="col-xs-4">
+              {% if datterSelskab.name %}
+                <div>{{ datterSelskab.name }}</div>
+              {% endif %}
+
+              {% if datterSelskab.address %}
+                <div>{{ datterSelskab.address }}</div>
+              {% endif %}
+
+              {% if datterSelskab.postnummer and datterSelskab.byNavn %}
+                <div>{{ datterSelskab.postnummer }} {{ datterSelskab.byNavn }}</div>
+              {% endif %}
+            </div>
+            {% for contactPerson in datterSelskab.contactPersons %}
+              <div class="col-xs-4">
+                {{ include ('AppBundle:ContactPerson:show-embed.html.twig') }}
+              </div>
+            {% endfor %}
+          </div>
+          <br>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if rapport.virksomhed.getAllBygninger() is not empty %}
+      <div class="col-xs-12">
+        <br>
+        <h3>Analyserede adresse(r)</h3>
+        <div class="row">
+          {% for bygning in rapport.virksomhed.getAllBygninger() %}
+            <div class="col-xs-4">
+              {{ include ('AppBundle:Bygning:show-embed.html.twig') }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if rapport.virksomhed.getAllRaadgivers() is not empty %}
+      <div class="col-xs-12">
+        <br>
+        <h3>Energirådgiver</h3>
+        <div class="row">
+          {% for user in rapport.virksomhed.getAllRaadgivers() %}
+            <div class="col-xs-4">
+              <div>{{ user }}</div>
+              <div><a href="mailto:{{ user.email }}">{{ user.email }}</a></div>
+              <br>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if rapport.datering %}
+      <div class="col-xs-12">
+        <br>
+        <h3>Dato for gennemgang</h3>
+        <div class="row">
+          <div class="col-xs-4">
+            {{ rapport.datering | date('d.m.Y') }}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

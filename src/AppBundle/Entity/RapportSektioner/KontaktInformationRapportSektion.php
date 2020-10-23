@@ -14,6 +14,18 @@ use Doctrine\ORM\Mapping\InheritanceType;
  * @ORM\Table()
  * @ORM\Entity()
  */
-class KundeinformationRapportSektion extends RapportSektion {
+class KontaktinformationRapportSektion extends RapportSektion {
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->title = 'Kundeinformation';
+        parent::__construct();
+    }
+
+    public function getRapport() {
+        return $this->getVirksomhedOversigtRapport();
+    }
 }
 
