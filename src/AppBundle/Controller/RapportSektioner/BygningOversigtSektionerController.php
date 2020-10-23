@@ -61,7 +61,7 @@ class BygningOversigtSektionerController extends BaseController
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:RapportSektioner\RapportSektion')->create($type);
-        if (empty($entity) && $entity->isAllowed(RapportSektion::ACTION_ADD)) {
+        if (empty($entity) || !$entity->isAllowed(RapportSektion::ACTION_ADD)) {
             throw $this->createNotFoundException('Rapport section not found');
         }
         $entity->setByningOversigtRapport($bygning_rapport);
@@ -84,7 +84,7 @@ class BygningOversigtSektionerController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:RapportSektioner\RapportSektion')->create($type);
-        if (empty($entity) && $entity->isAllowed(RapportSektion::ACTION_ADD)) {
+        if (empty($entity) || !$entity->isAllowed(RapportSektion::ACTION_ADD)) {
             throw $this->createNotFoundException('Rapport section not found');
         }
         $entity->setByningOversigtRapport($bygning_rapport);

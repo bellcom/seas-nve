@@ -58,7 +58,7 @@ class VirksomhedOversigtSektionerController extends BaseController
         /** @var RapportSektionRepository $repository */
         $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:RapportSektioner\RapportSektion');
         $entity = $repository->create($type);
-        if (empty($entity) && $entity->isAllowed(RapportSektion::ACTION_ADD)) {
+        if (empty($entity) || !$entity->isAllowed(RapportSektion::ACTION_ADD)) {
             throw $this->createNotFoundException('Rapport section not found');
         }
         $entity->setVirksomhedOversigtRapport($virksomhed_rapport);
@@ -66,11 +66,12 @@ class VirksomhedOversigtSektionerController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
             try {
                 $this->handleUploads($entity);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+
                 $this->flash->success('rapport_sections.confirmation.created');
                 return $this->redirect($this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())));
             }
@@ -122,7 +123,7 @@ class VirksomhedOversigtSektionerController extends BaseController
         /** @var RapportSektionRepository $repository */
         $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:RapportSektioner\RapportSektion');
         $entity = $repository->create($type);
-        if (empty($entity) && $entity->isAllowed(RapportSektion::ACTION_ADD)) {
+        if (empty($entity) || !$entity->isAllowed(RapportSektion::ACTION_ADD)) {
             throw $this->createNotFoundException('Rapport section not found');
         }
         $entity->setVirksomhedOversigtRapport($virksomhed_rapport);
@@ -202,9 +203,9 @@ class VirksomhedOversigtSektionerController extends BaseController
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->flush();
             try {
                 $this->handleUploads($entity);
+                $em->flush();
                 $this->flash->success('rapport_sections.confirmation.updated');
 
                 $destination = $request->getRequestUri();
