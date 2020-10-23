@@ -3,6 +3,7 @@
 namespace AppBundle\PdfExport;
 
 use AppBundle\Entity\Bygning;
+use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\VirksomhedRapport;
 
 class VirksomhedPdfExport {
@@ -10,35 +11,70 @@ class VirksomhedPdfExport {
     use PdfExportTrait;
 
     /**
-     * Temporary implementation of rapport view function before render
+     * Overview rapport render callback.
      *
      * @param VirksomhedRapport $rapport
      * @param array $options
      * @param false $review
      * @return mixed
      */
-    public function rapportView(VirksomhedRapport $rapport, array $options = array(), $review = FALSE)
+    public function exportOverview(VirksomhedRapport $rapport, array $options = array(), $review = FALSE)
     {
-        $sections = array(
-            'frontpage' => array(
-                'type' => 'frontpage',
-                'image' => 'https://picsum.photos/1000/750',
-                'title' => $rapport->getVirksomhed()->getName(),
-                'address' => $rapport->getVirksomhed()->getFullAddress(),
-            ),
-            'test2' => array(
-                'type' => 'test',
-                'edit_url' => TRUE,
-                'title' => 'test title',
-                'text' => 'test text',
-            ),
+        $sections = $rapport->getRapportOversigtSektioner();
+        $cover_sections = array();
+        /** @var RapportSektion $section */
+        foreach ($sections as $section) {
+            if (in_array($section->getType(), array('forside', 'kundeinformation'))) {
+                $sections->removeElement($section);
+                $cover_sections[] = $section;
+            }
+        }
+        $data = array();
+        $virksomhed = $rapport->getVirksomhed();
+
+        if ($virksomhed && $virksomhedsNavn = $virksomhed->getName()) {
+            $data[] = $virksomhedsNavn;
+        }
+
+        if ($screeningAt = $rapport->getDatering()) {
+            $data[] = 'Screeningsdato: ' . $screeningAt->format('d.m.Y');
+        }
+
+        if ($updatedAt = $rapport->getUpdatedAt()) {
+            $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
+        }
+        $default = array(
+            'review' => $review,
         );
-        return $this->renderView('AppBundle:VirksomhedRapport:showPdfOverview.html.twig', array(
+        $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfOverview.html.twig', array(
+            'sections' => $cover_sections,
+        ) + $default);
+        $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfOverview.html.twig', array(
             'sections' => $sections,
-        ));
+        ) + $default);
+        return $review ? ($cover . $html) : $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
+            array('lowquality' => FALSE,
+                'encoding' => 'utf-8',
+                'images' => TRUE,
+                'cover' => $cover,
+                'toc' => TRUE,
+                'toc-header-text' => 'Indholdfortejnelse',
+                'header-left' => implode(' | ', $data),
+                'header-right' => "Side [page] af [toPage]",
+                'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf2VirksomhedFooter.html'),
+            $options));
     }
 
-    public function exportOverview(VirksomhedRapport $rapport, array $options = array(), $review = FALSE) {
+    /**
+     * Old version of overview to be deleted.
+     *
+     * @deprecated
+     * @param VirksomhedRapport $rapport
+     * @param array $options
+     * @param false $review
+     * @return string
+     */
+    public function exportOverviewOld(VirksomhedRapport $rapport, array $options = array(), $review = FALSE) {
         $data = array();
         $virksomhed = $rapport->getVirksomhed();
 

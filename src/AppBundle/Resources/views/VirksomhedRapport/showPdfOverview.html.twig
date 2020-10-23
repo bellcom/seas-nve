@@ -3,6 +3,6 @@
 {% block body -%}
   {% for section in sections %}
     {% set type = section.type ? section.type : 'base' %}
-    {% include 'AppBundle::RapportSektioner/' ~ type ~ '.html.twig' with section %}
+    {% include 'AppBundle::RapportSektioner/' ~ type ~ '.html.twig' %}
   {% endfor %}
 {% endblock %}

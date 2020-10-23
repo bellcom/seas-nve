@@ -21,10 +21,13 @@ use Doctrine\ORM\Mapping\InheritanceType;
  * @DiscriminatorColumn(name="discr", type="string")
  * @DiscriminatorMap({
  *    "standard" = "RapportSektion",
+ *    "forside" = "ForsideRapportSektion",
+ *    "kundeinformation" = "KundeinformationRapportSektion",
  *    "opsummering" = "OpsummeringRapportSektion",
  * })
  */
-class RapportSektion {
+class RapportSektion
+{
     /**
      * @var integer
      *
@@ -56,6 +59,16 @@ class RapportSektion {
     private $extras;
 
     /**
+     * Flag that defines section to be rendered landscape orentation.
+     */
+    public $landscape = false;
+
+    /**
+     * Flag that defines section to be rendered on new page.
+     */
+    public $break = true;
+
+    /**
      * Rapport oversigt section reference to Bygning rapport
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Rapport", inversedBy="rapportOversigtSektioner")
@@ -76,8 +89,7 @@ class RapportSektion {
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -88,8 +100,7 @@ class RapportSektion {
      *
      * @return RapportSektion
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
 
         return $this;
@@ -100,8 +111,7 @@ class RapportSektion {
      *
      * @return string
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -112,8 +122,7 @@ class RapportSektion {
      *
      * @return RapportSektion
      */
-    public function setText($text)
-    {
+    public function setText($text) {
         $this->text = $text;
 
         return $this;
@@ -124,8 +133,7 @@ class RapportSektion {
      *
      * @return string
      */
-    public function getText()
-    {
+    public function getText() {
         return $this->text;
     }
 
@@ -136,8 +144,7 @@ class RapportSektion {
      *
      * @return RapportSektion
      */
-    public function setExtras($extras)
-    {
+    public function setExtras($extras) {
         $this->extras = $extras;
 
         return $this;
@@ -148,8 +155,7 @@ class RapportSektion {
      *
      * @return array
      */
-    public function getExtras()
-    {
+    public function getExtras() {
         return $this->extras;
     }
 
@@ -206,14 +212,14 @@ class RapportSektion {
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \ReflectionException
      */
-    public static function getRapportSektionTypes() {
-      $refClass = new \ReflectionClass(RapportSektion::class);
-      $annotationReader = new AnnotationReader();
+    public static function getRapportSektionTypes($keys = FALSE) {
+        $refClass = new \ReflectionClass(RapportSektion::class);
+        $annotationReader = new AnnotationReader();
 
-      /** @var DiscriminatorMap $discriminatorMapAnn */
-      $discriminatorMapAnn = $annotationReader->getClassAnnotation($refClass, 'Doctrine\ORM\Mapping\DiscriminatorMap');
+        /** @var DiscriminatorMap $discriminatorMapAnn */
+        $discriminatorMapAnn = $annotationReader->getClassAnnotation($refClass, 'Doctrine\ORM\Mapping\DiscriminatorMap');
 
-      return array_keys($discriminatorMapAnn->value);
+        return $keys ? array_keys($discriminatorMapAnn->value) : $discriminatorMapAnn->value;
     }
 
     /**
@@ -223,7 +229,7 @@ class RapportSektion {
      *   Dedicated FormType.
      */
     public function getFormType() {
-      return new RapportSektionType();
+        return new RapportSektionType();
     }
 
     /**
@@ -235,7 +241,8 @@ class RapportSektion {
      *   Section Type.
      */
     public function getType() {
-      return 'standard';
+        $class = (new \ReflectionClass($this))->getShortName();
+        return array_search($class, self::getRapportSektionTypes());
     }
 
 }

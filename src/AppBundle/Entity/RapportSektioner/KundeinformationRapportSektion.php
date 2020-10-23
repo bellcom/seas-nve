@@ -9,19 +9,11 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
 
 /**
- * OpsummeringRapportSektion
+ * KundeinformationRapportSektion
  *
  * @ORM\Table()
  * @ORM\Entity()
  */
-class OpsummeringRapportSektion extends RapportSektion {
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFormType() {
-        return new OpsummeringRapportSektionType();
-    }
-
+class KundeinformationRapportSektion extends RapportSektion {
 }
 

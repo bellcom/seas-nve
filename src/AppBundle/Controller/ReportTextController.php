@@ -36,7 +36,7 @@ class ReportTextController extends BaseController {
    */
   public function indexAction()
   {
-    $types = RapportSektion::getRapportSektionTypes();
+    $types = RapportSektion::getRapportSektionTypes(TRUE);
     return $this->redirect($this->generateUrl('report_text_get',array('type' => $types[0])));
   }
 
@@ -48,7 +48,7 @@ class ReportTextController extends BaseController {
    * @Template("AppBundle:ReportText:list.html.twig")
    */
   public function listAction($type) {
-    $types = RapportSektion::getRapportSektionTypes();
+    $types = RapportSektion::getRapportSektionTypes(TRUE);
 
     $em = $this->getDoctrine()->getManager();
     $reportTexts = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $type));

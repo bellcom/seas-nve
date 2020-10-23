@@ -1,0 +1,28 @@
+{% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+{% block section -%}
+  <div class="section-frontpage-image">
+    <img src="{{ section.billede }}" alt=""/>
+  </div>
+  <div class="row section-frontpage-gray">
+    <div class="col-md-7 section-frontpage">
+      <div class="section-overtext">{{ section.overTekst }}</div>
+      <h1 class="section-title">{{ section.virksomhedNavn }}</h1>
+      <div class="section-type">{{ section.rapportTypeNavn }}</div>
+    </div>
+    <div class="col-md-5">
+      {% if section.address %}
+        <div class="section-frontpage-map" style="overflow: hidden">
+          <img alt="" src="https://www.mapquestapi.com/staticmap/v5/map?center={{ section.address }}&zoom=18&size=400,400&key=dmNBHsqexMpt6bWFyuPwWklH10alas5X&locations=={{ section.address }}">
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="section-frontpage">
+    <h2 class="section-subtitle">{{ section.underTekst }}</h2>
+    <div class="section-text">{{ section.datering | date('d.m.Y') }}</div>
+  </div>
+  <div class="section-frontpage">
+    <img alt="" src="{{ absolute_url(asset('img/seas-nve-logo.png')) }}" height="30px" />
+  </div>
+
+{% endblock %}
