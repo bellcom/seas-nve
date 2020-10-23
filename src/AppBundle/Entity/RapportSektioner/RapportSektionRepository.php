@@ -11,4 +11,19 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class RapportSektionRepository extends EntityRepository {
+
+    /**
+     * Create a new RapportSektion based on type
+     *
+     * @param string $type
+     *
+     * @return RapportSektion|NULL
+     */
+    public function create($type)
+    {
+        $rapportSectionTypes = RapportSektion::getRapportSektionTypes();
+        $className = '\\AppBundle\\Entity\\RapportSektioner\\' . (isset($rapportSectionTypes[$type]) ? $rapportSectionTypes[$type] : '');
+        return class_exists($className) ? new $className() : NULL;
+    }
+
 }

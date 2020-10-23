@@ -7,7 +7,7 @@
     <h1>{{ 'rapport_sektion.actions.edit' | trans }}</h1>
   </div>
   <div class="col-md-3 text-right">
-    {% if delete_form is defined %}{{ form(delete_form) }}{% endif %}
+    {% if delete_form is not null %}{{ form(delete_form) }}{% endif %}
   </div>
 
 </div>

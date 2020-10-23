@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
-
+use Symfony\Component\Form\FormTypeInterface;
 
 /**
  * RapportSektion
@@ -28,6 +28,9 @@ use Doctrine\ORM\Mapping\InheritanceType;
  */
 class RapportSektion
 {
+    const ACTION_ADD = 'add';
+    const ACTION_DELETE = 'delete';
+
     /**
      * @var integer
      *
@@ -35,19 +38,19 @@ class RapportSektion
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="text", type="text")
+     * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
@@ -56,10 +59,10 @@ class RapportSektion
      *
      * @ORM\Column(name="extras", type="array")
      */
-    private $extras;
+    protected $extras;
 
     /**
-     * Flag that defines section to be rendered landscape orentation.
+     * Flag that defines section to be rendered landscape orientation.
      */
     public $landscape = false;
 
@@ -83,6 +86,13 @@ class RapportSektion
      * @ORM\JoinColumn(name="virksomhed_oversigt_rapport_id", referencedColumnName="id")
      */
     protected $virksomhedOversigtRapport;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->extras = $this->getExtrasDefault();
+    }
 
     /**
      * Get id
@@ -225,7 +235,7 @@ class RapportSektion
     /**
      * Returns the FormType for this RapportSektion.
      *
-     * @return \AppBundle\Form\Type\RapportSektion\RapportSektionType
+     * @return FormTypeInterface
      *   Dedicated FormType.
      */
     public function getFormType() {
@@ -243,6 +253,63 @@ class RapportSektion
     public function getType() {
         $class = (new \ReflectionClass($this))->getShortName();
         return array_search($class, self::getRapportSektionTypes());
+    }
+
+    /**
+     * Get extras default values
+     *
+     * @return array
+     */
+    public static function getExtrasDefault() {
+        return array();
+    }
+
+    /**
+     * Get extras keys that should be filled in form.
+     *
+     * @return array
+     */
+    public static function getExtrasInputKeys() {
+        return array_keys(self::getExtrasDefault());
+    }
+
+    /**
+     * Get extras key value.
+     *
+     * @return float
+     */
+    public function getExtrasKeyValue($key) {
+        $extras = $this->getExtrasInputKeys();
+        return isset($extras[$key]) ? $extras[$key] : NULL;
+    }
+
+    /**
+     * Set extras key value.
+     *
+     * @return RapportSektion
+     */
+    public function setExtrasKeyValue($key, $value) {
+        $this->extras[$key] = $value;
+        return $this;
+    }
+
+    /**
+     * Defines allowed actions with SektionType.
+     *
+     * @return array
+     */
+    protected function allowedActions() {
+        return array();
+    }
+
+    /**
+     * Checks is action allowed on SektionType.
+     *
+     * @param $action
+     * @return bool
+     */
+    public function isAllowed($action) {
+        return in_array($action, $this->allowedActions());
     }
 
 }

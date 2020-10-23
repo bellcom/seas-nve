@@ -2,16 +2,18 @@
 
 namespace AppBundle\Controller\RapportSektioner;
 
-
+use AppBundle\Entity\RapportSektioner\RapportSektionRepository;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\RapportSektion\RapportSektionType;
+use Gedmo\Exception\UploadableInvalidMimeTypeException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Controller\BaseController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -47,22 +49,37 @@ class VirksomhedOversigtSektionerController extends BaseController
     /**
      * Creates a new RapportSektion entity.
      *
-     * @Route("/", name="virksomhed_oversigt_rapport_sektioner_create")
+     * @Route("/new/{type}", name="virksomhed_oversigt_rapport_sektioner_create")
      * @Method("POST")
      * @Template("AppBundle:RapportSektion:new.html.twig")
      */
-    public function createAction(Request $request, VirksomhedRapport $virksomhed_rapport)
+    public function createAction(Request $request, VirksomhedRapport $virksomhed_rapport, $type = 'standard')
     {
-        $entity = new RapportSektion();
+        /** @var RapportSektionRepository $repository */
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:RapportSektioner\RapportSektion');
+        $entity = $repository->create($type);
+        if (empty($entity) && $entity->isAllowed(RapportSektion::ACTION_ADD)) {
+            throw $this->createNotFoundException('Rapport section not found');
+        }
         $entity->setVirksomhedOversigtRapport($virksomhed_rapport);
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $type);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())));
+            try {
+                $this->handleUploads($entity);
+                $this->flash->success('rapport_sections.confirmation.created');
+                return $this->redirect($this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())));
+            }
+            catch (UploadableInvalidMimeTypeException $e) {
+                $this->flash->error('rapport_sections.error.filetype');
+            }
+            catch (\Exception $e) {
+                $this->flash->error('rapport_sections.error.general');
+            }
         }
 
         return array(
@@ -78,11 +95,11 @@ class VirksomhedOversigtSektionerController extends BaseController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(RapportSektion $entity)
+    private function createCreateForm(RapportSektion $entity, $type)
     {
-
-        $form = $this->createForm(new RapportSektionType(), $entity, array(
-            'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_create', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())),
+        $formType = $entity->getFormType();
+        $form = $this->createForm(new $formType, $entity, array(
+            'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_create', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId(), 'type' => $type)),
             'method' => 'POST',
         ));
 
@@ -94,17 +111,22 @@ class VirksomhedOversigtSektionerController extends BaseController
     /**
      * Displays a form to create a new RapportSektion entity.
      *
-     * @Route("/new", name="virksomhed_oversigt_rapport_sektioner_new")
+     * @Route("/new/{type}", name="virksomhed_oversigt_rapport_sektioner_new")
      * @Method("GET")
      * @Template("AppBundle:RapportSektion:new.html.twig")
      */
-    public function newAction(VirksomhedRapport $virksomhed_rapport)
+    public function newAction(VirksomhedRapport $virksomhed_rapport, $type = 'standard')
     {
         $this->breadcrumbs->addItem('common.add', $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $virksomhed_rapport->getId())));
 
-        $entity = new RapportSektion();
+        /** @var RapportSektionRepository $repository */
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:RapportSektioner\RapportSektion');
+        $entity = $repository->create($type);
+        if (empty($entity) && $entity->isAllowed(RapportSektion::ACTION_ADD)) {
+            throw $this->createNotFoundException('Rapport section not found');
+        }
         $entity->setVirksomhedOversigtRapport($virksomhed_rapport);
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $type);
 
         return array(
             'entity' => $entity,
@@ -132,7 +154,7 @@ class VirksomhedOversigtSektionerController extends BaseController
         return array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'delete_form' => $entity->isAllowed(RapportSektion::ACTION_DELETE) ? $deleteForm->createView() : NULL,
         );
     }
 
@@ -145,9 +167,9 @@ class VirksomhedOversigtSektionerController extends BaseController
      */
     private function createEditForm(RapportSektion $entity)
     {
-
-        $form = $this->createForm(new RapportSektionType(), $entity, array(
-            'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_update', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId(), 'id' => $entity->getId())),
+        $formType = $entity->getFormType();
+        $form = $this->createForm($formType, $entity, array(
+            'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_update', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId(), 'id' => $entity->getId(), 'type' => $entity->getType())),
             'method' => 'PUT',
         ));
 
@@ -181,20 +203,29 @@ class VirksomhedOversigtSektionerController extends BaseController
 
         if ($editForm->isValid()) {
             $em->flush();
+            try {
+                $this->handleUploads($entity);
+                $this->flash->success('rapport_sections.confirmation.updated');
 
-            $this->flash->success('rapport_sections.confirmation.updated');
+                $destination = $request->getRequestUri();
+                if ($button_destination = $this->getButtonDestination($editForm)) {
+                    $destination = $button_destination;
+                }
+                return $this->redirect($destination);
 
-            $destination = $request->getRequestUri();
-            if ($button_destination = $this->getButtonDestination($editForm)) {
-                $destination = $button_destination;
             }
-            return $this->redirect($destination);
+            catch (UploadableInvalidMimeTypeException $e) {
+                $this->flash->error('rapport_sections.error.filetype');
+            }
+            catch (\Exception $e) {
+                $this->flash->error('rapport_sections.error.general');
+            }
         }
 
         return array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'delete_form' => $entity->isAllowed(RapportSektion::ACTION_DELETE) ? $deleteForm->createView() : NULL,
         );
     }
 
@@ -215,6 +246,10 @@ class VirksomhedOversigtSektionerController extends BaseController
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find RapportSektion entity.');
+            }
+
+            if (!$entity->isAllowed(RapportSektion::ACTION_ADD)) {
+                throw $this->createAccessDeniedException('Action is not allowed');
             }
 
             $em->remove($entity);
@@ -245,8 +280,18 @@ class VirksomhedOversigtSektionerController extends BaseController
             ->getForm();
     }
 
-    private function rapportCheck(VirksomhedRapport $virksomhed_rapport) {
-        $sections = $virksomhed_rapport->getRapportOversigtSektioner();
-        self::RAPPORT_SEKTIONER;
+    /**
+     * Handles the upload of the file.
+     *
+     * @param \AppBundle\Entity\RapportSektioner\RapportSektion $entity
+     *   Rapport sektion entity.
+     */
+    protected function handleUploads(RapportSektion $entity) {
+        $fileInfo = $entity->getFilepath();
+        if (is_object($fileInfo) && $fileInfo instanceof UploadedFile) {
+            $manager = $this->get('stof_doctrine_extensions.uploadable.manager');
+            $manager->markEntityToUpload($entity, $fileInfo);
+        }
     }
+
 }

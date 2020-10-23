@@ -44,15 +44,43 @@ class BygningOversigtSektionerController extends BaseController
     }
 
     /**
+     * Displays a form to create a new RapportSektion entity.
+     *
+     * @Route("/new/{type}", name="bygning_oversigt_rapport_sektioner_new")
+     * @Method("GET")
+     * @Template("AppBundle:RapportSektion:new.html.twig")
+     */
+    public function newAction(Rapport $bygning_rapport, $type = 'standard')
+    {
+        $this->breadcrumbs->addItem('common.add', $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $bygning_rapport->getId())));
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:RapportSektioner\RapportSektion')->create($type);
+        if (empty($entity) && $entity->isAllowed(RapportSektion::ACTION_ADD)) {
+            throw $this->createNotFoundException('Rapport section not found');
+        }
+        $entity->setByningOversigtRapport($bygning_rapport);
+        $form = $this->createCreateForm($entity);
+
+        return array(
+            'entity' => $entity,
+            'form' => $form->createView(),
+        );
+    }
+
+    /**
      * Creates a new RapportSektion entity.
      *
-     * @Route("/", name="bygning_oversigt_rapport_sektioner_create")
+     * @Route("/new/{type}", name="bygning_oversigt_rapport_sektioner_create")
      * @Method("POST")
      * @Template("AppBundle:RapportSektion:new.html.twig")
      */
-    public function createAction(Request $request, Rapport $bygning_rapport)
+    public function createAction(Request $request, Rapport $bygning_rapport, $type = 'standard')
     {
-        $entity = new RapportSektion();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:RapportSektioner\RapportSektion')->create($type);
+        if (empty($entity) && $entity->isAllowed(RapportSektion::ACTION_ADD)) {
+            throw $this->createNotFoundException('Rapport section not found');
+        }
         $entity->setByningOversigtRapport($bygning_rapport);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -63,47 +91,6 @@ class BygningOversigtSektionerController extends BaseController
             $em->flush();
             return $this->redirect($this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId())));
         }
-
-        return array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        );
-    }
-
-    /**
-     * Creates a form to create a RapportSektion entity.
-     *
-     * @param RapportSektion $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(RapportSektion $entity)
-    {
-        $formType = $entity->getFormType();
-        $form = $this->createForm($formType, $entity, array(
-            'action' => $this->generateUrl('bygning_oversigt_rapport_sektioner_create', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId())),
-            'method' => 'POST',
-        ));
-
-        $this->addCreate($form, $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId())));
-
-        return $form;
-    }
-
-    /**
-     * Displays a form to create a new RapportSektion entity.
-     *
-     * @Route("/new", name="bygning_oversigt_rapport_sektioner_new")
-     * @Method("GET")
-     * @Template("AppBundle:RapportSektion:new.html.twig")
-     */
-    public function newAction(Rapport $bygning_rapport)
-    {
-        $this->breadcrumbs->addItem('common.add', $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $bygning_rapport->getId())));
-
-        $entity = new RapportSektion();
-        $entity->setByningOversigtRapport($bygning_rapport);
-        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
@@ -133,28 +120,6 @@ class BygningOversigtSektionerController extends BaseController
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
-    }
-
-    /**
-     * Creates a form to edit a RapportSektion entity.
-     *
-     * @param RapportSektion $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditForm(RapportSektion $entity)
-    {
-        $formType = $entity->getFormType();
-
-        $form = $this->createForm($formType, $entity, array(
-            'action' => $this->generateUrl('bygning_oversigt_rapport_sektioner_update', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId(), 'id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $this->addUpdate($form, $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId())));
-        $this->addUpdateAndExit($form, $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId())));
-
-        return $form;
     }
 
     /**
@@ -194,7 +159,7 @@ class BygningOversigtSektionerController extends BaseController
         return array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'delete_form' => $entity->isAllowed(RapportSektion::ACTION_DELETE) ? $deleteForm->createView() : NULL,
         );
     }
 
@@ -206,6 +171,7 @@ class BygningOversigtSektionerController extends BaseController
      */
     public function deleteAction(Request $request, Rapport $bygning_rapport, $id)
     {
+
         $form = $this->createDeleteForm($bygning_rapport, $id);
         $form->handleRequest($request);
 
@@ -217,11 +183,57 @@ class BygningOversigtSektionerController extends BaseController
                 throw $this->createNotFoundException('Unable to find RapportSektion entity.');
             }
 
+            if ($entity->isAllowed(RapportSektion::ACTION_ADD)) {
+                throw $this->createAccessDeniedException('Action is not allowed');
+            }
+
             $em->remove($entity);
             $em->flush();
         }
 
         return $this->redirect($this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $bygning_rapport->getId())));
+    }
+
+    /**
+     * Creates a form to create a RapportSektion entity.
+     *
+     * @param RapportSektion $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(RapportSektion $entity)
+    {
+        $formType = $entity->getFormType();
+        $form = $this->createForm($formType, $entity, array(
+            'action' => $this->generateUrl('bygning_oversigt_rapport_sektioner_create', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId())),
+            'method' => 'POST',
+        ));
+
+        $this->addCreate($form, $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId())));
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to edit a RapportSektion entity.
+     *
+     * @param RapportSektion $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(RapportSektion $entity)
+    {
+        $formType = $entity->getFormType();
+
+        $form = $this->createForm($formType, $entity, array(
+            'action' => $this->generateUrl('bygning_oversigt_rapport_sektioner_update', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId(), 'id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $this->addUpdate($form, $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId())));
+        $this->addUpdateAndExit($form, $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $entity->getBygningOversigtRapport()->getId())));
+
+        return $form;
     }
 
     /**
