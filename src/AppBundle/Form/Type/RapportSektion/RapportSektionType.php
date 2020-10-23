@@ -17,7 +17,14 @@ class RapportSektionType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('text')
+            ->add('text', 'ckeditor', [
+                'attr' => [
+                    'maxlength' => 10000,
+                    'class' => 'js-default-value-target js-default-value-target',
+                    'data-default-value-source' => 'text',
+                ],
+                'required' => FALSE,
+            ])
         ;
     }
 

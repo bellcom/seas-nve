@@ -22,7 +22,7 @@ use Symfony\Component\Form\FormTypeInterface;
  * @DiscriminatorMap({
  *    "standard" = "RapportSektion",
  *    "forside" = "ForsideRapportSektion",
- *    "kundeinformation" = "KundeinformationRapportSektion",
+ *    "kontaktinformation" = "KontaktInformationRapportSektion",
  *    "opsummering" = "OpsummeringRapportSektion",
  * })
  */
@@ -70,6 +70,11 @@ class RapportSektion
      * Flag that defines section to be rendered on new page.
      */
     public $break = true;
+
+    /**
+     * Edit Url defines in runtime before rendering.
+     */
+    public $editUrl;
 
     /**
      * Rapport oversigt section reference to Bygning rapport
@@ -212,6 +217,28 @@ class RapportSektion
     }
 
     /**
+     * Set editUrl
+     *
+     * @param string $title
+     *
+     * @return RapportSektion
+     */
+    public function setEditUrl($url) {
+        $this->editUrl = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get editUrl
+     *
+     * @return string
+     */
+    public function getEditUrl() {
+        return $this->editUrl;
+    }
+
+    /**
      * Returns the possible types of RapportSektion.
      *
      * Values are parses from DiscriminatorMap annotation.
@@ -279,7 +306,7 @@ class RapportSektion
      * @return float
      */
     public function getExtrasKeyValue($key) {
-        $extras = $this->getExtrasInputKeys();
+        $extras = $this->getExtras();
         return isset($extras[$key]) ? $extras[$key] : NULL;
     }
 
@@ -299,7 +326,9 @@ class RapportSektion
      * @return array
      */
     protected function allowedActions() {
-        return array();
+        return array(
+            self::ACTION_ADD
+        );
     }
 
     /**

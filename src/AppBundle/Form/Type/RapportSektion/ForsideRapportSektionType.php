@@ -5,6 +5,8 @@ namespace AppBundle\Form\Type\RapportSektion;
 use AppBundle\DBAL\Types\RapportSectionType as DBALRapportSectionType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ForsideRapportSektionType extends RapportSektionType
@@ -16,14 +18,27 @@ class ForsideRapportSektionType extends RapportSektionType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('extras', ForsideRapportSektionExtrasType::class, array('label' => FALSE))
             ->add('filepath', 'file', array(
                 'label' => 'Billede',
                 'data_class' => NULL,
                 'attachment_path' => 'filepath',
             ))
+            ->add('title')
+            ->add('extras', ForsideRapportSektionExtrasType::class, array('label' => FALSE))
         ;
+
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function(FormEvent $event) {
+                $data = $event->getData();
+                $form = $event->getForm();
+
+                // Remove filepath field if not submitted
+                if (!isset($data['filepath']) || $data['filepath'] === null) {
+                    $form->remove('filepath');
+                }
+            });
+
     }
 
 

@@ -2,6 +2,7 @@
 namespace AppBundle\PdfExport;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -16,6 +17,11 @@ trait PdfExportTrait {
     private $templating;
 
     /**
+     * @var EntityManager
+     */
+    protected $_em;
+
+    /**
      * @var RouterInterface
      */
     private $router;
@@ -24,6 +30,7 @@ trait PdfExportTrait {
         $this->container = $container;
         $this->templating = $this->container->get('templating');
         $this->router = $this->container->get('router');
+        $this->_em = $this->container->get('doctrine.orm.entity_manager');
     }
 
     private function renderView($view, array $parameters = array()) {

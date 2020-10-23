@@ -1,13 +1,15 @@
 {% extends 'AppBundle::RapportSektioner/base.html.twig' %}
 {% block section -%}
   <div class="section-frontpage-image">
-    <img src="{{ section.billede }}" alt=""/>
+    {% if section.filepath %}
+      <img src="{{ absolute_url(asset(section.filepath)) }}" alt="" style="width:100%"/>
+    {% endif %}
   </div>
   <div class="row section-frontpage-gray">
     <div class="col-md-7 section-frontpage">
       <div class="section-overtext">{{ section.title }}</div>
       <h1 class="section-title">{{ section.virksomhedNavn }}</h1>
-      <div class="section-type">{{ section.rapportTypeNavn }}</div>
+      <div class="section-type">{{ section.getRapportTypeNavn }}</div>
     </div>
     <div class="col-md-5">
       {% if section.address %}

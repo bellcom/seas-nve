@@ -513,6 +513,14 @@ rapportsektion:
     updated: "Rapport sektion opdateret"
   labels:
     plural: "Rapport sektioner"
+  types:
+    standard: "Standard"
+    forside: "Forside"
+    opsummering: "Opsummering"
+    kontaktinformation: "Kontaktinformation"
+  error:
+    general: "Rapport sektion kan ikke oprettes"
+    filetype: "Tilladte filtyper er: jpg, jpeg, png"
 reportimage:
   actions:
     add: "Nyt billede upload"
@@ -554,6 +562,7 @@ reporttext:
   tabs:
     standard: "Standard"
     opsummering: "Opsummering"
+    kontaktinformation: "Kontaktinformation"
 rapporter:
   labels:
     plural: "Rapporter"
@@ -1430,6 +1439,14 @@ appbundle:
     wattage.unit: "W/Lysk."
     import:
       filepath: "Vælg fil med import erstatningslyskilder data"
+  forside:
+    rapport:
+      sektion:
+        title: "Overtekst"
+        filepath: "Billede"
+        extras:
+          rapportTypeNavn: "Rapportype navn"
+          underTekst: "Undertekst"
   forsyningsvaerk:
     co2: "CO2"
     co2.unit: "kg/MWh"

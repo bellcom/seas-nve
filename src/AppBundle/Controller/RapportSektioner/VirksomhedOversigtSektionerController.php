@@ -6,7 +6,9 @@ use AppBundle\Entity\RapportSektioner\RapportSektionRepository;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\VirksomhedRapport;
+use AppBundle\Entity\VirksomhedRapportRepository;
 use AppBundle\Form\Type\RapportSektion\RapportSektionType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Exception\UploadableInvalidMimeTypeException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,10 +27,16 @@ use Symfony\Component\HttpFoundation\Request;
 class VirksomhedOversigtSektionerController extends BaseController
 {
 
+    /**
+     * @var Request
+     */
+    protected $request;
+
     public function init(Request $request)
     {
+        $this->request = $request;
         parent::init($request);
-//    $this->breadcrumbs->addItem('rapportsektion.labels.singular', $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $virksomhed_rapport)));
+        $this->breadcrumbs->addItem('virksomhed_rapporter.labels.plural', $this->generateUrl('virksomhed_rapport'));
     }
 
     /**
@@ -40,7 +48,19 @@ class VirksomhedOversigtSektionerController extends BaseController
      */
     public function indexAction(VirksomhedRapport $virksomhed_rapport)
     {
-        $entities = $virksomhed_rapport->getRapportOversigtSektioner();
+        $this->breadcrumbs->addItem($virksomhed_rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $virksomhed_rapport->getId())));
+        $this->breadcrumbs->addItem('Oversigtrapport', $this->generateUrl('virksomhed_rapport_pdf_review', array('id' => $virksomhed_rapport->getId(), 'type' => 'oversigt')));
+        $this->breadcrumbs->addItem('Sektioner', $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $virksomhed_rapport->getId())));
+
+        $entities = new ArrayCollection();
+        /** @var VirksomhedRapportRepository $repository */
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:VirksomhedRapport');
+        try {
+            $entities = $repository->getOverviewRapportSektionerSorted($virksomhed_rapport);
+        }
+        catch (\Exception $e) {
+            return $this->flash->error($e->getMessage());
+        }
         return array(
             'entities' => $entities,
         );
@@ -55,6 +75,10 @@ class VirksomhedOversigtSektionerController extends BaseController
      */
     public function createAction(Request $request, VirksomhedRapport $virksomhed_rapport, $type = 'standard')
     {
+        $this->breadcrumbs->addItem($virksomhed_rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $virksomhed_rapport->getId())));
+        $this->breadcrumbs->addItem('Oversigtrapport', $this->generateUrl('virksomhed_rapport_pdf_review', array('id' => $virksomhed_rapport->getId(), 'type' => 'oversigt')));
+        $this->breadcrumbs->addItem('Sektioner', $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $virksomhed_rapport->getId())));
+
         /** @var RapportSektionRepository $repository */
         $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:RapportSektioner\RapportSektion');
         $entity = $repository->create($type);
@@ -118,7 +142,9 @@ class VirksomhedOversigtSektionerController extends BaseController
      */
     public function newAction(VirksomhedRapport $virksomhed_rapport, $type = 'standard')
     {
-        $this->breadcrumbs->addItem('common.add', $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $virksomhed_rapport->getId())));
+        $this->breadcrumbs->addItem($virksomhed_rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $virksomhed_rapport->getId())));
+        $this->breadcrumbs->addItem('Oversigtrapport', $this->generateUrl('virksomhed_rapport_pdf_review', array('id' => $virksomhed_rapport->getId(), 'type' => 'oversigt')));
+        $this->breadcrumbs->addItem('Sektioner', $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $virksomhed_rapport->getId())));
 
         /** @var RapportSektionRepository $repository */
         $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:RapportSektioner\RapportSektion');
@@ -144,6 +170,10 @@ class VirksomhedOversigtSektionerController extends BaseController
      */
     public function editAction(VirksomhedRapport $virksomhed_rapport, RapportSektion $entity)
     {
+        $this->breadcrumbs->addItem($virksomhed_rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $virksomhed_rapport->getId())));
+        $this->breadcrumbs->addItem('Oversigtrapport', $this->generateUrl('virksomhed_rapport_pdf_review', array('id' => $virksomhed_rapport->getId(), 'type' => 'oversigt')));
+        $this->breadcrumbs->addItem('Sektioner', $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $virksomhed_rapport->getId())));
+        $this->breadcrumbs->addItem('common.edit', $this->generateUrl('virksomhed_oversigt_rapport_sektioner_edit', array('virksomhed_rapport' => $virksomhed_rapport->getId(), 'id' => $entity->getId())));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find RapportSektion entity.');
@@ -154,7 +184,7 @@ class VirksomhedOversigtSektionerController extends BaseController
 
         return array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $entity->isAllowed(RapportSektion::ACTION_DELETE) ? $deleteForm->createView() : NULL,
         );
     }
@@ -168,14 +198,22 @@ class VirksomhedOversigtSektionerController extends BaseController
      */
     private function createEditForm(RapportSektion $entity)
     {
+        $params = array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId(), 'id' => $entity->getId(), 'type' => $entity->getType());
+        // Getting desired destination for form redirect.
+        $destination = $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId()));
+        if ($this->request->get('destination')) {
+            $destination = $this->request->get('destination');
+            $params['destination'] = $destination;
+        }
+
         $formType = $entity->getFormType();
         $form = $this->createForm($formType, $entity, array(
-            'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_update', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId(), 'id' => $entity->getId(), 'type' => $entity->getType())),
+            'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_update', $params),
             'method' => 'PUT',
         ));
 
-        $this->addUpdate($form, $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())));
-        $this->addUpdateAndExit($form, $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())));
+        $this->addUpdate($form, $destination);
+        $this->addUpdateAndExit($form, $destination);
 
         return $form;
     }
@@ -206,7 +244,7 @@ class VirksomhedOversigtSektionerController extends BaseController
             try {
                 $this->handleUploads($entity);
                 $em->flush();
-                $this->flash->success('rapport_sections.confirmation.updated');
+                $this->flash->success('rapportsektion.confirmation.updated');
 
                 $destination = $request->getRequestUri();
                 if ($button_destination = $this->getButtonDestination($editForm)) {
@@ -216,10 +254,10 @@ class VirksomhedOversigtSektionerController extends BaseController
 
             }
             catch (UploadableInvalidMimeTypeException $e) {
-                $this->flash->error('rapport_sections.error.filetype');
+                $this->flash->error('rapportsektion.error.filetype');
             }
             catch (\Exception $e) {
-                $this->flash->error('rapport_sections.error.general');
+                $this->flash->error('rapportsektion.error.general');
             }
         }
 

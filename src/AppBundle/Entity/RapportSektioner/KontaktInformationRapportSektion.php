@@ -9,18 +9,18 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
 
 /**
- * KundeinformationRapportSektion
+ * KontaktInformationRapportSektion
  *
  * @ORM\Table()
  * @ORM\Entity()
  */
-class KontaktinformationRapportSektion extends RapportSektion {
+class KontaktInformationRapportSektion extends RapportSektion {
 
     /**
      * Constructor
      */
     public function __construct() {
-        $this->title = 'Kundeinformation';
+        $this->title = 'KontaktIntinformation';
         parent::__construct();
     }
 

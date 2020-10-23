@@ -17,6 +17,14 @@ use Doctrine\ORM\Mapping\InheritanceType;
 class OpsummeringRapportSektion extends RapportSektion {
 
     /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->title = 'Opsummering';
+        parent::__construct();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getFormType() {

@@ -309,8 +309,13 @@ class VirksomhedRapportController extends BaseController {
   public function showPdfReviewAction(VirksomhedRapport $rapport, $type) {
     $exporter = $this->get('aaplus.virksomhed_pdf_export');
     switch ($type) {
-      case 'resultatoversigt':
+      case 'oversigt':
         $html = $exporter->exportOverview($rapport, array(), TRUE);
+        $pdf_export_route = 'virksomhed_rapport_show_overview';
+        break;
+
+      case 'resultatoversigt':
+        $html = $exporter->exportOverviewOld($rapport, array(), TRUE);
         $pdf_export_route = 'virksomhed_rapport_show_overview';
         break;
 

@@ -7,10 +7,14 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\Entity\RapportSektioner\RapportSektion;
+use AppBundle\Entity\RapportSektioner\RapportSektionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;
 use Doctrine\ORM\Query;
+use Gedmo\Exception\UploadableInvalidMimeTypeException;
 
 /**
  * VirksomhedRapportRepository
@@ -69,4 +73,40 @@ class VirksomhedRapportRepository extends BaseRepository {
         return $qb->getQuery();
     }
 
+    /**
+     * @param VirksomhedRapport $entity
+     * @return ArrayCollection
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \ReflectionException
+     */
+    public function getOverviewRapportSektionerSorted(VirksomhedRapport $entity) {
+        $sections = $entity->getRapportOversigtSektioner();
+        $sectionTypes = RapportSektion::getRapportSektionTypes();
+        $sectionsSorted = new ArrayCollection();
+        foreach ($entity->getRapportOversigtSektionerStruktur() as $sectionType) {
+            $className = $sectionTypes[$sectionType];
+            $existing = $sections->filter(function($sektion) use ($className) {
+                $class = (new \ReflectionClass($sektion))->getShortName();
+                    return $class == $className;
+                });
+            if ($existing->count() > 0) {
+                foreach ($existing as $existingSection) {
+                    $sectionsSorted->add($existingSection);
+                }
+                continue;
+            }
+            /** @var RapportSektionRepository $sektionerRepository */
+            $sektionRepository = $this->_em->getRepository('AppBundle:RapportSektioner\RapportSektion');
+            /** @var RapportSektion $new_sektion */
+            $newSection = $sektionRepository->create($sectionType);
+            $newSection->setVirksomhedOversigtRapport($entity);
+            $this->_em->persist($newSection);
+            $this->_em->flush();
+            $sectionsSorted->add($newSection);
+        }
+        $this->_em->persist($entity);
+        $this->_em->flush();
+        return $sectionsSorted;
+    }
 }

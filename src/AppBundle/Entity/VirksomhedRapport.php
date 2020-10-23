@@ -2095,11 +2095,25 @@ class VirksomhedRapport
     /**
      * Get RapportOversigtSektioner
      *
-     * @return float
+     * @return ArrayCollection
      */
     public function getRapportOversigtSektioner()
     {
         return $this->rapportOversigtSektioner;
+    }
+
+    /**
+     * Get RapportOversigtSektioner Structure.
+     *
+     * @return array
+     */
+    public function getRapportOversigtSektionerStruktur()
+    {
+        return array(
+            'forside',
+            'kontaktinformation',
+            'opsummering'
+        );
     }
 
     /**
@@ -2651,12 +2665,8 @@ class VirksomhedRapport
      * @ORM\PostLoad
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
      */
-    public function postLoad() {
+    public function postLoad(LifecycleEventArgs $event) {
         $this->initFormulableCalculation();
-        $sektioner = $this->getRapportOversigtSektioner();
-        foreach (self::RAPPORT_SEKTIONER as $sektion) {
-
-        }
     }
 
     public function __call($name, $arguments = array())
