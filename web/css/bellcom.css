@@ -76,3 +76,9 @@ img.image-swatch {
     height: 200px;
     margin-bottom: 15px;
 }
+
+.default-value-select {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}

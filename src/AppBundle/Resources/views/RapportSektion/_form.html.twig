@@ -1,0 +1,19 @@
+<script>
+  {% if default_value_groups %}
+    var default_value_groups = {};
+    {% for groupKey, groupOptions in default_value_groups %}
+      default_value_groups.{{ groupKey }} = {{ groupOptions|json_encode|raw }};
+    {% endfor %}
+  {% endif %}
+</script>
+
+{% for groupKey, groupOptions in default_value_groups %}
+  <select name="{{ groupKey }}" id="default-value-group-{{ groupKey }}" class="default-value-select js-default-value-select" data-default-value-target="{{ groupKey }}">
+    <option value="0">{{ 'common.select'|trans }}</option>
+    {% for optionKey, option in groupOptions %}
+      <option value="{{ optionKey }}">{{ option.title }}</option>
+    {% endfor %}
+  </select>
+{% endfor %}
+
+{{ form(edit_form) }}

@@ -505,6 +505,14 @@ pumpetiltagdetail:
     copy: "Kopier Pumpeforslag"
     create: "Opret Pumpeforslag"
     edit: "Rediger Pumpeforslag"
+rapportsektion:
+  actions:
+    create: "Opret Rapport sektion"
+    edit: "Rediger Rapport sektion"
+  confirmation:
+    updated: "Rapport sektion opdateret"
+  labels:
+    plural: "Rapport sektioner"
 reportimage:
   actions:
     add: "Nyt billede upload"
@@ -2037,6 +2045,10 @@ appbundle:
     nutidsvaerdiSet.unit: "kr"
     akkumuleretNutidsvaerdiSet: "Akkumuleret nutidsværdi"
     akkumuleretNutidsvaerdiSet.unit: "kr"
+  rapportsektion:
+    title: "Title"
+    text: "Tekst"
+    type: "Type"
   reportimage:
     title: "Titel"
     filepath: "Fil"
