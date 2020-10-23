@@ -5,6 +5,7 @@ namespace AppBundle\Controller\RapportSektioner;
 
 use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\Rapport;
+use AppBundle\Entity\ReportText;
 use AppBundle\Form\Type\RapportSektion\RapportSektionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,7 +26,7 @@ class BygningOversigtSektionerController extends BaseController
     public function init(Request $request)
     {
         parent::init($request);
-//    $this->breadcrumbs->addItem('rapportsection.labels.singular', $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $bygning_rapport)));
+        $this->breadcrumbs->addItem('Rapporter', $this->generateUrl('rapport'));
     }
 
     /**
@@ -37,6 +38,8 @@ class BygningOversigtSektionerController extends BaseController
      */
     public function indexAction(Rapport $bygning_rapport)
     {
+        $this->breadcrumbs->addItem($bygning_rapport, $this->generateUrl('rapport_show', array('id' => $bygning_rapport->getId())));
+        $this->breadcrumbs->addItem('rapportsektion.labels.plural', $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $bygning_rapport->getId())));
         $entities = $bygning_rapport->getRapportOversigtSektioner();
         return array(
             'entities' => $entities,
@@ -52,7 +55,10 @@ class BygningOversigtSektionerController extends BaseController
      */
     public function newAction(Rapport $bygning_rapport, $type = 'standard')
     {
-        $this->breadcrumbs->addItem('common.add', $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $bygning_rapport->getId())));
+        $this->breadcrumbs->addItem($bygning_rapport, $this->generateUrl('rapport_show', array('id' => $bygning_rapport->getId())));
+        $this->breadcrumbs->addItem('rapportsektion.labels.plural', $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $bygning_rapport->getId())));
+        $this->breadcrumbs->addItem('common.create');
+
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:RapportSektioner\RapportSektion')->create($type);
         if (empty($entity) && $entity->isAllowed(RapportSektion::ACTION_ADD)) {
@@ -63,7 +69,7 @@ class BygningOversigtSektionerController extends BaseController
 
         return array(
             'entity' => $entity,
-            'form' => $form->createView(),
+            'edit_form' => $form->createView(),
         );
     }
 
@@ -107,9 +113,25 @@ class BygningOversigtSektionerController extends BaseController
      */
     public function editAction(Rapport $bygning_rapport, RapportSektion $entity)
     {
+        $this->breadcrumbs->addItem($bygning_rapport, $this->generateUrl('rapport_show', array('id' => $bygning_rapport->getId())));
+        $this->breadcrumbs->addItem('rapportsektion.labels.plural', $this->generateUrl('bygning_oversigt_rapport_sektioner', array('bygning_rapport' => $bygning_rapport->getId())));
+        $this->breadcrumbs->addItem('common.create');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find RapportSektion entity.');
+        }
+
+        $text_options = array();
+
+        $em = $this->getDoctrine()->getManager();
+        $reportTexts = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $entity->getType()));
+
+        /** @var ReportText $reportText */
+        foreach ($reportTexts as $reportText) {
+            $text_options[$reportText->getId()] = array(
+                'title' => $reportText->getTitle() . ($reportText->isStandard() ? ' (standard)' : ''),
+                'body' => $reportText->getBody()
+            );
         }
 
         $editForm = $this->createEditForm($entity);
@@ -119,6 +141,9 @@ class BygningOversigtSektionerController extends BaseController
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'default_value_groups' => array(
+                'text' => $text_options,
+            )
         );
     }
 
@@ -147,7 +172,7 @@ class BygningOversigtSektionerController extends BaseController
         if ($editForm->isValid()) {
             $em->flush();
 
-            $this->flash->success('rapport_sections.confirmation.updated');
+            $this->flash->success('rapportsektion.confirmation.updated');
 
             $destination = $request->getRequestUri();
             if ($button_destination = $this->getButtonDestination($editForm)) {

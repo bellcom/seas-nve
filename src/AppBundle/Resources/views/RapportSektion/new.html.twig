@@ -1,16 +1,15 @@
 {% extends 'AppBundle::base.html.twig' %}
 
-
 {% block body -%}
-<div class="row heading">
-  <div class="col-md-9">
-    <h1>{{ 'rapport_sektion.actions.add' | trans }}</h1>
-  </div>
-  <div class="col-md-3 text-right">
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'rapportsektion.actions.create' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+    </div>
+
   </div>
 
-</div>
-
-{{ form(form) }}
+  {% include 'AppBundle:RapportSektion:_form.html.twig' %}
 
 {% endblock %}

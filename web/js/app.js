@@ -26,6 +26,29 @@ jQuery(function ($) {
       clearInterval(timer);
     }, 300);
   });
+
+  // Default value selection.
+  $('.js-default-value-select').each(function() {
+    // Getting target element.
+    var defaultValueKey = $(this).data('default-value-target');
+    var targetElement = $('.js-default-value-target[data-default-value-source="' + defaultValueKey + '"]');
+
+    // Moving the select.
+    $(this).detach();
+    $(targetElement).before(this);
+  });
+  $('.js-default-value-select').change(function() {
+    // Getting target element.
+    var defaultValueKey = $(this).data('default-value-target');
+    var targetElement = $('.js-default-value-target[data-default-value-source="' + defaultValueKey + '"]');
+
+    // Getting the selected text body.
+    var selectedValue = $(this).val();
+    if (default_value_groups[defaultValueKey][selectedValue]) {
+      var body = default_value_groups[defaultValueKey][selectedValue].body;
+      CKEDITOR.instances[targetElement.attr('id')].setData(body);
+    }
+  });
 });
 
 // Toggle calculation expression.
@@ -163,4 +186,5 @@ jQuery(function ($) {
       }
     });
   }
+
 })();

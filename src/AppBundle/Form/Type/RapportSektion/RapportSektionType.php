@@ -31,6 +31,6 @@ class RapportSektionType extends AbstractType
     }
 
     public function getName() {
-        return 'appbundle_rapport_sektion';
+        return 'appbundle_rapportsektion';
     }
 }
