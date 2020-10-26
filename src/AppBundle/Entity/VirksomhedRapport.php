@@ -2112,7 +2112,8 @@ class VirksomhedRapport
         return array(
             'forside',
             'kontaktinformation',
-            'opsummering'
+            'opsummering',
+            'faktavirksomhed'
         );
     }
 

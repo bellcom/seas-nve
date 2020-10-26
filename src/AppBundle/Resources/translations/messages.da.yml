@@ -1447,6 +1447,17 @@ appbundle:
         extras:
           rapportTypeNavn: "Rapportype navn"
           underTekst: "Undertekst"
+  faktavirksom:
+    rapport:
+      sektion:
+        title: "Overtekst"
+        text: "Beskrivelse af Virksomhed"
+        extras:
+          elForbrug: "kr/kWh i el"
+          varmeForbrug: "kr/kWh i varme"
+          braendstofForbrug: "kr/kWh i brændstof"
+          afgifterForbrug: "kr/kWh i afgifter"
+          co2Forbrug: "ton i CO2"
   forsyningsvaerk:
     co2: "CO2"
     co2.unit: "kg/MWh"
