@@ -341,5 +341,12 @@ class RapportSektion
         return in_array($action, $this->allowedActions());
     }
 
+    /**
+     * Gets a list of fields that support population form default values.
+     */
+    public static function getDefaultableTextFields() {
+        return array('text');
+    }
+
 }
 

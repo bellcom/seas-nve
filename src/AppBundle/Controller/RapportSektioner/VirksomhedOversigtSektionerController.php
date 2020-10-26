@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\RapportSektioner;
 
 use AppBundle\Entity\RapportSektioner\RapportSektionRepository;
+use AppBundle\Entity\ReportText;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\VirksomhedRapport;
@@ -158,6 +159,7 @@ class VirksomhedOversigtSektionerController extends BaseController
         return array(
             'entity' => $entity,
             'form' => $form->createView(),
+            'default_value_groups' => $this->getDefaultValueGroups($entity),
         );
     }
 
@@ -186,6 +188,7 @@ class VirksomhedOversigtSektionerController extends BaseController
             'entity' => $entity,
             'form' => $editForm->createView(),
             'delete_form' => $entity->isAllowed(RapportSektion::ACTION_DELETE) ? $deleteForm->createView() : NULL,
+            'default_value_groups' => $this->getDefaultValueGroups($entity),
         );
     }
 
@@ -334,6 +337,37 @@ class VirksomhedOversigtSektionerController extends BaseController
             $manager = $this->get('stof_doctrine_extensions.uploadable.manager');
             $manager->markEntityToUpload($entity, $fileInfo);
         }
+    }
+
+    /**
+     * Gets the default value groups that entity supports.
+     *
+     * Is it generated my mapping entity text fields (defaultable) and the possible options.
+     *
+     * @param RapportSektion $entity
+     *   Report section entity.
+     *
+     * @return array
+     *   Default value groups array.
+     */
+    protected function getDefaultValueGroups(RapportSektion $entity) {
+        $default_value_groups = array();
+
+        $defaultValueTexts = $entity->getDefaultableTextFields();
+        foreach ($defaultValueTexts as $textFieldName) {
+            $em = $this->getDoctrine()->getManager();
+            $reportTexts = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $entity->getType() . '_' . $textFieldName));
+
+            /** @var ReportText $reportText */
+            foreach ($reportTexts as $reportText) {
+                $default_value_groups[$textFieldName][$reportText->getId()] = array(
+                    'title' => $reportText->getTitle() . ($reportText->isStandard() ? ' (standard)' : ''),
+                    'body' => $reportText->getBody()
+                );
+            }
+        }
+
+        return $default_value_groups;
     }
 
 }
