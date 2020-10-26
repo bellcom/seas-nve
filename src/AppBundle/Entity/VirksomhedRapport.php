@@ -2114,7 +2114,8 @@ class VirksomhedRapport
             'kontaktinformation',
             'opsummering',
             'faktavirksomhed',
-            'finansiering'
+            'finansiering',
+            'baeredygtighed'
         );
     }
 

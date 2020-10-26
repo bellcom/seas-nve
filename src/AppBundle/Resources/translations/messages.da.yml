@@ -520,6 +520,7 @@ rapportsektion:
     kontaktinformation: "Kontaktinformation"
     faktavirksomhed: "Fakta om virksomhed"
     finansiering: "Finansiering"
+    baeredygtighed: "Baeredygtighed"
   error:
     general: "Rapport sektion kan ikke oprettes"
     filetype: "Tilladte filtyper er: jpg, jpeg, png"
@@ -1021,6 +1022,13 @@ appbundle:
     korrektionGUF.unit: "kWh/år"
     korrektionBraendstof: "Brændstof"
     korrektionBraendstof.unit: "kWh/år"
+  baeredygtighed:
+    rapport:
+      sektion:
+        title: "Overtekst"
+        text: "Beskrivelse"
+        extras:
+          besparelseeffekt: "Besparelse effekt"
   belysningtiltagdetail:
     add: "Tilføj"
     armaturerStkLokale: "Armaturer antal"
@@ -2087,6 +2095,7 @@ appbundle:
     text: "Tekst"
     type: "Type"
     noegletal: "Nøgletal"
+    besparelseeffekt: "Besparelse effekt"
   reportimage:
     title: "Titel"
     filepath: "Fil"
