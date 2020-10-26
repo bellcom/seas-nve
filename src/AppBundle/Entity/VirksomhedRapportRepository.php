@@ -7,9 +7,13 @@
 namespace AppBundle\Entity;
 
 use AppBundle\DBAL\Types\BygningStatusType;
+use AppBundle\Entity\RapportSektioner\ForsideRapportSektion;
 use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\RapportSektioner\RapportSektionRepository;
+use AppBundle\Entity\RapportSektioner\TiltagRapportSektion;
+use AppBundle\Form\Type\RapportSektion\ForsideRapportSektionType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;
@@ -75,38 +79,106 @@ class VirksomhedRapportRepository extends BaseRepository {
 
     /**
      * @param VirksomhedRapport $entity
-     * @return ArrayCollection
+     * @return array
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \ReflectionException
      */
     public function getOverviewRapportSektionerSorted(VirksomhedRapport $entity) {
-        $sections = $entity->getRapportOversigtSektioner();
-        $sectionTypes = RapportSektion::getRapportSektionTypes();
-        $sectionsSorted = new ArrayCollection();
+        $sectionsSorted = [];
         foreach ($entity->getRapportOversigtSektionerStruktur() as $sectionType) {
-            $className = $sectionTypes[$sectionType];
-            $existing = $sections->filter(function($sektion) use ($className) {
-                $class = (new \ReflectionClass($sektion))->getShortName();
-                    return $class == $className;
-                });
-            if ($existing->count() > 0) {
-                foreach ($existing as $existingSection) {
-                    $sectionsSorted->add($existingSection);
-                }
-                continue;
+            $className = RapportSektion::getRapportSektionClassByType($sectionType, TRUE);
+            // Check if required amount sections are present.
+            $checkSectionMethod = 'checkRapportSektion';
+            if (method_exists($this, "check" . $className)) {
+                $checkSectionMethod = "check" . $className;
             }
-            /** @var RapportSektionRepository $sektionerRepository */
-            $sektionRepository = $this->_em->getRepository('AppBundle:RapportSektioner\RapportSektion');
-            /** @var RapportSektion $new_sektion */
-            $newSection = $sektionRepository->create($sectionType);
-            $newSection->setVirksomhedOversigtRapport($entity);
-            $this->_em->persist($newSection);
-            $this->_em->flush();
-            $sectionsSorted->add($newSection);
+            $sections = $this->$checkSectionMethod($entity, $sectionType);
+            foreach ($sections as $section) {
+                $sectionsSorted[] = $section;
+            }
         }
         $this->_em->persist($entity);
         $this->_em->flush();
         return $sectionsSorted;
     }
+
+    protected function checkRapportSektion(VirksomhedRapport $entity, $sectionType) {
+        $sections = $entity->getRapportOversigtSektioner();
+        $existing = $sections->filter(function($section) use ($sectionType) {
+            return get_class($section) == RapportSektion::getRapportSektionClassByType($sectionType);
+        });
+
+        if ($existing->count() >= 1) {
+            return $existing->toArray();
+        }
+
+        // Creating missing sections.
+        $sections = [];
+        for ($i = 0; $i < 1; $i++) {
+            /** @var RapportSektionRepository $sektionerRepository */
+            $sektionRepository = $this->_em->getRepository('AppBundle:RapportSektioner\RapportSektion');
+            /** @var RapportSektion $new_sektion */
+            $newSection = $sektionRepository->create($sectionType);
+            $newSection->setVirksomhedOversigtRapport($entity);
+
+            $this->_em->persist($newSection);
+            $this->_em->flush();
+            $sections[] = $newSection;
+        }
+
+        return $sections;
+    }
+
+    protected function checkTiltagRapportSektion(VirksomhedRapport $entity) {
+        $sections = $entity->getRapportOversigtSektioner();
+        $tiltage = $entity->getBygningerRapporterTiltage();
+        $tiltageRepository = $this->_em->getRepository('AppBundle:Tiltag');
+
+        $existing = [];
+        // Filtering existing section and prepare them to check.
+        /** @var RapportSektion $section */
+        foreach ($sections as $section) {
+            if (!$section instanceof TiltagRapportSektion) {
+                continue;
+            }
+            // Remove section if it has missing Tiltag id or it doesn't exist.
+            if ($tiltageRepository->find($section->getTiltagId()) == NULL) {
+                $this->_em->remove($section);
+                $this->_em->flush();
+                continue;
+            }
+            $existing[$section->getTiltagId()] = $section;
+        }
+
+        // Return if all section are created.
+        if (count($existing) == count($tiltage)) {
+            return $existing;
+        }
+
+        // Remove already created tiltage sections.
+        /** @var Tiltag $tiltag */
+        foreach ($tiltage as $tiltag) {
+            if (isset($existing[$tiltag->getId()])) {
+                $tiltage->removeElement($tiltag);
+            }
+        }
+
+        // Creating missing sections.
+        $sections = $existing;
+        /** @var RapportSektionRepository $sektionerRepository */
+        $sektionRepository = $this->_em->getRepository('AppBundle:RapportSektioner\RapportSektion');
+        /** @var Tiltag $tiltag */
+        foreach ($tiltage as $tiltag) {
+            /** @var TiltagRapportSektion $new_sektion */
+            $newSection = $sektionRepository->create('tiltag', array('tiltag' => $tiltag));
+            $newSection->setVirksomhedOversigtRapport($entity);
+            $this->_em->persist($newSection);
+            $this->_em->flush();
+            $sections[] = $newSection;
+        }
+
+        return $sections;
+    }
+
 }

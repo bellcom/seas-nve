@@ -24,6 +24,7 @@ use Symfony\Component\Form\FormTypeInterface;
  *    "forside" = "ForsideRapportSektion",
  *    "kontaktinformation" = "KontaktInformationRapportSektion",
  *    "opsummering" = "OpsummeringRapportSektion",
+ *    "tiltag" = "TiltagRapportSektion",
  * })
  */
 class RapportSektion
@@ -43,7 +44,7 @@ class RapportSektion
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     protected $title;
 
@@ -257,6 +258,20 @@ class RapportSektion
         $discriminatorMapAnn = $annotationReader->getClassAnnotation($refClass, 'Doctrine\ORM\Mapping\DiscriminatorMap');
 
         return $keys ? array_keys($discriminatorMapAnn->value) : $discriminatorMapAnn->value;
+    }
+
+    /**
+     * Get secktion class by type.
+     *
+     * @param $type
+     * @return string
+     */
+    public static function getRapportSektionClassByType($type, $short = FALSE) {
+        $types = self::getRapportSektionTypes();
+        if (empty($types[$type])) {
+            return NULL;
+        }
+        return $short ? $types[$type] : 'AppBundle\\Entity\\RapportSektioner\\' . $types[$type];
     }
 
     /**

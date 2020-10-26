@@ -2,16 +2,15 @@
 
 namespace AppBundle\Entity\RapportSektioner;
 
+use AppBundle\Entity\RapportSektioner\Traits\FilepathField;
 use AppBundle\Form\Type\RapportSektion\ForsideRapportSektionType;
 use AppBundle\Form\Type\RapportSektion\OpsummeringRapportSektionType;
-use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Gedmo\Uploadable\Mapping\Validator;
-use Gedmo\Uploadable\Uploadable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -20,7 +19,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Table()
  * @ORM\Entity()
  * @Gedmo\Uploadable(
- *   path="uploads/report_images/",
+ *   path="uploads/images/rapport/forside/",
  *   filenameGenerator=Validator::FILENAME_GENERATOR_ALPHANUMERIC,
  *   allowOverwrite=false,
  *   appendNumber=true,
@@ -29,12 +28,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class ForsideRapportSektion extends RapportSektion {
 
-    /**
-     * @ORM\Column(name="filepath", type="string", nullable=true)
-     * @Gedmo\UploadableFilePath
-     * @Assert\File()
-     */
-    protected $filepath;
+    use FilepathField;
 
     /**
      * Constructor
@@ -92,33 +86,6 @@ class ForsideRapportSektion extends RapportSektion {
      */
     public function setFilepath(UploadedFile $filepath = null) {
         $this->filepath = $filepath;
-    }
-
-    /**
-     * Get filepath.
-     *
-     * @return UploadedFile
-     */
-    public function getFilepath() {
-        return $this->filepath;
-    }
-
-    /**
-     * Get filename.
-     *
-     * @return string
-     */
-    public function getFilename() {
-        return basename($this->filepath);
-    }
-
-    /**
-     * Get image file.
-     *
-     * @return string
-     */
-    public function getBillede() {
-        return $this->getFilename();
     }
 
 }

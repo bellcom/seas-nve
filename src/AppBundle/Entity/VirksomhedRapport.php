@@ -569,6 +569,11 @@ class VirksomhedRapport
     protected $rapporter = array();
 
     /**
+     * @var ArrayCollection $tiltage
+     */
+    protected $tiltage;
+
+    /**
      * @var array
      *
      * @Calculated
@@ -657,6 +662,7 @@ class VirksomhedRapport
         $this->datering = new \DateTime();
         $this->version = 1;
         $this->rapporter = array();
+        $this->tiltage = new ArrayCollection();
         $this->besparelseSlutanvendelser = array();
         $this->rapportOversigtSektioner = new ArrayCollection();
     }
@@ -2112,7 +2118,8 @@ class VirksomhedRapport
         return array(
             'forside',
             'kontaktinformation',
-            'opsummering'
+            'opsummering',
+            'tiltag',
         );
     }
 
@@ -2181,6 +2188,26 @@ class VirksomhedRapport
             $this->rapporter[$rapport->getId()] = $rapport;
         }
         return $this->rapporter;
+    }
+
+    /**
+     * Fetchs array with all associated tiltags.
+     *
+     * @return ArrayCollection
+     */
+    public function getBygningerRapporterTiltage() {
+        if (!empty($this->tiltage)) {
+            return $this->tiltage;
+        }
+        $this->tiltage = new ArrayCollection();
+        $rapporter = $this->getBygningerRapporter();
+        /** @var Rapport $rapport */
+        foreach ($rapporter as $rapport) {
+            foreach ($rapport->getTiltag() as $tiltag) {
+                $this->tiltage->add($tiltag);
+            }
+        }
+        return $this->tiltage;
     }
 
     /**

@@ -24,14 +24,14 @@ class VirksomhedPdfExport {
         $sections = $repository->getOverviewRapportSektionerSorted($rapport);
         $cover_sections = array();
         /** @var RapportSektion $section */
-        foreach ($sections->getIterator() as $section) {
+        foreach ($sections as $key => $section) {
             $section->setEditUrl($this->router->generate('virksomhed_oversigt_rapport_sektioner_edit', array(
                 'virksomhed_rapport' => $rapport->getId(),
                 'id' => $section->getId(),
                 'destination' => $this->router->generate('virksomhed_rapport_pdf_review', array('id' => $rapport->getId(), 'type' => 'oversigt')) . '#section-'. $section->getType() . $section->getId(),
             )));
             if (in_array($section->getType(), array('forside', 'kundeinformation'))) {
-                $sections->removeElement($section);
+                unset($sections[$key]);
                 $cover_sections[] = $section;
             }
         }

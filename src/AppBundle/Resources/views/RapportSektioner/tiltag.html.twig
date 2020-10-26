@@ -1,0 +1,9 @@
+{% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+{% block section -%}
+<div class="section-frontpage-image">
+  {% if section.filepath %}
+    <img src="{{ absolute_url(asset(section.filepath)) }}" alt="" style="width:100%"/>
+  {% endif %}
+</div>
+  {{ parent() }}
+{% endblock %}
