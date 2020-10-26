@@ -5,7 +5,7 @@ namespace AppBundle\Form\Type\RapportSektion;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FaktaOmVirksomedRapportSektionType extends RapportSektionType
+class FinansieringRapportSektionType extends RapportSektionType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,20 +14,19 @@ class FaktaOmVirksomedRapportSektionType extends RapportSektionType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-
-        $builder->add('extras', FaktaOmVirksomedRapportSektionExtrasType::class, array('label' => FALSE));
+        $builder->add('extras', FinansieringRapportSektionExtrasType::class, array('label' => FALSE));
     }
 
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\RapportSektioner\FaktaOmVirksomhedRapportSektion'
+                'data_class' => 'AppBundle\Entity\RapportSektioner\FinansieringRapportSektion'
             )
         );
     }
 
     public function getName() {
-        return 'appbundle_faktavirksom_rapport_sektion';
+        return 'appbundle_finansiering_rapport_sektion';
     }
 }

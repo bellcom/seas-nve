@@ -24,7 +24,8 @@ use Symfony\Component\Form\FormTypeInterface;
  *    "forside" = "ForsideRapportSektion",
  *    "kontaktinformation" = "KontaktInformationRapportSektion",
  *    "opsummering" = "OpsummeringRapportSektion",
- *    "faktavirksomhed" = "FaktaOmVirksomhedSektion"
+ *    "faktavirksomhed" = "FaktaOmVirksomhedRapportSektion",
+ *    "finansiering" = "FinansieringRapportSektion"
  * })
  */
 class RapportSektion

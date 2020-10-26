@@ -2113,7 +2113,8 @@ class VirksomhedRapport
             'forside',
             'kontaktinformation',
             'opsummering',
-            'faktavirksomhed'
+            'faktavirksomhed',
+            'finansiering'
         );
     }
 

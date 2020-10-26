@@ -518,6 +518,8 @@ rapportsektion:
     forside: "Forside"
     opsummering: "Opsummering"
     kontaktinformation: "Kontaktinformation"
+    faktavirksomhed: "Fakta om virksomhed"
+    finansiering: "Finansiering"
   error:
     general: "Rapport sektion kan ikke oprettes"
     filetype: "Tilladte filtyper er: jpg, jpeg, png"
@@ -559,10 +561,6 @@ reporttext:
     deleted: "Rapport tekst slettet"
   labels:
     plural: "Rapport tekster"
-  tabs:
-    standard: "Standard"
-    opsummering: "Opsummering"
-    kontaktinformation: "Kontaktinformation"
 rapporter:
   labels:
     plural: "Rapporter"
@@ -1458,6 +1456,17 @@ appbundle:
           braendstofForbrug: "kr/kWh i brændstof"
           afgifterForbrug: "kr/kWh i afgifter"
           co2Forbrug: "ton i CO2"
+  finansiering:
+    rapport:
+      sektion:
+        title: "Overtekst"
+        text: "Beskrivelse"
+        extras:
+          noegletal: "Nøgletal"
+          tilbagebetalingstid: "Simpel Tilbagebetalingstid"
+          tekniskelevetid: "Tekniske levetid"
+          produktivitetbeskrivelse: "Produktivitet beskrivelse"
+          grafundertekst: "Graf undertekst"
   forsyningsvaerk:
     co2: "CO2"
     co2.unit: "kg/MWh"
@@ -2077,6 +2086,7 @@ appbundle:
     title: "Title"
     text: "Tekst"
     type: "Type"
+    noegletal: "Nøgletal"
   reportimage:
     title: "Titel"
     filepath: "Fil"

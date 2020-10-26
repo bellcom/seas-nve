@@ -3,24 +3,25 @@
 namespace AppBundle\Entity\RapportSektioner;
 
 use AppBundle\Form\Type\RapportSektion\FaktaOmVirksomedRapportSektionType;
+use AppBundle\Form\Type\RapportSektion\FinansieringRapportSektionType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
 
 /**
- * FaktaOmVirksomhed
+ * FinansieringRapportSektion
  *
  * @ORM\Table()
  * @ORM\Entity()
  */
-class FaktaOmVirksomhedSektion extends RapportSektion {
+class FinansieringRapportSektion extends RapportSektion {
 
     /**
      * Constructor
      */
     public function __construct() {
-        $this->title = 'Fakta om virksomhed';
+        $this->title = 'Finansiering';
         parent::__construct();
     }
 
@@ -28,7 +29,18 @@ class FaktaOmVirksomhedSektion extends RapportSektion {
      * {@inheritdoc}
      */
     public function getFormType() {
-        return new FaktaOmVirksomedRapportSektionType();
+        return new FinansieringRapportSektionType();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDefaultableTextFields()
+    {
+        $textFields = parent::getDefaultableTextFields();
+        $textFields[] = 'noegletal';
+
+        return $textFields;
     }
 
 }
