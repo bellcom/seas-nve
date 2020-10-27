@@ -27,6 +27,6 @@ class FinansieringRapportSektionType extends RapportSektionType
     }
 
     public function getName() {
-        return 'appbundle_finansiering_rapport_sektion';
+        return 'appbundle_rapportsektion_finansiering';
     }
 }

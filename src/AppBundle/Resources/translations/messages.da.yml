@@ -522,6 +522,7 @@ rapportsektion:
     opsummering: "Opsummering"
     kontaktinformation: "Kontaktinformation"
     standard: "Standard"
+    tiltag: "Forslag"
   error:
     general: "Rapport sektion kan ikke oprettes"
     filetype: "Tilladte filtyper er: jpg, jpeg, png"
@@ -1470,36 +1471,6 @@ appbundle:
     wattage.unit: "W/Lysk."
     import:
       filepath: "Vælg fil med import erstatningslyskilder data"
-  forside:
-    rapport:
-      sektion:
-        title: "Overtekst"
-        filepath: "Billede"
-        extras:
-          rapportTypeNavn: "Rapportype navn"
-          underTekst: "Undertekst"
-  faktavirksom:
-    rapport:
-      sektion:
-        title: "Overtekst"
-        text: "Beskrivelse af Virksomhed"
-        extras:
-          elForbrug: "kr/kWh i el"
-          varmeForbrug: "kr/kWh i varme"
-          braendstofForbrug: "kr/kWh i brændstof"
-          afgifterForbrug: "kr/kWh i afgifter"
-          co2Forbrug: "ton i CO2"
-  finansiering:
-    rapport:
-      sektion:
-        title: "Overtekst"
-        text: "Beskrivelse"
-        extras:
-          noegletal: "Nøgletal"
-          tilbagebetalingstid: "Simpel Tilbagebetalingstid"
-          tekniskelevetid: "Tekniske levetid"
-          produktivitetbeskrivelse: "Produktivitet beskrivelse"
-          grafundertekst: "Graf undertekst"
   forsyningsvaerk:
     co2: "CO2"
     co2.unit: "kg/MWh"
@@ -2121,6 +2092,33 @@ appbundle:
     type: "Type"
     noegletal: "Nøgletal"
     besparelseeffekt: "Besparelse effekt"
+    forside:
+      title: "Overtekst"
+      filepath: "Billede"
+      extras:
+        rapportTypeNavn: "Rapportype navn"
+        underTekst: "Undertekst"
+    faktavirksom:
+      title: "Overtekst"
+      text: "Beskrivelse af Virksomhed"
+      extras:
+        elForbrug: "kr/kWh i el"
+        varmeForbrug: "kr/kWh i varme"
+        braendstofForbrug: "kr/kWh i brændstof"
+        afgifterForbrug: "kr/kWh i afgifter"
+        co2Forbrug: "ton i CO2"
+    finansiering:
+      title: "Overtekst"
+      text: "Beskrivelse"
+      extras:
+        noegletal: "Nøgletal"
+        tilbagebetalingstid: "Simpel Tilbagebetalingstid"
+        tekniskelevetid: "Tekniske levetid"
+        produktivitetbeskrivelse: "Produktivitet beskrivelse"
+        grafundertekst: "Graf undertekst"
+    tiltag:
+      text: "Text"
+      filepath: "Billede"
   reportimage:
     title: "Titel"
     filepath: "Fil"

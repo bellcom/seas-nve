@@ -28,6 +28,6 @@ class BaeredygtighedRapportSektionType extends RapportSektionType
     }
 
     public function getName() {
-        return 'appbundle_baeredygtighed_rapport_sektion';
+        return 'appbundle_rapportsektion_baeredygtighed';
     }
 }

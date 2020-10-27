@@ -176,7 +176,7 @@ class VirksomhedOversigtSektionerController extends BaseController
         $this->breadcrumbs->addItem($virksomhed_rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $virksomhed_rapport->getId())));
         $this->breadcrumbs->addItem('Oversigtrapport', $this->generateUrl('virksomhed_rapport_pdf_review', array('id' => $virksomhed_rapport->getId(), 'type' => 'oversigt')));
         $this->breadcrumbs->addItem('Sektioner', $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $virksomhed_rapport->getId())));
-        $this->breadcrumbs->addItem('common.edit', $this->generateUrl('virksomhed_oversigt_rapport_sektioner_edit', array('virksomhed_rapport' => $virksomhed_rapport->getId(), 'id' => $entity->getId())));
+        $this->breadcrumbs->addItem($entity->getTitle() ?: 'common.edit', $this->generateUrl('virksomhed_oversigt_rapport_sektioner_edit', array('virksomhed_rapport' => $virksomhed_rapport->getId(), 'id' => $entity->getId())));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find RapportSektion entity.');

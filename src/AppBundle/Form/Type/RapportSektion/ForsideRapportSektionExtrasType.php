@@ -15,6 +15,6 @@ class ForsideRapportSektionExtrasType extends AbstractType {
     }
 
     public function getName() {
-        return 'appbundle_forside_rapport_sektion_extras';
+        return 'appbundle_rapportsektion_forside_extras';
     }
 }

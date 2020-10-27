@@ -37,6 +37,6 @@ class ForsideRapportSektionType extends RapportSektionType
     }
 
     public function getName() {
-        return 'appbundle_forside_rapport_sektion';
+        return 'appbundle_rapportsektion_forside';
     }
 }

@@ -105,7 +105,7 @@ class RapportSektion
      * @param array $params
      */
     public function __construct($params = array()) {
-        if ($params['entityManager'] instanceof EntityManager) {
+        if (!empty($params['entityManager']) && $params['entityManager'] instanceof EntityManager) {
             $em = $params['entityManager'];
             $rapportTextRepository = $em->getRepository('AppBundle:ReportText');
             foreach ($this->getDefaultableTextFields() as $field) {

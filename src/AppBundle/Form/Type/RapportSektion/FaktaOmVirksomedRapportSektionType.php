@@ -29,6 +29,6 @@ class FaktaOmVirksomedRapportSektionType extends RapportSektionType
     }
 
     public function getName() {
-        return 'appbundle_faktavirksom_rapport_sektion';
+        return 'appbundle_rapportsektion_faktavirksom';
     }
 }

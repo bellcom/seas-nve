@@ -34,4 +34,8 @@ class TiltagRapportSektionType extends RapportSektionType {
             ])
         ;
     }
+
+    public function getName() {
+        return 'appbundle_rapportsektion_tiltag';
+    }
 }
