@@ -36,8 +36,7 @@ class ReportTextController extends BaseController {
    */
   public function indexAction()
   {
-    $types = RapportSektion::getRapportSektionTypes(TRUE);
-    return $this->redirect($this->generateUrl('report_text_get',array('type' => $types[0])));
+    return $this->redirect($this->generateUrl('report_text_get',array('type' => 'standard_text')));
   }
 
   /**
@@ -48,28 +47,34 @@ class ReportTextController extends BaseController {
    * @Template("AppBundle:ReportText:list.html.twig")
    */
   public function listAction($type) {
-    $types = RapportSektion::getRapportSektionTypes(TRUE);
+      $em = $this->getDoctrine()->getManager();
+      $reportTexts = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $type));
 
-    $em = $this->getDoctrine()->getManager();
-    $reportTexts = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $type));
+      $elements = array();
+      foreach ($reportTexts as $reportText) {
+          $mark_form = $this->markStandardForm($reportText);
+          $delete_form = $this->createDeleteForm($reportText);
 
-    $elements = array();
-    foreach ($reportTexts as $reportText) {
-      $mark_form = $this->markStandardForm($reportText);
-      $delete_form = $this->createDeleteForm($reportText);
+          $elements[$reportText->getId()] = array(
+              'entity' => $reportText,
+              'mark_standard_form' => $mark_form->createView(),
+              'delete_form' => $delete_form->createView()
+          );
+      }
 
-      $elements[$reportText->getId()] = array(
-        'entity' => $reportText,
-        'mark_standard_form' => $mark_form->createView(),
-        'delete_form' => $delete_form->createView()
+      $reportSectionTextTypes = $this->getReportSectionTextTypes();
+
+      $type_parts = explode('_', $type);
+      $selected_section = $type_parts[0];
+      $selected_field = $type_parts[1];
+
+      return array(
+          'selected_text_type' => $type,
+          'selected_section' => $selected_section,
+          'selected_field' => $selected_field,
+          'report_section_text_types' => $reportSectionTextTypes,
+          'elements' => $elements,
       );
-    }
-
-    return array(
-      'selected_type' => $type,
-      'report_text_types' => $types,
-      'elements' => $elements,
-    );
   }
 
 
@@ -331,6 +336,30 @@ class ReportTextController extends BaseController {
         ),
       ))
       ->getForm();
+  }
+
+    /**
+     * Gets possible types for texts. Mapped by the section name
+     *
+     * @return array
+     *   Text types mapped by section name.
+     *
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \ReflectionException
+     */
+  protected function getReportSectionTextTypes() {
+      $sectionTypes = RapportSektion::getRapportSektionTypes();
+
+      $reportSectionTextTypes = array();
+      foreach ($sectionTypes as $sectionKey => $sectionClass) {
+          $defaultableFields = call_user_func(array('AppBundle\Entity\RapportSektioner\\' . $sectionClass, 'getDefaultableTextFields'));
+
+          foreach ($defaultableFields as $field) {
+              $reportSectionTextTypes[$sectionKey][$sectionKey . '_' . $field] = $field;
+          }
+      }
+
+      return $reportSectionTextTypes;
   }
 
 }

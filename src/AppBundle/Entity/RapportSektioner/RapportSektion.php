@@ -25,6 +25,9 @@ use Symfony\Component\Form\FormTypeInterface;
  *    "kontaktinformation" = "KontaktInformationRapportSektion",
  *    "opsummering" = "OpsummeringRapportSektion",
  *    "tiltag" = "TiltagRapportSektion",
+ *    "faktavirksomhed" = "FaktaOmVirksomhedRapportSektion",
+ *    "finansiering" = "FinansieringRapportSektion",
+ *    "baeredygtighed" = "BaeredygtighedRapportSektion"
  * })
  */
 class RapportSektion
@@ -354,6 +357,13 @@ class RapportSektion
      */
     public function isAllowed($action) {
         return in_array($action, $this->allowedActions());
+    }
+
+    /**
+     * Gets a list of fields that support population form default values.
+     */
+    public static function getDefaultableTextFields() {
+        return array('text');
     }
 
 }

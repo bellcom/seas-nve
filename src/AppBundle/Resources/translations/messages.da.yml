@@ -518,6 +518,9 @@ rapportsektion:
     forside: "Forside"
     opsummering: "Opsummering"
     kontaktinformation: "Kontaktinformation"
+    faktavirksomhed: "Fakta om virksomhed"
+    finansiering: "Finansiering"
+    baeredygtighed: "Baeredygtighed"
   error:
     general: "Rapport sektion kan ikke oprettes"
     filetype: "Tilladte filtyper er: jpg, jpeg, png"
@@ -559,10 +562,6 @@ reporttext:
     deleted: "Rapport tekst slettet"
   labels:
     plural: "Rapport tekster"
-  tabs:
-    standard: "Standard"
-    opsummering: "Opsummering"
-    kontaktinformation: "Kontaktinformation"
 rapporter:
   labels:
     plural: "Rapporter"
@@ -1023,6 +1022,13 @@ appbundle:
     korrektionGUF.unit: "kWh/år"
     korrektionBraendstof: "Brændstof"
     korrektionBraendstof.unit: "kWh/år"
+  baeredygtighed:
+    rapport:
+      sektion:
+        title: "Overtekst"
+        text: "Beskrivelse"
+        extras:
+          besparelseeffekt: "Besparelse effekt"
   belysningtiltagdetail:
     add: "Tilføj"
     armaturerStkLokale: "Armaturer antal"
@@ -1447,6 +1453,28 @@ appbundle:
         extras:
           rapportTypeNavn: "Rapportype navn"
           underTekst: "Undertekst"
+  faktavirksom:
+    rapport:
+      sektion:
+        title: "Overtekst"
+        text: "Beskrivelse af Virksomhed"
+        extras:
+          elForbrug: "kr/kWh i el"
+          varmeForbrug: "kr/kWh i varme"
+          braendstofForbrug: "kr/kWh i brændstof"
+          afgifterForbrug: "kr/kWh i afgifter"
+          co2Forbrug: "ton i CO2"
+  finansiering:
+    rapport:
+      sektion:
+        title: "Overtekst"
+        text: "Beskrivelse"
+        extras:
+          noegletal: "Nøgletal"
+          tilbagebetalingstid: "Simpel Tilbagebetalingstid"
+          tekniskelevetid: "Tekniske levetid"
+          produktivitetbeskrivelse: "Produktivitet beskrivelse"
+          grafundertekst: "Graf undertekst"
   forsyningsvaerk:
     co2: "CO2"
     co2.unit: "kg/MWh"
@@ -2066,6 +2094,8 @@ appbundle:
     title: "Title"
     text: "Tekst"
     type: "Type"
+    noegletal: "Nøgletal"
+    besparelseeffekt: "Besparelse effekt"
   reportimage:
     title: "Titel"
     filepath: "Fil"

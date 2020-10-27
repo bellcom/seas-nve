@@ -2119,6 +2119,9 @@ class VirksomhedRapport
             'forside',
             'kontaktinformation',
             'opsummering',
+            'faktavirksomhed',
+            'finansiering',
+            'baeredygtighed',
             'tiltag',
         );
     }
