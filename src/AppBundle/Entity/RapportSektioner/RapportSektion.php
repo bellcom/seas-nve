@@ -27,7 +27,8 @@ use Symfony\Component\Form\FormTypeInterface;
  *    "tiltag" = "TiltagRapportSektion",
  *    "faktavirksomhed" = "FaktaOmVirksomhedRapportSektion",
  *    "finansiering" = "FinansieringRapportSektion",
- *    "baeredygtighed" = "BaeredygtighedRapportSektion"
+ *    "baeredygtighed" = "BaeredygtighedRapportSektion",
+ *    "anbefaling" = "AnbefalingRapportSektion"
  * })
  */
 class RapportSektion

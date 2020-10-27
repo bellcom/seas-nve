@@ -514,13 +514,14 @@ rapportsektion:
   labels:
     plural: "Rapport sektioner"
   types:
-    standard: "Standard"
+    anbefaling: "Anbefaling"
+    baeredygtighed: "Baeredygtighed"
+    faktavirksomhed: "Fakta om virksomhed"
+    finansiering: "Finansiering"
     forside: "Forside"
     opsummering: "Opsummering"
     kontaktinformation: "Kontaktinformation"
-    faktavirksomhed: "Fakta om virksomhed"
-    finansiering: "Finansiering"
-    baeredygtighed: "Baeredygtighed"
+    standard: "Standard"
   error:
     general: "Rapport sektion kan ikke oprettes"
     filetype: "Tilladte filtyper er: jpg, jpeg, png"
@@ -879,6 +880,30 @@ virksomhed_kortlaegning:
 
 # Forms - We follow the formbuilders form id format
 appbundle:
+  anbefaling:
+    rapport:
+      sektion:
+        title: "Overtekst"
+        text: "Beskrivelse"
+        filepath: "Hovedbillede"
+        extras:
+          type: "Anbefaling type"
+          tidsforloebuger: "Tidsforløb uger"
+          tidsforloebinfo: "Tidsforløb info"
+          tidsforloebinfo...name...title: "Title"
+          tidsforloebinfo...name...startuge: "Start ugenummer"
+          tidsforloebinfo...name...slutuge: "Slut ugenummer"
+          tidsforloebinfo...name...omraadeansvar: "Områdeansvar"
+          tidsforloebinfo.0:
+            title: "Title"
+            startuge: "Start ugenummer"
+            slutuge: "Slut ugenummer"
+            omraadeansvar: "Områdeansvar"
+          pris: "Pris"
+          tidsforloebundertekst: "Tidsforløb undertekst"
+          raadgiver: "Rådgiver på grønne bokse"
+          telefon: "Telefonnummer på grønne bokse"
+          telefon.help: "standard udfyldes med valgt rådgiver telefonnummer, hvis værdi er tom"
   baseline:
     areal: "Areal"
     areal.unit: "m²"

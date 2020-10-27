@@ -2123,6 +2123,7 @@ class VirksomhedRapport
             'finansiering',
             'baeredygtighed',
             'tiltag',
+            'anbefaling',
         );
     }
 
