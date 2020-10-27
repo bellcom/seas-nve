@@ -70,7 +70,7 @@ class TiltagRapportSektion extends RapportSektion {
         $textFields = array();
         $tiltagTypes = Tiltag::getTypesConverted(TRUE);
         foreach ($tiltagTypes as $type) {
-            if ($type == 'klimakaerm') {
+            if ($type == 'klimaskaerm') {
                 continue;
             }
             $textFields[] = $type . '_text';

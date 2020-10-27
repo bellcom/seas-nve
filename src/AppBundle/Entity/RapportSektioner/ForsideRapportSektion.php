@@ -84,5 +84,12 @@ class ForsideRapportSektion extends RapportSektion {
         $this->filepath = $filepath;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public static function getDefaultableTextFields() {
+        return array();
+    }
+
 }
 

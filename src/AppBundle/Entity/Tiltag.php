@@ -2368,7 +2368,7 @@ abstract class Tiltag {
     $types = self::getTypes();
     $result = array();
     $relpaceFrom = array('å', 'æ', 'ø');
-    $relpaceTo = array('aa', 'ae', 'eo');
+    $relpaceTo = array('aa', 'ae', 'oe');
     foreach ($types as $key => $typeClass) {
       $key = str_replace($relpaceFrom, $relpaceTo, $key);
       $result[$key] = $typeClass;
