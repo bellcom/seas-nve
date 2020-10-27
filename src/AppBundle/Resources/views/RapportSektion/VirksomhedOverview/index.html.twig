@@ -8,7 +8,10 @@
         <h1>{{ 'rapportsektion.labels.plural' | trans }}</h1>
     </div>
     <div class="col-md-3 text-right">
-          </div>
+        <a class="btn btn-primary" href="{{ path('virksomhed_oversigt_rapport_sektioner_new', { 'virksomhed_rapport': rapport.id, 'type': 'anbefaling' }) }}">
+            <span class="fa fa-plus"></span> {{ 'rapportsektion.types.anbefaling.actions.create' | trans }}
+        </a>
+    </div>
 
   </div>
 
@@ -32,7 +35,7 @@
     {% for entity in entities %}
     <tr>
         <td>{{ entity.title }}</td>
-        <td>{{ entity.text }}</td>
+        <td>{{ entity.text|striptags|truncate(50) }}</td>
         <td>{{ entity.type }}</td>
         <td class="text-right">
           <a class="btn btn-default btn-xs" href="{{ path('virksomhed_oversigt_rapport_sektioner_edit', { 'virksomhed_rapport': entity.virksomhedOversigtRapport.id, 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
