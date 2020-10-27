@@ -22,18 +22,17 @@ use Symfony\Component\Form\FormTypeInterface;
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="discr", type="string")
  * @DiscriminatorMap({
- *    "standard" = "RapportSektion",
+ *    "tiltag" = "TiltagRapportSektion",
  *    "forside" = "ForsideRapportSektion",
  *    "kontaktinformation" = "KontaktInformationRapportSektion",
  *    "opsummering" = "OpsummeringRapportSektion",
- *    "tiltag" = "TiltagRapportSektion",
+ *    "anbefaling" = "AnbefalingRapportSektion",
  *    "faktavirksomhed" = "FaktaOmVirksomhedRapportSektion",
  *    "finansiering" = "FinansieringRapportSektion",
- *    "baeredygtighed" = "BaeredygtighedRapportSektion",
- *    "anbefaling" = "AnbefalingRapportSektion"
+ *    "baeredygtighed" = "BaeredygtighedRapportSektion"
  * })
  */
-class RapportSektion
+abstract class RapportSektion
 {
     const ACTION_ADD = 'add';
     const ACTION_DELETE = 'delete';
