@@ -4,12 +4,8 @@ namespace AppBundle\Entity\RapportSektioner;
 
 use AppBundle\Entity\RapportSektioner\Traits\FilepathField;
 use AppBundle\Form\Type\RapportSektion\ForsideRapportSektionType;
-use AppBundle\Form\Type\RapportSektion\OpsummeringRapportSektionType;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\InheritanceType;
 use Gedmo\Uploadable\Mapping\Validator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

@@ -25,6 +25,7 @@ class FaktaOmVirksomedRapportSektionType extends RapportSektionType
                 'data_class' => 'AppBundle\Entity\RapportSektioner\FaktaOmVirksomhedRapportSektion'
             )
         );
+        $resolver->setRequired('entity_manager');
     }
 
     public function getName() {

@@ -17,13 +17,13 @@ class FinansieringRapportSektionType extends RapportSektionType
         $builder->add('extras', FinansieringRapportSektionExtrasType::class, array('label' => FALSE));
     }
 
-
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
             array(
                 'data_class' => 'AppBundle\Entity\RapportSektioner\FinansieringRapportSektion'
             )
         );
+        $resolver->setRequired('entity_manager');
     }
 
     public function getName() {

@@ -4,9 +4,6 @@ namespace AppBundle\Entity\RapportSektioner;
 
 use AppBundle\Form\Type\RapportSektion\OpsummeringRapportSektionType;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\InheritanceType;
 
 /**
  * OpsummeringRapportSektion
@@ -22,13 +19,6 @@ class OpsummeringRapportSektion extends RapportSektion {
     public function __construct() {
         $this->title = 'Opsummering';
         parent::__construct();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFormType() {
-        return new OpsummeringRapportSektionType();
     }
 
     /**
