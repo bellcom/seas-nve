@@ -4,14 +4,10 @@ namespace AppBundle\Entity\RapportSektioner;
 
 use AppBundle\Entity\RapportSektioner\Traits\FilepathField;
 use AppBundle\Entity\Tiltag;
-use AppBundle\Form\Type\RapportSektion\OpsummeringRapportSektionType;
 use AppBundle\Form\Type\RapportSektion\TiltagRapportSektionType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\InheritanceType;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Uploadable\Mapping\Validator;
 

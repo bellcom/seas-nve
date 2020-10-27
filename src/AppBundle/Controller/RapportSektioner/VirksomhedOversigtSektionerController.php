@@ -127,6 +127,7 @@ class VirksomhedOversigtSektionerController extends BaseController
         $form = $this->createForm(new $formType, $entity, array(
             'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_create', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId(), 'type' => $type)),
             'method' => 'POST',
+            'entity_manager' => $this->get('doctrine.orm.entity_manager'),
         ));
 
         $this->addCreate($form, $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())));
@@ -213,6 +214,7 @@ class VirksomhedOversigtSektionerController extends BaseController
         $form = $this->createForm($formType, $entity, array(
             'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_update', $params),
             'method' => 'PUT',
+            'entity_manager' => $this->get('doctrine.orm.entity_manager'),
         ));
 
         $this->addUpdate($form, $destination);

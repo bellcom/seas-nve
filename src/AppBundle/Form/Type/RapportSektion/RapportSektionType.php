@@ -35,6 +35,7 @@ class RapportSektionType extends AbstractType
                 'data_class' => 'AppBundle\Entity\RapportSektioner\RapportSektion'
             )
         );
+        $resolver->setRequired('entity_manager');
     }
 
     public function getName() {

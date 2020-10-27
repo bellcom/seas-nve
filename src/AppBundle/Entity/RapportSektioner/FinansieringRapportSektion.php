@@ -2,12 +2,8 @@
 
 namespace AppBundle\Entity\RapportSektioner;
 
-use AppBundle\Form\Type\RapportSektion\FaktaOmVirksomedRapportSektionType;
 use AppBundle\Form\Type\RapportSektion\FinansieringRapportSektionType;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\InheritanceType;
 
 /**
  * FinansieringRapportSektion
