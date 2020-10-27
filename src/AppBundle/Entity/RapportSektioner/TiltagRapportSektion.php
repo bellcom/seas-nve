@@ -96,19 +96,6 @@ class TiltagRapportSektion extends RapportSektion {
         return $this;
     }
 
-
-    /**
-     * Defines allowed actions with SektionType.
-     *
-     * @return array
-     */
-    protected function allowedActions() {
-        return array(
-            self::ACTION_ADD,
-            self::ACTION_DELETE
-        );
-    }
-
     /**
      * Post load handler.
      *
