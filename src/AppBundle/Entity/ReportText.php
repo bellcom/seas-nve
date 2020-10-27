@@ -20,7 +20,7 @@ use Gedmo\Blameable\Traits\BlameableEntity;
  * Report text.
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ReportTextRepository")
  */
 class ReportText {
 

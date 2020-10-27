@@ -10,7 +10,9 @@ use AppBundle\Annotations\Calculated;
 use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\SlutanvendelseType;
+use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
+use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
@@ -2340,6 +2342,38 @@ abstract class Tiltag {
       ->getRepository('AppBundle:Configuration');
     $this->setConfiguration($repository->getConfiguration());
     $this->setDefault();
+  }
+
+  /**
+   * Returns the possible types of Tiltag.
+   *
+   * Values are parses from DiscriminatorMap annotation.
+   *
+   * @return array
+   *   DiscriminatorMap annotation values.
+   *
+   * @throws \Doctrine\Common\Annotations\AnnotationException
+   * @throws \ReflectionException
+   */
+  public static function getTypes($keys = FALSE) {
+    $refClass = new \ReflectionClass(Tiltag::class);
+    $annotationReader = new AnnotationReader();
+    /** @var DiscriminatorMap $discriminatorMapAnn */
+    $discriminatorMapAnn = $annotationReader->getClassAnnotation($refClass, 'Doctrine\ORM\Mapping\DiscriminatorMap');
+    return $keys ? array_keys($discriminatorMapAnn->value) : $discriminatorMapAnn->value;
+  }
+
+
+  public static function getTypesConverted($keys = FALSE) {
+    $types = self::getTypes();
+    $result = array();
+    $relpaceFrom = array('å', 'æ', 'ø');
+    $relpaceTo = array('aa', 'ae', 'eo');
+    foreach ($types as $key => $typeClass) {
+      $key = str_replace($relpaceFrom, $relpaceTo, $key);
+      $result[$key] = $typeClass;
+    }
+    return $keys ? array_keys($result) : $result;
   }
 
 }

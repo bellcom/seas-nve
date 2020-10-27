@@ -19,9 +19,9 @@ class OpsummeringRapportSektion extends RapportSektion {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct($params) {
         $this->title = 'Opsummering';
-        parent::__construct();
+        parent::__construct($params);
     }
 
     /**

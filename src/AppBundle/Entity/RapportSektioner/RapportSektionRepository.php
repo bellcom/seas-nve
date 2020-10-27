@@ -16,14 +16,15 @@ class RapportSektionRepository extends EntityRepository {
      * Create a new RapportSektion based on type
      *
      * @param string $type
-     * @param array $defaults
+     * @param array $params
      *
      * @return RapportSektion|NULL
      */
-    public function create($type, array $defaults = array())
+    public function create($type, array $params = array())
     {
+        $params['entityManager'] = $this->_em;
         $className = RapportSektion::getRapportSektionClassByType($type);
-        return class_exists($className) ? new $className($defaults) : NULL;
+        return class_exists($className) ? new $className($params) : NULL;
     }
 
 }

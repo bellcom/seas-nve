@@ -3,9 +3,11 @@
 namespace AppBundle\Entity\RapportSektioner;
 
 use AppBundle\Entity\Rapport;
+use AppBundle\Entity\ReportText;
 use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\RapportSektion\RapportSektionType;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
@@ -98,8 +100,20 @@ class RapportSektion
 
     /**
      * Constructor
+     *
+     * @param array $params
      */
-    public function __construct() {
+    public function __construct($params = array()) {
+        if ($params['entityManager'] instanceof EntityManager) {
+            $em = $params['entityManager'];
+            $rapportTextRepository = $em->getRepository('AppBundle:ReportText');
+            foreach ($this->getDefaultableTextFields() as $field) {
+                /** @var ReportText $reportText */
+                if ($reportText = $rapportTextRepository->getDefaultText($this->getType() . '_' . $field)) {
+                    $this->setText($reportText->getBody());
+                }
+            }
+        }
         $this->extras = $this->getExtrasDefault();
     }
 

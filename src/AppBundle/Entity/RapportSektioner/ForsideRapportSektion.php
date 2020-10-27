@@ -33,9 +33,9 @@ class ForsideRapportSektion extends RapportSektion {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct($params) {
         $this->title = 'Energisysnrapport';
-        parent::__construct();
+        parent::__construct($params);
     }
 
     /**

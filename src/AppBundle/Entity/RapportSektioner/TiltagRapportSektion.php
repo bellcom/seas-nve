@@ -6,6 +6,7 @@ use AppBundle\Entity\RapportSektioner\Traits\FilepathField;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Form\Type\RapportSektion\OpsummeringRapportSektionType;
 use AppBundle\Form\Type\RapportSektion\TiltagRapportSektionType;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
@@ -41,19 +42,44 @@ class TiltagRapportSektion extends RapportSektion {
     /**
      * Constructor
      */
-    public function __construct($defaults) {
-        parent::__construct();
-        if ($defaults['tiltag'] instanceof Tiltag) {
-            $tiltag = $defaults['tiltag'];
+    public function __construct($params) {
+        $this->extras = $this->getExtrasDefault();
+        if ($params['tiltag'] instanceof Tiltag) {
+            $tiltag = $params['tiltag'];
             $this->setTiltag($tiltag);
             $this->setTiltagId($tiltag->getId());
-        }    }
+            if ($params['entityManager'] instanceof EntityManager) {
+                $em = $params['entityManager'];
+                $rapportTextRepository = $em->getRepository('AppBundle:ReportText');
+                $tiltagType = array_search((new \ReflectionClass($tiltag))->getShortName(), Tiltag::getTypesConverted());
+                if ($reportText = $rapportTextRepository->getDefaultText('tiltag_' . $tiltagType . '_text')) {
+                    $this->setText($reportText->getBody());
+                }
+            }
+        }
+    }
 
     /**
      * {@inheritdoc}
      */
     public function getFormType() {
         return new TiltagRapportSektionType();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDefaultableTextFields()
+    {
+        $textFields = array();
+        $tiltagTypes = Tiltag::getTypesConverted(TRUE);
+        foreach ($tiltagTypes as $type) {
+            if ($type == 'klimakaerm') {
+                continue;
+            }
+            $textFields[] = $type . '_text';
+        }
+        return $textFields;
     }
 
     /**
