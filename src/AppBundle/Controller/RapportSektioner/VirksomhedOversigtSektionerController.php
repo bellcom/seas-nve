@@ -64,6 +64,7 @@ class VirksomhedOversigtSektionerController extends BaseController
         }
         return array(
             'entities' => $entities,
+            'rapport' => $virksomhed_rapport
         );
     }
 

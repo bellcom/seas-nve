@@ -2119,11 +2119,11 @@ class VirksomhedRapport
             'forside',
             'kontaktinformation',
             'opsummering',
+            'anbefaling',
             'faktavirksomhed',
             'finansiering',
             'baeredygtighed',
             'tiltag',
-            'anbefaling',
         );
     }
 

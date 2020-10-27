@@ -5,6 +5,7 @@
 !web/uploads/content/.htaccess
 !web/uploads/report_images/.htaccess
 !web/uploads/images/rapport/forside/.htaccess
+!web/uploads/images/rapport/anbefaling/.htaccess
 !web/uploads/images/rapport/tiltag/.htaccess
 /web/bundles/
 /web/assets/

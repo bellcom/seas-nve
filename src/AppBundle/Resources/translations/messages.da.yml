@@ -511,10 +511,15 @@ rapportsektion:
     edit: "Rediger Rapport sektion"
   confirmation:
     updated: "Rapport sektion opdateret"
+  error:
+    general: "Rapport sektion kan ikke oprettes"
+    filetype: "Tilladte filtyper er: jpg, jpeg, png"
   labels:
     plural: "Rapport sektioner"
   types:
     anbefaling: "Anbefaling"
+    anbefaling.actions:
+      create: "Opret Anbefaling sektion"
     baeredygtighed: "Baeredygtighed"
     faktavirksomhed: "Fakta om virksomhed"
     finansiering: "Finansiering"
@@ -523,9 +528,6 @@ rapportsektion:
     kontaktinformation: "Kontaktinformation"
     standard: "Standard"
     tiltag: "Forslag"
-  error:
-    general: "Rapport sektion kan ikke oprettes"
-    filetype: "Tilladte filtyper er: jpg, jpeg, png"
 reportimage:
   actions:
     add: "Nyt billede upload"
