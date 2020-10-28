@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\RapportSektioner;
 
+use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\RapportSektioner\Traits\FilepathField;
 use AppBundle\Form\Type\RapportSektion\AnbefalingRapportSektionType;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -39,6 +40,24 @@ class AnbefalingRapportSektion extends RapportSektion {
      */
     public function getFormType() {
         return new AnbefalingRapportSektionType();
+    }
+
+    public function getAnbefalingType() {
+        return $this->getExtrasKeyValue('type');
+    }
+
+    public function getAnbefalingTypeLabel() {
+        $types = SlutanvendelseType::getChoices();
+        return isset($types[$this->getAnbefalingType()]) ? $types[$this->getAnbefalingType()] : '';
+    }
+
+    /**
+     * Gets Simplel tilbagbetalingstid (ROI)
+     * @return string
+     */
+    public function getROI() {
+        // @TODO Implement fetching ROI.
+        return '123';
     }
 
     /**

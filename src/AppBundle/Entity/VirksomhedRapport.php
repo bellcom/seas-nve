@@ -2207,7 +2207,7 @@ class VirksomhedRapport
         $rapporter = $this->getBygningerRapporter();
         /** @var Rapport $rapport */
         foreach ($rapporter as $rapport) {
-            foreach ($rapport->getTiltag() as $tiltag) {
+            foreach ($rapport->getTilvalgteTiltag() as $tiltag) {
                 $this->tiltage->add($tiltag);
             }
         }

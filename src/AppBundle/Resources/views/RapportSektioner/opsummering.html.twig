@@ -1,1 +1,35 @@
 {% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+{% block section_content -%}
+  {{ parent() }}
+  <div class="section-opsumering-seas-anbefaler">
+    <h3>SEAS-NVE anbefaler</h3>
+    {% for key, anbefaling in section.anbefalinger %}
+      {% include 'AppBundle:RapportSektioner:anbefaling-teaser.html.twig' with { 'section' : anbefaling, 'number' : key + 1  } %}
+    {% endfor %}
+  </div>
+  <div class="section-opsumering-samlet-forbrug">
+    <h3>Samlet forbrug</h3>
+    {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
+  </div>
+  <div class="section-opsumering-potentielt-besparelse">
+    <h3>Potentielt samlet besparelse</h3>
+    <div class="row">
+      <div class="col-xs-4">
+        <span>{{ section.potentieltBesparesleKwh }}</span>
+        <sub>færre kWh</sub>
+      </div>
+      <div class="col-xs-4">
+        <span>{{ section.potentieltBesparesleKr }}</span>
+        <sub>kr. sparet</sub>
+      </div>
+      <div class="col-xs-4">
+        <span>{{ section.potentieltBesparesleCo2 }}</span>
+        <sub>færre ton CO2</sub>
+      </div>
+    </div>
+  </div>
+  <div class="section-opsumering-roi">
+    <h3>Simpel tilbagebetalingtid (ROI)</h3>
+    {% include 'AppBundle:_includes:graf_roi.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
+  </div>
+{% endblock %}

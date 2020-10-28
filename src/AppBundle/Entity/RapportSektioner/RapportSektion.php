@@ -8,6 +8,7 @@ use AppBundle\Entity\ReportTextRepository;
 use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\RapportSektion\RapportSektionType;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -89,6 +90,8 @@ abstract class RapportSektion
     /**
      * Rapport oversigt section reference to Bygning rapport
      *
+     * @var Rapport
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Rapport", inversedBy="rapportOversigtSektioner")
      * @ORM\JoinColumn(name="bygning_oversigt_rapport_id", referencedColumnName="id")
      */
@@ -96,6 +99,8 @@ abstract class RapportSektion
 
     /**
      * Rapport oversigt section reference to Virksomhed rapport
+     *
+     * @var VirksomhedRapport
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VirksomhedRapport", inversedBy="rapportOversigtSektioner")
      * @ORM\JoinColumn(name="virksomhed_oversigt_rapport_id", referencedColumnName="id")
@@ -409,6 +414,20 @@ abstract class RapportSektion
      */
     public static function getDefaultableTextFields() {
         return array('text');
+    }
+
+    /**
+     * Get rapport sections
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getRapportSections() {
+        if (!empty($this->virksomhedOversigtRapport)) {
+            return $this->virksomhedOversigtRapport->getRapportOversigtSektioner();
+        } elseif (!empty($this->bygningOversigtRapport)) {
+            return $this->bygningOversigtRapport->getRapportOversigtSektioner();
+        }
+        return new ArrayCollection();
     }
 
     /**

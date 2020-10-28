@@ -1,0 +1,6 @@
+{% set chartIdRandomized = 'roi-' ~ random() %}
+<script>
+  (function() {
+      var chartData = {{ chart_data | json_encode | raw }};
+  }())
+</script>
