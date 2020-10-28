@@ -16,7 +16,7 @@ class KontaktInformationRapportSektion extends RapportSektion {
      * Constructor
      */
     public function __construct($params) {
-        $this->title = 'KontaktIntinformation';
+        $this->title = 'Kontaktinformation';
         parent::__construct($params);
     }
 

@@ -30,7 +30,7 @@ class ForsideRapportSektion extends RapportSektion {
      * Constructor
      */
     public function __construct($params) {
-        $this->title = 'Energisysnrapport';
+        $this->title = 'Energisynsrapport';
         parent::__construct($params);
     }
 
@@ -67,7 +67,7 @@ class ForsideRapportSektion extends RapportSektion {
      */
     public static function getExtrasDefault() {
         return array(
-            'rapportTypeNavn' => 'Resulatatoversigt',
+            'rapportTypeNavn' => 'Resultatoversigt',
             'underTekst' => 'Undersagsnavn',
         );
     }
