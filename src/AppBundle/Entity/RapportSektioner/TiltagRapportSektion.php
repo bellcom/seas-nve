@@ -162,7 +162,7 @@ class TiltagRapportSektion extends RapportSektion {
         $tiltagRepository = $em->getRepository('AppBundle:Tiltag');
         $this->loadTiltag($tiltagRepository);
 
-        parent::postLoad();
+        parent::postLoad($event);
     }
 
     /**
