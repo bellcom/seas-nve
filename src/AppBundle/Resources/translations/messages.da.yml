@@ -2146,11 +2146,12 @@ appbundle:
     filepath.help: "Tilladte filtyper er jpg, jpeg, png"
     standard: "Standard"
   reporttext:
-    title: "Titel"
     body: "Tekst"
     standard: "Standard"
-    updated_by: "Redigeret af"
+    title: "Titel"
+    type: "Type"
     updated_at: "Redigeringstidspunkt"
+    updated_by: "Redigeret af"
   segment:
     add: "Opret Segment"
     edit: "Rediger Segment"

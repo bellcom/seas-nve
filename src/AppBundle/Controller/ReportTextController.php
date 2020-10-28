@@ -246,14 +246,15 @@ class ReportTextController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createNewForm($type, ReportText $reportText) {
-    $form = $this->createForm(new ReportTextType($type, $reportText), $reportText, array(
-      'action' => $this->generateUrl('report_text_create'),
-      'method' => 'POST',
-    ));
+      $form = $this->createForm(new ReportTextType($type, $reportText), $reportText, array(
+          'action' => $this->generateUrl('report_text_create'),
+          'method' => 'POST',
+          'report_text_types' => $this->getReportSectionTextTypes()
+      ));
 
-    $this->addCreate($form, $this->generateUrl('report_text_create'));
+      $this->addCreate($form, $this->generateUrl('report_text_create'));
 
-    return $form;
+      return $form;
   }
 
   /**
@@ -264,15 +265,16 @@ class ReportTextController extends BaseController {
    * @return \Symfony\Component\Form\Form The form
    */
   private function createEditForm(ReportText $reportText) {
-    $form = $this->createForm(new ReportTextType($reportText->getType(), $reportText), $reportText, array(
-      'action' => $this->generateUrl('report_text_update', array('report_text_id' => $reportText->getId())),
-      'method' => 'PUT',
-    ));
+      $form = $this->createForm(new ReportTextType($reportText->getType(), $reportText), $reportText, array(
+          'action' => $this->generateUrl('report_text_update', array('report_text_id' => $reportText->getId())),
+          'method' => 'PUT',
+          'report_text_types' => $this->getReportSectionTextTypes()
+      ));
 
-    $this->addUpdate($form, $this->generateUrl('report_text_get', array('type' => $reportText->getType())));
-    $this->addUpdateAndExit($form, $this->generateUrl('report_text_get', array('type' => $reportText->getType())));
+      $this->addUpdate($form, $this->generateUrl('report_text_get', array('type' => $reportText->getType())));
+      $this->addUpdateAndExit($form, $this->generateUrl('report_text_get', array('type' => $reportText->getType())));
 
-    return $form;
+      return $form;
   }
 
   /**
