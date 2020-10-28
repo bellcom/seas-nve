@@ -23,6 +23,7 @@ class TiltagRapportSektionType extends RapportSektionType {
                 'label' => 'Billede',
                 'data_class' => NULL,
                 'attachment_path' => 'filepath',
+                'required' => FALSE,
             ))
             ->add('text', 'ckeditor', [
                 'attr' => [

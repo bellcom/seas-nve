@@ -95,11 +95,10 @@ class VirksomhedRapportRepository extends BaseRepository {
             }
             $sections = $this->$checkSectionMethod($entity, $sectionType);
             foreach ($sections as $section) {
+                $section->init($this->_em);
                 $sectionsSorted[] = $section;
             }
         }
-        $this->_em->persist($entity);
-        $this->_em->flush();
         return $sectionsSorted;
     }
 
@@ -118,7 +117,7 @@ class VirksomhedRapportRepository extends BaseRepository {
         for ($i = 0; $i < 1; $i++) {
             /** @var RapportSektionRepository $sektionerRepository */
             $sektionRepository = $this->_em->getRepository('AppBundle:RapportSektioner\RapportSektion');
-            /** @var RapportSektion $new_sektion */
+            /** @var RapportSektion $newSection */
             $newSection = $sektionRepository->create($sectionType);
             $newSection->setVirksomhedOversigtRapport($entity);
 

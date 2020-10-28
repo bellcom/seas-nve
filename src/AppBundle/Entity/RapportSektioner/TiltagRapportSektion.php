@@ -55,33 +55,12 @@ class TiltagRapportSektion extends RapportSektion {
      * {@inheritdoc}
      */
     public function init(ObjectManager $em) {
-        // Fill in defaultable values (using default texts).
-        $defaultableTextFields = $this::getDefaultableTextFields();
-
-        foreach ($defaultableTextFields as $field) {
-            // Checking if it is an extra field.
-            $isExtraField = !property_exists($this, $field);
-
-            $fieldValue = $isExtraField ? $this->getExtrasKeyValue($field) : $this->{$field};
-
-            // If entity field is NULL, use a default value.
-            if ($fieldValue === NULL) {
-                /** @var ReportTextRepository $textRepository */
-                $textRepository = $em->getRepository('AppBundle:ReportText');
-
-                $tiltagType = array_search((new \ReflectionClass($this->getTiltag()))->getShortName(), Tiltag::getTypesConverted());
-                $tiltagSectionType = $this->getType() . '_' . $tiltagType;
-
-                /** @var ReportText $defaultText */
-                $defaultText = $textRepository->getDefaultText($tiltagSectionType, $field);
-                if ($defaultText) {
-                    if ($isExtraField) {
-                        $this->setExtrasKeyValue($field, $defaultText->getBody());
-                    }
-                    else {
-                        $this->{$field} = $defaultText->getBody();
-                    }
-                }
+        // If entity field is NULL, use a default value.
+        if ($this->getText() === NULL) {
+            /** @var ReportText $defaultText */
+            $defaultText = $em->getRepository('AppBundle:ReportText')->getDefaultText($this->getType(), $this->getTiltagType() . '_text');
+            if ($defaultText) {
+                $this->setText($defaultText->getBody());
             }
         }
     }
@@ -91,6 +70,13 @@ class TiltagRapportSektion extends RapportSektion {
      */
     public function getFormType() {
         return new TiltagRapportSektionType();
+    }
+
+    /**
+     * Get section tiltag Type
+     */
+    public function getTiltagType() {
+        return array_search((new \ReflectionClass($this->getTiltag()))->getShortName(), Tiltag::getTypesConverted());
     }
 
     /**
@@ -150,6 +136,20 @@ class TiltagRapportSektion extends RapportSektion {
     }
 
     /**
+     * @inheritDoc
+     */
+    protected function nullDefaultableTextFields(EntityManagerInterface $em) {
+        // Key for default value text depends on Tiltag type.
+        /** @var ReportText $defaultText */
+        $defaultText = $em->getRepository('AppBundle:ReportText')->getDefaultText($this->getType(), $this->getTiltagType() . '_text');
+        if ($this->getText()) {
+            if (strcmp($this->getText(), $defaultText->getBody()) == 0){
+                $this->setText(NULL);
+            }
+        }
+    }
+
+    /**
      * Post load handler.
      *
      * @ORM\PostLoad
@@ -161,7 +161,6 @@ class TiltagRapportSektion extends RapportSektion {
 
         $tiltagRepository = $em->getRepository('AppBundle:Tiltag');
         $this->loadTiltag($tiltagRepository);
-
         parent::postLoad($event);
     }
 
@@ -174,6 +173,7 @@ class TiltagRapportSektion extends RapportSektion {
     public function postPersist(LifecycleEventArgs $event) {
         $tiltagRepository = $event->getEntityManager()->getRepository('AppBundle:Tiltag');
         $this->loadTiltag($tiltagRepository);
+        parent::prePersist($event);
     }
 
     protected function loadTiltag($tiltagRepository) {

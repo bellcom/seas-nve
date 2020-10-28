@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\RapportSektioner;
 
 use AppBundle\Entity\RapportSektioner\RapportSektionRepository;
+use AppBundle\Entity\RapportSektioner\TiltagRapportSektion;
 use AppBundle\Entity\ReportText;
 use AppBundle\Entity\Virksomhed;
 use AppBundle\Entity\RapportSektioner\RapportSektion;
@@ -358,12 +359,22 @@ class VirksomhedOversigtSektionerController extends BaseController
 
         $defaultValueTexts = $entity->getDefaultableTextFields();
         foreach ($defaultValueTexts as $textFieldName) {
+
+            // Handling dynamic default text for Tiltag section.
+            $textKey = $textFieldName;
+            if ($entity instanceof TiltagRapportSektion) {
+                if (strpos($textFieldName, $entity->getTiltagType()) === FALSE) {
+                    continue;
+                }
+                $textKey = 'text';
+            }
+
             $em = $this->getDoctrine()->getManager();
             $reportTexts = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $entity->getType() . '_' . $textFieldName));
 
             /** @var ReportText $reportText */
             foreach ($reportTexts as $reportText) {
-                $default_value_groups[$textFieldName][$reportText->getId()] = array(
+                $default_value_groups[$textKey][$reportText->getId()] = array(
                     'title' => $reportText->getTitle() . ($reportText->isStandard() ? ' (standard)' : ''),
                     'body' => $reportText->getBody()
                 );
