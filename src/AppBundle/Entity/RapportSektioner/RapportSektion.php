@@ -4,10 +4,13 @@ namespace AppBundle\Entity\RapportSektioner;
 
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\ReportText;
+use AppBundle\Entity\ReportTextRepository;
 use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\RapportSektion\RapportSektionType;
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
@@ -19,6 +22,7 @@ use Symfony\Component\Form\FormTypeInterface;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\RapportSektioner\RapportSektionRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="discr", type="string")
  * @DiscriminatorMap({
@@ -104,17 +108,44 @@ abstract class RapportSektion
      * @param array $params
      */
     public function __construct($params = array()) {
-        if (!empty($params['entityManager']) && $params['entityManager'] instanceof EntityManager) {
-            $em = $params['entityManager'];
-            $rapportTextRepository = $em->getRepository('AppBundle:ReportText');
-            foreach ($this->getDefaultableTextFields() as $field) {
-                /** @var ReportText $reportText */
-                if ($reportText = $rapportTextRepository->getDefaultText($this->getType() . '_' . $field)) {
-                    $this->setText($reportText->getBody());
+        $this->extras = $this->getExtrasDefault();
+    }
+
+    /**
+     * Does the initilization of RapportSektion.
+     *
+     * Fills the entity with the default values.
+     *
+     * @param ObjectManager $em
+     *   Entity manager.
+     */
+    public function init(ObjectManager $em) {
+        // Fill in defaultable values (using default texts).
+        $defaultableTextFields = $this::getDefaultableTextFields();
+
+        foreach ($defaultableTextFields as $field) {
+            // Checking if it is an extra field.
+            $isExtraField = !property_exists($this, $field);
+
+            $fieldValue = $isExtraField ? $this->getExtrasKeyValue($field) : $this->{$field};
+
+            // If entity field is NULL, use a default value.
+            if ($fieldValue === NULL) {
+                /** @var ReportTextRepository $textRepository */
+                $textRepository = $em->getRepository('AppBundle:ReportText');
+
+                /** @var ReportText $defaultText */
+                $defaultText = $textRepository->getDefaultText($this->getType(), $field);
+                if ($defaultText) {
+                    if ($isExtraField) {
+                        $this->setExtrasKeyValue($field, $defaultText->getBody());
+                    }
+                    else {
+                        $this->{$field} = $defaultText->getBody();
+                    }
                 }
             }
         }
-        $this->extras = $this->getExtrasDefault();
     }
 
     /**
@@ -278,7 +309,7 @@ abstract class RapportSektion
     }
 
     /**
-     * Get secktion class by type.
+     * Get section class by type.
      *
      * @param $type
      * @return string
@@ -378,6 +409,78 @@ abstract class RapportSektion
      */
     public static function getDefaultableTextFields() {
         return array('text');
+    }
+
+    /**
+     * Makes defaultable fields NULL, if they are using standard value.
+     *
+     * @param EntityManagerInterface $em
+     *   Entity manager.
+     */
+    protected function nullDefaultableTextFields(EntityManagerInterface $em) {
+        $defaultableTextFields = $this::getDefaultableTextFields();
+        foreach ($defaultableTextFields as $field) {
+            /** @var ReportTextRepository $textRepository */
+            $textRepository = $em->getRepository('AppBundle:ReportText');
+
+            /** @var ReportText $defaultText */
+            $defaultText = $textRepository->getDefaultText($this->getType(), $field);
+
+            if ($defaultText) {
+                // Checking if it is an extra field.
+                $isExtraField = !property_exists($this, $field);
+
+                if ($isExtraField) {
+                    if (strcmp($this->getExtrasKeyValue($field), $defaultText->getBody()) == 0){
+                        $this->setExtrasKeyValue($field, NULL);
+                    }
+                }
+                else {
+                    if (strcmp($this->{$field}, $defaultText->getBody()) == 0){
+                        $this->{$field} = NULL;
+                    }
+                }
+
+            }
+        }
+    }
+
+    /**
+     * Post load handler.
+     *
+     * Calls init.
+     *
+     * @ORM\PostLoad
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+     * @see init().
+     */
+    public function postLoad(LifecycleEventArgs $event) {
+        /** @var EntityManagerInterface $em */
+        $em = $event->getEntityManager();
+
+        $this->init($em);
+    }
+
+    /**
+     * PrePersist load handler.
+     *
+     * @ORM\PrePersist
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+     * @see nullDefaultableTextFields.
+     */
+    public function prePersist(LifecycleEventArgs $event) {
+        $this->nullDefaultableTextFields($event->getEntityManager());
+    }
+
+    /**
+     * PreUpdate load handler.
+     *
+     * @ORM\PreUpdate
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+     * @see nullDefaultableTextFields.
+     */
+    public function preUpdate(LifecycleEventArgs $event) {
+        $this->nullDefaultableTextFields($event->getEntityManager());
     }
 
 }
