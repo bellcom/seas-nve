@@ -72,3 +72,7 @@ body > .container-fluid {
   font-size: .7em;
   border-top: 1pt solid #B2C930;
 }
+
+img.full-width {
+    width: 100%;
+}
