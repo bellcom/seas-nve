@@ -12,27 +12,23 @@ use Doctrine\ORM\NoResultException;
 class ReportTextRepository extends EntityRepository {
 
     /**
-     * Get default text by text type.
+     * Get default text by section type and fields name.
      *
-     * @param string $type
-     *   Text type.
+     * @param string $sectionTypetype
+     *   Section type.
+     * @param string $field
+     *   Field name.
      *
-     * @return int|mixed|string|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return ReportText|null
      */
-    public function getDefaultText($type) {
-        $qb = $this->_em->createQueryBuilder();
-        $qb->select('rt')->from('AppBundle:ReportText', 'rt');
-        $qb->where('rt.type = :type')
-            ->andWhere('rt.standard = 1')
-            ->setParameter('type', $type);
-        try {
-            $res = $qb->getQuery()->getSingleResult();
-        }
-        catch (NoResultException $e) {
-            return NULL;
-        }
-        return $res;
+    public function getDefaultText($sectionType, $field) {
+        // Default text type is stored as rapportSektionType_fieldName.
+        $defaultTextType = $sectionType . '_' . $field;
+
+        /** @var ReportText $entity */
+        $entity = $this->findOneBy(['type' => $defaultTextType, 'standard' => TRUE]);
+
+        return $entity;
     }
 
 }

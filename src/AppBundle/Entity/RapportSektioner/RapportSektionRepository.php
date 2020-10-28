@@ -22,9 +22,16 @@ class RapportSektionRepository extends EntityRepository {
      */
     public function create($type, array $params = array())
     {
-        $params['entityManager'] = $this->_em;
+        $entity = NULL;
         $className = RapportSektion::getRapportSektionClassByType($type);
-        return class_exists($className) ? new $className($params) : NULL;
+        if (class_exists($className)) {
+            /** @var RapportSektion $entity */
+            $entity = new $className($params);
+
+            $entity->init($this->getEntityManager());
+        }
+
+        return $entity;
     }
 
 }
