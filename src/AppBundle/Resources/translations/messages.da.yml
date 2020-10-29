@@ -540,8 +540,8 @@ reportimage:
   labels:
     plural: "Rapport billeder"
   tabs:
-    main: "Forsides hoved billeder"
-    recommendation: "Anbefaling billeder"
+    forside: "Forsides hoved billeder"
+    anbefaling: "Anbefaling billeder"
     suggestions: "Forslagsbilleder"
     pumpe: "Pumpe billeder"
     belysning: "Belysning billeder"
