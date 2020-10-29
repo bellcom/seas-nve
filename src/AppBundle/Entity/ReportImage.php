@@ -22,7 +22,7 @@ use Gedmo\Blameable\Traits\BlameableEntity;
  * @ORM\Table()
  * @ORM\Entity()
  * @Gedmo\Uploadable(
- *   path="uploads/report_images/",
+ *   path="uploads/images/rapport/default/",
  *   filenameGenerator=Validator::FILENAME_GENERATOR_ALPHANUMERIC,
  *   allowOverwrite=false,
  *   appendNumber=true,

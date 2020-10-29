@@ -897,6 +897,7 @@ appbundle:
         title: "Overtekst"
         text: "Beskrivelse"
         filepath: "Hovedbillede"
+        imagestandard: "Standard billede"
         extras:
           type: "Anbefaling type"
           tidsforloebuger: "Tidsforløb uger"

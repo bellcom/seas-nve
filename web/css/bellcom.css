@@ -77,6 +77,17 @@ img.image-swatch {
     margin-bottom: 15px;
 }
 
+.image-picker .radio {
+    display: inline-block;
+    width: 200px;
+    /*height: 200px;*/
+}
+
+/*.image-picker .radio img {*/
+/*    height: 200px;*/
+/*}*/
+
+
 .default-value-select {
     display: block;
     margin-top: 10px;

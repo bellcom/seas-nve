@@ -24,6 +24,16 @@ trait FilepathField {
     }
 
     /**
+     * Sets filepath.
+     *
+     * @param string $filepath
+     *   Filepath as string.
+     */
+    public function setFilepathString($filepath) {
+        $this->filepath = $filepath;
+    }
+
+    /**
      * Get filepath.
      *
      * @return UploadedFile

@@ -37,7 +37,7 @@ class ReportImageController extends BaseController {
    */
   public function indexAction()
   {
-    return $this->redirect($this->generateUrl('report_image_get',array('image_type' => 'main')));
+    return $this->redirect($this->generateUrl('report_image_get',array('image_type' => 'forside')));
   }
 
   /**
@@ -53,8 +53,8 @@ class ReportImageController extends BaseController {
     $upload_form = $this->createNewForm($image_type, $reportImage);
 
     $image_types = array(
-      'main',
-      'recommendation',
+      'forside',
+      'anbefaling',
     );
     $suggestion_image_types = array(
       'pumpe',
@@ -188,7 +188,7 @@ class ReportImageController extends BaseController {
       $redirectUrl = $this->generateUrl('report_image_get', array('image_type' => $reportImage->getType()));
     }
     else {
-      $redirectUrl = $this->generateUrl('report_image_get',array('image_type' => 'main'));
+      $redirectUrl = $this->generateUrl('report_image_get',array('image_type' => 'forside'));
     }
 
     return $this->redirect($redirectUrl);

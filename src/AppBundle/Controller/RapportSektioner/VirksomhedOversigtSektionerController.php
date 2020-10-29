@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Controller\BaseController;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -94,7 +95,7 @@ class VirksomhedOversigtSektionerController extends BaseController
 
         if ($form->isValid()) {
             try {
-                $this->handleUploads($entity);
+                $this->handleUploads($entity, $form);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
@@ -249,7 +250,7 @@ class VirksomhedOversigtSektionerController extends BaseController
 
         if ($editForm->isValid()) {
             try {
-                $this->handleUploads($entity);
+                $this->handleUploads($entity, $editForm);
                 $em->flush();
                 $this->flash->success('rapportsektion.confirmation.updated');
 
@@ -331,15 +332,26 @@ class VirksomhedOversigtSektionerController extends BaseController
      *
      * @param \AppBundle\Entity\RapportSektioner\RapportSektion $entity
      *   Rapport sektion entity.
+     * @param Form $form
+     *   Form object.
      */
-    protected function handleUploads(RapportSektion $entity) {
+    protected function handleUploads(RapportSektion $entity, Form $form) {
         if (!property_exists($entity, 'filepath')) {
             return;
         }
-        $fileInfo = $entity->getFilepath();
-        if (is_object($fileInfo) && $fileInfo instanceof UploadedFile) {
-            $manager = $this->get('stof_doctrine_extensions.uploadable.manager');
-            $manager->markEntityToUpload($entity, $fileInfo);
+        if ($form->has('imagestandard')) {
+            if ($filepathCustom = $form->get('filepath')->getData()) {
+                $entity->setFilepath($filepathCustom);
+
+                $fileInfo = $entity->getFilepath();
+                if (is_object($fileInfo) && $fileInfo instanceof UploadedFile) {
+                    $manager = $this->get('stof_doctrine_extensions.uploadable.manager');
+                    $manager->markEntityToUpload($entity, $fileInfo);
+                }
+            }
+            elseif ($imageStandard = $form->get('imagestandard')->getData()) {
+                $entity->setFilepathString($imageStandard->getFilepath());
+            }
         }
     }
 
