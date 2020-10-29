@@ -307,11 +307,14 @@ class VirksomhedRapportController extends BaseController {
    * @return array
    */
   public function showPdfReviewAction(VirksomhedRapport $rapport, $type) {
+    $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
     $exporter = $this->get('aaplus.virksomhed_pdf_export');
+    $breadcrumbType = ucfirst($type);
     switch ($type) {
       case 'oversigt':
         $html = $exporter->exportOverview($rapport, array(), TRUE);
         $pdf_export_route = 'virksomhed_rapport_show_overview';
+        $breadcrumbType = 'Oversightrapport';
         break;
 
       case 'resultatoversigt':
@@ -332,6 +335,7 @@ class VirksomhedRapportController extends BaseController {
       default:
         throw $this->createNotFoundException('Report type not found');
     }
+    $this->breadcrumbs->addItem($breadcrumbType, $this->generateUrl('virksomhed_rapport_pdf_review', array('id' => $rapport->getId(), 'type' => $type)));
 
     return array(
       'html' => $html,

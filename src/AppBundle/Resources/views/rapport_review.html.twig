@@ -44,6 +44,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/"><img src="{{ absolute_url(asset('img/seas-nve-logo.png')) }}" class="navbar-brand--logo"/> </a>
+            {{ wo_render_breadcrumbs() }}
         </div>
         <div class="navbar-right">
             {% if pdf_export_url %}
