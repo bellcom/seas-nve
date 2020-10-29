@@ -84,6 +84,13 @@ class NyKlimaskaermTiltag extends Tiltag {
         return parent::calculateAnlaegsinvestering($value);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected function calculateForbrugFoerVarme() {
+        return $this->sum(function($detail) { return $detail->calculateForbrugFoer(); });
+    }
+
     protected function calculateLevetid() {
         $denominator = $this->sum(function($detail) {
             // AI

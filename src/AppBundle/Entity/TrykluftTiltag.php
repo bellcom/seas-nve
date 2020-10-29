@@ -44,13 +44,19 @@ class TrykluftTiltag extends Tiltag {
     }
 
     /**
-     * Calculate values in this Tiltag
+     * Overridden calculate function.
      */
     public function calculate() {
         $this->varmebesparelseGUF = $this->calculateVarmebesparelseGUF();
         $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
         $this->elbesparelse = $this->calculateElbesparelse();
         $this->vandbesparelse = $this->calculateVandbesparelse();
+        $this->forbrugFoer = $this->calculateForbrugFoer();
+        $this->forbrugEfter = $this->calculateForbrugEfter();
+        $this->forbrugFoerKr = $this->calculateForbrugFoerKr();
+        $this->forbrugFoerCo2 = $this->calculateForbrugFoerCo2();
+
+        // SamletEnergibesparelse for caclulates by different way and use calculation function.
         $this->samletEnergibesparelse = $this->calculateSamletEnergibesparelse();
 
         // Calculating values by formulas from annotation.
@@ -167,6 +173,13 @@ class TrykluftTiltag extends Tiltag {
       }
 
       return array_sum($result);
+    }
+
+    /**
+    * {@inheritDoc}
+    */
+    protected function calculateForbrugFoerEl() {
+        return $this->sum(function($detail) { return $detail->calculateSkoennetAarsforbrug(); });
     }
 
 }

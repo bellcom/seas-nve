@@ -140,6 +140,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     /**
      * @var array
      *
+     * @Calculated
      * @ORM\Column(name="forbrugFoer", type="array")
      */
     private $forbrugFoer;
@@ -147,6 +148,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     /**
      * @var array
      *
+     * @Calculated
      * @ORM\Column(name="forbrugEfter", type="array")
      */
     private $forbrugEfter;
@@ -622,6 +624,18 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     }
 
     /**
+     * Get energiForbrugPrimaerFoerCo2
+     *
+     * @return float
+     */
+    public function getEnergiForbrugPrimaerFoerCo2()
+    {
+        $co2 = $this->getTiltag()->getCo2Override();
+        $type = $this->getEnergiTypePrimaerFoer();
+        return isset($co2[$type]['value']) ? $co2[$type]['value'] : 0;
+    }
+
+    /**
      * Get energiForbrugSekundaerFoer key value
      *
      * @return float
@@ -651,6 +665,18 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
         $priser = $this->getTiltag()->getPriserOverride();
         $type = $this->getEnergiTypeSekundaerFoer();
         return isset($priser[$type]['pris']) ? $priser[$type]['pris'] : 0;
+    }
+
+    /**
+     * Get energiForbrugSekundaerFoerCo2
+     *
+     * @return float
+     */
+    public function getEnergiForbrugSekundaerFoerCo2()
+    {
+        $co2 = $this->getTiltag()->getCo2Override();
+        $type = $this->getEnergiTypeSekundaerFoer();
+        return isset($co2[$type]['value']) ? $co2[$type]['value'] : 0;
     }
 
     /**
@@ -686,6 +712,18 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     }
 
     /**
+     * Get energiForbrugPrimaerEfterCo2
+     *
+     * @return float
+     */
+    public function getEnergiForbrugPrimaerEfterCo2()
+    {
+        $co2 = $this->getTiltag()->getCo2Override();
+        $type = $this->getEnergiTypePrimaerEfter();
+        return isset($co2[$type]['value']) ? $co2[$type]['value'] : 0;
+    }
+
+    /**
      * Get energiForbrugSekundaerEfter key value
      *
      * @return float
@@ -715,6 +753,18 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
         $priser = $this->getTiltag()->getPriserOverride();
         $type = $this->getEnergiTypeSekundaerEfter();
         return isset($priser[$type]['pris']) ? $priser[$type]['pris'] : 0;
+    }
+
+    /**
+     * Get energiForbrugSekundaerEfterCo2
+     *
+     * @return float
+     */
+    public function getEnergiForbrugSekundaerEfterCo2()
+    {
+        $co2 = $this->getTiltag()->getCo2Override();
+        $type = $this->getEnergiTypeSekundaerEfter();
+        return isset($co2[$type]['value']) ? $co2[$type]['value'] : 0;
     }
 
     /**
@@ -754,6 +804,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
             'varmeOmkostning' => NULL,
             'driftOmkostning' => NULL,
             'samletOmkostning' => NULL,
+            'Co2' => NULL,
         );
     }
 
@@ -773,6 +824,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     public function getForbrugFoerVarmeOmkostning() { return $this->getForbrugFoerKeyValue('varmeOmkostning'); }
     public function getForbrugFoerDriftOmkostning() { return $this->getForbrugFoerKeyValue('driftOmkostning'); }
     public function getForbrugFoerSamletOmkostning() { return $this->getForbrugFoerKeyValue('samletOmkostning'); }
+    public function getForbrugFoerCo2() { return $this->getForbrugFoerKeyValue('Co2'); }
 
     /**
      * Set forbrugEfter
@@ -811,6 +863,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
             'varmeOmkostning' => NULL,
             'driftOmkostning' => NULL,
             'samletOmkostning' => NULL,
+            'Co2' => NULL,
         );
     }
 
@@ -830,6 +883,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     public function getForbrugEfterVarmeOmkostning() { return $this->getForbrugEfterKeyValue('varmeOmkostning'); }
     public function getForbrugEfterDriftOmkostning() { return $this->getForbrugEfterKeyValue('driftOmkostning'); }
     public function getForbrugEfterSamletOmkostning() { return $this->getForbrugEfterKeyValue('samletOmkostning'); }
+    public function getForbrugEfterCo2() { return $this->getForbrugEfterKeyValue('Co2'); }
 
     /**
      * Set forbrugBeregningKontrol
@@ -965,6 +1019,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
         }
         // Step 2
         $this->forbrugFoer['kWh'] = $this->calculatForbrugFoerKWh();
+        $this->forbrugFoer['Co2'] = $this->calculatForbrugFoerCo2();
         $this->forbrugFoer['nettoKWh'] = $this->calculatForbrugFoerNettoKWh();
         $this->forbrugFoer['varmeOmkostning'] = $this->calculatForbrugFoerVarmeOmkostning();
         $this->forbrugFoer['driftOmkostning'] = $this->calculatForbrugFoerDriftOmkostning();
@@ -994,6 +1049,7 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
 
         // Step 4
         $this->forbrugEfter['kWh'] = $this->calculatForbrugEfterKWh();
+        $this->forbrugEfter['Co2'] = $this->calculatForbrugEfterCo2();
         $this->forbrugEfter['varmeOmkostning'] = $this->calculatForbrugEfterVarmeOmkostning();
         $this->forbrugEfter['driftOmkostning'] = $this->calculatForbrugEfterDriftOmkostning();
         $this->forbrugEfter['samletOmkostning'] = $this->calculatForbrugEfterSamletOmkostning();
@@ -1074,6 +1130,11 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
      */
     public function calculatForbrugFoerKWh() {
         return $this->getEnergiForbrugPrimaerFoerKWh() + $this->getEnergiForbrugSekundaerFoerKWh();
+    }
+
+    public function calculatForbrugFoerCo2() {
+        return $this->getEnergiForbrugPrimaerFoerKWh() / 1000 * $this->getEnergiForbrugPrimaerFoerCo2()
+            + $this->getEnergiForbrugSekundaerFoerKWh() / 1000 * $this->getEnergiForbrugSekundaerFoerCo2();
     }
 
     /**
@@ -1190,6 +1251,11 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
      */
     public function calculatForbrugEfterKWh() {
         return $this->getEnergiForbrugPrimaerEfterKWh() + $this->getEnergiForbrugSekundaerEfterKWh();
+    }
+
+    public function calculatForbrugEfterCo2() {
+        return $this->getEnergiForbrugPrimaerEfterKWh() / 1000 * $this->getEnergiForbrugPrimaerEfterCo2()
+            + $this->getEnergiForbrugSekundaerEfterKWh() / 1000 * $this->getEnergiForbrugSekundaerEfterCo2();
     }
 
     /**

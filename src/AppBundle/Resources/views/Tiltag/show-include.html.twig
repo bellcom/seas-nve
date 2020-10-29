@@ -25,6 +25,82 @@
   <div class="col-xs-12 col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
+        <h3 class="panel-title">{{ 'appbundle.tiltag.forbrugFoerOverblik' | trans }}</h3>
+      </div>
+      {% block tiltag_forbrugFoerOverblik -%}
+      <table class="table">
+        <tbody>
+        <tr>
+          <td>{{ 'appbundle.tiltag.forbrugFoer' | trans }} <div class="calculation-expression hidden">{{ entity.expr('forbrugFoer') }}</div></td>
+          <td class="text-right" class="text-right">{{ entity.forbrugFoer | number_format }}</td>
+          <td>{{ 'appbundle.tiltag.forbrugFoer.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'appbundle.tiltag.forbrugFoerKr' | trans }}</td>
+          <td class="text-right" class="text-right">{{ entity.forbrugFoerKr | number_format }}</td>
+          <td>{{ 'appbundle.tiltag.forbrugFoerKr.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'appbundle.tiltag.forbrugFoerCo2' | trans }}</td>
+          <td class="text-right" class="text-right">
+            {% if entity.forbrugFoerCo2 > 0 and entity.forbrugFoerCo2 < 0.01 %}
+              <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">( {{ entity.forbrugFoerCo2 }} )</span> <span
+                    class="aaplus-note-marker"></span>
+              {{ entity.forbrugFoerCo2 | number_format }}
+              </span>
+            {% else %}
+              {{ entity.forbrugFoerCo2 | number_format }}
+            {% endif %}
+          </td>
+          <td>{{ 'appbundle.tiltag.forbrugFoerCo2.unit' | trans }}</td>
+        </tr>
+        </tbody>
+      </table>
+      {% endblock -%}
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'appbundle.tiltag.forbrugEfterOverblik' | trans }}</h3>
+      </div>
+      {% block tiltag_forbrugEfterOverblik -%}
+      <table class="table">
+        <tbody>
+        <tr>
+          <td>{{ 'appbundle.tiltag.forbrugEfter' | trans }}</td>
+          <td class="text-right" class="text-right">{{ entity.forbrugEfter | number_format }}</td>
+          <td>{{ 'appbundle.tiltag.forbrugEfter.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'appbundle.tiltag.forbrugEfterKr' | trans }}</td>
+          <td class="text-right" class="text-right">{{ entity.forbrugEfterKr | number_format }}</td>
+          <td>{{ 'appbundle.tiltag.forbrugEfterKr.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'appbundle.tiltag.forbrugEfterCo2' | trans }}</td>
+          <td class="text-right" class="text-right">
+            {% if (entity.forbrugEfterCo2 | abs) > 0 and (entity.forbrugEfterCo2 | abs) < 0.01 %}
+              <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">( {{ entity.forbrugEfterCo2 }} )</span> <span
+                    class="aaplus-note-marker"></span>
+              {{ entity.forbrugEfterCo2 | number_format }}
+              </span>
+            {% else %}
+              {{ entity.forbrugEfterCo2 | number_format }}
+            {% endif %}
+          </td>
+          <td>{{ 'appbundle.tiltag.forbrugEfterCo2.unit' | trans }}</td>
+        </tr>
+        </tbody>
+      </table>
+      {% endblock -%}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
         <h3 class="panel-title">{{ 'appbundle.tiltag.besparelsesoverblik' | trans }}</h3>
       </div>
       {% block tiltag_besparelsesoverblik -%}

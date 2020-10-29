@@ -205,16 +205,33 @@ abstract class Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="forbrugFoer", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="forbrugFoer", type="float", nullable=true)
    */
   protected $forbrugFoer = 0;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="forbrugEfter", type="integer", nullable=true)
+   * @ORM\Column(name="forbrugEfter", type="float", nullable=true)
    */
   protected $forbrugEfter = 0;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="forbrugFoerKr", type="float", nullable=true)
+   */
+  protected $forbrugFoerKr = 0;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="forbrugFoerCo2", type="float", nullable=true)
+   */
+  protected $forbrugFoerCo2 = 0;
 
   /**
    * Enterprisesum
@@ -613,7 +630,7 @@ abstract class Tiltag {
    *
    * @param SlutanvendelseType $slutanvendelse
    *
-   * @return Slutanvendelse
+   * @return Tiltag
    */
   public function setSlutanvendelse($slutanvendelse = NULL) {
     $this->slutanvendelse = $slutanvendelse;
@@ -772,6 +789,66 @@ abstract class Tiltag {
    */
   public function getForbrugFoer() {
     return $this->forbrugFoer;
+  }
+
+  /**
+   * Set forbrugFoerKr
+   *
+   * @param integer $forbrugFoerKr
+   * @return Tiltag
+   */
+  public function setForbrugFoerKr($forbrugFoerKr) {
+    $this->forbrugFoerKr = $forbrugFoerKr;
+
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoerKr
+   *
+   * @return integer
+   */
+  public function getForbrugFoerKr() {
+    return $this->forbrugFoerKr;
+  }
+
+  /**
+   * Get forbrugEfterKr
+   *
+   * @return integer
+   */
+  public function getForbrugEfterKr() {
+    return $this->calculateForbrugEfterKr();
+  }
+
+  /**
+   * Set forbrugFoerCo2
+   *
+   * @param integer $forbrugFoerCo2
+   * @return Tiltag
+   */
+  public function setForbrugFoerCo2($forbrugFoerCo2) {
+    $this->forbrugFoerCo2 = $forbrugFoerCo2;
+
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoerCo2
+   *
+   * @return integer
+   */
+  public function getForbrugFoerCo2() {
+    return $this->forbrugFoerCo2;
+  }
+
+  /**
+   * Get forbrugEfterCo2
+   *
+   * @return integer
+   */
+  public function getForbrugEfterCo2() {
+    return $this->calculateForbrugEfterCo2();
   }
 
   /**
@@ -1581,6 +1658,10 @@ abstract class Tiltag {
     $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
     $this->elbesparelse = $this->calculateElbesparelse();
     $this->vandbesparelse = $this->calculateVandbesparelse();
+    $this->forbrugFoer = $this->calculateForbrugFoer();
+    $this->forbrugEfter = $this->calculateForbrugEfter();
+    $this->forbrugFoerKr = $this->calculateForbrugFoerKr();
+    $this->forbrugFoerCo2 = $this->calculateForbrugFoerCo2();
 
     // Calculating values by formulas from annotation.
     $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
@@ -1916,6 +1997,80 @@ abstract class Tiltag {
     return $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
   }
 
+  /**
+   * Calculates forbrug before kWh value of Varme energy.
+   *
+   * Generally forbrug = forbrugFoerVarmGUF + forbrugFoerVarmGAF.
+   *
+   * Calculation for specific forslag defines in forslags own class implementation.
+   */
+  protected function calculateForbrugFoerVarme() {
+    return NULL;
+  }
+
+  /**
+   * Calculates forbrug before kWh value of El energy.
+   *
+   * Calculation for specific forslag defines in forslags own class implementation.
+   */
+  protected function calculateForbrugFoerEl() {
+    return NULL;
+  }
+
+  /**
+   * Calculates forbrug before kWh value.
+   *
+   * forbrug = forbrugEl + forbrugVarme.
+   */
+  protected function calculateForbrugFoer() {
+    return $this->calculateForbrugFoerVarme() + $this->calculateForbrugFoerEl();
+  }
+
+  /**
+   * Calculates forbrug before Kr value.
+   *
+   * forbrugKr = forbrugVarme * varmePris + forbrugEl * elPris.
+   */
+  protected function calculateForbrugFoerKr() {
+      return $this->calculateForbrugFoerVarme() * $this->getVarmePris() + $this->calculateForbrugFoerEl() * $this->getElPris();
+  }
+
+  /**
+   * Calculates forbrug before CO2 value.
+   *
+   * forbrugCO2 = forbrugEl/1000 * elCO2 + forbrugVarme/1000 * varmeCO2.
+   */
+  protected function calculateForbrugFoerCo2() {
+    return $this->calculateForbrugFoerVarme() / 1000 * $this->getVarmeKgCo2MWh() + $this->calculateForbrugFoerEl() / 1000 * $this->getElKgCo2MWh();
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @return float|int
+   */
+  protected function calculateForbrugEfter() {
+    return $this->calculateForbrugFoer() - $this->getVarmebesparelseGAF() - $this->getVarmebesparelseGUF() - $this->getElbesparelse();
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @return float|int
+   */
+  protected function calculateForbrugEfterKr() {
+    return $this->calculateForbrugFoerKr() - $this->getSamletEnergibesparelse();
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @return float|int
+   */
+  protected function calculateForbrugEfterCo2() {
+    return $this->calculateForbrugFoerCo2() - $this->getSamletCo2besparelse();
+  }
+
   protected function accumulate(callable $accumulator, $start = 0) {
     $value = $start;
     foreach ($this->getTilvalgteDetails() as $detail) {
@@ -1940,6 +2095,8 @@ abstract class Tiltag {
    *
    * @return integer
    *   The sum af results from calling $f on each tilvalgt detail.
+   *
+   * @throws \Exception
    */
   protected function sum($f, $expression = FALSE) {
     $result = $this->accumulateArray(function ($detail, $result) use ($f) {

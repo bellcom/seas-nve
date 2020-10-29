@@ -39,21 +39,10 @@ class BelysningTiltag extends Tiltag
         $this->setTitle('Belysning');
     }
 
-
     /**
-     * Calculate values in this Tiltag
+     * @inheritDoc
      */
-    public function calculate() {
-        parent::calculate();
-        $this->forbrugFoer = $this->calculateForbrugFoer();
-        $this->forbrugEfter = $this->calculateForbrugEfter();
-    }
-
-    /**
-     * Calculates forbrug før value.
-     */
-    protected function calculateForbrugFoer($value = null)
-    {
+    protected function calculateForbrugFoerEl() {
         return $this->sum('elforbrugkWtAar');
     }
 
@@ -62,7 +51,7 @@ class BelysningTiltag extends Tiltag
      */
     protected function calculateForbrugEfter($value = null)
     {
-        return $this->sum('nytElforbrugkWtAar');
+        return $this->calculateForbrugFoer() - $this->calculateElbesparelse();
     }
 
     /**
