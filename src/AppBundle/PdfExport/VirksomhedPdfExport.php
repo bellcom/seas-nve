@@ -64,7 +64,7 @@ class VirksomhedPdfExport {
                 'images' => TRUE,
                 'cover' => $cover,
                 'toc' => TRUE,
-                'toc-header-text' => 'Indholdfortejnelse',
+                'toc-header-text' => 'Indholdfortegnelse',
                 'header-left' => implode(' | ', $data),
                 'header-right' => "Side [page] af [toPage]",
                 'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf2VirksomhedFooter.html'),
