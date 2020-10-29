@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity()
+ * @deprecated
  */
 class KlimaskaermTiltag extends Tiltag {
 
