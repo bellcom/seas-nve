@@ -45,6 +45,9 @@ class ForsideRapportSektion extends RapportSektion {
      * Gets Virksomhed address.
      */
     public function getAddress() {
+        if (!empty($this->getErstatningAdresse())) {
+            return $this->getErstatningAdresse();
+        }
         return $this->getVirksomhedOversigtRapport()->getVirksomhed()->getFullAddress();
     }
 
@@ -68,21 +71,16 @@ class ForsideRapportSektion extends RapportSektion {
     public static function getExtrasDefault() {
         return array(
             'rapportTypeNavn' => 'Resultatoversigt',
+            'skjuleKort' => FALSE,
+            'erstatningAdresse' => '',
             'underTekst' => 'Undersagsnavn',
         );
     }
 
     public function getRapportTypeNavn() { return $this->getExtrasKeyValue('rapportTypeNavn'); }
+    public function getSkjuleKort() { return $this->getExtrasKeyValue('skjuleKort'); }
+    public function getErstatningAdresse() { return $this->getExtrasKeyValue('erstatningAdresse'); }
     public function getUnderTekst() { return $this->getExtrasKeyValue('underTekst'); }
-
-    /**
-     * Sets filepath.
-     *
-     * @param UploadedFile $filepath
-     */
-    public function setFilepath(UploadedFile $filepath = null) {
-        $this->filepath = $filepath;
-    }
 
     /**
      * {@inheritDoc}

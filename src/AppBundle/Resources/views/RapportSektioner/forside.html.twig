@@ -12,7 +12,7 @@
       <div class="section-type">{{ section.getRapportTypeNavn }}</div>
     </div>
     <div class="col-md-5">
-      {% if section.address %}
+      {% if section.address and not section.skjuleKort %}
         <div class="section-frontpage-map" style="overflow: hidden">
           <img alt="" src="https://www.mapquestapi.com/staticmap/v5/map?center={{ section.address }}&zoom=18&size=400,400&key=dmNBHsqexMpt6bWFyuPwWklH10alas5X&locations=={{ section.address }}">
         </div>

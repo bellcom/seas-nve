@@ -271,7 +271,7 @@ class VirksomhedOversigtSektionerController extends BaseController
 
         return array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $entity->isAllowed(RapportSektion::ACTION_DELETE) ? $deleteForm->createView() : NULL,
         );
     }

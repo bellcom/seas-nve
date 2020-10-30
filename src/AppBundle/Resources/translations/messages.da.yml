@@ -2128,9 +2128,11 @@ appbundle:
     forside:
       title: "Overtekst"
       filepath: "Billede"
+      imagestandard: "Standard billede"
       extras:
         rapportTypeNavn: "Rapportype navn"
         underTekst: "Undertekst"
+        erstatningAdresse: "Erstat adresse"
     faktavirksom:
       title: "Overtekst"
       text: "Beskrivelse af Virksomhed"
