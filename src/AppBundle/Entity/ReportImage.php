@@ -20,7 +20,7 @@ use Gedmo\Blameable\Traits\BlameableEntity;
  * Report image.
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ReportImageRepository")
  * @Gedmo\Uploadable(
  *   path="uploads/images/rapport/default/",
  *   filenameGenerator=Validator::FILENAME_GENERATOR_ALPHANUMERIC,

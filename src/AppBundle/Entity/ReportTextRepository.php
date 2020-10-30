@@ -14,7 +14,7 @@ class ReportTextRepository extends EntityRepository {
     /**
      * Get default text by section type and fields name.
      *
-     * @param string $sectionTypetype
+     * @param string $sectionType
      *   Section type.
      * @param string $field
      *   Field name.

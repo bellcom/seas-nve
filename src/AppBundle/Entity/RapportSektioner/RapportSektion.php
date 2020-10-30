@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\RapportSektioner;
 
 use AppBundle\Entity\Rapport;
+use AppBundle\Entity\ReportImage;
 use AppBundle\Entity\ReportText;
 use AppBundle\Entity\ReportTextRepository;
 use AppBundle\Entity\VirksomhedRapport;
@@ -17,6 +18,7 @@ use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * RapportSektion
@@ -149,6 +151,13 @@ abstract class RapportSektion
                         $this->{$field} = $defaultText->getBody();
                     }
                 }
+            }
+        }
+
+        if (property_exists($this, 'filepath') && $this->getFilepath() == NULL) {
+            /** @var UploadedFile $defaultImage */
+            if ($defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getType())) {
+                $this->setFilepathString($defaultImage->getFilepath());
             }
         }
     }
@@ -462,6 +471,15 @@ abstract class RapportSektion
 
             }
         }
+
+        if (property_exists($this, 'filepath') && $this->getFilepath()) {
+            /** @var ReportImage $defaultImage */
+            $defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getType());
+            if ($this->getFilepath() == $defaultImage->getFilepath()) {
+                $this->setFilepath(NULL);
+            }
+        }
+
     }
 
     /**
