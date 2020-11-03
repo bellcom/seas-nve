@@ -648,6 +648,30 @@ class VirksomhedRapport
     private $virksomhederList;
 
     /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="forbrugFoer", type="float", nullable=true)
+     */
+    protected $forbrugFoer;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="forbrugFoerKr", type="float", nullable=true)
+     */
+    protected $forbrugFoerKr;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="forbrugFoerCo2", type="float", nullable=true)
+     */
+    protected $forbrugFoerCo2;
+
+    /**
      * Schema for sections
      */
     const RAPPORT_SEKTIONER = array(
@@ -2150,6 +2174,99 @@ class VirksomhedRapport
     }
 
     /**
+     * Set forbrugFoer
+     *
+     * @param float $forbrugFoer
+     * @return VirksomhedRapport
+     */
+    public function setForbrugFoer($forbrugFoer)
+    {
+        $this->forbrugFoer = $forbrugFoer;
+        return $this;
+    }
+
+    /**
+     * Get forbrugFoer
+     *
+     * @return float
+     */
+    public function getForbrugFoer()
+    {
+        return $this->forbrugFoer;
+    }
+
+    /**
+     * Get forbrugEfter
+     *
+     * @return integer
+     */
+    public function getForbrugEfter() {
+        return $this->calculateForbrugEfter();
+    }
+
+    /**
+     * Set forbrugFoerKr
+     *
+     * @param float $forbrugFoerKr
+     * @return VirksomhedRapport
+     */
+    public function setForbrugFoerKr($forbrugFoerKr)
+    {
+        $this->forbrugFoerKr = $forbrugFoerKr;
+        return $this;
+    }
+
+    /**
+     * Get forbrugFoerKr
+     *
+     * @return float
+     */
+    public function getForbrugFoerKr()
+    {
+        return $this->forbrugFoerKr;
+    }
+
+    /**
+     * Get forbrugEfterKr
+     *
+     * @return integer
+     */
+    public function getForbrugEfterKr() {
+        return $this->calculateForbrugEfterKr();
+    }
+
+    /**
+     * Set forbrugFoerCo2
+     *
+     * @param float $forbrugFoerCo2
+     * @return VirksomhedRapport
+     */
+    public function setForbrugFoerCo2($forbrugFoerCo2)
+    {
+        $this->forbrugFoerCo2 = $forbrugFoerCo2;
+        return $this;
+    }
+
+    /**
+     * Get forbrugFoerCo2
+     *
+     * @return float
+     */
+    public function getForbrugFoerCo2()
+    {
+        return $this->forbrugFoerCo2;
+    }
+
+    /**
+     * Get forbrugEfterCo2
+     *
+     * @return integer
+     */
+    public function getForbrugEfterCo2() {
+        return $this->calculateForbrugEfterCo2();
+    }
+
+    /**
      * Set summarizedRapportValues
      *
      * @param array $summarizedRapportValues
@@ -2263,6 +2380,10 @@ class VirksomhedRapport
         'co2BesparelseBraendstofFaktor',
         'co2BesparelseSamletFaktor',
 
+        'forbrugFoer',
+        'forbrugFoerKr',
+        'forbrugFoerCo2',
+
         'fravalgtBesparelseEl',
         'fravalgtBesparelseVarmeGUF',
         'fravalgtBesparelseVarmeGAF',
@@ -2317,6 +2438,7 @@ class VirksomhedRapport
         if ($withDatterselskaber) {
             /** @var Virksomhed $datterSelskab */
             foreach ($this->getVirksomhed()->getDatterSelskaber(TRUE) as $datterSelskab) {
+                /** @var VirksomhedRapport $rapport */
                 $rapport = $datterSelskab->getRapport();
                 if (!empty($rapport) && !empty($rapport->getCalculationWarnings())) {
                     $rapport->calculate(FALSE);
@@ -2571,6 +2693,33 @@ class VirksomhedRapport
             }
         }
         return count($result) ? array_sum($result)/count($result) : 0;
+    }
+
+    /**
+     * Calculates based on value before - savings.
+     *
+     * @return float|int
+     */
+    protected function calculateForbrugEfter() {
+        return $this->getForbrugFoer() - $this->getBesparelseVarme() - $this->getBesparelseEl();
+    }
+
+    /**
+     * Calculates based on value before - savings.
+     *
+     * @return float|int
+     */
+    protected function calculateForbrugEfterKr() {
+        return $this->getForbrugFoerKr() - $this->getSamletEnergibesparelseKr();
+    }
+
+    /**
+     * Calculates based on value before - savings.
+     *
+     * @return float|int
+     */
+    protected function calculateForbrugEfterCo2() {
+        return $this->getForbrugFoerCo2() - $this->getBesparelseCO2();
     }
 
     /**

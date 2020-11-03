@@ -40,7 +40,7 @@ class SolcelleTiltagDetail extends TiltagDetail
     protected $anlaegsstoerrelseKWp;
 
     /**
-     * @var BelysningTiltagDetailLyskilde
+     * @var Solcelle
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Solcelle")
      * ORM\JoinColumn(name="solcelle_id", referencedColumnName="id")

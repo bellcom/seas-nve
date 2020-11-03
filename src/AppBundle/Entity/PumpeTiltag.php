@@ -52,6 +52,13 @@ class PumpeTiltag extends Tiltag {
   }
 
   /**
+   * {@inheritDoc}
+   */
+  protected function calculateForbrugFoerEl() {
+    return $this->sum(function($detail) { return $detail->calculateElForbrugFoerKWhAar(); });
+  }
+
+  /**
    * Calculates value that is using in Elbesparelse calculation.
    *
    * @return float

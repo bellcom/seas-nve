@@ -558,6 +558,30 @@ class Rapport {
   protected $rapportOversigtSektioner;
 
   /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="forbrugFoer", type="float", nullable=true)
+   */
+  protected $forbrugFoer;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="forbrugFoerKr", type="float", nullable=true)
+   */
+  protected $forbrugFoerKr;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="forbrugFoerCo2", type="float", nullable=true)
+   */
+  protected $forbrugFoerCo2;
+
+  /**
    * @return float
    */
   public function getfravalgtBesparelseDriftOgVedligeholdelse()
@@ -843,6 +867,99 @@ class Rapport {
   public function getSamletEnergibesparelseKr()
   {
     return $this->samletEnergibesparelseKr;
+  }
+
+  /**
+   * Set forbrugFoer
+   *
+   * @param float $forbrugFoer
+   * @return Rapport
+   */
+  public function setForbrugFoer($forbrugFoer)
+  {
+    $this->forbrugFoer = $forbrugFoer;
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoer
+   *
+   * @return float
+   */
+  public function getForbrugFoer()
+  {
+    return $this->forbrugFoer;
+  }
+
+  /**
+   * Get forbrugEfter
+   *
+   * @return integer
+   */
+  public function getForbrugEfter() {
+    return $this->calculateForbrugEfter();
+  }
+
+  /**
+   * Set forbrugFoerKr
+   *
+   * @param float $forbrugFoerKr
+   * @return Rapport
+   */
+  public function setForbrugFoerKr($forbrugFoerKr)
+  {
+    $this->forbrugFoerKr = $forbrugFoerKr;
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoerKr
+   *
+   * @return float
+   */
+  public function getForbrugFoerKr()
+  {
+    return $this->forbrugFoerKr;
+  }
+
+  /**
+   * Get forbrugEfterKr
+   *
+   * @return integer
+   */
+  public function getForbrugEfterKr() {
+    return $this->calculateForbrugEfterKr();
+  }
+
+  /**
+   * Set forbrugFoerCo2
+   *
+   * @param float $forbrugFoerCo2
+   * @return Rapport
+   */
+  public function setForbrugFoerCo2($forbrugFoerCo2)
+  {
+    $this->forbrugFoerCo2 = $forbrugFoerCo2;
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoerCo2
+   *
+   * @return float
+   */
+  public function getForbrugFoerCo2()
+  {
+    return $this->forbrugFoerCo2;
+  }
+
+  /**
+   * Get forbrugEfterCo2
+   *
+   * @return integer
+   */
+  public function getForbrugEfterCo2() {
+    return $this->calculateForbrugEfterCo2();
   }
 
   /**
@@ -1554,7 +1671,7 @@ class Rapport {
    * Set elena
    *
    * @param string $elena
-   * @return Bygning
+   * @return Rapport
    */
   public function setElena($elena) {
     $this->elena = $elena;
@@ -2230,6 +2347,10 @@ class Rapport {
     $this->co2BesparelseBraendstofFaktor = $this->calculateCo2BesparelseBraendstofFaktor();
     $this->co2BesparelseSamletFaktor = $this->calculateCo2BesparelseSamletFaktor();
     $this->fravalgtCo2BesparelseSamletFaktor = $this->calculateFravalgtCo2BesparelseSamletFaktor();
+
+    $this->forbrugFoer = $this->calculateForbrugFoer();
+    $this->forbrugFoerKr = $this->calculateForbrugFoerKr();
+    $this->forbrugFoerCo2 = $this->calculateForbrugFoerCo2();
 
     $this->mtmFaellesomkostninger = $this->calculateMtmFaellesomkostninger();
     $this->implementering = $this->calculateImplementering();
@@ -2933,6 +3054,96 @@ class Rapport {
     }
 
     return $expression ? $this->sumExpr($result) : array_sum($result);
+  }
+
+  /**
+   * Calculates expression for forbrugFoer value
+   */
+  protected function calculateForbrugFoerExp() {
+    return $this->calculateForbrugFoer(TRUE);
+  }
+
+  /**
+   * Aggregates forbrug before from Tiltag.
+   *
+   * @Formula("$this->calculateForbrugFoerExp()")
+   */
+  public function calculateForbrugFoer($exp = FALSE) {
+    $result = $this->accumulateArray(function ($tiltag, $result) {
+      $result[] = $tiltag->getForbrugFoer();
+      return $result;
+    });
+    return $exp ? $this->sumExpr($result) : array_sum($result);
+  }
+
+  /**
+   * Calculates expression for forbrugFoerKr value
+   */
+  protected function calculateForbrugFoerKrExp() {
+    return $this->calculateForbrugFoerKr(TRUE);
+  }
+
+  /**
+   * Aggregates forbrug before in kr from Tiltag.
+   *
+   * @Formula("$this->calculateForbrugFoerKrExp()")
+   */
+  public function calculateForbrugFoerKr($exp = FALSE) {
+    $result = $this->accumulateArray(function ($tiltag, $result) {
+      $result[] = $tiltag->getForbrugFoerKr();
+      return $result;
+    });
+    return $exp ? $this->sumExpr($result) : array_sum($result);
+  }
+
+  /**
+   * Calculates expression for forbrugFoerKr value
+   */
+  protected function calculateForbrugFoerCo2Exp() {
+    return $this->calculateForbrugFoerCo2(TRUE);
+  }
+
+  /**
+   * Aggregates forbrug before in forbrugFoerCO2 from Tiltag.
+   *
+   * @Formula("$this->calculateForbrugFoerCo2Exp()")
+   */
+  public function calculateForbrugFoerCo2($exp = FALSE) {
+    $result = $this->accumulateArray(function ($tiltag, $result) {
+      $result[] = $tiltag->getForbrugFoerCo2();
+      return $result;
+    });
+    return $exp ? $this->sumExpr($result) : array_sum($result);
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @Formula("$this->calculateForbrugFoer() - $this->getBesparelseVarme() - $this->getBesparelseEl() - $this->getBesparelseBraendstof()")
+   * @return float|int
+   */
+  protected function calculateForbrugEfter() {
+    return $this->calculateForbrugFoer() - $this->getBesparelseVarme() - $this->getBesparelseEl() - $this->getBesparelseBraendstof();
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @Formula("$this->calculateForbrugFoerKr() - $this->getSamletEnergibesparelseKr()")
+   * @return float|int
+   */
+  protected function calculateForbrugEfterKr() {
+    return $this->calculateForbrugFoerKr() - $this->getSamletEnergibesparelseKr();
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @Formula("$this->calculateForbrugFoerCo2() - $this->getBesparelseCO2()")
+   * @return float|int
+   */
+  protected function calculateForbrugEfterCo2() {
+    return $this->calculateForbrugFoerCo2() - $this->getBesparelseCO2();
   }
 
   /**

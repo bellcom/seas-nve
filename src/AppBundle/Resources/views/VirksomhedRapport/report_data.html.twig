@@ -6,6 +6,30 @@
       <table class="table table-condensed table-fixed">
         <tbody>
         <tr>
+          <th>{{ 'appbundle.virksomhed_rapport.forbrugFoer' | trans }}:</th>
+          <td class="text-right">{{ entity.forbrugFoer | format_decimal }}</td>
+          <td>{{ 'appbundle.virksomhed_rapport.forbrugFoer.unit' | trans }}</td>
+          <th>{{ 'appbundle.virksomhed_rapport.forbrugEfter' | trans }}:</th>
+          <td class="text-right">{{ entity.forbrugEfter | format_decimal }}</td>
+          <td>{{ 'appbundle.virksomhed_rapport.forbrugEfter.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.virksomhed_rapport.forbrugFoerKr' | trans }}:</th>
+          <td class="text-right">{{ entity.forbrugFoerKr | format_decimal }}</td>
+          <td>{{ 'appbundle.virksomhed_rapport.forbrugFoerKr.unit' | trans }}</td>
+          <th>{{ 'appbundle.virksomhed_rapport.forbrugEfterKr' | trans }}:</th>
+          <td class="text-right">{{ entity.forbrugEfterKr | format_decimal }}</td>
+          <td>{{ 'appbundle.virksomhed_rapport.forbrugEfterKr.unit' | trans }}</td>
+        </tr>
+        <tr>
+          <th>{{ 'appbundle.virksomhed_rapport.forbrugFoerCo2' | trans }}:</th>
+          <td class="text-right">{{ entity.forbrugFoerCo2 | format_decimal }}</td>
+          <td>{{ 'appbundle.virksomhed_rapport.forbrugFoerCo2.unit' | trans }}</td>
+          <th>{{ 'appbundle.virksomhed_rapport.forbrugEfterCo2' | trans }}:</th>
+          <td class="text-right">{{ entity.forbrugEfterCo2 | format_decimal }}</td>
+          <td>{{ 'appbundle.virksomhed_rapport.forbrugEfterCo2.unit' | trans }}</td>
+        </tr>
+        <tr>
           <th>{{ 'appbundle.virksomhed_rapport.samletEnergiBesparelse' | trans }}:<div class="calculation-expression hidden">{{ entity.expr('samletEnergibesparelse') }}</div></th>
           <td class="text-right">{{ entity.samletEnergibesparelse | format_decimal }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.samletEnergiBesparelse.unit' | trans }}</td>

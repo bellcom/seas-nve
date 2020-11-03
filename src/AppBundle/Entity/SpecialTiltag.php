@@ -75,6 +75,27 @@ class SpecialTiltag extends Tiltag {
   protected $besparelseBraendstof = 0;
 
   /**
+   * @var float
+   *
+   * @ORM\Column(name="forbrugFoerVarme", type="decimal", nullable=true)
+   */
+  protected $forbrugFoerVarme = 0;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="forbrugFoerEl", type="decimal", nullable=true)
+   */
+  protected $forbrugFoerEl = 0;
+
+  /**
+   * @var float
+   *
+   * @ORM\Column(name="forbrugFoerBraendstof", type="decimal", nullable=true)
+   */
+  protected $forbrugFoerBraendstof = 0;
+
+  /**
    * @Formula("$this->forbrugFoer - ($this->varmebesparelseGAF + $this->varmebesparelseGUF)")
    */
   protected $forbrugEfter = 0;
@@ -188,6 +209,69 @@ class SpecialTiltag extends Tiltag {
     return $this;
   }
 
+  /**
+   * Set forbrugFoerVarme
+   *
+   * @param float $forbrugFoerVarme
+   * @return Tiltag
+   */
+  public function setForbrugFoerVarme($forbrugFoerVarme) {
+    $this->forbrugFoerVarme = $forbrugFoerVarme;
+
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoerVarme
+   *
+   * @return float
+   */
+  public function getForbrugFoerVarme() {
+    return $this->forbrugFoerVarme;
+  }
+
+  /**
+   * Set forbrugFoerEl
+   *
+   * @param float $forbrugFoerEl
+   * @return Tiltag
+   */
+  public function setForbrugFoerEl($forbrugFoerEl) {
+    $this->forbrugFoerEl = $forbrugFoerEl;
+
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoerEl
+   *
+   * @return float
+   */
+  public function getForbrugFoerEl() {
+    return $this->forbrugFoerEl;
+  }
+
+  /**
+   * Set forbrugFoerBraendstof
+   *
+   * @param float $forbrugFoerBraendstof
+   * @return Tiltag
+   */
+  public function setForbrugFoerBraendstof($forbrugFoerBraendstof) {
+    $this->forbrugFoerEl = $forbrugFoerBraendstof;
+
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoerBraendstof
+   *
+   * @return float
+   */
+  public function getForbrugFoerBraendstof() {
+    return $this->forbrugFoerBraendstof;
+  }
+
   protected $propertiesRequiredForCalculation = [
     'besparelseEl',
     'besparelseGAF',
@@ -272,9 +356,35 @@ class SpecialTiltag extends Tiltag {
     return parent::calculateAnlaegsinvestering($this->getAnlaegsinvesteringExRisiko());
   }
 
-  public function calculate() {
-    $this->forbrugEfter = $this->calculateByFormula('forbrugEfter');
-    parent::calculate();
+
+  /**
+   * {@inheritDoc}
+   */
+  protected function calculateForbrugFoer() {
+    return parent::calculateForbrugFoer() + $this->getForbrugFoerBraendstof();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  protected function calculateForbrugFoerVarme() {
+    // Bypass default calculation for this tiltag. Value defines in tiltag form.
+    return $this->getForbrugFoerVarme();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  protected function calculateForbrugFoerEl() {
+    // Bypass default calculation for this tiltag. Value defines in tiltag form.
+    return $this->getForbrugFoerEl();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  protected function calculateForbrugEfter() {
+    return $this->calculateForbrugFoer() - $this->getVarmebesparelseGAF() - $this->getVarmebesparelseGUF() - $this->getElbesparelse() - $this->getBesparelseBraendstof();
   }
 
 }

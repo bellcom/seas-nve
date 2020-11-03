@@ -67,17 +67,12 @@ class TiltagType extends AbstractType {
     $builder->add('title')
             ->add('opstartsomkostninger');
 
-    $attr = array();
     if ($this->tiltag instanceof SpecialTiltag) {
-      $attr = array(
-        'help_text' => 'Besparelse varme GAF + Besparelse varme GUF',
-        'disabled' => 'disabled',
-      );
       $builder
-        ->add('forbrugFoer')
-        ->add('forbrugEfter', 'text', array('attr' => $attr));
+        ->add('forbrugFoerVarme')
+        ->add('forbrugFoerEl')
+        ->add('forbrugFoerBraendstof');
     }
-
 
     $builder
       ->add('reelAnlaegsinvestering');

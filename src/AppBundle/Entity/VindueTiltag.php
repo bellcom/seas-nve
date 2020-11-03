@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity()
  */
-class VindueTiltag extends KlimaskaermTiltag {
+class VindueTiltag extends NyKlimaskaermTiltag {
 
   /**
    * Constructor

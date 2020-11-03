@@ -28,6 +28,11 @@ class VarmeanlaegTiltag extends Tiltag {
     protected $samletEnergibesparelse;
 
     /**
+     * @Formula("$this->calculateSamletEnergibesparelserExpr()")
+     */
+    protected $samletCo2besparelse;
+
+    /**
      *
      * @var array
      * @ORM\Column(name="priserOverride", type="array")
@@ -148,10 +153,14 @@ class VarmeanlaegTiltag extends Tiltag {
     public function calculate() {
         $this->varmebesparelseGUF = $this->calculateVarmebesparelseGUF();
         $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
+        $this->forbrugFoer = $this->calculateForbrugFoer();
+        $this->forbrugEfter = $this->calculateForbrugEfter();
+        $this->forbrugFoerKr = $this->calculateForbrugFoerKr();
+        $this->forbrugFoerCo2 = $this->calculateForbrugFoerCo2();
 
         // Calculating values by formulas from annotation.
         $this->samletEnergibesparelse = $this->calculateSamletEnergibesparelse();
-        $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
+        $this->samletCo2besparelse = $this->calculateSamletCo2besparelse();
 
         // This may be computed, may be an input
         if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
@@ -217,6 +226,40 @@ class VarmeanlaegTiltag extends Tiltag {
      */
     protected function calculateSamletEnergibesparelse($exp = FALSE) {
         return $this->sum('samletBesparelse', $exp);
+    }
+
+    function calculateSamletCo2besparelserExpr() {
+        return $this->calculateSamletCo2besparelse(TRUE);
+    }
+
+    /**
+     * Accumulate samletCo2Besparelse from tiltagDetails .
+     *
+     * @return float
+     */
+    protected function calculateSamletCo2besparelse($exp = FALSE) {
+        return $this->sum(function($detail) { return $detail->getForbrugFoerCo2() - $detail->getForbrugEfterCo2(); }, $exp);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function calculateForbrugFoerVarme() {
+        return $this->sum(function($detail) { return $detail->calculatForbrugFoerKWh(); });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function calculateForbrugFoerKr() {
+        return $this->sum(function($detail) { return $detail->calculatForbrugFoerSamletOmkostning(); });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function calculateForbrugFoerCo2() {
+        return $this->sum(function($detail) { return $detail->getForbrugFoerCo2(); });
     }
 
     /**
