@@ -431,6 +431,20 @@ abstract class RapportSektion
     }
 
     /**
+     * Get rapport
+     *
+     * @return object|null
+     */
+    public function getRapport() {
+        if (!empty($this->virksomhedOversigtRapport)) {
+            return $this->virksomhedOversigtRapport;
+        } elseif (!empty($this->bygningOversigtRapport)) {
+            return $this->bygningOversigtRapport;
+        }
+        return Null;
+    }
+
+    /**
      * Makes defaultable fields NULL, if they are using standard value.
      *
      * @param EntityManagerInterface $em
