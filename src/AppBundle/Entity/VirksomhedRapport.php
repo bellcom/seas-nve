@@ -2260,7 +2260,7 @@ class VirksomhedRapport
     /**
      * Get forbrugEfterCo2
      *
-     * @return integer
+     * @return float
      */
     public function getForbrugEfterCo2() {
         return $this->calculateForbrugEfterCo2();

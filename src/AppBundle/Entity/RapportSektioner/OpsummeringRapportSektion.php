@@ -28,9 +28,9 @@ class OpsummeringRapportSektion extends RapportSektion {
     }
 
     public function getSamletForbrugGrafData() {
-        // @TODO Implement data fetching from Virksomhed rapport.
-        $nuvaerendeForbrug = 83.123;
-        $optimeretForbrug = 65.123;
+        $rapport = $this->getRapport();
+        $nuvaerendeForbrug = $rapport->getForbrugFoer();
+        $optimeretForbrug = $rapport->getForbrugEfter();
 
         return array(
             'nuvaerende' =>$nuvaerendeForbrug,
@@ -40,31 +40,30 @@ class OpsummeringRapportSektion extends RapportSektion {
     }
 
     public function getPotentieltBesparesleKwh() {
-        return 123;
+        return $this->getRapport()->getSamletEnergibesparelse();
     }
 
     public function getPotentieltBesparesleKr() {
-        return 123;
+        return $this->getRapport()->getSamletEnergibesparelseKr();
     }
 
     public function getPotentieltBesparesleCo2() {
-        return 123;
+        return $this->getRapport()->getForbrugFoerCo2() -  $this->getRapport()->getForbrugEfterCo2();
     }
 
     public function getROIGrafData() {
-        // @TODO Implement data fetching from Virksomhed rapport.
-        $nuvaerendeForbrugKr = 83.123;
-        $optimeretForbrugKr = 65.123;
-        $investering = 100;
+        $nuvaerendeForbrugKr = $this->getRapport()->getForbrugFoerKr();
+        $optimeretForbrugKr = $this->getRapport()->getForbrugEfterKr();
+        $investering = $this->getRapport()->getAnlaegsinvestering();
 
 
         $roi = Calculation::divide($investering, $nuvaerendeForbrugKr - $optimeretForbrugKr);
         $years = [];
-        for ($i = 0; $i < 30; $i++) {
-            $years[$i] = array(
-                'year' => $i,
-                'nuvaerende' => $nuvaerendeForbrugKr * $i,
-                'optimeret' => $optimeretForbrugKr * $i + $investering,
+        foreach (array('start' => 0, 'end' => 30) as $key => $value) {
+            $years[$key] = array(
+                'year' => $value,
+                'nuvaerende' => $nuvaerendeForbrugKr * $value,
+                'optimeret' => $optimeretForbrugKr * $value + $investering,
             );
         }
         return array(

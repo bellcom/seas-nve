@@ -76,7 +76,7 @@ class TiltagRapportSektion extends RapportSektion {
      * Get section tiltag Type
      */
     public function getTiltagType() {
-        return array_search((new \ReflectionClass($this->getTiltag()))->getShortName(), Tiltag::getTypesConverted());
+        return empty($this->getTiltag()) ? NULL :  array_search((new \ReflectionClass($this->getTiltag()))->getShortName(), Tiltag::getTypesConverted());
     }
 
     /**

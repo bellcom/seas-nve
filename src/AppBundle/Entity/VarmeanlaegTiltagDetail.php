@@ -1133,8 +1133,8 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     }
 
     public function calculatForbrugFoerCo2() {
-        return $this->getEnergiForbrugPrimaerFoerKWh() / 1000 * $this->getEnergiForbrugPrimaerFoerCo2()
-            + $this->getEnergiForbrugSekundaerFoerKWh() / 1000 * $this->getEnergiForbrugSekundaerFoerCo2();
+        return $this->getEnergiForbrugPrimaerFoerKWh() / 1000 * $this->getEnergiForbrugPrimaerFoerCo2() / 1000
+            + $this->getEnergiForbrugSekundaerFoerKWh() / 1000 * $this->getEnergiForbrugSekundaerFoerCo2() / 1000;
     }
 
     /**
@@ -1254,8 +1254,8 @@ class VarmeanlaegTiltagDetail extends TiltagDetail
     }
 
     public function calculatForbrugEfterCo2() {
-        return $this->getEnergiForbrugPrimaerEfterKWh() / 1000 * $this->getEnergiForbrugPrimaerEfterCo2()
-            + $this->getEnergiForbrugSekundaerEfterKWh() / 1000 * $this->getEnergiForbrugSekundaerEfterCo2();
+        return $this->getEnergiForbrugPrimaerEfterKWh() / 1000 * $this->getEnergiForbrugPrimaerEfterCo2() / 1000
+            + $this->getEnergiForbrugSekundaerEfterKWh() / 1000 * $this->getEnergiForbrugSekundaerEfterCo2() / 1000;
     }
 
     /**
