@@ -2,29 +2,42 @@
 {% block section_content -%}
   {{ parent() }}
   <div class="section-opsumering-seas-anbefaler">
-    <h2>SEAS-NVE anbefaler</h2>
-    {% for key, anbefaling in section.anbefalinger %}
-      {% include 'AppBundle:RapportSektioner:anbefaling-teaser.html.twig' with { 'section' : anbefaling, 'number' : key + 1  } %}
-    {% endfor %}
+    <div class="row">
+      <div class="col-xs-4">
+        <h2>SEAS-NVE anbefaler</h2>
+        <p>De tre største potentielle besparelser</p>
+      </div>
+      <div class="col-xs-8">
+        <div class="row">
+          {% for key, anbefaling in section.anbefalinger %}
+            <div class="col-xs-4">
+              {% include 'AppBundle:RapportSektioner:anbefaling-teaser.html.twig' with { 'section' : anbefaling, 'number' : key + 1  } %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
   <div class="section-opsumering-samlet-forbrug">
     <h2>Samlet forbrug</h2>
     {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
   </div>
-  <div class="section-opsumering-potentielt-besparelse">
+  <div class="section-opsummering-potentielt-besparelse">
     <h2>Potentielt samlet besparelse</h2>
-    <div class="row">
-      <div class="col-xs-4">
-        <span>{{ section.potentieltBesparesleKwh }}</span>
-        <sub>færre kWh</sub>
-      </div>
-      <div class="col-xs-4">
-        <span>{{ section.potentieltBesparesleKr }}</span>
-        <sub>kr. sparet</sub>
-      </div>
-      <div class="col-xs-4">
-        <span>{{ section.potentieltBesparesleCo2 }}</span>
-        <sub>færre ton CO2</sub>
+    <div class="box">
+      <div class="row">
+        <div class="col-xs-4">
+          <span>{{ section.potentieltBesparesleKwh }}</span>
+          <sub>færre kWh</sub>
+        </div>
+        <div class="col-xs-4">
+          <span>{{ section.potentieltBesparesleKr }}</span>
+          <sub>kr. sparet</sub>
+        </div>
+        <div class="col-xs-4">
+          <span>{{ section.potentieltBesparesleCo2 }}</span>
+          <sub>færre ton CO2</sub>
+        </div>
       </div>
     </div>
   </div>

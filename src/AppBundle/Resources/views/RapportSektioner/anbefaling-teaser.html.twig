@@ -1,8 +1,10 @@
-<div class="section-{{ section.type }}-teaser">
-  <div class="section-{{ section.type }}-overtekst">
-    <span>{{ number }}</span>
-    {{ section.title }}
+<div class="box box--anbefaling">
+  <div class="section-{{ section.type }}-teaser">
+    <div class="section-{{ section.type }}-overtekst">
+      <span>{{ number }}</span>
+      {{ section.title }}
+    </div>
+    <div class="section-{{ section.type }}-type">{{ section.anbefalingTypeLabel }}</div>
+    <div class="section-{{ section.type }}-roi">{{ section.ROI }}</div>
   </div>
-  <div class="section-{{ section.type }}-type">{{ section.anbefalingTypeLabel }}</div>
-  <div class="section-{{ section.type }}-roi">{{ section.ROI }}</div>
 </div>

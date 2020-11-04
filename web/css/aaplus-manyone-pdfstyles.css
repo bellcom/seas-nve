@@ -122,3 +122,18 @@ img.full-width {
     color: #337ab7;
     text-decoration: none;
 }
+
+.box {
+    padding: 15px;
+
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+
+    background-color: rgba(116, 118, 108, 0.05);
+}
+.box--anbefaling {
+    text-align: center;
+
+    color: #009e50;
+}
