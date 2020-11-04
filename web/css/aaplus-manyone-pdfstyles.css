@@ -139,7 +139,7 @@ img.full-width {
 }
 
 .box {
-    padding: 15px;
+    padding: 25px 15px;
 
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
@@ -154,4 +154,20 @@ img.full-width {
 }
 .box--anbefaling .icon {
     margin-bottom: 10px;
+}
+
+.box--samlet-besparelse {
+    text-align: center;
+    font-weight: bold;
+}
+.box--samlet-besparelse h1 {
+    margin: 0;
+
+    font-size: 3.5rem;
+}
+.box--samlet-besparelse h1 small {
+    font-weight: bold;
+    font-size: 1rem;
+
+    color: #50534d;
 }
