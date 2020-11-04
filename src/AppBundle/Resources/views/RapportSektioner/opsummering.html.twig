@@ -2,17 +2,17 @@
 {% block section_content -%}
   {{ parent() }}
   <div class="section-opsumering-seas-anbefaler">
-    <h3>SEAS-NVE anbefaler</h3>
+    <h2>SEAS-NVE anbefaler</h2>
     {% for key, anbefaling in section.anbefalinger %}
       {% include 'AppBundle:RapportSektioner:anbefaling-teaser.html.twig' with { 'section' : anbefaling, 'number' : key + 1  } %}
     {% endfor %}
   </div>
   <div class="section-opsumering-samlet-forbrug">
-    <h3>Samlet forbrug</h3>
+    <h2>Samlet forbrug</h2>
     {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
   </div>
   <div class="section-opsumering-potentielt-besparelse">
-    <h3>Potentielt samlet besparelse</h3>
+    <h2>Potentielt samlet besparelse</h2>
     <div class="row">
       <div class="col-xs-4">
         <span>{{ section.potentieltBesparesleKwh }}</span>
@@ -29,7 +29,7 @@
     </div>
   </div>
   <div class="section-opsumering-roi">
-    <h3>Simpel tilbagebetalingtid (ROI)</h3>
+    <h2>Simpel tilbagebetalingtid (ROI)</h2>
     {% include 'AppBundle:_includes:graf_roi.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
   </div>
 {% endblock %}

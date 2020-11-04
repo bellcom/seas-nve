@@ -9,7 +9,7 @@
   {% set rapport = section.rapport %}
   <div class="row">
     <div class="col-xs-12">
-      <h3>Kunde</h3>
+      <h2>Kunde</h2>
       <div class="row">
         {% if rapport.virksomhed %}
           <div class="col-xs-4">
@@ -37,7 +37,7 @@
     {% if rapport.virksomhed.getDatterSelskaber() is not empty %}
       <div class="col-xs-12">
         <br>
-        <h3>Datterselskaber</h3>
+        <h2>Datterselskaber</h2>
         {% for datterSelskab in rapport.virksomhed.getDatterSelskaber() %}
           <div class="row">
             <div class="col-xs-4">
@@ -66,7 +66,7 @@
     {% if rapport.virksomhed.getAllBygninger() is not empty %}
       <div class="col-xs-12">
         <br>
-        <h3>Analyserede adresse(r)</h3>
+        <h2>Analyserede adresse(r)</h2>
         <div class="row">
           {% for bygning in rapport.virksomhed.getAllBygninger() %}
             <div class="col-xs-4">
@@ -80,7 +80,7 @@
     {% if rapport.virksomhed.getAllRaadgivers() is not empty %}
       <div class="col-xs-12">
         <br>
-        <h3>Energirådgiver</h3>
+        <h2>Energirådgiver</h2>
         <div class="row">
           {% for user in rapport.virksomhed.getAllRaadgivers() %}
             <div class="col-xs-4">
@@ -96,7 +96,7 @@
     {% if rapport.datering %}
       <div class="col-xs-12">
         <br>
-        <h3>Dato for gennemgang</h3>
+        <h2>Dato for gennemgang</h2>
         <div class="row">
           <div class="col-xs-4">
             {{ rapport.datering | date('d.m.Y') }}
