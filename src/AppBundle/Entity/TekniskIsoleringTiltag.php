@@ -103,4 +103,11 @@ class TekniskIsoleringTiltag extends Tiltag
         return 'm';
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected function calculateForbrugFoerVarme() {
+        return $this->sum('eksistVarmetabKwh');
+    }
+
 }

@@ -43,11 +43,14 @@
         {% endif %}
       </div>
       <div class="col-xs-12 col-md-6">
-        {% if edit_form.forbrugFoer is defined %}
-          {{ form_row(edit_form.forbrugFoer) }}
+        {% if edit_form.forbrugFoerVarme is defined %}
+          {{ form_row(edit_form.forbrugFoerVarme) }}
         {% endif %}
-        {% if edit_form.forbrugEfter is defined %}
-          {{ form_row(edit_form.forbrugEfter) }}
+        {% if edit_form.forbrugFoerEl is defined %}
+          {{ form_row(edit_form.forbrugFoerEl) }}
+        {% endif %}
+        {% if edit_form.forbrugFoerBraendstof is defined %}
+          {{ form_row(edit_form.forbrugFoerBraendstof) }}
         {% endif %}
         {% if edit_form.levetid is defined %}
           {{ form_row(edit_form.levetid) }}

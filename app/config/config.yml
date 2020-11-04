@@ -246,7 +246,7 @@ app:
 trsteel_ckeditor:
     toolbar: ['document', 'clipboard', 'editing', 'insert', '/', 'styles', 'basicstyles', 'paragraph', 'links']
     toolbar_groups:
-        document: ['Source']
+        document: ['Maximize','Source']
         clipboard: ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo']
         editing: ['Find','Replace','-','SelectAll']
         basicstyles: ['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat']

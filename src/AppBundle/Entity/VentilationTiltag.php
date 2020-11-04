@@ -67,4 +67,12 @@ class VentilationTiltag extends Tiltag {
         return parent::calculateVarmebesparelseGAF($value);
     }
 
+    protected function calculateForbrugFoerEl() {
+        return $this->sum(function($detail) { return $detail->getElForbrugKwhAarFoer(); });
+    }
+
+    protected function calculateForbrugFoerVarme() {
+        return $this->sum(function($detail) { return $detail->getVarmeForbrugKwhAarFoer(); });
+    }
+
 }

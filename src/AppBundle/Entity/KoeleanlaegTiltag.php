@@ -29,6 +29,13 @@ class KoeleanlaegTiltag extends Tiltag {
   }
 
   /**
+   * {@inheritDoc}
+   */
+  protected function calculateForbrugFoerEl() {
+    return $this->sum(function($detail) { return $detail->getTilstandDataFoerEtot(); });
+  }
+
+  /**
    * Calculates value that is using in elbesparelse calculation.
    *
    * @return float

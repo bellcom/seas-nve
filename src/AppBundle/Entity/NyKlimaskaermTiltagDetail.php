@@ -1049,24 +1049,6 @@ class NyKlimaskaermTiltagDetail extends TiltagDetail
         }
     }
 
-    private function calculateKWhBesparElvaerkEksternEnergikilde() {
-        // "AO": "kWh-bespar. Elværk (Ekstern energikilde)"
-        if ($this->besparelseKWhAar == 0) {
-            return 0;
-        }
-        elseif ($this->besparelseKWhAar > 0) {
-            if ($this->getRapport()->getStandardforsyning()) {
-                return 0;
-            }
-            else {
-                return $this->fordelbesparelse($this->besparelseKWhAar, $this->tiltag->getForsyningVarme(), 'EL');
-            }
-        }
-        else {
-            return 0;
-        }
-    }
-
     private function calculateKWhBesparVarmevaerkEksternEnergikilde() {
         // "AP": "kWh-bespar. Varmeværk (ekstern energikilde)"
         if ($this->besparelseKWhAar == 0) {
@@ -1119,7 +1101,15 @@ class NyKlimaskaermTiltagDetail extends TiltagDetail
         }
     }
 
-    protected function calculateBesparelseKWhAar() {
+    /**
+     * Calculates usage of warm energy for specified loss value.
+     *
+     * Klimaskaerm uses only warm energy.
+     *
+     * @param $uW2K
+     * @return float|int
+     */
+    protected function calculateForbrug($uW2K) {
         if ($this->arealM2 == 0) {
             return 0;
         }
@@ -1133,10 +1123,40 @@ class NyKlimaskaermTiltagDetail extends TiltagDetail
                 if (empty($key)) {
                     continue;
                 }
-                $values[] = (($this->uEksWM2K - $this->uNyWM2K) * $this->arealM2 * ($tIndeMonthly[$key] - $tUdeMonthly[$key]) * $tOpvarmningTimerAarMonthly[$key] / 1000 * $this->andelAfArealDerEfterisoleres) * (1 + $this->yderligereBesparelserPct);
+                $values[] = ($uW2K * $this->arealM2 * ($tIndeMonthly[$key] - $tUdeMonthly[$key]) * $tOpvarmningTimerAarMonthly[$key] / 1000 * $this->andelAfArealDerEfterisoleres) * (1 + $this->yderligereBesparelserPct);
             }
             return array_sum($values);
         }
+    }
+
+    /**
+     * Energy usage for existing loss value.
+     *
+     * @return float|int
+     */
+    public function calculateForbrugFoer() {
+        // Klimaskaerm uses only warm energy.
+        return $this->calculateForbrug($this->uEksWM2K);
+    }
+
+    /**
+     * Energy usage for new loss value.
+     *
+     * @return float|int
+     */
+    public function calculateForbrugEfter() {
+        // Klimaskaerm uses only warm energy.
+        return $this->calculateForbrug($this->uNyWM2K);
+    }
+
+    /**
+     * Calculates economy on improvements.
+     *
+     * @return float|int
+     */
+    protected function calculateBesparelseKWhAar() {
+        // Klimaskaerm uses only warm energy.
+        return $this->calculateForbrugFoer() - $this->calculateForbrugEfter();
     }
 
     public function calculate() {
@@ -1145,7 +1165,6 @@ class NyKlimaskaermTiltagDetail extends TiltagDetail
         $this->besparelseKWhAar = $this->calculateBesparelseKWhAar();
         $this->samletInvesteringKr = $this->calculateSamletInvesteringKr();
         $this->faktorForReinvestering = $this->calculateFaktorForReinvestering();
-        $this->kWhBesparElvaerkEksternEnergikilde = $this->calculateKWhBesparElvaerkEksternEnergikilde();
         $this->kWhBesparVarmevaerkEksternEnergikilde = $this->calculateKWhBesparVarmevaerkEksternEnergikilde();
         $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
         $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
