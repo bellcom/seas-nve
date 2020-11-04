@@ -123,6 +123,21 @@ img.full-width {
     text-decoration: none;
 }
 
+.icon {
+    display: inline-flex;
+
+    height: 40px;
+    width: 40px;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 100%;
+
+    background-color: #009e50;
+    color: #fff;
+}
+
 .box {
     padding: 15px;
 
@@ -136,4 +151,7 @@ img.full-width {
     text-align: center;
 
     color: #009e50;
+}
+.box--anbefaling .icon {
+    margin-bottom: 10px;
 }
