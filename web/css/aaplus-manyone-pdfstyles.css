@@ -1,76 +1,105 @@
 html,
 body {
-  font-size: 10px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #50534d;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #50534d;
 }
 
 div.portrait {
-  width: 1000px;
-  margin: 0 auto;
+    width: 1000px;
+    margin: 0 auto;
 }
 
 div.landscape {
-  width: 1400px;
-  margin: 0 auto;
+    width: 1400px;
+    margin: 0 auto;
 }
 
 h1 {
-  font-size: 25px;
-  font-weight: bold;
+    font-size: 2.5rem;
+    font-weight: bold;
 }
+
 h2 {
-  font-size: 2em;
-  font-weight: bold;
+    font-size: 2em;
+    font-weight: bold;
+}
+h2.section-title {
+    position: relative;
+    display: inline-block;
+
+    padding-bottom: 8px;
+
+    font-weight: normal;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.45px;
+
+    color: #74766c;
+}
+h2.section-title::after {
+    position: absolute;
+    display: block;
+
+    height: 2px;
+
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    content: "";
+
+    background-color: #ffde2f;
 }
 
 h3 {
-  margin-top: 25px;
-  margin-bottom: 5px;
+    margin-top: 25px;
+    margin-bottom: 5px;
 
-  font-size: 12px;
-  font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
-
 
 p {
-  margin: 0 0 12px;
+    font-size: 1rem;
+    margin: 0 0 12px;
 }
+
 p.intro {
-  font-size: 13px;
+    font-size: 1.3rem;
 }
 
 a {
-  color: #009e50;
-  text-decoration: underline;
+    color: #009e50;
+    text-decoration: underline;
 }
 
 .text-muted {
-  font-family: "OpenSans";
-  font-size: 8px;
-  color: #838780;
+    font-family: "OpenSans";
+    font-size: 8px;
+    color: #838780;
 }
 
 body > .container-fluid {
-  padding: 0;
+    padding: 0;
 }
 
 .page-break-after {
-  page-break-after: always;
+    page-break-after: always;
 }
 
 .page-break-after:last-child {
-  page-break-after: avoid;
+    page-break-after: avoid;
 }
 
 .page-break-before {
-  page-break-before: always;
+    page-break-before: always;
 }
 
 .pdf-footer {
-  padding-top: 10pt;
-  font-size: .7em;
-  border-top: 1pt solid #B2C930;
+    padding-top: 10pt;
+    font-size: .7rem;
+    border-top: 1pt solid #B2C930;
 }
 
 img.full-width {
@@ -82,7 +111,7 @@ img.full-width {
     list-style: none;
     background-color: #f5f5f5;
     border-radius: 4px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
     float: left;
