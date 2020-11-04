@@ -23,14 +23,19 @@ use Doctrine\ORM\Mapping as ORM;
 class VarmeanlaegTiltag extends Tiltag {
 
     /**
-     * @Formula("$this->calculateSamletEnergibesparelserExpr()")
+     * @Formula("$this->calculateSamletEnergibesparelseExpr()")
      */
     protected $samletEnergibesparelse;
 
     /**
-     * @Formula("$this->calculateSamletEnergibesparelserExpr()")
+     * @Formula("$this->calculateSamletCo2besparelseExpr()")
      */
     protected $samletCo2besparelse;
+
+    /**
+     * @Formula("$this->calculateSamletCo2besparelseExpr()")
+     */
+    protected $besparelseCo2Varme;
 
     /**
      *
@@ -161,6 +166,8 @@ class VarmeanlaegTiltag extends Tiltag {
         // Calculating values by formulas from annotation.
         $this->samletEnergibesparelse = $this->calculateSamletEnergibesparelse();
         $this->samletCo2besparelse = $this->calculateSamletCo2besparelse();
+        $this->besparelseCo2El = $this->calculateByFormula('besparelseCo2El');
+        $this->besparelseCo2Varme = $this->calculateByFormula('besparelseCo2Varme');
 
         // This may be computed, may be an input
         if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
@@ -215,7 +222,7 @@ class VarmeanlaegTiltag extends Tiltag {
       return $cashFlow;
     }
 
-    function calculateSamletEnergibesparelserExpr() {
+    function calculateSamletEnergibesparelseExpr() {
       return $this->calculateSamletEnergibesparelse(TRUE);
     }
 
@@ -228,7 +235,7 @@ class VarmeanlaegTiltag extends Tiltag {
         return $this->sum('samletBesparelse', $exp);
     }
 
-    function calculateSamletCo2besparelserExpr() {
+    function calculateSamletCo2besparelseExpr() {
         return $this->calculateSamletCo2besparelse(TRUE);
     }
 

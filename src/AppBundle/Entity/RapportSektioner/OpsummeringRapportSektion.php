@@ -48,7 +48,7 @@ class OpsummeringRapportSektion extends RapportSektion {
     }
 
     public function getPotentieltBesparesleCo2() {
-        return $this->getRapport()->getBesparelseCO2();
+        return $this->getRapport()->getForbrugFoerCo2() -  $this->getRapport()->getForbrugEfterCo2();
     }
 
     public function getROIGrafData() {
@@ -59,11 +59,11 @@ class OpsummeringRapportSektion extends RapportSektion {
 
         $roi = Calculation::divide($investering, $nuvaerendeForbrugKr - $optimeretForbrugKr);
         $years = [];
-        for ($i = 0; $i < 30; $i++) {
-            $years[$i] = array(
-                'year' => $i,
-                'nuvaerende' => $nuvaerendeForbrugKr * $i,
-                'optimeret' => $optimeretForbrugKr * $i + $investering,
+        foreach (array('start' => 0, 'end' => 30) as $key => $value) {
+            $years[$key] = array(
+                'year' => $value,
+                'nuvaerende' => $nuvaerendeForbrugKr * $value,
+                'optimeret' => $optimeretForbrugKr * $value + $investering,
             );
         }
         return array(

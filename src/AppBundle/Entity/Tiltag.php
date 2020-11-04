@@ -183,6 +183,24 @@ abstract class Tiltag {
    * @var float
    *
    * @Calculated
+   * @ORM\Column(name="besparelseCo2El", type="float", nullable=true)
+   * @Formula("($this->elbesparelse / 1000) * $this->getElKgCo2MWh()  / 1000")
+   */
+  protected $besparelseCo2El;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="besparelseCo2Varme", type="float", nullable=true)
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000 * $this->getVarmeKgCo2MWh() / 1000")
+   */
+  protected $besparelseCo2Varme;
+
+  /**
+   * @var float
+   *
+   * @Calculated
    * @ORM\Column(name="besparelseAarEt", type="float", scale=4, nullable=true)
    */
   protected $besparelseAarEt;
@@ -1340,6 +1358,38 @@ abstract class Tiltag {
   }
 
   /**
+   * @param array $besparelseCo2El
+   */
+  public function setBesparelseCo2El($besparelseCo2El) {
+    $this->besparelseCo2El = $besparelseCo2El;
+  }
+
+  /**
+   * Get besparelseCo2El
+   *
+   * @return float
+   */
+  public function getbesparelseCo2El() {
+    return $this->besparelseCo2El;
+  }
+
+  /**
+   * @param array $besparelseCo2Varme
+   */
+  public function setBesparelseCo2Varme($besparelseCo2Varme) {
+    $this->besparelseCo2El = $besparelseCo2Varme;
+  }
+
+  /**
+   * Get besparelseCo2El
+   *
+   * @return float
+   */
+  public function getbesparelseCo2Varme() {
+    return $this->besparelseCo2Varme;
+  }
+
+  /**
    * Get antalReinvesteringer
    *
    * @return integer
@@ -1666,6 +1716,8 @@ abstract class Tiltag {
     // Calculating values by formulas from annotation.
     $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
     $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
+    $this->besparelseCo2El = $this->calculateByFormula('besparelseCo2El');
+    $this->besparelseCo2Varme = $this->calculateByFormula('besparelseCo2Varme');
 
     // This may be computed, may be an input
     if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
@@ -2038,10 +2090,11 @@ abstract class Tiltag {
   /**
    * Calculates forbrug before CO2 value.
    *
-   * forbrugCO2 = forbrugEl/1000 * elCO2 + forbrugVarme/1000 * varmeCO2.
+   * forbrugCO2 = forbrugEl/1000 * elCO2 / 1000 + forbrugVarme/1000 * varmeCO2 / 1000.
    */
   protected function calculateForbrugFoerCo2() {
-    return $this->calculateForbrugFoerVarme() / 1000 * $this->getVarmeKgCo2MWh() + $this->calculateForbrugFoerEl() / 1000 * $this->getElKgCo2MWh();
+    return $this->calculateForbrugFoerVarme() / 1000 * $this->getVarmeKgCo2MWh() / 1000
+      + $this->calculateForbrugFoerEl() / 1000 * $this->getElKgCo2MWh() / 1000;
   }
 
   /**
