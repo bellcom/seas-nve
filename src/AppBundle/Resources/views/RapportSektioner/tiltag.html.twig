@@ -2,7 +2,7 @@
 {% block section -%}
 <div class="section-frontpage-image">
   {% if section.filepath %}
-    <img src="{{ absolute_url(asset(section.filepath)) }}" alt="" style="width:100%"/>
+    <img src="{{ absolute_url(asset(section.filepath)) }}" alt=""/>
   {% endif %}
 </div>
   {{ parent() }}

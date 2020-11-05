@@ -16,15 +16,21 @@ class RapportSektionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('text', 'ckeditor', [
-                'attr' => [
+            ->add('title', 'text', array(
+                'attr' => array(
+                    'help_text' => 'Lad titlen være tom for skjule den',
+                ),
+                'required' => FALSE,
+            ))
+            ->add('text', 'ckeditor', array(
+                'attr' => array(
                     'maxlength' => 10000,
                     'class' => 'js-default-value-target js-default-value-target',
                     'data-default-value-source' => 'text',
-                ],
+                    'help_text' => 'Lad teksten være tom for skjule den',
+                ),
                 'required' => FALSE,
-            ])
+            ))
         ;
     }
 

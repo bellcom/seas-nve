@@ -1,1 +1,53 @@
 {% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+
+{% block section_type -%}
+  <div class="section-type">{{ section.number }} {{ ('rapportsektion.types.' ~ section.type ) | trans }}</div>
+{% endblock %}
+
+{% block section_title -%}
+  <h2 class="section-title">{{ section.anbefalingTitle }}</h2>
+{% endblock %}
+
+{% block section_content -%}
+  {{ parent() }}
+
+  <div class="section-green">
+    {% if section.filepath %}
+      <div class="section-anbefaling-image">
+        <img src="{{ absolute_url(asset(section.filepath)) }}" alt=""/>
+      </div>
+    {% endif %}
+    <div class="section-anbefaling-effect">
+      <div class="section-anbefaling-effect-title">Effekt (sparet årligt):</div>
+      <div class="row">
+        <div class="col-xs-4">
+          <h1 class="enlarged">{{ section.potentieltBesparesleCo2 | format_decimal }} <small>ton CO2</small></h1>
+        </div>
+        <div class="col-xs-4">
+          <h1 class="enlarged">{{ section.potentieltBesparesleKr | format_decimal(0) }} <small>kr.</small></h1>
+        </div>
+        <div class="col-xs-4">
+          <h1 class="enlarged">{{ section.potentieltBesparesleKwh | format_decimal(0) }} <small>kWh</small></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-anbefaling-tidsforloeb">
+
+  </div>
+  <div class="section-anbefaling-roi">
+    <h2>Simpel tilbagebetalingtid (ROI)</h2>
+    <div class="row">
+      <div class="col-xs-6">
+        {% include 'AppBundle:_includes:graf_roi.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
+      </div>
+      <div class="col-xs-6">
+        <h3>På vej med en grønne profil - vi er med jer hele vejen</h3>
+        <p>
+          Ønsker I at komme igang med implementering af optimeringer, eller har I spørgsmål,
+          så kontakt jeres personlige energirådgiver{% if section.raadgiver %} {{ section.raadgiversName }} på telefon {{ section.telephone }}{% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

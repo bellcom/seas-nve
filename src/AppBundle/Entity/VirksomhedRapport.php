@@ -164,6 +164,7 @@ class VirksomhedRapport
     /**
      * @var array
      *
+     * @Calculated
      * @ORM\Column(name="besparelseSlutanvendelser", type="array")
      */
     private $besparelseSlutanvendelser;

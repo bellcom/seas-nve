@@ -184,6 +184,7 @@ class Rapport {
   /**
    * @var array
    *
+   * @Calculated
    * @ORM\Column(name="besparelseSlutanvendelser", type="array")
    */
   private $besparelseSlutanvendelser = array();
@@ -2556,15 +2557,19 @@ class Rapport {
       }
 
       $slutanvendelseType = (string) $tiltag->getSlutanvendelse();
-      if (!isset($values[$slutanvendelseType])) {
-        $values[$slutanvendelseType] = array(
-          'el' => 0,
-          'varmeGAF' => 0,
-          'varmeGUF' => 0,
-          'braendStof' => 0,
-          'total' => 0,
-        );
-      }
+      $default = array(
+        'el' => 0,
+        'varmeGAF' => 0,
+        'varmeGUF' => 0,
+        'braendStof' => 0,
+        'total' => 0,
+        'totalKr' => 0,
+        'totalCo2' => 0,
+        'forbrugFoerKr' => 0,
+        'forbrugEfterKr' => 0,
+        'investering' => 0,
+      );
+      $values[$slutanvendelseType] = isset($values[$slutanvendelseType]) ? $values[$slutanvendelseType] + $default : $default;
 
       $values[$slutanvendelseType]['el'] += $tiltag->getElbesparelse();
       $values[$slutanvendelseType]['varmeGAF'] += $tiltag->getVarmebesparelseGAF();
@@ -2574,7 +2579,13 @@ class Rapport {
       }
       unset($values[$slutanvendelseType]['total']);
       $values[$slutanvendelseType]['total'] = array_sum($values[$slutanvendelseType]);
-    }
+
+      $values[$slutanvendelseType]['totalKr'] += $tiltag->getSamletEnergibesparelse();
+      $values[$slutanvendelseType]['totalCo2'] += $tiltag->getSamletCo2besparelse();
+      $values[$slutanvendelseType]['forbrugFoerKr'] += $tiltag->getForbrugFoerKr();
+      $values[$slutanvendelseType]['forbrugEfterKr'] += $tiltag->getForbrugEfterKr();
+      $values[$slutanvendelseType]['investering'] += $tiltag->getAnlaegsinvestering();
+     }
     return $values;
   }
 

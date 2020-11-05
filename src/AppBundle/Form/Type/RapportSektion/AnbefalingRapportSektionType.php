@@ -18,7 +18,22 @@ class AnbefalingRapportSektionType extends RapportSektionType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
+        $builder
+            ->add('title', 'text',[
+                'attr' => [
+                    'help_text' => 'Lad titlen være tom for at bruge etiketten fra Anbefaling type felt',
+                ],
+                'required' => FALSE,
+            ])
+            ->add('text', 'ckeditor', [
+                'attr' => [
+                    'maxlength' => 10000,
+                    'class' => 'js-default-value-target js-default-value-target',
+                    'data-default-value-source' => 'text',
+                    ],
+                    'required' => FALSE,
+            ])
+       ;
 
         /** @var AnbefalingRapportSektion $reportSection */
         $reportSection = $builder->getData();
@@ -79,6 +94,6 @@ class AnbefalingRapportSektionType extends RapportSektionType
     }
 
     public function getName() {
-        return 'appbundle_anbefaling_rapport_sektion';
+        return 'appbundle_rapportsektion_anbefaling';
     }
 }

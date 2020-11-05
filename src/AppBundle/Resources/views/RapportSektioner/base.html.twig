@@ -5,12 +5,14 @@
         <div class="float-right"><a href="{{ section.editUrl }}">edit</a></div>
       {% endif %}
       {% block section -%}
-        {% if section.title %}
+        {% block section_type -%}
+          <div class="section-type">{{ ('rapportsektion.types.' ~ section.type ) | trans }}</div>
+        {% endblock %}
           {% block section_title -%}
-            <h2 class="section-title">{{ section.title }}</h2>
+            {% if section.title %}
+              <h2 class="section-title">{{ section.title }}</h2>
+            {% endif %}
           {% endblock %}
-        {% endif %}
-
         {% block section_content -%}
           {% if section.text %}
             <div class="section-text">

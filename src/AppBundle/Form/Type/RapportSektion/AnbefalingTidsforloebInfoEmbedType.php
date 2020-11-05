@@ -5,6 +5,7 @@ namespace AppBundle\Form\Type\RapportSektion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class AnbefalingTidsforloebInfoEmbedType
@@ -22,10 +23,11 @@ class AnbefalingTidsforloebInfoEmbedType extends AbstractType {
       ->add('slutuge')
       ->add('omraadeansvar', ChoiceType::class, array(
         'choices' => [
-            'provider' => 'Udbyder',
+            'provider' => 'SEAS-NVE',
             'company' => 'Virksomhed',
             'both' => 'Begge',
         ]
     ));
   }
+
 }

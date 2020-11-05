@@ -11,7 +11,7 @@
         <div class="row">
           {% for key, anbefaling in section.anbefalinger %}
             <div class="col-xs-4">
-              {% include 'AppBundle:RapportSektioner:anbefaling-teaser.html.twig' with { 'section' : anbefaling, 'number' : key + 1  } %}
+              {% include 'AppBundle:RapportSektioner:anbefaling-teaser.html.twig' with { 'section' : anbefaling  } %}
             </div>
           {% endfor %}
         </div>

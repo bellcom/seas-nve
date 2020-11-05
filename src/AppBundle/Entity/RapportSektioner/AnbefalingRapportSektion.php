@@ -2,9 +2,13 @@
 
 namespace AppBundle\Entity\RapportSektioner;
 
+use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\RapportSektioner\Traits\FilepathField;
+use AppBundle\Entity\User;
 use AppBundle\Form\Type\RapportSektion\AnbefalingRapportSektionType;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Uploadable\Mapping\Validator;
@@ -15,6 +19,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @ORM\Table()
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
  * @Gedmo\Uploadable(
  *   path="uploads/images/rapport/anbefaling/",
  *   filenameGenerator=Validator::FILENAME_GENERATOR_ALPHANUMERIC,
@@ -28,11 +33,28 @@ class AnbefalingRapportSektion extends RapportSektion {
     use FilepathField;
 
     /**
-     * Constructor
+     * Get anbefaling title for rendering.
      */
-    public function __construct() {
-        $this->title = 'Anbefaling';
-        parent::__construct();
+    public function getAnbefalingTitle() {
+        if (empty($this->title) && $this->getAnbefalingType()) {
+            return $this->getAnbefalingTypeLabel();
+        }
+        return $this->title;
+    }
+
+    /**
+     * Get anbefaling number.
+     */
+    public function getNumber() {
+        $anbefalinger = $this->getRapportSections()->filter(function ($section) { return $section->getType() == 'anbefaling'; });
+        $number = 1;
+        foreach ($anbefalinger as $key => $anbefaling) {
+            if ($anbefaling == $this) {
+                return $number;
+            }
+            $number++;
+        }
+        return NULL;
     }
 
     /**
@@ -52,12 +74,91 @@ class AnbefalingRapportSektion extends RapportSektion {
     }
 
     /**
+     * Get value from rapport Slutanvendelse array
+     *
+     * @param $key
+     * @return float|null
+     */
+    public function getSluanvendelseValue($key) {
+        $slutanvendelser = $this->getRapport()->getBesparelseSlutanvendelser();
+        return isset($slutanvendelser[$this->getAnbefalingType()][$key]) ? $slutanvendelser[$this->getAnbefalingType()][$key] : NULL;
+    }
+
+    public function getPotentieltBesparesleKwh() {
+        return $this->getSluanvendelseValue('total');
+    }
+
+    public function getPotentieltBesparesleKr() {
+        return $this->getSluanvendelseValue('totalKr');
+    }
+
+    public function getPotentieltBesparesleCo2() {
+        return $this->getSluanvendelseValue('totalCo2');
+    }
+
+    /**
      * Gets Simplel tilbagbetalingstid (ROI)
+     *
      * @return string
      */
     public function getROI() {
-        // @TODO Implement fetching ROI.
-        return '123';
+        return Calculation::divide($this->getSluanvendelseValue('investering'), $this->getSluanvendelseValue('totalKr'));
+    }
+
+    /**
+     * Gets raddgiver
+     *
+     * @return User|null
+     */
+    public function getRaadgiver() {
+        return $this->getExtrasKeyValue('raadgiver');
+    }
+
+    /**
+     * Gets raddgiver name
+     *
+     * @return string
+     */
+    public function getRaadgiversName() {
+        /** @var User $raadgiver */
+        $raadgiver = $this->getExtrasKeyValue('raadgiver');
+        return $raadgiver ? $raadgiver->getFullname() : NULL;
+    }
+
+    /**
+     * Gets raddgiver phone
+     *
+     * @return string
+     */
+    public function getTelephone() {
+        $telefon = $this->getExtrasKeyValue('telefon');
+        if ($telefon) {
+            return $telefon;
+        }
+        /** @var User $raadgiver */
+        $raadgiver = $this->getExtrasKeyValue('raadgiver');
+        return $raadgiver ? $raadgiver->getPhone() : NULL;
+    }
+
+    public function getROIGrafData() {
+        $nuvaerendeForbrugKr = $this->getSluanvendelseValue('forbrugFoerKr');
+        $optimeretForbrugKr = $this->getSluanvendelseValue('forbrugEfterKr');
+        $investering = $this->getSluanvendelseValue('investering');
+
+        $roi = $this->getROI();
+        $years = [];
+        foreach (array('start' => 0, 'end' => 30) as $key => $value) {
+            $years[$key] = array(
+                'year' => $value,
+                'nuvaerende' => $nuvaerendeForbrugKr * $value,
+                'optimeret' => $optimeretForbrugKr * $value + $investering,
+            );
+        }
+        return array(
+            'years' => $years,
+            'investering' => $investering,
+            'roi' => $roi,
+        );
     }
 
     /**
@@ -70,6 +171,20 @@ class AnbefalingRapportSektion extends RapportSektion {
             self::ACTION_ADD,
             self::ACTION_DELETE
         );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function postLoad(LifecycleEventArgs $event) {
+        parent::postLoad($event);
+        /** @var EntityManagerInterface $em */
+        $em = $event->getEntityManager();
+        /** @var User $raadgiver */
+        $raadgiver = $this->getExtrasKeyValue('raadgiver');
+        if (!empty($raadgiver)) {
+            $this->extras['raadgiver'] = $em->getRepository('AppBundle:User')->find($raadgiver->getId());
+        }
     }
 
 }

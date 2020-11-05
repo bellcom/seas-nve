@@ -19,6 +19,7 @@ class AnbefalingRapportSektionExtrasType extends AbstractType {
         $builder
             ->add('type', ChoiceType::class, array(
                 'choices' => SlutanvendelseType::getChoices(),
+                'empty_value' => 'common.none',
             ))
             ->add('tidsforloebuger', TextType::class, array('required' => FALSE))
             ->add('pris', TextType::class, array('required' => FALSE))
@@ -32,9 +33,9 @@ class AnbefalingRapportSektionExtrasType extends AbstractType {
                 'add_button_text'    => 'Add',
                 'delete_button_text' => 'Delete',
                 'sub_widget_col'     => 10,
-                'button_col'         => 2
+                'button_col'         => 2,
             ))
-            ->add('tidsforloebundertekst', 'ckeditor', [
+            ->add('ressourcertekst', 'ckeditor', [
                 'attr' => [
                     'maxlength' => 10000,
                     'class' => 'js-default-value-target js-default-value-target',
