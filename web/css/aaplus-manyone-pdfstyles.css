@@ -15,7 +15,7 @@ div.landscape {
     margin: 0 auto;
 }
 
-.section-title {
+.section-type {
     position: relative;
     display: inline-block;
 
@@ -28,7 +28,7 @@ div.landscape {
 
     color: #74766c;
 }
-.section-title::after {
+.section-type::after {
     position: absolute;
     display: block;
 
