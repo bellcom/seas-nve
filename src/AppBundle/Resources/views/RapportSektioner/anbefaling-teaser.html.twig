@@ -1,4 +1,4 @@
-<div class="box box--anbefaling box--anbefaling-type-{{ section.anbefalingTitle }}">
+<div class="box box--anbefaling box--anbefaling-type-{{ section.anbefalingType }}">
   <div>
     <span class="icon"></span>
   </div>
@@ -6,9 +6,9 @@
     {{ section.number }}. {{ 'rapportsektion.types.anbefaling' | trans }}
   </div>
   <div>
-    <h4>{{ section.anbefalingTitle }}</h4>
+    <span class="h3">{{ section.anbefalingTitle }}</span>
   </div>
   <div>
-    {{ section.ROI }}
+    ROI: {{ section.ROI | number_format(1) }} år
   </div>
 </div>

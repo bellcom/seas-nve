@@ -155,14 +155,6 @@ img.full-width {
 
     background-color: rgba(116, 118, 108, 0.05);
 }
-.box--anbefaling {
-    text-align: center;
-
-    color: #009e50;
-}
-.box--anbefaling .icon {
-    margin-bottom: 10px;
-}
 
 .box--samlet-besparelse {
     text-align: center;
@@ -181,3 +173,32 @@ img.full-width {
 
     color: #50534d;
 }
+
+/* Anbefaling. */
+.box--anbefaling {
+    text-align: center;
+
+    color: #009e50;
+}
+.box--anbefaling .h3,
+.box--anbefaling h3 {
+
+}
+.box--anbefaling .icon {
+    margin-bottom: 10px;
+}
+.box--anbefaling-type-belysning .icon {}
+.box--anbefaling-type-ventilation .icon {}
+.box--anbefaling-type-pumper .icon {}
+.box--anbefaling-type-koeling .icon {}
+.box--anbefaling-type-trykluft .icon {}
+.box--anbefaling-type-procesudstyr .icon {}
+.box--anbefaling-type-varmeanlaeg .icon {}
+.box--anbefaling-type-klimaskaerm .icon {}
+.box--anbefaling-type-vinduer .icon {}
+.box--anbefaling-type-elvarme_rumvarme .icon {}
+.box--anbefaling-type-elmotorer_intern_transport .icon {}
+.box--anbefaling-type-energiforbrugende_apparater .icon {}
+.box--anbefaling-type-oevrige .icon {}
+.box--anbefaling-type-kedler_udskiftning .icon {}
+.box--anbefaling-type-kedler_serviceeftersyn .icon {}
