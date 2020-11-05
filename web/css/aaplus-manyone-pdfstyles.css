@@ -202,3 +202,29 @@ img.full-width {
 .box--anbefaling-type-oevrige .icon {}
 .box--anbefaling-type-kedler_udskiftning .icon {}
 .box--anbefaling-type-kedler_serviceeftersyn .icon {}
+
+/* Chart. */
+.chart {
+    display: inline-block;
+    position: relative;
+}
+.chart-heading {
+    position: absolute;
+    display: flex;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.chart-heading__title {
+    font-size: 5rem;
+    font-weight: bold;
+
+    color: #62c5d3;
+}
+.chart-heading__subtitle {}
