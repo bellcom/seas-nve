@@ -31,6 +31,20 @@
         </div>
       </div>
     </div>
+    <div class="section-anbefaling-effect-description">
+      <div class="row">
+        <div class="col-xs-3">Tidsforløb:</div>
+        <div class="col-xs-9">{{ section.tidsforloebUger | format_decimal(0) }} uger</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Pris:</div>
+        <div class="col-xs-9">{{ section.pris | format_decimal(0) }} kr</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Ressourcer:</div>
+        <div class="col-xs-9">{{ section.ressourcertekst | raw }}</div>
+      </div>
+    </div>
   </div>
   <div class="section-anbefaling-tidsforloeb">
 

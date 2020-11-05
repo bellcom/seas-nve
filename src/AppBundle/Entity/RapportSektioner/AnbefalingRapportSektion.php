@@ -96,6 +96,18 @@ class AnbefalingRapportSektion extends RapportSektion {
         return $this->getSluanvendelseValue('totalCo2');
     }
 
+    public function getTidsforloebUger() {
+        return $this->getExtrasKeyValue('tidsforloebuger');
+    }
+
+    public function getPris() {
+        return $this->getExtrasKeyValue('pris');
+    }
+
+    public function getRessourcertekst() {
+        return $this->getExtrasKeyValue('ressourcertekst');
+    }
+
     /**
      * Gets Simplel tilbagbetalingstid (ROI)
      *
