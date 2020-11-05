@@ -51,7 +51,7 @@ class User extends BaseUser {
   /**
    * @var string
    *
-   * @ORM\Column(name="phone", type="string", length=10, nullable=true)
+   * @ORM\Column(name="phone", type="string", length=16, nullable=true)
    */
   private $phone;
 
@@ -235,6 +235,23 @@ class User extends BaseUser {
   public function getLastname()
   {
     return $this->lastname;
+  }
+
+  /**
+   * Get lastname
+   *
+   * @return string
+   */
+  public function getFullname()
+  {
+    $name_arr = array();
+    if (!empty($this->getFirstname())) {
+      $name_arr[] = $this->getFirstname();
+    }
+    if (!empty($this->getLastname())) {
+      $name_arr[] = $this->getLastname();
+    }
+    return empty($name_arr) ? $this->getUsername() : implode(' ', $name_arr);
   }
 
   /**
