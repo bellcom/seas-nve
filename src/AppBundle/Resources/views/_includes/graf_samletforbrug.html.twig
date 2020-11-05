@@ -1,4 +1,14 @@
-{% set chartIdRandomized = 'samlet-forbrug-' ~ random() %}
+{% set barChartIdRandomized = 'samlet-forbrug-bar-' ~ random() %}
+{% set pieChartIdRandomized = 'samlet-forbrug-pie-' ~ random() %}
+<div class="row">
+    <div class="col-xs-6">
+        <div id="{{ barChartIdRandomized }}"></div>
+    </div>
+    <div class="col-xs-6">
+        <div id="{{ pieChartIdRandomized }}"></div>
+    </div>
+</div>
+
 <script>
   (function() {
       var chartData = {{ chart_data | json_encode | raw }};
