@@ -61,6 +61,8 @@ class TrykluftTiltag extends Tiltag {
 
         // Calculating values by formulas from annotation.
         $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
+        $this->besparelseCo2El = $this->calculateByFormula('besparelseCo2El');
+        $this->besparelseCo2Varme = $this->calculateByFormula('besparelseCo2Varme');
 
         // This may be computed, may be an input
         if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {

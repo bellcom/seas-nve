@@ -2640,53 +2640,39 @@ class Rapport {
   }
 
   /**
-   * Gets KgCo2MWh value from bygning ForsyningsvaerkEl.
-   *
-   * @return float|null
+   * Calculates expression for calculateCo2BesparelseEl value
    */
-  private function getBygningForsyningsvaerkElKgCo2MWh() {
-    $vaerk = $this->getBygning()->getForsyningsvaerkEl(TRUE);
-    if($vaerk) {
-      return $vaerk->getKgCo2MWh(2015);
-    }
-    return null;
+  protected function calculateCo2BesparelseElExp() {
+    return $this->calculateCo2BesparelseEl(TRUE);
   }
 
   /**
-   * @Formula("($this->besparelseEl + $this->getSolcelleproduktion() + $this->getSalgTilNettetAar1()) / 1000 * $this->getBygningForsyningsvaerkElKgCo2MWh() / 1000")
+   * @Formula("$this->calculateCo2BesparelseElExp()")
    */
-  private function calculateCo2BesparelseEl() {
-    $ElKgCo2MWh = $this->getBygningForsyningsvaerkElKgCo2MWh();
-    if($ElKgCo2MWh) {
-      return ($this->besparelseEl + $this->getSolcelleproduktion() + $this->getSalgTilNettetAar1()) / 1000 * $ElKgCo2MWh / 1000;
-    } else {
-      return 0;
-    }
+  private function calculateCo2BesparelseEl($exp = FALSE) {
+    $result = $this->accumulateArray(function ($tiltag, $result) {
+      $result[] = $tiltag->getBesparelseCo2El();
+      return $result;
+    });
+    return $exp ? $this->sumExpr($result) : array_sum($result);
   }
 
   /**
-   * Gets KgCo2MWh value from bygning ForsyningsvaerkVarme.
-   *
-   * @return float|null
+   * Calculates expression for calculateCo2BesparelseVarme value
    */
-  private function getBygningForsyningsvaerkVarmeKgCo2MWh() {
-    $vaerk = $this->getBygning()->getForsyningsvaerkVarme(TRUE);
-    if($vaerk) {
-      return $vaerk->getKgCo2MWh(2015);
-    }
-    return null;
+  protected function calculateCo2BesparelseVarmeExp() {
+    return $this->calculateCo2BesparelseVarme(TRUE);
   }
 
   /**
-   * @Formula("($this->besparelseVarmeGAF + $this->besparelseVarmeGUF) / 1000 * $this->getBygningForsyningsvaerkVarmeKgCo2MWh() / 1000")
+   * @Formula("$this->calculateCo2BesparelseVarmeExp()")
    */
-  private function calculateCo2BesparelseVarme() {
-    $VarmeKgCo2MWh = $this->getBygningForsyningsvaerkVarmeKgCo2MWh();
-    if($VarmeKgCo2MWh) {
-      return ($this->besparelseVarmeGAF + $this->besparelseVarmeGUF) / 1000 * $VarmeKgCo2MWh / 1000;
-    } else {
-      return 0;
-    }
+  private function calculateCo2BesparelseVarme($exp = FALSE) {
+    $result = $this->accumulateArray(function ($tiltag, $result) {
+      $result[] = $tiltag->getBesparelseCo2Varme();
+      return $result;
+    });
+    return $exp ? $this->sumExpr($result) : array_sum($result);
   }
 
   /**
