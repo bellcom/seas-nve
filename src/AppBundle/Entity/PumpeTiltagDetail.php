@@ -532,7 +532,7 @@ class PumpeTiltagDetail extends TiltagDetail {
   }
 
   public function calculateElForbrugFoerKWhAar() {
-    return ($this->pumpe->getAarsforbrug() * $this->eksisterendeDrifttid ) / 8760;
+    return empty($this->pumpe) ? NULL : ($this->pumpe->getAarsforbrug() * $this->eksisterendeDrifttid ) / 8760;
   }
 
   public function calculateElForbrugEfterKWhAar() {

@@ -30,7 +30,7 @@ class VirksomhedPdfExport {
                 'id' => $section->getId(),
                 'destination' => $this->router->generate('virksomhed_rapport_pdf_review', array('id' => $rapport->getId(), 'type' => 'oversigt')) . '#section-'. $section->getType() . $section->getId(),
             )));
-            if (in_array($section->getType(), array('forside', 'kundeinformation'))) {
+            if (in_array($section->getType(), array('forside', 'kontaktinformation'))) {
                 unset($sections[$key]);
                 $cover_sections[] = $section;
             }

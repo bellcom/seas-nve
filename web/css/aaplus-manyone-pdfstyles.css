@@ -15,16 +15,7 @@ div.landscape {
     margin: 0 auto;
 }
 
-h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-}
-
-h2 {
-    font-size: 2em;
-    font-weight: bold;
-}
-h2.section-title {
+.section-title {
     position: relative;
     display: inline-block;
 
@@ -37,7 +28,7 @@ h2.section-title {
 
     color: #74766c;
 }
-h2.section-title::after {
+.section-title::after {
     position: absolute;
     display: block;
 
@@ -52,6 +43,23 @@ h2.section-title::after {
     background-color: #ffde2f;
 }
 
+.h1,
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.h1.enlarged,
+h1.enlarged {
+    font-size: 3.5rem;
+}
+
+.h2,
+h2 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.h3,
 h3 {
     margin-top: 25px;
     margin-bottom: 5px;
@@ -160,11 +168,13 @@ img.full-width {
     text-align: center;
     font-weight: bold;
 }
+.box--samlet-besparelse .h1,
 .box--samlet-besparelse h1 {
     margin: 0;
 
     font-size: 3.5rem;
 }
+.box--samlet-besparelse .h1 small,
 .box--samlet-besparelse h1 small {
     font-weight: bold;
     font-size: 1rem;
