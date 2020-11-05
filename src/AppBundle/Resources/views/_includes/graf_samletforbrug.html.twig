@@ -20,27 +20,58 @@
 
 <script>
     // Bar.
+    (function () {
+        {#var dataCollection = {{ chart_data | json_encode | raw }};#}
+        {#var options = {#}
+        {#    scaleBeginAtZero: true,#}
+        {#    scaleShowGridLines: true,#}
+        {#};#}
+        {#var data = {#}
+        {#    labels: ['Nuværende', 'Optimeret'],#}
+        {#    datasets: [#}
+        {#        {#}
+        {#            data: [dataCollection.nuvaerende, dataCollection.optimeret],#}
+        {#            fillColor: '#62c5d3',#}
+        {#        },#}
+        {#    ]#}
+        {#};#}
+        {#var ctx = document.getElementById('{{ barChartIdRandomized }}').getContext('2d');#}
+        {#var bar = new Chart(ctx).Bar(data, options);#}
+
+        var ctx = document.getElementById('{{ barChartIdRandomized }}').getContext('2d');
+        var myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    barPercentage: 0.5,
+                    barThickness: 6,
+                    maxBarThickness: 8,
+                    minBarLength: 2,
+                    data: [10, 20, 30, 40, 50, 60, 70]
+                }]
+            },
+        });
+    }());
 
     // Doughnut.
     (function () {
-        var dataCollection = {{ chart_data | json_encode | raw }};
-        console.log(dataCollection);
-        var options = {
-            animation: false,
-            segmentShowStroke: false,
-            percentageInnerCutout: 75,
-        };
-        var data = [
-            {
-                value: dataCollection.reduction,
-                color: '#62c5d3',
-            },
-            {
-                value: (100 - dataCollection.reduction),
-                color: '#f2f2f0',
-            },
-        ];
-        var ctx = document.getElementById('{{ doughnutIdRandomized }}').getContext('2d');
-        var doughnut = new Chart(ctx).Doughnut(data, options);
-    }())
+        {#var dataCollection = {{ chart_data | json_encode | raw }};#}
+        {#var options = {#}
+        {#    animation: false,#}
+        {#    segmentShowStroke: false,#}
+        {#    percentageInnerCutout: 75,#}
+        {#};#}
+        {#var data = [#}
+        {#    {#}
+        {#        value: dataCollection.reduction,#}
+        {#        color: '#62c5d3',#}
+        {#    },#}
+        {#    {#}
+        {#        value: (100 - dataCollection.reduction),#}
+        {#        color: '#f2f2f0',#}
+        {#    },#}
+        {#];#}
+        {#var ctx = document.getElementById('{{ doughnutIdRandomized }}').getContext('2d');#}
+        {#var doughnut = new Chart(ctx).Doughnut(data, options);#}
+    }());
 </script>
