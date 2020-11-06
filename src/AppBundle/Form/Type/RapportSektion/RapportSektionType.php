@@ -18,7 +18,7 @@ class RapportSektionType extends AbstractType
         $builder
             ->add('title', 'text', array(
                 'attr' => array(
-                    'help_text' => 'Lad titlen være tom for skjule den',
+                    'help_text' => 'Lad titlen være tom for skjule den. Bruges, hvis titlen kommer fra WYSIWYG teksten.',
                 ),
                 'required' => FALSE,
             ))

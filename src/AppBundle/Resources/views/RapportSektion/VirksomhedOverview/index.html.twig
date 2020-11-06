@@ -11,12 +11,13 @@
         <a class="btn btn-primary" href="{{ path('virksomhed_oversigt_rapport_sektioner_new', { 'virksomhed_rapport': rapport.id, 'type': 'anbefaling' }) }}">
             <span class="fa fa-plus"></span> {{ 'rapportsektion.types.anbefaling.actions.create' | trans }}
         </a>
+        <a class="btn btn-default" href="{{ path('virksomhed_rapport_pdf_review', { 'id': rapport.id, 'type': 'oversigt' }) }}">Oversigtrapport</a>
     </div>
 
   </div>
 
 
-  <table class="table table-condensed table-header-rotated">
+  <table class="table table-condensed table-header">
     <thead>
     <tr>
       {{ helper.header('appbundle.rapportsektion.title') }}
@@ -24,17 +25,11 @@
       {{ helper.header('appbundle.rapportsektion.type') }}
       {{ helper.header() }}
     </tr>
-    <tr>
-      {{ helper.header_unit('appbundle.rapportsektion.title') }}
-      {{ helper.header_unit('appbundle.rapportsektion.text') }}
-      {{ helper.header_unit('appbundle.rapportsektion.type') }}
-      {{ helper.header_unit() }}
-    </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
     <tr>
-        <td>{{ entity.title }}</td>
+        <td>{{ entity.sectionTitle }}</td>
         <td>{{ entity.text|striptags|truncate(50) }}</td>
         <td>{{ entity.type }}</td>
         <td class="text-right">

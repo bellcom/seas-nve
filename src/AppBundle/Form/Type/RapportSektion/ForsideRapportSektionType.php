@@ -55,7 +55,6 @@ class ForsideRapportSektionType extends RapportSektionType
                 'mapped' => FALSE
             ))
             ->add('filepath', FileType::class, array(
-                'label' => 'Billede',
                 'data_class' => NULL,
                 'attachment_path' => $usingCustomImage ? 'filepath' : NULL,
                 'required' => FALSE,

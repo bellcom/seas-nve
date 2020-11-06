@@ -1,9 +1,43 @@
 {% extends 'AppBundle::RapportSektioner/base.html.twig' %}
 {% block section -%}
-<div class="section-frontpage-image">
-  {% if section.filepath %}
-    <img src="{{ absolute_url(asset(section.filepath)) }}" alt=""/>
-  {% endif %}
-</div>
-  {{ parent() }}
+  {% block section_type -%}
+    <div class="section-type">{{ ('rapportsektion.types.' ~ section.type ) | trans }} {{ section.number }}. {{ ('bygning_rapporter.strings.' ~ section.tiltagType ~ 'tiltag') | trans }}</div>
+  {% endblock %}
+  <div class="section-light-green">
+    {% if section.filepath %}
+      <div class="section-tiltag-image">
+        <img src="{{ absolute_url(asset(section.filepath)) }}" alt=""/>
+      </div>
+    {% endif %}
+    <div class="section-tiltag-effect">
+      <div class="section-tiltag-effect-title">Effekt:</div>
+      <div class="row">
+        <div class="col-xs-4">
+          <span class="enlarged">{{ section.potentieltBesparesleCo2 | format_decimal }} <small>tons CO2</small></span>
+          <span>sparet årligt</span>
+        </div>
+        <div class="col-xs-4">
+          <span class="enlarged">{{ section.potentieltBesparesleKr | format_decimal(0) }} <small>kr.</small></span>
+          <span>sparet årligt</span>
+        </div>
+        <div class="col-xs-4">
+          <span class="enlarged">{{ section.potentieltBesparesleKwh | format_decimal(0) }} <small>kWh</small></span>
+          <span>sparet årligt</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% block section_title -%}
+    {% if section.sectionTitle %}
+      <h1> {{ section.number }}. {{ section.sectionTitle }}</h1>
+    {% endif %}
+  {% endblock %}
+  {% block section_content -%}
+    {% if section.text %}
+      <div class="section-text">
+        {{ section.text | raw }}
+      </div>
+    {% endif %}
+  {% endblock %}
 {% endblock %}

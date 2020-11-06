@@ -114,6 +114,7 @@ class VirksomhedOversigtSektionerController extends BaseController
         return array(
             'entity' => $entity,
             'form' => $form->createView(),
+            'form_tpl' => $this->getFormTpl($entity),
         );
     }
 
@@ -164,6 +165,7 @@ class VirksomhedOversigtSektionerController extends BaseController
             'entity' => $entity,
             'form' => $form->createView(),
             'default_value_groups' => $this->getDefaultValueGroups($entity),
+            'form_tpl' => $this->getFormTpl($entity),
         );
     }
 
@@ -193,6 +195,7 @@ class VirksomhedOversigtSektionerController extends BaseController
             'form' => $editForm->createView(),
             'delete_form' => $entity->isAllowed(RapportSektion::ACTION_DELETE) ? $deleteForm->createView() : NULL,
             'default_value_groups' => $this->getDefaultValueGroups($entity),
+            'form_tpl' => $this->getFormTpl($entity),
         );
     }
 
@@ -273,6 +276,7 @@ class VirksomhedOversigtSektionerController extends BaseController
             'entity' => $entity,
             'form' => $editForm->createView(),
             'delete_form' => $entity->isAllowed(RapportSektion::ACTION_DELETE) ? $deleteForm->createView() : NULL,
+            'form_tpl' => $this->getFormTpl($entity),
         );
     }
 
@@ -396,4 +400,12 @@ class VirksomhedOversigtSektionerController extends BaseController
         return $default_value_groups;
     }
 
+    private function getFormTpl($entity) {
+        $tpl_path = "AppBundle:RapportSektion:forms/";
+        $tpl = $tpl_path . 'standard.html.twig';
+        if ($this->get('templating')->exists($tpl_path . $entity->getType() . '.html.twig')) {
+            $tpl = $tpl_path . $entity->getType() . '.html.twig';
+        }
+        return $tpl;
+    }
 }

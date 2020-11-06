@@ -23,9 +23,10 @@ class AnbefalingRapportSektionExtrasType extends AbstractType {
             ))
             ->add('tidsforloebuger', TextType::class, array('required' => FALSE))
             ->add('pris', TextType::class, array('required' => FALSE))
-            ->add('tidsforloebinfo', BootstrapCollectionType::class, array(
+            ->add('tidsforloebinfo', 'bootstrap_collection', array(
                 'property_path' => '[tidsforloebinfo]',
                 'type' => new AnbefalingTidsforloebInfoEmbedType(),
+                'label' => FALSE,
                 'required' => FALSE,
                 'allow_add' => true,
                 'by_reference' => false,

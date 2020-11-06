@@ -9,11 +9,11 @@ class FaktaOmVirksomedRapportSektionExtrasType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('elForbrug')
-            ->add('varmeForbrug')
-            ->add('braendstofForbrug')
-            ->add('afgifterForbrug')
-            ->add('co2Forbrug')
+            ->add('elForbrug', 'text', array('required' => FALSE))
+            ->add('varmeForbrug', 'text', array('required' => FALSE))
+            ->add('braendstofForbrug', 'text', array('required' => FALSE))
+            ->add('afgifterForbrug', 'text', array('required' => FALSE))
+            ->add('co2Forbrug', 'text', array('required' => FALSE))
         ;
     }
 }

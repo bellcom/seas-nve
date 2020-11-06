@@ -1,0 +1,32 @@
+{% extends 'AppBundle::RapportSektion/forms/standard.html.twig' %}
+{% block form_content %}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(form.title) }}
+          {{ form_row(form.text) }}
+          {{ form_row(form.extras.noegletal) }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'common.others' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(form.extras.tilbagebetalingstid) }}
+          {{ form_row(form.extras.tekniskelevetid) }}
+          {{ form_row(form.extras.grafundertekst) }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      {{ form_rest(form) }}
+    </div>
+  </div>
+{% endblock %}

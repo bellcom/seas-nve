@@ -56,19 +56,7 @@ class ReportImageController extends BaseController {
       'forside',
       'anbefaling',
     );
-    $suggestion_image_types = array(
-      'pumpe',
-      'belysning',
-      'nyklimaskaerm',
-      'vindue',
-      'solcelle',
-      'tekniskisolering',
-      'ventilation',
-      'trykluft',
-      'varmeanlaeg',
-      'koeleanlaeg',
-      'special',
-    );
+    $suggestion_image_types = ReportImage::getTiltagImageTypes();
 
     $em = $this->getDoctrine()->getManager();
     $uploaded_images = $em->getRepository('AppBundle:ReportImage')->findBy(array('type' => $image_type));
