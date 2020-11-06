@@ -41,15 +41,13 @@
         {#var bar = new Chart(ctx).Bar(data, options);#}
 
         var options = {
-            bezierCurve : false,
             animation: {
-                onComplete: function() {
-                    var image = myBarChart.toBase64Image();
-                    var imageNode = document.getElementById('barchartimage');
-                    imageNode.src = image;
-                    console.log(myBarChart.toBase64Image());
-                }
-            }
+                duration: 0 // general animation time
+            },
+            hover: {
+                animationDuration: 0 // duration of animations when hovering an item
+            },
+            responsiveAnimationDuration: 0 // animation duration after a resize
         };
         var data = {
             datasets: [{
@@ -66,7 +64,6 @@
             data: data,
             options: options,
         });
-        debugger;
     }());
 
     // Doughnut.
