@@ -1,16 +1,115 @@
 {% set barChartIdRandomized = 'samlet-forbrug-bar-' ~ random() %}
-{% set pieChartIdRandomized = 'samlet-forbrug-pie-' ~ random() %}
+{% set doughnutIdRandomized = 'samlet-forbrug-pie-' ~ random() %}
+
 <div class="row">
     <div class="col-xs-6">
-        <div id="{{ barChartIdRandomized }}"></div>
+        <div id="{{ barChartIdRandomized }}" style="height: 370px; width: 100%;"></div>
+        <img src="" alt="" id="barchartimage">
     </div>
     <div class="col-xs-6">
-        <div id="{{ pieChartIdRandomized }}"></div>
+        <div class="chart">
+            <div class="chart-heading">
+                <div class="chart-heading__title">{{ chart_data.reduction }}%</div>
+                <div class="chart-heading__subtitle">
+                    Energireduktion samlet
+                </div>
+            </div>
+
+            <canvas id="{{ doughnutIdRandomized }}" width="300" height="300"></canvas>
+        </div>
     </div>
 </div>
 
 <script>
-  (function() {
-      var chartData = {{ chart_data | json_encode | raw }};
-  }())
+    // Bar.
+    (function () {
+        {#var dataCollection = {{ chart_data | json_encode | raw }};#}
+        {#var options = {#}
+        {#    scaleBeginAtZero: true,#}
+        {#    scaleShowGridLines: true,#}
+        {#};#}
+        {#var data = {#}
+        {#    labels: ['Nuværende', 'Optimeret'],#}
+        {#    datasets: [#}
+        {#        {#}
+        {#            data: [dataCollection.nuvaerende, dataCollection.optimeret],#}
+        {#            fillColor: '#62c5d3',#}
+        {#        },#}
+        {#    ]#}
+        {#};#}
+        {#var ctx = document.getElementById('{{ barChartIdRandomized }}').getContext('2d');#}
+        {#var bar = new Chart(ctx).Bar(data, options);#}
+
+        {#var options = {#}
+        {#    animation: {#}
+        {#        duration: 0 // general animation time#}
+        {#    },#}
+        {#    hover: {#}
+        {#        animationDuration: 0 // duration of animations when hovering an item#}
+        {#    },#}
+        {#    responsiveAnimationDuration: 0 // animation duration after a resize#}
+        {#};#}
+        {#var data = {#}
+        {#    datasets: [{#}
+        {#        barPercentage: 0.5,#}
+        {#        barThickness: 6,#}
+        {#        maxBarThickness: 8,#}
+        {#        minBarLength: 2,#}
+        {#        data: [10, 20, 30, 40, 50, 60, 70]#}
+        {#    }]#}
+        {#};#}
+        {#var ctx = document.getElementById('{{ barChartIdRandomized }}').getContext('2d');#}
+        {#var myBarChart = new Chart(ctx, {#}
+        {#    type: 'bar',#}
+        {#    data: data,#}
+        {#    options: options,#}
+        {#});#}
+
+        var myChart = echarts.init(document.getElementById('{{ barChartIdRandomized }}'));
+
+        // specify chart configuration item and data
+        var option = {
+            title: {
+                text: 'ECharts entry example'
+            },
+            tooltip: {},
+            legend: {
+                data:['Sales']
+            },
+            xAxis: {
+                data: ["shirt","cardign","chiffon shirt","pants","heels","socks"]
+            },
+            yAxis: {},
+            series: [{
+                name: 'Sales',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+
+        // use configuration item and data specified to show chart
+        myChart.setOption(option);
+    }());
+
+    // Doughnut.
+    (function () {
+        {#var dataCollection = {{ chart_data | json_encode | raw }};#}
+        {#var options = {#}
+        {#    animation: false,#}
+        {#    segmentShowStroke: false,#}
+        {#    percentageInnerCutout: 75,#}
+        {#};#}
+        {#var data = [#}
+        {#    {#}
+        {#        value: dataCollection.reduction,#}
+        {#        color: '#62c5d3',#}
+        {#    },#}
+        {#    {#}
+        {#        value: (100 - dataCollection.reduction),#}
+        {#        color: '#f2f2f0',#}
+        {#    },#}
+        {#];#}
+        {#var ctx = document.getElementById('{{ doughnutIdRandomized }}').getContext('2d');#}
+        {#var doughnut = new Chart(ctx).Doughnut(data, options);#}
+    }());
 </script>
