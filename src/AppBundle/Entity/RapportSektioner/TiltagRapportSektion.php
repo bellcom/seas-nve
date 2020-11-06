@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\RapportSektioner;
 
 use AppBundle\Entity\RapportSektioner\Traits\FilepathField;
+use AppBundle\Entity\ReportImage;
 use AppBundle\Entity\ReportText;
 use AppBundle\Entity\ReportTextRepository;
 use AppBundle\Entity\Tiltag;
@@ -63,6 +64,14 @@ class TiltagRapportSektion extends RapportSektion {
                 $this->setText($defaultText->getBody());
             }
         }
+
+        if (property_exists($this, 'filepath') && $this->getFilepath() == NULL) {
+            /** @var ReportImage $defaultImage */
+            if ($defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getTiltagType())) {
+                $this->setFilepathString($defaultImage->getFilepath());
+            }
+        }
+
     }
 
     /**
@@ -96,12 +105,26 @@ class TiltagRapportSektion extends RapportSektion {
     }
 
     /**
-     * Get title
+     * @inheritDoc
+     */
+    public function getTitle() {
+        return $this->title;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSectionTitle() {
+        return $this->title ?: $this->getTiltagTitle();
+    }
+
+    /**
+     * Get tiltag title
      *
      * @return string
      */
-    public function getTitle() {
-        return !empty($this->tiltag) ? $this->tiltag->getTitle() : '';
+    public function getTiltagTitle() {
+        return empty($this->tiltag) ? '' : $this->tiltag->getTitle();
     }
 
     /**
@@ -136,6 +159,21 @@ class TiltagRapportSektion extends RapportSektion {
     }
 
     /**
+     * Get tiltag section number.
+     */
+    public function getNumber() {
+        $tiltagSections = $this->getRapportSections()->filter(function ($section) { return $section->getType() == 'tiltag'; });
+        $number = 1;
+        foreach ($tiltagSections as $key => $tiltagSection) {
+            if ($tiltagSection == $this) {
+                return $number;
+            }
+            $number++;
+        }
+        return NULL;
+    }
+
+    /**
      * @inheritDoc
      */
     protected function nullDefaultableTextFields(EntityManagerInterface $em) {
@@ -147,6 +185,15 @@ class TiltagRapportSektion extends RapportSektion {
                 $this->setText(NULL);
             }
         }
+
+        if (property_exists($this, 'filepath') && $this->getFilepath()) {
+            /** @var ReportImage $defaultImage */
+            $defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getTiltagType());
+            if ($this->getFilepath() == $defaultImage->getFilepath()) {
+                $this->setFilepath(NULL);
+            }
+        }
+
     }
 
     /**

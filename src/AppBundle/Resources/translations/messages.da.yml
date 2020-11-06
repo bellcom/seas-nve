@@ -106,6 +106,7 @@ common:
   your_segments: "Dine segmenter"
   toggle: "Vis/Skjul"
   inherited: "nedarvet"
+  others: "Øvrige"
 dashboard:
   besparelseCO2: "CO2 besparelse"
   besparelseEl: "El besparelse"
@@ -508,7 +509,8 @@ pumpetiltagdetail:
 rapportsektion:
   actions:
     create: "Opret Rapport sektion"
-    edit: "Rediger Rapport sektion"
+    edit: "Rediger rapportsektion"
+    edit_tiltag: "Rediger tilknyttet forslag"
   confirmation:
     updated: "Rapport sektion opdateret"
   error:
@@ -528,6 +530,10 @@ rapportsektion:
     kontaktinformation: "Kontaktinformation"
     standard: "Standard"
     tiltag: "Forslag"
+  strings:
+    tidsforloeb: "Tidsforløb"
+    image: "Billede"
+    andendteEnheder: "Andendte enheder"
 reportimage:
   actions:
     add: "Nyt billede upload"
@@ -2117,41 +2123,53 @@ appbundle:
     solcelle: "Solcelle"
     forside:
       title: "Overtekst"
-      filepath: "Billede"
-      imagestandard: "Standard billede"
+      filepath: "Brugetdefineret billede"
+      imagestandard: "Vælg billede"
       extras:
         rapportTypeNavn: "Rapportype navn"
         underTekst: "Undertekst"
         erstatningAdresse: "Erstat adresse"
     faktavirksom:
-      title: "Overtekst"
+      title: "Titel"
       text: "Beskrivelse af Virksomhed"
       extras:
-        elForbrug: "kr/kWh i el"
-        varmeForbrug: "kr/kWh i varme"
-        braendstofForbrug: "kr/kWh i brændstof"
-        afgifterForbrug: "kr/kWh i afgifter"
-        co2Forbrug: "ton i CO2"
+        elForbrug: "Elforbrug"
+        elForbrug.unit: "kr/kWh"
+        varmeForbrug: "Varmeforbrug"
+        varmeForbrug.unit: "kr/kWh"
+        braendstofForbrug: "Braendstofforbrug"
+        braendstofForbrug.unit: "kr/kWh"
+        afgifterForbrug: "Afgifterforbrug"
+        afgifterForbrug.unit: "kr/kWh"
+        co2Forbrug: "CO2forbrug"
+        co2Forbrug.unit: "ton CO2"
     finansiering:
-      title: "Overtekst"
+      title: "Titel"
       text: "Beskrivelse"
       extras:
         noegletal: "Nøgletal"
         tilbagebetalingstid: "Simpel Tilbagebetalingstid"
         tekniskelevetid: "Tekniske levetid"
-        produktivitetbeskrivelse: "Produktivitet beskrivelse"
         grafundertekst: "Graf undertekst"
     tiltag:
       text: "Text"
-      filepath: "Billede"
+      title: "Titel"
+      filepath: "Brugetdefineret billede"
+      imagestandard: "Vælg billede"
+    baeredygtighed:
+      text: "Text"
+      title: "Titel"
+      extras:
+        besparelseeffekt: "Besparelse effekt tekst"
     anbefaling:
-      title: "Title"
+      title: "Titel"
       text: "Beskrivelse"
-      filepath: "Hovedbillede"
+      filepath: "Brugetdefineret billede"
       imagestandard: "Standard billede"
       extras:
-        type: "Anbefaling type"
+        type: "Anbefaling type (Baseret på Slutanvendelse)"
         tidsforloebuger: "Tidsforløb uger"
+        tidsforloebuger.unit: "uger"
         tidsforloebinfo: "Tidsforløb info"
         tidsforloebinfo...name...title: "Title"
         tidsforloebinfo...name...startuge: "Start ugenummer"
@@ -2163,10 +2181,11 @@ appbundle:
           slutuge: "Slut ugenummer"
           omraadeansvar: "Områdeansvar"
         pris: "Pris"
+        pris.unit: "kr"
         ressourcertekst: "Ressourcertekst"
-        raadgiver: "Rådgiver på grønne bokse"
-        telefon: "Telefonnummer på grønne bokse"
-        telefon.help: "standard udfyldes med valgt rådgiver telefonnummer, hvis værdi er tom"
+        raadgiver: "Rådgiver i grønne tekst"
+        telefon: "Telefonnummer i grønne bokse"
+        telefon.help: "Standard vises med valgt rådgivers telefonnummer, hvis værdi er tom"
   reportimage:
     title: "Titel"
     filepath: "Fil"

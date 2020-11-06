@@ -55,76 +55,7 @@
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-      <ul class="nav navbar-nav">
-        {% if is_granted('ROLE_BYGNING_VIEW') or is_granted('ROLE_VIRKSOMHED_VIEW') %}
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('table') }}  {{ 'Stamdata' | trans }} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            {% if is_granted('ROLE_BYGNING_VIEW') %}
-              <li><a href="/bygning">{{ 'bygninger.labels.plural' | trans }}</a></li>
-            {% endif %}
-            {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
-              <li><a href="/virksomhed">{{ 'virksomhed.labels.plural' | trans }}</a></li>
-            {% endif %}
-          </ul>
-        </li>
-        {% endif %}
-        {% if is_granted('ROLE_RAPPORT_VIEW') or is_granted('ROLE_VIRKSOMHED_RAPPORT_VIEW') %}
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('line-chart') }}  {{ 'rapporter.labels.plural' | trans }} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            {% if is_granted('ROLE_RAPPORT_VIEW') %}
-              <li><a href="{{ path('rapport') }}">{{ 'bygninger.labels.plural' | trans }}</a></li>
-            {% endif %}
-            {% if is_granted('ROLE_VIRKSOMHED_RAPPORT_VIEW') %}
-              <li><a href="{{ path('virksomhed_rapport') }}">{{ 'virksomhed.labels.plural' | trans }}</a></li>
-            {% endif %}
-          </ul>
-        </li>
-        {% endif %}
-        {% if is_granted('ROLE_BYGNING_VIEW') or is_granted('ROLE_VIRKSOMHED_VIEW') %}
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('plus-circle') }}  {{ 'Opret' | trans }} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            {% if is_granted('ROLE_BYGNING_VIEW') %}
-            <li><a href="/bygning/new">{{ 'bygninger.labels.singular' | trans }}</a></li>
-            {% endif %}
-            {% if is_granted('ROLE_VIRKSOMHED_VIEW') %}
-              <li><a href="/virksomhed/new">{{ 'virksomhed.labels.singular' | trans }}</a></li>
-            {% endif %}
-          </ul>
-        </li>
-        {% endif %}
-        {% if is_granted('ROLE_ADMIN') %}
-          <li><a href="/udtraek">{{ icon('file-excel-o') }} {{ 'udtraek.labels.plural' | trans }}</a></li>
-        {% endif %}
-        {% if is_granted('ROLE_SUPER_ADMIN') %}
-          <li><a href="/user">{{ icon('user') }} {{ 'user.labels.plural' | trans }}</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ icon('gears') }} Indstillinger <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              {% for route, name in {
-                'solcelle': 'Solceller',
-                'klimaskaerm': 'Klimaskærme',
-                'pumpe': 'Pumper',
-                'forsyningsvaerk': 'Forsyningsværker',
-                'nyttiggjortvarme': 'Nyttiggjort varme',
-                'belysningtiltagdetail_erstatningslyskilde': 'Erstatnings lyskilder',
-                'belysningtiltagdetail_nytarmatur': 'Armaturer',
-                'belysningtiltagdetail_lyskilde': 'D & V – Udgift til lyskilder',
-                'graddage': 'Graddage-fordelinger',
-                'report_image': 'Rapport billeder',
-                'report_text': 'Rapport tekster',
-              } %}
-                <li><a href="{{ path(route) }}">{{ name | trans }}</a></li>
-              {% endfor %}
-              <li role="separator" class="divider"></li>
-              <li><a href="{{ path('configuration') }}">{{ 'Indstillinger' | trans }}</a></li>
-            </ul>
-          </li>
-        {% endif %}
-      </ul>
-
+      {% include 'AppBundle::top_navigation.html.twig' %}
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

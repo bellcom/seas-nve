@@ -2580,6 +2580,9 @@ abstract class Tiltag {
     $relpaceFrom = array('å', 'æ', 'ø');
     $relpaceTo = array('aa', 'ae', 'oe');
     foreach ($types as $key => $typeClass) {
+      if ($key == 'klimaskærm') {
+          continue;
+      }
       $key = str_replace($relpaceFrom, $relpaceTo, $key);
       $result[$key] = $typeClass;
     }

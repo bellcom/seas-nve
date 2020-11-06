@@ -155,4 +155,8 @@ class ReportImage {
   public function isStandard() {
     return $this->standard;
   }
+
+  public static function getTiltagImageTypes() {
+      return Tiltag::getTypesConverted(TRUE);
+  }
 }

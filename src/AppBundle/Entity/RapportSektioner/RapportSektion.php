@@ -155,7 +155,7 @@ abstract class RapportSektion
         }
 
         if (property_exists($this, 'filepath') && $this->getFilepath() == NULL) {
-            /** @var UploadedFile $defaultImage */
+            /** @var ReportImage $defaultImage */
             if ($defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getType())) {
                 $this->setFilepathString($defaultImage->getFilepath());
             }
@@ -191,6 +191,15 @@ abstract class RapportSektion
      */
     public function getTitle() {
         return $this->title;
+    }
+
+    /**
+     * Get section title
+     *
+     * @return string
+     */
+    public function getSectionTitle() {
+        return $this->getTitle() ?: $this->getType();
     }
 
     /**
