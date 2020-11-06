@@ -1,8 +1,10 @@
 {% set barChartIdRandomized = 'samlet-forbrug-bar-' ~ random() %}
 {% set doughnutIdRandomized = 'samlet-forbrug-pie-' ~ random() %}
+
 <div class="row">
     <div class="col-xs-6">
-        <canvas id="{{ barChartIdRandomized }}" width="300" height="300"></canvas>
+        <div id="{{ barChartIdRandomized }}" style="height: 370px; width: 100%;"></div>
+        <img src="" alt="" id="barchartimage">
     </div>
     <div class="col-xs-6">
         <div class="chart">
@@ -13,7 +15,7 @@
                 </div>
             </div>
 
-            <canvas id="{{ doughnutIdRandomized }}" width="300" height="300"></canvas>
+            <div id="{{ doughnutIdRandomized }}" width="300" height="300"></div>
         </div>
     </div>
 </div>
@@ -38,19 +40,64 @@
         {#var ctx = document.getElementById('{{ barChartIdRandomized }}').getContext('2d');#}
         {#var bar = new Chart(ctx).Bar(data, options);#}
 
-        var ctx = document.getElementById('{{ barChartIdRandomized }}').getContext('2d');
-        var myBarChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                datasets: [{
-                    barPercentage: 0.5,
-                    barThickness: 6,
-                    maxBarThickness: 8,
-                    minBarLength: 2,
-                    data: [10, 20, 30, 40, 50, 60, 70]
-                }]
+        {#var ctx = document.getElementById('{{ barChartIdRandomized }}').getContext('2d');#}
+        {#var myBarChart = new Chart(ctx, {#}
+        {#    type: 'bar',#}
+        {#    data: {#}
+        {#        datasets: [{#}
+        {#            barPercentage: 0.5,#}
+        {#            barThickness: 6,#}
+        {#            maxBarThickness: 8,#}
+        {#            minBarLength: 2,#}
+        {#            data: [10, 20, 30, 40, 50, 60, 70]#}
+        {#        }]#}
+        {#    },#}
+        {#    plugins: [{#}
+        {#        afterRender: function () {#}
+        {#            // Do anything you want#}
+        {#            renderIntoImage()#}
+        {#        },#}
+        {#    }],#}
+        {#}, {#}
+        {#    bezierCurve : false,#}
+        {#    animation: false#}
+        {#});#}
+        {#var image = myBarChart.toBase64Image();#}
+        {#var imageNode = document.getElementById('barchartimage');#}
+        {#imageNode.src = image;#}
+        {#debugger;#}
+
+
+        var chart = new CanvasJS.Chart('{{ barChartIdRandomized }}', {
+            animationEnabled: false,
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            title: {
+                text: "GDP Growth Rate - 2016"
             },
+            axisY: {
+                title: "Growth Rate (in %)",
+                suffix: "%"
+            },
+            axisX: {
+                title: "Countries"
+            },
+            data: [{
+                type: "column",
+                yValueFormatString: "#,##0.0#\"%\"",
+                dataPoints: [
+                    { label: "India", y: 7.1 },
+                    { label: "China", y: 6.70 },
+                    { label: "Indonesia", y: 5.00 },
+                    { label: "Australia", y: 2.50 },
+                    { label: "Mexico", y: 2.30 },
+                    { label: "UK", y: 1.80 },
+                    { label: "United States", y: 1.60 },
+                    { label: "Japan", y: 1.60 }
+
+                ]
+            }]
         });
+        chart.render();
     }());
 
     // Doughnut.
