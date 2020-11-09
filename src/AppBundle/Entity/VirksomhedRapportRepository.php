@@ -129,6 +129,33 @@ class VirksomhedRapportRepository extends BaseRepository {
         return $sections;
     }
 
+    protected function checkAnbefalingRapportSektion(VirksomhedRapport $entity) {
+        $sections = $entity->getRapportOversigtSektioner();
+        $existing = $sections->filter(function($section) {
+            return get_class($section) == RapportSektion::getRapportSektionClassByType('anbefaling');
+        });
+
+        if ($existing->count() >= 1) {
+            return $existing->toArray();
+        }
+
+        // Creating missing sections.
+        $sections = [];
+        for ($i = 0; $i < 3; $i++) {
+            /** @var RapportSektionRepository $sektionerRepository */
+            $sektionRepository = $this->_em->getRepository('AppBundle:RapportSektioner\RapportSektion');
+            /** @var RapportSektion $newSection */
+            $newSection = $sektionRepository->create('anbefaling');
+            $newSection->setVirksomhedOversigtRapport($entity);
+
+            $this->_em->persist($newSection);
+            $this->_em->flush();
+            $sections[] = $newSection;
+        }
+
+        return $sections;
+    }
+
     protected function checkTiltagRapportSektion(VirksomhedRapport $entity) {
         $sections = $entity->getRapportOversigtSektioner();
         $tiltage = $entity->getBygningerRapporterTiltage();

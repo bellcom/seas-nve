@@ -307,7 +307,11 @@ class VirksomhedOversigtSektionerController extends BaseController
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $virksomhed_rapport->getId())));
+        $destination = $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $virksomhed_rapport->getId()));
+        if ($this->request->get('destination')) {
+            $destination = $this->request->get('destination');
+        }
+        return $this->redirect($destination);
     }
 
     /**
@@ -319,8 +323,14 @@ class VirksomhedOversigtSektionerController extends BaseController
      */
     private function createDeleteForm(VirksomhedRapport $virksomhed_rapport, $id)
     {
+        $params = array('virksomhed_rapport' => $virksomhed_rapport->getId(), 'id' => $id);
+        if ($this->request->get('destination')) {
+            $destination = $this->request->get('destination');
+            $params['destination'] = $destination;
+        }
+
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('virksomhed_oversigt_rapport_sektioner_delete', array('virksomhed_rapport' => $virksomhed_rapport->getId(), 'id' => $id)))
+            ->setAction($this->generateUrl('virksomhed_oversigt_rapport_sektioner_delete', $params))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array(
                 'label' => 'Delete',

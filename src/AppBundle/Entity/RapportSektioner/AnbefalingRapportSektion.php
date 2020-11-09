@@ -33,6 +33,16 @@ class AnbefalingRapportSektion extends RapportSektion {
     use FilepathField;
 
     /**
+     * Constructor
+     *
+     * @param array $params
+     */
+    public function __construct($params = array()) {
+        parent::__construct($params);
+        $this->setTitle('Anbefaling');
+    }
+
+    /**
      * Get anbefaling title for rendering.
      */
     public function getAnbefalingTitle() {
