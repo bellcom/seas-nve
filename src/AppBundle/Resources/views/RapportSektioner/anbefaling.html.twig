@@ -46,9 +46,35 @@
       </div>
     </div>
   </div>
-  <div class="section-anbefaling-tidsforloeb">
-
-  </div>
+  {% if section.tidlsforloebData %}
+    <div class="section-anbefaling-tidsforloeb">
+      <h2>Tidsforløb</h2>
+      <table>
+        <tr>
+          <td></td>
+          {% for week in section.tidlsforloebData %}
+            <td>{{ week.label }}</td>
+          {% endfor %}
+        </tr>
+        {% for key,info in section.getTidlsforloebInfo %}
+          <tr class="section-anbefaling-ansvarlig-{{ info.omraadeansvar }}">
+            <td>{{ info.title }}</td>
+            {% for week in section.tidlsforloebData %}
+              <td>
+                {% if week.rows[key] %}-{% endif %}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </table>
+      <div class="section-anbefaling-ansvarlig">
+        <span>Områdaansvarlig:</span>
+        <span class="color-provider"></span> SEAS-NVE
+        <span class="color-company"></span> {{ section.virksomhedOversigtRapport.virksomhed.name }}
+        <span class="color-both"></span> Begge
+      </div>
+    </div>
+  {% endif %}
   <div class="section-anbefaling-roi">
     <h2>Simpel tilbagebetalingtid (ROI)</h2>
     <div class="row">

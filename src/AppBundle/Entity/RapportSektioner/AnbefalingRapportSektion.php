@@ -173,6 +173,47 @@ class AnbefalingRapportSektion extends RapportSektion {
         );
     }
 
+    public function getTidlsforloebInfo() {
+        return $this->getExtrasKeyValue('tidsforloebinfo');
+    }
+
+    public function getTidlsforloebData() {
+        $tidsforloebinfo = $this->getTidlsforloebInfo();
+        $data = array();
+        $start = empty($tidsforloebinfo) ? NULL : reset($tidsforloebinfo);
+        $end = empty($tidsforloebinfo) ? NULL : end($tidsforloebinfo);
+        if (empty($start['startuge']) || empty($end['slutuge'])) {
+            return $data;
+        }
+        if ($start['startuge'] > $start['slutuge']) {
+            $start['startuge'] = $start['startuge'] - 52;
+        }
+        for ($i = $start['startuge']; $i <= $end['slutuge']; $i++) {
+            if ($i + 1 > 52 ) {
+                $i = 1;
+            }
+            $column = array(
+                'week_num' => $i,
+                'label' =>'Uge ' . $i,
+                'rows' => array(),
+            );
+
+            foreach ($tidsforloebinfo as $key => $rowInfo) {
+                if (array_filter($rowInfo) != $rowInfo) {
+                    continue;
+                }
+                if ($rowInfo['startuge'] > $rowInfo['slutuge']) {
+                    $rowInfo['startuge'] = $rowInfo['startuge'] - 52;
+                }
+                if ($rowInfo['startuge'] <= $i && $i <= $rowInfo['slutuge']) {
+                    $column['rows'][$key] = TRUE;
+                }
+            }
+            $data[] = $column;
+        }
+        return $data;
+    }
+
     /**
      * Defines allowed actions with SektionType.
      *
