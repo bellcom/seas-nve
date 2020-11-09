@@ -46,11 +46,11 @@
     </style>
 </head>
 
-<body>
+<body class="rapport-review">
 
 <!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
+<nav class="navbar navbar-fixed-top">
+  <div class="container-fluid  navbar-default">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
         <span class="sr-only">Toggle navigation</span>
@@ -64,8 +64,10 @@
       {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         {% include 'AppBundle::top_navigation.html.twig' %}
         <div class="navbar-right">
+          <a class="btn btn-default" target="_blank" href="{{ path('report_text') }}">{{ 'reporttext.labels.plural' | trans }}</a>
+          <a class="btn btn-default" target="_blank" href="{{ path('report_image') }}">{{ 'reportimage.labels.plural' | trans }}</a>
           {% if pdf_export_url %}
-            <form method="POST" action="{{ pdf_export_url }}" style="margin-top:10px;">
+            <form method="POST" action="{{ pdf_export_url }}" style="margin-top:10px; display: inline-block;">
                 <button type="submit" class="btn btn-default" name="save-pdf" value="1">{{ icon('file-pdf-o') }} {{ 'common.savePdf' | trans }}</button>
                 <button type="submit" class="btn btn-default" name="download-pdf" value="1">{{ icon('file-pdf-o') }} {{ 'common.downloadPdf' | trans }}</button>
             </form>
@@ -74,10 +76,10 @@
       {% endif %}
     </div>
   </div>
+  <div class="container-fluid breadcrumbs-wrapper">
+    {{ wo_render_breadcrumbs() }}
+  </div>
 </nav>
-<div class="container-fluid">
-  {{ wo_render_breadcrumbs() }}
-</div>
 {% macro header(key) %}
     {% set calculation = key|get_calculation %}
 
@@ -112,7 +114,7 @@
 {% import _self as helper %}
 
 <!-- Begin page content -->
-<div style="height: 50px"></div>
+<div style="height: 120px"></div>
 {{ html | raw }}
 
 

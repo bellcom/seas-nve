@@ -1,0 +1,10 @@
+    </div>
+  </div>
+</div>
+<div class="page-break-before section-{{ section.type }} {% if section.landscape %}landscape{% else %}portrait{% endif %}">
+  <div class="row">
+    <div class="col-xs-12">
+      {% if section.editUrl and review %}
+        <div class="float-right"><a href="{{ section.editUrl }}">edit</a></div>
+      {% endif %}
+      {% include 'AppBundle::RapportSektioner/_includes/section-type.html.twig' %}

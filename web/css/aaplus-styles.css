@@ -806,3 +806,22 @@ div.form-group.override .form-group {
 div.form-group.override .form-group .checkbox {
     margin:0;
 }
+
+.rapport-review .breadcrumbs-wrapper {
+    padding: 10px 15px;
+    background-color: #FFFFFF;
+}
+
+.rapport-review {
+    background-color: #FAFAFA;
+}
+
+.rapport-review .portrait {
+    width: 1160px;
+    padding: 40px 80px;
+    background-color: #FFFFFF;
+}
+
+.rapport-review .page-break-before {
+    margin-top: 20px;
+}

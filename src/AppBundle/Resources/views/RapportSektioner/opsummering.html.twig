@@ -19,6 +19,7 @@
       </div>
     </div>
   </div>
+  {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
   <div class="section-opsumering-samlet-forbrug">
     <h2>Samlet forbrug</h2>
     {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
