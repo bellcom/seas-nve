@@ -36,7 +36,9 @@ class ReportTextController extends BaseController {
    */
   public function indexAction()
   {
-    return $this->redirect($this->generateUrl('report_text_get',array('type' => 'standard_text')));
+      return array(
+          'report_section_text_types' => $this->getReportSectionTextTypes(),
+      );
   }
 
   /**

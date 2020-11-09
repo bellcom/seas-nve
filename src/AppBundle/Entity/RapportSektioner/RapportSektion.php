@@ -29,14 +29,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="discr", type="string")
  * @DiscriminatorMap({
- *    "tiltag" = "TiltagRapportSektion",
  *    "forside" = "ForsideRapportSektion",
  *    "kontaktinformation" = "KontaktInformationRapportSektion",
  *    "opsummering" = "OpsummeringRapportSektion",
  *    "anbefaling" = "AnbefalingRapportSektion",
  *    "faktavirksomhed" = "FaktaOmVirksomhedRapportSektion",
  *    "finansiering" = "FinansieringRapportSektion",
- *    "baeredygtighed" = "BaeredygtighedRapportSektion"
+ *    "baeredygtighed" = "BaeredygtighedRapportSektion",
+ *    "tiltag" = "TiltagRapportSektion"
  * })
  */
 abstract class RapportSektion

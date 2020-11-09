@@ -1,0 +1,19 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1>{{ "reporttext.labels.plural" | trans }}</h1>
+        </div>
+        <div class="col-md-6 text-right">
+            {% include 'AppBundle:ReportText:tabs.html.twig' %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+          <p>{{ "reporttext.strings.valg_tekst_type" | trans }}</p>
+        </div>
+    </div>
+
+{% endblock %}
