@@ -18,7 +18,7 @@
     </div>
     {% else %}
         {% for text_type_key, text_type in text_types %}
-            <a class="btn btn-default " href="{{ path('report_text_get', { 'type': text_type_key }) }}">
+            <a class="btn btn-default {% if selected_text_type ==  text_type_key %}active{% endif %}" href="{{ path('report_text_get', { 'type': text_type_key }) }}">
               {{ "reporttext.tabs.#{ section }" | trans }}
             </a>
         {% endfor %}
