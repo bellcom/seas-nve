@@ -20,6 +20,7 @@ class AnbefalingRapportSektionExtrasType extends AbstractType {
             ->add('type', ChoiceType::class, array(
                 'choices' => SlutanvendelseType::getChoices(),
                 'empty_value' => 'common.none',
+                'required' => FALSE,
             ))
             ->add('tidsforloebuger', TextType::class, array('required' => FALSE))
             ->add('pris', TextType::class, array('required' => FALSE))
