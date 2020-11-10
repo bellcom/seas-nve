@@ -543,5 +543,17 @@ abstract class RapportSektion
         $this->nullDefaultableTextFields($event->getEntityManager());
     }
 
+    /**
+     * PreRemove load handler.
+     *
+     * @ORM\PreRemove
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
+     * @see nullDefaultableTextFields.
+     */
+    public function preRemove(LifecycleEventArgs $event) {
+        // Before removing reset default values from entity, to avoid deleting attached files.
+        $this->nullDefaultableTextFields($event->getEntityManager());
+    }
+
 }
 
