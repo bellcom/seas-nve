@@ -22,9 +22,20 @@ class OpsummeringRapportSektion extends RapportSektion {
         parent::__construct($params);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getFormType() {
+        return new OpsummeringRapportSektionType();
+    }
+
     public function getAnbefalinger () {
         $anbefalinger = $this->getRapportSections()->filter(function ($section) { return $section->getType() == 'anbefaling'; });
         return array_values($anbefalinger->toArray());
+    }
+
+    public function getSeasAnbefalerUnderTekst () {
+        return $this->getExtrasKeyValue('seasAnbefalerUnderTekst');
     }
 
     public function getSamletForbrugGrafData() {

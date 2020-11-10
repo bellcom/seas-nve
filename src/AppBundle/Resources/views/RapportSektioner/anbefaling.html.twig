@@ -82,11 +82,18 @@
         {% include 'AppBundle:_includes:graf_roi.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
       </div>
       <div class="col-xs-6">
-        <h3>På vej med en grønne profil - vi er med jer hele vejen</h3>
-        <p>
-          Ønsker I at komme igang med implementering af optimeringer, eller har I spørgsmål,
-          så kontakt jeres personlige energirådgiver{% if section.raadgiver %} {{ section.raadgiversName }} på telefon {{ section.telephone }}{% endif %}
-        </p>
+        <div class="section-anbefaling-green-text">
+          <h3>På vej med en grønne profil - vi er med jer hele vejen</h3>
+          <p>
+            Ønsker I at komme igang med implementering af optimeringer, eller har I spørgsmål,
+            så kontakt jeres personlige energirådgiver{% if section.raadgiver %} {{ section.raadgiversName }} på telefon {{ section.telephone }}{% endif %}
+          </p>
+        </div>
+        <div class="section-anbefaling-produktivitet-text">
+          {% if section.produktivitetTekst %}
+            <p>{{ section.produktivitetTekst }}</p>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>

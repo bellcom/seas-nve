@@ -6,7 +6,9 @@
       <div class="col-xs-4">
         <br><br>
         <h2>SEAS-NVE anbefaler</h2>
-        <p>De tre største potentielle besparelser</p>
+        {% if section.seasAnbefalerUnderTekst %}
+        <p>{{ section.seasAnbefalerUnderTekst }}</p>
+        {% endif %}
       </div>
       <div class="col-xs-8">
         <div class="row">

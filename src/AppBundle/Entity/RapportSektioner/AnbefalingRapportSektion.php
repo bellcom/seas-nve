@@ -194,6 +194,10 @@ class AnbefalingRapportSektion extends RapportSektion {
         return $this->getExtrasKeyValue('tidsforloebinfo');
     }
 
+    public function getProduktivitetTekst () {
+        return $this->getExtrasKeyValue('produktivitetTekst');
+    }
+
     public function getTidlsforloebData() {
         if ($this->tidlsforloebData) {
             return $this->tidlsforloebData;

@@ -513,6 +513,7 @@ rapportsektion:
     edit_tiltag: "Rediger tilknyttet forslag"
   confirmation:
     updated: "Rapport sektion opdateret"
+    created: "Rapport sektion oprettet"
   error:
     general: "Rapport sektion kan ikke oprettes"
     filetype: "Tilladte filtyper er: jpg, jpeg, png"
@@ -2136,6 +2137,11 @@ appbundle:
         rapportTypeNavn: "Rapportype navn"
         underTekst: "Undertekst"
         erstatningAdresse: "Erstat adresse"
+    opsummering:
+      text: "Text"
+      title: "Titel"
+      extras:
+        seasAnbefalerUnderTekst: "Seas anbefaler undertekst"
     faktavirksom:
       title: "Titel"
       text: "Beskrivelse af Virksomhed"
@@ -2193,6 +2199,7 @@ appbundle:
         raadgiver: "Rådgiver i grønne tekst"
         telefon: "Telefonnummer i grønne bokse"
         telefon.help: "Standard vises med valgt rådgivers telefonnummer, hvis værdi er tom"
+        produktivitetTekst: "Produktivitet tekst"
   reportimage:
     title: "Titel"
     filepath: "Fil"

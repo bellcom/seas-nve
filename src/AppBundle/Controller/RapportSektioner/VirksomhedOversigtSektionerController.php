@@ -100,7 +100,7 @@ class VirksomhedOversigtSektionerController extends BaseController
                 $em->persist($entity);
                 $em->flush();
 
-                $this->flash->success('rapport_sections.confirmation.created');
+                $this->flash->success('rapportsektion.confirmation.created');
                 return $this->redirect($this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())));
             }
             catch (UploadableInvalidMimeTypeException $e) {

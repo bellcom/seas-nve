@@ -52,6 +52,13 @@ class AnbefalingRapportSektionExtrasType extends AbstractType {
                 'empty_value' => 'common.none',
             ))
             ->add('telefon', TextType::class, array('required' => FALSE))
+            ->add('produktivitetTekst', 'textarea', array(
+                'attr' => array(
+                    'maxlength' => 200,
+                    'help_text' => 'Maks 200 tegn',
+                ),
+                'required' => FALSE,
+            ))
         ;
     }
 
