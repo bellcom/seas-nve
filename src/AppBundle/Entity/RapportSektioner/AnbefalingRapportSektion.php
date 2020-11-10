@@ -33,6 +33,13 @@ class AnbefalingRapportSektion extends RapportSektion {
     use FilepathField;
 
     /**
+     * Variable to store calculcated TidlsforloebData info.
+     *
+     * @var array
+     */
+    private $tidlsforloebData = array();
+
+    /**
      * Constructor
      *
      * @param array $params
@@ -188,23 +195,29 @@ class AnbefalingRapportSektion extends RapportSektion {
     }
 
     public function getTidlsforloebData() {
+        if ($this->tidlsforloebData) {
+            return $this->tidlsforloebData;
+        }
         $tidsforloebinfo = $this->getTidlsforloebInfo();
-        $data = array();
+        $this->tidlsforloebData = array();
         $start = empty($tidsforloebinfo) ? NULL : reset($tidsforloebinfo);
         $end = empty($tidsforloebinfo) ? NULL : end($tidsforloebinfo);
         if (empty($start['startuge']) || empty($end['slutuge'])) {
-            return $data;
+            return $this->tidlsforloebData;
         }
-        if ($start['startuge'] > $start['slutuge']) {
-            $start['startuge'] = $start['startuge'] - 52;
+        $startUge = $start['startuge'];
+        $slutUge = $end['slutuge'];
+        if ($startUge > $slutUge) {
+            $startUge = $startUge - 52;
         }
-        for ($i = $start['startuge']; $i <= $end['slutuge']; $i++) {
-            if ($i + 1 > 52 ) {
-                $i = 1;
+        for ($i = $startUge; $i <= $slutUge; $i++) {
+            $week_num = $i;
+            if ($week_num <= 0) {
+                $week_num = $i + 52;
             }
             $column = array(
                 'week_num' => $i,
-                'label' =>'Uge ' . $i,
+                'label' =>'Uge ' . $week_num,
                 'rows' => array(),
             );
 
@@ -212,16 +225,24 @@ class AnbefalingRapportSektion extends RapportSektion {
                 if (array_filter($rowInfo) != $rowInfo) {
                     continue;
                 }
+                $weekToCompare = $i;
+
+                // Handling case when startweek number is more then end week number.
                 if ($rowInfo['startuge'] > $rowInfo['slutuge']) {
                     $rowInfo['startuge'] = $rowInfo['startuge'] - 52;
                 }
-                if ($rowInfo['startuge'] <= $i && $i <= $rowInfo['slutuge']) {
+                // Handling case when phase begins on weeks with number higher then latest phase.
+                elseif ($rowInfo['startuge'] < $rowInfo['slutuge'] && $i < 0) {
+                    $weekToCompare = $i + 52;
+                }
+                if ($rowInfo['startuge'] <= $weekToCompare && $weekToCompare < $rowInfo['slutuge']) {
                     $column['rows'][$key] = TRUE;
                 }
             }
-            $data[] = $column;
+            $this->tidlsforloebData[] = $column;
         }
-        return $data;
+
+        return $this->tidlsforloebData;
     }
 
     /**
