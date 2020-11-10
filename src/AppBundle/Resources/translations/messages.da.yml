@@ -584,6 +584,7 @@ reporttext:
     anbefaling_text: "Tekst"
     faktavirksomhed: "Fakta om virksomhed"
     faktavirksomhed_text: "Tekst"
+    faktavirksomhed_energiForbrugTekst: "Energiforbrug tekst"
     finansiering: "Finansiering"
     finansiering_text: "Tekst"
     finansiering_noegletal: "Nøgletal"
@@ -2156,6 +2157,9 @@ appbundle:
         afgifterForbrug.unit: "kr/kWh"
         co2Forbrug: "CO2forbrug"
         co2Forbrug.unit: "ton CO2"
+        anvendteTekst: "Anvendte tekst"
+        anvendteCo2Tekst: "CO2 forbrug forklaring tekst"
+        energiForbrugTekst: "Energiforbrug tekst"
     finansiering:
       title: "Titel"
       text: "Beskrivelse"

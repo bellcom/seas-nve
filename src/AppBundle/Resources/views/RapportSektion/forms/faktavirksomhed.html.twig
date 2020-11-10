@@ -9,6 +9,7 @@
         <div class="panel-body">
           {{ form_row(form.title) }}
           {{ form_row(form.text) }}
+          {{ form_row(form.extras.energiForbrugTekst) }}
         </div>
       </div>
     </div>
@@ -23,6 +24,8 @@
           {{ form_row(form.extras.braendstofForbrug) }}
           {{ form_row(form.extras.afgifterForbrug) }}
           {{ form_row(form.extras.co2Forbrug) }}
+          {{ form_row(form.extras.anvendteTekst) }}
+          {{ form_row(form.extras.anvendteCo2Tekst) }}
         </div>
       </div>
     </div>

@@ -2335,7 +2335,6 @@ class Rapport {
     $this->besparelseBraendstof = $this->calculateBesparelseBraendstof();
     $this->fravalgtBesparelseBraendstof = $this->calculateFravalgtBesparelseBraendstof();
 
-    $this->besparelseSlutanvendelser = $this->calculateBesparelseSlutanvendelser();
 
     $this->co2BesparelseEl = $this->calculateCo2BesparelseEl();
     $this->co2BesparelseVarme = $this->calculateCo2BesparelseVarme();
@@ -2352,6 +2351,8 @@ class Rapport {
     $this->forbrugFoer = $this->calculateForbrugFoer();
     $this->forbrugFoerKr = $this->calculateForbrugFoerKr();
     $this->forbrugFoerCo2 = $this->calculateForbrugFoerCo2();
+
+    $this->besparelseSlutanvendelser = $this->calculateBesparelseSlutanvendelser();
 
     $this->mtmFaellesomkostninger = $this->calculateMtmFaellesomkostninger();
     $this->implementering = $this->calculateImplementering();
@@ -2565,6 +2566,8 @@ class Rapport {
         'total' => 0,
         'totalKr' => 0,
         'totalCo2' => 0,
+        'forbrugFoer' => 0,
+        'forbrugEfter' => 0,
         'forbrugFoerKr' => 0,
         'forbrugEfterKr' => 0,
         'investering' => 0,
@@ -2582,6 +2585,8 @@ class Rapport {
 
       $values[$slutanvendelseType]['totalKr'] += $tiltag->getSamletEnergibesparelse();
       $values[$slutanvendelseType]['totalCo2'] += $tiltag->getSamletCo2besparelse();
+      $values[$slutanvendelseType]['forbrugFoer'] += $tiltag->getForbrugFoer();
+      $values[$slutanvendelseType]['forbrugEfter'] += $tiltag->getForbrugEfter();
       $values[$slutanvendelseType]['forbrugFoerKr'] += $tiltag->getForbrugFoerKr();
       $values[$slutanvendelseType]['forbrugEfterKr'] += $tiltag->getForbrugEfterKr();
       $values[$slutanvendelseType]['investering'] += $tiltag->getAnlaegsinvestering();
