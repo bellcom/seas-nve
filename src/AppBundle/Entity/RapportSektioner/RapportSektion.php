@@ -160,6 +160,10 @@ abstract class RapportSektion
                 $this->setFilepathString($defaultImage->getFilepath());
             }
         }
+        // Handle case if saved files does not exist.
+        elseif (property_exists($this, 'filepath') && !is_file($this->getFilepath())) {
+            $this->setFilepath(NULL);
+        }
     }
 
     /**
