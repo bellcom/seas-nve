@@ -252,7 +252,7 @@ trsteel_ckeditor:
         basicstyles: ['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat']
         paragraph: ['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft', 'JustifyCenter','JustifyRight','JustifyBlock']
         links: ['Link','Unlink','Anchor']
-        insert: ['Image']
+        insert: ['Image', 'Table']
     filebrowser_image_browse_url:
         route: elfinder
         route_parameters:
