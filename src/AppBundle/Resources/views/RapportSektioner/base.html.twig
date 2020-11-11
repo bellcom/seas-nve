@@ -1,6 +1,6 @@
 {# Define orientation variable to get ability change section orientation on pages below #}
 {% set landscape = section.landscape %}
-{% set sectionTypeNanv = ('rapportsektion.types.' ~ section.type ) | trans %}
+{% set sectionTypeNavn = (sectionTypeNavn|default(('rapportsektion.types.' ~ section.type ) | trans)) %}
 <div id="section-{{ section.type }}{{ section.id }}" class="section-{{ section.type }} {% if landscape %}landscape{% else %}portrait{% endif %}{% if section.break %} page-break-before{% endif %}">
   <div class="row">
     <div class="col-xs-12">
@@ -9,13 +9,13 @@
       {% endif %}
       {% block section -%}
         {% block section_type -%}
-          <div class="section-type">{{ sectionTypeNanv }}</div>
+          <div class="section-type">{{ sectionTypeNavn }}</div>
         {% endblock %}
-          {% block section_title -%}
-            {% if section.title %}
-              <h1>{{ section.title }}</h1>
-            {% endif %}
-          {% endblock %}
+        {% block section_title -%}
+          {% if section.title %}
+            <h1>{{ section.title }}</h1>
+          {% endif %}
+        {% endblock %}
         {% block section_content -%}
           {% if section.text %}
             <div class="section-text">

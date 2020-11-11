@@ -1,6 +1,7 @@
 {% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+{% set sectionTypeNavn = (('rapportsektion.types.' ~ section.type ) | trans) ~ ' ' ~ section.number ~ '. ' ~ (('bygning_rapporter.strings.' ~ section.tiltagType ~ 'tiltag') | trans) %}
 {% block section -%}
-  {% set sectionTypeNanv = (('rapportsektion.types.' ~ section.type ) | trans) ~ ' ' ~ section.number ~ '. ' ~ (('bygning_rapporter.strings.' ~ section.tiltagType ~ 'tiltag') | trans) %}
+  {{ block('section_type') }}
   <div class="section-light-green">
     {% if section.filepath %}
       <div class="section-tiltag-image">

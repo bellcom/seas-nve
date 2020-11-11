@@ -1,16 +1,10 @@
 {% extends 'AppBundle::RapportSektioner/base.html.twig' %}
-
-{% block section_type -%}
-  <div class="section-type">{{ section.number }} {{ ('rapportsektion.types.' ~ section.type ) | trans }}</div>
-{% endblock %}
-
+{% set sectionTypeNavn = section.number ~ ' ' ~ (('rapportsektion.types.' ~ section.type ) | trans) %}
 {% block section_title -%}
   <h1>{{ section.anbefalingTitle }}</h1>
 {% endblock %}
-
 {% block section_content -%}
   {{ parent() }}
-  {% set sectionTypeNanv = section.number ~ ' ' ~ (('rapportsektion.types.' ~ section.type ) | trans) %}
   <div class="section-green">
     {% if section.filepath %}
       <div class="section-anbefaling-image">
