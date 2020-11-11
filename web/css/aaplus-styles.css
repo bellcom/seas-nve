@@ -822,6 +822,12 @@ div.form-group.override .form-group .checkbox {
     background-color: #FFFFFF;
 }
 
+.rapport-review .landscape {
+    width: 1560px;
+    padding: 40px 80px;
+    background-color: #FFFFFF;
+}
+
 .rapport-review .page-break-before {
     margin-top: 20px;
 }

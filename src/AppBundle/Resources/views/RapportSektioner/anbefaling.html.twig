@@ -10,7 +10,7 @@
 
 {% block section_content -%}
   {{ parent() }}
-
+  {% set sectionTypeNanv = section.number ~ ' ' ~ (('rapportsektion.types.' ~ section.type ) | trans) %}
   <div class="section-green">
     {% if section.filepath %}
       <div class="section-anbefaling-image">

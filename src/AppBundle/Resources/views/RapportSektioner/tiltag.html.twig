@@ -1,8 +1,6 @@
 {% extends 'AppBundle::RapportSektioner/base.html.twig' %}
 {% block section -%}
-  {% block section_type -%}
-    <div class="section-type">{{ ('rapportsektion.types.' ~ section.type ) | trans }} {{ section.number }}. {{ ('bygning_rapporter.strings.' ~ section.tiltagType ~ 'tiltag') | trans }}</div>
-  {% endblock %}
+  {% set sectionTypeNanv = (('rapportsektion.types.' ~ section.type ) | trans) ~ ' ' ~ section.number ~ '. ' ~ (('bygning_rapporter.strings.' ~ section.tiltagType ~ 'tiltag') | trans) %}
   <div class="section-light-green">
     {% if section.filepath %}
       <div class="section-tiltag-image">
@@ -40,4 +38,13 @@
       </div>
     {% endif %}
   {% endblock %}
+
+  {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
+  <div class="section-tiltag-details">
+    <h2>Forslagsdetaljer</h2>
+  </div>
+  {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' with { landscape : 1} %}
+  <div class="section-tiltag-details">
+    <h2>Detailarke</h2>
+  </div>
 {% endblock %}

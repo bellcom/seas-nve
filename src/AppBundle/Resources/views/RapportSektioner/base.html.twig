@@ -1,4 +1,7 @@
-<div id="section-{{ section.type }}{{ section.id }}" class="section-{{ section.type }} {% if section.landscape %}landscape{% else %}portrait{% endif %}{% if section.break %} page-break-before{% endif %}">
+{# Define orientation variable to get ability change section orientation on pages below #}
+{% set landscape = section.landscape %}
+{% set sectionTypeNanv = ('rapportsektion.types.' ~ section.type ) | trans %}
+<div id="section-{{ section.type }}{{ section.id }}" class="section-{{ section.type }} {% if landscape %}landscape{% else %}portrait{% endif %}{% if section.break %} page-break-before{% endif %}">
   <div class="row">
     <div class="col-xs-12">
       {% if section.editUrl and review %}
@@ -6,7 +9,7 @@
       {% endif %}
       {% block section -%}
         {% block section_type -%}
-          {% include 'AppBundle::RapportSektioner/_includes/section-type.html.twig' %}
+          <div class="section-type">{{ sectionTypeNanv }}</div>
         {% endblock %}
           {% block section_title -%}
             {% if section.title %}
