@@ -9,28 +9,30 @@
   <xsl:template match="outline:outline">
     <html>
       <head>
-        <title>Indholdfortegnelse</title>
+        <title>Indholdsfortegnelse</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <style>
-          h1 {
-            text-align: center;
-            font-size: 20px;
-            font-family: arial;
+          html,
+          body {
+            font-size: 10pt;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #50534d;
+          }
+          h2 {
+            font-size: 2em;
+            font-weight: bold;
           }
           div {border-bottom: 1px dashed rgb(200,200,200);}
           span {float: right;}
-          li {list-style: none;}
-          ul {
-            font-size: 20px;
-            font-family: arial;
-          }
+          li {list-style: none;padding-top: 4px;padding-bottom:4px;}
+          ul {}
           ul {padding-left: 0em;}
           ul ul {padding-left: 1em;}
-          a {text-decoration:none; color: black;}
+          a {text-decoration:none; color: #50534d;}
         </style>
       </head>
       <body>
-        <h1>Indholdfortegnelse</h1>
+        <h2>Indholdsfortegnelse</h2>
         <ul><xsl:apply-templates select="outline:item/outline:item"/></ul>
       </body>
     </html>
