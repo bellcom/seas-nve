@@ -64,19 +64,6 @@
         {% endfor %}
       </div>
     {% endif %}
-    {% if rapport.virksomhed.getAllBygninger() is not empty %}
-      <div>
-        <br>
-        <h2>Analyserede adresse(r)</h2>
-        <div class="row">
-          {% for bygning in rapport.virksomhed.getAllBygninger() %}
-            <div class="col-xs-4">
-              {{ include ('AppBundle:Bygning:show-embed.html.twig') }}
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    {% endif %}
 
     {% if rapport.virksomhed.getAllRaadgivers() is not empty %}
       <div>
