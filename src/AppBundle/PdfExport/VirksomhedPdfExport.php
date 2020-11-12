@@ -64,6 +64,7 @@ class VirksomhedPdfExport {
                 'images' => TRUE,
                 'cover' => $cover,
                 'toc' => TRUE,
+                'xsl-style-sheet' => $_SERVER['DOCUMENT_ROOT'] . '/../default-toc.xsl',
                 'toc-header-text' => 'Indholdfortegnelse',
                 'header-left' => implode(' | ', $data),
                 'header-right' => "Side [page] af [toPage]",
