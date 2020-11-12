@@ -54,8 +54,8 @@ p.intro {
 }
 
 a {
-    color: #009e50;
-    text-decoration: underline;
+    color: #50534d;
+    text-decoration: none;
 }
 
 .text-muted {
@@ -319,4 +319,9 @@ img.full-width {
 
 .editor {
     text-align: right;
+}
+.editor a {
+    text-decoration: underline;
+
+    color: #009e50;
 }
