@@ -1,30 +1,34 @@
 {% extends 'AppBundle::RapportSektioner/base.html.twig' %}
 {% block section -%}
-  <div class="section-frontpage-image">
+  <div class="section section-frontpage--image section--negative-margin">
     {% if section.filepath %}
-      <img src="{{ absolute_url(asset(section.filepath)) }}" alt="" style="width:100%"/>
+      <img src="{{ absolute_url(asset(section.filepath)) }}" alt="" />
     {% endif %}
   </div>
-  <div class="row section-frontpage-gray">
-    <div class="col-md-7 section-frontpage">
-      <div class="section-overtext">{{ section.title }}</div>
-      <h1 class="section-title">{{ section.virksomhedNavn }}</h1>
-      <div class="section-rapport-type">{{ section.getRapportTypeNavn }}</div>
+
+  <div class="section section-frontpage--map section--negative-margin">
+    <div class="report-intro">
+      <div>
+        <div class="section-type">{{ section.title }}</div>
+      </div>
+      <div>
+        <span class="report-intro__title">{{ section.virksomhedNavn }}</span>
+      </div>
+      <div>
+        <span class="report-intro__report-type">{{ section.getRapportTypeNavn }}</span>
+      </div>
     </div>
-    <div class="col-md-5">
-      {% if section.address and not section.skjuleKort %}
-        <div class="section-frontpage-map" style="overflow: hidden">
-          <img alt="" src="https://www.mapquestapi.com/staticmap/v5/map?center={{ section.address }}&zoom=18&size=400,400&key=dmNBHsqexMpt6bWFyuPwWklH10alas5X&locations=={{ section.address }}">
-        </div>
-      {% endif %}
-    </div>
-  </div>
-  <div class="section-frontpage">
-    <h2 class="section-subtitle">{{ section.underTekst }}</h2>
-    <div class="section-text">{{ section.datering | date('d.m.Y') }}</div>
-  </div>
-  <div class="section-frontpage">
-    <img alt="" src="{{ absolute_url(asset('img/seas-nve-logo.png')) }}" height="30px" />
+
+    {% if section.address and not section.skjuleKort %}
+      <div class="report-map">
+        <img alt="" src="https://www.mapquestapi.com/staticmap/v5/map?center={{ section.address }}&zoom=18&size=400,400&key=dmNBHsqexMpt6bWFyuPwWklH10alas5X&locations=={{ section.address }}">
+      </div>
+    {% endif %}
   </div>
 
+  <div class="section section-frontpage--name">
+    <div class="section__undersagsnavn">{{ section.underTekst }}</div>
+    <div class="section__date">{{ section.datering | date('d.m.Y') }}</div>
+    <div class="section__logo"><img alt="" src="{{ absolute_url(asset('img/seas-nve-logo.png')) }}" height="30px" /></div>
+  </div>
 {% endblock %}

@@ -15,34 +15,6 @@ div.landscape {
     margin: 0 auto;
 }
 
-.section-type {
-    position: relative;
-    display: inline-block;
-
-    padding-bottom: 8px;
-
-    font-weight: normal;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1.45px;
-
-    color: #74766c;
-}
-.section-type::after {
-    position: absolute;
-    display: block;
-
-    height: 2px;
-
-    right: 0;
-    left: 0;
-    bottom: 0;
-
-    content: "";
-
-    background-color: #ffde2f;
-}
-
 .h1,
 h1 {
     font-size: 2.5rem;
@@ -110,8 +82,39 @@ body > .container-fluid {
     border-top: 1pt solid #B2C930;
 }
 
+img {
+    max-width: 100%;
+}
 img.full-width {
     width: 100%;
+}
+
+.section-type {
+    position: relative;
+    display: inline-block;
+
+    padding-bottom: 8px;
+
+    font-weight: normal;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.45px;
+
+    color: #74766c;
+}
+.section-type::after {
+    position: absolute;
+    display: block;
+
+    height: 2px;
+
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    content: "";
+
+    background-color: #ffde2f;
 }
 
 .breadcrumb {
@@ -227,3 +230,89 @@ img.full-width {
     color: #62c5d3;
 }
 .chart-heading__subtitle {}
+
+/* Sections. */
+.section {}
+.section--negative-margin {
+    margin-left: -40px;
+    margin-right: -40px;
+}
+.section-frontpage--image {
+    height: 630px;
+
+    overflow: hidden;
+}
+.section-frontpage--image img {
+    width: 100%;
+}
+.section-frontpage--map {
+    display: flex;
+
+    flex-direction: row;
+    justify-content: space-between;
+
+    height: 320px;
+    overflow: hidden;
+
+    color: #fff;
+    background-color: #c0c0b5;
+}
+.report-map img {
+    margin-top: -20px; /* The image is 40px taller than the allowed 320px. So we hide 20px on top and bottom to center it. */
+
+    width: 360px;
+}
+.section-frontpage--map .section-type {
+    font-size: 1.4rem;
+
+    color: #fff;
+}
+.section-frontpage--map .section-type::after {
+    background-color: #fff;
+}
+.section-frontpage--name {
+    padding-top: 50px;
+
+    color: #74766c;
+}
+
+.section__undersagsnavn {
+    font-size: 2.5rem;
+}
+.section__date {
+    font-size: 1.5rem;
+}
+.section__date + .section__logo {
+    margin-top: 50px;
+}
+.section__logo img {
+    height: 34px;
+}
+
+/* */
+.report-intro {
+    display: flex;
+
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding-top: 45px;
+    padding-left: 40px;
+    padding-right: 20px;
+    padding-bottom: 36px;
+}
+.report-intro__title {
+    font-weight: bold;
+    font-size: 4rem;
+}
+.report-intro__report-type {
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.report-text-undersagsnavn {}
+
+.editor {
+    text-align: right;
+}
