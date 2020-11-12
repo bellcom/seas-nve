@@ -8,22 +8,18 @@
         </div>
         <div class="panel-body">
           {{ form_row(form.title) }}
-          {{ form_row(form.extras.rapportTypeNavn) }}
-          {{ form_row(form.extras.skjuleKort) }}
-          {{ form_row(form.extras.erstatningAdresse) }}
-          {{ form_row(form.extras.underTekst) }}
-          {{ form_row(form.extras.dato) }}
+          {{ form_row(form.text) }}
         </div>
       </div>
     </div>
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">{{ 'rapportsektion.strings.image' | trans }}</h3>
+          <h3 class="panel-title">{{ 'common.others' | trans }}</h3>
         </div>
         <div class="panel-body">
-          {{ form_row(form.imagestandard) }}
-          {{ form_row(form.filepath) }}
+          {{ form_row(form.extras.gennemgangDato) }}
+          {{ form_row(form.extras.underskrivelseTekst) }}
         </div>
       </div>
     </div>

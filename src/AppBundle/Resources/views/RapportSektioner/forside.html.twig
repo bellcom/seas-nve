@@ -29,7 +29,9 @@
 
   <div class="section section-frontpage--name">
     <div class="section__undersagsnavn">{{ section.underTekst }}</div>
-    <div class="section__date">{{ section.datering | date('d.m.Y') }}</div>
+    {% if section.datering %}
+      <div class="section__date">{{ section.datering | date('d.m.Y') }}</div>
+    {% endif %}
     <div class="section__logo"><img alt="" src="{{ absolute_url(asset('img/seas-nve-logo.png')) }}" height="30px" /></div>
   </div>
 {% endblock %}

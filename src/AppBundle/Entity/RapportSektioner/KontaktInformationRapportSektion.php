@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\RapportSektioner;
 
+use AppBundle\Form\Type\RapportSektion\KontaktInformationRapportSektionType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,5 +24,24 @@ class KontaktInformationRapportSektion extends RapportSektion {
     public function getRapport() {
         return $this->getVirksomhedOversigtRapport();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDefaultableTextFields()
+    {
+        $textFields = parent::getDefaultableTextFields();
+        $textFields[] = 'underskrivelseTekst';
+
+        return $textFields;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getFormType() {
+        return new KontaktInformationRapportSektionType();
+    }
+
 }
 

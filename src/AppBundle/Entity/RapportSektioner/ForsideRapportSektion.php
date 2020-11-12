@@ -62,7 +62,7 @@ class ForsideRapportSektion extends RapportSektion {
      * Gets Virksomhed datering.
      */
     public function getDatering() {
-        return $this->getVirksomhedOversigtRapport()->getUpdatedAt();
+        return $this->getExtrasKeyValue('dato');
     }
 
     /**
