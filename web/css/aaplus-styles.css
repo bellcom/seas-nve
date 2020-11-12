@@ -817,6 +817,7 @@ div.form-group.override .form-group .checkbox {
 }
 
 .rapport-review .portrait {
+    min-height: 1250px;
     width: 1160px;
     padding: 40px 80px;
     background-color: #FFFFFF;
