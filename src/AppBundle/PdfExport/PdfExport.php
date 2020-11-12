@@ -53,13 +53,13 @@ class PdfExport {
       $data[] = $bygningsNavn;
     }
 
-    if ($screeningAt = $rapport->getDatering()) {
-      $data[] = 'Screeningsdato: ' . $screeningAt->format('d.m.Y');
-    }
-
-    if ($updatedAt = $rapport->getUpdatedAt()) {
-      $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
-    }
+//    if ($screeningAt = $rapport->getDatering()) {
+//      $data[] = 'Screeningsdato: ' . $screeningAt->format('d.m.Y');
+//    }
+//
+//    if ($updatedAt = $rapport->getUpdatedAt()) {
+//      $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
+//    }
 
     $coverParams = array(
       'rapport' => $rapport,
