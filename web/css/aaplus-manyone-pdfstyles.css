@@ -1,7 +1,7 @@
 /* Global. */
 html,
 body {
-    font-size: 10px;
+    font-size: 10pt;
     font-family: Arial, Helvetica, sans-serif;
     color: #50534d;
 }
@@ -252,35 +252,57 @@ img.full-width {
 /* Sections. */
 .section {}
 .section--negative-margin {
+    margin-left: 0;
+    margin-right: 0;
+}
+.rapport-review .section--negative-margin {
     margin-left: -40px;
     margin-right: -40px;
 }
 
 /* Frontpage. */
+.rapport-review .section-frontpage--image {
+    height: 700px;
+}
 .section-frontpage--image {
-    height: 630px;
+    height: 610pt;
 
     overflow: hidden;
 }
+.rapport-review .section-frontpage--image img {
+    height: 700px;
+}
 .section-frontpage--image img {
-    width: 100%;
+    min-width: 100%;
+    min-height: 610pt;
 }
 
-.section-frontpage--map {
+.rapport-review .section-frontpage--map {
     height: 320px;
+}
+.section-frontpage--map {
+    height: 350pt;
     overflow: hidden;
 
     color: #fff;
     background-color: #c0c0b5;
 }
 
-.report-intro {
+.rapport-review .report-intro {
     padding-top: 45px;
     padding-left: 40px;
     padding-bottom: 5px;
 }
-.report-intro .section-type {
+.report-intro {
+    padding-top: 45pt;
+    padding-left: 40pt;
+    padding-bottom: 5pt;
+}
+.rapport-review .report-intro .section-type {
     margin-bottom: 45px;
+}
+.report-intro .section-type {
+    margin-bottom: 40pt;
     font-size: 1.4em;
 
     color: #fff;
@@ -288,8 +310,11 @@ img.full-width {
 .report-intro .section-type::after {
     background-color: #fff;
 }
-.report-intro__title {
+.rapport-review .report-intro__title {
     margin-bottom: 45px;
+}
+.report-intro__title {
+    margin-bottom: 40pt;
 
     font-weight: bold;
     font-size: 4em;
@@ -302,10 +327,11 @@ img.full-width {
 .report-map {
     text-align: right;
 }
+.rapport-review .report-map img {
+    height: 320px;
+}
 .report-map img {
-    margin-top: -20px; /* The image is 40px taller than the allowed 320px. So we hide 20px on top and bottom to center it. */
-
-    width: 360px;
+    height: 350pt;
 }
 
 .section-frontpage--name {
@@ -324,6 +350,9 @@ img.full-width {
     margin-top: 50px;
 }
 .section__logo img {
+    height: 34pt;
+}
+.rapport-review .section__logo img {
     height: 34px;
 }
 
