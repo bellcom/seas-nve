@@ -287,10 +287,8 @@ class VirksomhedRapportController extends BaseController {
       'method' => 'PUT',
     ));
 
-    if (empty($rapport->getVirksomhed()->getBaseline())) {
-      $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
-      $this->addUpdateAndExit($form, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
-    }
+    $this->addUpdate($form, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+    $this->addUpdateAndExit($form, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
 
     return $form;
   }

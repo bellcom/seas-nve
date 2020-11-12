@@ -43,5 +43,13 @@ class KontaktInformationRapportSektion extends RapportSektion {
         return new KontaktInformationRapportSektionType();
     }
 
+    /**
+     * Gets gennemgangDato.
+     */
+    public function getGennemgangDato() {
+        $dato = $this->getExtrasKeyValue('gennemgangDato');
+        return $dato ?: $this->getRapport()->getDatering();
+    }
+
 }
 
