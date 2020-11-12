@@ -1,3 +1,4 @@
+/* Global. */
 html,
 body {
     font-size: 10px;
@@ -152,6 +153,17 @@ img.full-width {
     color: #fff;
 }
 
+.editor {
+    text-align: right;
+}
+.editor a {
+    text-decoration: underline;
+
+    color: #009e50;
+}
+
+
+/* Box. */
 .box {
     padding: 25px 15px;
 
@@ -209,6 +221,7 @@ img.full-width {
 .box--anbefaling-type-kedler_udskiftning .icon {}
 .box--anbefaling-type-kedler_serviceeftersyn .icon {}
 
+
 /* Chart. */
 .chart {
     display: inline-block;
@@ -235,12 +248,15 @@ img.full-width {
 }
 .chart-heading__subtitle {}
 
+
 /* Sections. */
 .section {}
 .section--negative-margin {
     margin-left: -40px;
     margin-right: -40px;
 }
+
+/* Frontpage. */
 .section-frontpage--image {
     height: 630px;
 
@@ -249,31 +265,49 @@ img.full-width {
 .section-frontpage--image img {
     width: 100%;
 }
+
 .section-frontpage--map {
-    display: flex;
-
-    flex-direction: row;
-    justify-content: space-between;
-
     height: 320px;
     overflow: hidden;
 
     color: #fff;
     background-color: #c0c0b5;
 }
+
+.report-intro {
+    padding-top: 45px;
+    padding-left: 40px;
+    padding-bottom: 5px;
+}
+.report-intro .section-type {
+    margin-bottom: 45px;
+    font-size: 1.4em;
+
+    color: #fff;
+}
+.report-intro .section-type::after {
+    background-color: #fff;
+}
+.report-intro__title {
+    margin-bottom: 45px;
+
+    font-weight: bold;
+    font-size: 4em;
+}
+.report-intro__report-type {
+    font-weight: bold;
+    font-size: 2.5em;
+}
+
+.report-map {
+    text-align: right;
+}
 .report-map img {
     margin-top: -20px; /* The image is 40px taller than the allowed 320px. So we hide 20px on top and bottom to center it. */
 
     width: 360px;
 }
-.section-frontpage--map .section-type {
-    font-size: 1.4em;
 
-    color: #fff;
-}
-.section-frontpage--map .section-type::after {
-    background-color: #fff;
-}
 .section-frontpage--name {
     padding-top: 50px;
 
@@ -293,35 +327,4 @@ img.full-width {
     height: 34px;
 }
 
-/* */
-.report-intro {
-    display: flex;
-
-    flex-grow: 1;
-    flex-direction: column;
-    justify-content: space-between;
-
-    padding-top: 45px;
-    padding-left: 40px;
-    padding-right: 20px;
-    padding-bottom: 36px;
-}
-.report-intro__title {
-    font-weight: bold;
-    font-size: 4em;
-}
-.report-intro__report-type {
-    font-weight: bold;
-    font-size: 2.5em;
-}
-
 .report-text-undersagsnavn {}
-
-.editor {
-    text-align: right;
-}
-.editor a {
-    text-decoration: underline;
-
-    color: #009e50;
-}
