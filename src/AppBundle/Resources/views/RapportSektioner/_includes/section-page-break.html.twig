@@ -2,9 +2,9 @@
   </div>
 </div>
 <div class="page-break-before section-{{ section.type }} {% if landscape %}landscape{% else %}portrait{% endif %}">
+  {% if section.editUrl and review %}
+    <div class="editor"><a href="{{ section.editUrl }}">edit</a></div>
+  {% endif %}
   <div class="row">
     <div class="col-xs-12">
-      {% if section.editUrl and review %}
-        <div class="float-right"><a href="{{ section.editUrl }}">edit</a></div>
-      {% endif %}
       <div class="section-type">{{ sectionTypeNavn }}</div>

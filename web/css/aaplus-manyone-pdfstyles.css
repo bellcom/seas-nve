@@ -1,8 +1,13 @@
+/* Global. */
 html,
 body {
     font-size: 10px;
     font-family: Arial, Helvetica, sans-serif;
     color: #50534d;
+}
+
+body.rapport-review {
+    font-size: 12px;
 }
 
 div.portrait {
@@ -15,42 +20,14 @@ div.landscape {
     margin: 0 auto;
 }
 
-.section-type {
-    position: relative;
-    display: inline-block;
-
-    padding-bottom: 8px;
-
-    font-weight: normal;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1.45px;
-
-    color: #74766c;
-}
-.section-type::after {
-    position: absolute;
-    display: block;
-
-    height: 2px;
-
-    right: 0;
-    left: 0;
-    bottom: 0;
-
-    content: "";
-
-    background-color: #ffde2f;
-}
-
 .h1,
 h1 {
-    font-size: 2.5rem;
+    font-size: 2.5em;
     font-weight: bold;
 }
 .h1.enlarged,
 h1.enlarged {
-    font-size: 3.5rem;
+    font-size: 3.5em;
 }
 
 .h2,
@@ -64,22 +41,22 @@ h3 {
     margin-top: 25px;
     margin-bottom: 5px;
 
-    font-size: 1.2rem;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
 p {
-    font-size: 1rem;
+    font-size: 1em;
     margin: 0 0 12px;
 }
 
 p.intro {
-    font-size: 1.3rem;
+    font-size: 1.3em;
 }
 
 a {
-    color: #009e50;
-    text-decoration: underline;
+    color: #50534d;
+    text-decoration: none;
 }
 
 .text-muted {
@@ -106,12 +83,43 @@ body > .container-fluid {
 
 .pdf-footer {
     padding-top: 10pt;
-    font-size: .7rem;
+    font-size: .7em;
     border-top: 1pt solid #B2C930;
 }
 
+img {
+    max-width: 100%;
+}
 img.full-width {
     width: 100%;
+}
+
+.section-type {
+    position: relative;
+    display: inline-block;
+
+    padding-bottom: 8px;
+
+    font-weight: normal;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1.45px;
+
+    color: #74766c;
+}
+.section-type::after {
+    position: absolute;
+    display: block;
+
+    height: 2px;
+
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    content: "";
+
+    background-color: #ffde2f;
 }
 
 .breadcrumb {
@@ -145,6 +153,17 @@ img.full-width {
     color: #fff;
 }
 
+.editor {
+    text-align: right;
+}
+.editor a {
+    text-decoration: underline;
+
+    color: #009e50;
+}
+
+
+/* Box. */
 .box {
     padding: 25px 15px;
 
@@ -163,12 +182,12 @@ img.full-width {
 .box--samlet-besparelse h1 {
     margin: 0;
 
-    font-size: 3.5rem;
+    font-size: 3.5em;
 }
 .box--samlet-besparelse .h1 small,
 .box--samlet-besparelse h1 small {
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1em;
 
     color: #50534d;
 }
@@ -202,6 +221,7 @@ img.full-width {
 .box--anbefaling-type-kedler_udskiftning .icon {}
 .box--anbefaling-type-kedler_serviceeftersyn .icon {}
 
+
 /* Chart. */
 .chart {
     display: inline-block;
@@ -221,9 +241,90 @@ img.full-width {
     align-items: center;
 }
 .chart-heading__title {
-    font-size: 5rem;
+    font-size: 5em;
     font-weight: bold;
 
     color: #62c5d3;
 }
 .chart-heading__subtitle {}
+
+
+/* Sections. */
+.section {}
+.section--negative-margin {
+    margin-left: -40px;
+    margin-right: -40px;
+}
+
+/* Frontpage. */
+.section-frontpage--image {
+    height: 630px;
+
+    overflow: hidden;
+}
+.section-frontpage--image img {
+    width: 100%;
+}
+
+.section-frontpage--map {
+    height: 320px;
+    overflow: hidden;
+
+    color: #fff;
+    background-color: #c0c0b5;
+}
+
+.report-intro {
+    padding-top: 45px;
+    padding-left: 40px;
+    padding-bottom: 5px;
+}
+.report-intro .section-type {
+    margin-bottom: 45px;
+    font-size: 1.4em;
+
+    color: #fff;
+}
+.report-intro .section-type::after {
+    background-color: #fff;
+}
+.report-intro__title {
+    margin-bottom: 45px;
+
+    font-weight: bold;
+    font-size: 4em;
+}
+.report-intro__report-type {
+    font-weight: bold;
+    font-size: 2.5em;
+}
+
+.report-map {
+    text-align: right;
+}
+.report-map img {
+    margin-top: -20px; /* The image is 40px taller than the allowed 320px. So we hide 20px on top and bottom to center it. */
+
+    width: 360px;
+}
+
+.section-frontpage--name {
+    padding-top: 50px;
+
+    color: #74766c;
+}
+
+.section__undersagsnavn {
+    font-size: 2.5em;
+}
+.section__date {
+    font-size: 1.5em;
+}
+.section__date + .section__logo {
+    margin-top: 50px;
+}
+.section__logo img {
+    height: 34px;
+}
+
+.report-text-undersagsnavn {}

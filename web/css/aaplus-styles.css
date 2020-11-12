@@ -813,13 +813,15 @@ div.form-group.override .form-group .checkbox {
 }
 
 .rapport-review {
-    background-color: #FAFAFA;
+    background-color: #EEE;
 }
 
 .rapport-review .portrait {
+    min-height: 1250px;
     width: 1160px;
     padding: 40px 80px;
     background-color: #FFFFFF;
+    border: 1px solid #ccc;
 }
 
 .rapport-review .landscape {

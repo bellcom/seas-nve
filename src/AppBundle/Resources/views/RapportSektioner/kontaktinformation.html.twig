@@ -7,8 +7,9 @@
     </div>
   {% endif %}
   {% set rapport = section.rapport %}
-  <div class="row">
-    <div class="col-xs-12">
+  <div>
+    <br>
+    <div>
       <h2>Kunde</h2>
       <div class="row">
         {% if rapport.virksomhed %}
@@ -35,7 +36,7 @@
       </div>
     </div>
     {% if rapport.virksomhed.getDatterSelskaber() is not empty %}
-      <div class="col-xs-12">
+      <div>
         <br>
         <h2>Datterselskaber</h2>
         {% for datterSelskab in rapport.virksomhed.getDatterSelskaber() %}
@@ -64,7 +65,7 @@
       </div>
     {% endif %}
     {% if rapport.virksomhed.getAllBygninger() is not empty %}
-      <div class="col-xs-12">
+      <div>
         <br>
         <h2>Analyserede adresse(r)</h2>
         <div class="row">
@@ -78,7 +79,7 @@
     {% endif %}
 
     {% if rapport.virksomhed.getAllRaadgivers() is not empty %}
-      <div class="col-xs-12">
+      <div>
         <br>
         <h2>Energirådgiver</h2>
         <div class="row">
@@ -94,7 +95,7 @@
     {% endif %}
 
     {% if rapport.datering %}
-      <div class="col-xs-12">
+      <div>
         <br>
         <h2>Dato for gennemgang</h2>
         <div class="row">
