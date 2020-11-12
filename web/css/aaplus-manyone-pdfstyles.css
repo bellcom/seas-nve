@@ -5,6 +5,10 @@ body {
     color: #50534d;
 }
 
+body.rapport-review {
+    font-size: 12px;
+}
+
 div.portrait {
     width: 1000px;
     margin: 0 auto;
@@ -17,12 +21,12 @@ div.landscape {
 
 .h1,
 h1 {
-    font-size: 2.5rem;
+    font-size: 2.5em;
     font-weight: bold;
 }
 .h1.enlarged,
 h1.enlarged {
-    font-size: 3.5rem;
+    font-size: 3.5em;
 }
 
 .h2,
@@ -36,17 +40,17 @@ h3 {
     margin-top: 25px;
     margin-bottom: 5px;
 
-    font-size: 1.2rem;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
 p {
-    font-size: 1rem;
+    font-size: 1em;
     margin: 0 0 12px;
 }
 
 p.intro {
-    font-size: 1.3rem;
+    font-size: 1.3em;
 }
 
 a {
@@ -78,7 +82,7 @@ body > .container-fluid {
 
 .pdf-footer {
     padding-top: 10pt;
-    font-size: .7rem;
+    font-size: .7em;
     border-top: 1pt solid #B2C930;
 }
 
@@ -96,7 +100,7 @@ img.full-width {
     padding-bottom: 8px;
 
     font-weight: normal;
-    font-size: 1rem;
+    font-size: 1em;
     text-transform: uppercase;
     letter-spacing: 1.45px;
 
@@ -166,12 +170,12 @@ img.full-width {
 .box--samlet-besparelse h1 {
     margin: 0;
 
-    font-size: 3.5rem;
+    font-size: 3.5em;
 }
 .box--samlet-besparelse .h1 small,
 .box--samlet-besparelse h1 small {
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1em;
 
     color: #50534d;
 }
@@ -224,7 +228,7 @@ img.full-width {
     align-items: center;
 }
 .chart-heading__title {
-    font-size: 5rem;
+    font-size: 5em;
     font-weight: bold;
 
     color: #62c5d3;
@@ -263,7 +267,7 @@ img.full-width {
     width: 360px;
 }
 .section-frontpage--map .section-type {
-    font-size: 1.4rem;
+    font-size: 1.4em;
 
     color: #fff;
 }
@@ -277,10 +281,10 @@ img.full-width {
 }
 
 .section__undersagsnavn {
-    font-size: 2.5rem;
+    font-size: 2.5em;
 }
 .section__date {
-    font-size: 1.5rem;
+    font-size: 1.5em;
 }
 .section__date + .section__logo {
     margin-top: 50px;
@@ -304,11 +308,11 @@ img.full-width {
 }
 .report-intro__title {
     font-weight: bold;
-    font-size: 4rem;
+    font-size: 4em;
 }
 .report-intro__report-type {
     font-weight: bold;
-    font-size: 2.5rem;
+    font-size: 2.5em;
 }
 
 .report-text-undersagsnavn {}
