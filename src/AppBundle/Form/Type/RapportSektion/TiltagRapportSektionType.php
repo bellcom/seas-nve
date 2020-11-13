@@ -9,6 +9,7 @@ use AppBundle\Entity\ReportImage;
 use AppBundle\Entity\ReportText;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -62,12 +63,17 @@ class TiltagRapportSektionType extends RapportSektionType {
                 'data' => $usingCustomImage ? NULL : $selectedStandardImage,
                 'required' => FALSE,
                 'mapped' => FALSE
-            ))
-            ->add('filepath', 'file', array(
-                'label' => 'Billede',
+            ));
+        $helpText = 'Tilladte filtyper er jpg, jpeg, png.';
+        $sizeHelpText = ReportImage::getImageTypeSizesHelpText($reportSection->getTiltagType());
+        $builder
+            ->add('filepath', FileType::class, array(
                 'data_class' => NULL,
                 'attachment_path' => $usingCustomImage ? 'filepath' : NULL,
                 'required' => FALSE,
+                'attr' => array(
+                    'help_text' => $helpText . ($sizeHelpText ? sprintf(' Ønskede billidestørelse: %s', $sizeHelpText) : ''),
+                ),
             ))
             ->add('text', 'ckeditor', [
                 'attr' => [

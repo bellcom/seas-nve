@@ -2160,14 +2160,14 @@ appbundle:
         elForbrug.unit: "kr/kWh"
         varmeForbrug: "Varmeforbrug"
         varmeForbrug.unit: "kr/kWh"
-        braendstofForbrug: "Braendstofforbrug"
+        braendstofForbrug: "Brændstofforbrug"
         braendstofForbrug.unit: "kr/kWh"
         afgifterForbrug: "Afgifterforbrug"
         afgifterForbrug.unit: "kr/kWh"
-        co2Forbrug: "CO2forbrug"
+        co2Forbrug: "CO2-udslip"
         co2Forbrug.unit: "ton CO2"
         anvendteTekst: "Anvendte tekst"
-        anvendteCo2Tekst: "CO2 forbrug forklaring tekst"
+        anvendteCo2Tekst: "CO2-udslip forklaring tekst"
         energiForbrugTekst: "Energiforbrug tekst"
     finansiering:
       title: "Titel"
@@ -2216,7 +2216,6 @@ appbundle:
   reportimage:
     title: "Titel"
     filepath: "Fil"
-    filepath.help: "Tilladte filtyper er jpg, jpeg, png"
     standard: "Standard"
   reporttext:
     body: "Tekst"

@@ -197,6 +197,7 @@ class ReportImageController extends BaseController {
     $form = $this->createForm(new ReportImageType($reportImage), $reportImage, array(
       'action' => $this->generateUrl('report_image_create', array('image_type' => $reportImageType)),
       'method' => 'POST',
+      'report_image_type' => $reportImageType,
     ));
 
     $this->addCreate($form, $this->generateUrl('report_image_create', array('image_type' => $reportImageType)));

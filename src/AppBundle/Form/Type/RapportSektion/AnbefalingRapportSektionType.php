@@ -69,13 +69,19 @@ class AnbefalingRapportSektionType extends RapportSektionType
                 'data' => $usingCustomImage ? NULL : $selectedStandardImage,
                 'required' => FALSE,
                 'mapped' => FALSE
-            ))
+            ));
+        $helpText = 'Tilladte filtyper er jpg, jpeg, png.';
+        $sizeHelpText = ReportImage::getImageTypeSizesHelpText('anbefaling');
+        $builder
             ->add('filepath', FileType::class, array(
                 'label' => 'Billede',
                 'data_class' => NULL,
                 'attachment_path' => $usingCustomImage ? 'filepath' : NULL,
                 'required' => FALSE,
                 'mapped' => FALSE,
+                'attr' => array(
+                    'help_text' => $helpText . ($sizeHelpText ? sprintf(' Ønskede billidestørelse: %s', $sizeHelpText) : ''),
+                ),
             ))
             ->add('extras', AnbefalingRapportSektionExtrasType::class, array(
                 'label' => FALSE,

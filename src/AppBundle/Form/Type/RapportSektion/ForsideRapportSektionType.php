@@ -34,7 +34,6 @@ class ForsideRapportSektionType extends RapportSektionType
                 $selectedStandardImage = $image;
             }
         }
-
         $builder
             ->add('imagestandard', EntityType::class, array(
                 'class' => 'AppBundle:ReportImage',
@@ -53,12 +52,18 @@ class ForsideRapportSektionType extends RapportSektionType
                 'data' => $usingCustomImage ? NULL : $selectedStandardImage,
                 'required' => FALSE,
                 'mapped' => FALSE
-            ))
+            ));
+        $helpText = 'Tilladte filtyper er jpg, jpeg, png.';
+        $sizeHelpText = ReportImage::getImageTypeSizesHelpText('forside');
+        $builder
             ->add('filepath', FileType::class, array(
                 'data_class' => NULL,
                 'attachment_path' => $usingCustomImage ? 'filepath' : NULL,
                 'required' => FALSE,
                 'mapped' => FALSE,
+                'attr' => array(
+                    'help_text' => $helpText . ($sizeHelpText ? sprintf(' Ønskede billidestørelse: %s', $sizeHelpText) : ''),
+                ),
             ))
             ->add('title')
             ->add('extras', ForsideRapportSektionExtrasType::class, array('label' => FALSE))
