@@ -1,1 +1,50 @@
-{% include 'AppBundle:SolcelleTiltag:_detailTable.html.twig' %}
+<table class="table table-condensed">
+  <thead>
+  <tr>
+    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header('appbundle.solcelletiltagdetail.anlaegsstoerrelseKWp') }}
+    {{ helper.header('appbundle.solcelletiltagdetail.produktionKWh') }}
+    {{ helper.header('appbundle.solcelletiltagdetail.egetForbrugAfProduktionenKWh') }}
+    {{ helper.header('appbundle.solcelletiltagdetail.produktionTilNettetKWh') }}
+    {{ helper.header('appbundle.solcelletiltagdetail.prisForNyInverterKr') }}
+    {{ helper.header('appbundle.solcelletiltagdetail.investeringKr') }}
+    {{ helper.header('appbundle.solcelletiltagdetail.screeningOgProjekteringKr') }}
+    {{ helper.header('appbundle.solcelletiltagdetail.totalDriftomkostningerPrAar') }}
+    {{ helper.header('appbundle.solcelletiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header('appbundle.solcelletiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+    {{ helper.header() }}
+  </tr>
+  <tr>
+    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header_unit('appbundle.solcelletiltagdetail.anlaegsstoerrelseKWp') }}
+    {{ helper.header_unit('appbundle.solcelletiltagdetail.produktionKWh') }}
+    {{ helper.header_unit('appbundle.solcelletiltagdetail.egetForbrugAfProduktionenKWh') }}
+    {{ helper.header_unit('appbundle.solcelletiltagdetail.produktionTilNettetKWh') }}
+    {{ helper.header_unit('appbundle.solcelletiltagdetail.prisForNyInverterKr') }}
+    {{ helper.header_unit('appbundle.solcelletiltagdetail.investeringKr') }}
+    {{ helper.header_unit('appbundle.solcelletiltagdetail.screeningOgProjekteringKr') }}
+    {{ helper.header_unit('appbundle.solcelletiltagdetail.totalDriftomkostningerPrAar') }}
+    {{ helper.header_unit('appbundle.solcelletiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header_unit('appbundle.solcelletiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+    {{ helper.header_unit() }}
+  </tr>
+  </thead>
+  <tbody>
+  {% for detail in entity.details %}
+    <tr>
+      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
+      <td class="number">{{ detail.anlaegsstoerrelseKWp | format_decimal }}</td>
+      <td class="number">{{ detail.produktionKWh | format_decimal }}</td>
+      <td class="number">{{ detail.egetForbrugAfProduktionenKWh | format_decimal }}</td>
+      <td class="number">{{ detail.produktionTilNettetKWh | format_decimal }}</td>
+      <td class="number">{{ detail.prisForNyInverterKr | format_amount(2) }}</td>
+      <td class="number">{{ detail.investeringKr | format_amount }}</td>
+      <td class="number">{{ detail.screeningOgProjekteringKr | format_amount }}</td>
+      <td class="number">{{ detail.totalDriftomkostningerPrAar | format_amount }}</td>
+      <td class="number">{{ detail.simpelTilbagebetalingstidAar | format_integer }}</td>
+      <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
+      <td class="last"></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
