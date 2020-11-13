@@ -282,8 +282,8 @@ img.full-width {
 
 /* Frontpage. */
 .section--forside {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding-left: 4mm !important;
+    padding-right: 4mm !important;
 }
 .rapport-review .section--forside {
     padding-left: 10px !important;
@@ -293,16 +293,16 @@ img.full-width {
     height: 700px;
 }
 .block-frontpage--image {
-    height: 610pt;
+    height: 560pt;
 
     overflow: hidden;
 }
 .rapport-review .block-frontpage--image img {
-    height: 700px;
+    min-height: 700px;
 }
 .block-frontpage--image img {
     min-width: 100%;
-    min-height: 610pt;
+    min-height: 560pt;
 }
 
 .rapport-review .block-frontpage--map {
