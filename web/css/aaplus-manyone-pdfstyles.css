@@ -20,10 +20,6 @@ div.landscape {
     margin: 0 auto;
 }
 
-.page--top-margin {
-    padding-top: 15mm;
-}
-
 .h1,
 h1 {
     letter-spacing: -1pt;
@@ -274,6 +270,10 @@ img.full-width {
     padding-left: 15mm;
     padding-right: 15mm;
 }
+.section--kontaktinformation {
+    padding-top: 15mm;
+}
+
 .rapport-review .section {
     padding-left: 70px;
     padding-right: 70px;
