@@ -3,7 +3,7 @@
 {% set sectionTypeNavn = (sectionTypeNavn|default(('rapportsektion.types.' ~ section.type ) | trans)) %}
 <div id="section-{{ section.type }}{{ section.id }}" class="section-{{ section.type }} {% if landscape %}landscape{% else %}portrait{% endif %}{% if section.break %} page-break-before{% endif %}">
   {% if section.editUrl and review %}
-    <div class="editor"><a href="{{ section.editUrl }}">edit</a></div>
+    <div class="editor"><a href="{{ section.editUrl }}"><span class="fa fa-pencil"></span> Redigér afsnit</a></div>
   {% endif %}
   <div class="row">
     <div class="col-xs-12">
