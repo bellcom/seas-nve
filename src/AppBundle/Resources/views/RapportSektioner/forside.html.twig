@@ -1,12 +1,12 @@
 {% extends 'AppBundle::RapportSektioner/base.html.twig' %}
 {% block section -%}
-  <div class="section section-frontpage--image section--negative-margin">
+  <div class="block block-frontpage--image">
     {% if section.filepath %}
       <img src="{{ absolute_url(asset(section.filepath)) }}" alt="" />
     {% endif %}
   </div>
 
-  <div class="section section-frontpage--map section--negative-margin">
+  <div class="block block-frontpage--map">
     <div class="row">
       <div class="col-xs-6">
         <div class="report-intro">
@@ -27,11 +27,11 @@
     </div>
   </div>
 
-  <div class="section section-frontpage--name">
-    <div class="section__undersagsnavn">{{ section.underTekst }}</div>
+  <div class="block block-frontpage--name">
+    <div class="block-frontpage__undersagsnavn">{{ section.underTekst }}</div>
     {% if section.datering %}
-      <div class="section__date">{{ section.datering | date('d.m.Y') }}</div>
+      <div class="block-frontpage__date">{{ section.datering | date('d.m.Y') }}</div>
     {% endif %}
-    <div class="section__logo"><img alt="" src="{{ absolute_url(asset('img/seas-nve-logo.png')) }}" height="30px" /></div>
+    <div class="block-frontpage__logo"><img alt="" src="{{ absolute_url(asset('img/seas-nve-logo.png')) }}" height="30px" /></div>
   </div>
 {% endblock %}

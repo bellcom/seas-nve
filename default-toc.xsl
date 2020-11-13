@@ -100,12 +100,18 @@
             color: #fff;
             border-bottom: 1px dashed #979797;
           }
+          .section {
+            padding-left: 15mm;
+            padding-right: 15mm;
+          }
         </style>
       </head>
       <body>
-        <div class="section-type">Indhold</div>
-        <h2>Indholdsfortegnelse</h2>
-        <ul><xsl:apply-templates select="outline:item/outline:item"/></ul>
+        <div class="section section--toc">
+          <div class="section-type">Indhold</div>
+          <h2>Indholdsfortegnelse</h2>
+          <ul><xsl:apply-templates select="outline:item/outline:item"/></ul>
+        </div>
       </body>
     </html>
   </xsl:template>
