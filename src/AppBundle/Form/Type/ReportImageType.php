@@ -23,6 +23,11 @@ class ReportImageType extends AbstractType {
   }
 
   public function buildForm(FormBuilderInterface $builder, array $options) {
+    $rapportImageType = $options['report_image_type'];
+    $raportImageSizeHelpText = ReportImage::getImageTypeSizesHelpText();
+
+    $helpText = 'Tilladte filtyper er jpg, jpeg, png.';
+    $helpText .= isset($raportImageSizeHelpText[$rapportImageType]) ? sprintf(' Ønskede billidestørelse: %s', $raportImageSizeHelpText[$rapportImageType]) : '';
     $builder
       ->add('title', 'text', array(
         'required' => TRUE,
@@ -30,6 +35,7 @@ class ReportImageType extends AbstractType {
       ->add('filepath', 'file', array(
         'data_class' => NULL,
         'attachment_path' => 'filepath',
+        'attr' => $helpText ? array('help_text' => $helpText) : array(),
       ));
   }
 
@@ -37,6 +43,7 @@ class ReportImageType extends AbstractType {
     $resolver->setDefaults(array(
       'data_class' => 'AppBundle\Entity\ReportImage'
     ));
+    $resolver->setRequired('report_image_type');
   }
 
   public function getName() {

@@ -19,7 +19,7 @@ class FinansieringRapportSektionExtrasType extends AbstractType {
             ])
             ->add('tilbagebetalingstid')
             ->add('tekniskelevetid')
-            ->add('grafundertekst', 'ckeditor', [
+            ->add('finansieringTekst', 'ckeditor', [
                 'attr' => [
                     'maxlength' => 10000,
                     'class' => 'js-default-value-target js-default-value-target',

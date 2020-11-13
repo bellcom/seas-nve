@@ -159,4 +159,19 @@ class ReportImage {
   public static function getTiltagImageTypes() {
       return Tiltag::getTypesConverted(TRUE);
   }
+
+  public static function getImageTypeSizesHelpText($key = NULL) {
+      $raportImageSizeHelpText = array(
+          'forside' => '812px X 627px',
+          'anbefaling' => '302px X 245px',
+      );
+      foreach(self::getTiltagImageTypes() as $tiltagType) {
+          $raportImageSizeHelpText[$tiltagType] = '302px X 204px';
+      }
+
+      if ($key) {
+          return isset($raportImageSizeHelpText[$key]) ? $raportImageSizeHelpText[$key] : NULL;
+      }
+      return $raportImageSizeHelpText;
+  }
 }
