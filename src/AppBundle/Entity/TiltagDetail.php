@@ -28,7 +28,6 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *    "pumpe" = "PumpeTiltagDetail",
  *    "special" = "SpecialTiltagDetail",
  *    "belysning" = "BelysningTiltagDetail",
- *    "klimaskærm" = "KlimaskaermTiltagDetail",
  *    "køleanlæg" = "KoeleanlaegTiltagDetail",
  *    "nyklimaskærm" = "NyKlimaskaermTiltagDetail",
  *    "varmeanlaeg" = "VarmeanlaegTiltagDetail",
