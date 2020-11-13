@@ -312,7 +312,7 @@ img.full-width {
     height: 320px;
 }
 .block-frontpage--map {
-    height: 350pt;
+    height: 330pt;
     overflow: hidden;
 
     color: #fff;
@@ -350,6 +350,7 @@ img.full-width {
     letter-spacing: -1pt;
     font-weight: bold;
     font-size: 4em;
+    line-height: 1.1;
 }
 .report-intro__report-type {
     font-weight: bold;
@@ -363,7 +364,7 @@ img.full-width {
     height: 320px;
 }
 .report-map img {
-    height: 350pt;
+    height: 330pt;
 }
 
 .block-frontpage--name {
