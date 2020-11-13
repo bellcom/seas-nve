@@ -588,6 +588,7 @@ reporttext:
     finansiering: "Finansiering"
     finansiering_text: "Tekst"
     finansiering_noegletal: "Nøgletal"
+    finansiering_finansieringTekst: "Finansiering tekst"
     baeredygtighed: "Bæredygtighed"
     baeredygtighed_text: "Tekst"
     baeredygtighed_besparelseeffekt: "Besparelse effekt tekst"

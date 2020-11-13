@@ -3,10 +3,10 @@
 {% block body -%}
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h1>{{ "reporttext.tabs.#{ selected_section }" | trans }}:  {{ "reporttext.tabs.#{ selected_section }_#{ selected_field }" | trans }}</h1>
         </div>
-        <div class="col-md-6 text-right">
+        <div class="col-md-8 text-right">
             {% include 'AppBundle:ReportText:tabs.html.twig' %}
         </div>
     </div>
