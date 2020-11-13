@@ -2176,7 +2176,7 @@ appbundle:
         noegletal: "Nøgletal"
         tilbagebetalingstid: "Simpel Tilbagebetalingstid"
         tekniskelevetid: "Tekniske levetid"
-        grafundertekst: "Graf undertekst"
+        finansieringTekst: "Finansiering tekst"
     tiltag:
       text: "Text"
       title: "Titel"
