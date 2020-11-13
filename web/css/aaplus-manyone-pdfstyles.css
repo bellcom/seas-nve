@@ -83,6 +83,9 @@ body > .container-fluid {
 
 .pdf-footer {
     padding-top: 10pt;
+    margin-left: 15mm;
+    margin-right: 15mm;
+
     font-size: .7em;
     border-top: 1pt solid #B2C930;
 }
