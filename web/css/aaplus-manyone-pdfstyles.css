@@ -22,6 +22,7 @@ div.landscape {
 
 .h1,
 h1 {
+    letter-spacing: -1pt;
     font-size: 2.5em;
     font-weight: bold;
 }
@@ -32,6 +33,7 @@ h1.enlarged {
 
 .h2,
 h2 {
+    letter-spacing: -1pt;
     font-size: 2em;
     font-weight: bold;
 }
@@ -41,6 +43,7 @@ h3 {
     margin-top: 25px;
     margin-bottom: 5px;
 
+    letter-spacing: -1pt;
     font-size: 1.2em;
     font-weight: bold;
 }
@@ -293,7 +296,7 @@ img.full-width {
     height: 700px;
 }
 .block-frontpage--image {
-    height: 560pt;
+    height: 550pt;
 
     overflow: hidden;
 }
@@ -302,7 +305,7 @@ img.full-width {
 }
 .block-frontpage--image img {
     min-width: 100%;
-    min-height: 560pt;
+    min-height: 550pt;
 }
 
 .rapport-review .block-frontpage--map {
@@ -344,6 +347,7 @@ img.full-width {
 .report-intro__title {
     margin-bottom: 40pt;
 
+    letter-spacing: -1pt;
     font-weight: bold;
     font-size: 4em;
 }
@@ -373,12 +377,14 @@ img.full-width {
 }
 
 .block-frontpage__undersagsnavn {
+    letter-spacing: -1pt;
     font-size: 2.5em;
 }
 .block-frontpage__date {
+    letter-spacing: -1pt;
     font-size: 1.5em;
 }
-.block-frontpage__date + .block-frontpage__logo {
+.block-frontpage__logo {
     margin-top: 50px;
 }
 .block-frontpage__logo img {
