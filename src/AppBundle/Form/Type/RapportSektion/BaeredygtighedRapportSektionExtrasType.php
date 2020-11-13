@@ -17,6 +17,13 @@ class BaeredygtighedRapportSektionExtrasType extends AbstractType {
                 ],
                 'required' => FALSE,
             ])
+            ->add('besparelseeffektUnderTekst', 'textarea', array(
+                'attr' => array(
+                    'maxlength' => 100,
+                    'help_text' => 'Maks 100 tegn',
+                ),
+                'required' => FALSE,
+            ))
         ;
     }
 }
