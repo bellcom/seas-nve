@@ -81,15 +81,18 @@
       </div>
     {% endif %}
 
-    {% if rapport.datering %}
-      <div>
-        <br>
-        <h2>Dato for gennemgang</h2>
-        <div class="row">
-          <div class="col-xs-4">
-            {{ section.gennemgangDato | date('d.m.Y') }}
-          </div>
+    <div>
+      <br>
+      <h2>Dato for gennemgang</h2>
+      <div class="row">
+        <div class="col-xs-4">
+          {{ section.gennemgangDato | date('d.m.Y') }}
         </div>
+      </div>
+    </div>
+    {% if section.underskrivelseTekst %}
+      <div class="section-text" style="padding-top:40px;">
+        {{ section.underskrivelseTekst | raw }}
       </div>
     {% endif %}
   </div>

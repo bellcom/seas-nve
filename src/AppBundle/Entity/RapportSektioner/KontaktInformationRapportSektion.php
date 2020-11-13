@@ -51,5 +51,12 @@ class KontaktInformationRapportSektion extends RapportSektion {
         return $dato ?: $this->getRapport()->getDatering();
     }
 
+    /**
+     * Gets underskrivelseTekst.
+     */
+    public function getUnderskrivelseTekst() {
+        return $this->getExtrasKeyValue('underskrivelseTekst');
+    }
+
 }
 

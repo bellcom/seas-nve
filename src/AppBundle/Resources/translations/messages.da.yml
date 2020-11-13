@@ -2140,11 +2140,18 @@ appbundle:
         rapportTypeNavn: "Rapportype navn"
         underTekst: "Undertekst"
         erstatningAdresse: "Erstat adresse"
+        dato: "Dato"
     opsummering:
       text: "Text"
       title: "Titel"
       extras:
         seasAnbefalerUnderTekst: "Seas anbefaler undertekst"
+    kontaktinformation:
+      text: "Text"
+      title: "Titel"
+      extras:
+        gennemgangDato: "Gennemgangdato"
+        underskrivelseTekst: "Underskrivelse tekst"
     faktavirksom:
       title: "Titel"
       text: "Beskrivelse af Virksomhed"
