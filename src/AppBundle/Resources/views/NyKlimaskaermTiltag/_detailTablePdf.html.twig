@@ -36,7 +36,8 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.tilvalgteDetails %}
+  {% for detail in entity.details %}
+    {% if detail.tilvalgt %}
     <tr>
       <td class="titel">{{ detail.titel }}</td>
       <td class="beskrivelse">{{ detail.beskrivelse }}</td>
@@ -54,6 +55,7 @@
       <td class="kWhBesparVarmevaerkEksternEnergikilde number">{{ detail.kWhBesparVarmevaerkEksternEnergikilde | format_decimal }}</td>
       <td class="last"></td>
     </tr>
+    {% endif %}
   {% endfor %}
   </tbody>
 </table>

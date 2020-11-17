@@ -2149,6 +2149,7 @@ class VirksomhedRapport
             'finansiering',
             'baeredygtighed',
             'tiltag',
+            'tiltagtable',
         );
     }
 

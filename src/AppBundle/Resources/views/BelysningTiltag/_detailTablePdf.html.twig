@@ -40,7 +40,8 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.tilvalgteDetails %}
+  {% for detail in entity.details %}
+    {% if detail.tilvalgt %}
     <tr>
       <td class="lokaleNavn">{{ detail.lokaleNavn }}</td>
       <td class="lokaleType">{{ detail.lokaleType }}</td>
@@ -60,6 +61,7 @@
       <td class="kwhBesparelseEl number">{{ detail.kwhBesparelseEl | format_decimal(0) }}</td>
       <td class="last"></td>
     </tr>
+    {% endif %}
   {% endfor %}
   </tbody>
 </table>

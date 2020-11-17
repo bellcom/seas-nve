@@ -194,14 +194,14 @@
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' with { landscape : 1} %}
   <div class="section-tiltag-details">
     <h2>Detailarke</h2>
-    {% if section.tiltag.tilvalgteDetails is not empty %}
+    {% if section.tiltag.details is not empty %}
       {% set template = 'AppBundle:' ~ tiltag_type(section.tiltag) ~ 'Tiltag:_detailTablePdf.html.twig' %}
       <div class="panel panel-default page-break-before">
         <div class="panel-heading"><h3 class="panel-title">Skema til: {{ section.tiltag.title }}</h3></div>
         {% include template with {'entity': section.tiltag} %}
       </div>
     {% else %}
-      Ingen tilvalgte detailarke.
+      Ingen detailarke.
     {% endif %}
 
   </div>

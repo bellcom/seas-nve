@@ -34,7 +34,8 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.tilvalgteDetails %}
+  {% for detail in entity.details %}
+    {% if detail.tilvalgt %}
     <tr>
       <td class="type" style="width: 100px">{{ ('appbundle.tryklufttiltagdetail.indData.type.' ~ detail.indData.type) | trans }}</td>
       <td class="kompressorNavn" style="width: 100px">{{ detail.indData.kompressorNavn }}</td>
@@ -98,6 +99,7 @@
       <td class="TBT number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
       <td class="last"></td>
     </tr>
+    {% endif %}
   {% endfor %}
   </tbody>
 </table>

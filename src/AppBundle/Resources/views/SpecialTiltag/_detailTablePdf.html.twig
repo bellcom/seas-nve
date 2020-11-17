@@ -7,12 +7,14 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.tilvalgteDetails %}
+  {% for detail in entity.details %}
+    {% if detail.tilvalgt %}
     <tr>
       <td>{{ detail.kommentar }}</td>
       <td>{% if not detail.filepath is empty %}<a target="_blank" href="{{ asset(detail.filepath) }}">{{ detail.filepath }}</a>{% endif %}</td>
       <td></td>
     </tr>
+    {% endif %}
   {% endfor %}
   </tbody>
 </table>

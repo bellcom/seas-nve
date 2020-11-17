@@ -26,7 +26,8 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.tilvalgteDetails %}
+  {% for detail in entity.details %}
+    {% if detail.tilvalgt %}
     <tr>
       <td class="udeluftbehovTotal number">{{ detail.udeluftbehov.total | format_decimal(0) }}</td>
       <td class="co2PpmIRum number">{{ detail.co2PpmIRum | format_decimal(0) }}</td>
@@ -39,6 +40,7 @@
       <td class="elbespKwhAar number">{{ detail.elbespKwhAar | format_decimal(0) }}</td>
       <td class="last"></td>
     </tr>
+    {% endif %}
   {% endfor %}
   </tbody>
 </table>

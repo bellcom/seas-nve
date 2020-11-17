@@ -1,0 +1,49 @@
+{# Define orientation variable to get ability change section orientation on pages below #}
+{% set landscape = section.landscape %}
+{% set sectionTypeNavn = (sectionTypeNavn|default(('rapportsektion.types.' ~ section.type ) | trans)) %}
+<div id="section-{{ section.type }}{{ section.id }}" class="section section--{{ section.type }} {% if landscape %}landscape{% else %}portrait{% endif %}{% if section.break %} page-break-before{% endif %}">
+  <div class="row">
+    <div class="col-xs-12">
+        <h1>Screeningsskema</h1>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th></th>
+            <th colspan="2">Anslået Forbrug</th>
+            <th colspan="4">Anslået besparelse</th>
+            <th>CO2 Besparelse</th>
+            <th rowspan="2">Skønnet invest-<br/>ering i alt (kr)</th>
+            <th rowspan="2">Tilbage-<br/>betalingstid (år)</th>
+          </tr>
+          <tr>
+            <th>Forslag</th>
+            <th>El (kWh)</th>
+            <th>Varme (kWh)</th>
+            <th>El (kWh)</th>
+            <th>El (pct)</th>
+            <th>Varme (kWh)</th>
+            <th>Varme (pct)</th>
+            <th>T/år</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for section_tiltag in section.tiltage %}
+          {% set tiltag = section_tiltag.tiltag %}
+          <tr>
+            <td>{{ section_tiltag.sectionTitle }}</td>
+            <td>{{ tiltag.forbrugFoerEl | format_decimal }}</td>
+            <td>{{ tiltag.forbrugFoerVarme | format_decimal }}</td>
+            <td>{{ tiltag.elbesparelse | format_decimal }}</td>
+            <td>{{ tiltag.elbesparelsePct | format_percent(0) }}</td>
+            <td>{{ tiltag.varmebesparelse | format_decimal }}</td>
+            <td>{{ tiltag.varmebesparelsePct | format_percent(0) }}</td>
+            <td>{{ tiltag.samletCo2besparelse | format_decimal }}</td>
+            <td>{{ tiltag.anlaegsinvestering | format_decimal(0) }}</td>
+            <td>{{ tiltag.simpelTilbagebetalingstidAar | format_decimal(1) }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

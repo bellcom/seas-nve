@@ -37,7 +37,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *    "faktavirksomhed" = "FaktaOmVirksomhedRapportSektion",
  *    "finansiering" = "FinansieringRapportSektion",
  *    "baeredygtighed" = "BaeredygtighedRapportSektion",
- *    "tiltag" = "TiltagRapportSektion"
+ *    "tiltag" = "TiltagRapportSektion",
+ *    "tiltagtable" = "TiltagTableRapportSektion"
  * })
  */
 abstract class RapportSektion
@@ -417,9 +418,7 @@ abstract class RapportSektion
      * @return array
      */
     protected function allowedActions() {
-        return array(
-            self::ACTION_ADD
-        );
+        return array();
     }
 
     /**

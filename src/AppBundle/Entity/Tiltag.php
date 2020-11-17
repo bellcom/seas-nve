@@ -808,6 +808,24 @@ abstract class Tiltag {
   }
 
   /**
+   * Get forbrugFoerEl
+   *
+   * @return integer
+   */
+  public function getForbrugFoerEl() {
+    return $this->calculateForbrugFoerEl();
+  }
+
+  /**
+   * Get forbrugFoerVarme
+   *
+   * @return integer
+   */
+  public function getForbrugFoerVarme() {
+    return $this->calculateForbrugFoerVarme();
+  }
+
+  /**
    * Set forbrugFoerKr
    *
    * @param integer $forbrugFoerKr
@@ -1329,6 +1347,24 @@ abstract class Tiltag {
   }
 
   /**
+   * Get varmebesparelse
+   *
+   * @return float
+   */
+  public function getVarmebesparelse() {
+    return $this->varmebesparelseGAF + $this->varmebesparelseGUF;
+  }
+
+  /**
+   * Get varmebesparelse prc.
+   *
+   * @return float
+   */
+  public function getVarmebesparelsePct() {
+    return Calculation::divide($this->getVarmebesparelse(), $this->getForbrugFoerVarme());
+  }
+
+  /**
    * Get elbesparelse
    *
    * @return float
@@ -1336,6 +1372,15 @@ abstract class Tiltag {
   public function getElbesparelse() {
     return $this->elbesparelse;
   }
+
+    /**
+     * Get Elbesparelse prc.
+     *
+     * @return float
+     */
+    public function getElbesparelsePct() {
+        return Calculation::divide($this->getElbesparelse(), $this->getForbrugFoerEl());
+    }
 
   /**
    * Get samletEnergibesparelse
