@@ -17,7 +17,6 @@ class FinansieringRapportSektionExtrasType extends AbstractType {
                 ],
                 'required' => FALSE,
             ])
-            ->add('tilbagebetalingstid')
             ->add('tekniskelevetid')
             ->add('finansieringTekst', 'ckeditor', [
                 'attr' => [

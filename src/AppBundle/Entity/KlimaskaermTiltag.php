@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @deprecated
  */
-class KlimaskaermTiltag extends Tiltag {
+abstract class KlimaskaermTiltag extends Tiltag {
 
   /**
    * Constructor

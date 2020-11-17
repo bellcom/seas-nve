@@ -39,5 +39,31 @@ class BaeredygtighedRapportSektion extends RapportSektion {
         return $textFields;
     }
 
+    /**
+     * Gets besparelseeffekt.
+     */
+    public function getBesparelseeffekt() {
+        return $this->getExtrasKeyValue('besparelseeffekt');
+    }
+
+    /**
+     * Gets besparelseeffekt.
+     */
+    public function getBesparelseeffektUnderTekst() {
+        return $this->getExtrasKeyValue('besparelseeffektUnderTekst');
+    }
+
+    public function getEffektBesparesleKwh() {
+        return $this->getRapport()->getSamletEnergibesparelse();
+    }
+
+    public function getEffektBesparesleKr() {
+        return $this->getRapport()->getSamletEnergibesparelseKr();
+    }
+
+    public function getEffektBesparesleCo2() {
+        return $this->getRapport()->getForbrugFoerCo2() - $this->getRapport()->getForbrugEfterCo2();
+    }
+
 }
 

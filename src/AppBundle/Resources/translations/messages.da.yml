@@ -578,6 +578,7 @@ reporttext:
     forside: "Forside"
     kontaktinformation: "Kontaktinformation"
     kontaktinformation_text: "Tekst"
+    kontaktinformation_underskrivelseTekst: "Underskrivelse tekst"
     opsummering: "Opsummering"
     opsummering_text: "Tekst"
     anbefaling: "Anbefaling"
@@ -588,6 +589,7 @@ reporttext:
     finansiering: "Finansiering"
     finansiering_text: "Tekst"
     finansiering_noegletal: "Nøgletal"
+    finansiering_finansieringTekst: "Finansiering tekst"
     baeredygtighed: "Bæredygtighed"
     baeredygtighed_text: "Tekst"
     baeredygtighed_besparelseeffekt: "Besparelse effekt tekst"
@@ -2187,6 +2189,7 @@ appbundle:
       title: "Titel"
       extras:
         besparelseeffekt: "Besparelse effekt tekst"
+        besparelseeffektUnderTekst: "Besparelse effekt under tekst"
     anbefaling:
       title: "Titel"
       text: "Beskrivelse"
