@@ -3,6 +3,8 @@ html,
 body {
     font-size: 10pt;
     font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.75;
+
     color: #50534d;
 }
 
@@ -29,6 +31,14 @@ h1 {
 .h1.enlarged,
 h1.enlarged {
     font-size: 3.5em;
+}
+
+.h1 small,
+h1 small {
+    font-weight: bold;
+    font-size: 1rem;
+
+    color: #50534d;
 }
 
 .h2,
@@ -159,6 +169,28 @@ img.full-width {
     color: #fff;
 }
 
+
+/* Color square. */
+.color-square {
+    display: inline-block;
+
+    height: 14px;
+    width: 14px;
+
+    border-radius: 3px;
+}
+.color-square--provider {
+    background-color: #62c5d3;
+}
+.color-square--company {
+    background-color: #a7cb11;
+}
+.color-square--both {
+    background-color: #009e50;
+}
+
+
+/* Editor. */
 .editor {
     text-align: right;
 }
@@ -178,6 +210,17 @@ img.full-width {
 .editor a:hover {
     background-color: #eee;
 }
+
+
+.rapport-review .block--negative-margin {
+    margin-left: -70px;
+    margin-right: -70px;
+}
+.block--negative-margin {
+    margin-left: -15mm;
+    margin-right: -15mm;
+}
+
 
 /* Box. */
 .box {
@@ -199,13 +242,6 @@ img.full-width {
     margin: 0;
 
     font-size: 3.5em;
-}
-.box--samlet-besparelse .h1 small,
-.box--samlet-besparelse h1 small {
-    font-weight: bold;
-    font-size: 1em;
-
-    color: #50534d;
 }
 
 /* Anbefaling. */
@@ -400,6 +436,165 @@ img.full-width {
 }
 
 .report-text-undersagsnavn {}
+
+/* Opsummering. */
+.block-opsummering--seas-anbefaler {
+    padding-top: 30px;
+}
+.block-opsummering--potentiel-besparelse > h2 {
+    margin-bottom: 30px;
+}
+.block-opsummering--roi {
+    padding-top: 60px;
+}
+
+/* Anbefalinger. */
+.section--anbefaling .section-text {
+    padding-top: 10px;
+    padding-bottom: 40px;
+
+    max-width: 80ch;
+
+    font-size: 1.3em;
+}
+.block-anbefaling--meta {
+    background-color: #006f55;
+}
+.block-anbefaling--meta,
+.block-anbefaling--meta small {
+    color: #fff;
+}
+
+.region-anbefaling--meta {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 15mm;
+}
+.rapport-review .region-anbefaling--meta {
+    padding-right: 70px;
+}
+
+.region-anbefaling--effect {}
+
+.region-anbefaling--effect-description .row + .row {
+    margin-top: 8px;
+}
+
+.region-anbefaling--highlighted-text {
+    color: #009e50;
+}
+
+.block-anbefaling--tidsforloeb {
+    padding-top: 40px;
+}
+.block-anbefaling--tidsforloeb h2 {
+    margin-bottom: 30px;
+}
+.block-anbefaling--tidsforloeb .color-square {
+    margin-bottom: -2px;
+    margin-right: 5px;
+}
+.block-anbefaling--tidsforloeb .list-inline {
+    margin-left: -10px;
+}
+.block-anbefaling--tidsforloeb .list-inline > li {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.block-anbefaling--tidsforloeb .table {
+    border-bottom: 1px solid #e4e4e2;
+}
+
+.block-anbefaling--tidsforloeb .table > thead > tr > th {
+    font-weight: normal;
+}
+.block-anbefaling--tidsforloeb .table th,
+.block-anbefaling--tidsforloeb .table td {
+    position: relative;
+
+    text-align: center;
+    border-color: #e4e4e2;
+}
+
+.block-anbefaling--tidsforloeb .table td:first-child {
+    padding-left: 0;
+
+    text-align: left;
+}
+.block-anbefaling--tidsforloeb .table th::after,
+.block-anbefaling--tidsforloeb .table td::after {
+    position: absolute;
+
+    bottom: 0;
+    left: 50%;
+
+    width: 1px;
+
+    content: "";
+
+    background-color: #e4e4e2;
+}
+.block-anbefaling--tidsforloeb .table th::after {
+    height: 8px;
+}
+.block-anbefaling--tidsforloeb .table td::after {
+    top: 0;
+}
+.block-anbefaling--tidsforloeb .table th:first-child::after,
+.block-anbefaling--tidsforloeb .table td:first-child::after {
+    display: none;
+}
+
+tr.tidsforloeb-ansvarlig--provider td.active-span span {
+    background-color: #62c5d3;
+}
+tr.tidsforloeb-ansvarlig--company td.active-span span {
+    background-color: #a7cb11;
+}
+tr.tidsforloeb-ansvarlig--both td.active-span span {
+    background-color: #009e50;
+}
+
+.block-section--anbefaling-roi {
+    padding-top: 50px;
+}
+
+/* Table. */
+.table {
+    border-color: #e4e4e2;
+}
+.table > thead > tr > th {
+    border-bottom-width: 1px !important;
+}
+
+td.active-span span {
+    position: absolute;
+
+    top: 50%;
+    left: -1px;
+    right: -1px;
+
+    margin-top: -6px;
+
+    height: 12px;
+
+    z-index: 10;
+
+    background-color: #62c5d3;
+}
+td.active-span.first span {
+    left: 50%;
+}
+td.active-span.last span {
+    right: 50%;
+
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+
+
 
 .section-tiltag.landscape {
     position: relative;

@@ -18,6 +18,8 @@
         <link href="{{ absolute_url(asset('css/aaplus-manyone-pdfstyles.css')) }}" type="text/css" rel="stylesheet"/>
     {% endblock %}
 
+    <script src="{{ absolute_url(asset('js/lib/echarts.simple.min.js')) }}"></script>
+
     <script>
         function formatNumberSeparators(nStr) {
             nStr += '';
@@ -130,7 +132,6 @@
   <script src="{{ absolute_url(asset('js/lib/select2.min.js')) }}"></script>
   <script src="{{ absolute_url(asset('js/aaplus.js')) }}"></script>
   <script src="{{ absolute_url(asset('js/app.js')) }}"></script>
-  <script src="{{ absolute_url(asset('js/lib/echarts.min.js')) }}"></script>
 
   <script>
       $(document).ready(function() {
