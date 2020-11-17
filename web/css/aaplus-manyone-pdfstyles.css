@@ -527,3 +527,33 @@ img.full-width {
 .color-square--both {
     background-color: #009e50;
 }
+
+
+
+
+.section-tiltag.landscape {
+    position: relative;
+    min-width: 1160px;
+    height: 1560px;
+    padding: 80px 40px;
+    overflow: hidden;
+}
+.section-tiltag.landscape .row {
+    -webkit-transform: translateY(100%) rotate(270deg); /* Safari */
+    -moz-transform: translateY(100%) rotate(270deg); /* Firefox 3.6 Firefox 4 */
+    /*-moz-transform-origin: right top; */
+    -ms-transform: translateY(100%) rotate(270deg); /* IE9 */
+    -o-transform: translateY(100%) rotate(270deg); /* Opera */
+    transform: translateY(100%) rotate(270deg); /* W3C */
+    -webkit-transform-origin: left top;
+    -moz-transform-origin: left top;
+    -ms-transform-origin: left top;
+    -o-transform-origin: left top;
+    transform-origin: left top;
+    position: absolute;
+    bottom: 0;
+}
+.section-tiltag.landscape .row table.table {
+    max-width: 1400px;
+    table-layout: auto !important;
+}
