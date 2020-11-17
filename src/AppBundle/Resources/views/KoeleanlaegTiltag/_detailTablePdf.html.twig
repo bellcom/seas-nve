@@ -1,1 +1,44 @@
-{% include 'AppBundle:KoeleanlaegTiltag:_detailTable.html.twig' %}
+<table class="table table-condensed">
+  <thead>
+  <tr>
+    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.ek') }}
+    {{ helper.header('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.qbehov') }}
+    {{ helper.header('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.etot') }}
+    {{ helper.header('appbundle.koeleanlaegtiltagdetail.tilstandDataEfter.tableHeader.ek') }}
+    {{ helper.header('appbundle.koeleanlaegtiltagdetail.tilstandDataEfter.tableHeader.qbehov') }}
+    {{ helper.header('appbundle.koeleanlaegtiltagdetail.tilstandDataEfter.tableHeader.etot') }}
+    {{ helper.header('appbundle.koeleanlaegtiltagdetail.tableHeader.etotReduktion') }}
+    {{ helper.header('appbundle.koeleanlaegtiltagdetail.tableHeader.samlerBesparelse') }}
+    {{ helper.header() }}
+  </tr>
+  <tr>
+    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
+    {{ helper.header_unit('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.ek') }}
+    {{ helper.header_unit('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.qbehov') }}
+    {{ helper.header_unit('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.etot') }}
+    {{ helper.header_unit('appbundle.koeleanlaegtiltagdetail.tilstandDataEfter.tableHeader.ek') }}
+    {{ helper.header_unit('appbundle.koeleanlaegtiltagdetail.tilstandDataEfter.tableHeader.qbehov') }}
+    {{ helper.header_unit('appbundle.koeleanlaegtiltagdetail.tilstandDataEfter.tableHeader.etot') }}
+    {{ helper.header_unit('appbundle.koeleanlaegtiltagdetail.tableHeader.etotReduktion') }}
+    {{ helper.header_unit('appbundle.koeleanlaegtiltagdetail.tableHeader.samlerBesparelse') }}
+    {{ helper.header_unit() }}
+  </tr>
+  </thead>
+  <tbody>
+  {% for detail in entity.details %}
+    <tr>
+      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
+      <td class="ekFoer number">{{ detail.tilstandDataFoerEk | format_decimal(0)}}</td>
+      <td class="qbehovFoer number">{{ detail.tilstandDataFoerQbehov | format_decimal(0)}}</td>
+      <td class="etotFoer number">{{ detail.tilstandDataFoerEtot | format_decimal(0) }}</td>
+      <td class="ekEfter number">{{ detail.tilstandDataEfterEk | format_decimal(0) }}</td>
+      <td class="qBehovEfter number">{{ detail.tilstandDataEfterQbehov | format_decimal(0)}}</td>
+      <td class="etotEfter number">{{ detail.tilstandDataEfterEtot | format_decimal(0)}}</td>
+      <td class="etotReduktion number">{{ detail.etotReduktion | format_decimal(0)}}</td>
+      <td class="samletBesparelse number">{{ detail.samletBesparelse | format_decimal(0)}}</td>
+      <td class="last"></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

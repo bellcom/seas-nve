@@ -22,6 +22,7 @@ div.landscape {
 
 .h1,
 h1 {
+    letter-spacing: -1pt;
     font-size: 2.5em;
     font-weight: bold;
 }
@@ -32,6 +33,7 @@ h1.enlarged {
 
 .h2,
 h2 {
+    letter-spacing: -1pt;
     font-size: 2em;
     font-weight: bold;
 }
@@ -41,6 +43,7 @@ h3 {
     margin-top: 25px;
     margin-bottom: 5px;
 
+    letter-spacing: -1pt;
     font-size: 1.2em;
     font-weight: bold;
 }
@@ -263,38 +266,57 @@ img.full-width {
 
 
 /* Sections. */
-.section {}
+.section {
+    padding-left: 15mm;
+    padding-right: 15mm;
+}
+.section--kontaktinformation {
+    padding-top: 15mm;
+}
+
+.rapport-review .section {
+    padding-left: 70px;
+    padding-right: 70px;
+}
 .section--negative-margin {
-    margin-left: 0;
-    margin-right: 0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 .rapport-review .section--negative-margin {
-    margin-left: -40px;
-    margin-right: -40px;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
 }
 
 /* Frontpage. */
-.rapport-review .section-frontpage--image {
+.section--forside {
+    padding-left: 4mm !important;
+    padding-right: 4mm !important;
+}
+.rapport-review .section--forside {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.rapport-review .block-frontpage--image {
     height: 700px;
 }
-.section-frontpage--image {
-    height: 610pt;
+.block-frontpage--image {
+    height: 550pt;
 
     overflow: hidden;
 }
-.rapport-review .section-frontpage--image img {
-    height: 700px;
+.rapport-review .block-frontpage--image img {
+    min-height: 700px;
 }
-.section-frontpage--image img {
+.block-frontpage--image img {
     min-width: 100%;
-    min-height: 610pt;
+    min-height: 550pt;
 }
 
-.rapport-review .section-frontpage--map {
+.rapport-review .block-frontpage--map {
     height: 320px;
 }
-.section-frontpage--map {
-    height: 350pt;
+.block-frontpage--map {
+    height: 310pt;
     overflow: hidden;
 
     color: #fff;
@@ -303,12 +325,12 @@ img.full-width {
 
 .rapport-review .report-intro {
     padding-top: 45px;
-    padding-left: 40px;
+    padding-left: 60px;
     padding-bottom: 5px;
 }
 .report-intro {
     padding-top: 45pt;
-    padding-left: 40pt;
+    padding-left: 15mm;
     padding-bottom: 5pt;
 }
 .rapport-review .report-intro .section-type {
@@ -329,8 +351,10 @@ img.full-width {
 .report-intro__title {
     margin-bottom: 40pt;
 
+    letter-spacing: -1pt;
     font-weight: bold;
     font-size: 4em;
+    line-height: 1.1;
 }
 .report-intro__report-type {
     font-weight: bold;
@@ -344,29 +368,62 @@ img.full-width {
     height: 320px;
 }
 .report-map img {
-    height: 350pt;
+    height: 330pt;
 }
 
-.section-frontpage--name {
+.block-frontpage--name {
     padding-top: 50px;
+    padding-left: 15mm;
 
     color: #74766c;
 }
+.rapport-review .block-frontpage--name {
+    padding-left: 60px;
+}
 
-.section__undersagsnavn {
+.block-frontpage__undersagsnavn {
+    letter-spacing: -1pt;
     font-size: 2.5em;
 }
-.section__date {
+.block-frontpage__date {
+    letter-spacing: -1pt;
     font-size: 1.5em;
 }
-.section__date + .section__logo {
+.block-frontpage__logo {
     margin-top: 50px;
 }
-.section__logo img {
+.block-frontpage__logo img {
     height: 34pt;
 }
-.rapport-review .section__logo img {
+.rapport-review .block-frontpage__logo img {
     height: 34px;
 }
 
 .report-text-undersagsnavn {}
+
+.section-tiltag.landscape {
+    position: relative;
+    min-width: 1160px;
+    height: 1560px;
+    padding: 80px 40px;
+    overflow: hidden;
+}
+.section-tiltag.landscape .row {
+    -webkit-transform: translateY(100%) rotate(270deg); /* Safari */
+    -moz-transform: translateY(100%) rotate(270deg); /* Firefox 3.6 Firefox 4 */
+    /*-moz-transform-origin: right top; */
+    -ms-transform: translateY(100%) rotate(270deg); /* IE9 */
+    -o-transform: translateY(100%) rotate(270deg); /* Opera */
+    transform: translateY(100%) rotate(270deg); /* W3C */
+    -webkit-transform-origin: left top;
+    -moz-transform-origin: left top;
+    -ms-transform-origin: left top;
+    -o-transform-origin: left top;
+    transform-origin: left top;
+    position: absolute;
+    bottom: 0;
+}
+.section-tiltag.landscape .row table.table {
+    max-width: 1400px;
+    table-layout: auto !important;
+}
