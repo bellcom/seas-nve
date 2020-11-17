@@ -6,22 +6,13 @@
     <div class="section-finansiering-nogletal-tekst">
       {{ section.noegletal | raw }}
     </div>
-    <div class="section-finansiering-nogletal-chart row">
-      <div class="section-finansiering-nogletal-chart-now col-md-3">
-        <div>Nu</div>
-        <div>Investering</div>
-        <div>{{ section.ROIGrafData.investering | format_decimal(0) }} kr</div>
-      </div>
-      <div class="section-finansiering-nogletal-chart-roi col-md-4 text-right">
-        <div>{{ section.ROIGrafData.roi | format_decimal(0) }} år</div>
-        <div>Simpel tilbagebetalingstid</div>
-        <div>ROI</div>
-      </div>
-      <div class="section-finansiering-nogletal-chart-now col-md-5 text-right">
-        <div>{{ section.tekniskelevetid | format_decimal(0) }} år</div>
-        <div>Samlet besparelse (i den tekniskelevetid)</div>
-        <div>{{ section.getSamletBesparelseOverAar(section.tekniskelevetid) | format_decimal(0) }} kr</div>
-      </div>
+    <div class="section-finansiering-nogletal-chart">
+      {% include 'AppBundle:_includes:graf_noegletal.html.twig' with {
+        'investering' : section.ROIGrafData.investering,
+        'roi' : section.ROIGrafData.roi,
+        'tekniskelevetid' : section.tekniskelevetid,
+        'samletBesparelseOverAar' : section.getSamletBesparelseOverAar(section.tekniskelevetid)
+      } %}
     </div>
   </div>
   <div class="section-finansiering-roi">

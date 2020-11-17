@@ -1,0 +1,17 @@
+<div class="nogletal-chart row">
+  <div class="nogletal-chart-now col-md-3">
+    <div>Nu</div>
+    <div>Investering</div>
+    <div>{{ investering | format_decimal(0) }} kr</div>
+  </div>
+  <div class="nogletal-chart-roi col-md-4 text-right">
+    <div>{{ roi | format_decimal(0) }} år</div>
+    <div>Simpel tilbagebetalingstid</div>
+    <div>ROI</div>
+  </div>
+  <div class="nogletal-chart-now col-md-5 text-right">
+    <div>{{ tekniskelevetid | format_decimal(0) }} år</div>
+    <div>Samlet besparelse (i den tekniskelevetid)</div>
+    <div>{{ samletBesparelseOverAar | format_decimal(0) }} kr</div>
+  </div>
+</div>

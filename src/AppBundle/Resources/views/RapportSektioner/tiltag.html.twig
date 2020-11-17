@@ -45,15 +45,15 @@
       <div class="section-tiltag-effect-title">Effekt:</div>
       <div class="row">
         <div class="col-xs-4">
-          <span class="enlarged">{{ section.potentieltBesparesleCo2 | format_decimal }} <small>tons CO2</small></span>
+          <span class="enlarged">{{ section.effektBesparesleCo2 | format_decimal }} <small>tons CO2</small></span>
           <span>sparet årligt</span>
         </div>
         <div class="col-xs-4">
-          <span class="enlarged">{{ section.potentieltBesparesleKr | format_decimal(0) }} <small>kr.</small></span>
+          <span class="enlarged">{{ section.effektBesparesleKr | format_decimal(0) }} <small>kr.</small></span>
           <span>sparet årligt</span>
         </div>
         <div class="col-xs-4">
-          <span class="enlarged">{{ section.potentieltBesparesleKwh | format_decimal(0) }} <small>kWh</small></span>
+          <span class="enlarged">{{ section.effektBesparesleKwh | format_decimal(0) }} <small>kWh</small></span>
           <span>sparet årligt</span>
         </div>
       </div>
@@ -72,6 +72,20 @@
       </div>
     {% endif %}
   {% endblock %}
+  {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
+  <h2>Forbrugsoptimering</h2>
+  {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
+  <h2>Nøgletal</h2>
+  <div class="section-tiltag-nogletal-chart">
+    {% include 'AppBundle:_includes:graf_noegletal.html.twig' with {
+      'investering' : section.ROIGrafData.investering,
+      'roi' : section.ROIGrafData.roi,
+      'tekniskelevetid' : section.tekniskelevetid,
+      'samletBesparelseOverAar' : section.getSamletBesparelseOverAar(section.tekniskelevetid)
+    } %}
+  </div>
+  <h2>Simpel tilbagebetalingstid</h2>
+  {% include 'AppBundle:_includes:graf_roi.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
 
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
   <div class="section-tiltag-details">

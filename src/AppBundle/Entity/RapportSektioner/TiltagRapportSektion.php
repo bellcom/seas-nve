@@ -16,7 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Uploadable\Mapping\Validator;
 
-
 /**
  * TiltagRapportSektion
  *
@@ -171,6 +170,34 @@ class TiltagRapportSektion extends RapportSektion implements SamletForbrugGrafDa
             $number++;
         }
         return NULL;
+    }
+
+    /**
+     * Gets Besparelse effekt in kWh.
+     *
+     * @return float
+     */
+    public function getEffektBesparesleKwh() {
+        return $this->getTiltag()->getForbrugFoer() - $this->getTiltag()->getForbrugEfter();
+    }
+
+    /**
+     * Gets Besparelse effekt in kr.
+     *
+     * @return int
+     */
+    public function getEffektBesparesleKr() {
+        return $this->getTiltag()->getSamletEnergibesparelse();
+    }
+
+
+    /**
+     * Gets Besparelse effekt in tons CO2.
+     *
+     * @return float
+     */
+    public function getEffektBesparesleCo2() {
+        return $this->getTiltag()->getSamletCo2besparelse();
     }
 
     /**
