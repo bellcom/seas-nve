@@ -224,7 +224,7 @@ class AnbefalingRapportSektion extends RapportSektion {
                 'label' =>'Uge ' . $week_num,
                 'rows' => array(),
             );
-
+            $activeRow = NULL;
             foreach ($tidsforloebinfo as $key => $rowInfo) {
                 if (array_filter($rowInfo) != $rowInfo) {
                     continue;
@@ -240,8 +240,15 @@ class AnbefalingRapportSektion extends RapportSektion {
                     $weekToCompare = $i + 52;
                 }
                 if ($rowInfo['startuge'] <= $weekToCompare && $weekToCompare < $rowInfo['slutuge']) {
-                    $column['rows'][$key] = TRUE;
+                    $column['rows'][$key] = array('show' => TRUE);
+                    if ($rowInfo['startuge'] == $weekToCompare) {
+                        $column['rows'][$key]['first'] = TRUE;
+                    }
                 }
+                if ($weekToCompare + 1 >= $rowInfo['slutuge']) {
+                    $column['rows'][$key]['last'] = TRUE;
+                }
+
             }
             $this->tidlsforloebData[] = $column;
         }

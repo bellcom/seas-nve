@@ -69,8 +69,8 @@
           <tr class="tidsforloeb-ansvarlig tidsforloeb-ansvarlig--{{ info.omraadeansvar }}">
             <td>{{ info.title }}</td>
             {% for week in section.tidlsforloebData %}
-              {% if week.rows[key] %}
-                <td class="active-span">
+              {% if week.rows[key].show %}
+                <td class="active-span{% if week.rows[key].first is defined %} first{% endif %}{% if week.rows[key].last is defined %} last{% endif %}">
                   <span></span>
                 </td>
               {% else %}
