@@ -1,4 +1,37 @@
 {% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+{% macro header(key) %}
+  {% set calculation = key|get_calculation %}
+
+  <th class="rotate">
+    <div>
+      {% if calculation is null %}
+        <span>{{ key | trans }}</span>
+      {% else %}
+        <span data-calculation="{{ calculation }}">{{ key | trans }}</span>
+      {% endif %}
+    </div>
+  </th>
+{% endmacro %}
+
+{% macro header_unit(key, border_right=false) %}
+  {% set translation = key|get_unit %}
+  {% set border = border_right ? 'border-right' : '' %}
+
+  <th class="unit {{ border }}">
+    {{ translation }}
+  </th>
+{% endmacro %}
+
+{% macro header_span(key, span) %}
+  {% set translation = key|trans %}
+
+  <th colspan="{{ span }}" class="text-center border-right">
+    {{ translation }}
+  </th>
+{% endmacro %}
+
+{% import _self as helper %}
+
 {% set sectionTypeNavn = (('rapportsektion.types.' ~ section.type ) | trans) ~ ' ' ~ section.number ~ '. ' ~ (('bygning_rapporter.strings.' ~ section.tiltagType ~ 'tiltag') | trans) %}
 {% block section -%}
   {{ block('section_type') }}
@@ -47,5 +80,13 @@
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' with { landscape : 1} %}
   <div class="section-tiltag-details">
     <h2>Detailarke</h2>
+    {% if section.tiltag.details is not empty %}
+      {% set template = 'AppBundle:' ~ tiltag_type(section.tiltag) ~ 'Tiltag:_detailTablePdf.html.twig' %}
+      <div class="panel panel-default page-break-before">
+        <div class="panel-heading"><h3 class="panel-title">Skema til: {{ section.tiltag.title }}</h3></div>
+        {% include template with {'entity': section.tiltag} %}
+      </div>
+    {% endif %}
+
   </div>
 {% endblock %}
