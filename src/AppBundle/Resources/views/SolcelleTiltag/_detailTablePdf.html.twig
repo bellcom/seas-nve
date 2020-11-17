@@ -1,7 +1,6 @@
 <table class="table table-condensed">
   <thead>
   <tr>
-    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header('appbundle.solcelletiltagdetail.anlaegsstoerrelseKWp') }}
     {{ helper.header('appbundle.solcelletiltagdetail.produktionKWh') }}
     {{ helper.header('appbundle.solcelletiltagdetail.egetForbrugAfProduktionenKWh') }}
@@ -15,7 +14,6 @@
     {{ helper.header() }}
   </tr>
   <tr>
-    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header_unit('appbundle.solcelletiltagdetail.anlaegsstoerrelseKWp') }}
     {{ helper.header_unit('appbundle.solcelletiltagdetail.produktionKWh') }}
     {{ helper.header_unit('appbundle.solcelletiltagdetail.egetForbrugAfProduktionenKWh') }}
@@ -30,9 +28,8 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.details %}
+  {% for detail in entity.tilvalgteDetails %}
     <tr>
-      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td class="number">{{ detail.anlaegsstoerrelseKWp | format_decimal }}</td>
       <td class="number">{{ detail.produktionKWh | format_decimal }}</td>
       <td class="number">{{ detail.egetForbrugAfProduktionenKWh | format_decimal }}</td>

@@ -1,7 +1,6 @@
 <table class="table table-condensed">
   <thead>
   <tr>
-    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header('appbundle.ventilationtiltagdetail.udeluftbehov.total') }}
     {{ helper.header('appbundle.ventilationtiltagdetail.co2PpmIRum') }}
     {{ helper.header('appbundle.ventilationtiltagdetail.varmeForbrugKwhAarFoer') }}
@@ -14,7 +13,6 @@
     {{ helper.header() }}
   </tr>
   <tr>
-    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header_unit('appbundle.ventilationtiltagdetail.udeluftbehov.total') }}
     {{ helper.header_unit('appbundle.ventilationtiltagdetail.co2PpmIRum') }}
     {{ helper.header_unit('appbundle.ventilationtiltagdetail.varmeForbrugKwhAarFoer') }}
@@ -28,9 +26,8 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.details %}
+  {% for detail in entity.tilvalgteDetails %}
     <tr>
-      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td class="udeluftbehovTotal number">{{ detail.udeluftbehov.total | format_decimal(0) }}</td>
       <td class="co2PpmIRum number">{{ detail.co2PpmIRum | format_decimal(0) }}</td>
       <td class="varmeForbrugKwhAarFoer number">{{ detail.varmeForbrugKwhAarFoer | format_decimal(0) }}</td>

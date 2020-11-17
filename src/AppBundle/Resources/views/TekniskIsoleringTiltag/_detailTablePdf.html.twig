@@ -1,7 +1,6 @@
 <table class="table table-condensed">
   <thead>
   <tr>
-    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header('appbundle.tekniskisoleringtiltagdetail.beskrivelseType') }}
     {{ helper.header('appbundle.tekniskisoleringtiltagdetail.type') }}
     {{ helper.header('appbundle.tekniskisoleringtiltagdetail.driftstidTAar') }}
@@ -17,7 +16,6 @@
     {{ helper.header() }}
   </tr>
   <tr>
-    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.beskrivelseType') }}
     {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.type') }}
     {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.driftstidTAar') }}
@@ -34,9 +32,8 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.details %}
+  {% for detail in entity.tilvalgteDetails %}
     <tr>
-      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td>{{ detail.beskrivelseType }}</td>
       <td>{{ detail.type }}</td>
       <td class="number">{{ detail.driftstidTAar | format_decimal(0) }}</td>

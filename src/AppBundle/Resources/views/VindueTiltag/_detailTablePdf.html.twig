@@ -6,7 +6,6 @@
     {{ helper.header_span('common.oekonomi', 6) }}
   </tr>
   <tr>
-    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header('appbundle.vinduetiltagdetail.type') }}
     {{ helper.header('appbundle.vinduetiltagdetail.placering') }}
     {{ helper.header('appbundle.vinduetiltagdetail.noteGenerelt') }}
@@ -28,7 +27,6 @@
     {{ helper.header() }}
   </tr>
   <tr>
-    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header_unit('appbundle.tiltagdetail.type') }}
     {{ helper.header_unit('appbundle.tiltagdetail.placering') }}
     {{ helper.header_unit('appbundle.vinduetiltagdetail.noteGenerelt') }}
@@ -51,9 +49,8 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.details %}
+  {% for detail in entity.tilvalgteDetails %}
     <tr>
-      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td>{{ detail.type | trans }}</td>
       <td>{{ detail.placering }}</td>
       <td>{{ detail.noteGenerelt }}</td>

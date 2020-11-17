@@ -1,7 +1,6 @@
 <table class="table table-condensed">
   <thead>
   <tr>
-    {{ helper.header('appbundle.tiltag.tilvalgt') }}
     {{ helper.header('appbundle.pumpetiltagdetail.pumpeID') }}
     {{ helper.header('appbundle.pumpetiltagdetail.forsyningsomraade') }}
     {{ helper.header('appbundle.pumpetiltagdetail.placering') }}
@@ -16,7 +15,6 @@
     {{ helper.header() }}
   </tr>
   <tr>
-    {{ helper.header_unit('appbundle.tiltag.tilvalgt') }}
     {{ helper.header_unit('appbundle.pumpetiltagdetail.pumpeID') }}
     {{ helper.header_unit('appbundle.pumpetiltagdetail.forsyningsomraade') }}
     {{ helper.header_unit('appbundle.pumpetiltagdetail.placering') }}
@@ -32,9 +30,8 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.details %}
+  {% for detail in entity.tilvalgteDetails %}
     <tr>
-      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td>{{ detail.pumpeID }}</td>
       <td>{{ detail.forsyningsomraade }}</td>
       <td>{{ detail.placering }}</td>

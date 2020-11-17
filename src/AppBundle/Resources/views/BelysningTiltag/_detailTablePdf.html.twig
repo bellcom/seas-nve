@@ -1,7 +1,6 @@
 <table class="table table-condensed">
   <thead>
   <tr>
-    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header('appbundle.belysningtiltagdetail.lokale.navn') }}
     {{ helper.header('appbundle.belysningtiltagdetail.lokale.type') }}
     {{ helper.header('appbundle.belysningtiltagdetail.lokale.antal') }}
@@ -21,7 +20,6 @@
     {{ helper.header() }}
   </tr>
   <tr>
-    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header_unit('appbundle.belysningtiltagdetail.lokale.navn', 'lokaleNavn') }}
     {{ helper.header_unit('appbundle.belysningtiltagdetail.lokale.type', 'lokaleType') }}
     {{ helper.header_unit('appbundle.belysningtiltagdetail.lokale.antal', 'lokaleAntal') }}
@@ -42,9 +40,8 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.details %}
+  {% for detail in entity.tilvalgteDetails %}
     <tr>
-      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td class="lokaleNavn">{{ detail.lokaleNavn }}</td>
       <td class="lokaleType">{{ detail.lokaleType }}</td>
       <td class="lokaleType">{{ detail.lokaleAntal }}</td>

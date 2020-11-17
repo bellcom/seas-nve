@@ -1,7 +1,6 @@
 <table class="table table-condensed">
   <thead>
   <tr>
-    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.ek') }}
     {{ helper.header('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.qbehov') }}
     {{ helper.header('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.etot') }}
@@ -13,7 +12,6 @@
     {{ helper.header() }}
   </tr>
   <tr>
-    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header_unit('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.ek') }}
     {{ helper.header_unit('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.qbehov') }}
     {{ helper.header_unit('appbundle.koeleanlaegtiltagdetail.tilstandDataFoer.tableHeader.etot') }}
@@ -26,9 +24,8 @@
   </tr>
   </thead>
   <tbody>
-  {% for detail in entity.details %}
+  {% for detail in entity.tilvalgteDetails %}
     <tr>
-      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td class="ekFoer number">{{ detail.tilstandDataFoerEk | format_decimal(0)}}</td>
       <td class="qbehovFoer number">{{ detail.tilstandDataFoerQbehov | format_decimal(0)}}</td>
       <td class="etotFoer number">{{ detail.tilstandDataFoerEtot | format_decimal(0) }}</td>
