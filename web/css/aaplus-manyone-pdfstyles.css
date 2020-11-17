@@ -169,6 +169,27 @@ img.full-width {
     color: #fff;
 }
 
+
+/* Color square. */
+.color-square {
+    display: inline-block;
+
+    height: 14px;
+    width: 14px;
+
+    border-radius: 3px;
+}
+.color-square--provider {
+    background-color: #62c5d3;
+}
+.color-square--company {
+    background-color: #a7cb11;
+}
+.color-square--both {
+    background-color: #009e50;
+}
+
+
 /* Editor. */
 .editor {
     text-align: right;
@@ -430,6 +451,7 @@ img.full-width {
 /* Anbefalinger. */
 .section--anbefaling .section-text {
     padding-top: 10px;
+    padding-bottom: 40px;
 
     max-width: 80ch;
 
@@ -463,30 +485,45 @@ img.full-width {
     color: #009e50;
 }
 
-
-/* Table. */
-.table {
-    border-color: #e4e4e2;
+.block-anbefaling--tidsforloeb {
+    padding-top: 40px;
 }
-.table > thead > tr > th {
+.block-anbefaling--tidsforloeb h2 {
+    margin-bottom: 30px;
+}
+.block-anbefaling--tidsforloeb .color-square {
+    margin-bottom: -2px;
+    margin-right: 5px;
+}
+.block-anbefaling--tidsforloeb .list-inline {
+    margin-left: -10px;
+}
+.block-anbefaling--tidsforloeb .list-inline > li {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.block-anbefaling--tidsforloeb .table {
+    border-bottom: 1px solid #e4e4e2;
+}
+
+.block-anbefaling--tidsforloeb .table > thead > tr > th {
     font-weight: normal;
-
-    border-bottom-width: 1px !important;
 }
-.table th,
-.table td {
+.block-anbefaling--tidsforloeb .table th,
+.block-anbefaling--tidsforloeb .table td {
     position: relative;
 
     text-align: center;
     border-color: #e4e4e2;
 }
-.table td:first-child {
+
+.block-anbefaling--tidsforloeb .table td:first-child {
     padding-left: 0;
 
     text-align: left;
 }
-.table th::after,
-.table td::after {
+.block-anbefaling--tidsforloeb .table th::after,
+.block-anbefaling--tidsforloeb .table td::after {
     position: absolute;
 
     bottom: 0;
@@ -498,34 +535,62 @@ img.full-width {
 
     background-color: #e4e4e2;
 }
-.table th::after {
-    height: 6px;
+.block-anbefaling--tidsforloeb .table th::after {
+    height: 8px;
 }
-.table td::after {
+.block-anbefaling--tidsforloeb .table td::after {
     top: 0;
 }
-.table th:first-child::after,
-.table td:first-child::after {
+.block-anbefaling--tidsforloeb .table th:first-child::after,
+.block-anbefaling--tidsforloeb .table td:first-child::after {
     display: none;
 }
 
-/* Color square. */
-.color-square {
-    display: inline-block;
-
-    height: 14px;
-    width: 14px;
-
-    border-radius: 3px;
-}
-.color-square--provider {
+tr.tidsforloeb-ansvarlig--provider td.active-span span {
     background-color: #62c5d3;
 }
-.color-square--company {
+tr.tidsforloeb-ansvarlig--company td.active-span span {
     background-color: #a7cb11;
 }
-.color-square--both {
+tr.tidsforloeb-ansvarlig--both td.active-span span {
     background-color: #009e50;
+}
+
+.block-section--anbefaling-roi {
+    padding-top: 50px;
+}
+
+/* Table. */
+.table {
+    border-color: #e4e4e2;
+}
+.table > thead > tr > th {
+    border-bottom-width: 1px !important;
+}
+
+td.active-span span {
+    position: absolute;
+
+    top: 50%;
+    left: -1px;
+    right: -1px;
+
+    margin-top: -6px;
+
+    height: 12px;
+
+    z-index: 10;
+
+    background-color: #62c5d3;
+}
+td.active-span.first span {
+    left: 50%;
+}
+td.active-span.last span {
+    right: 50%;
+
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
 }
 
 

@@ -66,18 +66,22 @@
         </thead>
         <tbody>
         {% for key,info in section.getTidlsforloebInfo %}
-          <tr class="section-anbefaling-ansvarlig-{{ info.omraadeansvar }}">
+          <tr class="tidsforloeb-ansvarlig tidsforloeb-ansvarlig--{{ info.omraadeansvar }}">
             <td>{{ info.title }}</td>
             {% for week in section.tidlsforloebData %}
-              <td>
-                {% if week.rows[key] %}-{% endif %}
-              </td>
+                {% if week.rows[key] %}
+                  <td class="active-span">
+                    <span></span>
+                  </td>
+                {% else %}
+                  <td></td>
+                {% endif %}
             {% endfor %}
           </tr>
         {% endfor %}
         </tbody>
       </table>
-      <div class="section-anbefaling-ansvarlig">
+      <div>
         <ul class="list-inline">
           <li>
             <strong>Områdeansvarlig:</strong>
