@@ -1,72 +1,74 @@
-<div class="row page-break-before page-break-after">
-  <div class="col-xs-12">
-    <h2>Kontaktinformation</h2>
-  </div>
-  <div class="col-xs-12">
-    <h3>Kunde</h3>
-    <hr class="dark">
-    <div class="row">
-      {% if rapport.virksomhed %}
-        <div class="col-xs-4">
-          {% if rapport.virksomhed.name %}
-            <div>{{ rapport.virksomhed.name }}</div>
-          {% endif %}
-
-          {% if rapport.virksomhed.address %}
-            <div>{{ rapport.virksomhed.address }}</div>
-          {% endif %}
-
-          {% if rapport.virksomhed.postnummer and rapport.virksomhed.byNavn %}
-            <div>{{ rapport.virksomhed.postnummer }} {{ rapport.virksomhed.byNavn }}</div>
-          {% endif %}
-        </div>
-
-        {% for contactPerson in rapport.virksomhed.contactPersons %}
-          <div class="col-xs-4">
-            {{ include ('AppBundle:ContactPerson:show-embed.html.twig') }}
-          </div>
-        {% endfor %}
-      {% endif %}
-    </div>
-  </div>
-  <div class="col-xs-12">
-    <br>
-    <h3>Analyserede adresse(r)</h3>
-    <hr class="dark">
-    <div class="row">
-      <div class="col-xs-4">
-        {{ include ('AppBundle:Bygning:show-embed.html.twig', { bygning : rapport.bygning}) }}
-      </div>
-    </div>
-  </div>
-
-  {% if rapport.bygning.energiRaadgiver is not empty %}
+<div class="page-break-before page-break-after page--top-margin">
+  <div class="row">
     <div class="col-xs-12">
-      <br>
-      <h3>Energirådgiver</h3>
+      <h2>Kontaktinformation</h2>
+    </div>
+    <div class="col-xs-12">
+      <h3>Kunde</h3>
       <hr class="dark">
       <div class="row">
-        {% for user in rapport.bygning.energiRaadgiver %}
+        {% if rapport.virksomhed %}
           <div class="col-xs-4">
-            <div>{{ user }}</div>
-            <div><a href="mailto:{{ user.email }}">{{ user.email }}</a></div>
-            <br>
+            {% if rapport.virksomhed.name %}
+              <div>{{ rapport.virksomhed.name }}</div>
+            {% endif %}
+
+            {% if rapport.virksomhed.address %}
+              <div>{{ rapport.virksomhed.address }}</div>
+            {% endif %}
+
+            {% if rapport.virksomhed.postnummer and rapport.virksomhed.byNavn %}
+              <div>{{ rapport.virksomhed.postnummer }} {{ rapport.virksomhed.byNavn }}</div>
+            {% endif %}
           </div>
-        {% endfor %}
+
+          {% for contactPerson in rapport.virksomhed.contactPersons %}
+            <div class="col-xs-4">
+              {{ include ('AppBundle:ContactPerson:show-embed.html.twig') }}
+            </div>
+          {% endfor %}
+        {% endif %}
       </div>
     </div>
-  {% endif %}
-
-  {% if rapport.datering %}
     <div class="col-xs-12">
       <br>
-      <h3>Dato for gennemgang</h3>
+      <h3>Analyserede adresse(r)</h3>
       <hr class="dark">
       <div class="row">
         <div class="col-xs-4">
-          {{ rapport.datering | date('d.m.Y') }}
+          {{ include ('AppBundle:Bygning:show-embed.html.twig', { bygning : rapport.bygning}) }}
         </div>
       </div>
     </div>
-  {% endif %}
+
+    {% if rapport.bygning.energiRaadgiver is not empty %}
+      <div class="col-xs-12">
+        <br>
+        <h3>Energirådgiver</h3>
+        <hr class="dark">
+        <div class="row">
+          {% for user in rapport.bygning.energiRaadgiver %}
+            <div class="col-xs-4">
+              <div>{{ user }}</div>
+              <div><a href="mailto:{{ user.email }}">{{ user.email }}</a></div>
+              <br>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if rapport.datering %}
+      <div class="col-xs-12">
+        <br>
+        <h3>Dato for gennemgang</h3>
+        <hr class="dark">
+        <div class="row">
+          <div class="col-xs-4">
+            {{ rapport.datering | date('d.m.Y') }}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
 </div>

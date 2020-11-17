@@ -1,7 +1,7 @@
 {# Define orientation variable to get ability change section orientation on pages below #}
 {% set landscape = section.landscape %}
 {% set sectionTypeNavn = (sectionTypeNavn|default(('rapportsektion.types.' ~ section.type ) | trans)) %}
-<div id="section-{{ section.type }}{{ section.id }}" class="section-{{ section.type }} {% if landscape %}landscape{% else %}portrait{% endif %}{% if section.break %} page-break-before{% endif %}">
+<div id="section-{{ section.type }}{{ section.id }}" class="section section--{{ section.type }} {% if landscape %}landscape{% else %}portrait{% endif %}{% if section.break %} page-break-before{% endif %}">
   {% if section.editUrl and review %}
     <div class="editor"><a href="{{ section.editUrl }}"><span class="fa fa-pencil"></span> Redigér afsnit</a></div>
   {% endif %}

@@ -1,7 +1,7 @@
 {% extends 'AppBundle::RapportSektioner/base.html.twig' %}
 {% block section_content -%}
   {{ parent() }}
-  <div class="section-opsumering-seas-anbefaler">
+  <div class="section section-opsummering-seas-anbefaler">
     <div class="row">
       <div class="col-xs-4">
         <br><br>
@@ -26,7 +26,7 @@
     <h2>Samlet forbrug</h2>
     {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
   </div>
-  <div class="section-opsummering-potentielt-besparelse">
+  <div class="section section--opsummering-potentielt-besparelse">
     <h2>Potentielt samlet besparelse</h2>
     <div class="box box--samlet-besparelse">
       <div class="row">
