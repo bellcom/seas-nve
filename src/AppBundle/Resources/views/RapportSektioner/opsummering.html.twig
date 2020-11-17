@@ -17,6 +17,16 @@
               {% include 'AppBundle:RapportSektioner:anbefaling-teaser.html.twig' with { 'section' : anbefaling  } %}
             </div>
           {% endfor %}
+
+          {% if section.anbefalinger | length < 3 %}
+            <div class="col-xs-4">
+              <br><br><br>
+              <a href="#" class="btn btn-default">
+                <span class="fa fa-plus"></span>
+                Tilføj anbefaling
+              </a>
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>

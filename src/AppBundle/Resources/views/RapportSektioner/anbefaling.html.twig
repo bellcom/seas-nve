@@ -69,13 +69,13 @@
           <tr class="tidsforloeb-ansvarlig tidsforloeb-ansvarlig--{{ info.omraadeansvar }}">
             <td>{{ info.title }}</td>
             {% for week in section.tidlsforloebData %}
-                {% if week.rows[key] %}
-                  <td class="active-span">
-                    <span></span>
-                  </td>
-                {% else %}
-                  <td></td>
-                {% endif %}
+              {% if week.rows[key] %}
+                <td class="active-span">
+                  <span></span>
+                </td>
+              {% else %}
+                <td></td>
+              {% endif %}
             {% endfor %}
           </tr>
         {% endfor %}
