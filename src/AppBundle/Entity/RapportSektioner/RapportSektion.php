@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\RapportSektioner;
 
+use AppBundle\Calculation\Calculation;
 use AppBundle\Entity\Rapport;
 use AppBundle\Entity\ReportImage;
 use AppBundle\Entity\ReportText;
@@ -464,6 +465,45 @@ abstract class RapportSektion
             return $this->bygningOversigtRapport;
         }
         return Null;
+    }
+
+
+    public function getSamletForbrugGrafData() {
+        if (!$this instanceof SamletForbrugGrafDataInterface) {
+            return NULL;
+        }
+        $nuvaerendeForbrug = $this->getNuvaerendeForbrug();
+        $optimeretForbrug = $this->getOptimeretForbrug();
+
+        return array(
+            'nuvaerende' =>$nuvaerendeForbrug,
+            'optimeret' => $optimeretForbrug,
+            'reduction' => round((1 - Calculation::divide($optimeretForbrug, $nuvaerendeForbrug)) * 100)
+        );
+    }
+
+    public function getROIGrafData() {
+        if (!$this instanceof ROIGrafDataInterface) {
+            return NULL;
+        }
+        $nuvaerendeForbrugKr = $this->getNuvaerendeForbrugKr();
+        $optimeretForbrugKr = $this->getOptimeretForbrugKr();
+        $investering = $this->getInvestering();
+
+        $roi = Calculation::divide($investering, $nuvaerendeForbrugKr - $optimeretForbrugKr);
+        $years = [];
+        foreach (array('start' => 0, 'end' => 30) as $key => $value) {
+            $years[$key] = array(
+                'year' => $value,
+                'nuvaerende' => $nuvaerendeForbrugKr * $value,
+                'optimeret' => $optimeretForbrugKr * $value + $investering,
+            );
+        }
+        return array(
+            'years' => $years,
+            'investering' => $investering,
+            'roi' => $roi,
+        );
     }
 
     /**

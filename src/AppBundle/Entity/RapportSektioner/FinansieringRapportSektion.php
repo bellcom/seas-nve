@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity()
  */
-class FinansieringRapportSektion extends RapportSektion {
+class FinansieringRapportSektion extends RapportSektion implements ROIGrafDataInterface {
 
     /**
      * Constructor
@@ -69,26 +69,25 @@ class FinansieringRapportSektion extends RapportSektion {
         return $this->getRapport()->getSamletEnergibesparelseKr() * $years;
     }
 
-    public function getROIGrafData() {
-        $nuvaerendeForbrugKr = $this->getRapport()->getForbrugFoerKr();
-        $optimeretForbrugKr = $this->getRapport()->getForbrugEfterKr();
-        $investering = $this->getRapport()->getAnlaegsinvestering();
+    /**
+     * {@inheritDoc}
+     */
+    public function getOptimeretForbrugKr() {
+        return $this->getRapport()->getForbrugEfterKr();
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getNuvaerendeForbrugKr() {
+        return $this->getRapport()->getForbrugFoerKr();
+    }
 
-        $roi = Calculation::divide($investering, $nuvaerendeForbrugKr - $optimeretForbrugKr);
-        $years = [];
-        foreach (array('start' => 0, 'end' => 30) as $key => $value) {
-            $years[$key] = array(
-                'year' => $value,
-                'nuvaerende' => $nuvaerendeForbrugKr * $value,
-                'optimeret' => $optimeretForbrugKr * $value + $investering,
-            );
-        }
-        return array(
-            'years' => $years,
-            'investering' => $investering,
-            'roi' => $roi,
-        );
+    /**
+     * {@inheritDoc}
+     */
+    public function getInvestering() {
+        return $this->getRapport()->getAnlaegsinvestering();
     }
 
 }

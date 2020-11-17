@@ -31,7 +31,7 @@ use Gedmo\Uploadable\Mapping\Validator;
  *   allowedTypes="image/jpeg,image/pjpeg,image/png,image/x-png"
  * )
  */
-class TiltagRapportSektion extends RapportSektion {
+class TiltagRapportSektion extends RapportSektion implements SamletForbrugGrafDataInterface, ROIGrafDataInterface {
 
     use FilepathField;
 
@@ -171,6 +171,55 @@ class TiltagRapportSektion extends RapportSektion {
             $number++;
         }
         return NULL;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTekniskelevetid() {
+        return $this->getTiltag()->getLevetid();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSamletBesparelseOverAar($years = 1) {
+        return $this->getTiltag()->getSamletEnergibesparelse() * $years;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getNuvaerendeForbrug() {
+        return $this->getTiltag()->getForbrugFoer();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOptimeretForbrug() {
+        return $this->getTiltag()->getForbrugEfter();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOptimeretForbrugKr() {
+        return $this->getTiltag()->getForbrugEfterKr();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getNuvaerendeForbrugKr() {
+        return $this->getTiltag()->getForbrugFoerKr();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getInvestering() {
+        return $this->getTiltag()->getAnlaegsinvestering();
     }
 
     /**

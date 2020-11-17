@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *   allowedTypes="image/jpeg,image/pjpeg,image/png,image/x-png"
  * )
  */
-class AnbefalingRapportSektion extends RapportSektion {
+class AnbefalingRapportSektion extends RapportSektion implements ROIGrafDataInterface {
 
     use FilepathField;
 
@@ -169,25 +169,25 @@ class AnbefalingRapportSektion extends RapportSektion {
         return $raadgiver ? $raadgiver->getPhone() : NULL;
     }
 
-    public function getROIGrafData() {
-        $nuvaerendeForbrugKr = $this->getSluanvendelseValue('forbrugFoerKr');
-        $optimeretForbrugKr = $this->getSluanvendelseValue('forbrugEfterKr');
-        $investering = $this->getSluanvendelseValue('investering');
+    /**
+     * {@inheritDoc}
+     */
+    public function getNuvaerendeForbrugKr() {
+        return $this->getSluanvendelseValue('forbrugFoerKr');
+    }
 
-        $roi = $this->getROI();
-        $years = [];
-        foreach (array('start' => 0, 'end' => 30) as $key => $value) {
-            $years[$key] = array(
-                'year' => $value,
-                'nuvaerende' => $nuvaerendeForbrugKr * $value,
-                'optimeret' => $optimeretForbrugKr * $value + $investering,
-            );
-        }
-        return array(
-            'years' => $years,
-            'investering' => $investering,
-            'roi' => $roi,
-        );
+    /**
+     * {@inheritDoc}
+     */
+    public function getOptimeretForbrugKr() {
+        return $this->getSluanvendelseValue('forbrugEfterKr');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getInvestering() {
+        return $this->getSluanvendelseValue('investering');
     }
 
     public function getTidlsforloebInfo() {

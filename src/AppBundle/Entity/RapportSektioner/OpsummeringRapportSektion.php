@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity()
  */
-class OpsummeringRapportSektion extends RapportSektion {
+class OpsummeringRapportSektion extends RapportSektion implements SamletForbrugGrafDataInterface, ROIGrafDataInterface {
 
     /**
      * Constructor
@@ -38,18 +38,6 @@ class OpsummeringRapportSektion extends RapportSektion {
         return $this->getExtrasKeyValue('seasAnbefalerUnderTekst');
     }
 
-    public function getSamletForbrugGrafData() {
-        $rapport = $this->getRapport();
-        $nuvaerendeForbrug = $rapport->getForbrugFoer();
-        $optimeretForbrug = $rapport->getForbrugEfter();
-
-        return array(
-            'nuvaerende' =>$nuvaerendeForbrug,
-            'optimeret' => $optimeretForbrug,
-            'reduction' => round((1 - Calculation::divide($optimeretForbrug, $nuvaerendeForbrug)) * 100)
-        );
-    }
-
     public function getPotentieltBesparesleKwh() {
         return $this->getRapport()->getSamletEnergibesparelse();
     }
@@ -62,26 +50,39 @@ class OpsummeringRapportSektion extends RapportSektion {
         return $this->getRapport()->getForbrugFoerCo2() -  $this->getRapport()->getForbrugEfterCo2();
     }
 
-    public function getROIGrafData() {
-        $nuvaerendeForbrugKr = $this->getRapport()->getForbrugFoerKr();
-        $optimeretForbrugKr = $this->getRapport()->getForbrugEfterKr();
-        $investering = $this->getRapport()->getAnlaegsinvestering();
+    /**
+     * {@inheritDoc}
+     */
+    public function getNuvaerendeForbrug() {
+        return $this->getRapport()->getForbrugFoer();
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getOptimeretForbrug() {
+        return $this->getRapport()->getForbrugEfter();
+    }
 
-        $roi = Calculation::divide($investering, $nuvaerendeForbrugKr - $optimeretForbrugKr);
-        $years = [];
-        foreach (array('start' => 0, 'end' => 30) as $key => $value) {
-            $years[$key] = array(
-                'year' => $value,
-                'nuvaerende' => $nuvaerendeForbrugKr * $value,
-                'optimeret' => $optimeretForbrugKr * $value + $investering,
-            );
-        }
-        return array(
-            'years' => $years,
-            'investering' => $investering,
-            'roi' => $roi,
-        );
+    /**
+     * {@inheritDoc}
+     */
+    public function getOptimeretForbrugKr() {
+        return $this->getRapport()->getForbrugEfterKr();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getNuvaerendeForbrugKr() {
+        return $this->getRapport()->getForbrugFoerKr();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getInvestering() {
+        return $this->getRapport()->getAnlaegsinvestering();
     }
 
     /**
