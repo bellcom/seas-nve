@@ -23,30 +23,21 @@
     (function () {
         // based on prepared DOM, initialize echarts instance
         var chartData = {{ chart_data | json_encode | raw }};
-        var myChart = echarts.init(document.getElementById('{{ barChartIdRandomized }}'));
+        var chart = echarts.init(document.getElementById('{{ barChartIdRandomized }}'));
 
-        // specify chart configuration item and data
         var option = {
-            title: {
-                text: 'ECharts entry example'
-            },
-            tooltip: {},
-            legend: {
-                data: ['Sales']
-            },
             xAxis: {
-                data: ["shirt", "cardign", "chiffon shirt", "pants", "heels", "socks"]
+                data: ['Nuværende forbrug', 'Optimeret forbrug']
             },
             yAxis: {},
             series: [{
-                name: 'Sales',
+                name: 'samletForbrugBarChart',
                 type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
+                data: [85, 60]
             }]
         };
 
-        // use configuration item and data specified to show chart
-        myChart.setOption(option);
+        chart.setOption(option);
     }());
 </script>
 
@@ -58,10 +49,6 @@
 
         // specify chart configuration item and data
         var option = {
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b}: {c} ({d}%)'
-            },
             legend: {
                 orient: 'vertical',
                 left: 10,
@@ -88,11 +75,8 @@
                         show: false
                     },
                     data: [
-                        {value: 335, name: '直接访问'},
-                        {value: 310, name: '邮件营销'},
-                        {value: 234, name: '联盟广告'},
-                        {value: 135, name: '视频广告'},
-                        {value: 1548, name: '搜索引擎'}
+                        {value: 15, name: 'Energireduktion'},
+                        {value: 85, name: 'Blankt'},
                     ]
                 }
             ]
