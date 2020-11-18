@@ -170,6 +170,20 @@ img.full-width {
 }
 
 
+/* List inline. */
+.list-inline .color-square {
+    margin-bottom: -2px;
+    margin-right: 5px;
+}
+.list-inline {
+    margin-left: -10px;
+}
+.list-inline > li {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
 /* Color square. */
 .color-square {
     display: inline-block;
@@ -179,14 +193,20 @@ img.full-width {
 
     border-radius: 3px;
 }
+.color-square--brand-2,
 .color-square--provider {
     background-color: #62c5d3;
 }
+.color-square--brand-1,
 .color-square--company {
     background-color: #a7cb11;
 }
+.color-square--brand-3,
 .color-square--both {
     background-color: #009e50;
+}
+.color-square--brand-4 {
+    background-color: #fe9029;
 }
 
 
@@ -490,17 +510,6 @@ img.full-width {
 }
 .block-anbefaling--tidsforloeb h2 {
     margin-bottom: 30px;
-}
-.block-anbefaling--tidsforloeb .color-square {
-    margin-bottom: -2px;
-    margin-right: 5px;
-}
-.block-anbefaling--tidsforloeb .list-inline {
-    margin-left: -10px;
-}
-.block-anbefaling--tidsforloeb .list-inline > li {
-    padding-left: 10px;
-    padding-right: 10px;
 }
 .block-anbefaling--tidsforloeb .table {
     border-bottom: 1px solid #e4e4e2;
