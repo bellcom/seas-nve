@@ -101,7 +101,13 @@ class VirksomhedOversigtSektionerController extends BaseController
                 $em->flush();
 
                 $this->flash->success('rapportsektion.confirmation.created');
-                return $this->redirect($this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())));
+
+                $destination = $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId()));
+                if ($this->request->get('destination')) {
+                    $destination = $this->request->get('destination');
+                }
+
+                return $this->redirect($destination);
             }
             catch (UploadableInvalidMimeTypeException $e) {
                 $this->flash->error('rapport_sections.error.filetype');
@@ -127,14 +133,22 @@ class VirksomhedOversigtSektionerController extends BaseController
      */
     private function createCreateForm(RapportSektion $entity, $type)
     {
+        $params = array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId(), 'type' => $type);
+        // Getting desired destination for form redirect.
+        $destination = $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId()));
+        if ($this->request->get('destination')) {
+            $destination = $this->request->get('destination');
+            $params['destination'] = $destination;
+        }
+
         $formType = $entity->getFormType();
         $form = $this->createForm(new $formType, $entity, array(
-            'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_create', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId(), 'type' => $type)),
+            'action' => $this->generateUrl('virksomhed_oversigt_rapport_sektioner_create', $params),
             'method' => 'POST',
             'entity_manager' => $this->get('doctrine.orm.entity_manager'),
         ));
 
-        $this->addCreate($form, $this->generateUrl('virksomhed_oversigt_rapport_sektioner', array('virksomhed_rapport' => $entity->getVirksomhedOversigtRapport()->getId())));
+        $this->addCreate($form, $destination);
 
         return $form;
     }

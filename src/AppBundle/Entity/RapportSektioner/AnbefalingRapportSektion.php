@@ -239,13 +239,13 @@ class AnbefalingRapportSektion extends RapportSektion implements ROIGrafDataInte
                 elseif ($rowInfo['startuge'] < $rowInfo['slutuge'] && $i < 0) {
                     $weekToCompare = $i + 52;
                 }
-                if ($rowInfo['startuge'] <= $weekToCompare && $weekToCompare < $rowInfo['slutuge']) {
+                if ($rowInfo['startuge'] <= $weekToCompare && $weekToCompare <= $rowInfo['slutuge']) {
                     $column['rows'][$key] = array('show' => TRUE);
                     if ($rowInfo['startuge'] == $weekToCompare) {
                         $column['rows'][$key]['first'] = TRUE;
                     }
                 }
-                if ($weekToCompare + 1 >= $rowInfo['slutuge']) {
+                if ($weekToCompare == $rowInfo['slutuge']) {
                     $column['rows'][$key]['last'] = TRUE;
                 }
 
