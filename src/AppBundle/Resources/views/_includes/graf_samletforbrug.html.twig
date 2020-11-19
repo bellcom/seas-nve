@@ -28,16 +28,28 @@
 
         var option = {
             animation: false,
+            grid: {
+                top: 10,
+                left: '3%',
+                right: '6%',
+                bottom: '3%',
+                containLabel: true
+            },
             xAxis: {
                 data: ['Nuværende forbrug', 'Optimeret forbrug']
             },
-            yAxis: {},
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} kWh'
+                },
+            },
             series: [
                 {
                     name: 'Nuværende forbrug',
                     type: 'bar',
                     stack: 'unify',
-                    data: [80, '-'],
+                    data: [parseInt(chartData.nuvaerende), '-'],
                     barMaxWidth: 50,
                     itemStyle: {
                         color: '#a7cb11',
@@ -48,7 +60,7 @@
                     name: 'Optimeret forbrug',
                     type: 'bar',
                     stack: 'unify',
-                    data: ['-', 60],
+                    data: ['-', parseInt(chartData.optimeret)],
                     barMaxWidth: 50,
                     itemStyle: {
                         color: '#62c5d3',
