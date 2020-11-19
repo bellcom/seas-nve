@@ -34,11 +34,29 @@
                 data: ['Nuværende forbrug', 'Optimeret forbrug']
             },
             yAxis: {},
-            series: [{
-                name: 'samletForbrugBarChart',
-                type: 'bar',
-                data: [85, 60]
-            }]
+            series: [
+                {
+                    name: 'Nuværende forbrug',
+                    type: 'bar',
+                    stack: 'unify',
+                    data: [85, '-'],
+                    barMaxWidth: 50,
+                    itemStyle: {
+                        color: '#a7cb11',
+                        barBorderRadius: [10, 10, 0, 0],
+                    },
+                }, {
+                    name: 'Optimeret forbrug',
+                    type: 'bar',
+                    stack: 'unify',
+                    data: ['-', 60],
+                    barMaxWidth: 50,
+                    itemStyle: {
+                        color: '#62c5d3',
+                        barBorderRadius: [10, 10, 0, 0],
+                    },
+                }
+            ]
         };
 
         chart.setOption(option);
