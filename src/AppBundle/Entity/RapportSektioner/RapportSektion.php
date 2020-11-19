@@ -500,17 +500,18 @@ abstract class RapportSektion
             30 => '30',
             35 => 'År',
         );
-        $data = [
-            'labels' => $labels,
-            'nuvaerende' => array(),
-            'optimeret' => array(),
-        ];
+        $nuvaerende = array();
+        $optimeret = array();
         foreach ($labels as $key => $value) {
-            $data['nuvaerende'][$key] = $nuvaerendeForbrugKr * $key;
-            $data['optimeret'][$key] = $optimeretForbrugKr * $key + $investering;
+            $nuvaerende[$key] = $nuvaerendeForbrugKr * $key;
+            $optimeret[$key] = $optimeretForbrugKr * $key + $investering;
         }
         return array(
-            'data' => $data,
+            'data' => array(
+                'labels' => array_values($labels),
+                'nuvaerende' => array_values($nuvaerende),
+                'optimeret' => array_values($optimeret),
+            ),
             'investering' => $investering,
             'roi' => $roi,
         );
