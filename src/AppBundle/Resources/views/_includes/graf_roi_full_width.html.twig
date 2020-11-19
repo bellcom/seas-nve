@@ -9,6 +9,7 @@
         var chart = echarts.init(document.getElementById('{{ chartIdRandomized }}'), 'seas-theme');
 
         var option = {
+            animation: false,
             color: colors,
             grid: {
                 left: '3%',
@@ -22,13 +23,16 @@
                 data: ['0', '5', '10', '15', '20', '25', '30', 'år']
             },
             yAxis: {
-                type: 'value'
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} kr.'
+                },
             },
             series: [
                 {
                     name: 'Energiudgift efter investering',
                     type: 'line',
-                    data: [250000, 375000, 500000, 625000, 750000, 950000, 1250000, 1450000]
+                    data: [250000, 375000, 500000, 625000, 750000, 950000, 1250000, 1450000],
                 },
                 {
                     name: 'Nuværende energiforbrug',

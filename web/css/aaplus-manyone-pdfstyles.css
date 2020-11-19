@@ -301,22 +301,42 @@ img.full-width {
 }
 .chart-heading {
     position: absolute;
-    display: flex;
 
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    z-index: 100;
+
+    padding-top: 75px;
+
+    text-align: center;
 }
 .chart-heading__title {
+    position: relative;
+
     font-size: 5em;
     font-weight: bold;
 
     color: #62c5d3;
+}
+.chart-heading__title::after {
+    display: block;
+    position: absolute;
+
+    top: 100%;
+    left: 50%;
+
+    height: 2px;
+    width: 30px;
+
+    margin-top: -20px;
+    margin-left: -15px;
+
+    background-color: #f2f2f0;
+
+    content: "";
 }
 .chart-heading__subtitle {}
 

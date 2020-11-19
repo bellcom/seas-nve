@@ -3,10 +3,11 @@
 
 <div class="row">
     <div class="col-xs-6">
-        <br><br>
         <div id="{{ barChartIdRandomized }}" style="height: 370px; width: 100%;"></div>
     </div>
     <div class="col-xs-6">
+        <br>
+
         <div class="chart">
             <div class="chart-heading">
                 <div class="chart-heading__title">{{ chart_data.reduction }}%</div>
@@ -15,7 +16,7 @@
                 </div>
             </div>
 
-            <div id="{{ doughnutIdRandomized }}" style="width: 450px; height: 450px;"></div>
+            <div id="{{ doughnutIdRandomized }}" style="width: 300px; height: 300px;"></div>
         </div>
     </div>
 </div>
@@ -46,7 +47,6 @@
 
 <script>
     (function () {
-        var colors = ['#a7cb11', '#f2f2f0'];
         var chartData = {{ chart_data | json_encode | raw }};
         var chart = echarts.init(document.getElementById('{{ doughnutIdRandomized }}'), 'seas-theme');
 
@@ -56,7 +56,7 @@
                 {
                     name: 'samletForbrugPieChart',
                     type: 'pie',
-                    radius: ['50%', '70%'],
+                    radius: ['100%', '75%'],
                     avoidLabelOverlap: false,
                     label: {
                         show: false,
@@ -66,8 +66,20 @@
                         show: false
                     },
                     data: [
-                        {value: 15, name: 'Energireduktion'},
-                        {value: 85, name: 'Blankt'},
+                        {
+                            value: chartData.reduction,
+                            name: 'Energireduktion',
+                            itemStyle: {
+                                color: '#62c5d3',
+                            }
+                        },
+                        {
+                            value: parseInt(100 - chartData.reduction),
+                            name: 'Blankt',
+                            itemStyle: {
+                                color: '#f2f2f0',
+                            },
+                        },
                     ]
                 }
             ]
