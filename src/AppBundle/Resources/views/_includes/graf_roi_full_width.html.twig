@@ -4,13 +4,19 @@
 
 <script>
     (function () {
-        var colors = ['#a7cb11', '#62c5d3', '#fe9029'];
         var chartData = {{ chart_data | json_encode | raw }};
         var chart = echarts.init(document.getElementById('{{ chartIdRandomized }}'), 'seas-theme');
+        var data = {
+            optimeret: chartData.data.optimeret.map(function(data) {
+                return parseInt(data);
+            }),
+            nuvaerende: chartData.data.nuvaerende.map(function(data) {
+                return parseInt(data);
+            }),
+        };
 
         var option = {
             animation: false,
-            color: colors,
             grid: {
                 top: 10,
                 left: '3%',
@@ -33,12 +39,12 @@
                 {
                     name: 'Energiudgift efter investering',
                     type: 'line',
-                    data: [250000, 375000, 500000, 625000, 750000, 950000, 1250000, 1450000],
+                    data: data.optimeret
                 },
                 {
                     name: 'Nuværende energiforbrug',
                     type: 'line',
-                    data: [5, 230000, 370000, 659000, 950000, 1300000, 1650000, 1980000]
+                    data: data.nuvaerende
                 },
             ]
         };
