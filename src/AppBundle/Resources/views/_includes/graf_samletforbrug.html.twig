@@ -23,13 +23,11 @@
 
 <script>
     (function () {
-        var colors = ['#a7cb11', '#62c5d3', '#fe9029'];
         var chartData = {{ chart_data | json_encode | raw }};
         var chart = echarts.init(document.getElementById('{{ barChartIdRandomized }}'), 'seas-theme');
 
         var option = {
             animation: false,
-            color: colors,
             xAxis: {
                 data: ['Nuværende forbrug', 'Optimeret forbrug']
             },
@@ -39,17 +37,18 @@
                     name: 'Nuværende forbrug',
                     type: 'bar',
                     stack: 'unify',
-                    data: [85, '-'],
+                    data: [parseInt(chartData.data.nuvaerende), '-'],
                     barMaxWidth: 50,
                     itemStyle: {
                         color: '#a7cb11',
                         barBorderRadius: [10, 10, 0, 0],
                     },
-                }, {
+                },
+                {
                     name: 'Optimeret forbrug',
                     type: 'bar',
                     stack: 'unify',
-                    data: ['-', 60],
+                    data: ['-', parseInt(chartData.data.optimeret)],
                     barMaxWidth: 50,
                     itemStyle: {
                         color: '#62c5d3',
