@@ -654,7 +654,7 @@ td.active-span.last span {
 }
 
 .box--produktivitet {
-    font-weight: 0;
+    font-weight: bold;
     font-size: 1.2em;
 }
 .box--produktivitet p:last-child {
