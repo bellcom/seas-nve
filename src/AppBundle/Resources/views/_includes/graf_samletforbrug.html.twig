@@ -3,6 +3,7 @@
 
 <div class="row">
     <div class="col-xs-6">
+        <br><br>
         <div id="{{ barChartIdRandomized }}" style="height: 370px; width: 100%;"></div>
     </div>
     <div class="col-xs-6">
@@ -14,18 +15,20 @@
                 </div>
             </div>
 
-            <div id="{{ doughnutIdRandomized }}" style="width: 300px; height: 300px;"></div>
+            <div id="{{ doughnutIdRandomized }}" style="width: 450px; height: 450px;"></div>
         </div>
     </div>
 </div>
 
 <script>
     (function () {
-        // based on prepared DOM, initialize echarts instance
+        var colors = ['#a7cb11', '#62c5d3', '#fe9029'];
         var chartData = {{ chart_data | json_encode | raw }};
-        var chart = echarts.init(document.getElementById('{{ barChartIdRandomized }}'), 'vintage');
+        var chart = echarts.init(document.getElementById('{{ barChartIdRandomized }}'), 'seas-theme');
 
         var option = {
+            animation: false,
+            color: colors,
             xAxis: {
                 data: ['Nuværende forbrug', 'Optimeret forbrug']
             },
@@ -43,17 +46,12 @@
 
 <script>
     (function () {
-        // based on prepared DOM, initialize echarts instance
+        var colors = ['#a7cb11', '#f2f2f0'];
         var chartData = {{ chart_data | json_encode | raw }};
-        var myChart = echarts.init(document.getElementById('{{ doughnutIdRandomized }}'), 'vintage');
+        var chart = echarts.init(document.getElementById('{{ doughnutIdRandomized }}'), 'seas-theme');
 
-        // specify chart configuration item and data
         var option = {
-            legend: {
-                orient: 'vertical',
-                left: 10,
-                data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-            },
+            animation: false,
             series: [
                 {
                     name: 'samletForbrugPieChart',
@@ -63,13 +61,6 @@
                     label: {
                         show: false,
                         position: 'center'
-                    },
-                    emphasis: {
-                        label: {
-                            show: true,
-                            fontSize: '30',
-                            fontWeight: 'bold'
-                        }
                     },
                     labelLine: {
                         show: false
@@ -82,7 +73,6 @@
             ]
         };
 
-        // use configuration item and data specified to show chart
-        myChart.setOption(option);
+        chart.setOption(option);
     }());
 </script>

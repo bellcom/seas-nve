@@ -19,7 +19,7 @@
         log('ECharts is not Loaded');
         return;
     }
-    echarts.registerTheme('vintage', {
+    echarts.registerTheme('seas-theme', {
         "color": [
             "#a7cb11",
             "#62c5d3",
@@ -47,7 +47,7 @@
                 "borderWidth": "0"
             },
             "lineStyle": {
-                "width": "5"
+                "width": "4"
             },
             "symbolSize": "0",
             "symbol": "circle",
@@ -58,7 +58,7 @@
                 "borderWidth": "0"
             },
             "lineStyle": {
-                "width": "5"
+                "width": "4"
             },
             "symbolSize": "0",
             "symbol": "circle",

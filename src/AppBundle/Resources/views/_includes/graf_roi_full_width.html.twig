@@ -6,7 +6,7 @@
     (function () {
         var colors = ['#a7cb11', '#62c5d3', '#fe9029'];
         var chartData = {{ chart_data | json_encode | raw }};
-        var chart = echarts.init(document.getElementById('{{ chartIdRandomized }}'), 'vintage');
+        var chart = echarts.init(document.getElementById('{{ chartIdRandomized }}'), 'seas-theme');
 
         var option = {
             color: colors,
@@ -16,15 +16,10 @@
                 bottom: '3%',
                 containLabel: true
             },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data: ['0', '5', '10', '15', '20', '25', '30']
+                data: ['0', '5', '10', '15', '20', '25', '30', 'år']
             },
             yAxis: {
                 type: 'value'
@@ -33,14 +28,12 @@
                 {
                     name: 'Energiudgift efter investering',
                     type: 'line',
-                    stack: '总量',
-                    data: [250000, 375000, 500000, 625000, 750000, 950000, 1250000]
+                    data: [250000, 375000, 500000, 625000, 750000, 950000, 1250000, 1450000]
                 },
                 {
                     name: 'Nuværende energiforbrug',
                     type: 'line',
-                    stack: '总量',
-                    data: [5, 230000, 370000, 659000, 950000, 1300000, 1650000]
+                    data: [5, 230000, 370000, 659000, 950000, 1300000, 1650000, 1980000]
                 },
             ]
         };
