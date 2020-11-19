@@ -490,16 +490,27 @@ abstract class RapportSektion
         $investering = $this->getInvestering();
 
         $roi = Calculation::divide($investering, $nuvaerendeForbrugKr - $optimeretForbrugKr);
-        $years = [];
-        foreach (array('start' => 0, 'end' => 30) as $key => $value) {
-            $years[$key] = array(
-                'year' => $value,
-                'nuvaerende' => $nuvaerendeForbrugKr * $value,
-                'optimeret' => $optimeretForbrugKr * $value + $investering,
-            );
+        $labels = array(
+            0 => '0',
+            5 => '5',
+            10 => '10',
+            15 => '15',
+            20 => '20',
+            25 => '25',
+            30 => '30',
+            35 => 'År',
+        );
+        $data = [
+            'labels' => $labels,
+            'nuvaerende' => array(),
+            'optimeret' => array(),
+        ];
+        foreach ($labels as $key => $value) {
+            $data['nuvaerende'][$key] = $nuvaerendeForbrugKr * $key;
+            $data['optimeret'][$key] = $optimeretForbrugKr * $key + $investering;
         }
         return array(
-            'years' => $years,
+            'data' => $data,
             'investering' => $investering,
             'roi' => $roi,
         );
