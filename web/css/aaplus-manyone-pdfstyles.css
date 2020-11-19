@@ -652,3 +652,11 @@ td.active-span.last span {
     max-width: 1400px;
     table-layout: auto !important;
 }
+
+.box--produktivitet {
+    font-weight: 0;
+    font-size: 1.2em;
+}
+.box--produktivitet p:last-child {
+    margin-bottom: 0;
+}
