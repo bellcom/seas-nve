@@ -3,6 +3,7 @@
 
 <div class="row">
     <div class="col-xs-6">
+        <br><br>
         <div id="{{ barChartIdRandomized }}" style="height: 370px; width: 100%;"></div>
     </div>
     <div class="col-xs-6">
@@ -14,62 +15,46 @@
                 </div>
             </div>
 
-            <div id="{{ doughnutIdRandomized }}" style="width: 300px; height: 300px;"></div>
+            <div id="{{ doughnutIdRandomized }}" style="width: 450px; height: 450px;"></div>
         </div>
     </div>
 </div>
 
 <script>
     (function () {
-        // based on prepared DOM, initialize echarts instance
+        var colors = ['#a7cb11', '#62c5d3', '#fe9029'];
         var chartData = {{ chart_data | json_encode | raw }};
-        var myChart = echarts.init(document.getElementById('{{ barChartIdRandomized }}'));
+        var chart = echarts.init(document.getElementById('{{ barChartIdRandomized }}'), 'seas-theme');
 
-        // specify chart configuration item and data
         var option = {
-            title: {
-                text: 'ECharts entry example'
-            },
-            tooltip: {},
-            legend: {
-                data: ['Sales']
-            },
+            animation: false,
+            color: colors,
             xAxis: {
-                data: ["shirt", "cardign", "chiffon shirt", "pants", "heels", "socks"]
+                data: ['Nuværende forbrug', 'Optimeret forbrug']
             },
             yAxis: {},
             series: [{
-                name: 'Sales',
+                name: 'samletForbrugBarChart',
                 type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
+                data: [85, 60]
             }]
         };
 
-        // use configuration item and data specified to show chart
-        myChart.setOption(option);
+        chart.setOption(option);
     }());
 </script>
 
 <script>
     (function () {
-        // based on prepared DOM, initialize echarts instance
+        var colors = ['#a7cb11', '#f2f2f0'];
         var chartData = {{ chart_data | json_encode | raw }};
-        var myChart = echarts.init(document.getElementById('{{ doughnutIdRandomized }}'));
+        var chart = echarts.init(document.getElementById('{{ doughnutIdRandomized }}'), 'seas-theme');
 
-        // specify chart configuration item and data
         var option = {
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b}: {c} ({d}%)'
-            },
-            legend: {
-                orient: 'vertical',
-                left: 10,
-                data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-            },
+            animation: false,
             series: [
                 {
-                    name: '访问来源',
+                    name: 'samletForbrugPieChart',
                     type: 'pie',
                     radius: ['50%', '70%'],
                     avoidLabelOverlap: false,
@@ -77,29 +62,17 @@
                         show: false,
                         position: 'center'
                     },
-                    emphasis: {
-                        label: {
-                            show: true,
-                            fontSize: '30',
-                            fontWeight: 'bold'
-                        }
-                    },
                     labelLine: {
                         show: false
                     },
                     data: [
-                        {value: 335, name: '直接访问'},
-                        {value: 310, name: '邮件营销'},
-                        {value: 234, name: '联盟广告'},
-                        {value: 135, name: '视频广告'},
-                        {value: 1548, name: '搜索引擎'}
+                        {value: 15, name: 'Energireduktion'},
+                        {value: 85, name: 'Blankt'},
                     ]
                 }
             ]
         };
 
-
-        // use configuration item and data specified to show chart
-        myChart.setOption(option);
+        chart.setOption(option);
     }());
 </script>
