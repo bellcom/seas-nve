@@ -1,17 +1,16 @@
 {% set chartIdRandomized = 'roi-' ~ random() %}
 
-<div id="{{ chartIdRandomized }}" style="width: 524px; height: 400px;"></div>
+<div id="{{ chartIdRandomized }}" style="width: 524px; height: 170px;"></div>
 
 <script>
     (function () {
-        var colors = ['#a7cb11', '#62c5d3', '#fe9029'];
         var chartData = {{ chart_data | json_encode | raw }};
         var chart = echarts.init(document.getElementById('{{ chartIdRandomized }}'), 'seas-theme');
 
         var option = {
             animation: false,
-            color: colors,
             grid: {
+                top: 10,
                 left: '3%',
                 right: '4%',
                 bottom: '3%',

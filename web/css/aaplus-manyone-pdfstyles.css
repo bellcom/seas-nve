@@ -35,6 +35,7 @@ h1.enlarged {
 
 .h1 small,
 h1 small {
+    letter-spacing: normal;
     font-weight: bold;
     font-size: 1rem;
 
