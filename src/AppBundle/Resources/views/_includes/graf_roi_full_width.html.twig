@@ -4,10 +4,12 @@
 
 <script>
     (function () {
+        var colors = ['#a7cb11', '#62c5d3', '#fe9029'];
         var chartData = {{ chart_data | json_encode | raw }};
-        var chart = echarts.init(document.getElementById('{{ chartIdRandomized }}'));
+        var chart = echarts.init(document.getElementById('{{ chartIdRandomized }}'), 'vintage');
 
         var option = {
+            color: colors,
             grid: {
                 left: '3%',
                 right: '4%',

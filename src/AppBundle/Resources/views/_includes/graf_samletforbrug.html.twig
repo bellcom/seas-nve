@@ -23,7 +23,7 @@
     (function () {
         // based on prepared DOM, initialize echarts instance
         var chartData = {{ chart_data | json_encode | raw }};
-        var chart = echarts.init(document.getElementById('{{ barChartIdRandomized }}'));
+        var chart = echarts.init(document.getElementById('{{ barChartIdRandomized }}'), 'vintage');
 
         var option = {
             xAxis: {
@@ -45,7 +45,7 @@
     (function () {
         // based on prepared DOM, initialize echarts instance
         var chartData = {{ chart_data | json_encode | raw }};
-        var myChart = echarts.init(document.getElementById('{{ doughnutIdRandomized }}'));
+        var myChart = echarts.init(document.getElementById('{{ doughnutIdRandomized }}'), 'vintage');
 
         // specify chart configuration item and data
         var option = {
