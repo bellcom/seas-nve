@@ -94,12 +94,10 @@
     <br><br>
 
     {% set energiForbrugData = section.energiForbrugData %}
-    {% set columnClass = 'col-md-12' %}
+    {% set columnClass = 'col-xs-12' %}
     {% if energiForbrugData | length > 10 %}
-      {% set columnClass = 'col-md-6' %}
+      {% set columnClass = 'col-xs-6' %}
     {% endif %}
-
-    {% set columnClass = 'col-xs-6' %}
 
     <div class="row">
       <div class="{{ columnClass }}">
