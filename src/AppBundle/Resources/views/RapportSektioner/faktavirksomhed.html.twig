@@ -87,7 +87,12 @@
 
   <div>
     <h1>Energiforbrug og fordeling</h1>
-    <div class="section-fakta-energi-text">{{ section.energiForbrugTekst | raw }}</div>
+    <div class="section-fakta-energi-text">
+      {{ section.energiForbrugTekst | raw }}
+    </div>
+
+    <br><br>
+
     {% set energiForbrugData = section.energiForbrugData %}
     {% set columnClass = 'col-md-12' %}
     {% if energiForbrugData | length > 10 %}
@@ -98,7 +103,7 @@
 
     <div class="row">
       <div class="{{ columnClass }}">
-        {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: section.energiForbrugData }) }}
+        {{ include ('AppBundle:_includes:graf_report_pie_chart.html.twig', { pie_chart_data: section.energiForbrugData }) }}
       </div>
       <div class="{{ columnClass }}">
 
