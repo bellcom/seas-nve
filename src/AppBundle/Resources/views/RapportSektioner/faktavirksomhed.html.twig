@@ -83,63 +83,65 @@
     </div>
   </div>
 
-  {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
+  {% if rapport_type == 'energisyn' %}
+    {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
 
-  <div>
-    <h1>Energiforbrug og fordeling</h1>
-    <div class="section-fakta-energi-text">
-      {{ section.energiForbrugTekst | raw }}
-    </div>
-
-    <br><br>
-
-    {% set energiForbrugData = section.energiForbrugData %}
-    {% set columnClass = 'col-xs-12' %}
-    {% if energiForbrugData | length > 10 %}
-      {% set columnClass = 'col-xs-6' %}
-    {% endif %}
-
-    <div class="row">
-      <div class="{{ columnClass }}">
-        {{ include ('AppBundle:_includes:graf_report_pie_chart.html.twig', { pie_chart_data: section.energiForbrugData }) }}
+    <div>
+      <h1>Energiforbrug og fordeling</h1>
+      <div class="section-fakta-energi-text">
+        {{ section.energiForbrugTekst | raw }}
       </div>
-      <div class="{{ columnClass }}">
 
-        <div class="data-list">
-          <div class="data-list__heading">
-            <div class="row">
-              <div class="col-xs-6"><strong>Slutanvendelse</strong></div>
-              <div class="col-xs-6 text-right"><strong>kWh/år</strong></div>
-            </div>
-          </div>
+      <br><br>
 
-          {% for row in section.energiForbrugData %}
-            <div class="data-list__item">
+      {% set energiForbrugData = section.energiForbrugData %}
+      {% set columnClass = 'col-xs-12' %}
+      {% if energiForbrugData | length > 10 %}
+        {% set columnClass = 'col-xs-6' %}
+      {% endif %}
+
+      <div class="row">
+        <div class="{{ columnClass }}">
+          {{ include ('AppBundle:_includes:graf_report_pie_chart.html.twig', { pie_chart_data: section.energiForbrugData }) }}
+        </div>
+        <div class="{{ columnClass }}">
+
+          <div class="data-list">
+            <div class="data-list__heading">
               <div class="row">
-                <div class="col-xs-6">{{ row.label_wihout_procent }}</div>
-                <div class="col-xs-6 text-right">{{ row.value | format_decimal }}</div>
+                <div class="col-xs-6"><strong>Slutanvendelse</strong></div>
+                <div class="col-xs-6 text-right"><strong>kWh/år</strong></div>
               </div>
             </div>
-          {% endfor %}
-        </div>
 
-        <br>
-
-        <div class="box box--primary">
-          <div>
-            <span class="h2">Samlet forbrug:</span>
+            {% for row in section.energiForbrugData %}
+              <div class="data-list__item">
+                <div class="row">
+                  <div class="col-xs-6">{{ row.label_wihout_procent }}</div>
+                  <div class="col-xs-6 text-right">{{ row.value | format_decimal }}</div>
+                </div>
+              </div>
+            {% endfor %}
           </div>
 
           <br>
 
-          <div>
-            <span class="h1 enlarged">
-              {{ section.energiForbrugSamlet | format_decimal }}
-              <small>kWh/år</small>
-            </span>
+          <div class="box box--primary">
+            <div>
+              <span class="h2">Samlet forbrug:</span>
+            </div>
+
+            <br>
+
+            <div>
+              <span class="h1 enlarged">
+                {{ section.energiForbrugSamlet | format_decimal }}
+                <small>kWh/år</small>
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  {% endif %}
 {% endblock %}
