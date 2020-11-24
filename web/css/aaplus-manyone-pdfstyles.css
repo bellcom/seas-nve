@@ -254,6 +254,22 @@ img.full-width {
     background-color: rgba(116, 118, 108, 0.05);
 }
 
+.box--primary {
+    background-color: #006f55;
+}
+
+.box--primary,
+.box--primary h1,
+.box--primary h2,
+.box--primary h3,
+.box--primary h4,
+.box--primary h5,
+.box--primary h6,
+.box--primary p,
+.box--primary small {
+    color: #fff;
+}
+
 .box--samlet-besparelse {
     text-align: center;
     font-weight: bold;
@@ -662,4 +678,16 @@ td.active-span.last span {
 }
 .box--produktivitet p:last-child {
     margin-bottom: 0;
+}
+
+.data-list__heading {
+    padding-bottom: 11px;
+
+    border-bottom: 1px solid #61c6d3;
+}
+.data-list__item {
+    padding-top: 11px;
+    padding-bottom: 11px;
+
+    border-bottom: 1px solid #e4e4e2;
 }

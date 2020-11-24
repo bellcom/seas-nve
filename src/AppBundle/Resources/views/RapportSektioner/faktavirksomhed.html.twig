@@ -4,33 +4,52 @@
   {{ parent() }}
   {% set rapport = section.rapport %}
   <div class="row">
-      {% if rapport.bygningerRapporter() is not empty %}
-      <div class="col-md-6">
-        <div class="section-fakta-bygninger">
-          <h2>Bygninger</h2>
+
+    {% if rapport.bygningerRapporter() is not empty %}
+      <div class="col-xs-6">
+        <div class="data-list">
+          <div class="data-list__heading">
+            <h2>Bygninger</h2>
+          </div>
+
           {% for rapport in rapport.bygningerRapporter() %}
-            <div>{{ rapport.bygning }}</div>
+            <div class="data-list__item">
+              {{ rapport.bygning }}
+            </div>
           {% endfor %}
         </div>
       </div>
     {% endif %}
+
     {% if rapport.virksomhed.getDatterSelskaber() is not empty %}
-      <div class="col-md-6">
-        <div class="section-fakta-datterselskaber">
-          <h2>Datterseskaber</h2>
-          {% for datterSelskab in rapport.virksomhed.getDatterSelskaber() %}
-            {% if datterSelskab.name %}
-              <div>{{ datterSelskab.name }}</div>
-            {% endif %}
-          {% endfor %}
+      <div class="col-xs-6">
+        <div class="data-list">
+          <div class="data-list__heading">
+            <h2>Datterseskaber</h2>
+          </div>
         </div>
+
+        {% for datterSelskab in rapport.virksomhed.getDatterSelskaber() %}
+          {% if datterSelskab.name %}
+            <div class="data-list__item">
+              {{ datterSelskab.name }}
+            </div>
+          {% endif %}
+        {% endfor %}
       </div>
     {% endif %}
+
   </div>
+
+  <br><br>
+
   <div class="row">
-    <div class="col-md-6">
-      <div class="section-fakta-enheder">
-        <h2>Anvendte enheder:</h2>
+    <div class="col-xs-6">
+      <div class="data-list">
+        <div class="data-list__heading">
+          <h2>Anvendte enheder:</h2>
+        </div>
+
         {% for field, label in {
           'elForbrug': 'kr./kWh i el',
           'varmeForbrug': 'kr./kWh i varme',
@@ -39,27 +58,34 @@
           'co2Forbrug': 'ton i CO2' ~ (section.anvendteCo2Tekst ? '*' : ''),
         } %}
           {% if attribute(section, field) %}
-            <div class="row">
-              <div class="col-md-6">{{ label }}</div>
-              <div class="col-md-6 text-right">{{ attribute(section, field) }}</div>
+            <div class="data-list__item">
+              <div class="row">
+                <div class="col-md-6">{{ label }}</div>
+                <div class="col-md-6 text-right">{{ attribute(section, field) }}</div>
+              </div>
             </div>
           {% endif %}
         {% endfor %}
       </div>
     </div>
-    <div class="col-md-6">
+
+    <div class="col-xs-6">
       <div class="section-fakta-enheder-text">
         <p>{{ section.anvendteTekst }}</p>
       </div>
+
       {% if section.anvendteCo2Tekst %}
-      <div class="section-fakta-enheder-co2Text">
-        <p>* {{ section.anvendteCo2Tekst }}</p>
-      </div>
+        <div class="section-fakta-enheder-co2Text">
+          <p>* {{ section.anvendteCo2Tekst }}</p>
+        </div>
       {% endif %}
+
     </div>
   </div>
+
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
-  <div class="section-fakta-energi">
+
+  <div>
     <h1>Energiforbrug og fordeling</h1>
     <div class="section-fakta-energi-text">{{ section.energiForbrugTekst | raw }}</div>
     {% set energiForbrugData = section.energiForbrugData %}
@@ -67,27 +93,48 @@
     {% if energiForbrugData | length > 10 %}
       {% set columnClass = 'col-md-6' %}
     {% endif %}
+
+    {% set columnClass = 'col-xs-6' %}
+
     <div class="row">
       <div class="{{ columnClass }}">
         {{ include ('AppBundle:_includes:graf_pie_chart.html.twig', { pie_chart_data: section.energiForbrugData }) }}
       </div>
       <div class="{{ columnClass }}">
-        <div class="section-fakta-energi-forbrug-list">
-          <div class="row">
-            <div class="col-md-6"><strong>Slutanvendelse</strong></div>
-            <div class="col-md-6 text-right"><strong>kWh/år</strong></div>
-          </div>
-          {% for row in section.energiForbrugData %}
+
+        <div class="data-list">
+          <div class="data-list__heading">
             <div class="row">
-              <div class="col-md-6">{{ row.label_wihout_procent }}</div>
-              <div class="col-md-6 text-right">{{ row.value | format_decimal }}</div>
+              <div class="col-xs-6"><strong>Slutanvendelse</strong></div>
+              <div class="col-xs-6 text-right"><strong>kWh/år</strong></div>
+            </div>
+          </div>
+
+          {% for row in section.energiForbrugData %}
+            <div class="data-list__item">
+              <div class="row">
+                <div class="col-xs-6">{{ row.label_wihout_procent }}</div>
+                <div class="col-xs-6 text-right">{{ row.value | format_decimal }}</div>
+              </div>
             </div>
           {% endfor %}
         </div>
-        <div class="section-fakta-energi-forbrug-samlet">
-          <span>Samlet forbrug:</span>
-          <span>{{ section.energiForbrugSamlet | format_decimal }}</span>
-          <span class="section-fakta-energi-forbrug-samlet-unit">kWh/år</span>
+
+        <br>
+
+        <div class="box box--primary">
+          <div>
+            <span class="h2">Samlet forbrug:</span>
+          </div>
+
+          <br>
+
+          <div>
+            <span class="h1 enlarged">
+              {{ section.energiForbrugSamlet | format_decimal }}
+              <small>kWh/år</small>
+            </span>
+          </div>
         </div>
       </div>
     </div>
