@@ -169,23 +169,6 @@
           <td class="text-right">{{ entity.besparelseAarEt | format_amount }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.besparelseAarEt.unit' | trans }}</td>
         </tr>
-        <tr>
-          <th class="indent"></th>
-          <td class="text-right"></td>
-          <td></td>
-          <th>{{ 'appbundle.virksomhed_rapport.internRenteInklFaellesomkostninger' | trans }}<div class="calculation-expression hidden">{{ entity.expr('internRenteInklFaellesomkostninger') }}</div></th>
-          <td class="text-right">
-            {% if entity.internRenteInklFaellesomkostninger < 100 %}
-              {{ entity.internRenteInklFaellesomkostninger | format_percent_nounit }}
-            {% else %}
-              <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">({{ 'common.calculated_value' | trans }}: {{ entity.internRenteInklFaellesomkostninger | format_percent_nounit }})</span> <span
-                    class="aaplus-note-marker"></span>
-              –
-            </span>
-            {% endif %}
-          </td>
-          <td>{{ 'appbundle.virksomhed_rapport.internRenteInklFaellesomkostninger.unit' | trans }}</td>
-        </tr>
         </tbody>
       </table>
     </div>

@@ -138,17 +138,6 @@
           <td class="text-right">{{ rapport.summarizedRapportValues.nutidsvaerdiSetOver15AarKr | format_hundreds }}</td>
           <td>{{ 'appbundle.virksomhed_rapport.nutidsvaerdi.unit' | trans }}</td>
         </tr>
-        <tr>
-          <th>{{ 'appbundle.virksomhed_rapport.internRenteInklFaellesomkostninger' | trans }}</th>
-          <td class="text-right">
-            {% if rapport.summarizedRapportValues.internRenteInklFaellesomkostninger < 100 %}
-              {{ rapport.summarizedRapportValues.internRenteInklFaellesomkostninger | format_percent_nounit }}
-            {% else %}
-              --
-            {% endif %}
-          </td>
-          <td>{{ 'appbundle.virksomhed_rapport.internRenteInklFaellesomkostninger.unit' | trans }}</td>
-        </tr>
         </tbody>
       </table>
 
