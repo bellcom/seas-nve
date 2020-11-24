@@ -9,7 +9,7 @@ body {
 }
 
 body.rapport-review {
-    font-size: 12px;
+    /*font-size: 12px;*/
 }
 
 div.portrait {
@@ -35,6 +35,7 @@ h1.enlarged {
 
 .h1 small,
 h1 small {
+    letter-spacing: normal;
     font-weight: bold;
     font-size: 1rem;
 
@@ -253,6 +254,22 @@ img.full-width {
     background-color: rgba(116, 118, 108, 0.05);
 }
 
+.box--primary {
+    background-color: #006f55;
+}
+
+.box--primary,
+.box--primary h1,
+.box--primary h2,
+.box--primary h3,
+.box--primary h4,
+.box--primary h5,
+.box--primary h6,
+.box--primary p,
+.box--primary small {
+    color: #fff;
+}
+
 .box--samlet-besparelse {
     text-align: center;
     font-weight: bold;
@@ -301,22 +318,42 @@ img.full-width {
 }
 .chart-heading {
     position: absolute;
-    display: flex;
 
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    z-index: 100;
+
+    padding-top: 75px;
+
+    text-align: center;
 }
 .chart-heading__title {
+    position: relative;
+
     font-size: 5em;
     font-weight: bold;
 
     color: #62c5d3;
+}
+.chart-heading__title::after {
+    display: block;
+    position: absolute;
+
+    top: 100%;
+    left: 50%;
+
+    height: 2px;
+    width: 30px;
+
+    margin-top: -20px;
+    margin-left: -15px;
+
+    background-color: #f2f2f0;
+
+    content: "";
 }
 .chart-heading__subtitle {}
 
@@ -459,6 +496,9 @@ img.full-width {
 
 /* Opsummering. */
 .block-opsummering--seas-anbefaler {
+    padding-top: 30px;
+}
+.block-opsummering--potentiel-besparelse {
     padding-top: 30px;
 }
 .block-opsummering--potentiel-besparelse > h2 {
@@ -630,4 +670,24 @@ td.active-span.last span {
 .section-tiltag.landscape .row table.table {
     max-width: 1400px;
     table-layout: auto !important;
+}
+
+.box--produktivitet {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.box--produktivitet p:last-child {
+    margin-bottom: 0;
+}
+
+.data-list__heading {
+    padding-bottom: 11px;
+
+    border-bottom: 1px solid #61c6d3;
+}
+.data-list__item {
+    padding-top: 11px;
+    padding-bottom: 11px;
+
+    border-bottom: 1px solid #e4e4e2;
 }

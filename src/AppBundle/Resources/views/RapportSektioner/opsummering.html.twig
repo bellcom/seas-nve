@@ -34,6 +34,7 @@
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
   <div class="block block-opsummering--samlet-forbrug">
     <h2>Samlet forbrug</h2>
+    <br>
     {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
   </div>
   <div class="block block-opsummering--potentiel-besparelse">
@@ -54,19 +55,21 @@
   </div>
   <div class="block block-opsummering--roi">
     <h2>Simpel tilbagebetalingtid (ROI)</h2>
+    <br>
     {% include 'AppBundle:_includes:graf_roi_full_width.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
 
-    <ul class="list-inline">
-      <li>
-        <span class="color-square color-square--brand-1"></span> Nuværende energiforbrug
-      </li>
-      <li>
-        <span class="color-square color-square--brand-2"></span> Energiudgift efter investering
-      </li>
-      <li>
-        <span class="color-square color-square--brand-4"></span> Lorem ipsum
-      </li>
-      <li></li>
-    </ul>
+    <div class="text-center">
+      <ul class="list-inline">
+        <li>
+          <span class="color-square color-square--brand-1"></span> Nuværende energiforbrug
+        </li>
+        <li>
+          <span class="color-square color-square--brand-2"></span> Energiudgift efter investering
+        </li>
+{#        <li>#}
+{#          <span class="color-square color-square--brand-4"></span> Lorem ipsum#}
+{#        </li>#}
+      </ul>
+    </div>
   </div>
 {% endblock %}
