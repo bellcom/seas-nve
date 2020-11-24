@@ -21,7 +21,7 @@
           {% if section.anbefalinger | length < 3 and review %}
             <div class="col-xs-4">
               <br><br><br>
-              <a href="{{ path('virksomhed_oversigt_rapport_sektioner_new', { 'virksomhed_rapport': section.rapport.id, 'type': 'anbefaling', 'destination': path('virksomhed_rapport_pdf_review', { 'id': section.rapport.id, 'type': 'oversigt' })}) }}" class="btn btn-default">
+              <a href="{{ path('virksomhed_rapport_sektioner_new', { 'virksomhed_rapport': section.rapport.id, 'rapport_type': rapport_type, 'type': 'anbefaling', 'destination': path('virksomhed_rapport_pdf_review', { 'id': section.rapport.id, 'type': rapport_type })}) }}" class="btn btn-default">
                 <span class="fa fa-plus"></span>
                 Tilføj anbefaling
               </a>

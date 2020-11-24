@@ -899,6 +899,9 @@ virksomhed_rapporter:
     edit_tekster: "Tekster"
     filer: "Filer"
     pdf2: "Resultatoversigt"
+    energisyn: "Energisyn"
+    screening: "Screening"
+    detailark: "Detailark"
     pdf_detailark: "Detailark"
     pdf_kortlaegning: "Kortlægning"
     re-calculate: "Genberegn"
@@ -924,6 +927,9 @@ virksomhed_rapporter:
   groups:
     baseline_data: "Baseline data"
     kortlaegning_tekster: "Kortlaegning tekster"
+  rapport_type:
+    energisyn: "Energisynrapport"
+    screening: "Screeningrapport"
 virksomhed_kortlaegning:
   label:
     plural: "Kortlægninger"

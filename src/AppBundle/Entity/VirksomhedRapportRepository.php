@@ -77,23 +77,33 @@ class VirksomhedRapportRepository extends BaseRepository {
         return $qb->getQuery();
     }
 
+    public function getOverviewRapportSektionerSorted(VirksomhedRapport $entity) {
+        return $this->getRapportSektionerSorted($entity, VirksomhedRapport::RAPPORT_ENERGISYN);
+    }
+
+    public function getScreeningRapportSektionerSorted(VirksomhedRapport $entity) {
+        return $this->getRapportSektionerSorted($entity, VirksomhedRapport::RAPPORT_SCREENING);
+    }
+
     /**
+     * Gets Rapport sektions in sorted order for specific rapport type. Creates missing sections with default values.
+     *
      * @param VirksomhedRapport $entity
      * @return array
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \ReflectionException
      */
-    public function getOverviewRapportSektionerSorted(VirksomhedRapport $entity) {
+    public function getRapportSektionerSorted(VirksomhedRapport $entity, $rapportType) {
         $sectionsSorted = [];
-        foreach ($entity->getRapportOversigtSektionerStruktur() as $sectionType) {
+        foreach ($entity->getRapportSektionerStruktur($rapportType) as $sectionType) {
             $className = RapportSektion::getRapportSektionClassByType($sectionType, TRUE);
             // Check if required amount sections are present.
             $checkSectionMethod = 'checkRapportSektion';
             if (method_exists($this, "check" . $className)) {
                 $checkSectionMethod = "check" . $className;
             }
-            $sections = $this->$checkSectionMethod($entity, $sectionType);
+            $sections = $this->$checkSectionMethod($entity, $rapportType, $sectionType);
             foreach ($sections as $section) {
                 $section->init($this->_em);
                 $sectionsSorted[] = $section;
@@ -102,8 +112,8 @@ class VirksomhedRapportRepository extends BaseRepository {
         return $sectionsSorted;
     }
 
-    protected function checkRapportSektion(VirksomhedRapport $entity, $sectionType) {
-        $sections = $entity->getRapportOversigtSektioner();
+    protected function checkRapportSektion(VirksomhedRapport $entity, $rapportType, $sectionType) {
+        $sections = $entity->getRapportSektioner($rapportType);
         $existing = $sections->filter(function($section) use ($sectionType) {
             return get_class($section) == RapportSektion::getRapportSektionClassByType($sectionType);
         });
@@ -118,8 +128,8 @@ class VirksomhedRapportRepository extends BaseRepository {
             /** @var RapportSektionRepository $sektionerRepository */
             $sektionRepository = $this->_em->getRepository('AppBundle:RapportSektioner\RapportSektion');
             /** @var RapportSektion $newSection */
-            $newSection = $sektionRepository->create($sectionType);
-            $newSection->setVirksomhedOversigtRapport($entity);
+            $newSection = $sektionRepository->create($sectionType, array('rapport_type' => $rapportType));
+            $newSection->setVirksomhedRapport($entity, $rapportType);
 
             $this->_em->persist($newSection);
             $this->_em->flush();
@@ -129,8 +139,8 @@ class VirksomhedRapportRepository extends BaseRepository {
         return $sections;
     }
 
-    protected function checkAnbefalingRapportSektion(VirksomhedRapport $entity) {
-        $sections = $entity->getRapportOversigtSektioner();
+    protected function checkAnbefalingRapportSektion(VirksomhedRapport $entity, $rapportType) {
+        $sections = $entity->getRapportSektioner($rapportType);
         $existing = $sections->filter(function($section) {
             return get_class($section) == RapportSektion::getRapportSektionClassByType('anbefaling');
         });
@@ -145,8 +155,8 @@ class VirksomhedRapportRepository extends BaseRepository {
             /** @var RapportSektionRepository $sektionerRepository */
             $sektionRepository = $this->_em->getRepository('AppBundle:RapportSektioner\RapportSektion');
             /** @var RapportSektion $newSection */
-            $newSection = $sektionRepository->create('anbefaling');
-            $newSection->setVirksomhedOversigtRapport($entity);
+            $newSection = $sektionRepository->create('anbefaling', array('rapport_type' => $rapportType));
+            $newSection->setVirksomhedRapport($entity, $rapportType);
 
             $this->_em->persist($newSection);
             $this->_em->flush();
@@ -156,8 +166,8 @@ class VirksomhedRapportRepository extends BaseRepository {
         return $sections;
     }
 
-    protected function checkTiltagRapportSektion(VirksomhedRapport $entity) {
-        $sections = $entity->getRapportOversigtSektioner();
+    protected function checkTiltagRapportSektion(VirksomhedRapport $entity, $rapportType) {
+        $sections = $entity->getRapportSektioner($rapportType);
         $tiltage = $entity->getBygningerRapporterTiltage();
         $tiltageRepository = $this->_em->getRepository('AppBundle:Tiltag');
 
@@ -197,8 +207,8 @@ class VirksomhedRapportRepository extends BaseRepository {
         /** @var Tiltag $tiltag */
         foreach ($tiltage as $tiltag) {
             /** @var TiltagRapportSektion $new_sektion */
-            $newSection = $sektionRepository->create('tiltag', array('tiltag' => $tiltag));
-            $newSection->setVirksomhedOversigtRapport($entity);
+            $newSection = $sektionRepository->create('tiltag', array('tiltag' => $tiltag, 'rapport_type' => $rapportType));
+            $newSection->setVirksomhedRapport($entity, $rapportType);
             $this->_em->persist($newSection);
             $this->_em->flush();
             $sections[] = $newSection;

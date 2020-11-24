@@ -81,6 +81,11 @@
   </div>
   <div class="container-fluid breadcrumbs-wrapper">
     {{ wo_render_breadcrumbs() }}
+    {% if back_url %}
+      <div class="text-right">
+        <a class="btn btn-default" href="{{ back_url }}">{% if back_title %}{{ back_title }}{% else %}{{ 'Tilbage' | trans }}{% endif %}</a>
+      </div>
+    {% endif %}
   </div>
 </nav>
 {% macro header(key) %}

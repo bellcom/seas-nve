@@ -642,6 +642,20 @@ class VirksomhedRapport
     protected $rapportOversigtSektioner;
 
     /**
+     * @OneToMany(targetEntity="AppBundle\Entity\RapportSektioner\RapportSektion", mappedBy="virksomhedScreeningRapport", cascade={"persist", "remove"})
+     * @OrderBy({"id" = "ASC"})
+     * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\RapportSektioner\RapportSektion>")
+     */
+    protected $rapportScreeningSektioner;
+
+    /**
+     * @OneToMany(targetEntity="AppBundle\Entity\RapportSektioner\RapportSektion", mappedBy="virksomhedDetailarkRapport", cascade={"persist", "remove"})
+     * @OrderBy({"id" = "ASC"})
+     * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\RapportSektioner\RapportSektion>")
+     */
+    protected $rapportDetailarkSektioner;
+
+    /**
      * @var ArrayCollection
      *
      * Stores all virksomheder involved in rapport.
@@ -673,11 +687,19 @@ class VirksomhedRapport
     protected $forbrugFoerCo2;
 
     /**
-     * Schema for sections
+     * Constant to define Energisyn rapport
      */
-    const RAPPORT_SEKTIONER = array(
-        'opsummering'
-    );
+    const RAPPORT_ENERGISYN = 'energisyn';
+
+    /**
+     * Constant to define screening rapport
+     */
+    const RAPPORT_SCREENING = 'screening';
+
+    /**
+     * Constant to define Detailark rapport
+     */
+    const RAPPORT_DETAILARK = 'detailark';
 
     /**
      * Constructor
@@ -2112,7 +2134,7 @@ class VirksomhedRapport
     }
 
     /**
-     * Set rapport sections
+     * Set rapport energisyn sections
      *
      * @param ArrayCollection $rapportOversigtSektioner
      * @return VirksomhedRapport
@@ -2134,11 +2156,75 @@ class VirksomhedRapport
     }
 
     /**
-     * Get RapportOversigtSektioner Structure.
+     * Set rapport screening sections
+     *
+     * @param ArrayCollection $rapportScreeningSektioner
+     * @return VirksomhedRapport
+     */
+    public function setRapportScreeningSektioner($rapportScreeningSektioner)
+    {
+        $this->rapportScreeningSektioner = $rapportScreeningSektioner;
+        return $this;
+    }
+
+    /**
+     * Get RapportScreeningSektioner
+     *
+     * @return ArrayCollection
+     */
+    public function getRapportScreeningSektioner()
+    {
+        return $this->rapportScreeningSektioner;
+    }
+
+    /**
+     * Set rapport detailark sections
+     *
+     * @param ArrayCollection $rapportDetailarkSektioner
+     * @return VirksomhedRapport
+     */
+    public function setRapportDetailarkSektioner($rapportDetailarkSektioner)
+    {
+        $this->rapportDetailarkSektioner = $rapportDetailarkSektioner;
+        return $this;
+    }
+
+    /**
+     * Get Rapport detailark sektioner
+     *
+     * @return ArrayCollection
+     */
+    public function getRapportDetailarkSektioner()
+    {
+        return $this->rapportDetailarkSektioner;
+    }
+
+    /**
+     * Get RapportSektioner by type
+     *
+     * @return ArrayCollection|NULL
+     */
+    public function getRapportSektioner($rapportType)
+    {
+        switch ($rapportType) {
+            case self::RAPPORT_ENERGISYN:
+                return $this->getRapportOversigtSektioner();
+
+            case self::RAPPORT_SCREENING:
+                return $this->getRapportScreeningSektioner();
+
+            case self::RAPPORT_DETAILARK:
+                return $this->getRapportDetailarkSektioner();
+        }
+        return NULL;
+    }
+
+    /**
+     * Get Rapport energisyn sektioner Structure.
      *
      * @return array
      */
-    public function getRapportOversigtSektionerStruktur()
+    public function getRapportEnergisynSektionerStruktur()
     {
         return array(
             'forside',
@@ -2151,6 +2237,61 @@ class VirksomhedRapport
             'tiltag',
             'tiltagtable',
         );
+    }
+
+    /**
+     * Get Rapport screening sektioner Structure.
+     *
+     * @return array
+     */
+    public function getRapportScreeningSektionerStruktur()
+    {
+        return array(
+            'forside',
+            'kontaktinformation',
+            'opsummering',
+            'anbefaling',
+            'faktavirksomhed',
+            'finansiering',
+            'baeredygtighed',
+            'tiltag',
+            'tiltagtable',
+        );
+    }
+
+    /**
+     * Get Rapport detailark sektioner Structure.
+     *
+     * @return array
+     */
+    public function getRapportDetailarkSektionerStruktur()
+    {
+        return array(
+            'forside',
+            'kontaktinformation',
+            'tiltag',
+            'tiltagtable',
+        );
+    }
+
+    /**
+     * Get RapportSektioner structure by type
+     *
+     * @return array|NULL
+     */
+    public function getRapportSektionerStruktur($rapportType)
+    {
+        switch ($rapportType) {
+            case self::RAPPORT_ENERGISYN:
+                return $this->getRapportEnergisynSektionerStruktur();
+
+            case self::RAPPORT_SCREENING:
+                return $this->getRapportScreeningSektionerStruktur();
+
+            case self::RAPPORT_DETAILARK:
+                return $this->getRapportDetailarkSektionerStruktur();
+        }
+        return NULL;
     }
 
     /**
