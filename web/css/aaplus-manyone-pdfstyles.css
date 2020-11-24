@@ -643,6 +643,24 @@ td.active-span.last span {
 }
 
 
+/* Forslag. */
+.block-forslag--meta {
+    background-color: #009e50;
+}
+.block-forslag--meta,
+.block-forslag--meta small {
+    color: #fff;
+}
+
+.region-forslag--meta {
+    padding-top: 70px;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 15mm;
+}
+.rapport-review .region-forslag--meta {
+    padding-right: 70px;
+}
 
 
 .section-tiltag.landscape {

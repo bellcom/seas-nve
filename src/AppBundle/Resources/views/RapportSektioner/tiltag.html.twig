@@ -35,30 +35,42 @@
 {% set sectionTypeNavn = (('rapportsektion.types.' ~ section.type ) | trans) ~ ' ' ~ section.number ~ '. ' ~ (('bygning_rapporter.strings.' ~ section.tiltagType ~ 'tiltag') | trans) %}
 {% block section -%}
   {{ block('section_type') }}
-  <div class="section-light-green">
-    {% if section.filepath %}
-      <div class="section-tiltag-image">
-        <img src="{{ absolute_url(asset(section.filepath)) }}" alt=""/>
+
+  <br><br><br><br>
+
+  <div class="block block-forslag--meta block--negative-margin">
+    <div class="row">
+      <div class="col-xs-4">
+        {% if section.filepath %}
+          <div>
+            <img src="{{ absolute_url(asset(section.filepath)) }}" alt=""/>
+          </div>
+        {% endif %}
       </div>
-    {% endif %}
-    <div class="section-tiltag-effect">
-      <div class="section-tiltag-effect-title">Effekt:</div>
-      <div class="row">
-        <div class="col-xs-4">
-          <span class="enlarged">{{ section.effektBesparesleCo2 | format_decimal }} <small>tons CO2</small></span>
-          <span>sparet årligt</span>
-        </div>
-        <div class="col-xs-4">
-          <span class="enlarged">{{ section.effektBesparesleKr | format_decimal(0) }} <small>kr.</small></span>
-          <span>sparet årligt</span>
-        </div>
-        <div class="col-xs-4">
-          <span class="enlarged">{{ section.effektBesparesleKwh | format_decimal(0) }} <small>kWh</small></span>
-          <span>sparet årligt</span>
+      <div class="col-xs-8">
+        <div class="region region-forslag--meta">
+          <div class="h4">Effekt:</div>
+
+          <div class="row">
+            <div class="col-xs-4">
+              <div class="h1 enlarged">{{ section.effektBesparesleCo2 | format_decimal }} <small>tons CO2</small></div>
+              <div>sparet årligt</div>
+            </div>
+            <div class="col-xs-4">
+              <div class="h1 enlarged">{{ section.effektBesparesleKr | format_decimal(0) }} <small>kr.</small></div>
+              <div>sparet årligt</div>
+            </div>
+            <div class="col-xs-4">
+              <div class="h1 enlarged">{{ section.effektBesparesleKwh | format_decimal(0) }} <small>kWh</small></div>
+              <div>sparet årligt</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <br><br>
 
   {% block section_title -%}
     {% if section.sectionTitle %}
@@ -73,21 +85,45 @@
     {% endif %}
   {% endblock %}
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
-  <h2>Forbrugsoptimering</h2>
-  {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
-  <h2>Nøgletal</h2>
-  <div class="section-tiltag-nogletal-chart">
-    {% include 'AppBundle:_includes:graf_noegletal.html.twig' with {
-      'investering' : section.ROIGrafData.investering,
-      'roi' : section.ROIGrafData.roi,
-      'tekniskelevetid' : section.tekniskelevetid,
-      'samletBesparelseOverAar' : section.getSamletBesparelseOverAar(section.tekniskelevetid)
-    } %}
+
+  <div>
+    <h2>Forbrugsoptimering</h2>
+    <br>
+    {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
   </div>
-  <h2>Simpel tilbagebetalingstid</h2>
-  {% include 'AppBundle:_includes:graf_roi.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
+
+  <div>
+    <h2>Nøgletal</h2>
+    <div class="section-tiltag-nogletal-chart">
+      {% include 'AppBundle:_includes:graf_noegletal.html.twig' with {
+        'investering' : section.ROIGrafData.investering,
+        'roi' : section.ROIGrafData.roi,
+        'tekniskelevetid' : section.tekniskelevetid,
+        'samletBesparelseOverAar' : section.getSamletBesparelseOverAar(section.tekniskelevetid)
+      } %}
+    </div>
+  </div>
+
+  <br>
+
+  <div>
+    <h2>Simpel tilbagebetalingstid</h2>
+    <br>
+    {% include 'AppBundle:_includes:graf_roi_full_width.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
+    <div class="text-center">
+      <ul class="list-inline">
+        <li>
+          <span class="color-square color-square--brand-1"></span> Nuværende energiforbrug
+        </li>
+        <li>
+          <span class="color-square color-square--brand-2"></span> Energiudgift efter investering
+        </li>
+      </ul>
+    </div>
+  </div>
 
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
+
   <div class="section-tiltag-details">
     <h2>Forslagsdetaljer</h2>
     <h3>{{ 'common.result_overview' | trans }}</h3>
@@ -153,6 +189,7 @@
       <div class="col-xs-2 text-right">{{ section.tiltag.nutidsvaerdiSetOver15AarKr | format_zeros }}</div>
       <div class="col-xs-2">{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr.unit' | trans }}</div>
     </div>
+
     <h3>Beskrivelse</h3>
     {% if section.tiltag.beskrivelseNuvaerende is not empty %}
       <div class="row">
@@ -191,9 +228,11 @@
       </div>
     {% endif %}
   </div>
+
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' with { landscape : 1} %}
+
   <div class="section-tiltag-details">
-    <h2>Detailarke</h2>
+    <h2>Detailark</h2>
     {% if section.tiltag.details is not empty %}
       {% set template = 'AppBundle:' ~ tiltag_type(section.tiltag) ~ 'Tiltag:_detailTablePdf.html.twig' %}
       <div class="panel panel-default page-break-before">
@@ -201,7 +240,7 @@
         {% include template with {'entity': section.tiltag} %}
       </div>
     {% else %}
-      Ingen detailarke.
+      Ingen detailark.
     {% endif %}
 
   </div>
