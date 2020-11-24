@@ -14,6 +14,7 @@ use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
 use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
 use AppBundle\Entity\Energiforsyning;
+use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -2146,6 +2147,19 @@ class VirksomhedRapport
     }
 
     /**
+     * Add rapport energisyn section
+     *
+     * @param RapportSektion $rapportSektion
+     * @return VirksomhedRapport
+     */
+    public function addRapportOversigtSektion($rapportSektion)
+    {
+        $this->rapportOversigtSektioner[] = $rapportSektion;
+        $rapportSektion->setVirksomhedOversigtRapport($this);
+        return $this;
+    }
+
+    /**
      * Get RapportOversigtSektioner
      *
      * @return ArrayCollection
@@ -2168,6 +2182,19 @@ class VirksomhedRapport
     }
 
     /**
+     * Add rapport Screening section
+     *
+     * @param RapportSektion $rapportSektion
+     * @return VirksomhedRapport
+     */
+    public function addRapportScreeningSektion($rapportSektion)
+    {
+        $this->rapportScreeningSektioner[] = $rapportSektion;
+        $rapportSektion->setVirksomhedScreeningRapport($this);
+        return $this;
+    }
+
+    /**
      * Get RapportScreeningSektioner
      *
      * @return ArrayCollection
@@ -2186,6 +2213,19 @@ class VirksomhedRapport
     public function setRapportDetailarkSektioner($rapportDetailarkSektioner)
     {
         $this->rapportDetailarkSektioner = $rapportDetailarkSektioner;
+        return $this;
+    }
+
+    /**
+     * Add rapport detailark section
+     *
+     * @param RapportSektion $rapportSektion
+     * @return VirksomhedRapport
+     */
+    public function addRapportDetailarkSektion($rapportSektion)
+    {
+        $this->rapportDetailarkSektioner[] = $rapportSektion;
+        $rapportSektion->setVirksomhedDetailarkRapport($this);
         return $this;
     }
 
@@ -2217,6 +2257,31 @@ class VirksomhedRapport
                 return $this->getRapportDetailarkSektioner();
         }
         return NULL;
+    }
+
+    /**
+     * Add rapport section
+     *
+     * @param RapportSektion $rapportSektion
+     * @param string $rapportType
+     * @return VirksomhedRapport
+     */
+    public function addRapportSektion($rapportSektion, $rapportType)
+    {
+        switch ($rapportType) {
+            case self::RAPPORT_ENERGISYN:
+                $this->addRapportOversigtSektion($rapportSektion);
+                break;
+
+            case self::RAPPORT_SCREENING:
+                $this->addRapportScreeningSektion($rapportSektion);
+                break;
+
+            case self::RAPPORT_DETAILARK:
+                $this->addRapportDetailarkSektion($rapportSektion);
+                break;
+        }
+        return $this;
     }
 
     /**

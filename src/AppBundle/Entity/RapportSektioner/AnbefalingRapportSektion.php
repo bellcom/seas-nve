@@ -66,7 +66,7 @@ class AnbefalingRapportSektion extends RapportSektion implements ROIGrafDataInte
         $anbefalinger = $this->getRapportSections()->filter(function ($section) { return $section->getType() == 'anbefaling'; });
         $number = 1;
         foreach ($anbefalinger as $key => $anbefaling) {
-            if ($anbefaling == $this) {
+            if ($anbefaling->getId() == $this->getId()) {
                 return $number;
             }
             $number++;

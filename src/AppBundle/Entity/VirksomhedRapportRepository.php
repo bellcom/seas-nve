@@ -106,7 +106,7 @@ class VirksomhedRapportRepository extends BaseRepository {
             $sections = $this->$checkSectionMethod($entity, $rapportType, $sectionType);
             foreach ($sections as $section) {
                 $section->init($this->_em);
-                $sectionsSorted[] = $section;
+                $sectionsSorted[] = clone $section;
             }
         }
         return $sectionsSorted;
@@ -129,7 +129,7 @@ class VirksomhedRapportRepository extends BaseRepository {
             $sektionRepository = $this->_em->getRepository('AppBundle:RapportSektioner\RapportSektion');
             /** @var RapportSektion $newSection */
             $newSection = $sektionRepository->create($sectionType, array('rapport_type' => $rapportType));
-            $newSection->setVirksomhedRapport($entity, $rapportType);
+            $entity->addRapportSektion($newSection, $rapportType);
 
             $this->_em->persist($newSection);
             $this->_em->flush();
@@ -156,7 +156,7 @@ class VirksomhedRapportRepository extends BaseRepository {
             $sektionRepository = $this->_em->getRepository('AppBundle:RapportSektioner\RapportSektion');
             /** @var RapportSektion $newSection */
             $newSection = $sektionRepository->create('anbefaling', array('rapport_type' => $rapportType));
-            $newSection->setVirksomhedRapport($entity, $rapportType);
+            $entity->addRapportSektion($newSection, $rapportType);
 
             $this->_em->persist($newSection);
             $this->_em->flush();
@@ -208,7 +208,8 @@ class VirksomhedRapportRepository extends BaseRepository {
         foreach ($tiltage as $tiltag) {
             /** @var TiltagRapportSektion $new_sektion */
             $newSection = $sektionRepository->create('tiltag', array('tiltag' => $tiltag, 'rapport_type' => $rapportType));
-            $newSection->setVirksomhedRapport($entity, $rapportType);
+            $entity->addRapportSektion($newSection, $rapportType);
+
             $this->_em->persist($newSection);
             $this->_em->flush();
             $sections[] = $newSection;
