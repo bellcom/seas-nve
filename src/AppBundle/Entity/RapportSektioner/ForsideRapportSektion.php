@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\RapportSektioner;
 
 use AppBundle\Entity\RapportSektioner\Traits\FilepathField;
+use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\RapportSektion\ForsideRapportSektionType;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,8 +31,22 @@ class ForsideRapportSektion extends RapportSektion {
      * Constructor
      */
     public function __construct($params) {
-        $this->title = 'Energisynsrapport';
         parent::__construct($params);
+        if (!empty($params['rapport_type'])) {
+            switch($params['rapport_type']) {
+                case VirksomhedRapport::RAPPORT_ENERGISYN:
+                    $this->setTitle('Enegrisynsrapport');
+                    break;
+
+                case VirksomhedRapport::RAPPORT_SCREENING:
+                    $this->setTitle('Screeningrapport');
+                    break;
+
+                case VirksomhedRapport::RAPPORT_DETAILARK:
+                    $this->setTitle('Detailarkrapport');
+                    break;
+            }
+        }
     }
 
     /**
@@ -48,14 +63,17 @@ class ForsideRapportSektion extends RapportSektion {
         if (!empty($this->getErstatningAdresse())) {
             return $this->getErstatningAdresse();
         }
-        return $this->getVirksomhedOversigtRapport()->getVirksomhed()->getFullAddress();
+
+        $rapport = $this->getRapport();
+        return $rapport instanceof VirksomhedRapport ? $rapport->getVirksomhed()->getFullAddress() : '';
     }
 
     /**
      * Gets Virksomhed name.
      */
     public function getVirksomhedNavn() {
-        return $this->getVirksomhedOversigtRapport()->getVirksomhed()->getName();
+        $rapport = $this->getRapport();
+        return $rapport instanceof VirksomhedRapport ? $rapport->getVirksomhed()->getName() : '';
     }
 
     /**

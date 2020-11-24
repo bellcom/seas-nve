@@ -112,6 +112,26 @@ abstract class RapportSektion
     protected $virksomhedOversigtRapport;
 
     /**
+     * Rapport screening section reference to Virksomhed rapport
+     *
+     * @var VirksomhedRapport
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VirksomhedRapport", inversedBy="rapportScreeningSektioner")
+     * @ORM\JoinColumn(name="virksomhed_screening_rapport_id", referencedColumnName="id")
+     */
+    protected $virksomhedScreeningRapport;
+
+    /**
+     * Rapport detailark section reference to Virksomhed rapport
+     *
+     * @var VirksomhedRapport
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VirksomhedRapport", inversedBy="rapportDetailarkSektioner")
+     * @ORM\JoinColumn(name="virksomhed_detailark_rapport_id", referencedColumnName="id")
+     */
+    protected $virksomhedDetailarkRapport;
+
+    /**
      * Constructor
      *
      * @param array $params
@@ -295,6 +315,72 @@ abstract class RapportSektion
     }
 
     /**
+     * Set virksomhedScreeningRapport
+     *
+     * @param \AppBundle\Entity\VirksomhedRapport $virksomhedScreeningRapport
+     * @return RapportSektion
+     */
+    public function setVirksomhedScreeningRapport(VirksomhedRapport $virksomhedScreeningRapport = NULL) {
+        $this->virksomhedScreeningRapport = $virksomhedScreeningRapport;
+
+        return $this;
+    }
+
+    /**
+     * Get virksomhedScreeningRapport
+     *
+     * @return \AppBundle\Entity\VirksomhedRapport
+     */
+    public function getVirksomhedScreeningRapport() {
+        return $this->virksomhedScreeningRapport;
+    }
+
+    /**
+     * Set virksomhedDetailarkRapport
+     *
+     * @param \AppBundle\Entity\VirksomhedRapport $virksomhedDetailarkRapport
+     * @return RapportSektion
+     */
+    public function setVirksomhedDetailarkRapport(VirksomhedRapport $virksomhedDetailarkRapport = NULL) {
+        $this->virksomhedDetailarkRapport = $virksomhedDetailarkRapport;
+
+        return $this;
+    }
+
+    /**
+     * Get virksomhedDetailarkRapport
+     *
+     * @return \AppBundle\Entity\VirksomhedRapport
+     */
+    public function getVirksomhedDetailarkRapport() {
+        return $this->virksomhedDetailarkRapport;
+    }
+
+    /**
+     * Set virksomhedRapport by rapport type.
+     *
+     * @param \AppBundle\Entity\VirksomhedRapport $virksomhedRapport
+     * @return RapportSektion
+     */
+    public function setVirksomhedRapport(VirksomhedRapport $virksomhedRapport, $rapportType) {
+        switch ($rapportType) {
+            case VirksomhedRapport::RAPPORT_ENERGISYN:
+                $this->setVirksomhedOversigtRapport($virksomhedRapport);
+                break;
+
+            case VirksomhedRapport::RAPPORT_SCREENING:
+                $this->setVirksomhedScreeningRapport($virksomhedRapport);
+                break;
+
+            case VirksomhedRapport::RAPPORT_DETAILARK:
+                $this->setVirksomhedDetailarkRapport($virksomhedRapport);
+                break;
+        }
+
+        return $this;
+    }
+
+    /**
      * Set editUrl
      *
      * @param string $title
@@ -446,6 +532,10 @@ abstract class RapportSektion
     public function getRapportSections() {
         if (!empty($this->virksomhedOversigtRapport)) {
             return $this->virksomhedOversigtRapport->getRapportOversigtSektioner();
+        } elseif (!empty($this->virksomhedScreeningRapport)) {
+            return $this->virksomhedScreeningRapport->getRapportScreeningSektioner();
+        } elseif (!empty($this->virksomhedDetailarkRapport)) {
+            return $this->virksomhedDetailarkRapport->getRapportDetailarkSektioner();
         } elseif (!empty($this->bygningOversigtRapport)) {
             return $this->bygningOversigtRapport->getRapportOversigtSektioner();
         }
@@ -460,10 +550,30 @@ abstract class RapportSektion
     public function getRapport() {
         if (!empty($this->virksomhedOversigtRapport)) {
             return $this->virksomhedOversigtRapport;
+        } elseif (!empty($this->virksomhedScreeningRapport)) {
+            return $this->virksomhedScreeningRapport;
+        } elseif (!empty($this->virksomhedDetailarkRapport)) {
+            return $this->virksomhedDetailarkRapport;
         } elseif (!empty($this->bygningOversigtRapport)) {
             return $this->bygningOversigtRapport;
         }
         return Null;
+    }
+
+    /**
+     * Get rapport type
+     *
+     * @return string|NULL
+     */
+    public function getRapportType() {
+        if (!empty($this->virksomhedOversigtRapport)) {
+            return VirksomhedRapport::RAPPORT_ENERGISYN;
+        } elseif (!empty($this->virksomhedScreeningRapport)) {
+            return VirksomhedRapport::RAPPORT_SCREENING;
+        } elseif (!empty($this->virksomhedDetailarkRapport)) {
+            return VirksomhedRapport::RAPPORT_DETAILARK;
+        }
+        return NULL;
     }
 
 

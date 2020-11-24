@@ -21,10 +21,6 @@ class KontaktInformationRapportSektion extends RapportSektion {
         parent::__construct($params);
     }
 
-    public function getRapport() {
-        return $this->getVirksomhedOversigtRapport();
-    }
-
     /**
      * {@inheritdoc}
      */

@@ -14,21 +14,23 @@ class VirksomhedPdfExport {
      * Overview rapport render callback.
      *
      * @param VirksomhedRapport $rapport
+     * @param string $rapport_type
      * @param array $options
      * @param false $review
      * @return mixed
      */
-    public function exportOverview(VirksomhedRapport $rapport, array $options = array(), $review = FALSE)
+    public function export(VirksomhedRapport $rapport, $rapport_type, array $options = array(), $review = FALSE)
     {
         $repository = $this->_em->getRepository('AppBundle:VirksomhedRapport');
-        $sections = $repository->getOverviewRapportSektionerSorted($rapport);
+        $sections = $repository->getRapportSektionerSorted($rapport, $rapport_type);
         $cover_sections = array();
         /** @var RapportSektion $section */
         foreach ($sections as $key => $section) {
-            $section->setEditUrl($this->router->generate('virksomhed_oversigt_rapport_sektioner_edit', array(
+            $section->setEditUrl($this->router->generate('virksomhed_rapport_sektioner_edit', array(
                 'virksomhed_rapport' => $rapport->getId(),
+                'rapport_type' => $rapport_type,
                 'id' => $section->getId(),
-                'destination' => $this->router->generate('virksomhed_rapport_pdf_review', array('id' => $rapport->getId(), 'type' => 'oversigt')) . '#section-'. $section->getType() . $section->getId(),
+                'destination' => $this->router->generate('virksomhed_rapport_pdf_review', array('id' => $rapport->getId(), 'type' => $rapport_type)) . '#section-'. $section->getType() . $section->getId(),
             )));
             if (in_array($section->getType(), array('forside', 'kontaktinformation'))) {
                 unset($sections[$key]);
@@ -44,11 +46,12 @@ class VirksomhedPdfExport {
 
         $default = array(
             'review' => $review,
+            'rapport_type' => $rapport_type,
         );
-        $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfOverview.html.twig', array(
+        $cover = $this->renderView('AppBundle:RapportSektioner:list.html.twig', array(
             'sections' => $cover_sections,
         ) + $default);
-        $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfOverview.html.twig', array(
+        $html = $this->renderView('AppBundle:RapportSektioner:list.html.twig', array(
             'sections' => $sections,
         ) + $default);
         return $review ? ($cover . $html) : $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html, array_merge(
@@ -115,6 +118,11 @@ class VirksomhedPdfExport {
             $options));
     }
 
+    /**
+     * Kortlægning rapport.
+     *
+     * @deprecated
+     */
     public function exportKortlaegning(VirksomhedRapport $rapport, array $options = array(), $review = FALSE) {
         $data = array();
         $virksomhed = $rapport->getVirksomhed();
@@ -340,6 +348,11 @@ class VirksomhedPdfExport {
             $options));
     }
 
+    /**
+     * Deatiark rapport.
+     *
+     * @deprecated
+     */
     public function exportDetailark(VirksomhedRapport $rapport, array $options = array(), $review = FALSE) {
         $data = array();
         $virksomhed = $rapport->getVirksomhed();

@@ -164,7 +164,7 @@ class TiltagRapportSektion extends RapportSektion implements SamletForbrugGrafDa
         $tiltagSections = $this->getRapportSections()->filter(function ($section) { return $section->getType() == 'tiltag'; });
         $number = 1;
         foreach ($tiltagSections as $key => $tiltagSection) {
-            if ($tiltagSection == $this) {
+            if ($tiltagSection->getId() == $this->getId()) {
                 return $number;
             }
             $number++;

@@ -308,26 +308,38 @@ class VirksomhedRapportController extends BaseController {
     $this->breadcrumbs->addItem($rapport, $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
     $exporter = $this->get('aaplus.virksomhed_pdf_export');
     $breadcrumbType = ucfirst($type);
+    $pdf_export_url = '';
     switch ($type) {
-      case 'oversigt':
-        $html = $exporter->exportOverview($rapport, array(), TRUE);
-        $pdf_export_route = 'virksomhed_rapport_show_overview';
-        $breadcrumbType = 'Oversightrapport';
+      case VirksomhedRapport::RAPPORT_ENERGISYN:
+        $html = $exporter->export($rapport, $type, array(), TRUE);
+        $pdf_export_url = $this->generateUrl('virksomhed_rapport_show_pdf', array('id' => $rapport->getId(), 'rapport_type' => $type));
+        $breadcrumbType = 'Energisynrapport';
         break;
 
+      case VirksomhedRapport::RAPPORT_SCREENING:
+        $html = $exporter->export($rapport, $type, array(), TRUE);
+        $pdf_export_url = $this->generateUrl('virksomhed_rapport_show_pdf', array('id' => $rapport->getId(), 'rapport_type' => $type));
+        $breadcrumbType = 'Screeningrapport';
+        break;
+
+      case VirksomhedRapport::RAPPORT_DETAILARK:
+        $html = $exporter->export($rapport, $type, array(), TRUE);
+        $pdf_export_url = $this->generateUrl('virksomhed_rapport_show_pdf', array('id' => $rapport->getId(), 'rapport_type' => $type));
+        break;
+
+      // @deprecated
       case 'resultatoversigt':
         $html = $exporter->exportOverviewOld($rapport, array(), TRUE);
-        $pdf_export_route = 'virksomhed_rapport_show_overview';
         break;
 
-      case 'detailark':
-        $html = $exporter->exportDetailark($rapport, array(), TRUE);
-        $pdf_export_route = 'virksomhed_rapport_show_pdf_detailark';
+      // @deprecated
+      case 'detailark_old':
+        $html = $exporter->exportDetailarkOld($rapport, array(), TRUE);
         break;
 
+      // @deprecated
       case 'kortlaegning':
         $html = $exporter->exportKortlaegning($rapport, array(), TRUE);
-        $pdf_export_route = 'virksomhed_rapport_show_pdf_kortlaegning';
         break;
 
       default:
@@ -337,14 +349,16 @@ class VirksomhedRapportController extends BaseController {
 
     return array(
       'html' => $html,
-      'pdf_export_url' => $pdf_export_route ? $this->generateUrl($pdf_export_route, array('id' => $rapport->getId())) : '',
+      'pdf_export_url' => $pdf_export_url,
+      'back_url' => $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())),
+      'back_title' => 'Tilbage til rapporten',
     );
   }
 
   /**
-   * Finds and displays a VirksomhedRapport entity in PDF form. (Resultatoversigt)
+   * Finds and displays a VirksomhedRapport entity in PDF form by type.
    *
-   * @Route("/{id}/overview", name="virksomhed_rapport_show_overview")
+   * @Route("/{id}/pdf/{rapport_type}", name="virksomhed_rapport_show_pdf")
    * @Method("POST")
    * @Template()
    * @Security("is_granted('VIRKSOMHED_RAPPORT_VIEW', rapport)")
@@ -353,19 +367,35 @@ class VirksomhedRapportController extends BaseController {
    *
    * @return Response
    */
-  public function showPdfOverviewAction(Request $request, VirksomhedRapport $rapport) {
+  public function showPdfAction(Request $request, VirksomhedRapport $rapport, $rapport_type) {
+    switch ($rapport_type) {
+        case VirksomhedRapport::RAPPORT_ENERGISYN:
+            $file_category = FilCategoryType::RAPPORT_ENERGISYN;
+            break;
+
+        case VirksomhedRapport::RAPPORT_SCREENING:
+            $file_category = FilCategoryType::RAPPORT_SCREENING;
+            break;
+
+        case VirksomhedRapport::RAPPORT_DETAILARK:
+            $file_category = FilCategoryType::RAPPORT_DETAILARK;
+            break;
+    }
+
+    if (empty($file_category)) {
+        throw $this->createNotFoundException('Report type not found');
+    }
+
     // We need more time!
     set_time_limit(0);
     $exporter = $this->get('aaplus.virksomhed_pdf_export');
-    $pdf = $exporter->exportOverview($rapport);
-
-    $pdfName = $rapport->getVirksomhed() . '-resultatoversigt-' . date('Y-m-d-His');
-
+    $pdf = $exporter->export($rapport, $rapport_type);
+    $pdfName = $rapport->getVirksomhed() . '-' . $rapport_type . '-' . date('Y-m-d-His');
     if ($request->get('save-pdf')) {
       $fil = new Fil();
       $fil
         ->setNavn($pdfName)
-        ->setCategory(FilCategoryType::RAPPORT_RESULTATOVERSIGT)
+        ->setCategory($file_category)
         ->setEntity($rapport);
       $em = $this->getDoctrine()->getManager();
       $em->getRepository('AppBundle:Fil')->saveContent($pdf, $fil, $this->container);
@@ -383,6 +413,7 @@ class VirksomhedRapportController extends BaseController {
   /**
    * Finds and displays a VirksomhedRapport entity in PDF form. (Kortlaengning)
    *
+   * @deprecated
    * @Route("/{id}/pdf_kortlaegning", name="virksomhed_rapport_show_pdf_kortlaegning")
    * @Method("POST")
    * @Template()
@@ -423,6 +454,7 @@ class VirksomhedRapportController extends BaseController {
   /**
    * Finds and displays a VirksomhedRapport entity in PDF form. (Detailark)
    *
+   * @deprecated
    * @Route("/{id}/pdf_detailark", name="virksomhed_rapport_show_pdf_detailark")
    * @Method("POST")
    * @Template()
@@ -432,7 +464,7 @@ class VirksomhedRapportController extends BaseController {
    *
    * @return Response
    */
-  public function showPdfDetailarkAction(Request $request, VirksomhedRapport $rapport) {
+  public function showPdfDetailarkActionOld(Request $request, VirksomhedRapport $rapport) {
     // We need more time!
     set_time_limit(0);
     $exporter = $this->get('aaplus.pdf_export');
