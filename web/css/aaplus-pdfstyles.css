@@ -211,11 +211,6 @@ thead {
   background-color: #F8F8F7 !important;
 }
 
-th.unit {
-  background-color: #E5E5E1;
-  color: #50534d;
-}
-
 tbody th {
   font-weight: normal;
 }

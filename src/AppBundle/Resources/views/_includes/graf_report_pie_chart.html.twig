@@ -1,8 +1,8 @@
 {% set pieChartIDRandomized = 'piechart' ~ random() %}
 {% set listIDRandomized = 'piechart-list' ~ random() %}
 
-<div id="{{ pieChartIDRandomized }}" style="width: 524px; height: 400px;"></div>
-<br>
+<div id="{{ pieChartIDRandomized }}" style="width: 300px; height: 300px;"></div>
+<br><br>
 <ul id="{{ listIDRandomized }}" class="list-unstyled"></ul>
 
 <script>
@@ -59,6 +59,7 @@
           name: 'faktaPieChart',
           type: 'pie',
           avoidLabelOverlap: false,
+          radius: '100%',
           label: {
             show: false,
             position: 'center'

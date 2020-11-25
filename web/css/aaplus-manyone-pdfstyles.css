@@ -614,7 +614,7 @@ tr.tidsforloeb-ansvarlig--both td.active-span span {
     border-color: #e4e4e2;
 }
 .table > thead > tr > th {
-    border-bottom-width: 1px !important;
+    border-bottom-width: 1px;
 }
 
 td.active-span span {
@@ -643,6 +643,24 @@ td.active-span.last span {
 }
 
 
+/* Forslag. */
+.block-forslag--meta {
+    background-color: #009e50;
+}
+.block-forslag--meta,
+.block-forslag--meta small {
+    color: #fff;
+}
+
+.region-forslag--meta {
+    padding-top: 70px;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 15mm;
+}
+.rapport-review .region-forslag--meta {
+    padding-right: 70px;
+}
 
 
 .section-tiltag.landscape {
@@ -680,6 +698,30 @@ td.active-span.last span {
     margin-bottom: 0;
 }
 
+.block--detailark .table th {
+    border-bottom: 0;
+    border-top: 0;
+}
+.block--detailark .table .unit {
+    text-align: left;
+
+    font-size: .8em;
+
+    background-color: initial;
+    border-bottom: 1px solid #62c5d3;
+}
+.block--detailark .table td {
+    border-top: 0;
+    border-bottom: 0;
+}
+.block--detailark .table > tbody > tr:first-child td {
+    padding-top: 20px;
+}
+.block--detailark .table > tbody > tr:nth-of-type(even) {
+    background-color: #f8f8f7;
+}
+
+/* Data list. */
 .data-list__heading {
     padding-bottom: 11px;
 
@@ -690,4 +732,110 @@ td.active-span.last span {
     padding-bottom: 11px;
 
     border-bottom: 1px solid #e4e4e2;
+}
+
+/* Noegletal. */
+.noegletal {
+    position: relative;
+
+    overflow: hidden;
+
+    height: 230px;
+}
+.noegletal__block {
+    position: absolute;
+
+    bottom: 0;
+}
+.noegletal__block--first {
+    bottom: 64px;
+}
+.noegletal__block--second {
+    bottom: 32px;
+}
+.noegletal__block--third {
+    bottom: 0;
+}
+
+.noegletal__meta {
+    padding-right: 20px;
+}
+.noegletal__block--first .noegletal__meta {
+    padding-left: 5px;
+}
+
+.noegletal-pin {
+    position: relative;
+
+    height: 70px;
+    width: 10px;
+
+    margin-right: 20px;
+}
+.noegletal__block--first .noegletal-pin {
+    margin-left: 5px;
+}
+.noegletal__block--second .noegletal-pin,
+.noegletal__block--third .noegletal-pin {
+    margin-left: auto;
+}
+.noegletal-pin__circle {
+    position: absolute;
+
+    top: 10px;
+    left: 50%;
+
+    width: 10px;
+    height: 10px;
+
+    margin-left: -5px;
+
+    border-radius: 100%;
+
+    background-color: #a7cb11;
+}
+.noegletal-pin__line {
+    position: absolute;
+
+    top: 20px;
+    left: 50%;
+    bottom: 0;
+
+    width: 1px;
+
+    background-color: #a7cb11;
+}
+
+.noegletal-bar {
+    height: 25px;
+
+    border-radius: 3px;
+
+    background-color: #a7cb11;
+}
+.noegletal__block--first .noegletal-bar {
+    width: 20px;
+}
+.noegletal__block--second {
+    width: 50%;
+}
+.noegletal__block--third {
+    width: 100%;
+}
+
+.noegletal__block--first .noegletal-pin__line,
+.noegletal__block--first .noegletal-pin__circle,
+.noegletal__block--first .noegletal-bar {
+    background-color: #a7cb11;
+}
+
+.noegletal__block--second .noegletal-pin__line,
+.noegletal__block--second .noegletal-pin__circle,
+.noegletal__block--second .noegletal-bar {
+    background-color: #62c5d3;
+}
+.noegletal__block--third .noegletal-pin__line,
+.noegletal__block--third .noegletal-pin__circle,
+.noegletal__block--third .noegletal-bar {
+    background-color: #009e50;
 }

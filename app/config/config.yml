@@ -253,6 +253,7 @@ trsteel_ckeditor:
         paragraph: ['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft', 'JustifyCenter','JustifyRight','JustifyBlock']
         links: ['Link','Unlink','Anchor']
         insert: ['Image', 'Table']
+    contents_css: '/css/aaplus-manyone-pdfstyles.css'
     filebrowser_image_browse_url:
         route: elfinder
         route_parameters:
