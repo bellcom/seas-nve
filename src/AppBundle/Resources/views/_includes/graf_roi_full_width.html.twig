@@ -2,6 +2,20 @@
 
 <div id="{{ chartIdRandomized }}" style="width: 1048px; height: 400px;"></div>
 
+<div class="text-center">
+    <ul class="list-inline">
+        <li>
+            <span class="color-square color-square--brand-1"></span> Nuværende energiforbrug
+        </li>
+        <li>
+            <span class="color-square color-square--brand-2"></span> Energiudgift efter investering
+        </li>
+        {#        <li>#}
+        {#          <span class="color-square color-square--brand-4"></span> Lorem ipsum#}
+        {#        </li>#}
+    </ul>
+</div>
+
 <script>
     (function () {
         var chartData = {{ chart_data | json_encode | raw }};
