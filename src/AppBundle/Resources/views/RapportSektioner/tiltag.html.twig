@@ -282,17 +282,20 @@
 
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' with { landscape : 1} %}
 
-  <div>
+  <div class="block block--detailark">
     <h2>Detailark</h2>
+
     {% if section.tiltag.details is not empty %}
       {% set template = 'AppBundle:' ~ tiltag_type(section.tiltag) ~ 'Tiltag:_detailTablePdf.html.twig' %}
-      <div class="panel panel-default page-break-before">
-        <div class="panel-heading"><h3 class="panel-title">Skema til: {{ section.tiltag.title }}</h3></div>
-        {% include template with {'entity': section.tiltag} %}
+      <div>
+        <h3 class="panel-title">Skema til: {{ section.tiltag.title }}</h3>
       </div>
+
+      <br>
+
+      {% include template with {'entity': section.tiltag} %}
     {% else %}
       Ingen detailark.
     {% endif %}
-
   </div>
 {% endblock %}

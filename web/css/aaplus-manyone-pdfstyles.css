@@ -614,7 +614,7 @@ tr.tidsforloeb-ansvarlig--both td.active-span span {
     border-color: #e4e4e2;
 }
 .table > thead > tr > th {
-    border-bottom-width: 1px !important;
+    border-bottom-width: 1px;
 }
 
 td.active-span span {
@@ -698,6 +698,30 @@ td.active-span.last span {
     margin-bottom: 0;
 }
 
+.block--detailark .table th {
+    border-bottom: 0;
+    border-top: 0;
+}
+.block--detailark .table .unit {
+    text-align: left;
+
+    font-size: .8em;
+
+    background-color: initial;
+    border-bottom: 1px solid #62c5d3;
+}
+.block--detailark .table td {
+    border-top: 0;
+    border-bottom: 0;
+}
+.block--detailark .table > tbody > tr:first-child td {
+    padding-top: 20px;
+}
+.block--detailark .table > tbody > tr:nth-of-type(even) {
+    background-color: #f8f8f7;
+}
+
+/* Data list. */
 .data-list__heading {
     padding-bottom: 11px;
 
