@@ -83,7 +83,26 @@ class TiltagRapportSektionType extends RapportSektionType {
                 ],
                 'required' => FALSE,
             ])
-        ;
+            ->add('textPages', 'bootstrap_collection', array(
+            'property_path' => 'textPages',
+            'type' => new RapportSektionTextPageType(),
+            'options' => array(
+                'showAfterPages' => array(
+                    'page1' => 'Efter side 1',
+                    'page2' => 'Efter side 2',
+                    'page3' => 'Efter side 3',
+                ),
+            ),
+            'label' => FALSE,
+            'required' => FALSE,
+            'allow_add' => true,
+            'by_reference' => false,
+            'allow_delete' => true,
+            'add_button_text'    => 'Add',
+            'delete_button_text' => 'Delete',
+            'sub_widget_col'     => 10,
+            'button_col'         => 2,
+        ));
     }
 
     public function getName() {

@@ -84,6 +84,7 @@
       </div>
     {% endif %}
   {% endblock %}
+  {% include 'AppBundle::RapportSektioner/_includes/section-text-pages.html.twig' with { 'showAfter' : 'page1' } %}
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
 
   <div>
@@ -112,6 +113,7 @@
     {% include 'AppBundle:_includes:graf_roi_full_width.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
   </div>
 
+  {% include 'AppBundle::RapportSektioner/_includes/section-text-pages.html.twig' with { 'showAfter' : 'page2' } %}
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
 
   <div class="data-list">
@@ -280,6 +282,7 @@
     {% endif %}
   </div>
 
+  {% include 'AppBundle::RapportSektioner/_includes/section-text-pages.html.twig' with { 'showAfter' : 'page3' } %}
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' with { landscape : 1} %}
 
   <div class="block block--detailark">

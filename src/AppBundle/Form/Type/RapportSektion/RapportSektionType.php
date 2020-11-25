@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Type\RapportSektion;
 
 use AppBundle\DBAL\Types\RapportSectionType as DBALRapportSectionType;
+use AppBundle\Entity\RapportSektioner\RapportSektion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,6 +31,22 @@ class RapportSektionType extends AbstractType
                     'help_text' => 'Lad teksten være tom for skjule den',
                 ),
                 'required' => FALSE,
+            ))
+            ->add('textPages', 'bootstrap_collection', array(
+                'property_path' => 'textPages',
+                'type' => new RapportSektionTextPageType(),
+                'options' => array(
+                    'showAfterPages' => empty($options['showAfterPages']) ? array() : $options['showAfterPages'],
+                ),
+                'label' => FALSE,
+                'required' => FALSE,
+                'allow_add' => true,
+                'by_reference' => false,
+                'allow_delete' => true,
+                'add_button_text'    => 'Add',
+                'delete_button_text' => 'Delete',
+                'sub_widget_col'     => 10,
+                'button_col'         => 2,
             ))
         ;
     }

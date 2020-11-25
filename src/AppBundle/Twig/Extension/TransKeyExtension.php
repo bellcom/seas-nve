@@ -68,6 +68,12 @@ class TransKeyExtension extends \Twig_Extension {
       $trans = $this->translator->trans($key);
     }
 
+    // Adjusting rapport sections helptext.
+    if (preg_match('/\.[^.]*?rapportsektion\.[^.]*?\.textPages\./', $key)) {
+      $key = preg_replace('/\.[^.]*?rapportsektion\.[^.]*?\.textPages\./', '.rapportsektion.textPages.', $key);
+      $trans = $this->translator->trans($key);
+    }
+
     // Reset ".1++." to ".0." for collections
     if($key === $trans) {
       $key = preg_replace('/\.\d+\./', '.0.', $key);
@@ -104,6 +110,12 @@ class TransKeyExtension extends \Twig_Extension {
     // Adjusting Virksomhed rapprt helptext.
     if (preg_match('/\.[^.]*?virksomhed\.rapport\./', $key)) {
       $key = preg_replace('/\.[^.]*?virksomhed\.rapport\./', '.virksomhed_rapport.', $key);
+      $trans = $this->translator->trans($key);
+    }
+
+    // Adjusting rapport sections helptext.
+    if (preg_match('/\.[^.]*?rapportsektion\.[^.]*?\.textPages\./', $key)) {
+      $key = preg_replace('/\.[^.]*?rapportsektion\.[^.]*?\.textPages\./', '.rapportsektion.textPages.', $key);
       $trans = $this->translator->trans($key);
     }
 

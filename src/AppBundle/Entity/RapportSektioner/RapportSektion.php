@@ -72,6 +72,13 @@ abstract class RapportSektion
     /**
      * @var array
      *
+     * @ORM\Column(name="textPages", type="array")
+     */
+    private $textPages;
+
+    /**
+     * @var array
+     *
      * @ORM\Column(name="extras", type="array")
      */
     protected $extras;
@@ -248,6 +255,42 @@ abstract class RapportSektion
      */
     public function getText() {
         return $this->text;
+    }
+
+    /**
+     * Set text
+     *
+     * @param string $textPages
+     *
+     * @return RapportSektion
+     */
+    public function setTextPages($textPages) {
+        $this->textPages = $textPages;
+
+        return $this;
+    }
+
+    /**
+     * Get textPages
+     *
+     * @return array
+     */
+    public function getTextPages() {
+        return $this->textPages;
+    }
+
+    /**
+     * Get text pages filtered by show after key.
+     *
+     * @return array
+     */
+    public function getTextPagesFiltered($showAfter = NULL) {
+        return empty($this->textPages) ? [] : array_filter($this->textPages, function($textPage) use ($showAfter) {
+            if (empty($showAfter)) {
+                return empty($textPage['showAfter']);
+            }
+            return !empty($textPage['showAfter']) && $textPage['showAfter'] == $showAfter;
+        });
     }
 
     /**
