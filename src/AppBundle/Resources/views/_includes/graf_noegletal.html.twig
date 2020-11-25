@@ -1,17 +1,52 @@
-<div class="nogletal-chart row">
-  <div class="nogletal-chart-now col-md-3">
-    <div>Nu</div>
-    <div>Investering</div>
-    <div>{{ investering | format_decimal(0) }} kr</div>
+<div class="noegletal">
+  <div class="noegletal__block noegletal__block--first">
+    <div class="noegletal__meta">
+      <div>
+        <strong>Nu</strong>
+      </div>
+      <div>Investering</div>
+      <div>{{ investering | format_decimal(0) }} kr</div>
+    </div>
+    <div>
+      <div class="noegletal-pin">
+        <span class="noegletal-pin__circle"></span>
+        <span class="noegletal-pin__line"></span>
+      </div>
+    </div>
+    <div class="noegletal-bar"></div>
   </div>
-  <div class="nogletal-chart-roi col-md-4 text-right">
-    <div>{{ roi | format_decimal(0) }} år</div>
-    <div>Simpel tilbagebetalingstid</div>
-    <div>ROI</div>
+
+  <div class="noegletal__block noegletal__block--second">
+    <div class="noegletal__meta text-right">
+      <div>
+        <strong>{{ roi | format_decimal(0) }} år</strong>
+      </div>
+      <div>Simpel tilbagebetalingstid</div>
+      <div>ROI</div>
+    </div>
+    <div>
+      <div class="noegletal-pin">
+        <span class="noegletal-pin__circle"></span>
+        <span class="noegletal-pin__line"></span>
+      </div>
+    </div>
+    <div class="noegletal-bar"></div>
   </div>
-  <div class="nogletal-chart-now col-md-5 text-right">
-    <div>{{ tekniskelevetid | format_decimal(0) }} år</div>
-    <div>Samlet besparelse (i den tekniskelevetid)</div>
-    <div>{{ samletBesparelseOverAar | format_decimal(0) }} kr</div>
+
+  <div class="noegletal__block noegletal__block--third">
+    <div class="noegletal__meta text-right">
+      <div>
+        <strong>{{ tekniskelevetid | format_decimal(0) }} år</strong>
+      </div>
+      <div>Samlet besparelse (i den tekniskelevetid)</div>
+      <div>{{ samletBesparelseOverAar | format_decimal(0) }} kr</div>
+    </div>
+    <div>
+      <div class="noegletal-pin">
+        <span class="noegletal-pin__circle"></span>
+        <span class="noegletal-pin__line"></span>
+      </div>
+    </div>
+    <div class="noegletal-bar"></div>
   </div>
 </div>
