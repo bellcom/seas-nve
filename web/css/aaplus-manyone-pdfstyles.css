@@ -95,12 +95,17 @@ body > .container-fluid {
     page-break-before: always;
 }
 
+.pdf-header,
 .pdf-footer {
-    padding-top: 10pt;
     margin-left: 15mm;
     margin-right: 15mm;
 
     font-size: .7em;
+}
+
+.pdf-footer {
+    padding-top: 10pt;
+
     border-top: 1pt solid #B2C930;
 }
 

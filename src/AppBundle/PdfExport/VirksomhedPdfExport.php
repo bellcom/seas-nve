@@ -51,6 +51,9 @@ class VirksomhedPdfExport {
         $cover = $this->renderView('AppBundle:RapportSektioner:list.html.twig', array(
             'sections' => $cover_sections,
         ) + $default);
+        $header = $this->renderView( 'AppBundle:VirksomhedRapport:header.pdf.twig', array(
+            'data' => $data,
+        ));
         $html = $this->renderView('AppBundle:RapportSektioner:list.html.twig', array(
             'sections' => $sections,
         ) + $default);
@@ -62,8 +65,7 @@ class VirksomhedPdfExport {
                 'toc' => TRUE,
                 'xsl-style-sheet' => $_SERVER['DOCUMENT_ROOT'] . '/../default-toc.xsl',
                 'toc-header-text' => 'Indholdfortegnelse',
-                'header-left' => implode(' | ', $data),
-                'header-right' => "Side [page] af [toPage]",
+                'header-html' => $header,
                 'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf2VirksomhedFooter.html'),
             $options));
     }
@@ -101,7 +103,9 @@ class VirksomhedPdfExport {
             $coverParams['typenavn'] = $virksomhedsType;
         }
         $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdf2Cover.html.twig', $coverParams);
-
+        $header = $this->renderView( 'AppBundle:VirksomhedRapport:header.pdf.twig', array(
+            'data' => $data,
+        ));
         $html = $this->renderView('AppBundle:VirksomhedRapport:showPdf2.html.twig', array(
             'rapport' => $rapport,
             'review' => $review,
@@ -112,8 +116,7 @@ class VirksomhedPdfExport {
                 'encoding' => 'utf-8',
                 'images' => true,
                 'cover' => $cover,
-                'header-left' => implode(' | ', $data),
-                'header-right' => "Side [page] af [toPage]",
+                'header-html' => $header,
                 'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf2VirksomhedFooter.html'),
             $options));
     }
@@ -149,6 +152,9 @@ class VirksomhedPdfExport {
             $coverParams['typenavn'] = $virksomhedsType;
         }
         $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegningCover.html.twig', $coverParams);
+        $header = $this->renderView( 'AppBundle:VirksomhedRapport:header.pdf.twig', array(
+            'data' => $data,
+        ));
 
         // Summarized data for energiFordeling pie chart.
         $energiFordeling = array(
@@ -342,8 +348,7 @@ class VirksomhedPdfExport {
                 'encoding' => 'utf-8',
                 'images' => true,
                 'cover' => $cover,
-                'header-left' => implode(' | ', $data),
-                'header-right' => "Side [page] af [toPage]",
+                'header-html' => $header,
                 'footer-html' => $base_url .'/html/pdfKortlaegningFooter.html'),
             $options));
     }
@@ -394,6 +399,9 @@ class VirksomhedPdfExport {
             $coverParams['typenavn'] = ucfirst($virksomhedsType);
         }
         $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailarkCover.html.twig', $coverParams);
+        $header = $this->renderView( 'AppBundle:VirksomhedRapport:header.pdf.twig', array(
+            'data' => $data,
+        ));
         $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailark.html.twig', array(
             'html' => $html,
             'review' => $review,
@@ -405,8 +413,7 @@ class VirksomhedPdfExport {
                 'encoding' => 'utf-8',
                 'images' => true,
                 'cover' => $cover,
-                'header-left' => implode(' | ', $data),
-                'header-right' => "Side [page] af [toPage]",
+                'header-html' => $header,
                 'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdfVirksomhedDetailarkFooter.html'),
             $options));
     }
