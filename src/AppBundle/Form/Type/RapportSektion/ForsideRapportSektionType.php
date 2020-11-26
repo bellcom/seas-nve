@@ -39,9 +39,9 @@ class ForsideRapportSektionType extends RapportSektionType
                 'class' => 'AppBundle:ReportImage',
                 'choices' => $standardImages,
                 'expanded' => TRUE,
-                'choice_label' => function(ReportImage $image, $key) {
+                'choice_label' => function(ReportImage $image, $key) use ($reportSection) {
                     $title = $image->getTitle();
-                    if ($image->isStandard()) {
+                    if ($image->isStandardByType($reportSection->getRapportType())) {
                         $title .= ' <b>(standard)</b>';
                     }
 

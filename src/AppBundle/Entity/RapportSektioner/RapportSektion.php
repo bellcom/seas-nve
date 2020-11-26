@@ -99,6 +99,13 @@ abstract class RapportSektion
     public $editUrl;
 
     /**
+     * Runtime variable that containe Rapport type value.
+     *
+     * Depends on rapport attached to section.
+     */
+    public $rapportType;
+
+    /**
      * Rapport oversigt section reference to Bygning rapport
      *
      * @var Rapport
@@ -145,6 +152,9 @@ abstract class RapportSektion
      */
     public function __construct($params = array()) {
         $this->extras = $this->getExtrasDefault();
+        if (!empty($params['rapportType'])) {
+            $this->setRapportType($params['rapportType']);
+        }
     }
 
     /**
@@ -159,6 +169,14 @@ abstract class RapportSektion
         // Fill in defaultable values (using default texts).
         $defaultableTextFields = $this::getDefaultableTextFields();
 
+        if (!empty($this->virksomhedOversigtRapport)) {
+            $this->setRapportType(VirksomhedRapport::RAPPORT_ENERGISYN);
+        } elseif (!empty($this->virksomhedScreeningRapport)) {
+            $this->setRapportType(VirksomhedRapport::RAPPORT_SCREENING);
+        } elseif (!empty($this->virksomhedDetailarkRapport)) {
+            $this->setRapportType(VirksomhedRapport::RAPPORT_DETAILARK);
+        }
+
         foreach ($defaultableTextFields as $field) {
             // Checking if it is an extra field.
             $isExtraField = !property_exists($this, $field);
@@ -171,7 +189,7 @@ abstract class RapportSektion
                 $textRepository = $em->getRepository('AppBundle:ReportText');
 
                 /** @var ReportText $defaultText */
-                $defaultText = $textRepository->getDefaultText($this->getType(), $field);
+                $defaultText = $textRepository->getDefaultText($this->getType(), $this->getRapportType(), $field);
                 if ($defaultText) {
                     if ($isExtraField) {
                         $this->setExtrasKeyValue($field, $defaultText->getBody());
@@ -185,7 +203,7 @@ abstract class RapportSektion
 
         if (property_exists($this, 'filepath') && $this->getFilepath() == NULL) {
             /** @var ReportImage $defaultImage */
-            if ($defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getType())) {
+            if ($defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getType(), $this->getRapportType())) {
                 $this->setFilepathString($defaultImage->getFilepath());
             }
         }
@@ -419,14 +437,14 @@ abstract class RapportSektion
                 $this->setVirksomhedDetailarkRapport($virksomhedRapport);
                 break;
         }
-
+        $this->setRapportType($rapportType);
         return $this;
     }
 
     /**
      * Set editUrl
      *
-     * @param string $title
+     * @param string $url
      *
      * @return RapportSektion
      */
@@ -443,6 +461,28 @@ abstract class RapportSektion
      */
     public function getEditUrl() {
         return $this->editUrl;
+    }
+
+    /**
+     * Set rapport type
+     *
+     * @param string $rapportType
+     *
+     * @return RapportSektion
+     */
+    public function setRapportType($rapportType) {
+        $this->rapportType = $rapportType;
+
+        return $this;
+    }
+
+    /**
+     * Get RapportType
+     *
+     * @return string
+     */
+    public function getRapportType() {
+        return $this->rapportType;
     }
 
     /**
@@ -603,23 +643,6 @@ abstract class RapportSektion
         return Null;
     }
 
-    /**
-     * Get rapport type
-     *
-     * @return string|NULL
-     */
-    public function getRapportType() {
-        if (!empty($this->virksomhedOversigtRapport)) {
-            return VirksomhedRapport::RAPPORT_ENERGISYN;
-        } elseif (!empty($this->virksomhedScreeningRapport)) {
-            return VirksomhedRapport::RAPPORT_SCREENING;
-        } elseif (!empty($this->virksomhedDetailarkRapport)) {
-            return VirksomhedRapport::RAPPORT_DETAILARK;
-        }
-        return NULL;
-    }
-
-
     public function getSamletForbrugGrafData() {
         if (!$this instanceof SamletForbrugGrafDataInterface) {
             return NULL;
@@ -683,7 +706,7 @@ abstract class RapportSektion
             $textRepository = $em->getRepository('AppBundle:ReportText');
 
             /** @var ReportText $defaultText */
-            $defaultText = $textRepository->getDefaultText($this->getType(), $field);
+            $defaultText = $textRepository->getDefaultText($this->getType(), $this->getRapportType(), $field);
 
             if ($defaultText) {
                 // Checking if it is an extra field.
@@ -705,7 +728,7 @@ abstract class RapportSektion
 
         if (property_exists($this, 'filepath') && $this->getFilepath()) {
             /** @var ReportImage $defaultImage */
-            $defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getType());
+            $defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getType(), $this->getRapportType());
             if ($this->getFilepath() == $defaultImage->getFilepath()) {
                 $this->setFilepath(NULL);
             }
