@@ -720,6 +720,9 @@ td.active-span.last span {
 .table-custom-styles .table > tbody > tr:nth-of-type(even) {
     background-color: #f8f8f7;
 }
+.table-custom-styles td.number {
+    text-align: left;
+}
 
 /* Data list. */
 .data-list__heading {
