@@ -2,7 +2,7 @@
 
 {% block section_content -%}
   {% if section.text %}
-    <div class="section-text">
+    <div class="section-text ckeditor-content">
       {{ section.text | raw }}
     </div>
   {% endif %}
@@ -95,7 +95,7 @@
       </div>
     </div>
     {% if section.underskrivelseTekst %}
-      <div class="section-text" style="padding-top:40px;">
+      <div class="section-text ckeditor-content" style="padding-top:40px;">
         {{ section.underskrivelseTekst | raw }}
       </div>
     {% endif %}

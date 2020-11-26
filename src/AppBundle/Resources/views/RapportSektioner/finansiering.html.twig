@@ -3,7 +3,7 @@
   {{ parent() }}
   <div>
     <h2>Nøgletal</h2>
-    <div>
+    <div class="ckeditor-content">
       {{ section.noegletal | raw }}
     </div>
     <div>
@@ -23,7 +23,7 @@
     <br>
     {% include 'AppBundle:_includes:graf_roi_full_width.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
   </div>
-  <div>
+  <div class="ckeditor-content">
     {{ section.finansieringTekst | raw }}
   </div>
 {% endblock %}
