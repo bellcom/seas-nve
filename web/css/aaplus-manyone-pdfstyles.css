@@ -12,16 +12,6 @@ body.rapport-review {
     /*font-size: 12px;*/
 }
 
-div.portrait {
-    width: 1000px;
-    margin: 0 auto;
-}
-
-div.landscape {
-    width: 1400px;
-    margin: 0 auto;
-}
-
 .h1,
 h1 {
     letter-spacing: -1pt;
