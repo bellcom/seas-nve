@@ -28,11 +28,11 @@ class AnbefalingTidsforloebInfoEmbedType extends AbstractType {
           'attr' => array('step' => 1, 'min' => 1, 'max' => 52)
       ))
       ->add('omraadeansvar', ChoiceType::class, array(
-        'choices' => [
+        'choices' => array(
             'provider' => 'SEAS-NVE',
             'company' => 'Virksomhed',
             'both' => 'Begge',
-        ]
+        )
     ));
   }
 

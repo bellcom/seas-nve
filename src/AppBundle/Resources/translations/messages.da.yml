@@ -107,6 +107,7 @@ common:
   toggle: "Vis/Skjul"
   inherited: "nedarvet"
   others: "Øvrige"
+  text_pages: "Ekstra text sider"
 dashboard:
   besparelseCO2: "CO2 besparelse"
   besparelseEl: "El besparelse"
@@ -2140,6 +2141,13 @@ appbundle:
     title: "Title"
     text: "Tekst"
     type: "Type"
+    textPages:
+      0:
+        showAfter: "Vis teksten"
+        text: "Ekstra text"
+    textPages...name..:
+      showAfter: "Vis teksten"
+      text: "Ekstra text"
     forside:
       title: "Overtekst"
       filepath: "Brugetdefineret billede"

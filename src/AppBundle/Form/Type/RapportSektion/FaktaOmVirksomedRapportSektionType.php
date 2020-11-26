@@ -2,6 +2,8 @@
 
 namespace AppBundle\Form\Type\RapportSektion;
 
+use AppBundle\Entity\RapportSektioner\FaktaOmVirksomhedRapportSektion;
+use Proxies\__CG__\AppBundle\Entity\VirksomhedRapport;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,6 +15,13 @@ class FaktaOmVirksomedRapportSektionType extends RapportSektionType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var FaktaOmVirksomhedRapportSektion $reportSection */
+        $reportSection = $builder->getData();
+        if ($reportSection->getRapportType() == VirksomhedRapport::RAPPORT_ENERGISYN) {
+            $options['showAfterPages'] = array(
+                'page1' => 'Efter side 1',
+            );
+        }
         parent::buildForm($builder, $options);
 
         $builder->add('extras', FaktaOmVirksomedRapportSektionExtrasType::class, array('label' => FALSE));

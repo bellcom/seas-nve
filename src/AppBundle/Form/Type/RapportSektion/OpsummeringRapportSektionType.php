@@ -15,6 +15,9 @@ class OpsummeringRapportSektionType extends RapportSektionType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $options['showAfterPages'] = array(
+            'page1' => 'Efter side 1',
+        );
         parent::buildForm($builder, $options);
         $builder->add('extras', OpsummeringRapportSektionExtrasType::class, array('label' => FALSE));
     }

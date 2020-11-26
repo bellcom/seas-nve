@@ -84,6 +84,7 @@
   </div>
 
   {% if rapport_type == 'energisyn' %}
+    {% include 'AppBundle::RapportSektioner/_includes/section-text-pages.html.twig' with { 'showAfter' : 'page1' } %}
     {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
 
     <div>

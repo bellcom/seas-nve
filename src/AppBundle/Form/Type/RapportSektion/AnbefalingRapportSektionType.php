@@ -87,6 +87,19 @@ class AnbefalingRapportSektionType extends RapportSektionType
                 'label' => FALSE,
                 'entity_manager' => $options['entity_manager'],
             ));
+        $builder->add('textPages', 'bootstrap_collection', array(
+            'property_path' => 'textPages',
+            'type' => new RapportSektionTextPageType(),
+            'label' => FALSE,
+            'required' => FALSE,
+            'allow_add' => true,
+            'by_reference' => false,
+            'allow_delete' => true,
+            'add_button_text'    => 'Add',
+            'delete_button_text' => 'Delete',
+            'sub_widget_col'     => 10,
+            'button_col'         => 2,
+        ));
     }
 
 
