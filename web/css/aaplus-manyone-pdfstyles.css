@@ -126,6 +126,7 @@ img.full-width {
     font-size: 1em;
     text-transform: uppercase;
     letter-spacing: 1.45px;
+    white-space: nowrap;
 
     color: #74766c;
 }
