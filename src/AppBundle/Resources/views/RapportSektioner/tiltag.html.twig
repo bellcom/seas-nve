@@ -288,12 +288,14 @@
     {% if section.tiltag.details is not empty %}
       {% set template = 'AppBundle:' ~ tiltag_type(section.tiltag) ~ 'Tiltag:_detailTablePdf.html.twig' %}
       <div>
-        <h3 class="panel-title">Skema til: {{ section.tiltag.title }}</h3>
+        <h3>Skema til: {{ section.tiltag.title }}</h3>
       </div>
 
       <br>
 
-      {% include template with {'entity': section.tiltag} %}
+      <div class="table-custom-styles">
+        {% include template with {'entity': section.tiltag} %}
+      </div>
     {% else %}
       Ingen detailark.
     {% endif %}

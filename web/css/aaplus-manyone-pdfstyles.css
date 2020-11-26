@@ -698,11 +698,11 @@ td.active-span.last span {
     margin-bottom: 0;
 }
 
-.block--detailark .table th {
+.table-custom-styles .table th {
     border-bottom: 0;
     border-top: 0;
 }
-.block--detailark .table .unit {
+.table-custom-styles .table .unit {
     text-align: left;
 
     font-size: .8em;
@@ -710,14 +710,14 @@ td.active-span.last span {
     background-color: initial;
     border-bottom: 1px solid #62c5d3;
 }
-.block--detailark .table td {
+.table-custom-styles .table td {
     border-top: 0;
     border-bottom: 0;
 }
-.block--detailark .table > tbody > tr:first-child td {
+.table-custom-styles .table > tbody > tr:first-child td {
     padding-top: 20px;
 }
-.block--detailark .table > tbody > tr:nth-of-type(even) {
+.table-custom-styles .table > tbody > tr:nth-of-type(even) {
     background-color: #f8f8f7;
 }
 
