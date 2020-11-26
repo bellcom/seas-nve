@@ -9,12 +9,32 @@
 
   <title>SEAS-NVE</title>
 
-  <link href="/css/lib/bootstrap.min.css" type="text/css" rel="stylesheet" />
+  <link href="/css/lib/bootstrap.min.css" type="text/css" rel="stylesheet"/>
   <link href="/css/aaplus-manyone-pdfstyles.css" type="text/css" rel="stylesheet"/>
-
+  <script>
+    function subst() {
+      var vars = {};
+      var query_strings_from_url = document.location.search.substring(1).split('&');
+      for (var query_string in query_strings_from_url) {
+        if (query_strings_from_url.hasOwnProperty(query_string)) {
+          var temp_var = query_strings_from_url[query_string].split('=', 2);
+          vars[temp_var[0]] = decodeURI(temp_var[1]);
+        }
+      }
+      var css_selector_classes = ['page', 'frompage', 'topage', 'webpage', 'section', 'subsection', 'date', 'isodate', 'time', 'title', 'doctitle', 'sitepage', 'sitepages'];
+      for (var css_class in css_selector_classes) {
+        if (css_selector_classes.hasOwnProperty(css_class)) {
+          var element = document.getElementsByClassName(css_selector_classes[css_class]);
+          for (var j = 0; j < element.length; ++j) {
+            element[j].textContent = vars[css_selector_classes[css_class]];
+          }
+        }
+      }
+    }
+  </script>
 </head>
 
-<body>
+<body onload="subst()">
 
 <div class="pdf-footer">
   <div class="row">
@@ -27,7 +47,7 @@
       Telefon 70 29 29 29, CVR nr. 24 21 35 28
     </div>
     <div class="col-xs-4 text-right">
-      <strong>Side 10 af 18</strong>
+      <strong>Side <span class="page"></span> af <span class="topage"></span></strong>
     </div>
   </div>
 </div>
