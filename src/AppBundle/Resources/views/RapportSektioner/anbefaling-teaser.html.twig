@@ -1,6 +1,6 @@
 <div class="box box--anbefaling box--anbefaling-type-{{ section.anbefalingType }}">
   <div>
-    <span class="icon"></span>
+    <img src="{{ absolute_url(asset("img/icons/#{section.anbefalingType}.svg")) }}" alt="Ikon" class="img-icon" />
   </div>
   <div>
     {{ section.number }}. {{ 'rapportsektion.types.anbefaling' | trans }}
