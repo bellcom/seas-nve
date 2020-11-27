@@ -390,7 +390,7 @@ img.full-width {
     padding-right: 60px !important;
 }
 .section--kontaktinformation {
-    padding-top: 20px;
+    padding-top: 60px;
     font-size: 10px;
 }
 .rapport-review .section--kontaktinformation {
@@ -698,6 +698,8 @@ td.active-span.last span {
 @media print {
 
     .landscape {
+        display: none !important;
+
         -webkit-transform: translateY(100%) rotate(270deg); /* Safari */
         -moz-transform: translateY(100%) rotate(270deg); /* Firefox 3.6 Firefox 4 */
         /*-moz-transform-origin: right top; */
