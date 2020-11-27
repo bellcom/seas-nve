@@ -720,6 +720,7 @@ td.active-span.last span {
 .box--produktivitet {
     font-weight: bold;
     font-size: 1.2em;
+    line-height: 1.4;
 }
 .box--produktivitet p:last-child {
     margin-bottom: 0;
