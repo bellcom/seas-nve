@@ -334,7 +334,7 @@ class ReportTextController extends BaseController {
             'class' => 'disabled',
               'icon' => 'check-square-o ',
           ],
-          'icon' => 'square-o ',
+          'button_class' => 'success'
         ))
         ->getForm();
     }
