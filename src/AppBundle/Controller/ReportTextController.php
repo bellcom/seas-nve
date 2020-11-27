@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\ReportText;
+use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\ReportTextType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -52,14 +53,20 @@ class ReportTextController extends BaseController {
       $em = $this->getDoctrine()->getManager();
       $reportTexts = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $type));
 
+      $type_arr = explode('_', $type);
+      $standardVirkEnergisyn = in_array($type_arr[0], VirksomhedRapport::getRapportEnergisynSektionerStruktur());
+      $standardVirkScreening = in_array($type_arr[0], VirksomhedRapport::getRapportScreeningSektionerStruktur());
+      $standardVirkDetailark = in_array($type_arr[0], VirksomhedRapport::getRapportDetailarkSektionerStruktur());
+
       $elements = array();
       foreach ($reportTexts as $reportText) {
-          $mark_form = $this->markStandardForm($reportText);
           $delete_form = $this->createDeleteForm($reportText);
 
           $elements[$reportText->getId()] = array(
               'entity' => $reportText,
-              'mark_standard_form' => $mark_form->createView(),
+              'mark_standard_form_ve' => $standardVirkEnergisyn ? $this->markStandardForm($reportText, VirksomhedRapport::RAPPORT_ENERGISYN)->createView() : NULL,
+              'mark_standard_form_vs' => $standardVirkScreening ? $this->markStandardForm($reportText, VirksomhedRapport::RAPPORT_SCREENING)->createView() : NULL,
+              'mark_standard_form_vd' => $standardVirkDetailark ? $this->markStandardForm($reportText, VirksomhedRapport::RAPPORT_DETAILARK)->createView() : NULL,
               'delete_form' => $delete_form->createView()
           );
       }
@@ -76,6 +83,9 @@ class ReportTextController extends BaseController {
           'selected_field' => $selected_field,
           'report_section_text_types' => $reportSectionTextTypes,
           'elements' => $elements,
+          'standard_ve' => $standardVirkEnergisyn,
+          'standard_vs' => $standardVirkScreening,
+          'standard_vd' => $standardVirkDetailark,
       );
   }
 
@@ -186,24 +196,33 @@ class ReportTextController extends BaseController {
   /**
    * Edits an existing ReportText as standard.
    *
-   * @Route("/{report_text_id}/mark-default", name="report_text_mark_standard")
+   * @Route("/{report_text_id}/{type}/mark-default", name="report_text_mark_standard")
    * @Method("PUT")
    * @ParamConverter("reportText", class="AppBundle:ReportText",
    *   options={"id" = "report_text_id"})
    */
-  public function markStandardAction(Request $request, ReportText $reportText) {
+  public function markStandardAction(Request $request, ReportText $reportText, $type) {
     // Getting all images of that type.
     $em = $this->getDoctrine()->getManager();
-    $uploaded_images = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $reportText->getType()));
+    $standard_texts = $em->getRepository('AppBundle:ReportText')->findBy(array('type' => $reportText->getType()));
 
     /** @var ReportText $text */
-    foreach ($uploaded_images as $text) {
+    foreach ($standard_texts as $text) {
       // Setting standard for the selected text.
-      if ($text->getId() == $reportText->getId()) {
-        $text->setStandard(TRUE);
-      }
-      else {
-        $text->setStandard(FALSE);
+      $standard = $text->getId() == $reportText->getId();
+
+      switch($type) {
+        case VirksomhedRapport::RAPPORT_ENERGISYN:
+          $text->setStandardVirkEnergisyn($standard);
+          break;
+
+        case VirksomhedRapport::RAPPORT_SCREENING:
+          $text->setStandardVirkScreening($standard);
+          break;
+
+        case VirksomhedRapport::RAPPORT_DETAILARK:
+          $text->setStandardVirkDetailark($standard);
+          break;
       }
 
       $em->persist($text);
@@ -290,31 +309,32 @@ class ReportTextController extends BaseController {
    * @return \Symfony\Component\Form\Form
    *   Mark standard form.
    */
-  private function markStandardForm(ReportText $reportText) {
-    if (!$reportText->isStandard()) {
+  private function markStandardForm(ReportText $reportText, $type) {
+    $action = $this->generateUrl('report_text_mark_standard', array('report_text_id' => $reportText->getId(), 'type' => $type));
+    if (!$reportText->isStandardByType($type)) {
       $form = $this->createFormBuilder()
-        ->setAction($this->generateUrl('report_text_mark_standard', array('report_text_id' => $reportText->getId())))
+        ->setAction($action)
         ->setMethod('PUT')
         ->add('submit', 'submit', array(
-          'label' => 'reporttext.actions.mark_standard',
+          'label' => FALSE,
           'button_class' => 'default',
           'attr' => [
-            'icon' => 'check',
+              'icon' => 'square-o ',
           ],
         ))
         ->getForm();
     }
     else {
       $form = $this->createFormBuilder()
-        ->setAction($this->generateUrl('report_text_mark_standard', array('report_text_id' => $reportText->getId())))
+        ->setAction($action)
         ->setMethod('PUT')
         ->add('submit', 'submit', array(
-          'label' => 'appbundle.reporttext.standard',
+          'label' => FALSE,
           'attr' => [
             'class' => 'disabled',
-            'icon' => 'check',
+              'icon' => 'check-square-o ',
           ],
-          'button_class' => 'success'
+          'icon' => 'square-o ',
         ))
         ->getForm();
     }

@@ -2289,7 +2289,7 @@ class VirksomhedRapport
      *
      * @return array
      */
-    public function getRapportEnergisynSektionerStruktur()
+    public static function getRapportEnergisynSektionerStruktur()
     {
         return array(
             'forside',
@@ -2309,7 +2309,7 @@ class VirksomhedRapport
      *
      * @return array
      */
-    public function getRapportScreeningSektionerStruktur()
+    public static function getRapportScreeningSektionerStruktur()
     {
         return array(
             'forside',
@@ -2329,7 +2329,7 @@ class VirksomhedRapport
      *
      * @return array
      */
-    public function getRapportDetailarkSektionerStruktur()
+    public static function getRapportDetailarkSektionerStruktur()
     {
         return array(
             'forside',

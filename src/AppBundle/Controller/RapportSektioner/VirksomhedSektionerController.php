@@ -421,7 +421,7 @@ class VirksomhedSektionerController extends BaseController
             /** @var ReportText $reportText */
             foreach ($reportTexts as $reportText) {
                 $default_value_groups[$textKey][$reportText->getId()] = array(
-                    'title' => $reportText->getTitle() . ($reportText->isStandard() ? ' (standard)' : ''),
+                    'title' => $reportText->getTitle() . ($reportText->isStandardByType($entity->getRapportType()) ? ' (standard)' : ''),
                     'body' => $reportText->getBody()
                 );
             }
