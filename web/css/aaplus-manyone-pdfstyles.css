@@ -869,3 +869,11 @@ td.active-span.last span {
 .noegletal__block--third .noegletal-bar {
     background-color: #009e50;
 }
+
+
+/* Baeredygtighed */
+.section--baeredygtighed .box {
+    margin-top: 20px;
+    margin-left: -15px;
+    margin-right: -15px;
+}
