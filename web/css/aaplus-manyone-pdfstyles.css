@@ -349,7 +349,11 @@ img.full-width {
     padding-right: 60px !important;
 }
 .section--kontaktinformation {
-    padding-top: 15mm;
+    padding-top: 20px;
+    font-size: 10px;
+}
+.rapport-review .section--kontaktinformation {
+    font-size: 10pt;
 }
 
 .section.section--negative-margin {
