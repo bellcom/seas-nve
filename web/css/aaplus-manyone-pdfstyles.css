@@ -11,17 +11,23 @@ body {
     color: #50534d;
 }
 
+
 .section--tiltag.landscape,
 .section--tiltagtable.landscape {
     position: relative;
-    min-width: 1160px;
-    height: 1560px;
-    padding: 80px 40px;
+
+    width: 1010px;
+    height: 1200px;
+
     overflow: hidden;
-    background-color: lightcoral;
 }
 .section--tiltag.landscape .row,
 .section--tiltagtable.landscape .row {
+    position: absolute;
+
+    left: 70px;
+    bottom: 0;
+
     -webkit-transform: translateY(100%) rotate(270deg); /* Safari */
     -moz-transform: translateY(100%) rotate(270deg); /* Firefox 3.6 Firefox 4 */
     /*-moz-transform-origin: right top; */
@@ -33,16 +39,12 @@ body {
     -ms-transform-origin: left top;
     -o-transform-origin: left top;
     transform-origin: left top;
-    position: absolute;
-    bottom: 0;
-    background-color: cadetblue;
 }
 .section--tiltag.landscape .row table.table,
 .section--tiltagtable.landscape .row table.table {
-    max-width: 1400px;
     table-layout: auto !important;
 
-    background-color: lightsteelblue;
+    width: 1175px;
 }
 
 
