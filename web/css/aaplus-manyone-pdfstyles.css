@@ -151,6 +151,36 @@ img.full-width {
     padding-right: 15px;
 }
 
+.ckeditor-content ul {
+    padding-left: 0;
+
+    line-height: 2.4rem;
+
+    list-style-type: none;
+}
+.ckeditor-content ul li {
+    position: relative;
+
+    margin-top: 8px;
+    padding-left: 16px;
+
+    list-style-type: none;
+
+    line-height: 2.4rem;
+}
+.ckeditor-content ul li::before {
+    position: absolute;
+
+    left: 0;
+    top: -1px;
+
+    content: "\2022";
+
+    font-size: 24px;
+
+    color: #a7cb11;
+}
+
 .breadcrumb {
     list-style: none;
     background-color: #f5f5f5;
@@ -580,6 +610,12 @@ tr.tidsforloeb-ansvarlig--both td.active-span span {
 
 .block-section--anbefaling-roi {
     padding-top: 50px;
+}
+
+
+/* Fakta. */
+.region--fakta-enheder-text {
+    padding-top: 60px;
 }
 
 /* Table. */
