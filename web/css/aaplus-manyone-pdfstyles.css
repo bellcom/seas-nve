@@ -504,11 +504,11 @@ img.full-width {
 
 .report-text-undersagsnavn {}
 
-/* Opsummering. */
-.section--opsummering .section-type {
-    margin-bottom: 20px;
+.section-type + .ckeditor-content {
+    padding-top: 20px;
 }
 
+/* Opsummering. */
 .block-opsummering--seas-anbefaler {
     padding-top: 30px;
 }
