@@ -211,6 +211,15 @@ img.full-width {
     padding-right: 10px;
 }
 
+.list-unstyled > li {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.list-unstyled .color-square {
+    margin-bottom: -2px;
+    margin-right: 5px;
+}
+
 
 /* Color square. */
 .color-square {
@@ -278,6 +287,8 @@ img.full-width {
 }
 
 .box--primary {
+    padding-left: 30px;
+
     background-color: #006f55;
 }
 
