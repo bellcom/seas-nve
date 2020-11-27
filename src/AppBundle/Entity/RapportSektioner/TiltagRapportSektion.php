@@ -7,6 +7,7 @@ use AppBundle\Entity\ReportImage;
 use AppBundle\Entity\ReportText;
 use AppBundle\Entity\ReportTextRepository;
 use AppBundle\Entity\Tiltag;
+use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\RapportSektion\TiltagRapportSektionType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
@@ -55,10 +56,18 @@ class TiltagRapportSektion extends RapportSektion implements SamletForbrugGrafDa
      * {@inheritdoc}
      */
     public function init(ObjectManager $em) {
+        if (!empty($this->virksomhedOversigtRapport)) {
+           $this->setRapportType(VirksomhedRapport::RAPPORT_ENERGISYN);
+        } elseif (!empty($this->virksomhedScreeningRapport)) {
+           $this->setRapportType(VirksomhedRapport::RAPPORT_SCREENING);
+        } elseif (!empty($this->virksomhedDetailarkRapport)) {
+            $this->setRapportType(VirksomhedRapport::RAPPORT_DETAILARK);
+        }
+
         // If entity field is NULL, use a default value.
         if ($this->getText() === NULL) {
             /** @var ReportText $defaultText */
-            $defaultText = $em->getRepository('AppBundle:ReportText')->getDefaultText($this->getType(), $this->getTiltagType() . '_text');
+            $defaultText = $em->getRepository('AppBundle:ReportText')->getDefaultText($this->getType(), $this->getRapportType(), $this->getTiltagType() . '_text');
             if ($defaultText) {
                 $this->setText($defaultText->getBody());
             }
@@ -66,7 +75,7 @@ class TiltagRapportSektion extends RapportSektion implements SamletForbrugGrafDa
 
         if (property_exists($this, 'filepath') && $this->getFilepath() == NULL) {
             /** @var ReportImage $defaultImage */
-            if ($defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getTiltagType())) {
+            if ($defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getTiltagType(), $this->getRapportType())) {
                 $this->setFilepathString($defaultImage->getFilepath());
             }
         }
@@ -255,7 +264,7 @@ class TiltagRapportSektion extends RapportSektion implements SamletForbrugGrafDa
     protected function nullDefaultableTextFields(EntityManagerInterface $em) {
         // Key for default value text depends on Tiltag type.
         /** @var ReportText $defaultText */
-        $defaultText = $em->getRepository('AppBundle:ReportText')->getDefaultText($this->getType(), $this->getTiltagType() . '_text');
+        $defaultText = $em->getRepository('AppBundle:ReportText')->getDefaultText($this->getType(), $this->getRapportType(), $this->getTiltagType() . '_text');
         if ($this->getText()) {
             if (strcmp($this->getText(), $defaultText->getBody()) == 0){
                 $this->setText(NULL);
@@ -264,7 +273,7 @@ class TiltagRapportSektion extends RapportSektion implements SamletForbrugGrafDa
 
         if (property_exists($this, 'filepath') && $this->getFilepath()) {
             /** @var ReportImage $defaultImage */
-            $defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getTiltagType());
+            $defaultImage = $em->getRepository('AppBundle:ReportImage')->getDefaultImage($this->getTiltagType(), $this->getRapportType());
             if ($this->getFilepath() == $defaultImage->getFilepath()) {
                 $this->setFilepath(NULL);
             }

@@ -17,11 +17,19 @@
             <table class="table table-condensed">
                 <tbody>
                 <tr>
-                    <th>{{ 'appbundle.reporttext.title' | trans }}</th>
-                    <th>{{ 'appbundle.reporttext.body' | trans }}</th>
-                    <th>{{ 'appbundle.reporttext.updated_by' | trans }}</th>
-                    <th>{{ 'appbundle.reporttext.updated_at' | trans }}</th>
+                    <th rowspan="2" style="vertical-align: middle">{{ 'appbundle.reporttext.title' | trans }}</th>
+                    <th rowspan="2" style="vertical-align: middle">{{ 'appbundle.reporttext.body' | trans }}</th>
+                    <th rowspan="2" style="vertical-align: middle">{{ 'appbundle.reporttext.updated_by' | trans }}</th>
+                    <th rowspan="2" style="vertical-align: middle">{{ 'appbundle.reporttext.updated_at' | trans }}</th>
+                    <th colspan="{% if standard_vd is not empty %}3{% else %}2{% endif %}" class="text-center">
+                      {{ 'appbundle.reporttext.standard' | trans }}
+                    </th>
                     <th></th>
+                </tr>
+                {% if standard_ve is not empty %}<th>{{ 'appbundle.reporttext.sve' | trans }}</th>{% endif %}
+                {% if standard_vs is not empty %}<th>{{ 'appbundle.reporttext.svs' | trans }}</th>{% endif %}
+                {% if standard_vd is not empty %}<th>{{ 'appbundle.reporttext.svd' | trans }}</th>{% endif %}
+                <tr>
                 </tr>
                 {% for element in elements %}
                     <tr>
@@ -33,12 +41,34 @@
                         </td>
                         <td>{{ element.entity.updatedBy }}</td>
                         <td>{{ element.entity.updatedAt | date('F j, Y H:i') }}</td>
-                        <td class="text-right">
+                        {% if element.mark_standard_form_ve is not empty %}
+                          <td>
                             <div class="btn-group">
-                                {{ form_start(element.mark_standard_form) }}
-                                {{ form_widget(element.mark_standard_form.submit) }}
-                                {{ form_end(element.mark_standard_form) }}
+                                {{ form_start(element.mark_standard_form_ve) }}
+                                {{ form_widget(element.mark_standard_form_ve.submit) }}
+                                {{ form_end(element.mark_standard_form_ve) }}
                             </div>
+                          </td>
+                        {% endif %}
+                        {% if element.mark_standard_form_vs is not empty %}
+                          <td>
+                            <div class="btn-group">
+                                {{ form_start(element.mark_standard_form_vs) }}
+                                {{ form_widget(element.mark_standard_form_vs.submit) }}
+                                {{ form_end(element.mark_standard_form_vs) }}
+                            </div>
+                          </td>
+                        {% endif %}
+                        {% if element.mark_standard_form_vd is not empty %}
+                          <td>
+                            <div class="btn-group">
+                                {{ form_start(element.mark_standard_form_vd) }}
+                                {{ form_widget(element.mark_standard_form_vd.submit) }}
+                                {{ form_end(element.mark_standard_form_vd) }}
+                            </div>
+                          </td>
+                        {% endif %}
+                        <td class="text-right">
                             <div class="btn-group">
                                 <a href="{{ path('report_text_edit', { 'report_text_id': element.entity.id}) }}" class="btn btn-default">{{ 'common.edit' | trans }}</a>
                             </div>

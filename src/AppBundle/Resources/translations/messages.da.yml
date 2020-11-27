@@ -562,6 +562,10 @@ reportimage:
     varmeanlaeg: "Varmeanlæg billeder"
     koeleanlaeg: "Køleanlag billeder"
     special: "Special billeder"
+  strings:
+    standard_energisyn: "Energisyn"
+    standard_screening: "Screening"
+    standard_detailark: "Detailark"
 reporttext:
   actions:
     add: "Ny rapport tekst"
@@ -2241,6 +2245,9 @@ appbundle:
     type: "Type"
     updated_at: "Redigeringstidspunkt"
     updated_by: "Redigeret af"
+    sve: "Energysyn"
+    svs: "Screening"
+    svd: "Detailark"
   segment:
     add: "Opret Segment"
     edit: "Rediger Segment"

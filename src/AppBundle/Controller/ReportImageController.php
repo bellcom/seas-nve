@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ReportImage;
+use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\ReportImageType;
 use Gedmo\Exception\UploadableInvalidMimeTypeException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -63,12 +64,13 @@ class ReportImageController extends BaseController {
 
     $image_elements = array();
     foreach ($uploaded_images as $image) {
-      $mark_form = $this->markStandardForm($image);
       $delete_form = $this->createDeleteForm($image->getId());
 
       $image_elements[$image->getId()] = array(
         'image' => $image,
-        'mark_standard_form' => $mark_form->createView(),
+        'mark_standard_form_ve' => $this->markStandardForm($image, VirksomhedRapport::RAPPORT_ENERGISYN)->createView(),
+        'mark_standard_form_vs' => $this->markStandardForm($image, VirksomhedRapport::RAPPORT_SCREENING)->createView(),
+        'mark_standard_form_vd' => $this->markStandardForm($image, VirksomhedRapport::RAPPORT_DETAILARK)->createView(),
         'delete_form' => $delete_form->createView()
       );
     }
@@ -119,12 +121,12 @@ class ReportImageController extends BaseController {
   /**
    * Marks ReportImage as standard.
    *
-   * @Route("/{report_image_id}/mark-default", name="report_image_mark_standard")
+   * @Route("/{report_image_id}/{type}/mark-default", name="report_image_mark_standard")
    * @Method("PUT")
    * @ParamConverter("reportImage", class="AppBundle:ReportImage",
    *   options={"id" = "report_image_id"})
    */
-  public function markStandardAction(Request $request, ReportImage $reportImage) {
+  public function markStandardAction(Request $request, ReportImage $reportImage, $type) {
     // Getting all images of that type.
     $em = $this->getDoctrine()->getManager();
     $uploaded_images = $em->getRepository('AppBundle:ReportImage')->findBy(array('type' => $reportImage->getType()));
@@ -132,11 +134,19 @@ class ReportImageController extends BaseController {
     /** @var ReportImage $image */
     foreach ($uploaded_images as $image) {
       // Setting standard for the selected image.
-      if ($image->getId() == $reportImage->getId()) {
-        $image->setStandard(TRUE);
-      }
-      else {
-        $image->setStandard(FALSE);
+      $standard = $image->getId() == $reportImage->getId();
+      switch($type) {
+        case VirksomhedRapport::RAPPORT_ENERGISYN:
+          $image->setStandardVirkEnergisyn($standard);
+          break;
+
+        case VirksomhedRapport::RAPPORT_SCREENING:
+          $image->setStandardVirkScreening($standard);
+          break;
+
+        case VirksomhedRapport::RAPPORT_DETAILARK:
+          $image->setStandardVirkDetailark($standard);
+          break;
       }
 
       $em->persist($image);
@@ -212,33 +222,37 @@ class ReportImageController extends BaseController {
    *
    * @param ReportImage $reportImage
    *   Report image entity.
+   * @param string $type
+   *   Report type.
    *
    * @return \Symfony\Component\Form\Form
    *   Mark standard form.
    */
-  private function markStandardForm(ReportImage $reportImage) {
-    if (!$reportImage->isStandard()) {
+  private function markStandardForm(ReportImage $reportImage, $type) {
+    $action = $this->generateUrl('report_image_mark_standard', array('report_image_id' => $reportImage->getId(), 'type' => $type));
+
+    if (!$reportImage->isStandardByType($type)) {
       $form = $this->createFormBuilder()
-        ->setAction($this->generateUrl('report_image_mark_standard', array('report_image_id' => $reportImage->getId())))
+        ->setAction($action)
         ->setMethod('PUT')
         ->add('submit', 'submit', array(
-          'label' => 'reportimage.actions.mark_standard',
+          'label' => 'reportimage.strings.standard_' . $type,
           'button_class' => 'default',
           'attr' => [
-            'icon' => 'check',
+            'icon' => 'square-o ',
           ],
         ))
         ->getForm();
     }
     else {
       $form = $this->createFormBuilder()
-        ->setAction($this->generateUrl('report_image_mark_standard', array('report_image_id' => $reportImage->getId())))
+        ->setAction($action)
         ->setMethod('PUT')
         ->add('submit', 'submit', array(
-          'label' => 'appbundle.reportimage.standard',
+          'label' => 'reportimage.strings.standard_' . $type,
           'attr' => [
             'class' => 'disabled',
-            'icon' => 'check',
+            'icon' => 'check-square-o ',
           ],
           'button_class' => 'success'
         ))

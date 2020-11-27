@@ -70,6 +70,27 @@ class ReportText {
   protected $standard;
 
   /**
+   * @var boolean
+   *
+   * @ORM\Column(name="standard_virk_energisyn", type="boolean", nullable=true)
+   */
+  protected $standardVirkEnergisyn;
+
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="standard_virk_screening", type="boolean", nullable=true)
+   */
+  protected $standardVirkScreening;
+
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="standard_virk_detailark", type="boolean", nullable=true)
+   */
+  protected $standardVirkDetailark;
+
+  /**
    * @return string
    */
   public function getTitle() {
@@ -135,10 +156,111 @@ class ReportText {
   }
 
   /**
+   * Gets standard.
+   *
+   * @param boolean $standard
+   */
+  public function getStandard() {
+    return $this->standard;
+  }
+
+  /**
    * @return boolean
    */
   public function isStandard() {
     return $this->standard;
+  }
+
+  /**
+   * @return boolean
+   */
+  public function isStandardByType($type) {
+    switch($type) {
+      case VirksomhedRapport::RAPPORT_ENERGISYN:
+          return $this->getStandardVirkEnergisyn();
+
+      case VirksomhedRapport::RAPPORT_SCREENING:
+          return $this->getStandardVirkScreening();
+
+      case VirksomhedRapport::RAPPORT_DETAILARK:
+          return $this->getStandardVirkDetailark();
+    }
+    return NULL;
+  }
+
+  /**
+   * Sets is standardVirkEnergisyn.
+   *
+   * @param boolean $standardVirkEnergisyn
+   */
+  public function setStandardVirkEnergisyn($standardVirkEnergisyn) {
+    $this->standardVirkEnergisyn = $standardVirkEnergisyn;
+  }
+
+  /**
+   * Gets standardVirkEnergisyn.
+   *
+   * @param boolean $standardVirkEnergisyn
+   */
+  public function getStandardVirkEnergisyn() {
+    return $this->standardVirkEnergisyn;
+  }
+
+  /**
+   * @return boolean
+   */
+  public function isStandardVirkEnergisyn() {
+    return $this->standardVirkEnergisyn;
+  }
+
+  /**
+   * Sets is standardVirkScreening.
+   *
+   * @param boolean $standardVirkScreening
+   */
+  public function setStandardVirkScreening($standardVirkScreening) {
+    $this->standardVirkScreening = $standardVirkScreening;
+  }
+
+  /**
+   * Gets standardVirkScreening.
+   *
+   * @param boolean $standardVirkScreening
+   */
+  public function getStandardVirkScreening() {
+    return $this->standardVirkScreening;
+  }
+
+  /**
+   * @return boolean
+   */
+  public function isStandardVirkScreening() {
+    return $this->standardVirkScreening;
+  }
+
+  /**
+   * Sets is standardVirkDetailark.
+   *
+   * @param boolean $standardVirkDetailark
+   */
+  public function setStandardVirkDetailark($standardVirkDetailark) {
+    $this->standardVirkDetailark = $standardVirkDetailark;
+  }
+
+  /**
+   * Gets standard.
+   *
+   * @param boolean $standardVirkDetailark
+   */
+  public function getStandardVirkDetailark() {
+    return $this->standardVirkDetailark;
+  }
+
+  /**
+   * @return boolean
+   */
+  public function isStandardVirkDetailark() {
+    return $this->standardVirkDetailark;
   }
 
 }

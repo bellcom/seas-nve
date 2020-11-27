@@ -18,9 +18,26 @@ class ReportImageRepository extends EntityRepository {
      *
      * @return ReportImage|null
      */
-    public function getDefaultImage($sectionType) {
+    public function getDefaultImage($sectionType, $rapportType) {
+      $criteria = ['type' => $sectionType];
+      switch($rapportType) {
+        case VirksomhedRapport::RAPPORT_ENERGISYN:
+          $criteria['standardVirkEnergisyn'] = TRUE;
+          break;
+
+        case VirksomhedRapport::RAPPORT_SCREENING:
+          $criteria['standardVirkScreening'] = TRUE;
+          break;
+
+        case VirksomhedRapport::RAPPORT_DETAILARK:
+          $criteria['standardVirkDetailark'] = TRUE;
+          break;
+
+        default:
+          return NULL;
+      }
         /** @var ReportImage $entity */
-        $entity = $this->findOneBy(['type' => $sectionType, 'standard' => TRUE]);
+        $entity = $this->findOneBy($criteria);
         return $entity;
     }
 

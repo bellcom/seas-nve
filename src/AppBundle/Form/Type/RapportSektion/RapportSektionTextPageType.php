@@ -17,7 +17,7 @@ class RapportSektionTextPageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('noPagebreak', 'checkbox', array('label' => 'Vis uden sideskift'));
-        if ($options['showAfterPages']) {
+        if (!empty($options['showAfterPages'])) {
             $builder->add('showAfter', ChoiceType::class, array(
                 'choices' => empty($options['showAfterPages']) ? array() : $options['showAfterPages'],
                 'empty_value' => 'I slutningen',
@@ -33,7 +33,7 @@ class RapportSektionTextPageType extends AbstractType
     }
 
     public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setRequired('showAfterPages');
+        $resolver->setDefined('showAfterPages');
     }
 
     public function getName() {
