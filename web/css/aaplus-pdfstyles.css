@@ -5,12 +5,12 @@ body {
   color: #111;
 }
 
-div.portrait {
+.rapport-review .portrait {
   width: 1000px;
   margin: 0 auto;
 }
 
-div.landscape {
+.rapport-review .landscape {
   width: 1400px;
   margin: 0 auto;
 }

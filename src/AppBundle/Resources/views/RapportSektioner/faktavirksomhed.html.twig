@@ -41,7 +41,7 @@
 
   </div>
 
-  <br><br>
+  <br>
 
   <div class="row">
     <div class="col-xs-6">
@@ -70,7 +70,7 @@
     </div>
 
     <div class="col-xs-6">
-      <div class="section-fakta-enheder-text">
+      <div class="region region--fakta-enheder-text">
         <p>{{ section.anvendteTekst }}</p>
       </div>
 
@@ -103,7 +103,12 @@
 
       <div class="row">
         <div class="{{ columnClass }}">
-          {{ include ('AppBundle:_includes:graf_report_pie_chart.html.twig', { pie_chart_data: section.energiForbrugData }) }}
+          {% if energiForbrugData | length > 10 %}
+            {{ include ('AppBundle:_includes:graf_report_pie_chart.html.twig', { pie_chart_data: section.energiForbrugData }) }}
+          {% else %}
+            {{ include ('AppBundle:_includes:graf_report_pie_chart_column.html.twig', { pie_chart_data: section.energiForbrugData }) }}
+            <br><br>
+          {% endif %}
         </div>
         <div class="{{ columnClass }}">
 
@@ -125,9 +130,9 @@
             {% endfor %}
           </div>
 
-          <br>
+          <br><br>
 
-          <div class="box box--primary">
+          <div class="box box--primary" style="max-width: 420px;">
             <div>
               <span class="h2">Samlet forbrug:</span>
             </div>

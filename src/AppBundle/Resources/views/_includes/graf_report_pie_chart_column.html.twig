@@ -1,0 +1,96 @@
+{% set pieChartIDRandomized = 'piechart' ~ random() %}
+{% set listIDRandomized = 'piechart-list' ~ random() %}
+
+<div class="row">
+  <div class="col-xs-6">
+    <div id="{{ pieChartIDRandomized }}" style="width: 300px; height: 300px;"></div>
+  </div>
+  <div class="col-xs-6">
+    <ul id="{{ listIDRandomized }}" class="list-unstyled"></ul>
+  </div>
+</div>
+
+<br>
+
+<script>
+  (function () {
+    var colors = [
+      '#FE9029',
+      '#FFDE2F',
+      '#74766C',
+      '#62C5D3',
+      '#A7CB11',
+      '#006F55',
+      '#009E50',
+      '#CAE070',
+      '#FFEB82',
+      '#99D8B9',
+      '#FEA654',
+      '#A1DCE5',
+      '#74766C',
+      '#CCECDC',
+      '#A1DCE5'
+    ];
+    function prepareData(data, colors) {
+      var iteration = 0;
+      var mutatedData = [];
+
+      for (i = 0; i < data.length; i++) {
+        mutatedData.push({
+          label: data[i].label,
+          value: data[i].value,
+          itemStyle: {
+            color: colors[iteration],
+          },
+        });
+
+        // Reset if index does not exist.
+        if (typeof colors[iteration] === 'undefined') {
+          iteration = 0;
+        }
+        else {
+          iteration++;
+        }
+      }
+
+      return mutatedData;
+    }
+    var chartData = {{ pie_chart_data | json_encode | raw }};
+    var preparedData = prepareData(chartData, colors);
+    var chart = echarts.init(document.getElementById('{{ pieChartIDRandomized }}'), 'seas-theme');
+
+    var option = {
+      animation: false,
+      series: [
+        {
+          name: 'faktaPieChart',
+          type: 'pie',
+          avoidLabelOverlap: false,
+          radius: '100%',
+          label: {
+            show: false,
+            position: 'center'
+          },
+          labelLine: {
+            show: false
+          },
+          data: preparedData,
+        }
+      ]
+    };
+
+    chart.setOption(option);
+
+    // Add list elements.
+    var list = document.getElementById('{{ listIDRandomized }}');
+
+    for (var i = 0; i < preparedData.length; i += 1) {
+      var dataItem = preparedData[i];
+      var valueNode = document.createElement('LI')
+
+      valueNode.innerHTML = '<span class="color-square" style="background-color: ' + dataItem.itemStyle.color + ';"></span> ' + dataItem.label;
+
+      list.appendChild(valueNode);
+    }
+  }());
+</script>
