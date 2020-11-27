@@ -286,8 +286,8 @@ img.full-width {
     background-color: rgba(116, 118, 108, 0.05);
 }
 
-.box--primary {
-    padding-left: 30px;
+.box.box--primary {
+    padding: 30px;
 
     background-color: #006f55;
 }
