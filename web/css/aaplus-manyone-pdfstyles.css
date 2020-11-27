@@ -18,6 +18,7 @@ body {
     height: 1560px;
     padding: 80px 40px;
     overflow: hidden;
+    background-color: lightcoral;
 }
 .section--tiltag.landscape .row,
 .section--tiltagtable.landscape .row {
@@ -34,11 +35,14 @@ body {
     transform-origin: left top;
     position: absolute;
     bottom: 0;
+    background-color: cadetblue;
 }
 .section--tiltag.landscape .row table.table,
 .section--tiltagtable.landscape .row table.table {
     max-width: 1400px;
     table-layout: auto !important;
+
+    background-color: lightsteelblue;
 }
 
 
