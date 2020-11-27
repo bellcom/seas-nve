@@ -1,6 +1,9 @@
 /* Global. */
 html,
 body {
+    padding: 0;
+    margin: 0;
+
     font-size: 10pt;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.75;
@@ -90,8 +93,8 @@ body > .container-fluid {
 body .pdf-header,
 body .pdf-footer {
     margin: 0;
-    padding-left: 15mm;
-    padding-right: 15mm;
+    padding-left: 56px !important;
+    padding-right: 56px !important;
 
     font-size: .7em;
 }
@@ -227,13 +230,9 @@ img.full-width {
 }
 
 
-.rapport-review .block--negative-margin {
-    margin-left: -70px;
-    margin-right: -70px;
-}
 .block--negative-margin {
-    margin-left: -15mm;
-    margin-right: -15mm;
+    margin-left: -60px !important;
+    margin-right: -60px !important;
 }
 
 
@@ -346,34 +345,22 @@ img.full-width {
 
 /* Sections. */
 .section {
-    padding-left: 15mm;
-    padding-right: 15mm;
+    padding-left: 60px !important;
+    padding-right: 60px !important;
 }
 .section--kontaktinformation {
     padding-top: 15mm;
 }
 
-.rapport-review .section {
-    padding-left: 70px;
-    padding-right: 70px;
-}
 .section.section--negative-margin {
     padding-left: 0;
     padding-right: 0;
 }
-.rapport-review .section.section--negative-margin {
-    padding-left: 10px;
-    padding-right: 10px;
-}
 
 /* Frontpage. */
-.section--forside {
-    padding-left: 5mm !important;
-    padding-right: 5mm !important;
-}
-.rapport-review .section--forside {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+.section.section--forside {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
 }
 .rapport-review .block-frontpage--image {
     height: 700px;
@@ -402,15 +389,10 @@ img.full-width {
     background-color: #c0c0b5;
 }
 
-.rapport-review .report-intro {
-    padding-top: 45px;
-    padding-left: 60px;
-    padding-bottom: 5px;
-}
 .report-intro {
-    padding-top: 45pt;
-    padding-left: 10mm;
-    padding-bottom: 5pt;
+    padding-top: 45px;
+    padding-left: 40px;
+    padding-bottom: 5px;
 }
 .rapport-review .report-intro .section-type {
     margin-bottom: 45px;
@@ -452,12 +434,9 @@ img.full-width {
 
 .block-frontpage--name {
     padding-top: 50px;
-    padding-left: 10mm;
+    padding-left: 40px;
 
     color: #74766c;
-}
-.rapport-review .block-frontpage--name {
-    padding-left: 60px;
 }
 
 .block-frontpage__undersagsnavn {

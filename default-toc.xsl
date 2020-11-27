@@ -14,8 +14,12 @@
         <style>
           html,
           body {
-            font-size: 10pt;
+            margin: 0;
+            padding: 0;
+
+            font-size: 10px;
             font-family: Arial, Helvetica, sans-serif;
+
             color: #50534d;
           }
           h2 {
@@ -59,7 +63,8 @@
           ul {}
           ul {padding-left: 0em;}
           ul ul {padding-left: 2em;}
-          a {text-decoration:none; color: #50534d;}
+          a { font-size: 1em; text-decoration:none; color: #50534d;}
+          span { font-size: 1em; }
 
           .divTable{
             display: table;
