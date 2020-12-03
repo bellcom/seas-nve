@@ -50,6 +50,7 @@ class VirksomhedPdfExport {
         );
         $cover = $this->renderView('AppBundle:RapportSektioner:list.html.twig', array(
             'sections' => $cover_sections,
+            'without_charts' => TRUE,
         ) + $default);
         $header = $this->renderView( 'AppBundle:VirksomhedRapport:header.pdf.twig', array(
             'data' => $data,
