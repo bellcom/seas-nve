@@ -18,7 +18,11 @@
       for (var query_string in query_strings_from_url) {
         if (query_strings_from_url.hasOwnProperty(query_string)) {
           var temp_var = query_strings_from_url[query_string].split('=', 2);
-          vars[temp_var[0]] = decodeURI(temp_var[1]);
+          var textContent = decodeURI(temp_var[1]);
+          if (temp_var[0] == 'page') {
+            textContent = textContent - 1;
+          }
+          vars[temp_var[0]] = textContent;
         }
       }
       var css_selector_classes = ['page', 'frompage', 'topage', 'webpage', 'section', 'subsection', 'date', 'isodate', 'time', 'title', 'doctitle', 'sitepage', 'sitepages'];
