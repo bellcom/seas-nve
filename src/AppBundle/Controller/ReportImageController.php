@@ -70,7 +70,7 @@ class ReportImageController extends BaseController {
         'image' => $image,
         'mark_standard_form_ve' => $this->markStandardForm($image, VirksomhedRapport::RAPPORT_ENERGISYN)->createView(),
         'mark_standard_form_vs' => $this->markStandardForm($image, VirksomhedRapport::RAPPORT_SCREENING)->createView(),
-        'mark_standard_form_vd' => $this->markStandardForm($image, VirksomhedRapport::RAPPORT_DETAILARK)->createView(),
+        'mark_standard_form_vd' => $image_type == 'anbefaling' ? NULL : $this->markStandardForm($image, VirksomhedRapport::RAPPORT_DETAILARK)->createView(),
         'delete_form' => $delete_form->createView()
       );
     }

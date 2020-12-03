@@ -49,10 +49,11 @@
                             <div class="btn-group">
                                     {{ form(element.mark_standard_form_vs) }}
                             </div>
-                            <div class="btn-group">
-                                    {{ form(element.mark_standard_form_vd) }}
-                            </div>
-
+                            {% if element.mark_standard_form_vd is not empty %}
+                              <div class="btn-group">
+                                      {{ form(element.mark_standard_form_vd) }}
+                              </div>
+                            {% endif %}
                             <div class="btn-group">
                                 {{ form(element.delete_form) }}
                             </div>
