@@ -10,6 +10,9 @@
       {% block section -%}
         {% block section_type -%}
           <div class="section-type">{{ sectionTypeNavn }}</div>
+          {% if section.title is empty %}
+            <h1 style="display: inline-block; color: white; font-size: 1px;">{{ sectionTypeNavn }}</h1>
+          {% endif %}
         {% endblock %}
         {% block section_title -%}
           {% if section.title %}

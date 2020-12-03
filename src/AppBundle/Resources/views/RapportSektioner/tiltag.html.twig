@@ -34,7 +34,12 @@
 
 {% set sectionTypeNavn = (('rapportsektion.types.' ~ section.type ) | trans) ~ ' ' ~ section.number ~ '. ' ~ (('bygning_rapporter.strings.' ~ section.tiltagType ~ 'tiltag') | trans) %}
 {% block section -%}
-  {{ block('section_type') }}
+  {% block section_type -%}
+    <div class="section-type">{{ sectionTypeNavn }}</div>
+    {% if section.sectionTitle is empty %}
+      <h1 style="display: inline-block; color: white; font-size: 1px;">{{ section.number }}. {{ section.sectionTitle }}</h1>
+    {% endif %}
+  {% endblock %}
 
   <br><br><br><br>
 
