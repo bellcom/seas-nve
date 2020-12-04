@@ -143,6 +143,14 @@ img.full-width {
     width: 100%;
 }
 
+.hidden-header {
+    display: inline-block;
+
+    font-size: 1px;
+
+    color: #fff;
+}
+
 .section-type {
     position: relative;
     display: inline-block;
@@ -536,7 +544,8 @@ img.full-width {
 
 .report-text-undersagsnavn {}
 
-.section-type + .ckeditor-content {
+.section-type + .ckeditor-content,
+.hidden-header + .ckeditor-content {
     padding-top: 20px;
 }
 
