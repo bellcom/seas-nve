@@ -59,7 +59,7 @@ class TiltagRapportSektionType extends RapportSektionType {
                     return sprintf('%s<img src="/%s" class="image-swatch">', $title, $image->getFilepath());
                 },
                 'attr' => array('class' => 'image-picker'),
-                'empty_value' => 'Brugerdefinerede',
+                'empty_value' => 'Brugerdefineret',
                 'data' => $usingCustomImage ? NULL : $selectedStandardImage,
                 'required' => FALSE,
                 'mapped' => FALSE

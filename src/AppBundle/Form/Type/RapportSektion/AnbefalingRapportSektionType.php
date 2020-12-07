@@ -65,7 +65,7 @@ class AnbefalingRapportSektionType extends RapportSektionType
                     return sprintf('%s<img src="/%s" class="image-swatch">', $title, $image->getFilepath());
                 },
                 'attr' => array('class' => 'image-picker'),
-                'empty_value' => 'Brugerdefinerede',
+                'empty_value' => 'Brugerdefineret',
                 'data' => $usingCustomImage ? NULL : $selectedStandardImage,
                 'required' => FALSE,
                 'mapped' => FALSE
@@ -80,7 +80,7 @@ class AnbefalingRapportSektionType extends RapportSektionType
                 'required' => FALSE,
                 'mapped' => FALSE,
                 'attr' => array(
-                    'help_text' => $helpText . ($sizeHelpText ? sprintf(' Ønskede billidestørelse: %s', $sizeHelpText) : ''),
+                    'help_text' => $helpText . ($sizeHelpText ? sprintf(' Optimal billedstørrelse: %s', $sizeHelpText) : ''),
                 ),
             ))
             ->add('extras', AnbefalingRapportSektionExtrasType::class, array(
