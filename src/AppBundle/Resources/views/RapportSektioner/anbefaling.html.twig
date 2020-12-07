@@ -6,7 +6,7 @@
 {% block section_type -%}
   <div class="section-type">{{ sectionTypeNavn }}</div>
   {% if section.anbefalingTitle is empty %}
-    <h1 style="display: inline-block; color: white; font-size: 1px;">{{ sectionTypeNavn }}</h1>
+    <h1 class="hidden-header">{{ sectionTypeNavn }}</h1>
   {% endif %}
 {% endblock %}
 {% block section_content -%}
