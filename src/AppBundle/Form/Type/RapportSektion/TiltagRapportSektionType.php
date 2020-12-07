@@ -72,7 +72,7 @@ class TiltagRapportSektionType extends RapportSektionType {
                 'attachment_path' => $usingCustomImage ? 'filepath' : NULL,
                 'required' => FALSE,
                 'attr' => array(
-                    'help_text' => $helpText . ($sizeHelpText ? sprintf(' Ønskede billidestørelse: %s', $sizeHelpText) : ''),
+                    'help_text' => $helpText . ($sizeHelpText ? sprintf(' Optimal billedstørrelse: %s', $sizeHelpText) : ''),
                 ),
             ))
             ->add('text', 'ckeditor', [
