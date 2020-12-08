@@ -563,6 +563,11 @@ img.full-width {
     padding-top: 60px;
 }
 
+.block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
 /* Anbefalinger. */
 .section--anbefaling .section-text {
     padding-top: 10px;
