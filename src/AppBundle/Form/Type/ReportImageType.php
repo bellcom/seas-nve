@@ -27,7 +27,7 @@ class ReportImageType extends AbstractType {
     $raportImageSizeHelpText = ReportImage::getImageTypeSizesHelpText();
 
     $helpText = 'Tilladte filtyper er jpg, jpeg, png.';
-    $helpText .= isset($raportImageSizeHelpText[$rapportImageType]) ? sprintf(' Ønskede billidestørelse: %s', $raportImageSizeHelpText[$rapportImageType]) : '';
+    $helpText .= isset($raportImageSizeHelpText[$rapportImageType]) ? sprintf(' Optimal billedstørrelse: %s', $raportImageSizeHelpText[$rapportImageType]) : '';
     $builder
       ->add('title', 'text', array(
         'required' => TRUE,

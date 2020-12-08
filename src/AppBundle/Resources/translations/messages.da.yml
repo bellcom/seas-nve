@@ -107,7 +107,7 @@ common:
   toggle: "Vis/Skjul"
   inherited: "nedarvet"
   others: "Øvrige"
-  text_pages: "Ekstra text sider"
+  text_pages: "Ekstra sider"
 dashboard:
   besparelseCO2: "CO2 besparelse"
   besparelseEl: "El besparelse"
@@ -535,7 +535,7 @@ rapportsektion:
   strings:
     tidsforloeb: "Tidsforløb"
     image: "Billede"
-    andendteEnheder: "Andendte enheder"
+    andendteEnheder: "Anvendte enheder"
 reportimage:
   actions:
     add: "Nyt billede upload"
@@ -2142,39 +2142,41 @@ appbundle:
     forbrugEfterCo2: "CO2 udslip efter"
     forbrugEfterCo2.unit: "T/år"
   rapportsektion:
-    title: "Title"
+    title: "Titel"
     text: "Tekst"
     type: "Type"
     textPages:
       0:
         showAfter: "Vis teksten"
-        text: "Ekstra text"
+        text: "Indholdstekst"
     textPages...name..:
       showAfter: "Vis teksten"
-      text: "Ekstra text"
+      text: "Indholdstekst"
     forside:
       title: "Overtekst"
-      filepath: "Brugetdefineret billede"
+      filepath: "Brugerdefineret billede"
       imagestandard: "Vælg billede"
       extras:
-        rapportTypeNavn: "Rapportype navn"
+        rapportTypeNavn: "Rappor type"
+        rapportTypeNavn.help: "Eks. Resultatoversigt"
+        skjuleKort: "Skjul kort"
         underTekst: "Undertekst"
         erstatningAdresse: "Erstat adresse"
         dato: "Dato"
     opsummering:
-      text: "Text"
+      text: "Tekst"
       title: "Titel"
       extras:
-        seasAnbefalerUnderTekst: "Seas anbefaler undertekst"
+        seasAnbefalerUnderTekst: "\"Seas anbefaler\" undertekst"
     kontaktinformation:
-      text: "Text"
+      text: "Tekst"
       title: "Titel"
       extras:
-        gennemgangDato: "Gennemgangdato"
+        gennemgangDato: "Gennemgangsdato"
         underskrivelseTekst: "Underskrivelse tekst"
     faktavirksom:
       title: "Titel"
-      text: "Beskrivelse af Virksomhed"
+      text: "Beskrivelse af virksomhed"
       extras:
         elForbrug: "Elforbrug"
         elForbrug.unit: "kr/kWh"
@@ -2186,7 +2188,7 @@ appbundle:
         afgifterForbrug.unit: "kr/kWh"
         co2Forbrug: "CO2-udslip"
         co2Forbrug.unit: "ton CO2"
-        anvendteTekst: "Anvendte tekst"
+        anvendteTekst: "Anvendt tekst"
         anvendteCo2Tekst: "CO2-udslip forklaring tekst"
         energiForbrugTekst: "Energiforbrug tekst"
     finansiering:
@@ -2195,15 +2197,15 @@ appbundle:
       extras:
         noegletal: "Nøgletal"
         tilbagebetalingstid: "Simpel Tilbagebetalingstid"
-        tekniskelevetid: "Tekniske levetid"
+        tekniskelevetid: "Teknisk levetid"
         finansieringTekst: "Finansiering tekst"
     tiltag:
-      text: "Text"
+      text: "Tekst"
       title: "Titel"
-      filepath: "Brugetdefineret billede"
+      filepath: "Brugerdefineret billede"
       imagestandard: "Vælg billede"
     baeredygtighed:
-      text: "Text"
+      text: "Tekst"
       title: "Titel"
       extras:
         besparelseeffekt: "Besparelse effekt tekst"
@@ -2211,29 +2213,29 @@ appbundle:
     anbefaling:
       title: "Titel"
       text: "Beskrivelse"
-      filepath: "Brugetdefineret billede"
+      filepath: "Brugerdefineret billede"
       imagestandard: "Standard billede"
       extras:
-        type: "Anbefaling type (Baseret på Slutanvendelse)"
-        tidsforloebuger: "Tidsforløb uger"
+        type: "Anbefalingstype (baseret på slutanvendelse)"
+        tidsforloebuger: "Tidsforløb (uger)"
         tidsforloebuger.unit: "uger"
         tidsforloebinfo: "Tidsforløb info"
-        tidsforloebinfo...name...title: "Title"
+        tidsforloebinfo...name...title: "Titel"
         tidsforloebinfo...name...startuge: "Start ugenummer"
         tidsforloebinfo...name...slutuge: "Slut ugenummer"
         tidsforloebinfo...name...omraadeansvar: "Områdeansvar"
         tidsforloebinfo.0:
-          title: "Title"
+          title: "Titel"
           startuge: "Start ugenummer"
           slutuge: "Slut ugenummer"
           omraadeansvar: "Områdeansvar"
         pris: "Pris"
         pris.unit: "kr"
-        ressourcertekst: "Ressourcertekst"
-        raadgiver: "Rådgiver i grønne tekst"
-        telefon: "Telefonnummer i grønne bokse"
-        telefon.help: "Standard vises med valgt rådgivers telefonnummer, hvis værdi er tom"
-        produktivitetTekst: "Produktivitet tekst"
+        ressourcertekst: "Resource tekst"
+        raadgiver: "Rådgiver v. grøn tekst"
+        telefon: "Telefon nr. i grøn boks"
+        telefon.help: "Standard: vises med valgt rådgivers telefonnummer, hvis værdi er tom"
+        produktivitetTekst: "Produktivitets tekst"
   reportimage:
     title: "Titel"
     filepath: "Fil"
@@ -2319,7 +2321,7 @@ appbundle:
     ikkeElenaBerettiget: "Ikke Elena Berettiget"
     kommentar: "Kommentar"
     tilvalgt: "Tilvalgt"
-    title: "Title"
+    title: "Titel"
   tekniskisoleringtiltagdetail:
     add: "Tilføg"
     beskrivelseType: "Beskrivelse (type)"
