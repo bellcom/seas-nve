@@ -724,14 +724,6 @@ abstract class Tiltag {
       return $this->tilvalgtAfMagistrat;
     }
 
-    if ($this->tilvalgtAfAaPlus !== NULL) {
-      return $this->tilvalgtAfAaPlus;
-    }
-
-    if ($this->tilvalgtAfRaadgiver !== NULL) {
-      return $this->tilvalgtAfRaadgiver;
-    }
-
     return FALSE;
   }
 
