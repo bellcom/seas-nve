@@ -14,7 +14,7 @@
 
           {% for rapport in rapport.bygningerRapporter() %}
             <div class="data-list__item">
-              {{ rapport.bygning }}
+              {{ rapport.bygning.string(1) }}
             </div>
           {% endfor %}
         </div>
@@ -30,9 +30,9 @@
         </div>
 
         {% for datterSelskab in rapport.virksomhed.getDatterSelskaber() %}
-          {% if datterSelskab.name %}
+          {% if datterSelskab is not empty %}
             <div class="data-list__item">
-              {{ datterSelskab.name }}
+              {{ datterSelskab.string(1) }}
             </div>
           {% endif %}
         {% endfor %}

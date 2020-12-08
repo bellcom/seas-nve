@@ -1381,6 +1381,28 @@ class Virksomhed
     }
 
     /**
+     * To string converting extended method
+     *
+     * @return string
+     */
+    public function string($withAdress = FALSE) {
+        $showAr = array();
+        if (!empty($this->name)) {
+          $showAr[] = $this->name;
+        }
+        if (!empty($this->address)) {
+          $showAr[] = $this->address;
+        }
+        if (!empty($this->postnummer)) {
+          $showAr[] = $this->postnummer;
+        }
+        if (!empty($this->byNavn)) {
+          $showAr[] = $this->byNavn;
+        }
+        return empty($showAr) ? strval($this->id) : implode(', ', $showAr);
+    }
+
+    /**
      * Filters empty values for entity.
      */
     public function filterEmptyValues() {
