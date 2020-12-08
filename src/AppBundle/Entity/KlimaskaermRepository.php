@@ -27,7 +27,7 @@ class KlimaskaermRepository extends EntityRepository {
    * @return string|null
    */
   public function getRemoveErrorMessage(Klimaskaerm $klimaskaerm) {
-    $query = $this->_em->createQuery('SELECT d FROM AppBundle:KlimaskaermTiltagDetail d WHERE d.klimaskaerm = :klimaskaerm');
+    $query = $this->_em->createQuery('SELECT d FROM AppBundle:NyKlimaskaermTiltagDetail d WHERE d.klimaskaerm = :klimaskaerm');
     $query->setParameter('klimaskaerm', $klimaskaerm);
     $result = $query->getResult();
 
