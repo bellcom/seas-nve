@@ -288,6 +288,7 @@ img.full-width {
 
 /* Editor. */
 .editor {
+    display: none;
     text-align: right;
 }
 .editor a {
@@ -305,6 +306,9 @@ img.full-width {
 }
 .editor a:hover {
     background-color: #eee;
+}
+.rapport-review .editor {
+    display: block;
 }
 
 
