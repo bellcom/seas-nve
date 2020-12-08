@@ -557,6 +557,9 @@ img.full-width {
 .block-opsummering--seas-anbefaler {
     padding-top: 30px;
 }
+.block-opsummering--potentiel-besparelse .h1 {
+    font-size: 2.5em;
+}
 .block-opsummering--potentiel-besparelse {
     padding-top: 30px;
 }
