@@ -14,7 +14,7 @@
 
           {% for rapport in rapport.bygningerRapporter() %}
             <div class="data-list__item">
-              {{ rapport.bygning }}
+              {{ rapport.bygning.string(1) }}
             </div>
           {% endfor %}
         </div>
@@ -30,9 +30,9 @@
         </div>
 
         {% for datterSelskab in rapport.virksomhed.getDatterSelskaber() %}
-          {% if datterSelskab.name %}
+          {% if datterSelskab is not empty %}
             <div class="data-list__item">
-              {{ datterSelskab.name }}
+              {{ datterSelskab.string(1) }}
             </div>
           {% endif %}
         {% endfor %}
@@ -47,7 +47,7 @@
     <div class="col-xs-6">
       <div class="data-list">
         <div class="data-list__heading">
-          <h2>Anvendte enheder:</h2>
+          <h2>Anvendte enheder</h2>
         </div>
 
         {% for field, label in {

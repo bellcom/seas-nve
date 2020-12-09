@@ -179,7 +179,10 @@ class VirksomhedRapportRepository extends BaseRepository {
                 continue;
             }
             // Remove section if it has missing Tiltag id or it doesn't exist.
-            if (empty($section->getTiltagId()) || $tiltageRepository->find($section->getTiltagId()) == NULL) {
+            if (empty($section->getTiltagId())
+              || $tiltageRepository->find($section->getTiltagId()) == NULL
+              || $tiltageRepository->findOneBy(array('id' => $section->getTiltagId()))->getTilvalgt() === FALSE
+            ) {
                 $this->_em->remove($section);
                 $this->_em->flush();
                 continue;
