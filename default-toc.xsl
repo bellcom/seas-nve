@@ -106,8 +106,8 @@
             border-bottom: 1px dashed #979797;
           }
           .section {
-            padding-left: 15mm;
-            padding-right: 15mm;
+            padding-left: 80px;
+            padding-right: 80px;
           }
         </style>
       </head>

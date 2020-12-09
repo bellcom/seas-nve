@@ -116,9 +116,7 @@
         {% include 'AppBundle:_includes:graf_roi.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
       </div>
       <div class="col-xs-6">
-        <br>
-
-        <div class="region region-anbefaling--highlighted-text">
+        <div class="box box--produktivitet">
           <h3>På vej med en grønne profil - vi er med jer hele vejen</h3>
           <p>
             Ønsker I at komme igang med implementering af optimeringer, eller har I spørgsmål,
@@ -127,7 +125,7 @@
         </div>
 
         {% if section.produktivitetTekst %}
-          <div class="box box--produktivitet">
+          <div class="region region-anbefaling--highlighted-text">
             <p>{{ section.produktivitetTekst }}</p>
           </div>
         {% endif %}
