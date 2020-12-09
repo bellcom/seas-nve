@@ -111,8 +111,6 @@
     <br>
     <div class="row">
       <div class="col-xs-6">
-        <br>
-
         {% include 'AppBundle:_includes:graf_roi.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
       </div>
       <div class="col-xs-6">
@@ -125,6 +123,7 @@
         </div>
 
         {% if section.produktivitetTekst %}
+          <br>
           <div class="region region-anbefaling--highlighted-text">
             <p>{{ section.produktivitetTekst }}</p>
           </div>

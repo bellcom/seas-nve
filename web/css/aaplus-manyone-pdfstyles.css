@@ -734,11 +734,11 @@ td.active-span.last span {
     padding-right: 80px;
 }
 
-.box--produktivitet {
-    font-weight: bold;
-    font-size: 1.2em;
-    line-height: 1.4;
+.box--produktivitet h3,
+.box--produktivitet .h3 {
+    margin-top: 0;
 }
+.box--produktivitet {}
 .box--produktivitet p:last-child {
     margin-bottom: 0;
 }
