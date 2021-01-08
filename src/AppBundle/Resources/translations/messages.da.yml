@@ -2414,6 +2414,8 @@ appbundle:
     samletTransportBesparelse.unit: "kr/år"
     forbrugFoerOverblik: "Nuværende forbrugoverblik"
     forbrugEfterOverblik: "Optimeret forbrugoverblik"
+    forbrugEfterOverblikEl: "Optimeret forbrugoverblik - El"
+    forbrugEfterOverblikVarme: "Optimeret forbrugoverblik - Varme"
     besparelsesoverblik: "Besparelsesoverblik"
     besparelseStrafafkoelingsafgift: "Besparelse på Strafafkølingsafgift"
     besparelseStrafafkoelingsafgift.unit: "kr"

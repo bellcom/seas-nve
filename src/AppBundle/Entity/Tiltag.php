@@ -2108,6 +2108,7 @@ abstract class Tiltag {
    * Calculates forbrug before kWh value.
    *
    * forbrug = forbrugEl + forbrugVarme.
+   * @Formula("$this->calculateForbrugFoerVarme() + $this->calculateForbrugFoerEl()")
    */
   protected function calculateForbrugFoer() {
     return $this->calculateForbrugFoerVarme() + $this->calculateForbrugFoerEl();
@@ -2117,6 +2118,7 @@ abstract class Tiltag {
    * Calculates forbrug before Kr value.
    *
    * forbrugKr = forbrugVarme * varmePris + forbrugEl * elPris.
+   * @Formula("$this->calculateForbrugFoerVarme() * $this->getVarmePris() + $this->calculateForbrugFoerEl() * $this->getElPris()")
    */
   protected function calculateForbrugFoerKr() {
       return $this->calculateForbrugFoerVarme() * $this->getVarmePris() + $this->calculateForbrugFoerEl() * $this->getElPris();
@@ -2126,6 +2128,7 @@ abstract class Tiltag {
    * Calculates forbrug before CO2 value.
    *
    * forbrugCO2 = forbrugEl/1000 * elCO2 / 1000 + forbrugVarme/1000 * varmeCO2 / 1000.
+   * @Formula("$this->calculateForbrugFoerVarme() / 1000 * $this->getVarmeKgCo2MWh() / 1000 + $this->calculateForbrugFoerEl() / 1000 * $this->getElKgCo2MWh() / 1000")
    */
   protected function calculateForbrugFoerCo2() {
     return $this->calculateForbrugFoerVarme() / 1000 * $this->getVarmeKgCo2MWh() / 1000
@@ -2135,6 +2138,7 @@ abstract class Tiltag {
   /**
    * Calculates based on value before - savings.
    *
+   * @Formula("$this->calculateForbrugFoer() - $this->getVarmebesparelseGAF() - $this->getVarmebesparelseGUF() - $this->getElbesparelse()")
    * @return float|int
    */
   protected function calculateForbrugEfter() {
@@ -2144,6 +2148,7 @@ abstract class Tiltag {
   /**
    * Calculates based on value before - savings.
    *
+   * @Formula("$this->calculateForbrugFoerKr() - $this->getSamletEnergibesparelse()")
    * @return float|int
    */
   protected function calculateForbrugEfterKr() {
@@ -2153,6 +2158,7 @@ abstract class Tiltag {
   /**
    * Calculates based on value before - savings.
    *
+   * @Formula("$this->calculateForbrugFoerCo2() - $this->getSamletCo2besparelse()")
    * @return float|int
    */
   protected function calculateForbrugEfterCo2() {
@@ -2608,6 +2614,18 @@ abstract class Tiltag {
     return $keys ? array_keys($discriminatorMapAnn->value) : $discriminatorMapAnn->value;
   }
 
+  /**
+   * Returns the type of this Tiltag.
+   *
+   * This is a value stored in the descriminator field.
+   *
+   * @return string
+   *   Tiltag Type.
+   */
+  public function getType() {
+    $class = (new \ReflectionClass($this))->getShortName();
+    return array_search($class, self::getTypes());
+  }
 
   public static function getTypesConverted($keys = FALSE) {
     $types = self::getTypes();
