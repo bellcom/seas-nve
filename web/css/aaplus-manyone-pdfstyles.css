@@ -11,7 +11,6 @@ body {
     color: #50534d;
 }
 
-
 .section--tiltag.landscape,
 .section--tiltagtable.landscape {
     position: relative;
@@ -124,8 +123,8 @@ body > .container-fluid {
 body .pdf-header,
 body .pdf-footer {
     margin: 0;
-    padding-left: 56px !important;
-    padding-right: 56px !important;
+    padding-left: 77px !important;
+    padding-right: 77px !important;
 
     font-size: .7em;
 }
@@ -188,6 +187,8 @@ img.full-width {
 .ckeditor-content table td {
     padding-left: 15px;
     padding-right: 15px;
+
+    vertical-align: top;
 }
 
 .ckeditor-content ul {
@@ -313,8 +314,8 @@ img.full-width {
 
 
 .block--negative-margin {
-    margin-left: -60px !important;
-    margin-right: -60px !important;
+    margin-left: -80px !important;
+    margin-right: -80px !important;
 }
 
 
@@ -429,8 +430,8 @@ img.full-width {
 
 /* Sections. */
 .section {
-    padding-left: 60px !important;
-    padding-right: 60px !important;
+    padding-left: 80px !important;
+    padding-right: 80px !important;
 }
 .section--kontaktinformation {
     font-size: 10px;
@@ -596,10 +597,7 @@ img.full-width {
     padding-top: 30px;
     padding-bottom: 10px;
     padding-left: 20px;
-    padding-right: 15mm;
-}
-.rapport-review .region-anbefaling--meta {
-    padding-right: 70px;
+    padding-right: 80px;
 }
 
 .region-anbefaling--effect {}
@@ -725,21 +723,22 @@ td.active-span.last span {
     color: #fff;
 }
 
-.region-forslag--meta {
-    padding-top: 70px;
-    padding-bottom: 30px;
-    padding-left: 20px;
-    padding-right: 15mm;
+.region-forslag--meta .h1 {
+    margin-top: 10px;
+    margin-bottom: 0;
 }
-.rapport-review .region-forslag--meta {
-    padding-right: 70px;
+.region-forslag--meta {
+    padding-top: 80px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 80px;
 }
 
-.box--produktivitet {
-    font-weight: bold;
-    font-size: 1.2em;
-    line-height: 1.4;
+.box--produktivitet h3,
+.box--produktivitet .h3 {
+    margin-top: 0;
 }
+.box--produktivitet {}
 .box--produktivitet p:last-child {
     margin-bottom: 0;
 }

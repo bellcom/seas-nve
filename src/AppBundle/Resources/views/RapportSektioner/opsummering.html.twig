@@ -44,13 +44,16 @@
     <div class="box box--samlet-besparelse">
       <div class="row">
         <div class="col-xs-4">
-          <span class="h1">{{ section.potentieltBesparesleKwh | format_decimal(0) }} <small>færre kWh</small></span>
+          <span class="h1">{{ section.potentieltBesparesleKwh | format_decimal(0) }}</span>
+          <div><small>færre kWh</small></div>
         </div>
         <div class="col-xs-4">
-          <span class="h1">{{ section.potentieltBesparesleKr | format_decimal(0) }} <small>kr. sparet</small></span>
+          <span class="h1">{{ section.potentieltBesparesleKr | format_decimal(0) }}</span>
+          <div><small>kr. sparet</small></div>
         </div>
         <div class="col-xs-4">
-          <span class="h1">{{ section.potentieltBesparesleCo2 | format_decimal }} <small>færre ton CO2</small></span>
+          <span class="h1">{{ section.potentieltBesparesleCo2 | format_decimal }}</span>
+          <div><small>færre ton CO2</small></div>
         </div>
       </div>
     </div>
