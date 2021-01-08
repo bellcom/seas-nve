@@ -38,4 +38,12 @@ class VindueTiltag extends NyKlimaskaermTiltag {
     ));
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  protected function calculateForbrugFoerVarme() {
+    $result = $this->sum(function($detail) { return abs($detail->getEWEksKWhM2Aar()); });
+    return $result;
+  }
+
 }
