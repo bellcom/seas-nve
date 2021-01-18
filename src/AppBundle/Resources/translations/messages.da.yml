@@ -2157,7 +2157,7 @@ appbundle:
       filepath: "Brugerdefineret billede"
       imagestandard: "Vælg billede"
       extras:
-        rapportTypeNavn: "Rappor type"
+        rapportTypeNavn: "Rapport type"
         rapportTypeNavn.help: "Eks. Resultatoversigt"
         skjuleKort: "Skjul kort"
         underTekst: "Undertekst"
