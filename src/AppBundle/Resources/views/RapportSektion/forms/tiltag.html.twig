@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-offset-6 col-md-6 text-right" style="margin-top: -45px;">
       {% if entity.tiltag %}
-        <a class="btn btn-default" href="{{ path('tiltag_edit', { 'id': entity.tiltag.id, 'destination': app.request.get('destination') }) }}">{{ 'rapportsektion.actions.edit_tiltag' | trans }}</a>
+        <a class="btn btn-default" target="_blank" href="{{ path('tiltag_edit', { 'id': entity.tiltag.id, 'destination': app.request.get('destination') }) }}">{{ 'rapportsektion.actions.edit_tiltag' | trans }}</a>
       {% endif %}
     </div>
   </div>
