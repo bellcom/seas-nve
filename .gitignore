@@ -7,6 +7,7 @@
 !web/uploads/images/rapport/forside/.htaccess
 !web/uploads/images/rapport/anbefaling/.htaccess
 !web/uploads/images/rapport/tiltag/.htaccess
+!web/uploads/specialtiltag/.htaccess
 /web/bundles/
 /web/assets/
 /app/bootstrap.php.cache
