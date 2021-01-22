@@ -234,6 +234,11 @@ class RapportController extends BaseController {
   {
     $exporter = $this->get('aaplus.pdf_export');
     switch ($type) {
+      case 'show':
+        $html = $exporter->rapportView($rapport, [], TRUE);
+          $pdf_export_route = 'rapport_show_pdf2';
+          break;
+
       case 'resultatoversigt':
         $html = $exporter->export2($rapport, [], TRUE);
         $pdf_export_route = 'rapport_show_pdf2';

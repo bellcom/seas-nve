@@ -20,16 +20,6 @@ use Doctrine\ORM\Mapping as ORM;
 class VentilationTiltag extends Tiltag {
 
     /**
-     * @Formula("$this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh()")
-     */
-    protected $samletEnergibesparelse;
-
-    /**
-     * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
-     */
-    protected $samletCo2besparelse;
-
-    /**
     * Constructor
     */
     public function __construct() {
@@ -75,6 +65,14 @@ class VentilationTiltag extends Tiltag {
         $value = $this->calculateVarmebesparelseGAFValue();
 
         return parent::calculateVarmebesparelseGAF($value);
+    }
+
+    protected function calculateForbrugFoerEl() {
+        return $this->sum(function($detail) { return $detail->getElForbrugKwhAarFoer(); });
+    }
+
+    protected function calculateForbrugFoerVarme() {
+        return $this->sum(function($detail) { return $detail->getVarmeForbrugKwhAarFoer(); });
     }
 
 }

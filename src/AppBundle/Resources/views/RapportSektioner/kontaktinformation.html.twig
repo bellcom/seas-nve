@@ -1,0 +1,103 @@
+{% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+
+{% block section_content -%}
+  {% if section.text %}
+    <div class="section-text ckeditor-content">
+      {{ section.text | raw }}
+    </div>
+  {% endif %}
+  {% set rapport = section.rapport %}
+  <div>
+    <br>
+    <div>
+      <h2>Kunde</h2>
+      <div class="row">
+        {% if rapport.virksomhed %}
+          <div class="col-xs-4">
+            {% if rapport.virksomhed.name %}
+              <div>{{ rapport.virksomhed.name }}</div>
+            {% endif %}
+
+            {% if rapport.virksomhed.address %}
+              <div>{{ rapport.virksomhed.address }}</div>
+            {% endif %}
+
+            {% if rapport.virksomhed.postnummer and rapport.virsomhed.byNavn %}
+              <div>{{ rapport.virksomhed.postnummer }} {{ rapport.virsomhed.byNavn }}</div>
+            {% endif %}
+          </div>
+
+          {% for contactPerson in rapport.virksomhed.contactPersons %}
+            <div class="col-xs-4">
+              {{ include ('AppBundle:ContactPerson:show-embed.html.twig') }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    {% if rapport.virksomhed.getDatterSelskaber() is not empty %}
+      <div>
+        <br>
+        <h2>Datterselskaber</h2>
+        {% for datterSelskab in rapport.virksomhed.getDatterSelskaber() %}
+          <div class="row">
+            <div class="col-xs-4">
+              {% if datterSelskab.name %}
+                <div>{{ datterSelskab.name }}</div>
+              {% endif %}
+
+              {% if datterSelskab.address %}
+                <div>{{ datterSelskab.address }}</div>
+              {% endif %}
+
+              {% if datterSelskab.postnummer and datterSelskab.byNavn %}
+                <div>{{ datterSelskab.postnummer }} {{ datterSelskab.byNavn }}</div>
+              {% endif %}
+            </div>
+            {% for contactPerson in datterSelskab.contactPersons %}
+              <div class="col-xs-4">
+                {{ include ('AppBundle:ContactPerson:show-embed.html.twig') }}
+              </div>
+            {% endfor %}
+          </div>
+          <br>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if rapport.virksomhed.getAllRaadgivers() is not empty %}
+      <div>
+        <br>
+        <h2>Energirådgiver</h2>
+        <div class="row">
+          {% for key, user in rapport.virksomhed.getAllRaadgivers() %}
+            {% if key == 0 %}
+              <div class="col-xs-12">
+            {% else %}
+              <div class="col-xs-4">
+            {% endif %}
+              <div>{{ user }}</div>
+              <div><a href="mailto:{{ user.email }}">{{ user.email }}</a></div>
+              <br>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <div>
+      <br>
+      <h2>Dato for gennemgang</h2>
+      <div class="row">
+        <div class="col-xs-4">
+          {{ section.gennemgangDato | date('d.m.Y') }}
+        </div>
+      </div>
+    </div>
+    {% if section.underskrivelseTekst %}
+      <div class="section-text ckeditor-content" style="padding-top:40px;">
+        {{ section.underskrivelseTekst | raw }}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

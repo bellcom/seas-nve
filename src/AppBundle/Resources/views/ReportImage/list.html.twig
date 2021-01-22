@@ -1,0 +1,83 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1>{{ "reportimage.tabs.#{ selected_image_type }" | trans }}</h1>
+        </div>
+        <div class="col-md-6 text-right">
+            {% for type in report_image_types %}
+                <a href="{{ path('report_image_get', { 'image_type': type }) }}" class="btn btn-default {% if selected_image_type == type%}active{% endif %}">
+                    {{ "reportimage.tabs.#{ type }" | trans }}
+                </a>
+            {% endfor %}
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ "reportimage.tabs.suggestions" | trans }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    {% for type in suggestion_image_types %}
+                        <li class="{% if selected_image_type ==  type%}active{% endif %}">
+                            <a href="{{ path('report_image_get', { 'image_type': type }) }}">
+                                {{ "bygning_rapporter.strings.#{ type }tiltag" | trans }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                {% for element in image_elements %}
+                    <div class="col-xs-6 col-md-2">
+                        <p class="text-center">{{ element.image.title }}</p>
+
+                        <a href="{{ asset(element.image.filepath) }}" target="_blank">
+                            <img src="{{ asset(element.image.filepath) }}" class="img-rounded image-swatch">
+                        </a>
+
+                        <div class="text-center">
+                            <div class="btn-group">
+                                    {{ form(element.mark_standard_form_ve) }}
+                            </div>
+                            <div class="btn-group">
+                                    {{ form(element.mark_standard_form_vs) }}
+                            </div>
+                            {% if element.mark_standard_form_vd is not empty %}
+                              <div class="btn-group">
+                                      {{ form(element.mark_standard_form_vd) }}
+                              </div>
+                            {% endif %}
+                            <div class="btn-group">
+                                {{ form(element.delete_form) }}
+                            </div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+
+            {{ form_start(upload_form) }}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ 'reportimage.actions.add' | trans }}</h3>
+                        </div>
+                        <div class="panel-body">
+                            {{ form_rest(upload_form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_start(upload_form) }}
+        </div>
+    </div>
+
+{% endblock %}

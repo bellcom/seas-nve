@@ -1,0 +1,44 @@
+{% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+{% block section_content -%}
+  {{ parent() }}
+
+  <br><br>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <h2>Besparelseseffekter</h2>
+      <div class="ckeditor-content">
+        {{ section.besparelseeffekt | raw }}
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="box box--primary">
+        <div>
+          <strong>Samlet årlig effekt:</strong>
+        </div>
+
+        <br>
+
+        <div>
+          <span class="h1">{{ section.effektBesparesleKwh | format_decimal(0) }} <small>færre kWh</small></span>
+        </div>
+
+        <br>
+
+        <div>
+          <span class="h1">{{ section.effektBesparesleKr | format_decimal(0) }} <small>kr. sparet</small></span>
+        </div>
+
+        <br>
+
+        <div>
+          <span class="h1">{{ section.effektBesparesleCo2 | format_decimal }} <small>færre ton CO2</small></span>
+        </div>
+
+        <div>
+          {{ section.besparelseeffektUnderTekst }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

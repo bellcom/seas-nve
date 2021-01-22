@@ -1,0 +1,153 @@
+{% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+
+{% block section_content -%}
+  {{ parent() }}
+  {% set rapport = section.rapport %}
+  <div class="row">
+
+    {% if rapport.bygningerRapporter() is not empty %}
+      <div class="col-xs-6">
+        <div class="data-list">
+          <div class="data-list__heading">
+            <h2>Bygninger</h2>
+          </div>
+
+          {% for rapport in rapport.bygningerRapporter() %}
+            <div class="data-list__item">
+              {{ rapport.bygning.string(1) }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if rapport.virksomhed.getDatterSelskaber() is not empty %}
+      <div class="col-xs-6">
+        <div class="data-list">
+          <div class="data-list__heading">
+            <h2>Datterseskaber</h2>
+          </div>
+        </div>
+
+        {% for datterSelskab in rapport.virksomhed.getDatterSelskaber() %}
+          {% if datterSelskab is not empty %}
+            <div class="data-list__item">
+              {{ datterSelskab.string(1) }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="data-list">
+        <div class="data-list__heading">
+          <h2>Anvendte enheder</h2>
+        </div>
+
+        {% for field, label in {
+          'elForbrug': 'kr./kWh i el',
+          'varmeForbrug': 'kr./kWh i varme',
+          'braendstofForbrug': 'kr./l. i brændstof',
+          'afgifterForbrug': 'kr./kWh i afgifter',
+          'co2Forbrug': 'ton i CO2' ~ (section.anvendteCo2Tekst ? '*' : ''),
+        } %}
+          {% if attribute(section, field) %}
+            <div class="data-list__item">
+              <div class="row">
+                <div class="col-xs-6">{{ label }}</div>
+                <div class="col-xs-6 text-right">{{ attribute(section, field) }}</div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col-xs-6">
+      <div class="region region--fakta-enheder-text">
+        <p>{{ section.anvendteTekst }}</p>
+      </div>
+
+      {% if section.anvendteCo2Tekst %}
+        <div class="section-fakta-enheder-co2Text">
+          <p>* {{ section.anvendteCo2Tekst }}</p>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+  {% if rapport_type == 'energisyn' %}
+    {% include 'AppBundle::RapportSektioner/_includes/section-text-pages.html.twig' with { 'showAfter' : 'page1' } %}
+    {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
+
+    <div>
+      <h1>Energiforbrug og fordeling</h1>
+      <div class="ckeditor-content">
+        {{ section.energiForbrugTekst | raw }}
+      </div>
+
+      <br><br>
+
+      {% set energiForbrugData = section.energiForbrugData %}
+      {% set columnClass = 'col-xs-12' %}
+      {% if energiForbrugData | length > 10 %}
+        {% set columnClass = 'col-xs-6' %}
+      {% endif %}
+
+      <div class="row">
+        <div class="{{ columnClass }}">
+          {% if energiForbrugData | length > 10 %}
+            {{ include ('AppBundle:_includes:graf_report_pie_chart.html.twig', { pie_chart_data: section.energiForbrugData }) }}
+          {% else %}
+            {{ include ('AppBundle:_includes:graf_report_pie_chart_column.html.twig', { pie_chart_data: section.energiForbrugData }) }}
+            <br><br>
+          {% endif %}
+        </div>
+        <div class="{{ columnClass }}">
+
+          <div class="data-list">
+            <div class="data-list__heading">
+              <div class="row">
+                <div class="col-xs-6"><strong>Slutanvendelse</strong></div>
+                <div class="col-xs-6 text-right"><strong>kWh/år</strong></div>
+              </div>
+            </div>
+
+            {% for row in section.energiForbrugData %}
+              <div class="data-list__item">
+                <div class="row">
+                  <div class="col-xs-6">{{ row.label_wihout_procent }}</div>
+                  <div class="col-xs-6 text-right">{{ row.value | format_decimal }}</div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <br><br>
+
+          <div class="box box--primary" style="max-width: 420px;">
+            <div>
+              <span class="h2">Samlet forbrug:</span>
+            </div>
+
+            <br>
+
+            <div>
+              <span class="h1">
+                {{ section.energiForbrugSamlet | format_decimal }}
+                <small>kWh/år</small>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

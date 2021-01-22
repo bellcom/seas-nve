@@ -28,7 +28,6 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *    "pumpe" = "PumpeTiltagDetail",
  *    "special" = "SpecialTiltagDetail",
  *    "belysning" = "BelysningTiltagDetail",
- *    "klimaskærm" = "KlimaskaermTiltagDetail",
  *    "køleanlæg" = "KoeleanlaegTiltagDetail",
  *    "nyklimaskærm" = "NyKlimaskaermTiltagDetail",
  *    "varmeanlaeg" = "VarmeanlaegTiltagDetail",
@@ -43,7 +42,6 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *    "pumpe": "AppBundle\Entity\PumpeTiltagDetail",
  *    "special": "AppBundle\Entity\SpecialTiltagDetail",
  *    "belysning" = "AppBundle\Entity\BelysningTiltagDetail",
- *    "klimaskærm" = "AppBundle\Entity\KlimaskaermTiltagDetail",
  *    "køleanlæg" = "AppBundle\Entity\KoeleanlaegTiltagDetail",
  *    "nyklimaskærm" = "AppBundle\Entity\NyKlimaskaermTiltagDetail",
  *    "tekniskisolering" = "AppBundle\Entity\TekniskIsoleringTiltagDetail",
@@ -212,7 +210,7 @@ abstract class TiltagDetail {
    * Set laastAfEnergiraadgiver
    *
    * @param boolean $laastAfEnergiraadgiver
-   * @return KlimaskaermTiltagDetail
+   * @return TiltagDetail
    */
   public function setLaastAfEnergiraadgiver($laastAfEnergiraadgiver) {
     $this->laastAfEnergiraadgiver = $laastAfEnergiraadgiver;

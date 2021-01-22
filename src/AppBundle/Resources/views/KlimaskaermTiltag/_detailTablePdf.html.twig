@@ -1,4 +1,4 @@
-<table class="table table-condensed table-header-rotated table-hover">
+<table class="table table-condensed">
   <thead>
   <tr>
     {{ helper.header_span('common.generelt', 5) }}
@@ -6,7 +6,6 @@
     {{ helper.header_span('common.oekonomi', 7) }}
   </tr>
   <tr>
-    {{ helper.header('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header('appbundle.klimaskaermtiltagdetail.type') }}
     {{ helper.header('appbundle.klimaskaermtiltagdetail.placering') }}
     {{ helper.header('appbundle.klimaskaermtiltagdetail.noteGenerelt') }}
@@ -27,7 +26,6 @@
     {{ helper.header() }}
   </tr>
   <tr>
-    {{ helper.header_unit('appbundle.tiltagdetail.tilvalgt') }}
     {{ helper.header_unit('appbundle.tiltagdetail.type') }}
     {{ helper.header_unit('appbundle.tiltagdetail.placering') }}
     {{ helper.header_unit('appbundle.klimaskaermtiltagdetail.noteGenerelt') }}
@@ -50,8 +48,8 @@
   </thead>
   <tbody>
   {% for detail in entity.details %}
+    {% if detail.tilvalgt %}
     <tr>
-      <td class="{{ detail.tilvalgt | b2class }}">{{ detail.tilvalgt | b2icon }}</td>
       <td>{{ detail.type | trans }}</td>
       <td>{{ detail.placering }}</td>
       <td>{{ detail.noteGenerelt }}</td>
@@ -71,6 +69,7 @@
 
       <td class="last"></td>
     </tr>
+    {% endif %}
   {% endfor %}
   </tbody>
 </table>

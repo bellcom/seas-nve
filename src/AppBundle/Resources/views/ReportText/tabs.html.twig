@@ -1,0 +1,26 @@
+{% for section, text_types in report_section_text_types %}
+    {% if text_types | length > 1 %}
+    <div class="btn-group">
+        <button type="button"
+                class="btn btn-default dropdown-toggle {% if selected_section ==  section %}active{% endif %}"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ "reporttext.tabs.#{ section }" | trans }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            {% for text_type_key, text_type in text_types %}
+                <li class="{% if selected_text_type ==  text_type_key %}active{% endif %}">
+                    <a href="{{ path('report_text_get', { 'type': text_type_key }) }}">
+                        {{ "reporttext.tabs.#{ section }_#{ text_type }" | trans }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+        {% for text_type_key, text_type in text_types %}
+            <a class="btn btn-default {% if selected_text_type ==  text_type_key %}active{% endif %}" href="{{ path('report_text_get', { 'type': text_type_key }) }}">
+              {{ "reporttext.tabs.#{ section }" | trans }}
+            </a>
+        {% endfor %}
+    {% endif %}
+{% endfor %}

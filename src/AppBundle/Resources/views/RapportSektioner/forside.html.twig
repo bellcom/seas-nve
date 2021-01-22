@@ -1,0 +1,37 @@
+{% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+{% block section -%}
+  <div class="block block-frontpage--image">
+    {% if section.filepath %}
+      <img src="{{ absolute_url(asset(section.filepath)) }}" alt="" />
+    {% endif %}
+  </div>
+
+  <div class="block block-frontpage--map">
+    <div class="row">
+      <div class="col-xs-7">
+        <div class="report-intro">
+          <div>
+            <div class="section-type">{{ section.title }}</div>
+          </div>
+          <div class="report-intro__title">{{ section.virksomhedNavn }}</div>
+          <div class="report-intro__report-type">{{ section.getRapportTypeNavn }}</div>
+        </div>
+      </div>
+      <div class="col-xs-5">
+        {% if section.address and not section.skjuleKort %}
+          <div class="report-map">
+            <img alt="" src="https://www.mapquestapi.com/staticmap/v5/map?center={{ section.address }}&zoom=18&size=400,400&key=dmNBHsqexMpt6bWFyuPwWklH10alas5X&locations=={{ section.address }}">
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="block block-frontpage--name">
+    <div class="block-frontpage__undersagsnavn">{{ section.underTekst }}</div>
+    {% if section.datering %}
+      <div class="block-frontpage__date">{{ section.datering | date('d.m.Y') }}</div>
+    {% endif %}
+    <div class="block-frontpage__logo"><img alt="" src="{{ absolute_url(asset('img/seas-nve-logo.png')) }}" height="30px" /></div>
+  </div>
+{% endblock %}

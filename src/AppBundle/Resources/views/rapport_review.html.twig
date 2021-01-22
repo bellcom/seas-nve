@@ -15,8 +15,11 @@
         <link href="{{ absolute_url(asset('css/lib/font-awesome.min.css')) }}" type="text/css" rel="stylesheet" />
         <link href="{{ absolute_url(asset('css/lib/sticky-footer-navbar.css')) }}" type="text/css" rel="stylesheet" />
         <link href="{{ absolute_url(asset('css/aaplus-styles.css')) }}" type="text/css" rel="stylesheet" />
-        <link href="{{ absolute_url(asset('css/aaplus-pdfstyles.css')) }}" type="text/css" rel="stylesheet"/>
+        <link href="{{ absolute_url(asset('css/aaplus-manyone-pdfstyles.css')) }}" type="text/css" rel="stylesheet"/>
     {% endblock %}
+
+    <script src="{{ absolute_url(asset('js/lib/echarts/echarts.simple.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('js/lib/echarts/seas-theme.js')) }}"></script>
 
     <script>
         function formatNumberSeparators(nStr) {
@@ -33,29 +36,58 @@
             return x1 + x2;
         }
     </script>
-    <script src="{{ absolute_url(asset('js/lib/Chart.js/Chart.min.js')) }}"></script>
-
+    <style type="text/css">
+        body #navbar {
+            font-size: 14px;
+        }
+        body #navbar a {
+            text-decoration: none;
+        }
+        body > .container-fluid {
+            padding: 60px 15px 0;
+        }
+    </style>
 </head>
 
-<body>
+<body class="rapport-review">
 
 <!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/"><img src="{{ absolute_url(asset('img/seas-nve-logo.png')) }}" class="navbar-brand--logo"/> </a>
-        </div>
-        <div class="navbar-right">
-            {% if pdf_export_url %}
-                <form method="POST" action="{{ pdf_export_url }}" style="margin-top:10px;">
-                    <button type="submit" class="btn btn-default" name="save-pdf" value="1">{{ icon('file-pdf-o') }} {{ 'common.savePdf' | trans }}</button>
-                    <button type="submit" class="btn btn-default" name="download-pdf" value="1">{{ icon('file-pdf-o') }} {{ 'common.downloadPdf' | trans }}</button>
-                </form>
-            {% endif %}
-        </div>
+<nav class="navbar navbar-fixed-top">
+  <div class="container-fluid  navbar-default">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img src="{{ absolute_url(asset('img/seas-nve-logo.png')) }}" class="navbar-brand--logo"/> </a>
     </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {% include 'AppBundle::top_navigation.html.twig' %}
+        <div class="navbar-right">
+          <a class="btn btn-default" target="_blank" href="{{ path('report_text') }}">{{ 'reporttext.labels.plural' | trans }}</a>
+          <a class="btn btn-default" target="_blank" href="{{ path('report_image') }}">{{ 'reportimage.labels.plural' | trans }}</a>
+          {% if pdf_export_url %}
+            <form method="POST" action="{{ pdf_export_url }}" style="margin-top:10px; display: inline-block;">
+                <button type="submit" class="btn btn-default" name="save-pdf" value="1">{{ icon('file-pdf-o') }} {{ 'common.savePdf' | trans }}</button>
+                <button type="submit" class="btn btn-default" name="download-pdf" value="1">{{ icon('file-pdf-o') }} {{ 'common.downloadPdf' | trans }}</button>
+            </form>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="container-fluid breadcrumbs-wrapper">
+    {{ wo_render_breadcrumbs() }}
+    {% if back_url %}
+      <div class="text-right">
+        <a class="btn btn-default" href="{{ back_url }}">{% if back_title %}{{ back_title }}{% else %}{{ 'Tilbage' | trans }}{% endif %}</a>
+      </div>
+    {% endif %}
+  </div>
 </nav>
-
 {% macro header(key) %}
     {% set calculation = key|get_calculation %}
 
@@ -90,7 +122,7 @@
 {% import _self as helper %}
 
 <!-- Begin page content -->
-
+<div style="height: 120px"></div>
 {{ html | raw }}
 
 
@@ -98,7 +130,20 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 {% block javascripts %}
+  <script src="{{ absolute_url(asset('js/lib/jquery-1.11.2.min.js')) }}"></script>
+  <script src="{{ absolute_url(asset('js/lib/bootstrap.min.js')) }}"></script>
+  <script src="{{ absolute_url(asset('js/lib/bc-bootstrap-collection.js')) }}"></script>
+  <script src="{{ absolute_url(asset('js/lib/jquery.autogrowtextarea.min.js')) }}"></script>
+  <script src="{{ absolute_url(asset('js/lib/jquery.floatThead.min.js')) }}"></script>
+  <script src="{{ absolute_url(asset('js/lib/select2.min.js')) }}"></script>
+  <script src="{{ absolute_url(asset('js/aaplus.js')) }}"></script>
+  <script src="{{ absolute_url(asset('js/app.js')) }}"></script>
 
+  <script>
+      $(document).ready(function() {
+        {% block documentReady %}{% endblock documentReady %}
+      });
+  </script>
 {% endblock %}
 
 </body>

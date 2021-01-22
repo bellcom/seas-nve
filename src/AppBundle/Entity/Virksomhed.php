@@ -1114,6 +1114,23 @@ class Virksomhed
     }
 
     /**
+     * Get full address line.
+     *
+     * @return string
+     */
+    public function getFullAddress()
+    {
+        $address_arr = [
+            'kommune' => $this->getKommune(),
+            'region' => $this->getRegion(),
+            'by' => $this->getByNavn(),
+            'address' => $this->getAddress(),
+        ];
+
+        return array_filter($address_arr) ? ('Danmark, ' . implode(', ', array_filter($address_arr))) : NULL;
+    }
+
+    /**
      * Set postnummer
      *
      * @param string $postnummer
@@ -1361,6 +1378,28 @@ class Virksomhed
             return $this->address;
         }
         return strval($this->id);
+    }
+
+    /**
+     * To string converting extended method
+     *
+     * @return string
+     */
+    public function string($withAdress = FALSE) {
+        $showAr = array();
+        if (!empty($this->name)) {
+          $showAr[] = $this->name;
+        }
+        if (!empty($this->address)) {
+          $showAr[] = $this->address;
+        }
+        if (!empty($this->postnummer)) {
+          $showAr[] = $this->postnummer;
+        }
+        if (!empty($this->byNavn)) {
+          $showAr[] = $this->byNavn;
+        }
+        return empty($showAr) ? strval($this->id) : implode(', ', $showAr);
     }
 
     /**

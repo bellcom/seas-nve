@@ -1,0 +1,67 @@
+{% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+{% block section_content -%}
+  {{ parent() }}
+  <div class="block block-opsummering--seas-anbefaler">
+    <div class="row">
+      <div class="col-xs-5">
+        <br><br>
+        <h2>SEAS-NVE anbefaler</h2>
+        {% if section.seasAnbefalerUnderTekst %}
+          <p>{{ section.seasAnbefalerUnderTekst }}</p>
+        {% endif %}
+      </div>
+      <div class="col-xs-7">
+        <div class="row">
+          {% for key, anbefaling in section.anbefalinger %}
+            <div class="col-xs-4">
+              {% include 'AppBundle:RapportSektioner:anbefaling-teaser.html.twig' with { 'section' : anbefaling  } %}
+            </div>
+          {% endfor %}
+
+          {% if section.anbefalinger | length < 3 and review %}
+            <div class="col-xs-4">
+              <br><br><br>
+              <a href="{{ path('virksomhed_rapport_sektioner_new', { 'virksomhed_rapport': section.rapport.id, 'rapport_type': rapport_type, 'type': 'anbefaling', 'destination': path('virksomhed_rapport_pdf_review', { 'id': section.rapport.id, 'type': rapport_type })}) }}" class="btn btn-default">
+                <span class="fa fa-plus"></span>
+                Tilføj anbefaling
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include 'AppBundle::RapportSektioner/_includes/section-text-pages.html.twig' with { 'showAfter' : 'page1' } %}
+  {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
+
+  <div class="block block-opsummering--samlet-forbrug">
+    <h2>Samlet forbrug</h2>
+    <br>
+    {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
+  </div>
+  <div class="block block-opsummering--potentiel-besparelse">
+    <h2>Potentielt samlet besparelse</h2>
+    <div class="box box--samlet-besparelse">
+      <div class="row">
+        <div class="col-xs-4">
+          <span class="h1">{{ section.potentieltBesparesleKwh | format_decimal(0) }}</span>
+          <div><small>færre kWh</small></div>
+        </div>
+        <div class="col-xs-4">
+          <span class="h1">{{ section.potentieltBesparesleKr | format_decimal(0) }}</span>
+          <div><small>kr. sparet</small></div>
+        </div>
+        <div class="col-xs-4">
+          <span class="h1">{{ section.potentieltBesparesleCo2 | format_decimal }}</span>
+          <div><small>færre ton CO2</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block block-opsummering--roi">
+    <h2>Simpel tilbagebetalingtid (ROI)</h2>
+    <br>
+    {% include 'AppBundle:_includes:graf_roi_full_width.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
+  </div>
+{% endblock %}

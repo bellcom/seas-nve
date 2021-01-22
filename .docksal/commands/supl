@@ -1,0 +1,6 @@
+#!/bin/bash
+
+SSH_CRED=seas-nve
+SSH_DOCROOT_PATH="/var/www/test-seas-nve.bellcom.dk"
+
+rsync -chavzP --stats $SSH_CRED:$SSH_DOCROOT_PATH/web/uploads/* ./web/uploads

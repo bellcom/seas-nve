@@ -92,6 +92,7 @@ class PumpeTiltagDetail extends TiltagDetail {
   protected $prisfaktor = 1;
 
   /**
+   * @var Pumpe
    * @ManyToOne(targetEntity="Pumpe")
    * @JoinColumn(name="pumpe_id", referencedColumnName="id")
    **/
@@ -187,7 +188,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * Set pumpeID
    *
    * @param string $pumpeID
-   * @return PumpeDetail
+   * @return PumpeTiltagDetail
    */
   public function setPumpeID($pumpeID) {
     $this->pumpeID = $pumpeID;
@@ -208,7 +209,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * Set forsyningsomraade
    *
    * @param string $forsyningsomraade
-   * @return PumpeDetail
+   * @return PumpeTiltagDetail
    */
   public function setForsyningsomraade($forsyningsomraade) {
     $this->forsyningsomraade = $forsyningsomraade;
@@ -229,7 +230,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * Set placering
    *
    * @param string $placering
-   * @return PumpeDetail
+   * @return PumpeTiltagDetail
    */
   public function setPlacering($placering) {
     $this->placering = $placering;
@@ -250,7 +251,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * Set isoleringskappe
    *
    * @param boolean $isoleringskappe
-   * @return PumpeDetail
+   * @return PumpeTiltagDetail
    */
   public function setIsoleringskappe($isoleringskappe) {
     $this->isoleringskappe = $isoleringskappe;
@@ -304,7 +305,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * Set noter
    *
    * @param string $noter
-   * @return PumpeDetail
+   * @return PumpeTiltagDetail
    */
   public function setNoter($noter) {
     $this->noter = $noter;
@@ -325,7 +326,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * Set eksisterendeDrifttid
    *
    * @param integer $eksisterendeDrifttid
-   * @return PumpeDetail
+   * @return PumpeTiltagDetail
    */
   public function setEksisterendeDrifttid($eksisterendeDrifttid) {
     $this->eksisterendeDrifttid = $eksisterendeDrifttid;
@@ -346,7 +347,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * Set nyDrifttid
    *
    * @param integer $nyDrifttid
-   * @return PumpeDetail
+   * @return PumpeTiltagDetail
    */
   public function setNyDrifttid($nyDrifttid) {
     $this->nyDrifttid = $nyDrifttid;
@@ -367,7 +368,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * Set prisfaktor
    *
    * @param string $prisfaktor
-   * @return PumpeDetail
+   * @return PumpeTiltagDetail
    */
   public function setPrisfaktor($prisfaktor) {
     $this->prisfaktor = $prisfaktor;
@@ -388,7 +389,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * Set pumpe
    *
    * @param \AppBundle\Entity\Pumpe $pumpe
-   * @return PumpeDetail
+   * @return PumpeTiltagDetail
    */
   public function setPumpe(Pumpe $pumpe = NULL) {
     $this->pumpe = $pumpe;
@@ -409,7 +410,7 @@ class PumpeTiltagDetail extends TiltagDetail {
    * Set overskrevetPris
    *
    * @param float $overskrevetPris
-   * @return PumpeDetail
+   * @return PumpeTiltagDetail
    */
   public function setOverskrevetPris($overskrevetPris) {
     $this->overskrevetPris = $overskrevetPris;
@@ -530,9 +531,17 @@ class PumpeTiltagDetail extends TiltagDetail {
     return ($this->nyDrifttid * $this->pumpe->getNytAarsforbrug()) / $this->eksisterendeDrifttid;
   }
 
+  public function calculateElForbrugFoerKWhAar() {
+    return empty($this->pumpe) ? NULL : ($this->pumpe->getAarsforbrug() * $this->eksisterendeDrifttid ) / 8760;
+  }
+
+  public function calculateElForbrugEfterKWhAar() {
+    return ($this->pumpe->getNytAarsforbrug() * $this->nyDrifttid) / 8760;
+  }
+
   public function calculateElbespKWhAar() {
     // 'AQ'
-    return ($this->pumpe->getAarsforbrug() * $this->eksisterendeDrifttid - $this->pumpe->getNytAarsforbrug() * $this->nyDrifttid) / 8760;
+    return $this->calculateElForbrugFoerKWhAar() - $this->calculateElForbrugEfterKWhAar();
   }
 
   private function getBesparelseVedIsoleringskappe() {

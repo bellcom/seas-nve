@@ -1,0 +1,311 @@
+{% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+{% macro header(key) %}
+  {% set calculation = key|get_calculation %}
+
+  <th class="rotate">
+    <div>
+      {% if calculation is null %}
+        <span>{{ key | trans }}</span>
+      {% else %}
+        <span data-calculation="{{ calculation }}">{{ key | trans }}</span>
+      {% endif %}
+    </div>
+  </th>
+{% endmacro %}
+
+{% macro header_unit(key, border_right=false) %}
+  {% set translation = key|get_unit %}
+  {% set border = border_right ? 'border-right' : '' %}
+
+  <th class="unit {{ border }}">
+    {{ translation }}
+  </th>
+{% endmacro %}
+
+{% macro header_span(key, span) %}
+  {% set translation = key|trans %}
+
+  <th colspan="{{ span }}" class="text-center border-right">
+    {{ translation }}
+  </th>
+{% endmacro %}
+
+{% import _self as helper %}
+
+{% set sectionTypeNavn = (('rapportsektion.types.' ~ section.type ) | trans) ~ ' ' ~ section.number ~ '. ' ~ (('bygning_rapporter.strings.' ~ section.tiltagType ~ 'tiltag') | trans) %}
+{% block section -%}
+  {% block section_type -%}
+    <div class="section-type">{{ sectionTypeNavn }}</div>
+    {% if section.sectionTitle is empty %}
+      <h1 class="hidden-header">{{ section.number }}. {{ section.sectionTitle }}</h1>
+    {% endif %}
+  {% endblock %}
+
+  <br><br><br><br>
+
+  <div class="block block-forslag--meta block--negative-margin">
+    <div class="row">
+      <div class="col-xs-4">
+        {% if section.filepath %}
+          <div>
+            <img src="{{ absolute_url(asset(section.filepath)) }}" alt=""/>
+          </div>
+        {% endif %}
+      </div>
+      <div class="col-xs-8">
+        <div class="region region-forslag--meta">
+          <div class="h4">Effekt:</div>
+
+          <div class="row">
+            <div class="col-xs-4">
+              <div class="h1">{{ section.effektBesparesleCo2 | format_decimal }} <small>tons CO2</small></div>
+              <div>sparet årligt</div>
+            </div>
+            <div class="col-xs-4">
+              <div class="h1">{{ section.effektBesparesleKr | format_decimal(0) }} <small>kr.</small></div>
+              <div>sparet årligt</div>
+            </div>
+            <div class="col-xs-4">
+              <div class="h1">{{ section.effektBesparesleKwh | format_decimal(0) }} <small>kWh</small></div>
+              <div>sparet årligt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+
+  {% block section_title -%}
+    {% if section.sectionTitle %}
+      <h1> {{ section.number }}. {{ section.sectionTitle }}</h1>
+    {% endif %}
+  {% endblock %}
+  {% block section_content -%}
+    {% if section.text %}
+      <div class="section-text ckeditor-content">
+        {{ section.text | raw }}
+      </div>
+    {% endif %}
+  {% endblock %}
+  {% include 'AppBundle::RapportSektioner/_includes/section-text-pages.html.twig' with { 'showAfter' : 'page1' } %}
+  {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
+
+  <div>
+    <h2>Forbrugsoptimering</h2>
+    <br>
+    {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
+  </div>
+
+  <div>
+    <h2>Nøgletal</h2>
+    <div class="section-tiltag-nogletal-chart">
+      {% include 'AppBundle:_includes:graf_noegletal.html.twig' with {
+        'investering' : section.ROIGrafData.investering,
+        'roi' : section.ROIGrafData.roi,
+        'tekniskelevetid' : section.tekniskelevetid,
+        'samletBesparelseOverAar' : section.getSamletBesparelseOverAar(section.tekniskelevetid)
+      } %}
+    </div>
+  </div>
+
+  <br>
+
+  <div>
+    <h2>Simpel tilbagebetalingstid</h2>
+    <br>
+    {% include 'AppBundle:_includes:graf_roi_full_width.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
+  </div>
+
+  {% include 'AppBundle::RapportSektioner/_includes/section-text-pages.html.twig' with { 'showAfter' : 'page2' } %}
+  {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
+
+  <div class="data-list">
+    <div class="data-list__heading">
+      <h2>Forslagsdetaljer</h2>
+      <h3>{{ 'common.result_overview' | trans }}</h3>
+    </div>
+
+    <div class="data-list__item">
+      <div class="row">
+        <div class="col-xs-8">{{ 'appbundle.tiltag.varmebesparelseGUF' | trans }}</div>
+        <div class="col-xs-3 text-right">{{ section.tiltag.varmebesparelseGUF | format_zeros }}</div>
+        <div class="col-xs-1">{{ 'appbundle.tiltag.varmebesparelseGUF.unit' | trans }}</div>
+      </div>
+    </div>
+
+    <div class="data-list__item">
+      <div class="row">
+        <div class="col-xs-8">{{ 'appbundle.tiltag.varmebesparelseGAF' | trans }}</div>
+        <div class="col-xs-3 text-right">{{ section.tiltag.varmebesparelseGAF | format_zeros }}</div>
+        <div class="col-xs-1">{{ 'appbundle.tiltag.varmebesparelseGAF.unit' | trans }}</div>
+      </div>
+    </div>
+
+    <div class="data-list__item">
+      <div class="row">
+        <div class="col-xs-8">{{ 'appbundle.tiltag.elbesparelse' | trans }}</div>
+        <div class="col-xs-3 text-right">{{ section.tiltag.elbesparelse | format_zeros }}</div>
+        <div class="col-xs-1">{{ 'appbundle.tiltag.elbesparelse.unit' | trans }}</div>
+      </div>
+    </div>
+
+    <div class="data-list__item">
+      <div class="row">
+        <div class="col-xs-8">{{ 'appbundle.tiltag.besparelseAarEt' | trans }}</div>
+        <div class="col-xs-3 text-right">{{ section.tiltag.besparelseAarEt | format_zeros }}</div>
+        <div class="col-xs-1">{{ 'appbundle.tiltag.besparelseAarEt.unit' | trans }}</div>
+      </div>
+    </div>
+
+    <div class="data-list__item">
+      <div class="row">
+        <div class="col-xs-8">{{ 'appbundle.tiltag.samletCo2besparelse' | trans }}</div>
+        <div class="col-xs-3 text-right">{{ section.tiltag.samletCo2besparelse | format_decimal }}</div>
+        <div class="col-xs-1">{{ 'appbundle.tiltag.samletCo2besparelse.unit' | trans }}</div>
+      </div>
+    </div>
+
+    <div class="data-list__item">
+      <div class="row">
+        <div class="col-xs-8">{{ 'appbundle.tiltag.anlaegsInvestering' | trans }}</div>
+        <div class="col-xs-3 text-right">{{ section.tiltag.anlaegsinvestering | format_zeros }}</div>
+        <div class="col-xs-1">{{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}</div>
+      </div>
+    </div>
+
+    <div class="data-list__item">
+      <div class="row">
+        <div class="col-xs-8">{{ 'appbundle.tiltag.besparelseDriftOgVedligeholdelse' | trans }}</div>
+        <div class="col-xs-3 text-right">{{ section.tiltag.besparelseDriftOgVedligeholdelse | format_zeros }}</div>
+        <div class="col-xs-1">{{ 'appbundle.tiltag.besparelseDriftOgVedligeholdelse.unit' | trans }}</div>
+      </div>
+    </div>
+
+    <div class="data-list__item">
+      <div class="row">
+        <div class="col-xs-8">{{ 'appbundle.tiltag.besparelseStrafafkoelingsafgift' | trans }}</div>
+        <div class="col-xs-3 text-right">{{ section.tiltag.besparelseStrafafkoelingsafgift | format_zeros }}</div>
+        <div class="col-xs-1">{{ 'appbundle.tiltag.besparelseStrafafkoelingsafgift.unit' | trans }}</div>
+      </div>
+    </div>
+
+    {% if section.tiltag.salgTilNettetAar1 is defined %}
+      <div class="data-list__item">
+        <div class="row">
+          <div class="col-xs-8">{{ 'appbundle.tiltag.salgTilNettetAar1' | trans }}</div>
+          <div class="col-xs-3 text-right">{{ section.tiltag.salgTilNettetAar1 | format_zeros }}</div>
+          <div class="col-xs-1">{{ 'appbundle.tiltag.salgTilNettetAar1.unit' | trans }}</div>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="data-list__item">
+      <div class="row">
+        <div class="col-xs-8">{{ 'appbundle.tiltag.levetid' | trans }}</div>
+        <div class="col-xs-3 text-right">{{ section.tiltag.levetid | format_zeros }}</div>
+        <div class="col-xs-1">{{ 'appbundle.tiltag.levetid.unit' | trans }}</div>
+      </div>
+    </div>
+
+    <div class="data-list__item">
+      <div class="row">
+        <div class="col-xs-8">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar' | trans }}</div>
+        <div class="col-xs-3 text-right">{{ section.tiltag.simpelTilbagebetalingstidAar | format_zeros }}</div>
+        <div class="col-xs-1">{{ 'appbundle.tiltag.simpelTilbagebetalingstidAar.unit' | trans }}</div>
+      </div>
+    </div>
+
+    <div class="data-list__item">
+      <div class="row">
+        <div class="col-xs-8">{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr' | trans }}</div>
+        <div class="col-xs-3 text-right">{{ section.tiltag.nutidsvaerdiSetOver15AarKr | format_zeros }}</div>
+        <div class="col-xs-1">{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr.unit' | trans }}</div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="data-list">
+    <div class="data-list__heading">
+      <h3>Beskrivelse</h3>
+    </div>
+    {% if section.tiltag.beskrivelseNuvaerende is not empty %}
+      <div class="data-list__item">
+        <div class="row">
+          <div class="col-xs-4">Nuværende forhold</div>
+          <div class="col-xs-8">{{ section.tiltag.beskrivelseNuvaerende }}</div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.tiltag.beskrivelseForslag is not empty %}
+      <div class="data-list__item">
+        <div class="row">
+          <div class="col-xs-4">Forslag</div>
+          <div class="col-xs-8">{{ section.tiltag.beskrivelseForslag }}</div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.tiltag.beskrivelseOevrige is not empty %}
+      <div class="data-list__item">
+        <div class="row">
+          <div class="col-xs-4">Øvrige bemærkninger</div>
+          <div class="col-xs-8">{{ section.tiltag.beskrivelseOevrige }}</div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.tiltag.placering is not empty %}
+      <div class="data-list__item">
+        <div class="row">
+          <div class="col-xs-4">Placering jf. oversigtstegning</div>
+          <div class="col-xs-8">{{ section.tiltag.placering }}</div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.tiltag.beskrivelseDriftOgVedligeholdelse is not empty %}
+      <div class="data-list__item">
+        <div class="row">
+          <div class="col-xs-4">Beskrivelse af ændringer til D & V</div>
+          <div class="col-xs-8">{{ section.tiltag.beskrivelseDriftOgVedligeholdelse }}</div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.tiltag.indeklima is not empty %}
+      <div class="data-list__item">
+        <div class="row">
+          <div class="col-xs-4">Indeklima/brugere</div>
+          <div class="col-xs-8">{{ section.tiltag.indeklima }}</div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% include 'AppBundle::RapportSektioner/_includes/section-text-pages.html.twig' with { 'showAfter' : 'page3' } %}
+  {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' with { landscape : 1} %}
+
+  <div class="block block--detailark">
+    <h2>Detailark</h2>
+
+    {% if section.tiltag.details is not empty %}
+      {% set template = 'AppBundle:' ~ tiltag_type(section.tiltag) ~ 'Tiltag:_detailTablePdf.html.twig' %}
+      <div>
+        <h3>Skema til: {{ section.tiltag.title }}</h3>
+      </div>
+
+      <br>
+
+      <div class="table-custom-styles">
+        {% include template with {'entity': section.tiltag} %}
+      </div>
+    {% else %}
+      Ingen detailark.
+    {% endif %}
+  </div>
+{% endblock %}

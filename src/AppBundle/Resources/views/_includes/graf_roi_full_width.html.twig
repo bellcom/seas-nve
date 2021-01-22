@@ -1,0 +1,74 @@
+{% set chartIdRandomized = 'roi-' ~ random() %}
+
+<div id="{{ chartIdRandomized }}" style="width: 880px; height: 320px;"></div>
+
+<div class="text-center">
+    <ul class="list-inline">
+        <li>
+            <span class="color-square color-square--brand-1"></span> Nuværende energiforbrug
+        </li>
+        <li>
+            <span class="color-square color-square--brand-2"></span> Energiudgift efter investering
+        </li>
+        {#        <li>#}
+        {#          <span class="color-square color-square--brand-4"></span> Lorem ipsum#}
+        {#        </li>#}
+    </ul>
+</div>
+
+<script>
+    (function () {
+        var chartData = {{ chart_data | json_encode | raw }};
+        var chart = echarts.init(document.getElementById('{{ chartIdRandomized }}'), 'seas-theme');
+        var data = {
+            optimeret: chartData.data.optimeret.map(function(data) {
+                return parseInt(data);
+            }),
+            nuvaerende: chartData.data.nuvaerende.map(function(data) {
+                return parseInt(data);
+            }),
+        };
+
+        var option = {
+            animation: false,
+            grid: {
+                top: 10,
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['0', '5', '10', '15', '20', '25', '30', 'år']
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} kr.'
+                },
+            },
+            series: [
+                {
+                    name: 'Energiudgift efter investering',
+                    type: 'line',
+                    data: data.optimeret,
+                    itemStyle: {
+                        color: '#62c5d3'
+                    }
+                },
+                {
+                    name: 'Nuværende energiforbrug',
+                    type: 'line',
+                    data: data.nuvaerende,
+                    itemStyle: {
+                        color: '#a7cb11'
+                    }
+                },
+            ]
+        };
+
+        chart.setOption(option);
+    }());
+</script>

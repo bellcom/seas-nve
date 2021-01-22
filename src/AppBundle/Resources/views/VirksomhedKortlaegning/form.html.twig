@@ -87,8 +87,39 @@
       siblingInput.value = newAmount;
     }
 
+    function calculateUsage(e) {
+      var input = e.target;
+      var total = totalSpend.value;
+      var parent = input.parentElement.parentElement;
+      var siblingInput = parent.querySelector('.js-percentage');
+
+      // Validate total.
+      if (!total || isNaN(total)) {
+        return;
+      }
+
+      // Validate percentage input.
+      if (!input.value || isNaN(input.value)) {
+
+        // Clear sibling value.
+        siblingInput.value = '';
+
+        return;
+      }
+
+      // Calculate the new amount.
+      var newAmount = (parseInt(input.value) / parseInt(total)) * 100;
+
+      // Update DOM node.
+      var power = Math.pow(10, 1);
+      siblingInput.value = Math.round(newAmount * power) / power;
+    }
+
     for(var field of percentageFields) {
       field.addEventListener('keyup', calculatePercentage);
+    }
+    for(var field of usageFields) {
+      field.addEventListener('keyup', calculateUsage);
     }
   </script>
   <script>

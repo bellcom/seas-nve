@@ -31,7 +31,6 @@ class VirksomhedRapportBaselineType extends AbstractType
     $baseline = $this->rapport->getVirksomhed()->getBaseline();
     $builder
       ->add('datering', 'date', array(
-        'disabled' => 'disabled',
         // render as a single HTML5 text box
         'widget' => 'single_text')
       )

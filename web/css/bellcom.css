@@ -69,3 +69,26 @@ body .table-header-rotated th.rotate > div {
 
 body .table-header-rotated th.unit {
     border-left: #ccc 1px solid;
+}
+
+img.image-swatch {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.image-picker .radio {
+    display: inline-block;
+    width: 200px;
+    /*height: 200px;*/
+}
+
+/*.image-picker .radio img {*/
+/*    height: 200px;*/
+/*}*/
+
+
+.default-value-select {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}

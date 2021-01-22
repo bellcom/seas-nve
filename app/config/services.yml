@@ -219,6 +219,10 @@ services:
         class: AppBundle\PdfExport\PdfExport
         arguments: [ "@service_container" ]
 
+    aaplus.virksomhed_pdf_export:
+        class: AppBundle\PdfExport\VirksomhedPdfExport
+        arguments: [ "@service_container" ]
+
     aaplus.entityaudit.manager:
         class: AppBundle\EntityAudit\AuditManager
         arguments: [ "@simplethings_entityaudit.config" ]

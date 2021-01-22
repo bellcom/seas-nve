@@ -15,6 +15,7 @@ use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
 use AppBundle\Entity\Energiforsyning;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -183,6 +184,7 @@ class Rapport {
   /**
    * @var array
    *
+   * @Calculated
    * @ORM\Column(name="besparelseSlutanvendelser", type="array")
    */
   private $besparelseSlutanvendelser = array();
@@ -550,6 +552,37 @@ class Rapport {
   protected $visGraphPDF = TRUE;
 
   /**
+   * @OneToMany(targetEntity="AppBundle\Entity\RapportSektioner\RapportSektion", mappedBy="bygningOversigtRapport", cascade={"persist", "remove"})
+   * @OrderBy({"id" = "ASC"})
+   * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\RapportSektioner\RapportSektion>")
+   */
+  protected $rapportOversigtSektioner;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="forbrugFoer", type="float", nullable=true)
+   */
+  protected $forbrugFoer;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="forbrugFoerKr", type="float", nullable=true)
+   */
+  protected $forbrugFoerKr;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="forbrugFoerCo2", type="float", nullable=true)
+   */
+  protected $forbrugFoerCo2;
+
+  /**
    * @return float
    */
   public function getfravalgtBesparelseDriftOgVedligeholdelse()
@@ -838,6 +871,99 @@ class Rapport {
   }
 
   /**
+   * Set forbrugFoer
+   *
+   * @param float $forbrugFoer
+   * @return Rapport
+   */
+  public function setForbrugFoer($forbrugFoer)
+  {
+    $this->forbrugFoer = $forbrugFoer;
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoer
+   *
+   * @return float
+   */
+  public function getForbrugFoer()
+  {
+    return $this->forbrugFoer;
+  }
+
+  /**
+   * Get forbrugEfter
+   *
+   * @return integer
+   */
+  public function getForbrugEfter() {
+    return $this->calculateForbrugEfter();
+  }
+
+  /**
+   * Set forbrugFoerKr
+   *
+   * @param float $forbrugFoerKr
+   * @return Rapport
+   */
+  public function setForbrugFoerKr($forbrugFoerKr)
+  {
+    $this->forbrugFoerKr = $forbrugFoerKr;
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoerKr
+   *
+   * @return float
+   */
+  public function getForbrugFoerKr()
+  {
+    return $this->forbrugFoerKr;
+  }
+
+  /**
+   * Get forbrugEfterKr
+   *
+   * @return integer
+   */
+  public function getForbrugEfterKr() {
+    return $this->calculateForbrugEfterKr();
+  }
+
+  /**
+   * Set forbrugFoerCo2
+   *
+   * @param float $forbrugFoerCo2
+   * @return Rapport
+   */
+  public function setForbrugFoerCo2($forbrugFoerCo2)
+  {
+    $this->forbrugFoerCo2 = $forbrugFoerCo2;
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoerCo2
+   *
+   * @return float
+   */
+  public function getForbrugFoerCo2()
+  {
+    return $this->forbrugFoerCo2;
+  }
+
+  /**
+   * Get forbrugEfterCo2
+   *
+   * @return integer
+   */
+  public function getForbrugEfterCo2() {
+    return $this->calculateForbrugEfterCo2();
+  }
+
+  /**
    * @param array $nutidsvaerdiSet
    */
   public function setNutidsvaerdiSet($nutidsvaerdiSet) {
@@ -878,6 +1004,7 @@ class Rapport {
     $this->datering = new \DateTime();
     $this->version = 1;
     $this->besparelseSlutanvendelser = array();
+    $this->rapportOversigtSektioner = new ArrayCollection();
   }
 
   /**
@@ -1545,7 +1672,7 @@ class Rapport {
    * Set elena
    *
    * @param string $elena
-   * @return Bygning
+   * @return Rapport
    */
   public function setElena($elena) {
     $this->elena = $elena;
@@ -2015,6 +2142,29 @@ class Rapport {
   }
 
   /**
+   * Set rapportOversigtSektioner
+   *
+   * @param ArrayCollection $rapportOversigtSektioner
+   * @return Rapport
+   */
+  public function setRapportOversigtSektioner($rapportOversigtSektioner)
+  {
+    $this->rapportOversigtSektioner = $rapportOversigtSektioner;
+    return $this;
+  }
+
+  /**
+   * Get rapportOversigtSektioner
+   *
+   * @return float
+   */
+  public function getRapportOversigtSektioner()
+  {
+    return $this->rapportOversigtSektioner;
+  }
+
+
+    /**
    * Post load handler.
    *
    * @ORM\PostLoad
@@ -2185,7 +2335,6 @@ class Rapport {
     $this->besparelseBraendstof = $this->calculateBesparelseBraendstof();
     $this->fravalgtBesparelseBraendstof = $this->calculateFravalgtBesparelseBraendstof();
 
-    $this->besparelseSlutanvendelser = $this->calculateBesparelseSlutanvendelser();
 
     $this->co2BesparelseEl = $this->calculateCo2BesparelseEl();
     $this->co2BesparelseVarme = $this->calculateCo2BesparelseVarme();
@@ -2198,6 +2347,12 @@ class Rapport {
     $this->co2BesparelseBraendstofFaktor = $this->calculateCo2BesparelseBraendstofFaktor();
     $this->co2BesparelseSamletFaktor = $this->calculateCo2BesparelseSamletFaktor();
     $this->fravalgtCo2BesparelseSamletFaktor = $this->calculateFravalgtCo2BesparelseSamletFaktor();
+
+    $this->forbrugFoer = $this->calculateForbrugFoer();
+    $this->forbrugFoerKr = $this->calculateForbrugFoerKr();
+    $this->forbrugFoerCo2 = $this->calculateForbrugFoerCo2();
+
+    $this->besparelseSlutanvendelser = $this->calculateBesparelseSlutanvendelser();
 
     $this->mtmFaellesomkostninger = $this->calculateMtmFaellesomkostninger();
     $this->implementering = $this->calculateImplementering();
@@ -2403,15 +2558,21 @@ class Rapport {
       }
 
       $slutanvendelseType = (string) $tiltag->getSlutanvendelse();
-      if (!isset($values[$slutanvendelseType])) {
-        $values[$slutanvendelseType] = array(
-          'el' => 0,
-          'varmeGAF' => 0,
-          'varmeGUF' => 0,
-          'braendStof' => 0,
-          'total' => 0,
-        );
-      }
+      $default = array(
+        'el' => 0,
+        'varmeGAF' => 0,
+        'varmeGUF' => 0,
+        'braendStof' => 0,
+        'total' => 0,
+        'totalKr' => 0,
+        'totalCo2' => 0,
+        'forbrugFoer' => 0,
+        'forbrugEfter' => 0,
+        'forbrugFoerKr' => 0,
+        'forbrugEfterKr' => 0,
+        'investering' => 0,
+      );
+      $values[$slutanvendelseType] = isset($values[$slutanvendelseType]) ? $values[$slutanvendelseType] + $default : $default;
 
       $values[$slutanvendelseType]['el'] += $tiltag->getElbesparelse();
       $values[$slutanvendelseType]['varmeGAF'] += $tiltag->getVarmebesparelseGAF();
@@ -2421,7 +2582,15 @@ class Rapport {
       }
       unset($values[$slutanvendelseType]['total']);
       $values[$slutanvendelseType]['total'] = array_sum($values[$slutanvendelseType]);
-    }
+
+      $values[$slutanvendelseType]['totalKr'] += $tiltag->getSamletEnergibesparelse();
+      $values[$slutanvendelseType]['totalCo2'] += $tiltag->getSamletCo2besparelse();
+      $values[$slutanvendelseType]['forbrugFoer'] += $tiltag->getForbrugFoer();
+      $values[$slutanvendelseType]['forbrugEfter'] += $tiltag->getForbrugEfter();
+      $values[$slutanvendelseType]['forbrugFoerKr'] += $tiltag->getForbrugFoerKr();
+      $values[$slutanvendelseType]['forbrugEfterKr'] += $tiltag->getForbrugEfterKr();
+      $values[$slutanvendelseType]['investering'] += $tiltag->getAnlaegsinvestering();
+     }
     return $values;
   }
 
@@ -2487,53 +2656,39 @@ class Rapport {
   }
 
   /**
-   * Gets KgCo2MWh value from bygning ForsyningsvaerkEl.
-   *
-   * @return float|null
+   * Calculates expression for calculateCo2BesparelseEl value
    */
-  private function getBygningForsyningsvaerkElKgCo2MWh() {
-    $vaerk = $this->getBygning()->getForsyningsvaerkEl(TRUE);
-    if($vaerk) {
-      return $vaerk->getKgCo2MWh(2015);
-    }
-    return null;
+  protected function calculateCo2BesparelseElExp() {
+    return $this->calculateCo2BesparelseEl(TRUE);
   }
 
   /**
-   * @Formula("($this->besparelseEl + $this->getSolcelleproduktion() + $this->getSalgTilNettetAar1()) / 1000 * $this->getBygningForsyningsvaerkElKgCo2MWh() / 1000")
+   * @Formula("$this->calculateCo2BesparelseElExp()")
    */
-  private function calculateCo2BesparelseEl() {
-    $ElKgCo2MWh = $this->getBygningForsyningsvaerkElKgCo2MWh();
-    if($ElKgCo2MWh) {
-      return ($this->besparelseEl + $this->getSolcelleproduktion() + $this->getSalgTilNettetAar1()) / 1000 * $ElKgCo2MWh / 1000;
-    } else {
-      return 0;
-    }
+  private function calculateCo2BesparelseEl($exp = FALSE) {
+    $result = $this->accumulateArray(function ($tiltag, $result) {
+      $result[] = $tiltag->getBesparelseCo2El();
+      return $result;
+    });
+    return $exp ? $this->sumExpr($result) : array_sum($result);
   }
 
   /**
-   * Gets KgCo2MWh value from bygning ForsyningsvaerkVarme.
-   *
-   * @return float|null
+   * Calculates expression for calculateCo2BesparelseVarme value
    */
-  private function getBygningForsyningsvaerkVarmeKgCo2MWh() {
-    $vaerk = $this->getBygning()->getForsyningsvaerkVarme(TRUE);
-    if($vaerk) {
-      return $vaerk->getKgCo2MWh(2015);
-    }
-    return null;
+  protected function calculateCo2BesparelseVarmeExp() {
+    return $this->calculateCo2BesparelseVarme(TRUE);
   }
 
   /**
-   * @Formula("($this->besparelseVarmeGAF + $this->besparelseVarmeGUF) / 1000 * $this->getBygningForsyningsvaerkVarmeKgCo2MWh() / 1000")
+   * @Formula("$this->calculateCo2BesparelseVarmeExp()")
    */
-  private function calculateCo2BesparelseVarme() {
-    $VarmeKgCo2MWh = $this->getBygningForsyningsvaerkVarmeKgCo2MWh();
-    if($VarmeKgCo2MWh) {
-      return ($this->besparelseVarmeGAF + $this->besparelseVarmeGUF) / 1000 * $VarmeKgCo2MWh / 1000;
-    } else {
-      return 0;
-    }
+  private function calculateCo2BesparelseVarme($exp = FALSE) {
+    $result = $this->accumulateArray(function ($tiltag, $result) {
+      $result[] = $tiltag->getBesparelseCo2Varme();
+      return $result;
+    });
+    return $exp ? $this->sumExpr($result) : array_sum($result);
   }
 
   /**
@@ -2727,12 +2882,21 @@ class Rapport {
   }
 
   /**
-   * @Formula("$this->calculateNutidsvaerdiSet")
+   * Calculates expression for NutidsvaerdiSet value
    */
-  protected function calculateNutidsvaerdiSet() {
+  protected function calculateNutidsvaerdiSetExp() {
+    return $this->calculateNutidsvaerdiSet(TRUE);
+  }
+
+  /**
+   * @Formula("$this->calculateNutidsvaerdiSetExp()")
+   */
+  protected function calculateNutidsvaerdiSet($expression = FALSE) {
     $years = $this->getNutidsvaerdiBeregnAar();
     $cashFlow = $this->calculateCashFlow($years);
-    return Calculation::npv($this->getKalkulationsrente(), $cashFlow['cash flow'], TRUE);
+    $result = Calculation::npv($this->getKalkulationsrente(), $cashFlow['cash flow'], TRUE);
+    return $expression ? $this->sumExpr($result) : $result;
+
   }
 
   /**
@@ -2892,6 +3056,96 @@ class Rapport {
     }
 
     return $expression ? $this->sumExpr($result) : array_sum($result);
+  }
+
+  /**
+   * Calculates expression for forbrugFoer value
+   */
+  protected function calculateForbrugFoerExp() {
+    return $this->calculateForbrugFoer(TRUE);
+  }
+
+  /**
+   * Aggregates forbrug before from Tiltag.
+   *
+   * @Formula("$this->calculateForbrugFoerExp()")
+   */
+  public function calculateForbrugFoer($exp = FALSE) {
+    $result = $this->accumulateArray(function ($tiltag, $result) {
+      $result[] = $tiltag->getForbrugFoer();
+      return $result;
+    });
+    return $exp ? $this->sumExpr($result) : array_sum($result);
+  }
+
+  /**
+   * Calculates expression for forbrugFoerKr value
+   */
+  protected function calculateForbrugFoerKrExp() {
+    return $this->calculateForbrugFoerKr(TRUE);
+  }
+
+  /**
+   * Aggregates forbrug before in kr from Tiltag.
+   *
+   * @Formula("$this->calculateForbrugFoerKrExp()")
+   */
+  public function calculateForbrugFoerKr($exp = FALSE) {
+    $result = $this->accumulateArray(function ($tiltag, $result) {
+      $result[] = $tiltag->getForbrugFoerKr();
+      return $result;
+    });
+    return $exp ? $this->sumExpr($result) : array_sum($result);
+  }
+
+  /**
+   * Calculates expression for forbrugFoerKr value
+   */
+  protected function calculateForbrugFoerCo2Exp() {
+    return $this->calculateForbrugFoerCo2(TRUE);
+  }
+
+  /**
+   * Aggregates forbrug before in forbrugFoerCO2 from Tiltag.
+   *
+   * @Formula("$this->calculateForbrugFoerCo2Exp()")
+   */
+  public function calculateForbrugFoerCo2($exp = FALSE) {
+    $result = $this->accumulateArray(function ($tiltag, $result) {
+      $result[] = $tiltag->getForbrugFoerCo2();
+      return $result;
+    });
+    return $exp ? $this->sumExpr($result) : array_sum($result);
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @Formula("$this->calculateForbrugFoer() - $this->getBesparelseVarme() - $this->getBesparelseEl() - $this->getBesparelseBraendstof()")
+   * @return float|int
+   */
+  protected function calculateForbrugEfter() {
+    return $this->calculateForbrugFoer() - $this->getBesparelseVarme() - $this->getBesparelseEl() - $this->getBesparelseBraendstof();
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @Formula("$this->calculateForbrugFoerKr() - $this->getSamletEnergibesparelseKr()")
+   * @return float|int
+   */
+  protected function calculateForbrugEfterKr() {
+    return $this->calculateForbrugFoerKr() - $this->getSamletEnergibesparelseKr();
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @Formula("$this->calculateForbrugFoerCo2() - $this->getBesparelseCO2()")
+   * @return float|int
+   */
+  protected function calculateForbrugEfterCo2() {
+    return $this->calculateForbrugFoerCo2() - $this->getBesparelseCO2();
   }
 
   /**

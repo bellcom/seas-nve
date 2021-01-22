@@ -10,3 +10,4 @@ scp $SSH_CRED:~/$DB_NAME* ./
 fin exec "app/console doctrine:schema:drop --full-database --force"
 fin exec "zcat < ${DB_NAME}.sql.gz | mysql -uroot -proot -hdb default"
 fin exec "rm ${DB_NAME}.sql.gz"
+fin supl

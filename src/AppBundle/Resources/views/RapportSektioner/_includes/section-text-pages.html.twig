@@ -1,0 +1,8 @@
+{% for key, textPage in section.textPagesFiltered(showAfter) %}
+  {% if not textPage.noPagebreak %}
+    {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
+  {% endif %}
+  <div class="section-text ckeditor-content">
+    {{ textPage.text | raw }}
+  </div>
+{% endfor %}

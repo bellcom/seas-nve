@@ -14,8 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @deprecated
  */
-class KlimaskaermTiltagDetail extends TiltagDetail {
+abstract class KlimaskaermTiltagDetail extends TiltagDetail {
   /**
    * @var string
    *

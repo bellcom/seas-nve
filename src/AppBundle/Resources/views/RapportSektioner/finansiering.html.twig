@@ -1,0 +1,29 @@
+{% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+{% block section_content -%}
+  {{ parent() }}
+  <div>
+    <h2>Nøgletal</h2>
+    <div class="ckeditor-content">
+      {{ section.noegletal | raw }}
+    </div>
+    <div>
+      {% include 'AppBundle:_includes:graf_noegletal.html.twig' with {
+        'investering' : section.ROIGrafData.investering,
+        'roi' : section.ROIGrafData.roi,
+        'tekniskelevetid' : section.tekniskelevetid,
+        'samletBesparelseOverAar' : section.getSamletBesparelseOverAar(section.tekniskelevetid)
+      } %}
+    </div>
+  </div>
+
+  <br>
+
+  <div>
+    <h2>Simpel tilbagebetalingstid (ROI)</h2>
+    <br>
+    {% include 'AppBundle:_includes:graf_roi_full_width.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
+  </div>
+  <div class="ckeditor-content">
+    {{ section.finansieringTekst | raw }}
+  </div>
+{% endblock %}

@@ -319,6 +319,27 @@ class Bygning {
     return strval($this->id);
   }
 
+  /**
+   * To string converting extended method
+   *
+   * @return string
+   */
+  public function string($withAdress = FALSE) {
+    $showAr = array();
+    if (!empty($this->navn)) {
+      $showAr[] = $this->navn;
+    }
+    if (!empty($this->adresse)) {
+      $showAr[] = $this->adresse;
+    }
+    if (!empty($this->postnummer)) {
+      $showAr[] = $this->postnummer;
+    }
+    if (!empty($this->byNavn)) {
+      $showAr[] = $this->byNavn;
+    }
+    return empty($showAr) ? strval($this->id) : implode(', ', $showAr);
+  }
 
   /**
    * Get id

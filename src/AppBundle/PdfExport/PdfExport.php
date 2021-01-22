@@ -9,12 +9,36 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Entity\Rapport;
 
 class PdfExport {
-  private $container;
-  private $templating;
 
-  public function __construct(ContainerInterface $container) {
-    $this->container = $container;
-    $this->templating = $this->container->get('templating');
+  use PdfExportTrait;
+
+  /**
+   * Temporary implementation of rapport view function before render
+   *
+   * @param Rapport $rapport
+   * @param array $options
+   * @param false $review
+   * @return mixed
+   */
+  public function rapportView(Rapport $rapport, array $options = array(), $review = FALSE) {
+      $sections = array(
+          'test' => array(
+              'page' => array(
+                  'landscape' => TRUE,
+              ),
+              'title' => 'test title',
+              'text' => 'test text',
+          ),
+          'test2' => array(
+              'type' => 'test',
+              'edit_url' => TRUE,
+              'title' => 'test title',
+              'text' => 'test text',
+          ),
+      );
+      return $this->renderView('AppBundle:Rapport:showOverview.html.twig', array(
+          'sections' => $sections,
+      ));
   }
 
   public function export2(Rapport $rapport, array $options = array(), $review = FALSE) {
@@ -29,13 +53,13 @@ class PdfExport {
       $data[] = $bygningsNavn;
     }
 
-    if ($screeningAt = $rapport->getDatering()) {
-      $data[] = 'Screeningsdato: ' . $screeningAt->format('d.m.Y');
-    }
-
-    if ($updatedAt = $rapport->getUpdatedAt()) {
-      $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
-    }
+//    if ($screeningAt = $rapport->getDatering()) {
+//      $data[] = 'Screeningsdato: ' . $screeningAt->format('d.m.Y');
+//    }
+//
+//    if ($updatedAt = $rapport->getUpdatedAt()) {
+//      $data[] = 'Opdateret: ' . $updatedAt->format('d.m.Y');
+//    }
 
     $coverParams = array(
       'rapport' => $rapport,
@@ -45,6 +69,9 @@ class PdfExport {
       $coverParams['typenavn'] = $virksomhedsType;
     }
     $cover = $this->renderView('AppBundle:Rapport:showPdf2Cover.html.twig', $coverParams);
+    $header = $this->renderView( 'AppBundle:Rapport:header.pdf.twig', array(
+        'data' => $data,
+    ));
 
     $html = $this->renderView('AppBundle:Rapport:showPdf2.html.twig', array(
       'rapport' => $rapport,
@@ -57,8 +84,7 @@ class PdfExport {
             'encoding' => 'utf-8',
             'images' => true,
             'cover' => $cover,
-            'header-left' => implode(' | ', $data),
-            'header-right' => "Side [page] af [toPage]",
+            'header-html' => $header,
             'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf2Footer.html'),
       $options));
   }
@@ -144,8 +170,7 @@ class PdfExport {
             'encoding' => 'utf-8',
             'images' => true,
             'cover' => $cover,
-            'header-left' => implode(' | ', $data),
-            'header-right' => "Side [page] af [toPage]",
+            'header-html' => $header,
             'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdf2VirksomhedFooter.html'),
       $options));
   }
@@ -176,6 +201,9 @@ class PdfExport {
       $coverParams['typenavn'] = $virksomhedsType;
     }
     $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfKortlaegningCover.html.twig', $coverParams);
+    $header = $this->renderView( 'AppBundle:Rapport:header.pdf.twig', array(
+      'data' => $data,
+    ));
 
     // Summarized data for energiFordeling pie chart.
     $energiFordeling = array(
@@ -369,8 +397,7 @@ class PdfExport {
             'encoding' => 'utf-8',
             'images' => true,
             'cover' => $cover,
-            'header-left' => implode(' | ', $data),
-            'header-right' => "Side [page] af [toPage]",
+            'header-html' => $header,
             'footer-html' => $base_url .'/html/pdfKortlaegningFooter.html'),
       $options));
   }
@@ -416,6 +443,9 @@ class PdfExport {
       $coverParams['typenavn'] = ucfirst($virksomhedsType);
     }
     $cover = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailarkCover.html.twig', $coverParams);
+    $header = $this->renderView( 'AppBundle:Rapport:header.pdf.twig', array(
+      'data' => $data,
+    ));
     $html = $this->renderView('AppBundle:VirksomhedRapport:showPdfDetailark.html.twig', array(
       'html' => $html,
       'review' => $review,
@@ -427,30 +457,9 @@ class PdfExport {
             'encoding' => 'utf-8',
             'images' => true,
             'cover' => $cover,
-            'header-left' => implode(' | ', $data),
-            'header-right' => "Side [page] af [toPage]",
+            'header-html' => $header,
             'footer-html' => $this->container->get('request')->getSchemeAndHttpHost().'/html/pdfVirksomhedDetailarkFooter.html'),
       $options));
-  }
-
-  private function renderView($view, array $parameters = array()) {
-    return $this->templating->render($view, $parameters);
-  }
-
-  /**
-   * Sorts tiltags array collection.
-   *
-   * @param ArrayCollection $tiltags
-   *
-   * @return ArrayCollection
-   */
-  protected function sortTiltags($tiltags) {
-    $iterator = $tiltags->getIterator();
-    $iterator->uasort(function ($a, $b) {
-      return ($a->getSimpelTilbagebetalingstidAar() < $b->getSimpelTilbagebetalingstidAar()) ? -1 : 1;
-    });
-
-    return new ArrayCollection(iterator_to_array($iterator));
   }
 
 }

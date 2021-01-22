@@ -19,12 +19,12 @@ class BelysningTiltag extends Tiltag
 {
 
     /**
-     * @Formula("$this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh()")
+     * @Formula("$this->varmebesparelseGAF * $this->getVarmePris() + $this->elbesparelse * $this->getElPris()")
      */
     protected $samletEnergibesparelse;
 
     /**
-     * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
+     * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getElKgCo2MWh()) / 1000")
      */
     protected $samletCo2besparelse;
 
@@ -39,21 +39,10 @@ class BelysningTiltag extends Tiltag
         $this->setTitle('Belysning');
     }
 
-
     /**
-     * Calculate values in this Tiltag
+     * @inheritDoc
      */
-    public function calculate() {
-        parent::calculate();
-        $this->forbrugFoer = $this->calculateForbrugFoer();
-        $this->forbrugEfter = $this->calculateForbrugEfter();
-    }
-
-    /**
-     * Calculates forbrug før value.
-     */
-    protected function calculateForbrugFoer($value = null)
-    {
+    protected function calculateForbrugFoerEl() {
         return $this->sum('elforbrugkWtAar');
     }
 
@@ -62,7 +51,7 @@ class BelysningTiltag extends Tiltag
      */
     protected function calculateForbrugEfter($value = null)
     {
-        return $this->sum('nytElforbrugkWtAar');
+        return $this->calculateForbrugFoer() - $this->calculateElbesparelse();
     }
 
     /**

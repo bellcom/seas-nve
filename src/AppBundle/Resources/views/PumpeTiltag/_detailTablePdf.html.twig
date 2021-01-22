@@ -1,1 +1,52 @@
-{% include 'AppBundle:PumpeTiltag:_detailTable.html.twig' %}
+<table class="table table-condensed">
+  <thead>
+  <tr>
+    {{ helper.header('appbundle.pumpetiltagdetail.pumpeID') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.forsyningsomraade') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.placering') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.isoleringskappe') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.noter') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.nyDrifttid') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.pumpe') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header('appbundle.pumpetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+    {{ helper.header() }}
+  </tr>
+  <tr>
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.pumpeID') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.forsyningsomraade') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.placering') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.isoleringskappe') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.noter') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.eksisterendeDrifttid') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.nyDrifttid') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.pumpe') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header_unit('appbundle.pumpetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+    {{ helper.header_unit() }}
+  </tr>
+  </thead>
+  <tbody>
+  {% for detail in entity.details %}
+    {% if detail.tilvalgt %}
+    <tr>
+      <td>{{ detail.pumpeID }}</td>
+      <td>{{ detail.forsyningsomraade }}</td>
+      <td>{{ detail.placering }}</td>
+      <td>{{ detail.isoleringskappe | b2icon }}</td>
+      <td>{{ detail.noter }}</td>
+      <td class="number">{{ detail.eksisterendeDrifttid | format_decimal }}</td>
+      <td class="number">{{ detail.nyDrifttid | format_decimal }}</td>
+      <td>{{ detail.pumpe }}</td>
+      <td class="number">{{ detail.samletInvesteringInklPristillaeg | format_amount }}</td>
+      <td class="number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
+      <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
+      <td class="last"></td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+  </tbody>
+</table>

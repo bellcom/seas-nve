@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity()
  */
-class VindueTiltag extends KlimaskaermTiltag {
+class VindueTiltag extends NyKlimaskaermTiltag {
 
   /**
    * Constructor
@@ -27,11 +27,6 @@ class VindueTiltag extends KlimaskaermTiltag {
     $this->setTitle('Vindue');
   }
 
-  /**
-   * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
-   */
-  protected $samletCo2besparelse;
-
   protected function calculateLevetid() {
     return round($this->divide(
       $this->sum(function($detail) {
@@ -41,6 +36,14 @@ class VindueTiltag extends KlimaskaermTiltag {
         return $detail->getSamletInvesteringKr();
       })
     ));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  protected function calculateForbrugFoerVarme() {
+    $result = $this->sum(function($detail) { return abs($detail->getEWEksKWhM2Aar()); });
+    return $result;
   }
 
 }

@@ -79,6 +79,10 @@ class ConfigurationType extends AbstractType
                 'type' => 'number',
                 'required' => FALSE,
             ))
+            ->add('varmeEnergiCo2', 'collection', array(
+                'type' => 'number',
+                'required' => FALSE,
+            ))
         ;
     }
 

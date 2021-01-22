@@ -14,6 +14,7 @@ use AppBundle\DBAL\Types\Energiforsyning\InternProduktion\PrisgrundlagType;
 use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\Energiforsyning\InternProduktion;
 use AppBundle\Entity\Energiforsyning;
+use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -164,6 +165,7 @@ class VirksomhedRapport
     /**
      * @var array
      *
+     * @Calculated
      * @ORM\Column(name="besparelseSlutanvendelser", type="array")
      */
     private $besparelseSlutanvendelser;
@@ -569,6 +571,11 @@ class VirksomhedRapport
     protected $rapporter = array();
 
     /**
+     * @var ArrayCollection $tiltage
+     */
+    protected $tiltage;
+
+    /**
      * @var array
      *
      * @Calculated
@@ -629,11 +636,71 @@ class VirksomhedRapport
     protected $summarizedRapportValues = array();
 
     /**
+     * @OneToMany(targetEntity="AppBundle\Entity\RapportSektioner\RapportSektion", mappedBy="virksomhedOversigtRapport", cascade={"persist", "remove"})
+     * @OrderBy({"id" = "ASC"})
+     * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\RapportSektioner\RapportSektion>")
+     */
+    protected $rapportOversigtSektioner;
+
+    /**
+     * @OneToMany(targetEntity="AppBundle\Entity\RapportSektioner\RapportSektion", mappedBy="virksomhedScreeningRapport", cascade={"persist", "remove"})
+     * @OrderBy({"id" = "ASC"})
+     * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\RapportSektioner\RapportSektion>")
+     */
+    protected $rapportScreeningSektioner;
+
+    /**
+     * @OneToMany(targetEntity="AppBundle\Entity\RapportSektioner\RapportSektion", mappedBy="virksomhedDetailarkRapport", cascade={"persist", "remove"})
+     * @OrderBy({"id" = "ASC"})
+     * @JMS\Type("Doctrine\Common\Collections\ArrayCollection<AppBundle\Entity\RapportSektioner\RapportSektion>")
+     */
+    protected $rapportDetailarkSektioner;
+
+    /**
      * @var ArrayCollection
      *
      * Stores all virksomheder involved in rapport.
      */
     private $virksomhederList;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="forbrugFoer", type="float", nullable=true)
+     */
+    protected $forbrugFoer;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="forbrugFoerKr", type="float", nullable=true)
+     */
+    protected $forbrugFoerKr;
+
+    /**
+     * @var float
+     *
+     * @Calculated
+     * @ORM\Column(name="forbrugFoerCo2", type="float", nullable=true)
+     */
+    protected $forbrugFoerCo2;
+
+    /**
+     * Constant to define Energisyn rapport
+     */
+    const RAPPORT_ENERGISYN = 'energisyn';
+
+    /**
+     * Constant to define screening rapport
+     */
+    const RAPPORT_SCREENING = 'screening';
+
+    /**
+     * Constant to define Detailark rapport
+     */
+    const RAPPORT_DETAILARK = 'detailark';
 
     /**
      * Constructor
@@ -643,7 +710,9 @@ class VirksomhedRapport
         $this->datering = new \DateTime();
         $this->version = 1;
         $this->rapporter = array();
+        $this->tiltage = new ArrayCollection();
         $this->besparelseSlutanvendelser = array();
+        $this->rapportOversigtSektioner = new ArrayCollection();
     }
 
     /**
@@ -2066,6 +2135,231 @@ class VirksomhedRapport
     }
 
     /**
+     * Set rapport energisyn sections
+     *
+     * @param ArrayCollection $rapportOversigtSektioner
+     * @return VirksomhedRapport
+     */
+    public function setRapportOversigtSektioner($rapportOversigtSektioner)
+    {
+      $this->rapportOversigtSektioner = $rapportOversigtSektioner;
+      return $this;
+    }
+
+    /**
+     * Add rapport energisyn section
+     *
+     * @param RapportSektion $rapportSektion
+     * @return VirksomhedRapport
+     */
+    public function addRapportOversigtSektion($rapportSektion)
+    {
+        $this->rapportOversigtSektioner[] = $rapportSektion;
+        $rapportSektion->setVirksomhedOversigtRapport($this);
+        return $this;
+    }
+
+    /**
+     * Get RapportOversigtSektioner
+     *
+     * @return ArrayCollection
+     */
+    public function getRapportOversigtSektioner()
+    {
+        return $this->rapportOversigtSektioner;
+    }
+
+    /**
+     * Set rapport screening sections
+     *
+     * @param ArrayCollection $rapportScreeningSektioner
+     * @return VirksomhedRapport
+     */
+    public function setRapportScreeningSektioner($rapportScreeningSektioner)
+    {
+        $this->rapportScreeningSektioner = $rapportScreeningSektioner;
+        return $this;
+    }
+
+    /**
+     * Add rapport Screening section
+     *
+     * @param RapportSektion $rapportSektion
+     * @return VirksomhedRapport
+     */
+    public function addRapportScreeningSektion($rapportSektion)
+    {
+        $this->rapportScreeningSektioner[] = $rapportSektion;
+        $rapportSektion->setVirksomhedScreeningRapport($this);
+        return $this;
+    }
+
+    /**
+     * Get RapportScreeningSektioner
+     *
+     * @return ArrayCollection
+     */
+    public function getRapportScreeningSektioner()
+    {
+        return $this->rapportScreeningSektioner;
+    }
+
+    /**
+     * Set rapport detailark sections
+     *
+     * @param ArrayCollection $rapportDetailarkSektioner
+     * @return VirksomhedRapport
+     */
+    public function setRapportDetailarkSektioner($rapportDetailarkSektioner)
+    {
+        $this->rapportDetailarkSektioner = $rapportDetailarkSektioner;
+        return $this;
+    }
+
+    /**
+     * Add rapport detailark section
+     *
+     * @param RapportSektion $rapportSektion
+     * @return VirksomhedRapport
+     */
+    public function addRapportDetailarkSektion($rapportSektion)
+    {
+        $this->rapportDetailarkSektioner[] = $rapportSektion;
+        $rapportSektion->setVirksomhedDetailarkRapport($this);
+        return $this;
+    }
+
+    /**
+     * Get Rapport detailark sektioner
+     *
+     * @return ArrayCollection
+     */
+    public function getRapportDetailarkSektioner()
+    {
+        return $this->rapportDetailarkSektioner;
+    }
+
+    /**
+     * Get RapportSektioner by type
+     *
+     * @return ArrayCollection|NULL
+     */
+    public function getRapportSektioner($rapportType)
+    {
+        switch ($rapportType) {
+            case self::RAPPORT_ENERGISYN:
+                return $this->getRapportOversigtSektioner();
+
+            case self::RAPPORT_SCREENING:
+                return $this->getRapportScreeningSektioner();
+
+            case self::RAPPORT_DETAILARK:
+                return $this->getRapportDetailarkSektioner();
+        }
+        return NULL;
+    }
+
+    /**
+     * Add rapport section
+     *
+     * @param RapportSektion $rapportSektion
+     * @param string $rapportType
+     * @return VirksomhedRapport
+     */
+    public function addRapportSektion($rapportSektion, $rapportType)
+    {
+        switch ($rapportType) {
+            case self::RAPPORT_ENERGISYN:
+                $this->addRapportOversigtSektion($rapportSektion);
+                break;
+
+            case self::RAPPORT_SCREENING:
+                $this->addRapportScreeningSektion($rapportSektion);
+                break;
+
+            case self::RAPPORT_DETAILARK:
+                $this->addRapportDetailarkSektion($rapportSektion);
+                break;
+        }
+        return $this;
+    }
+
+    /**
+     * Get Rapport energisyn sektioner Structure.
+     *
+     * @return array
+     */
+    public static function getRapportEnergisynSektionerStruktur()
+    {
+        return array(
+            'forside',
+            'kontaktinformation',
+            'opsummering',
+            'faktavirksomhed',
+            'anbefaling',
+            'baeredygtighed',
+            'finansiering',
+            'tiltag',
+            'tiltagtable',
+        );
+    }
+
+    /**
+     * Get Rapport screening sektioner Structure.
+     *
+     * @return array
+     */
+    public static function getRapportScreeningSektionerStruktur()
+    {
+        return array(
+            'forside',
+            'kontaktinformation',
+            'opsummering',
+            'faktavirksomhed',
+            'anbefaling',
+            'baeredygtighed',
+            'finansiering',
+            'tiltag',
+            'tiltagtable',
+        );
+    }
+
+    /**
+     * Get Rapport detailark sektioner Structure.
+     *
+     * @return array
+     */
+    public static function getRapportDetailarkSektionerStruktur()
+    {
+        return array(
+            'forside',
+            'kontaktinformation',
+            'tiltag',
+            'tiltagtable',
+        );
+    }
+
+    /**
+     * Get RapportSektioner structure by type
+     *
+     * @return array|NULL
+     */
+    public function getRapportSektionerStruktur($rapportType)
+    {
+        switch ($rapportType) {
+            case self::RAPPORT_ENERGISYN:
+                return $this->getRapportEnergisynSektionerStruktur();
+
+            case self::RAPPORT_SCREENING:
+                return $this->getRapportScreeningSektionerStruktur();
+
+            case self::RAPPORT_DETAILARK:
+                return $this->getRapportDetailarkSektionerStruktur();
+        }
+        return NULL;
+    }
+
+    /**
      * Set samletEnergibesparelseKr
      *
      * @param float $samletEnergibesparelseKr
@@ -2085,6 +2379,99 @@ class VirksomhedRapport
     public function getSamletEnergibesparelseKr()
     {
         return $this->samletEnergibesparelseKr;
+    }
+
+    /**
+     * Set forbrugFoer
+     *
+     * @param float $forbrugFoer
+     * @return VirksomhedRapport
+     */
+    public function setForbrugFoer($forbrugFoer)
+    {
+        $this->forbrugFoer = $forbrugFoer;
+        return $this;
+    }
+
+    /**
+     * Get forbrugFoer
+     *
+     * @return float
+     */
+    public function getForbrugFoer()
+    {
+        return $this->forbrugFoer;
+    }
+
+    /**
+     * Get forbrugEfter
+     *
+     * @return integer
+     */
+    public function getForbrugEfter() {
+        return $this->calculateForbrugEfter();
+    }
+
+    /**
+     * Set forbrugFoerKr
+     *
+     * @param float $forbrugFoerKr
+     * @return VirksomhedRapport
+     */
+    public function setForbrugFoerKr($forbrugFoerKr)
+    {
+        $this->forbrugFoerKr = $forbrugFoerKr;
+        return $this;
+    }
+
+    /**
+     * Get forbrugFoerKr
+     *
+     * @return float
+     */
+    public function getForbrugFoerKr()
+    {
+        return $this->forbrugFoerKr;
+    }
+
+    /**
+     * Get forbrugEfterKr
+     *
+     * @return integer
+     */
+    public function getForbrugEfterKr() {
+        return $this->calculateForbrugEfterKr();
+    }
+
+    /**
+     * Set forbrugFoerCo2
+     *
+     * @param float $forbrugFoerCo2
+     * @return VirksomhedRapport
+     */
+    public function setForbrugFoerCo2($forbrugFoerCo2)
+    {
+        $this->forbrugFoerCo2 = $forbrugFoerCo2;
+        return $this;
+    }
+
+    /**
+     * Get forbrugFoerCo2
+     *
+     * @return float
+     */
+    public function getForbrugFoerCo2()
+    {
+        return $this->forbrugFoerCo2;
+    }
+
+    /**
+     * Get forbrugEfterCo2
+     *
+     * @return float
+     */
+    public function getForbrugEfterCo2() {
+        return $this->calculateForbrugEfterCo2();
     }
 
     /**
@@ -2130,6 +2517,26 @@ class VirksomhedRapport
             $this->rapporter[$rapport->getId()] = $rapport;
         }
         return $this->rapporter;
+    }
+
+    /**
+     * Fetchs array with all associated tiltags.
+     *
+     * @return ArrayCollection
+     */
+    public function getBygningerRapporterTiltage() {
+        if (!empty($this->tiltage)) {
+            return $this->tiltage;
+        }
+        $this->tiltage = new ArrayCollection();
+        $rapporter = $this->getBygningerRapporter();
+        /** @var Rapport $rapport */
+        foreach ($rapporter as $rapport) {
+            foreach ($rapport->getTilvalgteTiltag() as $tiltag) {
+                $this->tiltage->add($tiltag);
+            }
+        }
+        return $this->tiltage;
     }
 
     /**
@@ -2180,6 +2587,10 @@ class VirksomhedRapport
         'co2BesparelseVarmeFaktor',
         'co2BesparelseBraendstofFaktor',
         'co2BesparelseSamletFaktor',
+
+        'forbrugFoer',
+        'forbrugFoerKr',
+        'forbrugFoerCo2',
 
         'fravalgtBesparelseEl',
         'fravalgtBesparelseVarmeGUF',
@@ -2235,6 +2646,7 @@ class VirksomhedRapport
         if ($withDatterselskaber) {
             /** @var Virksomhed $datterSelskab */
             foreach ($this->getVirksomhed()->getDatterSelskaber(TRUE) as $datterSelskab) {
+                /** @var VirksomhedRapport $rapport */
                 $rapport = $datterSelskab->getRapport();
                 if (!empty($rapport) && !empty($rapport->getCalculationWarnings())) {
                     $rapport->calculate(FALSE);
@@ -2492,6 +2904,33 @@ class VirksomhedRapport
     }
 
     /**
+     * Calculates based on value before - savings.
+     *
+     * @return float|int
+     */
+    protected function calculateForbrugEfter() {
+        return $this->getForbrugFoer() - $this->getBesparelseVarme() - $this->getBesparelseEl();
+    }
+
+    /**
+     * Calculates based on value before - savings.
+     *
+     * @return float|int
+     */
+    protected function calculateForbrugEfterKr() {
+        return $this->getForbrugFoerKr() - $this->getSamletEnergibesparelseKr();
+    }
+
+    /**
+     * Calculates based on value before - savings.
+     *
+     * @return float|int
+     */
+    protected function calculateForbrugEfterCo2() {
+        return $this->getForbrugFoerCo2() - $this->getBesparelseCO2();
+    }
+
+    /**
      * Updates baseline values;
      *
      * @param Baseline $baseline
@@ -2614,8 +3053,8 @@ class VirksomhedRapport
      * @ORM\PostLoad
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
      */
-    public function postLoad() {
-      $this->initFormulableCalculation();
+    public function postLoad(LifecycleEventArgs $event) {
+        $this->initFormulableCalculation();
     }
 
     public function __call($name, $arguments = array())

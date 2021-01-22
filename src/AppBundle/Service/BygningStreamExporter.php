@@ -176,7 +176,6 @@ class BygningStreamExporter {
       $this->addFormatedStringCell('%s (%s)', ['Energiscreeningspris', $this->trans('appbundle.rapport.energiscreening.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Implementeringsomkostninger', $this->trans('appbundle.rapport.implementering.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Aa+ Investering inkl. øvrige omkostninger', $this->trans('appbundle.rapport.investeringInklFaellesomkostninger.unit')]);
-      $this->addFormatedStringCell('%s (%s)', ['Intern rente inkl. øvrige omkostninger', $this->trans('appbundle.rapport.internRenteInklFaellesomkostninger.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Nutidsværdi inkl. øvrige omkostninger', $this->trans('appbundle.rapport.nutidsvaerdiInklFaellesomkostninger.unit')]);
       $this->addFormatedStringCell('%s (%s)', ['Økonomisk besparelse i år 1', $this->trans('appbundle.rapport.besparelseAarEt.unit')]);
     }
@@ -309,7 +308,6 @@ class BygningStreamExporter {
         $this->addCell($rapport->getEnergiscreening());
         $this->addCell($rapport->getImplementering());
         $this->addCell($rapport->getinvesteringInklFaellesomkostninger());
-        $this->addCell($rapport->getInternRenteInklFaellesomkostninger());
         $this->addCell($rapport->getNutidsvaerdiSetOver15AarKr());
         $this->addCell($rapport->getBesparelseAarEt());
       } else {

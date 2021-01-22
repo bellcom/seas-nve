@@ -22,21 +22,9 @@ use Doctrine\ORM\Mapping as ORM;
 class TrykluftTiltag extends Tiltag {
 
     /**
-     * @Formula("$this->varmebesparelseGAF * $this->calculateVarmepris() + $this->elbesparelse * $this->getRapportElKrKWh()")
+     * @Formula("$this->calculateSamletEnergibesparelserExpr()")
      */
     protected $samletEnergibesparelse;
-
-    /**
-     * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
-     */
-    protected $samletCo2besparelse;
-
-    /**
-     *
-     * @var array
-     * @ORM\Column(name="priserOverride", type="array")
-     */
-    protected $priserOverride;
 
     /**
     * Constructor
@@ -47,96 +35,34 @@ class TrykluftTiltag extends Tiltag {
     }
 
     protected function setDefault() {
-        if ($this->getPriserOverride() == NULL) {
-            $this->priserOverride = array(
-                'el' => array(
-                    'overriden' => FALSE,
-                    'pris' => NULL,
-                ),
-                'varme' => array(
-                    'overriden' => FALSE,
-                    'pris' => NULL,
-                ),
-            );
-        }
+        parent::setDefault();
 
         if ($this->getTitle() == NULL) {
             // @Todo: Find af way to use the translations system or move this to some place else....
             $this->setTitle('Trykluft');
         }
     }
-    /**
-     * Set priserOverride
-     *
-     * @param array $priserOverride
-     * @return TrykluftTiltag
-     */
-    public function setPriserOverride($priserOverride) {
-        $this->priserOverride = $priserOverride;
-
-        return $this;
-    }
 
     /**
-     * Get priser
-     *
-     * @return array
-     */
-    public function getPriserOverride() {
-        return $this->priserOverride;
-    }
-
-    /**
-     * Get priser
-     *
-     * @return float
-     */
-    public function getPriserOverrideKeyValue($type, $key) {
-        $priser = $this->getPriserOverride();
-        return isset($priser[$type][$key]) ? $priser[$type][$key] : NULL;
-    }
-
-    public function getVarmePrisOverriden() { return $this->getPriserOverrideKeyValue('varme', 'pris'); }
-    public function isVarmePrisOverriden() { return $this->getPriserOverrideKeyValue('varme', 'overriden'); }
-    public function getElPrisOverriden() { return $this->getPriserOverrideKeyValue('el', 'pris'); }
-    public function isElPrisOverriden() { return $this->getPriserOverrideKeyValue('el', 'overriden'); }
-
-    /**
-     * Get varmePris
-     *
-     * @return float
-     */
-    public function getVarmePris() {
-        if ($this->isVarmePrisOverriden()) {
-            return $this->getVarmePrisOverriden();
-        }
-        return $this->getRapportVarmeKrKWh();
-    }
-
-    /**
-     * Get elPris
-     *
-     * @return float
-     */
-    public function getElPris() {
-        if ($this->isElPrisOverriden()) {
-            return $this->getElPrisOverriden();
-        }
-        return $this->getRapportElKrKWh();
-    }
-
-    /**
-     * Calculate values in this Tiltag
+     * Overridden calculate function.
      */
     public function calculate() {
         $this->varmebesparelseGUF = $this->calculateVarmebesparelseGUF();
         $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
         $this->elbesparelse = $this->calculateElbesparelse();
         $this->vandbesparelse = $this->calculateVandbesparelse();
+        $this->forbrugFoer = $this->calculateForbrugFoer();
+        $this->forbrugEfter = $this->calculateForbrugEfter();
+        $this->forbrugFoerKr = $this->calculateForbrugFoerKr();
+        $this->forbrugFoerCo2 = $this->calculateForbrugFoerCo2();
+
+        // SamletEnergibesparelse for caclulates by different way and use calculation function.
         $this->samletEnergibesparelse = $this->calculateSamletEnergibesparelse();
 
         // Calculating values by formulas from annotation.
         $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
+        $this->besparelseCo2El = $this->calculateByFormula('besparelseCo2El');
+        $this->besparelseCo2Varme = $this->calculateByFormula('besparelseCo2Varme');
 
         // This may be computed, may be an input
         if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
@@ -160,11 +86,35 @@ class TrykluftTiltag extends Tiltag {
         $this->scrapvaerdi = $this->calculateScrapvaerdi();
         $this->cashFlow15 = $this->calculateCashFlow(15);
         $this->cashFlow30 = $this->calculateCashFlow(30);
+        $this->cashFlowSet = $this->calculateCashFlow($this->getConfiguration()->getNutidsvaerdiBeregnAar());
         $this->simpelTilbagebetalingstidAar = $this->calculateSimpelTilbagebetalingstidAar();
+        $this->nutidsvaerdiSet = $this->calculateNutidsvaerdiSet();
+        $this->akkumuleretNutidsvaerdiSet = $this->calculateAkkumuleterNutidsvaerdiSet();
         $this->nutidsvaerdiSetOver15AarKr = $this->calculateNutidsvaerdiSetOver15AarKr();
         $this->besparelseAarEt = $this->calculateSavingsForYear(1);
         $this->maengde = $this->calculateMaengde();
         $this->enhed = $this->calculateEnhed();
+    }
+
+    /**
+     * Cashflow calculation.
+     *
+     * @param $numberOfYears
+     * @param int $yderligereBesparelseKrAar
+     * @return array
+     */
+    protected function calculateCashFlow($numberOfYears, $yderligereBesparelseKrAar = 0) {
+        $inflation = $this->getRapport()->getInflation();
+        $besparelseStrafafkoelingsafgift = floatval($this->besparelseStrafafkoelingsafgift);
+        $besparelseDriftOgVedligeholdelse = floatval($this->besparelseDriftOgVedligeholdelse);
+
+        $cashFlow = array_fill(1, $numberOfYears, 0);
+        for ($year = 1; $year <= $numberOfYears; $year++) {
+            $value = $this->getSamletEnergibesparelse() + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
+            $cashFlow[$year] = $value + $yderligereBesparelseKrAar;
+        }
+
+        return $cashFlow;
     }
 
     /**
@@ -206,22 +156,32 @@ class TrykluftTiltag extends Tiltag {
     }
 
 
+    function calculateSamletEnergibesparelserExpr() {
+        return $this->calculateSamletEnergibesparelse(TRUE);
+    }
+
     /**
      * Accumulate varmebespKrAar and elbespKrAar from tiltagDetails .
      *
      * @return float
      */
-    protected function calculateSamletEnergibesparelse() {
-        return $this->sum('varmebespKrAar') +  $this->sum('elbespKrAar');
+    protected function calculateSamletEnergibesparelse($exp = FALSE) {
+      $result = array(
+          $this->sum('varmebespKrAar', $exp),
+          $this->sum('elbespKrAar', $exp)
+      );
+      if ($exp) {
+          return implode(' + ', $result);
+      }
+
+      return array_sum($result);
     }
 
     /**
-     * @ORM\PostLoad()
-     * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
-     */
-  public function postLoad(LifecycleEventArgs $event) {
-        parent::postLoad($event);
-        $this->setDefault();
+    * {@inheritDoc}
+    */
+    protected function calculateForbrugFoerEl() {
+        return $this->sum(function($detail) { return $detail->calculateSkoennetAarsforbrug(); });
     }
 
 }

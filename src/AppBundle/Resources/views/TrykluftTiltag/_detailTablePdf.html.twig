@@ -1,1 +1,105 @@
-{% include 'AppBundle:TrykluftTiltag:_detailTable.html.twig' %}
+<table class="table table-condensed">
+  <thead>
+  <tr>
+    {{ helper.header('appbundle.tryklufttiltagdetail.indData.type') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.indData.kompressorNavn') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.noter') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.elForbrug.label') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.reduktion') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.elReduktion.tryk.besparelseKwh') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.elReduktion.tryk.besparelseKr') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.elReduktion.tryk.TBT') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.elbespKwhAar') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.elbespKrAar') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.varmebespKwhAar') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.varmebespKrAar') }}
+    {{ helper.header('appbundle.tryklufttiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header() }}
+  </tr>
+  <tr>
+    {{ helper.header_unit('appbundle.tryklufttiltagdetail.indData.type') }}
+    {{ helper.header_unit('appbundle.tryklufttiltagdetail.indData.kompressorNavn') }}
+    {{ helper.header_unit('appbundle.tryklufttiltagdetail.noter') }}
+    {{ helper.header_unit('appbundle.tryklufttiltagdetail.elForbrug') }}
+    {{ helper.header_unit() }}
+    {{ helper.header_unit(('appbundle.tryklufttiltagdetail.elReduktion.tryk.besparelseKwh')) }}
+    {{ helper.header_unit(('appbundle.tryklufttiltagdetail.elReduktion.tryk.besparelseKr')) }}
+    {{ helper.header_unit(('appbundle.tryklufttiltagdetail.elReduktion.tryk.TBT')) }}
+    {{ helper.header_unit('appbundle.tryklufttiltagdetail.elbespKwhAar') }}
+    {{ helper.header_unit('appbundle.tryklufttiltagdetail.elbespKrAar') }}
+    {{ helper.header_unit('appbundle.tryklufttiltagdetail.varmebespKwhAar') }}
+    {{ helper.header_unit('appbundle.tryklufttiltagdetail.varmebespKrAar') }}
+    {{ helper.header_unit('appbundle.tryklufttiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header_unit() }}
+  </tr>
+  </thead>
+  <tbody>
+  {% for detail in entity.details %}
+    {% if detail.tilvalgt %}
+    <tr>
+      <td class="type" style="width: 100px">{{ ('appbundle.tryklufttiltagdetail.indData.type.' ~ detail.indData.type) | trans }}</td>
+      <td class="kompressorNavn" style="width: 100px">{{ detail.indData.kompressorNavn }}</td>
+      <td class="noter" style="width: 150px">{{ detail.noter }}</td>
+      <td class="elforbrug">
+        {% for key, value in detail.elForbrug %}
+          {{ ('appbundle.tryklufttiltagdetail.elForbrug.' ~ key) | trans }} {{ value | format_decimal(0) }}<br/>
+        {% endfor %}
+        {% if detail.indData.type == 'on_off' and detail.indData.elForbrugBeregning == 'calculated'%}
+          Note: {{ 'appbundle.tryklufttiltagdetail.indData.herafAflastet.explanation' | trans }}
+        {% endif %}
+      </td>
+      <td class="elreduktion">
+        {% for type, reduktion in detail.elReduktion %}
+          {% if reduktion.enabled %}
+            {{ ('appbundle.tryklufttiltagdetail.elReduktion.' ~ type ~ '.label') | trans }}<br/>
+          {% endif %}
+        {% endfor %}
+        {% if detail.varmeReduktion.type != 'none' %}
+          <strong>Varmereduktion</strong><br/>
+          {{ ('appbundle.tryklufttiltagdetail.varmeReduktion.' ~ detail.varmeReduktion.type) | trans }}<br/>
+        {% endif %}
+      </td>
+      <td class="elreduktion-besparelseKwh number">
+        {% for type, reduktion in detail.elReduktion %}
+          {% if reduktion.enabled %}
+            {{ reduktion.besparelseKwh | format_decimal }}<br/>
+          {% endif %}
+        {% endfor %}
+        {% if detail.varmeReduktion.type != 'none' %}
+          <br/>
+          {{ detail.varmeReduktion.besparelseKwh | format_decimal }}
+        {% endif %}
+      </td>
+      <td class="elreduktion-besparelseKr number">
+        {% for type, reduktion in detail.elReduktion %}
+          {% if reduktion.enabled %}
+            {{ reduktion.besparelseKr | format_decimal }}<br/>
+          {% endif %}
+        {% endfor %}
+        {% if detail.varmeReduktion.type != 'none' %}
+          <br/>
+          {{ detail.varmeReduktion.besparelseKr | format_decimal }}
+        {% endif %}
+      </td>
+      <td class="elreduktion-tbt number">
+        {% for type, reduktion in detail.elReduktion %}
+          {% if reduktion.enabled %}
+            {{ reduktion.TBT | format_decimal }}<br/>
+          {% endif %}
+        {% endfor %}
+        {% if detail.varmeReduktion.type != 'none' %}
+          <br/>
+          {{ detail.varmeReduktion.TBT | format_decimal }}
+        {% endif %}
+      </td>
+      <td class="elbespKwhAar number">{{ detail.elbespKwhAar | format_decimal(0) }}</td>
+      <td class="elbespKrAar number">{{ detail.elbespKrAar | format_decimal(0) }}</td>
+      <td class="varmebespKwhAar number">{{ detail.varmebespKwhAar | format_decimal(0) }}</td>
+      <td class="varmebespKrAar number">{{ detail.varmebespKrAar | format_decimal(0) }}</td>
+      <td class="TBT number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
+      <td class="last"></td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+  </tbody>
+</table>

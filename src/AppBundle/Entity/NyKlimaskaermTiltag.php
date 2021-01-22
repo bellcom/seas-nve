@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity()
  */
-class NyKlimaskaermTiltag extends KlimaskaermTiltag {
+class NyKlimaskaermTiltag extends Tiltag {
 
     /**
      * Constructor
@@ -28,8 +28,98 @@ class NyKlimaskaermTiltag extends KlimaskaermTiltag {
     }
 
     /**
-     * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
+     * Calculates value that is using in varmebesparelseGAF calculation.
+     *
+     * @return float
      */
-    protected $samletCo2besparelse;
+    protected function calculateVarmebesparelseGAFValue() {
+        return $this->sum('kWhBesparVarmevaerkEksternEnergikilde');
+    }
+
+    /**
+     * @inheritDoc
+     * @Formula("$this->calculateVarmebesparelseGAFValue() * $this->calculateEnergiledelseFaktor()")
+     */
+    protected function calculateVarmebesparelseGAF($value = null) {
+        $value = $this->calculateVarmebesparelseGAFValue();
+
+        return parent::calculateVarmebesparelseGAF($value);
+    }
+
+    /**
+     * Calculates value that is using in elbesparelse calculation.
+     *
+     * @return float
+     */
+    protected function calculateElbesparelseValue() {
+        return  $this->sum('kWhBesparElvaerkEksternEnergikilde');
+    }
+
+    /**
+     * @inheritDoc
+     * @Formula("$this->calculateElbesparelseValue() * $this->calculateEnergiledelseFaktor()")
+     */
+    protected function calculateElbesparelse($value = null) {
+        $value = $this->calculateElbesparelseValue();
+
+        return parent::calculateElbesparelse($value);
+    }
+
+    /**
+     * Calculates value that is using in Anlaegsinvestering calculation.
+     *
+     * @return float
+     */
+    protected function calculateAnlaegsinvesteringValue() {
+        return  $this->sum('samletInvesteringKr');
+    }
+
+    /**
+     * @inheritDoc
+     * @Formula("$this->calculateAnlaegsinvesteringValue() * $this->calculateAnlaegsinvesteringFaktor()")
+     */
+    protected function calculateAnlaegsinvestering($value = NULL) {
+        $value = $this->calculateAnlaegsinvesteringValue();
+
+        return parent::calculateAnlaegsinvestering($value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function calculateForbrugFoerVarme() {
+        return $this->sum(function($detail) { return $detail->calculateForbrugFoer(); });
+    }
+
+    protected function calculateLevetid() {
+        $denominator = $this->sum(function($detail) {
+            // AI
+            return $detail->getEnhedsprisEksklMoms() * $detail->getArealM2();
+        });
+        if ($denominator == 0) {
+            return 1;
+        }
+
+        return round($this->divide(
+            $this->sum(function($detail) {
+                // AK
+                if ($detail->getLevetidAar() > 0) {
+                    return $detail->getLevetidAar() * $detail->getEnhedsprisEksklMoms() * $detail->getArealM2();
+                }
+                else {
+                    return 0;
+                }
+            }),
+            $denominator
+        ));
+    }
+
+    protected function calculateMaengde() {
+        return $this->sum('arealM2');
+    }
+
+    protected function calculateEnhed() {
+        return 'm2';
+    }
 
 }

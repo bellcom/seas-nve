@@ -10,7 +10,9 @@ use AppBundle\Annotations\Calculated;
 use AppBundle\Annotations\Formula;
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\SlutanvendelseType;
+use AppBundle\Entity\RapportSektioner\RapportSektion;
 use AppBundle\Entity\Traits\FormulableCalculationEntity;
+use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
@@ -36,7 +38,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    "pumpe" = "PumpeTiltag",
  *    "special" = "SpecialTiltag",
  *    "belysning" = "BelysningTiltag",
- *    "klimaskærm" = "KlimaskaermTiltag",
  *    "køleanlæg" = "KoeleanlaegTiltag",
  *    "nyklimaskærm" = "NyKlimaskaermTiltag",
  *    "varmeanlaeg" = "VarmeanlaegTiltag",
@@ -51,7 +52,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *    "pumpe": "AppBundle\Entity\PumpeTiltag",
  *    "special": "AppBundle\Entity\SpecialTiltag",
  *    "belysning": "AppBundle\Entity\BelysningTiltag",
- *    "klimaskærm" = "AppBundle\Entity\KlimaskaermTiltag",
  *    "køleanlæg" = "AppBundle\Entity\KoeleanlaegTiltag",
  *    "nyklimaskærm" = "AppBundle\Entity\NyKlimaskaermTiltag",
  *    "ventilation" = "AppBundle\Entity\VentilationTiltag",
@@ -164,6 +164,7 @@ abstract class Tiltag {
    *
    * @Calculated
    * @ORM\Column(name="samletEnergibesparelse", type="float", nullable=true)
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) * $this->getVarmePris() + $this->elbesparelse * $this->getElPris()")
    */
   protected $samletEnergibesparelse;
 
@@ -172,8 +173,27 @@ abstract class Tiltag {
    *
    * @Calculated
    * @ORM\Column(name="samletCo2besparelse", type="float", nullable=true)
+   * @Formula("((($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000) * $this->getVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getElKgCo2MWh()) / 1000")
    */
   protected $samletCo2besparelse;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="besparelseCo2El", type="float", nullable=true)
+   * @Formula("($this->elbesparelse / 1000) * $this->getElKgCo2MWh()  / 1000")
+   */
+  protected $besparelseCo2El;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="besparelseCo2Varme", type="float", nullable=true)
+   * @Formula("($this->varmebesparelseGAF + $this->varmebesparelseGUF) / 1000 * $this->getVarmeKgCo2MWh() / 1000")
+   */
+  protected $besparelseCo2Varme;
 
   /**
    * @var float
@@ -201,16 +221,33 @@ abstract class Tiltag {
   /**
    * @var float
    *
-   * @ORM\Column(name="forbrugFoer", type="integer", nullable=true)
+   * @Calculated
+   * @ORM\Column(name="forbrugFoer", type="float", nullable=true)
    */
   protected $forbrugFoer = 0;
 
   /**
    * @var float
    *
-   * @ORM\Column(name="forbrugEfter", type="integer", nullable=true)
+   * @ORM\Column(name="forbrugEfter", type="float", nullable=true)
    */
   protected $forbrugEfter = 0;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="forbrugFoerKr", type="float", nullable=true)
+   */
+  protected $forbrugFoerKr = 0;
+
+  /**
+   * @var float
+   *
+   * @Calculated
+   * @ORM\Column(name="forbrugFoerCo2", type="float", nullable=true)
+   */
+  protected $forbrugFoerCo2 = 0;
 
   /**
    * Enterprisesum
@@ -555,6 +592,20 @@ abstract class Tiltag {
   protected $configuration;
 
   /**
+   *
+   * @var array
+   * @ORM\Column(name="priserOverride", type="array")
+   */
+  protected $priserOverride;
+
+  /**
+   *
+   * @var array
+   * @ORM\Column(name="co2Override", type="array")
+   */
+  protected $co2Override;
+
+  /**
    * Get Name
    *
    * @return string
@@ -595,7 +646,7 @@ abstract class Tiltag {
    *
    * @param SlutanvendelseType $slutanvendelse
    *
-   * @return Slutanvendelse
+   * @return Tiltag
    */
   public function setSlutanvendelse($slutanvendelse = NULL) {
     $this->slutanvendelse = $slutanvendelse;
@@ -673,14 +724,6 @@ abstract class Tiltag {
       return $this->tilvalgtAfMagistrat;
     }
 
-    if ($this->tilvalgtAfAaPlus !== NULL) {
-      return $this->tilvalgtAfAaPlus;
-    }
-
-    if ($this->tilvalgtAfRaadgiver !== NULL) {
-      return $this->tilvalgtAfRaadgiver;
-    }
-
     return FALSE;
   }
 
@@ -754,6 +797,84 @@ abstract class Tiltag {
    */
   public function getForbrugFoer() {
     return $this->forbrugFoer;
+  }
+
+  /**
+   * Get forbrugFoerEl
+   *
+   * @return integer
+   */
+  public function getForbrugFoerEl() {
+    return $this->calculateForbrugFoerEl();
+  }
+
+  /**
+   * Get forbrugFoerVarme
+   *
+   * @return integer
+   */
+  public function getForbrugFoerVarme() {
+    return $this->calculateForbrugFoerVarme();
+  }
+
+  /**
+   * Set forbrugFoerKr
+   *
+   * @param integer $forbrugFoerKr
+   * @return Tiltag
+   */
+  public function setForbrugFoerKr($forbrugFoerKr) {
+    $this->forbrugFoerKr = $forbrugFoerKr;
+
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoerKr
+   *
+   * @return integer
+   */
+  public function getForbrugFoerKr() {
+    return $this->forbrugFoerKr;
+  }
+
+  /**
+   * Get forbrugEfterKr
+   *
+   * @return integer
+   */
+  public function getForbrugEfterKr() {
+    return $this->calculateForbrugEfterKr();
+  }
+
+  /**
+   * Set forbrugFoerCo2
+   *
+   * @param integer $forbrugFoerCo2
+   * @return Tiltag
+   */
+  public function setForbrugFoerCo2($forbrugFoerCo2) {
+    $this->forbrugFoerCo2 = $forbrugFoerCo2;
+
+    return $this;
+  }
+
+  /**
+   * Get forbrugFoerCo2
+   *
+   * @return integer
+   */
+  public function getForbrugFoerCo2() {
+    return $this->forbrugFoerCo2;
+  }
+
+  /**
+   * Get forbrugEfterCo2
+   *
+   * @return integer
+   */
+  public function getForbrugEfterCo2() {
+    return $this->calculateForbrugEfterCo2();
   }
 
   /**
@@ -1218,6 +1339,24 @@ abstract class Tiltag {
   }
 
   /**
+   * Get varmebesparelse
+   *
+   * @return float
+   */
+  public function getVarmebesparelse() {
+    return $this->varmebesparelseGAF + $this->varmebesparelseGUF;
+  }
+
+  /**
+   * Get varmebesparelse prc.
+   *
+   * @return float
+   */
+  public function getVarmebesparelsePct() {
+    return Calculation::divide($this->getVarmebesparelse(), $this->getForbrugFoerVarme());
+  }
+
+  /**
    * Get elbesparelse
    *
    * @return float
@@ -1225,6 +1364,15 @@ abstract class Tiltag {
   public function getElbesparelse() {
     return $this->elbesparelse;
   }
+
+    /**
+     * Get Elbesparelse prc.
+     *
+     * @return float
+     */
+    public function getElbesparelsePct() {
+        return Calculation::divide($this->getElbesparelse(), $this->getForbrugFoerEl());
+    }
 
   /**
    * Get samletEnergibesparelse
@@ -1242,6 +1390,38 @@ abstract class Tiltag {
    */
   public function getSamletCo2besparelse() {
     return $this->samletCo2besparelse;
+  }
+
+  /**
+   * @param array $besparelseCo2El
+   */
+  public function setBesparelseCo2El($besparelseCo2El) {
+    $this->besparelseCo2El = $besparelseCo2El;
+  }
+
+  /**
+   * Get besparelseCo2El
+   *
+   * @return float
+   */
+  public function getbesparelseCo2El() {
+    return $this->besparelseCo2El;
+  }
+
+  /**
+   * @param array $besparelseCo2Varme
+   */
+  public function setBesparelseCo2Varme($besparelseCo2Varme) {
+    $this->besparelseCo2El = $besparelseCo2Varme;
+  }
+
+  /**
+   * Get besparelseCo2El
+   *
+   * @return float
+   */
+  public function getbesparelseCo2Varme() {
+    return $this->besparelseCo2Varme;
   }
 
   /**
@@ -1563,10 +1743,16 @@ abstract class Tiltag {
     $this->varmebesparelseGAF = $this->calculateVarmebesparelseGAF();
     $this->elbesparelse = $this->calculateElbesparelse();
     $this->vandbesparelse = $this->calculateVandbesparelse();
+    $this->forbrugFoer = $this->calculateForbrugFoer();
+    $this->forbrugEfter = $this->calculateForbrugEfter();
+    $this->forbrugFoerKr = $this->calculateForbrugFoerKr();
+    $this->forbrugFoerCo2 = $this->calculateForbrugFoerCo2();
 
     // Calculating values by formulas from annotation.
     $this->samletEnergibesparelse = $this->calculateByFormula('samletEnergibesparelse');
     $this->samletCo2besparelse = $this->calculateByFormula('samletCo2besparelse');
+    $this->besparelseCo2El = $this->calculateByFormula('besparelseCo2El');
+    $this->besparelseCo2Varme = $this->calculateByFormula('besparelseCo2Varme');
 
     // This may be computed, may be an input
     if (($value = $this->calculateBesparelseDriftOgVedligeholdelse()) !== NULL) {
@@ -1623,14 +1809,14 @@ abstract class Tiltag {
     $cashFlow = array_fill(1, $numberOfYears, 0);
 
     for ($year = 1; $year <= $numberOfYears; $year++) {
-      $varmepris = $this->calculateVarmepris($year);
+      $varmepris = $this->getVarmePris($year);
+      $elpris = $this->getElPris($year);
       $value = ($varmebesparelseGUF + $varmebesparelseGAF) * $varmepris
-        + $elbesparelse * $this->getRapport()->getElKrKWh($year)
-        + $vandbesparelse * $this->getRapport()->getVandKrKWh($year)
+        + $elbesparelse * $elpris
         + ($besparelseStrafafkoelingsafgift + $besparelseDriftOgVedligeholdelse) * pow(1 + $inflation, $year);
 
       if ($this instanceof SolcelleTiltag) {
-        $value += $this->getSolcelleproduktion() * $this->getRapport()->getElKrKWh($year)
+        $value += $this->getSolcelleproduktion() * $this->getElPris($year)
           + $this->getSalgTilNettetAar1() * ($year <= 10
                                              ? $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh()
                                              : $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisEfter10AarKrKWh());
@@ -1664,9 +1850,46 @@ abstract class Tiltag {
 
   protected function calculateVarmepris($year = 1) {
     if ($this->forsyningVarme) {
+      /** @var Forsyningsvaerk $forsyningsvaerk */
       $forsyningsvaerk = $this->forsyningVarme->getForsyningsvaerk();
       if ($forsyningsvaerk) {
         return $forsyningsvaerk->getKrKWh($this->rapport->getDatering()->format('Y') - 1 + $year);
+      }
+    }
+
+    return 0;
+  }
+
+  protected function calculateVarmeCo2($year = 1) {
+    if ($this->forsyningVarme) {
+      /** @var Forsyningsvaerk $forsyningsvaerk */
+      $forsyningsvaerk = $this->forsyningVarme->getForsyningsvaerk();
+      if ($forsyningsvaerk) {
+        return $forsyningsvaerk->getKgCo2MWh($this->rapport->getDatering()->format('Y') - 1 + $year);
+      }
+    }
+
+    return 0;
+  }
+
+  protected function calculateElpris($year = 1) {
+    if ($this->forsyningEl) {
+      /** @var Forsyningsvaerk $forsyningsvaerk */
+      $forsyningsvaerk = $this->forsyningEl->getForsyningsvaerk();
+      if ($forsyningsvaerk) {
+        return $forsyningsvaerk->getKrKWh($this->rapport->getDatering()->format('Y') - 1 + $year);
+      }
+    }
+
+    return 0;
+  }
+
+  protected function calculateElCo2($year = 1) {
+    if ($this->forsyningEl) {
+      /** @var Forsyningsvaerk $forsyningsvaerk */
+      $forsyningsvaerk = $this->forsyningEl->getForsyningsvaerk();
+      if ($forsyningsvaerk) {
+        return $forsyningsvaerk->getKgCo2MWh($this->rapport->getDatering()->format('Y') - 1 + $year);
       }
     }
 
@@ -1837,8 +2060,16 @@ abstract class Tiltag {
     return $this->getRapport()->getElKrKWh();
   }
 
+  public function getElKrKWh() {
+    return $this->getRapportElKrKWh();
+  }
+
   public function getRapportVarmeKrKWh() {
     return $this->getRapport()->getVarmeKrKWh();
+  }
+
+  public function getVarmeKrKWh() {
+    return $this->getRapportVarmeKrKWh();
   }
 
   public function getRapportElKgCo2MWh() {
@@ -1851,6 +2082,87 @@ abstract class Tiltag {
 
   public function getRapportSolcelletiltagdetailSalgsprisFoerste10AarKrKWh() {
     return $this->getRapport()->getConfiguration()->getSolcelletiltagdetailSalgsprisFoerste10AarKrKWh();
+  }
+
+  /**
+   * Calculates forbrug before kWh value of Varme energy.
+   *
+   * Generally forbrug = forbrugFoerVarmGUF + forbrugFoerVarmGAF.
+   *
+   * Calculation for specific forslag defines in forslags own class implementation.
+   */
+  protected function calculateForbrugFoerVarme() {
+    return NULL;
+  }
+
+  /**
+   * Calculates forbrug before kWh value of El energy.
+   *
+   * Calculation for specific forslag defines in forslags own class implementation.
+   */
+  protected function calculateForbrugFoerEl() {
+    return NULL;
+  }
+
+  /**
+   * Calculates forbrug before kWh value.
+   *
+   * forbrug = forbrugEl + forbrugVarme.
+   * @Formula("$this->calculateForbrugFoerVarme() + $this->calculateForbrugFoerEl()")
+   */
+  protected function calculateForbrugFoer() {
+    return $this->calculateForbrugFoerVarme() + $this->calculateForbrugFoerEl();
+  }
+
+  /**
+   * Calculates forbrug before Kr value.
+   *
+   * forbrugKr = forbrugVarme * varmePris + forbrugEl * elPris.
+   * @Formula("$this->calculateForbrugFoerVarme() * $this->getVarmePris() + $this->calculateForbrugFoerEl() * $this->getElPris()")
+   */
+  protected function calculateForbrugFoerKr() {
+      return $this->calculateForbrugFoerVarme() * $this->getVarmePris() + $this->calculateForbrugFoerEl() * $this->getElPris();
+  }
+
+  /**
+   * Calculates forbrug before CO2 value.
+   *
+   * forbrugCO2 = forbrugEl/1000 * elCO2 / 1000 + forbrugVarme/1000 * varmeCO2 / 1000.
+   * @Formula("$this->calculateForbrugFoerVarme() / 1000 * $this->getVarmeKgCo2MWh() / 1000 + $this->calculateForbrugFoerEl() / 1000 * $this->getElKgCo2MWh() / 1000")
+   */
+  protected function calculateForbrugFoerCo2() {
+    return $this->calculateForbrugFoerVarme() / 1000 * $this->getVarmeKgCo2MWh() / 1000
+      + $this->calculateForbrugFoerEl() / 1000 * $this->getElKgCo2MWh() / 1000;
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @Formula("$this->calculateForbrugFoer() - $this->getVarmebesparelseGAF() - $this->getVarmebesparelseGUF() - $this->getElbesparelse()")
+   * @return float|int
+   */
+  protected function calculateForbrugEfter() {
+    return $this->calculateForbrugFoer() - $this->getVarmebesparelseGAF() - $this->getVarmebesparelseGUF() - $this->getElbesparelse();
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @Formula("$this->calculateForbrugFoerKr() - $this->getSamletEnergibesparelse()")
+   * @return float|int
+   */
+  protected function calculateForbrugEfterKr() {
+    return $this->calculateForbrugFoerKr() - $this->getSamletEnergibesparelse();
+  }
+
+  /**
+   * Calculates based on value before - savings.
+   *
+   * @Formula("$this->calculateForbrugFoerCo2() - $this->getSamletCo2besparelse()")
+   * @return float|int
+   */
+  protected function calculateForbrugEfterCo2() {
+    return $this->calculateForbrugFoerCo2() - $this->getSamletCo2besparelse();
   }
 
   protected function accumulate(callable $accumulator, $start = 0) {
@@ -1877,6 +2189,8 @@ abstract class Tiltag {
    *
    * @return integer
    *   The sum af results from calling $f on each tilvalgt detail.
+   *
+   * @throws \Exception
    */
   protected function sum($f, $expression = FALSE) {
     $result = $this->accumulateArray(function ($detail, $result) use ($f) {
@@ -1891,11 +2205,167 @@ abstract class Tiltag {
   }
 
   public function __construct() {
+    $this->setDefault();
     $this->details = new \Doctrine\Common\Collections\ArrayCollection();
     $this->bilag = new \Doctrine\Common\Collections\ArrayCollection();
     if (isset(SlutanvendelseType::$detaultValues[get_class($this)])) {
       $this->slutanvendelse = SlutanvendelseType::$detaultValues[get_class($this)];
     }
+  }
+
+  protected function setDefault() {
+    if ($this->getPriserOverride() == NULL) {
+      $this->priserOverride = $this->getPriserOverrideDefault();
+    }
+    if ($this->getCo2Override() == NULL) {
+      $this->co2Override = array(
+        'el' => array(
+          'overriden' => FALSE,
+          'value' => NULL,
+        ),
+        'varme' => array(
+          'overriden' => FALSE,
+          'value' => NULL,
+        ),
+      );
+    }
+  }
+
+  /**
+   * Set priserOverride
+   *
+   * @param array $priserOverride
+   * @return Tiltag
+   */
+  public function setPriserOverride($priserOverride) {
+    $this->priserOverride = $priserOverride;
+
+    return $this;
+  }
+
+  /**
+   * Get priser
+   *
+   * @return array
+   */
+  public function getPriserOverride() {
+    return $this->priserOverride;
+  }
+  /**
+   * Set co2Override
+   *
+   * @param array $co2Override
+   * @return Tiltag
+   */
+  public function setCo2Override($co2Override) {
+    $this->co2Override = $co2Override;
+
+    return $this;
+  }
+
+  /**
+   * Get Priser Override default value
+   *
+   * @return array
+   */
+  public function getPriserOverrideDefault() {
+    return array(
+      'el' => array(
+        'overriden' => FALSE,
+        'pris' => NULL,
+      ),
+      'varme' => array(
+        'overriden' => FALSE,
+        'pris' => NULL,
+      ),
+    );
+  }
+
+  /**
+   * Get CO2
+   *
+   * @return array
+   */
+  public function getCo2Override() {
+    return $this->co2Override == NULL ? array() : $this->co2Override;
+  }
+
+  /**
+   * Get priser
+   *
+   * @return float
+   */
+  public function getPriserOverrideKeyValue($type, $key) {
+    $priser = $this->getPriserOverride();
+    return isset($priser[$type][$key]) ? $priser[$type][$key] : NULL;
+  }
+
+  public function getVarmePrisOverriden() { return $this->getPriserOverrideKeyValue('varme', 'pris'); }
+  public function isVarmePrisOverriden() { return $this->getPriserOverrideKeyValue('varme', 'overriden'); }
+  public function getElPrisOverriden() { return $this->getPriserOverrideKeyValue('el', 'pris'); }
+  public function isElPrisOverriden() { return $this->getPriserOverrideKeyValue('el', 'overriden'); }
+
+  /**
+   * Get varmePris
+   *
+   * @return float
+   */
+  public function getVarmePris($year = 1) {
+    if ($this->isVarmePrisOverriden()) {
+      return $this->getVarmePrisOverriden();
+    }
+    return $this->calculateVarmepris($year);
+  }
+
+  /**
+   * Get elPris
+   *
+   * @return float
+   */
+  public function getElPris($year = 1) {
+    if ($this->isElPrisOverriden()) {
+      return $this->getElPrisOverriden();
+    }
+    return $this->calculateElpris($year);
+  }
+
+  /**
+   * Get CO2
+   *
+   * @return float
+   */
+  public function getCo2OverrideKeyValue($type, $key) {
+    $co2 = $this->getCo2Override();
+    return isset($co2[$type][$key]) ? $co2[$type][$key] : NULL;
+  }
+
+  public function getVarmeCo2Overriden() { return $this->getCo2OverrideKeyValue('varme', 'value'); }
+  public function isVarmeCo2Overriden() { return $this->getCo2OverrideKeyValue('varme', 'overriden'); }
+  public function getElCo2Overriden() { return $this->getCo2OverrideKeyValue('el', 'value'); }
+  public function isElCo2Overriden() { return $this->getCo2OverrideKeyValue('el', 'overriden'); }
+
+  /**
+   * Get varmeCo2
+   *
+   * @return float
+   */
+  public function getVarmeKgCo2MWh() {
+    if ($this->isVarmeCo2Overriden()) {
+      return $this->getVarmeCo2Overriden();
+    }
+    return $this->calculateVarmeCo2();
+  }
+
+  /**
+   * Get elPris
+   *
+   * @return float
+   */
+  public function getElKgCo2MWh() {
+    if ($this->isElCo2Overriden()) {
+      return $this->getElCo2Overriden();
+    }
+    return $this->calculateElCo2();
   }
 
   /**
@@ -2122,7 +2592,54 @@ abstract class Tiltag {
     $repository = $event->getEntityManager()
       ->getRepository('AppBundle:Configuration');
     $this->setConfiguration($repository->getConfiguration());
+    $this->setDefault();
+  }
 
+  /**
+   * Returns the possible types of Tiltag.
+   *
+   * Values are parses from DiscriminatorMap annotation.
+   *
+   * @return array
+   *   DiscriminatorMap annotation values.
+   *
+   * @throws \Doctrine\Common\Annotations\AnnotationException
+   * @throws \ReflectionException
+   */
+  public static function getTypes($keys = FALSE) {
+    $refClass = new \ReflectionClass(Tiltag::class);
+    $annotationReader = new AnnotationReader();
+    /** @var DiscriminatorMap $discriminatorMapAnn */
+    $discriminatorMapAnn = $annotationReader->getClassAnnotation($refClass, 'Doctrine\ORM\Mapping\DiscriminatorMap');
+    return $keys ? array_keys($discriminatorMapAnn->value) : $discriminatorMapAnn->value;
+  }
+
+  /**
+   * Returns the type of this Tiltag.
+   *
+   * This is a value stored in the descriminator field.
+   *
+   * @return string
+   *   Tiltag Type.
+   */
+  public function getType() {
+    $class = (new \ReflectionClass($this))->getShortName();
+    return array_search($class, self::getTypes());
+  }
+
+  public static function getTypesConverted($keys = FALSE) {
+    $types = self::getTypes();
+    $result = array();
+    $relpaceFrom = array('å', 'æ', 'ø');
+    $relpaceTo = array('aa', 'ae', 'oe');
+    foreach ($types as $key => $typeClass) {
+      if ($key == 'klimaskærm') {
+          continue;
+      }
+      $key = str_replace($relpaceFrom, $relpaceTo, $key);
+      $result[$key] = $typeClass;
+    }
+    return $keys ? array_keys($result) : $result;
   }
 
 }

@@ -137,6 +137,30 @@
     <table class="table table-condensed table-fixed">
       <tbody>
       <tr>
+        <th>{{ 'appbundle.rapport.forbrugFoer' | trans }}:<div class="calculation-expression hidden">{{ entity.expr('forbrugFoer') }}</div></th>
+        <td class="text-right">{{ entity.forbrugFoer | format_decimal }}</td>
+        <td>{{ 'appbundle.rapport.forbrugFoer.unit' | trans }}</td>
+        <th>{{ 'appbundle.rapport.forbrugEfter' | trans }}:<div class="calculation-expression hidden">{{ entity.expr('forbrugEfter') }}</div></th>
+        <td class="text-right">{{ entity.forbrugEfter | format_decimal }}</td>
+        <td>{{ 'appbundle.rapport.forbrugEfter.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.rapport.forbrugFoerKr' | trans }}:<div class="calculation-expression hidden">{{ entity.expr('forbrugFoerKr') }}</div></th>
+        <td class="text-right">{{ entity.forbrugFoerKr | format_decimal }}</td>
+        <td>{{ 'appbundle.rapport.forbrugFoerKr.unit' | trans }}</td>
+        <th>{{ 'appbundle.rapport.forbrugEfterKr' | trans }}:<div class="calculation-expression hidden">{{ entity.expr('forbrugEfterKr') }}</div></th>
+        <td class="text-right">{{ entity.forbrugEfterKr | format_decimal }}</td>
+        <td>{{ 'appbundle.rapport.forbrugEfterKr.unit' | trans }}</td>
+      </tr>
+      <tr>
+        <th>{{ 'appbundle.rapport.forbrugFoerCo2' | trans }}:<div class="calculation-expression hidden">{{ entity.expr('forbrugFoerCo2') }}</div></th>
+        <td class="text-right">{{ entity.forbrugFoerCo2 | format_decimal }}</td>
+        <td>{{ 'appbundle.rapport.forbrugFoerCo2.unit' | trans }}</td>
+        <th>{{ 'appbundle.rapport.forbrugEfterCo2' | trans }}:<div class="calculation-expression hidden">{{ entity.expr('forbrugEfterCo2') }}</div></th>
+        <td class="text-right">{{ entity.forbrugEfterCo2 | format_decimal }}</td>
+        <td>{{ 'appbundle.rapport.forbrugEfterCo2.unit' | trans }}</td>
+      </tr>
+      <tr>
         <th>{{ 'appbundle.rapport.samletEnergiBesparelse' | trans }}:<div class="calculation-expression hidden">{{ entity.expr('samletEnergiBesparelse') }}</div></th>
         <td class="text-right">{{ entity.samletEnergiBesparelse | format_decimal }}</td>
         <td>{{ 'appbundle.rapport.samletEnergiBesparelse.unit' | trans }}</td>
@@ -291,23 +315,6 @@
         <th>{{ 'appbundle.rapport.besparelseAarEt' | trans }} <div class="calculation-expression hidden">{{ entity.expr('besparelseAarEt') }}</div></th>
         <td class="text-right">{{ entity.besparelseAarEt | format_amount }}</td>
         <td>{{ 'appbundle.rapport.besparelseAarEt.unit' | trans }}</td>
-      </tr>
-      <tr>
-        <th class="indent"></th>
-        <td class="text-right"></td>
-        <td></td>
-        <th>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger' | trans }} <div class="calculation-expression hidden">{{ entity.expr('internRenteInklFaellesomkostninger') }}</div></th>
-        <td class="text-right">
-          {% if entity.internRenteInklFaellesomkostninger < 100 %}
-            {{ entity.internRenteInklFaellesomkostninger | format_percent_nounit }}
-          {% else %}
-            <span class="aaplus-overwritten-value"><span class="aaplus-calculated-value">({{ 'common.calculated_value' | trans }}: {{ entity.internRenteInklFaellesomkostninger | format_percent_nounit }})</span> <span
-                  class="aaplus-note-marker"></span>
-              –
-            </span>
-          {% endif %}
-        </td>
-        <td>{{ 'appbundle.rapport.internRenteInklFaellesomkostninger.unit' | trans }}</td>
       </tr>
       </tbody>
     </table>

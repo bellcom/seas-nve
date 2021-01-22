@@ -61,14 +61,14 @@
         {{ 'virksomhed_rapporter.actions.edit_kortlaegning' | trans }}
       </a>
       {% if entity.virksomhed.getAllBygninger() is not empty %}
-        <a href="{{ path_with_access_token('virksomhed_rapport_pdf_review', { 'id': entity.id, 'type': 'resultatoversigt' }) }}" class="btn btn-default">
-          {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf2' | trans }}
+        <a href="{{ path_with_access_token('virksomhed_rapport_pdf_review', { 'id': entity.id, 'type': 'energisyn' }) }}" class="btn btn-default">
+          {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.energisyn' | trans }}
+        </a>
+        <a href="{{ path_with_access_token('virksomhed_rapport_pdf_review', { 'id': entity.id, 'type': 'screening' }) }}" class="btn btn-default">
+          {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.screening' | trans }}
         </a>
         <a href="{{ path_with_access_token('virksomhed_rapport_pdf_review', { 'id': entity.id, 'type': 'detailark' }) }}" class="btn btn-default">
-          {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf_detailark' | trans }}
-        </a>
-        <a href="{{ path_with_access_token('virksomhed_rapport_pdf_review', { 'id': entity.id, 'type': 'kortlaegning' }) }}" class="btn btn-default">
-          {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.pdf_kortlaegning' | trans }}
+          {{ icon('file-pdf-o') }} {{ 'virksomhed_rapporter.actions.detailark' | trans }}
         </a>
       {% endif %}
       <a class="btn btn-default" href="{{ path_with_access_token('virksomhed_rapport_filer', { 'id': entity.id }) }}">

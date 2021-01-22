@@ -1,0 +1,43 @@
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+  {% block body -%}
+
+  <div class="row heading">
+    <div class="col-md-9">
+        <h1>{{ 'rapportsektion.labels.plural' | trans }}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+        <a class="btn btn-primary" href="{{ path('virksomhed_rapport_sektioner_new', { 'virksomhed_rapport': rapport.id, 'rapport_type' : rapport_type, 'type': 'anbefaling' }) }}">
+            <span class="fa fa-plus"></span> {{ 'rapportsektion.types.anbefaling.actions.create' | trans }}
+        </a>
+        <a class="btn btn-default" href="{{ path('virksomhed_rapport_pdf_review', { 'id': rapport.id, 'type': rapport_type }) }}">Oversigtrapport</a>
+    </div>
+
+  </div>
+
+
+  <table class="table table-condensed table-header">
+    <thead>
+    <tr>
+      {{ helper.header('appbundle.rapportsektion.title') }}
+      {{ helper.header('appbundle.rapportsektion.text') }}
+      {{ helper.header('appbundle.rapportsektion.type') }}
+      {{ helper.header() }}
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+    <tr>
+        <td>{{ entity.sectionTitle }}</td>
+        <td>{{ entity.text|striptags|truncate(50) }}</td>
+        <td>{{ entity.type }}</td>
+        <td class="text-right">
+          <a class="btn btn-default btn-xs" href="{{ path('virksomhed_rapport_sektioner_edit', { 'virksomhed_rapport': rapport.id, 'rapport_type' : rapport_type, 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+       </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% endblock %}

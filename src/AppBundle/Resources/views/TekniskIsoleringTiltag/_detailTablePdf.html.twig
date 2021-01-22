@@ -1,1 +1,55 @@
-{% include 'AppBundle:TekniskIsoleringTiltag:_detailTable.html.twig' %}
+<table class="table table-condensed">
+  <thead>
+  <tr>
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.beskrivelseType') }}
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.type') }}
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.driftstidTAar') }}
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.udvDiameterMm') }}
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.eksistIsolMm') }}
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.tempOmgivelC') }}
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.tempMedieC') }}
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.roerlaengdeEllerHoejdeAfVvbM') }}
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.nyIsolMm') }}
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.investeringKr') }}
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header('appbundle.tekniskisoleringtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+    {{ helper.header() }}
+  </tr>
+  <tr>
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.beskrivelseType') }}
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.type') }}
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.driftstidTAar') }}
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.udvDiameterMm') }}
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.eksistIsolMm') }}
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.tempOmgivelC') }}
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.tempMedieC') }}
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.roerlaengdeEllerHoejdeAfVvbM') }}
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.nyIsolMm') }}
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.investeringKr') }}
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.simpelTilbagebetalingstidAar') }}
+    {{ helper.header_unit('appbundle.tekniskisoleringtiltagdetail.nutidsvaerdiSetOver15AarKr') }}
+    {{ helper.header_unit() }}
+  </tr>
+  </thead>
+  <tbody>
+  {% for detail in entity.details %}
+    {% if detail.tilvalgt %}
+    <tr>
+      <td>{{ detail.beskrivelseType }}</td>
+      <td>{{ detail.type }}</td>
+      <td class="number">{{ detail.driftstidTAar | format_decimal(0) }}</td>
+      <td class="number">{{ detail.udvDiameterMm | format_decimal }}</td>
+      <td class="number">{{ detail.eksistIsolMm | format_decimal }}</td>
+      <td class="number">{{ detail.tempOmgivelC | format_decimal }}</td>
+      <td class="number">{{ detail.tempMedieC | format_decimal }}</td>
+      <td class="number">{{ detail.roerlaengdeEllerHoejdeAfVvbM | format_decimal }}</td>
+      <td class="number">{{ detail.nyIsolMm | format_decimal }}</td>
+      <td class="number">{{ detail.investeringKr | format_amount }}</td>
+      <td class="number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
+      <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
+      <td class="last"></td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+  </tbody>
+</table>

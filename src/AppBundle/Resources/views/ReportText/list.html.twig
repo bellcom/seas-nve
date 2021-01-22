@@ -1,0 +1,88 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+
+    <div class="row">
+        <div class="col-md-4">
+            <h1>{{ "reporttext.tabs.#{ selected_section }" | trans }}:  {{ "reporttext.tabs.#{ selected_section }_#{ selected_field }" | trans }}</h1>
+        </div>
+        <div class="col-md-8 text-right">
+            {% include 'AppBundle:ReportText:tabs.html.twig' %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <table class="table table-condensed">
+                <tbody>
+                <tr>
+                    <th rowspan="2" style="vertical-align: middle">{{ 'appbundle.reporttext.title' | trans }}</th>
+                    <th rowspan="2" style="vertical-align: middle">{{ 'appbundle.reporttext.body' | trans }}</th>
+                    <th rowspan="2" style="vertical-align: middle">{{ 'appbundle.reporttext.updated_by' | trans }}</th>
+                    <th rowspan="2" style="vertical-align: middle">{{ 'appbundle.reporttext.updated_at' | trans }}</th>
+                    <th colspan="{% if standard_vd is not empty %}3{% else %}2{% endif %}" class="text-center">
+                      {{ 'appbundle.reporttext.standard' | trans }}
+                    </th>
+                    <th></th>
+                </tr>
+                {% if standard_ve is not empty %}<th>{{ 'appbundle.reporttext.sve' | trans }}</th>{% endif %}
+                {% if standard_vs is not empty %}<th>{{ 'appbundle.reporttext.svs' | trans }}</th>{% endif %}
+                {% if standard_vd is not empty %}<th>{{ 'appbundle.reporttext.svd' | trans }}</th>{% endif %}
+                <tr>
+                </tr>
+                {% for element in elements %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('report_text_edit', { 'report_text_id': element.entity.id}) }}">{{ element.entity.title }}</a>
+                        </td>
+                        <td>
+                            {{ element.entity.body|striptags|truncate(50) }}
+                        </td>
+                        <td>{{ element.entity.updatedBy }}</td>
+                        <td>{{ element.entity.updatedAt | date('F j, Y H:i') }}</td>
+                        {% if element.mark_standard_form_ve is not empty %}
+                          <td>
+                            <div class="btn-group">
+                                {{ form_start(element.mark_standard_form_ve) }}
+                                {{ form_widget(element.mark_standard_form_ve.submit) }}
+                                {{ form_end(element.mark_standard_form_ve) }}
+                            </div>
+                          </td>
+                        {% endif %}
+                        {% if element.mark_standard_form_vs is not empty %}
+                          <td>
+                            <div class="btn-group">
+                                {{ form_start(element.mark_standard_form_vs) }}
+                                {{ form_widget(element.mark_standard_form_vs.submit) }}
+                                {{ form_end(element.mark_standard_form_vs) }}
+                            </div>
+                          </td>
+                        {% endif %}
+                        {% if element.mark_standard_form_vd is not empty %}
+                          <td>
+                            <div class="btn-group">
+                                {{ form_start(element.mark_standard_form_vd) }}
+                                {{ form_widget(element.mark_standard_form_vd.submit) }}
+                                {{ form_end(element.mark_standard_form_vd) }}
+                            </div>
+                          </td>
+                        {% endif %}
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <a href="{{ path('report_text_edit', { 'report_text_id': element.entity.id}) }}" class="btn btn-default">{{ 'common.edit' | trans }}</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="{{ path('report_text_new', {'type': selected_text_type}) }}">
+                {{ icon('plus') }} {{ 'reporttext.actions.create' | trans }}
+            </a>
+
+        </div>
+    </div>
+
+{% endblock %}

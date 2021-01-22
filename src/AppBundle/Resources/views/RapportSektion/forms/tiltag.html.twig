@@ -1,0 +1,45 @@
+{% extends 'AppBundle::RapportSektion/forms/standard.html.twig' %}
+{% block form_content %}
+  <div class="row">
+    <div class="col-md-offset-6 col-md-6 text-right" style="margin-top: -45px;">
+      {% if entity.tiltag %}
+        <a class="btn btn-default" target="_blank" href="{{ path('tiltag_edit', { 'id': entity.tiltag.id, 'destination': app.request.get('destination') }) }}">{{ 'rapportsektion.actions.edit_tiltag' | trans }}</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(form.title) }}
+          {{ form_row(form.text) }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'rapportsektion.strings.image' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(form.imagestandard) }}
+          {{ form_row(form.filepath) }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'common.text_pages' | trans }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ form_row(form.textPages) }}
+        </div>
+      </div>
+      {{ form_rest(form) }}
+    </div>
+  </div>
+{% endblock %}

@@ -19,16 +19,6 @@ use Doctrine\ORM\Mapping as ORM;
 class KoeleanlaegTiltag extends Tiltag {
 
   /**
-   * @Formula("$this->elbesparelse * $this->getRapportElKrKWh()")
-   */
-  protected $samletEnergibesparelse;
-
-  /**
-   * @Formula("(($this->varmebesparelseGAF / 1000) * $this->getRapportVarmeKgCo2MWh() + ($this->elbesparelse / 1000) * $this->getRapportElKgCo2MWh()) / 1000")
-   */
-  protected $samletCo2besparelse;
-
-  /**
    * Constructor
    */
   public function __construct() {
@@ -36,6 +26,13 @@ class KoeleanlaegTiltag extends Tiltag {
 
     // @Todo: Find af way to use the translations system or move this to some place else....
     $this->setTitle('Køleanlæg');
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  protected function calculateForbrugFoerEl() {
+    return $this->sum(function($detail) { return $detail->getTilstandDataFoerEtot(); });
   }
 
   /**

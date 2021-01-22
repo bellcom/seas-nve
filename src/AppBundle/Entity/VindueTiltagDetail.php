@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity
  */
-class VindueTiltagDetail extends KlimaskaermTiltagDetail {
+class VindueTiltagDetail extends NyKlimaskaermTiltagDetail {
   /**
    * @var float
    *

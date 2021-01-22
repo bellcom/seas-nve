@@ -796,8 +796,42 @@ label + .explanation-toggle {
     max-width: 100%;
 }
 
-
 .popover-content table td {
     padding: 2px 4px;
 }
 
+div.form-group.override .form-group {
+    margin:0;
+}
+div.form-group.override .form-group .checkbox {
+    margin:0;
+}
+
+.rapport-review .breadcrumbs-wrapper {
+    padding: 10px 15px;
+    background-color: #FFFFFF;
+}
+
+.rapport-review {
+    background-color: #EEE;
+}
+
+.rapport-review .portrait {
+    min-height: 1250px;
+    width: 1160px;
+    padding: 40px 10px;
+    margin: auto;
+    background-color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+
+.rapport-review .landscape {
+    width: 1560px;
+    padding: 40px 80px;
+    margin: auto;
+    background-color: #FFFFFF;
+}
+
+.rapport-review .page-break-before {
+    margin-top: 20px;
+}

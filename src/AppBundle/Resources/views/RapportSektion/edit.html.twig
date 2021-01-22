@@ -1,0 +1,15 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ 'rapportsektion.actions.edit' | trans }} {{ ('rapportsektion.types.' ~ entity.type) | trans }} {{ entity.number }}{% if entity.tiltagType %}. {{ ('bygning_rapporter.strings.' ~ entity.tiltagType ~ 'tiltag') | trans }}{% endif %}</h1>
+    </div>
+    <div class="col-md-3 text-right">
+      {% if delete_form is not null %}{{ form(delete_form) }}{% endif %}
+    </div>
+  </div>
+
+  {% include form_tpl %}
+
+{% endblock %}

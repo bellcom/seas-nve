@@ -1,0 +1,134 @@
+{% extends 'AppBundle::RapportSektioner/base.html.twig' %}
+{% set sectionTypeNavn = section.number ~ ' ' ~ (('rapportsektion.types.' ~ section.type ) | trans) %}
+{% block section_title -%}
+  <h1>{{ section.anbefalingTitle }}</h1>
+{% endblock %}
+{% block section_type -%}
+  <div class="section-type">{{ sectionTypeNavn }}</div>
+  {% if section.anbefalingTitle is empty %}
+    <h1 class="hidden-header">{{ sectionTypeNavn }}</h1>
+  {% endif %}
+{% endblock %}
+{% block section_content -%}
+  {{ parent() }}
+  <div class="block block-anbefaling--meta block--negative-margin">
+    <div class="row">
+      <div class="col-xs-4">
+        {% if section.filepath %}
+          <div>
+            <img src="{{ absolute_url(asset(section.filepath)) }}" alt=""/>
+          </div>
+        {% endif %}
+      </div>
+      <div class="col-xs-8">
+        <div class="region region-anbefaling--meta">
+          <div class="region region-anbefaling--effect">
+            <div class="h4">Effekt (sparet årligt):</div>
+            <div class="row">
+              <div class="col-xs-4">
+                <span class="h1">{{ section.potentieltBesparesleCo2 | format_decimal }} <small>ton CO2</small></span>
+              </div>
+              <div class="col-xs-4">
+                <span class="h1">{{ section.potentieltBesparesleKr | format_decimal(0) }} <small>kr.</small></span>
+              </div>
+              <div class="col-xs-4">
+                <span class="h1">{{ section.potentieltBesparesleKwh | format_decimal(0) }} <small>kWh</small></span>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="region region-anbefaling--effect-description">
+            <div class="row">
+              <div class="col-xs-2"><strong>Tidsforløb:</strong></div>
+              <div class="col-xs-10"><strong>{{ section.tidsforloebUger | format_decimal(0) }} uger</strong></div>
+            </div>
+            <div class="row">
+              <div class="col-xs-2"><strong>Pris:</strong></div>
+              <div class="col-xs-10"><strong>{{ section.pris | format_decimal(0) }} kr.</strong></div>
+            </div>
+            <div class="row">
+              <div class="col-xs-2"><strong>Ressourcer:</strong></div>
+              <div class="col-xs-10"><strong>{{ section.ressourcertekst | raw }}</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if section.tidlsforloebData %}
+    <div class="block block-anbefaling--tidsforloeb">
+      <h2>Tidsforløb</h2>
+      <table class="table">
+        <thead>
+        <tr>
+          <th></th>
+          {% for week in section.tidlsforloebData %}
+            <th>{{ week.label }}</th>
+          {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for key,info in section.getTidlsforloebInfo %}
+          <tr class="tidsforloeb-ansvarlig tidsforloeb-ansvarlig--{{ info.omraadeansvar }}">
+            <td>{{ info.title }}</td>
+            {% for week in section.tidlsforloebData %}
+              {% if week.rows[key].show %}
+                <td class="active-span{% if week.rows[key].first is defined %} first{% endif %}{% if week.rows[key].last is defined %} last{% endif %}">
+                  <span></span>
+                </td>
+              {% else %}
+                <td></td>
+              {% endif %}
+            {% endfor %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <div>
+        <ul class="list-inline">
+          <li>
+            <strong>Områdeansvarlig:</strong>
+          </li>
+          <li>
+            <span class="color-square color-square--provider"></span> SEAS-NVE
+          </li>
+          <li>
+            <span class="color-square color-square--company"></span> {{ section.virksomhedOversigtRapport.virksomhed.name }}
+          </li>
+          <li>
+            <span class="color-square color-square--both"></span> Begge
+          </li>
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="block block-section--anbefaling-roi">
+    <h2>Simpel tilbagebetalingtid (ROI)</h2>
+    <br>
+    <div class="row">
+      <div class="col-xs-6">
+        {% include 'AppBundle:_includes:graf_roi.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
+      </div>
+      <div class="col-xs-6">
+        <div class="box box--produktivitet">
+          <h3>På vej med en grønne profil - vi er med jer hele vejen</h3>
+          <p>
+            Ønsker I at komme igang med implementering af optimeringer, eller har I spørgsmål,
+            så kontakt jeres personlige energirådgiver{% if section.raadgiver %} {{ section.raadgiversName }} på telefon {{ section.telephone }}{% endif %}
+          </p>
+        </div>
+
+        {% if section.produktivitetTekst %}
+          <br>
+          <div class="region region-anbefaling--highlighted-text">
+            <p>{{ section.produktivitetTekst }}</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

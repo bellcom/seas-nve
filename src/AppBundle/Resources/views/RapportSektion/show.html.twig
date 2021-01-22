@@ -1,0 +1,41 @@
+  {% extends 'AppBundle::base.html.twig' %}
+
+
+{% block body -%}
+  <div class="row heading">
+    <div class="col-md-9">
+      <h1>{{ entity }}</h1>
+    </div>
+    <div class="col-md-3 text-right">    <a class="btn btn-default btn-default" href="{{ path('rapportsektion_edit', { 'id': entity.id }) }}">{{ 'common.edit' | trans }}</a>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ icon('chevron-right') }} {{ 'rapportsektion.labels.singular' | trans }}</div>
+        <table class="table table-condensed">
+          <tbody>
+            <tr>
+              <th>{{ 'appbundle.rapportsektion.title' | trans }}</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.rapportsektion.text' | trans }}</th>
+                <td>{{ entity.text }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.rapportsektion.type' | trans }}</th>
+                <td>{{ entity.type }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'appbundle.rapportsektion.extras' | trans }}</th>
+                <td>{{ entity.extras }}</td>
+            </tr>          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

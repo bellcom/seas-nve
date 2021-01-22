@@ -154,6 +154,9 @@ class TiltagDetailController extends BaseController {
     $editForm = $this->createEditForm($tiltagdetail);
     $editForm->handleRequest($request);
 
+    // Trigger entity to always save/resave current state to db. Even there is no changes.
+    $tiltagdetail->setUpdatedAt(new \DateTime());
+
     if ($editForm->isValid()) {
       $tiltagdetail->handleUploads($this->get('stof_doctrine_extensions.uploadable.manager'));
       $em = $this->getDoctrine()->getManager();
