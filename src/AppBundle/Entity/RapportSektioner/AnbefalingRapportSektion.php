@@ -126,7 +126,7 @@ class AnbefalingRapportSektion extends RapportSektion implements ROIGrafDataInte
     }
 
     /**
-     * Gets Simplel tilbagbetalingstid (ROI)
+     * Gets Simplel tilbagbetalingstid (TBT)
      *
      * @return string
      */
