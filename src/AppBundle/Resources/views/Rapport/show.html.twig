@@ -325,7 +325,7 @@
     <div class="col-md-2"><h2>{{ 'tiltag.labels.singular' | trans }}</h2></div>
     <div class="col-md-10 text-right">
       {% if is_granted('RAPPORT_EDIT', entity) %}
-        {% for type in [ 'pumpe', 'belysning', 'nyklimaskaerm', 'vindue', 'solcelle', 'tekniskisolering', 'ventilation', 'trykluft', 'varmeanlaeg', 'koeleanlaeg', 'special' ] %}
+        {% for type in [ 'pumpe', 'belysning', 'nyklimaskaerm', 'vindue', 'tekniskisolering', 'ventilation', 'trykluft', 'varmeanlaeg', 'koeleanlaeg', 'special' ] %}
           <a href="{{ path('tiltag_new', { 'id': entity.id, 'type': type }) }}" class="btn btn-default">
             {{ icon('plus') }} {{ ('bygning_rapporter.strings.' ~ type ~ 'tiltag') | trans }}
           </a>
