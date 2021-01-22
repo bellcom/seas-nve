@@ -3282,6 +3282,7 @@ appbundle:
     uEksWM2K: "U_eks"
     uEksWM2K.unit: "W/m²K"
     uNyWM2K: "U_ny"
+    Unywm2k: "U_ny"
     uNyWM2K.unit: "W/m²K"
     vaegtetGnm: "VaegtetGnm"
     vaegtetLevetidForTiltagetAfrundet: "Vægtet levetid for forslaget (afrundet)"
