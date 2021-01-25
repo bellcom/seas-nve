@@ -1983,7 +1983,7 @@ appbundle:
     tilvalgt: "Tilvalgt"
     varmebespIsokappeKWh: "Varmebesp. iso.kappe"
     varmebespIsokappeKWh.unit: "kWh"
-    varmetabIftAekvivalentRoerstoerrelse: "Overskreven varmetab ift. ækvivalent rørstørrelse (Pumpetilslutning)"
+    varmetabIftAekvivalentRoerstoerrelse: "Rørstørrelse på pumpetilslutning ved brug af isoleringskappe"
   rapport:
     ava: "AVA"
     anlaegsinvestering: "Entreprisesum"

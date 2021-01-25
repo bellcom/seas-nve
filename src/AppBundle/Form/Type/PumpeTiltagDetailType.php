@@ -33,6 +33,7 @@ class PumpeTiltagDetailType extends TiltagDetailType {
       ->add('varmetabIftAekvivalentRoerstoerrelse', 'choice', array(
         'choices' => $this->getRoerstoerrelser(),
         'required' => false,
+        'empty_value' => 'common.none',
       ));
 
     // @FIXME: Workaround for the field "B-Faktor" being deprecated.
