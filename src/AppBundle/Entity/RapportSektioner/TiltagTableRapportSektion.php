@@ -30,8 +30,7 @@ class TiltagTableRapportSektion extends RapportSektion {
     }
 
     public function getTiltage () {
-        $anbefalinger = $this->getRapportSections()->filter(function ($section) { return $section->getType() == 'tiltag'; });
-        return array_values($anbefalinger->toArray());
+        return $this->getRapportTiltagSections();
     }
 
 }

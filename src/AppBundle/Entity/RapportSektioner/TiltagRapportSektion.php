@@ -41,6 +41,13 @@ class TiltagRapportSektion extends RapportSektion implements SamletForbrugGrafDa
     protected $tiltag;
 
     /**
+     * Runtime variable.
+     *
+     * @var int
+     */
+    protected $number;
+
+    /**
      * Constructor
      */
     public function __construct($params) {
@@ -170,10 +177,15 @@ class TiltagRapportSektion extends RapportSektion implements SamletForbrugGrafDa
      * Get tiltag section number.
      */
     public function getNumber() {
-        $tiltagSections = $this->getRapportSections()->filter(function ($section) { return $section->getType() == 'tiltag'; });
+        if ($this->number !== NULL) {
+            return $this->number;
+        }
+
+        $sections = $this->getRapportTiltagSections();
         $number = 1;
-        foreach ($tiltagSections as $key => $tiltagSection) {
+        foreach ($sections as $tiltagSection) {
             if ($tiltagSection->getId() == $this->getId()) {
+                $this->number = $number;
                 return $number;
             }
             $number++;

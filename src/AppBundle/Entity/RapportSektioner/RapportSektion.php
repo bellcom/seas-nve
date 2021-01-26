@@ -626,6 +626,25 @@ abstract class RapportSektion
     }
 
     /**
+     * Returns Tiltag report sections sorted by bygning and tiltag id.
+     *
+     * @return array
+     */
+    protected function getRapportTiltagSections() {
+        $sections = array();
+        $result = $this->getRapportSections();
+        foreach ($this->getRapportSections() as $section) {
+            if (!($section instanceof TiltagRapportSektion)) {
+                continue;
+            }
+            $bygning = $section->getTiltag()->getRapport()->getBygning();
+            $sections[$bygning->getId() . '_' . $section->getTiltagId()] = $section;
+        }
+        ksort($sections);
+        return $sections;
+    }
+
+    /**
      * Get rapport
      *
      * @return object|null

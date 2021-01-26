@@ -187,18 +187,23 @@ class VirksomhedRapportRepository extends BaseRepository {
                 $this->_em->flush();
                 continue;
             }
-            $existing[$section->getTiltagId()] = $section;
+            /** @var Bygning $bygning */
+            $bygning = $section->getTiltag()->getRapport()->getBygning();
+            $existing[$bygning->getId() . '_' . $section->getTiltagId()] = $section;
         }
 
         // Return if all section are created.
         if (count($existing) == count($tiltage)) {
+            ksort($existing);
             return $existing;
         }
 
         // Remove already created tiltage sections.
         /** @var Tiltag $tiltag */
         foreach ($tiltage as $tiltag) {
-            if (isset($existing[$tiltag->getId()])) {
+            /** @var Bygning $bygning */
+            $bygning = $tiltag->getRapport()->getBygning();
+            if (isset($existing[$bygning->getId() . '_' . $tiltag->getId()])) {
                 $tiltage->removeElement($tiltag);
             }
         }
@@ -208,6 +213,7 @@ class VirksomhedRapportRepository extends BaseRepository {
         /** @var RapportSektionRepository $sektionerRepository */
         $sektionRepository = $this->_em->getRepository('AppBundle:RapportSektioner\RapportSektion');
         /** @var Tiltag $tiltag */
+        $new_sections = 0;
         foreach ($tiltage as $tiltag) {
             /** @var TiltagRapportSektion $new_sektion */
             $newSection = $sektionRepository->create('tiltag', array('tiltag' => $tiltag, 'rapport_type' => $rapportType));
@@ -215,9 +221,14 @@ class VirksomhedRapportRepository extends BaseRepository {
 
             $this->_em->persist($newSection);
             $this->_em->flush();
-            $sections[] = $newSection;
+
+            /** @var Bygning $bygning */
+            $bygning = $tiltag->getRapport()->getBygning();
+            $new_sections++;
+            $sections[$bygning->getId() . '_' . $section->getTiltagId()] = $newSection;
         }
 
+        ksort($sections);
         return $sections;
     }
 
