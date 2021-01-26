@@ -62,13 +62,13 @@
         {{ form_row(edit_form.forsyningVarme) }}
         {% if edit_form.priserOverride.varme is defined %}
           <div class="form-group override">
-            <label class="control-label">{{ 'appbundle.tiltag.priserOverride.varme' | trans }}: {{ entity.getRapportVarmeKrKWh | number_format }} {{ 'appbundle.forsyningsvaerk.pris.unit' | trans }} </label>
+            <label class="control-label">{{ 'appbundle.tiltag.priserOverride.varme' | trans }}: {{ entity.calculateVarmepris | number_format }} {{ 'appbundle.forsyningsvaerk.pris.unit' | trans }} </label>
             {{ form_widget(edit_form.priserOverride.varme) }}
           </div>
         {% endif %}
         {% if edit_form.co2Override.varme is defined %}
           <div class="form-group override">
-            <label class="control-label">{{ 'appbundle.tiltag.co2Override.varme' | trans }}: {{ entity.getRapportVarmeKgCo2MWh | number_format }} {{ 'appbundle.forsyningsvaerk.co2.unit' | trans }} </label>
+            <label class="control-label">{{ 'appbundle.tiltag.co2Override.varme' | trans }}: {{ entity.calculateVarmeCo2 | number_format }} {{ 'appbundle.forsyningsvaerk.co2.unit' | trans }} </label>
             {{ form_widget(edit_form.co2Override.varme) }}
           </div>
         {% endif %}
@@ -77,13 +77,13 @@
         {{ form_row(edit_form.forsyningEl) }}
         {% if edit_form.priserOverride.el is defined %}
           <div class="form-group override">
-            <label class="control-label">{{ 'appbundle.tiltag.priserOverride.el' | trans }}: {{ entity.getRapportElKrKWh | number_format }} {{ 'appbundle.forsyningsvaerk.pris.unit' | trans }} </label>
+            <label class="control-label">{{ 'appbundle.tiltag.priserOverride.el' | trans }}: {{ entity.calculateElpris | number_format }} {{ 'appbundle.forsyningsvaerk.pris.unit' | trans }} </label>
             {{ form_widget(edit_form.priserOverride.el) }}
           </div>
         {% endif %}
         {% if edit_form.co2Override.el is defined %}
           <div class="form-group override">
-            <label class="control-label">{{ 'appbundle.tiltag.co2Override.el' | trans }}: {{ entity.getRapportElKgCo2MWh | number_format }} {{ 'appbundle.forsyningsvaerk.co2.unit' | trans }} </label>
+            <label class="control-label">{{ 'appbundle.tiltag.co2Override.el' | trans }}: {{ entity.calculateElCo2 | number_format }} {{ 'appbundle.forsyningsvaerk.co2.unit' | trans }} </label>
             {{ form_widget(edit_form.co2Override.el) }}
           </div>
         {% endif %}

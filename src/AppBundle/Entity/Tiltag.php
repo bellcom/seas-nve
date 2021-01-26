@@ -1848,7 +1848,7 @@ abstract class Tiltag {
     return $this->getElbesparelse();
   }
 
-  protected function calculateVarmepris($year = 1) {
+  public function calculateVarmepris($year = 1) {
     if ($this->forsyningVarme) {
       /** @var Forsyningsvaerk $forsyningsvaerk */
       $forsyningsvaerk = $this->forsyningVarme->getForsyningsvaerk();
@@ -1860,7 +1860,7 @@ abstract class Tiltag {
     return 0;
   }
 
-  protected function calculateVarmeCo2($year = 1) {
+  public function calculateVarmeCo2($year = 1) {
     if ($this->forsyningVarme) {
       /** @var Forsyningsvaerk $forsyningsvaerk */
       $forsyningsvaerk = $this->forsyningVarme->getForsyningsvaerk();
@@ -1872,7 +1872,7 @@ abstract class Tiltag {
     return 0;
   }
 
-  protected function calculateElpris($year = 1) {
+  public function calculateElpris($year = 1) {
     if ($this->forsyningEl) {
       /** @var Forsyningsvaerk $forsyningsvaerk */
       $forsyningsvaerk = $this->forsyningEl->getForsyningsvaerk();
@@ -1884,7 +1884,7 @@ abstract class Tiltag {
     return 0;
   }
 
-  protected function calculateElCo2($year = 1) {
+  public function calculateElCo2($year = 1) {
     if ($this->forsyningEl) {
       /** @var Forsyningsvaerk $forsyningsvaerk */
       $forsyningsvaerk = $this->forsyningEl->getForsyningsvaerk();
