@@ -249,7 +249,7 @@ bygning_rapporter:
     tekniskisoleringtiltag: "Teknisk isolering"
     tiltag: "Forslag"
     tilvalgt: "Tilvalgt"
-    varmeanlaegtiltag: "Varmeproduktion"
+    varmeanlaegtiltag: "Varmeanlæg"
     vinduetiltag: "Vindue"
     ventilationtiltag: "Ventilation"
     tryklufttiltag: "Trykluft"
@@ -559,7 +559,7 @@ reportimage:
     tekniskisolering: "Teknist isolering billeder"
     ventilation: "Ventilation billeder"
     trykluft: "Trykluft billeder"
-    varmeanlaeg: "Varmeproduktion billeder"
+    varmeanlaeg: "Varmeanlæg billeder"
     koeleanlaeg: "Køleanlag billeder"
     special: "Special billeder"
   strings:
@@ -615,7 +615,7 @@ reporttext:
     tiltag_tekniskisolering_text: "Teknisk isolering"
     tiltag_trykluft: "Trykluft"
     tiltag_trykluft_text: "Trykluft"
-    tiltag_varmeanlaeg_text: "Varmeproduktion"
+    tiltag_varmeanlaeg_text: "Varmeanlæg"
     tiltag_solcelle: "Solcelle"
     tiltag_solcelle_text: "Solcelle"
     tiltag_special: "Special"
@@ -803,17 +803,17 @@ user:
       email: "Bruger med adresse %email findes allerede"
 varmeanlaegtiltag:
   actions:
-    add: "Tilføj varmeproduktionforslag"
-    copy: "Kopier varmeproduktionforslag"
-    edit: "Rediger varmeproduktionforslag"
+    add: "Tilføj varmeanlægforslag"
+    copy: "Kopier varmeanlægforslag"
+    edit: "Rediger varmeanlægforslag"
   confirmation:
-    created: "Nyt varmeproduktionforslag oprettet"
+    created: "Nyt varmeanlaegforslag oprettet"
 varmeanlaegtiltagdetail:
   actions:
-    add: "Tilføj varmeproduktionforslag"
-    batch_edit: "Rediger valgte varmeproduktionforslag"
-    copy: "Kopier varmeproduktionforslag"
-    edit: "Rediger varmeproduktionforslag"
+    add: "Tilføj varmeanlægforslag"
+    batch_edit: "Rediger valgte varmeanlaegforslag"
+    copy: "Kopier varmeanlaegforslag"
+    edit: "Rediger varmeanlægforslag"
   groups:
     1_nuvaerendeVarmekilde: "1: Nuværende varmekilde, forbrug og driftsomkostning"
     2_sammentaellingFoer: "2: Sammentælling nuværende varmekilde"
