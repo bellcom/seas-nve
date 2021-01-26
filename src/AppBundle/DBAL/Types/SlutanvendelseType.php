@@ -28,7 +28,7 @@ class SlutanvendelseType extends AbstractEnumType
     self::KOELING  => 'Køling',
     self::TRYKLUFT  => 'Trykluft',
     self::PROCESUDSTYR  => 'Procesudstyr',
-    self::VARMEANLAEG  => 'Varmeanlæg',
+    self::VARMEANLAEG  => 'Varmeproduktion',
     self::KLIMASKAERM  => 'Klimaskærm',
     self::VINDUER  => 'Vinduer',
     self::ELVARME_RUMVARME  => 'Elvarme - Rumvarme',

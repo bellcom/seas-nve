@@ -52,7 +52,7 @@ class VarmeanlaegTiltag extends Tiltag {
         $configuration = $kernel->getContainer()->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Configuration')->getConfiguration();
         $this->setConfiguration($configuration);
         parent::__construct();
-        $this->setTitle('Varmeanlæg');
+        $this->setTitle('Varmeproduktion');
         $this->setDefault();
 
     }
