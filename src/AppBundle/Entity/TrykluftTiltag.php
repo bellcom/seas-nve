@@ -83,7 +83,6 @@ class TrykluftTiltag extends Tiltag {
         }
         $this->aaplusInvestering = $this->calculateAaplusInvestering();
         $this->reinvestering = $this->calculateReinvestering();
-        $this->scrapvaerdi = $this->calculateScrapvaerdi();
         $this->cashFlow15 = $this->calculateCashFlow(15);
         $this->cashFlow30 = $this->calculateCashFlow(30);
         $this->cashFlowSet = $this->calculateCashFlow($this->getConfiguration()->getNutidsvaerdiBeregnAar());

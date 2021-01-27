@@ -355,7 +355,7 @@ abstract class Tiltag {
    * @Calculated
    * @ORM\Column(name="scrapvaerdi", type="float", nullable=true)
    */
-  protected $scrapvaerdi;
+  protected $scrapvaerdi = 0;
 
   /**
    * @var float
@@ -1483,6 +1483,13 @@ abstract class Tiltag {
   }
 
   /**
+   * @param float $scrapvaerdi
+   */
+  public function setScrapvaerdi($scrapvaerdi) {
+    $this->scrapvaerdi = $scrapvaerdi;
+  }
+
+  /**
    * Get scrapvaerdi.
    *
    * @return float
@@ -1773,7 +1780,6 @@ abstract class Tiltag {
     }
     $this->aaplusInvestering = $this->calculateAaplusInvestering();
     $this->reinvestering = $this->calculateReinvestering();
-    $this->scrapvaerdi = $this->calculateScrapvaerdi();
     $this->cashFlow15 = $this->calculateCashFlow(15);
     $this->cashFlow30 = $this->calculateCashFlow(30);
     $this->cashFlowSet = $this->calculateCashFlow($this->getConfiguration()->getNutidsvaerdiBeregnAar());
@@ -2022,21 +2028,6 @@ abstract class Tiltag {
       $result[$i] = $value;
     }
     return $result;
-  }
-
-  protected function calculateScrapvaerdi() {
-    $cutoff = 15;
-    if ($this->levetid > $cutoff) {
-      return (1 - ($cutoff / $this->levetid)) * pow(1 + $this->getRapport()
-          ->getInflation(), $cutoff) * $this->aaplusInvestering;
-    }
-    elseif ($cutoff - $this->antalReinvesteringer * $this->levetid == 0) {
-      return 0;
-    }
-    else {
-      return (1 - ($this->levetid == 0 ? 0 : ($cutoff - $this->antalReinvesteringer * $this->levetid) / $this->levetid)) * $this->reinvestering * pow(1 + $this->getRapport()
-          ->getInflation(), $cutoff);
-    }
   }
 
   protected function calculateReinvestering() {

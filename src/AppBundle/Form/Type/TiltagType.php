@@ -75,7 +75,8 @@ class TiltagType extends AbstractType {
     }
 
     $builder
-      ->add('reelAnlaegsinvestering');
+      ->add('reelAnlaegsinvestering')
+      ->add('scrapvaerdi');
 
     $builder->add('reelAnlaegsinvestering')
       ->add('forsyningVarme', 'entity', array(
