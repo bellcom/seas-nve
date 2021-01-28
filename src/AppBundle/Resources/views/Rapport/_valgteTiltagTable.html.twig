@@ -12,6 +12,7 @@
     <tr>
       <th></th>
       <th>{{ 'appbundle.tiltag.title' | trans }}</th>
+      <th>{{ 'appbundle.tiltag.slutanvendelse' | trans }}</th>
       {#
       <th class="hidden">{{ 'appbundle.tiltag.tilvalgtAfRaadgiver.th' | trans }}</th>
       <th class="hidden">{{ 'appbundle.tiltag.tilvalgtAfAaPlus.th' | trans }}</th>
@@ -38,6 +39,7 @@
       <tr>
         <td class="number index">{{ t.indexNumber }}</td>
         <td>{{ t.title }}</td>
+        <td>{{ slutanvendelseLabels[t.slutanvendelse] }}</td>
         {#
         <td class="hidden">{{ t.tilvalgtAfRaadgiver | b2icon }}</td>
         <td class="hidden">
@@ -90,7 +92,7 @@
     <tfoot>
     <tr>
       <th></th>
-      <th colspan="5">{{ 'appbundle.tiltag.ialt' | trans }}</th>
+      <th colspan="6">{{ 'appbundle.tiltag.ialt' | trans }}</th>
       <th class="text-right">
         {% if type == 'tilvalg' %}
           {{ rapport.anlaegsinvestering | format_amount }} {{ 'appbundle.tiltag.anlaegsInvestering.unit' | trans }}

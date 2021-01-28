@@ -8,6 +8,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\DBAL\Types\BygningStatusType;
 use AppBundle\DBAL\Types\FilCategoryType;
+use AppBundle\DBAL\Types\SlutanvendelseType;
 use AppBundle\Entity\Bygning;
 use AppBundle\Entity\Tiltag;
 use AppBundle\Form\Type\RapportSearchType;
@@ -214,6 +215,7 @@ class RapportController extends BaseController {
       'calculation_changes' => $calculationChanges,
       'calculation_warnings' => $rapport->getCalculationWarnings(),
       'samledeTiltagGrafData' => $samledeTiltagGrafData,
+      'slutanvendelseLabels' => SlutanvendelseType::getChoices(),
     );
 
     return array_merge($twigVars, $formArray);
