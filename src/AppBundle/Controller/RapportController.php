@@ -202,6 +202,10 @@ class RapportController extends BaseController {
       ];
     }
 
+    if ($calculationChanges) {
+      $this->flash->alert('common.recalculation_needs');
+    }
+
     $twigVars = array(
       'entity' => $rapport,
       'tilvalgteTiltag' => $this->sortTiltags($rapport->getTilvalgteTiltag()),

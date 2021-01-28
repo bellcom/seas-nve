@@ -108,6 +108,7 @@ common:
   inherited: "nedarvet"
   others: "Øvrige"
   text_pages: "Ekstra sider"
+  recalculation_needs: "Beregningen blev ændret. Klik på \"Genberegn\" knappen for at gemme ny beregning."
 dashboard:
   besparelseCO2: "CO2 besparelse"
   besparelseEl: "El besparelse"

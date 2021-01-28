@@ -83,9 +83,53 @@
     {{ wo_render_breadcrumbs() }}
     {% if back_url %}
       <div class="text-right">
+        {% if virksomhed_calculation_changes is defined and virksomhed_calculation_changes %}
+          {% form_theme virksomhed_calculate_form 'AppBundle:Form:calculateVirksomhedRapportConfirmModalForm.html.twig' %}
+          {% if virksomhed_calculate_form and is_granted('VIRKSOMHED_RAPPORT_EDIT', entity) %}
+            {{ form_start(virksomhed_calculate_form) }}
+
+            <!-- Modal -->
+            <div class="modal fade" id="modal-calculate-rapport" tabindex="-1" role="dialog">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-left" id="myModalLabel">{{ 'virksomhed_rapporter.confirmation.re-calculate' | trans }}</h4>
+                  </div>
+                  <div class="modal-body text-left">
+                    <p><strong>{{ 'common.changes' | trans }}:</strong></p>
+                    <div class="aaplus-calculation-changes-wrapper">
+                      {% include 'AppBundle:_includes:calculation_changes_show.html.twig' with {'calculation_changes': virksomhed_calculation_changes} %}
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | trans }}</button>
+                    {{ form_widget(virksomhed_calculate_form) }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal end -->
+
+            {{ form_end(virksomhed_calculate_form) }}
+          {% endif %}
+
+        {% endif %}
+        {% if virksomhed_calculate_form and is_granted('VIRKSOMHED_RAPPORT_EDIT', entity) %}
+          {% if virksomhed_calculation_changes is defined and virksomhed_calculation_changes is not empty%}
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( 'calculator' ) }} {{ 'virksomhed_rapporter.actions.re-calculate' | trans }}</button>
+          {% else %}
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( 'calculator' ) }} {{ 'virksomhed_rapporter.actions.re-calculate' | trans }}</button>
+          {% endif %}
+        {% endif %}
         <a class="btn btn-default" href="{{ back_url }}">{% if back_title %}{{ back_title }}{% else %}{{ 'Tilbage' | trans }}{% endif %}</a>
       </div>
     {% endif %}
+  </div>'
+  <div class="container-fluid">
+    <div class="aaplus-flashes">
+      {% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
+    </div>
   </div>
 </nav>
 {% macro header(key) %}

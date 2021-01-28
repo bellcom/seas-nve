@@ -35,7 +35,14 @@ use Doctrine\ORM\Mapping\Entity;
  * @Route("/virksomhed/rapport")
  */
 class VirksomhedRapportController extends BaseController {
+
+  /**
+   * @var Request
+   */
+  protected $request;
+
   public function init(Request $request) {
+    $this->request = $request;
     parent::init($request);
     $this->breadcrumbs->addItem('virksomhed_rapporter.labels.plural', $this->generateUrl('virksomhed_rapport'));
   }
@@ -121,6 +128,10 @@ class VirksomhedRapportController extends BaseController {
 
     $calculationChanges = $this->container->get('aaplus.virksomhed_rapport_calculation')->getChanges($rapport);
     $calculateForm = $this->createCalculateForm($rapport, $calculationChanges)->createView();
+
+    if ($calculationChanges) {
+      $this->flash->alert('common.recalculation_needs');
+    }
 
     $twigVars = array(
       'entity' => $rapport,
@@ -347,11 +358,27 @@ class VirksomhedRapportController extends BaseController {
     }
     $this->breadcrumbs->addItem($breadcrumbType, $this->generateUrl('virksomhed_rapport_pdf_review', array('id' => $rapport->getId(), 'type' => $type)));
 
+    $calculationChanges = $this->container->get('aaplus.virksomhed_rapport_calculation')->getChanges($rapport);
+    $calculateForm = $this->createCalculateForm(
+      $rapport,
+      $calculationChanges,
+      $this->generateUrl('virksomhed_rapport_pdf_review', array('id' => $rapport->getId(), 'type' => $type))
+    )->createView();
+    $calculation_warnings = $rapport->getCalculationWarnings();
+
+    if ($calculationChanges) {
+      $this->flash->alert('common.recalculation_needs');
+    }
+
     return array(
       'html' => $html,
       'pdf_export_url' => $pdf_export_url,
       'back_url' => $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())),
       'back_title' => 'Tilbage til rapporten',
+      'virksomhed_calculate_form' => $calculateForm,
+      'virksomhed_calculation_changes' => $calculationChanges,
+      'calculation_warnings' => $calculation_warnings,
+      'entity' => $rapport,
     );
   }
 
@@ -617,7 +644,11 @@ class VirksomhedRapportController extends BaseController {
       $flash->error('virksomhed_rapporter.error.beregn_fejl');
     }
 
-    return $this->redirect($this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId())));
+    $destination = $this->generateUrl('virksomhed_rapport_show', array('id' => $rapport->getId()));
+    if ($this->request->get('destination')) {
+      $destination = $this->request->get('destination');
+    }
+    return $this->redirect($destination);
   }
 
   /**
@@ -627,9 +658,16 @@ class VirksomhedRapportController extends BaseController {
    *
    * @return \Symfony\Component\Form\Form The form
    */
-  private function createCalculateForm(VirksomhedRapport $rapport, array $changes) {
+  private function createCalculateForm(VirksomhedRapport $rapport, array $changes, $destination = NULL) {
+    $params = array('id' => $rapport->getId());
+
+    // Getting desired destination for form redirect.
+    if (!empty($destination)) {
+      $params['destination'] = $destination;
+    }
+
     return $this->createFormBuilder()
-      ->setAction($this->generateUrl('virksomhed_rapport_calculate', array('id' => $rapport->getId())))
+      ->setAction($this->generateUrl('virksomhed_rapport_calculate', $params))
       ->setMethod('POST')
       ->add('submit', 'submit', array(
         'label' => 'bygning_rapporter.actions.re-calculate',
