@@ -14,6 +14,9 @@ class SlutanvendelseType extends AbstractEnumType
   const VARMEANLAEG = 'varmeanlaeg';
   const KLIMASKAERM = 'klimaskaerm';
   const VINDUER = 'vinduer';
+  const TEKNISK_ISOLERING = 'teknisk_isolering';
+  const TRANSPORT = 'transport';
+  const STRAFAFLOELING = 'strafafkoeling';
   const ELVARME_RUMVARME = 'elvarme_rumvarme';
   const ELMOTORER_INTERN_TRANSPORT = 'elmotorer_intern_transport';
   const ENERGIFORBRUGENDE_APPARATER = 'energiforbrugende_apparater';
@@ -31,6 +34,9 @@ class SlutanvendelseType extends AbstractEnumType
     self::VARMEANLAEG  => 'Varmeanlæg',
     self::KLIMASKAERM  => 'Klimaskærm',
     self::VINDUER  => 'Vinduer',
+    self::TEKNISK_ISOLERING  => 'Teknisk isolering',
+    self::TRANSPORT  => 'Transport',
+    self::STRAFAFLOELING  => 'Strafafkøling',
     self::ELVARME_RUMVARME  => 'Elvarme - Rumvarme',
     self::ELMOTORER_INTERN_TRANSPORT  => 'Elmotorer- og transmission til intern transport',
     self::ENERGIFORBRUGENDE_APPARATER  => 'Mindre energiforbrugende apparater',
