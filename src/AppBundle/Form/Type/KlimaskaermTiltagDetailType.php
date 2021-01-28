@@ -8,11 +8,13 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\DBAL\Types\KlimaskaermType;
 
+use AppBundle\DBAL\Types\LevetidType;
 use AppBundle\Entity\KlimaskaermTiltag;
 use AppBundle\Entity\KlimaskaermTiltagDetail;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class KlimaskaermTiltagDetailType
@@ -21,6 +23,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class KlimaskaermTiltagDetailType extends TiltagDetailType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     parent::buildForm($builder, $options);
+    /** @var TranslatorInterface $translator */
+    $translator = $this->container->get('translator');
     $builder
       ->add('laastAfEnergiraadgiver', null, array(
         'required' => false,
@@ -47,7 +51,14 @@ class KlimaskaermTiltagDetailType extends TiltagDetailType {
       ->add('noterTilPrisfaktorValgteLoesningTiltagSpecielleForholdPaaStedet', 'textarea', array(
         'attr' => array('maxlength' => 360), 'required' => false,
       ))
-      ->add('levetidAar')
+      ->add('levetidAar','choice', array(
+        'choices' => LevetidType::getChoices(),
+        'empty_value' => 'common.none',
+        'required' => FALSE,
+        'attr' => array(
+          'help_text' => $translator->trans('appbundle.vinduetiltagdetail.levetidAar.description')
+        ),
+      ))
       ->add('noteGenerelt', 'textarea', array('attr' => array('maxlength' => 360), 'required' => FALSE))
       ;
   }

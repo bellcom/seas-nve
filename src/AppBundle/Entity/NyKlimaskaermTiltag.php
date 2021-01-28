@@ -91,27 +91,17 @@ class NyKlimaskaermTiltag extends Tiltag {
         return $this->sum(function($detail) { return $detail->calculateForbrugFoer(); });
     }
 
+    /**
+     * Returns simple average value.
+     *
+     * @return float|null
+     * @throws \Exception
+     */
     protected function calculateLevetid() {
-        $denominator = $this->sum(function($detail) {
-            // AI
-            return $detail->getEnhedsprisEksklMoms() * $detail->getArealM2();
+        $levetidSum = $this->sum(function($detail) {
+            return $detail->getLevetidAar();
         });
-        if ($denominator == 0) {
-            return 1;
-        }
-
-        return round($this->divide(
-            $this->sum(function($detail) {
-                // AK
-                if ($detail->getLevetidAar() > 0) {
-                    return $detail->getLevetidAar() * $detail->getEnhedsprisEksklMoms() * $detail->getArealM2();
-                }
-                else {
-                    return 0;
-                }
-            }),
-            $denominator
-        ));
+        return round($this->divide($levetidSum, $this->getDetails()->count()));
     }
 
     protected function calculateMaengde() {

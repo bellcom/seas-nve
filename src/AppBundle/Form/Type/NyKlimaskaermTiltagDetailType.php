@@ -8,6 +8,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\DBAL\Types\KlimaskaermType;
 
+use AppBundle\DBAL\Types\LevetidType;
 use AppBundle\Entity\Configuration;
 use AppBundle\Entity\GraddageFordeling;
 use AppBundle\Entity\NyKlimaskaermTiltagDetail;
@@ -93,7 +94,14 @@ class NyKlimaskaermTiltagDetailType extends TiltagDetailType
                 'attr' => array('data-topvarmningtimeraarMonthly' => json_encode($configuration->getTOpvarmningTimerAarMonthly())),
             ))
             ->add('samletInvesteringKr')
-            ->add('levetidAar');
+            ->add('levetidAar','choice', array(
+              'choices' => LevetidType::getChoices(),
+              'empty_value' => 'common.none',
+              'required' => FALSE,
+              'attr' => array(
+                'help_text' => $translator->trans('appbundle.nyklimaskaermtiltagdetail.levetidAar.description')
+              ),
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
