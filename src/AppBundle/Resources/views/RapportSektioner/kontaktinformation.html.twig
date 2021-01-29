@@ -85,6 +85,16 @@
       </div>
     {% endif %}
 
+    {% if section.kvalitetSikringTekst is not empty %}
+      <div>
+        <br>
+        <h2>Kvalitetsikring</h2>
+        <div class="section-text ckeditor-content">
+          {{ section.kvalitetSikringTekst | raw }}
+        </div>
+      </div>
+    {% endif %}
+
     <div>
       <br>
       <h2>Dato for gennemgang</h2>

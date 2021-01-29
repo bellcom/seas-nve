@@ -2177,6 +2177,7 @@ appbundle:
       extras:
         gennemgangDato: "Gennemgangsdato"
         underskrivelseTekst: "Underskrivelse tekst"
+        kvalitetSikringTekst: "Kvalitetsikring tekst"
     faktavirksom:
       title: "Titel"
       text: "Beskrivelse af virksomhed"

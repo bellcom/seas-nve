@@ -16,6 +16,13 @@ class KontaktInformationRapportSektionExtrasType extends AbstractType {
                     'help_text' => 'Hvis feltværdien er tom, vises Screeningsdato fra rapporten.',
                 ),
             ))
+            ->add('kvalitetSikringTekst', 'ckeditor', [
+              'attr' => [
+                'maxlength' => 10000,
+                'help_text' => 'Lad teksten være tom for at skjule den',
+              ],
+              'required' => FALSE,
+            ])
             ->add('underskrivelseTekst', 'ckeditor', [
                 'attr' => [
                     'maxlength' => 10000,

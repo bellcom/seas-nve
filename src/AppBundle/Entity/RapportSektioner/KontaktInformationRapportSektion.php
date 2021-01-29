@@ -54,5 +54,12 @@ class KontaktInformationRapportSektion extends RapportSektion {
         return $this->getExtrasKeyValue('underskrivelseTekst');
     }
 
+    /**
+     * Gets kvalitetSikringTekst.
+     */
+    public function getKvalitetSikringTekst() {
+        return $this->getExtrasKeyValue('kvalitetSikringTekst');
+    }
+
 }
 
