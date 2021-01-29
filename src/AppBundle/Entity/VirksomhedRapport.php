@@ -2294,6 +2294,12 @@ class VirksomhedRapport
         return array(
             'forside',
             'kontaktinformation',
+            'indledning',
+            'forudsaetninger',
+            'energiportefoelge',
+            'konklusion',
+            'kortlaegning',
+            'afdelinger',
             'opsummering',
             'faktavirksomhed',
             'anbefaling',

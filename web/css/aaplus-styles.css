@@ -845,3 +845,7 @@ div.form-group.override .form-group .checkbox {
 .rapport-review .page-break-before {
     margin-top: 20px;
 }
+
+.rapport-text-button {
+    margin-bottom: 8px;
+}

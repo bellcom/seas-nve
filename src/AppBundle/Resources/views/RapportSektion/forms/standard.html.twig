@@ -22,8 +22,18 @@
       <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>
     </div>
     <div class="panel-body">
-      {{ form_rest(form) }}
+      {{ form_row(form.title) }}
+      {{ form_row(form.text) }}
     </div>
   </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ 'common.more_text_pages' | trans }}</h3>
+    </div>
+    <div class="panel-body">
+      {{ form_row(form.textPages) }}
+    </div>
+  </div>
+  {{ form_rest(form) }}
 {% endblock %}
 {{ form_end(form) }}

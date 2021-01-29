@@ -32,6 +32,12 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @DiscriminatorMap({
  *    "forside" = "ForsideRapportSektion",
  *    "kontaktinformation" = "KontaktInformationRapportSektion",
+ *    "indledning" = "IndledningRapportSektion",
+ *    "forudsaetninger" = "ForudsaetningerRapportSektion",
+ *    "energiportefoelge" = "EnergiportefoelgeRapportSektion",
+ *    "konklusion" = "KonklusionRapportSektion",
+ *    "kortlaegning" = "KortlaegningRapportSektion",
+ *    "afdelinger" = "AfdelingerRapportSektion",
  *    "opsummering" = "OpsummeringRapportSektion",
  *    "anbefaling" = "AnbefalingRapportSektion",
  *    "faktavirksomhed" = "FaktaOmVirksomhedRapportSektion",
