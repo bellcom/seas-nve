@@ -225,7 +225,7 @@ class VirksomhedRapportRepository extends BaseRepository {
             /** @var Bygning $bygning */
             $bygning = $tiltag->getRapport()->getBygning();
             $new_sections++;
-            $sections[$bygning->getId() . '_' . $section->getTiltagId()] = $newSection;
+            $sections[$bygning->getId() . '_' . $tiltag->getId()] = $newSection;
         }
 
         ksort($sections);
