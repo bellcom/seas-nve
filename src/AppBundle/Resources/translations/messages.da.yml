@@ -2514,6 +2514,8 @@ appbundle:
     forbrugFoerVarme.unit: "kWh/år"
     forbrugFoerEl: "Elforbrug før"
     forbrugFoerEl.unit: "kWh/år"
+    forbrugFoerBraendstof: "Braendstof før"
+    forbrugFoerBraendstof.unit: "kWh/år"
     forbrugEfter: "Forbrug efter"
     forbrugEfter.unit: "kWh/år"
     forbrugEfter.explanation: "Akkumuleret forbrug efter fra alle Detailarker"

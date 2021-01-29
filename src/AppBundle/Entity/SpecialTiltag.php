@@ -359,6 +359,7 @@ class SpecialTiltag extends Tiltag {
 
   /**
    * {@inheritDoc}
+   * @Formula("$this->calculateForbrugFoerVarme() + $this->calculateForbrugFoerEl() + $this->getForbrugFoerBraendstof()")
    */
   protected function calculateForbrugFoer() {
     return parent::calculateForbrugFoer() + $this->getForbrugFoerBraendstof();
