@@ -93,13 +93,13 @@
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
 
   <div>
-    <h2>Forbrugsoptimering</h2>
+    <div class="h2">Forbrugsoptimering</div>
     <br>
     {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
   </div>
 
   <div>
-    <h2>Nøgletal</h2>
+    <div class="h2">Nøgletal</div>
     <div class="section-tiltag-nogletal-chart">
       {% include 'AppBundle:_includes:graf_noegletal.html.twig' with {
         'investering' : section.ROIGrafData.investering,
@@ -113,7 +113,7 @@
   <br>
 
   <div>
-    <h2>Simpel tilbagebetalingstid</h2>
+    <div class="h2">Simpel tilbagebetalingstid</div>
     <br>
     {% include 'AppBundle:_includes:graf_roi_full_width.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
   </div>
@@ -123,8 +123,8 @@
 
   <div class="data-list">
     <div class="data-list__heading">
-      <h2>Forslagsdetaljer</h2>
-      <h3>{{ 'common.result_overview' | trans }}</h3>
+      <div class="h2">Forslagsdetaljer</div>
+      <div class="h3">{{ 'common.result_overview' | trans }}</div>
     </div>
 
     <div class="data-list__item">
@@ -230,7 +230,7 @@
 
   <div class="data-list">
     <div class="data-list__heading">
-      <h3>Beskrivelse</h3>
+      <div class="h3">Beskrivelse</div>
     </div>
     {% if section.tiltag.beskrivelseNuvaerende is not empty %}
       <div class="data-list__item">
@@ -291,12 +291,12 @@
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' with { landscape : 1} %}
 
   <div class="block block--detailark">
-    <h2>Detailark</h2>
+    <div class="h2">Detailark</div>
 
     {% if section.tiltag.details is not empty %}
       {% set template = 'AppBundle:' ~ tiltag_type(section.tiltag) ~ 'Tiltag:_detailTablePdf.html.twig' %}
       <div>
-        <h3>Skema til: {{ section.tiltag.title }}</h3>
+        <div class="h3">Skema til: {{ section.tiltag.title }}</div>
       </div>
 
       <br>

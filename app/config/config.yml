@@ -254,6 +254,7 @@ trsteel_ckeditor:
         links: ['Link','Unlink','Anchor']
         insert: ['Image', 'Table']
     contents_css: '/css/aaplus-manyone-pdfstyles.css'
+    custom_config: '/js/ckeditor_config.js'
     filebrowser_image_browse_url:
         route: elfinder
         route_parameters:
