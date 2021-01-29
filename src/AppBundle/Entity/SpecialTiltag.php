@@ -96,7 +96,7 @@ class SpecialTiltag extends Tiltag {
   protected $forbrugFoerBraendstof = 0;
 
   /**
-   * @Formula("$this->forbrugFoer - ($this->varmebesparelseGAF + $this->varmebesparelseGUF)")
+   * @Formula("$this->forbrugFoer - ($this->varmebesparelseGAF + $this->varmebesparelseGUF + $this->elbesparelse)")
    */
   protected $forbrugEfter = 0;
 
