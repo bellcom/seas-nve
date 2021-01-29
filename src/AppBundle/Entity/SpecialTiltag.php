@@ -258,7 +258,7 @@ class SpecialTiltag extends Tiltag {
    * @return Tiltag
    */
   public function setForbrugFoerBraendstof($forbrugFoerBraendstof) {
-    $this->forbrugFoerEl = $forbrugFoerBraendstof;
+    $this->forbrugFoerBraendstof = $forbrugFoerBraendstof;
 
     return $this;
   }
