@@ -53,6 +53,16 @@ div.tab-content div.details-overview:first-child {
   right: 10px;
 }
 
+.rapport-review .aaplus-flashes.fixed {
+  top: 106px;
+  background-color: #EEE;
+}
+
+.rapport-review .aaplus-flashes.fixed div:last-child{
+    margin-bottom:0;
+}
+
+
 span.popover-trigger {
   cursor: pointer;
   margin: 0 1em;
