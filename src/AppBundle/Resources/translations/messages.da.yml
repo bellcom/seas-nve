@@ -2163,6 +2163,7 @@ appbundle:
         rapportTypeNavn.help: "Eks. Resultatoversigt"
         skjuleKort: "Skjul kort"
         underTekst: "Undertekst"
+        lovpligtTekst: "Lovpligt tekst"
         erstatningAdresse: "Erstat adresse"
         dato: "Dato"
     opsummering:

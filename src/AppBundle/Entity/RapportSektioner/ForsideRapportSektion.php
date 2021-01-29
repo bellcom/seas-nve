@@ -5,6 +5,7 @@ namespace AppBundle\Entity\RapportSektioner;
 use AppBundle\Entity\RapportSektioner\Traits\FilepathField;
 use AppBundle\Entity\VirksomhedRapport;
 use AppBundle\Form\Type\RapportSektion\ForsideRapportSektionType;
+use Doctrine\Common\Persistence\ObjectManager;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Uploadable\Mapping\Validator;
@@ -92,6 +93,7 @@ class ForsideRapportSektion extends RapportSektion {
             'skjuleKort' => FALSE,
             'erstatningAdresse' => '',
             'underTekst' => 'Undersagsnavn',
+            'lovpligtTekst' => 'Lovpligtigt energisyn i henhold til Energistyrelsens bekendtgørelse nr. 1146 af 20-11-2019.',
         );
     }
 
@@ -99,12 +101,42 @@ class ForsideRapportSektion extends RapportSektion {
     public function getSkjuleKort() { return $this->getExtrasKeyValue('skjuleKort'); }
     public function getErstatningAdresse() { return $this->getExtrasKeyValue('erstatningAdresse'); }
     public function getUnderTekst() { return $this->getExtrasKeyValue('underTekst'); }
+    public function getLovpligtTekst() { return $this->getExtrasKeyValue('lovpligtTekst'); }
 
     /**
      * {@inheritDoc}
      */
     public static function getDefaultableTextFields() {
         return array();
+    }
+
+    /**
+     * {@inheritdoc }
+     */
+    public function init(ObjectManager $em) {
+      parent::init($em);
+
+      // Setting up default values if they not exist or have NULL as value.
+      foreach(self::getExtrasDefault() as $key => $value) {
+        if (!empty($value) && $this->getExtrasKeyValue($key) === NULL) {
+          $this->extras[$key] = $value;
+        }
+      }
+    }
+
+    /**
+     * {@inheritdoc }
+     */
+    public function setExtras($extras) {
+        // Setting empty value as FALSE. To get ability save NON Null values.
+        $extrasDefault = self::getExtrasDefault();
+        foreach ($extrasDefault as $key => $value) {
+          if (!isset($extras[$key]) && $value !== NULL) {
+            $extras[$key] = FALSE;
+          }
+        }
+        $this->extras = $extras;
+        return $this;
     }
 
 }
