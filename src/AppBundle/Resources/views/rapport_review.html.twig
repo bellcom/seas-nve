@@ -117,7 +117,7 @@
         {% endif %}
         {% if virksomhed_calculate_form and is_granted('VIRKSOMHED_RAPPORT_EDIT', entity) %}
           {% if virksomhed_calculation_changes is defined and virksomhed_calculation_changes is not empty%}
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( 'calculator' ) }} {{ 'virksomhed_rapporter.actions.re-calculate' | trans }}</button>
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport">{{ icon( 'warning' ) }} {{ icon( 'calculator' ) }} {{ 'virksomhed_rapporter.actions.re-calculate' | trans }}</button>
           {% else %}
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-calculate-rapport" disabled>{{ icon( 'calculator' ) }} {{ 'virksomhed_rapporter.actions.re-calculate' | trans }}</button>
           {% endif %}
@@ -125,11 +125,6 @@
         <a class="btn btn-default" href="{{ back_url }}">{% if back_title %}{{ back_title }}{% else %}{{ 'Tilbage' | trans }}{% endif %}</a>
       </div>
     {% endif %}
-  </div>'
-  <div class="container-fluid">
-    <div class="aaplus-flashes">
-      {% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
-    </div>
   </div>
 </nav>
 {% macro header(key) %}
@@ -167,6 +162,11 @@
 
 <!-- Begin page content -->
 <div style="height: 120px"></div>
+<div class="container-fluid" style="padding-top: 0;">
+  <div class="aaplus-flashes">
+    {% include 'BraincraftedBootstrapBundle::flash.html.twig' with { 'close': true } %}
+  </div>
+</div>
 {{ html | raw }}
 
 
