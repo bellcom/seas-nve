@@ -139,6 +139,8 @@ class KoeleanlaegTiltagDetail extends TiltagDetail {
       'tc',
       'etaC',
       'etaKapa',
+      'ekOverwriteFlag',
+      'ekOverwrite',
       'ehjK',
       'ehjV',
     );
@@ -159,6 +161,8 @@ class KoeleanlaegTiltagDetail extends TiltagDetail {
   public function getTilstandDataEfterEtac() { return $this->getTilstandDataEfterKeyValue('etaC'); }
   public function getTilstandDataEfterEtaKapa() { return $this->getTilstandDataEfterKeyValue('etaKapa'); }
   public function getTilstandDataEfterEk() { return $this->getTilstandDataEfterKeyValue('ek'); }
+  public function getTilstandDataEfterEkOverwriteFlag() { return $this->getTilstandDataEfterKeyValue('ekOverwriteFlag'); }
+  public function getTilstandDataEfterEkOverwrite() { return $this->getTilstandDataEfterKeyValue('ekOverwrite'); }
   public function getTilstandDataEfterEhjK() { return $this->getTilstandDataEfterKeyValue('ehjK'); }
   public function getTilstandDataEfterEhjV() { return $this->getTilstandDataEfterKeyValue('ehjV'); }
   public function getTilstandDataEfterQbehov() { return $this->getTilstandDataEfterKeyValue('qbehov'); }
@@ -235,7 +239,10 @@ class KoeleanlaegTiltagDetail extends TiltagDetail {
   /**
    * See calculation file, cell E11.
    */
-  public function calculateEkEfter() {
+  public function calculateEkEfter($calculated = FALSE) {
+    if (!$calculated && $this->getTilstandDataEfterEkOverwriteFlag()) {
+      return $this->getTilstandDataEfterEkOverwrite();
+    }
     $to = $this->getTilstandDataEfterTo();
     $tc = $this->getTilstandDataEfterTc();
     $etaC = $this->getTilstandDataEfterEtac();

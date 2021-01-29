@@ -18,10 +18,10 @@ class KoeleanlaegTiltagDetailType extends TiltagDetailType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     parent::buildForm($builder, $options);
     $builder
-      ->add('tilstandDataFoer', VentilationTiltagDetailIndDataType::class, array(
+      ->add('tilstandDataFoer', KoeleanlaegTiltagDetailIndDataType::class, array(
           'fields' => KoeleanlaegTiltagDetail::getTilstandDataFoerInputKeys(),
         ))
-      ->add('tilstandDataEfter', VentilationTiltagDetailIndDataType::class, array(
+      ->add('tilstandDataEfter', KoeleanlaegTiltagDetailIndDataType::class, array(
           'fields' => KoeleanlaegTiltagDetail::getTilstandDataEfterInputKeys(),
       ))
     ;
