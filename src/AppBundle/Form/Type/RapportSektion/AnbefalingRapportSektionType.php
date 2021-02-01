@@ -86,6 +86,7 @@ class AnbefalingRapportSektionType extends RapportSektionType
             ->add('extras', AnbefalingRapportSektionExtrasType::class, array(
                 'label' => FALSE,
                 'entity_manager' => $options['entity_manager'],
+                'entity' => $builder->getData(),
             ));
         $builder->add('textPages', 'bootstrap_collection', array(
             'property_path' => 'textPages',

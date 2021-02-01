@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Type\RapportSektion;
 
 use AppBundle\DBAL\Types\SlutanvendelseType;
+use AppBundle\Entity\RapportSektioner\AnbefalingRapportSektion;
 use Braincrafted\Bundle\BootstrapBundle\Form\Type\BootstrapCollectionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType;
@@ -16,10 +17,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class AnbefalingRapportSektionExtrasType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
+        /** @var AnbefalingRapportSektion $reportSection */
+        $reportSection = $options['entity'];
+        $forslage = $reportSection->getForslageListInfo();
         $builder
             ->add('type', ChoiceType::class, array(
                 'choices' => SlutanvendelseType::getChoices(),
                 'empty_value' => 'common.none',
+                'required' => FALSE,
+            ))
+            ->add('forslageList', ChoiceType::class, array(
+                'choices' => $forslage,
+                'expanded' => TRUE,
+                'multiple' => TRUE,
                 'required' => FALSE,
             ))
             ->add('tidsforloebuger', TextType::class, array('required' => FALSE))
@@ -63,7 +73,7 @@ class AnbefalingRapportSektionExtrasType extends AbstractType {
     }
 
     public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setRequired('entity_manager');
+        $resolver->setRequired(['entity_manager', 'entity']);
     }
 
     /**

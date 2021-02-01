@@ -8,6 +8,23 @@
         </div>
         <div class="panel-body">
           {{ form_row(form.extras.type) }}
+          {% if form.extras.forslageList is empty %}
+            <div class="form-group">
+              <label class="control-label required">{{ 'appbundle.rapportsektion.anbefaling.extras.forslageList' | trans }}</label>
+              <div>
+                Der ingen noget forslag med valgt slutanvendelsetype eller anbefaling type er ikke defineret.
+              </div>
+            </div>
+          {% else %}
+          <div class="form-group anbefaling-forslage-list">
+            <div style="float:right;">
+              <a href="#" class="select-all">Tilvalg alle</a>
+              <a href="#" class="deselect-all">Fravalg alle</a>
+            </div>
+          {{ form_label(form.extras.forslageList) }}
+          {{ form_widget(form.extras.forslageList) }}
+          </div>
+          {% endif %}
           {{ form_row(form.title) }}
           {{ form_row(form.text) }}
           {{ form_row(form.extras.tidsforloebuger) }}

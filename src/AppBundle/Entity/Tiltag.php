@@ -744,8 +744,12 @@ abstract class Tiltag {
    *
    * @return string
    */
-  public function getTitle() {
-    return $this->title;
+  public function getTitle($with_number = FALSE) {
+    $title = $this->title;
+    if ($with_number) {
+        $title = $this->getIndexNumber() . '. ' . $title;
+    }
+    return $title;
   }
 
   /**

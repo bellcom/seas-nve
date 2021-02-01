@@ -2550,9 +2550,20 @@ class Rapport {
    * Calculates besparelseSlutanvendelser by slutanvendelse type.
    */
   private function calculateBesparelseSlutanvendelser() {
+      $tiltage = $this->getTilvalgteTiltag();
+      return self::calculateBesparelseSlutanvendelserFraTiltage($tiltage->toArray());
+  }
+
+  /**
+   * Calculates besparelseSlutanvendelser by slutanvendelse type over defined tiltage.
+   *
+   * @param array $tiltage
+   * @return array
+   */
+  public static function calculateBesparelseSlutanvendelserFraTiltage(array $tiltage) {
     $values = array();
     /** @var Tiltag $tiltag */
-    foreach ($this->getTilvalgteTiltag() as $tiltag) {
+    foreach ($tiltage as $tiltag) {
       if (empty($tiltag->getSlutanvendelse())) {
         continue;
       }

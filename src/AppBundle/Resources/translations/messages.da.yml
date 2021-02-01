@@ -2240,6 +2240,7 @@ appbundle:
       imagestandard: "Standard billede"
       extras:
         type: "Anbefalingstype (baseret på slutanvendelse)"
+        forslageList: "Anbefalings forslag liste"
         tidsforloebuger: "Tidsforløb (uger)"
         tidsforloebuger.unit: "uger"
         tidsforloebinfo: "Tidsforløb info"

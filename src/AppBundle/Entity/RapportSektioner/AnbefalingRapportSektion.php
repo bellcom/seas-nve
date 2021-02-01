@@ -4,7 +4,9 @@ namespace AppBundle\Entity\RapportSektioner;
 
 use AppBundle\Calculation\Calculation;
 use AppBundle\DBAL\Types\SlutanvendelseType;
+use AppBundle\Entity\Rapport;
 use AppBundle\Entity\RapportSektioner\Traits\FilepathField;
+use AppBundle\Entity\Tiltag;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\RapportSektion\AnbefalingRapportSektionType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,6 +40,13 @@ class AnbefalingRapportSektion extends RapportSektion implements ROIGrafDataInte
      * @var array
      */
     private $tidlsforloebData = array();
+
+    /**
+     * Runtime variable to store slutanvendelse data.
+     *
+     * @var array
+     */
+    private $sluanvendelseData = array();
 
     /**
      * Constructor
@@ -85,6 +94,67 @@ class AnbefalingRapportSektion extends RapportSektion implements ROIGrafDataInte
         return $this->getExtrasKeyValue('type');
     }
 
+    /**
+     * {@inheritdoc }
+     */
+    public function setExtras($extras) {
+        if ($extras['type'] != $this->extras['type']) {
+            // Preselect all forslage by default when type is changed.
+            $extras['forslageList'] = $this->getDefaultForslageList($extras['type']);
+        }
+        $this->extras = $extras;
+
+        return $this;
+    }
+
+    /**
+     * Gets selected forslage list.
+     *
+     * @return array|null
+     */
+    public function getForslageList() {
+        return (array) $this->getExtrasKeyValue('forslageList');
+    }
+
+    /**
+     * Retunrns all forslage by requested type.
+     *
+     * @param string|null $type
+     * @return array
+     */
+    public function getDefaultForslageList($type = NULL) {
+        if (empty($type)) {
+            $type = $this->getAnbefalingType();
+        }
+        return array_keys($this->getForslageListInfo($type));
+    }
+
+    /**
+     * Gets array with key|label lines of forslage by requested type.
+     *
+     * @param string|null $type
+     * @return array
+     */
+    public function getForslageListInfo($type = NULL) {
+        if (empty($type)) {
+            $type = $this->getAnbefalingType();
+        }
+        $rapporter = $this->getRapport()->getBygningerRapporter();
+        $tiltage = [];
+        /** @var Rapport $rapport */
+        foreach ($rapporter as $rapport) {
+            /** @var Tiltag $tiltag */
+            foreach ($rapport->getTilvalgteTiltag() as $tiltag) {
+                if ($tiltag->getSlutanvendelse() != $type) {
+                    continue;
+                }
+                $tiltage[$tiltag->getId()] = $rapport->getBygning()->getNavn() . ' - ' . $tiltag->getTitle(TRUE);
+            }
+        }
+
+        return $tiltage;
+    }
+
     public function getAnbefalingTypeLabel() {
         $types = SlutanvendelseType::getChoices();
         return isset($types[$this->getAnbefalingType()]) ? $types[$this->getAnbefalingType()] : '';
@@ -97,8 +167,16 @@ class AnbefalingRapportSektion extends RapportSektion implements ROIGrafDataInte
      * @return float|null
      */
     public function getSluanvendelseValue($key) {
-        $slutanvendelser = $this->getRapport()->getBesparelseSlutanvendelser();
-        return isset($slutanvendelser[$this->getAnbefalingType()][$key]) ? $slutanvendelser[$this->getAnbefalingType()][$key] : NULL;
+        if (empty($this->slutanvendelseData)) {
+            $tiltage = $this->getRapport()->getBygningerRapporterTiltage();
+            $tiltageList = $this->getForslageList();
+            /** @var Tiltag $tiltag */
+            $tiltage = $tiltage->filter(function ($tiltag) use ($tiltageList) {
+                return in_array($tiltag->getId(), $tiltageList);
+            });
+            $this->slutanvendelseData = Rapport::calculateBesparelseSlutanvendelserFraTiltage($tiltage->toArray());
+        }
+        return isset($this->slutanvendelseData[$this->getAnbefalingType()][$key]) ? $this->slutanvendelseData[$this->getAnbefalingType()][$key] : NULL;
     }
 
     public function getPotentieltBesparesleKwh() {

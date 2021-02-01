@@ -154,6 +154,24 @@
         }
       }).filter(':checked').change();
     }
+
+    var $forslageList = $('.anbefaling-forslage-list');
+    if ($forslageList.length) {
+      $forslageList.find('.select-all').on('click', function(e) {
+        e.preventDefault();
+        $forslageList.find('input[type=checkbox]').each(function() {
+          this.checked = true;
+          $(this).attr('checked', 'checked');
+        });
+      });
+      $forslageList.find('.deselect-all').on('click', function(e) {
+        e.preventDefault();
+        $forslageList.find('input[type=checkbox]').each(function() {
+          this.checked = false;
+          $(this).removeAttr('checked');
+        });
+      });
+    }
   });
 
   // Add more / Remove functionality.
