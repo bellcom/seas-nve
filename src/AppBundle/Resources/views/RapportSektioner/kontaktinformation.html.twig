@@ -10,7 +10,7 @@
   <div>
     <br>
     <div>
-      <h2>Kunde</h2>
+      <div class="h2">Kunde</div>
       <div class="row">
         {% if rapport.virksomhed %}
           <div class="col-xs-4">
@@ -38,7 +38,7 @@
     {% if rapport.virksomhed.getDatterSelskaber() is not empty %}
       <div>
         <br>
-        <h2>Datterselskaber</h2>
+        <div class="h2">Datterselskaber</div>
         {% for datterSelskab in rapport.virksomhed.getDatterSelskaber() %}
           <div class="row">
             <div class="col-xs-4">
@@ -68,7 +68,7 @@
     {% if rapport.virksomhed.getAllRaadgivers() is not empty %}
       <div>
         <br>
-        <h2>Energirådgiver</h2>
+        <div class="h2">Energirådgiver</div>
         <div class="row">
           {% for key, user in rapport.virksomhed.getAllRaadgivers() %}
             {% if key == 0 %}
@@ -88,7 +88,7 @@
     {% if section.kvalitetSikringTekst is not empty %}
       <div>
         <br>
-        <h2>Kvalitetsikring</h2>
+        <div class="h2">Kvalitetsikring</div>
         <div class="section-text ckeditor-content">
           {{ section.kvalitetSikringTekst | raw }}
         </div>
@@ -97,7 +97,7 @@
 
     <div>
       <br>
-      <h2>Dato for gennemgang</h2>
+      <div class="h2">Dato for gennemgang</div>
       <div class="row">
         <div class="col-xs-4">
           {{ section.gennemgangDato | date('d.m.Y') }}

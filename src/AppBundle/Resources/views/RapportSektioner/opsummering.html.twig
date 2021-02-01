@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-xs-5">
         <br><br>
-        <h2>SEAS-NVE anbefaler</h2>
+        <div class="h2">SEAS-NVE anbefaler</div>
         {% if section.seasAnbefalerUnderTekst %}
           <p>{{ section.seasAnbefalerUnderTekst }}</p>
         {% endif %}
@@ -35,12 +35,12 @@
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
 
   <div class="block block-opsummering--samlet-forbrug">
-    <h2>Samlet forbrug</h2>
+    <div class="h2">Samlet forbrug</div>
     <br>
     {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
   </div>
   <div class="block block-opsummering--potentiel-besparelse">
-    <h2>Potentielt samlet besparelse</h2>
+    <div class="h2">Potentielt samlet besparelse</div>
     <div class="box box--samlet-besparelse">
       <div class="row">
         <div class="col-xs-4">
@@ -60,7 +60,7 @@
   </div>
 
   <div class="block block-opsummering--roi">
-    <h2>Simpel tilbagebetalingtid (TBT)</h2>
+    <div class="h2">Simpel tilbagebetalingtid (TBT)</div>
     <br>
     {% include 'AppBundle:_includes:graf_roi_full_width.html.twig' with { 'chart_data' : section.ROIGrafData  } %}
   </div>
