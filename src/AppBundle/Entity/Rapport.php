@@ -2592,7 +2592,7 @@ class Rapport {
         $values[$slutanvendelseType]['braendStof'] += $tiltag->getBesparelseBraendstof();
       }
       unset($values[$slutanvendelseType]['total']);
-      $values[$slutanvendelseType]['total'] = array_sum($values[$slutanvendelseType]);
+      $values[$slutanvendelseType]['total'] = $values[$slutanvendelseType]['el'] + $values[$slutanvendelseType]['varmeGAF'] + $values[$slutanvendelseType]['varmeGUF'] + $values[$slutanvendelseType]['braendStof'];
 
       $values[$slutanvendelseType]['totalKr'] += $tiltag->getSamletEnergibesparelse();
       $values[$slutanvendelseType]['totalCo2'] += $tiltag->getSamletCo2besparelse();
