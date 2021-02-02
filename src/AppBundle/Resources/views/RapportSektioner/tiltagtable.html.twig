@@ -33,7 +33,7 @@
           {% for section_tiltag in section.tiltage %}
             {% set tiltag = section_tiltag.tiltag %}
             <tr>
-              <td>{{ section_tiltag.sectionTitle }}</td>
+              <td>{{ section_tiltag.getTiltagTitle(1) }}</td>
               <td>{{ tiltag.forbrugFoerEl | format_decimal }}</td>
               <td>{{ tiltag.forbrugFoerVarme | format_decimal }}</td>
               <td>{{ tiltag.elbesparelse | format_decimal }}</td>

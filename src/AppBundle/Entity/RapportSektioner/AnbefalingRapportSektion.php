@@ -148,7 +148,7 @@ class AnbefalingRapportSektion extends RapportSektion implements ROIGrafDataInte
                 if ($tiltag->getSlutanvendelse() != $type) {
                     continue;
                 }
-                $tiltage[$tiltag->getId()] = $rapport->getBygning()->getNavn() . ' - ' . $tiltag->getTitle(TRUE);
+                $tiltage[$tiltag->getId()] = $tiltag->getTitleWithBygning();
             }
         }
 

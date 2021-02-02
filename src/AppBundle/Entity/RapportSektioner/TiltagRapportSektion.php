@@ -138,8 +138,17 @@ class TiltagRapportSektion extends RapportSektion implements SamletForbrugGrafDa
      *
      * @return string
      */
-    public function getTiltagTitle() {
-        return empty($this->tiltag) ? '' : $this->tiltag->getTitle();
+    public function getTiltagTitle($with_bygning = FALSE) {
+        return empty($this->tiltag) ? '' : ($with_bygning ? $this->tiltag->getTitleWithBygning() : $this->tiltag->getTitle());
+    }
+
+    /**
+     * Get tiltag title
+     *
+     * @return string
+     */
+    public function getTiltagIndexNumber() {
+        return empty($this->tiltag) ? '' : $this->tiltag->getIndexNumber();
     }
 
     /**

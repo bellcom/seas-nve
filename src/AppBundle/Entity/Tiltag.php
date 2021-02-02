@@ -753,6 +753,15 @@ abstract class Tiltag {
   }
 
   /**
+   * Get tiltag title with bygning.
+   *
+   * @return string
+   */
+  public function getTitleWithBygning() {
+    return $this->getRapport()->getBygning()->getNavn() . ' - ' . $this->getTitle(TRUE);
+  }
+
+  /**
    * Get vandbesparelse
    *
    * @return float

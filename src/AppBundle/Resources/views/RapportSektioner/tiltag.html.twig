@@ -32,12 +32,12 @@
 
 {% import _self as helper %}
 
-{% set sectionTypeNavn = (('rapportsektion.types.' ~ section.type ) | trans) ~ ' ' ~ section.number ~ '. ' ~ (('bygning_rapporter.strings.' ~ section.tiltagType ~ 'tiltag') | trans) %}
+{% set sectionTypeNavn = (('rapportsektion.types.' ~ section.type ) | trans) ~ ': ' ~ section.getTiltagTitle(1) %}
 {% block section -%}
   {% block section_type -%}
     <div class="section-type">{{ sectionTypeNavn }}</div>
     {% if section.sectionTitle is empty %}
-      <h1 class="hidden-header">{{ section.number }}. {{ section.sectionTitle }}</h1>
+      <h1 class="hidden-header">{{ section.getTiltagTitle(1) }}</h1>
     {% endif %}
   {% endblock %}
 
@@ -79,7 +79,7 @@
 
   {% block section_title -%}
     {% if section.sectionTitle %}
-      <h1> {{ section.number }}. {{ section.sectionTitle }}</h1>
+      <div class="h1"> {{ section.tiltagIndexNumber }}. {{ section.sectionTitle }}</div>
     {% endif %}
   {% endblock %}
   {% block section_content -%}
