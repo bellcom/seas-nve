@@ -36,9 +36,6 @@
 {% block section -%}
   {% block section_type -%}
     <div class="section-type">{{ sectionTypeNavn }}</div>
-    {% if section.sectionTitle is empty %}
-      <h1 class="hidden-header">{{ section.getTiltagTitle(1) }}</h1>
-    {% endif %}
   {% endblock %}
 
   <br><br><br><br>
@@ -81,6 +78,7 @@
     {% if section.sectionTitle %}
       <div class="h1"> {{ section.tiltagIndexNumber }}. {{ section.sectionTitle }}</div>
     {% endif %}
+    <h1 class="hidden-header">{{ section.getTiltagTitle(1) }}</h1>
   {% endblock %}
   {% block section_content -%}
     {% if section.text %}
