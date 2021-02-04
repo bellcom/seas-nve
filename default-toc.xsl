@@ -55,8 +55,8 @@
             background-color: #ffde2f;
           }
           .wrapper {
-            padding-top: 12px;
-            padding-bottom: 12px;
+            padding-top: 7px;
+            padding-bottom: 7px;
           }
 
           li {list-style: none;}
