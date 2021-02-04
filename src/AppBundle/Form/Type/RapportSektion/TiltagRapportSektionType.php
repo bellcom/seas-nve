@@ -71,6 +71,7 @@ class TiltagRapportSektionType extends RapportSektionType {
                 'data_class' => NULL,
                 'attachment_path' => $usingCustomImage ? 'filepath' : NULL,
                 'required' => FALSE,
+                'mapped' => FALSE,
                 'attr' => array(
                     'help_text' => $helpText . ($sizeHelpText ? sprintf(' Optimal billedstørrelse: %s', $sizeHelpText) : ''),
                 ),
