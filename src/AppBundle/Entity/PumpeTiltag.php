@@ -72,7 +72,7 @@ class PumpeTiltag extends Tiltag {
    * {@inheritDoc}
    */
   protected function calculateForbrugEfter() {
-    return $this->calculateForbrugEfterEl() + $this->calculateForbrugEfterVarme();
+    return $this->calculateForbrugEfterEl();
   }
 
   /**
@@ -102,7 +102,7 @@ class PumpeTiltag extends Tiltag {
    * @return float|int
    */
   protected function calculateForbrugEfterKr() {
-    return $this->calculateForbrugEfterKrEl() + $this->calculateForbrugEfterKrVarme();
+    return $this->calculateForbrugEfterKrEl();
   }
 
   /**
@@ -132,7 +132,7 @@ class PumpeTiltag extends Tiltag {
    * @return float|int
    */
   protected function calculateForbrugEfterCo2() {
-    return $this->calculateForbrugEfterCo2El() + $this->calculateForbrugEfterCo2Varme();
+    return $this->calculateForbrugEfterCo2El();
   }
 
   /**

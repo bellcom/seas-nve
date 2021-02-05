@@ -2507,6 +2507,8 @@ appbundle:
     type: "Type"
     vandbesparelse: "Vandbesparelse"
     vandbesparelse.unit: "m³/år"
+    varmebesparelse: "Varmebesparelse"
+    varmebesparelse.unit: "kWh/år"
     varmebesparelseGAF: "Varmebesparelse, GAF"
     varmebesparelseGAF.unit: "kWh/år"
     varmebesparelseGUF: "﻿Varmebesparelse, GUF"
