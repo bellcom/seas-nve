@@ -90,25 +90,28 @@
   {% include 'AppBundle::RapportSektioner/_includes/section-text-pages.html.twig' with { 'showAfter' : 'page1' } %}
   {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' %}
 
-  <div>
-    <div class="h2">Forbrugsoptimering</div>
-    <br>
-    {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
-  </div>
   {% if section.tiltagType == 'pumpe' and section.tiltag.calculateForbrugEfterVarme() %}
+    <div>
+      <div class="h2">Forbrugsoptimering</div>
+      <br>
+      {% include 'AppBundle:_includes:graf_samletforbrug_short.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
+    </div>
     <div class="data-list">
-      <div class="data-list__heading">
-        <div class="h3">{{ 'appbundle.tiltag.varmebesparelse' | trans }}</div>
-      </div>
+      <div class="data-list__heading"></div>
       <div class="data-list__item">
         <div class="row">
-          <div class="col-xs-8">Energireduktion ved isoleringskappe</div>
+          <div class="col-xs-8">Varmeforbrugreduktion ved isoleringskappe</div>
           <div class="col-xs-3 text-right">{{ section.tiltag.calculateForbrugEfterVarme() | abs | number_format }}</div>
           <div class="col-xs-1">{{ 'appbundle.tiltag.varmebesparelse.unit' | trans }}</div>
         </div>
       </div>
     </div>
-  {% endif %}
+  {% else %}
+    <div>
+      <div class="h2">Forbrugsoptimering</div>
+      <br>
+      {% include 'AppBundle:_includes:graf_samletforbrug.html.twig' with { 'chart_data' : section.samletForbrugGrafData  } %}
+    </div>  {% endif %}
   <div>
     <div class="h2">Nøgletal</div>
     <div class="section-tiltag-nogletal-chart">

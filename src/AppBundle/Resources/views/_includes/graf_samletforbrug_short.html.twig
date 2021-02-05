@@ -1,0 +1,119 @@
+{% set barChartIdRandomized = 'samlet-forbrug-bar-' ~ random() %}
+{% set doughnutIdRandomized = 'samlet-forbrug-pie-' ~ random() %}
+
+<div class="row">
+    <div class="col-xs-6">
+        <div id="{{ barChartIdRandomized }}" style="height: 280px; width: 450px;"></div>
+    </div>
+    <div class="col-xs-6 text-center">
+        <br>
+
+        <div class="chart">
+            <div class="chart-heading" style="padding-top: 35px;">
+                <div class="chart-heading__title">{{ chart_data.reduction }}%</div>
+                <div class="chart-heading__subtitle">
+                    Energireduktion samlet
+                </div>
+            </div>
+
+            <div id="{{ doughnutIdRandomized }}" style="width: 300px; height: 240px;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var chartData = {{ chart_data | json_encode | raw }};
+        var chart = echarts.init(document.getElementById('{{ barChartIdRandomized }}'), 'seas-theme');
+
+        var option = {
+            animation: false,
+            grid: {
+                top: 10,
+                left: '3%',
+                right: '6%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                data: ['Nuværende forbrug', 'Optimeret forbrug']
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} kWh'
+                },
+            },
+            series: [
+                {
+                    name: 'Nuværende forbrug',
+                    type: 'bar',
+                    stack: 'unify',
+                    data: [parseInt(chartData.nuvaerende), '-'],
+                    barMaxWidth: 50,
+                    itemStyle: {
+                        color: '#a7cb11',
+                        barBorderRadius: [10, 10, 0, 0],
+                    },
+                },
+                {
+                    name: 'Optimeret forbrug',
+                    type: 'bar',
+                    stack: 'unify',
+                    data: ['-', parseInt(chartData.optimeret)],
+                    barMaxWidth: 50,
+                    itemStyle: {
+                        color: '#62c5d3',
+                        barBorderRadius: [10, 10, 0, 0],
+                    },
+                }
+            ]
+        };
+
+        chart.setOption(option);
+    }());
+</script>
+
+<script>
+    (function () {
+        var chartData = {{ chart_data | json_encode | raw }};
+        var chart = echarts.init(document.getElementById('{{ doughnutIdRandomized }}'), 'seas-theme');
+
+        var option = {
+            animation: false,
+            series: [
+                {
+                    name: 'samletForbrugPieChart',
+                    type: 'pie',
+                    radius: ['100%', '75%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        {
+                            value: chartData.reduction,
+                            name: 'Energireduktion',
+                            itemStyle: {
+                                color: '#62c5d3',
+                            }
+                        },
+                        {
+                            value: parseInt(100 - chartData.reduction),
+                            name: 'Blankt',
+                            itemStyle: {
+                                color: '#f2f2f0',
+                            },
+                        },
+                    ]
+                }
+            ]
+        };
+
+        chart.setOption(option);
+    }());
+</script>
