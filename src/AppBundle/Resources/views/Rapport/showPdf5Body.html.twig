@@ -47,7 +47,7 @@
           <h3>{{ key + 1 }}. {{ t.title }}</h3>
         </div>
       </div>
-      {% if rapport.visGraphPDF %}
+      {#% if rapport.visGraphPDF %}
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
@@ -59,7 +59,7 @@
             {% include 'AppBundle::_includes/linje_graf_years.html.twig' with { 'linje_graf_data' : t.akkumuleretNutidsvaerdiSet } %}
           </div>
         </div>
-      {% endif %}
+      {% endif %#}
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">
@@ -125,10 +125,12 @@
             <th>{{ 'appbundle.tiltag.samletCo2besparelse' | trans }}</th>
             <td class="text-right">{{ t.samletCo2besparelse | format_decimal }}</td>
             <td>{{ 'appbundle.tiltag.samletCo2besparelse.unit' | trans }}</td>
-
+            <td colspan="3"></td>
+            {#
             <th>{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr' | trans }}</th>
             <td class="text-right">{{ t.nutidsvaerdiSetOver15AarKr | format_zeros }}</td>
             <td>{{ 'appbundle.tiltag.nutidsvaerdiSetOver15AarKr.unit' | trans }}</td>
+            #}
           </tr>
           </tbody>
         </table>

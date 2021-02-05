@@ -11,7 +11,6 @@
     {{ helper.header('appbundle.pumpetiltagdetail.pumpe') }}
     {{ helper.header('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg') }}
     {{ helper.header('appbundle.pumpetiltagdetail.simpelTilbagebetalingstidAar') }}
-    {{ helper.header('appbundle.pumpetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
     {{ helper.header() }}
   </tr>
   <tr>
@@ -25,7 +24,6 @@
     {{ helper.header_unit('appbundle.pumpetiltagdetail.pumpe') }}
     {{ helper.header_unit('appbundle.pumpetiltagdetail.samletInvesteringInklPristillaeg') }}
     {{ helper.header_unit('appbundle.pumpetiltagdetail.simpelTilbagebetalingstidAar') }}
-    {{ helper.header_unit('appbundle.pumpetiltagdetail.nutidsvaerdiSetOver15AarKr') }}
     {{ helper.header_unit() }}
   </tr>
   </thead>
@@ -43,7 +41,6 @@
       <td>{{ detail.pumpe }}</td>
       <td class="number">{{ detail.samletInvesteringInklPristillaeg | format_amount }}</td>
       <td class="number">{{ detail.simpelTilbagebetalingstidAar | format_decimal }}</td>
-      <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
       <td class="last"></td>
     </tr>
     {% endif %}

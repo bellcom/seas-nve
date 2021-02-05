@@ -10,7 +10,6 @@
     {{ helper.header('appbundle.solcelletiltagdetail.screeningOgProjekteringKr') }}
     {{ helper.header('appbundle.solcelletiltagdetail.totalDriftomkostningerPrAar') }}
     {{ helper.header('appbundle.solcelletiltagdetail.simpelTilbagebetalingstidAar') }}
-    {{ helper.header('appbundle.solcelletiltagdetail.nutidsvaerdiSetOver15AarKr') }}
     {{ helper.header() }}
   </tr>
   <tr>
@@ -23,7 +22,6 @@
     {{ helper.header_unit('appbundle.solcelletiltagdetail.screeningOgProjekteringKr') }}
     {{ helper.header_unit('appbundle.solcelletiltagdetail.totalDriftomkostningerPrAar') }}
     {{ helper.header_unit('appbundle.solcelletiltagdetail.simpelTilbagebetalingstidAar') }}
-    {{ helper.header_unit('appbundle.solcelletiltagdetail.nutidsvaerdiSetOver15AarKr') }}
     {{ helper.header_unit() }}
   </tr>
   </thead>
@@ -40,7 +38,6 @@
       <td class="number">{{ detail.screeningOgProjekteringKr | format_amount }}</td>
       <td class="number">{{ detail.totalDriftomkostningerPrAar | format_amount }}</td>
       <td class="number">{{ detail.simpelTilbagebetalingstidAar | format_integer }}</td>
-      <td class="number">{{ detail.nutidsvaerdiSetOver15AarKr | format_amount }}</td>
       <td class="last"></td>
     </tr>
     {% endif %}
