@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity\RapportSektioner;
 
-use AppBundle\Form\Type\RapportSektion\KontaktInformationRapportSektionType;
+use AppBundle\Form\Type\RapportSektion\RapportSektionWithHiddenType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,6 +19,13 @@ class EnergiportefoelgeRapportSektion extends RapportSektion {
     public function __construct($params) {
         $this->title = 'Energiportefølge';
         parent::__construct($params);
+    }
+
+    /**
+     * {@inheritdoc }
+     */
+    public function getFormType() {
+        return new RapportSektionWithHiddenType();
     }
 
 }

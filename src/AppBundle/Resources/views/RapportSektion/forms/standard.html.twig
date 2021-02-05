@@ -17,6 +17,13 @@
 {{ form_start(form) }}
 {{ form_errors(form) }}
 {% block form_content %}
+  {% if form.hideSection is defined %}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        {{ form_row(form.hideSection) }}
+      </div>
+    </div>
+  {% endif %}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">{{ 'common.generelt' | trans }}</h3>

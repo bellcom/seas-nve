@@ -83,6 +83,13 @@ abstract class RapportSektion
     private $textPages;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="hideSection", type="boolean", nullable=true)
+     */
+    protected $hideSection;
+
+    /**
      * @var array
      *
      * @ORM\Column(name="extras", type="array")
@@ -279,6 +286,28 @@ abstract class RapportSektion
      */
     public function getText() {
         return $this->text;
+    }
+
+    /**
+     * Set hideSection flag
+     *
+     * @param boolean $hideSection
+     *
+     * @return RapportSektion
+     */
+    public function setHideSection($hideSection) {
+        $this->hideSection = $hideSection;
+
+        return $this;
+    }
+
+    /**
+     * Get hideSection flag
+     *
+     * @return boolean
+     */
+    public function getHideSection() {
+        return $this->hideSection;
     }
 
     /**

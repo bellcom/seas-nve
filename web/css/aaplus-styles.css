@@ -849,3 +849,8 @@ div.form-group.override .form-group .checkbox {
 .rapport-text-button {
     margin-bottom: 8px;
 }
+
+.rapport-review .section--hidden {
+    min-height: auto;
+    opacity: 0.6;
+}

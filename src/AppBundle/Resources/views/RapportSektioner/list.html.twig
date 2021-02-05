@@ -2,7 +2,13 @@
 
 {% block body -%}
   {% for section in sections %}
-    {% set type = section.type ? section.type : 'base' %}
-    {% include 'AppBundle::RapportSektioner/' ~ type ~ '.html.twig' %}
+    {% if section.hideSection %}
+      {% if review %}
+        {% include 'AppBundle::RapportSektioner/hidden.html.twig' %}
+      {% endif %}
+    {% else %}
+      {% set type = section.type ? section.type : 'base' %}
+      {% include 'AppBundle::RapportSektioner/' ~ type ~ '.html.twig' %}
+    {% endif %}
   {% endfor %}
 {% endblock %}
