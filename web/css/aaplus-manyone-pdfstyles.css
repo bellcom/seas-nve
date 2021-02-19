@@ -500,14 +500,14 @@ img.full-width {
     margin-bottom: 45px;
 }
 .report-intro__title {
-    margin-bottom: 40pt;
-
     letter-spacing: -1pt;
     font-weight: bold;
     font-size: 4em;
     line-height: 1.1;
 }
 .report-intro__report-type {
+    margin-top: 40pt;
+
     font-weight: bold;
     font-size: 2.5em;
 }
@@ -519,7 +519,7 @@ img.full-width {
     height: 320px;
 }
 .report-map img {
-    height: 330pt;
+    height: 280pt;
 }
 
 .block-frontpage--name {
