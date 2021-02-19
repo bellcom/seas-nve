@@ -154,6 +154,7 @@ img.full-width {
     position: relative;
     display: inline-block;
 
+    margin-bottom: 1em;
     padding-bottom: 8px;
 
     font-weight: normal;
@@ -173,8 +174,6 @@ img.full-width {
     right: 0;
     left: 0;
     bottom: 0;
-
-    margin-bottom: 1em;
 
     content: "";
 
