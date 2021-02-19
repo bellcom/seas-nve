@@ -69,7 +69,7 @@ h1 small {
 
 .h2,
 h2 {
-    letter-spacing: -1pt;
+    letter-spacing: normal;
     font-size: 2em;
     font-weight: bold;
 }
@@ -79,7 +79,7 @@ h3 {
     margin-top: 25px;
     margin-bottom: 5px;
 
-    letter-spacing: -1pt;
+    letter-spacing: normal;
     font-size: 1.2em;
     font-weight: bold;
 }
@@ -523,7 +523,7 @@ img.full-width {
 }
 
 .block-frontpage--name {
-    padding-top: 50px;
+    padding-top: 30px;
     padding-left: 40px;
 
     color: #74766c;
@@ -538,7 +538,7 @@ img.full-width {
     font-size: 1.5em;
 }
 .block-frontpage__logo {
-    margin-top: 50px;
+    margin-top: 30px;
 }
 .block-frontpage__logo img {
     height: 34pt;
