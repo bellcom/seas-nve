@@ -59,7 +59,9 @@ h1.enlarged {
 }
 
 .h1 small,
-h1 small {
+h1 small,
+.h2 small,
+h2 small {
     letter-spacing: normal;
     font-weight: bold;
     font-size: 1rem;
@@ -731,7 +733,7 @@ td.active-span.last span {
 .region-forslag--meta {
     padding-top: 80px;
     padding-bottom: 70px;
-    padding-left: 20px;
+    padding-left: 0;
     padding-right: 80px;
 }
 
