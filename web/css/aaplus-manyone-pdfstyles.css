@@ -125,8 +125,8 @@ body > .container-fluid {
 body .pdf-header,
 body .pdf-footer {
     margin: 0;
-    padding-left: 88px !important;
-    padding-right: 88px !important;
+    padding-left: 89px !important;
+    padding-right: 89px !important;
 
     font-size: .7em;
 }
