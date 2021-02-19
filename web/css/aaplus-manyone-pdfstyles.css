@@ -550,10 +550,10 @@ img.full-width {
 
 .report-text-undersagsnavn {}
 
-.section-type + .ckeditor-content,
-.hidden-header + .ckeditor-content {
-    padding-top: 20px;
-}
+/*.section-type + .ckeditor-content,*/
+/*.hidden-header + .ckeditor-content {*/
+/*    padding-top: 20px;*/
+/*}*/
 
 /* Opsummering. */
 .block-opsummering--seas-anbefaler {
