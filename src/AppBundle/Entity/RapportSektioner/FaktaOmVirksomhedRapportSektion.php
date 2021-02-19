@@ -17,7 +17,7 @@ class FaktaOmVirksomhedRapportSektion extends RapportSektion {
      * Constructor
      */
     public function __construct($params) {
-        $this->title = 'Fakta om virksomhed';
+        $this->title = 'Fakta om virksomheden';
         parent::__construct($params);
     }
 

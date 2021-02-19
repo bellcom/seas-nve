@@ -533,7 +533,7 @@ rapportsektion:
     kortlaegning: "Kortlægning og analyser"
     afdelinger: "Afdelinger"
     opsummering: "Opsummering"
-    faktavirksomhed: "Fakta om virksomhed"
+    faktavirksomhed: "Fakta om virksomheden"
     anbefaling: "Anbefaling"
     anbefaling.actions:
       create: "Opret Anbefaling sektion"
@@ -608,7 +608,7 @@ reporttext:
     opsummering_text: "Tekst"
     anbefaling: "Anbefaling"
     anbefaling_text: "Tekst"
-    faktavirksomhed: "Fakta om virksomhed"
+    faktavirksomhed: "Fakta om virksomheden"
     faktavirksomhed_text: "Tekst"
     faktavirksomhed_energiForbrugTekst: "Energiforbrug tekst"
     finansiering: "Finansiering"
