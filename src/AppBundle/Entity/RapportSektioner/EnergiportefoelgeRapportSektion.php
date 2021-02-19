@@ -17,7 +17,7 @@ class EnergiportefoelgeRapportSektion extends RapportSektion {
      * Constructor
      */
     public function __construct($params) {
-        $this->title = 'Energiportefølge';
+        $this->title = 'Energiportefølje';
         parent::__construct($params);
     }
 
