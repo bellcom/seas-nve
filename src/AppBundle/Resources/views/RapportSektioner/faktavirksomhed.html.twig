@@ -61,7 +61,13 @@
             <div class="data-list__item">
               <div class="row">
                 <div class="col-xs-6">{{ label }}</div>
-                <div class="col-xs-6 text-right">{{ attribute(section, field) }}</div>
+                <div class="col-xs-6 text-right">
+                  {% if field == 'co2Forbrug' %}
+                    {{ attribute(section, field) | format_decimal(0) }}
+                  {% else %}
+                    {{ attribute(section, field) }}
+                  {% endif%}
+                </div>
               </div>
             </div>
           {% endif %}
