@@ -59,7 +59,9 @@ h1.enlarged {
 }
 
 .h1 small,
-h1 small {
+h1 small,
+.h2 small,
+h2 small {
     letter-spacing: normal;
     font-weight: bold;
     font-size: 1rem;
@@ -69,7 +71,7 @@ h1 small {
 
 .h2,
 h2 {
-    letter-spacing: -1pt;
+    letter-spacing: normal;
     font-size: 2em;
     font-weight: bold;
 }
@@ -79,7 +81,7 @@ h3 {
     margin-top: 25px;
     margin-bottom: 5px;
 
-    letter-spacing: -1pt;
+    letter-spacing: normal;
     font-size: 1.2em;
     font-weight: bold;
 }
@@ -123,8 +125,8 @@ body > .container-fluid {
 body .pdf-header,
 body .pdf-footer {
     margin: 0;
-    padding-left: 77px !important;
-    padding-right: 77px !important;
+    padding-left: 89px !important;
+    padding-right: 89px !important;
 
     font-size: .7em;
 }
@@ -154,6 +156,7 @@ img.full-width {
     position: relative;
     display: inline-block;
 
+    margin-bottom: 1em;
     padding-bottom: 8px;
 
     font-weight: normal;
@@ -314,8 +317,8 @@ img.full-width {
 
 
 .block--negative-margin {
-    margin-left: -80px !important;
-    margin-right: -80px !important;
+    margin-left: -90px !important;
+    margin-right: -90px !important;
 }
 
 
@@ -430,8 +433,8 @@ img.full-width {
 
 /* Sections. */
 .section {
-    padding-left: 80px !important;
-    padding-right: 80px !important;
+    padding-left: 90px !important;
+    padding-right: 90px !important;
 }
 .section--kontaktinformation {
     font-size: 10px;
@@ -472,7 +475,7 @@ img.full-width {
     height: 320px;
 }
 .block-frontpage--map {
-    height: 310pt;
+    height: 280pt;
     overflow: hidden;
 
     color: #fff;
@@ -500,14 +503,14 @@ img.full-width {
     margin-bottom: 45px;
 }
 .report-intro__title {
-    margin-bottom: 40pt;
-
     letter-spacing: -1pt;
     font-weight: bold;
     font-size: 4em;
     line-height: 1.1;
 }
 .report-intro__report-type {
+    margin-top: 40pt;
+
     font-weight: bold;
     font-size: 2.5em;
 }
@@ -519,11 +522,11 @@ img.full-width {
     height: 320px;
 }
 .report-map img {
-    height: 330pt;
+    height: 280pt;
 }
 
 .block-frontpage--name {
-    padding-top: 50px;
+    padding-top: 30px;
     padding-left: 40px;
 
     color: #74766c;
@@ -538,7 +541,7 @@ img.full-width {
     font-size: 1.5em;
 }
 .block-frontpage__logo {
-    margin-top: 50px;
+    margin-top: 30px;
 }
 .block-frontpage__logo img {
     height: 34pt;
@@ -549,10 +552,10 @@ img.full-width {
 
 .report-text-undersagsnavn {}
 
-.section-type + .ckeditor-content,
-.hidden-header + .ckeditor-content {
-    padding-top: 20px;
-}
+/*.section-type + .ckeditor-content,*/
+/*.hidden-header + .ckeditor-content {*/
+/*    padding-top: 20px;*/
+/*}*/
 
 /* Opsummering. */
 .block-opsummering--seas-anbefaler {
@@ -595,9 +598,9 @@ img.full-width {
 
 .region-anbefaling--meta {
     padding-top: 30px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 80px;
+    padding-bottom: 20px;
+    padding-left: 0;
+    padding-right: 90px;
 }
 
 .region-anbefaling--effect {}
@@ -729,8 +732,8 @@ td.active-span.last span {
 }
 .region-forslag--meta {
     padding-top: 80px;
-    padding-bottom: 10px;
-    padding-left: 20px;
+    padding-bottom: 70px;
+    padding-left: 0;
     padding-right: 80px;
 }
 
