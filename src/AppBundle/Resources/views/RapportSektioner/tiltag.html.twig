@@ -293,25 +293,26 @@
     {% endif %}
   </div>
 
-  {% include 'AppBundle::RapportSektioner/_includes/section-text-pages.html.twig' with { 'showAfter' : 'page3' } %}
-  {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' with { landscape : 1} %}
+  {% if section.tiltagType != 'special' %}
+    {# Hidden Detailark on Special forslag. There is no details. It could be shown again when SEAS get it properly in processes #}
+    {% include 'AppBundle::RapportSektioner/_includes/section-page-break.html.twig' with { landscape : 1} %}
+    <div class="block block--detailark">
+      <div class="h2">Detailark</div>
 
-  <div class="block block--detailark">
-    <div class="h2">Detailark</div>
+      {% if section.tiltag.details is not empty %}
+        {% set template = 'AppBundle:' ~ tiltag_type(section.tiltag) ~ 'Tiltag:_detailTablePdf.html.twig' %}
+        <div>
+          <div class="h3">Skema til: {{ section.tiltag.title }}</div>
+        </div>
 
-    {% if section.tiltag.details is not empty %}
-      {% set template = 'AppBundle:' ~ tiltag_type(section.tiltag) ~ 'Tiltag:_detailTablePdf.html.twig' %}
-      <div>
-        <div class="h3">Skema til: {{ section.tiltag.title }}</div>
-      </div>
+        <br>
 
-      <br>
-
-      <div class="table-custom-styles">
-        {% include template with {'entity': section.tiltag} %}
-      </div>
-    {% else %}
-      Ingen detailark.
-    {% endif %}
-  </div>
+        <div class="table-custom-styles">
+          {% include template with {'entity': section.tiltag} %}
+        </div>
+      {% else %}
+        Ingen detailark.
+      {% endif %}
+    </div>
+  {% endif %}
 {% endblock %}
