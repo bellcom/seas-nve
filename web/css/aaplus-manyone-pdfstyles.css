@@ -437,12 +437,12 @@ img.full-width {
     padding-right: 90px !important;
 }
 .section--kontaktinformation {
-    font-size: 10px;
+    /*font-size: 10px;*/
 }
 .rapport-review .section--kontaktinformation {
     padding-top: 60px;
 
-    font-size: 10pt;
+    /*font-size: 10pt;*/
 }
 
 .section.section--negative-margin {
